@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -24,15 +24,11 @@
 package org.osate.aadl2.errormodel.instance.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
-
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 /**
@@ -86,11 +82,14 @@ public class PropagationPointInstanceImpl extends EMV2InstanceObjectImpl impleme
 	@Override
 	public PropagationPoint getPropagationPoint() {
 		if (propagationPoint != null && propagationPoint.eIsProxy()) {
-			InternalEObject oldPropagationPoint = (InternalEObject)propagationPoint;
-			propagationPoint = (PropagationPoint)eResolveProxy(oldPropagationPoint);
+			InternalEObject oldPropagationPoint = (InternalEObject) propagationPoint;
+			propagationPoint = (PropagationPoint) eResolveProxy(oldPropagationPoint);
 			if (propagationPoint != oldPropagationPoint) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT, oldPropagationPoint, propagationPoint));
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT, oldPropagationPoint,
+							propagationPoint));
+				}
 			}
 		}
 		return propagationPoint;
@@ -114,8 +113,11 @@ public class PropagationPointInstanceImpl extends EMV2InstanceObjectImpl impleme
 	public void setPropagationPoint(PropagationPoint newPropagationPoint) {
 		PropagationPoint oldPropagationPoint = propagationPoint;
 		propagationPoint = newPropagationPoint;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT, oldPropagationPoint, propagationPoint));
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT, oldPropagationPoint,
+					propagationPoint));
+		}
 	}
 
 	/**
@@ -126,9 +128,11 @@ public class PropagationPointInstanceImpl extends EMV2InstanceObjectImpl impleme
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT:
-				if (resolve) return getPropagationPoint();
-				return basicGetPropagationPoint();
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT:
+			if (resolve) {
+				return getPropagationPoint();
+			}
+			return basicGetPropagationPoint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -141,9 +145,9 @@ public class PropagationPointInstanceImpl extends EMV2InstanceObjectImpl impleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT:
-				setPropagationPoint((PropagationPoint)newValue);
-				return;
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT:
+			setPropagationPoint((PropagationPoint) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -156,9 +160,9 @@ public class PropagationPointInstanceImpl extends EMV2InstanceObjectImpl impleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT:
-				setPropagationPoint((PropagationPoint)null);
-				return;
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT:
+			setPropagationPoint((PropagationPoint) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -171,10 +175,10 @@ public class PropagationPointInstanceImpl extends EMV2InstanceObjectImpl impleme
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT:
-				return propagationPoint != null;
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT:
+			return propagationPoint != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //PropagationPointInstanceImpl
+} // PropagationPointInstanceImpl

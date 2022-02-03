@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -26,15 +26,11 @@ package org.osate.aadl2.errormodel.instance.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeReference;
@@ -90,7 +86,8 @@ public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements Ty
 	@Override
 	public EList<TypeReference> getTypes() {
 		if (types == null) {
-			types = new EObjectContainmentEList<TypeReference>(TypeReference.class, this, EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES);
+			types = new EObjectContainmentEList<>(TypeReference.class, this,
+					EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES);
 		}
 		return types;
 	}
@@ -103,8 +100,8 @@ public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements Ty
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
-				return ((InternalEList<?>)getTypes()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
+			return ((InternalEList<?>) getTypes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -117,8 +114,8 @@ public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements Ty
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
-				return getTypes();
+		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
+			return getTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -132,10 +129,10 @@ public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements Ty
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
-				getTypes().clear();
-				getTypes().addAll((Collection<? extends TypeReference>)newValue);
-				return;
+		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
+			getTypes().clear();
+			getTypes().addAll((Collection<? extends TypeReference>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -148,9 +145,9 @@ public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements Ty
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
-				getTypes().clear();
-				return;
+		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
+			getTypes().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -163,10 +160,10 @@ public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements Ty
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
-				return types != null && !types.isEmpty();
+		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
+			return types != null && !types.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //TypeProductInstanceImpl
+} // TypeProductInstanceImpl

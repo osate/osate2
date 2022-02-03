@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -25,16 +25,34 @@ package org.osate.aadl2.errormodel.instance.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-
-import org.osate.aadl2.errormodel.instance.*;
-
+import org.osate.aadl2.errormodel.instance.BindingPropagation;
+import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
+import org.osate.aadl2.errormodel.instance.ConstraintElement;
+import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
+import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.PointPropagation;
+import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeReference;
+import org.osate.aadl2.errormodel.instance.TypeSetInstance;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.InstanceObject;
 
@@ -81,7 +99,7 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 			return true;
 		}
 		if (object instanceof EObject) {
-			return ((EObject)object).eClass().getEPackage() == modelPackage;
+			return ((EObject) object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
 	}
@@ -92,121 +110,147 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EMV2InstanceSwitch<Adapter> modelSwitch =
-		new EMV2InstanceSwitch<Adapter>() {
-			@Override
-			public Adapter caseEMV2AnnexInstance(EMV2AnnexInstance object) {
-				return createEMV2AnnexInstanceAdapter();
-			}
-			@Override
-			public Adapter caseEMV2InstanceObject(EMV2InstanceObject object) {
-				return createEMV2InstanceObjectAdapter();
-			}
-			@Override
-			public Adapter caseStateMachineInstance(StateMachineInstance object) {
-				return createStateMachineInstanceAdapter();
-			}
-			@Override
-			public Adapter caseStateInstance(StateInstance object) {
-				return createStateInstanceAdapter();
-			}
-			@Override
-			public Adapter caseConstrainedInstanceObject(ConstrainedInstanceObject object) {
-				return createConstrainedInstanceObjectAdapter();
-			}
-			@Override
-			public Adapter caseStateTransitionInstance(StateTransitionInstance object) {
-				return createStateTransitionInstanceAdapter();
-			}
-			@Override
-			public Adapter caseCompositeStateInstance(CompositeStateInstance object) {
-				return createCompositeStateInstanceAdapter();
-			}
-			@Override
-			public Adapter caseErrorFlowInstance(ErrorFlowInstance object) {
-				return createErrorFlowInstanceAdapter();
-			}
-			@Override
-			public Adapter caseErrorPropagationConditionInstance(ErrorPropagationConditionInstance object) {
-				return createErrorPropagationConditionInstanceAdapter();
-			}
-			@Override
-			public Adapter caseErrorDetectionInstance(ErrorDetectionInstance object) {
-				return createErrorDetectionInstanceAdapter();
-			}
-			@Override
-			public Adapter casePropagationPointInstance(PropagationPointInstance object) {
-				return createPropagationPointInstanceAdapter();
-			}
-			@Override
-			public Adapter caseEventInstance(EventInstance object) {
-				return createEventInstanceAdapter();
-			}
-			@Override
-			public Adapter caseConstraintExpression(ConstraintExpression object) {
-				return createConstraintExpressionAdapter();
-			}
-			@Override
-			public Adapter caseConstraintElement(ConstraintElement object) {
-				return createConstraintElementAdapter();
-			}
-			@Override
-			public Adapter casePropagationPathInstance(PropagationPathInstance object) {
-				return createPropagationPathInstanceAdapter();
-			}
-			@Override
-			public Adapter caseErrorPropagationInstance(ErrorPropagationInstance object) {
-				return createErrorPropagationInstanceAdapter();
-			}
-			@Override
-			public Adapter caseFeaturePropagation(FeaturePropagation object) {
-				return createFeaturePropagationAdapter();
-			}
-			@Override
-			public Adapter casePointPropagation(PointPropagation object) {
-				return createPointPropagationAdapter();
-			}
-			@Override
-			public Adapter caseBindingPropagation(BindingPropagation object) {
-				return createBindingPropagationAdapter();
-			}
-			@Override
-			public Adapter caseTypeTokenInstance(TypeTokenInstance object) {
-				return createTypeTokenInstanceAdapter();
-			}
-			@Override
-			public Adapter caseTypeReference(TypeReference object) {
-				return createTypeReferenceAdapter();
-			}
-			@Override
-			public Adapter caseTypeSetInstance(TypeSetInstance object) {
-				return createTypeSetInstanceAdapter();
-			}
-			@Override
-			public Adapter caseTypeProductInstance(TypeProductInstance object) {
-				return createTypeProductInstanceAdapter();
-			}
-			@Override
-			public Adapter caseElement(Element object) {
-				return createElementAdapter();
-			}
-			@Override
-			public Adapter caseNamedElement(NamedElement object) {
-				return createNamedElementAdapter();
-			}
-			@Override
-			public Adapter caseAnnexInstance(AnnexInstance object) {
-				return createAnnexInstanceAdapter();
-			}
-			@Override
-			public Adapter caseInstanceObject(InstanceObject object) {
-				return createInstanceObjectAdapter();
-			}
-			@Override
-			public Adapter defaultCase(EObject object) {
-				return createEObjectAdapter();
-			}
-		};
+	protected EMV2InstanceSwitch<Adapter> modelSwitch = new EMV2InstanceSwitch<>() {
+		@Override
+		public Adapter caseEMV2AnnexInstance(EMV2AnnexInstance object) {
+			return createEMV2AnnexInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseEMV2InstanceObject(EMV2InstanceObject object) {
+			return createEMV2InstanceObjectAdapter();
+		}
+
+		@Override
+		public Adapter caseStateMachineInstance(StateMachineInstance object) {
+			return createStateMachineInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseStateInstance(StateInstance object) {
+			return createStateInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseConstrainedInstanceObject(ConstrainedInstanceObject object) {
+			return createConstrainedInstanceObjectAdapter();
+		}
+
+		@Override
+		public Adapter caseStateTransitionInstance(StateTransitionInstance object) {
+			return createStateTransitionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseCompositeStateInstance(CompositeStateInstance object) {
+			return createCompositeStateInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorFlowInstance(ErrorFlowInstance object) {
+			return createErrorFlowInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorPropagationConditionInstance(ErrorPropagationConditionInstance object) {
+			return createErrorPropagationConditionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorDetectionInstance(ErrorDetectionInstance object) {
+			return createErrorDetectionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter casePropagationPointInstance(PropagationPointInstance object) {
+			return createPropagationPointInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseEventInstance(EventInstance object) {
+			return createEventInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseConstraintExpression(ConstraintExpression object) {
+			return createConstraintExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseConstraintElement(ConstraintElement object) {
+			return createConstraintElementAdapter();
+		}
+
+		@Override
+		public Adapter casePropagationPathInstance(PropagationPathInstance object) {
+			return createPropagationPathInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorPropagationInstance(ErrorPropagationInstance object) {
+			return createErrorPropagationInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseFeaturePropagation(FeaturePropagation object) {
+			return createFeaturePropagationAdapter();
+		}
+
+		@Override
+		public Adapter casePointPropagation(PointPropagation object) {
+			return createPointPropagationAdapter();
+		}
+
+		@Override
+		public Adapter caseBindingPropagation(BindingPropagation object) {
+			return createBindingPropagationAdapter();
+		}
+
+		@Override
+		public Adapter caseTypeTokenInstance(TypeTokenInstance object) {
+			return createTypeTokenInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseTypeReference(TypeReference object) {
+			return createTypeReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseTypeSetInstance(TypeSetInstance object) {
+			return createTypeSetInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseTypeProductInstance(TypeProductInstance object) {
+			return createTypeProductInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseElement(Element object) {
+			return createElementAdapter();
+		}
+
+		@Override
+		public Adapter caseNamedElement(NamedElement object) {
+			return createNamedElementAdapter();
+		}
+
+		@Override
+		public Adapter caseAnnexInstance(AnnexInstance object) {
+			return createAnnexInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseInstanceObject(InstanceObject object) {
+			return createInstanceObjectAdapter();
+		}
+
+		@Override
+		public Adapter defaultCase(EObject object) {
+			return createEObjectAdapter();
+		}
+	};
 
 	/**
 	 * Creates an adapter for the <code>target</code>.
@@ -218,9 +262,8 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject) target);
 	}
-
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -612,4 +655,4 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //EMV2InstanceAdapterFactory
+} // EMV2InstanceAdapterFactory

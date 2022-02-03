@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -27,12 +27,31 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.osate.aadl2.errormodel.instance.*;
+import org.osate.aadl2.errormodel.instance.BindingPropagation;
+import org.osate.aadl2.errormodel.instance.BindingType;
+import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
+import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
+import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.EOperation;
+import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
+import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.PointPropagation;
+import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeReference;
+import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,12 +68,12 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 */
 	public static EMV2InstanceFactory init() {
 		try {
-			EMV2InstanceFactory theEMV2InstanceFactory = (EMV2InstanceFactory)EPackage.Registry.INSTANCE.getEFactory(EMV2InstancePackage.eNS_URI);
+			EMV2InstanceFactory theEMV2InstanceFactory = (EMV2InstanceFactory) EPackage.Registry.INSTANCE
+					.getEFactory(EMV2InstancePackage.eNS_URI);
 			if (theEMV2InstanceFactory != null) {
 				return theEMV2InstanceFactory;
 			}
-		}
-		catch (Exception exception) {
+		} catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new EMV2InstanceFactoryImpl();
@@ -78,27 +97,46 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE: return createEMV2AnnexInstance();
-			case EMV2InstancePackage.STATE_MACHINE_INSTANCE: return createStateMachineInstance();
-			case EMV2InstancePackage.STATE_INSTANCE: return createStateInstance();
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: return createConstrainedInstanceObject();
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE: return createStateTransitionInstance();
-			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: return createCompositeStateInstance();
-			case EMV2InstancePackage.ERROR_FLOW_INSTANCE: return createErrorFlowInstance();
-			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE: return createErrorPropagationConditionInstance();
-			case EMV2InstancePackage.ERROR_DETECTION_INSTANCE: return createErrorDetectionInstance();
-			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: return createPropagationPointInstance();
-			case EMV2InstancePackage.EVENT_INSTANCE: return createEventInstance();
-			case EMV2InstancePackage.CONSTRAINT_EXPRESSION: return createConstraintExpression();
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: return createPropagationPathInstance();
-			case EMV2InstancePackage.FEATURE_PROPAGATION: return createFeaturePropagation();
-			case EMV2InstancePackage.POINT_PROPAGATION: return createPointPropagation();
-			case EMV2InstancePackage.BINDING_PROPAGATION: return createBindingPropagation();
-			case EMV2InstancePackage.TYPE_REFERENCE: return createTypeReference();
-			case EMV2InstancePackage.TYPE_SET_INSTANCE: return createTypeSetInstance();
-			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE: return createTypeProductInstance();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE:
+			return createEMV2AnnexInstance();
+		case EMV2InstancePackage.STATE_MACHINE_INSTANCE:
+			return createStateMachineInstance();
+		case EMV2InstancePackage.STATE_INSTANCE:
+			return createStateInstance();
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT:
+			return createConstrainedInstanceObject();
+		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE:
+			return createStateTransitionInstance();
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
+			return createCompositeStateInstance();
+		case EMV2InstancePackage.ERROR_FLOW_INSTANCE:
+			return createErrorFlowInstance();
+		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE:
+			return createErrorPropagationConditionInstance();
+		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE:
+			return createErrorDetectionInstance();
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE:
+			return createPropagationPointInstance();
+		case EMV2InstancePackage.EVENT_INSTANCE:
+			return createEventInstance();
+		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
+			return createConstraintExpression();
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE:
+			return createPropagationPathInstance();
+		case EMV2InstancePackage.FEATURE_PROPAGATION:
+			return createFeaturePropagation();
+		case EMV2InstancePackage.POINT_PROPAGATION:
+			return createPointPropagation();
+		case EMV2InstancePackage.BINDING_PROPAGATION:
+			return createBindingPropagation();
+		case EMV2InstancePackage.TYPE_REFERENCE:
+			return createTypeReference();
+		case EMV2InstancePackage.TYPE_SET_INSTANCE:
+			return createTypeSetInstance();
+		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE:
+			return createTypeProductInstance();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -110,12 +148,12 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case EMV2InstancePackage.EOPERATION:
-				return createEOperationFromString(eDataType, initialValue);
-			case EMV2InstancePackage.BINDING_TYPE:
-				return createBindingTypeFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		case EMV2InstancePackage.EOPERATION:
+			return createEOperationFromString(eDataType, initialValue);
+		case EMV2InstancePackage.BINDING_TYPE:
+			return createBindingTypeFromString(eDataType, initialValue);
+		default:
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -127,12 +165,12 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case EMV2InstancePackage.EOPERATION:
-				return convertEOperationToString(eDataType, instanceValue);
-			case EMV2InstancePackage.BINDING_TYPE:
-				return convertBindingTypeToString(eDataType, instanceValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		case EMV2InstancePackage.EOPERATION:
+			return convertEOperationToString(eDataType, instanceValue);
+		case EMV2InstancePackage.BINDING_TYPE:
+			return convertBindingTypeToString(eDataType, instanceValue);
+		default:
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -352,7 +390,10 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 */
 	public EOperation createEOperationFromString(EDataType eDataType, String initialValue) {
 		EOperation result = EOperation.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) {
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -372,7 +413,10 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 */
 	public BindingType createBindingTypeFromString(EDataType eDataType, String initialValue) {
 		BindingType result = BindingType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) {
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -392,7 +436,7 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 */
 	@Override
 	public EMV2InstancePackage getEMV2InstancePackage() {
-		return (EMV2InstancePackage)getEPackage();
+		return (EMV2InstancePackage) getEPackage();
 	}
 
 	/**
@@ -406,4 +450,4 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 		return EMV2InstancePackage.eINSTANCE;
 	}
 
-} //EMV2InstanceFactoryImpl
+} // EMV2InstanceFactoryImpl

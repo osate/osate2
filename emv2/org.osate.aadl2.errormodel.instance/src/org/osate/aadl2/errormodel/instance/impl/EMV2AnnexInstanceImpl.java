@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -27,17 +27,12 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
@@ -50,7 +45,6 @@ import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
-
 import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
 
 /**
@@ -203,7 +197,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public EList<StateTransitionInstance> getTransitions() {
 		if (transitions == null) {
-			transitions = new EObjectContainmentEList<StateTransitionInstance>(StateTransitionInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS);
+			transitions = new EObjectContainmentEList<>(StateTransitionInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS);
 		}
 		return transitions;
 	}
@@ -216,7 +211,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public EList<PropagationPointInstance> getPropagationPoints() {
 		if (propagationPoints == null) {
-			propagationPoints = new EObjectContainmentEList<PropagationPointInstance>(PropagationPointInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS);
+			propagationPoints = new EObjectContainmentEList<>(PropagationPointInstance.class,
+					this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS);
 		}
 		return propagationPoints;
 	}
@@ -229,7 +225,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public EList<EventInstance> getEvents() {
 		if (events == null) {
-			events = new EObjectContainmentEList<EventInstance>(EventInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS);
+			events = new EObjectContainmentEList<>(EventInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS);
 		}
 		return events;
 	}
@@ -253,8 +250,13 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		StateMachineInstance oldStateMachine = stateMachine;
 		stateMachine = newStateMachine;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, oldStateMachine, newStateMachine);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, oldStateMachine, newStateMachine);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -268,15 +270,22 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	public void setStateMachine(StateMachineInstance newStateMachine) {
 		if (newStateMachine != stateMachine) {
 			NotificationChain msgs = null;
-			if (stateMachine != null)
-				msgs = ((InternalEObject)stateMachine).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, null, msgs);
-			if (newStateMachine != null)
-				msgs = ((InternalEObject)newStateMachine).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, null, msgs);
+			if (stateMachine != null) {
+				msgs = ((InternalEObject) stateMachine).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, null, msgs);
+			}
+			if (newStateMachine != null) {
+				msgs = ((InternalEObject) newStateMachine).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, null, msgs);
+			}
 			msgs = basicSetStateMachine(newStateMachine, msgs);
-			if (msgs != null) msgs.dispatch();
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, newStateMachine, newStateMachine));
 		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, newStateMachine, newStateMachine));
 	}
 
 	/**
@@ -287,7 +296,9 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public EList<ErrorPropagationConditionInstance> getErrorPropagationConditions() {
 		if (errorPropagationConditions == null) {
-			errorPropagationConditions = new EObjectContainmentEList<ErrorPropagationConditionInstance>(ErrorPropagationConditionInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS);
+			errorPropagationConditions = new EObjectContainmentEList<>(
+					ErrorPropagationConditionInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS);
 		}
 		return errorPropagationConditions;
 	}
@@ -300,7 +311,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public EList<ErrorDetectionInstance> getErrorDetections() {
 		if (errorDetections == null) {
-			errorDetections = new EObjectContainmentEList<ErrorDetectionInstance>(ErrorDetectionInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS);
+			errorDetections = new EObjectContainmentEList<>(ErrorDetectionInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS);
 		}
 		return errorDetections;
 	}
@@ -313,7 +325,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public EList<ErrorFlowInstance> getErrorFlows() {
 		if (errorFlows == null) {
-			errorFlows = new EObjectContainmentEList<ErrorFlowInstance>(ErrorFlowInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS);
+			errorFlows = new EObjectContainmentEList<>(ErrorFlowInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS);
 		}
 		return errorFlows;
 	}
@@ -326,7 +339,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public EList<CompositeStateInstance> getComposites() {
 		if (composites == null) {
-			composites = new EObjectContainmentEList<CompositeStateInstance>(CompositeStateInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES);
+			composites = new EObjectContainmentEList<>(CompositeStateInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES);
 		}
 		return composites;
 	}
@@ -339,7 +353,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public EList<PropagationPathInstance> getPropagationPaths() {
 		if (propagationPaths == null) {
-			propagationPaths = new EObjectContainmentEList<PropagationPathInstance>(PropagationPathInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS);
+			propagationPaths = new EObjectContainmentEList<>(PropagationPathInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS);
 		}
 		return propagationPaths;
 	}
@@ -352,7 +367,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public EList<ErrorPropagationInstance> getPropagations() {
 		if (propagations == null) {
-			propagations = new EObjectContainmentEList<ErrorPropagationInstance>(ErrorPropagationInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS);
+			propagations = new EObjectContainmentEList<>(ErrorPropagationInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS);
 		}
 		return propagations;
 	}
@@ -365,26 +381,26 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-				return ((InternalEList<?>)getTransitions()).basicRemove(otherEnd, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-				return ((InternalEList<?>)getPropagationPoints()).basicRemove(otherEnd, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
-				return ((InternalEList<?>)getEvents()).basicRemove(otherEnd, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-				return basicSetStateMachine(null, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
-				return ((InternalEList<?>)getErrorPropagationConditions()).basicRemove(otherEnd, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
-				return ((InternalEList<?>)getErrorDetections()).basicRemove(otherEnd, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
-				return ((InternalEList<?>)getErrorFlows()).basicRemove(otherEnd, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-				return ((InternalEList<?>)getComposites()).basicRemove(otherEnd, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
-				return ((InternalEList<?>)getPropagationPaths()).basicRemove(otherEnd, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
-				return ((InternalEList<?>)getPropagations()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			return ((InternalEList<?>) getTransitions()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			return ((InternalEList<?>) getPropagationPoints()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+			return ((InternalEList<?>) getEvents()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+			return basicSetStateMachine(null, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+			return ((InternalEList<?>) getErrorPropagationConditions()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+			return ((InternalEList<?>) getErrorDetections()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
+			return ((InternalEList<?>) getErrorFlows()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			return ((InternalEList<?>) getComposites()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			return ((InternalEList<?>) getPropagationPaths()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
+			return ((InternalEList<?>) getPropagations()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -397,26 +413,26 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-				return getTransitions();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-				return getPropagationPoints();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
-				return getEvents();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-				return getStateMachine();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
-				return getErrorPropagationConditions();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
-				return getErrorDetections();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
-				return getErrorFlows();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-				return getComposites();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
-				return getPropagationPaths();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
-				return getPropagations();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			return getTransitions();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			return getPropagationPoints();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+			return getEvents();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+			return getStateMachine();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+			return getErrorPropagationConditions();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+			return getErrorDetections();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
+			return getErrorFlows();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			return getComposites();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			return getPropagationPaths();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
+			return getPropagations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -430,45 +446,45 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-				getTransitions().clear();
-				getTransitions().addAll((Collection<? extends StateTransitionInstance>)newValue);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-				getPropagationPoints().clear();
-				getPropagationPoints().addAll((Collection<? extends PropagationPointInstance>)newValue);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
-				getEvents().clear();
-				getEvents().addAll((Collection<? extends EventInstance>)newValue);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-				setStateMachine((StateMachineInstance)newValue);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
-				getErrorPropagationConditions().clear();
-				getErrorPropagationConditions().addAll((Collection<? extends ErrorPropagationConditionInstance>)newValue);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
-				getErrorDetections().clear();
-				getErrorDetections().addAll((Collection<? extends ErrorDetectionInstance>)newValue);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
-				getErrorFlows().clear();
-				getErrorFlows().addAll((Collection<? extends ErrorFlowInstance>)newValue);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-				getComposites().clear();
-				getComposites().addAll((Collection<? extends CompositeStateInstance>)newValue);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
-				getPropagationPaths().clear();
-				getPropagationPaths().addAll((Collection<? extends PropagationPathInstance>)newValue);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
-				getPropagations().clear();
-				getPropagations().addAll((Collection<? extends ErrorPropagationInstance>)newValue);
-				return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			getTransitions().clear();
+			getTransitions().addAll((Collection<? extends StateTransitionInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			getPropagationPoints().clear();
+			getPropagationPoints().addAll((Collection<? extends PropagationPointInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+			getEvents().clear();
+			getEvents().addAll((Collection<? extends EventInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+			setStateMachine((StateMachineInstance) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+			getErrorPropagationConditions().clear();
+			getErrorPropagationConditions().addAll((Collection<? extends ErrorPropagationConditionInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+			getErrorDetections().clear();
+			getErrorDetections().addAll((Collection<? extends ErrorDetectionInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
+			getErrorFlows().clear();
+			getErrorFlows().addAll((Collection<? extends ErrorFlowInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			getComposites().clear();
+			getComposites().addAll((Collection<? extends CompositeStateInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			getPropagationPaths().clear();
+			getPropagationPaths().addAll((Collection<? extends PropagationPathInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
+			getPropagations().clear();
+			getPropagations().addAll((Collection<? extends ErrorPropagationInstance>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -481,36 +497,36 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-				getTransitions().clear();
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-				getPropagationPoints().clear();
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
-				getEvents().clear();
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-				setStateMachine((StateMachineInstance)null);
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
-				getErrorPropagationConditions().clear();
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
-				getErrorDetections().clear();
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
-				getErrorFlows().clear();
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-				getComposites().clear();
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
-				getPropagationPaths().clear();
-				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
-				getPropagations().clear();
-				return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			getTransitions().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			getPropagationPoints().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+			getEvents().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+			setStateMachine((StateMachineInstance) null);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+			getErrorPropagationConditions().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+			getErrorDetections().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
+			getErrorFlows().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			getComposites().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			getPropagationPaths().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
+			getPropagations().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -523,28 +539,28 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-				return transitions != null && !transitions.isEmpty();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-				return propagationPoints != null && !propagationPoints.isEmpty();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
-				return events != null && !events.isEmpty();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-				return stateMachine != null;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
-				return errorPropagationConditions != null && !errorPropagationConditions.isEmpty();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
-				return errorDetections != null && !errorDetections.isEmpty();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
-				return errorFlows != null && !errorFlows.isEmpty();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-				return composites != null && !composites.isEmpty();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
-				return propagationPaths != null && !propagationPaths.isEmpty();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
-				return propagations != null && !propagations.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			return transitions != null && !transitions.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			return propagationPoints != null && !propagationPoints.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+			return events != null && !events.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+			return stateMachine != null;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+			return errorPropagationConditions != null && !errorPropagationConditions.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+			return errorDetections != null && !errorDetections.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
+			return errorFlows != null && !errorFlows.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			return composites != null && !composites.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			return propagationPaths != null && !propagationPaths.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
+			return propagations != null && !propagations.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //EMV2AnnexInstanceImpl
+} // EMV2AnnexInstanceImpl

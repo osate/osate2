@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.osate.aadl2.instance.InstancePackage;
 
 /**
@@ -2542,7 +2541,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 */
 	int EOPERATION = 23;
 
-
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
 	 * <!-- begin-user-doc -->
@@ -3555,7 +3553,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS = eINSTANCE.getEMV2AnnexInstance_ErrorPropagationConditions();
+		EReference EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS = eINSTANCE
+				.getEMV2AnnexInstance_ErrorPropagationConditions();
 
 		/**
 		 * The meta object literal for the '<em><b>Error Detections</b></em>' containment reference list feature.
@@ -3675,7 +3674,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT = eINSTANCE.getConstrainedInstanceObject_InstanceObject();
+		EReference CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT = eINSTANCE
+				.getConstrainedInstanceObject_InstanceObject();
 
 		/**
 		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference list feature.
@@ -3691,7 +3691,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND = eINSTANCE.getConstrainedInstanceObject_PropagationKind();
+		EAttribute CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND = eINSTANCE
+				.getConstrainedInstanceObject_PropagationKind();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.StateTransitionInstanceImpl <em>State Transition Instance</em>}' class.
@@ -3835,7 +3836,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT = eINSTANCE.getErrorPropagationConditionInstance_Emv2Element();
+		EReference ERROR_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT = eINSTANCE
+				.getErrorPropagationConditionInstance_Emv2Element();
 
 		/**
 		 * The meta object literal for the '<em><b>In States</b></em>' reference list feature.
@@ -3843,7 +3845,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_CONDITION_INSTANCE__IN_STATES = eINSTANCE.getErrorPropagationConditionInstance_InStates();
+		EReference ERROR_PROPAGATION_CONDITION_INSTANCE__IN_STATES = eINSTANCE
+				.getErrorPropagationConditionInstance_InStates();
 
 		/**
 		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
@@ -3851,7 +3854,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_CONDITION_INSTANCE__CONDITION = eINSTANCE.getErrorPropagationConditionInstance_Condition();
+		EReference ERROR_PROPAGATION_CONDITION_INSTANCE__CONDITION = eINSTANCE
+				.getErrorPropagationConditionInstance_Condition();
 
 		/**
 		 * The meta object literal for the '<em><b>Outgoing Propagation</b></em>' containment reference feature.
@@ -3859,7 +3863,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION = eINSTANCE.getErrorPropagationConditionInstance_OutgoingPropagation();
+		EReference ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION = eINSTANCE
+				.getErrorPropagationConditionInstance_OutgoingPropagation();
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
@@ -3867,7 +3872,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ERROR_PROPAGATION_CONDITION_INSTANCE__SOURCE = eINSTANCE.getErrorPropagationConditionInstance_Source();
+		EAttribute ERROR_PROPAGATION_CONDITION_INSTANCE__SOURCE = eINSTANCE
+				.getErrorPropagationConditionInstance_Source();
 
 		/**
 		 * The meta object literal for the '<em><b>Sink</b></em>' attribute feature.
@@ -3943,7 +3949,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT = eINSTANCE.getPropagationPointInstance_PropagationPoint();
+		EReference PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT = eINSTANCE
+				.getPropagationPointInstance_PropagationPoint();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.
@@ -4065,7 +4072,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION = eINSTANCE.getErrorPropagationInstance_InErrorPropagation();
+		EReference ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION = eINSTANCE
+				.getErrorPropagationInstance_InErrorPropagation();
 
 		/**
 		 * The meta object literal for the '<em><b>Out Error Propagation</b></em>' reference feature.
@@ -4073,7 +4081,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION = eINSTANCE.getErrorPropagationInstance_OutErrorPropagation();
+		EReference ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION = eINSTANCE
+				.getErrorPropagationInstance_OutErrorPropagation();
 
 		/**
 		 * The meta object literal for the '<em><b>In Tokens</b></em>' containment reference list feature.
@@ -4255,4 +4264,4 @@ public interface EMV2InstancePackage extends EPackage {
 
 	}
 
-} //EMV2InstancePackage
+} // EMV2InstancePackage

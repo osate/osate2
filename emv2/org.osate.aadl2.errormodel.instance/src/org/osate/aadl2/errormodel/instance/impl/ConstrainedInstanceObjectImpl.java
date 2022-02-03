@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -27,22 +27,15 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-
 import org.osate.aadl2.instance.InstanceObject;
-
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
@@ -128,11 +121,14 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	@Override
 	public InstanceObject getInstanceObject() {
 		if (instanceObject != null && instanceObject.eIsProxy()) {
-			InternalEObject oldInstanceObject = (InternalEObject)instanceObject;
-			instanceObject = (InstanceObject)eResolveProxy(oldInstanceObject);
+			InternalEObject oldInstanceObject = (InternalEObject) instanceObject;
+			instanceObject = (InstanceObject) eResolveProxy(oldInstanceObject);
 			if (instanceObject != oldInstanceObject) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT, oldInstanceObject, instanceObject));
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT, oldInstanceObject,
+							instanceObject));
+				}
 			}
 		}
 		return instanceObject;
@@ -156,8 +152,11 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	public void setInstanceObject(InstanceObject newInstanceObject) {
 		InstanceObject oldInstanceObject = instanceObject;
 		instanceObject = newInstanceObject;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT, oldInstanceObject, instanceObject));
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT, oldInstanceObject,
+					instanceObject));
+		}
 	}
 
 	/**
@@ -168,7 +167,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	@Override
 	public EList<TypeToken> getConstraint() {
 		if (constraint == null) {
-			constraint = new EObjectContainmentEList<TypeToken>(TypeToken.class, this, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT);
+			constraint = new EObjectContainmentEList<>(TypeToken.class, this,
+					EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT);
 		}
 		return constraint;
 	}
@@ -192,8 +192,11 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	public void setPropagationKind(String newPropagationKind) {
 		String oldPropagationKind = propagationKind;
 		propagationKind = newPropagationKind;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND, oldPropagationKind, propagationKind));
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND, oldPropagationKind,
+					propagationKind));
+		}
 	}
 
 	/**
@@ -204,8 +207,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				return ((InternalEList<?>)getConstraint()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
+			return ((InternalEList<?>) getConstraint()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -218,13 +221,15 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT:
-				if (resolve) return getInstanceObject();
-				return basicGetInstanceObject();
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				return getConstraint();
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
-				return getPropagationKind();
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT:
+			if (resolve) {
+				return getInstanceObject();
+			}
+			return basicGetInstanceObject();
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
+			return getConstraint();
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
+			return getPropagationKind();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -238,16 +243,16 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT:
-				setInstanceObject((InstanceObject)newValue);
-				return;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				getConstraint().clear();
-				getConstraint().addAll((Collection<? extends TypeToken>)newValue);
-				return;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
-				setPropagationKind((String)newValue);
-				return;
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT:
+			setInstanceObject((InstanceObject) newValue);
+			return;
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
+			getConstraint().clear();
+			getConstraint().addAll((Collection<? extends TypeToken>) newValue);
+			return;
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
+			setPropagationKind((String) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -260,15 +265,15 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT:
-				setInstanceObject((InstanceObject)null);
-				return;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				getConstraint().clear();
-				return;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
-				setPropagationKind(PROPAGATION_KIND_EDEFAULT);
-				return;
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT:
+			setInstanceObject((InstanceObject) null);
+			return;
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
+			getConstraint().clear();
+			return;
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
+			setPropagationKind(PROPAGATION_KIND_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -281,12 +286,13 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT:
-				return instanceObject != null;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				return constraint != null && !constraint.isEmpty();
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
-				return PROPAGATION_KIND_EDEFAULT == null ? propagationKind != null : !PROPAGATION_KIND_EDEFAULT.equals(propagationKind);
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT:
+			return instanceObject != null;
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
+			return constraint != null && !constraint.isEmpty();
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
+			return PROPAGATION_KIND_EDEFAULT == null ? propagationKind != null
+					: !PROPAGATION_KIND_EDEFAULT.equals(propagationKind);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -298,7 +304,9 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy()) {
+			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (propagationKind: ");
@@ -307,4 +315,4 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 		return result.toString();
 	}
 
-} //ConstrainedInstanceObjectImpl
+} // ConstrainedInstanceObjectImpl

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -25,14 +25,33 @@ package org.osate.aadl2.errormodel.instance.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-
-import org.osate.aadl2.errormodel.instance.*;
-
+import org.osate.aadl2.errormodel.instance.BindingPropagation;
+import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
+import org.osate.aadl2.errormodel.instance.ConstraintElement;
+import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
+import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.PointPropagation;
+import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeReference;
+import org.osate.aadl2.errormodel.instance.TypeSetInstance;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.InstanceObject;
 
@@ -93,251 +112,510 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE: {
-				EMV2AnnexInstance emv2AnnexInstance = (EMV2AnnexInstance)theEObject;
-				T result = caseEMV2AnnexInstance(emv2AnnexInstance);
-				if (result == null) result = caseAnnexInstance(emv2AnnexInstance);
-				if (result == null) result = caseNamedElement(emv2AnnexInstance);
-				if (result == null) result = caseElement(emv2AnnexInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE: {
+			EMV2AnnexInstance emv2AnnexInstance = (EMV2AnnexInstance) theEObject;
+			T result = caseEMV2AnnexInstance(emv2AnnexInstance);
+			if (result == null) {
+				result = caseAnnexInstance(emv2AnnexInstance);
 			}
-			case EMV2InstancePackage.EMV2_INSTANCE_OBJECT: {
-				EMV2InstanceObject emv2InstanceObject = (EMV2InstanceObject)theEObject;
-				T result = caseEMV2InstanceObject(emv2InstanceObject);
-				if (result == null) result = caseInstanceObject(emv2InstanceObject);
-				if (result == null) result = caseNamedElement(emv2InstanceObject);
-				if (result == null) result = caseElement(emv2InstanceObject);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseNamedElement(emv2AnnexInstance);
 			}
-			case EMV2InstancePackage.STATE_MACHINE_INSTANCE: {
-				StateMachineInstance stateMachineInstance = (StateMachineInstance)theEObject;
-				T result = caseStateMachineInstance(stateMachineInstance);
-				if (result == null) result = caseEMV2InstanceObject(stateMachineInstance);
-				if (result == null) result = caseInstanceObject(stateMachineInstance);
-				if (result == null) result = caseNamedElement(stateMachineInstance);
-				if (result == null) result = caseElement(stateMachineInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseElement(emv2AnnexInstance);
 			}
-			case EMV2InstancePackage.STATE_INSTANCE: {
-				StateInstance stateInstance = (StateInstance)theEObject;
-				T result = caseStateInstance(stateInstance);
-				if (result == null) result = caseEMV2InstanceObject(stateInstance);
-				if (result == null) result = caseInstanceObject(stateInstance);
-				if (result == null) result = caseNamedElement(stateInstance);
-				if (result == null) result = caseElement(stateInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = defaultCase(theEObject);
 			}
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: {
-				ConstrainedInstanceObject constrainedInstanceObject = (ConstrainedInstanceObject)theEObject;
-				T result = caseConstrainedInstanceObject(constrainedInstanceObject);
-				if (result == null) result = caseConstraintElement(constrainedInstanceObject);
-				if (result == null) result = caseEMV2InstanceObject(constrainedInstanceObject);
-				if (result == null) result = caseInstanceObject(constrainedInstanceObject);
-				if (result == null) result = caseNamedElement(constrainedInstanceObject);
-				if (result == null) result = caseElement(constrainedInstanceObject);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			return result;
+		}
+		case EMV2InstancePackage.EMV2_INSTANCE_OBJECT: {
+			EMV2InstanceObject emv2InstanceObject = (EMV2InstanceObject) theEObject;
+			T result = caseEMV2InstanceObject(emv2InstanceObject);
+			if (result == null) {
+				result = caseInstanceObject(emv2InstanceObject);
 			}
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE: {
-				StateTransitionInstance stateTransitionInstance = (StateTransitionInstance)theEObject;
-				T result = caseStateTransitionInstance(stateTransitionInstance);
-				if (result == null) result = caseEMV2InstanceObject(stateTransitionInstance);
-				if (result == null) result = caseInstanceObject(stateTransitionInstance);
-				if (result == null) result = caseNamedElement(stateTransitionInstance);
-				if (result == null) result = caseElement(stateTransitionInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseNamedElement(emv2InstanceObject);
 			}
-			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: {
-				CompositeStateInstance compositeStateInstance = (CompositeStateInstance)theEObject;
-				T result = caseCompositeStateInstance(compositeStateInstance);
-				if (result == null) result = caseEMV2InstanceObject(compositeStateInstance);
-				if (result == null) result = caseInstanceObject(compositeStateInstance);
-				if (result == null) result = caseNamedElement(compositeStateInstance);
-				if (result == null) result = caseElement(compositeStateInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseElement(emv2InstanceObject);
 			}
-			case EMV2InstancePackage.ERROR_FLOW_INSTANCE: {
-				ErrorFlowInstance errorFlowInstance = (ErrorFlowInstance)theEObject;
-				T result = caseErrorFlowInstance(errorFlowInstance);
-				if (result == null) result = caseEMV2InstanceObject(errorFlowInstance);
-				if (result == null) result = caseInstanceObject(errorFlowInstance);
-				if (result == null) result = caseNamedElement(errorFlowInstance);
-				if (result == null) result = caseElement(errorFlowInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = defaultCase(theEObject);
 			}
-			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE: {
-				ErrorPropagationConditionInstance errorPropagationConditionInstance = (ErrorPropagationConditionInstance)theEObject;
-				T result = caseErrorPropagationConditionInstance(errorPropagationConditionInstance);
-				if (result == null) result = caseEMV2InstanceObject(errorPropagationConditionInstance);
-				if (result == null) result = caseInstanceObject(errorPropagationConditionInstance);
-				if (result == null) result = caseNamedElement(errorPropagationConditionInstance);
-				if (result == null) result = caseElement(errorPropagationConditionInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			return result;
+		}
+		case EMV2InstancePackage.STATE_MACHINE_INSTANCE: {
+			StateMachineInstance stateMachineInstance = (StateMachineInstance) theEObject;
+			T result = caseStateMachineInstance(stateMachineInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(stateMachineInstance);
 			}
-			case EMV2InstancePackage.ERROR_DETECTION_INSTANCE: {
-				ErrorDetectionInstance errorDetectionInstance = (ErrorDetectionInstance)theEObject;
-				T result = caseErrorDetectionInstance(errorDetectionInstance);
-				if (result == null) result = caseEMV2InstanceObject(errorDetectionInstance);
-				if (result == null) result = caseInstanceObject(errorDetectionInstance);
-				if (result == null) result = caseNamedElement(errorDetectionInstance);
-				if (result == null) result = caseElement(errorDetectionInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseInstanceObject(stateMachineInstance);
 			}
-			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
-				PropagationPointInstance propagationPointInstance = (PropagationPointInstance)theEObject;
-				T result = casePropagationPointInstance(propagationPointInstance);
-				if (result == null) result = caseEMV2InstanceObject(propagationPointInstance);
-				if (result == null) result = caseInstanceObject(propagationPointInstance);
-				if (result == null) result = caseNamedElement(propagationPointInstance);
-				if (result == null) result = caseElement(propagationPointInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseNamedElement(stateMachineInstance);
 			}
-			case EMV2InstancePackage.EVENT_INSTANCE: {
-				EventInstance eventInstance = (EventInstance)theEObject;
-				T result = caseEventInstance(eventInstance);
-				if (result == null) result = caseEMV2InstanceObject(eventInstance);
-				if (result == null) result = caseInstanceObject(eventInstance);
-				if (result == null) result = caseNamedElement(eventInstance);
-				if (result == null) result = caseElement(eventInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseElement(stateMachineInstance);
 			}
-			case EMV2InstancePackage.CONSTRAINT_EXPRESSION: {
-				ConstraintExpression constraintExpression = (ConstraintExpression)theEObject;
-				T result = caseConstraintExpression(constraintExpression);
-				if (result == null) result = caseConstraintElement(constraintExpression);
-				if (result == null) result = caseEMV2InstanceObject(constraintExpression);
-				if (result == null) result = caseInstanceObject(constraintExpression);
-				if (result == null) result = caseNamedElement(constraintExpression);
-				if (result == null) result = caseElement(constraintExpression);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = defaultCase(theEObject);
 			}
-			case EMV2InstancePackage.CONSTRAINT_ELEMENT: {
-				ConstraintElement constraintElement = (ConstraintElement)theEObject;
-				T result = caseConstraintElement(constraintElement);
-				if (result == null) result = caseEMV2InstanceObject(constraintElement);
-				if (result == null) result = caseInstanceObject(constraintElement);
-				if (result == null) result = caseNamedElement(constraintElement);
-				if (result == null) result = caseElement(constraintElement);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			return result;
+		}
+		case EMV2InstancePackage.STATE_INSTANCE: {
+			StateInstance stateInstance = (StateInstance) theEObject;
+			T result = caseStateInstance(stateInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(stateInstance);
 			}
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: {
-				PropagationPathInstance propagationPathInstance = (PropagationPathInstance)theEObject;
-				T result = casePropagationPathInstance(propagationPathInstance);
-				if (result == null) result = caseEMV2InstanceObject(propagationPathInstance);
-				if (result == null) result = caseInstanceObject(propagationPathInstance);
-				if (result == null) result = caseNamedElement(propagationPathInstance);
-				if (result == null) result = caseElement(propagationPathInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseInstanceObject(stateInstance);
 			}
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE: {
-				ErrorPropagationInstance errorPropagationInstance = (ErrorPropagationInstance)theEObject;
-				T result = caseErrorPropagationInstance(errorPropagationInstance);
-				if (result == null) result = caseConstrainedInstanceObject(errorPropagationInstance);
-				if (result == null) result = caseConstraintElement(errorPropagationInstance);
-				if (result == null) result = caseEMV2InstanceObject(errorPropagationInstance);
-				if (result == null) result = caseInstanceObject(errorPropagationInstance);
-				if (result == null) result = caseNamedElement(errorPropagationInstance);
-				if (result == null) result = caseElement(errorPropagationInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseNamedElement(stateInstance);
 			}
-			case EMV2InstancePackage.FEATURE_PROPAGATION: {
-				FeaturePropagation featurePropagation = (FeaturePropagation)theEObject;
-				T result = caseFeaturePropagation(featurePropagation);
-				if (result == null) result = caseErrorPropagationInstance(featurePropagation);
-				if (result == null) result = caseConstrainedInstanceObject(featurePropagation);
-				if (result == null) result = caseConstraintElement(featurePropagation);
-				if (result == null) result = caseEMV2InstanceObject(featurePropagation);
-				if (result == null) result = caseInstanceObject(featurePropagation);
-				if (result == null) result = caseNamedElement(featurePropagation);
-				if (result == null) result = caseElement(featurePropagation);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseElement(stateInstance);
 			}
-			case EMV2InstancePackage.POINT_PROPAGATION: {
-				PointPropagation pointPropagation = (PointPropagation)theEObject;
-				T result = casePointPropagation(pointPropagation);
-				if (result == null) result = caseErrorPropagationInstance(pointPropagation);
-				if (result == null) result = caseConstrainedInstanceObject(pointPropagation);
-				if (result == null) result = caseConstraintElement(pointPropagation);
-				if (result == null) result = caseEMV2InstanceObject(pointPropagation);
-				if (result == null) result = caseInstanceObject(pointPropagation);
-				if (result == null) result = caseNamedElement(pointPropagation);
-				if (result == null) result = caseElement(pointPropagation);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = defaultCase(theEObject);
 			}
-			case EMV2InstancePackage.BINDING_PROPAGATION: {
-				BindingPropagation bindingPropagation = (BindingPropagation)theEObject;
-				T result = caseBindingPropagation(bindingPropagation);
-				if (result == null) result = caseErrorPropagationInstance(bindingPropagation);
-				if (result == null) result = caseConstrainedInstanceObject(bindingPropagation);
-				if (result == null) result = caseConstraintElement(bindingPropagation);
-				if (result == null) result = caseEMV2InstanceObject(bindingPropagation);
-				if (result == null) result = caseInstanceObject(bindingPropagation);
-				if (result == null) result = caseNamedElement(bindingPropagation);
-				if (result == null) result = caseElement(bindingPropagation);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			return result;
+		}
+		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: {
+			ConstrainedInstanceObject constrainedInstanceObject = (ConstrainedInstanceObject) theEObject;
+			T result = caseConstrainedInstanceObject(constrainedInstanceObject);
+			if (result == null) {
+				result = caseConstraintElement(constrainedInstanceObject);
 			}
-			case EMV2InstancePackage.TYPE_TOKEN_INSTANCE: {
-				TypeTokenInstance typeTokenInstance = (TypeTokenInstance)theEObject;
-				T result = caseTypeTokenInstance(typeTokenInstance);
-				if (result == null) result = caseEMV2InstanceObject(typeTokenInstance);
-				if (result == null) result = caseInstanceObject(typeTokenInstance);
-				if (result == null) result = caseNamedElement(typeTokenInstance);
-				if (result == null) result = caseElement(typeTokenInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseEMV2InstanceObject(constrainedInstanceObject);
 			}
-			case EMV2InstancePackage.TYPE_REFERENCE: {
-				TypeReference typeReference = (TypeReference)theEObject;
-				T result = caseTypeReference(typeReference);
-				if (result == null) result = caseTypeTokenInstance(typeReference);
-				if (result == null) result = caseEMV2InstanceObject(typeReference);
-				if (result == null) result = caseInstanceObject(typeReference);
-				if (result == null) result = caseNamedElement(typeReference);
-				if (result == null) result = caseElement(typeReference);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseInstanceObject(constrainedInstanceObject);
 			}
-			case EMV2InstancePackage.TYPE_SET_INSTANCE: {
-				TypeSetInstance typeSetInstance = (TypeSetInstance)theEObject;
-				T result = caseTypeSetInstance(typeSetInstance);
-				if (result == null) result = caseTypeTokenInstance(typeSetInstance);
-				if (result == null) result = caseEMV2InstanceObject(typeSetInstance);
-				if (result == null) result = caseInstanceObject(typeSetInstance);
-				if (result == null) result = caseNamedElement(typeSetInstance);
-				if (result == null) result = caseElement(typeSetInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseNamedElement(constrainedInstanceObject);
 			}
-			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE: {
-				TypeProductInstance typeProductInstance = (TypeProductInstance)theEObject;
-				T result = caseTypeProductInstance(typeProductInstance);
-				if (result == null) result = caseTypeTokenInstance(typeProductInstance);
-				if (result == null) result = caseEMV2InstanceObject(typeProductInstance);
-				if (result == null) result = caseInstanceObject(typeProductInstance);
-				if (result == null) result = caseNamedElement(typeProductInstance);
-				if (result == null) result = caseElement(typeProductInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
+			if (result == null) {
+				result = caseElement(constrainedInstanceObject);
 			}
-			default: return defaultCase(theEObject);
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE: {
+			StateTransitionInstance stateTransitionInstance = (StateTransitionInstance) theEObject;
+			T result = caseStateTransitionInstance(stateTransitionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(stateTransitionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(stateTransitionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(stateTransitionInstance);
+			}
+			if (result == null) {
+				result = caseElement(stateTransitionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: {
+			CompositeStateInstance compositeStateInstance = (CompositeStateInstance) theEObject;
+			T result = caseCompositeStateInstance(compositeStateInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(compositeStateInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(compositeStateInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(compositeStateInstance);
+			}
+			if (result == null) {
+				result = caseElement(compositeStateInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_FLOW_INSTANCE: {
+			ErrorFlowInstance errorFlowInstance = (ErrorFlowInstance) theEObject;
+			T result = caseErrorFlowInstance(errorFlowInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorFlowInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorFlowInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorFlowInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorFlowInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE: {
+			ErrorPropagationConditionInstance errorPropagationConditionInstance = (ErrorPropagationConditionInstance) theEObject;
+			T result = caseErrorPropagationConditionInstance(errorPropagationConditionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE: {
+			ErrorDetectionInstance errorDetectionInstance = (ErrorDetectionInstance) theEObject;
+			T result = caseErrorDetectionInstance(errorDetectionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorDetectionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorDetectionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorDetectionInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorDetectionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
+			PropagationPointInstance propagationPointInstance = (PropagationPointInstance) theEObject;
+			T result = casePropagationPointInstance(propagationPointInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(propagationPointInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(propagationPointInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(propagationPointInstance);
+			}
+			if (result == null) {
+				result = caseElement(propagationPointInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.EVENT_INSTANCE: {
+			EventInstance eventInstance = (EventInstance) theEObject;
+			T result = caseEventInstance(eventInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(eventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(eventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(eventInstance);
+			}
+			if (result == null) {
+				result = caseElement(eventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.CONSTRAINT_EXPRESSION: {
+			ConstraintExpression constraintExpression = (ConstraintExpression) theEObject;
+			T result = caseConstraintExpression(constraintExpression);
+			if (result == null) {
+				result = caseConstraintElement(constraintExpression);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(constraintExpression);
+			}
+			if (result == null) {
+				result = caseInstanceObject(constraintExpression);
+			}
+			if (result == null) {
+				result = caseNamedElement(constraintExpression);
+			}
+			if (result == null) {
+				result = caseElement(constraintExpression);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.CONSTRAINT_ELEMENT: {
+			ConstraintElement constraintElement = (ConstraintElement) theEObject;
+			T result = caseConstraintElement(constraintElement);
+			if (result == null) {
+				result = caseEMV2InstanceObject(constraintElement);
+			}
+			if (result == null) {
+				result = caseInstanceObject(constraintElement);
+			}
+			if (result == null) {
+				result = caseNamedElement(constraintElement);
+			}
+			if (result == null) {
+				result = caseElement(constraintElement);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: {
+			PropagationPathInstance propagationPathInstance = (PropagationPathInstance) theEObject;
+			T result = casePropagationPathInstance(propagationPathInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(propagationPathInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(propagationPathInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(propagationPathInstance);
+			}
+			if (result == null) {
+				result = caseElement(propagationPathInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE: {
+			ErrorPropagationInstance errorPropagationInstance = (ErrorPropagationInstance) theEObject;
+			T result = caseErrorPropagationInstance(errorPropagationInstance);
+			if (result == null) {
+				result = caseConstrainedInstanceObject(errorPropagationInstance);
+			}
+			if (result == null) {
+				result = caseConstraintElement(errorPropagationInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorPropagationInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorPropagationInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorPropagationInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorPropagationInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.FEATURE_PROPAGATION: {
+			FeaturePropagation featurePropagation = (FeaturePropagation) theEObject;
+			T result = caseFeaturePropagation(featurePropagation);
+			if (result == null) {
+				result = caseErrorPropagationInstance(featurePropagation);
+			}
+			if (result == null) {
+				result = caseConstrainedInstanceObject(featurePropagation);
+			}
+			if (result == null) {
+				result = caseConstraintElement(featurePropagation);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(featurePropagation);
+			}
+			if (result == null) {
+				result = caseInstanceObject(featurePropagation);
+			}
+			if (result == null) {
+				result = caseNamedElement(featurePropagation);
+			}
+			if (result == null) {
+				result = caseElement(featurePropagation);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.POINT_PROPAGATION: {
+			PointPropagation pointPropagation = (PointPropagation) theEObject;
+			T result = casePointPropagation(pointPropagation);
+			if (result == null) {
+				result = caseErrorPropagationInstance(pointPropagation);
+			}
+			if (result == null) {
+				result = caseConstrainedInstanceObject(pointPropagation);
+			}
+			if (result == null) {
+				result = caseConstraintElement(pointPropagation);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(pointPropagation);
+			}
+			if (result == null) {
+				result = caseInstanceObject(pointPropagation);
+			}
+			if (result == null) {
+				result = caseNamedElement(pointPropagation);
+			}
+			if (result == null) {
+				result = caseElement(pointPropagation);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.BINDING_PROPAGATION: {
+			BindingPropagation bindingPropagation = (BindingPropagation) theEObject;
+			T result = caseBindingPropagation(bindingPropagation);
+			if (result == null) {
+				result = caseErrorPropagationInstance(bindingPropagation);
+			}
+			if (result == null) {
+				result = caseConstrainedInstanceObject(bindingPropagation);
+			}
+			if (result == null) {
+				result = caseConstraintElement(bindingPropagation);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(bindingPropagation);
+			}
+			if (result == null) {
+				result = caseInstanceObject(bindingPropagation);
+			}
+			if (result == null) {
+				result = caseNamedElement(bindingPropagation);
+			}
+			if (result == null) {
+				result = caseElement(bindingPropagation);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.TYPE_TOKEN_INSTANCE: {
+			TypeTokenInstance typeTokenInstance = (TypeTokenInstance) theEObject;
+			T result = caseTypeTokenInstance(typeTokenInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(typeTokenInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(typeTokenInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(typeTokenInstance);
+			}
+			if (result == null) {
+				result = caseElement(typeTokenInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.TYPE_REFERENCE: {
+			TypeReference typeReference = (TypeReference) theEObject;
+			T result = caseTypeReference(typeReference);
+			if (result == null) {
+				result = caseTypeTokenInstance(typeReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(typeReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(typeReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(typeReference);
+			}
+			if (result == null) {
+				result = caseElement(typeReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.TYPE_SET_INSTANCE: {
+			TypeSetInstance typeSetInstance = (TypeSetInstance) theEObject;
+			T result = caseTypeSetInstance(typeSetInstance);
+			if (result == null) {
+				result = caseTypeTokenInstance(typeSetInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(typeSetInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(typeSetInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(typeSetInstance);
+			}
+			if (result == null) {
+				result = caseElement(typeSetInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE: {
+			TypeProductInstance typeProductInstance = (TypeProductInstance) theEObject;
+			T result = caseTypeProductInstance(typeProductInstance);
+			if (result == null) {
+				result = caseTypeTokenInstance(typeProductInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(typeProductInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(typeProductInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(typeProductInstance);
+			}
+			if (result == null) {
+				result = caseElement(typeProductInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		default:
+			return defaultCase(theEObject);
 		}
 	}
 
@@ -762,4 +1040,4 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 		return null;
 	}
 
-} //EMV2InstanceSwitch
+} // EMV2InstanceSwitch

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -24,15 +24,11 @@
 package org.osate.aadl2.errormodel.instance.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.aadl2.NamedElement;
-
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
@@ -110,12 +106,14 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 */
 	@Override
 	public NamedElement getEmv2Element() {
-		if (emv2Element != null && ((EObject)emv2Element).eIsProxy()) {
-			InternalEObject oldEmv2Element = (InternalEObject)emv2Element;
-			emv2Element = (NamedElement)eResolveProxy(oldEmv2Element);
+		if (emv2Element != null && ((EObject) emv2Element).eIsProxy()) {
+			InternalEObject oldEmv2Element = (InternalEObject) emv2Element;
+			emv2Element = (NamedElement) eResolveProxy(oldEmv2Element);
 			if (emv2Element != oldEmv2Element) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+				}
 			}
 		}
 		return emv2Element;
@@ -139,8 +137,10 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	public void setEmv2Element(NamedElement newEmv2Element) {
 		NamedElement oldEmv2Element = emv2Element;
 		emv2Element = newEmv2Element;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+		}
 	}
 
 	/**
@@ -151,11 +151,13 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public ConstraintElement getSource() {
 		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject)source;
-			source = (ConstraintElement)eResolveProxy(oldSource);
+			InternalEObject oldSource = (InternalEObject) source;
+			source = (ConstraintElement) eResolveProxy(oldSource);
 			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE, oldSource, source));
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE, oldSource, source));
+				}
 			}
 		}
 		return source;
@@ -179,8 +181,10 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	public void setSource(ConstraintElement newSource) {
 		ConstraintElement oldSource = source;
 		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE, oldSource, source));
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE,
+					oldSource, source));
+		}
 	}
 
 	/**
@@ -191,11 +195,13 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public ConstrainedInstanceObject getTarget() {
 		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject)target;
-			target = (ConstrainedInstanceObject)eResolveProxy(oldTarget);
+			InternalEObject oldTarget = (InternalEObject) target;
+			target = (ConstrainedInstanceObject) eResolveProxy(oldTarget);
 			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET, oldTarget, target));
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET, oldTarget, target));
+				}
 			}
 		}
 		return target;
@@ -219,8 +225,10 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	public void setTarget(ConstrainedInstanceObject newTarget) {
 		ConstrainedInstanceObject oldTarget = target;
 		target = newTarget;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET, oldTarget, target));
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET,
+					oldTarget, target));
+		}
 	}
 
 	/**
@@ -231,15 +239,21 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT:
-				if (resolve) return getEmv2Element();
-				return basicGetEmv2Element();
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
-				if (resolve) return getSource();
-				return basicGetSource();
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
-				if (resolve) return getTarget();
-				return basicGetTarget();
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT:
+			if (resolve) {
+				return getEmv2Element();
+			}
+			return basicGetEmv2Element();
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
+			if (resolve) {
+				return getSource();
+			}
+			return basicGetSource();
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
+			if (resolve) {
+				return getTarget();
+			}
+			return basicGetTarget();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -252,15 +266,15 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT:
-				setEmv2Element((NamedElement)newValue);
-				return;
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
-				setSource((ConstraintElement)newValue);
-				return;
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
-				setTarget((ConstrainedInstanceObject)newValue);
-				return;
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT:
+			setEmv2Element((NamedElement) newValue);
+			return;
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
+			setSource((ConstraintElement) newValue);
+			return;
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
+			setTarget((ConstrainedInstanceObject) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -273,15 +287,15 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT:
-				setEmv2Element((NamedElement)null);
-				return;
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
-				setSource((ConstraintElement)null);
-				return;
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
-				setTarget((ConstrainedInstanceObject)null);
-				return;
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT:
+			setEmv2Element((NamedElement) null);
+			return;
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
+			setSource((ConstraintElement) null);
+			return;
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
+			setTarget((ConstrainedInstanceObject) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -294,14 +308,14 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT:
-				return emv2Element != null;
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
-				return source != null;
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
-				return target != null;
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT:
+			return emv2Element != null;
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
+			return source != null;
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
+			return target != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //PropagationPathInstanceImpl
+} // PropagationPathInstanceImpl
