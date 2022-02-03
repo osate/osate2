@@ -2405,22 +2405,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int TYPE_SET_INSTANCE__ANNEX_INSTANCE = TYPE_TOKEN_INSTANCE__ANNEX_INSTANCE;
 
 	/**
-	 * The feature id for the '<em><b>Resolved Set</b></em>' reference.
+	 * The feature id for the '<em><b>Type Set</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_SET_INSTANCE__RESOLVED_SET = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Declared Set</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_SET_INSTANCE__DECLARED_SET = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 1;
+	int TYPE_SET_INSTANCE__TYPE_SET = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
@@ -2429,7 +2420,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_SET_INSTANCE__TOKENS = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 2;
+	int TYPE_SET_INSTANCE__TOKENS = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Type Set Instance</em>' class.
@@ -2438,7 +2429,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_SET_INSTANCE_FEATURE_COUNT = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 3;
+	int TYPE_SET_INSTANCE_FEATURE_COUNT = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeProductInstanceImpl <em>Type Product Instance</em>}' class.
@@ -3390,26 +3381,15 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getTypeSetInstance();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getResolvedSet <em>Resolved Set</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getTypeSet <em>Type Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Resolved Set</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TypeSetInstance#getResolvedSet()
+	 * @return the meta object for the reference '<em>Type Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeSetInstance#getTypeSet()
 	 * @see #getTypeSetInstance()
 	 * @generated
 	 */
-	EReference getTypeSetInstance_ResolvedSet();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getDeclaredSet <em>Declared Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Declared Set</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TypeSetInstance#getDeclaredSet()
-	 * @see #getTypeSetInstance()
-	 * @generated
-	 */
-	EReference getTypeSetInstance_DeclaredSet();
+	EReference getTypeSetInstance_TypeSet();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getTokens <em>Tokens</em>}'.
@@ -4173,20 +4153,12 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass TYPE_SET_INSTANCE = eINSTANCE.getTypeSetInstance();
 
 		/**
-		 * The meta object literal for the '<em><b>Resolved Set</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Type Set</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TYPE_SET_INSTANCE__RESOLVED_SET = eINSTANCE.getTypeSetInstance_ResolvedSet();
-
-		/**
-		 * The meta object literal for the '<em><b>Declared Set</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TYPE_SET_INSTANCE__DECLARED_SET = eINSTANCE.getTypeSetInstance_DeclaredSet();
+		EReference TYPE_SET_INSTANCE__TYPE_SET = eINSTANCE.getTypeSetInstance_TypeSet();
 
 		/**
 		 * The meta object literal for the '<em><b>Tokens</b></em>' containment reference list feature.

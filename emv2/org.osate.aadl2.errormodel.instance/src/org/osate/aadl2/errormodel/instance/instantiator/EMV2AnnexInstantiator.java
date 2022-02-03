@@ -453,10 +453,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private TypeSetInstance createTypeSetInstance(TypeSet set) {
 		var typeSetInstance = EMV2InstanceFactory.eINSTANCE.createTypeSetInstance();
 		typeSetInstance.setName(set.getName());
-		typeSetInstance.setDeclaredSet(set);
-		var resolved = EMV2Util.resolveAlias(set);
-		typeSetInstance.setResolvedSet(resolved);
-		typeSetInstance.getTokens().addAll(createTypeTokenInstances(resolved.getTypeTokens()));
+		typeSetInstance.setTypeSet(set);
+		typeSetInstance.getTokens().addAll(createTypeTokenInstances(EMV2Util.resolveAlias(set).getTypeTokens()));
 		return typeSetInstance;
 	}
 

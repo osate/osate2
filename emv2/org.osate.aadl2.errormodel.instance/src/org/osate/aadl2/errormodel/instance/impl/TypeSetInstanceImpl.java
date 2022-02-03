@@ -37,6 +37,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,8 +47,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl#getResolvedSet <em>Resolved Set</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl#getDeclaredSet <em>Declared Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl#getTypeSet <em>Type Set</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl#getTokens <em>Tokens</em>}</li>
  * </ul>
  *
@@ -55,24 +55,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  */
 public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSetInstance {
 	/**
-	 * The cached value of the '{@link #getResolvedSet() <em>Resolved Set</em>}' reference.
+	 * The cached value of the '{@link #getTypeSet() <em>Type Set</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResolvedSet()
+	 * @see #getTypeSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected TypeSet resolvedSet;
-
-	/**
-	 * The cached value of the '{@link #getDeclaredSet() <em>Declared Set</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDeclaredSet()
-	 * @generated
-	 * @ordered
-	 */
-	protected TypeSet declaredSet;
+	protected TypeSet typeSet;
 
 	/**
 	 * The cached value of the '{@link #getTokens() <em>Tokens</em>}' containment reference list.
@@ -109,18 +99,18 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 	 * @generated
 	 */
 	@Override
-	public TypeSet getResolvedSet() {
-		if (resolvedSet != null && resolvedSet.eIsProxy()) {
-			InternalEObject oldResolvedSet = (InternalEObject) resolvedSet;
-			resolvedSet = (TypeSet) eResolveProxy(oldResolvedSet);
-			if (resolvedSet != oldResolvedSet) {
+	public TypeSet getTypeSet() {
+		if (typeSet != null && typeSet.eIsProxy()) {
+			InternalEObject oldTypeSet = (InternalEObject) typeSet;
+			typeSet = (TypeSet) eResolveProxy(oldTypeSet);
+			if (typeSet != oldTypeSet) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET, oldResolvedSet, resolvedSet));
+							EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET, oldTypeSet, typeSet));
 				}
 			}
 		}
-		return resolvedSet;
+		return typeSet;
 	}
 
 	/**
@@ -128,8 +118,8 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeSet basicGetResolvedSet() {
-		return resolvedSet;
+	public TypeSet basicGetTypeSet() {
+		return typeSet;
 	}
 
 	/**
@@ -138,56 +128,12 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 	 * @generated
 	 */
 	@Override
-	public void setResolvedSet(TypeSet newResolvedSet) {
-		TypeSet oldResolvedSet = resolvedSet;
-		resolvedSet = newResolvedSet;
+	public void setTypeSet(TypeSet newTypeSet) {
+		TypeSet oldTypeSet = typeSet;
+		typeSet = newTypeSet;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET,
-					oldResolvedSet, resolvedSet));
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public TypeSet getDeclaredSet() {
-		if (declaredSet != null && declaredSet.eIsProxy()) {
-			InternalEObject oldDeclaredSet = (InternalEObject) declaredSet;
-			declaredSet = (TypeSet) eResolveProxy(oldDeclaredSet);
-			if (declaredSet != oldDeclaredSet) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET, oldDeclaredSet, declaredSet));
-				}
-			}
-		}
-		return declaredSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TypeSet basicGetDeclaredSet() {
-		return declaredSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setDeclaredSet(TypeSet newDeclaredSet) {
-		TypeSet oldDeclaredSet = declaredSet;
-		declaredSet = newDeclaredSet;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET,
-					oldDeclaredSet, declaredSet));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET,
+					oldTypeSet, typeSet));
 		}
 	}
 
@@ -203,6 +149,16 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 					EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS);
 		}
 		return tokens;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public TypeSet getResolvedTypeSet() {
+		return EMV2Util.resolveAlias(getTypeSet());
 	}
 
 	/**
@@ -227,16 +183,11 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET:
+		case EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET:
 			if (resolve) {
-				return getResolvedSet();
+				return getTypeSet();
 			}
-			return basicGetResolvedSet();
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET:
-			if (resolve) {
-				return getDeclaredSet();
-			}
-			return basicGetDeclaredSet();
+			return basicGetTypeSet();
 		case EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS:
 			return getTokens();
 		}
@@ -252,11 +203,8 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET:
-			setResolvedSet((TypeSet) newValue);
-			return;
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET:
-			setDeclaredSet((TypeSet) newValue);
+		case EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET:
+			setTypeSet((TypeSet) newValue);
 			return;
 		case EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS:
 			getTokens().clear();
@@ -274,11 +222,8 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET:
-			setResolvedSet((TypeSet) null);
-			return;
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET:
-			setDeclaredSet((TypeSet) null);
+		case EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET:
+			setTypeSet((TypeSet) null);
 			return;
 		case EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS:
 			getTokens().clear();
@@ -295,10 +240,8 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET:
-			return resolvedSet != null;
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET:
-			return declaredSet != null;
+		case EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET:
+			return typeSet != null;
 		case EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS:
 			return tokens != null && !tokens.isEmpty();
 		}

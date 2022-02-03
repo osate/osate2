@@ -1110,7 +1110,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getTypeSetInstance_ResolvedSet() {
+	public EReference getTypeSetInstance_TypeSet() {
 		return (EReference) typeSetInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1120,18 +1120,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getTypeSetInstance_DeclaredSet() {
-		return (EReference) typeSetInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EReference getTypeSetInstance_Tokens() {
-		return (EReference) typeSetInstanceEClass.getEStructuralFeatures().get(2);
+		return (EReference) typeSetInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1306,8 +1296,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(typeReferenceEClass, TYPE_REFERENCE__TYPE);
 
 		typeSetInstanceEClass = createEClass(TYPE_SET_INSTANCE);
-		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__RESOLVED_SET);
-		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__DECLARED_SET);
+		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__TYPE_SET);
 		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__TOKENS);
 
 		typeProductInstanceEClass = createEClass(TYPE_PRODUCT_INSTANCE);
@@ -1624,15 +1613,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(typeSetInstanceEClass, TypeSetInstance.class, "TypeSetInstance", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeSetInstance_ResolvedSet(), theErrorModelPackage.getTypeSet(), null, "resolvedSet", null,
-				0, 1, TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeSetInstance_DeclaredSet(), theErrorModelPackage.getTypeSet(), null, "declaredSet", null,
-				0, 1, TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeSetInstance_TypeSet(), theErrorModelPackage.getTypeSet(), null, "typeSet", null, 0, 1,
+				TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypeSetInstance_Tokens(), getTypeTokenInstance(), null, "tokens", null, 0, -1,
 				TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(typeSetInstanceEClass, theErrorModelPackage.getTypeSet(), "getResolvedTypeSet", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
 
 		initEClass(typeProductInstanceEClass, TypeProductInstance.class, "TypeProductInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

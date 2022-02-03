@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -24,7 +24,6 @@
 package org.osate.aadl2.errormodel.instance;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -36,8 +35,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getResolvedSet <em>Resolved Set</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getDeclaredSet <em>Declared Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getTypeSet <em>Type Set</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getTokens <em>Tokens</em>}</li>
  * </ul>
  *
@@ -47,48 +45,26 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  */
 public interface TypeSetInstance extends TypeTokenInstance {
 	/**
-	 * Returns the value of the '<em><b>Resolved Set</b></em>' reference.
+	 * Returns the value of the '<em><b>Type Set</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Resolved Set</em>' reference.
-	 * @see #setResolvedSet(TypeSet)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetInstance_ResolvedSet()
+	 * @return the value of the '<em>Type Set</em>' reference.
+	 * @see #setTypeSet(TypeSet)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetInstance_TypeSet()
 	 * @model
 	 * @generated
 	 */
-	TypeSet getResolvedSet();
+	TypeSet getTypeSet();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getResolvedSet <em>Resolved Set</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getTypeSet <em>Type Set</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Resolved Set</em>' reference.
-	 * @see #getResolvedSet()
+	 * @param value the new value of the '<em>Type Set</em>' reference.
+	 * @see #getTypeSet()
 	 * @generated
 	 */
-	void setResolvedSet(TypeSet value);
-
-	/**
-	 * Returns the value of the '<em><b>Declared Set</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Declared Set</em>' reference.
-	 * @see #setDeclaredSet(TypeSet)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetInstance_DeclaredSet()
-	 * @model
-	 * @generated
-	 */
-	TypeSet getDeclaredSet();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getDeclaredSet <em>Declared Set</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Declared Set</em>' reference.
-	 * @see #getDeclaredSet()
-	 * @generated
-	 */
-	void setDeclaredSet(TypeSet value);
+	void setTypeSet(TypeSet value);
 
 	/**
 	 * Returns the value of the '<em><b>Tokens</b></em>' containment reference list.
@@ -101,5 +77,13 @@ public interface TypeSetInstance extends TypeTokenInstance {
 	 * @generated
 	 */
 	EList<TypeTokenInstance> getTokens();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	TypeSet getResolvedTypeSet();
 
 } // TypeSetInstance
