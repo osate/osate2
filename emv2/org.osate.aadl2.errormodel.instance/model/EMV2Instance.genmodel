@@ -107,6 +107,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPropagationInstance/outErrorPropagation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPropagationInstance/inTokens"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPropagationInstance/outTokens"/>
+      <genOperations ecoreOperation="EMV2Instance.ecore#//ErrorPropagationInstance/getDirection"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//FeaturePropagation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//FeaturePropagation/feature"/>

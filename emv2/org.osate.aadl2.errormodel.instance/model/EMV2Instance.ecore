@@ -114,6 +114,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationInstance" abstract="true"
       eSuperTypes="#//ConstrainedInstanceObject">
+    <eOperations name="getDirection" eType="ecore:EEnum ../../org.osate.aadl2/model/aadl2.ecore#//DirectionType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inErrorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outErrorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inTokens" upperBound="-1"

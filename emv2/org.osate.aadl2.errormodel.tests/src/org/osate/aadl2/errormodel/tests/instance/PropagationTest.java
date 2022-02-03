@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
@@ -43,6 +44,7 @@ public class PropagationTest {
 			assertEquals(BindingType.PROCESSOR, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
 			assertEquals("processor", propagation.getOutErrorPropagation().getKind());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -53,6 +55,7 @@ public class PropagationTest {
 			assertEquals(BindingType.MEMORY, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
 			assertEquals("memory", propagation.getOutErrorPropagation().getKind());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -63,6 +66,7 @@ public class PropagationTest {
 			assertEquals(BindingType.CONNECTION, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
 			assertEquals("connection", propagation.getOutErrorPropagation().getKind());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -73,6 +77,7 @@ public class PropagationTest {
 			assertEquals(BindingType.BINDING, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
 			assertEquals("binding", propagation.getOutErrorPropagation().getKind());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -83,6 +88,7 @@ public class PropagationTest {
 			assertEquals(BindingType.BINDINGS, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
 			assertEquals("bindings", propagation.getOutErrorPropagation().getKind());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -93,6 +99,7 @@ public class PropagationTest {
 			assertEquals(BindingType.ACCESS, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
 			assertEquals("access", propagation.getOutErrorPropagation().getKind());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -113,6 +120,7 @@ public class PropagationTest {
 			assertEquals("f1",
 					((AbstractFeature) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
 							.getName());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -127,6 +135,7 @@ public class PropagationTest {
 							.getFeatureorPPRef()
 							.getNext()
 							.getFeatureorPP()).getName());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -142,6 +151,7 @@ public class PropagationTest {
 							.getNext()
 							.getNext()
 							.getFeatureorPP()).getName());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -158,6 +168,7 @@ public class PropagationTest {
 							.getNext()
 							.getNext()
 							.getFeatureorPP()).getName());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -178,6 +189,7 @@ public class PropagationTest {
 			assertEquals("point1",
 					((PropagationPoint) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
 							.getName());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -216,6 +228,7 @@ public class PropagationTest {
 					((AbstractFeature) propagation.getInErrorPropagation().getFeatureorPPRef().getFeatureorPP())
 							.getName());
 			assertNull(propagation.getOutErrorPropagation());
+			assertEquals(DirectionType.IN, propagation.getDirection());
 			assertEquals(1, propagation.getInTokens().size());
 			assertEquals(0, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -238,6 +251,7 @@ public class PropagationTest {
 			assertEquals("f",
 					((AbstractFeature) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
 							.getName());
+			assertEquals(DirectionType.IN_OUT, propagation.getDirection());
 			assertEquals(1, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ServiceError",
@@ -260,6 +274,7 @@ public class PropagationTest {
 			assertEquals("f",
 					((AbstractFeature) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
 							.getName());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
 			assertEquals("ItemTimingError",

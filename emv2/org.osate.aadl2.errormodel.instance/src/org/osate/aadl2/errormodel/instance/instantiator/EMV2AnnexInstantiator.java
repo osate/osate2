@@ -934,8 +934,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private ErrorPropagationInstance findErrorPropagationInstance(EMV2AnnexInstance annex, ConnectionInstanceEnd cie,
 			boolean outgoing) {
 		for (ErrorPropagationInstance epi : annex.getPropagations()) {
-			// TODO Replace with operations.
-			if (outgoing ? !epi.getOutTokens().isEmpty() : !epi.getInTokens().isEmpty()) {
+			if (outgoing ? epi.getDirection().outgoing() : epi.getDirection().incoming()) {
 				if (epi instanceof FeaturePropagation) {
 					if (((FeaturePropagation) epi).getFeature() == cie) {
 						return epi;

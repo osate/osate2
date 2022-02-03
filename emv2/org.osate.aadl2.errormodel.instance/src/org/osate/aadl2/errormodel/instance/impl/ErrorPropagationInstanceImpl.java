@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
@@ -233,6 +234,26 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TOKENS);
 		}
 		return outTokens;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public DirectionType getDirection() {
+		if (!getInTokens().isEmpty()) {
+			if (!getOutTokens().isEmpty()) {
+				return DirectionType.IN_OUT;
+			} else {
+				return DirectionType.IN;
+			}
+		} else if (!getOutTokens().isEmpty()) {
+			return DirectionType.OUT;
+		} else {
+			throw new IllegalStateException("Both inTokens and outTokens are empty.");
+		}
 	}
 
 	/**
