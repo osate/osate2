@@ -17,7 +17,6 @@ import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
-import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.TestHelper;
@@ -47,7 +46,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 		with((BindingPropagation) annexInstance.getPropagations().get(1), propagation -> {
 			assertEquals("memory", propagation.getName());
@@ -57,7 +56,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 		with((BindingPropagation) annexInstance.getPropagations().get(2), propagation -> {
 			assertEquals("connection", propagation.getName());
@@ -67,7 +66,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 		with((BindingPropagation) annexInstance.getPropagations().get(3), propagation -> {
 			assertEquals("binding", propagation.getName());
@@ -77,7 +76,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 		with((BindingPropagation) annexInstance.getPropagations().get(4), propagation -> {
 			assertEquals("bindings", propagation.getName());
@@ -87,7 +86,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 		with((BindingPropagation) annexInstance.getPropagations().get(5), propagation -> {
 			assertEquals("access", propagation.getName());
@@ -97,7 +96,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 	}
 
@@ -117,7 +116,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 		with((FeaturePropagation) annexInstance.getPropagations().get(1), propagation -> {
 			assertEquals("fg1.f2", propagation.getName());
@@ -131,7 +130,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 		with((FeaturePropagation) annexInstance.getPropagations().get(2), propagation -> {
 			assertEquals("fg1.fg2.f3", propagation.getName());
@@ -146,7 +145,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 		with((FeaturePropagation) annexInstance.getPropagations().get(3), propagation -> {
 			assertEquals("fg1.fg2.fg3.f4", propagation.getName());
@@ -162,7 +161,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 	}
 
@@ -182,7 +181,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getOutTokens().get(0).getName());
 		});
 	}
 
@@ -220,7 +219,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.IN, propagation.getDirection());
 			assertEquals(1, propagation.getInTokens().size());
 			assertEquals(0, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getInTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getInTokens().get(0).getName());
 		});
 	}
 
@@ -242,8 +241,8 @@ public class PropagationTest {
 			assertEquals(DirectionType.IN_OUT, propagation.getDirection());
 			assertEquals(1, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ServiceError", ((TypeReference) propagation.getInTokens().get(0)).getType().getName());
-			assertEquals("ItemValueError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ServiceError", propagation.getInTokens().get(0).getName());
+			assertEquals("ItemValueError", propagation.getOutTokens().get(0).getName());
 		});
 	}
 
@@ -263,7 +262,7 @@ public class PropagationTest {
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
-			assertEquals("ItemTimingError", ((TypeReference) propagation.getOutTokens().get(0)).getType().getName());
+			assertEquals("ItemTimingError", propagation.getOutTokens().get(0).getName());
 		});
 	}
 }
