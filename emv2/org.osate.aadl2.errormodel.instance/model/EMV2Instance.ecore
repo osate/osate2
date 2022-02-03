@@ -115,6 +115,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationInstance" abstract="true"
       eSuperTypes="#//ConstrainedInstanceObject">
     <eOperations name="getDirection" eType="ecore:EEnum ../../org.osate.aadl2/model/aadl2.ecore#//DirectionType"/>
+    <eOperations name="getAllInTokens" upperBound="-1" eType="#//TypeTokenInstance"/>
+    <eOperations name="getAllOutTokens" upperBound="-1" eType="#//TypeTokenInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inErrorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outErrorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inTokens" upperBound="-1"
@@ -146,6 +148,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeSetInstance" eSuperTypes="#//TypeTokenInstance">
     <eOperations name="getResolvedTypeSet" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeSet"/>
+    <eOperations name="getAllTokens" upperBound="-1" eType="#//TypeTokenInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeSet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
         eType="#//TypeTokenInstance" containment="true"/>

@@ -27,6 +27,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -36,6 +37,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeReference;
+import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
@@ -254,6 +258,50 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 		} else {
 			throw new IllegalStateException("Both inTokens and outTokens are empty.");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public EList<TypeTokenInstance> getAllInTokens() {
+		var results = new BasicEList<TypeTokenInstance>();
+		for (var token : getInTokens()) {
+			if (token instanceof TypeReference || token instanceof TypeProductInstance) {
+				results.add(token);
+			} else if (token instanceof TypeSetInstance) {
+				results.addAll(((TypeSetInstance) token).getAllTokens());
+			} else {
+				throw new RuntimeException(
+						"getInTokens() contains something other than TypeReference, TypeSetInstance, or TypeProductInstance: "
+								+ token);
+			}
+		}
+		return results;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public EList<TypeTokenInstance> getAllOutTokens() {
+		var results = new BasicEList<TypeTokenInstance>();
+		for (var token : getOutTokens()) {
+			if (token instanceof TypeReference || token instanceof TypeProductInstance) {
+				results.add(token);
+			} else if (token instanceof TypeSetInstance) {
+				results.addAll(((TypeSetInstance) token).getAllTokens());
+			} else {
+				throw new RuntimeException(
+						"getOutTokens() contains something other than TypeReference, TypeSetInstance, or TypeProductInstance: "
+								+ token);
+			}
+		}
+		return results;
 	}
 
 	/**

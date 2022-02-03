@@ -1581,6 +1581,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		addEOperation(errorPropagationInstanceEClass, theAadl2Package.getDirectionType(), "getDirection", 0, 1,
 				IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(errorPropagationInstanceEClass, getTypeTokenInstance(), "getAllInTokens", 0, -1, IS_UNIQUE,
+				IS_ORDERED);
+
+		addEOperation(errorPropagationInstanceEClass, getTypeTokenInstance(), "getAllOutTokens", 0, -1, IS_UNIQUE,
+				IS_ORDERED);
+
 		initEClass(featurePropagationEClass, FeaturePropagation.class, "FeaturePropagation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeaturePropagation_Feature(), theInstancePackage.getFeatureInstance(), null, "feature", null,
@@ -1622,6 +1628,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		addEOperation(typeSetInstanceEClass, theErrorModelPackage.getTypeSet(), "getResolvedTypeSet", 0, 1, IS_UNIQUE,
 				IS_ORDERED);
+
+		addEOperation(typeSetInstanceEClass, getTypeTokenInstance(), "getAllTokens", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(typeProductInstanceEClass, TypeProductInstance.class, "TypeProductInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

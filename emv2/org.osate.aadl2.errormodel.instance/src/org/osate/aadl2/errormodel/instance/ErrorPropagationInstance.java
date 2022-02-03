@@ -123,4 +123,20 @@ public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
 	 */
 	DirectionType getDirection();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<TypeTokenInstance> getAllInTokens();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<TypeTokenInstance> getAllOutTokens();
+
 } // ErrorPropagationInstance

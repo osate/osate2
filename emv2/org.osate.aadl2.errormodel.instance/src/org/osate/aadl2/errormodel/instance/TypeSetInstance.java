@@ -86,4 +86,12 @@ public interface TypeSetInstance extends TypeTokenInstance {
 	 */
 	TypeSet getResolvedTypeSet();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<TypeTokenInstance> getAllTokens();
+
 } // TypeSetInstance

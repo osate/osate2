@@ -27,6 +27,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -34,6 +35,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -159,6 +162,28 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 	@Override
 	public TypeSet getResolvedTypeSet() {
 		return EMV2Util.resolveAlias(getTypeSet());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public EList<TypeTokenInstance> getAllTokens() {
+		var results = new BasicEList<TypeTokenInstance>();
+		for (var token : getTokens()) {
+			if (token instanceof TypeReference || token instanceof TypeProductInstance) {
+				results.add(token);
+			} else if (token instanceof TypeSetInstance) {
+				results.addAll(((TypeSetInstance) token).getAllTokens());
+			} else {
+				throw new RuntimeException(
+						"getTokens() contains something other than TypeReference, TypeSetInstance, or TypeProductInstance: "
+								+ token);
+			}
+		}
+		return results;
 	}
 
 	/**

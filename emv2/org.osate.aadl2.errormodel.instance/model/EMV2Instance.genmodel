@@ -108,6 +108,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPropagationInstance/inTokens"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPropagationInstance/outTokens"/>
       <genOperations ecoreOperation="EMV2Instance.ecore#//ErrorPropagationInstance/getDirection"/>
+      <genOperations ecoreOperation="EMV2Instance.ecore#//ErrorPropagationInstance/getAllInTokens"/>
+      <genOperations ecoreOperation="EMV2Instance.ecore#//ErrorPropagationInstance/getAllOutTokens"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//FeaturePropagation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//FeaturePropagation/feature"/>
@@ -127,6 +129,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TypeSetInstance/typeSet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TypeSetInstance/tokens"/>
       <genOperations ecoreOperation="EMV2Instance.ecore#//TypeSetInstance/getResolvedTypeSet"/>
+      <genOperations ecoreOperation="EMV2Instance.ecore#//TypeSetInstance/getAllTokens"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//TypeProductInstance">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TypeProductInstance/types"/>
