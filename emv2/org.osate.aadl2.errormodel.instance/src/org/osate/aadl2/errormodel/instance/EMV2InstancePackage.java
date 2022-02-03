@@ -2323,22 +2323,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int TYPE_REFERENCE__ANNEX_INSTANCE = TYPE_TOKEN_INSTANCE__ANNEX_INSTANCE;
 
 	/**
-	 * The feature id for the '<em><b>Resolved Type</b></em>' reference.
+	 * The feature id for the '<em><b>Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE__RESOLVED_TYPE = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Declared Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_REFERENCE__DECLARED_TYPE = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 1;
+	int TYPE_REFERENCE__TYPE = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Type Reference</em>' class.
@@ -2347,7 +2338,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE_FEATURE_COUNT = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 2;
+	int TYPE_REFERENCE_FEATURE_COUNT = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl <em>Type Set Instance</em>}' class.
@@ -3378,26 +3369,15 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getTypeReference();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeReference#getResolvedType <em>Resolved Type</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeReference#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Resolved Type</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TypeReference#getResolvedType()
+	 * @return the meta object for the reference '<em>Type</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeReference#getType()
 	 * @see #getTypeReference()
 	 * @generated
 	 */
-	EReference getTypeReference_ResolvedType();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeReference#getDeclaredType <em>Declared Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Declared Type</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TypeReference#getDeclaredType()
-	 * @see #getTypeReference()
-	 * @generated
-	 */
-	EReference getTypeReference_DeclaredType();
+	EReference getTypeReference_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance <em>Type Set Instance</em>}'.
@@ -4175,20 +4155,12 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass TYPE_REFERENCE = eINSTANCE.getTypeReference();
 
 		/**
-		 * The meta object literal for the '<em><b>Resolved Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TYPE_REFERENCE__RESOLVED_TYPE = eINSTANCE.getTypeReference_ResolvedType();
-
-		/**
-		 * The meta object literal for the '<em><b>Declared Type</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TYPE_REFERENCE__DECLARED_TYPE = eINSTANCE.getTypeReference_DeclaredType();
+		EReference TYPE_REFERENCE__TYPE = eINSTANCE.getTypeReference_Type();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl <em>Type Set Instance</em>}' class.

@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,32 +40,21 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl#getResolvedType <em>Resolved Type</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl#getDeclaredType <em>Declared Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeReference {
 	/**
-	 * The cached value of the '{@link #getResolvedType() <em>Resolved Type</em>}' reference.
+	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResolvedType()
+	 * @see #getType()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorType resolvedType;
-
-	/**
-	 * The cached value of the '{@link #getDeclaredType() <em>Declared Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDeclaredType()
-	 * @generated
-	 * @ordered
-	 */
-	protected ErrorType declaredType;
+	protected ErrorType type;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -88,21 +78,31 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public ErrorType getResolvedType() {
-		if (resolvedType != null && resolvedType.eIsProxy()) {
-			InternalEObject oldResolvedType = (InternalEObject) resolvedType;
-			resolvedType = (ErrorType) eResolveProxy(oldResolvedType);
-			if (resolvedType != oldResolvedType) {
+		return EMV2Util.resolveAlias(getType());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorType getType() {
+		if (type != null && type.eIsProxy()) {
+			InternalEObject oldType = (InternalEObject) type;
+			type = (ErrorType) eResolveProxy(oldType);
+			if (type != oldType) {
 				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE, oldResolvedType, resolvedType));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.TYPE_REFERENCE__TYPE,
+							oldType, type));
 				}
 			}
 		}
-		return resolvedType;
+		return type;
 	}
 
 	/**
@@ -110,8 +110,8 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ErrorType basicGetResolvedType() {
-		return resolvedType;
+	public ErrorType basicGetType() {
+		return type;
 	}
 
 	/**
@@ -120,56 +120,12 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	 * @generated
 	 */
 	@Override
-	public void setResolvedType(ErrorType newResolvedType) {
-		ErrorType oldResolvedType = resolvedType;
-		resolvedType = newResolvedType;
+	public void setType(ErrorType newType) {
+		ErrorType oldType = type;
+		type = newType;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE,
-					oldResolvedType, resolvedType));
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ErrorType getDeclaredType() {
-		if (declaredType != null && declaredType.eIsProxy()) {
-			InternalEObject oldDeclaredType = (InternalEObject) declaredType;
-			declaredType = (ErrorType) eResolveProxy(oldDeclaredType);
-			if (declaredType != oldDeclaredType) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE, oldDeclaredType, declaredType));
-				}
-			}
-		}
-		return declaredType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ErrorType basicGetDeclaredType() {
-		return declaredType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setDeclaredType(ErrorType newDeclaredType) {
-		ErrorType oldDeclaredType = declaredType;
-		declaredType = newDeclaredType;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE,
-					oldDeclaredType, declaredType));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_REFERENCE__TYPE, oldType,
+					type));
 		}
 	}
 
@@ -181,16 +137,11 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE:
+		case EMV2InstancePackage.TYPE_REFERENCE__TYPE:
 			if (resolve) {
-				return getResolvedType();
+				return getType();
 			}
-			return basicGetResolvedType();
-		case EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE:
-			if (resolve) {
-				return getDeclaredType();
-			}
-			return basicGetDeclaredType();
+			return basicGetType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -203,11 +154,8 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE:
-			setResolvedType((ErrorType) newValue);
-			return;
-		case EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE:
-			setDeclaredType((ErrorType) newValue);
+		case EMV2InstancePackage.TYPE_REFERENCE__TYPE:
+			setType((ErrorType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -221,11 +169,8 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE:
-			setResolvedType((ErrorType) null);
-			return;
-		case EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE:
-			setDeclaredType((ErrorType) null);
+		case EMV2InstancePackage.TYPE_REFERENCE__TYPE:
+			setType((ErrorType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -239,10 +184,8 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE:
-			return resolvedType != null;
-		case EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE:
-			return declaredType != null;
+		case EMV2InstancePackage.TYPE_REFERENCE__TYPE:
+			return type != null;
 		}
 		return super.eIsSet(featureID);
 	}

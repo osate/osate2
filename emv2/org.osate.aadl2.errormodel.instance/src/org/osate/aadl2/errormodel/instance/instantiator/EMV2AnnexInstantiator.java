@@ -446,8 +446,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private TypeReference createTypeReference(ErrorType type) {
 		var typeReference = EMV2InstanceFactory.eINSTANCE.createTypeReference();
 		typeReference.setName(type.getName());
-		typeReference.setDeclaredType(type);
-		typeReference.setResolvedType(EMV2Util.resolveAlias(type));
+		typeReference.setType(type);
 		return typeReference;
 	}
 

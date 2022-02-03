@@ -1090,18 +1090,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getTypeReference_ResolvedType() {
+	public EReference getTypeReference_Type() {
 		return (EReference) typeReferenceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getTypeReference_DeclaredType() {
-		return (EReference) typeReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1313,8 +1303,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		typeTokenInstanceEClass = createEClass(TYPE_TOKEN_INSTANCE);
 
 		typeReferenceEClass = createEClass(TYPE_REFERENCE);
-		createEReference(typeReferenceEClass, TYPE_REFERENCE__RESOLVED_TYPE);
-		createEReference(typeReferenceEClass, TYPE_REFERENCE__DECLARED_TYPE);
+		createEReference(typeReferenceEClass, TYPE_REFERENCE__TYPE);
 
 		typeSetInstanceEClass = createEClass(TYPE_SET_INSTANCE);
 		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__RESOLVED_SET);
@@ -1626,12 +1615,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(typeReferenceEClass, TypeReference.class, "TypeReference", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeReference_ResolvedType(), theErrorModelPackage.getErrorType(), null, "resolvedType", null,
-				0, 1, TypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeReference_DeclaredType(), theErrorModelPackage.getErrorType(), null, "declaredType", null,
-				0, 1, TypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeReference_Type(), theErrorModelPackage.getErrorType(), null, "type", null, 0, 1,
+				TypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(typeReferenceEClass, theErrorModelPackage.getErrorType(), "getResolvedType", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
 
 		initEClass(typeSetInstanceEClass, TypeSetInstance.class, "TypeSetInstance", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

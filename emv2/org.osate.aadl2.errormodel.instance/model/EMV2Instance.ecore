@@ -141,8 +141,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeTokenInstance" abstract="true" eSuperTypes="#//EMV2InstanceObject"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeReference" eSuperTypes="#//TypeTokenInstance">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedType" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="declaredType" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
+    <eOperations name="getResolvedType" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeSetInstance" eSuperTypes="#//TypeTokenInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedSet" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeSet"/>
