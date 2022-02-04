@@ -23,7 +23,6 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.DirectionType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
@@ -38,8 +37,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInErrorPropagation <em>In Error Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutErrorPropagation <em>Out Error Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInTokens <em>In Tokens</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutTokens <em>Out Tokens</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInTypeSet <em>In Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutTypeSet <em>Out Type Set</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
@@ -92,28 +91,48 @@ public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
 	void setOutErrorPropagation(ErrorPropagation value);
 
 	/**
-	 * Returns the value of the '<em><b>In Tokens</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.TypeTokenInstance}.
+	 * Returns the value of the '<em><b>In Type Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In Tokens</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_InTokens()
+	 * @return the value of the '<em>In Type Set</em>' containment reference.
+	 * @see #setInTypeSet(AnonymousTypeSet)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_InTypeSet()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<TypeTokenInstance> getInTokens();
+	AnonymousTypeSet getInTypeSet();
 
 	/**
-	 * Returns the value of the '<em><b>Out Tokens</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.TypeTokenInstance}.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInTypeSet <em>In Type Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Out Tokens</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_OutTokens()
+	 * @param value the new value of the '<em>In Type Set</em>' containment reference.
+	 * @see #getInTypeSet()
+	 * @generated
+	 */
+	void setInTypeSet(AnonymousTypeSet value);
+
+	/**
+	 * Returns the value of the '<em><b>Out Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Out Type Set</em>' containment reference.
+	 * @see #setOutTypeSet(AnonymousTypeSet)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_OutTypeSet()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<TypeTokenInstance> getOutTokens();
+	AnonymousTypeSet getOutTypeSet();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutTypeSet <em>Out Type Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Out Type Set</em>' containment reference.
+	 * @see #getOutTypeSet()
+	 * @generated
+	 */
+	void setOutTypeSet(AnonymousTypeSet value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -122,21 +141,5 @@ public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
 	 * @generated
 	 */
 	DirectionType getDirection();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	EList<TypeTokenInstance> getAllInTokens();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	EList<TypeTokenInstance> getAllOutTokens();
 
 } // ErrorPropagationInstance

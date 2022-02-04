@@ -25,13 +25,13 @@ package org.osate.aadl2.errormodel.instance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Type Token Instance</b></em>'.
+ * A representation of the model object '<em><b>Type Set Element</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeTokenInstance()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetElement()
  * @model abstract="true"
  * @generated
  */
-public interface TypeTokenInstance extends TypeSetElement {
-} // TypeTokenInstance
+public interface TypeSetElement extends EMV2InstanceObject {
+} // TypeSetElement

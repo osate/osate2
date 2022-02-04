@@ -23,15 +23,43 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Type Token Instance</b></em>'.
+ * A representation of the model object '<em><b>Abstract Type Set</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.AbstractTypeSet#getElements <em>Elements</em>}</li>
+ * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeTokenInstance()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getAbstractTypeSet()
  * @model abstract="true"
  * @generated
  */
-public interface TypeTokenInstance extends TypeSetElement {
-} // TypeTokenInstance
+public interface AbstractTypeSet extends EMV2InstanceObject {
+	/**
+	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.TypeSetElement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Elements</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getAbstractTypeSet_Elements()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<TypeSetElement> getElements();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	EList<TypeTokenInstance> flatten();
+
+} // AbstractTypeSet

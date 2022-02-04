@@ -23,24 +23,15 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
-import org.osate.aadl2.errormodel.instance.TypeInstance;
-import org.osate.aadl2.errormodel.instance.TypeProductInstance;
-import org.osate.aadl2.errormodel.instance.TypeSetInstance;
-import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
@@ -53,8 +44,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getInErrorPropagation <em>In Error Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getOutErrorPropagation <em>Out Error Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getInTokens <em>In Tokens</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getOutTokens <em>Out Tokens</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getInTypeSet <em>In Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getOutTypeSet <em>Out Type Set</em>}</li>
  * </ul>
  *
  * @generated
@@ -82,24 +73,24 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	protected ErrorPropagation outErrorPropagation;
 
 	/**
-	 * The cached value of the '{@link #getInTokens() <em>In Tokens</em>}' containment reference list.
+	 * The cached value of the '{@link #getInTypeSet() <em>In Type Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInTokens()
+	 * @see #getInTypeSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TypeTokenInstance> inTokens;
+	protected AnonymousTypeSet inTypeSet;
 
 	/**
-	 * The cached value of the '{@link #getOutTokens() <em>Out Tokens</em>}' containment reference list.
+	 * The cached value of the '{@link #getOutTypeSet() <em>Out Type Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOutTokens()
+	 * @see #getOutTypeSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TypeTokenInstance> outTokens;
+	protected AnonymousTypeSet outTypeSet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -218,12 +209,28 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public EList<TypeTokenInstance> getInTokens() {
-		if (inTokens == null) {
-			inTokens = new EObjectContainmentEList<>(TypeTokenInstance.class, this,
-					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TOKENS);
+	public AnonymousTypeSet getInTypeSet() {
+		return inTypeSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetInTypeSet(AnonymousTypeSet newInTypeSet, NotificationChain msgs) {
+		AnonymousTypeSet oldInTypeSet = inTypeSet;
+		inTypeSet = newInTypeSet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET, oldInTypeSet, newInTypeSet);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
 		}
-		return inTokens;
+		return msgs;
 	}
 
 	/**
@@ -232,12 +239,86 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public EList<TypeTokenInstance> getOutTokens() {
-		if (outTokens == null) {
-			outTokens = new EObjectContainmentEList<>(TypeTokenInstance.class, this,
-					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TOKENS);
+	public void setInTypeSet(AnonymousTypeSet newInTypeSet) {
+		if (newInTypeSet != inTypeSet) {
+			NotificationChain msgs = null;
+			if (inTypeSet != null) {
+				msgs = ((InternalEObject) inTypeSet).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET, null,
+						msgs);
+			}
+			if (newInTypeSet != null) {
+				msgs = ((InternalEObject) newInTypeSet).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET, null,
+						msgs);
+			}
+			msgs = basicSetInTypeSet(newInTypeSet, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET, newInTypeSet, newInTypeSet));
 		}
-		return outTokens;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AnonymousTypeSet getOutTypeSet() {
+		return outTypeSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetOutTypeSet(AnonymousTypeSet newOutTypeSet, NotificationChain msgs) {
+		AnonymousTypeSet oldOutTypeSet = outTypeSet;
+		outTypeSet = newOutTypeSet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET, oldOutTypeSet, newOutTypeSet);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOutTypeSet(AnonymousTypeSet newOutTypeSet) {
+		if (newOutTypeSet != outTypeSet) {
+			NotificationChain msgs = null;
+			if (outTypeSet != null) {
+				msgs = ((InternalEObject) outTypeSet).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET, null,
+						msgs);
+			}
+			if (newOutTypeSet != null) {
+				msgs = ((InternalEObject) newOutTypeSet).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET, null,
+						msgs);
+			}
+			msgs = basicSetOutTypeSet(newOutTypeSet, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET, newOutTypeSet, newOutTypeSet));
+		}
 	}
 
 	/**
@@ -247,61 +328,17 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 */
 	@Override
 	public DirectionType getDirection() {
-		if (!getInTokens().isEmpty()) {
-			if (!getOutTokens().isEmpty()) {
+		if (getInTypeSet() != null) {
+			if (getOutTypeSet() != null) {
 				return DirectionType.IN_OUT;
 			} else {
 				return DirectionType.IN;
 			}
-		} else if (!getOutTokens().isEmpty()) {
+		} else if (getOutTypeSet() != null) {
 			return DirectionType.OUT;
 		} else {
-			throw new IllegalStateException("Both inTokens and outTokens are empty.");
+			throw new IllegalStateException("Bot inTypeSet and outTypeSet are null.");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public EList<TypeTokenInstance> getAllInTokens() {
-		var results = new BasicEList<TypeTokenInstance>();
-		for (var token : getInTokens()) {
-			if (token instanceof TypeInstance || token instanceof TypeProductInstance) {
-				results.add(token);
-			} else if (token instanceof TypeSetInstance) {
-				results.addAll(((TypeSetInstance) token).getAllTokens());
-			} else {
-				throw new RuntimeException(
-						"getInTokens() contains something other than TypeReference, TypeSetInstance, or TypeProductInstance: "
-								+ token);
-			}
-		}
-		return results;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public EList<TypeTokenInstance> getAllOutTokens() {
-		var results = new BasicEList<TypeTokenInstance>();
-		for (var token : getOutTokens()) {
-			if (token instanceof TypeInstance || token instanceof TypeProductInstance) {
-				results.add(token);
-			} else if (token instanceof TypeSetInstance) {
-				results.addAll(((TypeSetInstance) token).getAllTokens());
-			} else {
-				throw new RuntimeException(
-						"getOutTokens() contains something other than TypeReference, TypeSetInstance, or TypeProductInstance: "
-								+ token);
-			}
-		}
-		return results;
 	}
 
 	/**
@@ -312,10 +349,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TOKENS:
-			return ((InternalEList<?>) getInTokens()).basicRemove(otherEnd, msgs);
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TOKENS:
-			return ((InternalEList<?>) getOutTokens()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET:
+			return basicSetInTypeSet(null, msgs);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
+			return basicSetOutTypeSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -338,10 +375,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 				return getOutErrorPropagation();
 			}
 			return basicGetOutErrorPropagation();
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TOKENS:
-			return getInTokens();
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TOKENS:
-			return getOutTokens();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET:
+			return getInTypeSet();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
+			return getOutTypeSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -351,7 +388,6 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -361,13 +397,11 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION:
 			setOutErrorPropagation((ErrorPropagation) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TOKENS:
-			getInTokens().clear();
-			getInTokens().addAll((Collection<? extends TypeTokenInstance>) newValue);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET:
+			setInTypeSet((AnonymousTypeSet) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TOKENS:
-			getOutTokens().clear();
-			getOutTokens().addAll((Collection<? extends TypeTokenInstance>) newValue);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
+			setOutTypeSet((AnonymousTypeSet) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -387,11 +421,11 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION:
 			setOutErrorPropagation((ErrorPropagation) null);
 			return;
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TOKENS:
-			getInTokens().clear();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET:
+			setInTypeSet((AnonymousTypeSet) null);
 			return;
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TOKENS:
-			getOutTokens().clear();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
+			setOutTypeSet((AnonymousTypeSet) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -409,10 +443,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 			return inErrorPropagation != null;
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION:
 			return outErrorPropagation != null;
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TOKENS:
-			return inTokens != null && !inTokens.isEmpty();
-		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TOKENS:
-			return outTokens != null && !outTokens.isEmpty();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET:
+			return inTypeSet != null;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
+			return outTypeSet != null;
 		}
 		return super.eIsSet(featureID);
 	}

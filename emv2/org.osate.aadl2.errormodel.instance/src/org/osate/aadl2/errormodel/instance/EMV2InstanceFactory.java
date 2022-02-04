@@ -205,6 +205,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	TypeSetInstance createTypeSetInstance();
 
 	/**
+	 * Returns a new object of class '<em>Anonymous Type Set</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Anonymous Type Set</em>'.
+	 * @generated
+	 */
+	AnonymousTypeSet createAnonymousTypeSet();
+
+	/**
 	 * Returns a new object of class '<em>Type Product Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

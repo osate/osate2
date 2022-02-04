@@ -21,17 +21,37 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.errormodel.instance;
+package org.osate.aadl2.errormodel.instance.impl;
+
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Type Token Instance</b></em>'.
+ * An implementation of the model object '<em><b>Anonymous Type Set</b></em>'.
  * <!-- end-user-doc -->
  *
- *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeTokenInstance()
- * @model abstract="true"
  * @generated
  */
-public interface TypeTokenInstance extends TypeSetElement {
-} // TypeTokenInstance
+public class AnonymousTypeSetImpl extends AbstractTypeSetImpl implements AnonymousTypeSet {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AnonymousTypeSetImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return EMV2InstancePackage.Literals.ANONYMOUS_TYPE_SET;
+	}
+
+} // AnonymousTypeSetImpl

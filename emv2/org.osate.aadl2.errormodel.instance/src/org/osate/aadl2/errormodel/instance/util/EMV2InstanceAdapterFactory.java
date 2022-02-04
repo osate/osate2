@@ -29,6 +29,8 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
@@ -51,6 +53,7 @@ import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
@@ -207,6 +210,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseTypeSetElement(TypeSetElement object) {
+			return createTypeSetElementAdapter();
+		}
+
+		@Override
 		public Adapter caseTypeTokenInstance(TypeTokenInstance object) {
 			return createTypeTokenInstanceAdapter();
 		}
@@ -217,13 +225,23 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseTypeProductInstance(TypeProductInstance object) {
+			return createTypeProductInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseAbstractTypeSet(AbstractTypeSet object) {
+			return createAbstractTypeSetAdapter();
+		}
+
+		@Override
 		public Adapter caseTypeSetInstance(TypeSetInstance object) {
 			return createTypeSetInstanceAdapter();
 		}
 
 		@Override
-		public Adapter caseTypeProductInstance(TypeProductInstance object) {
-			return createTypeProductInstanceAdapter();
+		public Adapter caseAnonymousTypeSet(AnonymousTypeSet object) {
+			return createAnonymousTypeSetAdapter();
 		}
 
 		@Override
@@ -532,6 +550,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TypeSetElement <em>Type Set Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.TypeSetElement
+	 * @generated
+	 */
+	public Adapter createTypeSetElementAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TypeTokenInstance <em>Type Token Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -574,6 +606,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.AnonymousTypeSet <em>Anonymous Type Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.AnonymousTypeSet
+	 * @generated
+	 */
+	public Adapter createAnonymousTypeSetAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TypeProductInstance <em>Type Product Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -584,6 +630,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeProductInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.AbstractTypeSet <em>Abstract Type Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.AbstractTypeSet
+	 * @generated
+	 */
+	public Adapter createAbstractTypeSetAdapter() {
 		return null;
 	}
 

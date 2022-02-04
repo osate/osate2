@@ -23,7 +23,6 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.eclipse.emf.common.util.EList;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -36,14 +35,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getTypeSet <em>Type Set</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getTokens <em>Tokens</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetInstance()
  * @model
  * @generated
  */
-public interface TypeSetInstance extends TypeTokenInstance {
+public interface TypeSetInstance extends AbstractTypeSet, TypeSetElement {
 	/**
 	 * Returns the value of the '<em><b>Type Set</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -67,31 +65,11 @@ public interface TypeSetInstance extends TypeTokenInstance {
 	void setTypeSet(TypeSet value);
 
 	/**
-	 * Returns the value of the '<em><b>Tokens</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.TypeTokenInstance}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tokens</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetInstance_Tokens()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<TypeTokenInstance> getTokens();
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
 	TypeSet getResolvedTypeSet();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	EList<TypeTokenInstance> getAllTokens();
 
 } // TypeSetInstance

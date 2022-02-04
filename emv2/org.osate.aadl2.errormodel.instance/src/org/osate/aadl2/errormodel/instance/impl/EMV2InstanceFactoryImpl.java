@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -131,10 +132,12 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createBindingPropagation();
 		case EMV2InstancePackage.TYPE_INSTANCE:
 			return createTypeInstance();
-		case EMV2InstancePackage.TYPE_SET_INSTANCE:
-			return createTypeSetInstance();
 		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE:
 			return createTypeProductInstance();
+		case EMV2InstancePackage.TYPE_SET_INSTANCE:
+			return createTypeSetInstance();
+		case EMV2InstancePackage.ANONYMOUS_TYPE_SET:
+			return createAnonymousTypeSet();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -370,6 +373,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public TypeSetInstance createTypeSetInstance() {
 		TypeSetInstanceImpl typeSetInstance = new TypeSetInstanceImpl();
 		return typeSetInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AnonymousTypeSet createAnonymousTypeSet() {
+		AnonymousTypeSetImpl anonymousTypeSet = new AnonymousTypeSetImpl();
+		return anonymousTypeSet;
 	}
 
 	/**

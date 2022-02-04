@@ -28,6 +28,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
@@ -50,6 +52,7 @@ import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
@@ -525,9 +528,32 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.TYPE_SET_ELEMENT: {
+			TypeSetElement typeSetElement = (TypeSetElement) theEObject;
+			T result = caseTypeSetElement(typeSetElement);
+			if (result == null) {
+				result = caseEMV2InstanceObject(typeSetElement);
+			}
+			if (result == null) {
+				result = caseInstanceObject(typeSetElement);
+			}
+			if (result == null) {
+				result = caseNamedElement(typeSetElement);
+			}
+			if (result == null) {
+				result = caseElement(typeSetElement);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case EMV2InstancePackage.TYPE_TOKEN_INSTANCE: {
 			TypeTokenInstance typeTokenInstance = (TypeTokenInstance) theEObject;
 			T result = caseTypeTokenInstance(typeTokenInstance);
+			if (result == null) {
+				result = caseTypeSetElement(typeTokenInstance);
+			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(typeTokenInstance);
 			}
@@ -552,6 +578,9 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				result = caseTypeTokenInstance(typeInstance);
 			}
 			if (result == null) {
+				result = caseTypeSetElement(typeInstance);
+			}
+			if (result == null) {
 				result = caseEMV2InstanceObject(typeInstance);
 			}
 			if (result == null) {
@@ -568,11 +597,60 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE: {
+			TypeProductInstance typeProductInstance = (TypeProductInstance) theEObject;
+			T result = caseTypeProductInstance(typeProductInstance);
+			if (result == null) {
+				result = caseTypeTokenInstance(typeProductInstance);
+			}
+			if (result == null) {
+				result = caseTypeSetElement(typeProductInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(typeProductInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(typeProductInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(typeProductInstance);
+			}
+			if (result == null) {
+				result = caseElement(typeProductInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ABSTRACT_TYPE_SET: {
+			AbstractTypeSet abstractTypeSet = (AbstractTypeSet) theEObject;
+			T result = caseAbstractTypeSet(abstractTypeSet);
+			if (result == null) {
+				result = caseEMV2InstanceObject(abstractTypeSet);
+			}
+			if (result == null) {
+				result = caseInstanceObject(abstractTypeSet);
+			}
+			if (result == null) {
+				result = caseNamedElement(abstractTypeSet);
+			}
+			if (result == null) {
+				result = caseElement(abstractTypeSet);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case EMV2InstancePackage.TYPE_SET_INSTANCE: {
 			TypeSetInstance typeSetInstance = (TypeSetInstance) theEObject;
 			T result = caseTypeSetInstance(typeSetInstance);
 			if (result == null) {
-				result = caseTypeTokenInstance(typeSetInstance);
+				result = caseAbstractTypeSet(typeSetInstance);
+			}
+			if (result == null) {
+				result = caseTypeSetElement(typeSetInstance);
 			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(typeSetInstance);
@@ -591,23 +669,23 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE: {
-			TypeProductInstance typeProductInstance = (TypeProductInstance) theEObject;
-			T result = caseTypeProductInstance(typeProductInstance);
+		case EMV2InstancePackage.ANONYMOUS_TYPE_SET: {
+			AnonymousTypeSet anonymousTypeSet = (AnonymousTypeSet) theEObject;
+			T result = caseAnonymousTypeSet(anonymousTypeSet);
 			if (result == null) {
-				result = caseTypeTokenInstance(typeProductInstance);
+				result = caseAbstractTypeSet(anonymousTypeSet);
 			}
 			if (result == null) {
-				result = caseEMV2InstanceObject(typeProductInstance);
+				result = caseEMV2InstanceObject(anonymousTypeSet);
 			}
 			if (result == null) {
-				result = caseInstanceObject(typeProductInstance);
+				result = caseInstanceObject(anonymousTypeSet);
 			}
 			if (result == null) {
-				result = caseNamedElement(typeProductInstance);
+				result = caseNamedElement(anonymousTypeSet);
 			}
 			if (result == null) {
-				result = caseElement(typeProductInstance);
+				result = caseElement(anonymousTypeSet);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -905,6 +983,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Set Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Set Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeSetElement(TypeSetElement object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Type Token Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -950,6 +1043,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Anonymous Type Set</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Anonymous Type Set</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAnonymousTypeSet(AnonymousTypeSet object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Type Product Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -961,6 +1069,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTypeProductInstance(TypeProductInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Type Set</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Type Set</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractTypeSet(AbstractTypeSet object) {
 		return null;
 	}
 

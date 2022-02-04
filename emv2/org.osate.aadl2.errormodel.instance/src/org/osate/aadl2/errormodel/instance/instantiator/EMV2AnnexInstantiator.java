@@ -45,6 +45,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -69,8 +70,8 @@ import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
-import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -357,16 +358,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 			switch (ep.getDirection()) {
 			case IN:
-				assert epi.getInErrorPropagation() == null && epi.getInTokens().isEmpty()
-						: "In fields are already set.";
+				assert epi.getInErrorPropagation() == null && epi.getInTypeSet() == null : "In fields are already set.";
 				epi.setInErrorPropagation(ep);
-				epi.getInTokens().addAll(createTypeTokenInstances(ep.getTypeSet().getTypeTokens()));
+				epi.setInTypeSet(createAnonymousTypeSet(ep.getTypeSet()));
 				break;
 			case OUT:
-				assert epi.getOutErrorPropagation() == null && epi.getOutTokens().isEmpty()
+				assert epi.getOutErrorPropagation() == null && epi.getOutTypeSet() == null
 						: "Out fields are already set.";
 				epi.setOutErrorPropagation(ep);
-				epi.getOutTokens().addAll(createTypeTokenInstances(ep.getTypeSet().getTypeTokens()));
+				epi.setOutTypeSet(createAnonymousTypeSet(ep.getTypeSet()));
 				break;
 			case IN_OUT:
 				throw new RuntimeException(
@@ -426,8 +426,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return propagation;
 	}
 
-	private List<TypeTokenInstance> createTypeTokenInstances(List<TypeToken> tokens) {
-		var results = new ArrayList<TypeTokenInstance>();
+	private AnonymousTypeSet createAnonymousTypeSet(TypeSet set) {
+		var anonymousTypeSet = EMV2InstanceFactory.eINSTANCE.createAnonymousTypeSet();
+		anonymousTypeSet.getElements().addAll(createTypeSetElements(set.getTypeTokens()));
+		anonymousTypeSet.setName(anonymousTypeSet.getElements()
+				.stream()
+				.map(NamedElement::getName)
+				.collect(Collectors.joining(", ", "{", "}")));
+		return anonymousTypeSet;
+	}
+
+	private List<TypeSetElement> createTypeSetElements(List<TypeToken> tokens) {
+		var results = new ArrayList<TypeSetElement>();
 		for (var token : tokens) {
 			if (token.getType().size() == 1) {
 				var type = token.getType().get(0);
@@ -454,7 +464,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var typeSetInstance = EMV2InstanceFactory.eINSTANCE.createTypeSetInstance();
 		typeSetInstance.setName(set.getName());
 		typeSetInstance.setTypeSet(set);
-		typeSetInstance.getTokens().addAll(createTypeTokenInstances(EMV2Util.resolveAlias(set).getTypeTokens()));
+		typeSetInstance.getElements().addAll(createTypeSetElements(EMV2Util.resolveAlias(set).getTypeTokens()));
 		return typeSetInstance;
 	}
 

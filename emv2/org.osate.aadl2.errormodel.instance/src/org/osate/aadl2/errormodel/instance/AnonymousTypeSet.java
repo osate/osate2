@@ -25,13 +25,13 @@ package org.osate.aadl2.errormodel.instance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Type Token Instance</b></em>'.
+ * A representation of the model object '<em><b>Anonymous Type Set</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeTokenInstance()
- * @model abstract="true"
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getAnonymousTypeSet()
+ * @model
  * @generated
  */
-public interface TypeTokenInstance extends TypeSetElement {
-} // TypeTokenInstance
+public interface AnonymousTypeSet extends AbstractTypeSet {
+} // AnonymousTypeSet

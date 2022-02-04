@@ -31,6 +31,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -56,6 +58,7 @@ import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.InstancePackage;
@@ -206,6 +209,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass typeSetElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass typeTokenInstanceEClass = null;
 
 	/**
@@ -227,7 +237,21 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass anonymousTypeSetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass typeProductInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractTypeSetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -990,7 +1014,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorPropagationInstance_InTokens() {
+	public EReference getErrorPropagationInstance_InTypeSet() {
 		return (EReference) errorPropagationInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1000,7 +1024,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorPropagationInstance_OutTokens() {
+	public EReference getErrorPropagationInstance_OutTypeSet() {
 		return (EReference) errorPropagationInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1070,6 +1094,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getTypeSetElement() {
+		return typeSetElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getTypeTokenInstance() {
 		return typeTokenInstanceEClass;
 	}
@@ -1120,8 +1154,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getTypeSetInstance_Tokens() {
-		return (EReference) typeSetInstanceEClass.getEStructuralFeatures().get(1);
+	public EClass getAnonymousTypeSet() {
+		return anonymousTypeSetEClass;
 	}
 
 	/**
@@ -1142,6 +1176,26 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EReference getTypeProductInstance_Types() {
 		return (EReference) typeProductInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAbstractTypeSet() {
+		return abstractTypeSetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAbstractTypeSet_Elements() {
+		return (EReference) abstractTypeSetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1278,8 +1332,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		errorPropagationInstanceEClass = createEClass(ERROR_PROPAGATION_INSTANCE);
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION);
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION);
-		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__IN_TOKENS);
-		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__OUT_TOKENS);
+		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET);
+		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET);
 
 		featurePropagationEClass = createEClass(FEATURE_PROPAGATION);
 		createEReference(featurePropagationEClass, FEATURE_PROPAGATION__FEATURE);
@@ -1290,17 +1344,23 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		bindingPropagationEClass = createEClass(BINDING_PROPAGATION);
 		createEAttribute(bindingPropagationEClass, BINDING_PROPAGATION__BINDING);
 
+		typeSetElementEClass = createEClass(TYPE_SET_ELEMENT);
+
 		typeTokenInstanceEClass = createEClass(TYPE_TOKEN_INSTANCE);
 
 		typeInstanceEClass = createEClass(TYPE_INSTANCE);
 		createEReference(typeInstanceEClass, TYPE_INSTANCE__TYPE);
 
-		typeSetInstanceEClass = createEClass(TYPE_SET_INSTANCE);
-		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__TYPE_SET);
-		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__TOKENS);
-
 		typeProductInstanceEClass = createEClass(TYPE_PRODUCT_INSTANCE);
 		createEReference(typeProductInstanceEClass, TYPE_PRODUCT_INSTANCE__TYPES);
+
+		abstractTypeSetEClass = createEClass(ABSTRACT_TYPE_SET);
+		createEReference(abstractTypeSetEClass, ABSTRACT_TYPE_SET__ELEMENTS);
+
+		typeSetInstanceEClass = createEClass(TYPE_SET_INSTANCE);
+		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__TYPE_SET);
+
+		anonymousTypeSetEClass = createEClass(ANONYMOUS_TYPE_SET);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -1364,10 +1424,14 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		featurePropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		pointPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		bindingPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
-		typeTokenInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		typeSetElementEClass.getESuperTypes().add(getEMV2InstanceObject());
+		typeTokenInstanceEClass.getESuperTypes().add(getTypeSetElement());
 		typeInstanceEClass.getESuperTypes().add(getTypeTokenInstance());
-		typeSetInstanceEClass.getESuperTypes().add(getTypeTokenInstance());
 		typeProductInstanceEClass.getESuperTypes().add(getTypeTokenInstance());
+		abstractTypeSetEClass.getESuperTypes().add(getEMV2InstanceObject());
+		typeSetInstanceEClass.getESuperTypes().add(getAbstractTypeSet());
+		typeSetInstanceEClass.getESuperTypes().add(getTypeSetElement());
+		anonymousTypeSetEClass.getESuperTypes().add(getAbstractTypeSet());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -1571,21 +1635,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getErrorPropagationInstance_OutErrorPropagation(), theErrorModelPackage.getErrorPropagation(),
 				null, "outErrorPropagation", null, 0, 1, ErrorPropagationInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorPropagationInstance_InTokens(), getTypeTokenInstance(), null, "inTokens", null, 0, -1,
+		initEReference(getErrorPropagationInstance_InTypeSet(), getAnonymousTypeSet(), null, "inTypeSet", null, 0, 1,
 				ErrorPropagationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorPropagationInstance_OutTokens(), getTypeTokenInstance(), null, "outTokens", null, 0, -1,
+		initEReference(getErrorPropagationInstance_OutTypeSet(), getAnonymousTypeSet(), null, "outTypeSet", null, 0, 1,
 				ErrorPropagationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(errorPropagationInstanceEClass, theAadl2Package.getDirectionType(), "getDirection", 0, 1,
 				IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(errorPropagationInstanceEClass, getTypeTokenInstance(), "getAllInTokens", 0, -1, IS_UNIQUE,
-				IS_ORDERED);
-
-		addEOperation(errorPropagationInstanceEClass, getTypeTokenInstance(), "getAllOutTokens", 0, -1, IS_UNIQUE,
-				IS_ORDERED);
 
 		initEClass(featurePropagationEClass, FeaturePropagation.class, "FeaturePropagation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1605,6 +1663,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				BindingPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 
+		initEClass(typeSetElementEClass, TypeSetElement.class, "TypeSetElement", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(typeTokenInstanceEClass, TypeTokenInstance.class, "TypeTokenInstance", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
@@ -1617,25 +1678,31 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		addEOperation(typeInstanceEClass, theErrorModelPackage.getErrorType(), "getResolvedType", 0, 1, IS_UNIQUE,
 				IS_ORDERED);
 
-		initEClass(typeSetInstanceEClass, TypeSetInstance.class, "TypeSetInstance", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeSetInstance_TypeSet(), theErrorModelPackage.getTypeSet(), null, "typeSet", null, 0, 1,
-				TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeSetInstance_Tokens(), getTypeTokenInstance(), null, "tokens", null, 0, -1,
-				TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(typeSetInstanceEClass, theErrorModelPackage.getTypeSet(), "getResolvedTypeSet", 0, 1, IS_UNIQUE,
-				IS_ORDERED);
-
-		addEOperation(typeSetInstanceEClass, getTypeTokenInstance(), "getAllTokens", 0, -1, IS_UNIQUE, IS_ORDERED);
-
 		initEClass(typeProductInstanceEClass, TypeProductInstance.class, "TypeProductInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeProductInstance_Types(), getTypeInstance(), null, "types", null, 0, -1,
 				TypeProductInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(abstractTypeSetEClass, AbstractTypeSet.class, "AbstractTypeSet", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAbstractTypeSet_Elements(), getTypeSetElement(), null, "elements", null, 0, -1,
+				AbstractTypeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(abstractTypeSetEClass, getTypeTokenInstance(), "flatten", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(typeSetInstanceEClass, TypeSetInstance.class, "TypeSetInstance", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeSetInstance_TypeSet(), theErrorModelPackage.getTypeSet(), null, "typeSet", null, 0, 1,
+				TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(typeSetInstanceEClass, theErrorModelPackage.getTypeSet(), "getResolvedTypeSet", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
+
+		initEClass(anonymousTypeSetEClass, AnonymousTypeSet.class, "AnonymousTypeSet", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

@@ -23,45 +23,53 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
+import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Type Set Instance</b></em>'.
+ * An implementation of the model object '<em><b>Abstract Type Set</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl#getTypeSet <em>Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.AbstractTypeSetImpl#getElements <em>Elements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class TypeSetInstanceImpl extends AbstractTypeSetImpl implements TypeSetInstance {
+public abstract class AbstractTypeSetImpl extends EMV2InstanceObjectImpl implements AbstractTypeSet {
 	/**
-	 * The cached value of the '{@link #getTypeSet() <em>Type Set</em>}' reference.
+	 * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTypeSet()
+	 * @see #getElements()
 	 * @generated
 	 * @ordered
 	 */
-	protected TypeSet typeSet;
+	protected EList<TypeSetElement> elements;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TypeSetInstanceImpl() {
+	protected AbstractTypeSetImpl() {
 		super();
 	}
 
@@ -72,7 +80,7 @@ public class TypeSetInstanceImpl extends AbstractTypeSetImpl implements TypeSetI
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.TYPE_SET_INSTANCE;
+		return EMV2InstancePackage.Literals.ABSTRACT_TYPE_SET;
 	}
 
 	/**
@@ -81,42 +89,12 @@ public class TypeSetInstanceImpl extends AbstractTypeSetImpl implements TypeSetI
 	 * @generated
 	 */
 	@Override
-	public TypeSet getTypeSet() {
-		if (typeSet != null && typeSet.eIsProxy()) {
-			InternalEObject oldTypeSet = (InternalEObject) typeSet;
-			typeSet = (TypeSet) eResolveProxy(oldTypeSet);
-			if (typeSet != oldTypeSet) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET, oldTypeSet, typeSet));
-				}
-			}
+	public EList<TypeSetElement> getElements() {
+		if (elements == null) {
+			elements = new EObjectContainmentEList<>(TypeSetElement.class, this,
+					EMV2InstancePackage.ABSTRACT_TYPE_SET__ELEMENTS);
 		}
-		return typeSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TypeSet basicGetTypeSet() {
-		return typeSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setTypeSet(TypeSet newTypeSet) {
-		TypeSet oldTypeSet = typeSet;
-		typeSet = newTypeSet;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET,
-					oldTypeSet, typeSet));
-		}
+		return elements;
 	}
 
 	/**
@@ -125,8 +103,36 @@ public class TypeSetInstanceImpl extends AbstractTypeSetImpl implements TypeSetI
 	 * @generated NOT
 	 */
 	@Override
-	public TypeSet getResolvedTypeSet() {
-		return EMV2Util.resolveAlias(getTypeSet());
+	public EList<TypeTokenInstance> flatten() {
+		var results = new BasicEList<TypeTokenInstance>();
+		for (var element : getElements()) {
+			if (element instanceof TypeInstance) {
+				results.add((TypeInstance) element);
+			} else if (element instanceof TypeProductInstance) {
+				results.add((TypeProductInstance) element);
+			} else if (element instanceof TypeSetInstance) {
+				results.addAll(((TypeSetInstance) element).flatten());
+			} else {
+				throw new RuntimeException(
+						"getElements() contains something other than TypeReference, TypeProductInstance, or TypeSetInstance: "
+								+ element);
+			}
+		}
+		return results;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.ABSTRACT_TYPE_SET__ELEMENTS:
+			return ((InternalEList<?>) getElements()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -137,11 +143,8 @@ public class TypeSetInstanceImpl extends AbstractTypeSetImpl implements TypeSetI
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET:
-			if (resolve) {
-				return getTypeSet();
-			}
-			return basicGetTypeSet();
+		case EMV2InstancePackage.ABSTRACT_TYPE_SET__ELEMENTS:
+			return getElements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -151,11 +154,13 @@ public class TypeSetInstanceImpl extends AbstractTypeSetImpl implements TypeSetI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET:
-			setTypeSet((TypeSet) newValue);
+		case EMV2InstancePackage.ABSTRACT_TYPE_SET__ELEMENTS:
+			getElements().clear();
+			getElements().addAll((Collection<? extends TypeSetElement>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -169,8 +174,8 @@ public class TypeSetInstanceImpl extends AbstractTypeSetImpl implements TypeSetI
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET:
-			setTypeSet((TypeSet) null);
+		case EMV2InstancePackage.ABSTRACT_TYPE_SET__ELEMENTS:
+			getElements().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -184,10 +189,10 @@ public class TypeSetInstanceImpl extends AbstractTypeSetImpl implements TypeSetI
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_SET_INSTANCE__TYPE_SET:
-			return typeSet != null;
+		case EMV2InstancePackage.ABSTRACT_TYPE_SET__ELEMENTS:
+			return elements != null && !elements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} // TypeSetInstanceImpl
+} // AbstractTypeSetImpl

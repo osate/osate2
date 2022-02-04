@@ -115,14 +115,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationInstance" abstract="true"
       eSuperTypes="#//ConstrainedInstanceObject">
     <eOperations name="getDirection" eType="ecore:EEnum ../../org.osate.aadl2/model/aadl2.ecore#//DirectionType"/>
-    <eOperations name="getAllInTokens" upperBound="-1" eType="#//TypeTokenInstance"/>
-    <eOperations name="getAllOutTokens" upperBound="-1" eType="#//TypeTokenInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inErrorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outErrorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inTokens" upperBound="-1"
-        eType="#//TypeTokenInstance" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outTokens" upperBound="-1"
-        eType="#//TypeTokenInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inTypeSet" eType="#//AnonymousTypeSet"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outTypeSet" eType="#//AnonymousTypeSet"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BindingType">
     <eLiterals name="processor"/>
@@ -141,20 +139,24 @@
   <eClassifiers xsi:type="ecore:EClass" name="BindingPropagation" eSuperTypes="#//ErrorPropagationInstance">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="binding" eType="#//BindingType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeTokenInstance" abstract="true" eSuperTypes="#//EMV2InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeSetElement" abstract="true" eSuperTypes="#//EMV2InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeTokenInstance" abstract="true" eSuperTypes="#//TypeSetElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeInstance" eSuperTypes="#//TypeTokenInstance">
     <eOperations name="getResolvedType" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeSetInstance" eSuperTypes="#//TypeTokenInstance">
-    <eOperations name="getResolvedTypeSet" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeSet"/>
-    <eOperations name="getAllTokens" upperBound="-1" eType="#//TypeTokenInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeSet"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
-        eType="#//TypeTokenInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeProductInstance" eSuperTypes="#//TypeTokenInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
         eType="#//TypeInstance" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractTypeSet" abstract="true" eSuperTypes="#//EMV2InstanceObject">
+    <eOperations name="flatten" upperBound="-1" eType="#//TypeTokenInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//TypeSetElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeSetInstance" eSuperTypes="#//AbstractTypeSet #//TypeSetElement">
+    <eOperations name="getResolvedTypeSet" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeSet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeSet"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AnonymousTypeSet" eSuperTypes="#//AbstractTypeSet"/>
 </ecore:EPackage>
