@@ -472,7 +472,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var product = EMV2InstanceFactory.eINSTANCE.createTypeProductInstance();
 		product.setName(token.getType().stream().map(NamedElement::getName).collect(Collectors.joining(" * ")));
 		for (var type : token.getType()) {
-			product.getTypes().add(createTypeInstance((ErrorType) type));
+			if (type instanceof ErrorType) {
+				product.getTypes().add(createTypeInstance((ErrorType) type));
+			}
+			// TODO Add error marker to instance model if type is a type set.
 		}
 		return product;
 	}
