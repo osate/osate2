@@ -428,7 +428,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private AnonymousTypeSet createAnonymousTypeSet(TypeSet set) {
 		var anonymousTypeSet = EMV2InstanceFactory.eINSTANCE.createAnonymousTypeSet();
-		anonymousTypeSet.getElements().addAll(createTypeSetElements(set.getTypeTokens()));
+		anonymousTypeSet.getElements().addAll(createTypeSetElements(set.getTypeTokens(), 0));
 		anonymousTypeSet.setName(anonymousTypeSet.getElements()
 				.stream()
 				.map(NamedElement::getName)
@@ -436,15 +436,17 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return anonymousTypeSet;
 	}
 
-	private List<TypeSetElement> createTypeSetElements(List<TypeToken> tokens) {
+	private List<TypeSetElement> createTypeSetElements(List<TypeToken> tokens, int depth) {
 		var results = new ArrayList<TypeSetElement>();
 		for (var token : tokens) {
 			if (token.getType().size() == 1) {
 				var type = token.getType().get(0);
 				if (type instanceof ErrorType) {
 					results.add(createTypeInstance((ErrorType) type));
+				} else if (type instanceof TypeSet) {
+					results.add(createTypeSetInstance((TypeSet) type, depth));
 				} else {
-					results.add(createTypeSetInstance((TypeSet) type));
+					throw new RuntimeException("type is something other than an ErrorType or a TypeSet: " + type);
 				}
 			} else {
 				results.add(createTypeProductInstance(token));
@@ -460,11 +462,16 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return typeInstance;
 	}
 
-	private TypeSetInstance createTypeSetInstance(TypeSet set) {
+	private TypeSetInstance createTypeSetInstance(TypeSet set, int depth) {
 		var typeSetInstance = EMV2InstanceFactory.eINSTANCE.createTypeSetInstance();
 		typeSetInstance.setName(set.getName());
 		typeSetInstance.setTypeSet(set);
-		typeSetInstance.getElements().addAll(createTypeSetElements(EMV2Util.resolveAlias(set).getTypeTokens()));
+		if (depth > 50) {
+			// TODO Add error marker stating that there is a cycle.
+		} else {
+			typeSetInstance.getElements()
+					.addAll(createTypeSetElements(EMV2Util.resolveAlias(set).getTypeTokens(), depth + 1));
+		}
 		return typeSetInstance;
 	}
 
