@@ -125,7 +125,7 @@ public class TypeInstanceImpl extends TypeTokenInstanceImpl implements TypeInsta
 	 * @generated NOT
 	 */
 	@Override
-	public ErrorType getResolvedType() {
+	public ErrorType resolveAlias() {
 		return EMV2Util.resolveAlias(getType());
 	}
 

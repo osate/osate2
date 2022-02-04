@@ -43,12 +43,12 @@ public class TypeTokensTest {
 			with((TypeInstance) propagation.getOutTypeSet().getElements().get(0), type -> {
 				assertEquals("ServiceError", type.getName());
 				assertEquals("ServiceError", type.getType().getName());
-				assertEquals("ServiceError", type.getResolvedType().getName());
+				assertEquals("ServiceError", type.resolveAlias().getName());
 			});
 			with((TypeInstance) propagation.getOutTypeSet().getElements().get(1), type -> {
 				assertEquals("TimingError", type.getName());
 				assertEquals("TimingError", type.getType().getName());
-				assertEquals("ItemTimingError", type.getResolvedType().getName());
+				assertEquals("ItemTimingError", type.resolveAlias().getName());
 			});
 		});
 	}
@@ -70,12 +70,12 @@ public class TypeTokensTest {
 				with(product.getTypes().get(0), type -> {
 					assertEquals("ServiceError", type.getName());
 					assertEquals("ServiceError", type.getType().getName());
-					assertEquals("ServiceError", type.getResolvedType().getName());
+					assertEquals("ServiceError", type.resolveAlias().getName());
 				});
 				with(product.getTypes().get(1), type -> {
 					assertEquals("TimingError", type.getName());
 					assertEquals("TimingError", type.getType().getName());
-					assertEquals("ItemTimingError", type.getResolvedType().getName());
+					assertEquals("ItemTimingError", type.resolveAlias().getName());
 				});
 			});
 		});
@@ -95,22 +95,22 @@ public class TypeTokensTest {
 			with((TypeSetInstance) propagation.getOutTypeSet().getElements().get(0), set -> {
 				assertEquals("TimingRelatedError", set.getName());
 				assertEquals("TimingRelatedError", set.getTypeSet().getName());
-				assertEquals("TimingRelatedError", set.getResolvedTypeSet().getName());
+				assertEquals("TimingRelatedError", set.resolveAlias().getName());
 				assertEquals(3, set.getElements().size());
 				with((TypeInstance) set.getElements().get(0), type -> {
 					assertEquals("ItemTimingError", type.getName());
 					assertEquals("ItemTimingError", type.getType().getName());
-					assertEquals("ItemTimingError", type.getResolvedType().getName());
+					assertEquals("ItemTimingError", type.resolveAlias().getName());
 				});
 				with((TypeInstance) set.getElements().get(1), type -> {
 					assertEquals("SequenceTimingError", type.getName());
 					assertEquals("SequenceTimingError", type.getType().getName());
-					assertEquals("SequenceTimingError", type.getResolvedType().getName());
+					assertEquals("SequenceTimingError", type.resolveAlias().getName());
 				});
 				with((TypeInstance) set.getElements().get(2), type -> {
 					assertEquals("ServiceTimingError", type.getName());
 					assertEquals("ServiceTimingError", type.getType().getName());
-					assertEquals("ServiceTimingError", type.getResolvedType().getName());
+					assertEquals("ServiceTimingError", type.resolveAlias().getName());
 				});
 				assertEquals(3, set.flatten().size());
 				assertEquals("ItemTimingError", set.flatten().get(0).getName());
@@ -120,22 +120,22 @@ public class TypeTokensTest {
 			with((TypeSetInstance) propagation.getOutTypeSet().getElements().get(1), set -> {
 				assertEquals("ValueErrors", set.getName());
 				assertEquals("ValueErrors", set.getTypeSet().getName());
-				assertEquals("ValueRelatedError", set.getResolvedTypeSet().getName());
+				assertEquals("ValueRelatedError", set.resolveAlias().getName());
 				assertEquals(3, set.getElements().size());
 				with((TypeInstance) set.getElements().get(0), type -> {
 					assertEquals("ItemValueError", type.getName());
 					assertEquals("ItemValueError", type.getType().getName());
-					assertEquals("ItemValueError", type.getResolvedType().getName());
+					assertEquals("ItemValueError", type.resolveAlias().getName());
 				});
 				with((TypeInstance) set.getElements().get(1), type -> {
 					assertEquals("SequenceValueError", type.getName());
 					assertEquals("SequenceValueError", type.getType().getName());
-					assertEquals("SequenceValueError", type.getResolvedType().getName());
+					assertEquals("SequenceValueError", type.resolveAlias().getName());
 				});
 				with((TypeInstance) set.getElements().get(2), type -> {
 					assertEquals("ServiceValueError", type.getName());
 					assertEquals("ServiceValueError", type.getType().getName());
-					assertEquals("ServiceValueError", type.getResolvedType().getName());
+					assertEquals("ServiceValueError", type.resolveAlias().getName());
 				});
 				assertEquals(3, set.flatten().size());
 				assertEquals("ItemValueError", set.flatten().get(0).getName());
@@ -159,32 +159,32 @@ public class TypeTokensTest {
 			with((TypeSetInstance) propagation.getOutTypeSet().getElements().get(0), element -> {
 				assertEquals("CommonErrors", element.getName());
 				assertEquals("CommonErrors", element.getTypeSet().getName());
-				assertEquals("CommonErrors", element.getResolvedTypeSet().getName());
+				assertEquals("CommonErrors", element.resolveAlias().getName());
 				assertEquals(5, element.getElements().size());
 				with((TypeInstance) element.getElements().get(0), type -> {
 					assertEquals("ServiceError", type.getName());
 					assertEquals("ServiceError", type.getType().getName());
-					assertEquals("ServiceError", type.getResolvedType().getName());
+					assertEquals("ServiceError", type.resolveAlias().getName());
 				});
 				with((TypeSetInstance) element.getElements().get(1), set -> {
 					assertEquals("TimingRelatedError", set.getName());
 					assertEquals("TimingRelatedError", set.getTypeSet().getName());
-					assertEquals("TimingRelatedError", set.getResolvedTypeSet().getName());
+					assertEquals("TimingRelatedError", set.resolveAlias().getName());
 					assertEquals(3, set.getElements().size());
 					with((TypeInstance) set.getElements().get(0), type -> {
 						assertEquals("ItemTimingError", type.getName());
 						assertEquals("ItemTimingError", type.getType().getName());
-						assertEquals("ItemTimingError", type.getResolvedType().getName());
+						assertEquals("ItemTimingError", type.resolveAlias().getName());
 					});
 					with((TypeInstance) set.getElements().get(1), type -> {
 						assertEquals("SequenceTimingError", type.getName());
 						assertEquals("SequenceTimingError", type.getType().getName());
-						assertEquals("SequenceTimingError", type.getResolvedType().getName());
+						assertEquals("SequenceTimingError", type.resolveAlias().getName());
 					});
 					with((TypeInstance) set.getElements().get(2), type -> {
 						assertEquals("ServiceTimingError", type.getName());
 						assertEquals("ServiceTimingError", type.getType().getName());
-						assertEquals("ServiceTimingError", type.getResolvedType().getName());
+						assertEquals("ServiceTimingError", type.resolveAlias().getName());
 					});
 					assertEquals(3, set.flatten().size());
 					assertEquals("ItemTimingError", set.flatten().get(0).getName());
@@ -194,22 +194,22 @@ public class TypeTokensTest {
 				with((TypeSetInstance) element.getElements().get(2), set -> {
 					assertEquals("ValueRelatedError", set.getName());
 					assertEquals("ValueRelatedError", set.getTypeSet().getName());
-					assertEquals("ValueRelatedError", set.getResolvedTypeSet().getName());
+					assertEquals("ValueRelatedError", set.resolveAlias().getName());
 					assertEquals(3, set.getElements().size());
 					with((TypeInstance) set.getElements().get(0), type -> {
 						assertEquals("ItemValueError", type.getName());
 						assertEquals("ItemValueError", type.getType().getName());
-						assertEquals("ItemValueError", type.getResolvedType().getName());
+						assertEquals("ItemValueError", type.resolveAlias().getName());
 					});
 					with((TypeInstance) set.getElements().get(1), type -> {
 						assertEquals("SequenceValueError", type.getName());
 						assertEquals("SequenceValueError", type.getType().getName());
-						assertEquals("SequenceValueError", type.getResolvedType().getName());
+						assertEquals("SequenceValueError", type.resolveAlias().getName());
 					});
 					with((TypeInstance) set.getElements().get(2), type -> {
 						assertEquals("ServiceValueError", type.getName());
 						assertEquals("ServiceValueError", type.getType().getName());
-						assertEquals("ServiceValueError", type.getResolvedType().getName());
+						assertEquals("ServiceValueError", type.resolveAlias().getName());
 					});
 					assertEquals(3, set.flatten().size());
 					assertEquals("ItemValueError", set.flatten().get(0).getName());
@@ -219,12 +219,12 @@ public class TypeTokensTest {
 				with((TypeInstance) element.getElements().get(3), type -> {
 					assertEquals("ReplicationError", type.getName());
 					assertEquals("ReplicationError", type.getType().getName());
-					assertEquals("ReplicationError", type.getResolvedType().getName());
+					assertEquals("ReplicationError", type.resolveAlias().getName());
 				});
 				with((TypeInstance) element.getElements().get(4), type -> {
 					assertEquals("ConcurrencyError", type.getName());
 					assertEquals("ConcurrencyError", type.getType().getName());
-					assertEquals("ConcurrencyError", type.getResolvedType().getName());
+					assertEquals("ConcurrencyError", type.resolveAlias().getName());
 				});
 				assertEquals(9, element.flatten().size());
 				assertEquals("ServiceError", element.flatten().get(0).getName());
@@ -254,7 +254,7 @@ public class TypeTokensTest {
 			with((TypeSetInstance) propagation.getOutTypeSet().getElements().get(0), set -> {
 				assertEquals("ProductSet", set.getName());
 				assertEquals("ProductSet", set.getTypeSet().getName());
-				assertEquals("ProductSet", set.getResolvedTypeSet().getName());
+				assertEquals("ProductSet", set.resolveAlias().getName());
 				assertEquals(1, set.getElements().size());
 				with((TypeProductInstance) set.getElements().get(0), product -> {
 					assertEquals("ServiceError * ItemTimingError", product.getName());
@@ -262,12 +262,12 @@ public class TypeTokensTest {
 					with(product.getTypes().get(0), type -> {
 						assertEquals("ServiceError", type.getName());
 						assertEquals("ServiceError", type.getType().getName());
-						assertEquals("ServiceError", type.getResolvedType().getName());
+						assertEquals("ServiceError", type.resolveAlias().getName());
 					});
 					with(product.getTypes().get(1), type -> {
 						assertEquals("ItemTimingError", type.getName());
 						assertEquals("ItemTimingError", type.getType().getName());
-						assertEquals("ItemTimingError", type.getResolvedType().getName());
+						assertEquals("ItemTimingError", type.resolveAlias().getName());
 					});
 				});
 				assertEquals(1, set.flatten().size());
@@ -292,37 +292,37 @@ public class TypeTokensTest {
 			with((TypeInstance) propagation.getInTypeSet().getElements().get(0), element -> {
 				assertEquals("Error1", element.getName());
 				assertEquals("Error1", element.getType().getName());
-				assertEquals("Error1", element.getResolvedType().getName());
+				assertEquals("Error1", element.resolveAlias().getName());
 			});
 			with((TypeSetInstance) propagation.getInTypeSet().getElements().get(1), element -> {
 				assertEquals("CommonErrors", element.getName());
 				assertEquals("CommonErrors", element.getTypeSet().getName());
-				assertEquals("CommonErrors", element.getResolvedTypeSet().getName());
+				assertEquals("CommonErrors", element.resolveAlias().getName());
 				assertEquals(5, element.getElements().size());
 				with((TypeInstance) element.getElements().get(0), type -> {
 					assertEquals("ServiceError", type.getName());
 					assertEquals("ServiceError", type.getType().getName());
-					assertEquals("ServiceError", type.getResolvedType().getName());
+					assertEquals("ServiceError", type.resolveAlias().getName());
 				});
 				with((TypeSetInstance) element.getElements().get(1), set -> {
 					assertEquals("TimingRelatedError", set.getName());
 					assertEquals("TimingRelatedError", set.getTypeSet().getName());
-					assertEquals("TimingRelatedError", set.getResolvedTypeSet().getName());
+					assertEquals("TimingRelatedError", set.resolveAlias().getName());
 					assertEquals(3, set.getElements().size());
 					with((TypeInstance) set.getElements().get(0), type -> {
 						assertEquals("ItemTimingError", type.getName());
 						assertEquals("ItemTimingError", type.getType().getName());
-						assertEquals("ItemTimingError", type.getResolvedType().getName());
+						assertEquals("ItemTimingError", type.resolveAlias().getName());
 					});
 					with((TypeInstance) set.getElements().get(1), type -> {
 						assertEquals("SequenceTimingError", type.getName());
 						assertEquals("SequenceTimingError", type.getType().getName());
-						assertEquals("SequenceTimingError", type.getResolvedType().getName());
+						assertEquals("SequenceTimingError", type.resolveAlias().getName());
 					});
 					with((TypeInstance) set.getElements().get(2), type -> {
 						assertEquals("ServiceTimingError", type.getName());
 						assertEquals("ServiceTimingError", type.getType().getName());
-						assertEquals("ServiceTimingError", type.getResolvedType().getName());
+						assertEquals("ServiceTimingError", type.resolveAlias().getName());
 					});
 					assertEquals(3, set.flatten().size());
 					assertEquals("ItemTimingError", set.flatten().get(0).getName());
@@ -332,22 +332,22 @@ public class TypeTokensTest {
 				with((TypeSetInstance) element.getElements().get(2), set -> {
 					assertEquals("ValueRelatedError", set.getName());
 					assertEquals("ValueRelatedError", set.getTypeSet().getName());
-					assertEquals("ValueRelatedError", set.getResolvedTypeSet().getName());
+					assertEquals("ValueRelatedError", set.resolveAlias().getName());
 					assertEquals(3, set.getElements().size());
 					with((TypeInstance) set.getElements().get(0), type -> {
 						assertEquals("ItemValueError", type.getName());
 						assertEquals("ItemValueError", type.getType().getName());
-						assertEquals("ItemValueError", type.getResolvedType().getName());
+						assertEquals("ItemValueError", type.resolveAlias().getName());
 					});
 					with((TypeInstance) set.getElements().get(1), type -> {
 						assertEquals("SequenceValueError", type.getName());
 						assertEquals("SequenceValueError", type.getType().getName());
-						assertEquals("SequenceValueError", type.getResolvedType().getName());
+						assertEquals("SequenceValueError", type.resolveAlias().getName());
 					});
 					with((TypeInstance) set.getElements().get(2), type -> {
 						assertEquals("ServiceValueError", type.getName());
 						assertEquals("ServiceValueError", type.getType().getName());
-						assertEquals("ServiceValueError", type.getResolvedType().getName());
+						assertEquals("ServiceValueError", type.resolveAlias().getName());
 					});
 					assertEquals(3, set.flatten().size());
 					assertEquals("ItemValueError", set.flatten().get(0).getName());
@@ -357,12 +357,12 @@ public class TypeTokensTest {
 				with((TypeInstance) element.getElements().get(3), type -> {
 					assertEquals("ReplicationError", type.getName());
 					assertEquals("ReplicationError", type.getType().getName());
-					assertEquals("ReplicationError", type.getResolvedType().getName());
+					assertEquals("ReplicationError", type.resolveAlias().getName());
 				});
 				with((TypeInstance) element.getElements().get(4), type -> {
 					assertEquals("ConcurrencyError", type.getName());
 					assertEquals("ConcurrencyError", type.getType().getName());
-					assertEquals("ConcurrencyError", type.getResolvedType().getName());
+					assertEquals("ConcurrencyError", type.resolveAlias().getName());
 				});
 				assertEquals(9, element.flatten().size());
 				assertEquals("ServiceError", element.flatten().get(0).getName());
@@ -381,18 +381,18 @@ public class TypeTokensTest {
 				with(element.getTypes().get(0), type -> {
 					assertEquals("Error2", type.getName());
 					assertEquals("Error2", type.getType().getName());
-					assertEquals("Error2", type.getResolvedType().getName());
+					assertEquals("Error2", type.resolveAlias().getName());
 				});
 				with(element.getTypes().get(1), type -> {
 					assertEquals("Error3", type.getName());
 					assertEquals("Error3", type.getType().getName());
-					assertEquals("Error3", type.getResolvedType().getName());
+					assertEquals("Error3", type.resolveAlias().getName());
 				});
 			});
 			with((TypeSetInstance) propagation.getInTypeSet().getElements().get(3), element -> {
 				assertEquals("ProductSet", element.getName());
 				assertEquals("ProductSet", element.getTypeSet().getName());
-				assertEquals("ProductSet", element.getResolvedTypeSet().getName());
+				assertEquals("ProductSet", element.resolveAlias().getName());
 				assertEquals(2, element.getElements().size());
 				with((TypeProductInstance) element.getElements().get(0), product -> {
 					assertEquals("Error4 * Error5", product.getName());
@@ -400,18 +400,18 @@ public class TypeTokensTest {
 					with(product.getTypes().get(0), type -> {
 						assertEquals("Error4", type.getName());
 						assertEquals("Error4", type.getType().getName());
-						assertEquals("Error4", type.getResolvedType().getName());
+						assertEquals("Error4", type.resolveAlias().getName());
 					});
 					with(product.getTypes().get(1), type -> {
 						assertEquals("Error5", type.getName());
 						assertEquals("Error5", type.getType().getName());
-						assertEquals("Error5", type.getResolvedType().getName());
+						assertEquals("Error5", type.resolveAlias().getName());
 					});
 				});
 				with((TypeInstance) element.getElements().get(1), type -> {
 					assertEquals("Error6", type.getName());
 					assertEquals("Error6", type.getType().getName());
-					assertEquals("Error6", type.getResolvedType().getName());
+					assertEquals("Error6", type.resolveAlias().getName());
 				});
 				assertEquals(2, element.flatten().size());
 				assertEquals("Error4 * Error5", element.flatten().get(0).getName());
@@ -420,27 +420,27 @@ public class TypeTokensTest {
 			with((TypeInstance) propagation.getOutTypeSet().getElements().get(0), element -> {
 				assertEquals("ServiceError", element.getName());
 				assertEquals("ServiceError", element.getType().getName());
-				assertEquals("ServiceError", element.getResolvedType().getName());
+				assertEquals("ServiceError", element.resolveAlias().getName());
 			});
 			with((TypeSetInstance) propagation.getOutTypeSet().getElements().get(1), element -> {
 				assertEquals("TimingRelatedError", element.getName());
 				assertEquals("TimingRelatedError", element.getTypeSet().getName());
-				assertEquals("TimingRelatedError", element.getResolvedTypeSet().getName());
+				assertEquals("TimingRelatedError", element.resolveAlias().getName());
 				assertEquals(3, element.getElements().size());
 				with((TypeInstance) element.getElements().get(0), type -> {
 					assertEquals("ItemTimingError", type.getName());
 					assertEquals("ItemTimingError", type.getType().getName());
-					assertEquals("ItemTimingError", type.getResolvedType().getName());
+					assertEquals("ItemTimingError", type.resolveAlias().getName());
 				});
 				with((TypeInstance) element.getElements().get(1), type -> {
 					assertEquals("SequenceTimingError", type.getName());
 					assertEquals("SequenceTimingError", type.getType().getName());
-					assertEquals("SequenceTimingError", type.getResolvedType().getName());
+					assertEquals("SequenceTimingError", type.resolveAlias().getName());
 				});
 				with((TypeInstance) element.getElements().get(2), type -> {
 					assertEquals("ServiceTimingError", type.getName());
 					assertEquals("ServiceTimingError", type.getType().getName());
-					assertEquals("ServiceTimingError", type.getResolvedType().getName());
+					assertEquals("ServiceTimingError", type.resolveAlias().getName());
 				});
 				assertEquals(3, element.flatten().size());
 				assertEquals("ItemTimingError", element.flatten().get(0).getName());
@@ -453,12 +453,12 @@ public class TypeTokensTest {
 				with(element.getTypes().get(0), type -> {
 					assertEquals("ReplicationError", type.getName());
 					assertEquals("ReplicationError", type.getType().getName());
-					assertEquals("ReplicationError", type.getResolvedType().getName());
+					assertEquals("ReplicationError", type.resolveAlias().getName());
 				});
 				with(element.getTypes().get(1), type -> {
 					assertEquals("ConcurrencyError", type.getName());
 					assertEquals("ConcurrencyError", type.getType().getName());
-					assertEquals("ConcurrencyError", type.getResolvedType().getName());
+					assertEquals("ConcurrencyError", type.resolveAlias().getName());
 				});
 			});
 			assertEquals(13, propagation.getInTypeSet().flatten().size());

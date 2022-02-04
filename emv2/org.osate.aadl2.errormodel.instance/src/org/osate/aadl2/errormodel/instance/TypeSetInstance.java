@@ -67,9 +67,9 @@ public interface TypeSetInstance extends AbstractTypeSet, TypeSetElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation"
+	 * @model
 	 * @generated
 	 */
-	TypeSet getResolvedTypeSet();
+	TypeSet resolveAlias();
 
 } // TypeSetInstance

@@ -122,7 +122,7 @@
     <genClasses image="false" ecoreClass="EMV2Instance.ecore#//TypeTokenInstance"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//TypeInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TypeInstance/type"/>
-      <genOperations ecoreOperation="EMV2Instance.ecore#//TypeInstance/getResolvedType"/>
+      <genOperations ecoreOperation="EMV2Instance.ecore#//TypeInstance/resolveAlias"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//TypeProductInstance">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TypeProductInstance/types"/>
@@ -133,7 +133,7 @@
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//TypeSetInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TypeSetInstance/typeSet"/>
-      <genOperations ecoreOperation="EMV2Instance.ecore#//TypeSetInstance/getResolvedTypeSet"/>
+      <genOperations ecoreOperation="EMV2Instance.ecore#//TypeSetInstance/resolveAlias"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//AnonymousTypeSet"/>
   </genPackages>

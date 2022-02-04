@@ -1675,7 +1675,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				TypeInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(typeInstanceEClass, theErrorModelPackage.getErrorType(), "getResolvedType", 0, 1, IS_UNIQUE,
+		addEOperation(typeInstanceEClass, theErrorModelPackage.getErrorType(), "resolveAlias", 0, 1, IS_UNIQUE,
 				IS_ORDERED);
 
 		initEClass(typeProductInstanceEClass, TypeProductInstance.class, "TypeProductInstance", !IS_ABSTRACT,
@@ -1698,7 +1698,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(typeSetInstanceEClass, theErrorModelPackage.getTypeSet(), "getResolvedTypeSet", 0, 1, IS_UNIQUE,
+		addEOperation(typeSetInstanceEClass, theErrorModelPackage.getTypeSet(), "resolveAlias", 0, 1, IS_UNIQUE,
 				IS_ORDERED);
 
 		initEClass(anonymousTypeSetEClass, AnonymousTypeSet.class, "AnonymousTypeSet", !IS_ABSTRACT, !IS_INTERFACE,

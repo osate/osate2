@@ -67,9 +67,9 @@ public interface TypeInstance extends TypeTokenInstance {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation"
+	 * @model
 	 * @generated
 	 */
-	ErrorType getResolvedType();
+	ErrorType resolveAlias();
 
 } // TypeInstance

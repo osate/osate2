@@ -125,7 +125,7 @@ public class TypeSetInstanceImpl extends AbstractTypeSetImpl implements TypeSetI
 	 * @generated NOT
 	 */
 	@Override
-	public TypeSet getResolvedTypeSet() {
+	public TypeSet resolveAlias() {
 		return EMV2Util.resolveAlias(getTypeSet());
 	}
 
