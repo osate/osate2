@@ -48,8 +48,8 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
-import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
@@ -545,23 +545,23 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.TYPE_REFERENCE: {
-			TypeReference typeReference = (TypeReference) theEObject;
-			T result = caseTypeReference(typeReference);
+		case EMV2InstancePackage.TYPE_INSTANCE: {
+			TypeInstance typeInstance = (TypeInstance) theEObject;
+			T result = caseTypeInstance(typeInstance);
 			if (result == null) {
-				result = caseTypeTokenInstance(typeReference);
+				result = caseTypeTokenInstance(typeInstance);
 			}
 			if (result == null) {
-				result = caseEMV2InstanceObject(typeReference);
+				result = caseEMV2InstanceObject(typeInstance);
 			}
 			if (result == null) {
-				result = caseInstanceObject(typeReference);
+				result = caseInstanceObject(typeInstance);
 			}
 			if (result == null) {
-				result = caseNamedElement(typeReference);
+				result = caseNamedElement(typeInstance);
 			}
 			if (result == null) {
-				result = caseElement(typeReference);
+				result = caseElement(typeInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -920,17 +920,17 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Type Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Type Instance</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTypeReference(TypeReference object) {
+	public T caseTypeInstance(TypeInstance object) {
 		return null;
 	}
 

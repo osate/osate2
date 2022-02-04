@@ -49,8 +49,8 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
-import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
@@ -212,8 +212,8 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseTypeReference(TypeReference object) {
-			return createTypeReferenceAdapter();
+		public Adapter caseTypeInstance(TypeInstance object) {
+			return createTypeInstanceAdapter();
 		}
 
 		@Override
@@ -546,16 +546,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TypeReference <em>Type Reference</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TypeInstance <em>Type Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.TypeReference
+	 * @see org.osate.aadl2.errormodel.instance.TypeInstance
 	 * @generated
 	 */
-	public Adapter createTypeReferenceAdapter() {
+	public Adapter createTypeInstanceAdapter() {
 		return null;
 	}
 

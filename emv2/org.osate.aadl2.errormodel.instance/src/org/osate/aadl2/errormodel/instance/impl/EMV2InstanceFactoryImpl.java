@@ -49,8 +49,8 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
-import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 
 /**
@@ -129,8 +129,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createPointPropagation();
 		case EMV2InstancePackage.BINDING_PROPAGATION:
 			return createBindingPropagation();
-		case EMV2InstancePackage.TYPE_REFERENCE:
-			return createTypeReference();
+		case EMV2InstancePackage.TYPE_INSTANCE:
+			return createTypeInstance();
 		case EMV2InstancePackage.TYPE_SET_INSTANCE:
 			return createTypeSetInstance();
 		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE:
@@ -356,9 +356,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public TypeReference createTypeReference() {
-		TypeReferenceImpl typeReference = new TypeReferenceImpl();
-		return typeReference;
+	public TypeInstance createTypeInstance() {
+		TypeInstanceImpl typeInstance = new TypeInstanceImpl();
+		return typeInstance;
 	}
 
 	/**

@@ -121,9 +121,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//BindingPropagation/binding"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EMV2Instance.ecore#//TypeTokenInstance"/>
-    <genClasses ecoreClass="EMV2Instance.ecore#//TypeReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TypeReference/type"/>
-      <genOperations ecoreOperation="EMV2Instance.ecore#//TypeReference/getResolvedType"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//TypeInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TypeInstance/type"/>
+      <genOperations ecoreOperation="EMV2Instance.ecore#//TypeInstance/getResolvedType"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//TypeSetInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TypeSetInstance/typeSet"/>

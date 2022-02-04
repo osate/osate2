@@ -54,8 +54,8 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
-import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.InstancePackage;
@@ -213,7 +213,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass typeReferenceEClass = null;
+	private EClass typeInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1080,8 +1080,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getTypeReference() {
-		return typeReferenceEClass;
+	public EClass getTypeInstance() {
+		return typeInstanceEClass;
 	}
 
 	/**
@@ -1090,8 +1090,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getTypeReference_Type() {
-		return (EReference) typeReferenceEClass.getEStructuralFeatures().get(0);
+	public EReference getTypeInstance_Type() {
+		return (EReference) typeInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1292,8 +1292,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		typeTokenInstanceEClass = createEClass(TYPE_TOKEN_INSTANCE);
 
-		typeReferenceEClass = createEClass(TYPE_REFERENCE);
-		createEReference(typeReferenceEClass, TYPE_REFERENCE__TYPE);
+		typeInstanceEClass = createEClass(TYPE_INSTANCE);
+		createEReference(typeInstanceEClass, TYPE_INSTANCE__TYPE);
 
 		typeSetInstanceEClass = createEClass(TYPE_SET_INSTANCE);
 		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__TYPE_SET);
@@ -1365,7 +1365,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		pointPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		bindingPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		typeTokenInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
-		typeReferenceEClass.getESuperTypes().add(getTypeTokenInstance());
+		typeInstanceEClass.getESuperTypes().add(getTypeTokenInstance());
 		typeSetInstanceEClass.getESuperTypes().add(getTypeTokenInstance());
 		typeProductInstanceEClass.getESuperTypes().add(getTypeTokenInstance());
 
@@ -1608,13 +1608,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEClass(typeTokenInstanceEClass, TypeTokenInstance.class, "TypeTokenInstance", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(typeReferenceEClass, TypeReference.class, "TypeReference", !IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(typeInstanceEClass, TypeInstance.class, "TypeInstance", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeReference_Type(), theErrorModelPackage.getErrorType(), null, "type", null, 0, 1,
-				TypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+		initEReference(getTypeInstance_Type(), theErrorModelPackage.getErrorType(), null, "type", null, 0, 1,
+				TypeInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(typeReferenceEClass, theErrorModelPackage.getErrorType(), "getResolvedType", 0, 1, IS_UNIQUE,
+		addEOperation(typeInstanceEClass, theErrorModelPackage.getErrorType(), "getResolvedType", 0, 1, IS_UNIQUE,
 				IS_ORDERED);
 
 		initEClass(typeSetInstanceEClass, TypeSetInstance.class, "TypeSetInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -1633,7 +1633,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(typeProductInstanceEClass, TypeProductInstance.class, "TypeProductInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeProductInstance_Types(), getTypeReference(), null, "types", null, 0, -1,
+		initEReference(getTypeProductInstance_Types(), getTypeInstance(), null, "types", null, 0, -1,
 				TypeProductInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

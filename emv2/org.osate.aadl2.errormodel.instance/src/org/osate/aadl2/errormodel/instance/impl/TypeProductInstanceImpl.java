@@ -32,8 +32,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
-import org.osate.aadl2.errormodel.instance.TypeReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -57,7 +57,7 @@ public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements Ty
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TypeReference> types;
+	protected EList<TypeInstance> types;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,9 +84,9 @@ public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements Ty
 	 * @generated
 	 */
 	@Override
-	public EList<TypeReference> getTypes() {
+	public EList<TypeInstance> getTypes() {
 		if (types == null) {
-			types = new EObjectContainmentEList<>(TypeReference.class, this,
+			types = new EObjectContainmentEList<>(TypeInstance.class, this,
 					EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES);
 		}
 		return types;
@@ -131,7 +131,7 @@ public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements Ty
 		switch (featureID) {
 		case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE__TYPES:
 			getTypes().clear();
-			getTypes().addAll((Collection<? extends TypeReference>) newValue);
+			getTypes().addAll((Collection<? extends TypeInstance>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

@@ -37,8 +37,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
-import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -269,7 +269,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	public EList<TypeTokenInstance> getAllInTokens() {
 		var results = new BasicEList<TypeTokenInstance>();
 		for (var token : getInTokens()) {
-			if (token instanceof TypeReference || token instanceof TypeProductInstance) {
+			if (token instanceof TypeInstance || token instanceof TypeProductInstance) {
 				results.add(token);
 			} else if (token instanceof TypeSetInstance) {
 				results.addAll(((TypeSetInstance) token).getAllTokens());
@@ -291,7 +291,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	public EList<TypeTokenInstance> getAllOutTokens() {
 		var results = new BasicEList<TypeTokenInstance>();
 		for (var token : getOutTokens()) {
-			if (token instanceof TypeReference || token instanceof TypeProductInstance) {
+			if (token instanceof TypeInstance || token instanceof TypeProductInstance) {
 				results.add(token);
 			} else if (token instanceof TypeSetInstance) {
 				results.addAll(((TypeSetInstance) token).getAllTokens());

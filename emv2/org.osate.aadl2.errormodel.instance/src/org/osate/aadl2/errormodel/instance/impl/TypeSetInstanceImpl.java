@@ -35,8 +35,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
-import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -173,7 +173,7 @@ public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSe
 	public EList<TypeTokenInstance> getAllTokens() {
 		var results = new BasicEList<TypeTokenInstance>();
 		for (var token : getTokens()) {
-			if (token instanceof TypeReference || token instanceof TypeProductInstance) {
+			if (token instanceof TypeInstance || token instanceof TypeProductInstance) {
 				results.add(token);
 			} else if (token instanceof TypeSetInstance) {
 				results.addAll(((TypeSetInstance) token).getAllTokens());

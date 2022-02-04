@@ -2259,14 +2259,14 @@ public interface EMV2InstancePackage extends EPackage {
 	int TYPE_TOKEN_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl <em>Type Reference</em>}' class.
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeInstanceImpl <em>Type Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl
-	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeReference()
+	 * @see org.osate.aadl2.errormodel.instance.impl.TypeInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeInstance()
 	 * @generated
 	 */
-	int TYPE_REFERENCE = 20;
+	int TYPE_INSTANCE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2275,7 +2275,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE__OWNED_ELEMENT = TYPE_TOKEN_INSTANCE__OWNED_ELEMENT;
+	int TYPE_INSTANCE__OWNED_ELEMENT = TYPE_TOKEN_INSTANCE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2284,7 +2284,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE__OWNED_COMMENT = TYPE_TOKEN_INSTANCE__OWNED_COMMENT;
+	int TYPE_INSTANCE__OWNED_COMMENT = TYPE_TOKEN_INSTANCE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2293,7 +2293,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE__NAME = TYPE_TOKEN_INSTANCE__NAME;
+	int TYPE_INSTANCE__NAME = TYPE_TOKEN_INSTANCE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -2302,7 +2302,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE__QUALIFIED_NAME = TYPE_TOKEN_INSTANCE__QUALIFIED_NAME;
+	int TYPE_INSTANCE__QUALIFIED_NAME = TYPE_TOKEN_INSTANCE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -2311,7 +2311,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE__OWNED_PROPERTY_ASSOCIATION = TYPE_TOKEN_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+	int TYPE_INSTANCE__OWNED_PROPERTY_ASSOCIATION = TYPE_TOKEN_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
@@ -2320,7 +2320,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE__ANNEX_INSTANCE = TYPE_TOKEN_INSTANCE__ANNEX_INSTANCE;
+	int TYPE_INSTANCE__ANNEX_INSTANCE = TYPE_TOKEN_INSTANCE__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2329,16 +2329,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE__TYPE = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 0;
+	int TYPE_INSTANCE__TYPE = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Type Reference</em>' class.
+	 * The number of structural features of the '<em>Type Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_REFERENCE_FEATURE_COUNT = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 1;
+	int TYPE_INSTANCE_FEATURE_COUNT = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl <em>Type Set Instance</em>}' class.
@@ -3350,25 +3350,25 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getTypeTokenInstance();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TypeReference <em>Type Reference</em>}'.
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TypeInstance <em>Type Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Type Reference</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TypeReference
+	 * @return the meta object for class '<em>Type Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeInstance
 	 * @generated
 	 */
-	EClass getTypeReference();
+	EClass getTypeInstance();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeReference#getType <em>Type</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeInstance#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Type</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TypeReference#getType()
-	 * @see #getTypeReference()
+	 * @see org.osate.aadl2.errormodel.instance.TypeInstance#getType()
+	 * @see #getTypeInstance()
 	 * @generated
 	 */
-	EReference getTypeReference_Type();
+	EReference getTypeInstance_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance <em>Type Set Instance</em>}'.
@@ -4125,14 +4125,14 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass TYPE_TOKEN_INSTANCE = eINSTANCE.getTypeTokenInstance();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl <em>Type Reference</em>}' class.
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeInstanceImpl <em>Type Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl
-		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeReference()
+		 * @see org.osate.aadl2.errormodel.instance.impl.TypeInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeInstance()
 		 * @generated
 		 */
-		EClass TYPE_REFERENCE = eINSTANCE.getTypeReference();
+		EClass TYPE_INSTANCE = eINSTANCE.getTypeInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
@@ -4140,7 +4140,7 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TYPE_REFERENCE__TYPE = eINSTANCE.getTypeReference_Type();
+		EReference TYPE_INSTANCE__TYPE = eINSTANCE.getTypeInstance_Type();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl <em>Type Set Instance</em>}' class.

@@ -28,24 +28,24 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.TypeReference;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Type Reference</b></em>'.
+ * An implementation of the model object '<em><b>Type Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeInstanceImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeReference {
+public class TypeInstanceImpl extends TypeTokenInstanceImpl implements TypeInstance {
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -61,7 +61,7 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TypeReferenceImpl() {
+	protected TypeInstanceImpl() {
 		super();
 	}
 
@@ -72,17 +72,7 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.TYPE_REFERENCE;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public ErrorType getResolvedType() {
-		return EMV2Util.resolveAlias(getType());
+		return EMV2InstancePackage.Literals.TYPE_INSTANCE;
 	}
 
 	/**
@@ -97,7 +87,7 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 			type = (ErrorType) eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.TYPE_REFERENCE__TYPE,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.TYPE_INSTANCE__TYPE,
 							oldType, type));
 				}
 			}
@@ -124,9 +114,19 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 		ErrorType oldType = type;
 		type = newType;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_REFERENCE__TYPE, oldType,
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_INSTANCE__TYPE, oldType,
 					type));
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public ErrorType getResolvedType() {
+		return EMV2Util.resolveAlias(getType());
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_REFERENCE__TYPE:
+		case EMV2InstancePackage.TYPE_INSTANCE__TYPE:
 			if (resolve) {
 				return getType();
 			}
@@ -154,7 +154,7 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_REFERENCE__TYPE:
+		case EMV2InstancePackage.TYPE_INSTANCE__TYPE:
 			setType((ErrorType) newValue);
 			return;
 		}
@@ -169,7 +169,7 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_REFERENCE__TYPE:
+		case EMV2InstancePackage.TYPE_INSTANCE__TYPE:
 			setType((ErrorType) null);
 			return;
 		}
@@ -184,10 +184,10 @@ public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeRefe
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TYPE_REFERENCE__TYPE:
+		case EMV2InstancePackage.TYPE_INSTANCE__TYPE:
 			return type != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} // TypeReferenceImpl
+} // TypeInstanceImpl

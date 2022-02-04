@@ -27,43 +27,35 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Type Reference</b></em>'.
+ * A representation of the model object '<em><b>Type Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.TypeReference#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.TypeInstance#getType <em>Type</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeReference()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeInstance()
  * @model
  * @generated
  */
-public interface TypeReference extends TypeTokenInstance {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	ErrorType getResolvedType();
-
+public interface TypeInstance extends TypeTokenInstance {
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(ErrorType)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeReference_Type()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeInstance_Type()
 	 * @model
 	 * @generated
 	 */
 	ErrorType getType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TypeReference#getType <em>Type</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TypeInstance#getType <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' reference.
@@ -72,4 +64,12 @@ public interface TypeReference extends TypeTokenInstance {
 	 */
 	void setType(ErrorType value);
 
-} // TypeReference
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	ErrorType getResolvedType();
+
+} // TypeInstance

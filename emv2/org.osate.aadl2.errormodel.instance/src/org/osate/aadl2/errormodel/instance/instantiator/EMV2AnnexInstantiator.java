@@ -67,8 +67,8 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
-import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
@@ -432,7 +432,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			if (token.getType().size() == 1) {
 				var type = token.getType().get(0);
 				if (type instanceof ErrorType) {
-					results.add(createTypeReference((ErrorType) type));
+					results.add(createTypeInstance((ErrorType) type));
 				} else {
 					results.add(createTypeSetInstance((TypeSet) type));
 				}
@@ -443,11 +443,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return results;
 	}
 
-	private TypeReference createTypeReference(ErrorType type) {
-		var typeReference = EMV2InstanceFactory.eINSTANCE.createTypeReference();
-		typeReference.setName(type.getName());
-		typeReference.setType(type);
-		return typeReference;
+	private TypeInstance createTypeInstance(ErrorType type) {
+		var typeInstance = EMV2InstanceFactory.eINSTANCE.createTypeInstance();
+		typeInstance.setName(type.getName());
+		typeInstance.setType(type);
+		return typeInstance;
 	}
 
 	private TypeSetInstance createTypeSetInstance(TypeSet set) {
@@ -462,7 +462,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var product = EMV2InstanceFactory.eINSTANCE.createTypeProductInstance();
 		product.setName(token.getType().stream().map(NamedElement::getName).collect(Collectors.joining(" * ")));
 		for (var type : token.getType()) {
-			product.getTypes().add(createTypeReference((ErrorType) type));
+			product.getTypes().add(createTypeInstance((ErrorType) type));
 		}
 		return product;
 	}
