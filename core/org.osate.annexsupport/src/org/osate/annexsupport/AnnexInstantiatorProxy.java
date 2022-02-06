@@ -25,6 +25,8 @@ package org.osate.annexsupport;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 /**
  * @author lwrage
@@ -42,17 +44,25 @@ public class AnnexInstantiatorProxy extends AnnexProxy implements AnnexInstantia
 		super(configElem);
 	}
 
-	/**
-	 * @since 2.0
-	 */
 	@Override
-	public void instantiateAnnex(ComponentInstance instance, String annexName) {
+	public void instantiateAnnexSubclause(ComponentInstance instance, String annexName,
+			AnalysisErrorReporterManager errorManager) {
 		AnnexInstantiator instantiator = getInstantiator();
 
 		if (instantiator == null) {
 			return;
 		}
-		instantiator.instantiateAnnex(instance, annexName);
+		instantiator.instantiateAnnexSubclause(instance, annexName, errorManager);
+	}
+
+	@Override
+	public void instantiateAnnex(SystemInstance root, String annexName, AnalysisErrorReporterManager errorManager) {
+		AnnexInstantiator instantiator = getInstantiator();
+
+		if (instantiator == null) {
+			return;
+		}
+		instantiator.instantiateAnnex(root, annexName, errorManager);
 	}
 
 	private AnnexInstantiator getInstantiator() {

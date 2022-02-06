@@ -464,17 +464,17 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
+		getUsedPropertyDefinitions(root);
+		// handle connection patterns
+		processConnections(root);
+
 		// instantiation of annexes
 		monitor.subTask("Instantiating annexes");
-		AnnexInstantiationController aic = new AnnexInstantiationController();
+		AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
 		aic.instantiateAllAnnexes(root);
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
-
-		getUsedPropertyDefinitions(root);
-		// handle connection patterns
-		processConnections(root);
 
 //		OsateResourceManager.save(aadlResource);
 //		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);

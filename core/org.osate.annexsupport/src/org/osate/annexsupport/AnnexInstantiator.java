@@ -24,14 +24,21 @@
 package org.osate.annexsupport;
 
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 /**
  * @author lwrage
- * @version $Id: AnnexInstantiator.java,v 1.3 2009-05-01 18:05:14 jseibel Exp $
  */
 public interface AnnexInstantiator {
 	/**
-	 * @since 2.0
+	 * @since 4.0
 	 */
-	void instantiateAnnex(ComponentInstance instance, String annexName);
+	void instantiateAnnexSubclause(ComponentInstance instance, String annexName,
+			AnalysisErrorReporterManager errorManager);
+
+	/**
+	 * @since 4.0
+	 */
+	void instantiateAnnex(SystemInstance root, String annexName, AnalysisErrorReporterManager errorManager);
 }

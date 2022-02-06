@@ -32,6 +32,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.annexsupport.AnnexInstantiator;
 import org.osate.annexsupport.AnnexInstantiatorRegistry;
@@ -40,18 +41,36 @@ import org.osate.annexsupport.AnnexRegistry;
 /**
  * @since 1.1
  */
-public class AnnexInstantiationController extends ForAllElement {
+public final class AnnexInstantiationController extends ForAllElement {
+
+	private final AnnexInstantiatorRegistry registry = (AnnexInstantiatorRegistry) AnnexRegistry
+			.getRegistry(AnnexRegistry.ANNEX_INSTANTIATOR_EXT_ID);
+
+	private Set<String> allAnnexes = new HashSet<>();
+
+	/**
+	 * @since 2.0
+	 */
+	public AnnexInstantiationController(AnalysisErrorReporterManager errorManager) {
+		super(errorManager);
+	}
 
 	public void instantiateAllAnnexes(ComponentInstance root) {
 		processPostOrderComponentInstance(root);
+		// call instantiation post processor for each annex
+		for (String annexName : allAnnexes) {
+			AnnexInstantiator instantiator = registry.getAnnexInstantiator(annexName);
+
+			if (instantiator != null) {
+				instantiator.instantiateAnnexSubclause(root, annexName, getErrorManager());
+			}
+		}
 	}
 
 	@Override
 	protected void action(Element obj) {
 		ComponentInstance instance = (ComponentInstance) obj;
-		AnnexInstantiatorRegistry registry = (AnnexInstantiatorRegistry) AnnexRegistry
-				.getRegistry(AnnexRegistry.ANNEX_INSTANTIATOR_EXT_ID);
-		Set<String> annexes = new HashSet<String>();
+		Set<String> annexes = new HashSet<>();
 
 		if (InstanceUtil.getComponentImplementation(instance, 0, null) != null) {
 			final EList<Classifier> classifiers = InstanceUtil.getComponentImplementation(instance, 0, null)
@@ -71,18 +90,16 @@ public class AnnexInstantiationController extends ForAllElement {
 				}
 			}
 		}
-		// instantiate each annex
+		allAnnexes.addAll(annexes);
+
+		// instantiate each local or inherited annex subclause
 		for (String annexName : annexes) {
 			AnnexInstantiator instantiator = registry.getAnnexInstantiator(annexName);
 
 			if (instantiator != null) {
-				instantiator.instantiateAnnex(instance, annexName);
+				instantiator.instantiateAnnexSubclause(instance, annexName, getErrorManager());
 			}
 		}
 	}
 
-	@Override
-	protected boolean suchThat(Element obj) {
-		return true;
-	}
 }
