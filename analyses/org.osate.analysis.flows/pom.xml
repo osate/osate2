@@ -12,7 +12,7 @@
 
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.analysis.flows</artifactId>
-	<version>5.0.3-SNAPSHOT</version>
+	<version>5.0.4-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<build>
