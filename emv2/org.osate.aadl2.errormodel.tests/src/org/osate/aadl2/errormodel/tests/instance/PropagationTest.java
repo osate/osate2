@@ -1,13 +1,13 @@
 package org.osate.aadl2.errormodel.tests.instance;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.osate.testsupport.ScopeFunctions.with;
 
 import org.eclipse.xtext.testing.InjectWith;
-import org.eclipse.xtext.testing.XtextRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.eclipse.xtext.testing.extensions.InjectionExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.DirectionType;
@@ -24,7 +24,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 import com.google.inject.Inject;
 
-@RunWith(XtextRunner.class)
+@ExtendWith(InjectionExtension.class)
 @InjectWith(ErrorModelInjectorProvider.class)
 public class PropagationTest {
 	private static final String PATH = "org.osate.aadl2.errormodel.tests/models/instantiation/Propagations/";

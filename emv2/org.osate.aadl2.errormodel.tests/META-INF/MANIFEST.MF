@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.ui,
  org.osate.testsupport;bundle-version="1.0.0",
  org.osate.aadl2.instantiation;bundle-version="1.0.0",
  org.osate.aadl2.errormodel.analysis;bundle-version="1.0.0",
- org.osate.aadl2.errormodel.instance;bundle-version="1.0.0"
+ org.osate.aadl2.errormodel.instance;bundle-version="1.0.0",
+ org.junit.jupiter.api
 Import-Package: org.apache.commons.logging,
  org.apache.log4j;version="1.2.15",
  org.hamcrest.core,
