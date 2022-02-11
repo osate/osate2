@@ -18,7 +18,7 @@ for label in VALID_LABELS:
 ########### API REQUEST ###########
 
 http = urllib3.PoolManager(10, headers={'user-agent': 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'}, cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
-r = http.request('GET', 'https://api.github.com/repos/osate/osate2/issues?milestone=30&state=closed&per_page=80')
+r = http.request('GET', 'https://api.github.com/repos/osate/osate2/issues?milestone=31&state=closed&per_page=80')
 
 ########### BUILDING THE TITLES DATA STRUCTURE ###########
 

@@ -12,6 +12,7 @@
         <listEntry value="sign=false"/>
         <listEntry value="spotbugs=false"/>
         <listEntry value="codecoverage=false"/>
+        <listEntry value="javadoc=true"/>
     </listAttribute>
     <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
     <booleanAttribute key="M2_SKIP_TESTS" value="true"/>
