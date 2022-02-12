@@ -21,21 +21,16 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.instance.textual.ui.contentassist.antlr;
+package org.osate.aadl2.instance.textual.ide.contentassist.antlr;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import org.eclipse.xtext.AbstractRule;
-import org.eclipse.xtext.ui.codetemplates.ui.partialEditing.IPartialContentAssistParser;
-import org.eclipse.xtext.ui.editor.contentassist.antlr.FollowElement;
-import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.AbstractInternalContentAssistParser;
+import org.eclipse.xtext.ide.editor.contentassist.antlr.FollowElement;
+import org.eclipse.xtext.ide.editor.contentassist.antlr.internal.AbstractInternalContentAssistParser;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 
-/*
- * Template CodetemplatesGeneratorFragment.xpt
- */
-public class PartialInstanceContentAssistParser extends InstanceParser implements IPartialContentAssistParser {
+public class PartialInstanceContentAssistParser extends InstanceParser {
 
 	private AbstractRule rule;
 
@@ -43,7 +38,7 @@ public class PartialInstanceContentAssistParser extends InstanceParser implement
 	public void initializeFor(AbstractRule rule) {
 		this.rule = rule;
 	}
-	
+
 	@Override
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		if (rule == null || rule.eIsProxy())

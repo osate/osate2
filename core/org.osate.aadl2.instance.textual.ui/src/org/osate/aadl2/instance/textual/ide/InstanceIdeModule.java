@@ -21,29 +21,11 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.instance.textual.ui;
+package org.osate.aadl2.instance.textual.ide;
 
-import com.google.inject.Injector;
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osate.aadl2.instance.textual.ui.internal.TextualActivator;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
 /**
- * This class was generated. Customizations should only happen in a newly
- * introduced subclass. 
+ * Use this class to register ide components.
  */
-public class InstanceExecutableExtensionFactory extends AbstractGuiceAwareExecutableExtensionFactory {
-
-	@Override
-	protected Bundle getBundle() {
-		return FrameworkUtil.getBundle(TextualActivator.class);
-	}
-	
-	@Override
-	protected Injector getInjector() {
-		TextualActivator activator = TextualActivator.getInstance();
-		return activator != null ? activator.getInjector(TextualActivator.ORG_OSATE_AADL2_INSTANCE_TEXTUAL_INSTANCE) : null;
-	}
-
+public class InstanceIdeModule extends AbstractInstanceIdeModule {
 }

@@ -26,14 +26,15 @@ package org.osate.aadl2.instance.textual.validation;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.validation.AbstractDeclarativeValidator;
 
-public class AbstractInstanceValidator extends org.eclipse.xtext.validation.AbstractDeclarativeValidator {
-
+public abstract class AbstractInstanceValidator extends AbstractDeclarativeValidator {
+	
 	@Override
 	protected List<EPackage> getEPackages() {
-	    List<EPackage> result = new ArrayList<EPackage>();
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0/instance"));
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
+		List<EPackage> result = new ArrayList<EPackage>();
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0/instance"));
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
 		return result;
 	}
 }

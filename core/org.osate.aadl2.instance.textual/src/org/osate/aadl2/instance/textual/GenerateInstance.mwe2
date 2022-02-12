@@ -24,15 +24,11 @@
 module org.osate.aadl2.instance.textual.GenerateInstance
 
 import org.eclipse.emf.mwe.utils.*
-import org.eclipse.xtext.generator.*
-import org.eclipse.xtext.ui.generator.*
+import org.eclipse.xtext.xtext.generator.*
+import org.eclipse.xtext.xtext.generator.model.project.*
 
-var grammarURI = "classpath:/org/osate/aadl2/instance/textual/Instance.xtext"
-var fileExtensions = "instance"
 var projectName = "org.osate.aadl2.instance.textual"
 var runtimeProject = "../${projectName}"
-var generateXtendStub = true
-var encoding = "UTF-8"
 var fileHeader = 
 "/**
  * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
@@ -136,81 +132,106 @@ Workflow {
     	directory = "${runtimeProject}.tests/src-gen"
     }
     
-    component = Generator auto-inject {
-    	pathRtProject = runtimeProject
-    	pathUiProject = "${runtimeProject}.ui"
-    	pathTestProject = "${runtimeProject}.tests"
-    	projectNameRt = projectName
-    	projectNameUi = "${projectName}.ui"
-    	encoding = encoding
-    	language = auto-inject {
-    		uri = grammarURI
+    component = XtextGenerator {
+    	configuration = {
+    		project = StandardProjectConfig {
+    			baseName = projectName
+    			rootPath = ".."
+    			runtimeTest = {
+    				enabled = true
+    			}
+    			genericIde = {
+    				name = "${projectName}.ui"
+    			}
+    			eclipsePlugin = {
+    				enabled = true
+    			}
+    			eclipsePluginTest = {
+    				enabled = false
+    			}
+    			createEclipseMetaData = true
+    		}
+    		code = {
+    			encoding = "UTF-8"
+    			lineDelimiter = "\n"
+    			fileHeader = fileHeader
+    			preferXtendStubs = false
+    		}
+    	}
+    	language = XtextGeneratorLanguage {
+			name = "org.osate.aadl2.instance.textual.Instance"
+			fileExtensions = "instance"
     
     		// Java API to access grammar elements (required by several other fragments)
-    		fragment = grammarAccess.GrammarAccessFragment auto-inject {}
+			fragment = grammarAccess.GrammarAccessFragment2 {}
     
     		// generates Java API for the generated EPackages
-    		fragment = ecore.EMFGeneratorFragment auto-inject {}
+			fragment = ecore.EMFGeneratorFragment2 {}
     
     		// the old serialization component
     		// fragment = parseTreeConstructor.ParseTreeConstructorFragment auto-inject {}    
     
     		// serializer 2.0
-    		fragment = serializer.SerializerFragment auto-inject {}
+			fragment = serializer.SerializerFragment2 {
+				generateXtendStub = true
+			}
     
     		// a custom ResourceFactory for use with EMF
-    		fragment = resourceFactory.ResourceFactoryFragment auto-inject {}
+			fragment = resourceFactory.ResourceFactoryFragment2 {}
     
     		// The antlr parser generator fragment.
-    		fragment = parser.antlr.XtextAntlrGeneratorFragment auto-inject {
+    		fragment = parser.antlr.XtextAntlrGeneratorFragment2 {
     		//  options = {
     		//      backtrack = true
     		//  }
     		}
     		
-    		fragment = validation.ValidatorFragment auto-inject {
-    			inheritImplementation = false
-    		}
+			fragment = validation.ValidatorFragment2 {
+				inheritImplementation = false
+				generateXtendStub = true
+			}
     		
     		// old scoping and exporting API
     		// fragment = scoping.ImportURIScopingFragment auto-inject {}
     		// fragment = exporting.SimpleNamesFragment auto-inject {}
     
     		// scoping and exporting API
-    		fragment = exporting.QualifiedNamesFragment auto-inject {}
-    		fragment = builder.BuilderIntegrationFragment auto-inject {}
+			fragment = exporting.QualifiedNamesFragment2 {}
+			fragment = builder.BuilderIntegrationFragment2 {}
     
 //    		// generator API
 //    		fragment = generator.GeneratorFragment auto-inject {}
     
-    		// formatter API
-    		fragment = formatting.FormatterFragment auto-inject {}
-    
     		// labeling API
-    		fragment = labeling.LabelProviderFragment auto-inject {}
+			fragment = ui.labeling.LabelProviderFragment2 {
+				generateXtendStub = true
+			}
     
     		// outline API
-    		fragment = outline.OutlineTreeProviderFragment auto-inject {}
-    		fragment = outline.QuickOutlineFragment auto-inject {}
+			fragment = ui.outline.OutlineTreeProviderFragment2 {
+				generateXtendStub = true
+			}
+			fragment = ui.outline.QuickOutlineFragment2 {}
     
     		// quickfix API
-    		fragment = quickfix.QuickfixProviderFragment auto-inject {}
+			fragment = ui.quickfix.QuickfixProviderFragment2 {
+				generateXtendStub = true
+			}
     
     		// content assist API
-    		fragment = contentAssist.ContentAssistFragment auto-inject {}
-    
-    		// generates a more lightweight Antlr parser and lexer tailored for content assist
-    		fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {}
+			fragment = ui.contentAssist.ContentAssistFragment2 {
+				generateXtendStub = true
+			}
     
     		// rename refactoring
-    		fragment = refactoring.RefactorElementNameFragment auto-inject {}
+			fragment = ui.refactoring.RefactorElementNameFragment2 {}
     
      
     		// provides a preference page for template proposals
-    		fragment = templates.CodetemplatesGeneratorFragment auto-inject {}
+			fragment = ui.templates.CodetemplatesGeneratorFragment2 {}
     
     		// provides a compare view
-    		fragment = compare.CompareFragment auto-inject {}
+			fragment = ui.compare.CompareFragment2 {}
     	}
     }
 }

@@ -37,7 +37,7 @@ import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.resource.XtextResourceSet
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.SystemInstance
-import org.osate.aadl2.instance.textual.ui.internal.InstanceActivator
+import org.osate.aadl2.instance.textual.ui.internal.TextualActivator
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.copy
 import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveShell
@@ -52,7 +52,7 @@ class GenerateTextualInstanceHandler extends AbstractHandler {
 	extension FileExtensionProvider
 	
 	new() {
-		val injector = InstanceActivator.instance.getInjector(InstanceActivator.ORG_OSATE_AADL2_INSTANCE_TEXTUAL_INSTANCE)
+		val injector = TextualActivator.instance.getInjector(TextualActivator.ORG_OSATE_AADL2_INSTANCE_TEXTUAL_INSTANCE)
 		injector.injectMembers(this)
 	}
 	
