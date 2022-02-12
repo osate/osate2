@@ -227,28 +227,6 @@
 			uriExtension="instance">
 		</resourceServiceProvider>
 	</extension>
-	<!-- marker definitions for org.osate.aadl2.instance.textual.Instance -->
-	<extension
-			id="instance.check.fast"
-			name="Instance Problem"
-			point="org.eclipse.core.resources.markers">
-		<super type="org.eclipse.xtext.ui.check.fast"/>
-		<persistent value="true"/>
-	</extension>
-	<extension
-			id="instance.check.normal"
-			name="Instance Problem"
-			point="org.eclipse.core.resources.markers">
-		<super type="org.eclipse.xtext.ui.check.normal"/>
-		<persistent value="true"/>
-	</extension>
-	<extension
-			id="instance.check.expensive"
-			name="Instance Problem"
-			point="org.eclipse.core.resources.markers">
-		<super type="org.eclipse.xtext.ui.check.expensive"/>
-		<persistent value="true"/>
-	</extension>
 	<!-- Quick Outline -->
 	<extension
 		point="org.eclipse.ui.handlers">

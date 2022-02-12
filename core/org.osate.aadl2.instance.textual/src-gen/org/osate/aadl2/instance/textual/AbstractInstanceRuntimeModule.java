@@ -52,14 +52,12 @@ import org.eclipse.xtext.serializer.impl.Serializer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISyntacticSequencer;
 import org.eclipse.xtext.service.DefaultRuntimeModule;
-import org.eclipse.xtext.service.SingletonBinding;
 import org.osate.aadl2.instance.textual.parser.antlr.InstanceAntlrTokenFileProvider;
 import org.osate.aadl2.instance.textual.parser.antlr.InstanceParser;
 import org.osate.aadl2.instance.textual.parser.antlr.internal.InternalInstanceLexer;
 import org.osate.aadl2.instance.textual.serializer.InstanceSemanticSequencer;
 import org.osate.aadl2.instance.textual.serializer.InstanceSyntacticSequencer;
 import org.osate.aadl2.instance.textual.services.InstanceGrammarAccess;
-import org.osate.aadl2.instance.textual.validation.InstanceValidator;
 
 /**
  * Manual modifications go to {@link InstanceRuntimeModule}.
@@ -144,12 +142,6 @@ public abstract class AbstractInstanceRuntimeModule extends DefaultRuntimeModule
 		binder.bind(Lexer.class)
 			.annotatedWith(Names.named(LexerBindings.RUNTIME))
 			.to(InternalInstanceLexer.class);
-	}
-	
-	// contributed by org.eclipse.xtext.xtext.generator.validation.ValidatorFragment2
-	@SingletonBinding(eager=true)
-	public Class<? extends InstanceValidator> bindInstanceValidator() {
-		return InstanceValidator.class;
 	}
 	
 	// contributed by org.eclipse.xtext.xtext.generator.exporting.QualifiedNamesFragment2

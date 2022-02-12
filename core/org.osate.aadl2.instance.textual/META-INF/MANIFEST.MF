@@ -23,10 +23,9 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
 Export-Package: org.osate.aadl2.instance.textual,
- org.osate.aadl2.instance.textual.services,
- org.osate.aadl2.instance.textual.serializer,
+ org.osate.aadl2.instance.textual.formatting,
  org.osate.aadl2.instance.textual.parser.antlr,
  org.osate.aadl2.instance.textual.parser.antlr.internal,
- org.osate.aadl2.instance.textual.validation,
- org.osate.aadl2.instance.textual.formatting
+ org.osate.aadl2.instance.textual.serializer,
+ org.osate.aadl2.instance.textual.services
 Automatic-Module-Name: org.osate.aadl2.instance.textual

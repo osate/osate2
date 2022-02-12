@@ -184,11 +184,6 @@ Workflow {
     		//  }
     		}
     		
-			fragment = validation.ValidatorFragment2 {
-				inheritImplementation = false
-				generateXtendStub = true
-			}
-    		
     		// old scoping and exporting API
     		// fragment = scoping.ImportURIScopingFragment auto-inject {}
     		// fragment = exporting.SimpleNamesFragment auto-inject {}
