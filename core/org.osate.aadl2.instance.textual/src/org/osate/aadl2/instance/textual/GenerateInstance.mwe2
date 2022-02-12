@@ -172,9 +172,7 @@ Workflow {
     		// fragment = parseTreeConstructor.ParseTreeConstructorFragment auto-inject {}    
     
     		// serializer 2.0
-			fragment = serializer.SerializerFragment2 {
-				generateXtendStub = true
-			}
+			fragment = serializer.SerializerFragment2 {}
     
     		// a custom ResourceFactory for use with EMF
 			fragment = resourceFactory.ResourceFactoryFragment2 {}
