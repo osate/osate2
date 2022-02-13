@@ -201,9 +201,7 @@ Workflow {
 			}
     
     		// outline API
-			fragment = ui.outline.OutlineTreeProviderFragment2 {
-				generateXtendStub = true
-			}
+			fragment = ui.outline.OutlineTreeProviderFragment2 {}
 			fragment = ui.outline.QuickOutlineFragment2 {}
     
     		// rename refactoring
