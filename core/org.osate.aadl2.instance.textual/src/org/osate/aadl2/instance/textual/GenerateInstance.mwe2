@@ -196,9 +196,7 @@ Workflow {
 //    		fragment = generator.GeneratorFragment auto-inject {}
     
     		// labeling API
-			fragment = ui.labeling.LabelProviderFragment2 {
-				generateXtendStub = true
-			}
+			fragment = ui.labeling.LabelProviderFragment2 {}
     
     		// outline API
 			fragment = ui.outline.OutlineTreeProviderFragment2 {}
