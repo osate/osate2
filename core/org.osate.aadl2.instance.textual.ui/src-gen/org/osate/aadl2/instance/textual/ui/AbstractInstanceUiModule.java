@@ -67,7 +67,6 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.DelegatingContentAssistCo
 import org.eclipse.xtext.ui.editor.outline.IOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.IOutlineTreeStructureProvider;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
-import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionProvider;
 import org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage;
 import org.eclipse.xtext.ui.refactoring.IDependentElementsCalculator;
 import org.eclipse.xtext.ui.refactoring.IReferenceUpdater;
@@ -88,7 +87,6 @@ import org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal.Interna
 import org.osate.aadl2.instance.textual.ui.labeling.InstanceDescriptionLabelProvider;
 import org.osate.aadl2.instance.textual.ui.labeling.InstanceLabelProvider;
 import org.osate.aadl2.instance.textual.ui.outline.InstanceOutlineTreeProvider;
-import org.osate.aadl2.instance.textual.ui.quickfix.InstanceQuickfixProvider;
 
 /**
  * Manual modifications go to {@link InstanceUiModule}.
@@ -199,11 +197,6 @@ public abstract class AbstractInstanceUiModule extends DefaultUiModule {
 	// contributed by org.eclipse.xtext.xtext.generator.ui.outline.OutlineTreeProviderFragment2
 	public Class<? extends IOutlineTreeStructureProvider> bindIOutlineTreeStructureProvider() {
 		return InstanceOutlineTreeProvider.class;
-	}
-	
-	// contributed by org.eclipse.xtext.xtext.generator.ui.quickfix.QuickfixProviderFragment2
-	public Class<? extends IssueResolutionProvider> bindIssueResolutionProvider() {
-		return InstanceQuickfixProvider.class;
 	}
 	
 	// contributed by org.eclipse.xtext.xtext.generator.ui.refactoring.RefactorElementNameFragment2

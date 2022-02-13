@@ -206,11 +206,6 @@ Workflow {
 			}
 			fragment = ui.outline.QuickOutlineFragment2 {}
     
-    		// quickfix API
-			fragment = ui.quickfix.QuickfixProviderFragment2 {
-				generateXtendStub = true
-			}
-    
     		// rename refactoring
 			fragment = ui.refactoring.RefactorElementNameFragment2 {}
     
