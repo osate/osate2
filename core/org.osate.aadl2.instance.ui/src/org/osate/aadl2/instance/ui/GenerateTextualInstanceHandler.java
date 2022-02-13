@@ -105,7 +105,9 @@ public class GenerateTextualInstanceHandler extends AbstractHandler {
 				monitor.done();
 			});
 		} catch (InvocationTargetException e) {
-			StatusManager.getManager().handle(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+			var status = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					"Problem generating textual instance: " + e.getMessage(), e);
+			StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 		} catch (InterruptedException e) {
 			// Do nothing.
 		}
