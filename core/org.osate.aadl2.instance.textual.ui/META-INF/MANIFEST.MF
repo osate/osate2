@@ -23,9 +23,8 @@ Require-Bundle: org.osate.aadl2.instance.textual;bundle-version="[3.0.0,4.0.0)";
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Activator: org.osate.aadl2.instance.textual.ui.internal.TextualActivator
-Export-Package: org.osate.aadl2.instance.textual.ui.contentassist,
- org.osate.aadl2.instance.textual.ui.internal,
- org.osate.aadl2.instance.textual.ui.quickfix,
+Export-Package: org.osate.aadl2.instance.textual.ide.contentassist.antlr,
  org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal,
- org.osate.aadl2.instance.textual.ide.contentassist.antlr
+ org.osate.aadl2.instance.textual.ui.internal,
+ org.osate.aadl2.instance.textual.ui.quickfix
 Automatic-Module-Name: org.osate.aadl2.instance.textual.ui

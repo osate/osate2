@@ -60,7 +60,6 @@ import org.eclipse.xtext.ui.editor.DocumentBasedDirtyResource;
 import org.eclipse.xtext.ui.editor.IXtextEditorCallback;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.FQNPrefixMatcher;
-import org.eclipse.xtext.ui.editor.contentassist.IContentProposalProvider;
 import org.eclipse.xtext.ui.editor.contentassist.IProposalConflictHelper;
 import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.AntlrProposalConflictHelper;
@@ -86,7 +85,6 @@ import org.eclipse.xtext.ui.shared.Access;
 import org.osate.aadl2.instance.textual.ide.contentassist.antlr.InstanceParser;
 import org.osate.aadl2.instance.textual.ide.contentassist.antlr.PartialInstanceContentAssistParser;
 import org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal.InternalInstanceLexer;
-import org.osate.aadl2.instance.textual.ui.contentassist.InstanceProposalProvider;
 import org.osate.aadl2.instance.textual.ui.labeling.InstanceDescriptionLabelProvider;
 import org.osate.aadl2.instance.textual.ui.labeling.InstanceLabelProvider;
 import org.osate.aadl2.instance.textual.ui.outline.InstanceOutlineTreeProvider;
@@ -206,11 +204,6 @@ public abstract class AbstractInstanceUiModule extends DefaultUiModule {
 	// contributed by org.eclipse.xtext.xtext.generator.ui.quickfix.QuickfixProviderFragment2
 	public Class<? extends IssueResolutionProvider> bindIssueResolutionProvider() {
 		return InstanceQuickfixProvider.class;
-	}
-	
-	// contributed by org.eclipse.xtext.xtext.generator.ui.contentAssist.ContentAssistFragment2
-	public Class<? extends IContentProposalProvider> bindIContentProposalProvider() {
-		return InstanceProposalProvider.class;
 	}
 	
 	// contributed by org.eclipse.xtext.xtext.generator.ui.refactoring.RefactorElementNameFragment2
