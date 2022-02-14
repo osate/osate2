@@ -57,7 +57,8 @@ public class GenerateTextualInstanceHandler extends AbstractHandler {
 	private FileExtensionProvider fileExtensionProvider;
 
 	public GenerateTextualInstanceHandler() {
-		var injector = TextualActivator.getInstance().getInjector(TextualActivator.ORG_OSATE_AADL2_INSTANCE_TEXTUAL_INSTANCE);
+		var injector = TextualActivator.getInstance()
+				.getInjector(TextualActivator.ORG_OSATE_AADL2_INSTANCE_TEXTUAL_INSTANCE);
 		injector.injectMembers(this);
 	}
 
