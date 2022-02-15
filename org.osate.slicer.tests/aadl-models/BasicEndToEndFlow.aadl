@@ -1,0 +1,62 @@
+package BasicFlow
+public
+	
+	system sys
+	end sys;
+	
+	system implementation sys.impl
+		subcomponents
+			a1 : abstract Thing1.impl;
+			a2 : abstract Thing1.impl;
+			a3 : abstract Thing1.impl;
+			b : abstract Thing2.impl;
+			c1 : abstract Thing3.impl;
+			c2 : abstract Thing3.impl;
+			c3 : abstract Thing3.impl;
+		connections
+			aToB1 : feature a1.o -> b.i1;
+			aToB2 : feature a2.o -> b.i2;
+			aToB3 : feature a3.o -> b.i3;
+			bToC1 : feature b.o1 -> c1.i;
+			bToC2 : feature b.o2 -> c2.i;
+			bToC3 : feature b.o3 -> c3.i;
+		flows
+			f : end to end flow a3.f1 -> aToB3 -> b.f2 -> bToC1 -> c1.f3;
+	end sys.impl;
+	
+	abstract Thing1
+		features
+			o : out feature;
+		flows
+			f1 : flow source o; 
+	end Thing1;
+	
+	abstract implementation Thing1.impl
+	end Thing1.impl;
+	
+	abstract Thing2
+		features
+			i1 : in feature;
+			i2 : in feature;
+			i3 : in feature;
+			o1 : out feature;
+			o2 : out feature;
+			o3 : out feature;
+		flows
+			f2 : flow path i3 -> o1; 
+	end Thing2;
+	
+	abstract implementation Thing2.impl
+	end Thing2.impl;
+	
+	abstract Thing3
+		features
+			i : in feature;
+		flows
+			f3 : flow sink i; 
+	end Thing3;
+	
+	abstract implementation Thing3.impl
+	end Thing3.impl;
+		
+end BasicFlow;

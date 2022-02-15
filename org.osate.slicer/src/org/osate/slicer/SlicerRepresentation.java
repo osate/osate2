@@ -26,7 +26,10 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.FlowElementInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 
@@ -280,6 +283,26 @@ public class SlicerRepresentation {
 				String fullFeatureName = getCompleteFeatureName(ci.getConnectionReferences().get(0).getDestination());
 				String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
 				hasExplicitDecomp.add(fullContainerName);
+			}
+			return null;
+		}
+
+		@Override
+		public Void caseEndToEndFlowInstance(EndToEndFlowInstance fi) {
+			for (FlowElementInstance fei : fi.getFlowElements()) {
+				System.out.println("Flow element instance found: " + fei.getQualifiedName());
+				if (fei instanceof FlowSpecificationInstance) {
+					FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
+					if (fsi.getSource() != null && fsi.getDestination() != null) {
+						addEdge(getCompleteFeatureName(fsi.getSource()), getCompleteFeatureName(fsi.getDestination()));
+						String fullFeatureName = getCompleteFeatureName(fsi.getDestination());
+						String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
+						hasExplicitDecomp.add(fullContainerName);
+					}
+				} // else if (fei instanceof ConnectionInstance) {
+					// ConnectionInstance ci = (ConnectionInstance) fei;
+					// System.out.println("\t" + ci.getSource() + " -> " + ci.getDestination());
+					// }
 			}
 			return null;
 		}
