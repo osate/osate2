@@ -1,3 +1,26 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
 package org.osate.aadl2.contrib.communication;
 
 import java.util.List;
@@ -5,6 +28,7 @@ import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -23,27 +47,18 @@ import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 import org.osate.pluginsupport.properties.IntegerWithUnits;
 
-public class CommunicationProperties {
+public final class CommunicationProperties {
 	public static final String COMMUNICATION_PROPERTIES__NAME = "Communication_Properties";
 	
+	private CommunicationProperties() {}
+	
+	// Lookup methods for Communication_Properties::Fan_Out_Policy
+	
 	public static final String FAN_OUT_POLICY__NAME = "Fan_Out_Policy";
-	public static final String CONNECTION_PATTERN__NAME = "Connection_Pattern";
-	public static final String CONNECTION_SET__NAME = "Connection_Set";
-	public static final String OVERFLOW_HANDLING_PROTOCOL__NAME = "Overflow_Handling_Protocol";
-	public static final String QUEUE_PROCESSING_PROTOCOL__NAME = "Queue_Processing_Protocol";
-	public static final String QUEUE_SIZE__NAME = "Queue_Size";
-	public static final String REQUIRED_CONNECTION__NAME = "Required_Connection";
-	public static final String TIMING__NAME = "Timing";
-	public static final String TRANSMISSION_TYPE__NAME = "Transmission_Type";
-	public static final String INPUT_RATE__NAME = "Input_Rate";
-	public static final String INPUT_TIME__NAME = "Input_Time";
-	public static final String OUTPUT_RATE__NAME = "Output_Rate";
-	public static final String OUTPUT_TIME__NAME = "Output_Time";
-	public static final String SUBPROGRAM_CALL_RATE__NAME = "Subprogram_Call_Rate";
-	public static final String TRANSMISSION_TIME__NAME = "Transmission_Time";
-	public static final String ACTUAL_LATENCY__NAME = "Actual_Latency";
-	public static final String LATENCY__NAME = "Latency";
-	public static final String DATA_RATE__NAME = "Data_Rate";
+	
+	public static boolean acceptsFanOutPolicy(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getFanOutPolicy_Property(lookupContext));
+	}
 	
 	public static Optional<FanOutPolicy> getFanOutPolicy(NamedElement lookupContext) {
 		return getFanOutPolicy(lookupContext, Optional.empty());
@@ -54,8 +69,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<FanOutPolicy> getFanOutPolicy(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Fan_Out_Policy";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getFanOutPolicy_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -65,10 +79,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getFanOutPolicy_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + FAN_OUT_POLICY__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getFanOutPolicy_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Fan_Out_Policy";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getFanOutPolicy_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Connection_Pattern
+	
+	public static final String CONNECTION_PATTERN__NAME = "Connection_Pattern";
+	
+	public static boolean acceptsConnectionPattern(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getConnectionPattern_Property(lookupContext));
 	}
 	
 	public static Optional<List<List<SupportedConnectionPatterns>>> getConnectionPattern(NamedElement lookupContext) {
@@ -80,8 +105,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<List<List<SupportedConnectionPatterns>>> getConnectionPattern(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Connection_Pattern";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getConnectionPattern_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -97,10 +121,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getConnectionPattern_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + CONNECTION_PATTERN__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getConnectionPattern_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Connection_Pattern";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getConnectionPattern_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Connection_Set
+	
+	public static final String CONNECTION_SET__NAME = "Connection_Set";
+	
+	public static boolean acceptsConnectionSet(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getConnectionSet_Property(lookupContext));
 	}
 	
 	public static Optional<List<ConnectionPair>> getConnectionSet(NamedElement lookupContext) {
@@ -112,8 +147,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<List<ConnectionPair>> getConnectionSet(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Connection_Set";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getConnectionSet_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -126,10 +160,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getConnectionSet_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + CONNECTION_SET__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getConnectionSet_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Connection_Set";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getConnectionSet_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Overflow_Handling_Protocol
+	
+	public static final String OVERFLOW_HANDLING_PROTOCOL__NAME = "Overflow_Handling_Protocol";
+	
+	public static boolean acceptsOverflowHandlingProtocol(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getOverflowHandlingProtocol_Property(lookupContext));
 	}
 	
 	public static Optional<OverflowHandlingProtocol> getOverflowHandlingProtocol(NamedElement lookupContext) {
@@ -141,8 +186,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<OverflowHandlingProtocol> getOverflowHandlingProtocol(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Overflow_Handling_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getOverflowHandlingProtocol_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -152,10 +196,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getOverflowHandlingProtocol_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + OVERFLOW_HANDLING_PROTOCOL__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getOverflowHandlingProtocol_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Overflow_Handling_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getOverflowHandlingProtocol_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Queue_Processing_Protocol
+	
+	public static final String QUEUE_PROCESSING_PROTOCOL__NAME = "Queue_Processing_Protocol";
+	
+	public static boolean acceptsQueueProcessingProtocol(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getQueueProcessingProtocol_Property(lookupContext));
 	}
 	
 	public static Optional<SupportedQueueProcessingProtocols> getQueueProcessingProtocol(NamedElement lookupContext) {
@@ -167,8 +222,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<SupportedQueueProcessingProtocols> getQueueProcessingProtocol(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Queue_Processing_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getQueueProcessingProtocol_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -178,10 +232,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getQueueProcessingProtocol_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + QUEUE_PROCESSING_PROTOCOL__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getQueueProcessingProtocol_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Queue_Processing_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getQueueProcessingProtocol_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Queue_Size
+	
+	public static final String QUEUE_SIZE__NAME = "Queue_Size";
+	
+	public static boolean acceptsQueueSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getQueueSize_Property(lookupContext));
 	}
 	
 	public static OptionalLong getQueueSize(NamedElement lookupContext) {
@@ -193,8 +258,7 @@ public class CommunicationProperties {
 	}
 	
 	public static OptionalLong getQueueSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Queue_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getQueueSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -204,10 +268,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getQueueSize_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + QUEUE_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getQueueSize_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Queue_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getQueueSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Required_Connection
+	
+	public static final String REQUIRED_CONNECTION__NAME = "Required_Connection";
+	
+	public static boolean acceptsRequiredConnection(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getRequiredConnection_Property(lookupContext));
 	}
 	
 	public static Optional<Boolean> getRequiredConnection(NamedElement lookupContext) {
@@ -219,8 +294,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<Boolean> getRequiredConnection(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Required_Connection";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getRequiredConnection_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -230,10 +304,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getRequiredConnection_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + REQUIRED_CONNECTION__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getRequiredConnection_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Required_Connection";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getRequiredConnection_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Timing
+	
+	public static final String TIMING__NAME = "Timing";
+	
+	public static boolean acceptsTiming(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getTiming_Property(lookupContext));
 	}
 	
 	public static Optional<Timing> getTiming(NamedElement lookupContext) {
@@ -245,8 +330,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<Timing> getTiming(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Timing";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getTiming_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -256,10 +340,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getTiming_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + TIMING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getTiming_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Timing";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getTiming_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Transmission_Type
+	
+	public static final String TRANSMISSION_TYPE__NAME = "Transmission_Type";
+	
+	public static boolean acceptsTransmissionType(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getTransmissionType_Property(lookupContext));
 	}
 	
 	public static Optional<TransmissionType> getTransmissionType(NamedElement lookupContext) {
@@ -271,8 +366,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<TransmissionType> getTransmissionType(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Transmission_Type";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getTransmissionType_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -282,10 +376,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getTransmissionType_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + TRANSMISSION_TYPE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getTransmissionType_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Transmission_Type";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getTransmissionType_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Input_Rate
+	
+	public static final String INPUT_RATE__NAME = "Input_Rate";
+	
+	public static boolean acceptsInputRate(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getInputRate_Property(lookupContext));
 	}
 	
 	public static Optional<RateSpec> getInputRate(NamedElement lookupContext) {
@@ -297,8 +402,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<RateSpec> getInputRate(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Input_Rate";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getInputRate_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -308,10 +412,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getInputRate_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + INPUT_RATE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getInputRate_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Input_Rate";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getInputRate_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Input_Time
+	
+	public static final String INPUT_TIME__NAME = "Input_Time";
+	
+	public static boolean acceptsInputTime(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getInputTime_Property(lookupContext));
 	}
 	
 	public static Optional<List<IoTimeSpec>> getInputTime(NamedElement lookupContext) {
@@ -323,8 +438,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<List<IoTimeSpec>> getInputTime(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Input_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getInputTime_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -337,10 +451,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getInputTime_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + INPUT_TIME__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getInputTime_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Input_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getInputTime_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Output_Rate
+	
+	public static final String OUTPUT_RATE__NAME = "Output_Rate";
+	
+	public static boolean acceptsOutputRate(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getOutputRate_Property(lookupContext));
 	}
 	
 	public static Optional<RateSpec> getOutputRate(NamedElement lookupContext) {
@@ -352,8 +477,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<RateSpec> getOutputRate(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Output_Rate";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getOutputRate_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -363,10 +487,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getOutputRate_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + OUTPUT_RATE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getOutputRate_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Output_Rate";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getOutputRate_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Output_Time
+	
+	public static final String OUTPUT_TIME__NAME = "Output_Time";
+	
+	public static boolean acceptsOutputTime(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getOutputTime_Property(lookupContext));
 	}
 	
 	public static Optional<List<IoTimeSpec>> getOutputTime(NamedElement lookupContext) {
@@ -378,8 +513,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<List<IoTimeSpec>> getOutputTime(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Output_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getOutputTime_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -392,10 +526,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getOutputTime_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + OUTPUT_TIME__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getOutputTime_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Output_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getOutputTime_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Subprogram_Call_Rate
+	
+	public static final String SUBPROGRAM_CALL_RATE__NAME = "Subprogram_Call_Rate";
+	
+	public static boolean acceptsSubprogramCallRate(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getSubprogramCallRate_Property(lookupContext));
 	}
 	
 	public static Optional<RateSpec> getSubprogramCallRate(NamedElement lookupContext) {
@@ -407,8 +552,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<RateSpec> getSubprogramCallRate(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Subprogram_Call_Rate";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getSubprogramCallRate_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -418,10 +562,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getSubprogramCallRate_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + SUBPROGRAM_CALL_RATE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getSubprogramCallRate_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Subprogram_Call_Rate";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getSubprogramCallRate_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Transmission_Time
+	
+	public static final String TRANSMISSION_TIME__NAME = "Transmission_Time";
+	
+	public static boolean acceptsTransmissionTime(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getTransmissionTime_Property(lookupContext));
 	}
 	
 	public static Optional<TransmissionTime> getTransmissionTime(NamedElement lookupContext) {
@@ -433,8 +588,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<TransmissionTime> getTransmissionTime(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Transmission_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getTransmissionTime_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -444,10 +598,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getTransmissionTime_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + TRANSMISSION_TIME__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getTransmissionTime_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Transmission_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getTransmissionTime_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Actual_Latency
+	
+	public static final String ACTUAL_LATENCY__NAME = "Actual_Latency";
+	
+	public static boolean acceptsActualLatency(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getActualLatency_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerRangeWithUnits<TimeUnits>> getActualLatency(NamedElement lookupContext) {
@@ -459,8 +624,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<IntegerRangeWithUnits<TimeUnits>> getActualLatency(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Actual_Latency";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getActualLatency_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -470,10 +634,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getActualLatency_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + ACTUAL_LATENCY__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getActualLatency_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Actual_Latency";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getActualLatency_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Latency
+	
+	public static final String LATENCY__NAME = "Latency";
+	
+	public static boolean acceptsLatency(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getLatency_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerRangeWithUnits<TimeUnits>> getLatency(NamedElement lookupContext) {
@@ -485,8 +660,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<IntegerRangeWithUnits<TimeUnits>> getLatency(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Latency";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getLatency_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -496,10 +670,21 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getLatency_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + LATENCY__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getLatency_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Latency";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getLatency_Property(lookupContext));
+	}
+	
+	// Lookup methods for Communication_Properties::Data_Rate
+	
+	public static final String DATA_RATE__NAME = "Data_Rate";
+	
+	public static boolean acceptsDataRate(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getDataRate_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<DataRateUnits>> getDataRate(NamedElement lookupContext) {
@@ -511,8 +696,7 @@ public class CommunicationProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<DataRateUnits>> getDataRate(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Communication_Properties::Data_Rate";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getDataRate_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -522,9 +706,12 @@ public class CommunicationProperties {
 		}
 	}
 	
+	public static Property getDataRate_Property(EObject lookupContext) {
+		String name = COMMUNICATION_PROPERTIES__NAME + "::" + DATA_RATE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getDataRate_EObject(NamedElement lookupContext) {
-		String name = "Communication_Properties::Data_Rate";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getDataRate_Property(lookupContext));
 	}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,6 +25,22 @@ censes only apply to the Third Party Software and not any other portion of this 
 <?eclipse version="3.0"?>
 <plugin>
    <extension-point id="examples" name="OSATE Examples" schema="schema/examples.exsd"/>
+
+   <extension point="org.eclipse.ui.decorators"> 
+      <decorator
+            class="org.osate.ui.ResourceDecorator"
+            id="org.osate.ui.ResourceDecorator"
+            label="Resource Decorator"
+            lightweight="true"
+            state="true">
+         <enablement>
+            <or>
+               <objectClass name="org.eclipse.core.resources.IFile"/>
+               <objectClass name="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage"/>
+            </or> 
+         </enablement> 
+      </decorator>
+   </extension>
 
    <extension
          point="org.eclipse.ui.preferencePages">

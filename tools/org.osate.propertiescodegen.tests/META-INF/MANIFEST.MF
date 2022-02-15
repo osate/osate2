@@ -4,7 +4,7 @@ Bundle-Name: Properties Code Generator Tests
 Bundle-SymbolicName: org.osate.propertiescodegen.tests
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.osate.propertiescodegen.tests
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: com.google.guava,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,

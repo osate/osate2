@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -41,10 +41,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -1497,28 +1497,26 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			ConnectionReference connRef = refIter.next();
 			Connection conn = connRef.getConnection();
 			ComponentInstance ci = connRef.getContext();
-			EList<Mode> connModes = conn.getAllInModes();
-			EList<ModeInstance> mis = null;
+			List<ModeInstance> mis = null;
 
-			if (connModes.isEmpty()) {
-				while (!(ci instanceof SystemInstance)) {
-					if (ci.getInModes().isEmpty()) {
-						ci = ci.getContainingComponentInstance();
-					} else {
-						mis = ci.getInModes();
-						break;
-					}
+			// source modal
+			mis = getComponentModes(conni.getSource().getComponentInstance());
+			// conns modal
+			if (mis == null) {
+				var connModes = conn.getAllInModes();
+				if (connModes.isEmpty()) {
+					mis = getComponentModes(ci);
+				} else {
+					mis = connModes.stream().map(ci::findModeInstance).collect(Collectors.toList());
 				}
-			} else {
-				mis = new BasicEList<ModeInstance>();
-				for (Mode m : connModes) {
-					mis.add(ci.findModeInstance(m));
-				}
+			}
+			// destination modal
+			if (mis == null) {
+				mis = getComponentModes(conni.getDestination().getComponentInstance());
 			}
 			if (mis != null) {
 				for (ModeInstance mi : mis) {
-					generateModeCombinations(conni, refIter,
-							new BasicEList<ModeInstance>(Collections.singletonList(mi)));
+					generateModeCombinations(conni, refIter, new ArrayList<>(Collections.singletonList(mi)));
 				}
 				if (conni.getInSystemOperationModes().isEmpty()) {
 					warning(conni.getContainingComponentInstance(), "Connection " + conni.getName()
@@ -1530,21 +1528,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		}
 	}
 
-	/*
-	 *
-	 * @param conni Connection Instance
-	 *
-	 * @param mis the set of mode instances of modal connection declarations in
-	 * the connection instance that make up a mode configuration; the complete
-	 * set must be contained in the SOMs to be added to the connection instance
-	 *
-	 * @param cmodes the set of modes in the inmodes declaration of the
-	 * conenction declaration with index idx in the list of connection
-	 * declarations that make up the connection instance
-	 *
-	 * @param idx the index of the connection declaration in the connection
-	 * instance whose mode set is being processed
-	 */
 	private void generateModeCombinations(ConnectionInstance conni, ListIterator<ConnectionReference> refIter,
 			List<ModeInstance> mis) {
 		if (!refIter.hasNext()) {
@@ -1571,19 +1554,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			List<ModeInstance> nextMis = null;
 
 			if (connModes.isEmpty()) {
-				while (!(ci instanceof SystemInstance)) {
-					if (ci.getInModes().isEmpty()) {
-						ci = ci.getContainingComponentInstance();
-					} else {
-						nextMis = ci.getInModes();
-						break;
-					}
-				}
+				nextMis = getComponentModes(ci);
 			} else {
-				nextMis = new BasicEList<ModeInstance>();
-				for (Mode m : connModes) {
-					nextMis.add(ci.findModeInstance(m));
-				}
+				nextMis = connModes.stream().map(ci::findModeInstance).collect(Collectors.toList());
 			}
 			if (nextMis != null) {
 				for (ModeInstance mi : nextMis) {
@@ -1596,6 +1569,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 			refIter.previous();
 		}
+	}
+
+	private List<ModeInstance> getComponentModes(ComponentInstance ci) {
+		while (!(ci instanceof SystemInstance)) {
+			if (ci.getInModes().isEmpty()) {
+				ci = ci.getContainingComponentInstance();
+			} else {
+				return ci.getInModes();
+			}
+		}
+		return null;
 	}
 
 	// ------------------------------------------------------------------------

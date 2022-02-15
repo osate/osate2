@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -17,10 +17,9 @@
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
  * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
- * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party
- * beneficiaries to this license with respect to the terms applicable to their Third Party Software. Third Party
- * Software licenses only apply to the Third Party Software and not any other portion of this program or this program
- * as a whole.
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  *******************************************************************************/
 package org.osate.contribution.sei.sei;
 
@@ -31,32 +30,29 @@ import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.pluginsupport.properties.GeneratedEnumeration;
 
-/**
- * @since 1.2
- */
 public enum Protocolqostype implements GeneratedEnumeration {
 	GUARANTEEDDELIVERY("GuaranteedDelivery", "platform:/plugin/org.osate.contribution.sei/resources/properties/SEI.aadl#/0/@ownedPropertyType.2/@ownedLiteral.0"),
 	SECUREDELIVERY("SecureDelivery", "platform:/plugin/org.osate.contribution.sei/resources/properties/SEI.aadl#/0/@ownedPropertyType.2/@ownedLiteral.1"),
 	ORDEREDDELIVERY("OrderedDelivery", "platform:/plugin/org.osate.contribution.sei/resources/properties/SEI.aadl#/0/@ownedPropertyType.2/@ownedLiteral.2");
-
+	
 	private final String originalName;
 	private final URI uri;
-
+	
 	private Protocolqostype(String originalName, String uri) {
 		this.originalName = originalName;
 		this.uri = URI.createURI(uri);
 	}
-
+	
 	public static Protocolqostype valueOf(PropertyExpression propertyExpression) {
 		AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 		return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 	}
-
+	
 	@Override
 	public URI getURI() {
 		return uri;
 	}
-
+	
 	@Override
 	public String toString() {
 		return originalName;

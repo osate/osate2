@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -73,33 +73,37 @@ abstract class AbstractInstantiationEngine<T> {
 	 * XXX: Say something about the abstract methods here
 	 */
 	public final List<IFile> instantiate(final IProgressMonitor monitor) {
-		final Set<T> inputs = getInputsFromSelection(selectionAsList);
-		final int size = inputs.size();
-
 		boolean cancelled = false;
 
-		if (size > 0) {
-			/*
-			 * This map is shared by all the jobs to build the set of results. It is created here,
-			 * given to all the jobs, and then used to build te final method result.
-			 */
-			final Map<T, InternalJobResult> results = new ConcurrentHashMap<>(size);
+		/* Make sure the resources are saved if they are open in an editor */
+		if (!saveDirtyEditors()) {
+			cancelled = true;
+		}
 
-			final PrereqHelper helper = getPrereqHelper(size, ResourcesPlugin.getWorkspace().getRuleFactory());
-			for (final T input : inputs) {
-				helper.handleInput(input);
+		if (!cancelled) {
+			final Set<T> inputs = getInputsFromSelection(selectionAsList);
+			final int size = inputs.size();
 
+			if (size > 0) {
 				/*
-				 * Init each result as cancelled because if the job is cancelled before it starts, it will never
-				 * add a new result record to the map. This way those jobs that never run are accounted for.
+				 * This map is shared by all the jobs to build the set of results. It is created here,
+				 * given to all the jobs, and then used to build te final method result.
 				 */
-				results.put(input, InternalJobResult.NOT_EXECUTED);
-			}
+				final Map<T, InternalJobResult> results = new ConcurrentHashMap<>(size);
 
-			/* Make sure the resources are saved if they are open in an editor */
-			if (!saveDirtyEditors()) {
-				cancelled = true;
-			} else {
+				final PrereqHelper helper = getPrereqHelper(size, ResourcesPlugin.getWorkspace().getRuleFactory());
+				for (final T input : inputs) {
+					if (input != null) {
+						helper.handleInput(input);
+
+						/*
+						 * Init each result as cancelled because if the job is cancelled before it starts, it will never
+						 * add a new result record to the map. This way those jobs that never run are accounted for.
+						 */
+						results.put(input, InternalJobResult.NOT_EXECUTED);
+					}
+				}
+
 				/*
 				 * NB. Chances are the prerequisites (helper.performPrereqs()) will run code using Workspace.run(). This will cause
 				 * the auto build thread to be interrupted and rescheduled if it is currently running.
@@ -119,14 +123,14 @@ abstract class AbstractInstantiationEngine<T> {
 					/* NB. THere really isn't any way to guarantee that a new build doesn't start here */
 					if (!cancelled) {
 						final JobGroup jobGroup = new JobGroup("Instantiation", 0, 0);
-						for (int i = 0; i < size; i++) {
+						for (int i = 0; i < results.size(); i++) {
 							final Job job = helper.getJob(i, results);
 							job.setUser(true);
 							job.setJobGroup(jobGroup);
 							job.schedule();
 							/*
 							 * NB. These jobs will interrupt the build job, if there is a new one. More accurately,
-							 * the auto build job periodically checks to see if its rule blocks any other jobs, and
+							 * the auto buisizeld job periodically checks to see if its rule blocks any other jobs, and
 							 * if so, it interrupts and reschedules itself.
 							 */
 						}
@@ -146,18 +150,18 @@ abstract class AbstractInstantiationEngine<T> {
 						}
 					}
 				}
-			}
 
-			if (cancelled) {
-				return Collections.emptyList();
-			} else {
-				final List<IFile> successfullyInstantiated = new ArrayList<>(size);
-				for (final InternalJobResult ijr : results.values()) {
-					if (ijr.aaxlFile != null) {
-						successfullyInstantiated.add(ijr.aaxlFile);
+				if (cancelled) {
+					return Collections.emptyList();
+				} else {
+					final List<IFile> successfullyInstantiated = new ArrayList<>(size);
+					for (final InternalJobResult ijr : results.values()) {
+						if (ijr.aaxlFile != null) {
+							successfullyInstantiated.add(ijr.aaxlFile);
+						}
 					}
+					return Collections.unmodifiableList(successfullyInstantiated);
 				}
-				return Collections.unmodifiableList(successfullyInstantiated);
 			}
 		}
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -2400,16 +2400,20 @@ class Aadl2Formatter extends PropertiesFormatter {
 			val annexInjector = AnnexUtil.getInjector(annexName)
 			val annexFormatter = annexInjector?.getInstance(IFormatter2)
 			if (annexFormatter !== null) {
-				// Create resource and populate it with the library or subclause.
-				setupAnnexResource(annexInjector, annexObject)
-				
-				// Setup the formatting request with the serializer.
-				val request = annexInjector.getInstance(FormatterRequest)
-				val serializer = annexInjector.getInstance(ISerializer) as Serializer
-				request.textRegionAccess = serializer.serializeToRegions(annexObject)
-				
-				// Format the annex text.
-				invokeAnnexFormatter(annexFormatter, request, sourceTextRegion, indentationLevel, document)
+				try {
+					// Create resource and populate it with the library or subclause.
+					setupAnnexResource(annexInjector, annexObject)
+					
+					// Setup the formatting request with the serializer.
+					val request = annexInjector.getInstance(FormatterRequest)
+					val serializer = annexInjector.getInstance(ISerializer) as Serializer
+					request.textRegionAccess = serializer.serializeToRegions(annexObject)
+					
+					// Format the annex text.
+					invokeAnnexFormatter(annexFormatter, request, sourceTextRegion, indentationLevel, document)
+				} catch (NullPointerException e) {
+					// ignore
+				}
 			}
 		}
 	}

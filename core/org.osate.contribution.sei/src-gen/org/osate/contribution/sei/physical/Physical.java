@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -17,15 +17,15 @@
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
  * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
- * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party
- * beneficiaries to this license with respect to the terms applicable to their Third Party Software. Third Party
- * Software licenses only apply to the Third Party Software and not any other portion of this program or this program
- * as a whole.
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  *******************************************************************************/
 package org.osate.contribution.sei.physical;
 
 import java.util.Optional;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -36,25 +36,29 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.RealWithUnits;
 
-/**
- * @since 1.2
- */
-public class Physical {
+public final class Physical {
 	public static final String PHYSICAL__NAME = "Physical";
-
+	
+	private Physical() {}
+	
+	// Lookup methods for Physical::Voltage
+	
 	public static final String VOLTAGE__NAME = "Voltage";
-
+	
+	public static boolean acceptsVoltage(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getVoltage_Property(lookupContext));
+	}
+	
 	public static Optional<RealWithUnits<VoltageUnits>> getVoltage(NamedElement lookupContext) {
 		return getVoltage(lookupContext, Optional.empty());
 	}
-
+	
 	public static Optional<RealWithUnits<VoltageUnits>> getVoltage(NamedElement lookupContext, Mode mode) {
 		return getVoltage(lookupContext, Optional.of(mode));
 	}
-
+	
 	public static Optional<RealWithUnits<VoltageUnits>> getVoltage(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Physical::Voltage";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getVoltage_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -63,10 +67,13 @@ public class Physical {
 			return Optional.empty();
 		}
 	}
-
+	
+	public static Property getVoltage_Property(EObject lookupContext) {
+		String name = PHYSICAL__NAME + "::" + VOLTAGE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getVoltage_EObject(NamedElement lookupContext) {
-		String name = "Physical::Voltage";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getVoltage_Property(lookupContext));
 	}
 }

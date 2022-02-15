@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -83,7 +83,9 @@ class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 				val package = target.getContainerOfType(AadlPackage)
 				package?.name
 			}
-			case ErrorModelPackage.Literals.FEATUREOR_PP_REFERENCE__FEATUREOR_PP: {
+			case ErrorModelPackage.Literals.FEATUREOR_PP_REFERENCE__FEATUREOR_PP,
+			case ErrorModelPackage.Literals.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT,
+			case ErrorModelPackage.Literals.SUBCOMPONENT_ELEMENT__SUBCOMPONENT: {
 				(target as NamedElement)?.name
 			}
 			default:

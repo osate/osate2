@@ -54,8 +54,10 @@ class RangeTypeTest {
 		val ps1Class = '''
 			package ps1;
 			
-			public class Ps1 {
+			public final class Ps1 {
 				public static final String PS1__NAME = "ps1";
+				
+				private Ps1() {}
 			}
 		'''
 		val time = '''

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,7 +31,6 @@ import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.util.function.BiFunction;
 
-import org.junit.Test;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
@@ -47,7 +46,7 @@ public class BehaviorAnnexTest {
 	private static final String DATA_PKG = "data_test";
 	private static final String DATA_CLASSIFIER = "temp";
 
-	@Test
+	// @Test
 	public void testBehaviorAnnex() {
 		prepareForTesting();
 		createAadlProject(BA_TEST);
