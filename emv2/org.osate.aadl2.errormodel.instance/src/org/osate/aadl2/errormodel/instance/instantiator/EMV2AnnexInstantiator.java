@@ -192,14 +192,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 
-	public void instantiatePropagationPoint(PropagationPoint g, EMV2AnnexInstance annex) {
+	private void instantiatePropagationPoint(PropagationPoint g, EMV2AnnexInstance annex) {
 		PropagationPointInstance gi = EMV2InstanceFactory.eINSTANCE.createPropagationPointInstance();
 		gi.setName(g.getName());
 		gi.setPropagationPoint(g);
 		annex.getPropagationPoints().add(gi);
 	}
 
-	public void instantiateEvent(ErrorBehaviorEvent g, EMV2AnnexInstance annex) {
+	private void instantiateEvent(ErrorBehaviorEvent g, EMV2AnnexInstance annex) {
 		ComponentInstance ci = (ComponentInstance) annex.eContainer();
 		EventInstance gi = createEventInstance(g);
 		annex.getEvents().add(gi);
@@ -217,14 +217,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	public EventInstance createEventInstance(ErrorBehaviorEvent g) {
+	private EventInstance createEventInstance(ErrorBehaviorEvent g) {
 		EventInstance gi = EMV2InstanceFactory.eINSTANCE.createEventInstance();
 		gi.setName(g.getName());
 		gi.setEvent(g);
 		return gi;
 	}
 
-	public ConstrainedInstanceObject createConstrainedInstanceObject(EventInstance context, TypeToken token) {
+	private ConstrainedInstanceObject createConstrainedInstanceObject(EventInstance context, TypeToken token) {
 		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
 		cio.setInstanceObject(context);
 		if (!token.getType().isEmpty()) {
@@ -236,21 +236,21 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cio;
 	}
 
-	public ConstrainedInstanceObject createConstrainedInstanceObject(InstanceObject io) {
+	private ConstrainedInstanceObject createConstrainedInstanceObject(InstanceObject io) {
 		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
 		cio.setInstanceObject(io);
 		cio.setName(cio.getInstanceObject().toString());
 		return cio;
 	}
 
-	public CompositeStateInstance createCompositeStateInstance(CompositeState st) {
+	private CompositeStateInstance createCompositeStateInstance(CompositeState st) {
 		CompositeStateInstance sti = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
 		sti.setName(st.getName());
 		sti.setCompositeState(st);
 		return sti;
 	}
 
-	public void instantiateStateMachine(ErrorBehaviorStateMachine ebsm, EMV2AnnexInstance annex) {
+	private void instantiateStateMachine(ErrorBehaviorStateMachine ebsm, EMV2AnnexInstance annex) {
 		ComponentInstance ci = (ComponentInstance) annex.eContainer();
 		StateMachineInstance svi = EMV2InstanceFactory.eINSTANCE.createStateMachineInstance();
 		annex.setStateMachine(svi);
@@ -267,14 +267,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		svi.setCurrentState(initState);
 	}
 
-	public StateInstance createStateInstance(ErrorBehaviorState ss) {
+	private StateInstance createStateInstance(ErrorBehaviorState ss) {
 		StateInstance si = EMV2InstanceFactory.eINSTANCE.createStateInstance();
 		si.setName(ss.getName());
 		si.setState(ss);
 		return si;
 	}
 
-	public void instantiateStateTransition(ErrorBehaviorTransition st, EMV2AnnexInstance annex) {
+	private void instantiateStateTransition(ErrorBehaviorTransition st, EMV2AnnexInstance annex) {
 		StateMachineInstance smi = annex.getStateMachine();
 		if (smi == null) {
 			return ;
@@ -335,7 +335,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	public void instantiateCompositeState(CompositeState st, EMV2AnnexInstance annex) {
+	private void instantiateCompositeState(CompositeState st, EMV2AnnexInstance annex) {
 		CompositeStateInstance sti = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
 		sti.setName(st.getName());
 		sti.setCompositeState(st);
@@ -487,7 +487,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return product;
 	}
 
-	public void instantiateErrorFlow(ErrorFlow ef, EMV2AnnexInstance annex) {
+	private void instantiateErrorFlow(ErrorFlow ef, EMV2AnnexInstance annex) {
 		ComponentInstance relatedComponent = (ComponentInstance) annex.eContainer();
 		ErrorPropagation inep = null;
 		ErrorPropagation outep = null;
@@ -630,7 +630,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cio;
 	}
 
-	public void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition opc, EMV2AnnexInstance annex) {
+	private void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition opc, EMV2AnnexInstance annex) {
 		ErrorPropagationConditionInstance bi = EMV2InstanceFactory.eINSTANCE.createErrorPropagationConditionInstance();
 		bi.setName(opc.getName());
 		bi.setEmv2Element(opc);
@@ -665,7 +665,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	public void instantiateErrorDetection(ErrorDetection ed, EMV2AnnexInstance annex) {
+	private void instantiateErrorDetection(ErrorDetection ed, EMV2AnnexInstance annex) {
 		ErrorDetectionInstance bi = EMV2InstanceFactory.eINSTANCE.createErrorDetectionInstance();
 		bi.setName(ed.getName());
 		bi.setEmv2Element(ed);
@@ -725,7 +725,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return null;
 	}
 
-	public ConstraintElement instantiateCondition(ConditionExpression condition, EMV2AnnexInstance annex) {
+	private ConstraintElement instantiateCondition(ConditionExpression condition, EMV2AnnexInstance annex) {
 
 		// Mapping of AND expression
 		if (condition instanceof AndExpression) {
@@ -1002,7 +1002,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return null;
 	}
 
-	public void instantiateConnectionPropagationPaths(ConnectionInstance conni, EMV2AnnexInstance annex) {
+	private void instantiateConnectionPropagationPaths(ConnectionInstance conni, EMV2AnnexInstance annex) {
 		ConnectionInstanceEnd src = conni.getSource();
 		ConnectionInstanceEnd dst = conni.getDestination();
 		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(src.getComponentInstance());
@@ -1230,7 +1230,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cios;
 	}
 
-	public void instantiatePropagationPath(PropagationPath pp, EMV2AnnexInstance annex) {
+	private void instantiatePropagationPath(PropagationPath pp, EMV2AnnexInstance annex) {
 		ComponentInstance contextCI = (ComponentInstance) annex.eContainer();
 		InstanceObject srcIO = findQualifiedPropagationPoint(pp.getSource(), contextCI);
 		InstanceObject dstIO = findQualifiedPropagationPoint(pp.getTarget(), contextCI);
@@ -1448,7 +1448,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	public void instantiatePropertyAssociations(EMV2InstanceObject emv2io, ComponentInstance ci,
+	private void instantiatePropertyAssociations(EMV2InstanceObject emv2io, ComponentInstance ci,
 			NamedElement emv2element, TypeToken tt) {
 		ErrorTypes et = tt != null && tt.getType().size() == 1 ? tt.getType().get(0) : null;
 		// token with a single type can have property values. Multiple types represents a product type
