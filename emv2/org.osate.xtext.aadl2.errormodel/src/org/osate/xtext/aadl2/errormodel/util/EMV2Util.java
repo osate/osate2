@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -1311,6 +1312,37 @@ public class EMV2Util {
 	}
 
 	/**
+	 * return list of error propagations including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return list of ErrorPropagation excluding duplicates
+	 * @since 6.3
+	 */
+	public static List<ErrorPropagation> getAllErrorPropagations(Classifier cl) {
+		var result = new ArrayList<ErrorPropagation>();
+		var subclauses = getAllContainingClassifierEMV2Subclauses(cl);
+		var propagations = subclauses.stream()
+				.flatMap(subclause -> subclause.getPropagations().stream())
+				.filter(propagation -> !propagation.isNot())
+				.collect(Collectors.toList());
+		// Filter out propagations in extended classifiers that are overridden.
+		for (var propagation : propagations) {
+			var propagationName = getPrintName(propagation);
+			var alreadyExists = false;
+			for (var existing : result) {
+				var existingName = getPrintName(existing);
+				if (propagationName.equals(existingName) && propagation.getDirection() == existing.getDirection()) {
+					alreadyExists = true;
+					break;
+				}
+			}
+			if (!alreadyExists) {
+				result.add(propagation);
+			}
+		}
+		return result;
+	}
+
+	/**
 	 * return list of ConnectionErrorSource including those inherited from classifiers being extended
 	 * @param cl Classifier
 	 * @return Collection<ConnectionErrorSource> list of ConnectionErrorSource excluding duplicates
@@ -1708,6 +1740,27 @@ public class EMV2Util {
 
 	public static Collection<ErrorBehaviorState> getAllErrorBehaviorStates(ComponentInstance ci) {
 		return getAllErrorBehaviorStates(ci.getComponentClassifier());
+	}
+
+	/**
+	 * @since 6.3
+	 */
+	public static ErrorBehaviorStateMachine getAllErrorBehaviorStateMachine(Classifier cl) {
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			if (ebsm != null) {
+				return ebsm;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @since 6.3
+	 */
+	public static ErrorBehaviorStateMachine getAllErrorBehaviorStateMachine(ComponentInstance ci) {
+		return getAllErrorBehaviorStateMachine(ci.getComponentClassifier());
 	}
 
 	/**
@@ -2354,6 +2407,9 @@ public class EMV2Util {
 	 * @return Subcomponent
 	 */
 	public static Subcomponent getLastSubcomponent(EMV2Path epath) {
+		if (epath == null) {
+			return null;
+		}
 		if (epath.getContainmentPath() != null) {
 			// handle paths that come from the EMV2PropertyAssociation with the new syntax for the core path
 			ContainmentPathElement last = getLast(epath.getContainmentPath());
