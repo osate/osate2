@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,17 +26,24 @@ package org.osate.ge.swt.classifiers;
 /**
  * Model decorator which is passed to the binding editor to prevent flushing.
  *
- * @param <N>
- * @param <D>
- * @param <T>
- * @param <C>
+ * @param <N> is the type of the node being edited.
+ * @param <D> is the type of the direction options.
+ * @param <T> is the type of the type options.
+ * @param <C> is the type of the classifiers.
  */
 class NoFlushPrototypeBindingsModel<N, D, T, C>
 		extends PrototypeBindingsModelDecorator<N, D, T, C> {
+	/**
+	 * Creates a new instance which wraps an existing model
+	 * @param inner the model to wrap.
+	 */
 	public NoFlushPrototypeBindingsModel(final PrototypeBindingsModel<N, D, T, C> inner) {
 		super(inner);
 	}
 
+	/**
+	 * No-op
+	 */
 	@Override
 	public void flush() {
 		// Avoid flushing until the top-level dialog has closed to allow batching changes.

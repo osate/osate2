@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,7 +30,7 @@ import org.osate.ge.referencehandling.ReferenceResolverFactory;
 import com.google.common.collect.ImmutableCollection;
 
 /**
- * Instantiates extensions registered using the reference resolvers extension point.
+ * Instantiates registered reference resolver factory extensions.
  *
  */
 public class ReferenceResolverRegistry {
@@ -38,11 +38,19 @@ public class ReferenceResolverRegistry {
 
 	private final ImmutableCollection<ReferenceResolverFactory> factories;
 
+	/**
+	 * Creates a new instance
+	 * @param registry the eclipse extension registry
+	 */
 	public ReferenceResolverRegistry(final IExtensionRegistry registry) {
 		this.factories = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
 				EXTENSION_POINT_ID, "factory", ReferenceResolverFactory.class);
 	}
 
+	/**
+	 * Returns the reference resolver factories
+	 * @return the reference resolver factories
+	 */
 	public ImmutableCollection<ReferenceResolverFactory> getFactories() {
 		return factories;
 	}

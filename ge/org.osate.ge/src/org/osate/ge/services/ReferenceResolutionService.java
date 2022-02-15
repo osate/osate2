@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,13 +26,16 @@ package org.osate.ge.services;
 import org.osate.ge.CanonicalBusinessObjectReference;
 
 /**
- * Service for retrieving a business object using a reference created using ReferenceBuilderService.
+ * Editor service for retrieving a business object using a reference created using {@link ReferenceBuilderService}.
  * @noextend
  * @noimplement
  * @see ReferenceBuilderService
  */
 public interface ReferenceResolutionService {
 	/**
+	 * Returns the business object references by the canonical reference.
+	 * @param reference the reference to resolve
+	 * @return the referenced business object. Returns null if the reference could not be resolved.
 	 * @since 2.0
 	 */
 	Object resolve(final CanonicalBusinessObjectReference reference);

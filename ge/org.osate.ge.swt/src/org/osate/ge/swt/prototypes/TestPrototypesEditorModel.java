@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -40,6 +40,9 @@ final class TestPrototypesEditorModel extends BaseObservableModel
 	private final List<TestClassifier> classifiers = new ArrayList<>();
 	private TestPrototype selectedPrototype;
 
+	/**
+	 * Create a new instance
+	 */
 	public TestPrototypesEditorModel() {
 		// Add initial prototypes to the list
 		for (int i = 0; i < 5; i++) {
@@ -199,23 +202,69 @@ final class TestPrototypesEditorModel extends BaseObservableModel
 	}
 }
 
+/**
+ * Class used in the test prototypes model
+ *
+ */
 class TestPrototype {
+	/**
+	 * Name of the prototype
+	 */
 	String name;
+
+	/**
+	 * Direction of the prototype
+	 */
 	PrototypeDirection direction;
+
+	/**
+	 * The type of the prototype
+	 */
 	PrototypeType type;
+
+	/**
+	 * The referenced classifier
+	 */
 	TestClassifier classifier;
+
+	/**
+	 * Whether the prototype is an array
+	 */
 	Boolean array;
+
+	/**
+	 * The label of the element that can be refined
+	 */
 	String refineableElementLabel = "SomeElement";
+
+	/**
+	 * Whether the prototype is a refined prototype
+	 */
 	Boolean refined;
 
+	/**
+	 * Creates a new instance with the specified name
+	 * @param name is the name of the prototype
+	 */
 	public TestPrototype(final String name) {
 		this.name = name;
 	}
 }
 
+/**
+ * Type used for classifiers in the test prototypes model
+ *
+ */
 class TestClassifier {
+	/**
+	 * The name of the classifier
+	 */
 	String name;
 
+	/**
+	 * Creates a new instance with the specified name
+	 * @param name is the name of the classifier
+	 */
 	public TestClassifier(final String name) {
 		this.name = name;
 	}

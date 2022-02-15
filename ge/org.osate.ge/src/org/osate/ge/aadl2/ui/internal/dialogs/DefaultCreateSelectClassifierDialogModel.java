@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -161,7 +161,7 @@ public class DefaultCreateSelectClassifierDialogModel implements ClassifierOpera
 
 							return "Base: category(" + baseCategory.getCategory()
 							+ ") of the selected classifier is not compatible with category type of the "
-							+ StringUtil.upperUnderscoreToLowercaseUser(op.getType().name())
+							+ StringUtil.snakeCaseToLowercaseWords(op.getType().name())
 							+ "(" + op.getComponentCategory() + ").";
 						}
 					}

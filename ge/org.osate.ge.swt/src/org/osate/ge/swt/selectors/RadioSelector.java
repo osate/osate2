@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,6 @@
 package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.swt.SWT;
@@ -34,18 +33,23 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
 /**
  * Set of radio buttons which uses a {@link SingleSelectorModel}
- * @since 1.1
  *
+ * @param <T> See {@link SingleSelectorModel}
+ * @since 1.1
  */
 public final class RadioSelector<T> extends Composite {
 	private final SingleSelectorModel<T> model;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model for the editor
+	 */
 	public RadioSelector(final Composite parent, final SingleSelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
@@ -100,9 +104,12 @@ public final class RadioSelector<T> extends Composite {
 		}
 	};
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new RadioSelector<>(shell, new TestListEditorModel());
-		});
+		SwtUtil.run(shell -> new RadioSelector<>(shell, new TestListEditorModel()));
 	}
 }

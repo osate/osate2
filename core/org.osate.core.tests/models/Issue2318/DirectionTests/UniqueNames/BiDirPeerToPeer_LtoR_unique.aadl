@@ -1,0 +1,30 @@
+package BiDirPeerToPeer_LtoR_unique
+public
+	system toplevel
+	end toplevel;
+	
+	system implementation toplevel.i
+		subcomponents
+			sub1 : process subsystem;
+			sub2 : process subsystem.i;
+		connections
+			conn:  port sub1.ss_p <-> sub2.ss_p;
+	end toplevel.i;
+	
+	process subsystem 
+		features 
+			ss_p : in out event port;
+	end subsystem;
+	
+	process implementation subsystem.i
+		subcomponents
+			th : thread th;
+		connections
+			conn2 : port th.th_p -> ss_p;
+	end subsystem.i;
+	
+	thread th
+		features 
+			th_p : in out event port;
+	end th;
+end BiDirPeerToPeer_LtoR_unique;

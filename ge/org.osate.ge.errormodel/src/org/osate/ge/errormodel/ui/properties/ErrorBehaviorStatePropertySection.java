@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -47,20 +47,22 @@ import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
+/**
+ * Property section for {@link ErrorBehaviorStateMachine} elements
+ */
 public class ErrorBehaviorStatePropertySection extends AbstractPropertySection {
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof ErrorBehaviorState
-						&& ((ErrorBehaviorState) bo).eContainer() instanceof ErrorBehaviorStateMachine;
-			});
+			return PropertySectionUtil.isBoCompatible(toTest, bo -> bo instanceof ErrorBehaviorState
+					&& ((ErrorBehaviorState) bo).eContainer() instanceof ErrorBehaviorStateMachine);
 		}
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private CheckboxEditor initialStateEditor;
-
 	private InitialStateModel initialStateModel = new InitialStateModel();
 
 	@Override
@@ -69,14 +71,11 @@ public class ErrorBehaviorStatePropertySection extends AbstractPropertySection {
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
 		final Label sectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "");
 
-		initialStateEditor = new CheckboxEditor(composite, initialStateModel);
-
-		{
-			final FormData fd = new FormData();
-			fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
-			fd.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
-			initialStateEditor.setLayoutData(fd);
-		}
+		final CheckboxEditor initialStateEditor = new CheckboxEditor(composite, initialStateModel);
+		final FormData initialStateEditorFormData = new FormData();
+		initialStateEditorFormData.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
+		initialStateEditorFormData.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
+		initialStateEditor.setLayoutData(initialStateEditorFormData);
 	}
 
 	@Override
@@ -90,6 +89,10 @@ public class ErrorBehaviorStatePropertySection extends AbstractPropertySection {
 		initialStateModel.setBusinessObjectSelection(selectedBos);
 	}
 
+	/**
+	 * View model for the initial state checkbox. The checkbox will only be enabled when the selection contains only one {@link ErrorBehaviorState}
+	 *
+	 */
 	private static class InitialStateModel extends BaseObservableModel implements CheckboxEditorModel {
 		private BusinessObjectSelection bos;
 
@@ -98,8 +101,10 @@ public class ErrorBehaviorStatePropertySection extends AbstractPropertySection {
 		}
 
 		/**
-		* Refreshes the internal state of the model based on the specified business object selection
-		*/
+		 * Refreshes the internal state of the model based on the specified business object selection
+		 * @param value the business object selection containing the error behavior state to modify. If the selection contains multiple states,
+		 * the view model will disable the checkbox.
+		 */
 		public final void setBusinessObjectSelection(final BusinessObjectSelection value) {
 			this.bos = Objects.requireNonNull(value, "value must not be null");
 			triggerChangeEvent();
@@ -129,8 +134,7 @@ public class ErrorBehaviorStatePropertySection extends AbstractPropertySection {
 
 		@Override
 		public Boolean getValue() {
-			final Set<ErrorBehaviorState> states = bos.boStream(ErrorBehaviorState.class)
-					.collect(Collectors.toSet());
+			final Set<ErrorBehaviorState> states = bos.boStream(ErrorBehaviorState.class).collect(Collectors.toSet());
 			return states.size() == 1 && states.iterator().next().isIntial();
 		}
 

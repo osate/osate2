@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -398,7 +398,6 @@ public class AgeRenameParticipant extends RenameParticipant {
 
 	private static boolean isHandledRefinedReference(final EStructuralFeature sf) {
 		return sf == Aadl2Package.eINSTANCE.getFeature_Refined() || sf == Aadl2Package.eINSTANCE.getConnection_Refined()
-				|| sf == Aadl2Package.eINSTANCE.getSubcomponent_Refined()
 				|| sf == Aadl2Package.eINSTANCE.getSubcomponent_Refined()
 				|| sf == Aadl2Package.eINSTANCE.getFlowSpecification_Refined();
 	}

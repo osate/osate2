@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -53,6 +53,10 @@ import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.navigator.IExtensionStateModel;
 import org.osate.ge.internal.Activator;
 
+/**
+ * The action provider for the AADL Diagrams vew
+ *
+ */
 public class DiagramNavigatorActionProvider extends CommonActionProvider {
 	private IExtensionStateModel stateModel;
 	private StructuredViewer viewer;

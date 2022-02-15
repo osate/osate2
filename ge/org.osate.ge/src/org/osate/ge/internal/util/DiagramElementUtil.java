@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,7 +29,22 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 
+/**
+ * Contains utility functions for {@link DiagramElement} objects
+ *
+ */
 public class DiagramElementUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private DiagramElementUtil() {
+	}
+
+	/**
+	 * Returns true if the specified diagram elements have the same parent
+	 * @param diagramElements the diagram elements to check
+	 * @return true if the specified diagram elements have the same parent. Returns true if the collection is empty.
+	 */
 	public static boolean allHaveSameParent(final Collection<DiagramElement> diagramElements) {
 		if (diagramElements.size() == 0) {
 			return true;
@@ -39,6 +54,11 @@ public class DiagramElementUtil {
 		return diagramElements.stream().allMatch(de -> de.getParent() == parent);
 	}
 
+	/**
+	 * Returns the diagram in which the node is contained.
+	 * @param initialDiagramNode the node for which to retrieve the diagram
+	 * @return returns the diagram in which the node is contained or null if the node was not contained in a diagram.
+	 */
 	public static AgeDiagram getDiagram(final DiagramNode initialDiagramNode) {
 		for (DiagramNode dn = initialDiagramNode; dn != null; dn = dn.getParent()) {
 			if (dn instanceof AgeDiagram) {
@@ -48,24 +68,21 @@ public class DiagramElementUtil {
 		return null;
 	}
 
-	public static DiagramNode getUndockedDiagramNode(DiagramNode n) {
+	/**
+	 * Finds the first undocked diagram element by checking the specified node and then its ancestors
+	 * @param n the diagram node which is the first node to check.
+	 * @return the first diagram element without a specified dock area. Returns null if a {@link DiagramNode} which is not a {@link DiagramElement} is encountered.
+	 * @see DiagramElement#getDockArea()
+	 */
+	public static DiagramElement getUndockedDiagramElement(DiagramNode n) {
 		while (n instanceof DiagramElement) {
 			final DiagramElement e = ((DiagramElement) n);
 			if (e.getDockArea() == null) {
 				return e;
 			}
 
-			n = e.getContainer();
+			n = e.getParent();
 		}
-		return n;
-	}
-
-	public static DiagramElement getUndockedDiagramElement(DiagramNode n) {
-		final DiagramNode dn = getUndockedDiagramNode(n);
-		if (dn instanceof DiagramElement) {
-			return (DiagramElement) dn;
-		}
-
 		return null;
 	}
 }

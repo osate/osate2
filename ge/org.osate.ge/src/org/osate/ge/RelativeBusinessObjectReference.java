@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,105 +23,31 @@
  */
 package org.osate.ge;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
-import com.google.common.collect.ImmutableList;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 
 /**
- * Immutable data type for relative references to a business object.
+ * Immutable data type for relative references to a business object. Relative business object references are created for a
+ * business object using the registered {@link BusinessObjectHandler}.
  * A relative reference along with a containing diagram element must uniquely identify the business object.
  * @since 2.0
  */
-public class RelativeBusinessObjectReference implements Comparable<RelativeBusinessObjectReference> {
-	private ImmutableList<String> segments;
-	private ImmutableList<String> lcSegments; // Lowercase segments. Used for comparison.
-
+public final class RelativeBusinessObjectReference extends BusinessObjectReference {
 	/**
 	 * Creates an instance from an array of segments. Segments are case insensitive. Throws an exception is optional or if the segments
 	 * array is null or empty.
 	 * @param segments is an array of segments that makes up the reference.
 	 */
 	public RelativeBusinessObjectReference(final String... segments) {
-		if (segments == null || segments.length < 1) {
-			throw new RuntimeException("segments must contain at least one segment");
-		}
-
-		// Check that all segments are non-null
-		for (final String seg : segments) {
-			if (seg == null) {
-				throw new RuntimeException("segment is null");
-			}
-		}
-
-		// Store segments and lower case segments in separate lists. The lowercase segments are used for comparison while the other list is used to preserve
-		// case for serialization.
-		this.segments = ImmutableList.copyOf(segments);
-		this.lcSegments = this.segments.stream().map(s -> s.toLowerCase(Locale.ROOT))
-				.collect(ImmutableList.toImmutableList());
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((lcSegments == null) ? 0 : lcSegments.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-
-		final RelativeBusinessObjectReference other = (RelativeBusinessObjectReference) obj;
-		if (!lcSegments.equals(other.lcSegments)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return Arrays.toString(segments.toArray());
-	}
-
-	@Override
-	public int compareTo(final RelativeBusinessObjectReference o) {
-		for (int i = 0; i < lcSegments.size(); i++) {
-			// Check that the reference with which this is being compared to has at least the current number of segments.
-			if (o.lcSegments.size() <= i) {
-				return -1;
-			}
-
-			final int result = lcSegments.get(i).compareTo(o.lcSegments.get(i));
-			if(result != 0) {
-				return result;
-			}
-		}
-
-		return 0;
+		super(segments);
 	}
 
 	/**
-	 * Returns an unmodifiable list containing the segments.
-	 * @return
+	 * Converts the instance to an instance of the serialized diagram model type.
+	 * @return the converted object.
 	 */
-	public List<String> getSegments() {
-		return segments;
-	}
-
-	public org.osate.ge.diagram.RelativeBusinessObjectReference toMetamodel() {
+	public final org.osate.ge.diagram.RelativeBusinessObjectReference toMetamodel() {
 		final org.osate.ge.diagram.RelativeBusinessObjectReference newValue = new org.osate.ge.diagram.RelativeBusinessObjectReference();
-		for(final String seg : segments) {
+		for (final String seg : getSegments()) {
 			newValue.getSeg().add(seg);
 		}
 		return newValue;

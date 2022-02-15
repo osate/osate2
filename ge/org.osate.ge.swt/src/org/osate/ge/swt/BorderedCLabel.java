@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -37,12 +37,21 @@ import org.eclipse.swt.widgets.Composite;
 public class BorderedCLabel extends Composite {
 	private final CLabel label;
 
+	/**
+	 * Creates a new instance
+	 * @param parent a widget which will be the parent of the new instance. Must not be null.
+	 */
 	public BorderedCLabel(final Composite parent) {
 		super(parent, SWT.BORDER);
 		label = new CLabel(this, SWT.NONE);
 		setLayout(new FillLayout());
 	}
 
+	/**
+	 * Sets the label's text
+	 * @param value the text to be displayed in the label
+	 * @see CLabel#setText(String)
+	 */
 	public void setText(final String value) {
 		label.setText(value);
 	}

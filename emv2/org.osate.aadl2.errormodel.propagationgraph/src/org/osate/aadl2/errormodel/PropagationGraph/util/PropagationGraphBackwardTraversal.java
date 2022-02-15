@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -40,7 +40,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
@@ -87,8 +87,8 @@ import com.google.common.collect.HashMultimap;
 
 public class PropagationGraphBackwardTraversal {
 
-	public static BigDecimal BigZero = BigDecimal.valueOf(0.0);
-	public static BigDecimal BigOne = BigDecimal.valueOf(1.0);
+	public static final BigDecimal BigZero = BigDecimal.valueOf(0.0);
+	public static final BigDecimal BigOne = BigDecimal.valueOf(1.0);
 
 	private PropagationGraph currentAnalysisModel;
 
@@ -96,7 +96,7 @@ public class PropagationGraphBackwardTraversal {
 		currentAnalysisModel = m;
 	}
 
-	public static EObject foundCycle = ErrorModelFactory.eINSTANCE.createTypeToken();
+	public static final EObject foundCycle = ErrorModelFactory.eINSTANCE.createTypeToken();
 
 	/**
 	 * process an Outgoing Error Propagation by going backwards in the propagation graph
@@ -481,11 +481,21 @@ public class PropagationGraphBackwardTraversal {
 					}
 				} else {
 					conditionExpression = ebt.getCondition();
+					if (ebt.getSource() != null && EMV2Util.isSame(state, ebt.getSource())
+							&& isSame(type, ebt.getTypeTokenConstraint())) {
+						sameState = true;
+						newtypes.add(type);
+					}
 				}
 			} else if (!ebt.getDestinationBranches().isEmpty()) {
 				// deal with transition branches
 				EList<TransitionBranch> tbs = ebt.getDestinationBranches();
 				for (TransitionBranch transitionBranch : tbs) {
+					if (ebt.getSource() != null && EMV2Util.isSame(ebt.getSource(), transitionBranch.getTarget())
+							&& ebt.getSource().getTypeSet() == null
+							&& transitionBranch.getTarget().getTypeSet() == null) {
+						sameState = true;
+					}
 					if (transitionBranch.getTarget() != null) {
 						if (EMV2Util.isSame(transitionBranch.getTarget(), state)) {
 							if (ebt.getTargetToken() != null) {
@@ -520,7 +530,7 @@ public class PropagationGraphBackwardTraversal {
 						if (val.getRealvalue() != null) {
 							branchscale = new BigDecimal(EMV2Util.stripUnderScore(val.getRealvalue()));
 						} else if (val.getSymboliclabel() != null) {
-							ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
+							Classifier cl = EMV2Util.getAssociatedClassifier(ebt);
 							List<EMV2PropertyAssociation> pa = EMV2Properties
 									.getProperty(val.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 							for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
@@ -534,7 +544,7 @@ public class PropagationGraphBackwardTraversal {
 									branchscale = branchscale.subtract(
 											new BigDecimal(EMV2Util.stripUnderScore(valcount.getRealvalue())));
 								} else if (valcount.getSymboliclabel() != null) {
-									ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
+									Classifier cl = EMV2Util.getAssociatedClassifier(ebt);
 									List<EMV2PropertyAssociation> pa = EMV2Properties
 											.getProperty(valcount.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 									for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {

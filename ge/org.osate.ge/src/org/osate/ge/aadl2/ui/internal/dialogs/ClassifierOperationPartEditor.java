@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -62,7 +62,6 @@ import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationPartType;
 import org.osate.ge.swt.SwtUtil;
 
-import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableList;
 
 class ClassifierOperationPartEditor extends Composite {
@@ -142,8 +141,7 @@ class ClassifierOperationPartEditor extends Composite {
 
 		for (final ClassifierOperationPartType operation : ClassifierOperationPartType.values()) {
 			final Button newBtn = new Button(operationGroup, SWT.RADIO);
-			newBtn.setText(StringUtil
-					.camelCaseToUser(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, operation.toString())));
+			newBtn.setText(StringUtil.snakeCaseToTitleCase(operation.toString()));
 			newBtn.setData(operation);
 			newBtn.addSelectionListener(operationSelectedListener);
 			operationPartTypeBtns.add(newBtn);

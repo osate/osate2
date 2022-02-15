@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -38,9 +38,19 @@ public class KeywordPropagationPoint implements EmfContainerProvider {
 
 	private final KeywordPropagationPointType type;
 
-	public KeywordPropagationPoint(final Classifier classifier, final KeywordPropagationPointType type) {
+	private final boolean isUsed;
+
+	/**
+	 * Creates a new instance
+	 * @param classifier the classifier which owns the propagation point
+	 * @param type the type of keyword propagation point
+	 * @param isUsed whether the propgation point is referenced by other model elements
+	 */
+	public KeywordPropagationPoint(final Classifier classifier, final KeywordPropagationPointType type,
+			final boolean isUsed) {
 		this.type = Objects.requireNonNull(type, "type must not be null");
 		this.classifier = Objects.requireNonNull(classifier, "clasifier must not be null");
+		this.isUsed = isUsed;
 	}
 
 	@Override
@@ -48,11 +58,27 @@ public class KeywordPropagationPoint implements EmfContainerProvider {
 		return getClassifier();
 	}
 
+	/**
+	 * Returns the classifier which owns the propagation point
+	 * @return the classifier which owns the propagation point
+	 */
 	public final Classifier getClassifier() {
 		return classifier;
 	}
 
+	/**
+	 * Returns the keyword which identifies the propagation point
+	 * @return the keyword which identifies the propagation point
+	 */
 	public final KeywordPropagationPointType getType() {
 		return type;
+	}
+
+	/**
+	 * Returns whether the keyword propagation point is referenced by another error model annex element
+	 * @return whether the keyword propagation point is referenced by another error model annex element
+	 */
+	public final boolean isUsed() {
+		return isUsed;
 	}
 }

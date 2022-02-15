@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,63 +23,128 @@
  */
 package org.osate.ge.graphics;
 
-// Components are in range 0-255
-public class Color {
+//
+/**
+ * Immutable data type for RGB color.
+ * The values of individual components are in range [0-255].
+ */
+public final class Color {
 	private static final double COLOR_SCALING = 0.7; // Used for scaling colors with darker() and brighter()
 	private static final double MIN_BRIGHTER_COLOR = 3.0;
 
+	/**
+	 * The color black
+	 */
 	public static final Color BLACK = new Color(0, 0, 0);
+
+	/**
+	 * The color white
+	 */
 	public static final Color WHITE = new Color(255, 255, 255);
+
+	/**
+	 * The color blue
+	 */
 	public static final Color BLUE = new Color(0, 0, 255);
+
+	/**
+	 * The color green
+	 */
 	public static final Color GREEN = new Color(0, 255, 0);
+
+	/**
+	 * The color cyan
+	 */
 	public static final Color CYAN = new Color(0, 255, 255);
+
+	/**
+	 * The color magenta
+	 */
 	public static final Color MAGENTA = new Color(255, 0, 255);
+
+	/**
+	 * The color orange
+	 */
 	public static final Color ORANGE = new Color(255, 128, 0);
+
+	/**
+	 * The color purple
+	 */
 	public static final Color PURPLE = new Color(128, 0, 128);
+
+	/**
+	 * The color dark orange
+	 */
 	public static final Color DARK_ORANGE = new Color(255, 140, 0);
 
-	private final int red;
-	private final int green;
-	private final int blue;
+	private final int r;
+	private final int g;
+	private final int b;
 
+	/**
+	 * Creates a new instance. The value of each component should be within the range [0, 255]
+	 * @param red the value of the red component
+	 * @param green the value of the green component
+	 * @param blue the value of the blue component
+	 */
 	public Color(final int red, final int green, final int blue) {
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
+		this.r = red;
+		this.g = green;
+		this.b = blue;
 	}
 
+	/**
+	 * Returns the red component.
+	 * @return the red component
+	 */
 	public final int getRed() {
-		return red;
+		return r;
 	}
 
+	/**
+	 * Returns the green component.
+	 * @return the green component
+	 */
 	public final int getGreen() {
-		return green;
+		return g;
 	}
 
+	/**
+	 * Returns the blue component.
+	 * @return the blue component
+	 */
 	public final int getBlue() {
-		return blue;
+		return b;
 	}
 
+	/**
+	 * Returns a darker version of this color.
+	 * @return a darker version of this color
+	 */
 	public final Color darker() {
-		return new Color((int) (red * COLOR_SCALING), (int) (green * COLOR_SCALING), (int) (blue * COLOR_SCALING));
+		return new Color((int) (r * COLOR_SCALING), (int) (g * COLOR_SCALING), (int) (b * COLOR_SCALING));
 	}
 
+	/**
+	 * Returns a brighter version of this color.
+	 * @return a brighter version of this color
+	 */
 	public final Color brighter() {
-		return new Color((int) Math.max(Math.min(red / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
-				(int) Math.max(Math.min(green / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
-				(int) Math.max(Math.min(blue / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR));
+		return new Color((int) Math.max(Math.min(r / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
+				(int) Math.max(Math.min(g / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
+				(int) Math.max(Math.min(b / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR));
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + blue;
-		result = prime * result + green;
+		result = prime * result + b;
+		result = prime * result + g;
 		long temp;
 		temp = Double.doubleToLongBits(MIN_BRIGHTER_COLOR);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + red;
+		result = prime * result + r;
 		return result;
 	}
 
@@ -95,19 +160,15 @@ public class Color {
 			return false;
 		}
 		Color other = (Color) obj;
-		if (blue != other.blue) {
+		if (b != other.b) {
 			return false;
 		}
-		if (green != other.green) {
+		if (g != other.g) {
 			return false;
 		}
 		if (Double.doubleToLongBits(MIN_BRIGHTER_COLOR) != Double.doubleToLongBits(Color.MIN_BRIGHTER_COLOR)) {
 			return false;
 		}
-		if (red != other.red) {
-			return false;
-		}
-		return true;
+		return r == other.r;
 	}
-
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -38,7 +38,17 @@ import org.osate.ge.swt.selectors.BaseField;
  */
 public final class PrototypeBindingsField<N, D, T, C> extends BaseField<PrototypeBindingsModel<N, D, T, C>> {
 	private static final String WIDGET_ID_PREFIX = "org.osate.ge.swt.classifiers.prototypeBindingsField.";
+
+	/**
+	 * The testing ID for the label displaying the value
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_SELECTED_LABEL = WIDGET_ID_PREFIX + "selectedLabel";
+
+	/**
+	 * The testing ID for the edit button
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_EDIT_BUTTON = WIDGET_ID_PREFIX + "editButton";
 
 	private N node;
@@ -80,9 +90,12 @@ public final class PrototypeBindingsField<N, D, T, C> extends BaseField<Prototyp
 		this.node = node;
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new PrototypeBindingsField<>(shell, new TestPrototypeBindingsModel(), null);
-		});
+		SwtUtil.run(shell -> new PrototypeBindingsField<>(shell, new TestPrototypeBindingsModel(), null));
 	}
 }

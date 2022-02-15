@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -47,7 +47,7 @@ public final class CreateReferenceResolverFactoryContext {
 	}
 
 	/**
-	 * Returns the project ot use for the resolver.
+	 * Returns the project to use for the resolver.
 	 * @return the project which defines the scope of the resolver.
 	 */
 	public IProject getProject() {

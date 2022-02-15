@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,24 +31,85 @@ import java.util.Objects;
  *
  */
 public enum PrototypeType {
-	//@formatter:off
+	/**
+	 * Abstract component prototype
+	 */
 	ABSTRACT("Abstract"),
+
+	/**
+	 * Bus component prototype
+	 */
 	BUS("Bus"),
+
+	/**
+	 * Data component prototype
+	 */
 	DATA("Data"),
+
+	/**
+	 * Device component prototype
+	 */
 	DEVICE("Device"),
+
+	/**
+	 * Memory component prototype
+	 */
 	MEMORY("Memory"),
+
+	/**
+	 * Processor component prototype
+	 */
 	PROCESSOR("Processor"),
+
+	/**
+	 * Process component prototype
+	 */
 	PROCESS("Process"),
+
+	/**
+	 * Subprogram group component prototype
+	 */
 	SUBPROGRAM_GROUP("Subprogram Group"),
+
+	/**
+	 * Subprogram component prototype
+	 */
 	SUBPROGRAM("Subprogram"),
+
+	/**
+	 * System component prototype
+	 */
 	SYSTEM("System"),
+
+	/**
+	 * Thread group component prototype
+	 */
 	THREAD_GROUP("Thread Group"),
+
+	/**
+	 * Thread component prototype
+	 */
 	THREAD("Thread"),
+
+	/**
+	 * Virtual bus component prototype
+	 */
 	VIRTUAL_BUS("Virtual Bus"),
+
+	/**
+	 * Virtual processor component prototype
+	 */
 	VIRTUAL_PROCESSOR("Virtual Processor"),
+
+	/**
+	 * Feature prototype
+	 */
 	FEATURE("Feature"),
+
+	/**
+	 * Feature group prototype
+	 */
 	FEATURE_GROUP("Feature Group");
-	//@formatter:on
 
 	private final String label;
 
@@ -61,6 +122,10 @@ public enum PrototypeType {
 		return label;
 	}
 
+	/**
+	 * Returns true if this value is a component prototype type
+	 * @return true if this value is a component prototype type
+	 */
 	public boolean isComponent() {
 		return this != FEATURE && this != FEATURE_GROUP;
 	}

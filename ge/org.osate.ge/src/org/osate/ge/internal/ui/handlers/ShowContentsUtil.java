@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,56 +25,61 @@ package org.osate.ge.internal.ui.handlers;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ge.ContentFilter;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
-import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
-import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
+import org.osate.ge.internal.util.ContentFilterUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 
-class ShowContentsUtil {
+import com.google.common.collect.ImmutableSet;
+
+/**
+ * Contains utility functions related to adding child diagram elements for business objects which match content filters
+ *
+ */
+final class ShowContentsUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private ShowContentsUtil() {
+	}
+
 	/**
 	 * Adds contents to the selected diagram elements. Adds all children which pass the specified filter.
 	 * @param event is the ExecutionEvent of the handler which provides the active editor.
-	 * @param filter is passed the parent diagram element and the business object of the potential child. If the filter returns true, then an element will be added for the business object.
+	 * @param filters determines the filters to apply to the selected elements.
 	 */
 	public static void addContentsToSelectedElements(final ExecutionEvent event,
-			final BiFunction<DiagramElement, Object, Boolean> filter) {
+			final Function<DiagramElement, ImmutableSet<ContentFilter>> filters) {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
-		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor) activeEditor;
+		final InternalDiagramEditor diagramEditor = (InternalDiagramEditor) activeEditor;
 
 		final ExtensionRegistryService extService = Objects.requireNonNull(
 				Adapters.adapt(diagramEditor, ExtensionRegistryService.class), "Unable to retrieve extension service");
-		final AgeFeatureProvider featureProvider = Objects.requireNonNull(
-				(AgeFeatureProvider) diagramEditor.getDiagramTypeProvider().getFeatureProvider(),
-				"Unable to retrieve feature provider");
-		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(diagramEditor, ActionService.class),
-				"Unable to retrieve action service");
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		final AgeDiagram diagram = diagramEditor.getDiagram();
 		if (diagram == null) {
 			throw new RuntimeException("Unable to retrieve diagram");
 		}
 
-		final DiagramUpdater diagramUpdater = Objects.requireNonNull(featureProvider.getDiagramUpdater(),
+		final DiagramUpdater diagramUpdater = Objects.requireNonNull(diagramEditor.getDiagramUpdater(),
 				"Unable to retrieve diagram updater");
 
 		final ReferenceBuilderService referenceBuilder = Objects.requireNonNull(
@@ -82,19 +87,14 @@ class ShowContentsUtil {
 				"Unable to retrieve reference builder service");
 
 		if (addChildrenDuringNextUpdate(selectedDiagramElements, diagramUpdater, extService, referenceBuilder,
-				filter)) {
-			actionService.execute("Show Contents", ExecutionMode.NORMAL, () -> {
-				// Update the diagram
-				final IUpdateContext updateCtx = new UpdateContext(
-						diagramEditor.getGraphitiAgeDiagram().getGraphitiDiagram());
-				diagramEditor.getDiagramBehavior().executeFeature(featureProvider.getUpdateFeature(updateCtx),
-						updateCtx);
-
+				filters)) {
+			diagramEditor.getActionExecutor().execute("Show Contents", ExecutionMode.NORMAL, () -> {
+				diagramEditor.updateDiagram();
 				return null;
 			});
 		}
-
 	}
+
 
 	/**
 	 * Adds children of the specified diagram elements to the list of elements which will be added during the next diagram update.
@@ -102,16 +102,19 @@ class ShowContentsUtil {
 	 */
 	private static boolean addChildrenDuringNextUpdate(final List<DiagramElement> diagramElements,
 			final DiagramUpdater diagramUpdater, final ExtensionRegistryService extService,
-			final ReferenceBuilderService referenceBuilder, final BiFunction<DiagramElement, Object, Boolean> filter) {
+			final ReferenceBuilderService referenceBuilder,
+			final Function<DiagramElement, ImmutableSet<ContentFilter>> filters) {
 		boolean childrenAdded = false;
 		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
 		for (final DiagramElement selectedElement : diagramElements) {
-			for (final Object childBo : bopHelper.getChildBusinessObjects(selectedElement)) {
-				final RelativeBusinessObjectReference relativeReference = referenceBuilder
-						.getRelativeReference(childBo);
-
-				if (relativeReference != null && selectedElement.getByRelativeReference(relativeReference) == null) {
-					if (filter.apply(selectedElement, childBo)) {
+			final ImmutableSet<ContentFilter> contentFilters = filters.apply(selectedElement);
+			if (!contentFilters.isEmpty()) {
+				for (final Object childBo : bopHelper.getChildBusinessObjects(selectedElement)) {
+					final RelativeBusinessObjectReference relativeReference = referenceBuilder
+							.getRelativeReference(childBo);
+					if (relativeReference != null
+							&& selectedElement.getChildByRelativeReference(relativeReference) == null
+							&& ContentFilterUtil.passesAnyContentFilter(childBo, contentFilters)) {
 						diagramUpdater.addToNextUpdate(selectedElement, relativeReference, new FutureElementInfo());
 						childrenAdded = true;
 					}
@@ -121,4 +124,5 @@ class ShowContentsUtil {
 
 		return childrenAdded;
 	}
+
 }

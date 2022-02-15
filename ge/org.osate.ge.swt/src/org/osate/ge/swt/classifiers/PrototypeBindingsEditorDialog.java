@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,6 @@
 package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -37,7 +36,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
 /**
@@ -47,6 +45,10 @@ import org.osate.ge.swt.SwtUtil;
  *
  */
 public class PrototypeBindingsEditorDialog {
+	/**
+	 * Private constructor to prevent direct instantiation.
+	 * @see #open(Shell, String, PrototypeBindingsModel, Object)
+	 */
 	private PrototypeBindingsEditorDialog() {
 	}
 
@@ -66,7 +68,7 @@ public class PrototypeBindingsEditorDialog {
 		Objects.requireNonNull(title, "title must not be null");
 		Objects.requireNonNull(model, "model must not be null");
 
-		final PrototypeBindingsEditorDialogModel<N, D, T, C> wrappedModel = new PrototypeBindingsEditorDialogModel<>(
+		final RevertablePrototypeBindingsModel<N, D, T, C> wrappedModel = new RevertablePrototypeBindingsModel<>(
 				model);
 		final InnerDialog<N, D, T, C> dlg = new InnerDialog<>(parent, title,
 				wrappedModel, node);
@@ -85,7 +87,7 @@ public class PrototypeBindingsEditorDialog {
 		private final String title;
 		private final PrototypeBindingsModel<N, D, T, C> model;
 		private final N node;
-		private final Consumer<ChangeEvent> changeListener = e -> refresh();
+		private final Runnable changeListener = this::refresh;
 		private ScrolledComposite bindingsScrolled;
 
 		public InnerDialog(final Shell parent, final String title, final PrototypeBindingsModel<N, D, T, C> model,
@@ -159,10 +161,13 @@ public class PrototypeBindingsEditorDialog {
 		}
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.runDialog(() -> {
-			PrototypeBindingsEditorDialog.open(null, "Select Classifier and Bindings",
-					new TestPrototypeBindingsModel(), null);
-		});
+		SwtUtil.runDialog(() -> PrototypeBindingsEditorDialog.open(null, "Select Classifier and Bindings",
+				new TestPrototypeBindingsModel(), null));
 	}
 }

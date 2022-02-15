@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -42,7 +42,7 @@ import org.osate.ge.DiagramType;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
-import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
+import org.osate.ge.internal.diagram.runtime.filtering.FilteringUtil;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
@@ -162,7 +162,7 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 
 	@Override
 	public boolean shouldShowBusinessObject(final Object bo) {
-		return Filtering.isConfigurable(extService, bo);
+		return FilteringUtil.isConfigurable(extService, bo);
 	}
 
 	@Override

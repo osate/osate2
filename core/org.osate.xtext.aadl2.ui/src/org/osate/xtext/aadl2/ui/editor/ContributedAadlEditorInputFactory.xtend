@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,6 +26,7 @@ package org.osate.xtext.aadl2.ui.editor
 import org.eclipse.ui.IElementFactory
 import org.eclipse.ui.IMemento
 import org.osate.pluginsupport.PluginSupportUtil
+
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage
 
 import static extension org.eclipse.emf.common.util.URI.createURI

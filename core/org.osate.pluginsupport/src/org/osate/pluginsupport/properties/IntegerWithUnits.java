@@ -8,10 +8,11 @@ import org.osate.aadl2.PropertyExpression;
 /**
  * @since 5.0
  */
-public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits<U>> implements Comparable<IntegerWithUnits<U>> {
+public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits<U>>
+		implements Scalable<U>, Comparable<IntegerWithUnits<U>> {
 	private final long value;
 	private final U unit;
-	
+
 	public IntegerWithUnits(long value, U unit) {
 		this.value = value;
 		this.unit = unit;
@@ -31,10 +32,11 @@ public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits<U>> implements 
 		return unit;
 	}
 
+	@Override
 	public double getValue(U targetUnit) {
 		return value * unit.getFactorToBase() / targetUnit.getFactorToBase();
 	}
-	
+
 	public IntegerLiteral toPropertyExpression(ResourceSet resourceSet) {
 		IntegerLiteral numberValue = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		numberValue.setValue(value);

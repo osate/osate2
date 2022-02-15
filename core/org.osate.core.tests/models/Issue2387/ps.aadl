@@ -1,0 +1,4 @@
+property set ps is
+  string_property: aadlstring applies to (all);
+  string_with_default: aadlstring => "default value" applies to (all);
+end ps;

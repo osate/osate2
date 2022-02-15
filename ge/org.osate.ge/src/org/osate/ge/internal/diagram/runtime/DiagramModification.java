@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,10 +31,11 @@ import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
 
 /**
- * Interface provided to Modifier objects to allow making changes to an AgeDiagram.
+ * Interface provided to Modifier objects to allow making changes to an AgeDiagram. Implementations of this interface are used to
+ * modify diagram elements instead of modifying them directly so that changes can be tracked for undo, redo, and dirty flag calculation purposes.
  *
  */
 public interface DiagramModification {
@@ -44,58 +45,140 @@ public interface DiagramModification {
 	 */
 	AgeDiagram getDiagram();
 
+	/**
+	 * Sets the diagram configuration
+	 * @param config the new diagram configuration
+	 */
 	void setDiagramConfiguration(final DiagramConfiguration config);
 
+	/**
+	 * Adds an element to the diagram. The element will be added as a child of the container referenced by the diagram element.
+	 * @param e the diagram element to add
+	 * @see DiagramElement#getParent()
+	 */
 	void addElement(final DiagramElement e);
+
+	/**
+	 * Removes an element from the diagram.
+	 * @param e the diagram element to remove
+	 */
 	void removeElement(final DiagramElement e);
 
+	/**
+	 * Updates a diagram element's business object and the corresponding reference.
+	 * @param e the diagram element to modify
+	 * @param bo the new business object
+	 * @param relativeReference the relative reference to the business object
+	 */
 	void updateBusinessObject(final DiagramElement e, final Object bo, final RelativeBusinessObjectReference relativeReference);
 
 	/**
 	 * Updates the business object for a diagram element. The business object must have the same relative reference as the current business object.
 	 * It is intended that this method be used to update an element to reflect an updated model when refreshing the diagram.
-	 * Notifications are not sent when this method is called.
-	 * @param e
-	 * @param bo
+	 * Notifications are not sent when this method is called. For updating the business object and the relative reference, see {@link #updateBusinessObject(DiagramElement, Object, RelativeBusinessObjectReference)}
+	 * @param e the diagram element to modify
+	 * @param bo the new business object
 	 */
 	void updateBusinessObjectWithSameRelativeReference(final DiagramElement e, final Object bo);
 
 	/**
-	 * Notifications are not sent when this method is called
-	 * @param e
+	 * Sets the diagram element's business object handler. Changes to this value are not tracked and notifications are not sent when this method is called
+	 * @param e the diagram element to modify
 	 * @param boh is the business object handler
 	 */
 	void setBusinessObjectHandler(final DiagramElement e, final BusinessObjectHandler boh);
 
+	/**
+	 * Sets the diagram element's completeness
+	 * @param e the diagram element to modify
+	 * @param value the new value
+	 * @see DiagramElement#getCompleteness()
+	 */
 	void setCompleteness(final DiagramElement e, final Completeness value);
+
+	/**
+	 * Sets the name used by the diagram element's label
+	 * @param e the diagram element to modify
+	 * @param value the new value
+	 * @see DiagramElement#getLabelName()
+	 */
 	void setLabelName(final DiagramElement e, final String value);
 
+	/**
+	 * Sets the name used for the diagram element in the user interface
+	 * @param e the diagram element to modify
+	 * @param value the new value
+	 * @see DiagramElement#getUserInterfaceName()
+	 */
 	void setUserInterfaceName(final DiagramElement e, final String value);
 
+	/**
+	 * Sets the diagram element's graphical configuration
+	 * @param e the diagram element to modify
+	 * @param value the new value
+	 * @see DiagramElement#getGraphicalConfiguration()
+	 */
 	void setGraphicalConfiguration(final DiagramElement e, final GraphicalConfiguration value);
 
 	/**
-	 * Sets the position. This method does not update connection bendpoints, dock areas, or flow indicators. It is usually recommended
+	 * Sets the position. This method does not update contained connection bendpoints, dock areas, or flow indicator positions. It is usually recommended
 	 * to use a higher level function.
+	 * @param e the diagram element to modify
+	 * @param value the new position
+	 * @see DiagramElement#getPosition()
+	 * @see org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil#moveElement(DiagramModification, DiagramElement, Point)
 	 */
 	void setPosition(final DiagramElement e, final Point value);
 
+	/**
+	 * Sets the diagram element's size
+	 * @param e the diagram element to modify
+	 * @param value the new size
+	 * @see DiagramElement#getSize()
+	 */
 	void setSize(final DiagramElement e, final Dimension value);
-	void setDockArea(final DiagramElement e, final DockArea value);
-	void setBendpoints(final DiagramElement e, final List<Point> bendpoints);
-	void setConnectionPrimaryLabelPosition(final DiagramElement e, final Point value);
-	void setStyle(final DiagramElement e, final Style value);
 
+	/**
+	 * Sets the diagram element's dock area
+	 * @param e the diagram element to modify
+	 * @param value the new dock area
+	 * @see DiagramElement#getDockArea
+	 */
+	void setDockArea(final DiagramElement e, final DockArea value);
+
+	/**
+	 * Sets the diagram element's bendpoints. Only appropriate for connections and flow indicators.
+	 * @param e the diagram element to modify
+	 * @param bendpoints the new size
+	 * @see DiagramElement#getBendpoints()
+	 */
+	void setBendpoints(final DiagramElement e, final List<Point> bendpoints);
+
+	/**
+	 * Sets position of the diagram element's primary label. Only appropriate for connections and flow indicators.
+	 * @param e the diagram element to modify
+	 * @param value the new position
+	 * @see DiagramElement#getConnectionPrimaryLabelPosition()
+	 */
+	void setConnectionPrimaryLabelPosition(final DiagramElement e, final Point value);
+
+	/**
+	 * Sets the diagram element's style
+	 * @param e the diagram element to modify
+	 * @param value the new style
+	 * @see DiagramElement#getStyle()
+	 */
+	void setStyle(final DiagramElement e, final Style value);
 
 	/**
 	 * Undoes a previous modification. The specified modification must be the most recently performed modification.
-	 * @param modification
+	 * @param modification the modification to reverse
 	 */
 	public void undoModification(final DiagramModification modification);
 
 	/**
 	 * Repeats a modification The specified modification must be the most recently performed modification.
-	 * @param modification
+	 * @param modification the modification to repeat
 	 */
 	public void redoModification(final DiagramModification modification);
 }

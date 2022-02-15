@@ -2,7 +2,7 @@
 <!--
 AADL-BA-FrontEnd
  
-Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  
 TELECOM ParisTech/LTCI
 
@@ -25,6 +25,7 @@ https://www.eclipse.org/legal/epl-2.0/
    <extension
          point="org.osate.annexsupport.parser">
       <parser
+            annexNSURI="https://github.com/osate/osate2-ba.git"
             annexName="behavior_specification"
             class="org.osate.ba.AadlBaParserAction"
             id="org.osate.ba.parser"

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -75,18 +75,16 @@ import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.FlowSegmentSta
 import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
-import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
+import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
+import org.osate.ge.internal.diagram.runtime.updating.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
-import org.osate.ge.internal.graphiti.AgeFeatureProvider;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
-import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 
 import com.google.common.base.Predicates;
 
@@ -96,7 +94,7 @@ import com.google.common.base.Predicates;
  */
 public class ShowFlowContributionItem extends ControlContribution {
 	private final static ImageDescriptor showIcon = Activator.getImageDescriptor("icons/show_flow.png");
-	private AgeDiagramEditor editor = null;
+	private InternalDiagramEditor editor = null;
 	private Button showFlowBtn;
 	private HighlightableFlowInfo selectedFlow;
 
@@ -123,11 +121,9 @@ public class ShowFlowContributionItem extends ControlContribution {
 				if (editor != null && selectedFlow != null) {
 					referenceService = Objects.requireNonNull(Adapters.adapt(editor, ProjectReferenceService.class),
 							"Unable to retrieve reference service");
-					final AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()
-							.getFeatureProvider();
-					final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
-					final TreeUpdater boTreeExpander = featureProvider.getBoTreeUpdater();
-					final BusinessObjectNode boTree = getBoTree(boTreeExpander);
+					final DiagramUpdater diagramUpdater = editor.getDiagramUpdater();
+					final BusinessObjectTreeUpdater boTreeUpdater = editor.getBoTreeUpdater();
+					final BusinessObjectNode boTree = getBoTree(boTreeUpdater);
 					final BusinessObjectNode containerNode = boTree.getAllDescendants().filter(
 							q -> q.getBusinessObject() == selectedFlow.getContainer().getBusinessObject())
 							.findAny().map(BusinessObjectNode.class::cast)
@@ -138,17 +134,16 @@ public class ShowFlowContributionItem extends ControlContribution {
 					ensureFlowSegmentsExist(component, selectedFlow.getFlowSegment(), containerNode);
 
 					final AgeDiagram diagram = editor.getDiagram();
-					final ActionService actionService = Objects.requireNonNull(
-							Adapters.adapt(editor, ActionService.class), "Unable to retrieve action service");
-					final GraphitiService graphitiService = Objects.requireNonNull(
-							Adapters.adapt(editor, GraphitiService.class), "Unable to retrieve graphiti service");
-					actionService.execute("Show Flow Elements", ExecutionMode.NORMAL, () -> {
+					final LayoutInfoProvider layoutInfoProvider = Objects.requireNonNull(
+							Adapters.adapt(editor, LayoutInfoProvider.class),
+							"Unable to retrieve layout info provider");
+					editor.getActionExecutor().execute("Show Flow Elements", ExecutionMode.NORMAL, () -> {
 						// Update the diagram
 						diagramUpdater.updateDiagram(diagram, boTree);
 
 						// Update layout
 						diagram.modify("Layout Incrementally",
-								m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, graphitiService));
+								m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, layoutInfoProvider));
 
 						return null;
 					});
@@ -260,10 +255,10 @@ public class ShowFlowContributionItem extends ControlContribution {
 				return container;
 			}
 
-			private BusinessObjectNode getBoTree(final TreeUpdater boTreeExpander) {
+			private BusinessObjectNode getBoTree(final BusinessObjectTreeUpdater treeUpdater) {
 				BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter
 						.createBusinessObjectNode(editor.getDiagram());
-				return boTreeExpander.expandTree(editor.getDiagram().getConfiguration(), boTree);
+				return treeUpdater.updateTree(editor.getDiagram().getConfiguration(), boTree);
 			}
 
 			private FlowSegmentReference createFlowSegmentReference(final Object bo,
@@ -472,8 +467,8 @@ public class ShowFlowContributionItem extends ControlContribution {
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
 			// Update the editor
-			if (newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor) newEditor;
+			if (newEditor instanceof InternalDiagramEditor) {
+				this.editor = (InternalDiagramEditor) newEditor;
 			} else {
 				this.editor = null;
 			}

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -49,18 +49,22 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
 import com.google.common.base.Objects;
 
+/**
+ * Property section for {@link TransitionBranch} elements
+ */
 public class TransitionBranchPropertySection extends AbstractPropertySection {
 	/**
-	 * Testing ID for the value text field
+	 * Testing ID of the text field containing the probability of the transition branch
 	 */
 	public static final String WIDGET_ID_PROBABILITY = "org.osate.ge.errormodel.ui.properties.transitionBranch.probability";
 
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof TransitionBranch;
-			});
+			return PropertySectionUtil.isBoCompatible(toTest, TransitionBranch.class::isInstance);
 		}
 	}
 

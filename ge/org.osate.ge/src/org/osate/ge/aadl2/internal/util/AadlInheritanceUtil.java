@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,14 +30,29 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.GraphicalExtensionUtil;
 
-// Contains helper functions related to model elements which may originated from extended classifiers
-public class AadlInheritanceUtil {
+/**
+ * Class containing utility functions related to model elements which may be owned by a business object other than the business object of the
+ * graphical parent.
+ *
+ */
+public final class AadlInheritanceUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private AadlInheritanceUtil() {
+	}
+
+	/**
+	 * @see {@link GraphicalExtensionUtil#isInherited(BusinessObjectContext)}
+	 */
 	public static boolean isInherited(final BusinessObjectContext boc) {
 		if (boc.getParent() != null && boc.getBusinessObject() instanceof Element) {
 			final Element e = ((Element) boc.getBusinessObject());
 			final Classifier c = e.getContainingClassifier();
-			if (c != null && c != getClassifierOrSubcomponent(boc.getParent()).orElse(null)) {
+			final NamedElement ne = getClassifierOrSubcomponent(boc.getParent()).orElse(null);
+			if (c != null && ne != null && c != ne) {
 				return true;
 			}
 		}

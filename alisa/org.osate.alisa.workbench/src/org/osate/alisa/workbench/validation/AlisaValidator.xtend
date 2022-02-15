@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -33,10 +33,10 @@ import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
 import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.verify.util.IVerifyGlobalReferenceFinder
+import org.osate.verify.internal.util.IVerifyGlobalReferenceFinder
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 
 /**
  * Custom validation rules. 

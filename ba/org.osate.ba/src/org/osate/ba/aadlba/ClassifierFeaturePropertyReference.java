@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,9 +19,6 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Classifier Feature Property Reference</b></em>'.
@@ -38,32 +35,31 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface ClassifierFeaturePropertyReference extends PropertyReference
-{
-  /**
-   * Returns the value of the '<em><b>Component</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Component</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Component</em>' containment reference.
-   * @see #setComponent(ClassifierFeatureHolder)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getClassifierFeaturePropertyReference_Component()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  ClassifierFeatureHolder getComponent();
+public interface ClassifierFeaturePropertyReference extends PropertyReference {
+	/**
+	 * Returns the value of the '<em><b>Component</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Component</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Component</em>' containment reference.
+	 * @see #setComponent(ClassifierFeatureHolder)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getClassifierFeaturePropertyReference_Component()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	ClassifierFeatureHolder getComponent();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.ClassifierFeaturePropertyReference#getComponent <em>Component</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Component</em>' containment reference.
-   * @see #getComponent()
-   * @generated
-   */
-  void setComponent(ClassifierFeatureHolder value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.ClassifierFeaturePropertyReference#getComponent <em>Component</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Component</em>' containment reference.
+	 * @see #getComponent()
+	 * @generated
+	 */
+	void setComponent(ClassifierFeatureHolder value);
 
 } // ClassifierFeaturePropertyReference

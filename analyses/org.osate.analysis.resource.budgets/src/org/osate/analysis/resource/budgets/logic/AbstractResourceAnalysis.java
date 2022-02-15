@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,14 +28,22 @@ import java.util.Iterator;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.timing.TimingProperties;
+import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.contribution.sei.sei.Instructionvolumeunits;
+import org.osate.contribution.sei.sei.ProcessorSpeedUnits;
+import org.osate.contribution.sei.sei.Sei;
+import org.osate.pluginsupport.properties.PropertyUtils;
+import org.osate.pluginsupport.properties.RealRange;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 	private final String prefixSymbol = "  ";
@@ -63,7 +71,7 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 	 * @return double total, zero, if no budget, -1 if hardware only in
 	 *         substructure
 	 */
-	protected double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, final SystemOperationMode som,
+	protected double sumBudgets(ComponentInstance ci, ResourceKind rk, final SystemOperationMode som,
 			String prefix) {
 		if (!ci.isActive(som)) {
 			return 0.0;
@@ -84,7 +92,7 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 		}
 		for (Iterator<ComponentInstance> it = subcis.iterator(); it.hasNext();) {
 			ComponentInstance subci = it.next();
-			double subresult = sumBudgets(subci, rk, unit, som, isSystemInstance ? "" : prefix + prefixSymbol);
+			double subresult = sumBudgets(subci, rk, som, isSystemInstance ? "" : prefix + prefixSymbol);
 			if (subresult >= 0) {
 				HWOnly = false;
 				subtotal += subresult;
@@ -106,46 +114,48 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 		if (HWOnly) {
 			return -1;
 		}
+
+		final Enum<?> budgetUnit = rk == ResourceKind.MIPS ? ProcessorSpeedUnits.MIPS : SizeUnits.KBYTE;
 		double budget = getBudget(ci, rk);
 		if (rk.equals(ResourceKind.RAM) || rk.equals(ResourceKind.ROM) || rk.equals(ResourceKind.Memory)) {
-			double actualsize = getMemoryUseActual(ci, rk.name(), unit);
+			double actualsize = getMemoryUseActual(ci, rk.name(), SizeUnits.KBYTE);
 			subtotal += actualsize;
 		}
 		String resourceName = ci.getCategory().getName();
 		String notes = "";
 		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
-			subtotal = GetProperties.getThreadExecutioninMIPS(ci);
+			subtotal = getThreadExecutioninMIPS(ci);
 		}
 		components = components + subcount;
 		budgetedComponents = budgetedComponents + subbudgetcount;
 		if (budget > 0 && subtotal > budget) {
-			notes = String.format("Error: subtotal/actual exceeds budget %.3f by %.3f " + unit.getName(), budget,
+			notes = String.format("Error: subtotal/actual exceeds budget %.3f by %.3f " + budgetUnit.name(), budget,
 					(subtotal - budget));
 		} else if (budget > 0 && subtotal < budget) {
 			notes = String.format(
-					resourceName + " " + ci.getInstanceObjectPath() + " total %.3f " + unit.getName()
-							+ " below budget %.3f " + unit.getName() + " (%.1f %% slack)",
+					resourceName + " " + ci.getInstanceObjectPath() + " total %.3f " + budgetUnit.name()
+							+ " below budget %.3f " + budgetUnit.name() + " (%.1f %% slack)",
 					subtotal, budget, (budget - subtotal) / budget * 100);
 		}
 		if (!isSystemInstance) {
-			detailedLog(prefix, ci, budget, subtotal, resourceName, unit, notes);
+			detailedLog(prefix, ci, budget, subtotal, resourceName, budgetUnit, notes);
 		}
 		return subtotal == 0 ? budget : subtotal;
 	}
 
-	protected double getMemoryUseActual(ComponentInstance bci, String resourceName, UnitLiteral unit) {
+	protected double getMemoryUseActual(final ComponentInstance bci, final String resourceName, final SizeUnits unit) {
 		double actualsize = 0.0;
 		if (resourceName.equals("ROM")) {
-			actualsize = GetProperties.getCodeSize(bci, unit);
+			actualsize = getCodeSize(bci, unit);
 		} else if (resourceName.equals("RAM")) {
-			actualsize = GetProperties.getDataSize(bci, unit);
-			actualsize += GetProperties.getHeapSize(bci, unit);
-			actualsize += GetProperties.getStackSize(bci, unit);
+			actualsize = AadlContribUtils.getDataSize(bci, unit);
+			actualsize += getHeapSize(bci, unit);
+			actualsize += getStackSize(bci, unit);
 		} else {
-			actualsize = GetProperties.getDataSize(bci, unit);
-			actualsize += GetProperties.getHeapSize(bci, unit);
-			actualsize += GetProperties.getStackSize(bci, unit);
-			actualsize += GetProperties.getCodeSize(bci, unit);
+			actualsize = AadlContribUtils.getDataSize(bci, unit);
+			actualsize += getHeapSize(bci, unit);
+			actualsize += getStackSize(bci, unit);
+			actualsize += getCodeSize(bci, unit);
 		}
 		return actualsize;
 	}
@@ -153,13 +163,14 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 	private double getBudget(NamedElement ne, ResourceKind kind) {
 		switch (kind) {
 		case MIPS:
-			return GetProperties.getMIPSBudgetInMIPS(ne, 0.0);
+			return PropertyUtils.getScaled(Sei::getMipsbudget, ne, ProcessorSpeedUnits.MIPS).orElse(0.0);
 		case RAM:
-			return GetProperties.getRAMBudgetInKB(ne, 0.0);
+			return PropertyUtils.getScaled(Sei::getRambudget, ne, SizeUnits.KBYTE).orElse(0.0);
 		case ROM:
-			return GetProperties.getROMBudgetInKB(ne, 0.0);
+			return PropertyUtils.getScaled(Sei::getRombudget, ne, SizeUnits.KBYTE).orElse(0.0);
 		case Memory:
-			return GetProperties.getRAMBudgetInKB(ne, 0.0) + GetProperties.getROMBudgetInKB(ne, 0.0);
+			return PropertyUtils.getScaled(Sei::getRambudget, ne, SizeUnits.KBYTE).orElse(0.0)
+					+ PropertyUtils.getScaled(Sei::getRombudget, ne, SizeUnits.KBYTE).orElse(0.0);
 		}
 		return 0.0;
 	}
@@ -182,4 +193,75 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 		}
 		return false;
 	}
+
+	protected static double getHeapSize(final NamedElement ne, final SizeUnits unit) {
+		return org.osate.pluginsupport.properties.PropertyUtils
+				.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getHeapSize, ne, unit)
+				.orElseGet(() -> org.osate.pluginsupport.properties.PropertyUtils
+						.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getSourceHeapSize, ne, unit)
+						.orElse(0.0));
+	}
+
+	protected static double getStackSize(final NamedElement ne, final SizeUnits unit) {
+		return org.osate.pluginsupport.properties.PropertyUtils
+				.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getStackSize, ne, unit)
+				.orElseGet(() -> org.osate.pluginsupport.properties.PropertyUtils
+						.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getSourceStackSize, ne, unit)
+						.orElse(0.0));
+	}
+
+	protected static double getCodeSize(final NamedElement ne, final SizeUnits unit) {
+		return org.osate.pluginsupport.properties.PropertyUtils
+				.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getCodeSize, ne, unit)
+				.orElseGet(() -> org.osate.pluginsupport.properties.PropertyUtils
+						.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getSourceCodeSize, ne, unit)
+						.orElse(0.0));
+	}
+
+	protected static double getThreadExecutioninMIPS(ComponentInstance threadinstance) {
+		if (!InstanceModelUtil.isThread(threadinstance)) {
+			return 0;
+		}
+		double mips = getThreadExecutionIPDinMIPS(threadinstance);
+		if (mips == 0) {
+			double period = PropertyUtils.getScaled(TimingProperties::getPeriod, threadinstance, TimeUnits.SEC)
+					.orElse(0.0);
+			double exectimeval = PropertyUtils
+					.getScaledRange(TimingProperties::getComputeExecutionTime, threadinstance, TimeUnits.SEC)
+					.orElse(RealRange.ZEROED).getMaximum();
+			if (exectimeval > 0 && period > 0) {
+				final ComponentInstance thread = threadinstance;
+				double mipspersec = TimingProperties.getReferenceProcessor(thread).map(pci -> getMIPSCapacityInMIPS(pci, 0.0)).orElse(0.0);
+				if (mipspersec == 0) {
+					mipspersec = getBoundPhysicalProcessorMIPS(threadinstance);
+				}
+				double time = exectimeval / period;
+				mips = time * mipspersec;
+			}
+		}
+		return mips;
+	}
+
+	protected static double getThreadExecutionIPDinMIPS(final ComponentInstance threadinstance) {
+		final double period = PropertyUtils.getScaled(TimingProperties::getPeriod, threadinstance, TimeUnits.SEC)
+				.orElse(0.0);
+		final double mipd = PropertyUtils
+				.getScaledRange(Sei::getInstructionsperdispatch, threadinstance, Instructionvolumeunits.MIPD)
+				.orElse(RealRange.ZEROED).getMaximum();
+		return (mipd > 0 && period > 0) ? mipd / period : 0.0;
+	}
+
+	protected static double getBoundPhysicalProcessorMIPS(final ComponentInstance thread) {
+		final Iterator<ComponentInstance> pcis = InstanceModelUtil.getBoundPhysicalProcessors(thread).iterator();
+		return pcis.hasNext() ? getMIPSCapacityInMIPS(pcis.next(), 0.0) : 0.0;
+	}
+
+	protected static double getMIPSCapacityInMIPS(final NamedElement ne, final double defaultValue) {
+		return PropertyUtils.getScaled(Sei::getMipscapacity, ne, ProcessorSpeedUnits.MIPS).orElseGet(
+				() -> PropertyUtils.getScaled(
+						TimingProperties::getProcessorCapacity, ne,
+						org.osate.aadl2.contrib.aadlproject.ProcessorSpeedUnits.MIPS).
+						orElse(defaultValue));
+	}
+
 }

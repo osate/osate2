@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -62,7 +62,7 @@ public class FlowToolUtil {
 	static Optional<BusinessObjectContext> getAncestorDiagramElement(
 			BusinessObjectContext ancestorBoc,
 			final Queue<Element> ancestors) {
-		Optional<DiagramElement> boc = null;
+		Optional<DiagramElement> boc;
 		for (; !ancestors.isEmpty(); ancestorBoc = boc.get()) {
 			final Element ancestorElement = ancestors.poll();
 			boc = ancestorBoc.getChildren().stream()
@@ -87,7 +87,7 @@ public class FlowToolUtil {
 		if (seg.getContext() == null) {
 			tmp = container;
 		} else {
-			tmp = container.getByRelativeReference(referenceBuilder.getRelativeReference(seg.getContext()));
+			tmp = container.getChildByRelativeReference(referenceBuilder.getRelativeReference(seg.getContext()));
 			if (tmp == null) {
 				return new SegmentData(new ChildlessBusinessObjectContext(
 						new ChildlessBusinessObjectContext(container, seg.getContext()), seg.getFlowElement()));
@@ -102,7 +102,7 @@ public class FlowToolUtil {
 					highlightableSegments);
 		} else {
 			final DiagramElement flowElementDiagramElement = tmp
-					.getByRelativeReference(referenceBuilder.getRelativeReference(seg.getFlowElement()));
+					.getChildByRelativeReference(referenceBuilder.getRelativeReference(seg.getFlowElement()));
 			if (flowElementDiagramElement == null) {
 				return new SegmentData(new ChildlessBusinessObjectContext(tmp, seg.getFlowElement()));
 			}
@@ -122,7 +122,7 @@ public class FlowToolUtil {
 		if (flowEnd.getContext() == null) {
 			tmp = container;
 		} else {
-			tmp = container.getByRelativeReference(referenceBuilder.getRelativeReference(flowEnd.getContext()));
+			tmp = container.getChildByRelativeReference(referenceBuilder.getRelativeReference(flowEnd.getContext()));
 			if (tmp == null) {
 				return new SegmentData(new ChildlessBusinessObjectContext(
 						new ChildlessBusinessObjectContext(container, flowEnd.getContext()), flowEnd.getFeature()));
@@ -130,7 +130,7 @@ public class FlowToolUtil {
 		}
 
 		final DiagramElement flowEndDiagramElement = tmp
-				.getByRelativeReference(referenceBuilder.getRelativeReference(flowEnd.getFeature()));
+				.getChildByRelativeReference(referenceBuilder.getRelativeReference(flowEnd.getFeature()));
 		if (flowEndDiagramElement == null) {
 			return new SegmentData(new ChildlessBusinessObjectContext(tmp, flowEnd.getFeature()));
 		}
@@ -149,7 +149,7 @@ public class FlowToolUtil {
 		if (seg.getContext() == null) {
 			tmp = container;
 		} else {
-			tmp = container.getByRelativeReference(referenceBuilder.getRelativeReference(seg.getContext()));
+			tmp = container.getChildByRelativeReference(referenceBuilder.getRelativeReference(seg.getContext()));
 			if (tmp == null) {
 				return new SegmentData(new ChildlessBusinessObjectContext(
 						new ChildlessBusinessObjectContext(container, seg.getContext()), seg.getFlowElement()));
@@ -157,7 +157,7 @@ public class FlowToolUtil {
 		}
 
 		final DiagramElement flowElementDiagramElement = tmp
-				.getByRelativeReference(referenceBuilder.getRelativeReference(seg.getFlowElement()));
+				.getChildByRelativeReference(referenceBuilder.getRelativeReference(seg.getFlowElement()));
 		if (flowElementDiagramElement == null) {
 			return new SegmentData(new ChildlessBusinessObjectContext(tmp, seg.getFlowElement()));
 		}
@@ -173,7 +173,7 @@ public class FlowToolUtil {
 	public static BusinessObjectContext findOrCreateBusinessObjectContext(
 			final ReferenceBuilderService referenceBuilder, final DiagramElement container, final Element e) {
 		final BusinessObjectContext childBoc = container
-				.getByRelativeReference(referenceBuilder.getRelativeReference(e));
+				.getChildByRelativeReference(referenceBuilder.getRelativeReference(e));
 		if (childBoc == null) {
 			return new ChildlessBusinessObjectContext(container, e);
 		}

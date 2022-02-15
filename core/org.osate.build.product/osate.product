@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="osate2" application="org.eclipse.ui.ide.workbench" version="2.9.1.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.11.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -14,7 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
+      <vmArgs>-Dosgi.requiredJavaVersion=1.11 -Dosgi.framework.extensions=org.eclipse.fx.osgi -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
       </vmArgs>
    </launcherArgs>
 
@@ -42,7 +42,9 @@
       <feature id="org.osate.plugins.feature"/>
       <feature id="org.osate.xtext.aadl2.errormodel.feature" installMode="root"/>
       <feature id="org.osate.ge.feature" installMode="root"/>
+      <feature id="org.osate.ge.errormodel.feature" installMode="root"/>
       <feature id="org.osate.ba.feature" installMode="root"/>
+      <feature id="org.osate.ge.ba.feature" installMode="root"/>
       <feature id="org.osate.utils.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
       <feature id="org.osate.examples.feature" installMode="root"/>
@@ -52,7 +54,7 @@
       <feature id="org.eclipse.equinox.executable"/>
       <feature id="org.eclipse.equinox.p2.discovery.feature"/>
       <feature id="org.eclipse.platform"/>
-      <feature id="org.eclipse.graphiti.export.feature"/>
+      <feature id="org.eclipse.mylyn.context_feature"/>
       <feature id="org.eclipse.sirius.runtime.ide.ui"/>
       <feature id="org.eclipse.elk.feature"/>
       <feature id="org.eclipse.elk.algorithms.feature"/>
@@ -63,6 +65,11 @@
       <feature id="org.eclipse.ease.modules.feature"/>
       <feature id="org.eclipse.ease.ui.feature"/>
       <feature id="org.py4j.feature"/>
+      <feature id="org.eclipse.fx.runtime.min.feature"/>
+      <feature id="openjfx.standard.feature"/>
+      <feature id="openjfx.swing.feature"/>
+      <feature id="openjfx.swt.feature"/>
+      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full.stripped"/>
    </features>
 
    <configurations>
@@ -70,15 +77,23 @@
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
-      <property name="org.eclipse.update.reconcile" value="false" />
       <property name="preferenceCustomization" value="plugin_customization.ini" />
+      <property name="org.eclipse.update.reconcile" value="false" />
    </configurations>
 
    <repositories>
       <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.16" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2020-06" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.19" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2021-03" enabled="true" />
    </repositories>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
 
 </product>

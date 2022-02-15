@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,15 +28,24 @@ import java.util.function.Function;
 
 import org.osate.ge.operations.Operation;
 
-class SuboperationStepBuilder<PrevResultUserType> extends AbstractStepBuilder<Void> {
-	private final Function<PrevResultUserType, Operation> opProvider;
+/**
+ * Builder for {@link SuboperationStep}
+ *
+ * @param <P> the type of the user value of the result of the previous step
+ */
+class SuboperationStepBuilder<P> extends AbstractStepBuilder<Void> {
+	private final Function<P, Operation> opProvider;
 
-	public SuboperationStepBuilder(final Function<PrevResultUserType, Operation> opProvider) {
+	/**
+	 * Creates a new instance which builds a {@link SuboperationStep} with the specified operation provider
+	 * @param opProvider see {@link SuboperationStep#getOperationProvider()}
+	 */
+	public SuboperationStepBuilder(final Function<P, Operation> opProvider) {
 		this.opProvider = Objects.requireNonNull(opProvider, "opProvider must not be null");
 	}
 
 	@Override
-	protected Step<Void> buildStep(final Step<?> nextStep) {
-		return new SuboperationStep<PrevResultUserType>(nextStep, opProvider);
+	protected Step buildStep(final Step nextStep) {
+		return new SuboperationStep<P>(nextStep, opProvider);
 	}
 }

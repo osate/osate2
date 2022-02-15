@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,11 +30,13 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 /**
- * Stores data needed to represent a business object graphically. Provides by the business object handler.
+ * Immutable data type which stores data needed to represent a business object graphically.
+ * Provided by a diagram element's {@link org.osate.ge.businessobjecthandling.BusinessObjectHandler}.
  * GraphicalConfiguration objects must be created using the {@link GraphicalConfigurationBuilder} class.
  * @noextend This class is not intended to be subclassed by clients.
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @see GraphicalConfigurationBuilder
+ * @see org.osate.ge.businessobjecthandling.BusinessObjectHandler
  */
 public final class GraphicalConfiguration {
 	private final Graphic graphic;
@@ -42,30 +44,37 @@ public final class GraphicalConfiguration {
 	private final DiagramElement connectionSource;
 	private final DiagramElement connectionDestination;
 	private final Style style;
-	private final boolean isDecoration;
 	private final String annotation;
 	private final boolean primaryLabelIsMultiline;
 
 	/**
+	 * Creates a new instance.
+	 * @param graphic the diagram element's graphic.
+	 * @param defaultDockingPosition the default docking position for the diagram element.
+	 * @param connectionSource the diagram element which is the start of the connection.
+	 * @param connectionDestination the diagram element which is the end of the connection.
+	 * @param style the diagram element's style
+	 * @param annotation an additional text annotation for use with shapes.
+	 * @param primaryLabelIsMultiline whether the primary label for the diagram element is allowed to span multiple lines
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	GraphicalConfiguration(
 			final Graphic graphic,
 			final DockingPosition defaultDockingPosition,
 			final DiagramElement connectionSource, final DiagramElement connectionDestination, final Style style,
-			final boolean isDecoration, final String annotation, final boolean primaryLabelIsMultiline) {
+			final String annotation, final boolean primaryLabelIsMultiline) {
 		this.graphic = Objects.requireNonNull(graphic, "graphic must not be null");
 		this.defaultDockingPosition = defaultDockingPosition;
 		this.connectionSource = connectionSource;
 		this.connectionDestination = connectionDestination;
 		this.style = Objects.requireNonNull(style, "style must not be null");
-		this.isDecoration = isDecoration;
 		this.annotation = annotation;
 		this.primaryLabelIsMultiline = primaryLabelIsMultiline;
 	}
 
 	/**
-	 *
+	 * Returns the graphic used for the diagram element.
+	 * @return the graphic
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final Graphic getGraphic() {
@@ -73,7 +82,9 @@ public final class GraphicalConfiguration {
 	}
 
 	/**
-	 *
+	 * Returns the default docking position of the diagram element. Used to determine if diagram element is a docked element.
+	 * The layout algorithm is not required to dock the diagram to the requested side.
+	 * @return the default docking position
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final DockingPosition getDefaultDockingPosition() {
@@ -81,7 +92,9 @@ public final class GraphicalConfiguration {
 	}
 
 	/**
-	 *
+	 * For connections, returning the diagram element which is the start of the connection. For flow indicators, this indicates the
+	 * diagram element to which the indicator is attached.
+	 * @return the diagram element which at which the connection starts
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final DiagramElement getConnectionSource() {
@@ -89,7 +102,8 @@ public final class GraphicalConfiguration {
 	}
 
 	/**
-	 *
+	 * For connections, returning the diagram element which is the end of the connection.
+	 * @return the diagram element which at which the connection ends
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final DiagramElement getConnectionDestination() {
@@ -97,7 +111,8 @@ public final class GraphicalConfiguration {
 	}
 
 	/**
-	 *
+	 * The default style for the diagram element. The fields of the diagram element's style overrides this style.
+	 * @return the style
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final Style getStyle() {
@@ -105,24 +120,16 @@ public final class GraphicalConfiguration {
 	}
 
 	/**
-	 *
-	 * @noreference This method is not intended to be referenced by clients.
-	 */
-	public final boolean isDecoration() {
-		return isDecoration;
-	}
-
-	/**
-	 *
-	 * @noreference This method is not intended to be referenced by clients.
+	 * Returns a string which will be used as an additional label for the diagram element. Only supported for shapes.
+	 * @return the annotation text. Null if the shape does not have an annotation.
 	 */
 	public final String getAnnotation() {
 		return annotation;
 	}
 
 	/**
-	 *
-	 * @noreference This method is not intended to be referenced by clients.
+	 * Returns whether to allow the primary label to span multiple lines.
+	 * @return true if the primary label should be allowed to span multiple lines.
 	 */
 	public final boolean isPrimaryLabelIsMultiline() {
 		return primaryLabelIsMultiline;
@@ -137,7 +144,6 @@ public final class GraphicalConfiguration {
 		result = prime * result + ((getConnectionSource() == null) ? 0 : getConnectionSource().hashCode());
 		result = prime * result + ((getDefaultDockingPosition() == null) ? 0 : getDefaultDockingPosition().hashCode());
 		result = prime * result + ((getGraphic() == null) ? 0 : getGraphic().hashCode());
-		result = prime * result + (isDecoration() ? 1231 : 1237);
 		result = prime * result + ((getStyle() == null) ? 0 : getStyle().hashCode());
 		return result;
 	}
@@ -183,9 +189,6 @@ public final class GraphicalConfiguration {
 				return false;
 			}
 		} else if (!getGraphic().equals(other.getGraphic())) {
-			return false;
-		}
-		if (isDecoration() != other.isDecoration()) {
 			return false;
 		}
 		if (getStyle() == null) {

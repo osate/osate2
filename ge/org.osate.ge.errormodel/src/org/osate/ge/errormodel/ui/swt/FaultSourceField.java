@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -81,9 +81,12 @@ public class FaultSourceField extends BaseField<FaultSourceEditorModel> {
 		return getModel().isEnabled();
 	}
 
+	/**
+	 * Entry point for a test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new FaultSourceField(shell, new TestFaultSourceEditorModel());
-		});
+		SwtUtil.run(shell -> new FaultSourceField(shell, new TestFaultSourceEditorModel()));
 	}
 }

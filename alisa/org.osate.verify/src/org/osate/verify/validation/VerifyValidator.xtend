@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -59,9 +59,9 @@ import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.verify.typing.validation.VerifyTypeSystemValidator
-import org.osate.verify.util.IVerifyGlobalReferenceFinder
-import org.osate.verify.util.VerificationMethodDispatchers
-import org.osate.verify.util.VerifyJavaUtil
+import org.osate.verify.internal.util.IVerifyGlobalReferenceFinder
+import org.osate.verify.internal.util.VerificationMethodDispatchers
+import org.osate.verify.internal.util.VerifyJavaUtil
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.JUnit4Method
@@ -76,7 +76,7 @@ import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 
 /**
  * Custom validation rules. 

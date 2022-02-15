@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,14 +29,17 @@ package org.osate.ge.swt;
  *
  */
 public class BaseObservableModel implements ObservableModel {
-	private final DefaultEventSource<ChangeEvent> changeEventSrc = new DefaultEventSource<>();
+	private final DefaultEventSource changeEventSrc = new DefaultEventSource();
 
 	@Override
-	public final EventSource<ChangeEvent> changed() {
+	public final EventSource changed() {
 		return changeEventSrc;
 	}
 
+	/**
+	 * Dispatches a change event to all listeners.
+	 */
 	protected final void triggerChangeEvent() {
-		changeEventSrc.triggerEvent(new ChangeEvent());
+		changeEventSrc.triggerEvent();
 	}
 }

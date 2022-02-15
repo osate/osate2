@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -796,7 +796,7 @@ public class InstantiateModel {
 		newInstance.setCategory(sub.getCategory());
 		newInstance.setName(sub.getName());
 		newInstance.getIndices().addAll(indexStack);
-		newInstance.getIndices().add(new Long(index));
+		newInstance.getIndices().add(Long.valueOf(index));
 		parent.getComponentInstances().add(newInstance);
 		ic = getInstantiatedClassifier(newInstance);
 		if (ic == null) {
@@ -2055,7 +2055,7 @@ public class InstantiateModel {
 
 			if (elem instanceof ComponentInstance) {
 				InstantiatedClassifier ic = getInstantiatedClassifier((ComponentInstance) elem);
-				if (ic != null) {
+				if (ic != null && ic.getClassifier() != null) {
 					if (ic.getClassifier().equals(root.getComponentImplementation())) {
 						addUsedProperties(root, ic.getClassifier(), result, false);
 					} else {

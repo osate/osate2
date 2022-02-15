@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -18,9 +18,6 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba;
-
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -39,58 +36,57 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PortSendAction extends CommunicationAction
-{
-  /**
-   * Returns the value of the '<em><b>Port</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Port</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Port</em>' containment reference.
-   * @see #setPort(ActualPortHolder)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getPortSendAction_Port()
-   * @model containment="true"
-   * @generated
-   */
-  ActualPortHolder getPort();
+public interface PortSendAction extends CommunicationAction {
+	/**
+	 * Returns the value of the '<em><b>Port</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Port</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Port</em>' containment reference.
+	 * @see #setPort(ActualPortHolder)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getPortSendAction_Port()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ActualPortHolder getPort();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.PortSendAction#getPort <em>Port</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Port</em>' containment reference.
-   * @see #getPort()
-   * @generated
-   */
-  void setPort(ActualPortHolder value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.PortSendAction#getPort <em>Port</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Port</em>' containment reference.
+	 * @see #getPort()
+	 * @generated
+	 */
+	void setPort(ActualPortHolder value);
 
-  /**
-   * Returns the value of the '<em><b>Value Expression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Value Expression</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Value Expression</em>' containment reference.
-   * @see #setValueExpression(ValueExpression)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getPortSendAction_ValueExpression()
-   * @model containment="true"
-   * @generated
-   */
-  ValueExpression getValueExpression();
+	/**
+	 * Returns the value of the '<em><b>Value Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Value Expression</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Value Expression</em>' containment reference.
+	 * @see #setValueExpression(ValueExpression)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getPortSendAction_ValueExpression()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ValueExpression getValueExpression();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.PortSendAction#getValueExpression <em>Value Expression</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value Expression</em>' containment reference.
-   * @see #getValueExpression()
-   * @generated
-   */
-  void setValueExpression(ValueExpression value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.PortSendAction#getValueExpression <em>Value Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Value Expression</em>' containment reference.
+	 * @see #getValueExpression()
+	 * @generated
+	 */
+	void setValueExpression(ValueExpression value);
 
 } // PortSendAction

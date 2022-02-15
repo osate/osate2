@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -38,50 +38,63 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListField;
 import org.osate.ge.errormodel.ui.viewmodels.ErrorFlowTypeTokensModel;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 
+/**
+ * Property section for {@link ErrorFlow} elements
+ */
 public class ErrorFlowPropertySection extends AbstractPropertySection {
-	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorFlow.";
-	public static final String WIDGET_ID_ERROR_TYPE_SET_TOKENS_LABEL = WIDGET_ID_PREFIX + "typeSetTokens.label";
-	public static final String WIDGET_ID_ERROR_TYPE_SET_TOKENS_CHOOSE_BUTTON = WIDGET_ID_PREFIX
-			+ "typeSetTokens.choose";
-
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof ErrorFlow;
-			});
+			return PropertySectionUtil.isBoCompatible(toTest, ErrorFlow.class::isInstance);
 		}
 	}
 
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorFlow.";
+
+	/**
+	 * Testing ID of the label containing the flow's type set tokens
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_ERROR_TYPE_SET_TOKENS_LABEL = WIDGET_ID_PREFIX + "typeSetTokens.label";
+
+	/**
+	 * Testing ID of the choose button for the flow's type set tokens
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_ERROR_TYPE_SET_TOKENS_CHOOSE_BUTTON = WIDGET_ID_PREFIX
+			+ "typeSetTokens.choose";
+
 	private BusinessObjectSelection selectedBos;
 	private final ErrorFlowTypeTokensModel model = new ErrorFlowTypeTokensModel(new UiBusinessObjectSelection());
-	private TypeTokenListField typeSetTokens;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		final Label typeSetLabel = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Error Type Set:");
+		final Label typeSetLabel = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
+				"Error Type Set:");
 
-		typeSetTokens = new TypeTokenListField(container, model);
+		final TypeTokenListField typeSetTokens = new TypeTokenListField(container, model);
 		typeSetTokens.setValueLabelTestingId(WIDGET_ID_ERROR_TYPE_SET_TOKENS_LABEL);
 		typeSetTokens.setModifyButtonTestingId(WIDGET_ID_ERROR_TYPE_SET_TOKENS_CHOOSE_BUTTON);
 		typeSetTokens
-		.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
-		{
-			final FormData fd = new FormData();
-			fd.left = new FormAttachment(0, AbstractPropertySection.STANDARD_LABEL_WIDTH);
-			fd.right = new FormAttachment(100, 0);
-			fd.top = new FormAttachment(typeSetLabel, 0, SWT.CENTER);
-			fd.width = 200;
-			typeSetTokens.setLayoutData(fd);
-		}
+		final FormData typeSetTokensFormData = new FormData();
+		typeSetTokensFormData.left = new FormAttachment(0, AbstractPropertySection.STANDARD_LABEL_WIDTH);
+		typeSetTokensFormData.right = new FormAttachment(100, 0);
+		typeSetTokensFormData.top = new FormAttachment(typeSetLabel, 0, SWT.CENTER);
+		typeSetTokensFormData.width = 200;
+		typeSetTokens.setLayoutData(typeSetTokensFormData);
 	}
 
 	@Override

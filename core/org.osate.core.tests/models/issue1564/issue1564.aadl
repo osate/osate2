@@ -1,11 +1,96 @@
 package issue1564
 public
 	subprogram sp
-	end sp;
+	end sp;	
+
+	subprogram sp_not_modal
+	end sp_not_modal;
 	
 	thread not_modal
 	end not_modal;
 	
+	subprogram implementation sp_not_modal.i1
+		calls
+			--Pass
+			sequence1: {
+				call1: subprogram sp;
+			};
+	end sp_not_modal.i1;
+	
+	subprogram implementation sp_not_modal.i2
+		calls
+			--Fail
+			sequence2: {
+				call2: subprogram sp;
+			};
+			--Fail
+			sequence3: {
+				call3: subprogram sp;
+			};
+	end sp_not_modal.i2;
+
+	subprogram sp_modal
+		modes
+			m1: initial mode;
+			m2: mode;
+	end sp_modal;
+	
+	subprogram implementation sp_modal.i3
+		calls
+			--Pass
+			sequence4: {
+				call4: subprogram sp;
+			};
+	end sp_modal.i3;
+	
+	subprogram implementation sp_modal.i4
+		calls
+			--Pass
+			sequence5: {
+				call5: subprogram sp;
+			} in modes (m1);
+			--Pass
+			sequence6: {
+				call6: subprogram sp;
+			} in modes (m2);
+	end sp_modal.i4;
+	
+	subprogram implementation sp_modal.i5
+		calls
+			--Fail
+			sequence7: {
+				call7: subprogram sp;
+			} in modes (m1);
+			--Fail
+			sequence8: {
+				call8: subprogram sp;
+			} in modes (m1);
+	end sp_modal.i5;
+	
+	subprogram implementation sp_modal.i6
+		calls
+			--Fail
+			sequence9: {
+				call9: subprogram sp;
+			} in modes (m1);
+			--Fail
+			sequence10: {
+				call10: subprogram sp;
+			};
+	end sp_modal.i6;
+	
+	subprogram implementation sp_modal.i7
+		calls
+			--Fail
+			sequence11: {
+				call11: subprogram sp;
+			};
+			--Fail
+			sequence12: {
+				call12: subprogram sp;
+			};
+	end sp_modal.i7;
+
 	thread implementation not_modal.i1
 		calls
 			--Pass
@@ -16,11 +101,11 @@ public
 	
 	thread implementation not_modal.i2
 		calls
-			--Fail
+			--Pass
 			sequence2: {
 				call2: subprogram sp;
 			};
-			--Fail
+			--Pass
 			sequence3: {
 				call3: subprogram sp;
 			};
@@ -54,11 +139,11 @@ public
 	
 	thread implementation modal.i5
 		calls
-			--Fail
+			--Pass
 			sequence7: {
 				call7: subprogram sp;
 			} in modes (m1);
-			--Fail
+			--Pass
 			sequence8: {
 				call8: subprogram sp;
 			} in modes (m1);
@@ -66,11 +151,11 @@ public
 	
 	thread implementation modal.i6
 		calls
-			--Fail
+			--Pass
 			sequence9: {
 				call9: subprogram sp;
 			} in modes (m1);
-			--Fail
+			--Pass
 			sequence10: {
 				call10: subprogram sp;
 			};
@@ -78,11 +163,11 @@ public
 	
 	thread implementation modal.i7
 		calls
-			--Fail
+			--Pass
 			sequence11: {
 				call11: subprogram sp;
 			};
-			--Fail
+			--Pass
 			sequence12: {
 				call12: subprogram sp;
 			};

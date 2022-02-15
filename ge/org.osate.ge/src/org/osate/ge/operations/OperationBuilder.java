@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,62 +29,103 @@ import java.util.function.Supplier;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * Builder uses for creating operations. In most cases, this builder should not be used to create an operation.
- * Rather, the static methods in {@link Operation} should be used.
+ * Builder uses for creating operations. This class is not a builder pattern in the sense of the builder pattern. It does not create an {@link Operation}.
  *
- * @param <PrevResultUserType>
+ * This interface is used in conjunction with {@link Operation#createWithBuilder(java.util.function.Consumer)} to create the operation.
+ * Each call to an operation builder creates a step in the resulting operation. Multiple calls to the same instance will
+ * result in multiple branches in the operation.
+ *
+ * For simple operations, {@link Operation} defines other methods to create operations which does not require the user of this interface.
+ *
+ * @param <P> the type of the user value of the result of the previous step
+ * @see Operation#createWithBuilder(java.util.function.Consumer)
+ * @noimplement This interface is not intended to be implemented by clients.
  */
-public interface OperationBuilder<PrevResultUserType> {
+public interface OperationBuilder<P> {
 	/**
+	 * Interface used to provide the business object to modify to a model modification step based on the tag specified when creating th step
+	 * and the result of the previous operation step.
+	 * @param <T> the type of the tag.
+	 * @param <B> the type of business object to modify
+	 * @param <P> the type of the user value of the result of the previous step
 	 * @since 2.0
+	 * @see #modifyModel
 	 */
-	interface BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> {
-		BusinessObjectType getBusinessObject(TagType tag, PrevResultUserType previousUserValue);
+	interface BusinessObjectToModifyProvider<T, B, P> {
+		/**
+		 * Returns the business object that should be modified
+		 * @param tag the tag specified when creating the model modification step
+		 * @param previousUserValue the user
+		 * @return the object to modify
+		 */
+		B getBusinessObject(T tag, P previousUserValue);
 	}
 
 	/**
+	 * Create a model modification step.
+	 * The business object passed to the modifier may be different from the object returned by the
+	 * the business object provider. During operation execution, the appropriate modifiable object will be retrieved
+	 * and passed to the modifier.
+	 * @param <T> the type of the tag
+	 * @param <B> the type of business object to modify
+	 * @param <R> the type of the user value of the new step's result
+	 * @param tag an object that will be passed to the model provider. May be null.
+	 * @param boProvider the object which determines what business object is modified. Must not be null.
+	 * @param modifier the object which performs the model modification. Must not be null.
+	 * @return a new instance which adds steps after the newly created step.
 	 * @since 2.0
 	 */
-	<TagType, BusinessObjectType extends EObject, ResultUserType> OperationBuilder<ResultUserType> modifyModel(
-			TagType obj,
-			BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
-			ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier);
+	<T, B extends EObject, R> OperationBuilder<R> modifyModel(
+			T tag,
+			BusinessObjectToModifyProvider<T, B, P> boProvider,
+			ModelModifier<T, B, P, R> modifier);
 
 	/**
-	 * Modifies the previous result. The previous result is expected to be an EObject belonging to the AADL model.
-	 * @param modifier must not return null
-	 * @return
+	 * Modifies the user value contained in the previous step's result. The previous result must be an {@link EObject} belonging to the AADL model.
+	 * @param <R> the type of the user value of the new step's result
+	 * @param modifier the object which performs the model modification. Must not return null
+	 * @return a new instance which adds steps after the newly created step.
+	 * @throws IllegalStateException if the user value from the previous step is not an instance of of {@link EObject}
 	 */
 	@SuppressWarnings("unchecked")
-	default <TagType, ResultUserType> OperationBuilder<ResultUserType> modifyPreviousResult(
-			final Function<PrevResultUserType, StepResult<ResultUserType>> modifier) {
+	default <R> OperationBuilder<R> modifyPreviousResult(
+			final Function<P, StepResult<R>> modifier) {
 
 		return modifyModel(null, (tag, prevResult) -> {
 			if (!(prevResult instanceof EObject)) {
 				throw new IllegalStateException("Previous result must be an EObject. Previous result: " + prevResult);
 			}
 			return (EObject) prevResult;
-		}, (tag, boToModify, prevResult) -> modifier.apply((PrevResultUserType) boToModify));
+		}, (tag, boToModify, prevResult) -> modifier.apply((P) boToModify));
 	}
 
-	<ResultUserType> OperationBuilder<ResultUserType> map(
-			Function<PrevResultUserType, StepResult<ResultUserType>> mapper);
+	/**
+	 * Creates a step which maps the user value provided by the previous step to a new value. The new value will be passed to
+	 * subsequent steps.
+	 * @param <R> the type of the user value of the new step's result
+	 * @param mapper a function which returns the result for the step. The user value from this result will be used for subsequent steps in this branch.
+	 * @return a new instance which adds steps after the newly created step.
+	 */
+	<R> OperationBuilder<R> map(
+			Function<P, StepResult<R>> mapper);
 
 	/**
-	 * Execute a suboperation. This function is intended for use only in the rare cases that the number of steps is not known
+	 * Create a step which executes another operation. This function is intended for use only in the rare cases that the number of steps is not known
 	 * until runtime.
-	 * @param opProvider a function that provides a suboperation to execute.
+	 * @param opProvider a function that provides a operation to execute.
 	 * @since 2.0
 	 */
-	void executeOperation(Function<PrevResultUserType, Operation> opProvider);
+	void executeOperation(Function<P, Operation> opProvider);
 
 	/**
-	 * A map which ignores the previous result.
-	 * @param supplier
-	 * @return
+	 * Creates a new step which uses the value provided by the specified supplier as the user value of the result.
+	 * This is equivalent to a a map step which ignores the previous result.
+	 * @param <R> the type of the user value of the new step's result
+	 * @param supplier the supplier which returns the user value for the step's result
+	 * @return a new instance which adds steps after the newly created step.
+	 * @see #map(Function)
 	 */
-	default <ResultUserType> OperationBuilder<ResultUserType> supply(
-			final Supplier<StepResult<ResultUserType>> supplier) {
+	default <R> OperationBuilder<R> supply(final Supplier<StepResult<R>> supplier) {
 		return map(prevResult -> supplier.get());
 	}
 }

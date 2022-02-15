@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -56,7 +56,7 @@ import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 
 /**
  * This is a default implementation of the model used for the SelectSubprogramDialog.
- * It supplies contexts and subprogram from the ScopedEMFIndexRetrieval and the specified BehavioredImplementation.
+ * It supplies contexts and subprogram from {@link AadlModelAccessUtil} and the specified {@link BehavioredImplementation}.
  *
  */
 public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialog.Model {

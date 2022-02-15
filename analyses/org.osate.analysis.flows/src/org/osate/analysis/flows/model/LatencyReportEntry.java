@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,23 +30,26 @@ import static org.osate.ui.UiUtil.BestDecPoint;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.analysis.flows.FlowLatencyUtil;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
+import org.osate.pluginsupport.properties.PropertyUtils;
+import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /*
  * A report entry corresponds to the entry within the report.
@@ -79,9 +82,12 @@ public class LatencyReportEntry {
 		this.asynchronousSystem = asynchronousSystem;
 		this.majorFrameDelay = majorFrameDelay;
 
-		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
-		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
+		final RealRange expectedLatency = PropertyUtils
+				.getScaledRange(CommunicationProperties::getLatency, relatedEndToEndFlow, TimeUnits.MS)
+				.orElse(RealRange.ZEROED);
 
+		expectedMaxLatency = expectedLatency.getMaximum();
+		expectedMinLatency = expectedLatency.getMinimum();
 	}
 
 	public void finalizeReportEntry() {

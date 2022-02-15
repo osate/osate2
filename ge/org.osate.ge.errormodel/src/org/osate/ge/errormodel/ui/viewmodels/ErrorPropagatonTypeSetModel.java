@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -46,9 +46,14 @@ public class ErrorPropagatonTypeSetModel extends BaseTypeSetTypeTokensModel impl
 	 * @param bos the initial business object selection
 	 */
 	public ErrorPropagatonTypeSetModel(final BusinessObjectSelection bos) {
+		super(false);
 		setBusinessObjectSelection(bos);
 	}
 
+	/**
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
+	 */
 	public final void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
 		setTypeSets(bos.boStream(ErrorPropagation.class).map(p -> p.getTypeSet()).collect(Collectors.toList()));
@@ -56,8 +61,6 @@ public class ErrorPropagatonTypeSetModel extends BaseTypeSetTypeTokensModel impl
 
 	@Override
 	protected void modifyTypeSets(final Consumer<TypeSet> modifier) {
-		bos.modify(ErrorPropagation.class, p -> {
-			modifier.accept(p.getTypeSet());
-		});
+		bos.modify(ErrorPropagation.class, p -> modifier.accept(p.getTypeSet()));
 	}
 }

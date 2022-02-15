@@ -12,6 +12,7 @@ import org.osate.pluginsupport.PredeclaredProperties
 
 class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContribution {
 	override removeProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) {
+		toBeBuilt.toBeDeleted -= PredeclaredProperties.effectiveContributedResources
 	}
 	
 	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {

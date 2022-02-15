@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,6 @@
 package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -34,7 +33,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.BorderedCLabel;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.ObservableModel;
 import org.osate.ge.swt.SwtUtil;
 
@@ -42,21 +40,21 @@ import org.osate.ge.swt.SwtUtil;
  * Abstract SWT widget that displays a value and provides a button to modify the value.
  * The behavior of the modify button is defined by the concrete implementation.
  *
- * @param <M>
+ * @param <M> the type of model
  * @since 1.1
  */
 public abstract class BaseField<M extends ObservableModel> extends Composite {
 	private final M model;
 	private final BorderedCLabel valueLbl;
 	private final Button modifyBtn;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
 	/**
 	 * Create a new instance.
 	 * @param parent is the container for the new component.
 	 * @param model provides the information for the component.
 	 */
-	public BaseField(final Composite parent, final M model) {
+	protected BaseField(final Composite parent, final M model) {
 		this(parent, model, "Choose...");
 	}
 
@@ -66,7 +64,7 @@ public abstract class BaseField<M extends ObservableModel> extends Composite {
 	 * @param model provides the information for the component.
 	 * @param modifyBtnLabel the label to use for the modify button
 	 */
-	public BaseField(final Composite parent, final M model, final String modifyBtnLabel) {
+	protected BaseField(final Composite parent, final M model, final String modifyBtnLabel) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 
@@ -125,6 +123,10 @@ public abstract class BaseField<M extends ObservableModel> extends Composite {
 		modifyBtn.setEnabled(enabled);
 	}
 
+	/**
+	 * Returns the model which provides information for the field
+	 * @return the model which provides information for the field
+	 */
 	protected final M getModel() {
 		return model;
 	}

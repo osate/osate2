@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -82,7 +82,7 @@ import org.osate.verify.verify.VerificationPlan
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 import org.osate.result.ResultType
 import org.eclipse.core.runtime.CoreException
 import org.osate.result.AnalysisResult

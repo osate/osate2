@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,6 +27,8 @@ import java.util.Objects;
 
 /**
  * Abstract decorator for {@link FilteringSelectorModel}
+ *
+ * @param <T> See {@link SelectorModel}
  * @since 1.1
  */
 public abstract class FilteringListSelectorModelDecorator<T>
@@ -38,7 +40,7 @@ public abstract class FilteringListSelectorModelDecorator<T>
 	 * Creates a new instance
 	 * @param inner the model to decorate.
 	 */
-	public FilteringListSelectorModelDecorator(final FilteringSelectorModel<T> inner) {
+	protected FilteringListSelectorModelDecorator(final FilteringSelectorModel<T> inner) {
 		super(inner);
 		this.inner = Objects.requireNonNull(inner, "inner must not be null");
 	}

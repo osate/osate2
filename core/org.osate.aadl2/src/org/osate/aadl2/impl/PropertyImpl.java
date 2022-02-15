@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -151,7 +151,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProperty();
 	}
@@ -332,7 +331,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__DEFAULT_VALUE:
@@ -348,7 +346,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -372,7 +369,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -406,7 +402,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -436,7 +431,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -460,7 +454,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -486,6 +479,14 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 				break;
 			}
 		}
+
+		/*
+		 * NB. Do not fix Issue 2387 here! Doing so caused a different problem. Namely,
+		 * if a property with a default value is explicit associated with a value in one place
+		 * in the model, it's going to force model instantiation to create explicit property
+		 * associations in the instance model that bind the default value to the property AT
+		 * ALL OTHER PLACES THE PROPERTY IS APPLICABLE. This is undesirable.
+		 */
 		return new PropertyEvaluationResult(pas.isEmpty() ? null : pas.get(0), vals);
 	}
 
@@ -576,8 +577,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		return null;
 	}
 
-
-	@Override
 	public boolean equals(Object p) {
 		if (p instanceof Property) {
 			String p1Name = getQualifiedName();
@@ -589,7 +588,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		return this == p;
 	}
 
-	@Override
 	public int hashCode() {
 		if (eIsProxy()) {
 			return eProxyURI().toString().hashCode();

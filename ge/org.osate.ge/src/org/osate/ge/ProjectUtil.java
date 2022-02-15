@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -40,29 +40,36 @@ import org.eclipse.emf.ecore.resource.Resource;
  * Utility functions related to {@link IProject}
  * @since 2.0
  */
-public class ProjectUtil {
+public final class ProjectUtil {
 	/**
-	 * Get affected projects. At this point, this function returns projects which directly or indirectly reference the project containing the model element.
-	 * @param project
-	 * @param relevantProjects
+	 * Private constructor to prevent instantiation.
+	 */
+	private ProjectUtil() {
+	}
+
+	/**
+	 * Builds a set of project which could be affected by a change in the specified project.
+	 * Recursively adds projects which reference or are referenced by the specified project to a set.
+	 * Referenced projects could be affected because the project is in scope and may be changed.
+	 * Referencing projects could be affected because the business objects for the specified project may appear in its diagrams.
+	 * @param project the project for which to find the affected projects.
+	 * @param relevantProjects the set to which to add the projects
 	 * @return relevantProjects
 	 */
 	public static Set<IProject> getAffectedProjects(final IProject project, final Set<IProject> relevantProjects) {
-		if (project.isAccessible()) {
-			if (relevantProjects.add(project)) {
-				// Get referencing projects if the project was not already part of the relevant projects set
-				for (final IProject referencingProject : project.getReferencingProjects()) {
-					getAffectedProjects(referencingProject, relevantProjects);
-				}
+		if (project.isAccessible() && relevantProjects.add(project)) {
+			// Get referencing projects if the project was not already part of the relevant projects set
+			for (final IProject referencingProject : project.getReferencingProjects()) {
+				getAffectedProjects(referencingProject, relevantProjects);
+			}
 
-				// Get referencing projects if the project was not already part of the relevant projects set
-				try {
-					for (final IProject referencedProject : project.getReferencedProjects()) {
-						getAffectedProjects(referencedProject, relevantProjects);
-					}
-				} catch (final CoreException e) {
-					// Ignore
+			// Get referenced projects if the project was not already part of the relevant projects set
+			try {
+				for (final IProject referencedProject : project.getReferencedProjects()) {
+					getAffectedProjects(referencedProject, relevantProjects);
 				}
+			} catch (final CoreException e) {
+				// Ignore
 			}
 		}
 
@@ -95,7 +102,7 @@ public class ProjectUtil {
 
 	/**
 	 * Retrieves the project based on an EMF URI.
-	 * @param uri is the URI for the EMF element for which to return the project.
+	 * @param elementUri is the URI for the EMF element for which to return the project.
 	 * @return the project. Returns null if the project cannot be returned.
 	 */
 	public static IProject getProjectOrNull(final URI elementUri) {
@@ -108,8 +115,7 @@ public class ProjectUtil {
 	 * @return the project. Throws an exception if unable to retrieve the project.
 	 */
 	public static IProject getProjectOrThrow(final URI uri) {
-		return getProject(uri)
-				.orElseThrow(() -> new RuntimeException("Unable to receive project. URI: " + uri));
+		return getProject(uri).orElseThrow(() -> new RuntimeException("Unable to receive project. URI: " + uri));
 	}
 
 	/**
@@ -125,12 +131,19 @@ public class ProjectUtil {
 	/**
 	 * Retrieves the project that contains the resource in which the business object is contained.
 	 * @param bo is the business for which to retrieve the project.
-	 * @return an optional describing the project. An empty optional is returned if the project cannot be trieved.
+	 * @return an optional describing the project. An empty optional is returned if the project cannot be retrieved.
 	 */
 	public static Optional<IProject> getProjectForBo(final Object bo) {
 		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(ProjectUtil::getProject);
 	}
 
+	/**
+	 * Returns the EMF resource in which a business object is contained.
+	 * If the business object is an {@link EObject}, it returns the EMF resource in which the object is contained.
+	 * Otherwise, if the business object implements {@link EmfContainerProvider}, returns the EMF resource in which its container is contained.
+	 * @param bo the business object for which to get the EMF resource
+	 * @return an optional containing the resource. An empty optional is returned if the resource cannot be retrieved.
+	 */
 	private static Optional<Resource> getResource(final Object bo) {
 		final EObject eObject;
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,6 @@
 package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -39,11 +38,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.selectors.FilteringListSelector;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
-import org.osate.ge.swt.selectors.SelectionDoubleClickedEvent;
 import org.osate.ge.swt.selectors.SingleSelectorModel;
 
 /**
@@ -53,6 +50,10 @@ import org.osate.ge.swt.selectors.SingleSelectorModel;
  *
  */
 public class ClassifierWithBindingsDialog {
+	/**
+	* Private constructor to prevent direct instantiation.
+	* @see #open(Shell, String, PrototypeBindingsModel, Object)
+	*/
 	private ClassifierWithBindingsDialog() {
 	}
 
@@ -72,7 +73,7 @@ public class ClassifierWithBindingsDialog {
 		Objects.requireNonNull(title, "title must not be null");
 		Objects.requireNonNull(model, "model must not be null");
 
-		final PrototypeBindingsEditorDialogModel<N, D, T, C> wrappedModel = new PrototypeBindingsEditorDialogModel<>(
+		final RevertablePrototypeBindingsModel<N, D, T, C> wrappedModel = new RevertablePrototypeBindingsModel<>(
 				model);
 		final InnerDialog<N, D, T, C> dlg = new InnerDialog<>(parent, title,
 				wrappedModel, node);
@@ -91,8 +92,8 @@ public class ClassifierWithBindingsDialog {
 		private final String title;
 		private final PrototypeBindingsModel<N, D, T, C> model;
 		private final N node;
-		private final Consumer<ChangeEvent> changeListener = e -> refresh();
-		private final Consumer<SelectionDoubleClickedEvent> selectionDoubleClickedListener = e -> {
+		private final Runnable changeListener = this::refresh;
+		private final Runnable selectionDoubleClickedListener = () -> {
 			if(getErrorMessage() == null) {
 				okPressed();
 			}
@@ -137,7 +138,7 @@ public class ClassifierWithBindingsDialog {
 					new LabelFilteringListSelectorModel<>(new SingleSelectorModel<C>() {
 
 						@Override
-						public EventSource<ChangeEvent> changed() {
+						public EventSource changed() {
 							return model.changed();
 						}
 

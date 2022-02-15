@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -50,6 +50,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 
+/**
+ * Business object handler for {@link ErrorBehaviorEvent} objects.
+ */
 public class ErrorBehaviorEventHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = PolyBuilder.create()
 			.points(new Point(0.0, 1.0), new Point(1.0, 1.0), new Point(0.5, 0.0)).build();
@@ -89,7 +92,7 @@ public class ErrorBehaviorEventHandler implements BusinessObjectHandler {
 		final ErrorBehaviorEvent event = ctx.getBusinessObjectContext().getBusinessObject(ErrorBehaviorEvent.class)
 				.get();
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).annotation(getAnnotation(event))
-				.style(ErrorModelGeUtil.centeredStyle).build());
+				.style(ErrorModelGeUtil.CENTERED_STYLE).build());
 	}
 
 	private static String getAnnotation(final ErrorBehaviorEvent event) {

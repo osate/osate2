@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -21,4 +21,3 @@ Software. The parties who own the Third Party Software ("Third Party Licensors")
 aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 -->
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/osate/osate2-core.svg?columns=all)](https://waffle.io/osate/osate2-core)

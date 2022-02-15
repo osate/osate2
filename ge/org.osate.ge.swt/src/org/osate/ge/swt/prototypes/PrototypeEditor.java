@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,6 @@
 package org.osate.ge.swt.prototypes;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.eclipse.jface.layout.GridDataFactory;
@@ -33,7 +32,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.check.CheckboxEditor;
@@ -48,13 +46,30 @@ import org.osate.ge.swt.selectors.SingleSelectorModel;
 
 /**
  * View for editing a prototype.
+ *
+ * @param <C> See {@link PrototypeEditorModel}
  * @since 1.1
  *
  */
 public final class PrototypeEditor<C> extends Composite {
 	private static final String WIDGET_ID_PREFIX = "org.osate.ge.swt.prototypes.prototypeEditor.";
+
+	/**
+	 * The testing ID for the choose button
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON = WIDGET_ID_PREFIX + "chooseClassifier";
+
+	/**
+	 * The testing ID for the label displaying the classifier
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_CLASSIFIER_LABEL = WIDGET_ID_PREFIX + "classifierButton";
+
+	/**
+	 * The testing ID for the combo for selecting the type
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_TYPE_COMBO = WIDGET_ID_PREFIX + "type";
 
 	private final PrototypeEditorModel<C> model;
@@ -62,8 +77,13 @@ public final class PrototypeEditor<C> extends Composite {
 	private final Control directionLabel;
 	private final RadioSelector<PrototypeDirection> directionEditor;
 	private final CheckboxEditor arrayFlagEditor;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model for the editor
+	 */
 	public PrototypeEditor(final Composite parent, final PrototypeEditorModel<C> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
@@ -75,7 +95,7 @@ public final class PrototypeEditor<C> extends Composite {
 		//
 		refinedEditor = new CheckboxEditor(this, new CheckboxEditorModel() {
 			@Override
-			public EventSource<ChangeEvent> changed() {
+			public EventSource changed() {
 				return model.changed();
 			}
 
@@ -112,10 +132,10 @@ public final class PrototypeEditor<C> extends Composite {
 			@Override
 			public boolean isEnabled() {
 				return model.isEnabled();
-			};
+			}
 
 			@Override
-			public EventSource<ChangeEvent> changed() {
+			public EventSource changed() {
 				return model.changed();
 			}
 
@@ -144,7 +164,7 @@ public final class PrototypeEditor<C> extends Composite {
 		addLabel("Type:");
 		final ComboSelector<PrototypeType> typeSelector = new ComboSelector<>(this, new SingleSelectorModel<PrototypeType>() {
 			@Override
-			public EventSource<ChangeEvent> changed() {
+			public EventSource changed() {
 				return model.changed();
 			}
 
@@ -185,7 +205,7 @@ public final class PrototypeEditor<C> extends Composite {
 				new LabelFilteringListSelectorModel<>(new SingleSelectorModel<C>() {
 
 					@Override
-					public EventSource<ChangeEvent> changed() {
+					public EventSource changed() {
 						return model.changed();
 					}
 
@@ -221,7 +241,7 @@ public final class PrototypeEditor<C> extends Composite {
 		this.directionLabel = addLabel("Direction:");
 		this.directionEditor = new RadioSelector<>(this, new SingleSelectorModel<PrototypeDirection>() {
 			@Override
-			public EventSource<ChangeEvent> changed() {
+			public EventSource changed() {
 				return model.changed();
 			}
 
@@ -259,7 +279,7 @@ public final class PrototypeEditor<C> extends Composite {
 		//
 		arrayFlagEditor = new CheckboxEditor(this, new CheckboxEditorModel() {
 			@Override
-			public EventSource<ChangeEvent> changed() {
+			public EventSource changed() {
 				return model.changed();
 			}
 

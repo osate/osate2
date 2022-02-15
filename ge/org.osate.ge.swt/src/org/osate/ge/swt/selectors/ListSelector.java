@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,7 +27,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.eclipse.jface.layout.GridDataFactory;
@@ -38,7 +37,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.DefaultEventSource;
 import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.SwtUtil;
@@ -47,13 +45,15 @@ import org.osate.ge.swt.SwtUtil;
  * Wrapper around JFace's {@link org.eclipse.jface.viewers.ListViewer} which uses a {@link SingleSelectorModel}
  *
  * Allows selecting a single element. Sorts items provided by model.
+ *
+ * @param <T> See {@link SelectorModel}
  * @since 1.1
  */
 public final class ListSelector<T> extends Composite implements SelectionDoubleClickedEventGenerator {
 	private final SelectorModel<Object> wrappedModel;
 	private final org.eclipse.jface.viewers.ListViewer listViewer;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
-	private final DefaultEventSource<SelectionDoubleClickedEvent> selectionDoubleClickedEventSrc = new DefaultEventSource<>();
+	private final Runnable changeListener = this::refresh;
+	private final DefaultEventSource selectionDoubleClickedEventSrc = new DefaultEventSource();
 
 	/**
 	 * Creates a {@link ListSelector}.
@@ -82,19 +82,18 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 			}
 		});
 
-		this.listViewer.addSelectionChangedListener(event -> {
-			wrappedModel.setSelectedElements(this.listViewer.getStructuredSelection().toList().stream());
-		});
+		this.listViewer.addSelectionChangedListener(
+				event -> wrappedModel.setSelectedElements(this.listViewer.getStructuredSelection().toList().stream()));
 
 		this.listViewer.addDoubleClickListener(
-				event -> selectionDoubleClickedEventSrc.triggerEvent(new SelectionDoubleClickedEvent()));
+				event -> selectionDoubleClickedEventSrc.triggerEvent());
 
 		wrappedModel.changed().addListener(changeListener);
 		refresh();
 	}
 
 	@Override
-	public EventSource<SelectionDoubleClickedEvent> selectionDoubleClicked() {
+	public EventSource selectionDoubleClicked() {
 		return selectionDoubleClickedEventSrc;
 	}
 
@@ -113,7 +112,8 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 			// Avoid attempting to select an element that is not in the selector. Will result in a stack overflow while trying to synchronize the selection with
 			// the model.
 			final Collection<Object> all = wrappedModel.getElements().collect(Collectors.toList());
-			final Set<Object> selected = wrappedModel.getSelectedElements().collect(Collectors.toCollection(() -> new HashSet<Object>()));
+			final Set<Object> selected = wrappedModel.getSelectedElements()
+					.collect(Collectors.toCollection(HashSet::new));
 			selected.retainAll(all);
 
 			this.listViewer.setSelection(selected.isEmpty() ? null : new StructuredSelection(selected.toArray()));
@@ -128,11 +128,13 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 		listViewer.getControl().setEnabled(enabled);
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new ListSelector<>(shell,
-					new TestSelectorModel());
-		});
+		SwtUtil.run(shell -> new ListSelector<>(shell, new TestSelectorModel()));
 	}
 
 }

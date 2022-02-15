@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -110,7 +110,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
 
 public class EMV2Util {
 
-	public final static String ErrorModelAnnexName = "EMV2";
+	private EMV2Util() {
+	}
+
+	public static final String ErrorModelAnnexName = "EMV2";
 
 	public static String getLibraryName(ErrorModelLibrary lib) {
 		AadlPackage root = EcoreUtil2.getContainerOfType(lib, AadlPackage.class);
@@ -193,14 +196,15 @@ public class EMV2Util {
 	}
 
 	/**
-	 * return the component classifier that this subclause element belongs to.
+	 * return the classifier that this subclause element belongs to.
 	 * The subclause can be embedded or separate.
 	 * @param an EObject in a EMV2 subclause
-	 * @return ComponentClassifier
+	 * @return Classifier
+	 * @since 6.0
 	 */
-	public static ComponentClassifier getAssociatedClassifier(Element emv2Element) {
+	public static Classifier getAssociatedClassifier(Element emv2Element) {
 
-		ComponentClassifier cl = (ComponentClassifier) emv2Element.getContainingClassifier();
+		Classifier cl = emv2Element.getContainingClassifier();
 		if (cl != null) {
 			return cl;
 		}
@@ -214,10 +218,11 @@ public class EMV2Util {
 
 	/**
 	 * get the separately stored EMV2 subclause, which is assumed to have the name of the classifier
-	 * @param cl Component Classifier
+	 * @param cl Classifier
 	 * @return ErrorModelSubclause
+	 * @since 6.0
 	 */
-	public static ErrorModelSubclause getAssociatedEMV2Subclause(ComponentClassifier cl) {
+	public static ErrorModelSubclause getAssociatedEMV2Subclause(Classifier cl) {
 		return Aadl2GlobalScopeUtil.get(cl, ErrorModelPackage.eINSTANCE.getErrorModelSubclause(),
 				cl.getQualifiedName());
 	}
@@ -242,7 +247,10 @@ public class EMV2Util {
 		return getEmbeddedEMV2Subclause(cl);
 	}
 
-	public static ErrorModelSubclause getEmbeddedEMV2Subclause(ComponentClassifier cl) {
+	/**
+	 * @since 6.0
+	 */
+	public static ErrorModelSubclause getEmbeddedEMV2Subclause(Classifier cl) {
 		// embedded EMV2 subclause
 		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause al : asl) {
@@ -2310,7 +2318,7 @@ public class EMV2Util {
 			return prop;
 		}
 		String kind = target.getEmv2PropagationKind();
-		ComponentClassifier cxtcl = EMV2Util.getAssociatedClassifier(epath);
+		Classifier cxtcl = EMV2Util.getAssociatedClassifier(epath);
 		if (target.eContainer() instanceof EMV2PathElement) {
 			// should be a subcomponent reference
 			NamedElement cxt = ((EMV2PathElement) target.eContainer()).getNamedElement();
@@ -2656,7 +2664,7 @@ public class EMV2Util {
 		return null;
 	}
 
-	public static EList<ErrorModelLibrary> EmptyElist = new BasicEList<ErrorModelLibrary>();
+	public static final EList<ErrorModelLibrary> EmptyElist = new BasicEList<ErrorModelLibrary>();
 
 	/**
 	 * get list of ErrorModelLibraries listed in UseTypes

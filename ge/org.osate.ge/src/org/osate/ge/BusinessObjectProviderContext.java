@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -51,6 +51,7 @@ public final class BusinessObjectProviderContext {
 
 	/**
 	 * Provides access to the business object context for which the business object provider is being called.
+	 * Contributed objects are considered logical children of the business object referenced by the business object context.
 	 * @return the business object context
 	 */
 	public BusinessObjectContext getBusinessObjectContext() {
@@ -59,7 +60,7 @@ public final class BusinessObjectProviderContext {
 
 	/**
 	 * Provides access to the global extension registry
-	 * @return
+	 * @return the extension registry
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public ExtensionRegistryService getExtensionRegistry() {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -36,6 +36,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.impl.FlowImplementationImpl;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.FlowImplementation} object.
@@ -136,10 +137,19 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * This returns FlowImplementation.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowImplementation"));
+		if (((FlowImplementationImpl) object).getInEnd() == null
+				&& ((FlowImplementationImpl) object).getOutEnd() == null) {
+			return null;
+		} else if (((FlowImplementationImpl) object).getInEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSourceImplementation"));
+		} else if (((FlowImplementationImpl) object).getOutEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSinkImplementation"));
+		}
+
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPathImplementation"));
 	}
 
 	/**
@@ -162,12 +172,25 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
-		String label = ((FlowImplementation) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_FlowImplementation_type")
-				: getString("_UI_FlowImplementation_type") + " " + label;
+		String label = ((FlowImplementation) object).getSpecification().getName();
+
+		if (label == null || label.length() == 0) {
+			return getString("_UI_Flow_type");
+		} else if (!(((FlowImplementation) object).getSpecification().getAllInEnd() == null
+				&& ((FlowImplementation) object).getSpecification().getAllOutEnd() == null)) {
+			if (((FlowImplementation) object).getSpecification().getAllInEnd() == null) {
+				return getString("_UI_Flow_type") + " Source " + label;
+			} else if (((FlowImplementation) object).getSpecification().getAllOutEnd() == null) {
+				return getString("_UI_Flow_type") + " Sink " + label;
+			} else {
+				return getString("_UI_Flow_type") + " Path " + label;
+			}
+		}
+
+		return getString("_UI_Flow_type");
 	}
 
 	/**

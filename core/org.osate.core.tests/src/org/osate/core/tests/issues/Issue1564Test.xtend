@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -37,6 +37,7 @@ import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.assertError
+import org.osate.aadl2.SubprogramImplementation
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -50,8 +51,8 @@ class Issue1564Test extends XtextTest {
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
 			"issue1564".assertEquals(name)
-			publicSection.ownedClassifiers.get(3) as ThreadImplementation => [
-				"not_modal.i2".assertEquals(name)
+			publicSection.ownedClassifiers.get(4) as SubprogramImplementation => [
+				"sp_not_modal.i2".assertEquals(name)
 				ownedSubprogramCallSequences.get(0) => [
 					"sequence2".assertEquals(name)
 					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for non-modal implementation")
@@ -61,8 +62,8 @@ class Issue1564Test extends XtextTest {
 					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for non-modal implementation")
 				]
 			]
-			publicSection.ownedClassifiers.get(7) as ThreadImplementation => [
-				"modal.i5".assertEquals(name)
+			publicSection.ownedClassifiers.get(8) as SubprogramImplementation => [
+				"sp_modal.i5".assertEquals(name)
 				ownedSubprogramCallSequences.get(0) => [
 					"sequence7".assertEquals(name)
 					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1")
@@ -72,8 +73,8 @@ class Issue1564Test extends XtextTest {
 					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1")
 				]
 			]
-			publicSection.ownedClassifiers.get(8) as ThreadImplementation => [
-				"modal.i6".assertEquals(name)
+			publicSection.ownedClassifiers.get(9) as SubprogramImplementation => [
+				"sp_modal.i6".assertEquals(name)
 				ownedSubprogramCallSequences.get(0) => [
 					"sequence9".assertEquals(name)
 					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1")
@@ -83,8 +84,8 @@ class Issue1564Test extends XtextTest {
 					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1")
 				]
 			]
-			publicSection.ownedClassifiers.get(9) as ThreadImplementation => [
-				"modal.i7".assertEquals(name)
+			publicSection.ownedClassifiers.get(10) as SubprogramImplementation => [
+				"sp_modal.i7".assertEquals(name)
 				ownedSubprogramCallSequences.get(0) => [
 					"sequence11".assertEquals(name)
 					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1, m2")

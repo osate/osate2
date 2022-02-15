@@ -12,12 +12,12 @@
 		<link>
 			<name>Jenkinsfile</name>
 			<type>1</type>
-			<location>/home/lw/git/osate_2019-03/osate2/Jenkinsfile</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Jenkinsfile</locationURI>
 		</link>
 		<link>
 			<name>Jenkinsfile.PR</name>
 			<type>1</type>
-			<location>/home/lw/git/osate_2019-03/osate2/Jenkinsfile.PR</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Jenkinsfile.PR</locationURI>
 		</link>
 		<link>
 			<name>pom.xml</name>

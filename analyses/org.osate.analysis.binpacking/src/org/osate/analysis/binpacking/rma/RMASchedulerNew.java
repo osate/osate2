@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -104,7 +104,7 @@ public final class RMASchedulerNew extends BaseScheduler {
 	 * associated with this scheduler.
 	 */
 	private double getUtilization(final ProcessingLoad task) {
-		return task.getBandwidth() / node.cyclesPerSecond;
+		return task.getBandwidth() / node.getCyclesPerSecond();
 	}
 
 	/**
@@ -112,7 +112,7 @@ public final class RMASchedulerNew extends BaseScheduler {
 	 * associated with this scheduler.
 	 */
 	private double getComputeTime(final ProcessingLoad task) {
-		return (task.getCycles() / node.cyclesPerSecond) * 1000000000.0;
+		return (task.getCycles() / node.getCyclesPerSecond()) * 1000000000.0;
 	}
 
 	public boolean canAddToFeasibility(final ProcessingLoad task) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -37,8 +37,9 @@ import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.TypeExtension;
+import org.osate.ge.aadl2.AadlCategories;
+import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.AadlImages;
-import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
@@ -50,7 +51,7 @@ import org.osate.ge.palette.GetCreateConnectionOperationContext;
 public class CreateGeneralizationPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 
 	public CreateGeneralizationPaletteCommand() {
-		super("Extension", AadlPaletteCategories.CLASSIFIERS,
+		super("Extension", AadlCategories.CLASSIFIERS,
 				AadlImages.getImage(Aadl2Package.eINSTANCE.getGeneralization()));
 
 	}

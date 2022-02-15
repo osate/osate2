@@ -1,0 +1,22 @@
+package Cyclic_Error_Types
+public
+	system sys
+		features
+			i: in data port;
+	end sys;
+
+	system implementation sys.impl
+		annex EMV2 {**
+			error propagations
+				i: not in propagation {Cyclic_Error_Types::a, ErrorLibrary::AboveRange};
+			end propagations;
+		**};
+	end sys.impl;
+
+	annex EMV2 {**
+		error types
+			a: type extends b;
+			b: type extends a;
+		end types;
+	**};
+end Cyclic_Error_Types;

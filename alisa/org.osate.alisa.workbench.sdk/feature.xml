@@ -2,12 +2,12 @@
 <feature
       id="org.osate.alisa.workbench.sdk"
       label="ALISA Requirement Specification and Verification"
-      version="4.0.1.qualifier"
+      version="7.1.1.qualifier"
       license-feature="org.osate.license"
-      license-feature-version="1.0.0.qualifier">
+      license-feature-version="1.0.2">
 
    <copyright>
-      Copyright (c) 2004-2020 Carnegie Mellon University. All rights reserved.
+      Copyright (c) 2004-2022 Carnegie Mellon University. All rights reserved.
    </copyright>
 
    <plugin

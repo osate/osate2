@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,17 +29,25 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 /**
  * Represents a fault source. The referenced type set and behavior state should be treated as immutable.
  */
-public class FaultSource {
+public final class FaultSource {
 	private final ErrorBehaviorState errorBehaviorState;
 	private final TypeSet errorTypeSet;
 	private final String failureModeDescription;
 
+	/**
+	 * Creates a new instance with every field set to null
+	 */
 	public FaultSource() {
 		this.errorBehaviorState = null;
 		this.errorTypeSet = null;
 		this.failureModeDescription = null;
 	}
 
+	/**
+	 * Creates a new instance with the specified field values. Other fields are set to null.
+	 * @param errorBehaviorState the error behavior state value. See {@link #getErrorBehaviorState()}
+	 * @param errorTypeSet the error type set. See {@link #getErrorTypeSet()}
+	 */
 	public FaultSource(final ErrorBehaviorState errorBehaviorState,
 			final TypeSet errorTypeSet) {
 		this.errorBehaviorState = errorBehaviorState;
@@ -47,20 +55,39 @@ public class FaultSource {
 		this.failureModeDescription = null;
 	}
 
+	/**
+	 * Creates a new instance with the specified field values. Other fields are set to null.
+	 * @param failureModeDescription the failure mode description value. See {@link #getFailureModeDescription()}
+	 */
 	public FaultSource(final String failureModeDescription) {
 		this.errorBehaviorState = null;
 		this.errorTypeSet = null;
 		this.failureModeDescription = failureModeDescription;
 	}
 
+	/**
+	 * Returns the fault source's error behavior state
+	 * @return the error behavior state
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeReference()
+	 */
 	public final ErrorBehaviorState getErrorBehaviorState() {
 		return errorBehaviorState;
 	}
 
+	/**
+	 * Returns the fault source's error type set
+	 * @return the error type set
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeType()
+	 */
 	public final TypeSet getErrorTypeSet() {
 		return errorTypeSet;
 	}
 
+	/**
+	 * Returns the fault source's failure mode description
+	 * @return the failure mode description
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeDescription()
+	 */
 	public final String getFailureModeDescription() {
 		return failureModeDescription;
 	}

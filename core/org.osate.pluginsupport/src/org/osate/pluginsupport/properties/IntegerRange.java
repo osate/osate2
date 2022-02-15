@@ -20,21 +20,25 @@ public class IntegerRange {
 	private final long minimum;
 	private final long maximum;
 	private final OptionalLong delta;
-	
+
 	public IntegerRange(long minimum, long maximum) {
 		this(minimum, maximum, OptionalLong.empty());
 	}
-	
+
 	public IntegerRange(long minimum, long maximum, long delta) {
 		this(minimum, maximum, OptionalLong.of(delta));
 	}
-	
+
 	public IntegerRange(long minimum, long maximum, OptionalLong delta) {
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.delta = delta;
 	}
 
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property.
+	 */
 	public IntegerRange(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 		RangeValue rangeValue = (RangeValue) propertyExpression;
 		minimum = ((IntegerLiteral) resolveNamedValue(rangeValue.getMinimum(), lookupContext, mode)).getValue();
@@ -44,6 +48,23 @@ public class IntegerRange {
 		} else {
 			PropertyExpression resolvedDelta = resolveNamedValue(rangeValue.getDelta(), lookupContext, mode);
 			delta = OptionalLong.of(((IntegerLiteral) resolvedDelta).getValue());
+		}
+	}
+
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property constant.
+	 *
+	 * @since 7.1
+	 */
+	public IntegerRange(PropertyExpression propertyExpression) {
+		RangeValue rangeValue = (RangeValue) propertyExpression;
+		minimum = ((IntegerLiteral) resolveNamedValue(rangeValue.getMinimum())).getValue();
+		maximum = ((IntegerLiteral) resolveNamedValue(rangeValue.getMaximum())).getValue();
+		if (rangeValue.getDelta() == null) {
+			delta = OptionalLong.empty();
+		} else {
+			delta = OptionalLong.of(((IntegerLiteral) resolveNamedValue(rangeValue.getDelta())).getValue());
 		}
 	}
 
@@ -58,24 +79,24 @@ public class IntegerRange {
 	public OptionalLong getDelta() {
 		return delta;
 	}
-	
+
 	public RangeValue toPropertyExpression() {
 		RangeValue rangeValue = Aadl2Factory.eINSTANCE.createRangeValue();
-		
+
 		IntegerLiteral minimumValue = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		minimumValue.setValue(minimum);
 		rangeValue.setMinimum(minimumValue);
-		
+
 		IntegerLiteral maximumValue = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		maximumValue.setValue(maximum);
 		rangeValue.setMaximum(maximumValue);
-		
+
 		delta.ifPresent(delta -> {
 			IntegerLiteral deltaValue = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 			deltaValue.setValue(delta);
 			rangeValue.setDelta(deltaValue);
 		});
-		
+
 		return rangeValue;
 	}
 

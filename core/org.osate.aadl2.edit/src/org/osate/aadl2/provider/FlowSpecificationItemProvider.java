@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -36,6 +36,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.impl.FlowSpecificationImpl;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.FlowSpecification} object.
@@ -166,22 +167,44 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * This returns FlowSpecification.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSpecification"));
+		if (((FlowSpecificationImpl) object).getAllInEnd() == null
+				&& ((FlowSpecificationImpl) object).getAllOutEnd() == null) {
+			return null;
+		} else if (((FlowSpecificationImpl) object).getAllInEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSource"));
+		} else if (((FlowSpecificationImpl) object).getAllOutEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSink"));
+		}
+
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPath"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
 		String label = ((FlowSpecification) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_FlowSpecification_type")
-				: getString("_UI_FlowSpecification_type") + " " + label;
+
+		if (label == null || label.length() == 0) {
+			return getString("_UI_Flow_type");
+		} else if (!(((FlowSpecification) object).getAllInEnd() == null
+				&& ((FlowSpecification) object).getAllOutEnd() == null)) {
+			if (((FlowSpecification) object).getAllInEnd() == null) {
+				return getString("_UI_Flow_type") + " Source " + label;
+			} else if (((FlowSpecification) object).getAllOutEnd() == null) {
+				return getString("_UI_Flow_type") + " Sink " + label;
+			} else {
+				return getString("_UI_Flow_type") + " Path " + label;
+			}
+		}
+
+		return getString("_UI_Flow_type");
 	}
 
 	/**

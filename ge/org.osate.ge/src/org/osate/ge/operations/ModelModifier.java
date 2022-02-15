@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,13 +25,22 @@ package org.osate.ge.operations;
 
 import org.eclipse.emf.ecore.EObject;
 
-public interface ModelModifier<TagType, BusinessObjectType extends EObject, PrevResultUserType, ResultUserType> {
+/**
+ * Interface for objects which performs model modification as part of an operation step.
+ * @param <T> the type of the tag
+ * @param <B> the type of the business object to modify
+ * @param <P> the type of the user value from the result of the previous step of the operation.
+ * @param <R> the type of the user value of the result of the modification step.
+ * @see OperationBuilder#modifyModel(Object, org.osate.ge.operations.OperationBuilder.BusinessObjectToModifyProvider, ModelModifier)
+ */
+public interface ModelModifier<T, B extends EObject, P, R> {
 	/**
-	 *
-	 * @param tag
-	 * @param boToModify
-	 * @param prevResult
-	 * @return must not return null.
+	 * Called to perform the model modification.
+	 * @param tag passed to {@link OperationBuilder#modifyModel(Object, org.osate.ge.operations.OperationBuilder.BusinessObjectToModifyProvider, ModelModifier)}. May be null.
+	 * If this object is a business object, it must not be modified.
+	 * @param boToModify is the business object to modify.
+	 * @param prevUserValue the user value from the previous step of the operation.
+	 * @return the result. Must not return null.
 	 */
-	StepResult<ResultUserType> modify(TagType tag, BusinessObjectType boToModify, PrevResultUserType prevUserValue);
+	StepResult<R> modify(T tag, B boToModify, P prevUserValue);
 }

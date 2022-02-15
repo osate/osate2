@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -38,7 +38,7 @@ public class DiagramElementPropertyTester extends PropertyTester {
 		if (property.equals("isUndocked")) {
 			return DiagramElementPredicates.isUndocked(de);
 		} else if (property.equals("isMoveable")) {
-			return DiagramElementPredicates.isMoveable(de);
+			return DiagramElementPredicates.isMoveableShape(de);
 		} else if (property.equals("isResizable")) {
 			return DiagramElementPredicates.isResizeable(de);
 		}

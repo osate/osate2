@@ -17,24 +17,33 @@ import org.osate.aadl2.RealLiteral;
  * @since 5.0
  */
 public class RealRange {
+	/**
+	 * @since 7.0
+	 */
+	public static final RealRange ZEROED = new RealRange(0.0, 0.0, 0.0);
+
 	private final double minimum;
 	private final double maximum;
 	private final OptionalDouble delta;
-	
+
 	public RealRange(double minimum, double maximum) {
 		this(minimum, maximum, OptionalDouble.empty());
 	}
-	
+
 	public RealRange(double minimum, double maximum, double delta) {
 		this(minimum, maximum, OptionalDouble.of(delta));
 	}
-	
+
 	public RealRange(double minimum, double maximum, OptionalDouble delta) {
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.delta = delta;
 	}
 
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property.
+	 */
 	public RealRange(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 		RangeValue rangeValue = (RangeValue) propertyExpression;
 		minimum = ((RealLiteral) resolveNamedValue(rangeValue.getMinimum(), lookupContext, mode)).getValue();
@@ -44,6 +53,23 @@ public class RealRange {
 		} else {
 			PropertyExpression resolvedDelta = resolveNamedValue(rangeValue.getDelta(), lookupContext, mode);
 			delta = OptionalDouble.of(((RealLiteral) resolvedDelta).getValue());
+		}
+	}
+
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property constant.
+	 *
+	 * @since 7.1
+	 */
+	public RealRange(PropertyExpression propertyExpression) {
+		RangeValue rangeValue = (RangeValue) propertyExpression;
+		minimum = ((RealLiteral) resolveNamedValue(rangeValue.getMinimum())).getValue();
+		maximum = ((RealLiteral) resolveNamedValue(rangeValue.getMaximum())).getValue();
+		if (rangeValue.getDelta() == null) {
+			delta = OptionalDouble.empty();
+		} else {
+			delta = OptionalDouble.of(((RealLiteral) resolveNamedValue(rangeValue.getDelta())).getValue());
 		}
 	}
 
@@ -58,24 +84,24 @@ public class RealRange {
 	public OptionalDouble getDelta() {
 		return delta;
 	}
-	
+
 	public RangeValue toPropertyExpression() {
 		RangeValue rangeValue = Aadl2Factory.eINSTANCE.createRangeValue();
-		
+
 		RealLiteral minimumValue = Aadl2Factory.eINSTANCE.createRealLiteral();
 		minimumValue.setValue(minimum);
 		rangeValue.setMinimum(minimumValue);
-		
+
 		RealLiteral maximumValue = Aadl2Factory.eINSTANCE.createRealLiteral();
 		maximumValue.setValue(maximum);
 		rangeValue.setMaximum(maximumValue);
-		
+
 		delta.ifPresent(delta -> {
 			RealLiteral deltaValue = Aadl2Factory.eINSTANCE.createRealLiteral();
 			deltaValue.setValue(delta);
 			rangeValue.setDelta(deltaValue);
 		});
-		
+
 		return rangeValue;
 	}
 

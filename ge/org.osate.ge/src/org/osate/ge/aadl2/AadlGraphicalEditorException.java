@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,13 +30,38 @@ package org.osate.ge.aadl2;
  * @since 2.0
  *
  */
-public class AadlGraphicalEditorException extends RuntimeException {
+public final class AadlGraphicalEditorException extends RuntimeException {
 	/**
 	 * Serializable version number for class
 	 */
 	private static final long serialVersionUID = 4833667000981390562L;
 
+	/**
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
+	 */
 	public AadlGraphicalEditorException(final String message) {
 		super(message);
+	}
+
+	/**
+	 * Creates a new instance
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(Throwable)
+	 * @since 3.0
+	 */
+	public AadlGraphicalEditorException(final Throwable cause) {
+		super(cause);
+	}
+
+	/**
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(String, Throwable)
+	 * @since 3.0
+	 */
+	public AadlGraphicalEditorException(final String message, final Throwable cause) {
+		super(message, cause);
 	}
 }

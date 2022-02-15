@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,10 +30,14 @@ import org.osate.ge.graphics.internal.AgeConnectionTerminator;
  * Builder for flow indicator graphics. Flow indicator graphics are used to indicate flow sources and sinks.
  * @since 2.0
  */
-public class FlowIndicatorBuilder {
+public final class FlowIndicatorBuilder {
 	private AgeConnectionTerminator srcTerminator = null;
 	private AgeConnectionTerminator dstTerminator = null;
 
+	/**
+	 * Private constructor to prevent direct instantiation.
+	 * @see #create()
+	 */
 	private FlowIndicatorBuilder() {}
 
 	/**

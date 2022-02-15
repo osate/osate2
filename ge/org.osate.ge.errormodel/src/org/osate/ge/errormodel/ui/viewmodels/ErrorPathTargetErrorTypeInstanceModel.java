@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -53,6 +53,10 @@ public class ErrorPathTargetErrorTypeInstanceModel extends BaseTypeSetTypeTokens
 		setBusinessObjectSelection(bos);
 	}
 
+	/**
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
+	 */
 	public final void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
 

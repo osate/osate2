@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,28 +24,32 @@
 package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.SwtUtil;
 
 /**
  * A selector which combines a text field for user specified filtering with a {@link ListSelector}
- * @since 1.1
  *
+ * @param <T> See {@link SingleSelectorModel}
+ * @since 1.1
  */
 public final class FilteringListSelector<T> extends Composite implements SelectionDoubleClickedEventGenerator {
 	private final FilteringSelectorModel<T> model;
 	private final Text filterField;
 	private final ListSelector<T> listViewer;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model for the selector
+	 */
 	public FilteringListSelector(final Composite parent, final FilteringSelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
@@ -55,9 +59,7 @@ public final class FilteringListSelector<T> extends Composite implements Selecti
 		// Field field to specify filter
 		filterField = new Text(this, SWT.SINGLE | SWT.BORDER);
 		filterField.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.FILL).create());
-		filterField.addModifyListener(e -> {
-			model.setFilter(filterField.getText());
-		});
+		filterField.addModifyListener(e -> model.setFilter(filterField.getText()));
 
 		// List of options
 		this.listViewer = new ListSelector<>(this, model);
@@ -70,22 +72,24 @@ public final class FilteringListSelector<T> extends Composite implements Selecti
 	}
 
 	private void refresh() {
-		if (!this.isDisposed()) {
-			// Update the UI. The inner list viewer handles its own refresh
-			if (!Objects.equals(filterField.getText(), model.getFilter())) {
+		// Update the UI. The inner list viewer handles its own refresh
+		if (!this.isDisposed() && !Objects.equals(filterField.getText(), model.getFilter())) {
 				filterField.setText(model.getFilter());
-			}
 		}
 	}
 
-	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new FilteringListSelector<>(shell, new LabelFilteringListSelectorModel<>(new TestListEditorModel()));
-		});
+	@Override
+	public EventSource selectionDoubleClicked() {
+		return listViewer.selectionDoubleClicked();
 	}
 
-	@Override
-	public EventSource<SelectionDoubleClickedEvent> selectionDoubleClicked() {
-		return listViewer.selectionDoubleClicked();
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
+	public static void main(String[] args) {
+		SwtUtil.run(shell -> new FilteringListSelector<>(shell,
+				new LabelFilteringListSelectorModel<>(new TestListEditorModel())));
 	}
 }

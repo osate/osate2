@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,8 +26,11 @@ package org.osate.ge;
 import java.util.stream.Stream;
 
 /**
- * Contributes business objects to the graphical editor. Only objects provided by a {@link BusinessObjectProvider}.
- * will be available in the graphical editor.
+ * Contributes business objects to the graphical editor. Only objects provided by a {@link BusinessObjectProvider} will
+ * be available in the graphical editor. Business object providers are registered using the
+ * <i>org.osate.ge.businessObjectProviders</i> extension point. All objects contributed by a business object provider must also have
+ * a {@link org.osate.ge.businessobjecthandling.BusinessObjectHandler} registered.
+ * Business object providers are registered using the <i>org.osate.ge.businessObjectProviders</i> extension point.
  * @since 2.0
  */
 public interface BusinessObjectProvider {

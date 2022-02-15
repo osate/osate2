@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,12 +30,22 @@ import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * Utility class for working with diagram types
+ * Contains utility functions for diagram types
  *
  */
 public class DiagramTypeUtil {
 	/**
-	 * Returns all defualt content filters which are applicable to the specified business object.
+	 * Private constructor to prevent instantiation.
+	 */
+	private DiagramTypeUtil() {
+	}
+
+	/**
+	 * Returns all applicable default content filters for specified business object
+	 * @param diagramType the diagram type which determines the default content filters
+	 * @param bo the business object for which default content filters should be returned
+	 * @param contentFilterProvider the provider which provides access to the {@link ContentFilter} objects.
+	 * @return the applicable default content filters for the specified business object
 	 * @noreference
 	 */
 	public static ImmutableSet<ContentFilter> getApplicableDefaultContentFilters(

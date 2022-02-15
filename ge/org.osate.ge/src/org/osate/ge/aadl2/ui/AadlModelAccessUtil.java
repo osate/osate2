@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -56,19 +56,36 @@ import com.google.common.collect.Streams;
 import com.google.inject.Injector;
 
 /**
- * Utility class for accessing AADL declarative model model elements while respecting project references and the live Xtext resource set.
+ * Utility class for accessing AADL declarative model elements while respecting project references and the live Xtext resource set.
+ * This class is useful when allowing the user to select from a list of model objects. Such selection should take into account
+ * the projects that are being referenced. Additionally, such lists should also allow selecting of model elements that exist in open AADL documents
+ * which have not been saved to disk by using a live resource set provided by Xtext.
  * @since 2.0
  */
-public class AadlModelAccessUtil {
+public final class AadlModelAccessUtil {
 	/**
-	 * Gets a collection containing all EObjects of a specified type which may be directly referenced from the project containing the specified resource.
+	 * Private constructor to prevent instantiation.
+	 */
+	private AadlModelAccessUtil() {
+	}
+
+	/**
+	 * Gets a collection containing {@link IEObjectDescription} for all model objects of a specified type which may be directly referenced
+	 * from the project of the specified resource.
+	 * @param resource the resource used to determine the project.
+	 * @param type the type of objects for which to return descriptions
+	 * @return the descriptions of the requested model objects
 	 */
 	public static Collection<IEObjectDescription> getAllEObjectsByType(final Resource resource, final EClass type) {
 		return getAllEObjectsByType(ProjectUtil.getProjectOrThrow(resource), type);
 	}
 
 	/**
-	 * Gets a collection containing all EObjects of a specified type which may be directly referenced from the specified project
+	 * Gets a collection containing {@link IEObjectDescription} for all model objects of a specified type which may be directly referenced
+	 * from the specified project.
+	 * @param project the project for which to return object descriptions.
+	 * @param type the type of objects for which to return descriptions
+	 * @return the descriptions of the requested model objects
 	 */
 	public static Collection<IEObjectDescription> getAllEObjectsByType(final IProject project, final EClass type) {
 		return calculateVisibleResourceDescriptions(project)
@@ -76,13 +93,15 @@ public class AadlModelAccessUtil {
 				.collect(Collectors.toList());
 	}
 
+	/**
+	 * Determines whether the resource is in the specified project.
+	 * @param rd the description of the resource to check
+	 * @param project the project to check whether the resource is in.
+	 * @return whether the resource is in the specified project.
+	 */
 	private static boolean isInProject(final IResourceDescription rd, final IProject project) {
 		final IPath resPath = new Path(rd.getURI().toPlatformString(true));
-		if (project.getFullPath().isPrefixOf(resPath)) {
-			return true;
-		}
-
-		return false;
+		return project.getFullPath().isPrefixOf(resPath);
 	}
 
 	/**
@@ -121,7 +140,7 @@ public class AadlModelAccessUtil {
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static Set<IResourceDescription> calculateResourceDescriptions(final Set<IProject> projects) {
-		final Set<IResourceDescription> resourceDescriptions = new HashSet<IResourceDescription>();
+		final Set<IResourceDescription> resourceDescriptions = new HashSet<>();
 		Injector injector = IResourceServiceProvider.Registry.INSTANCE
 				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
 		final ResourceDescriptionsProvider resourceDescProvider = injector.getInstance(ResourceDescriptionsProvider.class);
@@ -143,7 +162,10 @@ public class AadlModelAccessUtil {
 	}
 
 	/**
-	 * Returns the EObject of the specified type which are contained in the specified project
+	 * Returns the descriptions of objects of the specified type which are contained in the specified project
+	 * @param project the project for which to retrieve object descriptions
+	 * @param type the type of EObject for which to return descriptions
+	 * @return the object descriptions
 	 */
 	public static Collection<IEObjectDescription> getContainedEObjectsByType(final IProject project,
 			final EClass type) {
@@ -154,7 +176,7 @@ public class AadlModelAccessUtil {
 
 	/**
 	 * Returns a live resource set based on the project or throws an exception if one cannot be returned.
-	 * @param project
+	 * @param project is the project for which to return a live resource set.
 	 * @return the live resource set for the project.
 	 */
 	public static ResourceSet getLiveResourceSet(final IProject project) {

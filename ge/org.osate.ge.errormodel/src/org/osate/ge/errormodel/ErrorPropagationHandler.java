@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -51,6 +51,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 
 import com.google.common.base.Strings;
 
+/**
+ * Business object handler for {@link ErrorPropagation} objects.
+ */
 public class ErrorPropagationHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = LabelBuilder.create().build();
 
@@ -91,7 +94,7 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 		}
 
 		segments[segmentIndex++] = Boolean.toString(bo.isNot());
-		segments[segmentIndex++] = bo.getDirection() == null ? "<null>" : bo.getDirection().getLiteral();
+		segments[segmentIndex] = bo.getDirection() == null ? "<null>" : bo.getDirection().getLiteral();
 
 		// Create reference
 		return new CanonicalBusinessObjectReference(segments);
@@ -138,7 +141,7 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 				: Style.EMPTY).fontSize(8.0);
 
 		return Optional
-				.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).decoration().build());
+				.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).build());
 	}
 
 	@Override

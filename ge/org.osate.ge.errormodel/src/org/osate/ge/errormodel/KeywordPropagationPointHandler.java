@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -34,6 +34,7 @@ import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
@@ -43,6 +44,9 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 
+/**
+ * Business object handler for {@link KeywordPropagationPoint} objects.
+ */
 public class KeywordPropagationPointHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = EllipseBuilder.create().fixedSize(new Dimension(16, 16)).build();
 	private static final Style style = StyleBuilder.create().labelsAboveTop().labelsLeft().build();
@@ -75,7 +79,17 @@ public class KeywordPropagationPointHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return "<" + ctx.getBusinessObject(KeywordPropagationPoint.class).get().getType().getKind()
+		return "Propagation Point <"
+				+ ctx.getBusinessObject(KeywordPropagationPoint.class).get().getType().getKind() + ">";
+	}
+
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return "<" + ctx.getBusinessObjectContext()
+				.getBusinessObject(KeywordPropagationPoint.class)
+				.get()
+				.getType()
+				.getKind()
 				+ ">";
 	}
 

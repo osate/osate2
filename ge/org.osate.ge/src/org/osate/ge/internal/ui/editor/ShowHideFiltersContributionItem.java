@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -77,12 +77,12 @@ class ShowHideFiltersContributionItem extends CompoundContributionItem {
 		}
 
 		final IEditorPart activeEditor = window.getActivePage().getActiveEditor();
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			return EMPTY;
 		}
 
 		// Don't contribute commands if editor is not editable
-		final AgeDiagramEditor editor = (AgeDiagramEditor) activeEditor;
+		final InternalDiagramEditor editor = (InternalDiagramEditor) activeEditor;
 		if (activeEditor == null || !editor.isEditable()) {
 			return EMPTY;
 		}

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,7 +26,6 @@ package org.osate.ge.errormodel.combined;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.osate.ge.BusinessObjectContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
@@ -34,14 +33,18 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  *
  */
 public interface ReadonlyPropagationNode {
+	/**
+	 * Returns a child node. The structure of the tree reflects the structure of the feature group and features, propagation points, and keyword
+	 * propagation points in the model and diagram outline.
+	 * @param kindOrElementName the propagation kind such as "access" or the name of a feature or propagation point which identifies the
+	 * child model element for which to return the propagation node.
+	 * @return the propagation node or an empty value if the propagation node does not exist for the specified value
+	 */
 	Optional<ReadonlyPropagationNode> getChild(final String kindOrElementName);
 
-	Stream<ErrorPropagation> getPropagations();
-
 	/**
-	 * Returns a stream of error propagations associated with the target business object context.
-	 * @param boc the business object context of a feature, propagation point or keyword propagation point
-	 * @return a stream containing propagations
+	 * Returns the error propagations associated with the node
+	 * @return the node's propagations
 	 */
-	Stream<ErrorPropagation> getPropagationsForBusinessObjectContext(final BusinessObjectContext boc);
+	Stream<ErrorPropagation> getPropagations();
 }

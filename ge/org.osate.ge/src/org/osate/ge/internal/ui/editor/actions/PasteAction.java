@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.action.Action;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.xtext.resource.XtextResource;
 import org.osate.aadl2.AadlPackage;
@@ -48,9 +49,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
+import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlNameUtil;
-import org.osate.ge.aadl2.internal.util.RenameUtil;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -62,13 +62,12 @@ import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
-import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
-import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.ClipboardService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.RenameUtil;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -77,12 +76,12 @@ import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.base.Predicates;
 
-public class PasteAction extends ActionStackAction {
+public class PasteAction extends Action {
+	private final InternalDiagramEditor editor;
 	private final ClipboardService.Clipboard clipboard;
 
-	public PasteAction(final AgeDiagramEditor part) {
-		super(part);
-
+	public PasteAction(final InternalDiagramEditor editor) {
+		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		setId(ActionFactory.PASTE.getId());
 		setText("Paste");
 
@@ -102,9 +101,6 @@ public class PasteAction extends ActionStackAction {
 				context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
 		final ReferenceBuilderService refBuilder = Objects.requireNonNull(
 				context.getActive(ReferenceBuilderService.class), "Unable to retrieve reference builder service");
-
-		// This is safe because the constructor requires the part to be an AgeDiagramEditor.
-		final AgeDiagramEditor editor = (AgeDiagramEditor) getWorkbenchPart();
 
 		// Perform modification
 		final DiagramNode dstDiagramNode = getDestinationDiagramNode();
@@ -128,14 +124,11 @@ public class PasteAction extends ActionStackAction {
 			}
 
 			// Update the diagram. This will set business objects and update the diagram to be consistent.
-			final AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()
-					.getFeatureProvider();
-			final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
-			diagramUpdater.updateDiagram(diagram);
+			editor.getDiagramUpdater().updateDiagram(diagram);
 		});
 
 		// Update selection to match created diagram elements
-		editor.setDiagramElementsForSelection(newDiagramElements.toArray(new DiagramElement[newDiagramElements.size()]));
+		editor.selectDiagramNodes(newDiagramElements);
 	}
 
 	/**
@@ -182,8 +175,7 @@ public class PasteAction extends ActionStackAction {
 					containingFeatureValueCollection.add(copiedEObject);
 
 					ensureBusinessObjectHasUniqueName(copiedEObject,
-							copiedDiagramElement.getDiagramElement().getBusinessObjectHandler(),
-							copiedDiagramElement.getDiagramElement().getLabelName());
+							copiedDiagramElement.getDiagramElement().getBusinessObjectHandler());
 
 					ensurePackagesAreImported(copiedEObject);
 
@@ -204,7 +196,7 @@ public class PasteAction extends ActionStackAction {
 
 			// Remove existing element
 			final DiagramElement existingDiagramElement = dstDiagramNode
-					.getByRelativeReference(newDiagramElement.getRelativeReference());
+					.getChildByRelativeReference(newDiagramElement.getRelativeReference());
 			if (existingDiagramElement != null) {
 				m.removeElement(existingDiagramElement);
 			}
@@ -223,11 +215,9 @@ public class PasteAction extends ActionStackAction {
 	 * Otherwise, do not change the element's name. Contains special handling for component implementations.
 	 * @param bo
 	 * @param boHandler
-	 * @param diagramElementName the name provided by the diagram element. Treated as the current name unless the business object handler provided an editing name using GetNameForEditing
 	 */
 	private static void ensureBusinessObjectHasUniqueName(final EObject bo,
-			final BusinessObjectHandler boHandler,
-			final String diagramElementName) {
+			final BusinessObjectHandler boHandler) {
 		if (supportsRenaming(bo, boHandler) && boHandler.canRename(new CanRenameContext(bo))) {
 			// Determine the current name of the business object.
 			final String originalName = boHandler.getNameForRenaming(new GetNameContext(bo));
@@ -363,7 +353,7 @@ public class PasteAction extends ActionStackAction {
 	}
 
 	@Override
-	protected boolean calculateEnabled() {
+	public boolean isEnabled() {
 		// Return value if this is called before constructor is finished
 		if (clipboard == null) {
 			return false;

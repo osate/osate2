@@ -15,19 +15,20 @@ import org.osate.aadl2.RangeValue;
 /**
  * @since 5.0
  */
-public class IntegerRangeWithUnits<U extends Enum<U> & GeneratedUnits<U>> {
+public class IntegerRangeWithUnits<U extends Enum<U> & GeneratedUnits<U>>
+		implements RangeWithUnits<U, IntegerWithUnits<U>> {
 	private final IntegerWithUnits<U> minimum;
 	private final IntegerWithUnits<U> maximum;
 	private final Optional<IntegerWithUnits<U>> delta;
-	
+
 	public IntegerRangeWithUnits(IntegerWithUnits<U> minimum, IntegerWithUnits<U> maximum) {
 		this(minimum, maximum, Optional.empty());
 	}
-	
+
 	public IntegerRangeWithUnits(IntegerWithUnits<U> minimum, IntegerWithUnits<U> maximum, IntegerWithUnits<U> delta) {
 		this(minimum, maximum, Optional.of(delta));
 	}
-	
+
 	public IntegerRangeWithUnits(IntegerWithUnits<U> minimum, IntegerWithUnits<U> maximum,
 			Optional<IntegerWithUnits<U>> delta) {
 		this.minimum = minimum;
@@ -35,6 +36,10 @@ public class IntegerRangeWithUnits<U extends Enum<U> & GeneratedUnits<U>> {
 		this.delta = delta;
 	}
 
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property.
+	 */
 	public IntegerRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType,
 			NamedElement lookupContext, Optional<Mode> mode) {
 		RangeValue rangeValue = (RangeValue) propertyExpression;
@@ -44,18 +49,35 @@ public class IntegerRangeWithUnits<U extends Enum<U> & GeneratedUnits<U>> {
 				.map(it -> new IntegerWithUnits<>(it, unitsType));
 	}
 
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property constant.
+	 *
+	 * @since 7.1
+	 */
+	public IntegerRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType) {
+		RangeValue rangeValue = (RangeValue) propertyExpression;
+		minimum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMinimum()), unitsType);
+		maximum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMaximum()), unitsType);
+		delta = Optional.ofNullable(resolveNamedValue(rangeValue.getDelta()))
+				.map(it -> new IntegerWithUnits<>(it, unitsType));
+	}
+
+	@Override
 	public IntegerWithUnits<U> getMinimum() {
 		return minimum;
 	}
 
+	@Override
 	public IntegerWithUnits<U> getMaximum() {
 		return maximum;
 	}
 
+	@Override
 	public Optional<IntegerWithUnits<U>> getDelta() {
 		return delta;
 	}
-	
+
 	public RangeValue toPropertyExpression(ResourceSet resourceSet) {
 		RangeValue rangeValue = Aadl2Factory.eINSTANCE.createRangeValue();
 		rangeValue.setMinimum(minimum.toPropertyExpression(resourceSet));

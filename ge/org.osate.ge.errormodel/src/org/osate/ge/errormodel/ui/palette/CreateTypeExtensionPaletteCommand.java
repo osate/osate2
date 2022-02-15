@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -35,7 +35,13 @@ import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
+/**
+ * Palette command for creating error type extensions.
+ */
 public class CreateTypeExtensionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreateTypeExtensionPaletteCommand() {
 		super("Error Type Extension", ErrorModelPaletteCategories.ERROR_TYPES, null);
 	}
@@ -53,13 +59,12 @@ public class CreateTypeExtensionPaletteCommand extends BasePaletteCommand implem
 				return null;
 			}
 
-			return Operation.createWithBuilder(createOp -> {
-				createOp.supply(() -> StepResult.forValue(subtypeReadonly)).modifyPreviousResult(subtype -> {
-					subtype.setSuperType(supertype);
-					final Object newBo = new ErrorTypeExtension(supertype, subtype);
-					return StepResultBuilder.create().showNewBusinessObject(ctx.getSource(), newBo).build();
-				});
-			});
+			return Operation.createWithBuilder(createOp -> createOp.supply(() -> StepResult.forValue(subtypeReadonly))
+					.modifyPreviousResult(subtype -> {
+						subtype.setSuperType(supertype);
+						final Object newBo = new ErrorTypeExtension(supertype, subtype);
+						return StepResultBuilder.create().showNewBusinessObject(ctx.getSource(), newBo).build();
+					}));
 		});
 	}
 }

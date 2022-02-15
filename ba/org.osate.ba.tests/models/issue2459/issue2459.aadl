@@ -1,0 +1,43 @@
+package issue2459
+public
+
+	system top
+	annex behavior_specification {**
+variables
+  bool1[50] : Boolean_Type;
+states
+  s3 : state;
+transitions
+  t1 : s1 -[cond[1].subcond[b]]-> s2 {
+    o1 := tmp + 1;
+    a !;
+    b ! (c);
+    computation (100 ms) in binding (d)
+  };
+  s -[]-> s {
+    x := portGrp.inPort' count;
+    x := portGrp.inPort' fresh;
+    x := portGrp.inPort ?;
+    portGrp.inPort ? (x)
+  };
+  t -[p' fresh]-> t {
+    x := dataAccessGrp.dataAccess.intArray[0][0]
+  };
+  a -[]-> a {
+    tmp := 1
+  } timeout 20 ms;
+  a -[]-> a {
+    tmp := 1
+  } timeout x ms;
+  a -[]-> a {
+    tmp := 1
+  } timeout #AadlBaTestPropertySet::aConstant ms;
+  a -[#AadlBaTestPropertySet::aConstant mod x > 0 or true]-> a;
+  a -[#AadlBaTestPropertySet::aValue > 0 or bool1]-> a;
+  a -[]-> a {
+    multiplication ! (AadlBaTest::Types::Integer.v1#aSimpleValue,tmp,tmp)
+  };
+        **};
+	end top;
+	
+end issue2459;

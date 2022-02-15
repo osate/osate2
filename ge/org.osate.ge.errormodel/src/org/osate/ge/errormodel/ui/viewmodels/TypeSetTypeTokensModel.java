@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,11 +25,16 @@
 package org.osate.ge.errormodel.ui.viewmodels;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListEditorModel;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -46,9 +51,14 @@ public class TypeSetTypeTokensModel extends BaseTypeSetTypeTokensModel
 	 * @param bos the initial business object selection
 	 */
 	public TypeSetTypeTokensModel(final BusinessObjectSelection bos) {
+		super(false);
 		setBusinessObjectSelection(bos);
 	}
 
+	/**
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
+	 */
 	public final void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
 		setTypeSets(bos.boStream(TypeSet.class).collect(Collectors.toList()));
@@ -57,6 +67,15 @@ public class TypeSetTypeTokensModel extends BaseTypeSetTypeTokensModel
 	@Override
 	protected void modifyTypeSets(final Consumer<TypeSet> modifier) {
 		bos.modify(TypeSet.class, modifier);
+	}
+
+	@Override
+	public Stream<ErrorTypes> getErrorTypes() {
+		// Filter out self from available error types
+		final Set<URI> selectedTypeSetURIs = bos.boStream(TypeSet.class)
+				.map(EcoreUtil::getURI)
+				.collect(Collectors.toSet());
+		return super.getErrorTypes().filter(errorType -> !selectedTypeSetURIs.contains(EcoreUtil.getURI(errorType)));
 	}
 }
 

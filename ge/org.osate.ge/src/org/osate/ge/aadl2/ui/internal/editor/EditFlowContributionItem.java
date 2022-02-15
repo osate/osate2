@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,6 +23,7 @@
  */
 package org.osate.ge.aadl2.ui.internal.editor;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -54,15 +55,15 @@ import org.osate.ge.aadl2.ui.internal.tools.CreateEndToEndFlowSpecificationTool;
 import org.osate.ge.aadl2.ui.internal.tools.CreateFlowImplementationTool;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.internal.util.ProxyUtil;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
+import org.osate.ge.internal.util.AgeEmfUtil;
 
 public class EditFlowContributionItem extends ControlContribution {
 	private final static ImageDescriptor editIcon = Activator.getImageDescriptor("icons/flow_edit.png");
 	private final Set<BusinessObjectNode> segmentNodes = new HashSet<>();
-	private AgeDiagramEditor editor = null;
+	private InternalDiagramEditor editor = null;
 	private Button editFlowBtn;
 	private HighlightableFlowInfo selectedHighlightableFlow;
 
@@ -91,34 +92,34 @@ public class EditFlowContributionItem extends ControlContribution {
 						.getRootRefinedElement(selectedHighlightableFlow.getFlowSegment());
 				final ComponentImplementation ci = FlowContributionItemUtil
 						.getComponentImplementation(container.getBusinessObject());
-				editor.getDiagram().getDiagramElements().stream().findAny().ifPresent(de -> {
-					// Set focus to editor for activating create flow tool
-					editor.setFocus();
-					editor.selectDiagramElementsForBusinessObject(de.getBusinessObject());
 
-					final UiService uiService = Adapters.adapt(editor, UiService.class);
-					// Create dialog and activate appropriate flow tool
-					if (flowSegment instanceof EndToEndFlow) {
-						final EndToEndFlow endToEndFlow = ProxyUtil
-								.resolveOrNull(
-										flowSegment,
-										EndToEndFlow.class,
-										ci.eResource().getResourceSet());
+				// Set focus to editor for activating create flow tool
+				editor.setFocus();
+				editor.selectDiagramNodes(Collections.singletonList(editor.getDiagram()));
 
-						// Activate tool
-						uiService.activateTool(
-								new CreateEndToEndFlowSpecificationTool(editor, container, endToEndFlow));
-					} else if (flowSegment instanceof FlowSpecification) {
-						final FlowSpecification fs = ProxyUtil.resolveOrNull(
-								flowSegment,
-								FlowSpecification.class, ci.eResource().getResourceSet());
-						getFlowImplementation(ci, fs).ifPresent(fi -> {
-							uiService.activateTool(new CreateFlowImplementationTool(editor, container, fi));
-						});
-					} else {
-						throw new RuntimeException("Unsupported flow type.");
-					}
-				});
+				final UiService uiService = Adapters.adapt(editor, UiService.class);
+				// Create dialog and activate appropriate flow tool
+				if (flowSegment instanceof EndToEndFlow) {
+					final EndToEndFlow endToEndFlow = AgeEmfUtil
+							.resolveOrNull(
+									flowSegment,
+									EndToEndFlow.class,
+									ci.eResource().getResourceSet());
+
+					// Activate tool
+					uiService.activateTool(
+							new CreateEndToEndFlowSpecificationTool(editor, container, endToEndFlow));
+				} else if (flowSegment instanceof FlowSpecification) {
+					final FlowSpecification fs = AgeEmfUtil
+							.resolveOrNull(
+							flowSegment,
+							FlowSpecification.class, ci.eResource().getResourceSet());
+					getFlowImplementation(ci, fs).ifPresent(fi -> {
+						uiService.activateTool(new CreateFlowImplementationTool(editor, container, fi));
+					});
+				} else {
+					throw new RuntimeException("Unsupported flow type.");
+				}
 			}
 
 			private Optional<FlowImplementation> getFlowImplementation(final ComponentImplementation ci,
@@ -146,8 +147,8 @@ public class EditFlowContributionItem extends ControlContribution {
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (this.editor != newEditor) {
 			// Update the editor
-			if (newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor) newEditor;
+			if (newEditor instanceof InternalDiagramEditor) {
+				this.editor = (InternalDiagramEditor) newEditor;
 			} else {
 				this.editor = null;
 			}

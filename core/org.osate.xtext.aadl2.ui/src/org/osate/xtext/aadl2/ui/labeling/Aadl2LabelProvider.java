@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -52,7 +52,6 @@ import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
@@ -389,16 +388,24 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		return "Feature Group " + ele.getName();
 	}
 
-	String text(Feature ele) {
-		return "Feature " + ele.getName();
-	}
-
 	String text(FlowImplementation flowimpl) {
 		String ret;
 
-		ret = "Flow Implementation";
+		ret = "Flow";
 
 		if (flowimpl.getSpecification() != null) {
+
+			if (!(flowimpl.getSpecification().getAllInEnd() == null
+					&& flowimpl.getSpecification().getAllOutEnd() == null)) {
+				if (flowimpl.getSpecification().getAllInEnd() == null) {
+					ret += " Source";
+				} else if (flowimpl.getSpecification().getAllOutEnd() == null) {
+					ret += " Sink";
+				} else {
+					ret += " Path";
+				}
+			}
+
 			ret += " " + flowimpl.getSpecification().getName();
 		}
 
@@ -425,10 +432,22 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		return ret;
 	}
 
+
 	String text(FlowSpecification flowspec) {
 		String ret;
 
-		ret = "Flow Specification";
+		ret = "Flow";
+
+		if (!(flowspec.getAllInEnd() == null && flowspec.getAllOutEnd() == null)) {
+			if (flowspec.getAllInEnd() == null) {
+				ret += " Source";
+			} else if (flowspec.getAllOutEnd() == null) {
+				ret += " Sink";
+			} else {
+				ret += " Path";
+			}
+		}
+
 		if (flowspec.getName() != null) {
 			ret += " " + flowspec.getName();
 		}

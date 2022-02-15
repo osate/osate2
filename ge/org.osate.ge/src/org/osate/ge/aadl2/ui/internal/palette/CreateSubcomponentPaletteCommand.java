@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.StringUtil;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
@@ -44,7 +45,7 @@ public class CreateSubcomponentPaletteCommand extends BasePaletteCommand impleme
 
 	public CreateSubcomponentPaletteCommand(final EClass subcomponentType) {
 		super(StringUtil.camelCaseToUser(subcomponentType.getName()),
-				AadlPaletteCategories.SUBCOMPONENTS,
+				AadlCategories.SUBCOMPONENTS,
 				AadlImages.getImage(subcomponentType));
 		this.subcomponentType = subcomponentType;
 	}

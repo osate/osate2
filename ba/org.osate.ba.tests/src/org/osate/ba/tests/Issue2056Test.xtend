@@ -7,7 +7,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexSubclause
-import org.osate.ba.aadlba.BehaviorAnnex
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
@@ -16,6 +15,8 @@ import static extension org.junit.Assert.assertTrue
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
+
+// EB: Tests Issue 2065, not 2056 !!!
 class Issue2056Test {
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -30,7 +31,7 @@ class Issue2056Test {
 				"threadA.impl".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
 					"behavior_specification".assertEquals(name)
-					(parsedAnnexSubclause===null).assertTrue
+					(parsedAnnexSubclause!==null).assertTrue
 				]
 			]
 		]

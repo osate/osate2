@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -56,6 +56,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -66,8 +68,10 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
@@ -83,20 +87,15 @@ import org.osate.ge.palette.internal.PaletteContributorRegistry;
 import org.osate.ge.ui.TooltipContributor;
 import org.osgi.framework.FrameworkUtil;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Instantiates extensions which are registered via extension points.
  */
 public class DefaultExtensionRegistryService implements ExtensionRegistryService {
-	public static class ContextFunction extends SimpleServiceContextFunction<ExtensionRegistryService> {
-		@Override
-		public ExtensionRegistryService createService(final IEclipseContext context) {
-			return new DefaultExtensionRegistryService();
-		}
-	}
-
 	private static class PrioritizedExtensionInfo<T> {
 		final private int priority;
 		final private T object;
@@ -120,6 +119,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private static final String BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID = "org.osate.ge.businessObjectProviders";
 	private static final String CONTENT_FILTERS_EXTENSION_POINT_ID = "org.osate.ge.contentFilters";
 	private static final String DIAGRAM_TYPES_EXTENSION_POINT_ID = "org.osate.ge.diagramTypes";
+	private static final String IMAGES_EXTENSION_POINT_ID = "org.osate.ge.images";
 
 	private final ImmutableList<BusinessObjectHandler> boHandlers;
 	private final ImmutableList<TooltipContributor> tooltipContributors;
@@ -127,8 +127,12 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private final ImmutableCollection<ContentFilter> configurableContentFilters;
 	private final ImmutableCollection<FundamentalContentFilter> fundamentalContentFilters;
 	private final ImmutableCollection<DiagramType> diagramTypes;
+	private final ImmutableMap<String, RegisteredImage> imageMap;
 	private final PaletteContributorRegistry paletteExtensions;
 
+	/**
+	 * Creates a new instance
+	 */
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 		boHandlers = instantiatePrioritizedExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler",
@@ -136,18 +140,25 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		tooltipContributors = instantiatePrioritizedExtensions(registry, TOOLTIP_EXTENSION_POINT_ID,
 				"tooltipContributor", TooltipContributor.class);
 		businessObjectProviders = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
-				BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID,
-				"provider", BusinessObjectProvider.class);
+				BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID, "provider", BusinessObjectProvider.class);
 		configurableContentFilters = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
-				CONTENT_FILTERS_EXTENSION_POINT_ID,
-				"contentFilter", ContentFilter.class);
+				CONTENT_FILTERS_EXTENSION_POINT_ID, "contentFilter", ContentFilter.class);
 		fundamentalContentFilters = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
-				CONTENT_FILTERS_EXTENSION_POINT_ID,
-				"fundamentalContentFilter", FundamentalContentFilter.class);
+				CONTENT_FILTERS_EXTENSION_POINT_ID, "fundamentalContentFilter", FundamentalContentFilter.class);
 		diagramTypes = EclipseExtensionUtil.instantiateSimpleExtensions(registry, DIAGRAM_TYPES_EXTENSION_POINT_ID,
-				"diagramType",
-				DiagramType.class);
+				"diagramType", DiagramType.class);
+		imageMap = instantiateImageMap(registry);
 		paletteExtensions = new PaletteContributorRegistry(registry);
+
+		// Register images with this plugin's image registry
+		final ImageRegistry imageRegistry = Activator.getDefault().getImageRegistry();
+		for(final Entry<String, RegisteredImage> e : imageMap.entrySet()) {
+			final RegisteredImage img = e.getValue();
+			final ImageDescriptor imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(img.plugin, img.path);
+			if (imageDescriptor != null) {
+				imageRegistry.put(e.getKey(), imageDescriptor);
+			}
+		}
 	}
 
 	@Override
@@ -211,15 +222,18 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 
 	@Override
+	public Map<String, RegisteredImage> getImageMap() {
+		return imageMap;
+	}
+
+	@Override
 	public ImmutableCollection<PaletteContributor> getPaletteContributors() {
 		return paletteExtensions.getPaletteContributors();
 	}
 
 	// Extensions with a lower priority values are sorted so that they are earlier in the resulting collection
-	private static <T> ImmutableList<T> instantiatePrioritizedExtensions(
-			final IExtensionRegistry registry,
-			final String extensionPointId,
-			final String elementName, final Class<T> extClass) {
+	private static <T> ImmutableList<T> instantiatePrioritizedExtensions(final IExtensionRegistry registry,
+			final String extensionPointId, final String elementName, final Class<T> extClass) {
 		final ILog logger = Platform.getLog(FrameworkUtil.getBundle(DefaultExtensionRegistryService.class));
 
 		final ImmutableList.Builder<T> extensionListBuilder = ImmutableList.builder();
@@ -228,11 +242,11 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 						tooltipContributor2.getPriority());
 
 				final IExtensionPoint extPoint = registry.getExtensionPoint(extensionPointId);
-				if(extPoint != null) {
+				if (extPoint != null) {
 					final ArrayList<PrioritizedExtensionInfo<T>> prioritizedExtensionInfos = new ArrayList<>();
-					for(final IExtension extension : extPoint.getExtensions()) {
-						for(final IConfigurationElement ce : extension.getConfigurationElements()) {
-							if(ce.getName().equals(elementName)) {
+					for (final IExtension extension : extPoint.getExtensions()) {
+						for (final IConfigurationElement ce : extension.getConfigurationElements()) {
+							if (ce.getName().equals(elementName)) {
 								final String priorityStr = ce.getAttribute("priority");
 								final int priority = priorityStr == null ? Integer.MAX_VALUE : Integer.parseInt(priorityStr);
 								try {
@@ -241,8 +255,8 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 											priority, contributor);
 									prioritizedExtensionInfos.add(tooltipContributerInfo);
 								} catch (final CoreException | ClassCastException e) {
-									logger.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-											"Error instantiating extension", e));
+									logger.log(
+											new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Error instantiating extension", e));
 								}
 							}
 						}
@@ -255,5 +269,29 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 				}
 
 				return extensionListBuilder.build();
+	}
+
+	private static ImmutableMap<String, RegisteredImage> instantiateImageMap(
+			final IExtensionRegistry registry) {
+		final ImmutableMap.Builder<String, RegisteredImage> builder = ImmutableMap.builder();
+		final IExtensionPoint point = registry.getExtensionPoint(IMAGES_EXTENSION_POINT_ID);
+		if (point != null) {
+			for (final IExtension extension : point.getExtensions()) {
+				for (final IConfigurationElement ce : extension.getConfigurationElements()) {
+					final String imageId = ce.getAttribute("id");
+					String imagePlugin = ce.getAttribute("plugin");
+					if (imagePlugin == null) {
+						imagePlugin = extension.getContributor().getName();
+					}
+
+					final String imagePath = ce.getAttribute("path");
+					if (!Strings.isNullOrEmpty(imageId) && !Strings.isNullOrEmpty(imagePath)) {
+						builder.put(imageId, new RegisteredImage(imagePlugin, imagePath));
+					}
+				}
+			}
+		}
+
+		return builder.build();
 	}
 }

@@ -21,6 +21,7 @@ import org.osate.core.AadlNature;
  * Really the only thing in here right now is the class used for storing job results.
  * @since 3.0
  */
+@Deprecated
 public abstract class AbstractMultiJobHandler extends AbstractHandler {
 
 	/**
@@ -41,7 +42,7 @@ public abstract class AbstractMultiJobHandler extends AbstractHandler {
 	 */
 	public static final class Result {
 		/**
-		 * The result value for a job that has not been schedule or executed yet.  This is used to
+		 * The result value for a job that has not been scheduled or executed yet.  This is used to
 		 * initialize the set of results for a set of jobs.  It identifies a job as cancelled
 		 * because a job that is cancelled by the user before it runs never updates its state
 		 * in the shared list of jobs, so we must make its initial state as cancelled.

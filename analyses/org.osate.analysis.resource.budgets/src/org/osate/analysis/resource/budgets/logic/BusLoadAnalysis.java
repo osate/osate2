@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -32,6 +32,8 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -207,7 +209,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 			}
 		}
 
-		detailedLogTotal2(null, totalBandWidth, kbspsliteral);
+		detailedLogTotal2(null, totalBandWidth, SizeUnits.KBYTE);
 		if (totalBandWidth > busCapacityOrBudget) {
 			errManager.errorSummary(curBus, null,
 					curBus.getComponentInstancePath() + " bandwidth capacity " + busCapacityOrBudget + " "
@@ -257,7 +259,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		// TODO-LW add other cases
 		if (cie instanceof FeatureInstance) {
 			FeatureInstance fi = (FeatureInstance) cie;
-			double datasize = GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
+			double datasize = AadlContribUtils.getDataSize(fi, SizeUnits.KBYTE);
 			double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
 			res = datasize * srcRate;
 			EList<FeatureInstance> fil = fi.getFeatureInstances();

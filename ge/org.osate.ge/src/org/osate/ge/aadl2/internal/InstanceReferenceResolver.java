@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,7 +30,6 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -60,11 +59,10 @@ public class InstanceReferenceResolver implements ReferenceResolver {
 							.get(SystemInstanceLoadingService.class),
 							"Unable to get system instance loading service");
 
-			return new InstanceReferenceResolver(ctx.getProject(), systemInstanceLoader);
+			return new InstanceReferenceResolver(systemInstanceLoader);
 		}
 	}
 
-	private final IProject project;
 	private final SystemInstanceLoadingService systemInstanceLoader;
 	private final Map<String, SystemInstanceInfo> keyToSystemInstanceInfoMap = new HashMap<String, SystemInstanceInfo>();
 	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
@@ -121,9 +119,7 @@ public class InstanceReferenceResolver implements ReferenceResolver {
 	}
 
 	public InstanceReferenceResolver(
-			final IProject project,
 			final SystemInstanceLoadingService systemInstanceLoader) {
-		this.project = Objects.requireNonNull(project, "project must not be null");
 		this.systemInstanceLoader = Objects.requireNonNull(systemInstanceLoader, "systemInstanceLoader must not be null");
 
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);
@@ -169,7 +165,7 @@ public class InstanceReferenceResolver implements ReferenceResolver {
 
 			// If it wasn't loaded previously, load the system instance
 			if(siInfo == null) {
-				final SystemInstance si = systemInstanceLoader.loadSystemInstance(project, key);
+				final SystemInstance si = systemInstanceLoader.loadSystemInstance(key);
 				if(si != null) {
 					siInfo = new SystemInstanceInfo(si);
 

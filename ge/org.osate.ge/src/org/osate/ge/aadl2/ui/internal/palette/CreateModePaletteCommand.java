@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -36,6 +36,8 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramGroup;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
@@ -48,7 +50,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 public class CreateModePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
 	public CreateModePaletteCommand() {
-		super("Mode", AadlPaletteCategories.MODES,
+		super("Mode", AadlCategories.MODES,
 				AadlImages.getImage(Aadl2Package.eINSTANCE.getMode()));
 
 	}
@@ -56,7 +58,8 @@ public class CreateModePaletteCommand extends BasePaletteCommand implements Targ
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		final Object targetBo = ctx.getTarget().getBusinessObject();
-		if (!(targetBo instanceof ComponentImplementation || targetBo instanceof ComponentClassifier
+		if (targetBo instanceof SubprogramGroup || !(targetBo instanceof ComponentImplementation
+				|| targetBo instanceof ComponentClassifier
 				|| targetBo instanceof Subcomponent)) {
 			return Optional.empty();
 		}

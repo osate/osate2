@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -32,11 +32,14 @@ import org.eclipse.core.commands.ExecutionException;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.handlers.AlignmentHelper.AlignmentElement;
-import org.osate.ge.internal.ui.handlers.AlignmentHelper.VerticalAxis;
 import org.osate.ge.internal.ui.util.UiUtil;
 
+/**
+ * Handler which aligns the vertical centers of selected diagram elements
+ *
+ */
 public class AlignMiddleHandler extends AbstractHandler {
-	private static final AlignmentHelper alignmentHelper = AlignmentHelper.create(new VerticalAxis());
+	private static final AlignmentHelper alignmentHelper = AlignmentHelper.createVertical();
 
 	// This handler allows for alignment of selected diagram elements that are not docked left or right.
 	// Any selected element must not an ancestor of another selected element.
@@ -49,7 +52,7 @@ public class AlignMiddleHandler extends AbstractHandler {
 		}
 
 		final List<AlignmentElement> alignmentElements = selectedDiagramElements.stream()
-				.map(de -> new AlignmentElement(de, alignmentHelper.getAxisLocation()))
+				.map(alignmentHelper::createAlignmentElement)
 				.collect(Collectors.toList());
 
 		diagram.modify("Align Middle", m -> {

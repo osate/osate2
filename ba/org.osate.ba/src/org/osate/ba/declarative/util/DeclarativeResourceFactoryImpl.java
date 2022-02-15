@@ -19,15 +19,11 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.ba.declarative.util ;
+package org.osate.ba.declarative.util;
 
-import org.eclipse.emf.common.util.URI ;
-
-import org.eclipse.emf.ecore.resource.Resource ;
-
-import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl ;
-
-import org.eclipse.emf.ecore.xmi.XMLResource ;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,30 +32,27 @@ import org.eclipse.emf.ecore.xmi.XMLResource ;
  * @see org.osate.ba.declarative.util.DeclarativeResourceImpl
  * @generated
  */
-public class DeclarativeResourceFactoryImpl extends ResourceFactoryImpl
-{
-  /**
-   * Creates an instance of the resource factory.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DeclarativeResourceFactoryImpl()
-  {
-    super() ;
-  }
+public class DeclarativeResourceFactoryImpl extends ResourceFactoryImpl {
+	/**
+	 * Creates an instance of the resource factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DeclarativeResourceFactoryImpl() {
+		super();
+	}
 
-  /**
-   * Creates an instance of the resource.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Resource createResource(URI uri)
-  {
-    Resource result = new DeclarativeResourceImpl(uri) ;
-    return result ;
-  }
+	/**
+	 * Creates an instance of the resource.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Resource createResource(URI uri) {
+		Resource result = new DeclarativeResourceImpl(uri);
+		return result;
+	}
 
-} //DeclarativeResourceFactoryImpl
+} // DeclarativeResourceFactoryImpl

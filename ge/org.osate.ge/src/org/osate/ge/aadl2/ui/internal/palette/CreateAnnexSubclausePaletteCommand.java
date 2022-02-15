@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -52,7 +52,7 @@ public class CreateAnnexSubclausePaletteCommand extends BasePaletteCommand imple
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(Classifier.class).map(readonlyClassifier -> Operation.createPromptAndModifyWithExtra(() -> {
 			final AnnexNameDialog annexNameDialog = new AnnexNameDialog(Display.getCurrent().getActiveShell(),
-					readonlyClassifier, "Create Annex Subclause", "Enter a name for the new Annex Subclause.");
+					"Create Annex Subclause", "Enter a name for the new Annex Subclause.");
 			if (annexNameDialog.open() == Window.CANCEL || annexNameDialog.getValue() == null) {
 				return Optional.empty();
 			}

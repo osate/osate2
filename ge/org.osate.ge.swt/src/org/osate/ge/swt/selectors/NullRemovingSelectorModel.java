@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -33,6 +33,10 @@ import java.util.stream.Stream;
 class NullRemovingSelectorModel extends SelectorModelDecorator<Object> {
 	private static final Object nullObject = new Object();
 
+	/**
+	 * Creates a new instance
+	 * @param inner the selector model to wrap.
+	 */
 	@SuppressWarnings("unchecked")
 	public NullRemovingSelectorModel(final SelectorModel<?> inner) {
 		super((SelectorModel<Object>) inner);

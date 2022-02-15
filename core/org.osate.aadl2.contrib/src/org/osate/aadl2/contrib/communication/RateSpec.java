@@ -1,3 +1,26 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
 package org.osate.aadl2.contrib.communication;
 
 import java.util.Objects;
@@ -72,6 +95,43 @@ public class RateSpec extends GeneratedRecord {
 		try {
 			rateDistribution_local = findFieldValue(recordValue, RATE_DISTRIBUTION__NAME).map(field -> {
 				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+				return SupportedDistributions.valueOf(resolved);
+			});
+		} catch (PropertyNotPresentException e) {
+			rateDistribution_local = Optional.empty();
+		}
+		this.rateDistribution = rateDistribution_local;
+	}
+	
+	public RateSpec(PropertyExpression propertyExpression) {
+		RecordValue recordValue = (RecordValue) propertyExpression;
+		
+		Optional<RealRange> valueRange_local;
+		try {
+			valueRange_local = findFieldValue(recordValue, VALUE_RANGE__NAME).map(field -> {
+				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				return new RealRange(resolved);
+			});
+		} catch (PropertyNotPresentException e) {
+			valueRange_local = Optional.empty();
+		}
+		this.valueRange = valueRange_local;
+		
+		Optional<RateUnit_FieldType> rateUnit_local;
+		try {
+			rateUnit_local = findFieldValue(recordValue, RATE_UNIT__NAME).map(field -> {
+				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				return RateUnit_FieldType.valueOf(resolved);
+			});
+		} catch (PropertyNotPresentException e) {
+			rateUnit_local = Optional.empty();
+		}
+		this.rateUnit = rateUnit_local;
+		
+		Optional<SupportedDistributions> rateDistribution_local;
+		try {
+			rateDistribution_local = findFieldValue(recordValue, RATE_DISTRIBUTION__NAME).map(field -> {
+				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 				return SupportedDistributions.valueOf(resolved);
 			});
 		} catch (PropertyNotPresentException e) {

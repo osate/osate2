@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,14 +26,13 @@ package org.osate.ge.aadl2.ui.internal.dialogs;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 
 /**
  * The dialog for naming the new AnnexLibrary or AnnexSubclause
  */
 public class AnnexNameDialog extends InputDialog {
-	public AnnexNameDialog(final Shell parentShell, final NamedElement targetContainer, final String title,
+	public AnnexNameDialog(final Shell parentShell, final String title,
 			final String message) {
 		super(parentShell, title, message,
 				"",

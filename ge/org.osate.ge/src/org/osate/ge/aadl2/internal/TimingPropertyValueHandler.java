@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -36,52 +36,44 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.model.AgePropertyValue;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 
+/**
+ * {@link BusinessObjectHandler} implementation for Communication_Properties::Timing property values
+ */
 public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
-	private static final String qualifiedTimingPropertyName = CommunicationProperties._NAME + "::" + CommunicationProperties.TIMING;
+	private static final String TIMING_PROPERTY_QUALIFIED_NAME = CommunicationProperties._NAME + "::" + CommunicationProperties.TIMING;
 
-	private static final Graphic immediateGraphic = PolyBuilder.create().
+	private static final Graphic IMMEDIATE_GRAPHIC = PolyBuilder.create().
 			polyline().
 			points(
-					new Point(8.0, -6), new Point(0.0, 0.0), new Point(8.0, 6.0),
-
-					new Point(0.0, 0.0), new Point(8.0, 0.0),
-
-					new Point(16.0, -6), new Point(8.0, 0.0), new Point(16.0, 6.0))
+					new Point(0.5, 0.0), new Point(0.0, 0.5), new Point(0.5, 1.0), new Point(0.0, 0.5),
+					new Point(0.5, 0.5), new Point(1.0, 0.0), new Point(0.5, 0.5), new Point(1.0, 1.0))
+			.fixedSize(new Dimension(16.0, 12.0))
 			.build();
 
-	private static final Graphic delayedGraphic = PolyBuilder.create().
+	private static final Graphic DELAYED_GRAPHIC = PolyBuilder.create().
 			polyline().
 			points(
-					new Point(0.0, -10), new Point(0.0, 10.0),
-
-					new Point(0.0, 0.0), new Point(5.0, 0.0),
-
-					new Point(5.0, -10), new Point(5.0, 10.0))
+					new Point(0.0, 0.0), new Point(0.0, 1.0), new Point(0.0, 0.5), new Point(1.0, 0.5),
+					new Point(1.0, 0.0), new Point(1.0, 1.0))
+			.fixedSize(new Dimension(5.0, 20.0))
 			.build();
 
 	private final PropertyValueGroupHandler pvgBoh = new PropertyValueGroupHandler();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(PropertyValueGroup.class).filter(pvg -> {
-			if (qualifiedTimingPropertyName.equalsIgnoreCase(pvg.getProperty().getQualifiedName())) {
-				AgePropertyValue pv = pvg.getFirstValueBasedOnCompletelyProcessedAssociation();
-				if(pv != null && pv.getValue() instanceof NamedValue) {
-					return true;
-				}
-			}
-
-			return false;
-		}).isPresent();
+		return ctx.getBusinessObject(PropertyValueGroup.class).filter(pvg -> getNamedValue(pvg) != null).isPresent();
 	}
 
 	@Override
@@ -94,30 +86,10 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 		return pvgBoh.getRelativeReference(ctx);
 	}
 
-	public static boolean isImmediateTimingProperty(final Object bo) {
-		if(!(bo instanceof PropertyValueGroup)) {
-			return false;
-		}
-
-		final PropertyValueGroup pvg = (PropertyValueGroup)bo;
-		if(qualifiedTimingPropertyName.equalsIgnoreCase(pvg.getProperty().getQualifiedName())) {
-			AgePropertyValue pv = pvg.getFirstValueBasedOnCompletelyProcessedAssociation();
-			if(pv != null && pv.getValue() instanceof NamedValue) {
-				final NamedValue namedValue = (NamedValue)pv.getValue();
-				if(namedValue.getNamedValue() instanceof NamedElement) {
-					final NamedElement ne = (NamedElement)namedValue.getNamedValue();
-					return CommunicationProperties.IMMEDIATE.equalsIgnoreCase(ne.getName());
-				}
-			}
-		}
-
-		return false;
-	}
-
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final PropertyValueGroup pvg = boc.getBusinessObject(PropertyValueGroup.class).get();
+		final PropertyValueGroup pvg = boc.getBusinessObject(PropertyValueGroup.class).orElseThrow();
 
 		final Object parentBo = boc.getParent() == null ? null : boc.getParent().getBusinessObject();
 
@@ -131,9 +103,9 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 		if(namedValue.getNamedValue() instanceof NamedElement) {
 			final NamedElement ne = (NamedElement)namedValue.getNamedValue();
 			if(CommunicationProperties.IMMEDIATE.equalsIgnoreCase(ne.getName())) {
-				graphic = immediateGraphic;
+				graphic = IMMEDIATE_GRAPHIC;
 			} else if(CommunicationProperties.DELAYED.equalsIgnoreCase(ne.getName())) {
-				graphic = delayedGraphic;
+				graphic = DELAYED_GRAPHIC;
 			}
 		}
 
@@ -143,12 +115,46 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 
 		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				decoration().
 				build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
 		return pvgBoh.getName(ctx);
+	}
+
+	/**
+	 * Returns whether the specified business object is an immediate timing property value group which will be handled by this handler
+	 * @param bo is the business object to check
+	 * @return whether the business object is an immediate timing property value.
+	 */
+	public static boolean isImmediateTimingProperty(final Object bo) {
+		if (!(bo instanceof PropertyValueGroup)) {
+			return false;
+		}
+
+		final PropertyValueGroup pvg = (PropertyValueGroup) bo;
+		final NamedValue namedValue = getNamedValue(pvg);
+		if (namedValue != null && namedValue.getNamedValue() instanceof NamedElement) {
+			final NamedElement ne = (NamedElement) namedValue.getNamedValue();
+			return CommunicationProperties.IMMEDIATE.equalsIgnoreCase(ne.getName());
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns the {@link NamedValue} instance for a timing property value group.
+	 * @param pvg the property value group for which to get the value
+	 * @return the {@link NamedValue} instance for the timing property value group. Returns null if such a value is unavailable.
+	 */
+	private static NamedValue getNamedValue(final PropertyValueGroup pvg) {
+		if (TIMING_PROPERTY_QUALIFIED_NAME.equalsIgnoreCase(pvg.getProperty().getQualifiedName())) {
+			AgePropertyValue pv = pvg.getFirstValueBasedOnCompletelyProcessedAssociation();
+			if (pv != null && pv.getValue() instanceof NamedValue) {
+				return (NamedValue) pv.getValue();
+			}
+		}
+		return null;
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,21 +27,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.eclipse.gef.ui.actions.WorkbenchPartAction;
+import org.eclipse.jface.action.Action;
 import org.eclipse.ui.actions.ActionFactory;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 
 /**
  * Action that selects all diagram elements.
  *
  */
-public class SelectAllAction extends WorkbenchPartAction {
-	private final AgeDiagramEditor editor;
+public class SelectAllAction extends Action {
+	private final InternalDiagramEditor editor;
 
-	public SelectAllAction(final AgeDiagramEditor editor) {
-		super(editor);
+	public SelectAllAction(final InternalDiagramEditor editor) {
 		this.editor = Objects.requireNonNull(editor);
 		setId(ActionFactory.SELECT_ALL.getId());
 	}
@@ -53,12 +52,6 @@ public class SelectAllAction extends WorkbenchPartAction {
 				.getAllDiagramNodes()
 				.filter(DiagramElement.class::isInstance).map(DiagramElement.class::cast).collect(Collectors.toList());
 
-		editor.selectDiagramElements(diagramElements);
+		editor.selectDiagramNodes(diagramElements);
 	}
-
-	@Override
-	protected boolean calculateEnabled() {
-		return true;
-	}
-
 }

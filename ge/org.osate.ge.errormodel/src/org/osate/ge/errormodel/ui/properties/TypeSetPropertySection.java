@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -38,29 +38,43 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListField;
 import org.osate.ge.errormodel.ui.viewmodels.TypeSetTypeTokensModel;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
+/**
+ * Property section for {@link TypeSet} elements which are not aliases
+ */
 public class TypeSetPropertySection extends AbstractPropertySection {
 	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.typeSet.";
+
+	/**
+	 * Testing ID of the label displaying the type set's type tokens
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_TYPE_TOKENS_LABEL = WIDGET_ID_PREFIX + "typeTokens.label";
+
+	/**
+	 * Testing ID of the button for setting the type set's type tokens
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "typeTokens.choose";
 
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				// Include all type sets which are not aliases.
-				return bo instanceof TypeSet && ((TypeSet) bo).getAliasedType() == null;
-			});
+			// Include all type sets which are not aliases.
+			return PropertySectionUtil.isBoCompatible(toTest,
+					bo -> bo instanceof TypeSet && ((TypeSet) bo).getAliasedType() == null);
 		}
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private final TypeSetTypeTokensModel model = new TypeSetTypeTokensModel(
-			new UiBusinessObjectSelection());
-	private TypeTokenListField typeTokens;
+	private final TypeSetTypeTokensModel model = new TypeSetTypeTokensModel(new UiBusinessObjectSelection());
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -69,20 +83,17 @@ public class TypeSetPropertySection extends AbstractPropertySection {
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
 		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Types:");
 
-		typeTokens = new TypeTokenListField(container, model);
+		final TypeTokenListField typeTokens = new TypeTokenListField(container, model);
 		typeTokens.setValueLabelTestingId(WIDGET_ID_TYPE_TOKENS_LABEL);
 		typeTokens.setModifyButtonTestingId(WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
-		typeTokens
-		.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+		typeTokens.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
-		{
-			final FormData fd = new FormData();
-			fd.left = new FormAttachment(0, AbstractPropertySection.STANDARD_LABEL_WIDTH);
-			fd.right = new FormAttachment(100, 0);
-			fd.top = new FormAttachment(label, 0, SWT.CENTER);
-			fd.width = 200;
-			typeTokens.setLayoutData(fd);
-		}
+		final FormData typeTokensFieldFormData = new FormData();
+		typeTokensFieldFormData.left = new FormAttachment(0, AbstractPropertySection.STANDARD_LABEL_WIDTH);
+		typeTokensFieldFormData.right = new FormAttachment(100, 0);
+		typeTokensFieldFormData.top = new FormAttachment(label, 0, SWT.CENTER);
+		typeTokensFieldFormData.width = 200;
+		typeTokens.setLayoutData(typeTokensFieldFormData);
 	}
 
 	@Override

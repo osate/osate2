@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -35,9 +35,10 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.AadlCategories;
+import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.aadl2.ui.AadlOperationBuilder;
 import org.osate.ge.aadl2.ui.internal.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.aadl2.ui.internal.dialogs.SelectSubprogramDialog;
@@ -51,7 +52,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 public class CreateSubprogramCallSequencePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
 	public CreateSubprogramCallSequencePaletteCommand() {
-		super("Subprogram Call Sequence", AadlPaletteCategories.SUBPROGRAM_CALLS,
+		super("Subprogram Call Sequence", AadlCategories.SUBPROGRAM_CALLS,
 				AadlImages.getImage(Aadl2Package.eINSTANCE.getSubprogramCallSequence()));
 	}
 

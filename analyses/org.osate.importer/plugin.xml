@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -59,9 +59,7 @@ Disable importer preferences for now
                path="menu.analyses/top.grp">
             <groupMarker name="stuff.grp"/>
                          <visibleWhen checkEnabled="false">
-            <with variable="activeWorkbenchWindow.activePerspective">
-                <equals value="AADL"/>
-            </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
          </visibleWhen>
          </menu>
          <action

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,6 +27,8 @@ import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.operations.StepResultBuilder;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -34,21 +36,45 @@ import com.google.common.collect.Multimap;
 /**
  * Simple mutable class that stores the result of an {@link org.osate.ge.operations.Operation}.
  * Built by combining individual step results. The RelativeBusinessObjectReference is stored because, if the business object is an EMF object,
- * the business object itself may be converted to a proxy before the results are processed.
+ * the business object itself may be converted to an EMF proxy before the results are processed.
  *
  */
 public class OperationResults {
+	/**
+	 * Contains the details of requests to add diagram elements for business objects as indicated by the results of executed steps
+	 *
+	 * @see StepResultBuilder#showNewBusinessObject(BusinessObjectContext, Object)
+	 *
+	 */
 	public static class BusinessObjectToShowDetails {
-		public BusinessObjectToShowDetails(final Object bo, final RelativeBusinessObjectReference ref) {
+		/**
+		 * Creates a new instance
+		 * @param bo the business object to show
+		 * @param ref the relative reference of the business object
+		 */
+		BusinessObjectToShowDetails(final Object bo, final RelativeBusinessObjectReference ref) {
 			this.bo = Objects.requireNonNull(bo, "bo must not be null");
 			this.ref = Objects.requireNonNull(ref, "ref must not be null");
 		}
+
+		/**
+		 * The business object which should be shown
+		 */
 		public final Object bo;
+
+		/**
+		 * The relative reference of the business object
+		 */
 		public final RelativeBusinessObjectReference ref;
 	}
 
 	private final Multimap<BusinessObjectContext, BusinessObjectToShowDetails> containerToBoToShowDetails = HashMultimap.create();
 
+	/**
+	 * Returns a mapping between containers and the business objects which should be added to the diagram. The container is typically a
+	 * {@link DiagramNode}.
+	 * @return a mapping between containers and the business objects which should be added to the diagram.
+	 */
 	public Multimap<BusinessObjectContext, BusinessObjectToShowDetails> getContainerToBoToShowDetailsMap() {
 		return containerToBoToShowDetails;
 	}

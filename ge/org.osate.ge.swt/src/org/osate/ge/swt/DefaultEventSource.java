@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,37 +25,36 @@ package org.osate.ge.swt;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 
 /**
  * A basic EventSource implementation. Manages a thread-safe list of listeners.
  * @since 1.1
  *
  */
-public class DefaultEventSource<T> implements EventSource<T> {
-	private final ArrayList<WeakReference<Consumer<T>>> listeners = new ArrayList<>();
+public class DefaultEventSource implements EventSource {
+	private final ArrayList<WeakReference<Runnable>> listeners = new ArrayList<>();
 
 	@Override
-	public void addListener(Consumer<T> listener) {
-		listeners.add(new WeakReference<Consumer<T>>(listener));
+	public void addListener(final Runnable listener) {
+		listeners.add(new WeakReference<>(listener));
 	}
 
 	/**
 	 * Dispatches the event. Calls all registered listeners
-	 * @param event is the event to send to listeners.
+	 * @since 2.0
 	 */
-	public void triggerEvent(T event) {
+	public void triggerEvent() {
 		// Iterate over listeners by index and call each of them. Listeners added during the loop will not be called.
 		boolean hasClearedReferences = false;
 		final int listenerCount = listeners.size();
 		for (int i = 0; i < listenerCount; i++) {
-			final WeakReference<Consumer<T>> weakListener = listeners.get(i);
-			final Consumer<T> listener = weakListener.get();
+			final WeakReference<Runnable> weakListener = listeners.get(i);
+			final Runnable listener = weakListener.get();
 
 			if(listener == null) {
 				hasClearedReferences  = true;
 			} else {
-				listener.accept(event);
+				listener.run();
 			}
 		}
 

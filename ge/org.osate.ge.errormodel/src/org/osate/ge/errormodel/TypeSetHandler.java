@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -46,6 +46,9 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
+/**
+ * Business object handler for {@link TypeSet} objects.
+ */
 public class TypeSetHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = RectangleBuilder.create().build();
 
@@ -84,7 +87,7 @@ public class TypeSetHandler implements BusinessObjectHandler {
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
 				.annotation("<Type Set>")
-				.style(ErrorModelGeUtil.topCenteredLabelStyle).build());
+				.style(ErrorModelGeUtil.TOP_CENTERED_LABEL_STYLE).build());
 	}
 
 	@Override

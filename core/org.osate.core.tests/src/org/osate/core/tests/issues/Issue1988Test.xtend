@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -101,12 +101,12 @@ class Issue1988Test extends XtextTest {
 		val pkg = testFileResult.resource.contents.head as AadlPackage;
 			
 		val p_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "p.i"] as ProcessImplementation
-		p_i.ownedConnections.get(0) => [
+		p_i.ownedConnections.get(0).source => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'p1' to have classifier 'AccessSrc::D'")
 		]	
 
 		val t1_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "t1.i"] as ThreadImplementation
-		t1_i.ownedConnections.get(0) => [
+		t1_i.ownedConnections.get(0).source => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected subcomponent 'd' to have classifier 'AccessSrc::D'")
 		]	
 
@@ -121,12 +121,12 @@ class Issue1988Test extends XtextTest {
 		val pkg = testFileResult.resource.contents.head as AadlPackage;
 
 		val p_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "p.i"] as ProcessImplementation
-		p_i.ownedConnections.get(0) => [
+		p_i.ownedConnections.get(0).destination => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'ip2' to have classifier 'AccessDst::D'")
 		]	
 
 		val t1_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "t1.i"] as ThreadImplementation
-		t1_i.ownedConnections.get(0) => [
+		t1_i.ownedConnections.get(0).destination => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'p2' to have classifier 'AccessDst::D'")
 		]	
 

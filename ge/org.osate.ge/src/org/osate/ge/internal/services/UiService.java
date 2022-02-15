@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,20 +23,30 @@
  */
 package org.osate.ge.internal.services;
 
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.tools.Tool;
 
 /**
  * Contains methods for interacting with the graphical editor's user interface components.
- * All methods must be called from the display thread
+ * <p>All methods must be called from the display thread</p>
+ *
+ * <p>It would likely be best to merge this interface with {@link InternalDiagramEditor} instead of having multiple interfaces.</p>
  *
  */
 public interface UiService {
 	/**
-	 * Activates the specified tool.
+	 * Activates the specified tool
+	 * @param tool the tool to activate
 	 */
 	void activateTool(final Tool tool);
 
+	/**
+	 * Deactivate the active tool.
+	 */
 	void deactivateActiveTool();
 
+	/**
+	 * Clears the current selection in the editor and the outline
+	 */
 	void clearSelection();
 }

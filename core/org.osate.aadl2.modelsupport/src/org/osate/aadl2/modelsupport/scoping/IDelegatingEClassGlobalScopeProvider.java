@@ -8,6 +8,9 @@ import org.eclipse.xtext.scoping.IScope;
 
 import com.google.common.base.Predicate;
 
+/**
+ * @since 6.1
+ */
 public interface IDelegatingEClassGlobalScopeProvider extends IEClassGlobalScopeProvider {
 
 	abstract IEClassGlobalScopeProvider getDelegate();

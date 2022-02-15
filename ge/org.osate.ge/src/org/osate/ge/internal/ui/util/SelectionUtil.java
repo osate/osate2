@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -61,22 +61,49 @@ import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.navigator.DiagramGroup;
 
 import com.google.common.collect.ImmutableList;
-public class SelectionUtil {
+
+/**
+ * Utility class containing functions related to selections.
+
+ */
+public final class SelectionUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private SelectionUtil() {
+	}
+
 	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
 
-	// Returns the current selection as diagram elements.
-	// If one or more of the selected objects cannot be adapted to DiagramElement then an empty list is returned.
-	public static List<DiagramElement> getSelectedDiagramElements(final ISelection selection, final boolean ignoreInvalidType) {
+	/**
+	 * Adapts each object in a selection into a {@link DiagramElement} and returns the result.
+	 * @param selection the selection containing the objects to adapt
+	 * @param ignoreInvalidType if true, objects which cannot be adapted will be ignored. Otherwise an empty list is returned if any object cannot be adapted
+	 * @return the selected diagram elements.
+	 */
+	public static List<DiagramElement> getSelectedDiagramElements(final ISelection selection,
+			final boolean ignoreInvalidType) {
 		return getAdaptedSelection(selection, DiagramElement.class, ignoreInvalidType);
 	}
 
-	public static List<DiagramNode> getSelectedDiagramNodes(final ISelection selection, final boolean ignoreInvalidType) {
+	/**
+	 * Adapts each object in a selection into a {@link DiagramNode} and returns the result.
+	 * @param selection the selection containing the objects to adapt
+	 * @param ignoreInvalidType if true, objects which cannot be adapted will be ignored. Otherwise an empty list is returned if any object cannot be adapted
+	 * @return the selected diagram nodes.
+	 */
+	public static List<DiagramNode> getSelectedDiagramNodes(final ISelection selection,
+			final boolean ignoreInvalidType) {
 		return getAdaptedSelection(selection, DiagramNode.class, ignoreInvalidType);
 	}
 
 	/**
-	 *
+	 * Adapts each object into the specified type and returns the result.
+	 * @param <T> the type to which to adapt the objects
+	 * @param selection the selection containing the objects to adapt
+	 * @param adapter the type to which to adapt the objects.
 	 * @param ignoreInvalidType if true then the selection will skip over instances that cannot be adapted. If false, an empty list will be returned in such cases.
+	 * @return the adapted objects
 	 */
 	private static <T> List<T> getAdaptedSelection(final ISelection selection, final Class<T> adapter,
 			final boolean ignoreInvalidType) {
@@ -100,6 +127,11 @@ public class SelectionUtil {
 		return results;
 	}
 
+	/**
+	 * Returns an immutable list which is the result of adapting each object in the selection to {@link BusinessObjectContext}
+	 * @param selection the selection containing the objects to adapt
+	 * @return the adapted objects. An empty list is returned if any object could not be adapted.
+	 */
 	public static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
 		if (!(selection instanceof IStructuredSelection)) {
 			return ImmutableList.of();
@@ -120,10 +152,11 @@ public class SelectionUtil {
 	}
 
 	/**
-	 * Returns a business object which is a valid diagram context based on the currnent selection. Returns null if such a business object could not be determined based on the current selection.
-	 * @param selection
-	 * @param activeEditor
-	 * @return
+	 * Returns a business object which is a valid diagram context based on the current selection. 
+	 * @param selection the selection from which to determine the diagram context
+	 * @param activeEditor the active editor.
+	 * @return a business object which is a valid diagram context based on the current selection. 
+	 * Returns null if such a business object could not be determined based on the current selection.
 	 */
 	public static Object getDiagramContext(final ISelection selection, final IEditorPart activeEditor) {
 		Object contextBo = null;
@@ -140,6 +173,30 @@ public class SelectionUtil {
 		}
 
 		return contextBo;
+	}
+
+	/**
+	 * Returns whether the selection contains a single {@link IFile} which has an extension matching an AADL
+	 * source file or an instance file.
+	 * @param selection the selection to check,.
+	 * @return whether is contains an AADL source file or an instance model file.
+	 */
+	public static boolean isAadlOrInstanceModelFile(final ISelection selection) {
+		if (selection instanceof IStructuredSelection) {
+			final IStructuredSelection ss = (IStructuredSelection) selection;
+			if (ss.size() == 1) {
+				final Object selectedObject = ss.getFirstElement();
+				if (selectedObject instanceof IFile) {
+					final String ext = ((IFile) selectedObject).getFileExtension();
+					if (FileNameConstants.SOURCE_FILE_EXT.equalsIgnoreCase(ext)
+							|| FileNameConstants.INSTANCE_FILE_EXT.equalsIgnoreCase(ext)) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 
 	private static Element findDiagramContextForSelectedObject(final Object selectedObject) {
@@ -161,7 +218,8 @@ public class SelectionUtil {
 		} else if (selectedObject instanceof DiagramGroup) {
 			final DiagramGroup dg = (DiagramGroup) selectedObject;
 			if (dg.isContextReferenceValid()) {
-				final ReferenceService referenceService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				final ReferenceService referenceService = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow()
 						.getService(ReferenceService.class);
 				if (referenceService == null) {
 					return null;
@@ -248,35 +306,34 @@ public class SelectionUtil {
 			return null;
 		}
 
-		return editor.getDocument().readOnly(
-				resource -> {
-					EObject targetElement = null;
-					if (selection instanceof IStructuredSelection) {
-						final IStructuredSelection ss = (IStructuredSelection) selection;
-						targetElement = ((EObjectNode) ss.getFirstElement()).getEObject(resource);
-					} else if (selection instanceof ITextSelection) {
-						final int offset = ((ITextSelection) selection).getOffset();
-						targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource, offset);
+		return editor.getDocument().readOnly(resource -> {
+			EObject targetElement = null;
+			if (selection instanceof IStructuredSelection) {
+				final IStructuredSelection ss = (IStructuredSelection) selection;
+				targetElement = ((EObjectNode) ss.getFirstElement()).getEObject(resource);
+			} else if (selection instanceof ITextSelection) {
+				final int offset = ((ITextSelection) selection).getOffset();
+				targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource, offset);
 
-						// Check if the node for the semantic element that was retrieved by the offset helper starts after the line number of the node
-						// retrieved using the offset. If it is, return the container. This prevents returning a classifier when the select is actually in
-						// whitespace before the classifier.
-						final IParseResult parseResult = resource.getParseResult();
-						if(targetElement != null && parseResult != null) {
-							final ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
-							final INode targetElementNode = NodeModelUtils.getNode(targetElement);
-							if(leaf.getStartLine() < targetElementNode.getStartLine()) {
-								targetElement = targetElement.eContainer();
-							}
-						}
-
-						// If there isn't a selected element, that usually means the selection is outside of the root package. Get the first EObject in the resource
-						if(targetElement == null && resource.getContents().size() > 0) {
-							targetElement = resource.getContents().get(0);
-						}
+				// Check if the node for the semantic element that was retrieved by the offset helper starts after the line number of the node
+				// retrieved using the offset. If it is, return the container. This prevents returning a classifier when the select is actually in
+				// whitespace before the classifier.
+				final IParseResult parseResult = resource.getParseResult();
+				if (targetElement != null && parseResult != null) {
+					final ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
+					final INode targetElementNode = NodeModelUtils.getNode(targetElement);
+					if (leaf.getStartLine() < targetElementNode.getStartLine()) {
+						targetElement = targetElement.eContainer();
 					}
+				}
 
-					return targetElement;
-				});
+				// If there isn't a selected element, that usually means the selection is outside of the root package. Get the first EObject in the resource
+				if (targetElement == null && resource.getContents().size() > 0) {
+					targetElement = resource.getContents().get(0);
+				}
+			}
+
+			return targetElement;
+		});
 	}
 }

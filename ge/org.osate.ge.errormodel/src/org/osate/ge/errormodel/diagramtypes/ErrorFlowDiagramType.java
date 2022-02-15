@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,18 +30,24 @@ import org.osate.ge.DiagramType;
 import org.osate.ge.aadl2.AadlContentFilterIds;
 import org.osate.ge.errormodel.filters.ErrorFlowFilter;
 import org.osate.ge.errormodel.filters.ErrorPropagationFilter;
-import org.osate.ge.errormodel.filters.KeywordPropagationPointFilter;
 import org.osate.ge.errormodel.filters.PropagationPointFilter;
+import org.osate.ge.errormodel.filters.UsedKeywordPropagationPointFilter;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * Diagram type which shows a classifier's error flows and related elements.
+ */
 public class ErrorFlowDiagramType implements DiagramType {
-	private final static String ID = "em.errorFlow";
-	private final ImmutableSet<String> defaultClassifierAndSubcomponentFilters = ImmutableSet.of(
-			AadlContentFilterIds.FEATURES, AadlContentFilterIds.INTERNAL_FEATURES, AadlContentFilterIds.PROCESSOR_FEATURES,
-			KeywordPropagationPointFilter.ID, PropagationPointFilter.ID, ErrorFlowFilter.ID);
-	private final ImmutableSet<String> defaultFeatureFilters = ImmutableSet.of(ErrorPropagationFilter.ID);
+	private static final String ID = "em.errorFlow";
+	private static final ImmutableSet<String> DEFAULT_CLASSIFIER_AND_SUBCOMPONENT_FILTERS = ImmutableSet.of(
+			AadlContentFilterIds.FEATURES, UsedKeywordPropagationPointFilter.ID,
+			PropagationPointFilter.ID, ErrorFlowFilter.ID);
+	private static final ImmutableSet<String> DEFAULT_PROPAGATION_POINT_FILTERS = ImmutableSet
+			.of(ErrorPropagationFilter.ID);
 
 	@Override
 	public String getId() {
@@ -61,9 +67,9 @@ public class ErrorFlowDiagramType implements DiagramType {
 	@Override
 	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
 		if (bo instanceof Classifier || bo instanceof Subcomponent) {
-			return defaultClassifierAndSubcomponentFilters;
-		} else if (bo instanceof Feature) {
-			return defaultFeatureFilters;
+			return DEFAULT_CLASSIFIER_AND_SUBCOMPONENT_FILTERS;
+		} else if (bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof KeywordPropagationPoint) {
+			return DEFAULT_PROPAGATION_POINT_FILTERS;
 		}
 
 		return ImmutableSet.of();

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,7 +25,6 @@ package org.osate.ge.internal.ui.editor;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -168,7 +167,7 @@ public class DiagramContextChecker {
 
 			if (isPackageRef) {
 				options = packageDescriptions;
-			} else if (isClassifierRef) {
+			} else { // isClassifierRef
 				options = AadlModelAccessUtil.getAllEObjectsByType(project,
 						Aadl2Package.eINSTANCE.getClassifier());
 
@@ -185,8 +184,6 @@ public class DiagramContextChecker {
 						}
 					}
 				}
-			} else {
-				options = Collections.emptyList();
 			}
 		} else if (isSystemInstance) {
 			options = findInstanceModelFiles(project, new ArrayList<IPath>());
@@ -252,11 +249,11 @@ public class DiagramContextChecker {
 		diagram.modify("Update Diagram Context", m -> {
 			// Update the diagram's context
 			m.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration())
-					.setContextBoReference(newContextCanonicalRef).build());
+					.contextBoReference(newContextCanonicalRef).build());
 
 			// Update the root element
-			if (diagram.getDiagramElements().size() == 1) {
-				m.updateBusinessObject(diagram.getDiagramElements().stream().findAny().get(), newContext,
+			if (diagram.getChildren().size() == 1) {
+				m.updateBusinessObject(diagram.getChildren().stream().findAny().get(), newContext,
 						newContextRelativeRef);
 			}
 

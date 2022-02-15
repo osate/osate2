@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,29 +31,59 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.ge.palette.PaletteCommandProviderContext;
 
 /**
- * Class with methods to check what elements could potentially be in a diagram to allow limiting the palette commands
- * contributed.
- * @since 2.0
+ * Utility class for implementing palette command providers and palette commands.
  *
+ * Contains methods for checking what AADL model elements could potentially be in a diagram. These methods are useful for limiting the palette
+ * commands to diagrams for which they may be used. Since the palette is populated when the diagram is opened, it is populated based on what
+ * elements could potentially appear on the diagram. This is determined based on the diagram business object in the {@link PaletteCommandProviderContext}
+ * provided to the {@link org.osate.ge.palette.PaletteContributor}.
+ *
+ * @since 2.0
  */
-public class PaletteCommandUtil {
+public final class PaletteCommandUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private PaletteCommandUtil() {
+	}
+
+	/**
+	 * Determines whether AADL packages or classifiers could potentially be shown on the diagram.
+	 * @param ctx the context which provides the diagram business object
+	 * @return whether AADL packages or classifiers could potentially be shown on the diagram.
+	 */
 	public static boolean diagramMayContainPackageOrClassifiers(final PaletteCommandProviderContext ctx) {
 		final Object diagramBo = ctx.getDiagramBusinessObject();
 		return diagramBo instanceof IProject || diagramBo instanceof AadlPackage || diagramBo instanceof Classifier;
 	}
 
+	/**
+	 * Determines whether AADL packages or component classifiers could potentially be shown on the diagram.
+	 * @param ctx the context which provides the diagram business object
+	 * @return whether AADL packages or component classifiers could potentially be shown on the diagram.
+	 */
 	public static boolean diagramMayContainPackageOrComponentClassifiers(final PaletteCommandProviderContext ctx) {
 		final Object diagramBo = ctx.getDiagramBusinessObject();
 		return diagramBo instanceof IProject || diagramBo instanceof AadlPackage
 				|| diagramBo instanceof ComponentClassifier;
 	}
 
+	/**
+	 * Determines whether AADL packages or component implementations could potentially be shown on the diagram.
+	 * @param ctx the context which provides the diagram business object
+	 * @return whether AADL packages or component implementations could potentially be shown on the diagram.
+	 */
 	public static boolean diagramMayContainPackageOrComponentImplementations(final PaletteCommandProviderContext ctx) {
 		final Object diagramBo = ctx.getDiagramBusinessObject();
 		return diagramBo instanceof IProject || diagramBo instanceof AadlPackage
 				|| diagramBo instanceof ComponentImplementation;
 	}
 
+	/**
+	 * Determines whether AADL packages could potentially be shown on the diagram.
+	 * @param ctx the context which provides the diagram business object
+	 * @return whether AADL packages could potentially be shown on the diagram.
+	 */
 	public static boolean diagramMayContainPackage(final PaletteCommandProviderContext ctx) {
 		final Object diagramBo = ctx.getDiagramBusinessObject();
 		return diagramBo instanceof IProject || diagramBo instanceof AadlPackage;

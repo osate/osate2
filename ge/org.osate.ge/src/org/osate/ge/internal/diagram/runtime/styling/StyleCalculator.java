@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -51,7 +51,7 @@ public class StyleCalculator implements StyleProvider {
 
 	/**
 	 * Sets the diagram configuration used when building styles.
-	 * @param config
+	 * @param config the diagram configuration used when determining the final style.
 	 */
 	public final void setDiagramConfiguration(final DiagramConfiguration config) {
 		this.diagramConnectionStyle = getDiagramConnectionStyle(

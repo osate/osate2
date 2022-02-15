@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -36,6 +36,7 @@ class ContributedAadlStorage extends PlatformObject implements IStorage, Project
 	
 	@Accessors
 	val URI uri
+	val boolean disabled
 	
 	/**
 	 * @since 5.0
@@ -43,6 +44,16 @@ class ContributedAadlStorage extends PlatformObject implements IStorage, Project
 	new(ProjectMember parent, URI uri) {
 		this.parent = parent
 		this.uri = uri
+		this.disabled = false
+	}
+
+	/**
+	 * @since 6.2
+	 */
+	new(ProjectMember parent, URI uri, boolean disabled) {
+		this.parent = parent
+		this.uri = uri
+		this.disabled = disabled
 	}
 	
 	/**
@@ -61,7 +72,7 @@ class ContributedAadlStorage extends PlatformObject implements IStorage, Project
 	}
 	
 	override getName() {
-		uri.segments.last
+		(disabled ? "[Disabled] " : "") + uri.segments.last
 	}
 	
 	override isReadOnly() {

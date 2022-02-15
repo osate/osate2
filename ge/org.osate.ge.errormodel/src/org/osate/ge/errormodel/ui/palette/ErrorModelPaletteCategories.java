@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,12 +23,35 @@
  */
 package org.osate.ge.errormodel.ui.palette;
 
-public class ErrorModelPaletteCategories {
+/**
+ * Contains constants whose values are the IDs of categories defined by the error model annex graphical editor plugin
+ * @see org.osate.ge.palette.PaletteCommand#getCategoryId()
+ * @see ErrorModelPaletteContributor
+ */
+public final class ErrorModelPaletteCategories {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private ErrorModelPaletteCategories() {
 	}
 
+	/**
+	 * The ID of the Error Behavior category
+	 */
 	public static final String ERROR_BEHAVIOR = "org.osate.ge.errormodel.categories.em.behavior";
+
+	/**
+	 * The ID of the Error Flows category
+	 */
 	public static final String ERROR_FLOWS = "org.osate.ge.errormodel.categories.em.flows";
+
+	/**
+	 * The ID of the Error Propagation category
+	 */
 	public static final String ERROR_PROPAGATION = "org.osate.ge.errormodel.categories.em.propagation";
+
+	/**
+	 * The ID of the Error Types category
+	 */
 	public static final String ERROR_TYPES = "org.osate.ge.errormodel.categories.em.types";
 }

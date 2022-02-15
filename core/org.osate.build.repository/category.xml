@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -32,10 +32,22 @@ censes only apply to the Third Party Software and not any other portion of this 
    <feature id="org.osate.ge.feature">
       <category name="osate2"/>
    </feature>
+   <feature id="org.osate.ge.errormodel.feature">
+      <category name="osate2"/>
+   </feature>
+   <feature id="org.osate.ge.ba.feature">
+      <category name="osate2"/>
+   </feature>
    <feature id="org.osate.examples.feature">
       <category name="osate2"/>
    </feature>
    <feature id="org.osate.ge.feature.source">
+      <category name="osate2.source"/>
+   </feature>
+   <feature id="org.osate.ge.errormodel.feature.source">
+      <category name="osate2.source"/>
+   </feature>
+   <feature id="org.osate.ge.ba.feature.source">
       <category name="osate2.source"/>
    </feature>
    <feature id="org.osate.core.feature.source">
@@ -63,8 +75,8 @@ censes only apply to the Third Party Software and not any other portion of this 
       <category name="alisa.source"/>
    </feature>
    <feature id="org.osate.dependencies.birt"/>
-   <bundle id="com.itemis.xtext.testing"/>
    <bundle id="org.osate.testsupport"/>
+   <bundle id="org.osate.xtext.aadl2.errormodel.edit"/>
    <category-def name="osate2" label="OSATE2 for AADL2">
       <description>
          OSATE
@@ -78,4 +90,12 @@ censes only apply to the Third Party Software and not any other portion of this 
    <category-def name="alisa.source" label="ALISA Source Code">
       <category name="source"/>
    </category-def>
+   <repository-reference location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.25.0" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.12.1" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/xsemantics/milestones/1.20" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/tools/orbit/downloads/2021-03" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/elk/updates/releases/0.7.1" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/ease/update/release" enabled="true" />
+   <repository-reference location="http://eclipse.py4j.org" enabled="true" />
+   <repository-reference location="http://updates.yakindu.com/statecharts/releases/3.5.9" enabled="true" />
 </site>

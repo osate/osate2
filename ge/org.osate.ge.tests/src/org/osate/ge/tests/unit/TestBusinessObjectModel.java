@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -36,19 +36,20 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.services.ReferenceResolutionService;
 
 public class TestBusinessObjectModel
-		implements DiagramElementInformationProvider, TreeUpdater, ReferenceResolutionService, ReferenceBuilderService {
+		implements DiagramElementInformationProvider, BusinessObjectTreeUpdater, ReferenceResolutionService,
+		ReferenceBuilderService {
 	private TestBusinessObject model;
 
 	@Override
-	public BusinessObjectNode expandTree(DiagramConfiguration configuration, BusinessObjectNode tree) {
+	public BusinessObjectNode updateTree(DiagramConfiguration configuration, BusinessObjectNode tree) {
 		final BusinessObjectNode newTree = new BusinessObjectNode(null, UUID.randomUUID(), null, null,
 				Completeness.UNKNOWN, true);
 		createNodes(newTree, getModel().children);
@@ -102,12 +103,14 @@ public class TestBusinessObjectModel
 
 	private DiagramElement getConnectionStart(final DiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
-		return bo.getConnectionStartReference() == null ? null : e.getContainer().getByRelativeReference(bo.getConnectionStartReference());
+		return bo.getConnectionStartReference() == null ? null
+				: e.getParent().getChildByRelativeReference(bo.getConnectionStartReference());
 	}
 
 	private DiagramElement getConnectionEnd(final DiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
-		return bo.getConnectionEndReference() == null ? null : e.getContainer().getByRelativeReference(bo.getConnectionEndReference());
+		return bo.getConnectionEndReference() == null ? null
+				: e.getParent().getChildByRelativeReference(bo.getConnectionEndReference());
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -34,5 +34,5 @@ public interface ObservableModel {
 	 * View models should avoid sending change events unless a change has actually occurred.
 	 * @return an {@link EventSource} for change events.
 	 */
-	EventSource<ChangeEvent> changed();
+	EventSource changed();
 }

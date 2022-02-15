@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,9 +25,19 @@ package org.osate.ge.errormodel.ui.viewmodels;
 
 import java.util.stream.Stream;
 
+/**
+ * Implementation of {@link NamedObjectsProvider} which provides an empty stream.
+ *
+ * @param <T> the type of object provided
+ */
 public class EmptyNamedObjectsProvider<T> implements NamedObjectsProvider<T> {
 	private static EmptyNamedObjectsProvider<?> instance = new EmptyNamedObjectsProvider<>();
 
+	/**
+	 * Returns an instance of this class
+	 * @param <T> the type of object provided
+	 * @return an instance of the provider
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> EmptyNamedObjectsProvider<T> instance() {
 		return (EmptyNamedObjectsProvider<T>) instance;

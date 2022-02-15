@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -36,22 +36,33 @@ import org.osate.ge.swt.SwtUtil;
  * @since 1.1
  */
 public final class FilteringListSelectorField<T> extends BaseField<FilteringSelectorModel<T>> {
-	private String dialogTitle;
+	private String modifyDialogTitle;
 
+	/**
+	 * Creates a new instance with a default modify selection dialog title
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model for the field
+	 */
 	public FilteringListSelectorField(final Composite parent, final FilteringSelectorModel<T> model) {
 		this(parent, "Select", model);
 	}
 
-	public FilteringListSelectorField(final Composite parent, final String dialogTitle,
+	/**
+	 * Creates a new instance with the specified modify selection dialog title
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param modifyDialogTitle is the title to be used for the selection dialog which appears when the user selects the modify button.
+	 * @param model the model for the field
+	 */
+	public FilteringListSelectorField(final Composite parent, final String modifyDialogTitle,
 			final FilteringSelectorModel<T> model) {
 		super(parent, model);
-		this.dialogTitle = Objects.requireNonNull(dialogTitle, "dialogTitle must not be null");
+		this.modifyDialogTitle = Objects.requireNonNull(modifyDialogTitle, "dialogTitle must not be null");
 
 	}
 
 	@Override
 	protected final void onModify() {
-		FilteringSelectorDialog.open(getShell(), dialogTitle, getModel());
+		FilteringSelectorDialog.open(getShell(), modifyDialogTitle, getModel());
 	}
 
 	@Override
@@ -64,9 +75,13 @@ public final class FilteringListSelectorField<T> extends BaseField<FilteringSele
 		return getModel().isEnabled() && getModel().getElements().anyMatch(e -> true);
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new FilteringListSelectorField<>(shell, new LabelFilteringListSelectorModel<>(new TestListEditorModel()));
-		});
+		SwtUtil.run(shell -> new FilteringListSelectorField<>(shell,
+				new LabelFilteringListSelectorModel<>(new TestListEditorModel())));
 	}
 }

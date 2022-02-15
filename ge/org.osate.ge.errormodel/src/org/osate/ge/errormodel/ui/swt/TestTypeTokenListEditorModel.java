@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -37,13 +37,15 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
- * Test model for {@link TypeTokenListEditorDialog} and {@link TypeTokenListField}
- *
+ * Test view model for {@link TypeTokenListEditorDialog} and {@link TypeTokenListField}
  */
 class TestTypeTokenListEditorModel extends BaseObservableModel implements TypeTokenListEditorModel {
 	private List<TypeToken> tokens;
 	private final List<ErrorTypes> errorTypes;
 
+	/**
+	 * Creates a new instance
+	 */
 	public TestTypeTokenListEditorModel() {
 		tokens = new ArrayList<>();
 		errorTypes = new ArrayList<>();
@@ -80,19 +82,14 @@ class TestTypeTokenListEditorModel extends BaseObservableModel implements TypeTo
 		errorTypes.add(tsAlias);
 
 		// Create type tokens for individual types and type products
-		{
-			final TypeToken newToken = ErrorModelFactory.eINSTANCE.createTypeToken();
-			newToken.getType().add(errorTypes.get(0));
-			tokens.add(newToken);
-		}
+		final TypeToken tok1 = ErrorModelFactory.eINSTANCE.createTypeToken();
+		tok1.getType().add(errorTypes.get(0));
+		tokens.add(tok1);
 
-		{
-			final TypeToken newToken = ErrorModelFactory.eINSTANCE.createTypeToken();
-			newToken.getType().add(errorTypes.get(1));
-			newToken.getType().add(errorTypes.get(2));
-			tokens.add(newToken);
-		}
-
+		final TypeToken tok2 = ErrorModelFactory.eINSTANCE.createTypeToken();
+		tok2.getType().add(errorTypes.get(1));
+		tok2.getType().add(errorTypes.get(2));
+		tokens.add(tok2);
 	}
 
 	@Override

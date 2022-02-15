@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -33,6 +33,7 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.operations.Operation;
@@ -47,7 +48,7 @@ public class CreateFlowPathSpecificationPaletteCommand extends BasePaletteComman
 		implements CreateConnectionPaletteCommand {
 
 	public CreateFlowPathSpecificationPaletteCommand() {
-		super("Flow Path Specification", AadlPaletteCategories.FLOWS, AadlImages.getImage("FlowPath"));
+		super("Flow Path Specification", AadlCategories.FLOWS, AadlImages.getImage("FlowPath"));
 	}
 
 	@Override

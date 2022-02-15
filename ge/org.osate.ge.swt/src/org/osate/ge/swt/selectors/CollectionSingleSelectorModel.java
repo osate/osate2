@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -32,6 +32,8 @@ import org.osate.ge.swt.BaseObservableModel;
 
 /**
  * Abstract implementation of {@link SingleSelectorModel} which provides elements from a collection.
+ *
+ * @param <T> See {@link SingleSelectorModel}
  * @since 1.1
  */
 public abstract class CollectionSingleSelectorModel<T> extends BaseObservableModel implements SingleSelectorModel<T> {
@@ -42,12 +44,12 @@ public abstract class CollectionSingleSelectorModel<T> extends BaseObservableMod
 	 * Creates a new instance
 	 * @param elements the collection of elements. The collection will be copied by the model. Changes to the collection will not be reflected by the model.
 	 */
-	public CollectionSingleSelectorModel(final Collection<T> elements) {
+	protected CollectionSingleSelectorModel(final Collection<T> elements) {
 		this.elements = new ArrayList<>(Objects.requireNonNull(elements, "elements must not be null"));
 	}
 
 	@Override
-	public final Stream<T> getElements() {
+	public Stream<T> getElements() {
 		return elements.stream();
 	}
 

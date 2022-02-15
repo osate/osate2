@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -39,18 +39,22 @@ import org.osate.ge.internal.services.ExtensionRegistryService;
 public class BusinessObjectProviderHelper {
 	private final ExtensionRegistryService extRegistry;
 
+	/**
+	 * Creates a new instance
+	 * @param extRegistry the extension registry
+	 */
 	public BusinessObjectProviderHelper(final ExtensionRegistryService extRegistry) {
 		this.extRegistry = Objects.requireNonNull(extRegistry, "extRegistry must not be null");
 	}
 
 	/**
 	 * Returns the business objects from all the business object providers for the specified business object context.
-	 * @param boc
-	 * @return
+	 * @param parentBoc the business object context for which to retrieve business object
+	 * @return the children business objects for the specified business object context
 	 */
-	public Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc) {
+	public Collection<Object> getChildBusinessObjects(final BusinessObjectContext parentBoc) {
 		// Use business object providers to determine the children
-		final BusinessObjectProviderContext ctx = new BusinessObjectProviderContext(boc, extRegistry);
+		final BusinessObjectProviderContext ctx = new BusinessObjectProviderContext(parentBoc, extRegistry);
 		final Stream<Object> allChildren = extRegistry.getBusinessObjectProviders()
 				.stream()
 				.flatMap(bop -> bop.getChildBusinessObjects(ctx));

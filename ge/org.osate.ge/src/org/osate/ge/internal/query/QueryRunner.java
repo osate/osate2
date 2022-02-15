@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -45,7 +45,7 @@ public class QueryRunner {
 	 * @param arg
 	 * @return
 	 */
-	public final Optional<QueryResult> getFirstResult(final DefaultQuery query, final Object arg) {
+	public final <T> Optional<QueryResult> getFirstResult(final DefaultQuery<T> query, final T arg) {
 		final List<QueryResult> results = getResults(query, arg);
 		if(results.size() == 0) {
 			return Optional.empty();
@@ -54,16 +54,16 @@ public class QueryRunner {
 		return Optional.of(results.get(0));
 	}
 
-	public final List<QueryResult> getResults(final DefaultQuery query, final Object arg) {
+	public final <T> List<QueryResult> getResults(final DefaultQuery<T> query, final T arg) {
 		Objects.requireNonNull(query, "query must not be null");
 
-		final Deque<DefaultQuery> queryStack = new ArrayDeque<>();
-		for(DefaultQuery q = query; q != null; q = q.getPrev()) {
+		final Deque<DefaultQuery<T>> queryStack = new ArrayDeque<>();
+		for (DefaultQuery<T> q = query; q != null; q = q.getPrev()) {
 			queryStack.push(q);
 		}
 
-		final DefaultQuery initialQuery = queryStack.pop();
-		final QueryExecutionState state = new QueryExecutionState(this, refBuilder, arg);
+		final DefaultQuery<T> initialQuery = queryStack.pop();
+		final QueryExecutionState<T> state = new QueryExecutionState<>(this, refBuilder, arg);
 		final QueryResults result = new QueryResults();
 		initialQuery.run(queryStack, null, state, result);
 

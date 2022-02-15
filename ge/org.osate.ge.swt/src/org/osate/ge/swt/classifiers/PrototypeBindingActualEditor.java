@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,6 @@
 package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.eclipse.jface.layout.GridDataFactory;
@@ -32,14 +31,14 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.ComboSelector;
 import org.osate.ge.swt.selectors.SingleSelectorModel;
 
 /**
- * View for editing prototype bindings. Also intended to be used for selecting the type for subcomponent types. Fields for which options are not available are hidden.
+ * View for editing a prototype binding. Also intended to be used for selecting the type for subcomponent types.
+ * Fields for which options are not available are hidden.
  *
  * @param <N> is the type of the node being edited.
  * @param <D> is the type of the direction options.
@@ -53,8 +52,14 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 	private final ComboSelector<D> directionSelector;
 	private final ComboSelector<T> typeSelector;
 	private final ClassifierWithBindingsField<N, D, T, C> classifierAndBindingSelector;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model which provides the contents for the editor
+	 * @param node the binding node to edit
+	 */
 	public PrototypeBindingActualEditor(final Composite parent, final PrototypeBindingsModel<N, D, T, C> model,
 			N node) {
 		super(parent, SWT.NONE);
@@ -63,9 +68,9 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 		SwtUtil.setColorsToMatchParent(this);
 
 		// Type
-		typeSelector = new ComboSelector<T>(this, new SingleSelectorModel<T>() {
+		typeSelector = new ComboSelector<>(this, new SingleSelectorModel<T>() {
 			@Override
-			public EventSource<ChangeEvent> changed() {
+			public EventSource changed() {
 				return model.changed();
 			}
 
@@ -94,9 +99,9 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
 
 		// Direction
-		directionSelector = new ComboSelector<D>(this, new SingleSelectorModel<D>() {
+		directionSelector = new ComboSelector<>(this, new SingleSelectorModel<D>() {
 			@Override
-			public EventSource<ChangeEvent> changed() {
+			public EventSource changed() {
 				return model.changed();
 			}
 
@@ -160,10 +165,13 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 		refresh();
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new PrototypeBindingActualEditor<>(shell, new TestPrototypeBindingsModel(), null);
-		});
+		SwtUtil.run(shell -> new PrototypeBindingActualEditor<>(shell, new TestPrototypeBindingsModel(), null));
 	}
 
 }

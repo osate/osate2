@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,6 +29,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.util.AadlConnectionUtil;
 import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
@@ -42,15 +43,15 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 public class AadlPaletteContributor implements PaletteContributor {
 	@Override
 	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(AadlPaletteCategories.CLASSIFIERS,
+		return Stream.of(new PaletteCategory(AadlCategories.CLASSIFIERS,
 				"Classifiers"),
-				new PaletteCategory(AadlPaletteCategories.CONNECTIONS, "Connections"),
-				new PaletteCategory(AadlPaletteCategories.FEATURES, "Features"),
-				new PaletteCategory(AadlPaletteCategories.FLOWS, "Flows"),
-				new PaletteCategory(AadlPaletteCategories.MODES, "Modes"),
-				new PaletteCategory(AadlPaletteCategories.SUBCOMPONENTS,
+				new PaletteCategory(AadlCategories.CONNECTIONS, "Connections"),
+				new PaletteCategory(AadlCategories.FEATURES, "Features"),
+				new PaletteCategory(AadlCategories.FLOWS, "Flows"),
+				new PaletteCategory(AadlCategories.MODES, "Modes"),
+				new PaletteCategory(AadlCategories.SUBCOMPONENTS,
 						"Subcomponents"),
-				new PaletteCategory(AadlPaletteCategories.SUBPROGRAM_CALLS, "Subprogram Calls"));
+				new PaletteCategory(AadlCategories.SUBPROGRAM_CALLS, "Subprogram Calls"));
 	}
 
 	@Override

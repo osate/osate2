@@ -1,0 +1,61 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 2.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- https://www.eclipse.org/legal/epl-2.0/
+
+package AadlBaTest::Types
+
+public
+  with Data_Model, AadlBaTestPropertySet ;
+
+  data Opaque
+  end Opaque;
+  
+  data implementation Opaque.v1
+  end Opaque.v1 ;
+  
+  data Integer
+    properties
+      Data_Model::Data_Representation => Integer;
+      AadlBaTestPropertySet::aSimpleValue => 19 ;
+  end Integer ;
+  
+  data implementation Integer.v1
+    properties
+      AadlBaTestPropertySet::aSimpleValue => 18 ;
+  end Integer.v1 ;
+  
+  data Days
+    properties
+    Data_Model::Data_Representation => Enum;
+    Data_Model::Enumerators => ("unknown", "monday", "thuesday", "wednesday", "thrusday",
+                              "friday", "saturday", "sunday");
+  end Days ;
+  
+  data implementation Days.v1 extends Days.v2
+    properties
+    Data_Model::Representation => ("7","0","1","2","3","4","5","6");
+  
+  end Days.v1 ;
+
+  data implementation Days.v2
+    properties
+    Data_Model::Representation => ("8","1","2","3","4","5","6","7");
+  
+  end Days.v2 ;
+  
+end AadlBaTest::Types ;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,6 @@
 package org.osate.ge.swt.name;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -34,11 +33,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.BorderedCLabel;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
 /**
- * View for displaying a name and allowing it to be edited using the {@link NameEditorDialog}
+ * Component for displaying a name and allowing it to be edited using the {@link NameEditorDialog}
  * @since 1.1
  *
  */
@@ -46,8 +44,13 @@ public final class NameEditor extends Composite {
 	private final NameEditorModel model;
 	private final BorderedCLabel nameLbl;
 	private final Button renameBtn;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model for the editor
+	 */
 	public NameEditor(final Composite parent, final NameEditorModel model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
@@ -89,9 +92,12 @@ public final class NameEditor extends Composite {
 		renameBtn.setEnabled(enabled);
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new NameEditor(shell, new TestNameEditorModel());
-		});
+		SwtUtil.run(shell -> new NameEditor(shell, new TestNameEditorModel()));
 	}
 }

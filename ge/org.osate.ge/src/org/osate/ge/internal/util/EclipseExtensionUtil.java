@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -41,12 +41,27 @@ import org.osgi.framework.FrameworkUtil;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * Contains utility functions related to the eclipse extension registry.
+ *
+ */
 public class EclipseExtensionUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private EclipseExtensionUtil() {
 	}
 
-	// Returns an immutable collection containing the objects created by instantiating class referenced by the "class" attribute of all configuration elements
-	// with the specified name for a specified extension point.
+	/**
+	 * Returns an immutable collection containing the objects created by instantiating class referenced by the "class" attribute of all
+	 * configuration elements with the specified name for a specified extension point.
+	 * @param <T> the base type for instantiated extensions
+	 * @param registry the eclipse extension registry
+	 * @param extensionPointId the extension point containing the extensions
+	 * @param elementName the name of the XML element contained in the extension point which is used to declare an extension
+	 * @param extClass the base type for instantiated extensions
+	 * @return a collection containing instantiated extensions
+	 */
 	public static <T> ImmutableCollection<T> instantiateSimpleExtensions(
 			final IExtensionRegistry registry,
 			final String extensionPointId, final String elementName, final Class<T> extClass) {

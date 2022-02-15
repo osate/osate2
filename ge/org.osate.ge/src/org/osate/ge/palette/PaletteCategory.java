@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,22 +26,35 @@ package org.osate.ge.palette;
 import java.util.Objects;
 
 /**
- * Describes a palette category. Categories are used the group palette commands.
+ * Describes a palette category. Categories are used the group palette commands. Categories are represented as folders in the user interface.
  * @since 2.0
  */
 public class PaletteCategory {
 	private String id;
 	private String label;
 
+	/**
+	 * Create a new instance
+	 * @param id the ID of the palette category
+	 * @param label the label of the palette category to be shown in the user interface.
+	 */
 	public PaletteCategory(final String id, final String label) {
 		this.id = Objects.requireNonNull(id, "id must not be null");
 		this.label = Objects.requireNonNull(label, "label must not be null");
 	}
 
+	/**
+	 * Returns the palette category's ID
+	 * @return the category's ID
+	 */
 	public final String getId() {
 		return id;
 	}
 
+	/**
+	 * Returns the palette category's label. The label is the text shown in the user interface.
+	 * @return the category's label
+	 */
 	public final String getLabel() {
 		return label;
 	}

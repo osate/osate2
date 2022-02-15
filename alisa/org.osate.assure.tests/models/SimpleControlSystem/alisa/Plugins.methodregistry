@@ -66,9 +66,4 @@ verification methods Plugins [
 		category Quality.CPUUtilization Quality.MemoryUtilization
 		description "Perform resource budget analysis for all software against processor and memory capacity totals. MIPS, RAM and ROM budgets and budgets against capacities of resources. Budgets may be derived from periods/execution times, and data sizes."
 	]
-	method ResourceAllocationScheduling: "Allocate threads to processors and assure schedulability." [
-		plugin BinPack
-		category Quality.Timing
-		description "Bind all threads to processors while maintaining schedulability and meeting binding constraints. This analysis uses a BinPacking technique by Dio DeNiz."
-	]
 ]

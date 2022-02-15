@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,6 +23,8 @@
  */
 package org.osate.ge.errormodel.model;
 
+import org.osate.ge.errormodel.combined.ReadonlyPropagationNode;
+
 import com.google.common.base.Objects;
 
 /**
@@ -33,8 +35,32 @@ public enum KeywordPropagationPointType {
 	/**
 	 * All is not a propagation point exactly but is used for flow declarations
 	 */
-	ALL("all"), ACCESS("access"), PROCESSOR("processor"), MEMORY("memory"), CONNECTION("connection"), BINDING(
-			"binding"), BINDINGS("bindings");
+	ALL("all"),
+	/**
+	 * Access keyword
+	 */
+	ACCESS("access"),
+	/**
+	* Processor keyword
+	*/
+	PROCESSOR("processor"),
+	/**
+	* Memory keyword
+	*/
+	MEMORY("memory"),
+	/**
+	* Connection keyword
+	*/
+	CONNECTION("connection"),
+	/**
+	* Binding keyword
+	*/
+	BINDING(
+			"binding"),
+	/**
+	* Bindings keyword
+	*/
+	BINDINGS("bindings");
 
 	private final String kind;
 
@@ -46,6 +72,11 @@ public enum KeywordPropagationPointType {
 		this.kind = kind;
 	}
 
+	/**
+	 * Returns the value for kind used when building the propagation tree.
+	 * @return the value used for kind when building the propagation tree.
+	 * @see ReadonlyPropagationNode#getChild(String)
+	 */
 	public String getKind() {
 		return kind;
 	}

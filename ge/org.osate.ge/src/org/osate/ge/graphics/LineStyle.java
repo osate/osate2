@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,10 +24,22 @@
 package org.osate.ge.graphics;
 
 /**
+ * Enumeration for the supported line styled.
  * @since 1.1
  */
 public enum LineStyle {
+	/**
+	 * An uninterrupted line
+	 */
 	SOLID,
+
+	/**
+	 * A line rendered as a series of dashes and spaces
+	 */
 	DASHED,
+
+	/**
+	 * A line rendered as a series of dots and spaces
+	 */
 	DOTTED
 }

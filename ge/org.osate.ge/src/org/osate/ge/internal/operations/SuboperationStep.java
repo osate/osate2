@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,16 +28,30 @@ import java.util.function.Function;
 
 import org.osate.ge.operations.Operation;
 
-public class SuboperationStep<PrevResultUserType> extends AbstractStep<Void> {
-	private final Function<PrevResultUserType, Operation> opProvider;
+/**
+ * Step which executes an operation
+ *
+ * @param <P> the type of the user value of the result of the previous step
+ */
+public class SuboperationStep<P> extends AbstractStep {
+	private final Function<P, Operation> opProvider;
 
-	public SuboperationStep(final Step<?> nextStep,
-			Function<PrevResultUserType, Operation> opProvider) {
+	/**
+	 * Creates a new instance
+	 * @param nextStep the next step in the sequence
+	 * @param opProvider the function which will return the operation to execute based on the user value from the previous step
+	 */
+	public SuboperationStep(final Step nextStep,
+			Function<P, Operation> opProvider) {
 		super(nextStep);
 		this.opProvider = Objects.requireNonNull(opProvider, "opProvider must not be null");
 	}
 
-	public Function<PrevResultUserType, Operation> getOperationProvider() {
+	/**
+	 * Returns the function which will return the operation to execute based on the user value from the previous step
+	 * @return the function which will return the operation to execute.
+	 */
+	public Function<P, Operation> getOperationProvider() {
 		return opProvider;
 	}
 }

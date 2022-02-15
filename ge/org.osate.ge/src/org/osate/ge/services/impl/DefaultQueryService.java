@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,33 +29,34 @@ import java.util.Optional;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
+/**
+ * {@link QueryService} implementation
+ *
+ */
 public class DefaultQueryService implements QueryService {
 	private final QueryRunner queryRunner;
 
+	/**
+	 * Creates a new instance
+	 * @param refBuilder the reference builder used when executing queries
+	 */
 	public DefaultQueryService(final ReferenceService refBuilder) {
 		this.queryRunner = new QueryRunner(refBuilder);
 	}
 
 	@Override
-	public final Optional<QueryResult> getFirstResult(final StandaloneQuery query, final BusinessObjectContext boc,
-			final Object arg) {
+	public final <T> Optional<QueryResult> getFirstResult(final ExecutableQuery<T> query,
+			final BusinessObjectContext boc, final T arg) {
 		return query.getFirstResult(queryRunner, boc, arg);
 	}
 
 	@Override
-	public final Optional<Object> getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc,
-			final Object arg) {
-		return query.getFirstResult(queryRunner, boc, arg)
-				.map(result -> result.getBusinessObjectContext().getBusinessObject());
-	}
-
-	@Override
-	public final List<QueryResult> getResults(final StandaloneQuery query, final BusinessObjectContext boc,
-			final Object arg) {
+	public final <T> List<QueryResult> getResults(final ExecutableQuery<T> query, final BusinessObjectContext boc,
+			final T arg) {
 		return query.getResults(queryRunner, boc, arg);
 	}
 }

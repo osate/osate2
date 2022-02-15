@@ -77,6 +77,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -97,6 +98,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		implements IWorkbenchPreferencePage {
 	private Map<URI, URI> originalOverriddenAadl;
 	private final Map<URI, URI> overriddenAadl = new HashMap<>();
+	private List<URI> disabledContribResources = new ArrayList<URI>();
 
 	private TreeViewer tree;
 	private Button overrideButton;
@@ -120,6 +122,11 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(2, true));
 
+		Label disabledContribLabel = new Label(composite, SWT.NONE);
+		disabledContribLabel.setLayoutData(new GridData(2, SWT.FILL, true, true));
+		disabledContribLabel.setText(
+				"All property sets and packages contributed by plug-ins are added to each build by default. To exclude unnecessary contributions, set a checkbox below to checked");
+
 		SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
 		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
 		sashForm.setLayoutData(gd);
@@ -135,6 +142,8 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 		Sorter sort = new Sorter();
 		tree.setSorter(sort);
+
+		setCheckBoxesDisabledContributions();
 
 		tree.addSelectionChangedListener(event -> {
 			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
@@ -192,6 +201,11 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 					if (uri != null) {
 						overriddenAadl.remove(uri);
 						restoreButton.setEnabled(false);
+
+						if (disabledContribResources != null) {
+							disabledContribResources.remove(uri); // remove override from disabled list as well
+						}
+
 						selectedNode.overridden = false;
 						tree.refresh();
 						uriLabel.setText(uriToReadable(uri));
@@ -210,6 +224,35 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		uriLabel.setText("");
 
 		return composite;
+	}
+
+	private void setCheckBoxesDisabledContributions() {
+		disabledContribResources = PredeclaredProperties.getDisabledContributions();
+		for (TreeItem node : tree.getTree().getItems()) {
+			setCheckBox(node, false);
+		}
+	}
+
+	private void setCheckBox(TreeItem node, Boolean defaultSetting) {
+		Object obj = node.getData();
+		if (obj instanceof TreeNode) {
+			String uriPath = ((TreeNode) obj).path;
+			if (uriPath != null && !uriPath.isEmpty()) {
+				URI uri = URI.createURI(uriPath);
+				if (((TreeNode) obj).overridden) {
+					uri = overriddenAadl.get(uri);
+				}
+
+				Boolean disabled = defaultSetting || disabledContribResources.contains(uri)
+						|| (overriddenAadl.containsKey(uri)
+								&& disabledContribResources.contains(overriddenAadl.get(uri)));
+				node.setChecked(disabled);
+			}
+		}
+
+		for (TreeItem child : node.getItems()) {
+			setCheckBox(child, node.getChecked());
+		}
 	}
 
 	private void doOverrideAction(final TreeNode selectedNode) {
@@ -249,14 +292,58 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		final boolean ok = super.performOk();
 
 		/* Check if the preferences changed. Don't want to rebuild the workspace if they didn't */
-		final boolean changed = !originalOverriddenAadl.equals(overriddenAadl);
+		boolean changed = false;
+
+		if (!originalOverriddenAadl.equals(overriddenAadl)) {
+			PredeclaredProperties.setOverriddenResources(overriddenAadl);
+			changed = true;
+		}
+
+		disabledContribResources = new ArrayList<URI>();
+		for (TreeItem pluginContribNode : tree.getTree().getItems()) {
+			buildDisabledContributionsList(pluginContribNode);
+		}
+
+		List<URI> oldDisabledContrib = PredeclaredProperties.getDisabledContributions();
+		if (disabledContribResources.size() != oldDisabledContrib.size()
+				|| !disabledContribResources.equals(oldDisabledContrib)) {
+			// save disabled contribution resources to workspace preferences
+			PredeclaredProperties.setDisabledContributions(disabledContribResources);
+			changed = true;
+		}
 
 		if (changed) {
-			PredeclaredProperties.setOverriddenResources(overriddenAadl);
 			PredeclaredProperties.closeAndReopenProjects();
 		}
 
 		return ok;
+	}
+
+	private void buildDisabledContributionsList(TreeItem node) {
+		if (node.getChecked()) {
+			Object obj = node.getData();
+			if (obj instanceof TreeNode) {
+				String uriPath = ((TreeNode) obj).path;
+				if (uriPath != null && !uriPath.isEmpty()) {
+					URI uri = URI.createURI(uriPath);
+					disabledContribResources.add(uri); // both URIs should be ignored
+					// check if overridden
+					if (overriddenAadl.containsKey(uri)) {
+						disabledContribResources.add(overriddenAadl.get(uri));
+					}
+				}
+			}
+		}
+
+		for (TreeItem child : node.getItems()) {
+			buildDisabledContributionsList(child);
+		}
+	}
+
+	@Override
+	public void performHelp() {
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), "org.osate.ui.help_dialog_contribRes");
+		PlatformUI.getWorkbench().getHelpSystem().displayHelp("org.osate.ui.help_dialog_contribRes");
 	}
 
 	private static boolean filterContainer(final Map<Object, Boolean> visible, final IResource irsrc,
@@ -334,7 +421,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		dataLayout.heightHint = compLayout.heightHint;
 		dataLayout.widthHint = compLayout.widthHint;
 
-		int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL;
+		int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.CHECK;
 		Tree tree = new Tree(treeComposite, style);
 		tree.setLayoutData(dataLayout);
 		tree.setLinesVisible(true);

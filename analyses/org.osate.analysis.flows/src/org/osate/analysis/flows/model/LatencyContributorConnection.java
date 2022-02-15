@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,8 +23,10 @@
  */
 package org.osate.analysis.flows.model;
 
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.communication.Timing;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.analysis.flows.FlowLatencyUtil;
+import org.osate.aadl2.instance.ConnectionKind;
 
 /**
  * A latency Result represents something in the flow
@@ -45,15 +47,19 @@ public class LatencyContributorConnection extends LatencyContributor {
 
 	@Override
 	protected String getContributorType() {
-		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.DELAYED) {
+		final ConnectionInstance connInstance = (ConnectionInstance) this.relatedElement;
+		final Timing connectionType = connInstance.getKind() == ConnectionKind.PORT_CONNECTION
+				? CommunicationProperties.getTiming(connInstance).orElse(Timing.SAMPLED)
+				: null;
+		if (connectionType == Timing.DELAYED) {
 			return "delayed connection";
 		}
 
-		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.IMMEDIATE) {
+		if (connectionType == Timing.IMMEDIATE) {
 			return "immediate connection";
 		}
 
-		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.SAMPLED) {
+		if (connectionType == Timing.SAMPLED) {
 			return "connection";
 		}
 

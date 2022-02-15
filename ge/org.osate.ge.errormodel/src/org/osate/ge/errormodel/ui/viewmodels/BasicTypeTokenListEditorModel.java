@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -66,6 +66,10 @@ public class BasicTypeTokenListEditorModel extends BaseObservableModel implement
 		return tokens.stream();
 	}
 
+	/**
+	 * Returns the list of tokens being edited
+	 * @return the type tokens being edited
+	 */
 	public List<TypeToken> getTypeTokenList() {
 		return Collections.unmodifiableList(tokens);
 	}
@@ -73,7 +77,7 @@ public class BasicTypeTokenListEditorModel extends BaseObservableModel implement
 	@Override
 	public void setTypeTokens(final List<TypeToken> value) {
 		if (!Objects.equals(tokens, value)) {
-			tokens = value;
+			tokens = new ArrayList<>(value);
 			triggerChangeEvent();
 		}
 	}
@@ -84,7 +88,7 @@ public class BasicTypeTokenListEditorModel extends BaseObservableModel implement
 	}
 
 	@Override
-	public String validate(List<TypeToken> value) {
+	public String validate(final List<TypeToken> value) {
 		// Type tokens must have at least one type.
 		if (!allowEmpty && value.isEmpty()) {
 			return "At least one token must be contained in the list";

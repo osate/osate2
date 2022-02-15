@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,22 +27,29 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
 
 /**
  * Adapter which implements {@link SelectorModel} for a {@link SingleSelectorModel} implementation.
+ *
+ * <p>If an attempt to set the selection to multiple elements is made, only the first element is selected.</p>
+ *
+ * @param <T> See {@link SingleSelectorModel}
  * @since 1.1
  */
 public class SingleSelectorModelToSelectorModelAdapter<T> implements SelectorModel<T> {
 	private final SingleSelectorModel<T> inner;
 
+	/**
+	 * Creates a new instance
+	 * @param model the wrapped single selector model
+	 */
 	public SingleSelectorModelToSelectorModelAdapter(final SingleSelectorModel<T> model) {
 		this.inner = Objects.requireNonNull(model, "model must not be null");
 	}
 
 	@Override
-	public EventSource<ChangeEvent> changed() {
+	public EventSource changed() {
 		return inner.changed();
 	}
 
@@ -56,6 +63,12 @@ public class SingleSelectorModelToSelectorModelAdapter<T> implements SelectorMod
 		return Stream.of(inner.getSelectedElement());
 	}
 
+	/**
+	 * Sets the selected elements. If the specified stream contains multiple elements, only the first element is selected.
+	 * If the stream is empty, the selection is set to null.
+	 * @param value a stream containing the new selection.
+	 * @see SingleSelectorModel#setSelectedElement(Object)
+	 */
 	@Override
 	public void setSelectedElements(final Stream<T> value) {
 		final Iterator<T> it = value.iterator();

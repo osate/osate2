@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,8 +28,19 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ContentFilter;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 
+/**
+ * Content filter which matches {@link PropagationPath} objects.
+ */
 public class PropagationPathFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
 	public static final String ID = "emv2.propagationPaths";
+
+	@Override
+	public String getParentId() {
+		return ErrorModelSubclauseElementsFilter.ID;
+	}
 
 	@Override
 	public String getId() {

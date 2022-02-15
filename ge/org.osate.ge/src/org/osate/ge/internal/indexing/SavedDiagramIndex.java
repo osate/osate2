@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -52,6 +52,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
 import org.osate.ge.diagram.DiagramElement;
 import org.osate.ge.diagram.DiagramNode;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -61,26 +62,61 @@ import org.osate.ge.internal.util.Log;
 
 import com.google.common.collect.ImmutableMap;
 
-// Indexes saved diagram files
+/**
+ * Indexes saved diagram files.
+ * Responsible for finding serialized diagrams and diagram elements matching requested criteria.
+ *
+ */
 public class SavedDiagramIndex {
+	/**
+	 * Interface for saved diagram index entries
+	 *
+	 */
 	public static interface DiagramIndexEntry {
+		/**
+		 * Returns the diagram file
+		 * @return the diagram file
+		 */
 		IFile getDiagramFile();
 
+		/**
+		 * Returns the diagram type ID
+		 * @return the diagram type ID
+		 */
 		String getDiagramTypeId();
 
+		/**
+		 * Returns the reference for the diagram's context
+		 * @return the reference for the diagram's context. Returns null for contextless diagrams.
+		 */
 		CanonicalBusinessObjectReference getContext();
 	}
 
+	/**
+	 * Index entry for {@link DiagramElement} elements
+	 *
+	 */
 	public static class ElementIndexEntry {
+		/**
+		 * The file containing the element
+		 */
 		public final IFile diagramFile;
-		public final CanonicalBusinessObjectReference reference;
-		public final URI elementUri;
 
-		protected ElementIndexEntry(final IFile diagramFile, final CanonicalBusinessObjectReference reference,
-				final URI elementUri) {
+		/**
+		 * Reference to the diagram element's business object
+		 */
+		public final CanonicalBusinessObjectReference reference;
+
+		/**
+		 * URI for the {@link DiagramElement}
+		 */
+		public final URI diagramElementUri;
+
+		private ElementIndexEntry(final IFile diagramFile, final CanonicalBusinessObjectReference reference,
+				final URI diagramElementUri) {
 			this.diagramFile = Objects.requireNonNull(diagramFile, "diagramFile must not be null");
 			this.reference = Objects.requireNonNull(reference, "reference must not be null");
-			this.elementUri = Objects.requireNonNull(elementUri, "elementUri must not be null");
+			this.diagramElementUri = Objects.requireNonNull(diagramElementUri, "diagramElementUri must not be null");
 		}
 	}
 
@@ -90,13 +126,13 @@ public class SavedDiagramIndex {
 	 */
 	private static class ReferenceNode {
 		private RelativeBusinessObjectReference relativeReference;
-		private URI uri;
+		private URI diagramNodeUri;
 		private List<ReferenceNode> children;
 
-		public ReferenceNode(final RelativeBusinessObjectReference relativeReference, final URI uri,
+		public ReferenceNode(final RelativeBusinessObjectReference relativeReference, final URI diagramNodeUri,
 				final List<ReferenceNode> children) {
 			this.relativeReference = relativeReference;
-			this.uri = Objects.requireNonNull(uri, "uri must not be null");
+			this.diagramNodeUri = Objects.requireNonNull(diagramNodeUri, "diagramNodeUri must not be null");
 			this.children = Objects.requireNonNull(children, "children must not be null");
 		}
 
@@ -108,8 +144,8 @@ public class SavedDiagramIndex {
 			return children == null ? Collections.emptyList() : children;
 		}
 
-		public final URI getUri() {
-			return uri;
+		public final URI getDiagramNodeUri() {
+			return diagramNodeUri;
 		}
 	}
 
@@ -120,7 +156,7 @@ public class SavedDiagramIndex {
 		private String diagramTypeId;
 		private CanonicalBusinessObjectReference context;
 		private ReferenceNode rootReferenceNode;
-		private Map<CanonicalBusinessObjectReference, URI> refToElementUriMap;
+		private Map<CanonicalBusinessObjectReference, URI> refToDiagramElementUriMap;
 
 		public DiagramFileIndex(final ProjectDiagramIndex projectDiagramIndex, final IFile diagramFile) {
 			this.projectDiagramIndex = Objects.requireNonNull(projectDiagramIndex, "projectDiagramIndex must not be null");
@@ -152,9 +188,9 @@ public class SavedDiagramIndex {
 			return context;
 		}
 
-		public Map<CanonicalBusinessObjectReference, URI> getReferenceToElementUriMap() {
-			ensureRefToElementUriMapValid();
-			return refToElementUriMap;
+		public Map<CanonicalBusinessObjectReference, URI> getReferenceToDiagramElementUriMap() {
+			ensureRefToDiagramElementUriMapValid();
+			return refToDiagramElementUriMap;
 		}
 
 		// Ensure valid. Populate fields as necessary
@@ -206,15 +242,16 @@ public class SavedDiagramIndex {
 			return createReferenceNode(element, ref);
 		}
 
-		private ReferenceNode createReferenceNode(final DiagramNode node, final RelativeBusinessObjectReference relRef) {
-			final URI uri = EcoreUtil.getURI(node);
-			if (uri == null) {
+		private ReferenceNode createReferenceNode(final DiagramNode node,
+				final RelativeBusinessObjectReference relRef) {
+			final URI diagramElementUri = EcoreUtil.getURI(node);
+			if (diagramElementUri == null) {
 				return null;
 			}
 
 			final List<ReferenceNode> childRefNodes = createChildReferenceNodes(node);
 
-			return new ReferenceNode(relRef, uri, childRefNodes);
+			return new ReferenceNode(relRef, diagramElementUri, childRefNodes);
 		}
 
 		private List<ReferenceNode> createChildReferenceNodes(final DiagramNode node) {
@@ -232,11 +269,11 @@ public class SavedDiagramIndex {
 			}
 		}
 
-		private void ensureRefToElementUriMapValid() {
-			if (refToElementUriMap == null) {
+		private void ensureRefToDiagramElementUriMapValid() {
+			if (refToDiagramElementUriMap == null) {
 				ensureMetadataLoaded();
 
-				refToElementUriMap = new HashMap<>();
+				refToDiagramElementUriMap = new HashMap<>();
 
 				final ProjectReferenceService projectReferenceService = referenceService
 						.getProjectReferenceService(projectDiagramIndex.project);
@@ -254,11 +291,9 @@ public class SavedDiagramIndex {
 						// Contextless diagrams can have multiple top level elements.
 						rootBoc = new SimpleUnqueryableBusinessObjectContext(null, projectDiagramIndex.project);
 						potentialChildBusinessObjects = bopHelper.getChildBusinessObjects(rootBoc);
-					} else if (contextBo != null) {
+					} else {
 						rootBoc = new SimpleUnqueryableBusinessObjectContext(null, null);
 						potentialChildBusinessObjects = Collections.singleton(contextBo);
-					} else {
-						throw new RuntimeException("Unexpected case");
 					}
 
 					indexChildElements(this, rootReferenceNode, rootBoc, potentialChildBusinessObjects, bopHelper,
@@ -296,7 +331,7 @@ public class SavedDiagramIndex {
 				}
 
 				// Store the element's URI in the map
-				diagramFileIndex.refToElementUriMap.put(childCanonicalRef, child.getUri());
+				diagramFileIndex.refToDiagramElementUriMap.put(childCanonicalRef, child.getDiagramNodeUri());
 
 				final BusinessObjectContext childBoc = new SimpleUnqueryableBusinessObjectContext(parentBoc, childBo);
 				final Collection<Object> potentialChildBusinessObjects = bopHelper.getChildBusinessObjects(childBoc);
@@ -354,7 +389,7 @@ public class SavedDiagramIndex {
 				}
 			} catch (CoreException e) {
 				Log.error("Error finding diagrams", e);
-				throw new RuntimeException(e);
+				throw new GraphicalEditorException(e);
 			}
 
 			return diagramFiles;
@@ -365,12 +400,22 @@ public class SavedDiagramIndex {
 	private final ReferenceService referenceService;
 	private final BusinessObjectProviderHelper bopHelper;
 
+	/**
+	 * Creates a new instance
+	 * @param referenceService the reference service
+	 * @param bopHelper the business object provider helper
+	 */
 	public SavedDiagramIndex(final ReferenceService referenceService,
 			BusinessObjectProviderHelper bopHelper) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 		this.bopHelper = Objects.requireNonNull(bopHelper, "bopHelper must not be null");
 	}
 
+	/**
+	 * Returns the diagrams in the specified projects
+	 * @param projects the projects for which to return diagrams
+	 * @return the diagrams in the specified projects
+	 */
 	public synchronized List<DiagramIndexEntry> getDiagramsByProject(final Stream<IProject> projects) {
 		Objects.requireNonNull(projects, "projects must not be null");
 
@@ -378,11 +423,23 @@ public class SavedDiagramIndex {
 				.map(e -> e.getValue()).collect(Collectors.toList());
 	}
 
+	/**
+	 * Returns the diagrams in the specified projects and which have the specified context business object
+	 * @param projects the projects for which to return diagrams
+	 * @param context the reference to the context business object for which to return diagrams
+	 * @return the diagrams in the specified projects and which have the specified context business object
+	 */
 	public synchronized List<DiagramIndexEntry> getDiagramsByContext(final Stream<IProject> projects,
 			final CanonicalBusinessObjectReference context) {
 		return getDiagramsByContexts(projects, Collections.singleton(context));
 	}
 
+	/**
+	 * Returns the diagrams in the specified projects and which have one of the specified contexts.
+	 * @param projects the projects for which to return diagrams
+	 * @param contexts the reference to the context business objects for which to return diagrams
+	 * @return the diagrams in the specified projects and which have the specified context business object
+	 */
 	public synchronized List<DiagramIndexEntry> getDiagramsByContexts(final Stream<IProject> projects,
 			final Set<CanonicalBusinessObjectReference> contexts) {
 		Objects.requireNonNull(projects, "projects must not be null");
@@ -393,14 +450,22 @@ public class SavedDiagramIndex {
 				.map(e -> e.getValue()).collect(Collectors.toList());
 	}
 
-	public synchronized List<ElementIndexEntry> getElementUrisByReferences(final Stream<IProject> projects,
+	/**
+	 * Returns the index entries for serialized diagram elements with a business object matching the specified business objects
+	 * @param projects the projects for which to return serialized diagram elements
+	 * @param refs the references of business objects for which to return diagram elements
+	 * @return the serialized diagram element index entries
+	 */
+	public synchronized List<ElementIndexEntry> getDiagramElementUrisByReferences(final Stream<IProject> projects,
 			final Set<CanonicalBusinessObjectReference> refs) {
 		Objects.requireNonNull(projects, "projects must not be null");
 		Objects.requireNonNull(refs, "refs must not be null");
 		return projects.flatMap(p -> getOrCreateProjectIndex(p).getOrCreateFileToIndexMap().
 				entrySet().
 				stream().
-				flatMap(i -> i.getValue().getReferenceToElementUriMap().
+				flatMap(i -> i.getValue()
+						.getReferenceToDiagramElementUriMap()
+						.
 						entrySet().
 						stream().
 						filter(e -> refs.contains(e.getKey())).
@@ -409,23 +474,31 @@ public class SavedDiagramIndex {
 				).collect(Collectors.toList());
 	}
 
+	/**
+	 * Removes index entries for the specified project
+	 * @param project the project for which to remove index entries
+	 */
 	public synchronized void remove(final IProject project) {
 		projectToIndexMap.remove(project);
 	}
 
-	public synchronized void remove(final IFile file) {
-		final ProjectDiagramIndex projectDiagramIndex = projectToIndexMap.get(file.getProject());
+	/**
+	 * Removes index entries for the specified diagram file
+	 * @param diagramFile the diagram file for which to remove index entries
+	 */
+	public synchronized void remove(final IFile diagramFile) {
+		final ProjectDiagramIndex projectDiagramIndex = projectToIndexMap.get(diagramFile.getProject());
 		if (projectDiagramIndex != null && projectDiagramIndex.fileToIndexMap != null) {
 			// Build a new immutable map without the file
 			final ImmutableMap.Builder<IFile, DiagramFileIndex> builder = ImmutableMap.builder();
-			projectDiagramIndex.fileToIndexMap.entrySet().stream().filter(e -> !Objects.equals(e.getKey(), file))
+			projectDiagramIndex.fileToIndexMap.entrySet().stream().filter(e -> !Objects.equals(e.getKey(), diagramFile))
 			.forEachOrdered(e -> {
 				builder.put(e);
 			});
 
 			// Add the file to the builder if it still exists
-			if (file.exists()) {
-				builder.put(file, new DiagramFileIndex(projectDiagramIndex, file));
+			if (diagramFile.exists()) {
+				builder.put(diagramFile, new DiagramFileIndex(projectDiagramIndex, diagramFile));
 			}
 
 			projectDiagramIndex.fileToIndexMap = builder.build();
@@ -457,7 +530,7 @@ public class SavedDiagramIndex {
 		@Override
 		public Collection<? extends BusinessObjectContext> getChildren() {
 			// This should not be called since business object providers are not given access to the business object context's children
-			throw new RuntimeException("Not supported");
+			throw new GraphicalEditorException("Not supported");
 		}
 
 		@Override

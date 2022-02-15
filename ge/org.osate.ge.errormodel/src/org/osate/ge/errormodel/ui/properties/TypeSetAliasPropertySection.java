@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -36,30 +36,45 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.viewmodels.TypeSetAliasedTypeSetModel;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
+/**
+ * Property section for {@link TypeSet} elements which are aliases
+ */
 public class TypeSetAliasPropertySection extends AbstractPropertySection {
 	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.typeSetAlias.";
+
+	/**
+	 * Testing ID of the label displaying the aliased type set
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_ALIASED_TYPE_SET_LABEL = WIDGET_ID_PREFIX + "aliasedTypeSet.Label";
+
+	/**
+	 * Testing ID of the button for setting the aliased type set
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "aliasedTypeSet.Choose";
 
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof TypeSet && ((TypeSet) bo).getAliasedType() != null;
-			});
+			return PropertySectionUtil.isBoCompatible(toTest,
+					bo -> bo instanceof TypeSet && ((TypeSet) bo).getAliasedType() != null);
 		}
 	}
 
 	private BusinessObjectSelection selectedBos;
 	private final TypeSetAliasedTypeSetModel model = new TypeSetAliasedTypeSetModel(
 			new UiBusinessObjectSelection());
-	private FilteringListSelectorField<?> aliasedTypeField;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -69,7 +84,8 @@ public class TypeSetAliasPropertySection extends AbstractPropertySection {
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
 		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Aliased Set:");
 
-		aliasedTypeField = new FilteringListSelectorField<>(container, "Select Aliased Type Set",
+		final FilteringListSelectorField<?> aliasedTypeField = new FilteringListSelectorField<>(container,
+				"Select Aliased Type Set",
 				new LabelFilteringListSelectorModel<>(model));
 		aliasedTypeField.setValueLabelTestingId(WIDGET_ID_ALIASED_TYPE_SET_LABEL);
 		aliasedTypeField.setModifyButtonTestingId(WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON);

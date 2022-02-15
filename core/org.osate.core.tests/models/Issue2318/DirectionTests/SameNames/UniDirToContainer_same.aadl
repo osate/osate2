@@ -1,0 +1,31 @@
+package UniDirToContainer_same
+public
+	system toplevel
+		features
+			p : in out event port;
+	end toplevel;
+	
+	system implementation toplevel.i
+		subcomponents
+			sub : process subsystem.i;
+		connections
+			conn:  port sub.p -> p;
+	end toplevel.i;
+	
+	process subsystem 
+		features 
+			p : in out event port;
+	end subsystem;
+	
+	process implementation subsystem.i
+		subcomponents
+			th : thread th;
+		connections
+			conn2 : port th.p -> p;
+	end subsystem.i;
+	
+	thread th
+		features 
+			p : in out event port;
+	end th;
+end UniDirToContainer_same;

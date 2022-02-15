@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -91,7 +91,7 @@ public class BFBPBinPacker extends BaseLowLevelBinPacker {
 				/* verify constraints */
 				if (processor.canAddToFeasibility(composite)) {
 					/* reorder processor */
-					if (!problem.hardwareGraph.remove(processor)) {
+					if (!problem.getHardwareGraph().remove(processor)) {
 						// System.out.println("\n **** processor not properly
 						// removed *** \n");
 					}
@@ -192,7 +192,7 @@ public class BFBPBinPacker extends BaseLowLevelBinPacker {
 
 					subGraphsList.remove();
 					problem.removeSoftwareNode(composite);
-					problem.hardwareGraph.add(processor);
+					problem.getHardwareGraph().add(processor);
 					validProcessors.add(processor);
 					break;
 				} else {

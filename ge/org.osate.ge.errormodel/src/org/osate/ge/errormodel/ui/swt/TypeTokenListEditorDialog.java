@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,8 +45,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.swt.BaseObservableModel;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
@@ -67,7 +66,10 @@ import com.google.common.base.Strings;
  * Dialog for editing a list of type tokens. For example: this is used to select the contents for of a type set.
  *
  */
-public class TypeTokenListEditorDialog {
+public final class TypeTokenListEditorDialog {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private TypeTokenListEditorDialog() {
 	}
 
@@ -90,13 +92,10 @@ public class TypeTokenListEditorDialog {
 	}
 
 	private static class InnerDialog extends TitleAreaDialog {
-		private final Consumer<ChangeEvent> changeListener = e -> refresh();
+		private final Runnable changeListener = this::refresh;
 		private final String title;
 		private final TypeTokenListEditorModel editorModel;
 		private final TypeTokenListEditorDialogModel model;
-		private ListSelector<TypeToken> tokenSelector;
-		private Button addTypesButton;
-		private Button addTypeProductButton;
 		private Button editProductTokenButton;
 		private Button removeButton;
 
@@ -133,24 +132,26 @@ public class TypeTokenListEditorDialog {
 			final int preferredListWidth = convertWidthInCharsToPixels(120);
 			final int preferredListHeight = convertHeightInCharsToPixels(30);
 
-			this.tokenSelector = new ListSelector<TypeToken>(container,
+			final ListSelector<TypeToken> tokenSelector = new ListSelector<>(container,
 					new SingleSelectorModelToSelectorModelAdapter<>(model));
-			this.tokenSelector.setLayoutData(
-					GridDataFactory.swtDefaults().span(1, 4).grab(true, true)
-							.hint(preferredListWidth, preferredListHeight)
-							.align(SWT.FILL, SWT.FILL).create());
+			tokenSelector.setLayoutData(GridDataFactory.swtDefaults()
+					.span(1, 4)
+					.grab(true, true)
+					.hint(preferredListWidth, preferredListHeight)
+					.align(SWT.FILL, SWT.FILL)
+					.create());
 
 			//
 			// Buttons to edit the list
 			//
-			this.addTypesButton = new Button(container, SWT.FLAT);
-			this.addTypesButton.setText("Add Error Type(s)");
-			this.addTypesButton.setLayoutData(
+			final Button addTypesButton = new Button(container, SWT.FLAT);
+			addTypesButton.setText("Add Error Type(s)");
+			addTypesButton.setLayoutData(
 					GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.BEGINNING).create());
-			this.addTypesButton.addSelectionListener(new SelectionAdapter() {
+			addTypesButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					final ErrorTypesSelectorModel selectorModel = new ErrorTypesSelectorModel(editorModel, (t) -> true,
+					final ErrorTypesSelectorModel selectorModel = new ErrorTypesSelectorModel(editorModel, t -> true,
 							Collections.emptyList());
 					if (FilteringSelectorDialog.open(getShell(), "Add Types",
 							new LabelFilteringListSelectorModel<>(selectorModel))) {
@@ -158,25 +159,23 @@ public class TypeTokenListEditorDialog {
 							// Create token with single type.
 							final TypeToken newToken = ErrorModelFactory.eINSTANCE.createTypeToken();
 							newToken.getType().add(errorType);
-
 							model.addTypeToken(newToken);
 						}
 					}
 				}
 			});
 
-			this.addTypeProductButton = new Button(container, SWT.FLAT);
-			this.addTypeProductButton.setText("Add Type Product");
-			this.addTypeProductButton.setLayoutData(
+			final Button addTypeProductButton = new Button(container, SWT.FLAT);
+			addTypeProductButton.setText("Add Type Product");
+			addTypeProductButton.setLayoutData(
 					GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.BEGINNING).create());
-			this.addTypeProductButton.addSelectionListener(new SelectionAdapter() {
+			addTypeProductButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					// Open dialog to prompt for types which are used in the product
 					final ErrorTypesSelectorModel selectorModel = new ErrorTypesSelectorModel(editorModel,
-							(t) -> t instanceof ErrorType, Collections.emptyList());
-					if (FilteringSelectorDialog.open(getShell(),
-							"Select Error Types for Product",
+							ErrorType.class::isInstance, Collections.emptyList());
+					if (FilteringSelectorDialog.open(getShell(), "Select Error Types for Product",
 							new LabelFilteringListSelectorModel<>(selectorModel))) {
 						// Create token with single type.
 						final TypeToken newToken = ErrorModelFactory.eINSTANCE.createTypeToken();
@@ -197,7 +196,7 @@ public class TypeTokenListEditorDialog {
 					// Open dialog to prompt for types which are used in the product
 					final TypeToken token = model.getSelectedElement();
 					final ErrorTypesSelectorModel selectorModel = new ErrorTypesSelectorModel(editorModel,
-							(t) -> t instanceof ErrorType,
+							ErrorType.class::isInstance,
 							token.getType().stream().map(EcoreUtil::getURI).collect(Collectors.toList()));
 					if (FilteringSelectorDialog.open(getShell(), "Select Error Types for Product",
 							new LabelFilteringListSelectorModel<>(selectorModel))) {
@@ -232,7 +231,7 @@ public class TypeTokenListEditorDialog {
 				final String error = Strings.emptyToNull(model.getErrorMessage());
 				this.setErrorMessage(error);
 				this.editProductTokenButton.setEnabled(model.getSelectedElement() != null
-						&& !model.getSelectedElement().getType().stream().anyMatch(t -> t instanceof TypeSet));
+						&& !model.getSelectedElement().getType().stream().anyMatch(TypeSet.class::isInstance));
 				this.removeButton.setEnabled(model.getSelectedElement() != null);
 
 				final Button okBtn = getButton(IDialogConstants.OK_ID);
@@ -251,14 +250,14 @@ public class TypeTokenListEditorDialog {
 	// Make a list of the type tokens
 	private static class TypeTokenListEditorDialogModel extends BaseObservableModel
 			implements SingleSelectorModel<TypeToken> {
-		private final Consumer<ChangeEvent> changeListener = e -> triggerChangeEvent();
+		private final Runnable changeListener = this::triggerChangeEvent;
 		private final TypeTokenListEditorModel model;
 		private final List<TypeToken> typeTokens;
 		private TypeToken selectedToken;
 
 		public TypeTokenListEditorDialogModel(final TypeTokenListEditorModel model) {
 			this.model = Objects.requireNonNull(model, "model must not be null");
-			this.typeTokens = model.getTypeTokens().collect(Collectors.toCollection(() -> new ArrayList<>()));
+			this.typeTokens = model.getTypeTokens().collect(Collectors.toCollection(ArrayList::new));
 			this.model.changed().addListener(changeListener);
 		}
 
@@ -285,11 +284,9 @@ public class TypeTokenListEditorDialog {
 		}
 
 		public void removeSelected() {
-			if (selectedToken != null) {
-				if (typeTokens.remove(selectedToken)) {
-					this.selectedToken = null;
-					triggerChangeEvent();
-				}
+			if (selectedToken != null && typeTokens.remove(selectedToken)) {
+				this.selectedToken = null;
+				triggerChangeEvent();
 			}
 		}
 
@@ -300,8 +297,8 @@ public class TypeTokenListEditorDialog {
 
 		public void replaceSelectedToken(final TypeToken value) {
 			final int index = typeTokens.indexOf(selectedToken);
-			if(index == -1) {
-				throw new RuntimeException("Unable to find selected token");
+			if (index == -1) {
+				throw new AadlGraphicalEditorException("Unable to find selected token");
 			} else {
 				typeTokens.set(index, value);
 				selectedToken = value;
@@ -321,7 +318,7 @@ public class TypeTokenListEditorDialog {
 
 	private static class ErrorTypesSelectorModel extends BaseObservableModel implements SelectorModel<ErrorTypes> {
 		private final TypeTokenListEditorModel model;
-		private final Consumer<ChangeEvent> changeListener = e -> triggerChangeEvent();
+		private final Runnable changeListener = this::triggerChangeEvent;
 		private List<ErrorTypes> selection;
 		private Predicate<ErrorTypes> filter;
 
@@ -368,9 +365,13 @@ public class TypeTokenListEditorDialog {
 		}
 	}
 
+	/**
+	 * Entry point for a test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.runDialog(() -> {
-			TypeTokenListEditorDialog.open(null, "Select Type Tokens", new TestTypeTokenListEditorModel());
-		});
+		SwtUtil.runDialog(
+				() -> TypeTokenListEditorDialog.open(null, "Select Type Tokens", new TestTypeTokenListEditorModel()));
 	}
 }

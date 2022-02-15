@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,7 +31,6 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.ListEditor;
@@ -40,16 +39,29 @@ import org.osate.ge.swt.selectors.ListEditorModel;
 /**
  * View for editing a list of prototypes and their details.
  * Combination of {@link org.osate.ge.swt.selectors.ListEditor} and {@link PrototypeEditor}.
+ *
+ * @param <T> See {@link PrototypesEditorModel}
+ * @param <C> See {@link PrototypesEditorModel}
  * @since 1.1
  *
  */
 public final class PrototypesEditor<T, C> extends Composite {
 	private static final String WIDGET_ID_PREFIX = "org.osate.ge.swt.prototypes.prototypesEditor.";
+
+	/**
+	 * The testing ID for the {@link org.eclipse.swt.widgets.List} containing the prototypes being edited.
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_PROTOTYPE_LIST = WIDGET_ID_PREFIX + "prototypeList";
 
 	private final ListEditor<T> listView;
 	private final PrototypeEditor<C> detailsView;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model for the editor
+	 */
 	public PrototypesEditor(final Composite parent, final PrototypesEditorModel<T, C> model) {
 		super(parent, SWT.NONE);
 		Objects.requireNonNull(model, "model must not be null");
@@ -58,7 +70,7 @@ public final class PrototypesEditor<T, C> extends Composite {
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(3).create());
 		this.listView = new ListEditor<>(this, new ListEditorModel<T>() {
 			@Override
-			public EventSource<ChangeEvent> changed() {
+			public EventSource changed() {
 				return model.changed();
 			}
 
@@ -106,7 +118,7 @@ public final class PrototypesEditor<T, C> extends Composite {
 
 		this.detailsView = new PrototypeEditor<>(this, new PrototypeEditorModel<C>() {
 			@Override
-			public EventSource<ChangeEvent> changed() {
+			public EventSource changed() {
 				return model.changed();
 			}
 
@@ -214,9 +226,12 @@ public final class PrototypesEditor<T, C> extends Composite {
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new PrototypesEditor<>(shell, new TestPrototypesEditorModel());
-		});
+		SwtUtil.run(shell -> new PrototypesEditor<>(shell, new TestPrototypesEditorModel()));
 	}
 }

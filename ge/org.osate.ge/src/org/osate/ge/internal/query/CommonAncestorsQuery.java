@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,18 +31,19 @@ import java.util.Optional;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.QueryResult;
 
-class CommonAncestorsQuery extends DefaultQuery {
-	private final DefaultQuery q1;
-	private final DefaultQuery q2;
+class CommonAncestorsQuery<T> extends DefaultQuery<T> {
+	private final DefaultQuery<T> q1;
+	private final DefaultQuery<T> q2;
 
-	public CommonAncestorsQuery(final DefaultQuery q1, final DefaultQuery q2) {
+	public CommonAncestorsQuery(final DefaultQuery<T> q1, final DefaultQuery<T> q2) {
 		super(null);
 		this.q1 = Objects.requireNonNull(q1, "q1 must not be null");
 		this.q2 = Objects.requireNonNull(q2, "q2 must not be null");
 	}
 
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {
+	void run(final Deque<DefaultQuery<T>> remainingQueries, final BusinessObjectContext ctx,
+			final QueryExecutionState<T> state, final QueryResults result) {
 		final List<QueryResult> q1Result = state.queryRunner.getResults(q1, state.arg);
 		final List<QueryResult> q2Result = state.queryRunner.getResults(q2, state.arg);
 

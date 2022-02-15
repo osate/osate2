@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,8 +27,13 @@ import org.eclipse.core.resources.IProject;
 import org.osate.ge.services.ReferenceBuilderService;
 
 /**
- * Service for building and resolving references to business objects
+ * Global service for working with references
  */
 public interface ReferenceService extends ReferenceBuilderService, ReferenceLabelService {
+	/**
+	 * Returns a project specific reference service which allows resolving references contained in the specified project
+	 * @param project the project which determines how references are resolved
+	 * @return the project specific reference service.
+	 */
 	ProjectReferenceService getProjectReferenceService(IProject project);
 }

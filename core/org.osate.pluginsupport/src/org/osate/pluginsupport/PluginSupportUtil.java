@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -56,8 +56,13 @@ import org.osgi.framework.Bundle;
  *
  * @author lwrage
  * @version $Id: PluginSupportUtil.java,v 1.2 2007-06-04 17:03:01 lwrage Exp $
+ * @since 6.0
  */
-public class PluginSupportUtil {
+public final class PluginSupportUtil {
+	private PluginSupportUtil() {
+		// no instances please
+	}
+
 	private static List<URI> getContributedAadl(final Function<IConfigurationElement, URI> makeUri) {
 		ArrayList<URI> result = new ArrayList<URI>();
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();

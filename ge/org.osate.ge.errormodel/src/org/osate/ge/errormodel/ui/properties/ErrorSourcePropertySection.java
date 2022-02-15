@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -54,23 +54,42 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.IfCondition;
 
+/**
+ * Property section for {@link ErrorSource} elements
+ */
 public class ErrorSourcePropertySection extends AbstractPropertySection {
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof ErrorSource;
-			});
+			return PropertySectionUtil.isBoCompatible(toTest, ErrorSource.class::isInstance);
 		}
 	}
 
 	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorSource.";
+
+	/**
+	 * Testing ID of the label displaying the fault source
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_FAULT_SOURCE_LABEL = WIDGET_ID_PREFIX + "faultSource.Label";
+
+	/**
+	 * Testing ID of the button for modifying the fault source
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_FAULT_SOURCE_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "faultSource.Choose";
+
+	/**
+	 * Testing ID of the text field for the fault condition
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_FAULT_CONDITION_TEXT = WIDGET_ID_PREFIX + "faultCondition";
+
 	private BusinessObjectSelection selectedBos;
 	private final FaultSourceModel model = new FaultSourceModel(new UiBusinessObjectSelection());
-	private FaultSourceField faultSourceField;
 	private Text faultConditionField;
 	private final FocusListener faultConditionFocusListener = new FocusAdapter() {
 		@Override
@@ -101,7 +120,7 @@ public class ErrorSourcePropertySection extends AbstractPropertySection {
 
 		final Label faultSourceLabel = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
 				"Fault Source:");
-		faultSourceField = new FaultSourceField(container, model);
+		final FaultSourceField faultSourceField = new FaultSourceField(container, model);
 		faultSourceField.setValueLabelTestingId(WIDGET_ID_FAULT_SOURCE_LABEL);
 		faultSourceField.setModifyButtonTestingId(WIDGET_ID_FAULT_SOURCE_CHOOSE_BUTTON);
 
@@ -111,29 +130,26 @@ public class ErrorSourcePropertySection extends AbstractPropertySection {
 		faultConditionField.addFocusListener(faultConditionFocusListener);
 		SwtUtil.setTestingId(faultConditionField, WIDGET_ID_FAULT_CONDITION_TEXT);
 
-		{
-			final FormData fd = new FormData();
-			fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
-			fd.top = new FormAttachment(faultSourceLabel, 0, SWT.CENTER);
-			fd.right = new FormAttachment(100, 0);
-			fd.width = 200;
-			faultSourceField.setLayoutData(fd);
-		}
+		//
+		// Set form data to control layout
+		//
+		final FormData faultSourceFieldFormData = new FormData();
+		faultSourceFieldFormData.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
+		faultSourceFieldFormData.top = new FormAttachment(faultSourceLabel, 0, SWT.CENTER);
+		faultSourceFieldFormData.right = new FormAttachment(100, 0);
+		faultSourceFieldFormData.width = 200;
+		faultSourceField.setLayoutData(faultSourceFieldFormData);
 
-		{
-			final FormData fd = new FormData();
-			fd.top = new FormAttachment(faultSourceLabel, ITabbedPropertyConstants.VSPACE);
-			faultConditionLabel.setLayoutData(fd);
-		}
+		final FormData faultConditionLabelFormData = new FormData();
+		faultConditionLabelFormData.top = new FormAttachment(faultSourceLabel, ITabbedPropertyConstants.VSPACE);
+		faultConditionLabel.setLayoutData(faultConditionLabelFormData);
 
-		{
-			final FormData fd = new FormData();
-			fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
-			fd.top = new FormAttachment(faultConditionLabel, 0, SWT.CENTER);
-			fd.right = new FormAttachment(100, 0);
-			fd.width = 200;
-			faultConditionField.setLayoutData(fd);
-		}
+		final FormData faultConditionFieldFormData = new FormData();
+		faultConditionFieldFormData.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
+		faultConditionFieldFormData.top = new FormAttachment(faultConditionLabel, 0, SWT.CENTER);
+		faultConditionFieldFormData.right = new FormAttachment(100, 0);
+		faultConditionFieldFormData.width = 200;
+		faultConditionField.setLayoutData(faultConditionFieldFormData);
 	}
 
 	@Override
@@ -147,8 +163,9 @@ public class ErrorSourcePropertySection extends AbstractPropertySection {
 		model.setBusinessObjectSelection(selectedBos);
 
 		// Update the flow description field
-		final Set<String> flowDescriptions = selectedBos.boStream(ErrorSource.class).map(
-				s -> s.getFlowcondition() == null ? "" : Strings.emptyIfNull(s.getFlowcondition().getDescription()))
+		final Set<String> flowDescriptions = selectedBos.boStream(ErrorSource.class)
+				.map(s -> s.getFlowcondition() == null ? ""
+						: Strings.emptyIfNull(s.getFlowcondition().getDescription()))
 				.collect(Collectors.toSet());
 		if (flowDescriptions.isEmpty()) {
 			faultConditionField.setText("<No Selection>");

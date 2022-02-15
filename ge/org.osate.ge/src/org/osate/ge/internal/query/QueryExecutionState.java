@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,18 +29,18 @@ import java.util.Objects;
 
 import org.osate.ge.internal.services.ReferenceService;
 
-public class QueryExecutionState {
+public class QueryExecutionState<T> {
 	final QueryRunner queryRunner;
 	final ReferenceService refBuilder;
-	final Object arg;
-	final Map<DefaultQuery, Object> cache = new HashMap<>(); // Generic cache to allow queries to store data between run() calls
+	final T arg;
+	final Map<DefaultQuery<T>, Object> cache = new HashMap<>(); // Generic cache to allow queries to store data between run() calls
 
 	/**
 	 * Indicates that a step in the query produce a result based on a partial match.
 	 */
 	boolean partial = false;
 
-	public QueryExecutionState(final QueryRunner queryRunner, final ReferenceService refBuilder, final Object arg) {
+	public QueryExecutionState(final QueryRunner queryRunner, final ReferenceService refBuilder, final T arg) {
 		this.queryRunner = Objects.requireNonNull(queryRunner, "queryRunner must not be null");
 		this.refBuilder = Objects.requireNonNull(refBuilder, "refBuilder must not be null");
 		this.arg = arg;

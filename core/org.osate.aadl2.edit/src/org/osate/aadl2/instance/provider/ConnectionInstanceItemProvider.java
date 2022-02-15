@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -34,7 +34,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.impl.ConnectionInstanceImpl;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.instance.ConnectionInstance} object.
@@ -218,6 +220,22 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 * @generated
 	 */
 	public Object getImage(Object object) {
+		switch (((ConnectionInstanceImpl) object).getKind().getValue()) {
+		case ConnectionKind.ACCESS_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/AccessConnectionInstance"));
+		case ConnectionKind.FEATURE_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureConnectionInstance"));
+		case ConnectionKind.FEATURE_GROUP_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupConnectionInstance"));
+		case ConnectionKind.MODE_TRANSITION_CONNECTION_VALUE:
+			break;
+		case ConnectionKind.PARAMETER_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/ParameterConnectionInstance"));
+		case ConnectionKind.PORT_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/PortConnectionInstance"));
+		default:
+			break;
+		}
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/ConnectionInstance")); //$NON-NLS-1$
 	}
 

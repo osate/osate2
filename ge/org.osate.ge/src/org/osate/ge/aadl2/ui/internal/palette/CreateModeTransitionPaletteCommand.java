@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -36,6 +36,7 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
@@ -48,18 +49,18 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class CreateModeTransitionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
-	private static final StandaloneQuery containerQuery = StandaloneQuery
-			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
+	private static final ExecutableQuery<Object> CONTAINER_QUERY = ExecutableQuery
+			.create(root -> root.ancestors()
+					.filter(fa -> fa.getBusinessObject() instanceof ComponentClassifier
 					|| fa.getBusinessObject() instanceof Subcomponent).first());
 
 	public CreateModeTransitionPaletteCommand() {
-		super("Mode Transition", AadlPaletteCategories.MODES,
+		super("Mode Transition", AadlCategories.MODES,
 				AadlImages.getImage(Aadl2Package.eINSTANCE.getModeTransition()));
-
 	}
 
 	@Override
@@ -143,7 +144,7 @@ public class CreateModeTransitionPaletteCommand extends BasePaletteCommand imple
 
 	private static BusinessObjectContext getOwnerBoc(final BusinessObjectContext modeBoc,
 			final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(containerQuery, modeBoc);
+		return queryService.getFirstBusinessObjectContextOrNull(CONTAINER_QUERY, modeBoc, modeBoc.getBusinessObject());
 	}
 
 	private static List<ComponentClassifier> getPotentialOwnersByMode(final BusinessObjectContext modeBoc,

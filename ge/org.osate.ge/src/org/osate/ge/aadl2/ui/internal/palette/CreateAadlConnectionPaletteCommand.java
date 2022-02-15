@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -51,6 +51,7 @@ import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.StringUtil;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlConnectionUtil;
@@ -62,14 +63,13 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
-import org.osate.ge.services.QueryService;
 
 public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 	private final EClass connectionType;
 
 	public CreateAadlConnectionPaletteCommand(final EClass connectionType) {
 		super(StringUtil.camelCaseToUser(connectionType.getName()),
-				AadlPaletteCategories.CONNECTIONS,
+				AadlCategories.CONNECTIONS,
 				AadlImages.getImage(connectionType));
 		this.connectionType = connectionType;
 	}
@@ -94,16 +94,16 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 			return Optional.empty();
 		}
 
-		if (!canCreate(ownerBoc, ctx.getSource(), ctx.getDestination(), ctx.getQueryService())) {
+		if (!canCreate(ownerBoc, ctx.getSource(), ctx.getDestination())) {
 			return Optional.empty();
 		}
 
 		return Optional.ofNullable(
-				buildCreateOperation(ownerBoc, ctx.getSource(), ctx.getDestination(), ctx.getQueryService()));
+				buildCreateOperation(ownerBoc, ctx.getSource(), ctx.getDestination()));
 	}
 
 	private boolean canCreate(final BusinessObjectContext ownerBoc, final BusinessObjectContext srcBoc,
-			final BusinessObjectContext dstBoc, final QueryService queryService) {
+			final BusinessObjectContext dstBoc) {
 		// Get the connection elements for the source and destination
 		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, connectionType,
 				false, ownerBoc);
@@ -139,7 +139,7 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 	}
 
 	public Operation buildCreateOperation(final BusinessObjectContext ownerBoc, final BusinessObjectContext srcBoc,
-			final BusinessObjectContext dstBoc, final QueryService queryService) {
+			final BusinessObjectContext dstBoc) {
 		return Operation.createWithBuilder(createOp -> {
 			// Create the subcomponent
 			getClassifierOpBuilder().buildOperation(createOp, ownerBoc.getBusinessObject())

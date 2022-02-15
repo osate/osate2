@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -38,7 +38,6 @@ public class CanRenameContext {
 	/**
 	 * Creates a new instance.
 	 * @param bo is the business object which is being renamed.
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public CanRenameContext(final Object bo) {
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");
@@ -48,7 +47,7 @@ public class CanRenameContext {
 	 * Retrieves the business object for which is being renamed if it is an instance
 	 * of the specified class.
 	 * @param <T> is the requested type.
-	 * @param c is the class to which to cast the business object.
+	 * @param boType is the class to which to cast the business object.
 	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
 	 * an instance the specified class.
 	 */

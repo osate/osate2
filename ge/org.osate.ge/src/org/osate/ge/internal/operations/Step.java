@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,6 +25,14 @@ package org.osate.ge.internal.operations;
 
 import org.osate.ge.operations.Operation;
 
-public interface Step<ResultUserType> extends Operation {
-	Step<?> getNextStep();
+/**
+ * A step in an operation
+ *
+ */
+public interface Step extends Operation {
+	/**
+	 * Returns the next step in the sequence
+	 * @return the next step in the sequence
+	 */
+	Step getNextStep();
 }

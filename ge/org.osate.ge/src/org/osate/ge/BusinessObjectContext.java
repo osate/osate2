@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
- * Interface for objects which are part of a hierarchical structure where each node references a business object.
+ * Interface for objects which are part of a tree where each node references a business object.
  *
  */
 public interface BusinessObjectContext {
@@ -39,7 +39,7 @@ public interface BusinessObjectContext {
 	BusinessObjectContext getParent();
 
 	/**
-	 * The children which are available for this context.
+	 * The children which are available for this context. The returned collection is not guaranteed to be modifiable.
 	 * @return the context's children.
 	 * @since 2.0
 	 */
@@ -52,6 +52,8 @@ public interface BusinessObjectContext {
 	Object getBusinessObject();
 
 	/**
+	 * Gets a stream containing this business object context and all descendant business object context
+	 * @return a stream containing this instance and all of its descendants.
 	 * @since 2.0
 	 */
 	public default Stream<BusinessObjectContext> getAllDescendants() {
@@ -87,6 +89,10 @@ public interface BusinessObjectContext {
 	}
 
 	/**
+	 * Find the first common ancestor for the specified business object contexts.
+	 * @param q1 one of the business object contexts for which to get the common ancestor
+	 * @param q2 the other business object contexts for which to get the common ancestor
+	 * @return an optional containing the first common ancestor or an empty option if the business object contexts do not share a common ancestor.
 	 * @since 2.0
 	 */
 	static Optional<BusinessObjectContext> getFirstCommonAncestor(final BusinessObjectContext q1,

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -51,6 +51,10 @@ import org.osate.ge.referencehandling.GetRelativeReferenceLabelContext;
 import org.osate.ge.referencehandling.ReferenceLabelProvider;
 import org.osate.ge.referencehandling.internal.ReferenceLabelProviderRegistry;
 
+/**
+ * {@link ReferenceService} implementation
+ *
+ */
 public class DefaultReferenceService implements ReferenceService {
 	private final static ReferenceQueue<ProjectReferenceService> serviceReferenceQueue = new ReferenceQueue<>();
 
@@ -86,6 +90,9 @@ public class DefaultReferenceService implements ReferenceService {
 		}
 	}
 
+	/**
+	 * Context function which instantiates this service
+	 */
 	public static class ContextFunction extends SimpleServiceContextFunction<ReferenceService> {
 		@Override
 		public ReferenceService createService(final IEclipseContext context) {
@@ -97,7 +104,7 @@ public class DefaultReferenceService implements ReferenceService {
 	private final WeakHashMap<IProject, ProjectReferenceServiceReference> projectToProjectReferenceService = new WeakHashMap<>();
 	private final BusinessObjectHandlerProvider bohProvider;
 
-	public DefaultReferenceService(
+	private DefaultReferenceService(
 			final BusinessObjectHandlerProvider bohProvider) {
 		this.labelProviderRegistry = new ReferenceLabelProviderRegistry(Platform.getExtensionRegistry());
 		this.bohProvider = Objects.requireNonNull(bohProvider, "bohProvider must not be null");

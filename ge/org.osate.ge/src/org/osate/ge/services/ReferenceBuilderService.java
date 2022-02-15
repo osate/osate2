@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,18 +27,24 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
 
 /**
- * Service for building references to business object.
+ * Global Service for building references to business object.
  * @noextend
  * @noimplement
  * @see ReferenceResolutionService
  */
 public interface ReferenceBuilderService {
 	/**
+	 * Creates a canonical reference for a business object
+	 * @param bo the business object for which to create the canonical reference
+	 * @return a canonical reference of the business object. Returns null if a reference could not be created.
 	 * @since 2.0
 	 */
 	CanonicalBusinessObjectReference getCanonicalReference(final Object bo);
 
 	/**
+	 * Creates a relative reference for a business object
+	 * @param bo the business object for which to create the relative reference
+	 * @return a relative reference of the business object. Returns null if a reference could not be created.
 	 * @since 2.0
 	 */
 	RelativeBusinessObjectReference getRelativeReference(final Object bo);

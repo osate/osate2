@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,6 +23,7 @@
  */
 package org.osate.aadl2.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -180,6 +181,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		}
 		return super.eIsSet(featureID);
 	}
+
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;
@@ -205,8 +207,23 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		PropertyEvaluationResult pev = nv.evaluate(ctx, depth + 1);
 		List<EvaluatedProperty> evaluated = pev.getEvaluated();
 		if (evaluated.isEmpty()) {
-			throw new InvalidModelException(ctx.getInstanceObject(),
-					"Property " + ((Property) nv).getQualifiedName() + " is undefined");
+			/*
+			 * Issue 2387: If this NamedValue is a reference to a property value, and the
+			 * property value doesn't exist, we need to check for the property's default
+			 * value. (This cannot be done in PropertyImpl.evaluate(), because it is used to
+			 * broadly. See the comment in PropertyImpl.evaluate().)
+			 */
+			if (nv instanceof Property) {
+				final PropertyExpression defaultValueExpression = ((Property) nv).getDefaultValue();
+				if (defaultValueExpression != null) {
+					evaluated = Collections.singletonList(defaultValueExpression.evaluate(ctx, depth));
+				}
+			}
+			// Test it again...
+			if (evaluated.isEmpty()) {
+				throw new InvalidModelException(ctx.getInstanceObject(),
+						"Property " + ((Property) nv).getQualifiedName() + " is undefined");
+			}
 		}
 		return evaluated.get(0);
 	}

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -50,6 +50,11 @@ public final class ActivatedEvent {
 
 	/**
 	 * Creates a new instance.
+	 * @param selectedBocs the selected business object contexts
+	 * @param diagram the diagram
+	 * @param aadlModService the AADL modification service
+	 * @param uiService the user interface service
+	 * @param coloringService the coloring service
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public ActivatedEvent(final ImmutableList<BusinessObjectContext> selectedBocs, final AgeDiagram diagram,

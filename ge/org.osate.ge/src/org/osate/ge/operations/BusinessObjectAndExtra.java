@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,16 +26,21 @@ package org.osate.ge.operations;
 import java.util.Objects;
 
 /**
- * Simple immutable data structure which stores a business object along with an additional data object.
+ * Simple immutable data structure which contains a business object along with an additional data object.
  *
- * @param <B>
- * @param <E>
+ * @param <B> the type of the business object
+ * @param <E> the type of the extra data.
  * @since 2.0
  */
 public class BusinessObjectAndExtra<B, E> {
 	private final B bo;
 	private final E extra;
 
+	/**
+	 * Creates a new instance with the specified business object and extra data.
+	 * @param bo is the business object. Must not be null.
+	 * @param extra may be null
+	 */
 	public BusinessObjectAndExtra(final B bo, final E extra) {
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");
 		this.extra = extra;
@@ -58,10 +63,18 @@ public class BusinessObjectAndExtra<B, E> {
 		return Objects.equals(bo, other.bo) && Objects.equals(extra, other.extra);
 	}
 
+	/**
+	 * Returns the business object. Will never return null.
+	 * @return the business object
+	 */
 	public final B getBusinessObject() {
 		return bo;
 	}
 
+	/**
+	 * Returns the extra data.
+	 * @return the extra data.
+	 */
 	public final E getExtra() {
 		return extra;
 	}

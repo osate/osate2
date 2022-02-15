@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,14 +28,26 @@ import java.util.Objects;
 import org.osate.aadl2.DirectionType;
 
 /**
- * Simple immutable class representing a combination of a direction and an indicator regarding whether the propagation object
- * is a containment or a propagation. A propagation point can have only 1 propagation per key.
+ * Immutable class representing a combination of a direction and an indicator regarding whether the propagation object
+ * is a containment or a propagation. A propagation point can have only one propagation per key.
  *
  */
 final class PropagationKey {
+	/**
+	 * The propagation's direction
+	 */
 	public final DirectionType direction;
+
+	/**
+	 * True if the {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation}  is a containment. False if it is a regular propagation.
+	 */
 	public final boolean isContainment;
 
+	/**
+	 * Creates a new instance with the specified values
+	 * @param direction the value for {@link #direction}
+	 * @param isContainment the value for {@link #isContainment}
+	 */
 	public PropagationKey(final DirectionType direction, final boolean isContainment) {
 		this.direction = direction;
 		this.isContainment = isContainment;

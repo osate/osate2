@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,35 +24,37 @@
 package org.osate.ge.internal.query;
 
 import java.util.Deque;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.FilterArguments;
 import org.osate.ge.query.Query;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.Supplier;
 
-public abstract class DefaultQuery implements Query {
-	private DefaultQuery prev;
+public abstract class DefaultQuery<T> implements Query<T> {
+	private DefaultQuery<T> prev;
 
-	public DefaultQuery(final DefaultQuery prev) {
+	public DefaultQuery(final DefaultQuery<T> prev) {
 		this.prev = prev;
 	}
 
-	public final DefaultQuery getPrev() {
+	public final DefaultQuery<T> getPrev() {
 		return prev;
 	}
 
-	abstract void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx,
-			final QueryExecutionState state, final QueryResults result);
+	abstract void run(final Deque<DefaultQuery<T>> remainingQueries, final BusinessObjectContext ctx,
+			final QueryExecutionState<T> state, final QueryResults result);
 
-	protected void processResultValue(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext value, final QueryExecutionState state, final QueryResults result) {
-		if(remainingQueries.size() == 0) {
+	protected void processResultValue(final Deque<DefaultQuery<T>> remainingQueries, final BusinessObjectContext value,
+			final QueryExecutionState<T> state, final QueryResults result) {
+		if (remainingQueries.size() == 0) {
 			result.results.add(new QueryResult(value, state.partial));
 			return;
 		}
 
-		final DefaultQuery nextQuery = remainingQueries.pop();
+		final DefaultQuery<T> nextQuery = remainingQueries.pop();
 		final boolean wasPartial = state.partial;
 		nextQuery.run(remainingQueries, value, state, result);
 		state.partial = wasPartial;
@@ -60,73 +62,74 @@ public abstract class DefaultQuery implements Query {
 	}
 
 	@Override
-	public DefaultQuery first(int count) {
-		return new FirstQuery(this, count);
+	public DefaultQuery<T> first(int count) {
+		return new FirstQuery<>(this, count);
 	}
 
 	@Override
-	public DefaultQuery first() {
-		return new FirstQuery(this);
+	public DefaultQuery<T> first() {
+		return new FirstQuery<>(this);
 	}
 
 	@Override
-	public DefaultQuery filter(final Predicate<FilterArguments> filter) {
-		return new FilterByPredicate(this, filter);
+	public DefaultQuery<T> filter(final Predicate<FilterArguments<T>> filter) {
+		return new FilterByPredicate<>(this, filter);
 	}
 
 	@Override
-	public DefaultQuery filterByBusinessObjectRelativeReference(final Supplier<?, Object> boSupplier) {
-		return new FilterByBusinessObjectRelativeReferenceQuery(this, boSupplier);
+	public DefaultQuery<T> filterByBusinessObjectRelativeReference(final Function<T, Object> boSupplier) {
+		return new FilterByBusinessObjectRelativeReferenceQuery<>(this, boSupplier);
 	}
 
 	@Override
-	public DefaultQuery filterByBusinessObjectCanonicalReference(final Supplier<?, Object> boSupplier) {
-		return new FilterByBusinessObjectCanonicalReferenceQuery(this, boSupplier);
+	public DefaultQuery<T> filterByBusinessObjectCanonicalReference(final Function<T, Object> boSupplier) {
+		return new FilterByBusinessObjectCanonicalReferenceQuery<>(this, boSupplier);
 	}
 
 	@Override
-	public DefaultQuery children() {
-		return new ChildrenQuery(this);
+	public DefaultQuery<T> children() {
+		return new ChildrenQuery<>(this);
 	}
 
 	@Override
-	public DefaultQuery descendants() {
-		return new DescendantsQuery(this);
+	public DefaultQuery<T> descendants() {
+		return new DescendantsQuery<>(this);
 	}
 
 	@Override
-	public DefaultQuery ancestor(final int depth) {
-		return new AncestorQuery(this, depth);
+	public DefaultQuery<T> ancestor(final int depth) {
+		return new AncestorQuery<>(this, depth);
 	}
 
 	@Override
-	public DefaultQuery ancestors() {
-		return new AncestorsQuery(this);
+	public DefaultQuery<T> ancestors() {
+		return new AncestorsQuery<>(this);
 	}
 
 	@Override
-	public DefaultQuery commonAncestors(Query q2) {
-		if(!(q2 instanceof DefaultQuery)) {
+	public DefaultQuery<T> commonAncestors(Query<T> q2) {
+		if (!(q2 instanceof DefaultQuery)) {
 			throw new RuntimeException("q2 must be of type PictogramQuery");
 		}
 
-		return new CommonAncestorsQuery(this, (DefaultQuery)q2);
+		return new CommonAncestorsQuery<>(this, (DefaultQuery<T>) q2);
 	}
 
 	@Override
-	public DefaultQuery ifElse(Supplier<ConditionArguments, Boolean> cond,
-			final Supplier<Query, Query> trueQuerySupplier,
-			final Supplier<Query, Query> falseQuerySupplier) {
-		return new IfElseQuery(this, cond, trueQuerySupplier, falseQuerySupplier);
+	public DefaultQuery<T> ifElse(final Function<ConditionArguments<T>, Boolean> cond,
+			final UnaryOperator<Query<T>> trueQuerySupplier, final UnaryOperator<Query<T>> falseQuerySupplier) {
+		return new IfElseQuery<>(this, cond, trueQuerySupplier, falseQuerySupplier);
 	}
 
 	@Override
-	public DefaultQuery descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier) {
-		return new DescendantsByBusinessObjectRelativeReferencesQuery(this, bosSupplier);
+	public DefaultQuery<T> descendantsByBusinessObjectsRelativeReference(final Function<T, Object[]> bosSupplier) {
+		return new DescendantsByBusinessObjectRelativeReferencesQuery<>(this, bosSupplier);
 	}
 
 	@Override
-	public Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier, final int minSegments) {
-		return new DescendantsByBusinessObjectRelativeReferencesQuery(this, bosSupplier, minSegments);
+	public Query<T> descendantsByBusinessObjectsRelativeReference(final Function<T, Object[]> bosSupplier,
+			final int minSegments) {
+		return new DescendantsByBusinessObjectRelativeReferencesQuery<>(this, bosSupplier,
+				minSegments);
 	}
 }

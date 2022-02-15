@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,7 +30,7 @@ import org.osate.ge.swt.ObservableModel;
 /**
  * View Model used by {@link PrototypeEditor}
  *
- * @param <C> the type used for the constraining classifier of the prototype.
+ * @param <C> the type used for the prototype's constraining classifier
  */
 interface PrototypeEditorModel<C> extends ObservableModel {
 	/**

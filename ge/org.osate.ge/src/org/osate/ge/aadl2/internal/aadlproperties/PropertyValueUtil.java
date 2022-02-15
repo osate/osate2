@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,34 +24,39 @@
 package org.osate.ge.aadl2.internal.aadlproperties;
 
 import java.util.LinkedList;
+import java.util.function.Function;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class PropertyValueUtil {
-	private static StandaloneQuery classifierQuery = StandaloneQuery.create((rootQuery) -> rootQuery.children().children().filterByBusinessObjectCanonicalReference(qa -> qa).first());
-	private static StandaloneQuery instanceObjectQuery = StandaloneQuery.create((rootQuery) -> rootQuery
-			.descendantsByBusinessObjectsRelativeReference((InstanceObject io) -> getInstanceObjectPath(io), 1)
+	private static final ExecutableQuery<Object> CLASSIFIER_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.children()
+			.children()
+			.filterByBusinessObjectCanonicalReference(Function.identity())
 			.first());
-	public static BusinessObjectContext getReferencedClassifier(final BusinessObjectContext q,
-			final ClassifierValue cv,
+	private static final ExecutableQuery<InstanceObject> INSTANCE_OBJECT_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery
+					.descendantsByBusinessObjectsRelativeReference(PropertyValueUtil::getInstanceObjectPath, 1)
+					.first());
+
+	public static BusinessObjectContext getReferencedClassifier(final BusinessObjectContext q, final ClassifierValue cv,
 			final QueryService queryService) {
 		// Decide whether to show it as connection or not.
 		BusinessObjectContext top = q;
-		while(top.getParent() != null) {
+		while (top.getParent() != null) {
 			top = top.getParent();
 		}
 
-		return queryService.getFirstBusinessObjectContextOrNull(classifierQuery, top, cv.getClassifier());
+		return queryService.getFirstBusinessObjectContextOrNull(CLASSIFIER_QUERY, top, cv.getClassifier());
 	}
 
 	public static AadlPropertyResolutionResults getReferencedInstanceObject(final BusinessObjectContext q,
-			final InstanceObject io,
-			final QueryService queryService) {
+			final InstanceObject io, final QueryService queryService) {
 
 		// Decide whether to show it as connection or not.
 		BusinessObjectContext top = q;
@@ -59,7 +64,7 @@ public class PropertyValueUtil {
 			top = top.getParent();
 		}
 
-		return queryService.getFirstResult(instanceObjectQuery, top, io)
+		return queryService.getFirstResult(INSTANCE_OBJECT_QUERY, top, io)
 				.map(v -> new AadlPropertyResolutionResults(v.getBusinessObjectContext(), v.isPartial()))
 				.orElseGet(() -> new AadlPropertyResolutionResults(null, false));
 	}

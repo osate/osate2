@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -33,6 +33,10 @@ import java.util.Objects;
 public final class NameEditorRenameDialogModel implements NameEditorDialogModel {
 	private final NameEditorModel innerModel;
 
+	/**
+	 * Creates a new instance
+	 * @param innerModel the model wrapped by this instance.
+	 */
 	public NameEditorRenameDialogModel(final NameEditorModel innerModel) {
 		this.innerModel = Objects.requireNonNull(innerModel, "innerModel must not be null");
 	}

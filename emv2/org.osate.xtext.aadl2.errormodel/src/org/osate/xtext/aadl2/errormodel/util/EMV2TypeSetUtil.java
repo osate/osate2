@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -115,7 +115,9 @@ public class EMV2TypeSetUtil {
 		}
 		ErrorType resolvedtype = EMV2Util.resolveAlias(type);
 		ErrorType resolvedsupertype = EMV2Util.resolveAlias(supertype);
-		while (resolvedtype != null) {
+		int counter = 0;
+		while (resolvedtype != null && counter < 20) {
+			counter++;
 			if (resolvedtype == resolvedsupertype) {
 				return true;
 			} else {

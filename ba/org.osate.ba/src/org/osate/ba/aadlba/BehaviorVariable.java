@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -24,7 +24,6 @@ import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Data;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.PropertyAssociation;
-import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,66 +43,65 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface BehaviorVariable extends BehaviorNamedElement, ArrayableElement, Data
-{
-  /**
-   * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Data Classifier</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Data Classifier</em>' reference.
-   * @see #setDataClassifier(DataClassifier)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable_DataClassifier()
-   * @model required="true"
-   * @generated
-   */
-  DataClassifier getDataClassifier();
+public interface BehaviorVariable extends BehaviorNamedElement, ArrayableElement, Data {
+	/**
+	 * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data Classifier</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Classifier</em>' reference.
+	 * @see #setDataClassifier(DataClassifier)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable_DataClassifier()
+	 * @model required="true"
+	 * @generated
+	 */
+	DataClassifier getDataClassifier();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorVariable#getDataClassifier <em>Data Classifier</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Data Classifier</em>' reference.
-   * @see #getDataClassifier()
-   * @generated
-   */
-  void setDataClassifier(DataClassifier value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorVariable#getDataClassifier <em>Data Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Classifier</em>' reference.
+	 * @see #getDataClassifier()
+	 * @generated
+	 */
+	void setDataClassifier(DataClassifier value);
 
-  /**
-   * Returns the value of the '<em><b>Owned Property Associations</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.aadl2.PropertyAssociation}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Owned Property Associations</em>' containment reference list.
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable_OwnedPropertyAssociations()
-   * @model containment="true"
-   * @generated
-   */
-  EList<PropertyAssociation> getOwnedPropertyAssociations();
+	/**
+	 * Returns the value of the '<em><b>Owned Property Associations</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.PropertyAssociation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Property Associations</em>' containment reference list.
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable_OwnedPropertyAssociations()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<PropertyAssociation> getOwnedPropertyAssociations();
 
-  /**
-   * Returns the value of the '<em><b>Owned Value Constant</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Owned Value Constant</em>' containment reference.
-   * @see #setOwnedValueConstant(ValueConstant)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable_OwnedValueConstant()
-   * @model containment="true"
-   * @generated
-   */
-  ValueConstant getOwnedValueConstant();
+	/**
+	 * Returns the value of the '<em><b>Owned Value Constant</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Value Constant</em>' containment reference.
+	 * @see #setOwnedValueConstant(ValueConstant)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable_OwnedValueConstant()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ValueConstant getOwnedValueConstant();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedValueConstant <em>Owned Value Constant</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Owned Value Constant</em>' containment reference.
-   * @see #getOwnedValueConstant()
-   * @generated
-   */
-  void setOwnedValueConstant(ValueConstant value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedValueConstant <em>Owned Value Constant</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Owned Value Constant</em>' containment reference.
+	 * @see #getOwnedValueConstant()
+	 * @generated
+	 */
+	void setOwnedValueConstant(ValueConstant value);
 
 } // BehaviorVariable

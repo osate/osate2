@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -48,7 +48,7 @@ public class CanCopyContext {
 	 * Retrieves the business object which is being copied if it is an instance
 	 * of the specified class.
 	 * @param <T> is the requested type.
-	 * @param c is the class to which to cast the business object.
+	 * @param boType is the class to which to cast the business object.
 	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
 	 * an instance the specified class.
 	 */

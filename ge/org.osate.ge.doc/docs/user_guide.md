@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -535,7 +535,7 @@ Menu options available in a diagram element's context menu can be used to show a
 |------------------------------|------------------------------------------------------------------------------------------------|
 | *Configure Diagram...*       | Opens the *Configure Diagram* dialog to allow customizing the contents of the current diagram. |
 | *Show* (Outline Only)        | Adds the selected elements to the diagram.                                                     |
-| *Show Contents -> All*       | Adds all available children to the selected elements.                                          |
+| *Show Contents -> All*       | Adds all subsets of children to the selected elements.                                         |
 | *Show Contents -> Default*   | Adds default set of children to the selected elements based on the diagram type.               |
 | *Show Contents -> `<Subset>`*  | Adds a subset of children to the selected elements.                                          |
 | *Hide*                       | Removes the selected element from the diagram.                                                 |

@@ -1,0 +1,28 @@
+package findFeatureInstance
+public
+	system original
+		features
+			f: in event port;
+	end original;
+	
+	system refinedd extends original
+		features
+			f: refined to in event port;
+	end refinedd;
+	
+	system unrelated
+		features
+			f: out data port;
+	end unrelated;
+	
+	system toplevel
+	end toplevel;
+	
+	system implementation toplevel.i
+		subcomponents
+			original: system original;
+			refinedd: system refinedd;
+			unrelated: system unrelated;
+	end toplevel.i;
+	
+end findFeatureInstance;

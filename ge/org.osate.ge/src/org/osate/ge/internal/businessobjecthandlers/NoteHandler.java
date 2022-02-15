@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -41,6 +41,9 @@ import org.osate.ge.graphics.internal.InternalGraphicalConfigurationBuilder;
 import org.osate.ge.graphics.internal.NoteGraphicBuilder;
 import org.osate.ge.internal.model.Note;
 
+/**
+ * Business object handler for {@link Note} objects.
+ */
 public class NoteHandler implements BusinessObjectHandler {
 	private final Graphic graphic = NoteGraphicBuilder.create().build();
 
@@ -57,7 +60,7 @@ public class NoteHandler implements BusinessObjectHandler {
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return new RelativeBusinessObjectReference(InternalReferenceUtil.TYPE_NOTE,
-				ctx.getBusinessObject(Note.class).get().getId().toString());
+				ctx.getBusinessObject(Note.class).orElseThrow().getId().toString());
 	}
 
 	@Override

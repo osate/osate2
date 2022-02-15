@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,30 +23,33 @@
  */
 package org.osate.ge.internal.services;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.osate.aadl2.instance.SystemInstance;
 
+/**
+ * Global service for loading AADL instance models
+ *
+ */
 public interface SystemInstanceLoadingService {
 	/**
 	 * Loads a system instance using the specified key. Depending on the implementation, this operation is likely to be expensive.
-	 * @param key as provided by getKey()
-	 * @return
+	 * @param key as provided by {@link #getKey(IPath)} and {@link #getKey(SystemInstance)}
+	 * @return the loaded system instance. Returns null if the system could not be loaded.
 	 */
-	SystemInstance loadSystemInstance(final IProject project, final String key);
+	SystemInstance loadSystemInstance(final String key);
 
 	/**
 	 * Returns a string for later loading of the system instance. The string is suitable for long term storage.
 	 * Throws an exception if unable to return the key. Must not return null.
-	 * @param io
-	 * @return
+	 * @param systemInstance is the system instance for which to return the key
+	 * @return the key for the system instance
 	 */
 	String getKey(final SystemInstance systemInstance);
 
 	/**
 	 * Returns a string for later loading of the system instance. The string is suitable for long term storage. Must not return null.
-	 * @param io
-	 * @return
+	 * @param systemInstanceFile is the file of the system instance for which to return the key
+	 * @return the key for the system instance
 	 */
 	String getKey(final IPath systemInstanceFile);
 }

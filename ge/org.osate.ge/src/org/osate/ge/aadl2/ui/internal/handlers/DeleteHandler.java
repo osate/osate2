@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -45,6 +45,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.EmfContainerProvider;
@@ -60,7 +61,7 @@ import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -78,7 +79,7 @@ public class DeleteHandler extends AbstractHandler {
 
 	private boolean calculateEnabled(final Object evaluationContext) {
 		final IEditorPart activeEditor = AgeHandlerUtil.getActiveEditorFromContext(evaluationContext);
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			return false;
 		}
 
@@ -139,11 +140,11 @@ public class DeleteHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
-		final AgeDiagramEditor ageEditor = (AgeDiagramEditor) activeEditor;
+		final InternalDiagramEditor ageEditor = (InternalDiagramEditor) activeEditor;
 
 		final ReferenceBuilderService refBuilder = Objects.requireNonNull(
 				(ReferenceBuilderService) ageEditor.getAdapter(ReferenceBuilderService.class),
@@ -241,7 +242,7 @@ public class DeleteHandler extends AbstractHandler {
 
 		if (boIsContext) {
 			// Close the editor if the context was deleted
-			Display.getDefault().syncExec(() -> ageEditor.close());
+			Display.getDefault().syncExec(() -> ageEditor.closeEditor());
 		} else {
 			ageEditor.clearSelection();
 		}
@@ -276,7 +277,7 @@ public class DeleteHandler extends AbstractHandler {
 
 		final Object boHandler = de.getBusinessObjectHandler();
 		if (bo instanceof EObject) {
-			final EObject boEObj = (EObject) bo;
+			EObject boEObj = (EObject) bo;
 
 			if (boHandler instanceof CustomDeleter) {
 				final CustomDeleter deleter = (CustomDeleter) boHandler;
@@ -284,11 +285,14 @@ public class DeleteHandler extends AbstractHandler {
 				return new BusinessObjectRemoval(ownerBo, (boToModify) -> {
 					deleter.delete(new CustomDeleteContext(boToModify, bo));
 				});
-			} else {
-				return new BusinessObjectRemoval(boEObj, (boToModify) -> {
-					EcoreUtil.remove(boToModify);
-				});
 			}
+
+			// When deleting AnnexSubclauses, the deletion must executed on the container DefaultAnnexSubclause
+			if (boEObj instanceof AnnexSubclause && boEObj.eContainer() instanceof DefaultAnnexSubclause) {
+				boEObj = boEObj.eContainer();
+			}
+
+			return new BusinessObjectRemoval(boEObj, (boToModify) -> EcoreUtil.remove(boToModify));
 		} else if (bo instanceof EmfContainerProvider) {
 			if(!(boHandler instanceof CustomDeleter)) {
 				throw new RuntimeException("Business object handler '" + boHandler + "' for "
