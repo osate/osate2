@@ -1657,10 +1657,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				BindingPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 
-		initEClass(typeSetElementEClass, TypeSetElement.class, "TypeSetElement", IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(typeSetElementEClass, TypeSetElement.class, "TypeSetElement", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(typeTokenInstanceEClass, TypeTokenInstance.class, "TypeTokenInstance", IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(typeTokenInstanceEClass, TypeTokenInstance.class, "TypeTokenInstance", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(typeInstanceEClass, TypeInstance.class, "TypeInstance", !IS_ABSTRACT, !IS_INTERFACE,

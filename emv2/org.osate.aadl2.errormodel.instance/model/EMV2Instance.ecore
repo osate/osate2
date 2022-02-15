@@ -136,8 +136,10 @@
     <eLiterals name="bindings" value="4"/>
     <eLiterals name="access" value="5"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeSetElement" abstract="true" eSuperTypes="#//EMV2InstanceObject"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeTokenInstance" abstract="true" eSuperTypes="#//TypeSetElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeSetElement" abstract="true" interface="true"
+      eSuperTypes="#//EMV2InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeTokenInstance" abstract="true" interface="true"
+      eSuperTypes="#//TypeSetElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeInstance" eSuperTypes="#//TypeTokenInstance">
     <eOperations name="resolveAlias" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>

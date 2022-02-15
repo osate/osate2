@@ -2114,10 +2114,10 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_PROPAGATION_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeSetElementImpl <em>Type Set Element</em>}' class.
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.TypeSetElement <em>Type Set Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.instance.impl.TypeSetElementImpl
+	 * @see org.osate.aadl2.errormodel.instance.TypeSetElement
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeSetElement()
 	 * @generated
 	 */
@@ -2187,10 +2187,10 @@ public interface EMV2InstancePackage extends EPackage {
 	int TYPE_SET_ELEMENT_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeTokenInstanceImpl <em>Type Token Instance</em>}' class.
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.TypeTokenInstance <em>Type Token Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.instance.impl.TypeTokenInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.TypeTokenInstance
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeTokenInstance()
 	 * @generated
 	 */
@@ -4382,20 +4382,20 @@ public interface EMV2InstancePackage extends EPackage {
 		EAttribute BINDING_PROPAGATION__BINDING = eINSTANCE.getBindingPropagation_Binding();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeSetElementImpl <em>Type Set Element</em>}' class.
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.TypeSetElement <em>Type Set Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.aadl2.errormodel.instance.impl.TypeSetElementImpl
+		 * @see org.osate.aadl2.errormodel.instance.TypeSetElement
 		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeSetElement()
 		 * @generated
 		 */
 		EClass TYPE_SET_ELEMENT = eINSTANCE.getTypeSetElement();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeTokenInstanceImpl <em>Type Token Instance</em>}' class.
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.TypeTokenInstance <em>Type Token Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.aadl2.errormodel.instance.impl.TypeTokenInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.TypeTokenInstance
 		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeTokenInstance()
 		 * @generated
 		 */

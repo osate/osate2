@@ -45,7 +45,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
  *
  * @generated
  */
-public class TypeInstanceImpl extends TypeTokenInstanceImpl implements TypeInstance {
+public class TypeInstanceImpl extends EMV2InstanceObjectImpl implements TypeInstance {
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
