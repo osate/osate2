@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -57,8 +57,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 
 // TODO: Find a way to mark this unstable / discourage use, look into marking "internal" so you get non-API warnings
-// TODO: Use flow-specifications to guide intracomponent connections. Experience gained doing that will guide the
-// implementation of EMV2 instantiation, in particular error flows and error propagations.
 
 /**
  *
@@ -303,9 +301,7 @@ public class SlicerRepresentation {
 
 			// If the component has a decomposition specified, we need to record that
 			if (ci.getConnectionReferences().size() > 1) {
-				String fullFeatureName = getCompleteFeatureName(ci.getConnectionReferences().get(0).getDestination());
-				String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
-				hasExplicitDecomp.add(fullContainerName);
+				addExplicitDecomp(ci.getConnectionReferences().get(0).getDestination());
 			}
 			return null;
 		}
@@ -313,21 +309,28 @@ public class SlicerRepresentation {
 		@Override
 		public Void caseEndToEndFlowInstance(EndToEndFlowInstance fi) {
 			for (FlowElementInstance fei : fi.getFlowElements()) {
-				System.out.println("Flow element instance found: " + fei.getQualifiedName());
 				if (fei instanceof FlowSpecificationInstance) {
 					FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
 					if (fsi.getSource() != null && fsi.getDestination() != null) {
 						addEdge(getCompleteFeatureName(fsi.getSource()), getCompleteFeatureName(fsi.getDestination()));
-						String fullFeatureName = getCompleteFeatureName(fsi.getDestination());
-						String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
-						hasExplicitDecomp.add(fullContainerName);
+						addExplicitDecomp(fsi.getSource());
+						addExplicitDecomp(fsi.getDestination());
 					}
-				} // else if (fei instanceof ConnectionInstance) {
-					// ConnectionInstance ci = (ConnectionInstance) fei;
-					// System.out.println("\t" + ci.getSource() + " -> " + ci.getDestination());
-					// }
+				}
 			}
 			return null;
+		}
+
+		/**
+		 * Marks that this component has an explicit specification of its intracomponent connections,
+		 * so it will be skipped when we calculate worst case intra-component connections
+		 *
+		 * @param ne The component which has an explicit specification of how its inputs map to its outputs
+		 */
+		private void addExplicitDecomp(NamedElement ne) {
+			String fullFeatureName = getCompleteFeatureName(ne);
+			String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
+			hasExplicitDecomp.add(fullContainerName);
 		}
 	};
 }
