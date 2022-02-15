@@ -116,8 +116,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createErrorPropagationConditionInstance();
 		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE:
 			return createErrorDetectionInstance();
-		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE:
-			return createPropagationPointInstance();
 		case EMV2InstancePackage.EVENT_INSTANCE:
 			return createEventInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
@@ -138,6 +136,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createTypeSetInstance();
 		case EMV2InstancePackage.ANONYMOUS_TYPE_SET:
 			return createAnonymousTypeSet();
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE:
+			return createPropagationPointInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}

@@ -165,11 +165,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter casePropagationPointInstance(PropagationPointInstance object) {
-			return createPropagationPointInstanceAdapter();
-		}
-
-		@Override
 		public Adapter caseEventInstance(EventInstance object) {
 			return createEventInstanceAdapter();
 		}
@@ -242,6 +237,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseAnonymousTypeSet(AnonymousTypeSet object) {
 			return createAnonymousTypeSetAdapter();
+		}
+
+		@Override
+		public Adapter casePropagationPointInstance(PropagationPointInstance object) {
+			return createPropagationPointInstanceAdapter();
 		}
 
 		@Override

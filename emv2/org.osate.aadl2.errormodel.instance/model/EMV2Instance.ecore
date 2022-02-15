@@ -84,9 +84,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="errorCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//FeatureInstance"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropagationPointInstance" eSuperTypes="#//EMV2InstanceObject">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPoint" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//PropagationPoint"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorBehaviorEvent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="generatedTypedEvents" upperBound="-1"
@@ -122,14 +119,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="outTypeSet" eType="#//AnonymousTypeSet"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="BindingType">
-    <eLiterals name="processor"/>
-    <eLiterals name="memory" value="1"/>
-    <eLiterals name="connection" value="2"/>
-    <eLiterals name="binding" value="3"/>
-    <eLiterals name="bindings" value="4"/>
-    <eLiterals name="access" value="5"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePropagation" eSuperTypes="#//ErrorPropagationInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//FeatureInstance"/>
   </eClassifiers>
@@ -138,6 +127,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BindingPropagation" eSuperTypes="#//ErrorPropagationInstance">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="binding" eType="#//BindingType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BindingType">
+    <eLiterals name="processor"/>
+    <eLiterals name="memory" value="1"/>
+    <eLiterals name="connection" value="2"/>
+    <eLiterals name="binding" value="3"/>
+    <eLiterals name="bindings" value="4"/>
+    <eLiterals name="access" value="5"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeSetElement" abstract="true" eSuperTypes="#//EMV2InstanceObject"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeTokenInstance" abstract="true" eSuperTypes="#//TypeSetElement"/>
@@ -159,4 +156,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeSet"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AnonymousTypeSet" eSuperTypes="#//AbstractTypeSet"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationPointInstance" eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPoint" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//PropagationPoint"/>
+  </eClassifiers>
 </ecore:EPackage>

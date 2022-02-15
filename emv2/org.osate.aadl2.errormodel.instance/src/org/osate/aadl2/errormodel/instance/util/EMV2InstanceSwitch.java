@@ -312,26 +312,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
-			PropagationPointInstance propagationPointInstance = (PropagationPointInstance) theEObject;
-			T result = casePropagationPointInstance(propagationPointInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(propagationPointInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(propagationPointInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(propagationPointInstance);
-			}
-			if (result == null) {
-				result = caseElement(propagationPointInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case EMV2InstancePackage.EVENT_INSTANCE: {
 			EventInstance eventInstance = (EventInstance) theEObject;
 			T result = caseEventInstance(eventInstance);
@@ -686,6 +666,26 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(anonymousTypeSet);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
+			PropagationPointInstance propagationPointInstance = (PropagationPointInstance) theEObject;
+			T result = casePropagationPointInstance(propagationPointInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(propagationPointInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(propagationPointInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(propagationPointInstance);
+			}
+			if (result == null) {
+				result = caseElement(propagationPointInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);

@@ -1310,9 +1310,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEAttribute(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__ERROR_CODE);
 		createEReference(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__PORT);
 
-		propagationPointInstanceEClass = createEClass(PROPAGATION_POINT_INSTANCE);
-		createEReference(propagationPointInstanceEClass, PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT);
-
 		eventInstanceEClass = createEClass(EVENT_INSTANCE);
 		createEReference(eventInstanceEClass, EVENT_INSTANCE__EVENT);
 		createEReference(eventInstanceEClass, EVENT_INSTANCE__GENERATED_TYPED_EVENTS);
@@ -1361,6 +1358,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__TYPE_SET);
 
 		anonymousTypeSetEClass = createEClass(ANONYMOUS_TYPE_SET);
+
+		propagationPointInstanceEClass = createEClass(PROPAGATION_POINT_INSTANCE);
+		createEReference(propagationPointInstanceEClass, PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -1415,7 +1415,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		errorFlowInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		errorPropagationConditionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		errorDetectionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
-		propagationPointInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		eventInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		constraintExpressionEClass.getESuperTypes().add(getConstraintElement());
 		constraintElementEClass.getESuperTypes().add(getEMV2InstanceObject());
@@ -1432,6 +1431,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		typeSetInstanceEClass.getESuperTypes().add(getAbstractTypeSet());
 		typeSetInstanceEClass.getESuperTypes().add(getTypeSetElement());
 		anonymousTypeSetEClass.getESuperTypes().add(getAbstractTypeSet());
+		propagationPointInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -1585,12 +1585,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				1, ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(propagationPointInstanceEClass, PropagationPointInstance.class, "PropagationPointInstance",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPropagationPointInstance_PropagationPoint(), theErrorModelPackage.getPropagationPoint(), null,
-				"propagationPoint", null, 0, 1, PropagationPointInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(eventInstanceEClass, EventInstance.class, "EventInstance", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEventInstance_Event(), theErrorModelPackage.getErrorBehaviorEvent(), null, "event", null, 0,
@@ -1703,6 +1697,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(anonymousTypeSetEClass, AnonymousTypeSet.class, "AnonymousTypeSet", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(propagationPointInstanceEClass, PropagationPointInstance.class, "PropagationPointInstance",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPropagationPointInstance_PropagationPoint(), theErrorModelPackage.getPropagationPoint(), null,
+				"propagationPoint", null, 0, 1, PropagationPointInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");
