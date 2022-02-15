@@ -236,20 +236,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cio;
 	}
 
-	private ConstrainedInstanceObject createConstrainedInstanceObject(InstanceObject io) {
-		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
-		cio.setInstanceObject(io);
-		cio.setName(cio.getInstanceObject().toString());
-		return cio;
-	}
-
-	private CompositeStateInstance createCompositeStateInstance(CompositeState st) {
-		CompositeStateInstance sti = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
-		sti.setName(st.getName());
-		sti.setCompositeState(st);
-		return sti;
-	}
-
 	private void instantiateStateMachine(ErrorBehaviorStateMachine ebsm, EMV2AnnexInstance annex) {
 		ComponentInstance ci = (ComponentInstance) annex.eContainer();
 		StateMachineInstance svi = EMV2InstanceFactory.eINSTANCE.createStateMachineInstance();
