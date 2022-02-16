@@ -6,7 +6,6 @@ import org.eclipse.xtext.validation.Check;
 import org.osate.expr.ExprTypeSystem;
 import org.osate.expr.expr.Expression;
 import org.osate.expr.expr.VarDecl;
-import org.osate.expr.validation.AbstractExprValidator;
 
 @SuppressWarnings("all")
 public class ExprTypeSystemValidator extends AbstractExprValidator {

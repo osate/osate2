@@ -19,7 +19,6 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.expr.evaluation.ExprInterpreterUtil;
 import org.osate.expr.expr.BinaryOperation;
 import org.osate.expr.expr.Conditional;
 import org.osate.expr.expr.EBooleanLiteral;
