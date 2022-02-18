@@ -42,6 +42,7 @@ import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -110,8 +111,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createStateTransitionInstance();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
 			return createCompositeStateInstance();
-		case EMV2InstancePackage.ERROR_FLOW_INSTANCE:
-			return createErrorFlowInstance();
 		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE:
 			return createErrorPropagationConditionInstance();
 		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE:
@@ -136,6 +135,10 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createTypeSetInstance();
 		case EMV2InstancePackage.ANONYMOUS_TYPE_SET:
 			return createAnonymousTypeSet();
+		case EMV2InstancePackage.ERROR_FLOW_INSTANCE:
+			return createErrorFlowInstance();
+		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE:
+			return createErrorSourceInstance();
 		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE:
 			return createPropagationPointInstance();
 		default:
@@ -252,6 +255,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ErrorFlowInstance createErrorFlowInstance() {
 		ErrorFlowInstanceImpl errorFlowInstance = new ErrorFlowInstanceImpl();
 		return errorFlowInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorSourceInstance createErrorSourceInstance() {
+		ErrorSourceInstanceImpl errorSourceInstance = new ErrorSourceInstanceImpl();
+		return errorSourceInstance;
 	}
 
 	/**

@@ -144,6 +144,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiateErrorFlow(fl, emv2AI);
 		}
 
+		for (var source : EMV2Util.getAllErrorSources(instance)) {
+			instantiateErrorSource(source, emv2AI);
+		}
+
 		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
 		if (ebsm != null) {
 			instantiateStateMachine(ebsm, emv2AI);
@@ -578,6 +582,24 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// sink
 			annex.getErrorFlows().add(bi);
 		}
+	}
+
+	private void instantiateErrorSource(ErrorSource source, EMV2AnnexInstance annex) {
+		if (source.isAll()) {
+			// 'all' error sources are not instantiated.
+			return;
+		}
+		var sourceInstance = EMV2InstanceFactory.eINSTANCE.createErrorSourceInstance();
+		sourceInstance.setName(source.getName());
+		sourceInstance.setErrorSource(source);
+		var propagation = (ErrorPropagation) source.getSourceModelElement();
+		sourceInstance.setPropagation(findErrorPropagationInstance(annex, propagation));
+		if (source.getTypeTokenConstraint() == null) {
+			sourceInstance.setTypeSet(createAnonymousTypeSet(propagation.getTypeSet()));
+		} else {
+			sourceInstance.setTypeSet(createAnonymousTypeSet(source.getTypeTokenConstraint()));
+		}
+		annex.getErrorFlows().add(sourceInstance);
 	}
 
 	/**

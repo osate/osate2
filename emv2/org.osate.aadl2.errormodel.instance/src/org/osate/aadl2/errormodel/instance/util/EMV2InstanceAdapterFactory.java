@@ -43,6 +43,7 @@ import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -150,11 +151,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseErrorFlowInstance(ErrorFlowInstance object) {
-			return createErrorFlowInstanceAdapter();
-		}
-
-		@Override
 		public Adapter caseErrorPropagationConditionInstance(ErrorPropagationConditionInstance object) {
 			return createErrorPropagationConditionInstanceAdapter();
 		}
@@ -237,6 +233,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseAnonymousTypeSet(AnonymousTypeSet object) {
 			return createAnonymousTypeSetAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorFlowInstance(ErrorFlowInstance object) {
+			return createErrorFlowInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorSourceInstance(ErrorSourceInstance object) {
+			return createErrorSourceInstanceAdapter();
 		}
 
 		@Override
@@ -392,6 +398,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createErrorFlowInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance <em>Error Source Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorSourceInstance
+	 * @generated
+	 */
+	public Adapter createErrorSourceInstanceAdapter() {
 		return null;
 	}
 
