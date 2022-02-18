@@ -42,6 +42,7 @@ import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
@@ -139,6 +140,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createErrorFlowInstance();
 		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE:
 			return createErrorSourceInstance();
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE:
+			return createErrorSinkInstance();
 		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE:
 			return createPropagationPointInstance();
 		default:
@@ -266,6 +269,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ErrorSourceInstance createErrorSourceInstance() {
 		ErrorSourceInstanceImpl errorSourceInstance = new ErrorSourceInstanceImpl();
 		return errorSourceInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorSinkInstance createErrorSinkInstance() {
+		ErrorSinkInstanceImpl errorSinkInstance = new ErrorSinkInstanceImpl();
+		return errorSinkInstance;
 	}
 
 	/**

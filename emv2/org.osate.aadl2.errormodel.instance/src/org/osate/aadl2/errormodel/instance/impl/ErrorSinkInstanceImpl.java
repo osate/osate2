@@ -31,34 +31,34 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
-import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Error Source Instance</b></em>'.
+ * An implementation of the model object '<em><b>Error Sink Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorSourceInstanceImpl#getErrorSource <em>Error Source</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorSourceInstanceImpl#getPropagation <em>Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorSourceInstanceImpl#getTypeSet <em>Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorSinkInstanceImpl#getErrorSink <em>Error Sink</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorSinkInstanceImpl#getPropagation <em>Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorSinkInstanceImpl#getTypeSet <em>Type Set</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements ErrorSourceInstance {
+public class ErrorSinkInstanceImpl extends ErrorFlowInstanceImpl implements ErrorSinkInstance {
 	/**
-	 * The cached value of the '{@link #getErrorSource() <em>Error Source</em>}' reference.
+	 * The cached value of the '{@link #getErrorSink() <em>Error Sink</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getErrorSource()
+	 * @see #getErrorSink()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorSource errorSource;
+	protected ErrorSink errorSink;
 
 	/**
 	 * The cached value of the '{@link #getPropagation() <em>Propagation</em>}' reference.
@@ -85,7 +85,7 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ErrorSourceInstanceImpl() {
+	protected ErrorSinkInstanceImpl() {
 		super();
 	}
 
@@ -96,7 +96,7 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.ERROR_SOURCE_INSTANCE;
+		return EMV2InstancePackage.Literals.ERROR_SINK_INSTANCE;
 	}
 
 	/**
@@ -105,18 +105,18 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	 * @generated
 	 */
 	@Override
-	public ErrorSource getErrorSource() {
-		if (errorSource != null && errorSource.eIsProxy()) {
-			InternalEObject oldErrorSource = (InternalEObject) errorSource;
-			errorSource = (ErrorSource) eResolveProxy(oldErrorSource);
-			if (errorSource != oldErrorSource) {
+	public ErrorSink getErrorSink() {
+		if (errorSink != null && errorSink.eIsProxy()) {
+			InternalEObject oldErrorSink = (InternalEObject) errorSink;
+			errorSink = (ErrorSink) eResolveProxy(oldErrorSink);
+			if (errorSink != oldErrorSink) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.ERROR_SOURCE_INSTANCE__ERROR_SOURCE, oldErrorSource, errorSource));
+							EMV2InstancePackage.ERROR_SINK_INSTANCE__ERROR_SINK, oldErrorSink, errorSink));
 				}
 			}
 		}
-		return errorSource;
+		return errorSink;
 	}
 
 	/**
@@ -124,8 +124,8 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ErrorSource basicGetErrorSource() {
-		return errorSource;
+	public ErrorSink basicGetErrorSink() {
+		return errorSink;
 	}
 
 	/**
@@ -134,12 +134,12 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	 * @generated
 	 */
 	@Override
-	public void setErrorSource(ErrorSource newErrorSource) {
-		ErrorSource oldErrorSource = errorSource;
-		errorSource = newErrorSource;
+	public void setErrorSink(ErrorSink newErrorSink) {
+		ErrorSink oldErrorSink = errorSink;
+		errorSink = newErrorSink;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_SOURCE_INSTANCE__ERROR_SOURCE, oldErrorSource, errorSource));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_SINK_INSTANCE__ERROR_SINK,
+					oldErrorSink, errorSink));
 		}
 	}
 
@@ -163,7 +163,7 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 		propagation = newPropagation;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_SOURCE_INSTANCE__PROPAGATION, oldPropagation, newPropagation);
+					EMV2InstancePackage.ERROR_SINK_INSTANCE__PROPAGATION, oldPropagation, newPropagation);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -184,12 +184,12 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 			NotificationChain msgs = null;
 			if (propagation != null) {
 				msgs = ((InternalEObject) propagation).eInverseRemove(this,
-						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES, ErrorPropagationInstance.class,
+						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS, ErrorPropagationInstance.class,
 						msgs);
 			}
 			if (newPropagation != null) {
 				msgs = ((InternalEObject) newPropagation).eInverseAdd(this,
-						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES, ErrorPropagationInstance.class,
+						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS, ErrorPropagationInstance.class,
 						msgs);
 			}
 			msgs = basicSetPropagation(newPropagation, msgs);
@@ -197,8 +197,8 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_SOURCE_INSTANCE__PROPAGATION, newPropagation, newPropagation));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_SINK_INSTANCE__PROPAGATION,
+					newPropagation, newPropagation));
 		}
 	}
 
@@ -222,7 +222,7 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 		typeSet = newTypeSet;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_SOURCE_INSTANCE__TYPE_SET, oldTypeSet, newTypeSet);
+					EMV2InstancePackage.ERROR_SINK_INSTANCE__TYPE_SET, oldTypeSet, newTypeSet);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -243,18 +243,18 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 			NotificationChain msgs = null;
 			if (typeSet != null) {
 				msgs = ((InternalEObject) typeSet).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_SOURCE_INSTANCE__TYPE_SET, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_SINK_INSTANCE__TYPE_SET, null, msgs);
 			}
 			if (newTypeSet != null) {
 				msgs = ((InternalEObject) newTypeSet).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_SOURCE_INSTANCE__TYPE_SET, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_SINK_INSTANCE__TYPE_SET, null, msgs);
 			}
 			msgs = basicSetTypeSet(newTypeSet, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_SOURCE_INSTANCE__TYPE_SET,
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_SINK_INSTANCE__TYPE_SET,
 					newTypeSet, newTypeSet));
 		}
 	}
@@ -267,10 +267,10 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__PROPAGATION:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__PROPAGATION:
 			if (propagation != null) {
 				msgs = ((InternalEObject) propagation).eInverseRemove(this,
-						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES, ErrorPropagationInstance.class,
+						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS, ErrorPropagationInstance.class,
 						msgs);
 			}
 			return basicSetPropagation((ErrorPropagationInstance) otherEnd, msgs);
@@ -286,9 +286,9 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__PROPAGATION:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__PROPAGATION:
 			return basicSetPropagation(null, msgs);
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__TYPE_SET:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__TYPE_SET:
 			return basicSetTypeSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -302,14 +302,14 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__ERROR_SOURCE:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__ERROR_SINK:
 			if (resolve) {
-				return getErrorSource();
+				return getErrorSink();
 			}
-			return basicGetErrorSource();
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__PROPAGATION:
+			return basicGetErrorSink();
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__PROPAGATION:
 			return getPropagation();
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__TYPE_SET:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__TYPE_SET:
 			return getTypeSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -323,13 +323,13 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__ERROR_SOURCE:
-			setErrorSource((ErrorSource) newValue);
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__ERROR_SINK:
+			setErrorSink((ErrorSink) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__PROPAGATION:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__PROPAGATION:
 			setPropagation((ErrorPropagationInstance) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__TYPE_SET:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__TYPE_SET:
 			setTypeSet((AnonymousTypeSet) newValue);
 			return;
 		}
@@ -344,13 +344,13 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__ERROR_SOURCE:
-			setErrorSource((ErrorSource) null);
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__ERROR_SINK:
+			setErrorSink((ErrorSink) null);
 			return;
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__PROPAGATION:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__PROPAGATION:
 			setPropagation((ErrorPropagationInstance) null);
 			return;
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__TYPE_SET:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__TYPE_SET:
 			setTypeSet((AnonymousTypeSet) null);
 			return;
 		}
@@ -365,14 +365,14 @@ public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements Er
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__ERROR_SOURCE:
-			return errorSource != null;
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__PROPAGATION:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__ERROR_SINK:
+			return errorSink != null;
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__PROPAGATION:
 			return propagation != null;
-		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE__TYPE_SET:
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE__TYPE_SET:
 			return typeSet != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} // ErrorSourceInstanceImpl
+} // ErrorSinkInstanceImpl

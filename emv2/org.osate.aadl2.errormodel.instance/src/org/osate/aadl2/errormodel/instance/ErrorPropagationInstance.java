@@ -23,6 +23,7 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.DirectionType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
@@ -39,6 +40,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutErrorPropagation <em>Out Error Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInTypeSet <em>In Type Set</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutTypeSet <em>Out Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSources <em>Error Sources</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSinks <em>Error Sinks</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
@@ -133,6 +136,34 @@ public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
 	 * @generated
 	 */
 	void setOutTypeSet(AnonymousTypeSet value);
+
+	/**
+	 * Returns the value of the '<em><b>Error Sources</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getPropagation <em>Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Error Sources</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorSources()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getPropagation
+	 * @model opposite="propagation" transient="true"
+	 * @generated
+	 */
+	EList<ErrorSourceInstance> getErrorSources();
+
+	/**
+	 * Returns the value of the '<em><b>Error Sinks</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getPropagation <em>Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Error Sinks</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorSinks()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getPropagation
+	 * @model opposite="propagation" transient="true"
+	 * @generated
+	 */
+	EList<ErrorSinkInstance> getErrorSinks();
 
 	/**
 	 * <!-- begin-user-doc -->

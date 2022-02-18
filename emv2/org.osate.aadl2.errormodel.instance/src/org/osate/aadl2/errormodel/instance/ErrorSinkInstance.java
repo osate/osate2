@@ -23,65 +23,65 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Error Source Instance</b></em>'.
+ * A representation of the model object '<em><b>Error Sink Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getErrorSource <em>Error Source</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getPropagation <em>Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getTypeSet <em>Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getErrorSink <em>Error Sink</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getPropagation <em>Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getTypeSet <em>Type Set</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorSourceInstance()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorSinkInstance()
  * @model
  * @generated
  */
-public interface ErrorSourceInstance extends ErrorFlowInstance {
+public interface ErrorSinkInstance extends ErrorFlowInstance {
 	/**
-	 * Returns the value of the '<em><b>Error Source</b></em>' reference.
+	 * Returns the value of the '<em><b>Error Sink</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Source</em>' reference.
-	 * @see #setErrorSource(ErrorSource)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorSourceInstance_ErrorSource()
+	 * @return the value of the '<em>Error Sink</em>' reference.
+	 * @see #setErrorSink(ErrorSink)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorSinkInstance_ErrorSink()
 	 * @model
 	 * @generated
 	 */
-	ErrorSource getErrorSource();
+	ErrorSink getErrorSink();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getErrorSource <em>Error Source</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getErrorSink <em>Error Sink</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Error Source</em>' reference.
-	 * @see #getErrorSource()
+	 * @param value the new value of the '<em>Error Sink</em>' reference.
+	 * @see #getErrorSink()
 	 * @generated
 	 */
-	void setErrorSource(ErrorSource value);
+	void setErrorSink(ErrorSink value);
 
 	/**
 	 * Returns the value of the '<em><b>Propagation</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSources <em>Error Sources</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSinks <em>Error Sinks</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Propagation</em>' reference.
 	 * @see #setPropagation(ErrorPropagationInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorSourceInstance_Propagation()
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSources
-	 * @model opposite="errorSources" resolveProxies="false"
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorSinkInstance_Propagation()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSinks
+	 * @model opposite="errorSinks" resolveProxies="false"
 	 * @generated
 	 */
 	ErrorPropagationInstance getPropagation();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getPropagation <em>Propagation</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getPropagation <em>Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Propagation</em>' reference.
@@ -96,14 +96,14 @@ public interface ErrorSourceInstance extends ErrorFlowInstance {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type Set</em>' containment reference.
 	 * @see #setTypeSet(AnonymousTypeSet)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorSourceInstance_TypeSet()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorSinkInstance_TypeSet()
 	 * @model containment="true"
 	 * @generated
 	 */
 	AnonymousTypeSet getTypeSet();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getTypeSet <em>Type Set</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getTypeSet <em>Type Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type Set</em>' containment reference.
@@ -112,4 +112,4 @@ public interface ErrorSourceInstance extends ErrorFlowInstance {
 	 */
 	void setTypeSet(AnonymousTypeSet value);
 
-} // ErrorSourceInstance
+} // ErrorSinkInstance

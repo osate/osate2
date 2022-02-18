@@ -23,15 +23,22 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
@@ -46,6 +53,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getOutErrorPropagation <em>Out Error Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getInTypeSet <em>In Type Set</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getOutTypeSet <em>Out Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getErrorSources <em>Error Sources</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getErrorSinks <em>Error Sinks</em>}</li>
  * </ul>
  *
  * @generated
@@ -91,6 +100,26 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @ordered
 	 */
 	protected AnonymousTypeSet outTypeSet;
+
+	/**
+	 * The cached value of the '{@link #getErrorSources() <em>Error Sources</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getErrorSources()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ErrorSourceInstance> errorSources;
+
+	/**
+	 * The cached value of the '{@link #getErrorSinks() <em>Error Sinks</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getErrorSinks()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ErrorSinkInstance> errorSinks;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -324,6 +353,36 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ErrorSourceInstance> getErrorSources() {
+		if (errorSources == null) {
+			errorSources = new EObjectWithInverseResolvingEList<>(ErrorSourceInstance.class, this,
+					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES,
+					EMV2InstancePackage.ERROR_SOURCE_INSTANCE__PROPAGATION);
+		}
+		return errorSources;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ErrorSinkInstance> getErrorSinks() {
+		if (errorSinks == null) {
+			errorSinks = new EObjectWithInverseResolvingEList<>(ErrorSinkInstance.class, this,
+					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS,
+					EMV2InstancePackage.ERROR_SINK_INSTANCE__PROPAGATION);
+		}
+		return errorSinks;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	@Override
@@ -346,6 +405,23 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getErrorSources()).basicAdd(otherEnd, msgs);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getErrorSinks()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -353,6 +429,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 			return basicSetInTypeSet(null, msgs);
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
 			return basicSetOutTypeSet(null, msgs);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES:
+			return ((InternalEList<?>) getErrorSources()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS:
+			return ((InternalEList<?>) getErrorSinks()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -379,6 +459,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 			return getInTypeSet();
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
 			return getOutTypeSet();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES:
+			return getErrorSources();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS:
+			return getErrorSinks();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -388,6 +472,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -402,6 +487,14 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 			return;
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
 			setOutTypeSet((AnonymousTypeSet) newValue);
+			return;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES:
+			getErrorSources().clear();
+			getErrorSources().addAll((Collection<? extends ErrorSourceInstance>) newValue);
+			return;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS:
+			getErrorSinks().clear();
+			getErrorSinks().addAll((Collection<? extends ErrorSinkInstance>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -427,6 +520,12 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
 			setOutTypeSet((AnonymousTypeSet) null);
 			return;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES:
+			getErrorSources().clear();
+			return;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS:
+			getErrorSinks().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -447,6 +546,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 			return inTypeSet != null;
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET:
 			return outTypeSet != null;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES:
+			return errorSources != null && !errorSources.isEmpty();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_SINKS:
+			return errorSinks != null && !errorSinks.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

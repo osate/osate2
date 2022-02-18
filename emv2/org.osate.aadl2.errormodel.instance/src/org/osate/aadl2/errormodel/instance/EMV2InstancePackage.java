@@ -1151,7 +1151,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getPropagationPointInstance()
 	 * @generated
 	 */
-	int PROPAGATION_POINT_INSTANCE = 26;
+	int PROPAGATION_POINT_INSTANCE = 27;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.
@@ -1572,13 +1572,31 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Error Sources</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Error Sinks</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_PROPAGATION_INSTANCE__ERROR_SINKS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Error Propagation Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.FeaturePropagationImpl <em>Feature Propagation</em>}' class.
@@ -1706,6 +1724,24 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_PROPAGATION__OUT_TYPE_SET = ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET;
+
+	/**
+	 * The feature id for the '<em><b>Error Sources</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROPAGATION__ERROR_SOURCES = ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES;
+
+	/**
+	 * The feature id for the '<em><b>Error Sinks</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROPAGATION__ERROR_SINKS = ERROR_PROPAGATION_INSTANCE__ERROR_SINKS;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1853,6 +1889,24 @@ public interface EMV2InstancePackage extends EPackage {
 	int POINT_PROPAGATION__OUT_TYPE_SET = ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET;
 
 	/**
+	 * The feature id for the '<em><b>Error Sources</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_PROPAGATION__ERROR_SOURCES = ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES;
+
+	/**
+	 * The feature id for the '<em><b>Error Sinks</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_PROPAGATION__ERROR_SINKS = ERROR_PROPAGATION_INSTANCE__ERROR_SINKS;
+
+	/**
 	 * The feature id for the '<em><b>Point</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1996,6 +2050,24 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int BINDING_PROPAGATION__OUT_TYPE_SET = ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET;
+
+	/**
+	 * The feature id for the '<em><b>Error Sources</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_PROPAGATION__ERROR_SOURCES = ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES;
+
+	/**
+	 * The feature id for the '<em><b>Error Sinks</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_PROPAGATION__ERROR_SINKS = ERROR_PROPAGATION_INSTANCE__ERROR_SINKS;
 
 	/**
 	 * The feature id for the '<em><b>Binding</b></em>' attribute.
@@ -2824,6 +2896,151 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_SOURCE_INSTANCE_FEATURE_COUNT = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorSinkInstanceImpl <em>Error Sink Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.ErrorSinkInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorSinkInstance()
+	 * @generated
+	 */
+	int ERROR_SINK_INSTANCE = 26;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__OWNED_ELEMENT = ERROR_FLOW_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__OWNED_COMMENT = ERROR_FLOW_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__NAME = ERROR_FLOW_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__QUALIFIED_NAME = ERROR_FLOW_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__OWNED_PROPERTY_ASSOCIATION = ERROR_FLOW_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__ANNEX_INSTANCE = ERROR_FLOW_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Emv2 Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__EMV2_ELEMENT = ERROR_FLOW_INSTANCE__EMV2_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Incoming</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__INCOMING = ERROR_FLOW_INSTANCE__INCOMING;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__OUTGOING = ERROR_FLOW_INSTANCE__OUTGOING;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__SOURCE = ERROR_FLOW_INSTANCE__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Sink</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__SINK = ERROR_FLOW_INSTANCE__SINK;
+
+	/**
+	 * The feature id for the '<em><b>Error Sink</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__ERROR_SINK = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Propagation</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__PROPAGATION = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE__TYPE_SET = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Error Sink Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_SINK_INSTANCE_FEATURE_COUNT = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2903,7 +3120,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 27;
+	int EOPERATION = 28;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -2913,7 +3130,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 28;
+	int BINDING_TYPE = 29;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -3358,6 +3575,49 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getErrorSourceInstance_TypeSet();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance <em>Error Sink Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Error Sink Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorSinkInstance
+	 * @generated
+	 */
+	EClass getErrorSinkInstance();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getErrorSink <em>Error Sink</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Error Sink</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getErrorSink()
+	 * @see #getErrorSinkInstance()
+	 * @generated
+	 */
+	EReference getErrorSinkInstance_ErrorSink();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getPropagation <em>Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Propagation</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getPropagation()
+	 * @see #getErrorSinkInstance()
+	 * @generated
+	 */
+	EReference getErrorSinkInstance_Propagation();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getTypeSet <em>Type Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getTypeSet()
+	 * @see #getErrorSinkInstance()
+	 * @generated
+	 */
+	EReference getErrorSinkInstance_TypeSet();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance <em>Error Propagation Condition Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3700,6 +3960,28 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getErrorPropagationInstance_OutTypeSet();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSources <em>Error Sources</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Error Sources</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSources()
+	 * @see #getErrorPropagationInstance()
+	 * @generated
+	 */
+	EReference getErrorPropagationInstance_ErrorSources();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSinks <em>Error Sinks</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Error Sinks</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSinks()
+	 * @see #getErrorPropagationInstance()
+	 * @generated
+	 */
+	EReference getErrorPropagationInstance_ErrorSinks();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.FeaturePropagation <em>Feature Propagation</em>}'.
@@ -4270,6 +4552,40 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference ERROR_SOURCE_INSTANCE__TYPE_SET = eINSTANCE.getErrorSourceInstance_TypeSet();
 
 		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorSinkInstanceImpl <em>Error Sink Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.ErrorSinkInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorSinkInstance()
+		 * @generated
+		 */
+		EClass ERROR_SINK_INSTANCE = eINSTANCE.getErrorSinkInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Error Sink</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_SINK_INSTANCE__ERROR_SINK = eINSTANCE.getErrorSinkInstance_ErrorSink();
+
+		/**
+		 * The meta object literal for the '<em><b>Propagation</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_SINK_INSTANCE__PROPAGATION = eINSTANCE.getErrorSinkInstance_Propagation();
+
+		/**
+		 * The meta object literal for the '<em><b>Type Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_SINK_INSTANCE__TYPE_SET = eINSTANCE.getErrorSinkInstance_TypeSet();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationConditionInstanceImpl <em>Error Propagation Condition Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4548,6 +4864,22 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET = eINSTANCE.getErrorPropagationInstance_OutTypeSet();
+
+		/**
+		 * The meta object literal for the '<em><b>Error Sources</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES = eINSTANCE.getErrorPropagationInstance_ErrorSources();
+
+		/**
+		 * The meta object literal for the '<em><b>Error Sinks</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_PROPAGATION_INSTANCE__ERROR_SINKS = eINSTANCE.getErrorPropagationInstance_ErrorSinks();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.FeaturePropagationImpl <em>Feature Propagation</em>}' class.

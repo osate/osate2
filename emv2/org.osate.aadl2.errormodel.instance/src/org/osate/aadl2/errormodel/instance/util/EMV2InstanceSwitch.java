@@ -42,6 +42,7 @@ import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
@@ -696,6 +697,29 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE: {
+			ErrorSinkInstance errorSinkInstance = (ErrorSinkInstance) theEObject;
+			T result = caseErrorSinkInstance(errorSinkInstance);
+			if (result == null) {
+				result = caseErrorFlowInstance(errorSinkInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorSinkInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorSinkInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorSinkInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorSinkInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
 			PropagationPointInstance propagationPointInstance = (PropagationPointInstance) theEObject;
 			T result = casePropagationPointInstance(propagationPointInstance);
@@ -853,6 +877,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseErrorSourceInstance(ErrorSourceInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Sink Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Sink Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorSinkInstance(ErrorSinkInstance object) {
 		return null;
 	}
 
