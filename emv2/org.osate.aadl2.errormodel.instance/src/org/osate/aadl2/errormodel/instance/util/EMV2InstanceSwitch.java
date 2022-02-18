@@ -40,6 +40,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
@@ -720,6 +721,29 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE: {
+			ErrorPathInstance errorPathInstance = (ErrorPathInstance) theEObject;
+			T result = caseErrorPathInstance(errorPathInstance);
+			if (result == null) {
+				result = caseErrorFlowInstance(errorPathInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorPathInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorPathInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorPathInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorPathInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
 			PropagationPointInstance propagationPointInstance = (PropagationPointInstance) theEObject;
 			T result = casePropagationPointInstance(propagationPointInstance);
@@ -892,6 +916,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseErrorSinkInstance(ErrorSinkInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Path Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Path Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorPathInstance(ErrorPathInstance object) {
 		return null;
 	}
 

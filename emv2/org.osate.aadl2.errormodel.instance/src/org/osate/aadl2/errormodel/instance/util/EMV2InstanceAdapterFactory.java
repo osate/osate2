@@ -41,6 +41,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
@@ -252,6 +253,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseErrorPathInstance(ErrorPathInstance object) {
+			return createErrorPathInstanceAdapter();
+		}
+
+		@Override
 		public Adapter casePropagationPointInstance(PropagationPointInstance object) {
 			return createPropagationPointInstanceAdapter();
 		}
@@ -432,6 +438,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createErrorSinkInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance <em>Error Path Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance
+	 * @generated
+	 */
+	public Adapter createErrorPathInstanceAdapter() {
 		return null;
 	}
 
