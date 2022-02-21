@@ -1,0 +1,23 @@
+package error_path_all_test
+public
+	system s
+		features
+			f_in: in feature;
+			f_out: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f_in: in propagation {ServiceError, ItemTimingError, SequenceTimingError};
+				f_out: out propagation {ServiceError, ConcurrencyError};
+				flows
+					path_1: error path all {ServiceError} -> f_out {ServiceError};
+					path_2: error path f_in {ServiceError} -> all {ServiceError};
+					path_3: error path all {ServiceError} -> all {ServiceError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end error_path_all_test;
