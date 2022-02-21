@@ -44,10 +44,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getErrorPath <em>Error Path</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getIncomingPropagation <em>Incoming Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getOutgoingPropagation <em>Outgoing Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getIncomingTypeSet <em>Incoming Type Set</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getOutgoingTypeToken <em>Outgoing Type Token</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getSourcePropagation <em>Source Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getDestinationPropagation <em>Destination Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getSourceTypeSet <em>Source Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getDestinationTypeToken <em>Destination Type Token</em>}</li>
  * </ul>
  *
  * @generated
@@ -64,44 +64,44 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	protected ErrorPath errorPath;
 
 	/**
-	 * The cached value of the '{@link #getIncomingPropagation() <em>Incoming Propagation</em>}' reference.
+	 * The cached value of the '{@link #getSourcePropagation() <em>Source Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIncomingPropagation()
+	 * @see #getSourcePropagation()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorPropagationInstance incomingPropagation;
+	protected ErrorPropagationInstance sourcePropagation;
 
 	/**
-	 * The cached value of the '{@link #getOutgoingPropagation() <em>Outgoing Propagation</em>}' reference.
+	 * The cached value of the '{@link #getDestinationPropagation() <em>Destination Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOutgoingPropagation()
+	 * @see #getDestinationPropagation()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorPropagationInstance outgoingPropagation;
+	protected ErrorPropagationInstance destinationPropagation;
 
 	/**
-	 * The cached value of the '{@link #getIncomingTypeSet() <em>Incoming Type Set</em>}' containment reference.
+	 * The cached value of the '{@link #getSourceTypeSet() <em>Source Type Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIncomingTypeSet()
+	 * @see #getSourceTypeSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected AnonymousTypeSet incomingTypeSet;
+	protected AnonymousTypeSet sourceTypeSet;
 
 	/**
-	 * The cached value of the '{@link #getOutgoingTypeToken() <em>Outgoing Type Token</em>}' containment reference.
+	 * The cached value of the '{@link #getDestinationTypeToken() <em>Destination Type Token</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOutgoingTypeToken()
+	 * @see #getDestinationTypeToken()
 	 * @generated
 	 * @ordered
 	 */
-	protected TypeTokenInstance outgoingTypeToken;
+	protected TypeTokenInstance destinationTypeToken;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -172,8 +172,8 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * @generated
 	 */
 	@Override
-	public ErrorPropagationInstance getIncomingPropagation() {
-		return incomingPropagation;
+	public ErrorPropagationInstance getSourcePropagation() {
+		return sourcePropagation;
 	}
 
 	/**
@@ -181,14 +181,14 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetIncomingPropagation(ErrorPropagationInstance newIncomingPropagation,
+	public NotificationChain basicSetSourcePropagation(ErrorPropagationInstance newSourcePropagation,
 			NotificationChain msgs) {
-		ErrorPropagationInstance oldIncomingPropagation = incomingPropagation;
-		incomingPropagation = newIncomingPropagation;
+		ErrorPropagationInstance oldSourcePropagation = sourcePropagation;
+		sourcePropagation = newSourcePropagation;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_PROPAGATION, oldIncomingPropagation,
-					newIncomingPropagation);
+					EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION, oldSourcePropagation,
+					newSourcePropagation);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -204,27 +204,27 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * @generated
 	 */
 	@Override
-	public void setIncomingPropagation(ErrorPropagationInstance newIncomingPropagation) {
-		if (newIncomingPropagation != incomingPropagation) {
+	public void setSourcePropagation(ErrorPropagationInstance newSourcePropagation) {
+		if (newSourcePropagation != sourcePropagation) {
 			NotificationChain msgs = null;
-			if (incomingPropagation != null) {
-				msgs = ((InternalEObject) incomingPropagation).eInverseRemove(this,
-						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__INCOMING_ERROR_PATHS,
+			if (sourcePropagation != null) {
+				msgs = ((InternalEObject) sourcePropagation).eInverseRemove(this,
+						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS,
 						ErrorPropagationInstance.class, msgs);
 			}
-			if (newIncomingPropagation != null) {
-				msgs = ((InternalEObject) newIncomingPropagation).eInverseAdd(this,
-						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__INCOMING_ERROR_PATHS,
+			if (newSourcePropagation != null) {
+				msgs = ((InternalEObject) newSourcePropagation).eInverseAdd(this,
+						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS,
 						ErrorPropagationInstance.class, msgs);
 			}
-			msgs = basicSetIncomingPropagation(newIncomingPropagation, msgs);
+			msgs = basicSetSourcePropagation(newSourcePropagation, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_PROPAGATION, newIncomingPropagation,
-					newIncomingPropagation));
+					EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION, newSourcePropagation,
+					newSourcePropagation));
 		}
 	}
 
@@ -234,8 +234,8 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * @generated
 	 */
 	@Override
-	public ErrorPropagationInstance getOutgoingPropagation() {
-		return outgoingPropagation;
+	public ErrorPropagationInstance getDestinationPropagation() {
+		return destinationPropagation;
 	}
 
 	/**
@@ -243,14 +243,14 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOutgoingPropagation(ErrorPropagationInstance newOutgoingPropagation,
+	public NotificationChain basicSetDestinationPropagation(ErrorPropagationInstance newDestinationPropagation,
 			NotificationChain msgs) {
-		ErrorPropagationInstance oldOutgoingPropagation = outgoingPropagation;
-		outgoingPropagation = newOutgoingPropagation;
+		ErrorPropagationInstance oldDestinationPropagation = destinationPropagation;
+		destinationPropagation = newDestinationPropagation;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION, oldOutgoingPropagation,
-					newOutgoingPropagation);
+					EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION, oldDestinationPropagation,
+					newDestinationPropagation);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -266,27 +266,27 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * @generated
 	 */
 	@Override
-	public void setOutgoingPropagation(ErrorPropagationInstance newOutgoingPropagation) {
-		if (newOutgoingPropagation != outgoingPropagation) {
+	public void setDestinationPropagation(ErrorPropagationInstance newDestinationPropagation) {
+		if (newDestinationPropagation != destinationPropagation) {
 			NotificationChain msgs = null;
-			if (outgoingPropagation != null) {
-				msgs = ((InternalEObject) outgoingPropagation).eInverseRemove(this,
-						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUTGOING_ERROR_PATHS,
+			if (destinationPropagation != null) {
+				msgs = ((InternalEObject) destinationPropagation).eInverseRemove(this,
+						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS,
 						ErrorPropagationInstance.class, msgs);
 			}
-			if (newOutgoingPropagation != null) {
-				msgs = ((InternalEObject) newOutgoingPropagation).eInverseAdd(this,
-						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUTGOING_ERROR_PATHS,
+			if (newDestinationPropagation != null) {
+				msgs = ((InternalEObject) newDestinationPropagation).eInverseAdd(this,
+						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS,
 						ErrorPropagationInstance.class, msgs);
 			}
-			msgs = basicSetOutgoingPropagation(newOutgoingPropagation, msgs);
+			msgs = basicSetDestinationPropagation(newDestinationPropagation, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION, newOutgoingPropagation,
-					newOutgoingPropagation));
+					EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION, newDestinationPropagation,
+					newDestinationPropagation));
 		}
 	}
 
@@ -296,8 +296,8 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * @generated
 	 */
 	@Override
-	public AnonymousTypeSet getIncomingTypeSet() {
-		return incomingTypeSet;
+	public AnonymousTypeSet getSourceTypeSet() {
+		return sourceTypeSet;
 	}
 
 	/**
@@ -305,12 +305,12 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetIncomingTypeSet(AnonymousTypeSet newIncomingTypeSet, NotificationChain msgs) {
-		AnonymousTypeSet oldIncomingTypeSet = incomingTypeSet;
-		incomingTypeSet = newIncomingTypeSet;
+	public NotificationChain basicSetSourceTypeSet(AnonymousTypeSet newSourceTypeSet, NotificationChain msgs) {
+		AnonymousTypeSet oldSourceTypeSet = sourceTypeSet;
+		sourceTypeSet = newSourceTypeSet;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_TYPE_SET, oldIncomingTypeSet, newIncomingTypeSet);
+					EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET, oldSourceTypeSet, newSourceTypeSet);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -326,27 +326,24 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * @generated
 	 */
 	@Override
-	public void setIncomingTypeSet(AnonymousTypeSet newIncomingTypeSet) {
-		if (newIncomingTypeSet != incomingTypeSet) {
+	public void setSourceTypeSet(AnonymousTypeSet newSourceTypeSet) {
+		if (newSourceTypeSet != sourceTypeSet) {
 			NotificationChain msgs = null;
-			if (incomingTypeSet != null) {
-				msgs = ((InternalEObject) incomingTypeSet).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_TYPE_SET, null,
-						msgs);
+			if (sourceTypeSet != null) {
+				msgs = ((InternalEObject) sourceTypeSet).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET, null, msgs);
 			}
-			if (newIncomingTypeSet != null) {
-				msgs = ((InternalEObject) newIncomingTypeSet).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_TYPE_SET, null,
-						msgs);
+			if (newSourceTypeSet != null) {
+				msgs = ((InternalEObject) newSourceTypeSet).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET, null, msgs);
 			}
-			msgs = basicSetIncomingTypeSet(newIncomingTypeSet, msgs);
+			msgs = basicSetSourceTypeSet(newSourceTypeSet, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_TYPE_SET, newIncomingTypeSet,
-					newIncomingTypeSet));
+					EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET, newSourceTypeSet, newSourceTypeSet));
 		}
 	}
 
@@ -356,8 +353,8 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * @generated
 	 */
 	@Override
-	public TypeTokenInstance getOutgoingTypeToken() {
-		return outgoingTypeToken;
+	public TypeTokenInstance getDestinationTypeToken() {
+		return destinationTypeToken;
 	}
 
 	/**
@@ -365,13 +362,14 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOutgoingTypeToken(TypeTokenInstance newOutgoingTypeToken, NotificationChain msgs) {
-		TypeTokenInstance oldOutgoingTypeToken = outgoingTypeToken;
-		outgoingTypeToken = newOutgoingTypeToken;
+	public NotificationChain basicSetDestinationTypeToken(TypeTokenInstance newDestinationTypeToken,
+			NotificationChain msgs) {
+		TypeTokenInstance oldDestinationTypeToken = destinationTypeToken;
+		destinationTypeToken = newDestinationTypeToken;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN, oldOutgoingTypeToken,
-					newOutgoingTypeToken);
+					EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN, oldDestinationTypeToken,
+					newDestinationTypeToken);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -387,27 +385,27 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * @generated
 	 */
 	@Override
-	public void setOutgoingTypeToken(TypeTokenInstance newOutgoingTypeToken) {
-		if (newOutgoingTypeToken != outgoingTypeToken) {
+	public void setDestinationTypeToken(TypeTokenInstance newDestinationTypeToken) {
+		if (newDestinationTypeToken != destinationTypeToken) {
 			NotificationChain msgs = null;
-			if (outgoingTypeToken != null) {
-				msgs = ((InternalEObject) outgoingTypeToken).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN, null,
+			if (destinationTypeToken != null) {
+				msgs = ((InternalEObject) destinationTypeToken).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN, null,
 						msgs);
 			}
-			if (newOutgoingTypeToken != null) {
-				msgs = ((InternalEObject) newOutgoingTypeToken).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN, null,
+			if (newDestinationTypeToken != null) {
+				msgs = ((InternalEObject) newDestinationTypeToken).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN, null,
 						msgs);
 			}
-			msgs = basicSetOutgoingTypeToken(newOutgoingTypeToken, msgs);
+			msgs = basicSetDestinationTypeToken(newDestinationTypeToken, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN, newOutgoingTypeToken,
-					newOutgoingTypeToken));
+					EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN, newDestinationTypeToken,
+					newDestinationTypeToken));
 		}
 	}
 
@@ -419,20 +417,20 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_PROPAGATION:
-			if (incomingPropagation != null) {
-				msgs = ((InternalEObject) incomingPropagation).eInverseRemove(this,
-						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__INCOMING_ERROR_PATHS,
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
+			if (sourcePropagation != null) {
+				msgs = ((InternalEObject) sourcePropagation).eInverseRemove(this,
+						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS,
 						ErrorPropagationInstance.class, msgs);
 			}
-			return basicSetIncomingPropagation((ErrorPropagationInstance) otherEnd, msgs);
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION:
-			if (outgoingPropagation != null) {
-				msgs = ((InternalEObject) outgoingPropagation).eInverseRemove(this,
-						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__OUTGOING_ERROR_PATHS,
+			return basicSetSourcePropagation((ErrorPropagationInstance) otherEnd, msgs);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			if (destinationPropagation != null) {
+				msgs = ((InternalEObject) destinationPropagation).eInverseRemove(this,
+						EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS,
 						ErrorPropagationInstance.class, msgs);
 			}
-			return basicSetOutgoingPropagation((ErrorPropagationInstance) otherEnd, msgs);
+			return basicSetDestinationPropagation((ErrorPropagationInstance) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -445,14 +443,14 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_PROPAGATION:
-			return basicSetIncomingPropagation(null, msgs);
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION:
-			return basicSetOutgoingPropagation(null, msgs);
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_TYPE_SET:
-			return basicSetIncomingTypeSet(null, msgs);
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN:
-			return basicSetOutgoingTypeToken(null, msgs);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
+			return basicSetSourcePropagation(null, msgs);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			return basicSetDestinationPropagation(null, msgs);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
+			return basicSetSourceTypeSet(null, msgs);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
+			return basicSetDestinationTypeToken(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -470,14 +468,14 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 				return getErrorPath();
 			}
 			return basicGetErrorPath();
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_PROPAGATION:
-			return getIncomingPropagation();
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION:
-			return getOutgoingPropagation();
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_TYPE_SET:
-			return getIncomingTypeSet();
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN:
-			return getOutgoingTypeToken();
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
+			return getSourcePropagation();
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			return getDestinationPropagation();
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
+			return getSourceTypeSet();
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
+			return getDestinationTypeToken();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -493,17 +491,17 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__ERROR_PATH:
 			setErrorPath((ErrorPath) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_PROPAGATION:
-			setIncomingPropagation((ErrorPropagationInstance) newValue);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
+			setSourcePropagation((ErrorPropagationInstance) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION:
-			setOutgoingPropagation((ErrorPropagationInstance) newValue);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			setDestinationPropagation((ErrorPropagationInstance) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_TYPE_SET:
-			setIncomingTypeSet((AnonymousTypeSet) newValue);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
+			setSourceTypeSet((AnonymousTypeSet) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN:
-			setOutgoingTypeToken((TypeTokenInstance) newValue);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
+			setDestinationTypeToken((TypeTokenInstance) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -520,17 +518,17 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__ERROR_PATH:
 			setErrorPath((ErrorPath) null);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_PROPAGATION:
-			setIncomingPropagation((ErrorPropagationInstance) null);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
+			setSourcePropagation((ErrorPropagationInstance) null);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION:
-			setOutgoingPropagation((ErrorPropagationInstance) null);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			setDestinationPropagation((ErrorPropagationInstance) null);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_TYPE_SET:
-			setIncomingTypeSet((AnonymousTypeSet) null);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
+			setSourceTypeSet((AnonymousTypeSet) null);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN:
-			setOutgoingTypeToken((TypeTokenInstance) null);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
+			setDestinationTypeToken((TypeTokenInstance) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -546,14 +544,14 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 		switch (featureID) {
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__ERROR_PATH:
 			return errorPath != null;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_PROPAGATION:
-			return incomingPropagation != null;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION:
-			return outgoingPropagation != null;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__INCOMING_TYPE_SET:
-			return incomingTypeSet != null;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN:
-			return outgoingTypeToken != null;
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
+			return sourcePropagation != null;
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			return destinationPropagation != null;
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
+			return sourceTypeSet != null;
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
+			return destinationTypeToken != null;
 		}
 		return super.eIsSet(featureID);
 	}

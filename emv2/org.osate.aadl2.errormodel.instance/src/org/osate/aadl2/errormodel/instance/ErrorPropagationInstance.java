@@ -42,8 +42,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutTypeSet <em>Out Type Set</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSources <em>Error Sources</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSinks <em>Error Sinks</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getIncomingErrorPaths <em>Incoming Error Paths</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutgoingErrorPaths <em>Outgoing Error Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceErrorPaths <em>Source Error Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationErrorPaths <em>Destination Error Paths</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
@@ -168,32 +168,32 @@ public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
 	EList<ErrorSinkInstance> getErrorSinks();
 
 	/**
-	 * Returns the value of the '<em><b>Incoming Error Paths</b></em>' reference list.
+	 * Returns the value of the '<em><b>Source Error Paths</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPathInstance}.
-	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingPropagation <em>Incoming Propagation</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourcePropagation <em>Source Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Incoming Error Paths</em>' reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_IncomingErrorPaths()
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingPropagation
-	 * @model opposite="incomingPropagation" transient="true"
+	 * @return the value of the '<em>Source Error Paths</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_SourceErrorPaths()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourcePropagation
+	 * @model opposite="sourcePropagation" transient="true"
 	 * @generated
 	 */
-	EList<ErrorPathInstance> getIncomingErrorPaths();
+	EList<ErrorPathInstance> getSourceErrorPaths();
 
 	/**
-	 * Returns the value of the '<em><b>Outgoing Error Paths</b></em>' reference list.
+	 * Returns the value of the '<em><b>Destination Error Paths</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPathInstance}.
-	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationPropagation <em>Destination Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Outgoing Error Paths</em>' reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_OutgoingErrorPaths()
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingPropagation
-	 * @model opposite="outgoingPropagation" transient="true"
+	 * @return the value of the '<em>Destination Error Paths</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_DestinationErrorPaths()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationPropagation
+	 * @model opposite="destinationPropagation" transient="true"
 	 * @generated
 	 */
-	EList<ErrorPathInstance> getOutgoingErrorPaths();
+	EList<ErrorPathInstance> getDestinationErrorPaths();
 
 	/**
 	 * <!-- begin-user-doc -->

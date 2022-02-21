@@ -35,10 +35,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getErrorPath <em>Error Path</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingPropagation <em>Incoming Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingTypeSet <em>Incoming Type Set</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingTypeToken <em>Outgoing Type Token</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourcePropagation <em>Source Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationPropagation <em>Destination Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourceTypeSet <em>Source Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeToken <em>Destination Type Token</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance()
@@ -70,94 +70,94 @@ public interface ErrorPathInstance extends ErrorFlowInstance {
 	void setErrorPath(ErrorPath value);
 
 	/**
-	 * Returns the value of the '<em><b>Incoming Propagation</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getIncomingErrorPaths <em>Incoming Error Paths</em>}'.
+	 * Returns the value of the '<em><b>Source Propagation</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceErrorPaths <em>Source Error Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Incoming Propagation</em>' reference.
-	 * @see #setIncomingPropagation(ErrorPropagationInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_IncomingPropagation()
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getIncomingErrorPaths
-	 * @model opposite="incomingErrorPaths" resolveProxies="false"
+	 * @return the value of the '<em>Source Propagation</em>' reference.
+	 * @see #setSourcePropagation(ErrorPropagationInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_SourcePropagation()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceErrorPaths
+	 * @model opposite="sourceErrorPaths" resolveProxies="false"
 	 * @generated
 	 */
-	ErrorPropagationInstance getIncomingPropagation();
+	ErrorPropagationInstance getSourcePropagation();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingPropagation <em>Incoming Propagation</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourcePropagation <em>Source Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Incoming Propagation</em>' reference.
-	 * @see #getIncomingPropagation()
+	 * @param value the new value of the '<em>Source Propagation</em>' reference.
+	 * @see #getSourcePropagation()
 	 * @generated
 	 */
-	void setIncomingPropagation(ErrorPropagationInstance value);
+	void setSourcePropagation(ErrorPropagationInstance value);
 
 	/**
-	 * Returns the value of the '<em><b>Outgoing Propagation</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutgoingErrorPaths <em>Outgoing Error Paths</em>}'.
+	 * Returns the value of the '<em><b>Destination Propagation</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationErrorPaths <em>Destination Error Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Outgoing Propagation</em>' reference.
-	 * @see #setOutgoingPropagation(ErrorPropagationInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_OutgoingPropagation()
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutgoingErrorPaths
-	 * @model opposite="outgoingErrorPaths" resolveProxies="false"
+	 * @return the value of the '<em>Destination Propagation</em>' reference.
+	 * @see #setDestinationPropagation(ErrorPropagationInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_DestinationPropagation()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationErrorPaths
+	 * @model opposite="destinationErrorPaths" resolveProxies="false"
 	 * @generated
 	 */
-	ErrorPropagationInstance getOutgoingPropagation();
+	ErrorPropagationInstance getDestinationPropagation();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationPropagation <em>Destination Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Outgoing Propagation</em>' reference.
-	 * @see #getOutgoingPropagation()
+	 * @param value the new value of the '<em>Destination Propagation</em>' reference.
+	 * @see #getDestinationPropagation()
 	 * @generated
 	 */
-	void setOutgoingPropagation(ErrorPropagationInstance value);
+	void setDestinationPropagation(ErrorPropagationInstance value);
 
 	/**
-	 * Returns the value of the '<em><b>Incoming Type Set</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Source Type Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Incoming Type Set</em>' containment reference.
-	 * @see #setIncomingTypeSet(AnonymousTypeSet)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_IncomingTypeSet()
+	 * @return the value of the '<em>Source Type Set</em>' containment reference.
+	 * @see #setSourceTypeSet(AnonymousTypeSet)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_SourceTypeSet()
 	 * @model containment="true"
 	 * @generated
 	 */
-	AnonymousTypeSet getIncomingTypeSet();
+	AnonymousTypeSet getSourceTypeSet();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingTypeSet <em>Incoming Type Set</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourceTypeSet <em>Source Type Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Incoming Type Set</em>' containment reference.
-	 * @see #getIncomingTypeSet()
+	 * @param value the new value of the '<em>Source Type Set</em>' containment reference.
+	 * @see #getSourceTypeSet()
 	 * @generated
 	 */
-	void setIncomingTypeSet(AnonymousTypeSet value);
+	void setSourceTypeSet(AnonymousTypeSet value);
 
 	/**
-	 * Returns the value of the '<em><b>Outgoing Type Token</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Destination Type Token</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Outgoing Type Token</em>' containment reference.
-	 * @see #setOutgoingTypeToken(TypeTokenInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_OutgoingTypeToken()
+	 * @return the value of the '<em>Destination Type Token</em>' containment reference.
+	 * @see #setDestinationTypeToken(TypeTokenInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_DestinationTypeToken()
 	 * @model containment="true"
 	 * @generated
 	 */
-	TypeTokenInstance getOutgoingTypeToken();
+	TypeTokenInstance getDestinationTypeToken();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingTypeToken <em>Outgoing Type Token</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeToken <em>Destination Type Token</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Outgoing Type Token</em>' containment reference.
-	 * @see #getOutgoingTypeToken()
+	 * @param value the new value of the '<em>Destination Type Token</em>' containment reference.
+	 * @see #getDestinationTypeToken()
 	 * @generated
 	 */
-	void setOutgoingTypeToken(TypeTokenInstance value);
+	void setDestinationTypeToken(TypeTokenInstance value);
 } // ErrorPathInstance

@@ -640,21 +640,21 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var pathInstance = EMV2InstanceFactory.eINSTANCE.createErrorPathInstance();
 		pathInstance.setName(path.getName());
 		pathInstance.setErrorPath(path);
-		pathInstance.setIncomingPropagation(findErrorPropagationInstance(annex, path.getIncoming()));
-		pathInstance.setOutgoingPropagation(findErrorPropagationInstance(annex, path.getOutgoing()));
+		pathInstance.setSourcePropagation(findErrorPropagationInstance(annex, path.getIncoming()));
+		pathInstance.setDestinationPropagation(findErrorPropagationInstance(annex, path.getOutgoing()));
 		if (path.getTypeTokenConstraint() == null) {
-			pathInstance.setIncomingTypeSet(createAnonymousTypeSet(path.getIncoming().getTypeSet()));
+			pathInstance.setSourceTypeSet(createAnonymousTypeSet(path.getIncoming().getTypeSet()));
 		} else {
-			pathInstance.setIncomingTypeSet(createAnonymousTypeSet(path.getTypeTokenConstraint()));
+			pathInstance.setSourceTypeSet(createAnonymousTypeSet(path.getTypeTokenConstraint()));
 		}
 		var targetToken = path.getTargetToken().getTypeTokens().get(0);
 		if (targetToken.getType().size() == 1) {
 			var type = (ErrorType) targetToken.getType().get(0);
 			var typeInstance = createTypeInstance(type);
-			pathInstance.setOutgoingTypeToken(typeInstance);
+			pathInstance.setDestinationTypeToken(typeInstance);
 		} else {
 			var productInstance = createTypeProductInstance(targetToken);
-			pathInstance.setOutgoingTypeToken(productInstance);
+			pathInstance.setDestinationTypeToken(productInstance);
 		}
 		annex.getErrorFlows().add(pathInstance);
 	}

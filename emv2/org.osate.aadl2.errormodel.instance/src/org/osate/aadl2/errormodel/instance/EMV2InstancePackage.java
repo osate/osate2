@@ -1590,22 +1590,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_PROPAGATION_INSTANCE__ERROR_SINKS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Incoming Error Paths</b></em>' reference list.
+	 * The feature id for the '<em><b>Source Error Paths</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE__INCOMING_ERROR_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 6;
+	int ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Outgoing Error Paths</b></em>' reference list.
+	 * The feature id for the '<em><b>Destination Error Paths</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE__OUTGOING_ERROR_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 7;
+	int ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Error Propagation Instance</em>' class.
@@ -1762,22 +1762,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int FEATURE_PROPAGATION__ERROR_SINKS = ERROR_PROPAGATION_INSTANCE__ERROR_SINKS;
 
 	/**
-	 * The feature id for the '<em><b>Incoming Error Paths</b></em>' reference list.
+	 * The feature id for the '<em><b>Source Error Paths</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__INCOMING_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__INCOMING_ERROR_PATHS;
+	int FEATURE_PROPAGATION__SOURCE_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS;
 
 	/**
-	 * The feature id for the '<em><b>Outgoing Error Paths</b></em>' reference list.
+	 * The feature id for the '<em><b>Destination Error Paths</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__OUTGOING_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__OUTGOING_ERROR_PATHS;
+	int FEATURE_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1943,22 +1943,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int POINT_PROPAGATION__ERROR_SINKS = ERROR_PROPAGATION_INSTANCE__ERROR_SINKS;
 
 	/**
-	 * The feature id for the '<em><b>Incoming Error Paths</b></em>' reference list.
+	 * The feature id for the '<em><b>Source Error Paths</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POINT_PROPAGATION__INCOMING_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__INCOMING_ERROR_PATHS;
+	int POINT_PROPAGATION__SOURCE_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS;
 
 	/**
-	 * The feature id for the '<em><b>Outgoing Error Paths</b></em>' reference list.
+	 * The feature id for the '<em><b>Destination Error Paths</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POINT_PROPAGATION__OUTGOING_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__OUTGOING_ERROR_PATHS;
+	int POINT_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
 
 	/**
 	 * The feature id for the '<em><b>Point</b></em>' reference.
@@ -2124,22 +2124,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_PROPAGATION__ERROR_SINKS = ERROR_PROPAGATION_INSTANCE__ERROR_SINKS;
 
 	/**
-	 * The feature id for the '<em><b>Incoming Error Paths</b></em>' reference list.
+	 * The feature id for the '<em><b>Source Error Paths</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_PROPAGATION__INCOMING_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__INCOMING_ERROR_PATHS;
+	int BINDING_PROPAGATION__SOURCE_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS;
 
 	/**
-	 * The feature id for the '<em><b>Outgoing Error Paths</b></em>' reference list.
+	 * The feature id for the '<em><b>Destination Error Paths</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_PROPAGATION__OUTGOING_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__OUTGOING_ERROR_PATHS;
+	int BINDING_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
 
 	/**
 	 * The feature id for the '<em><b>Binding</b></em>' attribute.
@@ -3231,40 +3231,40 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_PATH_INSTANCE__ERROR_PATH = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Incoming Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>Source Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PATH_INSTANCE__INCOMING_PROPAGATION = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 1;
+	int ERROR_PATH_INSTANCE__SOURCE_PROPAGATION = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Outgoing Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>Destination Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 2;
+	int ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Incoming Type Set</b></em>' containment reference.
+	 * The feature id for the '<em><b>Source Type Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PATH_INSTANCE__INCOMING_TYPE_SET = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 3;
+	int ERROR_PATH_INSTANCE__SOURCE_TYPE_SET = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Outgoing Type Token</b></em>' containment reference.
+	 * The feature id for the '<em><b>Destination Type Token</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 4;
+	int ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Error Path Instance</em>' class.
@@ -3874,48 +3874,48 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getErrorPathInstance_ErrorPath();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingPropagation <em>Incoming Propagation</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourcePropagation <em>Source Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Incoming Propagation</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingPropagation()
+	 * @return the meta object for the reference '<em>Source Propagation</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourcePropagation()
 	 * @see #getErrorPathInstance()
 	 * @generated
 	 */
-	EReference getErrorPathInstance_IncomingPropagation();
+	EReference getErrorPathInstance_SourcePropagation();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationPropagation <em>Destination Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Outgoing Propagation</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingPropagation()
+	 * @return the meta object for the reference '<em>Destination Propagation</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationPropagation()
 	 * @see #getErrorPathInstance()
 	 * @generated
 	 */
-	EReference getErrorPathInstance_OutgoingPropagation();
+	EReference getErrorPathInstance_DestinationPropagation();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingTypeSet <em>Incoming Type Set</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourceTypeSet <em>Source Type Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Incoming Type Set</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getIncomingTypeSet()
+	 * @return the meta object for the containment reference '<em>Source Type Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourceTypeSet()
 	 * @see #getErrorPathInstance()
 	 * @generated
 	 */
-	EReference getErrorPathInstance_IncomingTypeSet();
+	EReference getErrorPathInstance_SourceTypeSet();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingTypeToken <em>Outgoing Type Token</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeToken <em>Destination Type Token</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Outgoing Type Token</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getOutgoingTypeToken()
+	 * @return the meta object for the containment reference '<em>Destination Type Token</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeToken()
 	 * @see #getErrorPathInstance()
 	 * @generated
 	 */
-	EReference getErrorPathInstance_OutgoingTypeToken();
+	EReference getErrorPathInstance_DestinationTypeToken();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance <em>Error Propagation Condition Instance</em>}'.
@@ -4284,26 +4284,26 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getErrorPropagationInstance_ErrorSinks();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getIncomingErrorPaths <em>Incoming Error Paths</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceErrorPaths <em>Source Error Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Incoming Error Paths</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getIncomingErrorPaths()
+	 * @return the meta object for the reference list '<em>Source Error Paths</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceErrorPaths()
 	 * @see #getErrorPropagationInstance()
 	 * @generated
 	 */
-	EReference getErrorPropagationInstance_IncomingErrorPaths();
+	EReference getErrorPropagationInstance_SourceErrorPaths();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutgoingErrorPaths <em>Outgoing Error Paths</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationErrorPaths <em>Destination Error Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Outgoing Error Paths</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutgoingErrorPaths()
+	 * @return the meta object for the reference list '<em>Destination Error Paths</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationErrorPaths()
 	 * @see #getErrorPropagationInstance()
 	 * @generated
 	 */
-	EReference getErrorPropagationInstance_OutgoingErrorPaths();
+	EReference getErrorPropagationInstance_DestinationErrorPaths();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.FeaturePropagation <em>Feature Propagation</em>}'.
@@ -4926,36 +4926,37 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference ERROR_PATH_INSTANCE__ERROR_PATH = eINSTANCE.getErrorPathInstance_ErrorPath();
 
 		/**
-		 * The meta object literal for the '<em><b>Incoming Propagation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Source Propagation</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PATH_INSTANCE__INCOMING_PROPAGATION = eINSTANCE.getErrorPathInstance_IncomingPropagation();
+		EReference ERROR_PATH_INSTANCE__SOURCE_PROPAGATION = eINSTANCE.getErrorPathInstance_SourcePropagation();
 
 		/**
-		 * The meta object literal for the '<em><b>Outgoing Propagation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Destination Propagation</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PATH_INSTANCE__OUTGOING_PROPAGATION = eINSTANCE.getErrorPathInstance_OutgoingPropagation();
+		EReference ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION = eINSTANCE
+				.getErrorPathInstance_DestinationPropagation();
 
 		/**
-		 * The meta object literal for the '<em><b>Incoming Type Set</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Source Type Set</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PATH_INSTANCE__INCOMING_TYPE_SET = eINSTANCE.getErrorPathInstance_IncomingTypeSet();
+		EReference ERROR_PATH_INSTANCE__SOURCE_TYPE_SET = eINSTANCE.getErrorPathInstance_SourceTypeSet();
 
 		/**
-		 * The meta object literal for the '<em><b>Outgoing Type Token</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Destination Type Token</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PATH_INSTANCE__OUTGOING_TYPE_TOKEN = eINSTANCE.getErrorPathInstance_OutgoingTypeToken();
+		EReference ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN = eINSTANCE.getErrorPathInstance_DestinationTypeToken();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationConditionInstanceImpl <em>Error Propagation Condition Instance</em>}' class.
@@ -5254,22 +5255,22 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference ERROR_PROPAGATION_INSTANCE__ERROR_SINKS = eINSTANCE.getErrorPropagationInstance_ErrorSinks();
 
 		/**
-		 * The meta object literal for the '<em><b>Incoming Error Paths</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Source Error Paths</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_INSTANCE__INCOMING_ERROR_PATHS = eINSTANCE
-				.getErrorPropagationInstance_IncomingErrorPaths();
+		EReference ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS = eINSTANCE
+				.getErrorPropagationInstance_SourceErrorPaths();
 
 		/**
-		 * The meta object literal for the '<em><b>Outgoing Error Paths</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Destination Error Paths</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_INSTANCE__OUTGOING_ERROR_PATHS = eINSTANCE
-				.getErrorPropagationInstance_OutgoingErrorPaths();
+		EReference ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS = eINSTANCE
+				.getErrorPropagationInstance_DestinationErrorPaths();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.FeaturePropagationImpl <em>Feature Propagation</em>}' class.
