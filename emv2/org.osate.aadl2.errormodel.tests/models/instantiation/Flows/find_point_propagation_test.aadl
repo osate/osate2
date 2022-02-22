@@ -1,0 +1,25 @@
+package find_point_propagation_test
+public
+	system s
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				point1: in propagation {CommonErrors};
+				point2: out propagation {CommonErrors};
+				flows
+					source_1: error source point2 {ServiceError};
+					sink_1: error sink point1 {ItemTimingError};
+					path_1: error path point1 {SequenceTimingError} -> point2 {ServiceTimingError};
+			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+				point2: propagation point;
+			end paths;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end find_point_propagation_test;
