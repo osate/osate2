@@ -45,8 +45,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getErrorPath <em>Error Path</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getSourcePropagation <em>Source Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getDestinationPropagation <em>Destination Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getSourceTypeSet <em>Source Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getDestinationPropagation <em>Destination Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPathInstanceImpl#getDestinationTypeToken <em>Destination Type Token</em>}</li>
  * </ul>
  *
@@ -74,16 +74,6 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	protected ErrorPropagationInstance sourcePropagation;
 
 	/**
-	 * The cached value of the '{@link #getDestinationPropagation() <em>Destination Propagation</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDestinationPropagation()
-	 * @generated
-	 * @ordered
-	 */
-	protected ErrorPropagationInstance destinationPropagation;
-
-	/**
 	 * The cached value of the '{@link #getSourceTypeSet() <em>Source Type Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -92,6 +82,16 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 	 * @ordered
 	 */
 	protected AnonymousTypeSet sourceTypeSet;
+
+	/**
+	 * The cached value of the '{@link #getDestinationPropagation() <em>Destination Propagation</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestinationPropagation()
+	 * @generated
+	 * @ordered
+	 */
+	protected ErrorPropagationInstance destinationPropagation;
 
 	/**
 	 * The cached value of the '{@link #getDestinationTypeToken() <em>Destination Type Token</em>}' containment reference.
@@ -445,10 +445,10 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 		switch (featureID) {
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
 			return basicSetSourcePropagation(null, msgs);
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
-			return basicSetDestinationPropagation(null, msgs);
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
 			return basicSetSourceTypeSet(null, msgs);
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			return basicSetDestinationPropagation(null, msgs);
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
 			return basicSetDestinationTypeToken(null, msgs);
 		}
@@ -470,10 +470,10 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 			return basicGetErrorPath();
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
 			return getSourcePropagation();
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
-			return getDestinationPropagation();
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
 			return getSourceTypeSet();
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			return getDestinationPropagation();
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
 			return getDestinationTypeToken();
 		}
@@ -494,11 +494,11 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
 			setSourcePropagation((ErrorPropagationInstance) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
-			setDestinationPropagation((ErrorPropagationInstance) newValue);
-			return;
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
 			setSourceTypeSet((AnonymousTypeSet) newValue);
+			return;
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			setDestinationPropagation((ErrorPropagationInstance) newValue);
 			return;
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
 			setDestinationTypeToken((TypeTokenInstance) newValue);
@@ -521,11 +521,11 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
 			setSourcePropagation((ErrorPropagationInstance) null);
 			return;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
-			setDestinationPropagation((ErrorPropagationInstance) null);
-			return;
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
 			setSourceTypeSet((AnonymousTypeSet) null);
+			return;
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			setDestinationPropagation((ErrorPropagationInstance) null);
 			return;
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
 			setDestinationTypeToken((TypeTokenInstance) null);
@@ -546,10 +546,10 @@ public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements Erro
 			return errorPath != null;
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_PROPAGATION:
 			return sourcePropagation != null;
-		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
-			return destinationPropagation != null;
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__SOURCE_TYPE_SET:
 			return sourceTypeSet != null;
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION:
+			return destinationPropagation != null;
 		case EMV2InstancePackage.ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN:
 			return destinationTypeToken != null;
 		}

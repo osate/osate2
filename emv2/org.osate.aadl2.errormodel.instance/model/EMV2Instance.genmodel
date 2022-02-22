@@ -150,8 +150,8 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//ErrorPathInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPathInstance/errorPath"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPathInstance/sourcePropagation"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPathInstance/destinationPropagation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPathInstance/sourceTypeSet"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPathInstance/destinationPropagation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPathInstance/destinationTypeToken"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//PropagationPointInstance">
