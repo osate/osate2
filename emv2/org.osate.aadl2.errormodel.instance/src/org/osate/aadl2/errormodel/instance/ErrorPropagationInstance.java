@@ -23,6 +23,7 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.DirectionType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
@@ -39,6 +40,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutErrorPropagation <em>Out Error Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInTypeSet <em>In Type Set</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutTypeSet <em>Out Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSources <em>Error Sources</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorSinks <em>Error Sinks</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceErrorPaths <em>Source Error Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationErrorPaths <em>Destination Error Paths</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
@@ -133,6 +138,62 @@ public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
 	 * @generated
 	 */
 	void setOutTypeSet(AnonymousTypeSet value);
+
+	/**
+	 * Returns the value of the '<em><b>Error Sources</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getPropagation <em>Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Error Sources</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorSources()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorSourceInstance#getPropagation
+	 * @model opposite="propagation" transient="true"
+	 * @generated
+	 */
+	EList<ErrorSourceInstance> getErrorSources();
+
+	/**
+	 * Returns the value of the '<em><b>Error Sinks</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getPropagation <em>Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Error Sinks</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorSinks()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorSinkInstance#getPropagation
+	 * @model opposite="propagation" transient="true"
+	 * @generated
+	 */
+	EList<ErrorSinkInstance> getErrorSinks();
+
+	/**
+	 * Returns the value of the '<em><b>Source Error Paths</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPathInstance}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourcePropagation <em>Source Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source Error Paths</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_SourceErrorPaths()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourcePropagation
+	 * @model opposite="sourcePropagation" transient="true"
+	 * @generated
+	 */
+	EList<ErrorPathInstance> getSourceErrorPaths();
+
+	/**
+	 * Returns the value of the '<em><b>Destination Error Paths</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPathInstance}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationPropagation <em>Destination Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destination Error Paths</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_DestinationErrorPaths()
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationPropagation
+	 * @model opposite="destinationPropagation" transient="true"
+	 * @generated
+	 */
+	EList<ErrorPathInstance> getDestinationErrorPaths();
 
 	/**
 	 * <!-- begin-user-doc -->

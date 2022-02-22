@@ -48,7 +48,7 @@ import org.osate.aadl2.errormodel.instance.TypeProductInstance;
  *
  * @generated
  */
-public class TypeProductInstanceImpl extends TypeTokenInstanceImpl implements TypeProductInstance {
+public class TypeProductInstanceImpl extends EMV2InstanceObjectImpl implements TypeProductInstance {
 	/**
 	 * The cached value of the '{@link #getTypes() <em>Types</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

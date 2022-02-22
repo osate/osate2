@@ -30,7 +30,7 @@ package org.osate.aadl2.errormodel.instance;
  *
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetElement()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
 public interface TypeSetElement extends EMV2InstanceObject {

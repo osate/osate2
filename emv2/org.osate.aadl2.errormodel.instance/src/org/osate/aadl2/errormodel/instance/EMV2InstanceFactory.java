@@ -106,6 +106,33 @@ public interface EMV2InstanceFactory extends EFactory {
 	ErrorFlowInstance createErrorFlowInstance();
 
 	/**
+	 * Returns a new object of class '<em>Error Source Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Error Source Instance</em>'.
+	 * @generated
+	 */
+	ErrorSourceInstance createErrorSourceInstance();
+
+	/**
+	 * Returns a new object of class '<em>Error Sink Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Error Sink Instance</em>'.
+	 * @generated
+	 */
+	ErrorSinkInstance createErrorSinkInstance();
+
+	/**
+	 * Returns a new object of class '<em>Error Path Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Error Path Instance</em>'.
+	 * @generated
+	 */
+	ErrorPathInstance createErrorPathInstance();
+
+	/**
 	 * Returns a new object of class '<em>Error Propagation Condition Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

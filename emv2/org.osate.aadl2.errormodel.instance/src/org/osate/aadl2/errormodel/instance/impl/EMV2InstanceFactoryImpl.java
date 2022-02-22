@@ -41,7 +41,10 @@ import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -110,14 +113,10 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createStateTransitionInstance();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
 			return createCompositeStateInstance();
-		case EMV2InstancePackage.ERROR_FLOW_INSTANCE:
-			return createErrorFlowInstance();
 		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE:
 			return createErrorPropagationConditionInstance();
 		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE:
 			return createErrorDetectionInstance();
-		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE:
-			return createPropagationPointInstance();
 		case EMV2InstancePackage.EVENT_INSTANCE:
 			return createEventInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
@@ -138,6 +137,16 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createTypeSetInstance();
 		case EMV2InstancePackage.ANONYMOUS_TYPE_SET:
 			return createAnonymousTypeSet();
+		case EMV2InstancePackage.ERROR_FLOW_INSTANCE:
+			return createErrorFlowInstance();
+		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE:
+			return createErrorSourceInstance();
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE:
+			return createErrorSinkInstance();
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE:
+			return createErrorPathInstance();
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE:
+			return createPropagationPointInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -252,6 +261,39 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ErrorFlowInstance createErrorFlowInstance() {
 		ErrorFlowInstanceImpl errorFlowInstance = new ErrorFlowInstanceImpl();
 		return errorFlowInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorSourceInstance createErrorSourceInstance() {
+		ErrorSourceInstanceImpl errorSourceInstance = new ErrorSourceInstanceImpl();
+		return errorSourceInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorSinkInstance createErrorSinkInstance() {
+		ErrorSinkInstanceImpl errorSinkInstance = new ErrorSinkInstanceImpl();
+		return errorSinkInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorPathInstance createErrorPathInstance() {
+		ErrorPathInstanceImpl errorPathInstance = new ErrorPathInstanceImpl();
+		return errorPathInstance;
 	}
 
 	/**

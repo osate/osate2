@@ -40,8 +40,11 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -252,26 +255,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.ERROR_FLOW_INSTANCE: {
-			ErrorFlowInstance errorFlowInstance = (ErrorFlowInstance) theEObject;
-			T result = caseErrorFlowInstance(errorFlowInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(errorFlowInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(errorFlowInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(errorFlowInstance);
-			}
-			if (result == null) {
-				result = caseElement(errorFlowInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE: {
 			ErrorPropagationConditionInstance errorPropagationConditionInstance = (ErrorPropagationConditionInstance) theEObject;
 			T result = caseErrorPropagationConditionInstance(errorPropagationConditionInstance);
@@ -306,26 +289,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(errorDetectionInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
-			PropagationPointInstance propagationPointInstance = (PropagationPointInstance) theEObject;
-			T result = casePropagationPointInstance(propagationPointInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(propagationPointInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(propagationPointInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(propagationPointInstance);
-			}
-			if (result == null) {
-				result = caseElement(propagationPointInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -692,6 +655,115 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.ERROR_FLOW_INSTANCE: {
+			ErrorFlowInstance errorFlowInstance = (ErrorFlowInstance) theEObject;
+			T result = caseErrorFlowInstance(errorFlowInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorFlowInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorFlowInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorFlowInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorFlowInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE: {
+			ErrorSourceInstance errorSourceInstance = (ErrorSourceInstance) theEObject;
+			T result = caseErrorSourceInstance(errorSourceInstance);
+			if (result == null) {
+				result = caseErrorFlowInstance(errorSourceInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorSourceInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorSourceInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorSourceInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorSourceInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_SINK_INSTANCE: {
+			ErrorSinkInstance errorSinkInstance = (ErrorSinkInstance) theEObject;
+			T result = caseErrorSinkInstance(errorSinkInstance);
+			if (result == null) {
+				result = caseErrorFlowInstance(errorSinkInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorSinkInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorSinkInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorSinkInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorSinkInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_PATH_INSTANCE: {
+			ErrorPathInstance errorPathInstance = (ErrorPathInstance) theEObject;
+			T result = caseErrorPathInstance(errorPathInstance);
+			if (result == null) {
+				result = caseErrorFlowInstance(errorPathInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorPathInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorPathInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorPathInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorPathInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
+			PropagationPointInstance propagationPointInstance = (PropagationPointInstance) theEObject;
+			T result = casePropagationPointInstance(propagationPointInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(propagationPointInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(propagationPointInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(propagationPointInstance);
+			}
+			if (result == null) {
+				result = caseElement(propagationPointInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -814,6 +886,51 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseErrorFlowInstance(ErrorFlowInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Source Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Source Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorSourceInstance(ErrorSourceInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Sink Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Sink Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorSinkInstance(ErrorSinkInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Path Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Path Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorPathInstance(ErrorPathInstance object) {
 		return null;
 	}
 

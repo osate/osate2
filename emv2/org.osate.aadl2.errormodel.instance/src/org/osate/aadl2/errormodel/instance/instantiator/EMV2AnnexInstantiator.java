@@ -144,6 +144,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiateErrorFlow(fl, emv2AI);
 		}
 
+		for (var source : EMV2Util.getAllErrorSources(instance)) {
+			instantiateErrorSource(source, emv2AI);
+		}
+
+		for (var sink : EMV2Util.getAllErrorSinks(instance)) {
+			instantiateErrorSink(sink, emv2AI);
+		}
+
+		for (var path : EMV2Util.getAllErrorPaths(instance)) {
+			instantiateErrorPath(path, emv2AI);
+		}
+
 		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
 		if (ebsm != null) {
 			instantiateStateMachine(ebsm, emv2AI);
@@ -578,6 +590,73 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// sink
 			annex.getErrorFlows().add(bi);
 		}
+	}
+
+	private void instantiateErrorSource(ErrorSource source, EMV2AnnexInstance annex) {
+		if (source.isAll()) {
+			// 'all' error sources are not instantiated.
+			return;
+		}
+		var sourceInstance = EMV2InstanceFactory.eINSTANCE.createErrorSourceInstance();
+		sourceInstance.setName(source.getName());
+		sourceInstance.setErrorSource(source);
+		var propagation = (ErrorPropagation) source.getSourceModelElement();
+		sourceInstance.setPropagation(findErrorPropagationInstance(annex, propagation));
+		if (source.getTypeTokenConstraint() == null) {
+			sourceInstance.setTypeSet(createAnonymousTypeSet(propagation.getTypeSet()));
+		} else {
+			sourceInstance.setTypeSet(createAnonymousTypeSet(source.getTypeTokenConstraint()));
+		}
+		annex.getErrorFlows().add(sourceInstance);
+	}
+
+	private void instantiateErrorSink(ErrorSink sink, EMV2AnnexInstance annex) {
+		if (sink.isAllIncoming()) {
+			// 'all' error sinks are not instantiated.
+			return;
+		}
+		var sinkInstance = EMV2InstanceFactory.eINSTANCE.createErrorSinkInstance();
+		sinkInstance.setName(sink.getName());
+		sinkInstance.setErrorSink(sink);
+		var propagation = sink.getIncoming();
+		sinkInstance.setPropagation(findErrorPropagationInstance(annex, propagation));
+		if (sink.getTypeTokenConstraint() == null) {
+			sinkInstance.setTypeSet(createAnonymousTypeSet(propagation.getTypeSet()));
+		} else {
+			sinkInstance.setTypeSet(createAnonymousTypeSet(sink.getTypeTokenConstraint()));
+		}
+		annex.getErrorFlows().add(sinkInstance);
+	}
+
+	private void instantiateErrorPath(ErrorPath path, EMV2AnnexInstance annex) {
+		if (path.isAllIncoming() || path.isAllOutgoing()) {
+			// 'all' error paths are not instantiated.
+			return;
+		}
+		if (path.getTargetToken() == null) {
+			// error paths without a target token are not instantiated.
+			return;
+		}
+		var pathInstance = EMV2InstanceFactory.eINSTANCE.createErrorPathInstance();
+		pathInstance.setName(path.getName());
+		pathInstance.setErrorPath(path);
+		pathInstance.setSourcePropagation(findErrorPropagationInstance(annex, path.getIncoming()));
+		pathInstance.setDestinationPropagation(findErrorPropagationInstance(annex, path.getOutgoing()));
+		if (path.getTypeTokenConstraint() == null) {
+			pathInstance.setSourceTypeSet(createAnonymousTypeSet(path.getIncoming().getTypeSet()));
+		} else {
+			pathInstance.setSourceTypeSet(createAnonymousTypeSet(path.getTypeTokenConstraint()));
+		}
+		var targetToken = path.getTargetToken().getTypeTokens().get(0);
+		if (targetToken.getType().size() == 1) {
+			var type = (ErrorType) targetToken.getType().get(0);
+			var typeInstance = createTypeInstance(type);
+			pathInstance.setDestinationTypeToken(typeInstance);
+		} else {
+			var productInstance = createTypeProductInstance(targetToken);
+			pathInstance.setDestinationTypeToken(productInstance);
+		}
+		annex.getErrorFlows().add(pathInstance);
 	}
 
 	/**
