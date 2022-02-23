@@ -57,7 +57,6 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
-import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
@@ -96,7 +95,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
@@ -137,11 +135,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
 		for (ErrorBehaviorEvent ev : events) {
 			instantiateEvent(ev, emv2AI);
-		}
-
-		Collection<ErrorFlow> fls = EMV2Util.getAllErrorFlows(instance);
-		for (ErrorFlow fl : fls) {
-			instantiateErrorFlow(fl, emv2AI);
 		}
 
 		for (var source : EMV2Util.getAllErrorSources(instance)) {
@@ -483,113 +476,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// TODO Add error marker to instance model if type is a type set.
 		}
 		return product;
-	}
-
-	private void instantiateErrorFlow(ErrorFlow ef, EMV2AnnexInstance annex) {
-		ComponentInstance relatedComponent = (ComponentInstance) annex.eContainer();
-		ErrorPropagation inep = null;
-		ErrorPropagation outep = null;
-		TypeSet constraint = null;
-		TypeSet outToken = null;
-		boolean allIncoming = false;
-		boolean allOutgoing = false;
-		if (ef instanceof ErrorPath) {
-			ErrorPath epath = (ErrorPath) ef;
-			inep = epath.getIncoming();
-			outep = epath.getOutgoing();
-			constraint = epath.getTypeTokenConstraint();
-			outToken = epath.getTargetToken();
-			allIncoming = epath.isAllIncoming();
-			allOutgoing = epath.isAllOutgoing();
-		} else if (ef instanceof ErrorSource) {
-			ErrorSource esrc = (ErrorSource) ef;
-			outep = (ErrorPropagation) esrc.getSourceModelElement();
-			outToken = esrc.getTypeTokenConstraint();
-			allOutgoing = esrc.isAll();
-		} else if (ef instanceof ErrorSink) {
-			ErrorSink esink = (ErrorSink) ef;
-			inep = esink.getIncoming();
-			constraint = esink.getTypeTokenConstraint();
-			allIncoming = esink.isAllIncoming();
-		}
-		if (allIncoming && allOutgoing) {
-			Collection<ErrorPropagation> ineps = EMV2Util.getAllIncomingErrorPropagations(relatedComponent);
-			for (ErrorPropagation ainep : ineps) {
-				Collection<ErrorPropagation> outeps = EMV2Util
-						.getAllOutgoingErrorPropagations(relatedComponent.getComponentClassifier());
-				for (ErrorPropagation aoutep : outeps) {
-					instantiateErrorFlow(ef, annex, ainep, constraint, aoutep, outToken);
-				}
-			}
-		} else if (allIncoming) {
-			Collection<ErrorPropagation> ineps = EMV2Util.getAllIncomingErrorPropagations(relatedComponent);
-			for (ErrorPropagation ainep : ineps) {
-				instantiateErrorFlow(ef, annex, ainep, constraint, outep, outToken);
-			}
-		} else if (allOutgoing) {
-			Collection<ErrorPropagation> outeps = EMV2Util
-					.getAllOutgoingErrorPropagations(relatedComponent.getComponentClassifier());
-			for (ErrorPropagation aoutep : outeps) {
-				instantiateErrorFlow(ef, annex, inep, constraint, aoutep, outToken);
-			}
-		} else {
-			instantiateErrorFlow(ef, annex, inep, constraint, outep, outToken);
-		}
-	}
-
-	/**
-	 *
-	 * @param ef
-	 * @param annex
-	 * @param inep
-	 * @param constraint incoming type constraint in flow. Can be null
-	 * @param outep
-	 * @param outToken outgoing type constraint in flow. Can be null
-	 */
-	private void instantiateErrorFlow(NamedElement ef, EMV2AnnexInstance annex,
-			ErrorPropagation inep, TypeSet constraint, ErrorPropagation outep, TypeSet outToken) {
-		ComponentInstance ci = (ComponentInstance) annex.eContainer();
-		ErrorFlowInstance bi = EMV2InstanceFactory.eINSTANCE.createErrorFlowInstance();
-		bi.setName(ef.getName());
-		bi.setEmv2Element(ef);
-		if (inep != null) {
-			ConstrainedInstanceObject cio = createErrorPropagationCIO(inep, constraint, annex);
-			bi.setIncoming(cio);
-		}
-		if (outep != null) {
-			ConstrainedInstanceObject cio = createErrorPropagationCIO(outep, outToken, annex);
-			if (ef instanceof ErrorSource) {
-				// for error source create a separate CIO for each type token as each can have its own property value and act as a separate source
-				// This is similar to error events.
-				EList<TypeToken> tts = cio.getConstraint();
-				if (tts.isEmpty()) {
-					bi.setOutgoing(cio);
-					instantiatePropertyAssociations(bi, ci, ef, null);
-					annex.getErrorFlows().add(bi);
-				} else if (tts.size() == 1) {
-					bi.setOutgoing(cio);
-					instantiatePropertyAssociations(bi, ci, ef, tts.get(0));
-					annex.getErrorFlows().add(bi);
-				} else {
-					// replicate for each typed token
-					for (TypeToken tt : tts) {
-						ErrorFlowInstance bicopy = EcoreUtil.copy(bi);
-						ConstrainedInstanceObject ciocopy = EcoreUtil.copy(cio);
-						ciocopy.getConstraint().clear();
-						ciocopy.getConstraint().add(EcoreUtil.copy(tt));
-						instantiatePropertyAssociations(bi, ci, ef, tts.get(0));
-						bicopy.setOutgoing(ciocopy);
-						annex.getErrorFlows().add(bicopy);
-					}
-				}
-			} else {
-				// error path
-				annex.getErrorFlows().add(bi);
-			}
-		} else {
-			// sink
-			annex.getErrorFlows().add(bi);
-		}
 	}
 
 	private void instantiateErrorSource(ErrorSource source, EMV2AnnexInstance annex) {
@@ -1164,15 +1050,20 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				cios.add(outGoing);
 			}
 		}
-		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
-			ConstrainedInstanceObject outGoing = epc.getOutgoing();
-			// add if CIO for feature instance or propagation point instance
-			// also add if component instance and propagation kind is access
-			if (outGoing != null && outGoing.getInstanceObject() == ppi
-					&& (outGoing.getPropagationKind() == null || outGoing.getPropagationKind().equals("access"))) {
-				cios.add(outGoing);
-			}
-		}
+		/*
+		 * TODO The following was commented out when I removed Peter's fields of ErrorFlowInstance. I'm leaving the
+		 * commented out code in for now in case we need to look at how Peter handled ConstrainedInstanceObjects. This
+		 * commented out code can be removed when it is time to remove this method.
+		 */
+//		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
+//			ConstrainedInstanceObject outGoing = epc.getOutgoing();
+//			// add if CIO for feature instance or propagation point instance
+//			// also add if component instance and propagation kind is access
+//			if (outGoing != null && outGoing.getInstanceObject() == ppi
+//					&& (outGoing.getPropagationKind() == null || outGoing.getPropagationKind().equals("access"))) {
+//				cios.add(outGoing);
+//			}
+//		}
 		return cios;
 	}
 
@@ -1187,13 +1078,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				cios.add(epc.getOutgoingPropagation());
 			}
 		}
-		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
-			ConstrainedInstanceObject outGoing = epc.getOutgoing();
-			if (outGoing != null && (outGoing.getInstanceObject() == ppi && (outGoing.getPropagationKind() == null
-					|| outGoing.getPropagationKind().contentEquals(bindingKind)))) {
-				cios.add(outGoing);
-			}
-		}
+		/*
+		 * TODO The following was commented out when I removed Peter's fields of ErrorFlowInstance. I'm leaving the
+		 * commented out code in for now in case we need to look at how Peter handled ConstrainedInstanceObjects. This
+		 * commented out code can be removed when it is time to remove this method.
+		 */
+//		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
+//			ConstrainedInstanceObject outGoing = epc.getOutgoing();
+//			if (outGoing != null && (outGoing.getInstanceObject() == ppi && (outGoing.getPropagationKind() == null
+//					|| outGoing.getPropagationKind().contentEquals(bindingKind)))) {
+//				cios.add(outGoing);
+//			}
+//		}
 		return cios;
 	}
 
@@ -1249,15 +1145,20 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private Collection<ConstrainedInstanceObject> allIncomingFlowCIOs(InstanceObject ppi, TypeToken tt,
 			EMV2AnnexInstance annex) {
 		Collection<ConstrainedInstanceObject> cios = new ArrayList<ConstrainedInstanceObject>();
-		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
-			ConstrainedInstanceObject inComing = epc.getIncoming();
-			if (inComing != null && inComing.getInstanceObject() == ppi
-					&& (inComing.getPropagationKind() == null || inComing.getPropagationKind().equals("access"))) {
-				if (tt == null || EMV2TypeSetUtil.contains(inComing.getConstraint(), tt)) {
-					cios.add(inComing);
-				}
-			}
-		}
+		/*
+		 * TODO The following was commented out when I removed Peter's fields of ErrorFlowInstance. I'm leaving the
+		 * commented out code in for now in case we need to look at how Peter handled ConstrainedInstanceObjects. This
+		 * commented out code can be removed when it is time to remove ConstrainedInstanceObject.
+		 */
+//		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
+//			ConstrainedInstanceObject inComing = epc.getIncoming();
+//			if (inComing != null && inComing.getInstanceObject() == ppi
+//					&& (inComing.getPropagationKind() == null || inComing.getPropagationKind().equals("access"))) {
+//				if (tt == null || EMV2TypeSetUtil.contains(inComing.getConstraint(), tt)) {
+//					cios.add(inComing);
+//				}
+//			}
+//		}
 		return cios;
 	}
 
@@ -1305,15 +1206,20 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private Collection<ConstrainedInstanceObject> allIncomingFlowBindingCIOs(InstanceObject ppi, TypeToken tt,
 			EMV2AnnexInstance annex, String bindingKind) {
 		Collection<ConstrainedInstanceObject> cios = new ArrayList<ConstrainedInstanceObject>();
-		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
-			ConstrainedInstanceObject inComing = epc.getIncoming();
-			if (inComing != null && (inComing.getInstanceObject() == ppi
-					|| (inComing.getPropagationKind() != null && inComing.getPropagationKind().equals(bindingKind)))) {
-				if (tt == null || EMV2TypeSetUtil.contains(inComing.getConstraint(), tt)) {
-					cios.add(inComing);
-				}
-			}
-		}
+		/*
+		 * TODO The following was commented out when I removed Peter's fields of ErrorFlowInstance. I'm leaving the
+		 * commented out code in for now in case we need to look at how Peter handled ConstrainedInstanceObjects. This
+		 * commented out code can be removed when it is time to remove ConstrainedInstanceObject.
+		 */
+//		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
+//			ConstrainedInstanceObject inComing = epc.getIncoming();
+//			if (inComing != null && (inComing.getInstanceObject() == ppi
+//					|| (inComing.getPropagationKind() != null && inComing.getPropagationKind().equals(bindingKind)))) {
+//				if (tt == null || EMV2TypeSetUtil.contains(inComing.getConstraint(), tt)) {
+//					cios.add(inComing);
+//				}
+//			}
+//		}
 		return cios;
 	}
 

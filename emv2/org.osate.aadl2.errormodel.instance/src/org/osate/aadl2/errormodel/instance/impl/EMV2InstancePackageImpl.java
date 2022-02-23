@@ -688,56 +688,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorFlowInstance_Emv2Element() {
-		return (EReference) errorFlowInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorFlowInstance_Incoming() {
-		return (EReference) errorFlowInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorFlowInstance_Outgoing() {
-		return (EReference) errorFlowInstanceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getErrorFlowInstance_Source() {
-		return (EAttribute) errorFlowInstanceEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getErrorFlowInstance_Sink() {
-		return (EAttribute) errorFlowInstanceEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getErrorSourceInstance() {
 		return errorSourceInstanceEClass;
 	}
@@ -1561,11 +1511,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		anonymousTypeSetEClass = createEClass(ANONYMOUS_TYPE_SET);
 
 		errorFlowInstanceEClass = createEClass(ERROR_FLOW_INSTANCE);
-		createEReference(errorFlowInstanceEClass, ERROR_FLOW_INSTANCE__EMV2_ELEMENT);
-		createEReference(errorFlowInstanceEClass, ERROR_FLOW_INSTANCE__INCOMING);
-		createEReference(errorFlowInstanceEClass, ERROR_FLOW_INSTANCE__OUTGOING);
-		createEAttribute(errorFlowInstanceEClass, ERROR_FLOW_INSTANCE__SOURCE);
-		createEAttribute(errorFlowInstanceEClass, ERROR_FLOW_INSTANCE__SINK);
 
 		errorSourceInstanceEClass = createEClass(ERROR_SOURCE_INSTANCE);
 		createEReference(errorSourceInstanceEClass, ERROR_SOURCE_INSTANCE__ERROR_SOURCE);
@@ -1924,23 +1869,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEClass(anonymousTypeSetEClass, AnonymousTypeSet.class, "AnonymousTypeSet", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(errorFlowInstanceEClass, ErrorFlowInstance.class, "ErrorFlowInstance", !IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(errorFlowInstanceEClass, ErrorFlowInstance.class, "ErrorFlowInstance", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getErrorFlowInstance_Emv2Element(), theAadl2Package.getNamedElement(), null, "emv2Element", null,
-				0, 1, ErrorFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorFlowInstance_Incoming(), getConstrainedInstanceObject(), null, "incoming", null, 0, 1,
-				ErrorFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorFlowInstance_Outgoing(), getConstrainedInstanceObject(), null, "outgoing", null, 0, 1,
-				ErrorFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getErrorFlowInstance_Source(), ecorePackage.getEBoolean(), "source", null, 0, 1,
-				ErrorFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getErrorFlowInstance_Sink(), ecorePackage.getEBoolean(), "sink", null, 0, 1,
-				ErrorFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorSourceInstanceEClass, ErrorSourceInstance.class, "ErrorSourceInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

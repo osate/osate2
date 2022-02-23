@@ -879,10 +879,10 @@ public interface EMV2InstancePackage extends EPackage {
 	int COMPOSITE_STATE_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorFlowInstanceImpl <em>Error Flow Instance</em>}' class.
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.ErrorFlowInstance <em>Error Flow Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.instance.impl.ErrorFlowInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.ErrorFlowInstance
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorFlowInstance()
 	 * @generated
 	 */
@@ -2779,58 +2779,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_FLOW_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
-	 * The feature id for the '<em><b>Emv2 Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_FLOW_INSTANCE__EMV2_ELEMENT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Incoming</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_FLOW_INSTANCE__INCOMING = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Outgoing</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_FLOW_INSTANCE__OUTGOING = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_FLOW_INSTANCE__SOURCE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Sink</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_FLOW_INSTANCE__SINK = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
-
-	/**
 	 * The number of structural features of the '<em>Error Flow Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_FLOW_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 5;
+	int ERROR_FLOW_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2885,51 +2840,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int ERROR_SOURCE_INSTANCE__ANNEX_INSTANCE = ERROR_FLOW_INSTANCE__ANNEX_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Emv2 Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SOURCE_INSTANCE__EMV2_ELEMENT = ERROR_FLOW_INSTANCE__EMV2_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Incoming</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SOURCE_INSTANCE__INCOMING = ERROR_FLOW_INSTANCE__INCOMING;
-
-	/**
-	 * The feature id for the '<em><b>Outgoing</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SOURCE_INSTANCE__OUTGOING = ERROR_FLOW_INSTANCE__OUTGOING;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SOURCE_INSTANCE__SOURCE = ERROR_FLOW_INSTANCE__SOURCE;
-
-	/**
-	 * The feature id for the '<em><b>Sink</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SOURCE_INSTANCE__SINK = ERROR_FLOW_INSTANCE__SINK;
 
 	/**
 	 * The feature id for the '<em><b>Error Source</b></em>' reference.
@@ -3032,51 +2942,6 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_SINK_INSTANCE__ANNEX_INSTANCE = ERROR_FLOW_INSTANCE__ANNEX_INSTANCE;
 
 	/**
-	 * The feature id for the '<em><b>Emv2 Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SINK_INSTANCE__EMV2_ELEMENT = ERROR_FLOW_INSTANCE__EMV2_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Incoming</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SINK_INSTANCE__INCOMING = ERROR_FLOW_INSTANCE__INCOMING;
-
-	/**
-	 * The feature id for the '<em><b>Outgoing</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SINK_INSTANCE__OUTGOING = ERROR_FLOW_INSTANCE__OUTGOING;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SINK_INSTANCE__SOURCE = ERROR_FLOW_INSTANCE__SOURCE;
-
-	/**
-	 * The feature id for the '<em><b>Sink</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_SINK_INSTANCE__SINK = ERROR_FLOW_INSTANCE__SINK;
-
-	/**
 	 * The feature id for the '<em><b>Error Sink</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3175,51 +3040,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int ERROR_PATH_INSTANCE__ANNEX_INSTANCE = ERROR_FLOW_INSTANCE__ANNEX_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Emv2 Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_PATH_INSTANCE__EMV2_ELEMENT = ERROR_FLOW_INSTANCE__EMV2_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Incoming</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_PATH_INSTANCE__INCOMING = ERROR_FLOW_INSTANCE__INCOMING;
-
-	/**
-	 * The feature id for the '<em><b>Outgoing</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_PATH_INSTANCE__OUTGOING = ERROR_FLOW_INSTANCE__OUTGOING;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_PATH_INSTANCE__SOURCE = ERROR_FLOW_INSTANCE__SOURCE;
-
-	/**
-	 * The feature id for the '<em><b>Sink</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_PATH_INSTANCE__SINK = ERROR_FLOW_INSTANCE__SINK;
 
 	/**
 	 * The feature id for the '<em><b>Error Path</b></em>' reference.
@@ -3710,61 +3530,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getErrorFlowInstance();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorFlowInstance#getEmv2Element <em>Emv2 Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Emv2 Element</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorFlowInstance#getEmv2Element()
-	 * @see #getErrorFlowInstance()
-	 * @generated
-	 */
-	EReference getErrorFlowInstance_Emv2Element();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorFlowInstance#getIncoming <em>Incoming</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Incoming</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorFlowInstance#getIncoming()
-	 * @see #getErrorFlowInstance()
-	 * @generated
-	 */
-	EReference getErrorFlowInstance_Incoming();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorFlowInstance#getOutgoing <em>Outgoing</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Outgoing</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorFlowInstance#getOutgoing()
-	 * @see #getErrorFlowInstance()
-	 * @generated
-	 */
-	EReference getErrorFlowInstance_Outgoing();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.ErrorFlowInstance#isSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Source</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorFlowInstance#isSource()
-	 * @see #getErrorFlowInstance()
-	 * @generated
-	 */
-	EAttribute getErrorFlowInstance_Source();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.ErrorFlowInstance#isSink <em>Sink</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Sink</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorFlowInstance#isSink()
-	 * @see #getErrorFlowInstance()
-	 * @generated
-	 */
-	EAttribute getErrorFlowInstance_Sink();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ErrorSourceInstance <em>Error Source Instance</em>}'.
@@ -4790,54 +4555,14 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE = eINSTANCE.getCompositeStateInstance_CompositeState();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorFlowInstanceImpl <em>Error Flow Instance</em>}' class.
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.ErrorFlowInstance <em>Error Flow Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.aadl2.errormodel.instance.impl.ErrorFlowInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.ErrorFlowInstance
 		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorFlowInstance()
 		 * @generated
 		 */
 		EClass ERROR_FLOW_INSTANCE = eINSTANCE.getErrorFlowInstance();
-
-		/**
-		 * The meta object literal for the '<em><b>Emv2 Element</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ERROR_FLOW_INSTANCE__EMV2_ELEMENT = eINSTANCE.getErrorFlowInstance_Emv2Element();
-
-		/**
-		 * The meta object literal for the '<em><b>Incoming</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ERROR_FLOW_INSTANCE__INCOMING = eINSTANCE.getErrorFlowInstance_Incoming();
-
-		/**
-		 * The meta object literal for the '<em><b>Outgoing</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ERROR_FLOW_INSTANCE__OUTGOING = eINSTANCE.getErrorFlowInstance_Outgoing();
-
-		/**
-		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ERROR_FLOW_INSTANCE__SOURCE = eINSTANCE.getErrorFlowInstance_Source();
-
-		/**
-		 * The meta object literal for the '<em><b>Sink</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ERROR_FLOW_INSTANCE__SINK = eINSTANCE.getErrorFlowInstance_Sink();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorSourceInstanceImpl <em>Error Source Instance</em>}' class.

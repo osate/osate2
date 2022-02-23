@@ -40,7 +40,6 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
-import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
@@ -137,8 +136,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createTypeSetInstance();
 		case EMV2InstancePackage.ANONYMOUS_TYPE_SET:
 			return createAnonymousTypeSet();
-		case EMV2InstancePackage.ERROR_FLOW_INSTANCE:
-			return createErrorFlowInstance();
 		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE:
 			return createErrorSourceInstance();
 		case EMV2InstancePackage.ERROR_SINK_INSTANCE:
@@ -250,17 +247,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public CompositeStateInstance createCompositeStateInstance() {
 		CompositeStateInstanceImpl compositeStateInstance = new CompositeStateInstanceImpl();
 		return compositeStateInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ErrorFlowInstance createErrorFlowInstance() {
-		ErrorFlowInstanceImpl errorFlowInstance = new ErrorFlowInstanceImpl();
-		return errorFlowInstance;
 	}
 
 	/**

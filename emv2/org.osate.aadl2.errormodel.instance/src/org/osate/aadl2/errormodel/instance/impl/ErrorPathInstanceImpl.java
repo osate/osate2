@@ -52,7 +52,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
  *
  * @generated
  */
-public class ErrorPathInstanceImpl extends ErrorFlowInstanceImpl implements ErrorPathInstance {
+public class ErrorPathInstanceImpl extends EMV2InstanceObjectImpl implements ErrorPathInstance {
 	/**
 	 * The cached value of the '{@link #getErrorPath() <em>Error Path</em>}' reference.
 	 * <!-- begin-user-doc -->

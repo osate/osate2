@@ -49,7 +49,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
  *
  * @generated
  */
-public class ErrorSourceInstanceImpl extends ErrorFlowInstanceImpl implements ErrorSourceInstance {
+public class ErrorSourceInstanceImpl extends EMV2InstanceObjectImpl implements ErrorSourceInstance {
 	/**
 	 * The cached value of the '{@link #getErrorSource() <em>Error Source</em>}' reference.
 	 * <!-- begin-user-doc -->
