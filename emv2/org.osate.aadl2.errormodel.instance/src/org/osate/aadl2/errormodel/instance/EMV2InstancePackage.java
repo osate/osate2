@@ -3240,22 +3240,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_PATH_INSTANCE__SOURCE_PROPAGATION = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Destination Propagation</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Source Type Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PATH_INSTANCE__SOURCE_TYPE_SET = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 3;
+	int ERROR_PATH_INSTANCE__SOURCE_TYPE_SET = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Destination Propagation</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Destination Type Token</b></em>' containment reference.

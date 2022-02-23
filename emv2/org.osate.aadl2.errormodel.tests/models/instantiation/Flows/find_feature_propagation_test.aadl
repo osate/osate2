@@ -1,0 +1,23 @@
+package find_feature_propagation_test
+public
+	system s
+		features
+			f_in: in feature;
+			f_out: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f_in: in propagation {CommonErrors};
+				f_out: out propagation {CommonErrors};
+				flows
+					source_1: error source f_out {ServiceError};
+					sink_1: error sink f_in {ItemTimingError};
+					path_1: error path f_in {SequenceTimingError} -> f_out {ServiceTimingError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end find_feature_propagation_test;

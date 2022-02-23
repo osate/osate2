@@ -24,8 +24,10 @@
 package org.osate.aadl2.errormodel.instance.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.impl.InstanceObjectImpl;
 
@@ -62,5 +64,16 @@ public abstract class EMV2InstanceObjectImpl extends InstanceObjectImpl implemen
 	@Override
 	public boolean isActive(SystemOperationMode som) {
 		return true;
+	}
+
+	@Override
+	public String getInstanceObjectPath() {
+		String parentPath;
+		if (eContainer instanceof EMV2AnnexInstance) {
+			parentPath = ((InstanceObject) eContainer.eContainer()).getInstanceObjectPath() + ".EMV2";
+		} else {
+			parentPath = ((InstanceObject) eContainer).getInstanceObjectPath();
+		}
+		return parentPath + '.' + getFullName();
 	}
 } //EMV2InstanceObjectImpl
