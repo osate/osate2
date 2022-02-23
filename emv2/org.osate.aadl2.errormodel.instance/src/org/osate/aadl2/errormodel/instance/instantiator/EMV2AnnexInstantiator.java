@@ -71,6 +71,7 @@ import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -481,7 +482,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private void instantiateErrorSource(ErrorSource source, EMV2AnnexInstance annex) {
 		if (source.isAll()) {
-			// 'all' error sources are not instantiated.
+			// TODO Instantiate 'all' error sources after we figure out what 'all' means.
 			return;
 		}
 		var propagation = (ErrorPropagation) source.getSourceModelElement();
@@ -494,17 +495,17 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		sourceInstance.setName(source.getName());
 		sourceInstance.setErrorSource(source);
 		sourceInstance.setPropagation(findErrorPropagationInstance(annex, propagation));
-		if (source.getTypeTokenConstraint() == null) {
-			sourceInstance.setTypeSet(createAnonymousTypeSet(propagation.getTypeSet()));
-		} else {
-			sourceInstance.setTypeSet(createAnonymousTypeSet(source.getTypeTokenConstraint()));
+		var typeSet = source.getTypeTokenConstraint();
+		if (typeSet == null) {
+			typeSet = propagation.getTypeSet();
 		}
+		sourceInstance.setTypeSet(createAnonymousTypeSet(typeSet));
 		annex.getErrorFlows().add(sourceInstance);
 	}
 
 	private void instantiateErrorSink(ErrorSink sink, EMV2AnnexInstance annex) {
 		if (sink.isAllIncoming()) {
-			// 'all' error sinks are not instantiated.
+			// TODO Instantiate 'all' error sinks after we figure out what 'all' means.
 			return;
 		}
 		var propagation = sink.getIncoming();
@@ -517,54 +518,53 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		sinkInstance.setName(sink.getName());
 		sinkInstance.setErrorSink(sink);
 		sinkInstance.setPropagation(findErrorPropagationInstance(annex, propagation));
-		if (sink.getTypeTokenConstraint() == null) {
-			sinkInstance.setTypeSet(createAnonymousTypeSet(propagation.getTypeSet()));
-		} else {
-			sinkInstance.setTypeSet(createAnonymousTypeSet(sink.getTypeTokenConstraint()));
+		var typeSet = sink.getTypeTokenConstraint();
+		if (typeSet == null) {
+			typeSet = propagation.getTypeSet();
 		}
+		sinkInstance.setTypeSet(createAnonymousTypeSet(typeSet));
 		annex.getErrorFlows().add(sinkInstance);
 	}
 
 	private void instantiateErrorPath(ErrorPath path, EMV2AnnexInstance annex) {
 		if (path.isAllIncoming() || path.isAllOutgoing()) {
-			// 'all' error paths are not instantiated.
+			// TODO Instantiate 'all' error paths after we figure out what 'all' means.
 			return;
 		}
 		if (path.getTargetToken() == null) {
-			// error paths without a target token are not instantiated.
+			// TODO Instantiate after we figure out what it means when the target token is omitted.
 			return;
 		}
-		var incomingPropagation = path.getIncoming();
-		if (incomingPropagation.getFeatureorPPRef() != null
-				&& incomingPropagation.getFeatureorPPRef().getFeatureorPP() instanceof InternalFeature) {
+		var sourcePropagation = path.getIncoming();
+		if (sourcePropagation.getFeatureorPPRef() != null
+				&& sourcePropagation.getFeatureorPPRef().getFeatureorPP() instanceof InternalFeature) {
 			// Error path not instantiated since propagations that refer to internal features are not instantiated.
 			return;
 		}
-		var outgoingPropagation = path.getOutgoing();
-		if (outgoingPropagation.getFeatureorPPRef() != null
-				&& outgoingPropagation.getFeatureorPPRef().getFeatureorPP() instanceof InternalFeature) {
+		var destinationPropagation = path.getOutgoing();
+		if (destinationPropagation.getFeatureorPPRef() != null
+				&& destinationPropagation.getFeatureorPPRef().getFeatureorPP() instanceof InternalFeature) {
 			// Error path not instantiated since propagations that refer to internal features are not instantiated.
 			return;
 		}
 		var pathInstance = EMV2InstanceFactory.eINSTANCE.createErrorPathInstance();
 		pathInstance.setName(path.getName());
 		pathInstance.setErrorPath(path);
-		pathInstance.setSourcePropagation(findErrorPropagationInstance(annex, incomingPropagation));
-		pathInstance.setDestinationPropagation(findErrorPropagationInstance(annex, outgoingPropagation));
-		if (path.getTypeTokenConstraint() == null) {
-			pathInstance.setSourceTypeSet(createAnonymousTypeSet(incomingPropagation.getTypeSet()));
-		} else {
-			pathInstance.setSourceTypeSet(createAnonymousTypeSet(path.getTypeTokenConstraint()));
+		pathInstance.setSourcePropagation(findErrorPropagationInstance(annex, sourcePropagation));
+		pathInstance.setDestinationPropagation(findErrorPropagationInstance(annex, destinationPropagation));
+		var sourceTypeSet = path.getTypeTokenConstraint();
+		if (sourceTypeSet == null) {
+			sourceTypeSet = sourcePropagation.getTypeSet();
 		}
+		pathInstance.setSourceTypeSet(createAnonymousTypeSet(sourceTypeSet));
 		var targetToken = path.getTargetToken().getTypeTokens().get(0);
+		TypeTokenInstance targetTokenInstance;
 		if (targetToken.getType().size() == 1) {
-			var type = (ErrorType) targetToken.getType().get(0);
-			var typeInstance = createTypeInstance(type);
-			pathInstance.setDestinationTypeToken(typeInstance);
+			targetTokenInstance = createTypeInstance((ErrorType) targetToken.getType().get(0));
 		} else {
-			var productInstance = createTypeProductInstance(targetToken);
-			pathInstance.setDestinationTypeToken(productInstance);
+			targetTokenInstance = createTypeProductInstance(targetToken);
 		}
+		pathInstance.setDestinationTypeToken(targetTokenInstance);
 		annex.getErrorFlows().add(pathInstance);
 	}
 
