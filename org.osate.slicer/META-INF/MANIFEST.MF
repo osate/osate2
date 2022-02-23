@@ -8,5 +8,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: CMU/SEI
 Require-Bundle: org.eclipse.osgi,
  org.osate.aadl2,
- org.jgrapht
+ org.jgrapht,
+ org.osate.aadl2.errormodel.instance
 Export-Package: org.osate.slicer

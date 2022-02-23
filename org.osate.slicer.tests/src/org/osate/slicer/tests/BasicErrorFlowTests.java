@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -39,6 +39,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.slicer.OsateSlicerVertex;
@@ -62,9 +63,10 @@ public class BasicErrorFlowTests {
 	@Before
 	public void setUp() throws Exception {
 		tlg = new SlicerRepresentation();
-		AadlPackage pkg = myTestHelper.parseFile("org.osate.slicer.tests/aadl-models/BasicErrorFlow.aadl");
-		SystemImplementation impl = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var pkg = myTestHelper.parseFile("org.osate.slicer.tests/aadl-models/BasicErrorFlow.aadl");
+		var impl = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		si = InstantiateModel.instantiate(impl);
+		var annexInstance = (EMV2AnnexInstance) si.getAnnexInstances().get(0);
 		tlg.buildGraph(si);
 
 		vertices = new String[8];

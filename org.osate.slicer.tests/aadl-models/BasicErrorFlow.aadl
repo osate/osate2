@@ -40,6 +40,7 @@ public
 			bToC1 : feature b.o1 -> c.i1;
 			bToC2 : feature b.o2 -> c.i2;
 			bToC3 : feature b.o3 -> c.i3;
+		annex EMV2 {** **};
 	end sys.impl;
 	
 	abstract Thing
@@ -70,7 +71,7 @@ public
 				i1 : in propagation {ItemTimingError};
 				o3 : out propagation {ItemTimingError};
 				flows
-					o1to3 : error path i1 {ItemTimingError} -> o3 {ItemTimingError};
+					i1ToO3 : error path i1 {ItemTimingError} -> o3 {ItemTimingError};
 			end propagations;
 		**};
 	end Thing.two;

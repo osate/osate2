@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -33,7 +33,7 @@ public class SlicerTestUtil {
 			SlicerRepresentation sr) {
 		return si.getAllComponentInstances(category)
 				.stream()
-				.filter(ci -> name.equals(sr.getCompleteFeatureName(ci)))
+				.filter(ci -> name.equals(ci.getInstanceObjectPath()))
 				.findFirst()
 				.get();
 	}

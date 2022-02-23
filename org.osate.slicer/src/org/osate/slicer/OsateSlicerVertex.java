@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,6 +24,7 @@
 package org.osate.slicer;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.errormodel.instance.TypeSetElement;
 
 /**
  * The vertex type used by the slicer. See the
@@ -37,20 +38,35 @@ public class OsateSlicerVertex {
 	/**
 	 * A globally unique name for the vertex
 	 */
-	final private String name; // key
+	final private String featureName;
+
+	final private TypeSetElement errorTSE;
 
 	/**
 	 * The container for the port represented by this vertex
 	 */
-	private EObject container;
+	final private EObject container;
 
 	/**
 	 * Make a new vertex with the given name
-	 * @param name The feature's name
+	 * @param featureName The feature's name
 	 * @param container The container for the feature
 	 */
-	public OsateSlicerVertex(String name, EObject container) {
-		this.name = name;
+	public OsateSlicerVertex(String featureName, EObject container) {
+		this.featureName = featureName;
+		this.errorTSE = null;
+		this.container = container;
+	}
+
+	/**
+	 * Make a new vertex with the given name
+	 * @param featureName The feature's name
+	 * @param errorTSE The TypeSetElement associated with this vertex, or null
+	 * @param container The container for the feature
+	 */
+	public OsateSlicerVertex(String featureName, TypeSetElement errorTSE, EObject container) {
+		this.featureName = featureName;
+		this.errorTSE = errorTSE;
 		this.container = container;
 	}
 
@@ -74,6 +90,18 @@ public class OsateSlicerVertex {
 	}
 
 	public String getName() {
-		return name;
+		if (errorTSE != null) {
+			return featureName + "." + errorTSE.getFullName();
+		} else {
+			return featureName;
+		}
+	}
+
+	public String getFeatureName() {
+		return featureName;
+	}
+
+	public TypeSetElement getErrorTSE() {
+		return errorTSE;
 	}
 }

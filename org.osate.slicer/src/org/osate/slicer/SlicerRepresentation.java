@@ -45,7 +45,15 @@ import org.jgrapht.nio.dot.DOTExporter;
 import org.jgrapht.traverse.BreadthFirstIterator;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
+import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
+import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.TypeSetElement;
+import org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -53,6 +61,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 
@@ -83,18 +92,43 @@ public class SlicerRepresentation {
 	private final Map<String, OsateSlicerVertex> vertexMap = new HashMap<>();
 
 	/**
+	 * This maps a container name to the set of input features it has
+	 */
+	private Map<String, Set<String>> inFeats = new HashMap<>();
+
+	/**
+	 * This maps a container name to the set of output features it has
+	 */
+	private Map<String, Set<String>> outFeats = new HashMap<>();
+
+	/**
+	 * This stores container names which have explicit decompositions provided by the modeler
+	 */
+	private Set<String> hasExplicitDecomp = new HashSet<>();
+
+	/**
 	 * Switch used to traverse instance model that gets passed in
 	 */
-	private SlicerSwitch mySwitch = new SlicerSwitch();
+	private SlicerSwitch coreSwitch = new SlicerSwitch();
+	private Emv2SlicerSwitch emv2Switch = new Emv2SlicerSwitch();
+
+	// XXX Delete this when the EMV2 / Core instantiator stuff gets figured out
+	private Map<String, String> laggingEdges = new HashMap<>();
 
 	public void buildGraph(SystemInstance si) {
 		// Add vertices and explicit edges
 		EcoreUtil.getAllContents(si.eResource(), true).forEachRemaining(elem -> {
-			mySwitch.doSwitch((Element) elem);
+			coreSwitch.doSwitch((Element) elem);
 		});
 
+		EcoreUtil.getAllContents(si.eResource(), true).forEachRemaining(elem -> {
+			emv2Switch.doSwitch((Element) elem);
+		});
+
+		laggingEdges.entrySet().forEach(e -> addEdge(e.getKey(), e.getValue()));
+
 		// Add implicit edges
-		buildIntraConnections(mySwitch.hasExplicitDecomp);
+		buildIntraConnections(hasExplicitDecomp);
 
 		// Create a separate reversed graph, rather than a wrapper, saving CPU at the expense of memory
 		Graphs.addGraphReversed(rg, g);
@@ -119,6 +153,23 @@ public class SlicerRepresentation {
 	}
 
 	/**
+	 * Adds a new vertex by the given name to the graph.
+	 *
+	 * @param name The name of the new vertex
+	 * @param tse The error type associated with the vertex, or null if none
+	 * @param eObject The container of the vertex
+	 */
+	public void addVertex(String name, TypeSetElement tse, EObject eObject) {
+		if ((tse == null && vertexMap.containsKey(name))
+				|| (tse != null && vertexMap.containsKey(name + "." + tse.getFullName()))) {
+			return; // No duplicates allowed
+		}
+		OsateSlicerVertex v = new OsateSlicerVertex(name, tse, eObject);
+		g.addVertex(v);
+		vertexMap.put(v.getName(), v);
+	}
+
+	/**
 	 * Adds a new edge from the source to the target
 	 *
 	 * @param src Source vertex
@@ -137,7 +188,7 @@ public class SlicerRepresentation {
 	public Collection<EObject> forwardReach(ComponentInstance component) {
 		Set<EObject> retSet = new HashSet<>();
 		for (FeatureInstance fi : component.getAllFeatureInstances()) {
-			forwardReachability(getCompleteFeatureName(fi)).vertexSet().forEach(v -> {
+			forwardReachability(fi.getInstanceObjectPath()).vertexSet().forEach(v -> {
 				retSet.add(v.getContainer());
 			});
 		}
@@ -153,7 +204,7 @@ public class SlicerRepresentation {
 	public Collection<EObject> backwardReach(ComponentInstance component) {
 		Set<EObject> retSet = new HashSet<>();
 		for (FeatureInstance fi : component.getAllFeatureInstances()) {
-			backwardReachability(getCompleteFeatureName(fi)).vertexSet().forEach(v -> {
+			backwardReachability(fi.getInstanceObjectPath()).vertexSet().forEach(v -> {
 				retSet.add(v.getContainer());
 			});
 		}
@@ -208,31 +259,17 @@ public class SlicerRepresentation {
 	 * @param noInternalConnections Set of components which don't need inports connected to outports
 	 */
 	private void buildIntraConnections(Set<String> noInternalConnections) {
-		Set<String> intraConnectedComponents = new HashSet<>(mySwitch.inFeats.keySet());
-		intraConnectedComponents.retainAll(mySwitch.outFeats.keySet());
+		Set<String> intraConnectedComponents = new HashSet<>(inFeats.keySet());
+		intraConnectedComponents.retainAll(outFeats.keySet());
 		intraConnectedComponents.forEach(container -> {
-			mySwitch.inFeats.get(container).forEach(i -> {
-				mySwitch.outFeats.get(container).forEach(o -> {
+			inFeats.get(container).forEach(i -> {
+				outFeats.get(container).forEach(o -> {
 					if (!i.equals(o) && !noInternalConnections.contains(container)) {
 						addEdge(i, o);
 					}
 				});
 			});
 		});
-	}
-
-	/**
-	 * Builds a dot-qualified full name from the given named element
-	 * @param ne
-	 * @return The full name / path to the component
-	 */
-	public String getCompleteFeatureName(NamedElement ne) {
-		StringBuilder sb = new StringBuilder(ne.getFullName());
-		do {
-			ne = (NamedElement) ne.eContainer();
-			sb.insert(0, ne.getFullName() + ".");
-		} while (ne.eContainer() != null);
-		return sb.toString();
 	}
 
 	/**
@@ -251,31 +288,98 @@ public class SlicerRepresentation {
 		return g.toString();
 	}
 
+	private class Emv2SlicerSwitch extends EMV2InstanceSwitch<Void> {
+
+		@Override
+		public Void caseFeaturePropagation(FeaturePropagation fp) {
+			var fi = fp.getFeature();
+			var fullFeatureName = fi.getInstanceObjectPath();
+			var fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
+			Collection<TypeSetElement> tses = Collections.emptySet();
+			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
+				if (!inFeats.containsKey(fullContainerName)) {
+					inFeats.put(fullContainerName, new HashSet<String>());
+				}
+				inFeats.get(fullContainerName).add(fullFeatureName);
+				tses = fp.getInTypeSet().getElements();
+			}
+			if (fi.getDirection() == DirectionType.OUT || fi.getDirection() == DirectionType.IN_OUT) {
+				if (!outFeats.containsKey(fullContainerName)) {
+					outFeats.put(fullContainerName, new HashSet<String>());
+				}
+				outFeats.get(fullContainerName).add(fullFeatureName);
+				tses = fp.getOutTypeSet().getElements();
+			}
+			tses.forEach(t -> addVertex(fullFeatureName, t, fi.eContainer()));
+			return null;
+		}
+
+		@Override
+		public Void caseErrorSourceInstance(ErrorSourceInstance esi) {
+			var srcName = esi.getInstanceObjectPath().replace(".EMV2", "");
+			var srcTypes = esi.getTypeSet();
+			var eContainer = esi.eContainer().eContainer();
+			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
+			srcTypes.getElements().forEach(t -> addVertex(srcName, t, eContainer));
+			srcTypes.getElements()
+					.forEach(t -> laggingEdges.put(srcName + "." + t.getFullName(), propName + "." + t.getFullName()));
+			return null;
+		}
+
+		@Override
+		public Void caseErrorSinkInstance(ErrorSinkInstance esi) {
+			var dstName = esi.getInstanceObjectPath().replace(".EMV2", "");
+			var dstTypes = esi.getTypeSet();
+			var eContainer = esi.eContainer().eContainer();
+			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
+			dstTypes.getElements().forEach(t -> addVertex(dstName, t, eContainer));
+			dstTypes.getElements()
+					.forEach(t -> laggingEdges.put(propName + "." + t.getFullName(), dstName + "." + t.getFullName()));
+			return null;
+		}
+
+		@Override
+		public Void caseErrorPathInstance(ErrorPathInstance epi) {
+			var srcVrt = epi.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "");
+			Set<String> srcVrts = new HashSet<>();
+			epi.getSourceTypeSet().getElements().forEach(e -> srcVrts.add(srcVrt + "." + e.getFullName()));
+			var dstVrt = epi.getDestinationPropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
+					+ epi.getDestinationTypeToken().getFullName();
+			laggingEdges.put(srcVrts.iterator().next(), dstVrt);
+			return null;
+		}
+
+		@Override
+		public Void casePropagationPathInstance(PropagationPathInstance ppi) {
+			var src = (ConstrainedInstanceObject) ppi.getSource();
+			var dst = ppi.getTarget();
+			if (src instanceof ErrorPropagationInstance && dst instanceof ErrorPropagationInstance) {
+				var srcVrt = src.getInstanceObjectPath().replace(".EMV2", "");
+				Set<String> srcVrts = new HashSet<>();
+				((ErrorPropagationInstance) src).getOutTypeSet()
+						.getElements()
+						.forEach(e -> srcVrts.add(srcVrt + "." + e.getFullName()));
+
+				var dstVrt = dst.getInstanceObjectPath().replace(".EMV2", "");
+				Set<String> dstVrts = new HashSet<>();
+				((ErrorPropagationInstance) dst).getInTypeSet()
+						.getElements()
+						.forEach(e -> dstVrts.add(dstVrt + "." + e.getFullName()));
+				laggingEdges.put(srcVrts.iterator().next(), dstVrts.iterator().next());
+			}
+			return null;
+		}
+	}
+
 	/**
 	 * This switch handles parsing AADL instance models
 	 *
 	 * @author sprocter
 	 */
 	private class SlicerSwitch extends InstanceSwitch<Void> {
-
-		/**
-		 * This maps a container name to the set of input features it has
-		 */
-		private Map<String, Set<String>> inFeats = new HashMap<>();
-
-		/**
-		 * This maps a container name to the set of output features it has
-		 */
-		private Map<String, Set<String>> outFeats = new HashMap<>();
-
-		/**
-		 * This stores container names which have explicit decompositions provided by the modeler
-		 */
-		private Set<String> hasExplicitDecomp = new HashSet<>();
-
 		@Override
 		public Void caseFeatureInstance(FeatureInstance fi) {
-			String fullFeatureName = getCompleteFeatureName(fi);
+			var fullFeatureName = fi.getInstanceObjectPath();
 			String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
 			addVertex(fullFeatureName, fi.eContainer());
 			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
@@ -296,7 +400,7 @@ public class SlicerRepresentation {
 		@Override
 		public Void caseConnectionInstance(ConnectionInstance ci) {
 			for (ConnectionReference cr : ci.getConnectionReferences()) {
-				addEdge(getCompleteFeatureName(cr.getSource()), getCompleteFeatureName(cr.getDestination()));
+				addEdge(cr.getSource().getInstanceObjectPath(), cr.getDestination().getInstanceObjectPath());
 			}
 
 			// If the component has a decomposition specified, we need to record that
@@ -312,7 +416,7 @@ public class SlicerRepresentation {
 				if (fei instanceof FlowSpecificationInstance) {
 					FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
 					if (fsi.getSource() != null && fsi.getDestination() != null) {
-						addEdge(getCompleteFeatureName(fsi.getSource()), getCompleteFeatureName(fsi.getDestination()));
+						addEdge(fsi.getSource().getInstanceObjectPath(), fsi.getDestination().getInstanceObjectPath());
 						addExplicitDecomp(fsi.getSource());
 						addExplicitDecomp(fsi.getDestination());
 					}
@@ -327,8 +431,8 @@ public class SlicerRepresentation {
 		 *
 		 * @param ne The component which has an explicit specification of how its inputs map to its outputs
 		 */
-		private void addExplicitDecomp(NamedElement ne) {
-			String fullFeatureName = getCompleteFeatureName(ne);
+		private void addExplicitDecomp(InstanceObject iObj) {
+			String fullFeatureName = iObj.getInstanceObjectPath();
 			String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
 			hasExplicitDecomp.add(fullContainerName);
 		}
