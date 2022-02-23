@@ -122,6 +122,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	@Override
 	public void instantiateAnnex(ComponentInstance instance, String annexName) {
 		EMV2AnnexInstance emv2AI = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
+		emv2AI.setName("EMV2");
 		instance.getAnnexInstances().add(emv2AI);
 
 		Collection<PropagationPoint> pps = EMV2Util.getAllPropagationPoints(instance.getComponentClassifier());
