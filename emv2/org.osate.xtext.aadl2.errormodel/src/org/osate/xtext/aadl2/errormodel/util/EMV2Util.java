@@ -1330,7 +1330,8 @@ public class EMV2Util {
 			var alreadyExists = false;
 			for (var existing : result) {
 				var existingName = getPrintName(existing);
-				if (propagationName.equals(existingName) && propagation.getDirection() == existing.getDirection()) {
+				if (propagation.getDirection() == existing.getDirection()
+						&& propagationName.equalsIgnoreCase(existingName)) {
 					alreadyExists = true;
 					break;
 				}
