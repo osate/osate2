@@ -28,8 +28,8 @@ import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.isNoError;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.EList;
@@ -342,7 +342,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {
-		var propagationInstances = new HashMap<String, ErrorPropagationInstance>();
+		var propagationInstances = new TreeMap<String, ErrorPropagationInstance>(String.CASE_INSENSITIVE_ORDER);
 		for (var ep : eps) {
 			var epi = propagationInstances.computeIfAbsent(EMV2Util.getName(ep),
 					name -> createErrorPropagationInstance(annex, name, ep));

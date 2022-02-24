@@ -224,7 +224,7 @@ public class PropagationTest {
 		var pkg = testHelper.parseFile(PATH + "in_out_propagation_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(1, annexInstance.getPropagations().size());
+		assertEquals(4, annexInstance.getPropagations().size());
 		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
 			assertEquals("f", propagation.getFeature().getName());
@@ -236,6 +236,36 @@ public class PropagationTest {
 			assertEquals("f",
 					((AbstractFeature) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
 							.getName());
+			assertEquals("{ItemValueError}", propagation.getOutTypeSet().getName());
+		});
+		with((PointPropagation) annexInstance.getPropagations().get(1), propagation -> {
+			assertEquals("point1", propagation.getName());
+			assertEquals("point1", propagation.getPoint().getName());
+			assertEquals(DirectionType.IN_OUT, propagation.getDirection());
+			assertEquals("point1",
+					((PropagationPoint) propagation.getInErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+							.getName());
+			assertEquals("{ServiceError}", propagation.getInTypeSet().getName());
+			assertEquals("point1",
+					((PropagationPoint) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+							.getName());
+			assertEquals("{ItemValueError}", propagation.getOutTypeSet().getName());
+		});
+		with((AccessPropagation) annexInstance.getPropagations().get(2), propagation -> {
+			assertEquals("access", propagation.getName());
+			assertEquals(DirectionType.IN_OUT, propagation.getDirection());
+			assertEquals("access", propagation.getInErrorPropagation().getKind());
+			assertEquals("{ServiceError}", propagation.getInTypeSet().getName());
+			assertEquals("ACCESS", propagation.getOutErrorPropagation().getKind());
+			assertEquals("{ItemValueError}", propagation.getOutTypeSet().getName());
+		});
+		with((BindingPropagation) annexInstance.getPropagations().get(3), propagation -> {
+			assertEquals("processor", propagation.getName());
+			assertEquals(BindingType.PROCESSOR, propagation.getBinding());
+			assertEquals(DirectionType.IN_OUT, propagation.getDirection());
+			assertEquals("processor", propagation.getInErrorPropagation().getKind());
+			assertEquals("{ServiceError}", propagation.getInTypeSet().getName());
+			assertEquals("PROCESSOR", propagation.getOutErrorPropagation().getKind());
 			assertEquals("{ItemValueError}", propagation.getOutTypeSet().getName());
 		});
 	}
