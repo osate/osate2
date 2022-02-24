@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
+import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
@@ -220,6 +221,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass pointPropagationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass accessPropagationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1228,6 +1236,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getAccessPropagation() {
+		return accessPropagationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getBindingPropagation() {
 		return bindingPropagationEClass;
 	}
@@ -1489,6 +1507,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		pointPropagationEClass = createEClass(POINT_PROPAGATION);
 		createEReference(pointPropagationEClass, POINT_PROPAGATION__POINT);
 
+		accessPropagationEClass = createEClass(ACCESS_PROPAGATION);
+
 		bindingPropagationEClass = createEClass(BINDING_PROPAGATION);
 		createEAttribute(bindingPropagationEClass, BINDING_PROPAGATION__BINDING);
 
@@ -1591,6 +1611,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		errorPropagationInstanceEClass.getESuperTypes().add(getConstrainedInstanceObject());
 		featurePropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		pointPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
+		accessPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		bindingPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		typeSetElementEClass.getESuperTypes().add(getEMV2InstanceObject());
 		typeTokenInstanceEClass.getESuperTypes().add(getTypeSetElement());
@@ -1822,6 +1843,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				PointPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(accessPropagationEClass, AccessPropagation.class, "AccessPropagation", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(bindingPropagationEClass, BindingPropagation.class, "BindingPropagation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBindingPropagation_Binding(), getBindingType(), "binding", null, 0, 1,
@@ -1939,7 +1963,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		addEEnumLiteral(bindingTypeEEnum, BindingType.CONNECTION);
 		addEEnumLiteral(bindingTypeEEnum, BindingType.BINDING);
 		addEEnumLiteral(bindingTypeEEnum, BindingType.BINDINGS);
-		addEEnumLiteral(bindingTypeEEnum, BindingType.ACCESS);
 
 		// Create resource
 		createResource(eNS_URI);

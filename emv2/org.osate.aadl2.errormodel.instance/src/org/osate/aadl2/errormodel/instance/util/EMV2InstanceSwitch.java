@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.Switch;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
+import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -456,6 +457,35 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(pointPropagation);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ACCESS_PROPAGATION: {
+			AccessPropagation accessPropagation = (AccessPropagation) theEObject;
+			T result = caseAccessPropagation(accessPropagation);
+			if (result == null) {
+				result = caseErrorPropagationInstance(accessPropagation);
+			}
+			if (result == null) {
+				result = caseConstrainedInstanceObject(accessPropagation);
+			}
+			if (result == null) {
+				result = caseConstraintElement(accessPropagation);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(accessPropagation);
+			}
+			if (result == null) {
+				result = caseInstanceObject(accessPropagation);
+			}
+			if (result == null) {
+				result = caseNamedElement(accessPropagation);
+			}
+			if (result == null) {
+				result = caseElement(accessPropagation);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1081,6 +1111,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePointPropagation(PointPropagation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Access Propagation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Access Propagation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAccessPropagation(AccessPropagation object) {
 		return null;
 	}
 

@@ -303,6 +303,38 @@ public class FlowsTest {
 	}
 
 	@Test
+	public void testFindAccessPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "find_access_propagation_test.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(3, annexInstance.getErrorFlows().size());
+		with((ErrorSourceInstance) annexInstance.getErrorFlows().get(0), source -> {
+			assertEquals("source_1", source.getName());
+			assertEquals("source_1", source.getErrorSource().getName());
+			assertEquals("access", source.getPropagation().getName());
+			assertTrue(source.getPropagation().getErrorSources().contains(source));
+			assertEquals("{ServiceError}", source.getTypeSet().getName());
+		});
+		with((ErrorSinkInstance) annexInstance.getErrorFlows().get(1), sink -> {
+			assertEquals("sink_1", sink.getName());
+			assertEquals("sink_1", sink.getErrorSink().getName());
+			assertEquals("access", sink.getPropagation().getName());
+			assertTrue(sink.getPropagation().getErrorSinks().contains(sink));
+			assertEquals("{ItemTimingError}", sink.getTypeSet().getName());
+		});
+		with((ErrorPathInstance) annexInstance.getErrorFlows().get(2), path -> {
+			assertEquals("path_1", path.getName());
+			assertEquals("path_1", path.getErrorPath().getName());
+			assertEquals("access", path.getSourcePropagation().getName());
+			assertTrue(path.getSourcePropagation().getSourceErrorPaths().contains(path));
+			assertEquals("{SequenceTimingError}", path.getSourceTypeSet().getName());
+			assertEquals("access", path.getDestinationPropagation().getName());
+			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
+		});
+	}
+
+	@Test
 	public void testFindBindingPropagation() throws Exception {
 		var pkg = testHelper.parseFile(PATH + "find_binding_propagation_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);

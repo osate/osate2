@@ -12,6 +12,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
@@ -33,11 +34,27 @@ public class PropagationTest {
 	private TestHelper<AadlPackage> testHelper;
 
 	@Test
+	public void testAccessPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "access_propagation_test.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagations().size());
+		with((AccessPropagation) annexInstance.getPropagations().get(0), propagation -> {
+			assertEquals("access", propagation.getName());
+			assertNull(propagation.getInErrorPropagation());
+			assertEquals("access", propagation.getOutErrorPropagation().getKind());
+			assertEquals(DirectionType.OUT, propagation.getDirection());
+			assertNull(propagation.getInTypeSet());
+			assertEquals("{ServiceError}", propagation.getOutTypeSet().getName());
+		});
+	}
+
+	@Test
 	public void testBindingReference() throws Exception {
 		var pkg = testHelper.parseFile(PATH + "binding_reference_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(6, annexInstance.getPropagations().size());
+		assertEquals(5, annexInstance.getPropagations().size());
 		with((BindingPropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("processor", propagation.getName());
 			assertEquals(BindingType.PROCESSOR, propagation.getBinding());
@@ -79,15 +96,6 @@ public class PropagationTest {
 			assertEquals(BindingType.BINDINGS, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
 			assertEquals("bindings", propagation.getOutErrorPropagation().getKind());
-			assertEquals(DirectionType.OUT, propagation.getDirection());
-			assertNull(propagation.getInTypeSet());
-			assertEquals("{ServiceError}", propagation.getOutTypeSet().getName());
-		});
-		with((BindingPropagation) annexInstance.getPropagations().get(5), propagation -> {
-			assertEquals("access", propagation.getName());
-			assertEquals(BindingType.ACCESS, propagation.getBinding());
-			assertNull(propagation.getInErrorPropagation());
-			assertEquals("access", propagation.getOutErrorPropagation().getKind());
 			assertEquals(DirectionType.OUT, propagation.getDirection());
 			assertNull(propagation.getInTypeSet());
 			assertEquals("{ServiceError}", propagation.getOutTypeSet().getName());

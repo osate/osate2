@@ -196,6 +196,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	PointPropagation createPointPropagation();
 
 	/**
+	 * Returns a new object of class '<em>Access Propagation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Access Propagation</em>'.
+	 * @generated
+	 */
+	AccessPropagation createAccessPropagation();
+
+	/**
 	 * Returns a new object of class '<em>Binding Propagation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

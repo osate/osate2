@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
@@ -126,6 +127,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createFeaturePropagation();
 		case EMV2InstancePackage.POINT_PROPAGATION:
 			return createPointPropagation();
+		case EMV2InstancePackage.ACCESS_PROPAGATION:
+			return createAccessPropagation();
 		case EMV2InstancePackage.BINDING_PROPAGATION:
 			return createBindingPropagation();
 		case EMV2InstancePackage.TYPE_INSTANCE:
@@ -368,6 +371,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public PointPropagation createPointPropagation() {
 		PointPropagationImpl pointPropagation = new PointPropagationImpl();
 		return pointPropagation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AccessPropagation createAccessPropagation() {
+		AccessPropagationImpl accessPropagation = new AccessPropagationImpl();
+		return accessPropagation;
 	}
 
 	/**

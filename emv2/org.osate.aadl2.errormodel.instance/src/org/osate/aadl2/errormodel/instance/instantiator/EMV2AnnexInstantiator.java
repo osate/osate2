@@ -45,6 +45,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
@@ -371,7 +372,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private ErrorPropagationInstance createErrorPropagationInstance(EMV2AnnexInstance annex, String name,
 			ErrorPropagation ep) {
 		ErrorPropagationInstance propagation;
-		if (ep.getKind() != null) {
+		if ("access".equalsIgnoreCase(ep.getKind())) {
+			propagation = createAccessPropagation(name);
+		} else if (ep.getKind() != null) {
 			propagation = createBindingPropagation(name, ep.getKind());
 		} else if (ep.getFeatureorPPRef() != null) {
 			var featureOrPPRef = ep.getFeatureorPPRef();
@@ -409,6 +412,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var propagation = EMV2InstanceFactory.eINSTANCE.createPointPropagation();
 		propagation.setName(name);
 		propagation.setPoint(findPropagationPointInstance(annex, propagationPoint));
+		return propagation;
+	}
+
+	private AccessPropagation createAccessPropagation(String name) {
+		var propagation = EMV2InstanceFactory.eINSTANCE.createAccessPropagation();
+		propagation.setName(name);
 		return propagation;
 	}
 

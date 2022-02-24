@@ -87,17 +87,7 @@ public enum BindingType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BINDINGS(4, "bindings", "bindings"),
-
-	/**
-	 * The '<em><b>Access</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ACCESS_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	ACCESS(5, "access", "access");
+	BINDINGS(4, "bindings", "bindings");
 
 	/**
 	 * The '<em><b>Processor</b></em>' literal value.
@@ -155,24 +145,13 @@ public enum BindingType implements Enumerator {
 	public static final int BINDINGS_VALUE = 4;
 
 	/**
-	 * The '<em><b>Access</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ACCESS
-	 * @model name="access"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int ACCESS_VALUE = 5;
-
-	/**
 	 * An array of all the '<em><b>Binding Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private static final BindingType[] VALUES_ARRAY = new BindingType[] { PROCESSOR, MEMORY, CONNECTION, BINDING,
-			BINDINGS, ACCESS, };
+			BINDINGS, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Binding Type</b></em>' enumerators.
@@ -238,8 +217,6 @@ public enum BindingType implements Enumerator {
 			return BINDING;
 		case BINDINGS_VALUE:
 			return BINDINGS;
-		case ACCESS_VALUE:
-			return ACCESS;
 		}
 		return null;
 	}

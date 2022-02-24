@@ -124,6 +124,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PointPropagation" eSuperTypes="#//ErrorPropagationInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="point" eType="#//PropagationPointInstance"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AccessPropagation" eSuperTypes="#//ErrorPropagationInstance"/>
   <eClassifiers xsi:type="ecore:EClass" name="BindingPropagation" eSuperTypes="#//ErrorPropagationInstance">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="binding" eType="#//BindingType"/>
   </eClassifiers>
@@ -133,7 +134,6 @@
     <eLiterals name="connection" value="2"/>
     <eLiterals name="binding" value="3"/>
     <eLiterals name="bindings" value="4"/>
-    <eLiterals name="access" value="5"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeSetElement" abstract="true" interface="true"
       eSuperTypes="#//EMV2InstanceObject"/>
