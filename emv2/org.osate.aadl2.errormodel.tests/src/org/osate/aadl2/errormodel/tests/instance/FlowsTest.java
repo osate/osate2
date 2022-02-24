@@ -204,22 +204,22 @@ public class FlowsTest {
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(3, annexInstance.getErrorFlows().size());
 		with((ErrorSourceInstance) annexInstance.getErrorFlows().get(0), source -> {
-			assertEquals("source_1", source.getName());
-			assertEquals("source_1", source.getErrorSource().getName());
+			assertEquals("SOURCE_1", source.getName());
+			assertEquals("SOURCE_1", source.getErrorSource().getName());
 			assertEquals("f_out", source.getPropagation().getName());
 			assertTrue(source.getPropagation().getErrorSources().contains(source));
 			assertEquals("{ItemValueError}", source.getTypeSet().getName());
 		});
 		with((ErrorSinkInstance) annexInstance.getErrorFlows().get(1), sink -> {
-			assertEquals("sink_1", sink.getName());
-			assertEquals("sink_1", sink.getErrorSink().getName());
+			assertEquals("SINK_1", sink.getName());
+			assertEquals("SINK_1", sink.getErrorSink().getName());
 			assertEquals("f_in", sink.getPropagation().getName());
 			assertTrue(sink.getPropagation().getErrorSinks().contains(sink));
 			assertEquals("{SequenceValueError}", sink.getTypeSet().getName());
 		});
 		with((ErrorPathInstance) annexInstance.getErrorFlows().get(2), path -> {
-			assertEquals("path_1", path.getName());
-			assertEquals("path_1", path.getErrorPath().getName());
+			assertEquals("PATH_1", path.getName());
+			assertEquals("PATH_1", path.getErrorPath().getName());
 			assertEquals("f_in", path.getSourcePropagation().getName());
 			assertTrue(path.getSourcePropagation().getSourceErrorPaths().contains(path));
 			assertEquals("{ServiceValueError}", path.getSourceTypeSet().getName());

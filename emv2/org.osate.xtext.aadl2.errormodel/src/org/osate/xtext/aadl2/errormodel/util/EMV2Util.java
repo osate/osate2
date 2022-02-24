@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -1513,7 +1514,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error flow
 	 */
 	public static Collection<ErrorSource> getAllErrorSources(Classifier cl) {
-		HashMap<String, ErrorSource> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorSource>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
@@ -1538,7 +1539,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error paths declared in the flow section
 	 */
 	public static Collection<ErrorPath> getAllErrorPaths(Classifier cl) {
-		HashMap<String, ErrorPath> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorPath>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
@@ -1563,7 +1564,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error sinks declared in the flow section
 	 */
 	public static Collection<ErrorSink> getAllErrorSinks(Classifier cl) {
-		HashMap<String, ErrorSink> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorSink>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
