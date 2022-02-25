@@ -21,45 +21,44 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.instance.textual;
+package org.osate.aadl2.instance.textual.formatting;
 
-import org.eclipse.xtext.conversion.IValueConverterService;
-import org.eclipse.xtext.formatting.IFormatter;
-import org.eclipse.xtext.linking.ILinkingService;
-import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
-import org.osate.aadl2.instance.textual.formatting.InstanceFormatter;
-import org.osate.aadl2.instance.textual.linking.InstanceLinkingService;
-import org.osate.aadl2.instance.textual.naming.InstanceQualifiedNameConverter;
-import org.osate.aadl2.instance.textual.serializer.InstanceCrossReferenceSerializer;
-import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
+import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
+import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.osate.aadl2.instance.textual.services.InstanceGrammarAccess;
+
+import com.google.inject.Inject;
 
 /**
- * Use this class to register components to be used at runtime / without the Equinox extension registry.
+ * This class contains custom formatting declarations.
+ *
+ * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#formatting
+ * on how and when to use it.
+ *
+ * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an example
  */
-public class InstanceRuntimeModule extends AbstractInstanceRuntimeModule {
-	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
-		return InstanceQualifiedNameConverter.class;
-	}
+public class InstanceFormatter extends AbstractDeclarativeFormatter {
+	@Inject
+	private InstanceGrammarAccess grammarAccess;
 
 	@Override
-	public Class<? extends IValueConverterService> bindIValueConverterService() {
-		return PropertiesValueConverter.class;
-	}
-
-	public Class<? extends ICrossReferenceSerializer> bindICrossReferenceSerializer() {
-		return InstanceCrossReferenceSerializer.class;
-	}
-
-	@Override
-	public Class<? extends ILinkingService> bindILinkingService() {
-		return InstanceLinkingService.class;
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	@Override
-	public Class<? extends IFormatter> bindIFormatter() {
-		return InstanceFormatter.class;
+	protected void configureFormatting(FormattingConfig c) {
+		c.setAutoLinewrap(1000);
+		grammarAccess.findKeywordPairs("{", "}").forEach(pair -> {
+			c.setIndentationIncrement().after(pair.getFirst());
+			c.setLinewrap().after(pair.getFirst());
+			c.setIndentationDecrement().before(pair.getSecond());
+			c.setLinewrap().before(pair.getSecond());
+		});
+		c.setLinewrap(1).after(grammarAccess.getSystemOperationModeRule());
+		c.setLinewrap(1).after(grammarAccess.getComponentInstanceRule());
+		c.setLinewrap(1).after(grammarAccess.getFeatureInstanceRule());
+		c.setLinewrap(1).after(grammarAccess.getConnectionInstanceRule());
+		c.setLinewrap(1).after(grammarAccess.getConnectionReferenceRule());
+		c.setLinewrap(1).after(grammarAccess.getFlowSpecificationInstanceRule());
+		c.setLinewrap(1).after(grammarAccess.getEndToEndFlowInstanceRule());
+		c.setLinewrap(1).after(grammarAccess.getModeInstanceRule());
+		c.setLinewrap(1).after(grammarAccess.getModeTransitionInstanceRule());
+		c.setLinewrap(1).after(grammarAccess.getPropertyAssociationInstanceRule());
 	}
 }

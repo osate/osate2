@@ -21,11 +21,33 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.instance.textual.ui.contentassist
+package org.osate.aadl2.instance.textual.ide.contentassist.antlr;
 
-/**
- * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
- * on how to customize the content assistant.
- */
-class InstanceProposalProvider extends AbstractInstanceProposalProvider {
+import java.util.Collection;
+import java.util.Collections;
+import org.eclipse.xtext.AbstractRule;
+import org.eclipse.xtext.ide.editor.contentassist.antlr.FollowElement;
+import org.eclipse.xtext.ide.editor.contentassist.antlr.internal.AbstractInternalContentAssistParser;
+import org.eclipse.xtext.util.PolymorphicDispatcher;
+
+public class PartialInstanceContentAssistParser extends InstanceParser {
+
+	private AbstractRule rule;
+
+	@Override
+	public void initializeFor(AbstractRule rule) {
+		this.rule = rule;
+	}
+
+	@Override
+	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
+		if (rule == null || rule.eIsProxy())
+			return Collections.emptyList();
+		String methodName = "entryRule" + rule.getName();
+		PolymorphicDispatcher<Collection<FollowElement>> dispatcher = 
+			new PolymorphicDispatcher<Collection<FollowElement>>(methodName, 0, 0, Collections.singletonList(parser));
+		dispatcher.invoke();
+		return parser.getFollowElements();
+	}
+
 }
