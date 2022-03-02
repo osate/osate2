@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Automatic-Module-Name: org.osate.expr.ui.tests
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.expr.ui.tests
-Bundle-Vendor: My Company
+Bundle-Vendor: CMU-SEI
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.osate.expr.ui.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
@@ -11,6 +11,9 @@ Require-Bundle: org.osate.expr.ui,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.junit4,
  org.eclipse.core.runtime,
- org.eclipse.ui.workbench;resolution:=optional
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.eclipse.xtext.xbase.testing,
+ org.eclipse.xtext.ui.testing,
+ org.eclipse.xtext.xbase.junit
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.osate.expr.ui.tests;x-internal=true

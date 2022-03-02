@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -39,13 +39,12 @@ import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
-import org.eclipse.xtext.service.AbstractElementFinder.AbstractEnumRuleElementFinder;
-import org.eclipse.xtext.service.AbstractElementFinder.AbstractGrammarElementFinder;
+import org.eclipse.xtext.service.AbstractElementFinder;
 import org.eclipse.xtext.service.GrammarProvider;
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
 
 @Singleton
-public class ExprGrammarAccess extends AbstractGrammarElementFinder {
+public class ExprGrammarAccess extends AbstractElementFinder.AbstractGrammarElementFinder {
 	
 	public class ExprModelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.ExprModel");
@@ -61,11 +60,13 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// for testing
 		//ExprModel:
-		//	'library' annex=ExprLibrary
-		//	| 'subclause' annex=ExprSubclause;
+		//    'library' annex=ExprLibrary
+		//    | 'subclause' annex=ExprSubclause
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'library' annex=ExprLibrary | 'subclause' annex=ExprSubclause
+		//'library' annex=ExprLibrary
+		//| 'subclause' annex=ExprSubclause
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'library' annex=ExprLibrary
@@ -98,8 +99,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cExprLibraryAction_0 = (Action)cGroup.eContents().get(0);
 		private final RuleCall cDeclarationsParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
-		//ExprLibrary aadl2::AnnexLibrary:
-		//	{ExprLibrary} Declarations?;
+		//ExprLibrary returns aadl2::AnnexLibrary:
+		//    {ExprLibrary} Declarations?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{ExprLibrary} Declarations?
@@ -117,8 +119,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cExprSubclauseAction_0 = (Action)cGroup.eContents().get(0);
 		private final RuleCall cDeclarationsParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
-		//ExprSubclause aadl2::AnnexSubclause:
-		//	{ExprSubclause} Declarations?;
+		//ExprSubclause returns aadl2::AnnexSubclause:
+		//    {ExprSubclause} Declarations?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{ExprSubclause} Declarations?
@@ -139,8 +142,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArgumentParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cFieldParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
-		//NamedElement aadl2::NamedElement:
-		//	ExprLibrary | ExprSubclause | EDeclaration | Argument | Field;
+		//NamedElement returns aadl2::NamedElement:
+		//    ExprLibrary | ExprSubclause | EDeclaration | Argument | Field
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//ExprLibrary | ExprSubclause | EDeclaration | Argument | Field
@@ -172,8 +176,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDeclsEDeclarationParserRuleCall_1_1_0 = (RuleCall)cDeclsAssignment_1_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
-		//fragment Declarations *:
-		//	decls+=EDeclaration (';' decls+=EDeclaration)* ';'?;
+		//fragment Declarations*:
+		//    decls+=EDeclaration (';' decls+=EDeclaration)* ';'?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//decls+=EDeclaration (';' decls+=EDeclaration)* ';'?
@@ -209,7 +214,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAssertionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//EDeclaration:
-		//	TypeDecl | VarDecl | FunDecl | Assertion;
+		//    TypeDecl | VarDecl | FunDecl | Assertion
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//TypeDecl | VarDecl | FunDecl | Assertion
@@ -247,13 +253,21 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
 		
 		//TypeDecl:
-		//	'type' name=ID /*('extends' baseType=Type)?*/ ':' type=Type ('{'
-		//	ownedPropertyAssociations+=PropertyAssociation (';' ownedPropertyAssociations+=PropertyAssociation)*
-		//	'}')?;
+		//    'type' name=ID /*('extends' baseType=Type)?*/ ':' type=Type
+		//    (
+		//        '{'
+		//        ownedPropertyAssociations+=PropertyAssociation (';' ownedPropertyAssociations+=PropertyAssociation)*
+		//        '}'
+		//    )?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'type' name=ID /*('extends' baseType=Type)?*/ ':' type=Type ('{' ownedPropertyAssociations+=PropertyAssociation (';'
-		//ownedPropertyAssociations+=PropertyAssociation)* '}')?
+		//'type' name=ID /*('extends' baseType=Type)?*/ ':' type=Type
+		//(
+		//    '{'
+		//    ownedPropertyAssociations+=PropertyAssociation (';' ownedPropertyAssociations+=PropertyAssociation)*
+		//    '}'
+		//)?
 		public Group getGroup() { return cGroup; }
 		
 		//'type'
@@ -274,7 +288,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		//Type
 		public RuleCall getTypeTypeParserRuleCall_3_0() { return cTypeTypeParserRuleCall_3_0; }
 		
-		//('{' ownedPropertyAssociations+=PropertyAssociation (';' ownedPropertyAssociations+=PropertyAssociation)* '}')?
+		//(
+		//    '{'
+		//    ownedPropertyAssociations+=PropertyAssociation (';' ownedPropertyAssociations+=PropertyAssociation)*
+		//    '}'
+		//)?
 		public Group getGroup_4() { return cGroup_4; }
 		
 		//'{'
@@ -320,16 +338,17 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueExpressionParserRuleCall_3_1_0 = (RuleCall)cValueAssignment_3_1.eContents().get(0);
 		
 		//VarDecl:
-		//	(const?='val' | 'var') name=ID (':' declType=Type)? ('=' value=Expression)?;
+		//    ((const?='val') | 'var') name=ID (':' declType=Type)? ('=' value=Expression)?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//(const?='val' | 'var') name=ID (':' declType=Type)? ('=' value=Expression)?
+		//((const?='val') | 'var') name=ID (':' declType=Type)? ('=' value=Expression)?
 		public Group getGroup() { return cGroup; }
 		
-		//(const?='val' | 'var')
+		//((const?='val') | 'var')
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 		
-		//const?='val'
+		//(const?='val')
 		public Assignment getConstAssignment_0_0() { return cConstAssignment_0_0; }
 		
 		//'val'
@@ -393,7 +412,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExpExpressionParserRuleCall_7_1_1_0 = (RuleCall)cExpAssignment_7_1_1.eContents().get(0);
 		
 		//FunDecl:
-		//	'def' name=ID '(' Args ')' ':' resultType=Type ('=' (java?='java' ':' fqn=JavaFQN | exp=Expression))?;
+		//    'def' name=ID '(' Args ')' ':' resultType=Type ('=' (java?='java' ':' fqn=JavaFQN | exp=Expression))?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'def' name=ID '(' Args ')' ':' resultType=Type ('=' (java?='java' ':' fqn=JavaFQN | exp=Expression))?
@@ -468,7 +488,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
 		//JavaFQN:
-		//	ID ('.' ID)*;
+		//    ID ('.' ID)*
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//ID ('.' ID)*
@@ -496,8 +517,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cArgsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cArgsArgumentParserRuleCall_1_1_0 = (RuleCall)cArgsAssignment_1_1.eContents().get(0);
 		
-		//fragment Args *:
-		//	(args+=Argument (',' args+=Argument)*)?;
+		//fragment Args*:
+		//    (args+=Argument (',' args+=Argument)*)?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//(args+=Argument (',' args+=Argument)*)?
@@ -532,7 +554,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTypeParserRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
 		
 		//Argument:
-		//	{Argument} name=ID ':' type=Type;
+		//    {Argument} name=ID ':' type=Type
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{Argument} name=ID ':' type=Type
@@ -567,7 +590,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAssertExpressionParserRuleCall_3_0 = (RuleCall)cAssertAssignment_3.eContents().get(0);
 		
 		//Assertion:
-		//	'assert' name=ID ':' assert=Expression;
+		//    'assert' name=ID ':' assert=Expression
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'assert' name=ID ':' assert=Expression
@@ -609,14 +633,16 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeRefParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
 		
 		//// Types
-		//Type aadl2::Type:
-		//	PrimitiveType | RangeType | Category | MetaClass
-		//	| RecordType | UnionType | TupleType | ListType | SetType | BagType | MapType
-		//	| EnumType | TypeRef;
+		//Type returns aadl2::Type:
+		//    PrimitiveType | RangeType | Category | MetaClass
+		//    | RecordType | UnionType | TupleType | ListType | SetType | BagType | MapType
+		//    | EnumType | TypeRef
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//PrimitiveType | RangeType | Category | MetaClass | RecordType | UnionType | TupleType | ListType | SetType | BagType |
-		//MapType | EnumType | TypeRef
+		//PrimitiveType | RangeType | Category | MetaClass
+		//| RecordType | UnionType | TupleType | ListType | SetType | BagType | MapType
+		//| EnumType | TypeRef
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//PrimitiveType
@@ -669,8 +695,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cEStringAction_2_0 = (Action)cGroup_2.eContents().get(0);
 		private final Keyword cStringKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		
-		//PrimitiveType aadl2::Type:
-		//	{EBoolean} 'bool' | ENumberType | {EString} 'string';
+		//PrimitiveType returns aadl2::Type:
+		//    {EBoolean} 'bool' | ENumberType | {EString} 'string'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{EBoolean} 'bool' | ENumberType | {EString} 'string'
@@ -704,7 +731,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cERealParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//ENumberType:
-		//	EInteger | EReal;
+		//    EInteger | EReal
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//EInteger | EReal
@@ -723,7 +751,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cIntKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//EInteger:
-		//	{EInteger} 'int';
+		//    {EInteger} 'int'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{EInteger} 'int'
@@ -742,7 +771,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRealKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//EReal:
-		//	{EReal} 'real';
+		//    {EReal} 'real'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{EReal} 'real'
@@ -763,7 +793,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTypeParserRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
 		
 		//RangeType:
-		//	'range' 'of' type=Type;
+		//    'range' 'of' type=Type
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'range' 'of' type=Type
@@ -787,7 +818,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCategoryComponentCategoryParserRuleCall_0 = (RuleCall)cCategoryAssignment.eContents().get(0);
 		
 		//Category:
-		//	category=ComponentCategory;
+		//    category=ComponentCategory
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//category=ComponentCategory
@@ -822,14 +854,16 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cVirtualKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
 		private final Keyword cProcessorKeyword_13_1 = (Keyword)cGroup_13.eContents().get(1);
 		
-		//ComponentCategory aadl2::ComponentCategory:
-		//	'abstract' | 'bus' | 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
-		//	| 'subprogram' 'group' | 'system' | 'thread' 'group' | 'thread'
-		//	| 'virtual' 'bus' | 'virtual' 'processor';
+		//ComponentCategory returns aadl2::ComponentCategory:
+		//    'abstract' | 'bus'| 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
+		//    | 'subprogram' 'group' | 'system' | 'thread' 'group' | 'thread'
+		//    | 'virtual' 'bus' | 'virtual' 'processor'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'abstract' | 'bus' | 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram' | 'subprogram' 'group' |
-		//'system' | 'thread' 'group' | 'thread' | 'virtual' 'bus' | 'virtual' 'processor'
+		//'abstract' | 'bus'| 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
+		//| 'subprogram' 'group' | 'system' | 'thread' 'group' | 'thread'
+		//| 'virtual' 'bus' | 'virtual' 'processor'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'abstract'
@@ -905,7 +939,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// TODO: should support real meta class references
 		//MetaClass:
-		//	class=MetaClassEnum;
+		//    class=MetaClassEnum
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//class=MetaClassEnum
@@ -930,11 +965,15 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//RecordType:
-		//	{RecordType} 'record' '{' (fields+=Field (',' fields+=Field)*)?
-		//	'}';
+		//    {RecordType} 'record' '{'
+		//        (fields+=Field (',' fields+=Field)*)?
+		//    '}'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{RecordType} 'record' '{' (fields+=Field (',' fields+=Field)*)? '}'
+		//{RecordType} 'record' '{'
+		//    (fields+=Field (',' fields+=Field)*)?
+		//'}'
 		public Group getGroup() { return cGroup; }
 		
 		//{RecordType}
@@ -981,7 +1020,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTypeParserRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
 		
 		//Field:
-		//	{Field} name=ID ':' type=Type;
+		//    {Field} name=ID ':' type=Type
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{Field} name=ID ':' type=Type
@@ -1021,11 +1061,15 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//UnionType:
-		//	{UnionType} 'union' '{' (fields+=Field (',' fields+=Field)*)?
-		//	'}';
+		//    {UnionType} 'union' '{'
+		//        (fields+=Field (',' fields+=Field)*)?
+		//    '}'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{UnionType} 'union' '{' (fields+=Field (',' fields+=Field)*)? '}'
+		//{UnionType} 'union' '{'
+		//    (fields+=Field (',' fields+=Field)*)?
+		//'}'
 		public Group getGroup() { return cGroup; }
 		
 		//{UnionType}
@@ -1077,11 +1121,15 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//TupleType:
-		//	{TupleType} 'tuple' '{' (fields+=TupleField (',' fields+=TupleField)*)?
-		//	'}';
+		//    {TupleType} 'tuple' '{'
+		//        (fields+=TupleField (',' fields+=TupleField)*)?
+		//    '}'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{TupleType} 'tuple' '{' (fields+=TupleField (',' fields+=TupleField)*)? '}'
+		//{TupleType} 'tuple' '{'
+		//    (fields+=TupleField (',' fields+=TupleField)*)?
+		//'}'
 		public Group getGroup() { return cGroup; }
 		
 		//{TupleType}
@@ -1122,8 +1170,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTypeAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cTypeTypeParserRuleCall_0 = (RuleCall)cTypeAssignment.eContents().get(0);
 		
-		//TupleField Field:
-		//	type=Type;
+		//TupleField returns Field:
+		//    type=Type
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//type=Type
@@ -1141,7 +1190,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTypeParserRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
 		
 		//ListType:
-		//	'list' 'of' type=Type;
+		//    'list' 'of' type=Type
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'list' 'of' type=Type
@@ -1168,7 +1218,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTypeParserRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
 		
 		//SetType:
-		//	'set' 'of' type=Type;
+		//    'set' 'of' type=Type
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'set' 'of' type=Type
@@ -1195,7 +1246,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTypeParserRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
 		
 		//BagType:
-		//	'bag' 'of' type=Type;
+		//    'bag' 'of' type=Type
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'bag' 'of' type=Type
@@ -1224,7 +1276,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cImageTypeParserRuleCall_3_0 = (RuleCall)cImageAssignment_3.eContents().get(0);
 		
 		//MapType:
-		//	'map' domain=Type '->' image=Type;
+		//    'map' domain=Type '->' image=Type
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'map' domain=Type '->' image=Type
@@ -1264,11 +1317,15 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//EnumType:
-		//	{EnumType} 'enum' '{' (literals+=EnumLiteral (',' literals+=EnumLiteral)*)?
-		//	'}';
+		//    {EnumType} 'enum' '{'
+		//        (literals+=EnumLiteral (',' literals+=EnumLiteral)*)?
+		//    '}'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{EnumType} 'enum' '{' (literals+=EnumLiteral (',' literals+=EnumLiteral)*)? '}'
+		//{EnumType} 'enum' '{'
+		//    (literals+=EnumLiteral (',' literals+=EnumLiteral)*)?
+		//'}'
 		public Group getGroup() { return cGroup; }
 		
 		//{EnumType}
@@ -1310,7 +1367,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
 		//EnumLiteral:
-		//	name=ID;
+		//    name=ID
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//name=ID
@@ -1326,7 +1384,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRefNamedElementQCREFParserRuleCall_0_1 = (RuleCall)cRefNamedElementCrossReference_0.eContents().get(1);
 		
 		//TypeRef:
-		//	ref=[aadl2::NamedElement|QCREF];
+		//    ref=[aadl2::NamedElement|QCREF]
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//ref=[aadl2::NamedElement|QCREF]
@@ -1344,12 +1403,14 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOrExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cBlockExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//Expression:
-		//	OrExpression
-		//	| BlockExpression;
+		//Expression returns Expression:
+		//    OrExpression
+		//    | BlockExpression
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//OrExpression | BlockExpression
+		//OrExpression
+		//| BlockExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//OrExpression
@@ -1371,13 +1432,18 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cResultExpressionParserRuleCall_3_0 = (RuleCall)cResultAssignment_3.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//BlockExpression Expression:
-		//	{Block} '{' (decls+=VarDecl ';')*
-		//	result=Expression
-		//	'}';
+		//BlockExpression returns Expression:
+		//    {Block} '{'
+		//        (decls+=VarDecl ';')*
+		//        result=Expression
+		//    '}'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Block} '{' (decls+=VarDecl ';')* result=Expression '}'
+		//{Block} '{'
+		//    (decls+=VarDecl ';')*
+		//    result=Expression
+		//'}'
 		public Group getGroup() { return cGroup; }
 		
 		//{Block}
@@ -1420,23 +1486,24 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cRightAndExpressionParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
 		
-		//OrExpression Expression:
-		//	AndExpression (=> ({BinaryOperation.left=current} operator=OpOr) right=AndExpression)*;
+		//OrExpression returns Expression:
+		//    AndExpression (=>({BinaryOperation.left=current} operator=OpOr) right=AndExpression)*
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//AndExpression (=> ({BinaryOperation.left=current} operator=OpOr) right=AndExpression)*
+		//AndExpression (=>({BinaryOperation.left=current} operator=OpOr) right=AndExpression)*
 		public Group getGroup() { return cGroup; }
 		
 		//AndExpression
 		public RuleCall getAndExpressionParserRuleCall_0() { return cAndExpressionParserRuleCall_0; }
 		
-		//(=> ({BinaryOperation.left=current} operator=OpOr) right=AndExpression)*
+		//(=>({BinaryOperation.left=current} operator=OpOr) right=AndExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//=> ({BinaryOperation.left=current} operator=OpOr)
+		//=>({BinaryOperation.left=current} operator=OpOr)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 		
-		//({BinaryOperation.left=current} operator=OpOr)
+		//{BinaryOperation.left=current} operator=OpOr
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 		
 		//{BinaryOperation.left=current}
@@ -1460,8 +1527,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cOrKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cVerticalLineVerticalLineKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		
-		//OpOr Operation:
-		//	'or' | '||';
+		//OpOr returns Operation:
+		//    'or' | '||'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'or' | '||'
@@ -1486,23 +1554,24 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cRightEqualityExpressionParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
 		
-		//AndExpression Expression:
-		//	EqualityExpression (=> ({BinaryOperation.left=current} operator=OpAnd) right=EqualityExpression)*;
+		//AndExpression returns Expression:
+		//    EqualityExpression (=>({BinaryOperation.left=current} operator=OpAnd) right=EqualityExpression)*
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//EqualityExpression (=> ({BinaryOperation.left=current} operator=OpAnd) right=EqualityExpression)*
+		//EqualityExpression (=>({BinaryOperation.left=current} operator=OpAnd) right=EqualityExpression)*
 		public Group getGroup() { return cGroup; }
 		
 		//EqualityExpression
 		public RuleCall getEqualityExpressionParserRuleCall_0() { return cEqualityExpressionParserRuleCall_0; }
 		
-		//(=> ({BinaryOperation.left=current} operator=OpAnd) right=EqualityExpression)*
+		//(=>({BinaryOperation.left=current} operator=OpAnd) right=EqualityExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//=> ({BinaryOperation.left=current} operator=OpAnd)
+		//=>({BinaryOperation.left=current} operator=OpAnd)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 		
-		//({BinaryOperation.left=current} operator=OpAnd)
+		//{BinaryOperation.left=current} operator=OpAnd
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 		
 		//{BinaryOperation.left=current}
@@ -1526,8 +1595,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAndKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cAmpersandAmpersandKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		
-		//OpAnd Operation:
-		//	'and' | '&&';
+		//OpAnd returns Operation:
+		//    'and' | '&&'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'and' | '&&'
@@ -1552,23 +1622,24 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cRightRelationalExpressionParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
 		
-		//EqualityExpression Expression:
-		//	RelationalExpression (=> ({BinaryOperation.left=current} operator=OpEquality) right=RelationalExpression)*;
+		//EqualityExpression returns Expression:
+		//    RelationalExpression (=>({BinaryOperation.left=current} operator=OpEquality) right=RelationalExpression)*
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//RelationalExpression (=> ({BinaryOperation.left=current} operator=OpEquality) right=RelationalExpression)*
+		//RelationalExpression (=>({BinaryOperation.left=current} operator=OpEquality) right=RelationalExpression)*
 		public Group getGroup() { return cGroup; }
 		
 		//RelationalExpression
 		public RuleCall getRelationalExpressionParserRuleCall_0() { return cRelationalExpressionParserRuleCall_0; }
 		
-		//(=> ({BinaryOperation.left=current} operator=OpEquality) right=RelationalExpression)*
+		//(=>({BinaryOperation.left=current} operator=OpEquality) right=RelationalExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//=> ({BinaryOperation.left=current} operator=OpEquality)
+		//=>({BinaryOperation.left=current} operator=OpEquality)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 		
-		//({BinaryOperation.left=current} operator=OpEquality)
+		//{BinaryOperation.left=current} operator=OpEquality
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 		
 		//{BinaryOperation.left=current}
@@ -1592,8 +1663,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEqualsSignEqualsSignKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cExclamationMarkEqualsSignKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		
-		//OpEquality Operation:
-		//	'==' | '!=';
+		//OpEquality returns Operation:
+		//    '==' | '!='
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'==' | '!='
@@ -1618,27 +1690,30 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cRightAdditiveExpressionParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
 		
-		//RelationalExpression Expression:
-		//	AdditiveExpression (=> ({BinaryOperation.left=current} operator=OpCompare) right=AdditiveExpression)*;
+		//RelationalExpression returns Expression:
+		////    OtherOperatorExpression
+		////    ( =>({BinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=OtherOperatorExpression)*;
+		//    AdditiveExpression ( =>({BinaryOperation.left=current} operator=OpCompare) right=AdditiveExpression)*
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		////	OtherOperatorExpression
-		////	( =>({BinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=OtherOperatorExpression)*;
-		//AdditiveExpression (=> ({BinaryOperation.left=current} operator=OpCompare) right=AdditiveExpression)*
+		////    OtherOperatorExpression
+		////    ( =>({BinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=OtherOperatorExpression)*;
+		//    AdditiveExpression ( =>({BinaryOperation.left=current} operator=OpCompare) right=AdditiveExpression)*
 		public Group getGroup() { return cGroup; }
 		
-		////	OtherOperatorExpression
-		////	( =>({BinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=OtherOperatorExpression)*;
-		//AdditiveExpression
+		////    OtherOperatorExpression
+		////    ( =>({BinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=OtherOperatorExpression)*;
+		//    AdditiveExpression
 		public RuleCall getAdditiveExpressionParserRuleCall_0() { return cAdditiveExpressionParserRuleCall_0; }
 		
-		//(=> ({BinaryOperation.left=current} operator=OpCompare) right=AdditiveExpression)*
+		//( =>({BinaryOperation.left=current} operator=OpCompare) right=AdditiveExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//=> ({BinaryOperation.left=current} operator=OpCompare)
+		//=>({BinaryOperation.left=current} operator=OpCompare)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 		
-		//({BinaryOperation.left=current} operator=OpCompare)
+		//{BinaryOperation.left=current} operator=OpCompare
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 		
 		//{BinaryOperation.left=current}
@@ -1665,8 +1740,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLessThanSignKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
 		private final Keyword cGreaterThanSignLessThanSignKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
 		
-		//OpCompare Operation:
-		//	'>=' | '<=' | '>' | '<' | '><';
+		//OpCompare returns Operation:
+		//    '>=' | '<=' | '>' | '<' | '><'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'>=' | '<=' | '>' | '<' | '><'
@@ -1701,36 +1777,37 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRightMultiplicativeExpressionParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
 		
 		////OtherOperatorExpression returns aadl2::PropertyExpression:
-		////	AdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
-		////	rightOperand=AAdditiveExpression)*;
+		////    AdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
+		////    rightOperand=AAdditiveExpression)*;
 		////
 		////OpOther:
-		////	  '->' 
-		////	| '..<'
-		////	| '>' '..'
-		////	| '..'
-		////	| '=>' 
-		////	| '>' (=>('>' '>') | '>') 
-		////	| '<' (=>('<' '<') | '<' | '=>')
-		////	| '<>'
-		////	| '?:';
-		//AdditiveExpression Expression:
-		//	MultiplicativeExpression (=> ({BinaryOperation.left=current} operator=OpAdd) right=MultiplicativeExpression)*;
+		////      '->'
+		////    | '..<'
+		////    | '>' '..'
+		////    | '..'
+		////    | '=>'
+		////    | '>' (=>('>' '>') | '>')
+		////    | '<' (=>('<' '<') | '<' | '=>')
+		////    | '<>'
+		////    | '?:';
+		//AdditiveExpression returns Expression:
+		//    MultiplicativeExpression (=>({BinaryOperation.left=current} operator=OpAdd) right=MultiplicativeExpression)*
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//MultiplicativeExpression (=> ({BinaryOperation.left=current} operator=OpAdd) right=MultiplicativeExpression)*
+		//MultiplicativeExpression (=>({BinaryOperation.left=current} operator=OpAdd) right=MultiplicativeExpression)*
 		public Group getGroup() { return cGroup; }
 		
 		//MultiplicativeExpression
 		public RuleCall getMultiplicativeExpressionParserRuleCall_0() { return cMultiplicativeExpressionParserRuleCall_0; }
 		
-		//(=> ({BinaryOperation.left=current} operator=OpAdd) right=MultiplicativeExpression)*
+		//(=>({BinaryOperation.left=current} operator=OpAdd) right=MultiplicativeExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//=> ({BinaryOperation.left=current} operator=OpAdd)
+		//=>({BinaryOperation.left=current} operator=OpAdd)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 		
-		//({BinaryOperation.left=current} operator=OpAdd)
+		//{BinaryOperation.left=current} operator=OpAdd
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 		
 		//{BinaryOperation.left=current}
@@ -1754,8 +1831,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cPlusSignKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cHyphenMinusKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		
-		//OpAdd Operation:
-		//	'+' | '-';
+		//OpAdd returns Operation:
+		//    '+' | '-'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'+' | '-'
@@ -1780,23 +1858,24 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cRightUnaryOperationParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
 		
-		//MultiplicativeExpression Expression:
-		//	UnaryOperation (=> ({BinaryOperation.left=current} operator=OpMulti) right=UnaryOperation)*;
+		//MultiplicativeExpression returns Expression:
+		//    UnaryOperation (=>({BinaryOperation.left=current} operator=OpMulti) right=UnaryOperation)*
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//UnaryOperation (=> ({BinaryOperation.left=current} operator=OpMulti) right=UnaryOperation)*
+		//UnaryOperation (=>({BinaryOperation.left=current} operator=OpMulti) right=UnaryOperation)*
 		public Group getGroup() { return cGroup; }
 		
 		//UnaryOperation
 		public RuleCall getUnaryOperationParserRuleCall_0() { return cUnaryOperationParserRuleCall_0; }
 		
-		//(=> ({BinaryOperation.left=current} operator=OpMulti) right=UnaryOperation)*
+		//(=>({BinaryOperation.left=current} operator=OpMulti) right=UnaryOperation)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//=> ({BinaryOperation.left=current} operator=OpMulti)
+		//=>({BinaryOperation.left=current} operator=OpMulti)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 		
-		//({BinaryOperation.left=current} operator=OpMulti)
+		//{BinaryOperation.left=current} operator=OpMulti
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 		
 		//{BinaryOperation.left=current}
@@ -1822,8 +1901,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDivKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		private final Keyword cModKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
 		
-		//OpMulti Operation:
-		//	'*' | '/' | 'div' | 'mod';
+		//OpMulti returns Operation:
+		//    '*' | '/' | 'div' | 'mod'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'*' | '/' | 'div' | 'mod'
@@ -1852,21 +1932,23 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOperandUnitExpressionParserRuleCall_0_2_0 = (RuleCall)cOperandAssignment_0_2.eContents().get(0);
 		private final RuleCall cUnitExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//UnaryOperation Expression:
-		//	{UnaryOperation} => operator=OpUnary operand=UnitExpression
-		//	| UnitExpression;
+		//UnaryOperation returns Expression:
+		//    {UnaryOperation} =>operator=OpUnary operand=UnitExpression
+		//    | UnitExpression
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{UnaryOperation} => operator=OpUnary operand=UnitExpression | UnitExpression
+		//{UnaryOperation} =>operator=OpUnary operand=UnitExpression
+		//| UnitExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//{UnaryOperation} => operator=OpUnary operand=UnitExpression
+		//{UnaryOperation} =>operator=OpUnary operand=UnitExpression
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//{UnaryOperation}
 		public Action getUnaryOperationAction_0_0() { return cUnaryOperationAction_0_0; }
 		
-		//=> operator=OpUnary
+		//=>operator=OpUnary
 		public Assignment getOperatorAssignment_0_1() { return cOperatorAssignment_0_1; }
 		
 		//OpUnary
@@ -1888,8 +1970,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cHyphenMinusKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		private final Keyword cPlusSignKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		
-		//OpUnary Operation:
-		//	"not" | "-" | "+";
+		//OpUnary returns Operation:
+		//    "not" | "-" | "+"
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//"not" | "-" | "+"
@@ -1919,17 +2002,18 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cUnitUnitLiteralCrossReference_1_2_0 = (CrossReference)cUnitAssignment_1_2.eContents().get(0);
 		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_2_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_2_0.eContents().get(1);
 		
-		//UnitExpression Expression:
-		//	PropertyExpression ({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral])?;
+		//UnitExpression returns Expression:
+		//    PropertyExpression ({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral|ID])?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//PropertyExpression ({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral])?
+		//PropertyExpression ({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral|ID])?
 		public Group getGroup() { return cGroup; }
 		
 		//PropertyExpression
 		public RuleCall getPropertyExpressionParserRuleCall_0() { return cPropertyExpressionParserRuleCall_0; }
 		
-		//({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral])?
+		//({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral|ID])?
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{UnitExpression.expression=current}
@@ -1950,10 +2034,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		//'in'
 		public Keyword getDropInKeyword_1_1_1_0() { return cDropInKeyword_1_1_1_0; }
 		
-		//unit=[aadl2::UnitLiteral]
+		//unit=[aadl2::UnitLiteral|ID]
 		public Assignment getUnitAssignment_1_2() { return cUnitAssignment_1_2; }
 		
-		//[aadl2::UnitLiteral]
+		//[aadl2::UnitLiteral|ID]
 		public CrossReference getUnitUnitLiteralCrossReference_1_2_0() { return cUnitUnitLiteralCrossReference_1_2_0; }
 		
 		//ID
@@ -1973,23 +2057,24 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPropertyAbstractNamedValueQPREFParserRuleCall_1_1_0_1 = (RuleCall)cPropertyAbstractNamedValueCrossReference_1_1_0.eContents().get(1);
 		
 		//@Override
-		//PropertyExpression Expression:
-		//	SelectExpression (=> ({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?;
+		//PropertyExpression returns Expression:
+		//    SelectExpression (=>({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//SelectExpression (=> ({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?
+		//SelectExpression (=>({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?
 		public Group getGroup() { return cGroup; }
 		
 		//SelectExpression
 		public RuleCall getSelectExpressionParserRuleCall_0() { return cSelectExpressionParserRuleCall_0; }
 		
-		//(=> ({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?
+		//(=>({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//=> ({PropertyExpression.modelElement=current} '#')
+		//=>({PropertyExpression.modelElement=current} '#')
 		public Group getGroup_1_0() { return cGroup_1_0; }
 		
-		//({PropertyExpression.modelElement=current} '#')
+		//{PropertyExpression.modelElement=current} '#'
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 		
 		//{PropertyExpression.modelElement=current}
@@ -2029,25 +2114,37 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArgsExpressionParserRuleCall_1_0_3_1_1_1_0 = (RuleCall)cArgsAssignment_1_0_3_1_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_1_0_3_2 = (Keyword)cGroup_1_0_3.eContents().get(2);
 		
-		//SelectExpression Expression:
-		//	PrimaryExpression
-		//	=> ({Selection.receiver=current} '.'
-		//	ref=[aadl2::NamedElement|QCREF] ('(' (args+=Expression (',' args+=Expression)*)? ')')?)*;
+		//SelectExpression returns Expression:
+		//    PrimaryExpression
+		//    =>(
+		//        {Selection.receiver=current} '.'
+		//        ref=[aadl2::NamedElement|QCREF]
+		//        ('(' (args+=Expression (',' args+=Expression)*)? ')')?
+		//    )*
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//PrimaryExpression => ({Selection.receiver=current} '.' ref=[aadl2::NamedElement|QCREF] ('(' (args+=Expression (','
-		//args+=Expression)*)? ')')?)*
+		//PrimaryExpression
+		//=>(
+		//    {Selection.receiver=current} '.'
+		//    ref=[aadl2::NamedElement|QCREF]
+		//    ('(' (args+=Expression (',' args+=Expression)*)? ')')?
+		//)*
 		public Group getGroup() { return cGroup; }
 		
 		//PrimaryExpression
 		public RuleCall getPrimaryExpressionParserRuleCall_0() { return cPrimaryExpressionParserRuleCall_0; }
 		
-		//=> ({Selection.receiver=current} '.' ref=[aadl2::NamedElement|QCREF] ('(' (args+=Expression (',' args+=Expression)*)?
-		//')')?)*
+		//=>(
+		//    {Selection.receiver=current} '.'
+		//    ref=[aadl2::NamedElement|QCREF]
+		//    ('(' (args+=Expression (',' args+=Expression)*)? ')')?
+		//)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//({Selection.receiver=current} '.' ref=[aadl2::NamedElement|QCREF] ('(' (args+=Expression (',' args+=Expression)*)?
-		//')')?)
+		//{Selection.receiver=current} '.'
+		//ref=[aadl2::NamedElement|QCREF]
+		//('(' (args+=Expression (',' args+=Expression)*)? ')')?
 		public Group getGroup_1_0() { return cGroup_1_0; }
 		
 		//{Selection.receiver=current}
@@ -2107,13 +2204,16 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExpressionParserRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
 		
-		//PrimaryExpression Expression:
-		//	NamedElementRef
-		//	| RangeExpression | IfExpression
-		//	| Literal | '(' Expression ')';
+		//PrimaryExpression returns Expression:
+		//    NamedElementRef
+		//    | RangeExpression | IfExpression
+		//    | Literal | '(' Expression ')'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//NamedElementRef | RangeExpression | IfExpression | Literal | '(' Expression ')'
+		//NamedElementRef
+		//| RangeExpression | IfExpression
+		//| Literal | '(' Expression ')'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//NamedElementRef
@@ -2160,14 +2260,18 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		
 		//NamedElementRef:
-		//	core?='^'?
-		//	ref=[aadl2::NamedElement|QCREF] ('(' (args+=Expression (',' args+=Expression)*)? ')')?;
+		//    (core?='^')?
+		//    ref=[aadl2::NamedElement|QCREF]
+		//    ('(' (args+=Expression (',' args+=Expression)*)? ')')?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//core?='^'? ref=[aadl2::NamedElement|QCREF] ('(' (args+=Expression (',' args+=Expression)*)? ')')?
+		//(core?='^')?
+		//ref=[aadl2::NamedElement|QCREF]
+		//('(' (args+=Expression (',' args+=Expression)*)? ')')?
 		public Group getGroup() { return cGroup; }
 		
-		//core?='^'?
+		//(core?='^')?
 		public Assignment getCoreAssignment_0() { return cCoreAssignment_0; }
 		
 		//'^'
@@ -2228,8 +2332,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDeltaExpressionParserRuleCall_5_1_0 = (RuleCall)cDeltaAssignment_5_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//RangeExpression Expression:
-		//	{Range} '[' minimum=Expression '..' maximum=Expression (=> 'delta' delta=Expression)? ']';
+		//RangeExpression returns Expression:
+		//    {Range} '[' minimum=Expression '..' maximum=Expression (=> 'delta' delta=Expression)? ']'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{Range} '[' minimum=Expression '..' maximum=Expression (=> 'delta' delta=Expression)? ']'
@@ -2287,8 +2392,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cElseExpressionParserRuleCall_5_1_0 = (RuleCall)cElseAssignment_5_1.eContents().get(0);
 		private final Keyword cEndifKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//IfExpression Expression:
-		//	{Conditional} 'if' if=Expression 'then' then=Expression ('else' else=Expression)? 'endif';
+		//IfExpression returns Expression:
+		//    {Conditional} 'if' if=Expression 'then' then=Expression ('else' else=Expression)? 'endif'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{Conditional} 'if' if=Expression 'then' then=Expression ('else' else=Expression)? 'endif'
@@ -2346,13 +2452,15 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// literal values
 		//Literal:
-		//	EBooleanLiteral | NumberLiteral | EStringLiteral
-		//	| ListLiteral | SetLiteral | RecordLiteral | UnionLiteral | TupleLiteral
-		//	| BagLiteral | MapLiteral;
+		//    EBooleanLiteral | NumberLiteral | EStringLiteral
+		//    | ListLiteral | SetLiteral | RecordLiteral | UnionLiteral | TupleLiteral
+		//    | BagLiteral | MapLiteral
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//EBooleanLiteral | NumberLiteral | EStringLiteral | ListLiteral | SetLiteral | RecordLiteral | UnionLiteral |
-		//TupleLiteral | BagLiteral | MapLiteral
+		//EBooleanLiteral | NumberLiteral | EStringLiteral
+		//| ListLiteral | SetLiteral | RecordLiteral | UnionLiteral | TupleLiteral
+		//| BagLiteral | MapLiteral
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//EBooleanLiteral
@@ -2392,7 +2500,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWrappedNamedElementParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//Value:
-		//	Literal | WrappedNamedElement;
+		//    Literal | WrappedNamedElement
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//Literal | WrappedNamedElement
@@ -2414,19 +2523,20 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// dummy rule
 		//WrappedNamedElement:
-		//	{WrappedNamedElement} elem=[aadl2::NamedElement];
+		//    {WrappedNamedElement} elem=[aadl2::NamedElement|ID]
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{WrappedNamedElement} elem=[aadl2::NamedElement]
+		//{WrappedNamedElement} elem=[aadl2::NamedElement|ID]
 		public Group getGroup() { return cGroup; }
 		
 		//{WrappedNamedElement}
 		public Action getWrappedNamedElementAction_0() { return cWrappedNamedElementAction_0; }
 		
-		//elem=[aadl2::NamedElement]
+		//elem=[aadl2::NamedElement|ID]
 		public Assignment getElemAssignment_1() { return cElemAssignment_1; }
 		
-		//[aadl2::NamedElement]
+		//[aadl2::NamedElement|ID]
 		public CrossReference getElemNamedElementCrossReference_1_0() { return cElemNamedElementCrossReference_1_0; }
 		
 		//ID
@@ -2441,17 +2551,18 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cValueTrueKeyword_1_0_0 = (Keyword)cValueAssignment_1_0.eContents().get(0);
 		private final Keyword cFalseKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
 		
-		//EBooleanLiteral Literal:
-		//	{EBooleanLiteral} (value?='true' | 'false');
+		//EBooleanLiteral returns Literal :
+		//    {EBooleanLiteral} (value?='true'|'false')
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{EBooleanLiteral} (value?='true' | 'false')
+		//{EBooleanLiteral} (value?='true'|'false')
 		public Group getGroup() { return cGroup; }
 		
 		//{EBooleanLiteral}
 		public Action getEBooleanLiteralAction_0() { return cEBooleanLiteralAction_0; }
 		
-		//(value?='true' | 'false')
+		//(value?='true'|'false')
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 		
 		//value?='true'
@@ -2469,8 +2580,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEIntegerLiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cERealLiteralParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//NumberLiteral Literal:
-		//	EIntegerLiteral | ERealLiteral;
+		//NumberLiteral returns Literal:
+		//    EIntegerLiteral | ERealLiteral
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//EIntegerLiteral | ERealLiteral
@@ -2489,9 +2601,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cValueINTVALUEParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
 		
-		//EIntegerLiteral NumberLiteral:
-		//	{EIntegerLiteral} value=INTVALUE
-		//	//	('<'unit=UnitTerm'>')?
+		//EIntegerLiteral returns NumberLiteral:
+		//    {EIntegerLiteral} value=INTVALUE
+		////    ('<'unit=UnitTerm'>')?
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -2514,9 +2626,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cValueSignedRealParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
 		
-		//ERealLiteral NumberLiteral:
-		//	{ERealLiteral} value=SignedReal
-		//	//	('<'unit=UnitTerm'>')?
+		//ERealLiteral returns NumberLiteral:
+		//    {ERealLiteral} value=SignedReal
+		////    ('<'unit=UnitTerm'>')?
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -2536,9 +2648,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.SignedReal");
 		private final RuleCall cREAL_LITTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		//// use this for value conversion
 		//@Override
-		//SignedReal aadl2::Real:
-		//	REAL_LIT;
+		//SignedReal returns aadl2::Real:
+		//    REAL_LIT
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//REAL_LIT
@@ -2551,8 +2665,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cValueNoQuoteStringParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
 		
-		//EStringLiteral Literal:
-		//	{EStringLiteral} value=NoQuoteString;
+		//EStringLiteral returns Literal:
+		//    {EStringLiteral} value=NoQuoteString
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{EStringLiteral} value=NoQuoteString
@@ -2580,8 +2695,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cElementsExpressionParserRuleCall_1_1_1_0 = (RuleCall)cElementsAssignment_1_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
-		//fragment ExpressionList *:
-		//	'(' (elements+=Expression (',' elements+=Expression)*)? ')';
+		//fragment ExpressionList*:
+		//    '(' (elements+=Expression (',' elements+=Expression)*)? ')'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'(' (elements+=Expression (',' elements+=Expression)*)? ')'
@@ -2621,8 +2737,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cListKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final RuleCall cExpressionListParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
-		//ListLiteral Literal:
-		//	{ListLiteral} 'list' ExpressionList;
+		//ListLiteral returns Literal:
+		//    {ListLiteral} 'list' ExpressionList
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{ListLiteral} 'list' ExpressionList
@@ -2644,8 +2761,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSetKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final RuleCall cExpressionListParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
-		//SetLiteral Literal:
-		//	{SetLiteral} 'set' ExpressionList;
+		//SetLiteral returns Literal:
+		//    {SetLiteral} 'set' ExpressionList
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{SetLiteral} 'set' ExpressionList
@@ -2675,12 +2793,16 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFieldValuesFieldValueParserRuleCall_3_1_1_0 = (RuleCall)cFieldValuesAssignment_3_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//RecordLiteral Literal:
-		//	{RecordLiteral} 'record' '(' (fieldValues+=FieldValue (',' fieldValues+=FieldValue)*)?
-		//	')';
+		//RecordLiteral returns Literal:
+		//    {RecordLiteral} 'record' '('
+		//        (fieldValues+=FieldValue (',' fieldValues+=FieldValue)*)?
+		//    ')'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{RecordLiteral} 'record' '(' (fieldValues+=FieldValue (',' fieldValues+=FieldValue)*)? ')'
+		//{RecordLiteral} 'record' '('
+		//    (fieldValues+=FieldValue (',' fieldValues+=FieldValue)*)?
+		//')'
 		public Group getGroup() { return cGroup; }
 		
 		//{RecordLiteral}
@@ -2726,7 +2848,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueExpressionParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
 		//FieldValue:
-		//	name=ID ':' value=Expression;
+		//    name=ID ':' value=Expression
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//name=ID ':' value=Expression
@@ -2757,13 +2880,16 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFieldValueFieldValueParserRuleCall_3_0 = (RuleCall)cFieldValueAssignment_3.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//UnionLiteral Literal:
-		//	{UnionLiteral} 'union' '('
-		//	fieldValue=FieldValue
-		//	')';
+		//UnionLiteral returns Literal:
+		//    {UnionLiteral} 'union' '('
+		//        fieldValue=FieldValue
+		//    ')'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{UnionLiteral} 'union' '(' fieldValue=FieldValue ')'
+		//{UnionLiteral} 'union' '('
+		//    fieldValue=FieldValue
+		//')'
 		public Group getGroup() { return cGroup; }
 		
 		//{UnionLiteral}
@@ -2791,8 +2917,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cTupleKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final RuleCall cExpressionListParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
-		//TupleLiteral Literal:
-		//	{TupleLiteral} 'tuple' ExpressionList;
+		//TupleLiteral returns Literal:
+		//    {TupleLiteral} 'tuple' ExpressionList
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{TupleLiteral} 'tuple' ExpressionList
@@ -2814,8 +2941,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cBagKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final RuleCall cExpressionListParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
-		//BagLiteral Literal:
-		//	{BagLiteral} 'bag' ExpressionList;
+		//BagLiteral returns Literal:
+		//    {BagLiteral} 'bag' ExpressionList
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{BagLiteral} 'bag' ExpressionList
@@ -2836,8 +2964,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cMapLiteralAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cMapKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
-		//MapLiteral Literal:
-		//	{MapLiteral} 'map';
+		//MapLiteral returns Literal:
+		//    {MapLiteral} 'map'
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{MapLiteral} 'map'
@@ -2860,9 +2989,19 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		
+		//// units and unit terms
+		////UnitTerm:
+		////    Unit (=>({UnitTerm.left=current} operator=OpMulti) right=Unit)*
+		////;
+		////
+		////Unit returns UnitTerm:
+		////    {Unit} unit=ID
+		////    | '(' UnitTerm ')'
+		////;
 		//@Override
 		//QCREF:
-		//	(ID '::')* ID (':' ID)?;
+		//    (ID '::')* ID (':' ID)?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//(ID '::')* ID (':' ID)?
@@ -2890,7 +3029,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getIDTerminalRuleCall_2_1() { return cIDTerminalRuleCall_2_1; }
 	}
 	
-	public class MetaClassEnumElements extends AbstractEnumRuleElementFinder {
+	public class MetaClassEnumElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.MetaClassEnum");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cCOMPONENTEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
@@ -2907,11 +3046,13 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cPROPERTYPropertyKeyword_5_0 = (Keyword)cPROPERTYEnumLiteralDeclaration_5.eContents().get(0);
 		
 		//enum MetaClassEnum:
-		//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode'
-		//	| PROPERTY='property';
+		//    COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode'
+		//    | PROPERTY='property'
+		//;
 		public EnumRule getRule() { return rule; }
 		
-		//COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | PROPERTY='property'
+		//COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode'
+		//| PROPERTY='property'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//COMPONENT='component'
@@ -2950,7 +3091,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		//'property'
 		public Keyword getPROPERTYPropertyKeyword_5_0() { return cPROPERTYPropertyKeyword_5_0; }
 	}
-	public class TargetTypeElements extends AbstractEnumRuleElementFinder {
+	public class TargetTypeElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.TargetType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cCOMPONENTEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
@@ -2968,13 +3109,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cROOTEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
 		private final Keyword cROOTRootKeyword_6_0 = (Keyword)cROOTEnumLiteralDeclaration_6.eContents().get(0);
 		
-		//enum TargetType:
-		//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
-		//	ROOT='root';
+		//enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element'|ROOT='root';
 		public EnumRule getRule() { return rule; }
 		
-		//COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
-		//ROOT='root'
+		//COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element'|ROOT='root'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//COMPONENT='component'
@@ -3019,7 +3157,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		//'root'
 		public Keyword getROOTRootKeyword_6_0() { return cROOTRootKeyword_6_0; }
 	}
-	public class OperationElements extends AbstractEnumRuleElementFinder {
+	public class OperationElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.Operation");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cOREnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
@@ -3059,18 +3197,25 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cNOTEnumLiteralDeclaration_17 = (EnumLiteralDeclaration)cAlternatives.eContents().get(17);
 		private final Keyword cNOTNotKeyword_17_0 = (Keyword)cNOTEnumLiteralDeclaration_17.eContents().get(0);
 		
+		//// Expressions
 		//enum Operation:
-		//	OR='or' | ALT_OR='||'
-		//	| AND='and' | ALT_AND='&&'
-		//	| EQ='==' | NEQ='!='
-		//	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
-		//	| PLUS='+' | MINUS='-'
-		//	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
-		//	| NOT='not';
+		//    OR='or' | ALT_OR='||'
+		//    | AND='and' | ALT_AND='&&'
+		//    | EQ='==' | NEQ='!='
+		//    | GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
+		//    | PLUS='+' | MINUS='-'
+		//    | MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
+		//    | NOT='not'
+		//;
 		public EnumRule getRule() { return rule; }
 		
-		//OR='or' | ALT_OR='||' | AND='and' | ALT_AND='&&' | EQ='==' | NEQ='!=' | GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
-		//| PLUS='+' | MINUS='-' | MULT='*' | DIV='/' | INTDIV='div' | MOD='mod' | NOT='not'
+		//OR='or' | ALT_OR='||'
+		//| AND='and' | ALT_AND='&&'
+		//| EQ='==' | NEQ='!='
+		//| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
+		//| PLUS='+' | MINUS='-'
+		//| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
+		//| NOT='not'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//OR='or'
@@ -3261,6 +3406,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	private final BagLiteralElements pBagLiteral;
 	private final MapLiteralElements pMapLiteral;
 	private final QCREFElements pQCREF;
+	private final TerminalRule tID;
 	
 	private final Grammar grammar;
 	
@@ -3350,6 +3496,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		this.pBagLiteral = new BagLiteralElements();
 		this.pMapLiteral = new MapLiteralElements();
 		this.pQCREF = new QCREFElements();
+		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.ID");
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -3381,8 +3528,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// for testing
 	//ExprModel:
-	//	'library' annex=ExprLibrary
-	//	| 'subclause' annex=ExprSubclause;
+	//    'library' annex=ExprLibrary
+	//    | 'subclause' annex=ExprSubclause
+	//;
 	public ExprModelElements getExprModelAccess() {
 		return pExprModel;
 	}
@@ -3391,8 +3539,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getExprModelAccess().getRule();
 	}
 	
-	//ExprLibrary aadl2::AnnexLibrary:
-	//	{ExprLibrary} Declarations?;
+	//ExprLibrary returns aadl2::AnnexLibrary:
+	//    {ExprLibrary} Declarations?
+	//;
 	public ExprLibraryElements getExprLibraryAccess() {
 		return pExprLibrary;
 	}
@@ -3401,8 +3550,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getExprLibraryAccess().getRule();
 	}
 	
-	//ExprSubclause aadl2::AnnexSubclause:
-	//	{ExprSubclause} Declarations?;
+	//ExprSubclause returns aadl2::AnnexSubclause:
+	//    {ExprSubclause} Declarations?
+	//;
 	public ExprSubclauseElements getExprSubclauseAccess() {
 		return pExprSubclause;
 	}
@@ -3411,8 +3561,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getExprSubclauseAccess().getRule();
 	}
 	
-	//NamedElement aadl2::NamedElement:
-	//	ExprLibrary | ExprSubclause | EDeclaration | Argument | Field;
+	//NamedElement returns aadl2::NamedElement:
+	//    ExprLibrary | ExprSubclause | EDeclaration | Argument | Field
+	//;
 	public NamedElementElements getNamedElementAccess() {
 		return pNamedElement;
 	}
@@ -3421,8 +3572,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getNamedElementAccess().getRule();
 	}
 	
-	//fragment Declarations *:
-	//	decls+=EDeclaration (';' decls+=EDeclaration)* ';'?;
+	//fragment Declarations*:
+	//    decls+=EDeclaration (';' decls+=EDeclaration)* ';'?
+	//;
 	public DeclarationsElements getDeclarationsAccess() {
 		return pDeclarations;
 	}
@@ -3432,7 +3584,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EDeclaration:
-	//	TypeDecl | VarDecl | FunDecl | Assertion;
+	//    TypeDecl | VarDecl | FunDecl | Assertion
+	//;
 	public EDeclarationElements getEDeclarationAccess() {
 		return pEDeclaration;
 	}
@@ -3442,9 +3595,13 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//TypeDecl:
-	//	'type' name=ID /*('extends' baseType=Type)?*/ ':' type=Type ('{'
-	//	ownedPropertyAssociations+=PropertyAssociation (';' ownedPropertyAssociations+=PropertyAssociation)*
-	//	'}')?;
+	//    'type' name=ID /*('extends' baseType=Type)?*/ ':' type=Type
+	//    (
+	//        '{'
+	//        ownedPropertyAssociations+=PropertyAssociation (';' ownedPropertyAssociations+=PropertyAssociation)*
+	//        '}'
+	//    )?
+	//;
 	public TypeDeclElements getTypeDeclAccess() {
 		return pTypeDecl;
 	}
@@ -3454,7 +3611,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//VarDecl:
-	//	(const?='val' | 'var') name=ID (':' declType=Type)? ('=' value=Expression)?;
+	//    ((const?='val') | 'var') name=ID (':' declType=Type)? ('=' value=Expression)?
+	//;
 	public VarDeclElements getVarDeclAccess() {
 		return pVarDecl;
 	}
@@ -3464,7 +3622,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//FunDecl:
-	//	'def' name=ID '(' Args ')' ':' resultType=Type ('=' (java?='java' ':' fqn=JavaFQN | exp=Expression))?;
+	//    'def' name=ID '(' Args ')' ':' resultType=Type ('=' (java?='java' ':' fqn=JavaFQN | exp=Expression))?
+	//;
 	public FunDeclElements getFunDeclAccess() {
 		return pFunDecl;
 	}
@@ -3474,7 +3633,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//JavaFQN:
-	//	ID ('.' ID)*;
+	//    ID ('.' ID)*
+	//;
 	public JavaFQNElements getJavaFQNAccess() {
 		return pJavaFQN;
 	}
@@ -3483,8 +3643,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getJavaFQNAccess().getRule();
 	}
 	
-	//fragment Args *:
-	//	(args+=Argument (',' args+=Argument)*)?;
+	//fragment Args*:
+	//    (args+=Argument (',' args+=Argument)*)?
+	//;
 	public ArgsElements getArgsAccess() {
 		return pArgs;
 	}
@@ -3494,7 +3655,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Argument:
-	//	{Argument} name=ID ':' type=Type;
+	//    {Argument} name=ID ':' type=Type
+	//;
 	public ArgumentElements getArgumentAccess() {
 		return pArgument;
 	}
@@ -3504,7 +3666,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Assertion:
-	//	'assert' name=ID ':' assert=Expression;
+	//    'assert' name=ID ':' assert=Expression
+	//;
 	public AssertionElements getAssertionAccess() {
 		return pAssertion;
 	}
@@ -3514,10 +3677,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//// Types
-	//Type aadl2::Type:
-	//	PrimitiveType | RangeType | Category | MetaClass
-	//	| RecordType | UnionType | TupleType | ListType | SetType | BagType | MapType
-	//	| EnumType | TypeRef;
+	//Type returns aadl2::Type:
+	//    PrimitiveType | RangeType | Category | MetaClass
+	//    | RecordType | UnionType | TupleType | ListType | SetType | BagType | MapType
+	//    | EnumType | TypeRef
+	//;
 	public TypeElements getTypeAccess() {
 		return pType;
 	}
@@ -3526,8 +3690,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeAccess().getRule();
 	}
 	
-	//PrimitiveType aadl2::Type:
-	//	{EBoolean} 'bool' | ENumberType | {EString} 'string';
+	//PrimitiveType returns aadl2::Type:
+	//    {EBoolean} 'bool' | ENumberType | {EString} 'string'
+	//;
 	public PrimitiveTypeElements getPrimitiveTypeAccess() {
 		return pPrimitiveType;
 	}
@@ -3537,7 +3702,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ENumberType:
-	//	EInteger | EReal;
+	//    EInteger | EReal
+	//;
 	public ENumberTypeElements getENumberTypeAccess() {
 		return pENumberType;
 	}
@@ -3547,7 +3713,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EInteger:
-	//	{EInteger} 'int';
+	//    {EInteger} 'int'
+	//;
 	public EIntegerElements getEIntegerAccess() {
 		return pEInteger;
 	}
@@ -3557,7 +3724,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EReal:
-	//	{EReal} 'real';
+	//    {EReal} 'real'
+	//;
 	public ERealElements getERealAccess() {
 		return pEReal;
 	}
@@ -3567,7 +3735,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//RangeType:
-	//	'range' 'of' type=Type;
+	//    'range' 'of' type=Type
+	//;
 	public RangeTypeElements getRangeTypeAccess() {
 		return pRangeType;
 	}
@@ -3577,7 +3746,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Category:
-	//	category=ComponentCategory;
+	//    category=ComponentCategory
+	//;
 	public CategoryElements getCategoryAccess() {
 		return pCategory;
 	}
@@ -3586,10 +3756,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getCategoryAccess().getRule();
 	}
 	
-	//ComponentCategory aadl2::ComponentCategory:
-	//	'abstract' | 'bus' | 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
-	//	| 'subprogram' 'group' | 'system' | 'thread' 'group' | 'thread'
-	//	| 'virtual' 'bus' | 'virtual' 'processor';
+	//ComponentCategory returns aadl2::ComponentCategory:
+	//    'abstract' | 'bus'| 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
+	//    | 'subprogram' 'group' | 'system' | 'thread' 'group' | 'thread'
+	//    | 'virtual' 'bus' | 'virtual' 'processor'
+	//;
 	public ComponentCategoryElements getComponentCategoryAccess() {
 		return pComponentCategory;
 	}
@@ -3600,7 +3771,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// TODO: should support real meta class references
 	//MetaClass:
-	//	class=MetaClassEnum;
+	//    class=MetaClassEnum
+	//;
 	public MetaClassElements getMetaClassAccess() {
 		return pMetaClass;
 	}
@@ -3610,8 +3782,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//enum MetaClassEnum:
-	//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode'
-	//	| PROPERTY='property';
+	//    COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode'
+	//    | PROPERTY='property'
+	//;
 	public MetaClassEnumElements getMetaClassEnumAccess() {
 		return eMetaClassEnum;
 	}
@@ -3620,9 +3793,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getMetaClassEnumAccess().getRule();
 	}
 	
-	//enum TargetType:
-	//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
-	//	ROOT='root';
+	//enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element'|ROOT='root';
 	public TargetTypeElements getTargetTypeAccess() {
 		return eTargetType;
 	}
@@ -3632,8 +3803,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//RecordType:
-	//	{RecordType} 'record' '{' (fields+=Field (',' fields+=Field)*)?
-	//	'}';
+	//    {RecordType} 'record' '{'
+	//        (fields+=Field (',' fields+=Field)*)?
+	//    '}'
+	//;
 	public RecordTypeElements getRecordTypeAccess() {
 		return pRecordType;
 	}
@@ -3643,7 +3816,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Field:
-	//	{Field} name=ID ':' type=Type;
+	//    {Field} name=ID ':' type=Type
+	//;
 	public FieldElements getFieldAccess() {
 		return pField;
 	}
@@ -3653,8 +3827,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//UnionType:
-	//	{UnionType} 'union' '{' (fields+=Field (',' fields+=Field)*)?
-	//	'}';
+	//    {UnionType} 'union' '{'
+	//        (fields+=Field (',' fields+=Field)*)?
+	//    '}'
+	//;
 	public UnionTypeElements getUnionTypeAccess() {
 		return pUnionType;
 	}
@@ -3664,8 +3840,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//TupleType:
-	//	{TupleType} 'tuple' '{' (fields+=TupleField (',' fields+=TupleField)*)?
-	//	'}';
+	//    {TupleType} 'tuple' '{'
+	//        (fields+=TupleField (',' fields+=TupleField)*)?
+	//    '}'
+	//;
 	public TupleTypeElements getTupleTypeAccess() {
 		return pTupleType;
 	}
@@ -3674,8 +3852,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getTupleTypeAccess().getRule();
 	}
 	
-	//TupleField Field:
-	//	type=Type;
+	//TupleField returns Field:
+	//    type=Type
+	//;
 	public TupleFieldElements getTupleFieldAccess() {
 		return pTupleField;
 	}
@@ -3685,7 +3864,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ListType:
-	//	'list' 'of' type=Type;
+	//    'list' 'of' type=Type
+	//;
 	public ListTypeElements getListTypeAccess() {
 		return pListType;
 	}
@@ -3695,7 +3875,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//SetType:
-	//	'set' 'of' type=Type;
+	//    'set' 'of' type=Type
+	//;
 	public SetTypeElements getSetTypeAccess() {
 		return pSetType;
 	}
@@ -3705,7 +3886,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//BagType:
-	//	'bag' 'of' type=Type;
+	//    'bag' 'of' type=Type
+	//;
 	public BagTypeElements getBagTypeAccess() {
 		return pBagType;
 	}
@@ -3715,7 +3897,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//MapType:
-	//	'map' domain=Type '->' image=Type;
+	//    'map' domain=Type '->' image=Type
+	//;
 	public MapTypeElements getMapTypeAccess() {
 		return pMapType;
 	}
@@ -3725,8 +3908,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EnumType:
-	//	{EnumType} 'enum' '{' (literals+=EnumLiteral (',' literals+=EnumLiteral)*)?
-	//	'}';
+	//    {EnumType} 'enum' '{'
+	//        (literals+=EnumLiteral (',' literals+=EnumLiteral)*)?
+	//    '}'
+	//;
 	public EnumTypeElements getEnumTypeAccess() {
 		return pEnumType;
 	}
@@ -3736,7 +3921,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EnumLiteral:
-	//	name=ID;
+	//    name=ID
+	//;
 	public EnumLiteralElements getEnumLiteralAccess() {
 		return pEnumLiteral;
 	}
@@ -3746,7 +3932,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//TypeRef:
-	//	ref=[aadl2::NamedElement|QCREF];
+	//    ref=[aadl2::NamedElement|QCREF]
+	//;
 	public TypeRefElements getTypeRefAccess() {
 		return pTypeRef;
 	}
@@ -3755,14 +3942,16 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeRefAccess().getRule();
 	}
 	
+	//// Expressions
 	//enum Operation:
-	//	OR='or' | ALT_OR='||'
-	//	| AND='and' | ALT_AND='&&'
-	//	| EQ='==' | NEQ='!='
-	//	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
-	//	| PLUS='+' | MINUS='-'
-	//	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
-	//	| NOT='not';
+	//    OR='or' | ALT_OR='||'
+	//    | AND='and' | ALT_AND='&&'
+	//    | EQ='==' | NEQ='!='
+	//    | GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
+	//    | PLUS='+' | MINUS='-'
+	//    | MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
+	//    | NOT='not'
+	//;
 	public OperationElements getOperationAccess() {
 		return eOperation;
 	}
@@ -3771,9 +3960,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOperationAccess().getRule();
 	}
 	
-	//Expression:
-	//	OrExpression
-	//	| BlockExpression;
+	//Expression returns Expression:
+	//    OrExpression
+	//    | BlockExpression
+	//;
 	public ExpressionElements getExpressionAccess() {
 		return pExpression;
 	}
@@ -3782,10 +3972,12 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getExpressionAccess().getRule();
 	}
 	
-	//BlockExpression Expression:
-	//	{Block} '{' (decls+=VarDecl ';')*
-	//	result=Expression
-	//	'}';
+	//BlockExpression returns Expression:
+	//    {Block} '{'
+	//        (decls+=VarDecl ';')*
+	//        result=Expression
+	//    '}'
+	//;
 	public BlockExpressionElements getBlockExpressionAccess() {
 		return pBlockExpression;
 	}
@@ -3794,8 +3986,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getBlockExpressionAccess().getRule();
 	}
 	
-	//OrExpression Expression:
-	//	AndExpression (=> ({BinaryOperation.left=current} operator=OpOr) right=AndExpression)*;
+	//OrExpression returns Expression:
+	//    AndExpression (=>({BinaryOperation.left=current} operator=OpOr) right=AndExpression)*
+	//;
 	public OrExpressionElements getOrExpressionAccess() {
 		return pOrExpression;
 	}
@@ -3804,8 +3997,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOrExpressionAccess().getRule();
 	}
 	
-	//OpOr Operation:
-	//	'or' | '||';
+	//OpOr returns Operation:
+	//    'or' | '||'
+	//;
 	public OpOrElements getOpOrAccess() {
 		return pOpOr;
 	}
@@ -3814,8 +4008,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOpOrAccess().getRule();
 	}
 	
-	//AndExpression Expression:
-	//	EqualityExpression (=> ({BinaryOperation.left=current} operator=OpAnd) right=EqualityExpression)*;
+	//AndExpression returns Expression:
+	//    EqualityExpression (=>({BinaryOperation.left=current} operator=OpAnd) right=EqualityExpression)*
+	//;
 	public AndExpressionElements getAndExpressionAccess() {
 		return pAndExpression;
 	}
@@ -3824,8 +4019,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getAndExpressionAccess().getRule();
 	}
 	
-	//OpAnd Operation:
-	//	'and' | '&&';
+	//OpAnd returns Operation:
+	//    'and' | '&&'
+	//;
 	public OpAndElements getOpAndAccess() {
 		return pOpAnd;
 	}
@@ -3834,8 +4030,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOpAndAccess().getRule();
 	}
 	
-	//EqualityExpression Expression:
-	//	RelationalExpression (=> ({BinaryOperation.left=current} operator=OpEquality) right=RelationalExpression)*;
+	//EqualityExpression returns Expression:
+	//    RelationalExpression (=>({BinaryOperation.left=current} operator=OpEquality) right=RelationalExpression)*
+	//;
 	public EqualityExpressionElements getEqualityExpressionAccess() {
 		return pEqualityExpression;
 	}
@@ -3844,8 +4041,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getEqualityExpressionAccess().getRule();
 	}
 	
-	//OpEquality Operation:
-	//	'==' | '!=';
+	//OpEquality returns Operation:
+	//    '==' | '!='
+	//;
 	public OpEqualityElements getOpEqualityAccess() {
 		return pOpEquality;
 	}
@@ -3854,8 +4052,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOpEqualityAccess().getRule();
 	}
 	
-	//RelationalExpression Expression:
-	//	AdditiveExpression (=> ({BinaryOperation.left=current} operator=OpCompare) right=AdditiveExpression)*;
+	//RelationalExpression returns Expression:
+	////    OtherOperatorExpression
+	////    ( =>({BinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=OtherOperatorExpression)*;
+	//    AdditiveExpression ( =>({BinaryOperation.left=current} operator=OpCompare) right=AdditiveExpression)*
+	//;
 	public RelationalExpressionElements getRelationalExpressionAccess() {
 		return pRelationalExpression;
 	}
@@ -3864,8 +4065,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getRelationalExpressionAccess().getRule();
 	}
 	
-	//OpCompare Operation:
-	//	'>=' | '<=' | '>' | '<' | '><';
+	//OpCompare returns Operation:
+	//    '>=' | '<=' | '>' | '<' | '><'
+	//;
 	public OpCompareElements getOpCompareAccess() {
 		return pOpCompare;
 	}
@@ -3875,21 +4077,22 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	////OtherOperatorExpression returns aadl2::PropertyExpression:
-	////	AdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
-	////	rightOperand=AAdditiveExpression)*;
+	////    AdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
+	////    rightOperand=AAdditiveExpression)*;
 	////
 	////OpOther:
-	////	  '->' 
-	////	| '..<'
-	////	| '>' '..'
-	////	| '..'
-	////	| '=>' 
-	////	| '>' (=>('>' '>') | '>') 
-	////	| '<' (=>('<' '<') | '<' | '=>')
-	////	| '<>'
-	////	| '?:';
-	//AdditiveExpression Expression:
-	//	MultiplicativeExpression (=> ({BinaryOperation.left=current} operator=OpAdd) right=MultiplicativeExpression)*;
+	////      '->'
+	////    | '..<'
+	////    | '>' '..'
+	////    | '..'
+	////    | '=>'
+	////    | '>' (=>('>' '>') | '>')
+	////    | '<' (=>('<' '<') | '<' | '=>')
+	////    | '<>'
+	////    | '?:';
+	//AdditiveExpression returns Expression:
+	//    MultiplicativeExpression (=>({BinaryOperation.left=current} operator=OpAdd) right=MultiplicativeExpression)*
+	//;
 	public AdditiveExpressionElements getAdditiveExpressionAccess() {
 		return pAdditiveExpression;
 	}
@@ -3898,8 +4101,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getAdditiveExpressionAccess().getRule();
 	}
 	
-	//OpAdd Operation:
-	//	'+' | '-';
+	//OpAdd returns Operation:
+	//    '+' | '-'
+	//;
 	public OpAddElements getOpAddAccess() {
 		return pOpAdd;
 	}
@@ -3908,8 +4112,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOpAddAccess().getRule();
 	}
 	
-	//MultiplicativeExpression Expression:
-	//	UnaryOperation (=> ({BinaryOperation.left=current} operator=OpMulti) right=UnaryOperation)*;
+	//MultiplicativeExpression returns Expression:
+	//    UnaryOperation (=>({BinaryOperation.left=current} operator=OpMulti) right=UnaryOperation)*
+	//;
 	public MultiplicativeExpressionElements getMultiplicativeExpressionAccess() {
 		return pMultiplicativeExpression;
 	}
@@ -3918,8 +4123,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getMultiplicativeExpressionAccess().getRule();
 	}
 	
-	//OpMulti Operation:
-	//	'*' | '/' | 'div' | 'mod';
+	//OpMulti returns Operation:
+	//    '*' | '/' | 'div' | 'mod'
+	//;
 	public OpMultiElements getOpMultiAccess() {
 		return pOpMulti;
 	}
@@ -3928,9 +4134,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOpMultiAccess().getRule();
 	}
 	
-	//UnaryOperation Expression:
-	//	{UnaryOperation} => operator=OpUnary operand=UnitExpression
-	//	| UnitExpression;
+	//UnaryOperation returns Expression:
+	//    {UnaryOperation} =>operator=OpUnary operand=UnitExpression
+	//    | UnitExpression
+	//;
 	public UnaryOperationElements getUnaryOperationAccess() {
 		return pUnaryOperation;
 	}
@@ -3939,8 +4146,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getUnaryOperationAccess().getRule();
 	}
 	
-	//OpUnary Operation:
-	//	"not" | "-" | "+";
+	//OpUnary returns Operation:
+	//    "not" | "-" | "+"
+	//;
 	public OpUnaryElements getOpUnaryAccess() {
 		return pOpUnary;
 	}
@@ -3949,8 +4157,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOpUnaryAccess().getRule();
 	}
 	
-	//UnitExpression Expression:
-	//	PropertyExpression ({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral])?;
+	//UnitExpression returns Expression:
+	//    PropertyExpression ({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral|ID])?
+	//;
 	public UnitExpressionElements getUnitExpressionAccess() {
 		return pUnitExpression;
 	}
@@ -3960,8 +4169,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//@Override
-	//PropertyExpression Expression:
-	//	SelectExpression (=> ({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?;
+	//PropertyExpression returns Expression:
+	//    SelectExpression (=>({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?
+	//;
 	public PropertyExpressionElements getPropertyExpressionAccess() {
 		return pPropertyExpression;
 	}
@@ -3970,10 +4180,14 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyExpressionAccess().getRule();
 	}
 	
-	//SelectExpression Expression:
-	//	PrimaryExpression
-	//	=> ({Selection.receiver=current} '.'
-	//	ref=[aadl2::NamedElement|QCREF] ('(' (args+=Expression (',' args+=Expression)*)? ')')?)*;
+	//SelectExpression returns Expression:
+	//    PrimaryExpression
+	//    =>(
+	//        {Selection.receiver=current} '.'
+	//        ref=[aadl2::NamedElement|QCREF]
+	//        ('(' (args+=Expression (',' args+=Expression)*)? ')')?
+	//    )*
+	//;
 	public SelectExpressionElements getSelectExpressionAccess() {
 		return pSelectExpression;
 	}
@@ -3982,10 +4196,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getSelectExpressionAccess().getRule();
 	}
 	
-	//PrimaryExpression Expression:
-	//	NamedElementRef
-	//	| RangeExpression | IfExpression
-	//	| Literal | '(' Expression ')';
+	//PrimaryExpression returns Expression:
+	//    NamedElementRef
+	//    | RangeExpression | IfExpression
+	//    | Literal | '(' Expression ')'
+	//;
 	public PrimaryExpressionElements getPrimaryExpressionAccess() {
 		return pPrimaryExpression;
 	}
@@ -3995,8 +4210,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//NamedElementRef:
-	//	core?='^'?
-	//	ref=[aadl2::NamedElement|QCREF] ('(' (args+=Expression (',' args+=Expression)*)? ')')?;
+	//    (core?='^')?
+	//    ref=[aadl2::NamedElement|QCREF]
+	//    ('(' (args+=Expression (',' args+=Expression)*)? ')')?
+	//;
 	public NamedElementRefElements getNamedElementRefAccess() {
 		return pNamedElementRef;
 	}
@@ -4005,8 +4222,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getNamedElementRefAccess().getRule();
 	}
 	
-	//RangeExpression Expression:
-	//	{Range} '[' minimum=Expression '..' maximum=Expression (=> 'delta' delta=Expression)? ']';
+	//RangeExpression returns Expression:
+	//    {Range} '[' minimum=Expression '..' maximum=Expression (=> 'delta' delta=Expression)? ']'
+	//;
 	public RangeExpressionElements getRangeExpressionAccess() {
 		return pRangeExpression;
 	}
@@ -4015,8 +4233,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getRangeExpressionAccess().getRule();
 	}
 	
-	//IfExpression Expression:
-	//	{Conditional} 'if' if=Expression 'then' then=Expression ('else' else=Expression)? 'endif';
+	//IfExpression returns Expression:
+	//    {Conditional} 'if' if=Expression 'then' then=Expression ('else' else=Expression)? 'endif'
+	//;
 	public IfExpressionElements getIfExpressionAccess() {
 		return pIfExpression;
 	}
@@ -4027,9 +4246,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// literal values
 	//Literal:
-	//	EBooleanLiteral | NumberLiteral | EStringLiteral
-	//	| ListLiteral | SetLiteral | RecordLiteral | UnionLiteral | TupleLiteral
-	//	| BagLiteral | MapLiteral;
+	//    EBooleanLiteral | NumberLiteral | EStringLiteral
+	//    | ListLiteral | SetLiteral | RecordLiteral | UnionLiteral | TupleLiteral
+	//    | BagLiteral | MapLiteral
+	//;
 	public LiteralElements getLiteralAccess() {
 		return pLiteral;
 	}
@@ -4039,7 +4259,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Value:
-	//	Literal | WrappedNamedElement;
+	//    Literal | WrappedNamedElement
+	//;
 	public ValueElements getValueAccess() {
 		return pValue;
 	}
@@ -4050,7 +4271,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// dummy rule
 	//WrappedNamedElement:
-	//	{WrappedNamedElement} elem=[aadl2::NamedElement];
+	//    {WrappedNamedElement} elem=[aadl2::NamedElement|ID]
+	//;
 	public WrappedNamedElementElements getWrappedNamedElementAccess() {
 		return pWrappedNamedElement;
 	}
@@ -4059,8 +4281,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getWrappedNamedElementAccess().getRule();
 	}
 	
-	//EBooleanLiteral Literal:
-	//	{EBooleanLiteral} (value?='true' | 'false');
+	//EBooleanLiteral returns Literal :
+	//    {EBooleanLiteral} (value?='true'|'false')
+	//;
 	public EBooleanLiteralElements getEBooleanLiteralAccess() {
 		return pEBooleanLiteral;
 	}
@@ -4069,8 +4292,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getEBooleanLiteralAccess().getRule();
 	}
 	
-	//NumberLiteral Literal:
-	//	EIntegerLiteral | ERealLiteral;
+	//NumberLiteral returns Literal:
+	//    EIntegerLiteral | ERealLiteral
+	//;
 	public NumberLiteralElements getNumberLiteralAccess() {
 		return pNumberLiteral;
 	}
@@ -4079,9 +4303,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getNumberLiteralAccess().getRule();
 	}
 	
-	//EIntegerLiteral NumberLiteral:
-	//	{EIntegerLiteral} value=INTVALUE
-	//	//	('<'unit=UnitTerm'>')?
+	//EIntegerLiteral returns NumberLiteral:
+	//    {EIntegerLiteral} value=INTVALUE
+	////    ('<'unit=UnitTerm'>')?
 	//;
 	public EIntegerLiteralElements getEIntegerLiteralAccess() {
 		return pEIntegerLiteral;
@@ -4091,9 +4315,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getEIntegerLiteralAccess().getRule();
 	}
 	
-	//ERealLiteral NumberLiteral:
-	//	{ERealLiteral} value=SignedReal
-	//	//	('<'unit=UnitTerm'>')?
+	//ERealLiteral returns NumberLiteral:
+	//    {ERealLiteral} value=SignedReal
+	////    ('<'unit=UnitTerm'>')?
 	//;
 	public ERealLiteralElements getERealLiteralAccess() {
 		return pERealLiteral;
@@ -4103,9 +4327,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getERealLiteralAccess().getRule();
 	}
 	
+	//// use this for value conversion
 	//@Override
-	//SignedReal aadl2::Real:
-	//	REAL_LIT;
+	//SignedReal returns aadl2::Real:
+	//    REAL_LIT
+	//;
 	public SignedRealElements getSignedRealAccess() {
 		return pSignedReal;
 	}
@@ -4114,8 +4340,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getSignedRealAccess().getRule();
 	}
 	
-	//EStringLiteral Literal:
-	//	{EStringLiteral} value=NoQuoteString;
+	//EStringLiteral returns Literal:
+	//    {EStringLiteral} value=NoQuoteString
+	//;
 	public EStringLiteralElements getEStringLiteralAccess() {
 		return pEStringLiteral;
 	}
@@ -4124,8 +4351,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getEStringLiteralAccess().getRule();
 	}
 	
-	//fragment ExpressionList *:
-	//	'(' (elements+=Expression (',' elements+=Expression)*)? ')';
+	//fragment ExpressionList*:
+	//    '(' (elements+=Expression (',' elements+=Expression)*)? ')'
+	//;
 	public ExpressionListElements getExpressionListAccess() {
 		return pExpressionList;
 	}
@@ -4134,8 +4362,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getExpressionListAccess().getRule();
 	}
 	
-	//ListLiteral Literal:
-	//	{ListLiteral} 'list' ExpressionList;
+	//ListLiteral returns Literal:
+	//    {ListLiteral} 'list' ExpressionList
+	//;
 	public ListLiteralElements getListLiteralAccess() {
 		return pListLiteral;
 	}
@@ -4144,8 +4373,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getListLiteralAccess().getRule();
 	}
 	
-	//SetLiteral Literal:
-	//	{SetLiteral} 'set' ExpressionList;
+	//SetLiteral returns Literal:
+	//    {SetLiteral} 'set' ExpressionList
+	//;
 	public SetLiteralElements getSetLiteralAccess() {
 		return pSetLiteral;
 	}
@@ -4154,9 +4384,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getSetLiteralAccess().getRule();
 	}
 	
-	//RecordLiteral Literal:
-	//	{RecordLiteral} 'record' '(' (fieldValues+=FieldValue (',' fieldValues+=FieldValue)*)?
-	//	')';
+	//RecordLiteral returns Literal:
+	//    {RecordLiteral} 'record' '('
+	//        (fieldValues+=FieldValue (',' fieldValues+=FieldValue)*)?
+	//    ')'
+	//;
 	public RecordLiteralElements getRecordLiteralAccess() {
 		return pRecordLiteral;
 	}
@@ -4166,7 +4398,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//FieldValue:
-	//	name=ID ':' value=Expression;
+	//    name=ID ':' value=Expression
+	//;
 	public FieldValueElements getFieldValueAccess() {
 		return pFieldValue;
 	}
@@ -4175,10 +4408,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getFieldValueAccess().getRule();
 	}
 	
-	//UnionLiteral Literal:
-	//	{UnionLiteral} 'union' '('
-	//	fieldValue=FieldValue
-	//	')';
+	//UnionLiteral returns Literal:
+	//    {UnionLiteral} 'union' '('
+	//        fieldValue=FieldValue
+	//    ')'
+	//;
 	public UnionLiteralElements getUnionLiteralAccess() {
 		return pUnionLiteral;
 	}
@@ -4187,8 +4421,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getUnionLiteralAccess().getRule();
 	}
 	
-	//TupleLiteral Literal:
-	//	{TupleLiteral} 'tuple' ExpressionList;
+	//TupleLiteral returns Literal:
+	//    {TupleLiteral} 'tuple' ExpressionList
+	//;
 	public TupleLiteralElements getTupleLiteralAccess() {
 		return pTupleLiteral;
 	}
@@ -4197,8 +4432,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getTupleLiteralAccess().getRule();
 	}
 	
-	//BagLiteral Literal:
-	//	{BagLiteral} 'bag' ExpressionList;
+	//BagLiteral returns Literal:
+	//    {BagLiteral} 'bag' ExpressionList
+	//;
 	public BagLiteralElements getBagLiteralAccess() {
 		return pBagLiteral;
 	}
@@ -4207,8 +4443,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getBagLiteralAccess().getRule();
 	}
 	
-	//MapLiteral Literal:
-	//	{MapLiteral} 'map';
+	//MapLiteral returns Literal:
+	//    {MapLiteral} 'map'
+	//;
 	public MapLiteralElements getMapLiteralAccess() {
 		return pMapLiteral;
 	}
@@ -4217,9 +4454,19 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getMapLiteralAccess().getRule();
 	}
 	
+	//// units and unit terms
+	////UnitTerm:
+	////    Unit (=>({UnitTerm.left=current} operator=OpMulti) right=Unit)*
+	////;
+	////
+	////Unit returns UnitTerm:
+	////    {Unit} unit=ID
+	////    | '(' UnitTerm ')'
+	////;
 	//@Override
 	//QCREF:
-	//	(ID '::')* ID (':' ID)?;
+	//    (ID '::')* ID (':' ID)?
+	//;
 	public QCREFElements getQCREFAccess() {
 		return pQCREF;
 	}
@@ -4228,9 +4475,17 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getQCREFAccess().getRule();
 	}
 	
-	//PModel aadl2::Element:
-	//	ContainedPropertyAssociation //| BasicPropertyAssociation | PropertyAssociation
-	//;
+	//@Override
+	//terminal ID:
+	//    ('a'..'z'|'A'..'Z'|'_'|'$')
+	//    ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'$') *;
+	public TerminalRule getIDRule() {
+		return tID;
+	}
+	
+	//PModel returns aadl2::Element:
+	//    ContainedPropertyAssociation //| BasicPropertyAssociation | PropertyAssociation
+	//    ;
 	public PropertiesGrammarAccess.PModelElements getPModelAccess() {
 		return gaProperties.getPModelAccess();
 	}
@@ -4240,11 +4495,18 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//// Properties
-	//ContainedPropertyAssociation aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'? (ownedValue+=OptionalModalPropertyValue
-	//	(',' ownedValue+=OptionalModalPropertyValue)*) (AppliesToKeywords appliesTo+=ContainmentPath (','
-	//	appliesTo+=ContainmentPath)*)? (InBindingKeywords '(' inBinding+=[aadl2::Classifier|super::QCREF] ')')?
-	//	';';
+	//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
+	//    property=[aadl2::Property|QPREF]
+	//    ('=>' | append?='+=>') (constant?='constant')?
+	//    (
+	//     ownedValue+=OptionalModalPropertyValue
+	//    ( ',' ownedValue+=OptionalModalPropertyValue )*
+	//    )
+	//    (AppliesToKeywords appliesTo+=ContainmentPath
+	//        (',' appliesTo+=ContainmentPath)*
+	//    )?
+	//    (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	//    ';';
 	public PropertiesGrammarAccess.ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return gaProperties.getContainedPropertyAssociationAccess();
 	}
@@ -4253,11 +4515,16 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getContainedPropertyAssociationAccess().getRule();
 	}
 	
-	//PropertyAssociation aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'? (ownedValue+=OptionalModalPropertyValue
-	//	(',' ownedValue+=OptionalModalPropertyValue)*) (InBindingKeywords '(' inBinding+=[aadl2::Classifier|super::QCREF]
-	//	')')?
-	//	';';
+	//PropertyAssociation returns aadl2::PropertyAssociation:
+	//    property=[aadl2::Property|QPREF]
+	//    ('=>' | append?='+=>') (constant?='constant')?
+	//    (
+	//     ownedValue+=OptionalModalPropertyValue
+	//    ( ',' ownedValue+=OptionalModalPropertyValue )*
+	//    )
+	//    (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	//    ';'
+	//    ;
 	public PropertiesGrammarAccess.PropertyAssociationElements getPropertyAssociationAccess() {
 		return gaProperties.getPropertyAssociationAccess();
 	}
@@ -4266,9 +4533,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyAssociationAccess().getRule();
 	}
 	
-	//BasicPropertyAssociation aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF]
-	//	'=>' ownedValue+=PropertyValue ';';
+	//BasicPropertyAssociation returns aadl2::PropertyAssociation:
+	//    property=[aadl2::Property|QPREF]
+	//    '=>' ownedValue+=PropertyValue ';'
+	//    ;
 	public PropertiesGrammarAccess.BasicPropertyAssociationElements getBasicPropertyAssociationAccess() {
 		return gaProperties.getBasicPropertyAssociationAccess();
 	}
@@ -4277,9 +4545,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getBasicPropertyAssociationAccess().getRule();
 	}
 	
-	//ContainmentPath aadl2::ContainedNamedElement:
-	//	path=ContainmentPathElement
-	//	//	( 'annex' containmentPathElement+=AnnexPath )?
+	//ContainmentPath returns aadl2::ContainedNamedElement:
+	//    path=ContainmentPathElement
+	////    ( 'annex' containmentPathElement+=AnnexPath )?
 	//;
 	public PropertiesGrammarAccess.ContainmentPathElements getContainmentPathAccess() {
 		return gaProperties.getContainmentPathAccess();
@@ -4290,12 +4558,13 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	////AnnexPath returns aadl2::ContainmentPathElement:
-	////	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
-	//ModalPropertyValue aadl2::ModalPropertyValue:
-	//	ownedValue=super::PropertyExpression
-	//	InModesKeywords '('
-	//	inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
-	//	')';
+	////     namedElement=[aadl2::NamedElement|IDANNEXTEXT];
+	//ModalPropertyValue returns aadl2::ModalPropertyValue:
+	//    ownedValue=PropertyExpression
+	//    InModesKeywords '('
+	//    inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+	//    ')'
+	//    ;
 	public PropertiesGrammarAccess.ModalPropertyValueElements getModalPropertyValueAccess() {
 		return gaProperties.getModalPropertyValueAccess();
 	}
@@ -4304,10 +4573,13 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getModalPropertyValueAccess().getRule();
 	}
 	
-	//OptionalModalPropertyValue aadl2::ModalPropertyValue:
-	//	ownedValue=super::PropertyExpression (InModesKeywords '('
-	//	inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
-	//	')')?;
+	//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+	//    ownedValue=PropertyExpression
+	//    // phf made this optional: need to check separately that only the last one is optional
+	//    ( InModesKeywords '('
+	//    inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+	//    ')')?
+	//    ;
 	public PropertiesGrammarAccess.OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
 		return gaProperties.getOptionalModalPropertyValueAccess();
 	}
@@ -4316,9 +4588,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOptionalModalPropertyValueAccess().getRule();
 	}
 	
-	//// &&&&&&&&&& handling of in binding
-	//PropertyValue aadl2::ModalPropertyValue:
-	//	ownedValue=super::PropertyExpression;
+	//    // &&&&&&&&&& handling of in binding
+	//PropertyValue returns aadl2::ModalPropertyValue:
+	//    ownedValue=PropertyExpression
+	//    ;
 	public PropertiesGrammarAccess.PropertyValueElements getPropertyValueAccess() {
 		return gaProperties.getPropertyValueAccess();
 	}
@@ -4327,8 +4600,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyValueAccess().getRule();
 	}
 	
-	//LiteralorReferenceTerm aadl2::NamedValue:
-	//	namedValue=[aadl2::AbstractNamedValue|QPREF];
+	//LiteralorReferenceTerm returns aadl2::NamedValue:
+	//  namedValue=[aadl2::AbstractNamedValue|QPREF]
+	//;
 	public PropertiesGrammarAccess.LiteralorReferenceTermElements getLiteralorReferenceTermAccess() {
 		return gaProperties.getLiteralorReferenceTermAccess();
 	}
@@ -4337,8 +4611,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getLiteralorReferenceTermAccess().getRule();
 	}
 	
-	//BooleanLiteral aadl2::BooleanLiteral:
-	//	{aadl2::BooleanLiteral} (value?='true' | 'false');
+	//BooleanLiteral returns aadl2::BooleanLiteral:
+	//  {aadl2::BooleanLiteral}(value?='true'|'false')
+	//  ;
 	public PropertiesGrammarAccess.BooleanLiteralElements getBooleanLiteralAccess() {
 		return gaProperties.getBooleanLiteralAccess();
 	}
@@ -4347,8 +4622,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getBooleanLiteralAccess().getRule();
 	}
 	
-	//ConstantValue aadl2::NamedValue:
-	//	namedValue=[aadl2::PropertyConstant|QPREF];
+	//ConstantValue returns aadl2::NamedValue:
+	//  namedValue=[aadl2::PropertyConstant|QPREF]
+	//  ;
 	public PropertiesGrammarAccess.ConstantValueElements getConstantValueAccess() {
 		return gaProperties.getConstantValueAccess();
 	}
@@ -4357,14 +4633,15 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getConstantValueAccess().getRule();
 	}
 	
-	//ReferenceTerm aadl2::ReferenceValue:
-	//	'reference' '('
-	//	path=ContainmentPathElement
-	//	//	( 'annex' ID '{**' 
-	//	//	containmentPathElement+=ContainmentPathElement
-	//	//	( '.' containmentPathElement+=ContainmentPathElement)*
-	//	//	'**}')?
-	//	')';
+	//ReferenceTerm returns aadl2::ReferenceValue:
+	//  'reference' '('
+	//  path=ContainmentPathElement
+	////    ( 'annex' ID '{**'
+	////    containmentPathElement+=ContainmentPathElement
+	////    ( '.' containmentPathElement+=ContainmentPathElement)*
+	////    '**}')?
+	//  ')'
+	//  ;
 	public PropertiesGrammarAccess.ReferenceTermElements getReferenceTermAccess() {
 		return gaProperties.getReferenceTermAccess();
 	}
@@ -4373,10 +4650,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getReferenceTermAccess().getRule();
 	}
 	
-	//RecordTerm aadl2::RecordValue:
-	//	'['
-	//	ownedFieldValue+=FieldPropertyAssociation+
-	//	']';
+	//RecordTerm returns aadl2::RecordValue:
+	//   '['
+	//   (ownedFieldValue+=FieldPropertyAssociation)+
+	//  ']'
+	//  ;
 	public PropertiesGrammarAccess.RecordTermElements getRecordTermAccess() {
 		return gaProperties.getRecordTermAccess();
 	}
@@ -4385,10 +4663,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getRecordTermAccess().getRule();
 	}
 	
-	//OldRecordTerm aadl2::RecordValue:
-	//	'('
-	//	ownedFieldValue+=FieldPropertyAssociation+
-	//	')';
+	//OldRecordTerm returns aadl2::RecordValue:
+	//   '('
+	//   (ownedFieldValue+=FieldPropertyAssociation)+
+	//  ')'
+	//  ;
 	public PropertiesGrammarAccess.OldRecordTermElements getOldRecordTermAccess() {
 		return gaProperties.getOldRecordTermAccess();
 	}
@@ -4397,10 +4676,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getOldRecordTermAccess().getRule();
 	}
 	
-	//ComputedTerm aadl2::ComputedValue:
-	//	'compute' '('
-	//	function=ID
-	//	')';
+	//ComputedTerm returns aadl2::ComputedValue:
+	//   'compute' '('
+	//   function=ID
+	//  ')'
+	//  ;
 	public PropertiesGrammarAccess.ComputedTermElements getComputedTermAccess() {
 		return gaProperties.getComputedTermAccess();
 	}
@@ -4409,10 +4689,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getComputedTermAccess().getRule();
 	}
 	
-	//ComponentClassifierTerm aadl2::ClassifierValue:
-	//	'classifier' '('
-	//	classifier=[aadl2::ComponentClassifier|super::QCREF]
-	//	')';
+	//ComponentClassifierTerm returns aadl2::ClassifierValue:
+	//   'classifier' '('
+	//   classifier=[aadl2::ComponentClassifier|QCREF]
+	//  ')'
+	//  ;
 	public PropertiesGrammarAccess.ComponentClassifierTermElements getComponentClassifierTermAccess() {
 		return gaProperties.getComponentClassifierTermAccess();
 	}
@@ -4421,10 +4702,13 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getComponentClassifierTermAccess().getRule();
 	}
 	
-	//ListTerm aadl2::ListValue:
-	//	{aadl2::ListValue}
-	//	'(' (ownedListElement+=super::PropertyExpression (',' ownedListElement+=super::PropertyExpression)*)?
-	//	')';
+	//ListTerm returns aadl2::ListValue:
+	//    {aadl2::ListValue}
+	//   '('
+	//   (ownedListElement+=(PropertyExpression)
+	//   (',' ownedListElement+=(PropertyExpression))*)?
+	//  ')'
+	//  ;
 	public PropertiesGrammarAccess.ListTermElements getListTermAccess() {
 		return gaProperties.getListTermAccess();
 	}
@@ -4433,11 +4717,11 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getListTermAccess().getRule();
 	}
 	
-	//FieldPropertyAssociation aadl2::BasicPropertyAssociation:
-	//	property=[aadl2::BasicProperty]
-	//	'=>'
-	//	ownedValue=super::PropertyExpression
-	//	';';
+	//FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
+	//    property=[aadl2::BasicProperty|ID]
+	//    '=>'
+	//    ownedValue=PropertyExpression
+	//    ';';
 	public PropertiesGrammarAccess.FieldPropertyAssociationElements getFieldPropertyAssociationAccess() {
 		return gaProperties.getFieldPropertyAssociationAccess();
 	}
@@ -4448,9 +4732,15 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// from AADL2
 	//// need to add annex path element
-	//ContainmentPathElement aadl2::ContainmentPathElement:
-	//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange*) ('.' path=ContainmentPathElement)?
-	//	//	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
+	//ContainmentPathElement returns aadl2::ContainmentPathElement:
+	//    (
+	//        (
+	//            namedElement=[aadl2::NamedElement|ID]
+	//             (arrayRange+=ArrayRange)*
+	//        )
+	//        ('.' path=ContainmentPathElement)?
+	////     |      'annex' namedElement=[aadl2::NamedElement|ID]
+	//    )
 	//;
 	public PropertiesGrammarAccess.ContainmentPathElementElements getContainmentPathElementAccess() {
 		return gaProperties.getContainmentPathElementAccess();
@@ -4460,8 +4750,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getContainmentPathElementAccess().getRule();
 	}
 	
-	//ANNEXREF: // check what values are ok inside ** **
-	//	'{' STAR STAR ID STAR STAR '}';
+	//ANNEXREF :
+	//    // check what values are ok inside ** **
+	//    '{' STAR STAR ID STAR STAR '}';
 	public PropertiesGrammarAccess.ANNEXREFElements getANNEXREFAccess() {
 		return gaProperties.getANNEXREFAccess();
 	}
@@ -4470,8 +4761,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getANNEXREFAccess().getRule();
 	}
 	
-	//PlusMinus aadl2::OperationKind:
-	//	'+' | '-';
+	//PlusMinus returns aadl2::OperationKind: '+' | '-';
 	public PropertiesGrammarAccess.PlusMinusElements getPlusMinusAccess() {
 		return gaProperties.getPlusMinusAccess();
 	}
@@ -4480,8 +4770,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getPlusMinusAccess().getRule();
 	}
 	
-	//StringTerm aadl2::StringLiteral:
-	//	value=NoQuoteString;
+	//StringTerm returns aadl2::StringLiteral:
+	//    value=NoQuoteString ;
 	public PropertiesGrammarAccess.StringTermElements getStringTermAccess() {
 		return gaProperties.getStringTermAccess();
 	}
@@ -4490,8 +4780,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getStringTermAccess().getRule();
 	}
 	
-	//NoQuoteString:
-	//	STRING;
+	//NoQuoteString :
+	//    // remove quotes from string in ValueConverter
+	//    STRING
+	//;
 	public PropertiesGrammarAccess.NoQuoteStringElements getNoQuoteStringAccess() {
 		return gaProperties.getNoQuoteStringAccess();
 	}
@@ -4500,10 +4792,10 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getNoQuoteStringAccess().getRule();
 	}
 	
-	//ArrayRange aadl2::ArrayRange:
-	//	{aadl2::ArrayRange}
-	//	'[' lowerBound=INTVALUE ('..' upperBound=INTVALUE)?
-	//	']';
+	//ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
+	//    '[' lowerBound=INTVALUE ('..' upperBound=INTVALUE)?
+	//    ']'
+	//;
 	public PropertiesGrammarAccess.ArrayRangeElements getArrayRangeAccess() {
 		return gaProperties.getArrayRangeAccess();
 	}
@@ -4512,8 +4804,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getArrayRangeAccess().getRule();
 	}
 	
-	//SignedConstant aadl2::Operation:
-	//	op=PlusMinus ownedPropertyExpression+=ConstantValue;
+	//SignedConstant returns aadl2::Operation:
+	//    op=PlusMinus ownedPropertyExpression+=ConstantValue
+	//    ;
 	public PropertiesGrammarAccess.SignedConstantElements getSignedConstantAccess() {
 		return gaProperties.getSignedConstantAccess();
 	}
@@ -4522,8 +4815,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getSignedConstantAccess().getRule();
 	}
 	
-	//IntegerTerm aadl2::IntegerLiteral:
-	//	value=SignedInt unit=[aadl2::UnitLiteral]?;
+	//IntegerTerm returns aadl2::IntegerLiteral:
+	//    value=SignedInt (unit=[aadl2::UnitLiteral|ID])?
+	//    ;
 	public PropertiesGrammarAccess.IntegerTermElements getIntegerTermAccess() {
 		return gaProperties.getIntegerTermAccess();
 	}
@@ -4532,8 +4826,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getIntegerTermAccess().getRule();
 	}
 	
-	//SignedInt aadl2::Integer:
-	//	('+' | '-')? INTEGER_LIT;
+	//SignedInt returns aadl2::Integer:
+	//    ('+'|'-')?INTEGER_LIT ;
 	public PropertiesGrammarAccess.SignedIntElements getSignedIntAccess() {
 		return gaProperties.getSignedIntAccess();
 	}
@@ -4542,8 +4836,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getSignedIntAccess().getRule();
 	}
 	
-	//RealTerm aadl2::RealLiteral:
-	//	value=super::SignedReal unit=[aadl2::UnitLiteral]?;
+	//RealTerm returns aadl2::RealLiteral:
+	//    value=SignedReal (unit=[aadl2::UnitLiteral|ID])?
+	//    ;
 	public PropertiesGrammarAccess.RealTermElements getRealTermAccess() {
 		return gaProperties.getRealTermAccess();
 	}
@@ -4552,10 +4847,12 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getRealTermAccess().getRule();
 	}
 	
-	//NumericRangeTerm aadl2::RangeValue:
-	//	minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-	//	'..' maximum=NumAlt ('delta' delta=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	//)?;
+	//NumericRangeTerm returns aadl2::RangeValue:
+	//    minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//        '..' maximum=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//    ( 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//    )?
+	//    ;
 	public PropertiesGrammarAccess.NumericRangeTermElements getNumericRangeTermAccess() {
 		return gaProperties.getNumericRangeTermAccess();
 	}
@@ -4564,8 +4861,9 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getNumericRangeTermAccess().getRule();
 	}
 	
-	//NumAlt aadl2::PropertyExpression:
-	//	RealTerm | IntegerTerm | SignedConstant | ConstantValue;
+	//NumAlt  returns aadl2::PropertyExpression:
+	//    RealTerm|IntegerTerm| SignedConstant | ConstantValue
+	//;
 	public PropertiesGrammarAccess.NumAltElements getNumAltAccess() {
 		return gaProperties.getNumAltAccess();
 	}
@@ -4575,7 +4873,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AppliesToKeywords:
-	//	'applies' 'to';
+	//    'applies' 'to'
+	//;
 	public PropertiesGrammarAccess.AppliesToKeywordsElements getAppliesToKeywordsAccess() {
 		return gaProperties.getAppliesToKeywordsAccess();
 	}
@@ -4585,7 +4884,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//InBindingKeywords:
-	//	'in' 'binding';
+	//    'in' 'binding'
+	//;
 	public PropertiesGrammarAccess.InBindingKeywordsElements getInBindingKeywordsAccess() {
 		return gaProperties.getInBindingKeywordsAccess();
 	}
@@ -4595,7 +4895,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//InModesKeywords:
-	//	'in' 'modes';
+	//    'in' 'modes'
+	//;
 	public PropertiesGrammarAccess.InModesKeywordsElements getInModesKeywordsAccess() {
 		return gaProperties.getInModesKeywordsAccess();
 	}
@@ -4605,13 +4906,13 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal SL_COMMENT:
-	//	'--' !('\n' | '\r')* ('\r'? '\n')?;
+	//    '--' !('\n' | '\r')* ('\r'? '\n')?;
 	public TerminalRule getSL_COMMENTRule() {
 		return gaProperties.getSL_COMMENTRule();
 	}
 	
-	//INTVALUE aadl2::Integer:
-	//	INTEGER_LIT //NUMERAL 	
+	//INTVALUE returns aadl2::Integer:
+	//    INTEGER_LIT //NUMERAL
 	//;
 	public PropertiesGrammarAccess.INTVALUEElements getINTVALUEAccess() {
 		return gaProperties.getINTVALUEAccess();
@@ -4621,50 +4922,59 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getINTVALUEAccess().getRule();
 	}
 	
-	//terminal fragment EXPONENT:
-	//	('e' | 'E') ('+' | '-')? DIGIT+;
+	////terminal NUMERAL:
+	////    (DIGIT)+('_' (DIGIT)+)*
+	////;
+	////terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
+	//terminal fragment
+	//EXPONENT  :  ('e'|'E') ('+'|'-')? ( DIGIT )+  ;
 	public TerminalRule getEXPONENTRule() {
 		return gaProperties.getEXPONENTRule();
 	}
 	
-	//terminal fragment INT_EXPONENT:
-	//	('e' | 'E') '+'? DIGIT+;
+	//terminal fragment
+	//INT_EXPONENT :  ('e'|'E') ('+')? ( DIGIT )+ ;
 	public TerminalRule getINT_EXPONENTRule() {
 		return gaProperties.getINT_EXPONENTRule();
 	}
 	
-	//terminal REAL_LIT:
-	//	DIGIT+ ('_' DIGIT+)* ('.' DIGIT+ ('_' DIGIT+)* EXPONENT?);
+	//terminal REAL_LIT :
+	//    (DIGIT)+('_' (DIGIT)+)* ( '.' (DIGIT)+('_' (DIGIT)+)* ( EXPONENT )?)
+	//  ;
 	public TerminalRule getREAL_LITRule() {
 		return gaProperties.getREAL_LITRule();
 	}
 	
-	//terminal INTEGER_LIT:
-	//	DIGIT+ ('_' DIGIT+)* ('#' BASED_INTEGER '#' INT_EXPONENT? | INT_EXPONENT?);
+	//terminal INTEGER_LIT :
+	//        (DIGIT)+('_' (DIGIT)+)*
+	//        (( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+	//            | (INT_EXPONENT)?
+	//        )
+	//  ;
 	public TerminalRule getINTEGER_LITRule() {
 		return gaProperties.getINTEGER_LITRule();
 	}
 	
-	//terminal fragment DIGIT:
-	//	'0'..'9';
+	//terminal fragment
+	//DIGIT     :  ( '0'..'9' ) ;
 	public TerminalRule getDIGITRule() {
 		return gaProperties.getDIGITRule();
 	}
 	
-	//terminal fragment EXTENDED_DIGIT:
-	//	'0'..'9' | 'a'..'f' | 'A'..'F';
+	//terminal fragment
+	//EXTENDED_DIGIT     :  ( '0'..'9' | 'a'..'f' | 'A'..'F') ;
 	public TerminalRule getEXTENDED_DIGITRule() {
 		return gaProperties.getEXTENDED_DIGITRule();
 	}
 	
-	//terminal fragment BASED_INTEGER:
-	//	EXTENDED_DIGIT ('_'? EXTENDED_DIGIT)*;
+	//terminal fragment
+	//BASED_INTEGER      :  ( EXTENDED_DIGIT ) ( ('_')? EXTENDED_DIGIT )* ;
 	public TerminalRule getBASED_INTEGERRule() {
 		return gaProperties.getBASED_INTEGERRule();
 	}
 	
 	//QCLREF:
-	//	ID '::' ID;
+	//    ID '::' ID;
 	public PropertiesGrammarAccess.QCLREFElements getQCLREFAccess() {
 		return gaProperties.getQCLREFAccess();
 	}
@@ -4674,7 +4984,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//QPREF:
-	//	ID ('::' ID)?;
+	//    ID ('::' ID)?;
 	public PropertiesGrammarAccess.QPREFElements getQPREFAccess() {
 		return gaProperties.getQPREFAccess();
 	}
@@ -4683,8 +4993,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getQPREFAccess().getRule();
 	}
 	
-	//STAR:
-	//	'*';
+	//STAR : '*';
 	public PropertiesGrammarAccess.STARElements getSTARAccess() {
 		return gaProperties.getSTARAccess();
 	}
@@ -4693,24 +5002,15 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		return getSTARAccess().getRule();
 	}
 	
-	//terminal STRING:
-	//	'"' ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | '"'))* '"' |
-	//	"'" ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | "'"))* "'";
+	//terminal STRING    :
+	//            '"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
+	//            "'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
+	//        ;
 	public TerminalRule getSTRINGRule() {
 		return gaProperties.getSTRINGRule();
 	}
 	
-	//terminal ID:
-	//	('a'..'z'
-	//	| 'A'..'Z') ('_'? ('a'..'z'
-	//	| 'A'..'Z'
-	//	| '0'..'9'))*;
-	public TerminalRule getIDRule() {
-		return gaProperties.getIDRule();
-	}
-	
-	//terminal WS:
-	//	' ' | '\t' | '\r' | '\n'+;
+	//terminal WS			: (' '|'\t'|'\r'|'\n')+;
 	public TerminalRule getWSRule() {
 		return gaProperties.getWSRule();
 	}

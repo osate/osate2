@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -373,7 +373,7 @@ ruleTypeDecl returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.osate.xtext.aadl2.properties.Properties.ID");
+						"org.osate.expr.Expr.ID");
 				}
 			)
 		)
@@ -484,7 +484,7 @@ ruleVarDecl returns [EObject current=null]
 						if ($current==null) {
 							$current = createModelElement(grammarAccess.getVarDeclRule());
 						}
-						setWithLastConsumed($current, "const", true, "val");
+						setWithLastConsumed($current, "const", lv_const_0_0 != null, "val");
 					}
 				)
 			)
@@ -508,7 +508,7 @@ ruleVarDecl returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_2_0,
-						"org.osate.xtext.aadl2.properties.Properties.ID");
+						"org.osate.expr.Expr.ID");
 				}
 			)
 		)
@@ -599,7 +599,7 @@ ruleFunDecl returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.osate.xtext.aadl2.properties.Properties.ID");
+						"org.osate.expr.Expr.ID");
 				}
 			)
 		)
@@ -662,7 +662,7 @@ ruleFunDecl returns [EObject current=null]
 								if ($current==null) {
 									$current = createModelElement(grammarAccess.getFunDeclRule());
 								}
-								setWithLastConsumed($current, "java", true, "java");
+								setWithLastConsumed($current, "java", lv_java_8_0 != null, "java");
 							}
 						)
 					)
@@ -849,7 +849,7 @@ ruleArgument returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.osate.xtext.aadl2.properties.Properties.ID");
+						"org.osate.expr.Expr.ID");
 				}
 			)
 		)
@@ -913,7 +913,7 @@ ruleAssertion returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.osate.xtext.aadl2.properties.Properties.ID");
+						"org.osate.expr.Expr.ID");
 				}
 			)
 		)
@@ -1598,7 +1598,7 @@ ruleField returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.osate.xtext.aadl2.properties.Properties.ID");
+						"org.osate.expr.Expr.ID");
 				}
 			)
 		)
@@ -2148,7 +2148,7 @@ ruleEnumLiteral returns [EObject current=null]
 					$current,
 					"name",
 					lv_name_0_0,
-					"org.osate.xtext.aadl2.properties.Properties.ID");
+					"org.osate.expr.Expr.ID");
 			}
 		)
 	)
@@ -3197,7 +3197,7 @@ ruleUnitExpression returns [EObject current=null]
 							if ($current==null) {
 								$current = createModelElement(grammarAccess.getUnitExpressionRule());
 							}
-							setWithLastConsumed($current, "convert", true, "\%");
+							setWithLastConsumed($current, "convert", lv_convert_2_0 != null, "\%");
 						}
 					)
 				)
@@ -3212,7 +3212,7 @@ ruleUnitExpression returns [EObject current=null]
 							if ($current==null) {
 								$current = createModelElement(grammarAccess.getUnitExpressionRule());
 							}
-							setWithLastConsumed($current, "drop", true, "in");
+							setWithLastConsumed($current, "drop", lv_drop_3_0 != null, "in");
 						}
 					)
 				)
@@ -3543,7 +3543,7 @@ ruleNamedElementRef returns [EObject current=null]
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getNamedElementRefRule());
 					}
-					setWithLastConsumed($current, "core", true, "^");
+					setWithLastConsumed($current, "core", lv_core_0_0 != null, "^");
 				}
 			)
 		)?
@@ -4008,7 +4008,7 @@ ruleEBooleanLiteral returns [EObject current=null]
 						if ($current==null) {
 							$current = createModelElement(grammarAccess.getEBooleanLiteralRule());
 						}
-						setWithLastConsumed($current, "value", true, "true");
+						setWithLastConsumed($current, "value", lv_value_1_0 != null, "true");
 					}
 				)
 			)
@@ -4479,7 +4479,7 @@ ruleFieldValue returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_0_0,
-						"org.osate.xtext.aadl2.properties.Properties.ID");
+						"org.osate.expr.Expr.ID");
 				}
 			)
 		)
@@ -4780,7 +4780,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 						if ($current==null) {
 							$current = createModelElement(grammarAccess.getContainedPropertyAssociationRule());
 						}
-						setWithLastConsumed($current, "append", true, "+=>");
+						setWithLastConsumed($current, "append", lv_append_2_0 != null, "+=>");
 					}
 				)
 			)
@@ -4795,7 +4795,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getContainedPropertyAssociationRule());
 					}
-					setWithLastConsumed($current, "constant", true, "constant");
+					setWithLastConsumed($current, "constant", lv_constant_3_0 != null, "constant");
 				}
 			)
 		)?
@@ -4986,7 +4986,7 @@ rulePropertyAssociation returns [EObject current=null]
 						if ($current==null) {
 							$current = createModelElement(grammarAccess.getPropertyAssociationRule());
 						}
-						setWithLastConsumed($current, "append", true, "+=>");
+						setWithLastConsumed($current, "append", lv_append_2_0 != null, "+=>");
 					}
 				)
 			)
@@ -5001,7 +5001,7 @@ rulePropertyAssociation returns [EObject current=null]
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getPropertyAssociationRule());
 					}
-					setWithLastConsumed($current, "constant", true, "constant");
+					setWithLastConsumed($current, "constant", lv_constant_3_0 != null, "constant");
 				}
 			)
 		)?

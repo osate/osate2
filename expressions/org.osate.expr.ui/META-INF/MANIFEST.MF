@@ -23,7 +23,7 @@ Require-Bundle: org.osate.expr,
  org.eclipse.xsemantics.runtime;bundle-version="1.17.0",
  org.osate.aadl2.modelsupport;bundle-version="1.0.0"
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.osate.expr.ui.internal,
  org.osate.expr.ui.quickfix,
  org.osate.expr.ui.contentassist,

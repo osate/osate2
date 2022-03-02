@@ -13,10 +13,10 @@ import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
+import org.osate.aadl2.modelsupport.scoping.DelegatingEClassGlobalScopeProvider;
 import org.osate.expr.naming.ExprQualifiedNameConverter;
 import org.osate.expr.naming.ExprQualifiedNameProvider;
 import org.osate.expr.resource.ExprResourceDescriptionStrategy;
-import org.osate.expr.scoping.ExprGlobalScopeProvider;
 import org.osate.expr.scoping.ExprImportedNamespaceAwareLocalScopeProvider;
 import org.osate.expr.scoping.ExprScopeProvider;
 import org.osate.expr.serializer.ExprCrossReferenceSerializer;
@@ -68,7 +68,7 @@ public class ExprRuntimeModule extends org.osate.expr.AbstractExprRuntimeModule 
 
 	@Override
 	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return ExprGlobalScopeProvider.class;
+		return DelegatingEClassGlobalScopeProvider.class;
 	}
 
 	@Override
