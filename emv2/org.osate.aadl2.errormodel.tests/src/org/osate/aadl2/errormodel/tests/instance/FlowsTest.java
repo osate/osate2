@@ -234,28 +234,52 @@ public class FlowsTest {
 		var pkg = testHelper.parseFile(PATH + "find_feature_propagation_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(3, annexInstance.getErrorFlows().size());
+		assertEquals(6, annexInstance.getErrorFlows().size());
 		with((ErrorSourceInstance) annexInstance.getErrorFlows().get(0), source -> {
 			assertEquals("source_1", source.getName());
 			assertEquals("source_1", source.getErrorSource().getName());
-			assertEquals("f_out", source.getPropagation().getName());
+			assertEquals("f_out1", source.getPropagation().getName());
 			assertTrue(source.getPropagation().getErrorSources().contains(source));
 			assertEquals("{ServiceError}", source.getTypeSet().getName());
 		});
-		with((ErrorSinkInstance) annexInstance.getErrorFlows().get(1), sink -> {
+		with((ErrorSourceInstance) annexInstance.getErrorFlows().get(1), source -> {
+			assertEquals("source_2", source.getName());
+			assertEquals("source_2", source.getErrorSource().getName());
+			assertEquals("fg.f_out2", source.getPropagation().getName());
+			assertTrue(source.getPropagation().getErrorSources().contains(source));
+			assertEquals("{ServiceError}", source.getTypeSet().getName());
+		});
+		with((ErrorSinkInstance) annexInstance.getErrorFlows().get(2), sink -> {
 			assertEquals("sink_1", sink.getName());
 			assertEquals("sink_1", sink.getErrorSink().getName());
-			assertEquals("f_in", sink.getPropagation().getName());
+			assertEquals("f_in1", sink.getPropagation().getName());
 			assertTrue(sink.getPropagation().getErrorSinks().contains(sink));
 			assertEquals("{ItemTimingError}", sink.getTypeSet().getName());
 		});
-		with((ErrorPathInstance) annexInstance.getErrorFlows().get(2), path -> {
+		with((ErrorSinkInstance) annexInstance.getErrorFlows().get(3), sink -> {
+			assertEquals("sink_2", sink.getName());
+			assertEquals("sink_2", sink.getErrorSink().getName());
+			assertEquals("fg.f_in2", sink.getPropagation().getName());
+			assertTrue(sink.getPropagation().getErrorSinks().contains(sink));
+			assertEquals("{ItemTimingError}", sink.getTypeSet().getName());
+		});
+		with((ErrorPathInstance) annexInstance.getErrorFlows().get(4), path -> {
 			assertEquals("path_1", path.getName());
 			assertEquals("path_1", path.getErrorPath().getName());
-			assertEquals("f_in", path.getSourcePropagation().getName());
+			assertEquals("f_in1", path.getSourcePropagation().getName());
 			assertTrue(path.getSourcePropagation().getSourceErrorPaths().contains(path));
 			assertEquals("{SequenceTimingError}", path.getSourceTypeSet().getName());
-			assertEquals("f_out", path.getDestinationPropagation().getName());
+			assertEquals("f_out1", path.getDestinationPropagation().getName());
+			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
+		});
+		with((ErrorPathInstance) annexInstance.getErrorFlows().get(5), path -> {
+			assertEquals("path_2", path.getName());
+			assertEquals("path_2", path.getErrorPath().getName());
+			assertEquals("fg.f_in2", path.getSourcePropagation().getName());
+			assertTrue(path.getSourcePropagation().getSourceErrorPaths().contains(path));
+			assertEquals("{SequenceTimingError}", path.getSourceTypeSet().getName());
+			assertEquals("fg.f_out2", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
