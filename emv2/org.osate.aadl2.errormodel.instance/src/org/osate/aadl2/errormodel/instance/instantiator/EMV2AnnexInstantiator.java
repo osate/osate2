@@ -977,8 +977,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ErrorPropagationInstance findErrorPropagationInstance(EMV2AnnexInstance annex, ErrorPropagation ep) {
+		var declarativeName = EMV2Util.getName(ep);
 		for (ErrorPropagationInstance epi : annex.getPropagations()) {
-			if (epi.getInErrorPropagation() == ep || epi.getOutErrorPropagation() == ep) {
+			if (epi.getName().equalsIgnoreCase(declarativeName)) {
 				return epi;
 			}
 		}
