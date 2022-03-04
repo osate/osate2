@@ -101,6 +101,8 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
   
   public static final String NAMEDELEMENTREF = "org.osate.expr.NamedElementRef";
   
+  public static final String EOBJECT = "org.osate.expr.EObject";
+  
   public static final String CLASSIFIER = "org.osate.expr.Classifier";
   
   public static final String SUBCOMPONENT = "org.osate.expr.Subcomponent";
@@ -1183,6 +1185,40 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     type = (Type) result.getFirst();
     
     return new Result<Type>(type);
+  }
+  
+  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EObject e) throws RuleFailedException {
+    try {
+    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
+    	final Result<Type> _result_ = applyRuleEObject(G, _subtrace_, e);
+    	addToTrace(_trace_, new Provider<Object>() {
+    		public Object get() {
+    			return ruleName("EObject") + stringRepForEnv(G) + " |- " + stringRep(e) + " : " + stringRep(_result_.getFirst());
+    		}
+    	});
+    	addAsSubtrace(_trace_, _subtrace_);
+    	return _result_;
+    } catch (Exception e_applyRuleEObject) {
+    	typeThrowException(ruleName("EObject") + stringRepForEnv(G) + " |- " + stringRep(e) + " : " + "MetaClass",
+    		EOBJECT,
+    		e_applyRuleEObject, e, new ErrorInformation[] {new ErrorInformation(e)});
+    	return null;
+    }
+  }
+  
+  protected Result<Type> applyRuleEObject(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EObject e) throws RuleFailedException {
+    
+    return new Result<Type>(_applyRuleEObject_1(G, e));
+  }
+  
+  private MetaClass _applyRuleEObject_1(final RuleEnvironment G, final EObject e) throws RuleFailedException {
+    MetaClass _xblockexpression = null;
+    {
+      final MetaClass type = ExprFactory.eINSTANCE.createMetaClass();
+      type.setEcoreClass(e.eClass());
+      _xblockexpression = (type);
+    }
+    return _xblockexpression;
   }
   
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Classifier c) throws RuleFailedException {

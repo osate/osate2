@@ -270,6 +270,7 @@ public class ExprParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getRangeTypeAccess().getTypeAssignment_2(), "rule__RangeType__TypeAssignment_2");
 			builder.put(grammarAccess.getCategoryAccess().getCategoryAssignment(), "rule__Category__CategoryAssignment");
 			builder.put(grammarAccess.getMetaClassAccess().getClassAssignment(), "rule__MetaClass__ClassAssignment");
+			builder.put(grammarAccess.getMetaClassExtAccess().getEcoreClassAssignment(), "rule__MetaClassExt__EcoreClassAssignment");
 			builder.put(grammarAccess.getRecordTypeAccess().getFieldsAssignment_3_0(), "rule__RecordType__FieldsAssignment_3_0");
 			builder.put(grammarAccess.getRecordTypeAccess().getFieldsAssignment_3_1_1(), "rule__RecordType__FieldsAssignment_3_1_1");
 			builder.put(grammarAccess.getFieldAccess().getNameAssignment_1(), "rule__Field__NameAssignment_1");

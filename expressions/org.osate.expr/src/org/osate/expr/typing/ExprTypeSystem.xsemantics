@@ -692,6 +692,13 @@ from {
 
 // Core AADL types
 
+axiom EObject
+	G |- EObject e : {
+		val type = ExprFactory.eINSTANCE.createMetaClass
+		type.ecoreClass = e.eClass
+		type
+	}
+
 axiom Classifier
 	G |- Classifier c : c
 	

@@ -1003,13 +1003,22 @@ public interface ExprPackage extends EPackage
   int META_CLASS__CLASS = Aadl2Package.TYPE_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Ecore Class</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int META_CLASS__ECORE_CLASS = Aadl2Package.TYPE_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Meta Class</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int META_CLASS_FEATURE_COUNT = Aadl2Package.TYPE_FEATURE_COUNT + 1;
+  int META_CLASS_FEATURE_COUNT = Aadl2Package.TYPE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.RecordTypeImpl <em>Record Type</em>}' class.
@@ -3649,6 +3658,17 @@ public interface ExprPackage extends EPackage
   EAttribute getMetaClass_Class();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.expr.expr.MetaClass#getEcoreClass <em>Ecore Class</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Ecore Class</em>'.
+   * @see org.osate.expr.expr.MetaClass#getEcoreClass()
+   * @see #getMetaClass()
+   * @generated
+   */
+  EReference getMetaClass_EcoreClass();
+
+  /**
    * Returns the meta object for class '{@link org.osate.expr.expr.RecordType <em>Record Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4940,6 +4960,14 @@ public interface ExprPackage extends EPackage
      * @generated
      */
     EAttribute META_CLASS__CLASS = eINSTANCE.getMetaClass_Class();
+
+    /**
+     * The meta object literal for the '<em><b>Ecore Class</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference META_CLASS__ECORE_CLASS = eINSTANCE.getMetaClass_EcoreClass();
 
     /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.RecordTypeImpl <em>Record Type</em>}' class.

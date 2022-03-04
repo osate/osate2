@@ -23,6 +23,7 @@
  */
 package org.osate.expr.expr;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.Type;
@@ -37,6 +38,7 @@ import org.osate.aadl2.Type;
  * </p>
  * <ul>
  *   <li>{@link org.osate.expr.expr.MetaClass#getClass_ <em>Class</em>}</li>
+ *   <li>{@link org.osate.expr.expr.MetaClass#getEcoreClass <em>Ecore Class</em>}</li>
  * </ul>
  *
  * @see org.osate.expr.expr.ExprPackage#getMetaClass()
@@ -69,5 +71,27 @@ public interface MetaClass extends EObject, Type
    * @generated
    */
   void setClass(MetaClassEnum value);
+
+  /**
+   * Returns the value of the '<em><b>Ecore Class</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ecore Class</em>' reference.
+   * @see #setEcoreClass(EClass)
+   * @see org.osate.expr.expr.ExprPackage#getMetaClass_EcoreClass()
+   * @model
+   * @generated
+   */
+  EClass getEcoreClass();
+
+  /**
+   * Sets the value of the '{@link org.osate.expr.expr.MetaClass#getEcoreClass <em>Ecore Class</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ecore Class</em>' reference.
+   * @see #getEcoreClass()
+   * @generated
+   */
+  void setEcoreClass(EClass value);
 
 } // MetaClass

@@ -26,6 +26,7 @@ package org.osate.expr.expr.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -44,6 +45,7 @@ import org.osate.expr.expr.MetaClassEnum;
  * </p>
  * <ul>
  *   <li>{@link org.osate.expr.expr.impl.MetaClassImpl#getClass_ <em>Class</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.MetaClassImpl#getEcoreClass <em>Ecore Class</em>}</li>
  * </ul>
  *
  * @generated
@@ -69,6 +71,16 @@ public class MetaClassImpl extends TypeImpl implements MetaClass
    * @ordered
    */
   protected MetaClassEnum class_ = CLASS_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getEcoreClass() <em>Ecore Class</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEcoreClass()
+   * @generated
+   * @ordered
+   */
+  protected EClass ecoreClass;
 
   /**
    * <!-- begin-user-doc -->
@@ -122,12 +134,60 @@ public class MetaClassImpl extends TypeImpl implements MetaClass
    * @generated
    */
   @Override
+  public EClass getEcoreClass()
+  {
+    if (ecoreClass != null && ecoreClass.eIsProxy())
+    {
+      InternalEObject oldEcoreClass = (InternalEObject)ecoreClass;
+      ecoreClass = (EClass)eResolveProxy(oldEcoreClass);
+      if (ecoreClass != oldEcoreClass)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ExprPackage.META_CLASS__ECORE_CLASS, oldEcoreClass, ecoreClass));
+      }
+    }
+    return ecoreClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass basicGetEcoreClass()
+  {
+    return ecoreClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setEcoreClass(EClass newEcoreClass)
+  {
+    EClass oldEcoreClass = ecoreClass;
+    ecoreClass = newEcoreClass;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.META_CLASS__ECORE_CLASS, oldEcoreClass, ecoreClass));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
       case ExprPackage.META_CLASS__CLASS:
         return getClass_();
+      case ExprPackage.META_CLASS__ECORE_CLASS:
+        if (resolve) return getEcoreClass();
+        return basicGetEcoreClass();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -144,6 +204,9 @@ public class MetaClassImpl extends TypeImpl implements MetaClass
     {
       case ExprPackage.META_CLASS__CLASS:
         setClass((MetaClassEnum)newValue);
+        return;
+      case ExprPackage.META_CLASS__ECORE_CLASS:
+        setEcoreClass((EClass)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -162,6 +225,9 @@ public class MetaClassImpl extends TypeImpl implements MetaClass
       case ExprPackage.META_CLASS__CLASS:
         setClass(CLASS_EDEFAULT);
         return;
+      case ExprPackage.META_CLASS__ECORE_CLASS:
+        setEcoreClass((EClass)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -178,6 +244,8 @@ public class MetaClassImpl extends TypeImpl implements MetaClass
     {
       case ExprPackage.META_CLASS__CLASS:
         return class_ != CLASS_EDEFAULT;
+      case ExprPackage.META_CLASS__ECORE_CLASS:
+        return ecoreClass != null;
     }
     return super.eIsSet(featureID);
   }

@@ -949,6 +949,26 @@ public class ExprGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		//MetaClassEnum
 		public RuleCall getClassMetaClassEnumEnumRuleCall_0() { return cClassMetaClassEnumEnumRuleCall_0; }
 	}
+	public class MetaClassExtElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.MetaClassExt");
+		private final Assignment cEcoreClassAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cEcoreClassEClassCrossReference_0 = (CrossReference)cEcoreClassAssignment.eContents().get(0);
+		private final RuleCall cEcoreClassEClassIDTerminalRuleCall_0_1 = (RuleCall)cEcoreClassEClassCrossReference_0.eContents().get(1);
+		
+		//MetaClassExt returns MetaClass:
+		//    ecoreClass=[ecore::EClass]
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ecoreClass=[ecore::EClass]
+		public Assignment getEcoreClassAssignment() { return cEcoreClassAssignment; }
+		
+		//[ecore::EClass]
+		public CrossReference getEcoreClassEClassCrossReference_0() { return cEcoreClassEClassCrossReference_0; }
+		
+		//ID
+		public RuleCall getEcoreClassEClassIDTerminalRuleCall_0_1() { return cEcoreClassEClassIDTerminalRuleCall_0_1; }
+	}
 	public class RecordTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.RecordType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -3349,6 +3369,7 @@ public class ExprGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	private final CategoryElements pCategory;
 	private final ComponentCategoryElements pComponentCategory;
 	private final MetaClassElements pMetaClass;
+	private final MetaClassExtElements pMetaClassExt;
 	private final MetaClassEnumElements eMetaClassEnum;
 	private final TargetTypeElements eTargetType;
 	private final RecordTypeElements pRecordType;
@@ -3439,6 +3460,7 @@ public class ExprGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		this.pCategory = new CategoryElements();
 		this.pComponentCategory = new ComponentCategoryElements();
 		this.pMetaClass = new MetaClassElements();
+		this.pMetaClassExt = new MetaClassExtElements();
 		this.eMetaClassEnum = new MetaClassEnumElements();
 		this.eTargetType = new TargetTypeElements();
 		this.pRecordType = new RecordTypeElements();
@@ -3779,6 +3801,17 @@ public class ExprGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	
 	public ParserRule getMetaClassRule() {
 		return getMetaClassAccess().getRule();
+	}
+	
+	//MetaClassExt returns MetaClass:
+	//    ecoreClass=[ecore::EClass]
+	//;
+	public MetaClassExtElements getMetaClassExtAccess() {
+		return pMetaClassExt;
+	}
+	
+	public ParserRule getMetaClassExtRule() {
+		return getMetaClassExtAccess().getRule();
 	}
 	
 	//enum MetaClassEnum:

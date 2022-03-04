@@ -50,6 +50,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaClass" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Type">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="class" eType="#//MetaClassEnum"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ecoreClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MetaClassEnum">
     <eLiterals name="COMPONENT" literal="component"/>

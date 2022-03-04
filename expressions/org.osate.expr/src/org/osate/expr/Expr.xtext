@@ -108,6 +108,10 @@ MetaClass:
 	class=MetaClassEnum
 ;
 
+MetaClassExt returns MetaClass:
+	ecoreClass=[ecore::EClass]
+;
+
 enum MetaClassEnum:
 	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode'
 	| PROPERTY='property'

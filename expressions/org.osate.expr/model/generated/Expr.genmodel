@@ -80,6 +80,7 @@
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//MetaClass">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//MetaClass/class"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//MetaClass/ecoreClass"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//RecordType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//RecordType/fields"/>

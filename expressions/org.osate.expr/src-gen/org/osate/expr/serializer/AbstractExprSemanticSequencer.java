@@ -306,8 +306,16 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 				sequence_MapType(context, (MapType) semanticObject); 
 				return; 
 			case ExprPackage.META_CLASS:
-				sequence_MetaClass(context, (MetaClass) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getMetaClassExtRule()) {
+					sequence_MetaClassExt(context, (MetaClass) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getTypeRule()
+						|| rule == grammarAccess.getMetaClassRule()) {
+					sequence_MetaClass(context, (MetaClass) semanticObject); 
+					return; 
+				}
+				else break;
 			case ExprPackage.NAMED_ELEMENT_REF:
 				sequence_NamedElementRef(context, (NamedElementRef) semanticObject); 
 				return; 
@@ -1086,6 +1094,24 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getMapTypeAccess().getDomainTypeParserRuleCall_1_0(), semanticObject.getDomain());
 		feeder.accept(grammarAccess.getMapTypeAccess().getImageTypeParserRuleCall_3_0(), semanticObject.getImage());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     MetaClassExt returns MetaClass
+	 *
+	 * Constraint:
+	 *     ecoreClass=[EClass|ID]
+	 */
+	protected void sequence_MetaClassExt(ISerializationContext context, MetaClass semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ExprPackage.Literals.META_CLASS__ECORE_CLASS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.META_CLASS__ECORE_CLASS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getMetaClassExtAccess().getEcoreClassEClassIDTerminalRuleCall_0_1(), semanticObject.eGet(ExprPackage.Literals.META_CLASS__ECORE_CLASS, false));
 		feeder.finish();
 	}
 	

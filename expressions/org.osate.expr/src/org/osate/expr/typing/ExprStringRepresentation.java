@@ -17,6 +17,7 @@ import org.osate.expr.expr.EStringLiteral;
 import org.osate.expr.expr.EnumType;
 import org.osate.expr.expr.ListType;
 import org.osate.expr.expr.MapType;
+import org.osate.expr.expr.MetaClass;
 import org.osate.expr.expr.RangeType;
 import org.osate.expr.expr.RecordType;
 import org.osate.expr.expr.SetType;
@@ -98,6 +99,17 @@ public class ExprStringRepresentation extends StringRepresentation {
 
 	protected String stringRep(EStringLiteral l) {
 		return l.getValue();
+	}
+
+	protected String stringRep(MetaClass m) {
+		String text = "MetaClass";
+		if (m.getEcoreClass() != null) {
+			text += " eClass=" + m.getEcoreClass().getName();
+		}
+		if (m.getClass_() != null) {
+			text += " class=" + m.getClass_().toString();
+		}
+		return text;
 	}
 
 	private String rep(Type t) {

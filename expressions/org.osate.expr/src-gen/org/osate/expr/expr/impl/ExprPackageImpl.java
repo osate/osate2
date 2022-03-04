@@ -893,6 +893,17 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
+  public EReference getMetaClass_EcoreClass()
+  {
+    return (EReference)metaClassEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getRecordType()
   {
     return recordTypeEClass;
@@ -2015,6 +2026,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
 
     metaClassEClass = createEClass(META_CLASS);
     createEAttribute(metaClassEClass, META_CLASS__CLASS);
+    createEReference(metaClassEClass, META_CLASS__ECORE_CLASS);
 
     recordTypeEClass = createEClass(RECORD_TYPE);
     createEReference(recordTypeEClass, RECORD_TYPE__FIELDS);
@@ -2283,6 +2295,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
 
     initEClass(metaClassEClass, MetaClass.class, "MetaClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMetaClass_Class(), this.getMetaClassEnum(), "class", null, 0, 1, MetaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMetaClass_EcoreClass(), theEcorePackage.getEClass(), null, "ecoreClass", null, 0, 1, MetaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(recordTypeEClass, RecordType.class, "RecordType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRecordType_Fields(), this.getField(), null, "fields", null, 0, -1, RecordType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
