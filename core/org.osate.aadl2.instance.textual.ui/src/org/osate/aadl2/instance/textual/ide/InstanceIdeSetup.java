@@ -21,29 +21,22 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.instance.textual.ui.labeling
+package org.osate.aadl2.instance.textual.ide;
 
-import com.google.inject.Inject
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.eclipse.xtext.util.Modules2;
+import org.osate.aadl2.instance.textual.InstanceRuntimeModule;
+import org.osate.aadl2.instance.textual.InstanceStandaloneSetup;
 
 /**
- * Provides labels for EObjects.
- * 
- * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#label-provider
+ * Initialization support for running Xtext languages as language servers.
  */
-class InstanceLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider {
+public class InstanceIdeSetup extends InstanceStandaloneSetup {
 
-	@Inject
-	new(org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider delegate) {
-		super(delegate);
+	@Override
+	public Injector createInjector() {
+		return Guice.createInjector(Modules2.mixin(new InstanceRuntimeModule(), new InstanceIdeModule()));
 	}
-
-	// Labels and icons can be computed like this:
 	
-//	def text(Greeting ele) {
-//		'A greeting to ' + ele.name
-//	}
-//
-//	def image(Greeting ele) {
-//		'Greeting.gif'
-//	}
 }
