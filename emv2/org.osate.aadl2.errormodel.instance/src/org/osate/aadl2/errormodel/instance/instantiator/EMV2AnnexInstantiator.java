@@ -62,8 +62,8 @@ import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
-import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
@@ -997,32 +997,35 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				for (TypeToken tt : outTypeTokens) {
 					Collection<ConstrainedInstanceObject> dstCIOs = allOutPropagationConditionCIOs(dst, tt, dstAnnex);
 					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+								.createOldPropagationPathInstance();
 						ppi.setSource(assignment);
 						ppi.setTarget(dstCIO);
 						ppi.setName(conni.getName() + "-" + dstCIO.getName());
-						annex.getPropagationPaths().add(ppi);
+						annex.getOldPropagationPaths().add(ppi);
 						addConnectionBindingCIOs(conni, annex, ppi);
 					}
 					if (dstCIOs.isEmpty()) {
 						// use flow if no out propagation condition
 						dstCIOs = allIncomingFlowCIOs(dst, tt, dstAnnex);
 						for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-							PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+							OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+									.createOldPropagationPathInstance();
 							ppi.setSource(assignment);
 							ppi.setTarget(dstCIO);
 							ppi.setName(conni.getName() + "-" + dstCIO.getName());
-							annex.getPropagationPaths().add(ppi);
+							annex.getOldPropagationPaths().add(ppi);
 							addConnectionBindingCIOs(conni, annex, ppi);
 						}
 					}
 					dstCIOs = allTransitionConditionCIOs(dst, tt, dstAnnex);
 					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+								.createOldPropagationPathInstance();
 						ppi.setSource(assignment);
 						ppi.setTarget(dstCIO);
 						ppi.setName(conni.getName() + "-" + dstCIO.getName());
-						annex.getPropagationPaths().add(ppi);
+						annex.getOldPropagationPaths().add(ppi);
 						addConnectionBindingCIOs(conni, annex, ppi);
 					}
 				}
@@ -1032,11 +1035,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		ErrorPropagationInstance outep = findErrorPropagationInstance(srcAnnex, src, true);
 		ErrorPropagationInstance inep = findErrorPropagationInstance(dstAnnex, dst, false);
 		if (outep != null && inep != null) {
-			PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+			OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createOldPropagationPathInstance();
 			ppi.setSource(outep);
 			ppi.setTarget(inep);
 			ppi.setName(conni.getName() + "-" + inep.getName());
-			annex.getPropagationPaths().add(ppi);
+			annex.getOldPropagationPaths().add(ppi);
 			addConnectionBindingCIOs(conni, annex, ppi);
 		}
 	}
@@ -1246,30 +1249,33 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				for (TypeToken tt : outTypeTokens) {
 					Collection<ConstrainedInstanceObject> dstCIOs = allOutPropagationConditionCIOs(dstIO, tt, dstAnnex);
 					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+								.createOldPropagationPathInstance();
 						ppi.setSource(action);
 						ppi.setTarget(dstCIO);
 						ppi.setName(pp.getName() + "-" + dstCIO.getName());
-						annex.getPropagationPaths().add(ppi);
+						annex.getOldPropagationPaths().add(ppi);
 					}
 					if (dstCIOs.isEmpty()) {
 						// use flow if no out propagation condition
 						dstCIOs = allIncomingFlowCIOs(dstIO, tt, dstAnnex);
 						for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-							PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+							OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+									.createOldPropagationPathInstance();
 							ppi.setSource(action);
 							ppi.setTarget(dstCIO);
 							ppi.setName(pp.getName() + "-" + dstCIO.getName());
-							annex.getPropagationPaths().add(ppi);
+							annex.getOldPropagationPaths().add(ppi);
 						}
 					}
 					dstCIOs = allTransitionConditionCIOs(dstIO, tt, dstAnnex);
 					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+								.createOldPropagationPathInstance();
 						ppi.setSource(action);
 						ppi.setTarget(dstCIO);
 						ppi.setName(pp.getName() + "-" + dstCIO.getName());
-						annex.getPropagationPaths().add(ppi);
+						annex.getOldPropagationPaths().add(ppi);
 					}
 				}
 			}
@@ -1330,7 +1336,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private Collection<ConstrainedInstanceObject> addConnectionBindingCIOs(ConnectionInstance conni,
 			EMV2AnnexInstance annex,
-			PropagationPathInstance ppi) {
+			OldPropagationPathInstance ppi) {
 		Collection<ConstrainedInstanceObject> cios = new ArrayList<ConstrainedInstanceObject>();
 		List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(conni);
 		if (boundresources.isEmpty()) {
@@ -1342,10 +1348,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			if (BRsrcprop != null) {
 				ErrorPropagationInstance srcEPI = findErrorPropagationInstance(annex, BRsrcprop);
 				if (srcEPI != null) {
-					PropagationPathInstance srcBindPPI = EcoreUtil.copy(ppi);
+					OldPropagationPathInstance srcBindPPI = EcoreUtil.copy(ppi);
 					srcBindPPI.setSource(srcEPI);
 					srcBindPPI.setName(ppi.getName() + "-bindings-" + boundResource.getName());
-					annex.getPropagationPaths().add(srcBindPPI);
+					annex.getOldPropagationPaths().add(srcBindPPI);
 				}
 			}
 			ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
@@ -1353,10 +1359,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			if (BRdstprop != null) {
 				ErrorPropagationInstance dstEPI = findErrorPropagationInstance(annex, BRdstprop);
 				if (dstEPI != null) {
-					PropagationPathInstance dstBindPPI = EcoreUtil.copy(ppi);
+					OldPropagationPathInstance dstBindPPI = EcoreUtil.copy(ppi);
 					dstBindPPI.setTarget(dstEPI);
 					dstBindPPI.setName(ppi.getName() + "-bindings-" + boundResource.getName());
-					annex.getPropagationPaths().add(dstBindPPI);
+					annex.getOldPropagationPaths().add(dstBindPPI);
 				}
 			}
 		}
@@ -1385,30 +1391,31 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						componentAnnex,
 						resourcebindingKind);
 				for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-					PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+					OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createOldPropagationPathInstance();
 					ppi.setSource(outGoing);
 					ppi.setTarget(dstCIO);
 					ppi.setName(boundResource.getName() + "-bindings-" + getPrintName(dstCIO));
-					annex.getPropagationPaths().add(ppi);
+					annex.getOldPropagationPaths().add(ppi);
 				}
 				if (dstCIOs.isEmpty()) {
 					// use flow if no out propagation condition
 					dstCIOs = allIncomingFlowBindingCIOs(comp, tt, componentAnnex, resourcebindingKind);
 					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+								.createOldPropagationPathInstance();
 						ppi.setSource(outGoing);
 						ppi.setTarget(dstCIO);
 						ppi.setName(boundResource.getName() + "-bindings-" + getPrintName(dstCIO));
-						annex.getPropagationPaths().add(ppi);
+						annex.getOldPropagationPaths().add(ppi);
 					}
 				}
 				dstCIOs = allTransitionConditionBindingCIOs(comp, tt, componentAnnex, resourcebindingKind);
 				for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-					PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+					OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createOldPropagationPathInstance();
 					ppi.setSource(outGoing);
 					ppi.setTarget(dstCIO);
 					ppi.setName(boundResource.getName() + "-bindings-" + getPrintName(dstCIO));
-					annex.getPropagationPaths().add(ppi);
+					annex.getOldPropagationPaths().add(ppi);
 				}
 			}
 		}
@@ -1419,30 +1426,31 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						resourceAnnex,
 						"bindings");
 				for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-					PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+					OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createOldPropagationPathInstance();
 					ppi.setSource(outGoing);
 					ppi.setTarget(dstCIO);
 					ppi.setName(getPrintName(outGoing) + getPrintName(dstCIO));
-					annex.getPropagationPaths().add(ppi);
+					annex.getOldPropagationPaths().add(ppi);
 				}
 				if (dstCIOs.isEmpty()) {
 					// use flow if no out propagation condition
 					dstCIOs = allIncomingFlowBindingCIOs(boundResource, tt, resourceAnnex, "bindings");
 					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+								.createOldPropagationPathInstance();
 						ppi.setSource(outGoing);
 						ppi.setTarget(dstCIO);
 						ppi.setName(getPrintName(outGoing) + getPrintName(dstCIO));
-						annex.getPropagationPaths().add(ppi);
+						annex.getOldPropagationPaths().add(ppi);
 					}
 				}
 				dstCIOs = allTransitionConditionBindingCIOs(boundResource, tt, resourceAnnex, "bindings");
 				for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-					PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+					OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createOldPropagationPathInstance();
 					ppi.setSource(outGoing);
 					ppi.setTarget(dstCIO);
 					ppi.setName(getPrintName(outGoing) + getPrintName(dstCIO));
-					annex.getPropagationPaths().add(ppi);
+					annex.getOldPropagationPaths().add(ppi);
 				}
 			}
 		}

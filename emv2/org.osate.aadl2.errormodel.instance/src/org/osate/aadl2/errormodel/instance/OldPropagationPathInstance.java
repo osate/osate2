@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -27,37 +27,37 @@ import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Propagation Path Instance</b></em>'.
+ * A representation of the model object '<em><b>Old Propagation Path Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.PropagationPathInstance#getEmv2Element <em>Emv2 Element</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.PropagationPathInstance#getSource <em>Source</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.PropagationPathInstance#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OldPropagationPathInstance#getEmv2Element <em>Emv2 Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OldPropagationPathInstance#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OldPropagationPathInstance#getTarget <em>Target</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationPathInstance()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOldPropagationPathInstance()
  * @model
  * @generated
  */
-public interface PropagationPathInstance extends EMV2InstanceObject {
+public interface OldPropagationPathInstance extends EMV2InstanceObject {
 	/**
 	 * Returns the value of the '<em><b>Emv2 Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Emv2 Element</em>' reference.
 	 * @see #setEmv2Element(NamedElement)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationPathInstance_Emv2Element()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOldPropagationPathInstance_Emv2Element()
 	 * @model
 	 * @generated
 	 */
 	NamedElement getEmv2Element();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PropagationPathInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OldPropagationPathInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Emv2 Element</em>' reference.
@@ -72,14 +72,14 @@ public interface PropagationPathInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
 	 * @see #setSource(ConstraintElement)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationPathInstance_Source()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOldPropagationPathInstance_Source()
 	 * @model
 	 * @generated
 	 */
 	ConstraintElement getSource();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PropagationPathInstance#getSource <em>Source</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OldPropagationPathInstance#getSource <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Source</em>' reference.
@@ -94,14 +94,14 @@ public interface PropagationPathInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Target</em>' reference.
 	 * @see #setTarget(ConstrainedInstanceObject)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationPathInstance_Target()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOldPropagationPathInstance_Target()
 	 * @model
 	 * @generated
 	 */
 	ConstrainedInstanceObject getTarget();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PropagationPathInstance#getTarget <em>Target</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OldPropagationPathInstance#getTarget <em>Target</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Target</em>' reference.
@@ -110,4 +110,4 @@ public interface PropagationPathInstance extends EMV2InstanceObject {
 	 */
 	void setTarget(ConstrainedInstanceObject value);
 
-} // PropagationPathInstance
+} // OldPropagationPathInstance

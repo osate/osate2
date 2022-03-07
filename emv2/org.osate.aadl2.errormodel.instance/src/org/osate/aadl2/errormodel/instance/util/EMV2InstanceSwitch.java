@@ -48,8 +48,8 @@ import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
-import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
@@ -359,20 +359,20 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: {
-			PropagationPathInstance propagationPathInstance = (PropagationPathInstance) theEObject;
-			T result = casePropagationPathInstance(propagationPathInstance);
+		case EMV2InstancePackage.OLD_PROPAGATION_PATH_INSTANCE: {
+			OldPropagationPathInstance oldPropagationPathInstance = (OldPropagationPathInstance) theEObject;
+			T result = caseOldPropagationPathInstance(oldPropagationPathInstance);
 			if (result == null) {
-				result = caseEMV2InstanceObject(propagationPathInstance);
+				result = caseEMV2InstanceObject(oldPropagationPathInstance);
 			}
 			if (result == null) {
-				result = caseInstanceObject(propagationPathInstance);
+				result = caseInstanceObject(oldPropagationPathInstance);
 			}
 			if (result == null) {
-				result = caseNamedElement(propagationPathInstance);
+				result = caseNamedElement(oldPropagationPathInstance);
 			}
 			if (result == null) {
-				result = caseElement(propagationPathInstance);
+				result = caseElement(oldPropagationPathInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1055,17 +1055,17 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Propagation Path Instance</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Old Propagation Path Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Propagation Path Instance</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Old Propagation Path Instance</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePropagationPathInstance(PropagationPathInstance object) {
+	public T caseOldPropagationPathInstance(OldPropagationPathInstance object) {
 		return null;
 	}
 
