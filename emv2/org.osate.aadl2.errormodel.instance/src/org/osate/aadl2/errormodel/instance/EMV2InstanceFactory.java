@@ -151,6 +151,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	PropagationPointInstance createPropagationPointInstance();
 
 	/**
+	 * Returns a new object of class '<em>Connection Path</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Connection Path</em>'.
+	 * @generated
+	 */
+	ConnectionPath createConnectionPath();
+
+	/**
 	 * Returns a new object of class '<em>Event Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

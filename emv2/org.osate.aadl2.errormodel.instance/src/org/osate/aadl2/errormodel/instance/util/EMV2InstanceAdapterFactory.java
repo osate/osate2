@@ -34,6 +34,7 @@ import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
@@ -51,6 +52,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
+import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
@@ -266,6 +268,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter casePropagationPointInstance(PropagationPointInstance object) {
 			return createPropagationPointInstanceAdapter();
+		}
+
+		@Override
+		public Adapter casePropagationPathInstance(PropagationPathInstance object) {
+			return createPropagationPathInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseConnectionPath(ConnectionPath object) {
+			return createConnectionPathAdapter();
 		}
 
 		@Override
@@ -500,6 +512,34 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPropagationPointInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.PropagationPathInstance <em>Propagation Path Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.PropagationPathInstance
+	 * @generated
+	 */
+	public Adapter createPropagationPathInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConnectionPath <em>Connection Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ConnectionPath
+	 * @generated
+	 */
+	public Adapter createConnectionPathAdapter() {
 		return null;
 	}
 

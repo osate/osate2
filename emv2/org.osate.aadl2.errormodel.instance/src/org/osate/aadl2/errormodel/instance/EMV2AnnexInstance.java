@@ -45,6 +45,7 @@ import org.osate.aadl2.instance.AnnexInstance;
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getOldPropagationPaths <em>Old Propagation Paths</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagations <em>Propagations</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagationPaths <em>Propagation Paths</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance()
@@ -181,5 +182,17 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	 * @generated
 	 */
 	EList<ErrorPropagationInstance> getPropagations();
+
+	/**
+	 * Returns the value of the '<em><b>Propagation Paths</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.PropagationPathInstance}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Propagation Paths</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_PropagationPaths()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<PropagationPathInstance> getPropagationPaths();
 
 } // EMV2AnnexInstance

@@ -34,6 +34,7 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
@@ -147,6 +148,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createErrorPathInstance();
 		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE:
 			return createPropagationPointInstance();
+		case EMV2InstancePackage.CONNECTION_PATH:
+			return createConnectionPath();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -316,6 +319,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public PropagationPointInstance createPropagationPointInstance() {
 		PropagationPointInstanceImpl propagationPointInstance = new PropagationPointInstanceImpl();
 		return propagationPointInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ConnectionPath createConnectionPath() {
+		ConnectionPathImpl connectionPath = new ConnectionPathImpl();
+		return connectionPath;
 	}
 
 	/**

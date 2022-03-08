@@ -42,6 +42,7 @@ import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
@@ -65,6 +66,7 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getOldPropagationPaths <em>Old Propagation Paths</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagations <em>Propagations</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPaths <em>Propagation Paths</em>}</li>
  * </ul>
  *
  * @generated
@@ -169,6 +171,16 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<ErrorPropagationInstance> propagations;
+
+	/**
+	 * The cached value of the '{@link #getPropagationPaths() <em>Propagation Paths</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPropagationPaths()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PropagationPathInstance> propagationPaths;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -380,6 +392,20 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @generated
 	 */
 	@Override
+	public EList<PropagationPathInstance> getPropagationPaths() {
+		if (propagationPaths == null) {
+			propagationPaths = new EObjectContainmentEList<>(PropagationPathInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS);
+		}
+		return propagationPaths;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
@@ -402,6 +428,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return ((InternalEList<?>) getOldPropagationPaths()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			return ((InternalEList<?>) getPropagations()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			return ((InternalEList<?>) getPropagationPaths()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -434,6 +462,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return getOldPropagationPaths();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			return getPropagations();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			return getPropagationPaths();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -486,6 +516,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			getPropagations().clear();
 			getPropagations().addAll((Collection<? extends ErrorPropagationInstance>) newValue);
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			getPropagationPaths().clear();
+			getPropagationPaths().addAll((Collection<? extends PropagationPathInstance>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -528,6 +562,9 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			getPropagations().clear();
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			getPropagationPaths().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -560,6 +597,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return oldPropagationPaths != null && !oldPropagationPaths.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			return propagations != null && !propagations.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
+			return propagationPaths != null && !propagationPaths.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
