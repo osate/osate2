@@ -48,7 +48,7 @@ public class AnnexInstantiationController extends ForAllElement {
 
 	private Set<String> allAnnexes = new HashSet<String>();
 
-	AnalysisErrorReporterManager errorManager;
+	private AnalysisErrorReporterManager errorManager;
 
 	AnnexInstantiationController(AnalysisErrorReporterManager errorManager) {
 		super();
