@@ -1,6 +1,6 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Issues setting up the devlopment environment?
+  - name: Devlopment Environment Problems
     url: https://groups.google.com/g/osate
     about: Please discuss problems with setting up a development environment on the mailing list before filing a bug report.
   - name: Ask a Question
