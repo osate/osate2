@@ -82,6 +82,7 @@ import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.annexsupport.AnnexInstantiator;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
@@ -122,7 +123,8 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	@Override
-	public void instantiateAnnex(ComponentInstance instance, String annexName) {
+	public void instantiateAnnex(ComponentInstance instance, String annexName,
+			AnalysisErrorReporterManager errorManager) {
 		EMV2AnnexInstance emv2AI = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
 		emv2AI.setName("EMV2");
 		instance.getAnnexInstances().add(emv2AI);
@@ -199,6 +201,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
+	@Override
+	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
+	}
 
 	private void instantiatePropagationPoint(PropagationPoint g, EMV2AnnexInstance annex) {
 		PropagationPointInstance gi = EMV2InstanceFactory.eINSTANCE.createPropagationPointInstance();

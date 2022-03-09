@@ -470,7 +470,7 @@ public class InstantiateModel {
 
 		// instantiation of annexes
 		monitor.subTask("Instantiating annexes");
-		AnnexInstantiationController aic = new AnnexInstantiationController();
+		AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
 		aic.instantiateAllAnnexes(root);
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();

@@ -25,6 +25,8 @@ package org.osate.annexsupport;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 /**
  * @author lwrage
@@ -46,13 +48,24 @@ public class AnnexInstantiatorProxy extends AnnexProxy implements AnnexInstantia
 	 * @since 2.0
 	 */
 	@Override
-	public void instantiateAnnex(ComponentInstance instance, String annexName) {
+	public void instantiateAnnex(ComponentInstance instance, String annexName,
+			AnalysisErrorReporterManager errorManager) {
 		AnnexInstantiator instantiator = getInstantiator();
 
 		if (instantiator == null) {
 			return;
 		}
-		instantiator.instantiateAnnex(instance, annexName);
+		instantiator.instantiateAnnex(instance, annexName, errorManager);
+	}
+
+	@Override
+	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
+		AnnexInstantiator instantiator = getInstantiator();
+
+		if (instantiator == null) {
+			return;
+		}
+		instantiator.instantiateAnnex(instance, annexName, errorManager);
 	}
 
 	private AnnexInstantiator getInstantiator() {
@@ -67,4 +80,5 @@ public class AnnexInstantiatorProxy extends AnnexProxy implements AnnexInstantia
 		}
 		return instantiator;
 	}
+
 }
