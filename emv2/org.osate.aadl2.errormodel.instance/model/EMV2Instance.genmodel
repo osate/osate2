@@ -154,9 +154,9 @@
     </genClasses>
     <genClasses image="false" ecoreClass="EMV2Instance.ecore#//PropagationPathInstance"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//ConnectionPath">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConnectionPath/connection"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConnectionPath/sourcePropagation"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConnectionPath/destinationPropagation"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConnectionPath/connection"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

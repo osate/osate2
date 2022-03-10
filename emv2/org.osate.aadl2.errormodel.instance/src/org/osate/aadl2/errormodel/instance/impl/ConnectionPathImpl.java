@@ -40,14 +40,24 @@ import org.osate.aadl2.instance.ConnectionInstance;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConnectionPathImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConnectionPathImpl#getSourcePropagation <em>Source Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConnectionPathImpl#getDestinationPropagation <em>Destination Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConnectionPathImpl#getConnection <em>Connection</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements ConnectionPath {
+	/**
+	 * The cached value of the '{@link #getConnection() <em>Connection</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnection()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConnectionInstance connection;
+
 	/**
 	 * The cached value of the '{@link #getSourcePropagation() <em>Source Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -67,16 +77,6 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @ordered
 	 */
 	protected FeaturePropagation destinationPropagation;
-
-	/**
-	 * The cached value of the '{@link #getConnection() <em>Connection</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getConnection()
-	 * @generated
-	 * @ordered
-	 */
-	protected ConnectionInstance connection;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -240,6 +240,11 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
+			if (resolve) {
+				return getConnection();
+			}
+			return basicGetConnection();
 		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION:
 			if (resolve) {
 				return getSourcePropagation();
@@ -250,11 +255,6 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 				return getDestinationPropagation();
 			}
 			return basicGetDestinationPropagation();
-		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
-			if (resolve) {
-				return getConnection();
-			}
-			return basicGetConnection();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -267,14 +267,14 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
+			setConnection((ConnectionInstance) newValue);
+			return;
 		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION:
 			setSourcePropagation((FeaturePropagation) newValue);
 			return;
 		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATION:
 			setDestinationPropagation((FeaturePropagation) newValue);
-			return;
-		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
-			setConnection((ConnectionInstance) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -288,14 +288,14 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
+			setConnection((ConnectionInstance) null);
+			return;
 		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION:
 			setSourcePropagation((FeaturePropagation) null);
 			return;
 		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATION:
 			setDestinationPropagation((FeaturePropagation) null);
-			return;
-		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
-			setConnection((ConnectionInstance) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -309,12 +309,12 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
+			return connection != null;
 		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION:
 			return sourcePropagation != null;
 		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATION:
 			return destinationPropagation != null;
-		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
-			return connection != null;
 		}
 		return super.eIsSet(featureID);
 	}

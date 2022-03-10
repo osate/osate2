@@ -34,9 +34,9 @@ import org.osate.aadl2.instance.ConnectionInstance;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getSourcePropagation <em>Source Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getDestinationPropagation <em>Destination Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getConnection <em>Connection</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath()
