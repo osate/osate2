@@ -38,4 +38,21 @@ public class ConnectionPathsTest {
 			assertEquals("in_f", connectionPath.getDestinationPropagation().getName());
 		});
 	}
+
+	@Test
+	public void testAcrossPathNotAtRoot() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "across_path_not_at_root_test.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var top = InstantiateModel.instantiate(system);
+		var middle = top.getComponentInstances().get(0);
+		var bottom = middle.getComponentInstances().get(0);
+		var annexInstance = (EMV2AnnexInstance) bottom.getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals("left.out_f -> right.in_f", connectionPath.getName());
+			assertEquals("left.out_f -> right.in_f", connectionPath.getConnection().getName());
+			assertEquals("out_f", connectionPath.getSourcePropagation().getName());
+			assertEquals("in_f", connectionPath.getDestinationPropagation().getName());
+		});
+	}
 }
