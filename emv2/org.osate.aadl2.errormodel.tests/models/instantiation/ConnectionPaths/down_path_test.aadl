@@ -1,0 +1,26 @@
+package down_path_test
+public
+	system s
+		features
+			system_in_f: in feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			ps: process ps;
+		connections
+			conn_1: feature system_in_f -> ps.process_in_f;
+	end s.i;
+	
+	process ps
+		features
+			process_in_f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				process_in_f: in propagation {ServiceError};
+			end propagations;
+		**};
+	end ps;
+end down_path_test;

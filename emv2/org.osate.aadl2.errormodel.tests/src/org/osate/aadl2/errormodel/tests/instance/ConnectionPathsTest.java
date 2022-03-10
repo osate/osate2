@@ -55,4 +55,20 @@ public class ConnectionPathsTest {
 			assertEquals("in_f", connectionPath.getDestinationPropagation().getName());
 		});
 	}
+
+	@Test
+	public void testDownPath() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "down_path_test.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		// Tests that down connection paths are not instantiated.
+		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+	}
+
+	@Test
+	public void testUpPath() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "up_path_test.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		// Tests that up connection paths are not instantiated.
+		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+	}
 }
