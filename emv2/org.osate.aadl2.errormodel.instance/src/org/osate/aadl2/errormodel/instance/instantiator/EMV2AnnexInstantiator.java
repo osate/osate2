@@ -203,6 +203,36 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	@Override
 	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
+		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(component -> {
+			for (var connection : component.getConnectionInstances()) {
+				if (connection.isComplete()) {
+					var source = connection.getSource();
+					var destination = connection.getDestination();
+					if (source instanceof FeatureInstance && destination instanceof FeatureInstance) {
+						var sourceFeature = (FeatureInstance) source;
+						var destinationFeature = (FeatureInstance) destination;
+						var sourcePropagation = findFeaturePropagation(sourceFeature);
+						var destinationPropagation = findFeaturePropagation(destinationFeature);
+						if (sourcePropagation != null && destinationPropagation != null
+								&& sourcePropagation.getDirection().outgoing()
+								&& destinationPropagation.getDirection().incoming()) {
+							var connectionPath = EMV2InstanceFactory.eINSTANCE.createConnectionPath();
+							connectionPath.setName(connection.getName());
+							connectionPath.setSourcePropagation(sourcePropagation);
+							connectionPath.setDestinationPropagation(destinationPropagation);
+							connectionPath.setConnection(connection);
+							var annex = findEMV2AnnexInstance(instance);
+							if (annex == null) {
+								annex = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
+								annex.setName("EMV2");
+								instance.getAnnexInstances().add(annex);
+							}
+							annex.getPropagationPaths().add(connectionPath);
+						}
+					}
+				}
+			}
+		});
 	}
 
 	private void instantiatePropagationPoint(PropagationPoint g, EMV2AnnexInstance annex) {
@@ -986,6 +1016,22 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (ErrorPropagationInstance epi : annex.getPropagations()) {
 			if (epi.getName().equalsIgnoreCase(declarativeName)) {
 				return epi;
+			}
+		}
+		return null;
+	}
+
+	private FeaturePropagation findFeaturePropagation(FeatureInstance feature) {
+		var annex = findEMV2AnnexInstance(EcoreUtil2.getContainerOfType(feature, ComponentInstance.class));
+		if (annex == null) {
+			return null;
+		}
+		for (var propagation : annex.getPropagations()) {
+			if (propagation instanceof FeaturePropagation) {
+				var featurePropagation = (FeaturePropagation) propagation;
+				if (featurePropagation.getFeature() == feature) {
+					return featurePropagation;
+				}
 			}
 		}
 		return null;

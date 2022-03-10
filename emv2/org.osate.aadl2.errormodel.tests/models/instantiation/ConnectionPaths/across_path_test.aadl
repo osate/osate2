@@ -1,0 +1,37 @@
+package across_path_test
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			left: process left_process;
+			right: process right_process;
+		connections
+			conn_1: feature left.out_f -> right.in_f;
+	end s.i;
+	
+	process left_process
+		features
+			out_f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				out_f: out propagation {ServiceError};
+			end propagations;
+		**};
+	end left_process;
+	
+	process right_process
+		features
+			in_f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				in_f: in propagation {ServiceError};
+			end propagations;
+		**};
+	end right_process;
+end across_path_test;
