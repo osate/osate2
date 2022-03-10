@@ -1,0 +1,68 @@
+package feature_in_multiple_feature_groups_test
+public
+	system s
+	end s;
+
+	system implementation s.i
+		subcomponents
+			left: process left_process;
+			right: process right_process;
+		connections
+			conn_1: feature left.left_feature_group_1.left_feature_group_2.left_feature_group_3.out_f ->
+				right.right_feature_group_1.right_feature_group_2.right_feature_group_3.in_f;
+	end s.i;
+
+	process left_process
+		features
+			left_feature_group_1: feature group left_feature_group_1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				left_feature_group_1.left_feature_group_2.left_feature_group_3.out_f: out propagation {ServiceError};
+			end propagations;
+		**};
+	end left_process;
+
+	feature group left_feature_group_1
+		features
+			left_feature_group_2: feature group left_feature_group_2;
+	end left_feature_group_1;
+
+	feature group left_feature_group_2
+		features
+			left_feature_group_3: feature group left_feature_group_3;
+	end left_feature_group_2;
+
+	feature group left_feature_group_3
+		features
+			out_f: out feature;
+	end left_feature_group_3;
+
+	process right_process
+		features
+			right_feature_group_1: feature group right_feature_group_1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				right_feature_group_1.right_feature_group_2.right_feature_group_3.in_f: in propagation {ServiceError};
+			end propagations;
+		**};
+	end right_process;
+
+	feature group right_feature_group_1
+		features
+			right_feature_group_2: feature group right_feature_group_2;
+	end right_feature_group_1;
+
+	feature group right_feature_group_2
+		features
+			right_feature_group_3: feature group right_feature_group_3;
+	end right_feature_group_2;
+
+	feature group right_feature_group_3
+		features
+			in_f: in feature;
+	end right_feature_group_3;
+end feature_in_multiple_feature_groups_test;
