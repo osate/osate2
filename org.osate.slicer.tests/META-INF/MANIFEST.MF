@@ -13,4 +13,5 @@ Require-Bundle: org.eclipse.xtext.testing,
  org.osate.aadl2.instantiation,
  org.osate.slicer,
  org.jgrapht,
- org.osate.aadl2.errormodel.instance
+ org.osate.aadl2.errormodel.instance,
+ org.osate.xtext.aadl2.errormodel

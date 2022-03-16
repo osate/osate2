@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -69,7 +69,7 @@ public class BasicEndToEndFlowTests {
 		SystemImplementation impl = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		si = InstantiateModel.instantiate(impl);
 		tlg.buildGraph(si);
-
+		
 		vertices = new String[12];
 		vertices[0] = "sys_impl_Instance.a1.o";
 		vertices[1] = "sys_impl_Instance.a2.o";
@@ -114,15 +114,15 @@ public class BasicEndToEndFlowTests {
 	@Test
 	public void testSuccessfulForwardReach() {
 		Collection<EObject> c = tlg
-				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.a3", ComponentCategory.ABSTRACT, si, tlg));
+				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.a3", ComponentCategory.ABSTRACT, si));
 
 		assertEquals("Number of elements in forward reach", 3, c.size());
 		assertTrue("Element sys_impl_Instance.a3 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a3", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a3", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.b not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.c1 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c1", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c1", ComponentCategory.ABSTRACT, si)));
 	}
 
 	@Test
@@ -154,13 +154,13 @@ public class BasicEndToEndFlowTests {
 	@Test
 	public void testDeadendForwardReach() {
 		Collection<EObject> c = tlg
-				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.a2", ComponentCategory.ABSTRACT, si, tlg));
+				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.a2", ComponentCategory.ABSTRACT, si));
 
 		assertEquals("Number of elements in forward reach", 2, c.size());
 		assertTrue("Element sys_impl_Instance.a3 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a2", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a2", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.b not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si)));
 	}
 
 	@Test
@@ -194,15 +194,15 @@ public class BasicEndToEndFlowTests {
 	@Test
 	public void testSuccessfulBackwardReach() {
 		Collection<EObject> c = tlg
-				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.c1", ComponentCategory.ABSTRACT, si, tlg));
+				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.c1", ComponentCategory.ABSTRACT, si));
 
 		assertEquals("Number of elements in forward reach", 3, c.size());
 		assertTrue("Element sys_impl_Instance.a3 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a3", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a3", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.b not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.c1 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c1", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c1", ComponentCategory.ABSTRACT, si)));
 	}
 
 	@Test
@@ -234,12 +234,12 @@ public class BasicEndToEndFlowTests {
 	@Test
 	public void testDeadendBackwardReach() {
 		Collection<EObject> c = tlg
-				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.c2", ComponentCategory.ABSTRACT, si, tlg));
+				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.c2", ComponentCategory.ABSTRACT, si));
 
 		assertEquals("Number of elements in forward reach", 2, c.size());
 		assertTrue("Element sys_impl_Instance.a3 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c2", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c2", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.b not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si)));
 	}
 }

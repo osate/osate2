@@ -45,14 +45,15 @@ import org.jgrapht.nio.dot.DOTExporter;
 import org.jgrapht.traverse.BreadthFirstIterator;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
+import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
-import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -110,21 +111,28 @@ public class SlicerRepresentation {
 	 * Switch used to traverse instance model that gets passed in
 	 */
 	private SlicerSwitch coreSwitch = new SlicerSwitch();
+
+	/**
+	 * Switch used to traverse EMV2 instance model
+	 */
 	private Emv2SlicerSwitch emv2Switch = new Emv2SlicerSwitch();
 
-	// XXX Delete this when the EMV2 / Core instantiator stuff gets figured out
+	/**
+	 * EMV2-derived edges are sometimes discovered prior to the vertices they connect, so
+	 * we cache them in this for addition after all vertices have been added
+	 */
 	private Map<String, String> laggingEdges = new HashMap<>();
 
 	public void buildGraph(SystemInstance si) {
-		// Add vertices and explicit edges
+		// Add vertices and explicit edges from core AADL
 		EcoreUtil.getAllContents(si.eResource(), true).forEachRemaining(elem -> {
 			coreSwitch.doSwitch((Element) elem);
 		});
 
+		// Add vertices and edges from EMV2 instance
 		EcoreUtil.getAllContents(si.eResource(), true).forEachRemaining(elem -> {
 			emv2Switch.doSwitch((Element) elem);
 		});
-
 		laggingEdges.entrySet().forEach(e -> addEdge(e.getKey(), e.getValue()));
 
 		// Add implicit edges
@@ -138,33 +146,50 @@ public class SlicerRepresentation {
 	}
 
 	/**
-	 * Adds a new vertex by the given name to the graph.
+	 * Adds a new vertex that represents the supplied feature.
 	 *
-	 * @param name The name of the new vertex
-	 * @param eObject
+	 * @param feat The feature
 	 */
-	public void addVertex(String name, EObject eObject) {
+	public void addVertex(FeatureInstance feat) {
+		var name = feat.getInstanceObjectPath();
 		if (vertexMap.containsKey(name)) {
 			return; // No duplicates allowed
 		}
-		OsateSlicerVertex v = new OsateSlicerVertex(name, eObject);
+		OsateSlicerVertex v = new OsateSlicerVertex(feat);
 		g.addVertex(v);
 		vertexMap.put(name, v);
 	}
 
 	/**
-	 * Adds a new vertex by the given name to the graph.
+	 * Adds a new vertex that represents the given type set at the given vertex
 	 *
-	 * @param name The name of the new vertex
-	 * @param tse The error type associated with the vertex, or null if none
-	 * @param eObject The container of the vertex
+	 * @param feat The feature
+	 * @param ats The error(s) propagated into or out of this feature
 	 */
-	public void addVertex(String name, TypeSetElement tse, EObject eObject) {
-		if ((tse == null && vertexMap.containsKey(name))
-				|| (tse != null && vertexMap.containsKey(name + "." + tse.getFullName()))) {
+	public void addVertex(FeatureInstance feat, AnonymousTypeSet ats) {
+		var name = feat.getInstanceObjectPath();
+		if ((ats == null && vertexMap.containsKey(name))
+				|| (ats != null && vertexMap.containsKey(name + "." + ats.getFullName()))) {
 			return; // No duplicates allowed
 		}
-		OsateSlicerVertex v = new OsateSlicerVertex(name, tse, eObject);
+		OsateSlicerVertex v = new OsateSlicerVertex(feat, ats);
+		g.addVertex(v);
+		vertexMap.put(v.getName(), v);
+	}
+
+	/**
+	 * Adds a new vertex that represents the given type set at the given error source or sink
+	 *
+	 * @param efi An error source or sink
+	 * @param ats The error(s) propagated into or out by this sink or source
+	 */
+	public void addVertex(ErrorFlowInstance efi, AnonymousTypeSet ats) {
+		var name = efi.getInstanceObjectPath().replace(".EMV2", "");
+		if ((ats == null && vertexMap.containsKey(name))
+				|| (ats != null && vertexMap.containsKey(name + "." + ats.getFullName()))) {
+			return; // No duplicates allowed
+		}
+		OsateSlicerVertex v = new OsateSlicerVertex(efi, ats);
 		g.addVertex(v);
 		vertexMap.put(v.getName(), v);
 	}
@@ -192,6 +217,42 @@ public class SlicerRepresentation {
 				retSet.add(v.getContainer());
 			});
 		}
+		return retSet;
+	}
+
+	/**
+	 * Calculates reachable features from the supplied feature
+	 *
+	 * @param feature Where to start the forward slice from
+	 * @return The set of reachable features
+	 */
+	public Collection<FeatureInstance> forwardReach(FeatureInstance feature) {
+		Set<FeatureInstance> retSet = new HashSet<>();
+		forwardReachability(feature.getInstanceObjectPath()).vertexSet().forEach(v -> {
+			// Features without errors can't connect to error sinks (or sources) so this is safe
+			retSet.add((FeatureInstance) v.getFeatOrErrorFlow());
+		});
+		return retSet;
+	}
+
+	/**
+	 * Calculates reachable feature / error sinks or sources from the supplied feature / error type
+	 *
+	 * @param feature Where to start the forward slice from. Must be a feature, error sink, or error source instance
+	 * @param ats The error type that is propagated into / out of the feature to start from
+	 * @return The set of reachable features and errors
+	 */
+	public Collection<IObjErrorPair> forwardReach(InstanceObject featOrEFI, AnonymousTypeSet ats) {
+		if (!(featOrEFI instanceof FeatureInstance || featOrEFI instanceof ErrorSourceInstance
+				|| featOrEFI instanceof ErrorSinkInstance)) {
+			System.err.println("Unsupported InstanceObject " + featOrEFI.getInstanceObjectPath()
+					+ " used in forward reachability query!");
+			return Collections.emptySet();
+		}
+		Set<IObjErrorPair> retSet = new HashSet<>();
+		forwardReachability(featOrEFI.getInstanceObjectPath() + "." + ats.getFullName()).vertexSet().forEach(v -> {
+			retSet.add(new IObjErrorPair(v.getFeatOrErrorFlow(), v.getErrorATS()));
+		});
 		return retSet;
 	}
 
@@ -277,7 +338,7 @@ public class SlicerRepresentation {
 	 * @return A string which can be input to graphviz
 	 */
 	public String toDot() {
-		DOTExporter<OsateSlicerVertex, DefaultEdge> exporter = new DOTExporter<>(v -> v.getName().replace('.', '_'));
+		DOTExporter<OsateSlicerVertex, DefaultEdge> exporter = new DOTExporter<>(v -> "\"" + v.getName() + "\"");
 		Writer writer = new StringWriter();
 		exporter.exportGraph(g, writer);
 		return writer.toString();
@@ -295,22 +356,20 @@ public class SlicerRepresentation {
 			var fi = fp.getFeature();
 			var fullFeatureName = fi.getInstanceObjectPath();
 			var fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
-			Collection<TypeSetElement> tses = Collections.emptySet();
 			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
 				if (!inFeats.containsKey(fullContainerName)) {
 					inFeats.put(fullContainerName, new HashSet<String>());
 				}
 				inFeats.get(fullContainerName).add(fullFeatureName);
-				tses = fp.getInTypeSet().getElements();
+				addVertex(fi, fp.getInTypeSet());
 			}
 			if (fi.getDirection() == DirectionType.OUT || fi.getDirection() == DirectionType.IN_OUT) {
 				if (!outFeats.containsKey(fullContainerName)) {
 					outFeats.put(fullContainerName, new HashSet<String>());
 				}
 				outFeats.get(fullContainerName).add(fullFeatureName);
-				tses = fp.getOutTypeSet().getElements();
+				addVertex(fi, fp.getOutTypeSet());
 			}
-			tses.forEach(t -> addVertex(fullFeatureName, t, fi.eContainer()));
 			return null;
 		}
 
@@ -318,11 +377,9 @@ public class SlicerRepresentation {
 		public Void caseErrorSourceInstance(ErrorSourceInstance esi) {
 			var srcName = esi.getInstanceObjectPath().replace(".EMV2", "");
 			var srcTypes = esi.getTypeSet();
-			var eContainer = esi.eContainer().eContainer();
 			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
-			srcTypes.getElements().forEach(t -> addVertex(srcName, t, eContainer));
-			srcTypes.getElements()
-					.forEach(t -> laggingEdges.put(srcName + "." + t.getFullName(), propName + "." + t.getFullName()));
+			addVertex(esi, srcTypes);
+			laggingEdges.put(srcName + "." + srcTypes.getFullName(), propName + "." + srcTypes.getFullName());
 			return null;
 		}
 
@@ -330,11 +387,9 @@ public class SlicerRepresentation {
 		public Void caseErrorSinkInstance(ErrorSinkInstance esi) {
 			var dstName = esi.getInstanceObjectPath().replace(".EMV2", "");
 			var dstTypes = esi.getTypeSet();
-			var eContainer = esi.eContainer().eContainer();
 			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
-			dstTypes.getElements().forEach(t -> addVertex(dstName, t, eContainer));
-			dstTypes.getElements()
-					.forEach(t -> laggingEdges.put(propName + "." + t.getFullName(), dstName + "." + t.getFullName()));
+			addVertex(esi, dstTypes);
+			laggingEdges.put(propName + "." + dstTypes.getFullName(), dstName + "." + dstTypes.getFullName());
 			return null;
 		}
 
@@ -342,9 +397,10 @@ public class SlicerRepresentation {
 		public Void caseErrorPathInstance(ErrorPathInstance epi) {
 			var srcVrt = epi.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "");
 			Set<String> srcVrts = new HashSet<>();
-			epi.getSourceTypeSet().getElements().forEach(e -> srcVrts.add(srcVrt + "." + e.getFullName()));
-			var dstVrt = epi.getDestinationPropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
-					+ epi.getDestinationTypeToken().getFullName();
+			srcVrts.add(srcVrt + "." + epi.getSourceTypeSet().getFullName());
+			// The brackets here seem like a stupid hack but they work, and a cleaner way isn't immediately obvious
+			var dstVrt = epi.getDestinationPropagation().getInstanceObjectPath().replace(".EMV2", "") + "." + "{"
+					+ epi.getDestinationTypeToken().getFullName() + "}";
 			laggingEdges.put(srcVrts.iterator().next(), dstVrt);
 			return null;
 		}
@@ -355,17 +411,10 @@ public class SlicerRepresentation {
 			var dst = ppi.getTarget();
 			if (src instanceof ErrorPropagationInstance && dst instanceof ErrorPropagationInstance) {
 				var srcVrt = src.getInstanceObjectPath().replace(".EMV2", "");
-				Set<String> srcVrts = new HashSet<>();
-				((ErrorPropagationInstance) src).getOutTypeSet()
-						.getElements()
-						.forEach(e -> srcVrts.add(srcVrt + "." + e.getFullName()));
-
+				srcVrt += "." + (((ErrorPropagationInstance) src).getOutTypeSet()).getFullName();
 				var dstVrt = dst.getInstanceObjectPath().replace(".EMV2", "");
-				Set<String> dstVrts = new HashSet<>();
-				((ErrorPropagationInstance) dst).getInTypeSet()
-						.getElements()
-						.forEach(e -> dstVrts.add(dstVrt + "." + e.getFullName()));
-				laggingEdges.put(srcVrts.iterator().next(), dstVrts.iterator().next());
+				dstVrt += "." + (((ErrorPropagationInstance) dst).getInTypeSet()).getFullName();
+				laggingEdges.put(srcVrt, dstVrt);
 			}
 			return null;
 		}
@@ -381,7 +430,7 @@ public class SlicerRepresentation {
 		public Void caseFeatureInstance(FeatureInstance fi) {
 			var fullFeatureName = fi.getInstanceObjectPath();
 			String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
-			addVertex(fullFeatureName, fi.eContainer());
+			addVertex(fi);
 			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
 				if (!inFeats.containsKey(fullContainerName)) {
 					inFeats.put(fullContainerName, new HashSet<String>());

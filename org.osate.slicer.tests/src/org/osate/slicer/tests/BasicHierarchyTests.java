@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -105,17 +105,17 @@ public class BasicHierarchyTests {
 	@Test
 	public void testForwardReach() {
 		Collection<EObject> c = tlg
-				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.p1", ComponentCategory.PROCESS, si, tlg));
+				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.p1", ComponentCategory.PROCESS, si));
 
 		assertEquals("Number of elements in forward reach", 4, c.size());
 		assertTrue("Element sys_impl_Instance.p1 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p1", ComponentCategory.PROCESS, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p1", ComponentCategory.PROCESS, si)));
 		assertTrue("Element sys_impl_Instance.p2 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p2", ComponentCategory.PROCESS, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p2", ComponentCategory.PROCESS, si)));
 		assertTrue("Element sys_impl_Instance.p2.t1 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p2.t1", ComponentCategory.THREAD, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p2.t1", ComponentCategory.THREAD, si)));
 		assertTrue("Element sys_impl_Instance.p3 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p3", ComponentCategory.PROCESS, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p3", ComponentCategory.PROCESS, si)));
 	}
 
 	@Test
@@ -140,16 +140,16 @@ public class BasicHierarchyTests {
 	@Test
 	public void testBackwardReach() {
 		Collection<EObject> c = tlg
-				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.p3", ComponentCategory.PROCESS, si, tlg));
+				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.p3", ComponentCategory.PROCESS, si));
 
 		assertEquals("Number of elements in backward reach", 4, c.size());
 		assertTrue("Element sys_impl_Instance.p1 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p1", ComponentCategory.PROCESS, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p1", ComponentCategory.PROCESS, si)));
 		assertTrue("Element sys_impl_Instance.p2 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p2", ComponentCategory.PROCESS, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p2", ComponentCategory.PROCESS, si)));
 		assertTrue("Element sys_impl_Instance.p2.t1 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p2.t1", ComponentCategory.THREAD, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p2.t1", ComponentCategory.THREAD, si)));
 		assertTrue("Element sys_impl_Instance.p3 not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p3", ComponentCategory.PROCESS, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.p3", ComponentCategory.PROCESS, si)));
 	}
 }

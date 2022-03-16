@@ -38,6 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.instance.SystemInstance;
@@ -66,36 +67,48 @@ public class BasicErrorFlowTests {
 		var pkg = myTestHelper.parseFile("org.osate.slicer.tests/aadl-models/BasicErrorFlow.aadl");
 		var impl = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		si = InstantiateModel.instantiate(impl);
-		var annexInstance = (EMV2AnnexInstance) si.getAnnexInstances().get(0);
 		tlg.buildGraph(si);
 
-		vertices = new String[8];
-		vertices[0] = "sys_impl_Instance.p1.pIn";
-		vertices[1] = "sys_impl_Instance.p1.pOut";
-		vertices[2] = "sys_impl_Instance.p2.pIn";
-		vertices[3] = "sys_impl_Instance.p2.t1.tIn";
-		vertices[4] = "sys_impl_Instance.p2.t1.tOut";
-		vertices[5] = "sys_impl_Instance.p2.pOut";
-		vertices[6] = "sys_impl_Instance.p3.pIn";
-		vertices[7] = "sys_impl_Instance.p3.pOut";
+		vertices = new String[6];
+		vertices[0] = "sys_impl_Instance.a.o1TimingSrc.{ItemTimingError}";
+		vertices[1] = "sys_impl_Instance.a.o1.{ItemTimingError}";
+		vertices[2] = "sys_impl_Instance.b.i1.{ItemTimingError}";
+		vertices[3] = "sys_impl_Instance.b.o3.{ItemTimingError}";
+		vertices[4] = "sys_impl_Instance.c.i3.{ItemTimingError}";
+		vertices[5] = "sys_impl_Instance.c.o3TimingSink.{ItemTimingError}";
 	}
 
 	@Test
 	public void testForwardReachability() {
-		AbstractGraph<OsateSlicerVertex, DefaultEdge> g = tlg.forwardReachability("sys_impl_Instance.p1.pOut");
+		AbstractGraph<OsateSlicerVertex, DefaultEdge> g = tlg.forwardReachability(vertices[2]);
 		Map<String, OsateSlicerVertex> m = g.vertexSet() // Can't query the set directly, so derive a map
 				.stream()
 				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
 
-		assertEquals("Number of vertices in forward reach", 7, g.vertexSet().size());
+		assertEquals("Number of vertices in forward reach", 4, g.vertexSet().size());
 		assertTrue("Wrong vertices found in forward reach subgraph",
-				m.keySet().containsAll(Arrays.asList(vertices).subList(1, 8)));
+				m.keySet().containsAll(Arrays.asList(vertices).subList(2, 6)));
 
-		// Should have six edges connecting the vertices in a linear path
-		assertEquals("Number of edges in forward reach", 6, g.edgeSet().size());
-		for (int i = 1; i < 7; i++) {
+		// Should have three edges connecting the vertices in a linear path
+		assertEquals("Number of edges in forward reach", 3, g.edgeSet().size());
+		for (int i = 2; i < 4; i++) {
 			assertTrue("Edge " + vertices[i] + " -> " + vertices[i + 1] + " doesn't exist!",
 					g.containsEdge(m.get(vertices[i]), m.get(vertices[i + 1])));
 		}
+	}
+
+	@Test
+	public void testSuccessfulForwardReach() {
+		var component = SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si);
+		var feature = component.getFeatureInstances()
+				.stream()
+				.filter(c -> c.getFullName().equalsIgnoreCase("i1"))
+				.findFirst()
+				.get();
+		var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
+		var typeSet = annexInstance.getPropagations().get(0).getInTypeSet();
+		var reachableComponents = tlg.forwardReach(feature, typeSet);
+		assertEquals("Number of elements in forward reach", 4, reachableComponents.size());
+		// TODO: Probably should test the elements contained here. Use Joe's JUnit 5 code?
 	}
 }

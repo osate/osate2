@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -94,14 +94,14 @@ public class SuperBasicTests {
 	@Test
 	public void testForwardReach() {
 		Collection<EObject> c = tlg
-				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg));
+				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si));
 
 		// Should have two elements: b and c
 		assertEquals("Number of elements in forward reach", 2, c.size());
 		assertTrue("Element sys_impl_Instance.b not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.c not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c", ComponentCategory.ABSTRACT, si)));
 	}
 
 	@Test
@@ -131,13 +131,13 @@ public class SuperBasicTests {
 	@Test
 	public void testBackwardReach() {
 		Collection<EObject> c = tlg
-				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg));
+				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si));
 
 		// Should have two elements: a and b
 		assertEquals("Number of elements in backward reach", 2, c.size());
 		assertTrue("Element sys_impl_Instance.a not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.b not found",
-				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg)));
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si)));
 	}
 }

@@ -24,11 +24,20 @@
 package org.osate.slicer;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.errormodel.instance.TypeSetElement;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
+import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.InstanceObject;
 
 /**
- * The vertex type used by the slicer. See the
- * <a href="https://jgrapht.org/guide/VertexAndEdgeTypes#vertices-as-pointers">
+ * The vertex type used by the slicer.
+ *
+ * A vertex represents a feature, error source, or error sink and optionally error(s) propagating into or out of
+ * the feature / source / sink. Not all features will have error information, but all sources and sinks will.
+ *
+ * See the <a href="https://jgrapht.org/guide/VertexAndEdgeTypes#vertices-as-pointers">
  * JGRaphT Docs</a> for additional explanation of the structure
  *
  * @author sprocter
@@ -36,42 +45,67 @@ import org.osate.aadl2.errormodel.instance.TypeSetElement;
 public class OsateSlicerVertex {
 
 	/**
-	 * A globally unique name for the vertex
+	 * A name for the vertex. Combined with errorATS, should be globally unique, ie, a primary key
 	 */
-	final private String featureName;
-
-	final private TypeSetElement errorTSE;
+	final private String name;
 
 	/**
-	 * The container for the port represented by this vertex
+	 * The error(s) associated with this vertex. Combined with the name, should be globally unique, ie, a primary key.
+	 * If null, that means no errors are associated with the vertex.
 	 */
-	final private EObject container;
+	final private AnonymousTypeSet errorATS;
 
 	/**
-	 * Make a new vertex with the given name
-	 * @param featureName The feature's name
-	 * @param container The container for the feature
+	 * The feature the vertex represents. If null, {@link #efi} must be set
 	 */
-	public OsateSlicerVertex(String featureName, EObject container) {
-		this.featureName = featureName;
-		this.errorTSE = null;
-		this.container = container;
+	final private FeatureInstance feat;
+
+	/**
+	 * The error source or sink the vertex represents. If null, {@link #feat} must be set
+	 */
+	final private ErrorFlowInstance efi;
+
+	/**
+	 * Create a new vertex with the supplied feature, but no error type information
+	 * @param feat The feature the vertex represents
+	 */
+	public OsateSlicerVertex(FeatureInstance feat) {
+		this.name = feat.getInstanceObjectPath();
+		this.errorATS = null;
+		this.feat = feat;
+		this.efi = null;
 	}
 
 	/**
-	 * Make a new vertex with the given name
-	 * @param featureName The feature's name
-	 * @param errorTSE The TypeSetElement associated with this vertex, or null
-	 * @param container The container for the feature
+	 * Create a new vertex with the supplied feature and error type information
+	 * @param feat The feature the vertex represents
+	 * @param errorATS The error(s) the vertex represents
 	 */
-	public OsateSlicerVertex(String featureName, TypeSetElement errorTSE, EObject container) {
-		this.featureName = featureName;
-		this.errorTSE = errorTSE;
-		this.container = container;
+	public OsateSlicerVertex(FeatureInstance feat, AnonymousTypeSet errorATS) {
+		this.name = feat.getInstanceObjectPath();
+		this.errorATS = errorATS;
+		this.feat = feat;
+		this.efi = null;
+	}
+
+	/**
+	 * Create a new vertex with the supplied error source or sink and error type information
+	 * @param efi The error source or sink the vertex represents
+	 * @param errorATS The error(s) the vertex represents
+	 */
+	public OsateSlicerVertex(ErrorFlowInstance efi, AnonymousTypeSet errorATS) {
+		if (!(efi instanceof ErrorSourceInstance || efi instanceof ErrorSinkInstance)) {
+			System.err.println("OsateSlicerVertex created with non-source/sink Error Flow Instance! "
+					+ efi.getInstanceObjectPath());
+		}
+		this.name = efi.getInstanceObjectPath().replace(".EMV2", "");
+		this.errorATS = errorATS;
+		this.feat = null;
+		this.efi = efi;
 	}
 
 	public EObject getContainer() {
-		return container;
+		return feat.eContainer();
 	}
 
 	@Override
@@ -90,18 +124,22 @@ public class OsateSlicerVertex {
 	}
 
 	public String getName() {
-		if (errorTSE != null) {
-			return featureName + "." + errorTSE.getFullName();
+		if (errorATS != null) {
+			return name + "." + errorATS.getFullName();
 		} else {
-			return featureName;
+			return name;
 		}
 	}
 
-	public String getFeatureName() {
-		return featureName;
+	public AnonymousTypeSet getErrorATS() {
+		return errorATS;
 	}
 
-	public TypeSetElement getErrorTSE() {
-		return errorTSE;
+	public InstanceObject getFeatOrErrorFlow() {
+		if(feat != null) {
+			return feat;
+		} else {
+			return efi;
+		}
 	}
 }

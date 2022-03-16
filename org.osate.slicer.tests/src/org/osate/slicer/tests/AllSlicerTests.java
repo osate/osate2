@@ -28,7 +28,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ SuperBasicTests.class, BasicHierarchyTests.class, BasicEndToEndFlowTests.class })
+@SuiteClasses({ SuperBasicTests.class, BasicHierarchyTests.class, BasicEndToEndFlowTests.class,
+		BasicErrorFlowTests.class })
 public class AllSlicerTests {
 
 }
