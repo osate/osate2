@@ -1,13 +1,18 @@
 package org.osate.aadl2.errormodel.tests.instance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.osate.testsupport.ScopeFunctions.with;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
@@ -34,8 +39,16 @@ public class ConnectionPathsTest {
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
 			assertEquals("left.out_f -> right.in_f", connectionPath.getName());
 			assertEquals("left.out_f -> right.in_f", connectionPath.getConnection().getName());
-			assertEquals("out_f", connectionPath.getSourcePropagation().getName());
-			assertEquals("in_f", connectionPath.getDestinationPropagation().getName());
+			assertIterableEquals(List.of("out_f"),
+					connectionPath.getSourcePropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
+			assertIterableEquals(List.of("in_f"),
+					connectionPath.getDestinationPropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
 		});
 	}
 
@@ -51,8 +64,16 @@ public class ConnectionPathsTest {
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
 			assertEquals("left.out_f -> right.in_f", connectionPath.getName());
 			assertEquals("left.out_f -> right.in_f", connectionPath.getConnection().getName());
-			assertEquals("out_f", connectionPath.getSourcePropagation().getName());
-			assertEquals("in_f", connectionPath.getDestinationPropagation().getName());
+			assertIterableEquals(List.of("out_f"),
+					connectionPath.getSourcePropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
+			assertIterableEquals(List.of("in_f"),
+					connectionPath.getDestinationPropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
 		});
 	}
 
@@ -82,8 +103,16 @@ public class ConnectionPathsTest {
 			assertEquals("left.left_feature_group.out_f -> right.right_feature_group.in_f", connectionPath.getName());
 			assertEquals("left.left_feature_group.out_f -> right.right_feature_group.in_f",
 					connectionPath.getConnection().getName());
-			assertEquals("left_feature_group.out_f", connectionPath.getSourcePropagation().getName());
-			assertEquals("right_feature_group.in_f", connectionPath.getDestinationPropagation().getName());
+			assertIterableEquals(List.of("left_feature_group.out_f"),
+					connectionPath.getSourcePropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
+			assertIterableEquals(List.of("right_feature_group.in_f"),
+					connectionPath.getDestinationPropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
 		});
 	}
 
@@ -100,10 +129,16 @@ public class ConnectionPathsTest {
 			assertEquals(
 					"left.left_feature_group_1.left_feature_group_2.left_feature_group_3.out_f -> right.right_feature_group_1.right_feature_group_2.right_feature_group_3.in_f",
 					connectionPath.getConnection().getName());
-			assertEquals("left_feature_group_1.left_feature_group_2.left_feature_group_3.out_f",
-					connectionPath.getSourcePropagation().getName());
-			assertEquals("right_feature_group_1.right_feature_group_2.right_feature_group_3.in_f",
-					connectionPath.getDestinationPropagation().getName());
+			assertIterableEquals(List.of("left_feature_group_1.left_feature_group_2.left_feature_group_3.out_f"),
+					connectionPath.getSourcePropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
+			assertIterableEquals(List.of("right_feature_group_1.right_feature_group_2.right_feature_group_3.in_f"),
+					connectionPath.getDestinationPropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
 		});
 	}
 
@@ -116,8 +151,16 @@ public class ConnectionPathsTest {
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
 			assertEquals("left.out_fg -> right.in_fg", connectionPath.getName());
 			assertEquals("left.out_fg -> right.in_fg", connectionPath.getConnection().getName());
-			assertEquals("out_fg", connectionPath.getSourcePropagation().getName());
-			assertEquals("in_fg", connectionPath.getDestinationPropagation().getName());
+			assertIterableEquals(List.of("out_fg"),
+					connectionPath.getSourcePropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
+			assertIterableEquals(List.of("in_fg"),
+					connectionPath.getDestinationPropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
 		});
 	}
 
@@ -130,20 +173,44 @@ public class ConnectionPathsTest {
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
 			assertEquals("left.out_fg.f_1 -> right.in_fg.f_1", connectionPath.getName());
 			assertEquals("left.out_fg.f_1 -> right.in_fg.f_1", connectionPath.getConnection().getName());
-			assertEquals("out_fg.f_1", connectionPath.getSourcePropagation().getName());
-			assertEquals("in_fg.f_1", connectionPath.getDestinationPropagation().getName());
+			assertIterableEquals(List.of("out_fg.f_1"),
+					connectionPath.getSourcePropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
+			assertIterableEquals(List.of("in_fg.f_1"),
+					connectionPath.getDestinationPropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
 		});
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(1), connectionPath -> {
 			assertEquals("left.out_fg.f_2 -> right.in_fg.f_2", connectionPath.getName());
 			assertEquals("left.out_fg.f_2 -> right.in_fg.f_2", connectionPath.getConnection().getName());
-			assertEquals("out_fg.f_2", connectionPath.getSourcePropagation().getName());
-			assertEquals("in_fg.f_2", connectionPath.getDestinationPropagation().getName());
+			assertIterableEquals(List.of("out_fg.f_2"),
+					connectionPath.getSourcePropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
+			assertIterableEquals(List.of("in_fg.f_2"),
+					connectionPath.getDestinationPropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
 		});
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(2), connectionPath -> {
 			assertEquals("left.out_fg.f_3 -> right.in_fg.f_3", connectionPath.getName());
 			assertEquals("left.out_fg.f_3 -> right.in_fg.f_3", connectionPath.getConnection().getName());
-			assertEquals("out_fg.f_3", connectionPath.getSourcePropagation().getName());
-			assertEquals("in_fg.f_3", connectionPath.getDestinationPropagation().getName());
+			assertIterableEquals(List.of("out_fg.f_3"),
+					connectionPath.getSourcePropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
+			assertIterableEquals(List.of("in_fg.f_3"),
+					connectionPath.getDestinationPropagations()
+							.stream()
+							.map(NamedElement::getName)
+							.collect(Collectors.toList()));
 		});
 	}
 }

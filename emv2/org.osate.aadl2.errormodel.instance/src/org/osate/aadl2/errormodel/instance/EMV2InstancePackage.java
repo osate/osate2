@@ -3495,22 +3495,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int CONNECTION_PATH__CONNECTION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Source Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>Source Propagations</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_PATH__SOURCE_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 1;
+	int CONNECTION_PATH__SOURCE_PROPAGATIONS = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Destination Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>Destination Propagations</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_PATH__DESTINATION_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 2;
+	int CONNECTION_PATH__DESTINATION_PROPAGATIONS = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Connection Path</em>' class.
@@ -4230,28 +4230,6 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getConnectionPath();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getSourcePropagation <em>Source Propagation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source Propagation</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ConnectionPath#getSourcePropagation()
-	 * @see #getConnectionPath()
-	 * @generated
-	 */
-	EReference getConnectionPath_SourcePropagation();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getDestinationPropagation <em>Destination Propagation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Destination Propagation</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ConnectionPath#getDestinationPropagation()
-	 * @see #getConnectionPath()
-	 * @generated
-	 */
-	EReference getConnectionPath_DestinationPropagation();
-
-	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getConnection <em>Connection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4261,6 +4239,28 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getConnectionPath_Connection();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getSourcePropagations <em>Source Propagations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Source Propagations</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ConnectionPath#getSourcePropagations()
+	 * @see #getConnectionPath()
+	 * @generated
+	 */
+	EReference getConnectionPath_SourcePropagations();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getDestinationPropagations <em>Destination Propagations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Destination Propagations</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ConnectionPath#getDestinationPropagations()
+	 * @see #getConnectionPath()
+	 * @generated
+	 */
+	EReference getConnectionPath_DestinationPropagations();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EventInstance <em>Event Instance</em>}'.
@@ -5272,28 +5272,28 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass CONNECTION_PATH = eINSTANCE.getConnectionPath();
 
 		/**
-		 * The meta object literal for the '<em><b>Source Propagation</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONNECTION_PATH__SOURCE_PROPAGATION = eINSTANCE.getConnectionPath_SourcePropagation();
-
-		/**
-		 * The meta object literal for the '<em><b>Destination Propagation</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONNECTION_PATH__DESTINATION_PROPAGATION = eINSTANCE.getConnectionPath_DestinationPropagation();
-
-		/**
 		 * The meta object literal for the '<em><b>Connection</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference CONNECTION_PATH__CONNECTION = eINSTANCE.getConnectionPath_Connection();
+
+		/**
+		 * The meta object literal for the '<em><b>Source Propagations</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTION_PATH__SOURCE_PROPAGATIONS = eINSTANCE.getConnectionPath_SourcePropagations();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination Propagations</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTION_PATH__DESTINATION_PROPAGATIONS = eINSTANCE.getConnectionPath_DestinationPropagations();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.

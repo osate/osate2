@@ -23,10 +23,14 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
@@ -41,8 +45,8 @@ import org.osate.aadl2.instance.ConnectionInstance;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConnectionPathImpl#getConnection <em>Connection</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConnectionPathImpl#getSourcePropagation <em>Source Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConnectionPathImpl#getDestinationPropagation <em>Destination Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConnectionPathImpl#getSourcePropagations <em>Source Propagations</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConnectionPathImpl#getDestinationPropagations <em>Destination Propagations</em>}</li>
  * </ul>
  *
  * @generated
@@ -59,24 +63,24 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	protected ConnectionInstance connection;
 
 	/**
-	 * The cached value of the '{@link #getSourcePropagation() <em>Source Propagation</em>}' reference.
+	 * The cached value of the '{@link #getSourcePropagations() <em>Source Propagations</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSourcePropagation()
+	 * @see #getSourcePropagations()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeaturePropagation sourcePropagation;
+	protected EList<FeaturePropagation> sourcePropagations;
 
 	/**
-	 * The cached value of the '{@link #getDestinationPropagation() <em>Destination Propagation</em>}' reference.
+	 * The cached value of the '{@link #getDestinationPropagations() <em>Destination Propagations</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDestinationPropagation()
+	 * @see #getDestinationPropagations()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeaturePropagation destinationPropagation;
+	protected EList<FeaturePropagation> destinationPropagations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -95,97 +99,6 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	@Override
 	protected EClass eStaticClass() {
 		return EMV2InstancePackage.Literals.CONNECTION_PATH;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public FeaturePropagation getSourcePropagation() {
-		if (sourcePropagation != null && sourcePropagation.eIsProxy()) {
-			InternalEObject oldSourcePropagation = (InternalEObject) sourcePropagation;
-			sourcePropagation = (FeaturePropagation) eResolveProxy(oldSourcePropagation);
-			if (sourcePropagation != oldSourcePropagation) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION, oldSourcePropagation,
-							sourcePropagation));
-				}
-			}
-		}
-		return sourcePropagation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeaturePropagation basicGetSourcePropagation() {
-		return sourcePropagation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setSourcePropagation(FeaturePropagation newSourcePropagation) {
-		FeaturePropagation oldSourcePropagation = sourcePropagation;
-		sourcePropagation = newSourcePropagation;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION, oldSourcePropagation, sourcePropagation));
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public FeaturePropagation getDestinationPropagation() {
-		if (destinationPropagation != null && destinationPropagation.eIsProxy()) {
-			InternalEObject oldDestinationPropagation = (InternalEObject) destinationPropagation;
-			destinationPropagation = (FeaturePropagation) eResolveProxy(oldDestinationPropagation);
-			if (destinationPropagation != oldDestinationPropagation) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATION, oldDestinationPropagation,
-							destinationPropagation));
-				}
-			}
-		}
-		return destinationPropagation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeaturePropagation basicGetDestinationPropagation() {
-		return destinationPropagation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setDestinationPropagation(FeaturePropagation newDestinationPropagation) {
-		FeaturePropagation oldDestinationPropagation = destinationPropagation;
-		destinationPropagation = newDestinationPropagation;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATION, oldDestinationPropagation,
-					destinationPropagation));
-		}
 	}
 
 	/**
@@ -238,6 +151,34 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated
 	 */
 	@Override
+	public EList<FeaturePropagation> getSourcePropagations() {
+		if (sourcePropagations == null) {
+			sourcePropagations = new EObjectResolvingEList<>(FeaturePropagation.class, this,
+					EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS);
+		}
+		return sourcePropagations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<FeaturePropagation> getDestinationPropagations() {
+		if (destinationPropagations == null) {
+			destinationPropagations = new EObjectResolvingEList<>(FeaturePropagation.class, this,
+					EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS);
+		}
+		return destinationPropagations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
@@ -245,16 +186,10 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 				return getConnection();
 			}
 			return basicGetConnection();
-		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION:
-			if (resolve) {
-				return getSourcePropagation();
-			}
-			return basicGetSourcePropagation();
-		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATION:
-			if (resolve) {
-				return getDestinationPropagation();
-			}
-			return basicGetDestinationPropagation();
+		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS:
+			return getSourcePropagations();
+		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS:
+			return getDestinationPropagations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -264,17 +199,20 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
 			setConnection((ConnectionInstance) newValue);
 			return;
-		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION:
-			setSourcePropagation((FeaturePropagation) newValue);
+		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS:
+			getSourcePropagations().clear();
+			getSourcePropagations().addAll((Collection<? extends FeaturePropagation>) newValue);
 			return;
-		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATION:
-			setDestinationPropagation((FeaturePropagation) newValue);
+		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS:
+			getDestinationPropagations().clear();
+			getDestinationPropagations().addAll((Collection<? extends FeaturePropagation>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -291,11 +229,11 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
 			setConnection((ConnectionInstance) null);
 			return;
-		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION:
-			setSourcePropagation((FeaturePropagation) null);
+		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS:
+			getSourcePropagations().clear();
 			return;
-		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATION:
-			setDestinationPropagation((FeaturePropagation) null);
+		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS:
+			getDestinationPropagations().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -311,10 +249,10 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 		switch (featureID) {
 		case EMV2InstancePackage.CONNECTION_PATH__CONNECTION:
 			return connection != null;
-		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATION:
-			return sourcePropagation != null;
-		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATION:
-			return destinationPropagation != null;
+		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS:
+			return sourcePropagations != null && !sourcePropagations.isEmpty();
+		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS:
+			return destinationPropagations != null && !destinationPropagations.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

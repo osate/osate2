@@ -23,6 +23,7 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
@@ -35,8 +36,8 @@ import org.osate.aadl2.instance.ConnectionInstance;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getConnection <em>Connection</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getSourcePropagation <em>Source Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getDestinationPropagation <em>Destination Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getSourcePropagations <em>Source Propagations</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getDestinationPropagations <em>Destination Propagations</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath()
@@ -44,50 +45,6 @@ import org.osate.aadl2.instance.ConnectionInstance;
  * @generated
  */
 public interface ConnectionPath extends PropagationPathInstance {
-	/**
-	 * Returns the value of the '<em><b>Source Propagation</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source Propagation</em>' reference.
-	 * @see #setSourcePropagation(FeaturePropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath_SourcePropagation()
-	 * @model
-	 * @generated
-	 */
-	FeaturePropagation getSourcePropagation();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getSourcePropagation <em>Source Propagation</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source Propagation</em>' reference.
-	 * @see #getSourcePropagation()
-	 * @generated
-	 */
-	void setSourcePropagation(FeaturePropagation value);
-
-	/**
-	 * Returns the value of the '<em><b>Destination Propagation</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Destination Propagation</em>' reference.
-	 * @see #setDestinationPropagation(FeaturePropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath_DestinationPropagation()
-	 * @model
-	 * @generated
-	 */
-	FeaturePropagation getDestinationPropagation();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getDestinationPropagation <em>Destination Propagation</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Destination Propagation</em>' reference.
-	 * @see #getDestinationPropagation()
-	 * @generated
-	 */
-	void setDestinationPropagation(FeaturePropagation value);
-
 	/**
 	 * Returns the value of the '<em><b>Connection</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -109,5 +66,29 @@ public interface ConnectionPath extends PropagationPathInstance {
 	 * @generated
 	 */
 	void setConnection(ConnectionInstance value);
+
+	/**
+	 * Returns the value of the '<em><b>Source Propagations</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.FeaturePropagation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source Propagations</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath_SourcePropagations()
+	 * @model
+	 * @generated
+	 */
+	EList<FeaturePropagation> getSourcePropagations();
+
+	/**
+	 * Returns the value of the '<em><b>Destination Propagations</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.FeaturePropagation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destination Propagations</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath_DestinationPropagations()
+	 * @model
+	 * @generated
+	 */
+	EList<FeaturePropagation> getDestinationPropagations();
 
 } // ConnectionPath

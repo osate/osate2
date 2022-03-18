@@ -218,8 +218,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								&& destinationPropagation.getDirection().incoming()) {
 							var connectionPath = EMV2InstanceFactory.eINSTANCE.createConnectionPath();
 							connectionPath.setName(connection.getName());
-							connectionPath.setSourcePropagation(sourcePropagation);
-							connectionPath.setDestinationPropagation(destinationPropagation);
+							connectionPath.getSourcePropagations().add(sourcePropagation);
+							connectionPath.getDestinationPropagations().add(destinationPropagation);
 							connectionPath.setConnection(connection);
 							var annex = findEMV2AnnexInstance(component);
 							if (annex == null) {

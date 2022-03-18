@@ -1032,7 +1032,17 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getConnectionPath_SourcePropagation() {
+	public EReference getConnectionPath_Connection() {
+		return (EReference) connectionPathEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConnectionPath_SourcePropagations() {
 		return (EReference) connectionPathEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1042,18 +1052,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getConnectionPath_DestinationPropagation() {
+	public EReference getConnectionPath_DestinationPropagations() {
 		return (EReference) connectionPathEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getConnectionPath_Connection() {
-		return (EReference) connectionPathEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1633,8 +1633,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		connectionPathEClass = createEClass(CONNECTION_PATH);
 		createEReference(connectionPathEClass, CONNECTION_PATH__CONNECTION);
-		createEReference(connectionPathEClass, CONNECTION_PATH__SOURCE_PROPAGATION);
-		createEReference(connectionPathEClass, CONNECTION_PATH__DESTINATION_PROPAGATION);
+		createEReference(connectionPathEClass, CONNECTION_PATH__SOURCE_PROPAGATIONS);
+		createEReference(connectionPathEClass, CONNECTION_PATH__DESTINATION_PROPAGATIONS);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -2045,12 +2045,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getConnectionPath_Connection(), theInstancePackage.getConnectionInstance(), null, "connection",
 				null, 0, 1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnectionPath_SourcePropagation(), getFeaturePropagation(), null, "sourcePropagation", null,
-				0, 1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+		initEReference(getConnectionPath_SourcePropagations(), getFeaturePropagation(), null, "sourcePropagations",
+				null, 0, -1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnectionPath_DestinationPropagation(), getFeaturePropagation(), null,
-				"destinationPropagation", null, 0, 1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnectionPath_DestinationPropagations(), getFeaturePropagation(), null,
+				"destinationPropagations", null, 0, -1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");
