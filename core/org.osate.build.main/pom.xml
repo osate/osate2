@@ -10,14 +10,14 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>2.4.0</tycho.version>
-		<tycho-extras.version>2.4.0</tycho-extras.version>
-		<xtext.version>2.25.0</xtext.version>
-		<xsemantics.version>1.20.0-SNAPSHOT</xsemantics.version>
+		<tycho.version>2.7.0</tycho.version>
+		<tycho-extras.version>2.7.0</tycho-extras.version>
+		<xtext.version>2.26.0</xtext.version>
+		<xsemantics.version>1.21.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.11.0-SNAPSHOT</osate.version>
 
-		<jacoco.version>0.8.6</jacoco.version>
+		<jacoco.version>0.8.7</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
@@ -48,7 +48,7 @@
 		<sonar.java.source>1.8</sonar.java.source>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2021-03</eclipse.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/2022-03</eclipse.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
@@ -504,6 +504,19 @@
 							<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>
 						</systemProperties>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-p2-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>attach-p2-metadata</id>
+							<phase>package</phase>
+							<goals>
+								<goal>p2-metadata</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.eclipse.xtext</groupId>
