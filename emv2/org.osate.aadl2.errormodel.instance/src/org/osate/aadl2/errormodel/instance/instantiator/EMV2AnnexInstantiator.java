@@ -26,6 +26,7 @@ package org.osate.aadl2.errormodel.instance.instantiator;
 import static org.eclipse.xtext.EcoreUtil2.getContainerOfType;
 import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.isNoError;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -203,36 +204,59 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	@Override
 	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
-		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(component -> {
-			for (var connection : component.getConnectionInstances()) {
-				if (connection.isComplete()) {
-					var source = connection.getSource();
-					var destination = connection.getDestination();
-					if (source instanceof FeatureInstance && destination instanceof FeatureInstance) {
-						var sourceFeature = (FeatureInstance) source;
-						var destinationFeature = (FeatureInstance) destination;
-						var sourcePropagation = findFeaturePropagation(sourceFeature);
-						var destinationPropagation = findFeaturePropagation(destinationFeature);
-						if (sourcePropagation != null && destinationPropagation != null
-								&& sourcePropagation.getDirection().outgoing()
-								&& destinationPropagation.getDirection().incoming()) {
-							var connectionPath = EMV2InstanceFactory.eINSTANCE.createConnectionPath();
-							connectionPath.setName(connection.getName());
-							connectionPath.getSourcePropagations().add(sourcePropagation);
-							connectionPath.getDestinationPropagations().add(destinationPropagation);
-							connectionPath.setConnection(connection);
-							var annex = findEMV2AnnexInstance(component);
-							if (annex == null) {
-								annex = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
-								annex.setName("EMV2");
-								component.getAnnexInstances().add(annex);
-							}
-							annex.getPropagationPaths().add(connectionPath);
+		EcoreUtil2.eAllOfType(instance, ComponentInstance.class)
+				.forEach(component -> component.getConnectionInstances()
+						.forEach(connection -> instantiateConnectionPath(connection, component)));
+	}
+
+	private void instantiateConnectionPath(ConnectionInstance connection, ComponentInstance component) {
+		if (connection.isComplete() && connection.getSource() instanceof FeatureInstance
+				&& connection.getDestination() instanceof FeatureInstance) {
+			var sourcePropagations = new ArrayList<FeaturePropagation>();
+			var destinationPropagations = new ArrayDeque<FeaturePropagation>();
+			var encounteredAcross = false;
+			for (var ref : connection.getConnectionReferences()) {
+				if (!encounteredAcross) {
+					var source = ref.getSource();
+					if (source instanceof FeatureInstance) {
+						var propagation = findFeaturePropagation((FeatureInstance) source);
+						if (propagation != null) {
+							sourcePropagations.add(propagation);
+						}
+					}
+				}
+				if (ref.getConnection().isAcross()) {
+					encounteredAcross = true;
+				}
+				if (encounteredAcross) {
+					var destination = ref.getDestination();
+					if (destination instanceof FeatureInstance) {
+						var propagation = findFeaturePropagation((FeatureInstance) destination);
+						if (propagation != null) {
+							destinationPropagations.addFirst(propagation);
 						}
 					}
 				}
 			}
-		});
+			if (!sourcePropagations.isEmpty() && !destinationPropagations.isEmpty()) {
+				var connectionPath = EMV2InstanceFactory.eINSTANCE.createConnectionPath();
+				connectionPath.setName(connection.getName());
+				connectionPath.setConnection(connection);
+				connectionPath.getSourcePropagations().addAll(sourcePropagations);
+				connectionPath.getDestinationPropagations().addAll(destinationPropagations);
+				getOrCreateEMV2AnnexInstance(component).getPropagationPaths().add(connectionPath);
+			}
+		}
+	}
+
+	private EMV2AnnexInstance getOrCreateEMV2AnnexInstance(ComponentInstance component) {
+		var annex = findEMV2AnnexInstance(component);
+		if (annex == null) {
+			annex = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
+			annex.setName("EMV2");
+			component.getAnnexInstances().add(annex);
+		}
+		return annex;
 	}
 
 	private void instantiatePropagationPoint(PropagationPoint g, EMV2AnnexInstance annex) {
