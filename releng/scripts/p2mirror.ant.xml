@@ -185,9 +185,9 @@ Run with
 
     	<p2.mirror>
             <source>
-                <repository location="http://download.eclipse.org/justj/jres/17/updates/release"/>
+                <repository location="http://download.eclipse.org/justj/jres/17/updates/release/latest"/>
             </source>
-            <destination location="${target.dir}/justj/jres/17/updates/release"/>
+            <destination location="${target.dir}/justj/jres/17/updates/release/latest"/>
                 <iu id="org.eclipse.justj.openjdk.hotspot.jre.full.stripped.feature.group"/>
         </p2.mirror>
 
