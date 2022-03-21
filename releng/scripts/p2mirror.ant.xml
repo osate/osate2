@@ -188,8 +188,7 @@ Run with
                 <repository location="http://download.eclipse.org/justj/jres/17/updates/release"/>
             </source>
             <destination location="${target.dir}/justj/jres/17/updates/release"/>
-            <iu id="org.eclipse.justj.openjdk.hotspot.jre.full.feature.group"/>
-            <iu id="org.eclipse.justj.openjdk.hotspot.jre.full.stripped.feature.group"/>
+                <iu id="org.eclipse.justj.openjdk.hotspot.jre.full.stripped.feature.group"/>
         </p2.mirror>
 
     </target>
