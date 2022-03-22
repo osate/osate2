@@ -9,7 +9,9 @@ pipeline {
             withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
                sh 'mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor -DgenerateBackupPoms=false -Dtycho.mode=maven'
                wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-                  sh 'mvn -T 1 -s core/osate.releng/seisettings.xml clean verify -Plocal -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true -Dpr.build=true'
+                  sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Plocal \
+                      -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                      -Dcodecoverage=true -Dspotbugs=true -Djavadoc=false -Dpr.build=true'
                }
             }
          }
