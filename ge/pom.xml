@@ -55,8 +55,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 					<version>${tycho.version}</version>
 					<configuration>
 						<encoding>UTF-8</encoding>
-						<source>11</source>
-						<target>11</target>
 						<extraClasspathElements>
 							<extraClasspathElement>
 								<groupId>org.openjfx</groupId>
