@@ -61,27 +61,27 @@ censes only apply to the Third Party Software and not any other portion of this 
 							<extraClasspathElement>
 								<groupId>org.openjfx</groupId>
 								<artifactId>javafx-base</artifactId>
-								<version>16</version>
+								<version>${openjfx.version}</version>
 							</extraClasspathElement>
 							<extraClasspathElement>
 								<groupId>org.openjfx</groupId>
 								<artifactId>javafx-graphics</artifactId>
-								<version>16</version>
+								<version>${openjfx.version}</version>
 							</extraClasspathElement>
 							<extraClasspathElement>
 								<groupId>org.openjfx</groupId>
 								<artifactId>javafx-controls</artifactId>
-								<version>16</version>
+								<version>${openjfx.version}</version>
 							</extraClasspathElement>
 							<extraClasspathElement>
 								<groupId>org.openjfx</groupId>
 								<artifactId>javafx-swing</artifactId>
-								<version>16</version>
+								<version>${openjfx.version}</version>
 							</extraClasspathElement>
 							<extraClasspathElement>
 								<groupId>at.bestsolution.openjfx</groupId>
 								<artifactId>javafx-swt</artifactId>
-								<version>16</version>
+								<version>${openjfx.version}</version>
 							</extraClasspathElement>
 						</extraClasspathElements>
 					</configuration>
