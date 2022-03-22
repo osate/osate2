@@ -95,7 +95,6 @@
 						<artifactId>target-platform-configuration</artifactId>
 						<version>${tycho.version}</version>
 						<configuration>
-							<executionEnvironment>none</executionEnvironment>
 							<environments>
 								<environment>
 									<os>linux</os>
