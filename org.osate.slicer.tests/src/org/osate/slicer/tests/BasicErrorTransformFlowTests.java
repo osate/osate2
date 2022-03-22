@@ -53,7 +53,7 @@ import com.google.inject.Inject;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class BasicErrorFlowTests {
+public class BasicErrorTransformFlowTests {
 	@Inject
 	TestHelper<AadlPackage> myTestHelper;
 
@@ -64,7 +64,7 @@ public class BasicErrorFlowTests {
 	@Before
 	public void setUp() throws Exception {
 		tlg = new SlicerRepresentation();
-		var pkg = myTestHelper.parseFile("org.osate.slicer.tests/aadl-models/BasicErrorFlow.aadl");
+		var pkg = myTestHelper.parseFile("org.osate.slicer.tests/aadl-models/BasicErrorTransformFlow.aadl");
 		var impl = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		si = InstantiateModel.instantiate(impl);
 		tlg.buildGraph(si);
@@ -73,9 +73,10 @@ public class BasicErrorFlowTests {
 		vertices[0] = "sys_impl_Instance.a.o1TimingSrc.{ItemTimingError}";
 		vertices[1] = "sys_impl_Instance.a.o1.{ItemTimingError}";
 		vertices[2] = "sys_impl_Instance.b.i1.{ItemTimingError}";
-		vertices[3] = "sys_impl_Instance.b.o3.{ItemTimingError}";
-		vertices[4] = "sys_impl_Instance.c.i3.{ItemTimingError}";
-		vertices[5] = "sys_impl_Instance.c.o3TimingSink.{ItemTimingError}";
+		// Note that b transforms the item error into a timing error
+		vertices[3] = "sys_impl_Instance.b.o3.{ItemValueError}";
+		vertices[4] = "sys_impl_Instance.c.i3.{ItemValueError}";
+		vertices[5] = "sys_impl_Instance.c.o3TimingSink.{ItemValueError}";
 	}
 
 	@Test
@@ -132,7 +133,7 @@ public class BasicErrorFlowTests {
 		var component = SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si);
 		var feature = SlicerTestUtil.getFeatureInstance(component, "o3");
 		var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
-		var typeSet = annexInstance.getPropagations().get(0).getInTypeSet();
+		var typeSet = annexInstance.getPropagations().get(1).getOutTypeSet();
 		var reachableComponents = tlg.backwardReach(feature, typeSet);
 		assertEquals("Number of elements in backward reach", 4, reachableComponents.size());
 		// TODO: Probably should test the elements contained here. Use Joe's JUnit 5 code?

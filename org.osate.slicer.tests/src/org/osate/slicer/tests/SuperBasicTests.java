@@ -92,7 +92,7 @@ public class SuperBasicTests {
 	}
 
 	@Test
-	public void testForwardReach() {
+	public void testForwardReachComponent() {
 		Collection<EObject> c = tlg
 				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si));
 
@@ -102,6 +102,25 @@ public class SuperBasicTests {
 				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.c not found",
 				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c", ComponentCategory.ABSTRACT, si)));
+	}
+
+	@Test
+	public void testForwardReachFeature() {
+		var compB = SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si);
+		var compC = SlicerTestUtil.getInstance("sys_impl_Instance.c", ComponentCategory.ABSTRACT, si);
+		var featBInput = SlicerTestUtil.getFeatureInstance(compB, "input");
+		var featBOutput = SlicerTestUtil.getFeatureInstance(compB, "output");
+		var featCInput = SlicerTestUtil.getFeatureInstance(compC, "input");
+		var featCOutput = SlicerTestUtil.getFeatureInstance(compC, "output");
+
+		var c = tlg.forwardReach(featBInput);
+
+		// Should have four elements: b.input, b.output, c.input, c.output
+		assertEquals("Number of elements in forward reach", 4, c.size());
+		assertTrue("Feature sys_impl_Instance.b.input not found", c.contains(featBInput));
+		assertTrue("Element sys_impl_Instance.b.output not found", c.contains(featBOutput));
+		assertTrue("Feature sys_impl_Instance.c.input not found", c.contains(featCInput));
+		assertTrue("Element sys_impl_Instance.c.output not found", c.contains(featCOutput));
 	}
 
 	@Test
@@ -129,7 +148,7 @@ public class SuperBasicTests {
 	}
 
 	@Test
-	public void testBackwardReach() {
+	public void testBackwardReachComponent() {
 		Collection<EObject> c = tlg
 				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si));
 
@@ -139,5 +158,24 @@ public class SuperBasicTests {
 				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a", ComponentCategory.ABSTRACT, si)));
 		assertTrue("Element sys_impl_Instance.b not found",
 				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si)));
+	}
+
+	@Test
+	public void testBackwardReachFeature() {
+		var compA = SlicerTestUtil.getInstance("sys_impl_Instance.a", ComponentCategory.ABSTRACT, si);
+		var compB = SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si);
+		var featAInput = SlicerTestUtil.getFeatureInstance(compA, "input");
+		var featAOutput = SlicerTestUtil.getFeatureInstance(compA, "output");
+		var featBInput = SlicerTestUtil.getFeatureInstance(compB, "input");
+		var featBOutput = SlicerTestUtil.getFeatureInstance(compB, "output");
+
+		var c = tlg.backwardReach(featBOutput);
+
+		// Should have four elements: a.input, a.output, b.input, b.output
+		assertEquals("Number of elements in forward reach", 4, c.size());
+		assertTrue("Feature sys_impl_Instance.b.input not found", c.contains(featAInput));
+		assertTrue("Element sys_impl_Instance.b.output not found", c.contains(featAOutput));
+		assertTrue("Feature sys_impl_Instance.c.input not found", c.contains(featBInput));
+		assertTrue("Element sys_impl_Instance.c.output not found", c.contains(featBOutput));
 	}
 }

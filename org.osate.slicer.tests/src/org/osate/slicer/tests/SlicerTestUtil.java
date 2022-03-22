@@ -25,6 +25,7 @@ package org.osate.slicer.tests;
 
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 
 public class SlicerTestUtil {
@@ -32,6 +33,14 @@ public class SlicerTestUtil {
 		return si.getAllComponentInstances(category)
 				.stream()
 				.filter(ci -> name.equals(ci.getInstanceObjectPath()))
+				.findFirst()
+				.get();
+	}
+
+	public static FeatureInstance getFeatureInstance(ComponentInstance ci, String featureName) {
+		return ci.getFeatureInstances()
+				.stream()
+				.filter(c -> c.getFullName().equalsIgnoreCase(featureName))
 				.findFirst()
 				.get();
 	}

@@ -273,6 +273,42 @@ public class SlicerRepresentation {
 	}
 
 	/**
+	 * Calculates reachable features from the supplied feature
+	 *
+	 * @param feature Where to start the backward slice from
+	 * @return The set of reachable features
+	 */
+	public Collection<FeatureInstance> backwardReach(FeatureInstance feature) {
+		Set<FeatureInstance> retSet = new HashSet<>();
+		backwardReachability(feature.getInstanceObjectPath()).vertexSet().forEach(v -> {
+			// Features without errors can't connect to error sinks (or sources) so this is safe
+			retSet.add((FeatureInstance) v.getFeatOrErrorFlow());
+		});
+		return retSet;
+	}
+
+	/**
+	 * Calculates reachable feature / error sinks or sources from the supplied feature / error type
+	 *
+	 * @param feature Where to start the forward slice from. Must be a feature, error sink, or error source instance
+	 * @param ats The error type that is propagated into / out of the feature to start from
+	 * @return The set of reachable features and errors
+	 */
+	public Collection<IObjErrorPair> backwardReach(InstanceObject featOrEFI, AnonymousTypeSet ats) {
+		if (!(featOrEFI instanceof FeatureInstance || featOrEFI instanceof ErrorSourceInstance
+				|| featOrEFI instanceof ErrorSinkInstance)) {
+			System.err.println("Unsupported InstanceObject " + featOrEFI.getInstanceObjectPath()
+					+ " used in backward reachability query!");
+			return Collections.emptySet();
+		}
+		Set<IObjErrorPair> retSet = new HashSet<>();
+		backwardReachability(featOrEFI.getInstanceObjectPath() + "." + ats.getFullName()).vertexSet().forEach(v -> {
+			retSet.add(new IObjErrorPair(v.getFeatOrErrorFlow(), v.getErrorATS()));
+		});
+		return retSet;
+	}
+
+	/**
 	 * Builds a subgraph of vertices reachable from the source
 	 *
 	 * @param srcVert The vertex to start from
