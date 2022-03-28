@@ -285,9 +285,15 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 * 		   other cases the first element will be a {@link FeatureInstance}.
 	 * 		   All subsequent elements in the list are always {@link FeatureInstance}
 	 * 		   objects.
+	 * @deprecated will be removed in 2.12.0
 	 */
+	@Deprecated(since = "2.11.0", forRemoval = true)
 	List<InstanceObject> getThroughFeatureInstances();
 
+	/**
+	 * @deprecated will be removed in 2.12.0
+	 */
+	@Deprecated(since = "2.11.0", forRemoval = true)
 	ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
 			final Context connCtxt);
 
