@@ -46,7 +46,9 @@
 		</sonar.coverage.jacoco.xmlReportPaths>
 		<!-- Include xtend-gen -->
 		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
-		<sonar.java.source>1.8</sonar.java.source>
+		
+		<sonar.language>java</sonar.language>
+		<sonar.java.source>17</sonar.java.source>
 
 		<!-- The following are for use in poms for test plugins -->
 		<eclipse.repo.url>http://download.eclipse.org/releases/2022-03</eclipse.repo.url>
