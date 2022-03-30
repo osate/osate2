@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Graphical Editor SWT
 Bundle-SymbolicName: org.osate.ge.swt
-Bundle-Version: 2.0.1.qualifier
+Bundle-Version: 2.1.0.qualifier
 Automatic-Module-Name: org.osate.ge.swt
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: The University of Alabama in Huntsville
 Require-Bundle: org.eclipse.swt;bundle-version="[3.113.0,4.0.0)",
  org.eclipse.jface;bundle-version="[3.18.0,4.0.0)",
