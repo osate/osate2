@@ -150,7 +150,7 @@ public class SlicerRepresentation {
 	 *
 	 * @param feat The feature
 	 */
-	public void addVertex(FeatureInstance feat) {
+	private void addVertex(FeatureInstance feat) {
 		var name = feat.getInstanceObjectPath();
 		if (vertexMap.containsKey(name)) {
 			return; // No duplicates allowed
@@ -166,7 +166,7 @@ public class SlicerRepresentation {
 	 * @param feat The feature
 	 * @param ats The error(s) propagated into or out of this feature
 	 */
-	public void addVertex(FeatureInstance feat, AnonymousTypeSet ats) {
+	private void addVertex(FeatureInstance feat, AnonymousTypeSet ats) {
 		var name = feat.getInstanceObjectPath();
 		if ((ats == null && vertexMap.containsKey(name))
 				|| (ats != null && vertexMap.containsKey(name + "." + ats.getFullName()))) {
@@ -183,7 +183,7 @@ public class SlicerRepresentation {
 	 * @param efi An error source or sink
 	 * @param ats The error(s) propagated into or out by this sink or source
 	 */
-	public void addVertex(ErrorFlowInstance efi, AnonymousTypeSet ats) {
+	private void addVertex(ErrorFlowInstance efi, AnonymousTypeSet ats) {
 		var name = efi.getInstanceObjectPath().replace(".EMV2", "");
 		if ((ats == null && vertexMap.containsKey(name))
 				|| (ats != null && vertexMap.containsKey(name + "." + ats.getFullName()))) {
@@ -200,7 +200,7 @@ public class SlicerRepresentation {
 	 * @param src Source vertex
 	 * @param tgt Target vertex
 	 */
-	public void addEdge(String src, String tgt) {
+	private void addEdge(String src, String tgt) {
 		g.addEdge(vertexMap.get(src), vertexMap.get(tgt));
 	}
 
@@ -238,7 +238,7 @@ public class SlicerRepresentation {
 	/**
 	 * Calculates reachable feature / error sinks or sources from the supplied feature / error type
 	 *
-	 * @param feature Where to start the forward slice from. Must be a feature, error sink, or error source instance
+	 * @param featOrEFI Where to start the forward slice from. Must be a feature, error sink, or error source instance
 	 * @param ats The error type that is propagated into / out of the feature to start from
 	 * @return The set of reachable features and errors
 	 */
@@ -373,7 +373,7 @@ public class SlicerRepresentation {
 	 * Debug function which dumps the internal graph to dot so it can be fed into graphviz
 	 * @return A string which can be input to graphviz
 	 */
-	public String toDot() {
+	private String toDot() {
 		DOTExporter<OsateSlicerVertex, DefaultEdge> exporter = new DOTExporter<>(v -> "\"" + v.getName() + "\"");
 		Writer writer = new StringWriter();
 		exporter.exportGraph(g, writer);
