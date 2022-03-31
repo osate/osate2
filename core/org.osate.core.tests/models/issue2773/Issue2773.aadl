@@ -1,0 +1,52 @@
+package Issue2773
+public
+
+  system s
+  end s;
+
+  system implementation s.i
+    subcomponents
+      left: process left_process;
+      right: process right_process;
+  end s.i;
+
+  system implementation s.i0 extends s.i
+    connections
+      conn_1: feature left.left_feature_group -> right.right_feature_group;
+  end s.i0;
+  
+  system implementation s.i1 extends s.i
+    connections
+      conn_1: feature left.left_feature_group.out_f -> right.right_feature_group.in_f;
+  end s.i1;
+
+  system implementation s.i2 extends s.i
+    connections
+      conn_1: feature left.left_feature_group.out_f_1 -> right.right_feature_group.in_f;
+      conn_2: feature left.left_feature_group.out_f -> right.right_feature_group.in_f_1;
+  end s.i2;
+
+  process left_process
+    features
+      left_feature_group: feature group left_feature_group;
+  end left_process;
+
+  feature group left_feature_group
+    features
+      out_f: out feature;
+      out_f_1: out feature;
+  end left_feature_group;
+
+  process right_process
+    features
+      right_feature_group: feature group right_feature_group;
+  end right_process;
+
+  feature group right_feature_group
+    features
+      in_f: in feature;
+      in_f_1: in feature;
+    inverse of left_feature_group
+  end right_feature_group;
+
+end Issue2773;
