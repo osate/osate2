@@ -216,25 +216,19 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			var destinationPropagations = new ArrayDeque<FeaturePropagation>();
 			var encounteredAcross = false;
 			for (var ref : connection.getConnectionReferences()) {
-				if (!encounteredAcross) {
-					var source = ref.getSource();
-					if (source instanceof FeatureInstance) {
-						var propagation = findFeaturePropagation((FeatureInstance) source);
-						if (propagation != null) {
-							sourcePropagations.add(propagation);
-						}
+				if (!encounteredAcross && ref.getSource() instanceof FeatureInstance source) {
+					var propagation = findFeaturePropagation(source);
+					if (propagation != null) {
+						sourcePropagations.add(propagation);
 					}
 				}
 				if (ref.getConnection().isAcross()) {
 					encounteredAcross = true;
 				}
-				if (encounteredAcross) {
-					var destination = ref.getDestination();
-					if (destination instanceof FeatureInstance) {
-						var propagation = findFeaturePropagation((FeatureInstance) destination);
-						if (propagation != null) {
-							destinationPropagations.addFirst(propagation);
-						}
+				if (encounteredAcross && ref.getDestination() instanceof FeatureInstance destination) {
+					var propagation = findFeaturePropagation(destination);
+					if (propagation != null) {
+						destinationPropagations.addFirst(propagation);
 					}
 				}
 			}
@@ -440,8 +434,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			var featureOrPP = featureOrPPRef.getFeatureorPP();
 			if (featureOrPP instanceof Feature) {
 				propagation = createFeaturePropagation(annex, name, featureOrPPRef);
-			} else if (featureOrPP instanceof PropagationPoint) {
-				propagation = createPointPropagation(annex, name, (PropagationPoint) featureOrPP);
+			} else if (featureOrPP instanceof PropagationPoint point) {
+				propagation = createPointPropagation(annex, name, point);
 			} else if (featureOrPP instanceof InternalFeature) {
 				// Propagation not instantiated since InternalFeatures are not instantiated.
 				return null;
@@ -501,13 +495,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var results = new ArrayList<TypeSetElement>();
 		for (var token : tokens) {
 			if (token.getType().size() == 1) {
-				var type = token.getType().get(0);
-				if (type instanceof ErrorType) {
-					results.add(createTypeInstance((ErrorType) type));
-				} else if (type instanceof TypeSet) {
-					results.add(createTypeSetInstance((TypeSet) type, depth));
+				var element = token.getType().get(0);
+				if (element instanceof ErrorType type) {
+					results.add(createTypeInstance(type));
+				} else if (element instanceof TypeSet set) {
+					results.add(createTypeSetInstance(set, depth));
 				} else {
-					throw new RuntimeException("type is something other than an ErrorType or a TypeSet: " + type);
+					throw new RuntimeException("element is something other than an ErrorType or a TypeSet: " + element);
 				}
 			} else {
 				results.add(createTypeProductInstance(token));
@@ -539,11 +533,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private TypeProductInstance createTypeProductInstance(TypeToken token) {
 		var product = EMV2InstanceFactory.eINSTANCE.createTypeProductInstance();
 		product.setName(token.getType().stream().map(NamedElement::getName).collect(Collectors.joining(" * ")));
-		for (var type : token.getType()) {
-			if (type instanceof ErrorType) {
-				product.getTypes().add(createTypeInstance((ErrorType) type));
+		for (var element : token.getType()) {
+			if (element instanceof ErrorType type) {
+				product.getTypes().add(createTypeInstance(type));
 			}
-			// TODO Add error marker to instance model if type is a type set.
+			// TODO Add error marker to instance model if element is a type set.
 		}
 		return product;
 	}
@@ -962,8 +956,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private EMV2AnnexInstance findEMV2AnnexInstance(ComponentInstance ci) {
 		for (AnnexInstance ai : ci.getAnnexInstances()) {
-			if (ai instanceof EMV2AnnexInstance) {
-				return (EMV2AnnexInstance) ai;
+			if (ai instanceof EMV2AnnexInstance emv2AI) {
+				return emv2AI;
 			}
 		}
 		return null;
@@ -1051,11 +1045,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			return null;
 		}
 		for (var propagation : annex.getPropagations()) {
-			if (propagation instanceof FeaturePropagation) {
-				var featurePropagation = (FeaturePropagation) propagation;
-				if (featurePropagation.getFeature() == feature) {
-					return featurePropagation;
-				}
+			if (propagation instanceof FeaturePropagation featurePropagation
+					&& featurePropagation.getFeature() == feature) {
+				return featurePropagation;
 			}
 		}
 		return null;
