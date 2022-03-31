@@ -1,0 +1,26 @@
+package up_path_test
+public
+	system s
+		features
+			system_out_f: out feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			ps: process ps;
+		connections
+			conn_1: feature ps.process_out_f -> system_out_f;
+	end s.i;
+	
+	process ps
+		features
+			process_out_f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				process_out_f: out propagation {ServiceError};
+			end propagations;
+		**};
+	end ps;
+end up_path_test;

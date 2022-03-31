@@ -49,7 +49,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
  *
  * @generated
  */
-public class ErrorSinkInstanceImpl extends ErrorFlowInstanceImpl implements ErrorSinkInstance {
+public class ErrorSinkInstanceImpl extends EMV2InstanceObjectImpl implements ErrorSinkInstance {
 	/**
 	 * The cached value of the '{@link #getErrorSink() <em>Error Sink</em>}' reference.
 	 * <!-- begin-user-doc -->

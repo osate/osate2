@@ -97,15 +97,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	CompositeStateInstance createCompositeStateInstance();
 
 	/**
-	 * Returns a new object of class '<em>Error Flow Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Error Flow Instance</em>'.
-	 * @generated
-	 */
-	ErrorFlowInstance createErrorFlowInstance();
-
-	/**
 	 * Returns a new object of class '<em>Error Source Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -160,6 +151,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	PropagationPointInstance createPropagationPointInstance();
 
 	/**
+	 * Returns a new object of class '<em>Connection Path</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Connection Path</em>'.
+	 * @generated
+	 */
+	ConnectionPath createConnectionPath();
+
+	/**
 	 * Returns a new object of class '<em>Event Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -178,13 +178,13 @@ public interface EMV2InstanceFactory extends EFactory {
 	ConstraintExpression createConstraintExpression();
 
 	/**
-	 * Returns a new object of class '<em>Propagation Path Instance</em>'.
+	 * Returns a new object of class '<em>Old Propagation Path Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Propagation Path Instance</em>'.
+	 * @return a new object of class '<em>Old Propagation Path Instance</em>'.
 	 * @generated
 	 */
-	PropagationPathInstance createPropagationPathInstance();
+	OldPropagationPathInstance createOldPropagationPathInstance();
 
 	/**
 	 * Returns a new object of class '<em>Feature Propagation</em>'.
@@ -203,6 +203,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	 * @generated
 	 */
 	PointPropagation createPointPropagation();
+
+	/**
+	 * Returns a new object of class '<em>Access Propagation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Access Propagation</em>'.
+	 * @generated
+	 */
+	AccessPropagation createAccessPropagation();
 
 	/**
 	 * Returns a new object of class '<em>Binding Propagation</em>'.

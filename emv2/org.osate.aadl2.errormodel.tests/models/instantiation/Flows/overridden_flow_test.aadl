@@ -26,9 +26,9 @@ public
 				f_in: in propagation {SequenceValueError, ServiceValueError};
 				f_out: out propagation {ItemValueError, ReplicationError};
 				flows
-					source_1: error source f_out {ItemValueError};
-					sink_1: error sink f_in {SequenceValueError};
-					path_1: error path f_in {ServiceValueError} -> f_out {ReplicationError};
+					SOURCE_1: error source f_out {ItemValueError};
+					SINK_1: error sink f_in {SequenceValueError};
+					PATH_1: error path f_in {ServiceValueError} -> f_out {ReplicationError};
 			end propagations;
 		**};
 	end child;

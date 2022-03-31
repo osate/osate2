@@ -10,7 +10,6 @@ public
 				connection: out propagation {ServiceError};
 				binding: out propagation {ServiceError};
 				bindings: out propagation {ServiceError};
-				access: out propagation {ServiceError};
 			end propagations;
 		**};
 	end s;

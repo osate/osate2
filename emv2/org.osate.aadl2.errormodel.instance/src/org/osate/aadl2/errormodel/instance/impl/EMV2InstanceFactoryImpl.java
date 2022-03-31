@@ -29,10 +29,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
@@ -40,15 +42,14 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
-import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
-import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
@@ -121,12 +122,14 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createEventInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
 			return createConstraintExpression();
-		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE:
-			return createPropagationPathInstance();
+		case EMV2InstancePackage.OLD_PROPAGATION_PATH_INSTANCE:
+			return createOldPropagationPathInstance();
 		case EMV2InstancePackage.FEATURE_PROPAGATION:
 			return createFeaturePropagation();
 		case EMV2InstancePackage.POINT_PROPAGATION:
 			return createPointPropagation();
+		case EMV2InstancePackage.ACCESS_PROPAGATION:
+			return createAccessPropagation();
 		case EMV2InstancePackage.BINDING_PROPAGATION:
 			return createBindingPropagation();
 		case EMV2InstancePackage.TYPE_INSTANCE:
@@ -137,8 +140,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createTypeSetInstance();
 		case EMV2InstancePackage.ANONYMOUS_TYPE_SET:
 			return createAnonymousTypeSet();
-		case EMV2InstancePackage.ERROR_FLOW_INSTANCE:
-			return createErrorFlowInstance();
 		case EMV2InstancePackage.ERROR_SOURCE_INSTANCE:
 			return createErrorSourceInstance();
 		case EMV2InstancePackage.ERROR_SINK_INSTANCE:
@@ -147,6 +148,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createErrorPathInstance();
 		case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE:
 			return createPropagationPointInstance();
+		case EMV2InstancePackage.CONNECTION_PATH:
+			return createConnectionPath();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -258,17 +261,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public ErrorFlowInstance createErrorFlowInstance() {
-		ErrorFlowInstanceImpl errorFlowInstance = new ErrorFlowInstanceImpl();
-		return errorFlowInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public ErrorSourceInstance createErrorSourceInstance() {
 		ErrorSourceInstanceImpl errorSourceInstance = new ErrorSourceInstanceImpl();
 		return errorSourceInstance;
@@ -335,6 +327,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public ConnectionPath createConnectionPath() {
+		ConnectionPathImpl connectionPath = new ConnectionPathImpl();
+		return connectionPath;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EventInstance createEventInstance() {
 		EventInstanceImpl eventInstance = new EventInstanceImpl();
 		return eventInstance;
@@ -357,9 +360,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public PropagationPathInstance createPropagationPathInstance() {
-		PropagationPathInstanceImpl propagationPathInstance = new PropagationPathInstanceImpl();
-		return propagationPathInstance;
+	public OldPropagationPathInstance createOldPropagationPathInstance() {
+		OldPropagationPathInstanceImpl oldPropagationPathInstance = new OldPropagationPathInstanceImpl();
+		return oldPropagationPathInstance;
 	}
 
 	/**
@@ -382,6 +385,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public PointPropagation createPointPropagation() {
 		PointPropagationImpl pointPropagation = new PointPropagationImpl();
 		return pointPropagation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AccessPropagation createAccessPropagation() {
+		AccessPropagationImpl accessPropagation = new AccessPropagationImpl();
+		return accessPropagation;
 	}
 
 	/**

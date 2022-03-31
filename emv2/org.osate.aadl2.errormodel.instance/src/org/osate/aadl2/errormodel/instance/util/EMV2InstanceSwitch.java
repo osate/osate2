@@ -29,9 +29,11 @@ import org.eclipse.emf.ecore.util.Switch;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
+import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
@@ -47,6 +49,7 @@ import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -358,20 +361,20 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: {
-			PropagationPathInstance propagationPathInstance = (PropagationPathInstance) theEObject;
-			T result = casePropagationPathInstance(propagationPathInstance);
+		case EMV2InstancePackage.OLD_PROPAGATION_PATH_INSTANCE: {
+			OldPropagationPathInstance oldPropagationPathInstance = (OldPropagationPathInstance) theEObject;
+			T result = caseOldPropagationPathInstance(oldPropagationPathInstance);
 			if (result == null) {
-				result = caseEMV2InstanceObject(propagationPathInstance);
+				result = caseEMV2InstanceObject(oldPropagationPathInstance);
 			}
 			if (result == null) {
-				result = caseInstanceObject(propagationPathInstance);
+				result = caseInstanceObject(oldPropagationPathInstance);
 			}
 			if (result == null) {
-				result = caseNamedElement(propagationPathInstance);
+				result = caseNamedElement(oldPropagationPathInstance);
 			}
 			if (result == null) {
-				result = caseElement(propagationPathInstance);
+				result = caseElement(oldPropagationPathInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -456,6 +459,35 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(pointPropagation);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ACCESS_PROPAGATION: {
+			AccessPropagation accessPropagation = (AccessPropagation) theEObject;
+			T result = caseAccessPropagation(accessPropagation);
+			if (result == null) {
+				result = caseErrorPropagationInstance(accessPropagation);
+			}
+			if (result == null) {
+				result = caseConstrainedInstanceObject(accessPropagation);
+			}
+			if (result == null) {
+				result = caseConstraintElement(accessPropagation);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(accessPropagation);
+			}
+			if (result == null) {
+				result = caseInstanceObject(accessPropagation);
+			}
+			if (result == null) {
+				result = caseNamedElement(accessPropagation);
+			}
+			if (result == null) {
+				result = caseElement(accessPropagation);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -764,6 +796,49 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: {
+			PropagationPathInstance propagationPathInstance = (PropagationPathInstance) theEObject;
+			T result = casePropagationPathInstance(propagationPathInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(propagationPathInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(propagationPathInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(propagationPathInstance);
+			}
+			if (result == null) {
+				result = caseElement(propagationPathInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.CONNECTION_PATH: {
+			ConnectionPath connectionPath = (ConnectionPath) theEObject;
+			T result = caseConnectionPath(connectionPath);
+			if (result == null) {
+				result = casePropagationPathInstance(connectionPath);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(connectionPath);
+			}
+			if (result == null) {
+				result = caseInstanceObject(connectionPath);
+			}
+			if (result == null) {
+				result = caseNamedElement(connectionPath);
+			}
+			if (result == null) {
+				result = caseElement(connectionPath);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -980,6 +1055,36 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Propagation Path Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Propagation Path Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePropagationPathInstance(PropagationPathInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Connection Path</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connection Path</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConnectionPath(ConnectionPath object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Event Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1025,17 +1130,17 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Propagation Path Instance</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Old Propagation Path Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Propagation Path Instance</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Old Propagation Path Instance</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePropagationPathInstance(PropagationPathInstance object) {
+	public T caseOldPropagationPathInstance(OldPropagationPathInstance object) {
 		return null;
 	}
 
@@ -1081,6 +1186,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePointPropagation(PointPropagation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Access Propagation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Access Propagation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAccessPropagation(AccessPropagation object) {
 		return null;
 	}
 

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.osate.testsupport.ScopeFunctions.with;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
@@ -118,7 +117,7 @@ public class TypeTokensTest {
 					assertEquals("ServiceTimingError", type.resolveAlias().getName());
 				});
 				assertIterableEquals(List.of("ItemTimingError", "SequenceTimingError", "ServiceTimingError"),
-						set.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+						set.flatten().stream().map(NamedElement::getName).toList());
 			});
 			with((TypeSetInstance) propagation.getOutTypeSet().getElements().get(1), set -> {
 				assertEquals("ValueErrors", set.getName());
@@ -141,7 +140,7 @@ public class TypeTokensTest {
 					assertEquals("ServiceValueError", type.resolveAlias().getName());
 				});
 				assertIterableEquals(List.of("ItemValueError", "SequenceValueError", "ServiceValueError"),
-						set.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+						set.flatten().stream().map(NamedElement::getName).toList());
 			});
 		});
 	}
@@ -188,7 +187,7 @@ public class TypeTokensTest {
 						assertEquals("ServiceTimingError", type.resolveAlias().getName());
 					});
 					assertIterableEquals(List.of("ItemTimingError", "SequenceTimingError", "ServiceTimingError"),
-							set.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+							set.flatten().stream().map(NamedElement::getName).toList());
 				});
 				with((TypeSetInstance) element.getElements().get(2), set -> {
 					assertEquals("ValueRelatedError", set.getName());
@@ -211,7 +210,7 @@ public class TypeTokensTest {
 						assertEquals("ServiceValueError", type.resolveAlias().getName());
 					});
 					assertIterableEquals(List.of("ItemValueError", "SequenceValueError", "ServiceValueError"),
-							set.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+							set.flatten().stream().map(NamedElement::getName).toList());
 				});
 				with((TypeInstance) element.getElements().get(3), type -> {
 					assertEquals("ReplicationError", type.getName());
@@ -227,7 +226,7 @@ public class TypeTokensTest {
 						List.of("ServiceError", "ItemTimingError", "SequenceTimingError", "ServiceTimingError",
 								"ItemValueError", "SequenceValueError", "ServiceValueError", "ReplicationError",
 								"ConcurrencyError"),
-						element.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+						element.flatten().stream().map(NamedElement::getName).toList());
 			});
 		});
 	}
@@ -263,7 +262,7 @@ public class TypeTokensTest {
 					});
 				});
 				assertIterableEquals(List.of("ServiceError * ItemTimingError"),
-						set.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+						set.flatten().stream().map(NamedElement::getName).toList());
 			});
 		});
 	}
@@ -317,7 +316,7 @@ public class TypeTokensTest {
 						assertEquals("ServiceTimingError", type.resolveAlias().getName());
 					});
 					assertIterableEquals(List.of("ItemTimingError", "SequenceTimingError", "ServiceTimingError"),
-							set.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+							set.flatten().stream().map(NamedElement::getName).toList());
 				});
 				with((TypeSetInstance) element.getElements().get(2), set -> {
 					assertEquals("ValueRelatedError", set.getName());
@@ -340,7 +339,7 @@ public class TypeTokensTest {
 						assertEquals("ServiceValueError", type.resolveAlias().getName());
 					});
 					assertIterableEquals(List.of("ItemValueError", "SequenceValueError", "ServiceValueError"),
-							set.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+							set.flatten().stream().map(NamedElement::getName).toList());
 				});
 				with((TypeInstance) element.getElements().get(3), type -> {
 					assertEquals("ReplicationError", type.getName());
@@ -356,7 +355,7 @@ public class TypeTokensTest {
 						List.of("ServiceError", "ItemTimingError", "SequenceTimingError", "ServiceTimingError",
 								"ItemValueError", "SequenceValueError", "ServiceValueError", "ReplicationError",
 								"ConcurrencyError"),
-						element.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+						element.flatten().stream().map(NamedElement::getName).toList());
 			});
 			with((TypeProductInstance) propagation.getInTypeSet().getElements().get(2), element -> {
 				assertEquals("Error2 * Error3", element.getName());
@@ -397,7 +396,7 @@ public class TypeTokensTest {
 					assertEquals("Error6", type.resolveAlias().getName());
 				});
 				assertIterableEquals(List.of("Error4 * Error5", "Error6"),
-						element.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+						element.flatten().stream().map(NamedElement::getName).toList());
 			});
 			with((TypeInstance) propagation.getOutTypeSet().getElements().get(0), element -> {
 				assertEquals("ServiceError", element.getName());
@@ -425,7 +424,7 @@ public class TypeTokensTest {
 					assertEquals("ServiceTimingError", type.resolveAlias().getName());
 				});
 				assertIterableEquals(List.of("ItemTimingError", "SequenceTimingError", "ServiceTimingError"),
-						element.flatten().stream().map(NamedElement::getName).collect(Collectors.toList()));
+						element.flatten().stream().map(NamedElement::getName).toList());
 			});
 			with((TypeProductInstance) propagation.getOutTypeSet().getElements().get(2), element -> {
 				assertEquals("ReplicationError * ConcurrencyError", element.getName());
@@ -445,19 +444,11 @@ public class TypeTokensTest {
 					List.of("Error1", "ServiceError", "ItemTimingError", "SequenceTimingError", "ServiceTimingError",
 							"ItemValueError", "SequenceValueError", "ServiceValueError", "ReplicationError",
 							"ConcurrencyError", "Error2 * Error3", "Error4 * Error5", "Error6"),
-					propagation.getInTypeSet()
-							.flatten()
-							.stream()
-							.map(NamedElement::getName)
-							.collect(Collectors.toList()));
+					propagation.getInTypeSet().flatten().stream().map(NamedElement::getName).toList());
 			assertIterableEquals(
 					List.of("ServiceError", "ItemTimingError", "SequenceTimingError", "ServiceTimingError",
 							"ReplicationError * ConcurrencyError"),
-					propagation.getOutTypeSet()
-							.flatten()
-							.stream()
-							.map(NamedElement::getName)
-							.collect(Collectors.toList()));
+					propagation.getOutTypeSet().flatten().stream().map(NamedElement::getName).toList());
 		});
 	}
 }

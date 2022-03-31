@@ -8,8 +8,21 @@ public
 			
 			error propagations
 				f: in propagation {ServiceError};
-				f: out propagation {ItemValueError};
+				F: out propagation {ItemValueError};
+				
+				point1: in propagation {ServiceError};
+				POINT1: out propagation {ItemValueError};
+				
+				access: in propagation {ServiceError};
+				ACCESS: out propagation {ItemValueError};
+				
+				processor: in propagation {ServiceError};
+				PROCESSOR: out propagation {ItemValueError};
 			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+			end paths;
 		**};
 	end s;
 	

@@ -1,0 +1,32 @@
+package find_overridden_internal_feature_propagation_test
+public
+	system s
+	end s;
+	
+	system implementation s.parent
+		internal features
+			event_source_1: event;
+			event_source_2: event;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				event_source_1: in propagation {ItemTimingError, SequenceTimingError};
+				event_source_2: out propagation {ServiceError, ServiceTimingError};
+				flows
+					source_1: error source event_source_2 {ServiceError};
+					sink_1: error sink event_source_1 {ItemTimingError};
+					path_1: error path event_source_1 {SequenceTimingError} -> event_source_2 {ServiceTimingError};
+			end propagations;
+		**};
+	end s.parent;
+	
+	system implementation s.child extends s.parent
+		annex EMV2 {**
+			error propagations
+				event_source_1: in propagation {CommonErrors};
+				event_source_2: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end s.child;
+end find_overridden_internal_feature_propagation_test;
