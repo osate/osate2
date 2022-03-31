@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.aadl2.instance.textual.ui" version="2">
-    <resource path="src-gen/org/osate/aadl2/instance/textual/ui/contentassist/antlr/PartialInstanceContentAssistParser.java" type="org.osate.aadl2.instance.textual.ui.contentassist.antlr.PartialInstanceContentAssistParser">
-        <filter comment="xtext" id="576725006">
+    <resource path="src-gen/org/osate/aadl2/instance/textual/ide/contentassist/antlr/InstanceParser.java" type="org.osate.aadl2.instance.textual.ide.contentassist.antlr.InstanceParser">
+        <filter id="1110441988">
             <message_arguments>
-                <message_argument value="IPartialContentAssistParser"/>
-                <message_argument value="PartialInstanceContentAssistParser"/>
+                <message_argument value="org.osate.aadl2.instance.textual.ide.contentassist.antlr.InstanceParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/aadl2/instance/textual/ide/contentassist/antlr/PartialInstanceContentAssistParser.java" type="org.osate.aadl2.instance.textual.ide.contentassist.antlr.PartialInstanceContentAssistParser">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.instance.textual.ide.contentassist.antlr.PartialInstanceContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/aadl2/instance/textual/ide/contentassist/antlr/internal/InternalInstanceLexer.java" type="org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal.InternalInstanceLexer">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal.InternalInstanceLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/aadl2/instance/textual/ide/contentassist/antlr/internal/InternalInstanceParser.java" type="org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal.InternalInstanceParser">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal.InternalInstanceParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/aadl2/instance/textual/ui/internal/TextualActivator.java" type="org.osate.aadl2.instance.textual.ui.internal.TextualActivator">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.instance.textual.ui.internal.TextualActivator"/>
             </message_arguments>
         </filter>
     </resource>

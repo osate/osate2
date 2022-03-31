@@ -54,6 +54,7 @@ import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
 import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2SerializerScopeProvider;
+import org.osate.xtext.aadl2.scoping.AnnexAwareResourceDescriptionStrategy;
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializer;
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializerBinding;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
@@ -236,4 +237,12 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	public Class<? extends TargetURICollector> bindTargetURICollector() {
 		return Aadl2TargetURICollector.class;
 	}
+
+	/**
+	 * @since 6.2
+	 */
+	public Class<? extends org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
+		return AnnexAwareResourceDescriptionStrategy.class;
+	}
+
 }
