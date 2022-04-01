@@ -2045,10 +2045,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getConnectionPath_Connection(), theInstancePackage.getConnectionInstance(), null, "connection",
 				null, 0, 1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnectionPath_SourcePropagations(), getFeaturePropagation(), null, "sourcePropagations",
-				null, 0, -1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnectionPath_DestinationPropagations(), getFeaturePropagation(), null,
+		initEReference(getConnectionPath_SourcePropagations(), getErrorPropagationInstance(), null,
+				"sourcePropagations", null, 0, -1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnectionPath_DestinationPropagations(), getErrorPropagationInstance(), null,
 				"destinationPropagations", null, 0, -1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

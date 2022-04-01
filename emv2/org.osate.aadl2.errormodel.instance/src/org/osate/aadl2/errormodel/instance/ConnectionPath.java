@@ -69,7 +69,7 @@ public interface ConnectionPath extends PropagationPathInstance {
 
 	/**
 	 * Returns the value of the '<em><b>Source Propagations</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.FeaturePropagation}.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source Propagations</em>' reference list.
@@ -77,11 +77,11 @@ public interface ConnectionPath extends PropagationPathInstance {
 	 * @model
 	 * @generated
 	 */
-	EList<FeaturePropagation> getSourcePropagations();
+	EList<ErrorPropagationInstance> getSourcePropagations();
 
 	/**
 	 * Returns the value of the '<em><b>Destination Propagations</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.FeaturePropagation}.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Destination Propagations</em>' reference list.
@@ -89,6 +89,6 @@ public interface ConnectionPath extends PropagationPathInstance {
 	 * @model
 	 * @generated
 	 */
-	EList<FeaturePropagation> getDestinationPropagations();
+	EList<ErrorPropagationInstance> getDestinationPropagations();
 
 } // ConnectionPath
