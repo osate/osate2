@@ -184,4 +184,24 @@ public class ConnectionPathsTest {
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
 		});
 	}
+
+	@Test
+	public void testPropagationsOnSomeLevels() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "propagations_on_some_levels.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals(
+					"left_process.left_tg.left_thread.out_f_thread -> right_process.right_tg.right_thread.in_f_thread",
+					connectionPath.getName());
+			assertEquals(
+					"left_process.left_tg.left_thread.out_f_thread -> right_process.right_tg.right_thread.in_f_thread",
+					connectionPath.getConnection().getName());
+			assertIterableEquals(List.of("out_f_thread", "out_f_process"),
+					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertIterableEquals(List.of("in_f_tg", "in_f_process"),
+					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+		});
+	}
 }
