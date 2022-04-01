@@ -204,4 +204,28 @@ public class ConnectionPathsTest {
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
 		});
 	}
+
+	@Test
+	public void testWrongDirection() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "wrong_direction.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		// Tests that propagation paths which go the wrong direction are not instantiated.
+		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+	}
+
+	@Test
+	public void testBidirectional() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "bidirectional.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals("right.right_feature -> left.left_feature", connectionPath.getName());
+			assertEquals("right.right_feature -> left.left_feature", connectionPath.getConnection().getName());
+			assertIterableEquals(List.of("right_feature"),
+					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertIterableEquals(List.of("left_feature"),
+					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+		});
+	}
 }

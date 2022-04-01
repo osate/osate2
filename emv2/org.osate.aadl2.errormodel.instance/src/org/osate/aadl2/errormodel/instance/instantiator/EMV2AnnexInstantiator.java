@@ -218,7 +218,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			for (var ref : connection.getConnectionReferences()) {
 				if (!encounteredAcross && ref.getSource() instanceof FeatureInstance source) {
 					var propagation = findFeaturePropagation(source);
-					if (propagation != null) {
+					if (propagation != null && propagation.getDirection().outgoing()) {
 						sourcePropagations.add(propagation);
 					}
 				}
@@ -227,7 +227,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				}
 				if (encounteredAcross && ref.getDestination() instanceof FeatureInstance destination) {
 					var propagation = findFeaturePropagation(destination);
-					if (propagation != null) {
+					if (propagation != null && propagation.getDirection().incoming()) {
 						destinationPropagations.addFirst(propagation);
 					}
 				}
