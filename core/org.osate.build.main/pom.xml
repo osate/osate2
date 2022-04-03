@@ -11,7 +11,7 @@
 		<tycho-extras.version>2.7.0</tycho-extras.version>
 		<xtext.version>2.26.0</xtext.version>
 		<xsemantics.version>1.21.0-SNAPSHOT</xsemantics.version>
-		<openjfx.version>17.0.1</openjfx.version>
+		<openjfx.version>17.0.2</openjfx.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.11.0-SNAPSHOT</osate.version>
 
