@@ -210,14 +210,21 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private void instantiateConnectionPath(ConnectionInstance connection, ComponentInstance component) {
-		if (connection.isComplete() && connection.getSource() instanceof FeatureInstance
-				&& connection.getDestination() instanceof FeatureInstance) {
-			var sourcePropagations = new ArrayList<FeaturePropagation>();
-			var destinationPropagations = new ArrayDeque<FeaturePropagation>();
+		if (connection.isComplete()) {
+			var sourcePropagations = new ArrayList<ErrorPropagationInstance>();
+			var destinationPropagations = new ArrayDeque<ErrorPropagationInstance>();
 			var encounteredAcross = false;
 			for (var ref : connection.getConnectionReferences()) {
-				if (!encounteredAcross && ref.getSource() instanceof FeatureInstance source) {
-					var propagation = findFeaturePropagation(source);
+				if (!encounteredAcross) {
+					ErrorPropagationInstance propagation;
+					if (ref.getSource() instanceof FeatureInstance source) {
+						propagation = findFeaturePropagation(source);
+					} else if (ref.getSource() instanceof ComponentInstance source) {
+						propagation = findAccessPropagation(source);
+					} else {
+						// TODO Log an error
+						return;
+					}
 					if (propagation != null && propagation.getDirection().outgoing()) {
 						sourcePropagations.add(propagation);
 					}
@@ -225,8 +232,16 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				if (ref.getConnection().isAcross()) {
 					encounteredAcross = true;
 				}
-				if (encounteredAcross && ref.getDestination() instanceof FeatureInstance destination) {
-					var propagation = findFeaturePropagation(destination);
+				if (encounteredAcross) {
+					ErrorPropagationInstance propagation;
+					if (ref.getDestination() instanceof FeatureInstance destination) {
+						propagation = findFeaturePropagation(destination);
+					} else if (ref.getDestination() instanceof ComponentInstance destination) {
+						propagation = findAccessPropagation(destination);
+					} else {
+						// TODO Log an error
+						return;
+					}
 					if (propagation != null && propagation.getDirection().incoming()) {
 						destinationPropagations.addFirst(propagation);
 					}
@@ -1048,6 +1063,19 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			if (propagation instanceof FeaturePropagation featurePropagation
 					&& featurePropagation.getFeature() == feature) {
 				return featurePropagation;
+			}
+		}
+		return null;
+	}
+
+	private AccessPropagation findAccessPropagation(ComponentInstance component) {
+		var annex = findEMV2AnnexInstance(component);
+		if (annex == null) {
+			return null;
+		}
+		for (var propagation : annex.getPropagations()) {
+			if (propagation instanceof AccessPropagation accessPropagation) {
+				return accessPropagation;
 			}
 		}
 		return null;

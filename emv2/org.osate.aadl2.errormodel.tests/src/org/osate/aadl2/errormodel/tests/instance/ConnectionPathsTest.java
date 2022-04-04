@@ -228,4 +228,78 @@ public class ConnectionPathsTest {
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
 		});
 	}
+
+	@Test
+	public void testAccessPath() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "access_path.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals("b -> m.ba", connectionPath.getName());
+			assertEquals("b -> m.ba", connectionPath.getConnection().getName());
+			assertIterableEquals(List.of("access"),
+					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertIterableEquals(List.of("ba"),
+					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+		});
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(1), connectionPath -> {
+			assertEquals("m.ba -> b", connectionPath.getName());
+			assertEquals("m.ba -> b", connectionPath.getConnection().getName());
+			assertIterableEquals(List.of("ba"),
+					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertIterableEquals(List.of("access"),
+					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+		});
+	}
+
+	@Test
+	public void testAccessPathOneWay() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "access_path_one_way.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals("m.ba -> b", connectionPath.getName());
+			assertEquals("m.ba -> b", connectionPath.getConnection().getName());
+			assertIterableEquals(List.of("ba"),
+					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertIterableEquals(List.of("access"),
+					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+		});
+	}
+
+	@Test
+	public void testAccessPathOnEveryLevel() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "access_path_on_every_level.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals(
+					"left_top.left_middle.left_bottom.b -> right_top.right_middle.right_bottom.m.requires_ba_memory",
+					connectionPath.getName());
+			assertEquals(
+					"left_top.left_middle.left_bottom.b -> right_top.right_middle.right_bottom.m.requires_ba_memory",
+					connectionPath.getConnection().getName());
+			assertIterableEquals(List.of("access", "provides_ba_bottom", "provides_ba_middle", "provides_ba_top"),
+					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertIterableEquals(
+					List.of("requires_ba_memory", "requires_ba_bottom", "requires_ba_middle", "requires_ba_top"),
+					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+		});
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(1), connectionPath -> {
+			assertEquals(
+					"right_top.right_middle.right_bottom.m.requires_ba_memory -> left_top.left_middle.left_bottom.b",
+					connectionPath.getName());
+			assertEquals(
+					"right_top.right_middle.right_bottom.m.requires_ba_memory -> left_top.left_middle.left_bottom.b",
+					connectionPath.getConnection().getName());
+			assertIterableEquals(
+					List.of("requires_ba_memory", "requires_ba_bottom", "requires_ba_middle", "requires_ba_top"),
+					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertIterableEquals(List.of("access", "provides_ba_bottom", "provides_ba_middle", "provides_ba_top"),
+					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+		});
+	}
 }
