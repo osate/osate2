@@ -104,7 +104,11 @@ public class DefaultReferenceService implements ReferenceService {
 	private final WeakHashMap<IProject, ProjectReferenceServiceReference> projectToProjectReferenceService = new WeakHashMap<>();
 	private final BusinessObjectHandlerProvider bohProvider;
 
-	private DefaultReferenceService(
+	/**
+	 * Creates a new instance. In most cases, it is not appropriate to use this. The registered {@link ReferenceService} should be used.
+	 * @param bohProvider an object which provides the registered business object handlers
+	 */
+	public DefaultReferenceService(
 			final BusinessObjectHandlerProvider bohProvider) {
 		this.labelProviderRegistry = new ReferenceLabelProviderRegistry(Platform.getExtensionRegistry());
 		this.bohProvider = Objects.requireNonNull(bohProvider, "bohProvider must not be null");

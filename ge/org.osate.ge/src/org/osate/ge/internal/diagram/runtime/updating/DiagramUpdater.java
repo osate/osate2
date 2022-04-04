@@ -77,8 +77,8 @@ public class DiagramUpdater {
 	 * @param boTreeUpdater the tree updater
 	 * @param infoProvider the diagram element info provider
 	 * @param actionExecutor the action executor to use to execute action
-	 * @param referenceResolver the reference resolver
-	 * @param referenceBuilder the reference builder
+	 * @param referenceResolver the reference resolver. Must not be null but only used when a diagram has a diagram context.
+	 * @param referenceBuilder the reference builder. Must not be null but only used when a diagram has a diagram context.
 	 */
 	public DiagramUpdater(final BusinessObjectTreeUpdater boTreeUpdater,
 			final DiagramElementInformationProvider infoProvider, final ActionExecutor actionExecutor,
