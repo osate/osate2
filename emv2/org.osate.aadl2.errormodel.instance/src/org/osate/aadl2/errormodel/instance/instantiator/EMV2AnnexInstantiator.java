@@ -222,8 +222,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					} else if (ref.getSource() instanceof ComponentInstance source) {
 						propagation = findAccessPropagation(source);
 					} else {
-						// TODO Log an error
-						return;
+						throw new RuntimeException("Unexpected connection end: " + ref.getSource());
 					}
 					if (propagation != null && propagation.getDirection().outgoing()) {
 						sourcePropagations.add(propagation);
@@ -239,8 +238,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					} else if (ref.getDestination() instanceof ComponentInstance destination) {
 						propagation = findAccessPropagation(destination);
 					} else {
-						// TODO Log an error
-						return;
+						throw new RuntimeException("Unexpected connection end: " + ref.getDestination());
 					}
 					if (propagation != null && propagation.getDirection().incoming()) {
 						destinationPropagations.addFirst(propagation);
