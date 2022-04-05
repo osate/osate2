@@ -810,7 +810,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * return list of Feature instances involved in a connection instance
 	 * In case of a fan-in/fan-out it includes both the feature group and the feature
 	 * For an end point in teh connection it may be a component instance
+	 * @deprecated will be removed in 2.12.0
 	 */
+	@Deprecated(since = "2.11.0", forRemoval = true)
 	public List<InstanceObject> getThroughFeatureInstances() {
 		final List<InstanceObject> featureList = new ArrayList<InstanceObject>();
 
@@ -839,7 +841,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @param ctxt component instance
 	 * @param connEndPoint ConnectionEnd
 	 * @param connCtxt Context of th eendpoint
+	 * @deprecated will be removed in 2.12.0
 	 */
+	@Deprecated(since = "2.11.0", forRemoval = true)
 	public ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
 			final Context connCtxt) {
 		ConnectionInstanceEnd instance = null;

@@ -282,7 +282,8 @@ class ConnectionInfo {
 			connRef.setConnection(connIter.next());
 			connRef.setContext(ctxIter.next());
 			connRef.setSource(dosrc);
-			dodst = resolveFeatureInstance(dosrc, dstIter.next());
+			ConnectionInstanceEnd nextDst = dstIter.next();
+			dodst = dstIter.hasNext() ? resolveFeatureInstance(dosrc, nextDst) : dst;
 			connRef.setDestination(dodst);
 			dosrc = dodst;
 			connRef.setReverse(oppIter.next());
@@ -295,6 +296,13 @@ class ConnectionInfo {
 		return conni;
 	}
 
+	/**
+	 * If the destination is a feature group we must find the contained feature that matches
+	 * the contained feature on the source side.
+	 * @param origCIE
+	 * @param rootCIE
+	 * @return
+	 */
 	protected ConnectionInstanceEnd resolveFeatureInstance(ConnectionInstanceEnd origCIE,
 			ConnectionInstanceEnd rootCIE) {
 		if (origCIE instanceof ComponentInstance || rootCIE instanceof ComponentInstance) {

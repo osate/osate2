@@ -9,9 +9,10 @@
 	<properties>
 		<tycho.version>2.7.0</tycho.version>
 		<tycho-extras.version>2.7.0</tycho-extras.version>
+		<eclipse.version>2022-03</eclipse.version>
 		<xtext.version>2.26.0</xtext.version>
 		<xsemantics.version>1.21.0-SNAPSHOT</xsemantics.version>
-		<openjfx.version>17.0.1</openjfx.version>
+		<openjfx.version>17.0.2</openjfx.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.11.0-SNAPSHOT</osate.version>
 
@@ -47,7 +48,7 @@
 		<sonar.java.source>17</sonar.java.source>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2022-03</eclipse.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/${eclipse.version}</eclipse.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
