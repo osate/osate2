@@ -9,5 +9,6 @@ Bundle-Vendor: CMU/SEI
 Require-Bundle: org.eclipse.osgi,
  org.osate.aadl2,
  org.jgrapht,
- org.osate.aadl2.errormodel.instance
+ org.osate.aadl2.errormodel.instance,
+ org.apache.commons.lang
 Export-Package: org.osate.slicer

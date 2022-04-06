@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -53,7 +54,7 @@ import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
-import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -329,6 +330,62 @@ public class SlicerRepresentation {
 	}
 
 	/**
+	 * Gets "neighbor" components, which are those components that have features which are connected
+	 * by a single edge to features in the supplied components.
+	 *
+	 * @param component The component to get the neighbors of
+	 * @param successors True to retrieve "successors" (ie, components which consume output from the
+	 * supplied component), false to retrieve "predecessors"
+	 * @return Neighboring components. Does not include original component.
+	 */
+	public Collection<EObject> getNeighbors(ComponentInstance component, boolean successors) {
+		Set<EObject> retSet = new HashSet<>();
+		Collection<OsateSlicerVertex> tempSet = new HashSet<>();
+		int myDepth = -1;
+		for (FeatureInstance fi : component.getAllFeatureInstances()) {
+			if (myDepth < 0) {
+				myDepth = vertexMap.get(fi.getInstanceObjectPath()).getDepth();
+			}
+			tempSet.addAll(getNeighbors(fi.getInstanceObjectPath(), successors));
+		}
+		EObject temp;
+		for (OsateSlicerVertex v : tempSet) {
+			temp = v.getContainer();
+			for (int i = myDepth - v.getDepth(); i < 0; i++) {
+				temp = temp.eContainer();
+			}
+			if (temp != component) {
+				retSet.add(temp);
+			}
+		}
+		return retSet;
+	}
+
+	/**
+	 * Implementation of neighbor-finding
+	 *
+	 * @param srcVert The path to the vertex the caller wants the neighbors of
+	 * @param successors True if the caller wants vertices pointed at by edges from the srcVert,
+	 * false if s/he wants vertices which point at the srcVert
+	 * @return Vertices representing features which are connected by a single edge to the supplied vertex
+	 */
+	private Collection<OsateSlicerVertex> getNeighbors(String srcVert, boolean successors) {
+		Set<OsateSlicerVertex> retSet;
+		if (successors) {
+			retSet = g.outgoingEdgesOf(vertexMap.get(srcVert))
+					.stream()
+					.map(e -> g.getEdgeTarget(e))
+					.collect(Collectors.toSet());
+		} else {
+			retSet = g.incomingEdgesOf(vertexMap.get(srcVert))
+					.stream()
+					.map(e -> g.getEdgeSource(e))
+					.collect(Collectors.toSet());
+		}
+		return retSet;
+	}
+
+	/**
 	 * Private method to actually do the slicing / reachability
 	 *
 	 * @param graph The graph to operate on
@@ -442,7 +499,7 @@ public class SlicerRepresentation {
 		}
 
 		@Override
-		public Void casePropagationPathInstance(PropagationPathInstance ppi) {
+		public Void caseOldPropagationPathInstance(OldPropagationPathInstance ppi) {
 			var src = (ConstrainedInstanceObject) ppi.getSource();
 			var dst = ppi.getTarget();
 			if (src instanceof ErrorPropagationInstance && dst instanceof ErrorPropagationInstance) {
