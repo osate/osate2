@@ -1169,23 +1169,36 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		ConnectionInstanceEnd dst = conni.getDestination();
 		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(src.getComponentInstance());
 		EMV2AnnexInstance dstAnnex = findEMV2AnnexInstance(dst.getComponentInstance());
-		for (ConstrainedInstanceObject assignment : allOutgoingCIOs(src, srcAnnex)) {
-			if (assignment.getInstanceObject() == src) {
-				EList<TypeToken> outTypeTokens = assignment.getConstraint();
-				for (TypeToken tt : outTypeTokens) {
-					Collection<ConstrainedInstanceObject> dstCIOs = allOutPropagationConditionCIOs(dst, tt, dstAnnex);
-					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
-								.createOldPropagationPathInstance();
-						ppi.setSource(assignment);
-						ppi.setTarget(dstCIO);
-						ppi.setName(conni.getName() + "-" + dstCIO.getName());
-						annex.getOldPropagationPaths().add(ppi);
-						addConnectionBindingCIOs(conni, annex, ppi);
-					}
-					if (dstCIOs.isEmpty()) {
-						// use flow if no out propagation condition
-						dstCIOs = allIncomingFlowCIOs(dst, tt, dstAnnex);
+		if (srcAnnex != null && dstAnnex != null) {
+			for (ConstrainedInstanceObject assignment : allOutgoingCIOs(src, srcAnnex)) {
+				if (assignment.getInstanceObject() == src) {
+					EList<TypeToken> outTypeTokens = assignment.getConstraint();
+					for (TypeToken tt : outTypeTokens) {
+						Collection<ConstrainedInstanceObject> dstCIOs = allOutPropagationConditionCIOs(dst, tt,
+								dstAnnex);
+						for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+							OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+									.createOldPropagationPathInstance();
+							ppi.setSource(assignment);
+							ppi.setTarget(dstCIO);
+							ppi.setName(conni.getName() + "-" + dstCIO.getName());
+							annex.getOldPropagationPaths().add(ppi);
+							addConnectionBindingCIOs(conni, annex, ppi);
+						}
+						if (dstCIOs.isEmpty()) {
+							// use flow if no out propagation condition
+							dstCIOs = allIncomingFlowCIOs(dst, tt, dstAnnex);
+							for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+								OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+										.createOldPropagationPathInstance();
+								ppi.setSource(assignment);
+								ppi.setTarget(dstCIO);
+								ppi.setName(conni.getName() + "-" + dstCIO.getName());
+								annex.getOldPropagationPaths().add(ppi);
+								addConnectionBindingCIOs(conni, annex, ppi);
+							}
+						}
+						dstCIOs = allTransitionConditionCIOs(dst, tt, dstAnnex);
 						for (ConstrainedInstanceObject dstCIO : dstCIOs) {
 							OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
 									.createOldPropagationPathInstance();
@@ -1196,29 +1209,19 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 							addConnectionBindingCIOs(conni, annex, ppi);
 						}
 					}
-					dstCIOs = allTransitionConditionCIOs(dst, tt, dstAnnex);
-					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
-								.createOldPropagationPathInstance();
-						ppi.setSource(assignment);
-						ppi.setTarget(dstCIO);
-						ppi.setName(conni.getName() + "-" + dstCIO.getName());
-						annex.getOldPropagationPaths().add(ppi);
-						addConnectionBindingCIOs(conni, annex, ppi);
-					}
 				}
 			}
-		}
-		// now propagation paths from outgoing to incoming error propagations
-		ErrorPropagationInstance outep = findErrorPropagationInstance(srcAnnex, src, true);
-		ErrorPropagationInstance inep = findErrorPropagationInstance(dstAnnex, dst, false);
-		if (outep != null && inep != null) {
-			OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createOldPropagationPathInstance();
-			ppi.setSource(outep);
-			ppi.setTarget(inep);
-			ppi.setName(conni.getName() + "-" + inep.getName());
-			annex.getOldPropagationPaths().add(ppi);
-			addConnectionBindingCIOs(conni, annex, ppi);
+			// now propagation paths from outgoing to incoming error propagations
+			ErrorPropagationInstance outep = findErrorPropagationInstance(srcAnnex, src, true);
+			ErrorPropagationInstance inep = findErrorPropagationInstance(dstAnnex, dst, false);
+			if (outep != null && inep != null) {
+				OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createOldPropagationPathInstance();
+				ppi.setSource(outep);
+				ppi.setTarget(inep);
+				ppi.setName(conni.getName() + "-" + inep.getName());
+				annex.getOldPropagationPaths().add(ppi);
+				addConnectionBindingCIOs(conni, annex, ppi);
+			}
 		}
 	}
 
