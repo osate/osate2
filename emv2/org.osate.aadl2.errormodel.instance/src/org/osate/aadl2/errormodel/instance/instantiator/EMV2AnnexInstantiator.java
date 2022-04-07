@@ -204,9 +204,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	@Override
 	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
-		EcoreUtil2.eAllOfType(instance, ComponentInstance.class)
-				.forEach(component -> component.getConnectionInstances()
-						.forEach(connection -> instantiateConnectionPath(connection, component)));
+		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(component -> {
+			component.getConnectionInstances().forEach(connection -> instantiateConnectionPath(connection, component));
+			instantiateBindingPaths(component);
+		});
 	}
 
 	private void instantiateConnectionPath(ConnectionInstance connection, ComponentInstance component) {
@@ -253,6 +254,76 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				connectionPath.getDestinationPropagations().addAll(destinationPropagations);
 				getOrCreateEMV2AnnexInstance(component).getPropagationPaths().add(connectionPath);
 			}
+		}
+	}
+
+	private void instantiateBindingPaths(ComponentInstance component) {
+		if (DeploymentProperties.acceptsActualProcessorBinding(component)) {
+			DeploymentProperties.getActualProcessorBinding(component).ifPresent(bindingTargets -> {
+				var processorPropagation = findBindingPropagation(component, BindingType.PROCESSOR);
+				if (processorPropagation != null) {
+					for (var bindingTarget : bindingTargets) {
+						if (bindingTarget instanceof ComponentInstance bindingComponent) {
+							var bindingsPropagation = findBindingPropagation(bindingComponent, BindingType.BINDINGS);
+							if (bindingsPropagation != null) {
+								if (processorPropagation.getDirection().outgoing()
+										&& bindingsPropagation.getDirection().incoming()) {
+									ComponentInstance commonContainer = null;
+									if (EcoreUtil.isAncestor(bindingComponent, component)) {
+										commonContainer = bindingComponent;
+									} else {
+										for (var container : EcoreUtil2.getAllContainers(bindingComponent)) {
+											if (container instanceof ComponentInstance containerComponent
+													&& EcoreUtil.isAncestor(containerComponent, component)) {
+												commonContainer = containerComponent;
+											}
+										}
+									}
+
+									var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
+
+									var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
+									bindingPath.setName(
+											"Processor Binding: "
+													+ processorPropagation.getInstanceObjectPath()
+															.substring(substringIndex)
+													+ " -> " + bindingsPropagation.getInstanceObjectPath()
+															.substring(substringIndex));
+									bindingPath.setSourcePropagation(processorPropagation);
+									bindingPath.setDestinationPropagation(bindingsPropagation);
+									getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths()
+											.add(bindingPath);
+								}
+								if (bindingsPropagation.getDirection().outgoing() && processorPropagation.getDirection().incoming()) {
+									ComponentInstance commonContainer = null;
+									if (EcoreUtil.isAncestor(bindingComponent, component)) {
+										commonContainer = bindingComponent;
+									} else {
+										for (var container : EcoreUtil2.getAllContainers(bindingComponent)) {
+											if (container instanceof ComponentInstance containerComponent
+													&& EcoreUtil.isAncestor(containerComponent, component)) {
+												commonContainer = containerComponent;
+											}
+										}
+									}
+
+									var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
+
+									var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
+									bindingPath.setName("Processor Binding: "
+											+ bindingsPropagation.getInstanceObjectPath().substring(substringIndex)
+											+ " -> "
+											+ processorPropagation.getInstanceObjectPath().substring(substringIndex));
+									bindingPath.setSourcePropagation(bindingsPropagation);
+									bindingPath.setDestinationPropagation(processorPropagation);
+									getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths()
+											.add(bindingPath);
+								}
+							}
+						}
+					}
+				}
+			});
 		}
 	}
 
@@ -1074,6 +1145,20 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (var propagation : annex.getPropagations()) {
 			if (propagation instanceof AccessPropagation accessPropagation) {
 				return accessPropagation;
+			}
+		}
+		return null;
+	}
+
+	private BindingPropagation findBindingPropagation(ComponentInstance component, BindingType binding) {
+		var annex = findEMV2AnnexInstance(component);
+		if (annex == null) {
+			return null;
+		}
+		for (var propagation : annex.getPropagations()) {
+			if (propagation instanceof BindingPropagation bindingPropagation
+					&& bindingPropagation.getBinding() == binding) {
+				return bindingPropagation;
 			}
 		}
 		return null;
