@@ -32,6 +32,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
@@ -278,6 +279,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseConnectionPath(ConnectionPath object) {
 			return createConnectionPathAdapter();
+		}
+
+		@Override
+		public Adapter caseBindingPath(BindingPath object) {
+			return createBindingPathAdapter();
 		}
 
 		@Override
@@ -540,6 +546,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConnectionPathAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.BindingPath <em>Binding Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.BindingPath
+	 * @generated
+	 */
+	public Adapter createBindingPathAdapter() {
 		return null;
 	}
 

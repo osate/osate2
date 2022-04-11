@@ -204,30 +204,44 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	@Override
 	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
-		EcoreUtil2.eAllOfType(instance, ComponentInstance.class)
-				.forEach(component -> component.getConnectionInstances()
-						.forEach(connection -> instantiateConnectionPath(connection, component)));
+		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(component -> {
+			component.getConnectionInstances().forEach(connection -> instantiateConnectionPath(connection, component));
+			instantiateBindingPaths(component);
+		});
 	}
 
 	private void instantiateConnectionPath(ConnectionInstance connection, ComponentInstance component) {
-		if (connection.isComplete() && connection.getSource() instanceof FeatureInstance
-				&& connection.getDestination() instanceof FeatureInstance) {
-			var sourcePropagations = new ArrayList<FeaturePropagation>();
-			var destinationPropagations = new ArrayDeque<FeaturePropagation>();
+		if (connection.isComplete()) {
+			var sourcePropagations = new ArrayList<ErrorPropagationInstance>();
+			var destinationPropagations = new ArrayDeque<ErrorPropagationInstance>();
 			var encounteredAcross = false;
 			for (var ref : connection.getConnectionReferences()) {
-				if (!encounteredAcross && ref.getSource() instanceof FeatureInstance source) {
-					var propagation = findFeaturePropagation(source);
-					if (propagation != null) {
+				if (!encounteredAcross) {
+					ErrorPropagationInstance propagation;
+					if (ref.getSource() instanceof FeatureInstance source) {
+						propagation = findFeaturePropagation(source);
+					} else if (ref.getSource() instanceof ComponentInstance source) {
+						propagation = findAccessPropagation(source);
+					} else {
+						throw new RuntimeException("Unexpected connection end: " + ref.getSource());
+					}
+					if (propagation != null && propagation.getDirection().outgoing()) {
 						sourcePropagations.add(propagation);
 					}
 				}
 				if (ref.getConnection().isAcross()) {
 					encounteredAcross = true;
 				}
-				if (encounteredAcross && ref.getDestination() instanceof FeatureInstance destination) {
-					var propagation = findFeaturePropagation(destination);
-					if (propagation != null) {
+				if (encounteredAcross) {
+					ErrorPropagationInstance propagation;
+					if (ref.getDestination() instanceof FeatureInstance destination) {
+						propagation = findFeaturePropagation(destination);
+					} else if (ref.getDestination() instanceof ComponentInstance destination) {
+						propagation = findAccessPropagation(destination);
+					} else {
+						throw new RuntimeException("Unexpected connection end: " + ref.getDestination());
+					}
+					if (propagation != null && propagation.getDirection().incoming()) {
 						destinationPropagations.addFirst(propagation);
 					}
 				}
@@ -241,6 +255,59 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				getOrCreateEMV2AnnexInstance(component).getPropagationPaths().add(connectionPath);
 			}
 		}
+	}
+
+	private void instantiateBindingPaths(ComponentInstance component) {
+		var processorPropagation = findBindingPropagation(component, BindingType.PROCESSOR);
+		if (processorPropagation != null && DeploymentProperties.acceptsActualProcessorBinding(component)) {
+			DeploymentProperties.getActualProcessorBinding(component).ifPresent(bindingTargets -> {
+				for (var bindingTarget : bindingTargets) {
+					if (bindingTarget instanceof ComponentInstance bindingComponent) {
+						var bindingsPropagation = findBindingPropagation(bindingComponent, BindingType.BINDINGS);
+						if (bindingsPropagation != null) {
+							var commonContainer = getCommonContainer(bindingComponent, component);
+							var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
+							var processorPropagationPath = processorPropagation.getInstanceObjectPath()
+									.substring(substringIndex);
+							var bindingsPropagationPath = bindingsPropagation.getInstanceObjectPath()
+									.substring(substringIndex);
+							if (processorPropagation.getDirection().outgoing()
+									&& bindingsPropagation.getDirection().incoming()) {
+								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
+								bindingPath.setName("Processor Binding: " + processorPropagationPath + " -> "
+										+ bindingsPropagationPath);
+								bindingPath.setSourcePropagation(processorPropagation);
+								bindingPath.setDestinationPropagation(bindingsPropagation);
+								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
+							}
+							if (bindingsPropagation.getDirection().outgoing()
+									&& processorPropagation.getDirection().incoming()) {
+								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
+								bindingPath.setName("Processor Binding: " + bindingsPropagationPath + " -> "
+										+ processorPropagationPath);
+								bindingPath.setSourcePropagation(bindingsPropagation);
+								bindingPath.setDestinationPropagation(processorPropagation);
+								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
+							}
+						}
+					}
+				}
+			});
+		}
+	}
+
+	private static ComponentInstance getCommonContainer(ComponentInstance a, ComponentInstance b) {
+		if (EcoreUtil.isAncestor(a, b)) {
+			return a;
+		} else {
+			for (var container : EcoreUtil2.getAllContainers(a)) {
+				if (container instanceof ComponentInstance containerComponent
+						&& EcoreUtil.isAncestor(containerComponent, b)) {
+					return containerComponent;
+				}
+			}
+		}
+		return null;
 	}
 
 	private EMV2AnnexInstance getOrCreateEMV2AnnexInstance(ComponentInstance component) {
@@ -1053,28 +1120,68 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return null;
 	}
 
+	private AccessPropagation findAccessPropagation(ComponentInstance component) {
+		var annex = findEMV2AnnexInstance(component);
+		if (annex == null) {
+			return null;
+		}
+		for (var propagation : annex.getPropagations()) {
+			if (propagation instanceof AccessPropagation accessPropagation) {
+				return accessPropagation;
+			}
+		}
+		return null;
+	}
+
+	private BindingPropagation findBindingPropagation(ComponentInstance component, BindingType binding) {
+		var annex = findEMV2AnnexInstance(component);
+		if (annex == null) {
+			return null;
+		}
+		for (var propagation : annex.getPropagations()) {
+			if (propagation instanceof BindingPropagation bindingPropagation
+					&& bindingPropagation.getBinding() == binding) {
+				return bindingPropagation;
+			}
+		}
+		return null;
+	}
+
 	private void instantiateConnectionPropagationPaths(ConnectionInstance conni, EMV2AnnexInstance annex) {
 		ConnectionInstanceEnd src = conni.getSource();
 		ConnectionInstanceEnd dst = conni.getDestination();
 		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(src.getComponentInstance());
 		EMV2AnnexInstance dstAnnex = findEMV2AnnexInstance(dst.getComponentInstance());
-		for (ConstrainedInstanceObject assignment : allOutgoingCIOs(src, srcAnnex)) {
-			if (assignment.getInstanceObject() == src) {
-				EList<TypeToken> outTypeTokens = assignment.getConstraint();
-				for (TypeToken tt : outTypeTokens) {
-					Collection<ConstrainedInstanceObject> dstCIOs = allOutPropagationConditionCIOs(dst, tt, dstAnnex);
-					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
-								.createOldPropagationPathInstance();
-						ppi.setSource(assignment);
-						ppi.setTarget(dstCIO);
-						ppi.setName(conni.getName() + "-" + dstCIO.getName());
-						annex.getOldPropagationPaths().add(ppi);
-						addConnectionBindingCIOs(conni, annex, ppi);
-					}
-					if (dstCIOs.isEmpty()) {
-						// use flow if no out propagation condition
-						dstCIOs = allIncomingFlowCIOs(dst, tt, dstAnnex);
+		if (srcAnnex != null && dstAnnex != null) {
+			for (ConstrainedInstanceObject assignment : allOutgoingCIOs(src, srcAnnex)) {
+				if (assignment.getInstanceObject() == src) {
+					EList<TypeToken> outTypeTokens = assignment.getConstraint();
+					for (TypeToken tt : outTypeTokens) {
+						Collection<ConstrainedInstanceObject> dstCIOs = allOutPropagationConditionCIOs(dst, tt,
+								dstAnnex);
+						for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+							OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+									.createOldPropagationPathInstance();
+							ppi.setSource(assignment);
+							ppi.setTarget(dstCIO);
+							ppi.setName(conni.getName() + "-" + dstCIO.getName());
+							annex.getOldPropagationPaths().add(ppi);
+							addConnectionBindingCIOs(conni, annex, ppi);
+						}
+						if (dstCIOs.isEmpty()) {
+							// use flow if no out propagation condition
+							dstCIOs = allIncomingFlowCIOs(dst, tt, dstAnnex);
+							for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+								OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+										.createOldPropagationPathInstance();
+								ppi.setSource(assignment);
+								ppi.setTarget(dstCIO);
+								ppi.setName(conni.getName() + "-" + dstCIO.getName());
+								annex.getOldPropagationPaths().add(ppi);
+								addConnectionBindingCIOs(conni, annex, ppi);
+							}
+						}
+						dstCIOs = allTransitionConditionCIOs(dst, tt, dstAnnex);
 						for (ConstrainedInstanceObject dstCIO : dstCIOs) {
 							OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
 									.createOldPropagationPathInstance();
@@ -1085,29 +1192,19 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 							addConnectionBindingCIOs(conni, annex, ppi);
 						}
 					}
-					dstCIOs = allTransitionConditionCIOs(dst, tt, dstAnnex);
-					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
-								.createOldPropagationPathInstance();
-						ppi.setSource(assignment);
-						ppi.setTarget(dstCIO);
-						ppi.setName(conni.getName() + "-" + dstCIO.getName());
-						annex.getOldPropagationPaths().add(ppi);
-						addConnectionBindingCIOs(conni, annex, ppi);
-					}
 				}
 			}
-		}
-		// now propagation paths from outgoing to incoming error propagations
-		ErrorPropagationInstance outep = findErrorPropagationInstance(srcAnnex, src, true);
-		ErrorPropagationInstance inep = findErrorPropagationInstance(dstAnnex, dst, false);
-		if (outep != null && inep != null) {
-			OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createOldPropagationPathInstance();
-			ppi.setSource(outep);
-			ppi.setTarget(inep);
-			ppi.setName(conni.getName() + "-" + inep.getName());
-			annex.getOldPropagationPaths().add(ppi);
-			addConnectionBindingCIOs(conni, annex, ppi);
+			// now propagation paths from outgoing to incoming error propagations
+			ErrorPropagationInstance outep = findErrorPropagationInstance(srcAnnex, src, true);
+			ErrorPropagationInstance inep = findErrorPropagationInstance(dstAnnex, dst, false);
+			if (outep != null && inep != null) {
+				OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createOldPropagationPathInstance();
+				ppi.setSource(outep);
+				ppi.setTarget(inep);
+				ppi.setName(conni.getName() + "-" + inep.getName());
+				annex.getOldPropagationPaths().add(ppi);
+				addConnectionBindingCIOs(conni, annex, ppi);
+			}
 		}
 	}
 

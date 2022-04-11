@@ -31,6 +31,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
@@ -839,6 +840,29 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.BINDING_PATH: {
+			BindingPath bindingPath = (BindingPath) theEObject;
+			T result = caseBindingPath(bindingPath);
+			if (result == null) {
+				result = casePropagationPathInstance(bindingPath);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(bindingPath);
+			}
+			if (result == null) {
+				result = caseInstanceObject(bindingPath);
+			}
+			if (result == null) {
+				result = caseNamedElement(bindingPath);
+			}
+			if (result == null) {
+				result = caseElement(bindingPath);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1081,6 +1105,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConnectionPath(ConnectionPath object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Binding Path</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Binding Path</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBindingPath(BindingPath object) {
 		return null;
 	}
 

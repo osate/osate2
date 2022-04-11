@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
@@ -70,7 +70,7 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<FeaturePropagation> sourcePropagations;
+	protected EList<ErrorPropagationInstance> sourcePropagations;
 
 	/**
 	 * The cached value of the '{@link #getDestinationPropagations() <em>Destination Propagations</em>}' reference list.
@@ -80,7 +80,7 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<FeaturePropagation> destinationPropagations;
+	protected EList<ErrorPropagationInstance> destinationPropagations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -151,10 +151,10 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated
 	 */
 	@Override
-	public EList<FeaturePropagation> getSourcePropagations() {
+	public EList<ErrorPropagationInstance> getSourcePropagations() {
 		if (sourcePropagations == null) {
-			sourcePropagations = new EObjectResolvingEList<>(FeaturePropagation.class, this,
-					EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS);
+			sourcePropagations = new EObjectResolvingEList<>(ErrorPropagationInstance.class,
+					this, EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS);
 		}
 		return sourcePropagations;
 	}
@@ -165,9 +165,10 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated
 	 */
 	@Override
-	public EList<FeaturePropagation> getDestinationPropagations() {
+	public EList<ErrorPropagationInstance> getDestinationPropagations() {
 		if (destinationPropagations == null) {
-			destinationPropagations = new EObjectResolvingEList<>(FeaturePropagation.class, this,
+			destinationPropagations = new EObjectResolvingEList<>(
+					ErrorPropagationInstance.class, this,
 					EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS);
 		}
 		return destinationPropagations;
@@ -208,11 +209,11 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 			return;
 		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS:
 			getSourcePropagations().clear();
-			getSourcePropagations().addAll((Collection<? extends FeaturePropagation>) newValue);
+			getSourcePropagations().addAll((Collection<? extends ErrorPropagationInstance>) newValue);
 			return;
 		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS:
 			getDestinationPropagations().clear();
-			getDestinationPropagations().addAll((Collection<? extends FeaturePropagation>) newValue);
+			getDestinationPropagations().addAll((Collection<? extends ErrorPropagationInstance>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

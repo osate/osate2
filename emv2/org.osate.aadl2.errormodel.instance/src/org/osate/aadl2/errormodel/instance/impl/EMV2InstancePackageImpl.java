@@ -34,6 +34,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -188,6 +189,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass connectionPathEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass bindingPathEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1062,6 +1070,36 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getBindingPath() {
+		return bindingPathEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getBindingPath_SourcePropagation() {
+		return (EReference) bindingPathEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getBindingPath_DestinationPropagation() {
+		return (EReference) bindingPathEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getEventInstance() {
 		return eventInstanceEClass;
 	}
@@ -1636,6 +1674,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(connectionPathEClass, CONNECTION_PATH__SOURCE_PROPAGATIONS);
 		createEReference(connectionPathEClass, CONNECTION_PATH__DESTINATION_PROPAGATIONS);
 
+		bindingPathEClass = createEClass(BINDING_PATH);
+		createEReference(bindingPathEClass, BINDING_PATH__SOURCE_PROPAGATION);
+		createEReference(bindingPathEClass, BINDING_PATH__DESTINATION_PROPAGATION);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
@@ -1712,6 +1754,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		propagationPointInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		propagationPathInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		connectionPathEClass.getESuperTypes().add(getPropagationPathInstance());
+		bindingPathEClass.getESuperTypes().add(getPropagationPathInstance());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2045,12 +2088,21 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getConnectionPath_Connection(), theInstancePackage.getConnectionInstance(), null, "connection",
 				null, 0, 1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnectionPath_SourcePropagations(), getFeaturePropagation(), null, "sourcePropagations",
-				null, 0, -1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnectionPath_DestinationPropagations(), getFeaturePropagation(), null,
+		initEReference(getConnectionPath_SourcePropagations(), getErrorPropagationInstance(), null,
+				"sourcePropagations", null, 0, -1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnectionPath_DestinationPropagations(), getErrorPropagationInstance(), null,
 				"destinationPropagations", null, 0, -1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(bindingPathEClass, BindingPath.class, "BindingPath", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBindingPath_SourcePropagation(), getBindingPropagation(), null, "sourcePropagation", null, 0,
+				1, BindingPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBindingPath_DestinationPropagation(), getBindingPropagation(), null, "destinationPropagation",
+				null, 0, 1, BindingPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

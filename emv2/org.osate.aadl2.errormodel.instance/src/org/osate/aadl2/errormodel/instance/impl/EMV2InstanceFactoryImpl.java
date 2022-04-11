@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -150,6 +151,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createPropagationPointInstance();
 		case EMV2InstancePackage.CONNECTION_PATH:
 			return createConnectionPath();
+		case EMV2InstancePackage.BINDING_PATH:
+			return createBindingPath();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -330,6 +333,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ConnectionPath createConnectionPath() {
 		ConnectionPathImpl connectionPath = new ConnectionPathImpl();
 		return connectionPath;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public BindingPath createBindingPath() {
+		BindingPathImpl bindingPath = new BindingPathImpl();
+		return bindingPath;
 	}
 
 	/**

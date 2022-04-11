@@ -23,72 +23,66 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.instance.ConnectionInstance;
-
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Connection Path</b></em>'.
+ * A representation of the model object '<em><b>Binding Path</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getConnection <em>Connection</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getSourcePropagations <em>Source Propagations</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getDestinationPropagations <em>Destination Propagations</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagation <em>Source Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagation <em>Destination Propagation</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath()
  * @model
  * @generated
  */
-public interface ConnectionPath extends PropagationPathInstance {
+public interface BindingPath extends PropagationPathInstance {
 	/**
-	 * Returns the value of the '<em><b>Connection</b></em>' reference.
+	 * Returns the value of the '<em><b>Source Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Connection</em>' reference.
-	 * @see #setConnection(ConnectionInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath_Connection()
+	 * @return the value of the '<em>Source Propagation</em>' reference.
+	 * @see #setSourcePropagation(BindingPropagation)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath_SourcePropagation()
 	 * @model
 	 * @generated
 	 */
-	ConnectionInstance getConnection();
+	BindingPropagation getSourcePropagation();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ConnectionPath#getConnection <em>Connection</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagation <em>Source Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Connection</em>' reference.
-	 * @see #getConnection()
+	 * @param value the new value of the '<em>Source Propagation</em>' reference.
+	 * @see #getSourcePropagation()
 	 * @generated
 	 */
-	void setConnection(ConnectionInstance value);
+	void setSourcePropagation(BindingPropagation value);
 
 	/**
-	 * Returns the value of the '<em><b>Source Propagations</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance}.
+	 * Returns the value of the '<em><b>Destination Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source Propagations</em>' reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath_SourcePropagations()
+	 * @return the value of the '<em>Destination Propagation</em>' reference.
+	 * @see #setDestinationPropagation(BindingPropagation)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath_DestinationPropagation()
 	 * @model
 	 * @generated
 	 */
-	EList<ErrorPropagationInstance> getSourcePropagations();
+	BindingPropagation getDestinationPropagation();
 
 	/**
-	 * Returns the value of the '<em><b>Destination Propagations</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance}.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagation <em>Destination Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Destination Propagations</em>' reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath_DestinationPropagations()
-	 * @model
+	 * @param value the new value of the '<em>Destination Propagation</em>' reference.
+	 * @see #getDestinationPropagation()
 	 * @generated
 	 */
-	EList<ErrorPropagationInstance> getDestinationPropagations();
+	void setDestinationPropagation(BindingPropagation value);
 
-} // ConnectionPath
+} // BindingPath

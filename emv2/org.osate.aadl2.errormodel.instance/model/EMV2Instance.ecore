@@ -194,8 +194,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionPath" eSuperTypes="#//PropagationPathInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagations" upperBound="-1"
-        eType="#//FeaturePropagation"/>
+        eType="#//ErrorPropagationInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPropagations"
-        upperBound="-1" eType="#//FeaturePropagation"/>
+        upperBound="-1" eType="#//ErrorPropagationInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BindingPath" eSuperTypes="#//PropagationPathInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagation" eType="#//BindingPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPropagation"
+        eType="#//BindingPropagation"/>
   </eClassifiers>
 </ecore:EPackage>
