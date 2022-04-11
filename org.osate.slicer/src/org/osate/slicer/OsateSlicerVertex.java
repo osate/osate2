@@ -67,17 +67,11 @@ public class OsateSlicerVertex {
 	final private ErrorFlowInstance efi;
 
 	/**
-	 * The depth of the element the vertex represents in the instance tree
-	 */
-	final private int depth;
-
-	/**
 	 * Create a new vertex with the supplied feature, but no error type information
 	 * @param feat The feature the vertex represents
 	 */
 	public OsateSlicerVertex(FeatureInstance feat) {
 		this.name = feat.getInstanceObjectPath();
-		this.depth = StringUtils.countMatches(this.name, ".");
 		this.errorATS = null;
 		this.feat = feat;
 		this.efi = null;
@@ -90,7 +84,6 @@ public class OsateSlicerVertex {
 	 */
 	public OsateSlicerVertex(FeatureInstance feat, AnonymousTypeSet errorATS) {
 		this.name = feat.getInstanceObjectPath();
-		this.depth = StringUtils.countMatches(this.name, ".");
 		this.errorATS = errorATS;
 		this.feat = feat;
 		this.efi = null;
@@ -107,7 +100,6 @@ public class OsateSlicerVertex {
 					+ efi.getInstanceObjectPath());
 		}
 		this.name = efi.getInstanceObjectPath().replace(".EMV2", "");
-		this.depth = StringUtils.countMatches(this.name, ".");
 		this.errorATS = errorATS;
 		this.feat = null;
 		this.efi = efi;
@@ -152,7 +144,10 @@ public class OsateSlicerVertex {
 		}
 	}
 
+	/**
+	 * Returns the depth of the element the vertex represents in the instance tree
+	 */
 	public int getDepth() {
-		return this.depth;
+		return StringUtils.countMatches(this.name, ".");
 	}
 }
