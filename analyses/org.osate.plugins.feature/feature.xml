@@ -20,38 +20,36 @@
    </copyright>
 
    <requires>
-      <import plugin="org.osate.aadl2"/>
-      <import plugin="org.osate.ui"/>
-      <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.xtext.aadl2" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.contribution.sei"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.osate.aadl2.modelsupport"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.emf.edit"/>
-      <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.emf.common.ui"/>
-      <import plugin="org.osate.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.draw2d" version="3.7.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.zest.layouts" version="1.1.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.resources" version="3.7.100" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2.modelsupport" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.ui" version="2.1.1" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2.instantiation" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.core" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2.edit" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.xtext.aadl2.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.transaction" version="1.4.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.console"/>
-      <import plugin="org.osate.xtext.aadl2.properties.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import feature="org.osate.core.feature" version="2.0.0.qualifier"/>
+      <import feature="org.osate.core.feature" version="2.0.0.qualifier" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2" version="4.0.0" match="compatible"/>
+      <import plugin="org.osate.ui" version="6.3.0" match="compatible"/>
+      <import plugin="org.osate.xtext.aadl2.properties" version="3.1.0" match="compatible"/>
+      <import plugin="org.osate.xtext.aadl2" version="6.2.0" match="compatible"/>
+      <import plugin="org.osate.results" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.ide" version="3.13.1" match="compatible"/>
+      <import plugin="org.eclipse.xtext" version="2.20.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.transaction" version="1.4.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.navigator" version="3.9.0" match="compatible"/>
+      <import plugin="org.osate.aadl2.contrib" version="2.0.0" match="compatible"/>
+      <import plugin="org.osate.contribution.sei" version="2.0.0" match="compatible"/>
+      <import plugin="org.osate.pluginsupport" version="7.1.0" match="compatible"/>
+      <import plugin="org.osate.aadl2.modelsupport" version="6.1.0" match="compatible"/>
+      <import plugin="org.eclipse.core.resources" version="3.13.0" match="compatible"/>
+      <import plugin="org.osate.analysis.architecture" version="2.0.0" match="compatible"/>
+      <import plugin="org.osate.analysis.flows" version="5.0.0" match="compatible"/>
+      <import plugin="org.osate.analysis.model" version="1.0.0" match="compatible"/>
+      <import plugin="org.osate.analysis.binpacking" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.jface.text" version="3.7.2" match="compatible"/>
+      <import plugin="org.osate.importer" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.common" version="2.11.1" match="compatible"/>
+      <import plugin="org.eclipse.emf" version="2.6.0" match="compatible"/>
+      <import plugin="org.osate.aadl2.instantiation" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.help" version="3.6.0" match="compatible"/>
+      <import plugin="org.eclipse.core.runtime" version="3.18.0" match="compatible"/>
+      <import plugin="org.eclipse.ui" version="3.117.0" match="compatible"/>
+      <import plugin="org.eclipse.swt" version="3.114.0" match="compatible"/>
+      <import plugin="org.osate.modelstats" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.22.0" match="compatible"/>
    </requires>
 
    <plugin
