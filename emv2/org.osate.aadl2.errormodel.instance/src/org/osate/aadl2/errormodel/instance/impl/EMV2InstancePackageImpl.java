@@ -850,8 +850,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorPathInstance_SourceTypeSet() {
-		return (EReference) errorPathInstanceEClass.getEStructuralFeatures().get(2);
+	public EReference getErrorPathInstance_DestinationTypeSet() {
+		return (EReference) errorPathInstanceEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -860,8 +860,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorPathInstance_DestinationTypeToken() {
-		return (EReference) errorPathInstanceEClass.getEStructuralFeatures().get(4);
+	public EReference getErrorPathInstance_SourceTypeSet() {
+		return (EReference) errorPathInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1662,7 +1662,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(errorPathInstanceEClass, ERROR_PATH_INSTANCE__SOURCE_PROPAGATION);
 		createEReference(errorPathInstanceEClass, ERROR_PATH_INSTANCE__SOURCE_TYPE_SET);
 		createEReference(errorPathInstanceEClass, ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION);
-		createEReference(errorPathInstanceEClass, ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN);
+		createEReference(errorPathInstanceEClass, ERROR_PATH_INSTANCE__DESTINATION_TYPE_SET);
 
 		propagationPointInstanceEClass = createEClass(PROPAGATION_POINT_INSTANCE);
 		createEReference(propagationPointInstanceEClass, PROPAGATION_POINT_INSTANCE__PROPAGATION_POINT);
@@ -2070,9 +2070,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				getErrorPropagationInstance_DestinationErrorPaths(), "destinationPropagation", null, 0, 1,
 				ErrorPathInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorPathInstance_DestinationTypeToken(), getTypeTokenInstance(), null,
-				"destinationTypeToken", null, 0, 1, ErrorPathInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorPathInstance_DestinationTypeSet(), getAnonymousTypeSet(), null, "destinationTypeSet",
+				null, 0, 1, ErrorPathInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(errorPathInstanceEClass, getTypeTokenInstance(), "getDestinationTypeToken", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
 
 		initEClass(propagationPointInstanceEClass, PropagationPointInstance.class, "PropagationPointInstance",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

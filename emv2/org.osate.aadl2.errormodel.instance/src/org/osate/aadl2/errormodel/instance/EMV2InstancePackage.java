@@ -3259,13 +3259,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_PATH_INSTANCE__DESTINATION_PROPAGATION = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Destination Type Token</b></em>' containment reference.
+	 * The feature id for the '<em><b>Destination Type Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 4;
+	int ERROR_PATH_INSTANCE__DESTINATION_TYPE_SET = ERROR_FLOW_INSTANCE_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Error Path Instance</em>' class.
@@ -4117,6 +4117,17 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getErrorPathInstance_DestinationPropagation();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeSet <em>Destination Type Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Destination Type Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeSet()
+	 * @see #getErrorPathInstance()
+	 * @generated
+	 */
+	EReference getErrorPathInstance_DestinationTypeSet();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourceTypeSet <em>Source Type Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4126,17 +4137,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getErrorPathInstance_SourceTypeSet();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeToken <em>Destination Type Token</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Destination Type Token</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeToken()
-	 * @see #getErrorPathInstance()
-	 * @generated
-	 */
-	EReference getErrorPathInstance_DestinationTypeToken();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance <em>Error Propagation Condition Instance</em>}'.
@@ -5227,20 +5227,20 @@ public interface EMV2InstancePackage extends EPackage {
 				.getErrorPathInstance_DestinationPropagation();
 
 		/**
+		 * The meta object literal for the '<em><b>Destination Type Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_PATH_INSTANCE__DESTINATION_TYPE_SET = eINSTANCE.getErrorPathInstance_DestinationTypeSet();
+
+		/**
 		 * The meta object literal for the '<em><b>Source Type Set</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference ERROR_PATH_INSTANCE__SOURCE_TYPE_SET = eINSTANCE.getErrorPathInstance_SourceTypeSet();
-
-		/**
-		 * The meta object literal for the '<em><b>Destination Type Token</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ERROR_PATH_INSTANCE__DESTINATION_TYPE_TOKEN = eINSTANCE.getErrorPathInstance_DestinationTypeToken();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationConditionInstanceImpl <em>Error Propagation Condition Instance</em>}' class.

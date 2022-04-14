@@ -176,6 +176,7 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPathInstance" eSuperTypes="#//ErrorFlowInstance">
+    <eOperations name="getDestinationTypeToken" eType="#//TypeTokenInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorPath" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPath"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagation" eType="#//ErrorPropagationInstance"
         resolveProxies="false" eOpposite="#//ErrorPropagationInstance/sourceErrorPaths"/>
@@ -183,7 +184,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPropagation"
         eType="#//ErrorPropagationInstance" resolveProxies="false" eOpposite="#//ErrorPropagationInstance/destinationErrorPaths"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationTypeToken" eType="#//TypeTokenInstance"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationTypeSet" eType="#//AnonymousTypeSet"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropagationPointInstance" eSuperTypes="#//EMV2InstanceObject">

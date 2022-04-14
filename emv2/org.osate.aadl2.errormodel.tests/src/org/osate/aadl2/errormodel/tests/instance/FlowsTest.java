@@ -122,6 +122,7 @@ public class FlowsTest {
 			assertEquals("{ServiceError}", path.getSourceTypeSet().getName());
 			assertEquals("f_out", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ServiceError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceError", path.getDestinationTypeToken().getName());
 		});
 		with((ErrorPathInstance) annexInstance.getErrorFlows().get(1), path -> {
@@ -132,6 +133,7 @@ public class FlowsTest {
 			assertEquals("{ItemTimingError, SequenceTimingError}", path.getSourceTypeSet().getName());
 			assertEquals("f_out", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ConcurrencyError}", path.getDestinationTypeSet().getName());
 			assertEquals("ConcurrencyError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -150,6 +152,7 @@ public class FlowsTest {
 			assertEquals("{ServiceError}", path.getSourceTypeSet().getName());
 			assertEquals("f_out", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ConcurrencyError * ReplicationError}", path.getDestinationTypeSet().getName());
 			assertEquals("ConcurrencyError * ReplicationError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -168,6 +171,7 @@ public class FlowsTest {
 			assertEquals("{ServiceError, ItemTimingError, SequenceTimingError}", path.getSourceTypeSet().getName());
 			assertEquals("f_out", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ServiceError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -227,6 +231,7 @@ public class FlowsTest {
 			assertEquals("{ServiceValueError}", path.getSourceTypeSet().getName());
 			assertEquals("f_out", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ReplicationError}", path.getDestinationTypeSet().getName());
 			assertEquals("ReplicationError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -273,6 +278,7 @@ public class FlowsTest {
 			assertEquals("{SequenceTimingError}", path.getSourceTypeSet().getName());
 			assertEquals("f_out1", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 		with((ErrorPathInstance) annexInstance.getErrorFlows().get(5), path -> {
@@ -283,6 +289,7 @@ public class FlowsTest {
 			assertEquals("{SequenceTimingError}", path.getSourceTypeSet().getName());
 			assertEquals("fg.f_out2", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -324,6 +331,7 @@ public class FlowsTest {
 			assertEquals("{SequenceTimingError}", path.getSourceTypeSet().getName());
 			assertEquals("point2", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -356,6 +364,7 @@ public class FlowsTest {
 			assertEquals("{SequenceTimingError}", path.getSourceTypeSet().getName());
 			assertEquals("access", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -388,6 +397,7 @@ public class FlowsTest {
 			assertEquals("{SequenceTimingError}", path.getSourceTypeSet().getName());
 			assertEquals("memory", path.getDestinationPropagation().getName());
 			assertTrue(path.getDestinationPropagation().getDestinationErrorPaths().contains(path));
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -448,6 +458,7 @@ public class FlowsTest {
 			assertEquals("child",
 					getContainerOfType(path.getDestinationPropagation().getOutErrorPropagation(), SystemType.class)
 							.getName());
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 		with((ErrorPathInstance) annexInstance.getErrorFlows().get(5), path -> {
@@ -464,6 +475,7 @@ public class FlowsTest {
 			assertEquals("child",
 					getContainerOfType(path.getDestinationPropagation().getOutErrorPropagation(), SystemType.class)
 							.getName());
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -515,6 +527,7 @@ public class FlowsTest {
 			assertEquals("child",
 					getContainerOfType(path.getDestinationPropagation().getOutErrorPropagation(), SystemType.class)
 							.getName());
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -557,6 +570,7 @@ public class FlowsTest {
 			assertEquals("child",
 					getContainerOfType(path.getDestinationPropagation().getInErrorPropagation(), SystemType.class)
 							.getName());
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 	}
@@ -599,6 +613,7 @@ public class FlowsTest {
 			assertEquals("child",
 					getContainerOfType(path.getDestinationPropagation().getOutErrorPropagation(), SystemType.class)
 							.getName());
+			assertEquals("{ServiceTimingError}", path.getDestinationTypeSet().getName());
 			assertEquals("ServiceTimingError", path.getDestinationTypeToken().getName());
 		});
 	}
