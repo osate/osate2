@@ -38,7 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourcePropagation <em>Source Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getSourceTypeSet <em>Source Type Set</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationPropagation <em>Destination Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeToken <em>Destination Type Token</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeSet <em>Destination Type Set</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance()
@@ -118,6 +118,36 @@ public interface ErrorPathInstance extends ErrorFlowInstance {
 	void setDestinationPropagation(ErrorPropagationInstance value);
 
 	/**
+	 * Returns the value of the '<em><b>Destination Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destination Type Set</em>' containment reference.
+	 * @see #setDestinationTypeSet(AnonymousTypeSet)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_DestinationTypeSet()
+	 * @model containment="true"
+	 * @generated
+	 */
+	AnonymousTypeSet getDestinationTypeSet();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeSet <em>Destination Type Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Destination Type Set</em>' containment reference.
+	 * @see #getDestinationTypeSet()
+	 * @generated
+	 */
+	void setDestinationTypeSet(AnonymousTypeSet value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	TypeTokenInstance getDestinationTypeToken();
+
+	/**
 	 * Returns the value of the '<em><b>Source Type Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -138,26 +168,4 @@ public interface ErrorPathInstance extends ErrorFlowInstance {
 	 * @generated
 	 */
 	void setSourceTypeSet(AnonymousTypeSet value);
-
-	/**
-	 * Returns the value of the '<em><b>Destination Type Token</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Destination Type Token</em>' containment reference.
-	 * @see #setDestinationTypeToken(TypeTokenInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPathInstance_DestinationTypeToken()
-	 * @model containment="true"
-	 * @generated
-	 */
-	TypeTokenInstance getDestinationTypeToken();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPathInstance#getDestinationTypeToken <em>Destination Type Token</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Destination Type Token</em>' containment reference.
-	 * @see #getDestinationTypeToken()
-	 * @generated
-	 */
-	void setDestinationTypeToken(TypeTokenInstance value);
 } // ErrorPathInstance

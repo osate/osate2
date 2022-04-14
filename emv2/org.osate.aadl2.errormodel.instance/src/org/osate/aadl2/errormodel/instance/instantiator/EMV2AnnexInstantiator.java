@@ -73,7 +73,6 @@ import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
-import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -686,14 +685,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			sourceTypeSet = sourcePropagation.getTypeSet();
 		}
 		pathInstance.setSourceTypeSet(createAnonymousTypeSet(sourceTypeSet));
-		var targetToken = path.getTargetToken().getTypeTokens().get(0);
-		TypeTokenInstance targetTokenInstance;
-		if (targetToken.getType().size() == 1) {
-			targetTokenInstance = createTypeInstance((ErrorType) targetToken.getType().get(0));
-		} else {
-			targetTokenInstance = createTypeProductInstance(targetToken);
-		}
-		pathInstance.setDestinationTypeToken(targetTokenInstance);
+		pathInstance.setDestinationTypeSet(createAnonymousTypeSet(path.getTargetToken()));
 		annex.getErrorFlows().add(pathInstance);
 	}
 
