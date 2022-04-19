@@ -29,7 +29,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -47,14 +49,13 @@ import org.jgrapht.traverse.BreadthFirstIterator;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
-import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
+import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
-import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -66,6 +67,8 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
+
+import com.google.common.collect.Sets;
 
 // TODO: Find a way to mark this unstable / discourage use, look into marking "internal" so you get non-API warnings
 
@@ -108,6 +111,9 @@ public class SlicerRepresentation {
 	 */
 	private Set<String> hasExplicitDecomp = new HashSet<>();
 
+	private Map<String, PossiblePropagation> possiblePropagations = new HashMap<>();
+	private Set<OsateSlicerVertex> sourcePropagations = new HashSet<>();
+
 	/**
 	 * Switch used to traverse instance model that gets passed in
 	 */
@@ -135,6 +141,7 @@ public class SlicerRepresentation {
 			emv2Switch.doSwitch((Element) elem);
 		});
 		laggingEdges.entrySet().forEach(e -> addEdge(e.getKey(), e.getValue()));
+		calculateFixpoint();
 
 		// Add implicit edges
 		buildIntraConnections(hasExplicitDecomp);
@@ -426,6 +433,33 @@ public class SlicerRepresentation {
 		});
 	}
 
+	private void calculateFixpoint() {
+		// For each source vertex, we walk it forward, adding connections from possible propagations where necessary
+		boolean edgesModified;
+		do {
+			edgesModified = false;
+			for (OsateSlicerVertex srcVrt : sourcePropagations) {
+				LinkedList<DefaultEdge> edges = new LinkedList<>();
+				edges.addAll(g.edgesOf(srcVrt));
+				while (edges.size() > 0) {
+					DefaultEdge e = edges.pop();
+					OsateSlicerVertex dstVrt = g.getEdgeTarget(e);
+					edges.addAll(0, g.outgoingEdgesOf(dstVrt));
+					String componentName = dstVrt.getName().substring(0, dstVrt.getName().lastIndexOf('.'));
+					if (possiblePropagations.containsKey(componentName)) {
+						Optional<String> tgt = possiblePropagations.get(componentName).getTarget(dstVrt);
+						if (tgt.isPresent() && !g.containsEdge(dstVrt, vertexMap.get(tgt.get()))) {
+							edgesModified = true;
+							addEdge(dstVrt.getName(), tgt.get());
+							edges.push(g.getEdge(dstVrt, vertexMap.get(tgt.get())));
+						}
+					}
+				}
+			}
+		// We keep redoing this until we walked over each source vertex without adding anything new
+		} while (edgesModified);
+	}
+
 	/**
 	 * Debug function which dumps the internal graph to dot so it can be fed into graphviz
 	 * @return A string which can be input to graphviz
@@ -444,27 +478,27 @@ public class SlicerRepresentation {
 
 	private class Emv2SlicerSwitch extends EMV2InstanceSwitch<Void> {
 
-		@Override
-		public Void caseFeaturePropagation(FeaturePropagation fp) {
-			var fi = fp.getFeature();
-			var fullFeatureName = fi.getInstanceObjectPath();
-			var fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
-			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
-				if (!inFeats.containsKey(fullContainerName)) {
-					inFeats.put(fullContainerName, new HashSet<String>());
-				}
-				inFeats.get(fullContainerName).add(fullFeatureName);
-				addVertex(fi, fp.getInTypeSet());
-			}
-			if (fi.getDirection() == DirectionType.OUT || fi.getDirection() == DirectionType.IN_OUT) {
-				if (!outFeats.containsKey(fullContainerName)) {
-					outFeats.put(fullContainerName, new HashSet<String>());
-				}
-				outFeats.get(fullContainerName).add(fullFeatureName);
-				addVertex(fi, fp.getOutTypeSet());
-			}
-			return null;
-		}
+//		@Override
+//		public Void caseFeaturePropagation(FeaturePropagation fp) {
+//			var fi = fp.getFeature();
+//			var fullFeatureName = fi.getInstanceObjectPath();
+//			var fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
+//			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
+//				if (!inFeats.containsKey(fullContainerName)) {
+//					inFeats.put(fullContainerName, new HashSet<String>());
+//				}
+//				inFeats.get(fullContainerName).add(fullFeatureName);
+//				addVertex(fi, fp.getInTypeSet());
+//			}
+//			if (fi.getDirection() == DirectionType.OUT || fi.getDirection() == DirectionType.IN_OUT) {
+//				if (!outFeats.containsKey(fullContainerName)) {
+//					outFeats.put(fullContainerName, new HashSet<String>());
+//				}
+//				outFeats.get(fullContainerName).add(fullFeatureName);
+//				addVertex(fi, fp.getOutTypeSet());
+//			}
+//			return null;
+//		}
 
 		@Override
 		public Void caseErrorSourceInstance(ErrorSourceInstance esi) {
@@ -472,6 +506,11 @@ public class SlicerRepresentation {
 			var srcTypes = esi.getTypeSet();
 			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
 			addVertex(esi, srcTypes);
+			sourcePropagations.add(vertexMap.get(srcName + "." + srcTypes.getFullName()));
+			addVertex(((FeaturePropagation) esi.getPropagation()).getFeature(), srcTypes);
+			// XXX TODO FIXME if this is a set, we may need to handle it as the set + elements of the set
+			// instead of just as a set.
+			var allElements = Sets.powerSet(new HashSet<>(srcTypes.getElements()));
 			laggingEdges.put(srcName + "." + srcTypes.getFullName(), propName + "." + srcTypes.getFullName());
 			return null;
 		}
@@ -482,35 +521,58 @@ public class SlicerRepresentation {
 			var dstTypes = esi.getTypeSet();
 			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
 			addVertex(esi, dstTypes);
+			addVertex(((FeaturePropagation) esi.getPropagation()).getFeature(), dstTypes);
 			laggingEdges.put(propName + "." + dstTypes.getFullName(), dstName + "." + dstTypes.getFullName());
 			return null;
 		}
 
 		@Override
 		public Void caseErrorPathInstance(ErrorPathInstance epi) {
-			var srcVrt = epi.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "");
-			Set<String> srcVrts = new HashSet<>();
-			srcVrts.add(srcVrt + "." + epi.getSourceTypeSet().getFullName());
-			// The brackets here seem like a stupid hack but they work, and a cleaner way isn't immediately obvious
-			var dstVrt = epi.getDestinationPropagation().getInstanceObjectPath().replace(".EMV2", "") + "." + "{"
-					+ epi.getDestinationTypeToken().getFullName() + "}";
-			laggingEdges.put(srcVrts.iterator().next(), dstVrt);
+			var srcVrt = epi.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
+					+ epi.getSourceTypeSet().getFullName();
+//			Set<String> srcVrts = new HashSet<>();
+//			srcVrts.add(srcVrt + "." + epi.getSourceTypeSet().getFullName());
+			var dstVrt = epi.getDestinationPropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
+					+ epi.getDestinationTypeSet().getFullName();
+			addVertex(((FeaturePropagation) epi.getSourcePropagation()).getFeature(), epi.getSourceTypeSet());
+			addVertex(((FeaturePropagation) epi.getDestinationPropagation()).getFeature(), epi.getDestinationTypeSet());
+//			laggingEdges.put(srcVrts.iterator().next(), dstVrt);
+			laggingEdges.put(srcVrt, dstVrt);
 			return null;
 		}
 
 		@Override
-		public Void caseOldPropagationPathInstance(OldPropagationPathInstance ppi) {
-			var src = (ConstrainedInstanceObject) ppi.getSource();
-			var dst = ppi.getTarget();
-			if (src instanceof ErrorPropagationInstance && dst instanceof ErrorPropagationInstance) {
-				var srcVrt = src.getInstanceObjectPath().replace(".EMV2", "");
-				srcVrt += "." + (((ErrorPropagationInstance) src).getOutTypeSet()).getFullName();
-				var dstVrt = dst.getInstanceObjectPath().replace(".EMV2", "");
-				dstVrt += "." + (((ErrorPropagationInstance) dst).getInTypeSet()).getFullName();
-				laggingEdges.put(srcVrt, dstVrt);
-			}
+		public Void casePropagationPathInstance(PropagationPathInstance ppi) {
+			// Joe says: Given a propagation, you can grab the error paths / sinks / sources that refer to it. This can be used to refine the full set of
+			// possible propagations down to the set of errors that are actually propagated
+			// See, eg, org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationPropagation
+			// Sub conversations:
+			// * Should this be in the instance model? The slicer? Some utility class?
+			// * Does this style of calculation (requiring fully specified error propagations, rather than worst-case calculations based on interfaces) make
+			// sense?
+			// Joe said to leave the .get(0) here -- eventually this method will be changed and it won't be necessary
+			var src = ((ConnectionPath) ppi).getSourcePropagations().get(0);
+			var srcName = src.getInstanceObjectPath().replace(".EMV2", "");
+			possiblePropagations.put(srcName, new PossiblePropagation(ppi));
+//			laggingEdges.put(srcVrt, dstVrt);
 			return null;
 		}
+
+//		@Override
+//		public Void caseOldPropagationPathInstance(OldPropagationPathInstance ppi) {
+//			var src = (ConstrainedInstanceObject) ppi.getSource();
+//			var dst = ppi.getTarget();
+//			if (src instanceof ErrorPropagationInstance && dst instanceof ErrorPropagationInstance) {
+//				var srcVrt = src.getInstanceObjectPath().replace(".EMV2", "");
+//				srcVrt += "." + (((ErrorPropagationInstance) src).getOutTypeSet()).getFullName();
+//				var dstVrt = dst.getInstanceObjectPath().replace(".EMV2", "");
+//				dstVrt += "." + (((ErrorPropagationInstance) dst).getInTypeSet()).getFullName();
+////				addVertex(((FeaturePropagation) src).getFeature(), (((ErrorPropagationInstance) src).getOutTypeSet()));
+////				addVertex(((FeaturePropagation) dst).getFeature(), (((ErrorPropagationInstance) dst).getInTypeSet()));
+////				laggingEdges.put(srcVrt, dstVrt);
+//			}
+//			return null;
+//		}
 	}
 
 	/**
