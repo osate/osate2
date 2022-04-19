@@ -576,8 +576,8 @@
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
-      disabled="true"
-      label="SpotBugs">
+      label="SpotBugs"
+      disabled="true">
     <requirement
         name="com.github.spotbugs.plugin.eclipse.feature.group"/>
     <repository
@@ -824,7 +824,7 @@
         <repository
             url="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
         <repository
-            url="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.1/"/>
+            url="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.2/"/>
       </repositoryList>
     </targlet>
     <description></description>

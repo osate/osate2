@@ -61,6 +61,7 @@ class ReferenceTest {
 			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.instance.InstanceReferenceValue;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+			import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
@@ -91,7 +92,7 @@ class ReferenceTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((InstanceReferenceValue) resolved).getReferencedInstanceObject());
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -127,7 +128,7 @@ class ReferenceTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((InstanceReferenceValue) resolved).getReferencedInstanceObject());
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -163,7 +164,7 @@ class ReferenceTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((InstanceReferenceValue) resolved).getReferencedInstanceObject());
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -202,7 +203,7 @@ class ReferenceTest {
 							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -253,7 +254,7 @@ class ReferenceTest {
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}

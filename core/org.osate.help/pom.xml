@@ -200,11 +200,11 @@
 											</additionalArgument>
 											<additionalArgument>
 												-link
-												https://docs.oracle.com/en/java/javase/11/docs/api/
+												https://docs.oracle.com/en/java/javase/17/docs/api/
 											</additionalArgument>
 											<additionalArgument>
 												-link
-												https://help.eclipse.org/2021-03/topic/org.eclipse.platform.doc.isv/reference/api/
+												https://help.eclipse.org/${eclipse.version}/topic/org.eclipse.platform.doc.isv/reference/api/
 											</additionalArgument>
 											<additionalArgument>
 												-link
@@ -216,11 +216,11 @@
 											</additionalArgument>
 											<additionalArgument>
 												-link
-												https://javadoc.io/doc/org.eclipse.xtext/org.eclipse.xtext/2.25.0/
+												https://javadoc.io/doc/org.eclipse.xtext/org.eclipse.xtext/${xtext.version}/
 											</additionalArgument>
 											<additionalArgument>
 												-link
-												https://javadoc.io/doc/org.openjfx/javafx-base/16/
+												https://javadoc.io/doc/org.openjfx/javafx-base/${openjfx.version}/
 											</additionalArgument>
 											<additionalArgument>-public</additionalArgument>
 										</additionalArguments>

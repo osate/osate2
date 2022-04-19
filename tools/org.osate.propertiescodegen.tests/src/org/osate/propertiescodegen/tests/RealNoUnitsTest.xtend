@@ -65,6 +65,7 @@ class RealNoUnitsTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+			import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
@@ -95,7 +96,7 @@ class RealNoUnitsTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return OptionalDouble.of(((RealLiteral) resolved).getValue());
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return OptionalDouble.empty();
 					}
 				}
@@ -131,7 +132,7 @@ class RealNoUnitsTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return OptionalDouble.of(((RealLiteral) resolved).getValue());
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return OptionalDouble.empty();
 					}
 				}
@@ -167,7 +168,7 @@ class RealNoUnitsTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return OptionalDouble.of(((RealLiteral) resolved).getValue());
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return OptionalDouble.empty();
 					}
 				}
@@ -206,7 +207,7 @@ class RealNoUnitsTest {
 							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return ((RealLiteral) resolved1).getValue();
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -257,7 +258,7 @@ class RealNoUnitsTest {
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
