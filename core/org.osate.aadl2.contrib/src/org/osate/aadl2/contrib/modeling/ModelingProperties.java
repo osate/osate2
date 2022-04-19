@@ -37,6 +37,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRange;
@@ -71,7 +72,7 @@ public final class ModelingProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return new IntegerRange(resolved1, lookupContext, mode);
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -107,7 +108,7 @@ public final class ModelingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(ClassifierMatchingRule.valueOf(resolved));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -143,7 +144,7 @@ public final class ModelingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(ClassifierSubstitutionRule.valueOf(resolved));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -179,7 +180,7 @@ public final class ModelingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((ClassifierValue) resolved).getClassifier());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -215,7 +216,7 @@ public final class ModelingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(PrototypeSubstitutionRule.valueOf(resolved));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
