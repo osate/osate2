@@ -41,7 +41,7 @@ public interface DiagramType {
 
 	/**
 	 * Returns the UI friendly name for the diagram type.
-	 * @return the user-friendly name for the digaram type.
+	 * @return the user-friendly name for the diagram type.
 	 */
 	String getName();
 
