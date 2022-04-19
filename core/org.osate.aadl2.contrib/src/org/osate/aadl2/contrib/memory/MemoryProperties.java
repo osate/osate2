@@ -35,6 +35,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
@@ -67,7 +68,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(AccessRights.valueOf(resolved));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -103,7 +104,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new AccessTime(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -139,7 +140,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, SizeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -175,7 +176,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new AssignTime(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -211,7 +212,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
@@ -247,7 +248,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
@@ -283,7 +284,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new ReadTime(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -319,7 +320,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -355,7 +356,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -391,7 +392,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -427,7 +428,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -463,7 +464,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -499,7 +500,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -535,7 +536,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -571,7 +572,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -607,7 +608,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
@@ -643,7 +644,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -679,7 +680,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -715,7 +716,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
@@ -751,7 +752,7 @@ public final class MemoryProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new WriteTime(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}

@@ -76,11 +76,9 @@ public class GenerateTextualInstanceHandler extends AbstractHandler {
 				var destResource = resourceSetProvider.get().createResource(destUri);
 				destResource.getContents().add(EcoreUtil.copy(sourceResource.getContents().get(0)));
 				destResource.getAllContents().forEachRemaining(eObject -> {
-					if (eObject instanceof ComponentInstance && !(eObject instanceof SystemInstance)) {
-						var component = (ComponentInstance) eObject;
-						if (component.getIndices().size() == 1 && component.getIndices().get(0) == 0L) {
-							component.getIndices().clear();
-						}
+					if (eObject instanceof ComponentInstance component && !(component instanceof SystemInstance)
+							&& component.getIndices().size() == 1 && component.getIndices().get(0) == 0L) {
+						component.getIndices().clear();
 					}
 				});
 				try {

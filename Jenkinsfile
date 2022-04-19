@@ -1,30 +1,52 @@
 pipeline {
   agent any
+  tools {
+     jdk "OpenJDK17"
+  }
   stages {
+    stage('Update dependencies') {
+      steps {
+        withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
+            sh 'mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor \
+                -DgenerateBackupPoms=false -Dtycho.mode=maven'
+        }
+      }
+    }
+    stage('Build Pull Request') {
+      when {
+        branch pattern: "PR-\\d+", comparator: "REGEXP"
+      }
+      steps {
+        withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
+          wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
+            sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Plocal \
+                -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                -Dcodecoverage=true -Dspotbugs=true -Djavadoc=false -Dpr.build=true'
+          }
+        }
+      }
+    }
     stage('Build Products') {
-      tools {
-        jdk "OpenJDK17"
+      when {
+        branch 'master'
       }
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
-          sh(script: '''
-              mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor \
-                  -DgenerateBackupPoms=false -Dtycho.mode=maven
-          ''')
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-              sh(script: '''
-                  mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
-                      -Pfull -Dsonar.login=$SONARTOKEN \
-                      -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                      -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true
-              ''')
+              sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
+                  -Pfull -Dsonar.login=$SONARTOKEN \
+                  -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                  -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'
             }
           }
         }
       }
     }
     stage('Deploy') {
+      when {
+        branch 'master'
+      }
       steps {
         sh 'bash ./deploy.sh'
       }

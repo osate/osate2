@@ -40,6 +40,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRange;
@@ -75,7 +76,7 @@ public final class DataModel {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((ClassifierValue) resolved1).getClassifier();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -111,7 +112,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
@@ -147,7 +148,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
@@ -183,7 +184,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
@@ -219,7 +220,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(DataRepresentation.valueOf(resolved));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -255,7 +256,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
@@ -294,7 +295,7 @@ public final class DataModel {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((IntegerLiteral) resolved1).getValue();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -333,7 +334,7 @@ public final class DataModel {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((StringLiteral) resolved1).getValue();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -372,7 +373,7 @@ public final class DataModel {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((StringLiteral) resolved1).getValue();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -408,7 +409,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(Ieee754Precision.valueOf(resolved));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -447,7 +448,7 @@ public final class DataModel {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((StringLiteral) resolved1).getValue();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -483,7 +484,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRange(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -519,7 +520,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((StringLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -555,7 +556,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(NumberRepresentation.valueOf(resolved));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -591,7 +592,7 @@ public final class DataModel {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealRange(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -630,7 +631,7 @@ public final class DataModel {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((StringLiteral) resolved1).getValue();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}

@@ -66,6 +66,7 @@ class CodegenPackageTest {
 			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+			import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
@@ -96,7 +97,7 @@ class CodegenPackageTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(new RecordType(resolved, lookupContext, mode));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -315,6 +316,7 @@ class CodegenPackageTest {
 			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+			import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.IntegerWithUnits;
@@ -346,7 +348,7 @@ class CodegenPackageTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(new RecordType(resolved, lookupContext, mode));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -382,7 +384,7 @@ class CodegenPackageTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(new IntegerWithUnits<>(resolved, Speed.class));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -435,6 +437,7 @@ class CodegenPackageTest {
 			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+			import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.IntegerWithUnits;
@@ -468,7 +471,7 @@ class CodegenPackageTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(new RecordType(resolved, lookupContext, mode));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -504,7 +507,7 @@ class CodegenPackageTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(new IntegerWithUnits<>(resolved, Speed.class));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}

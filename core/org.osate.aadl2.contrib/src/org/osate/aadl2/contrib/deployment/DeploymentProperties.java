@@ -46,6 +46,7 @@ import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRange;
@@ -81,7 +82,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((ClassifierValue) resolved1).getClassifier();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -120,7 +121,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -159,7 +160,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -198,7 +199,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((ClassifierValue) resolved1).getClassifier();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -237,7 +238,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -276,7 +277,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -315,7 +316,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((ClassifierValue) resolved1).getClassifier();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -354,7 +355,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -393,7 +394,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -432,7 +433,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -471,7 +472,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -507,7 +508,7 @@ public final class DeploymentProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((InstanceReferenceValue) resolved).getReferencedInstanceObject());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -546,7 +547,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -585,7 +586,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -624,7 +625,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((ClassifierValue) resolved1).getClassifier();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -663,7 +664,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((ClassifierValue) resolved1).getClassifier();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -702,7 +703,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return SupportedConnectionQos.valueOf(resolved1);
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -741,7 +742,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return SupportedConnectionQos.valueOf(resolved1);
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -777,7 +778,7 @@ public final class DeploymentProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new NotCollocated(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -813,7 +814,7 @@ public final class DeploymentProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new Collocated(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -852,7 +853,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return AllowedConnectionType.valueOf(resolved1);
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -891,7 +892,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return SupportedDispatchProtocols.valueOf(resolved1);
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -930,7 +931,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return new IntegerRangeWithUnits<>(resolved1, TimeUnits.class, lookupContext, mode);
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -969,7 +970,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((ClassifierValue) resolved1).getClassifier();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1008,7 +1009,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1044,7 +1045,7 @@ public final class DeploymentProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(MemoryProtocol.valueOf(resolved));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1080,7 +1081,7 @@ public final class DeploymentProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((BooleanLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1119,7 +1120,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return SupportedSchedulingProtocols.valueOf(resolved1);
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1155,7 +1156,7 @@ public final class DeploymentProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((BooleanLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1191,7 +1192,7 @@ public final class DeploymentProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
@@ -1230,7 +1231,7 @@ public final class DeploymentProperties {
 				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return new PriorityMapping(resolved1, lookupContext, mode);
 			}).collect(Collectors.toList()));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1266,7 +1267,7 @@ public final class DeploymentProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRange(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}

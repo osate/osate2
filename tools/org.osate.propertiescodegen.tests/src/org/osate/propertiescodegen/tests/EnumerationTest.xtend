@@ -68,6 +68,7 @@ class EnumerationTest {
 			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+			import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
@@ -100,7 +101,7 @@ class EnumerationTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(OwnedEnumeration.valueOf(resolved));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -136,7 +137,7 @@ class EnumerationTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(LocalEnumerationType.valueOf(resolved));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -172,7 +173,7 @@ class EnumerationTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(OtherEnumerationType.valueOf(resolved));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -211,7 +212,7 @@ class EnumerationTest {
 							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return List1Enumeration.valueOf(resolved1);
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -256,7 +257,7 @@ class EnumerationTest {
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -307,7 +308,7 @@ class EnumerationTest {
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
