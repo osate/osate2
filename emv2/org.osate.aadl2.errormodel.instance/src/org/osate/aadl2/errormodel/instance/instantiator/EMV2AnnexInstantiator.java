@@ -293,6 +293,42 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				}
 			});
 		}
+		var memoryPropagation = findBindingPropagation(component, BindingType.MEMORY);
+		if (memoryPropagation != null) {
+			DeploymentProperties.getActualMemoryBinding(component).ifPresent(bindingTargets -> {
+				for (var bindingTarget : bindingTargets) {
+					if (bindingTarget instanceof ComponentInstance bindingComponent) {
+						var bindingsPropagation = findBindingPropagation(bindingComponent, BindingType.BINDINGS);
+						if (bindingsPropagation != null) {
+							var commonContainer = getCommonContainer(bindingComponent, component);
+							var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
+							var memoryPropagationPath = memoryPropagation.getInstanceObjectPath()
+									.substring(substringIndex);
+							var bindingsPropagationPath = bindingsPropagation.getInstanceObjectPath()
+									.substring(substringIndex);
+							if (memoryPropagation.getDirection().outgoing()
+									&& bindingsPropagation.getDirection().incoming()) {
+								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
+								bindingPath.setName(
+										"Memory Binding: " + memoryPropagationPath + " -> " + bindingsPropagationPath);
+								bindingPath.setSourcePropagation(memoryPropagation);
+								bindingPath.setDestinationPropagation(bindingsPropagation);
+								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
+							}
+							if (bindingsPropagation.getDirection().outgoing()
+									&& memoryPropagation.getDirection().incoming()) {
+								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
+								bindingPath.setName(
+										"Memory Binding: " + bindingsPropagationPath + " -> " + memoryPropagationPath);
+								bindingPath.setSourcePropagation(bindingsPropagation);
+								bindingPath.setDestinationPropagation(memoryPropagation);
+								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
+							}
+						}
+					}
+				}
+			});
+		}
 	}
 
 	private static ComponentInstance getCommonContainer(ComponentInstance a, ComponentInstance b) {

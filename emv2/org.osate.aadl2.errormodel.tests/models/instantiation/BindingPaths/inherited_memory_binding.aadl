@@ -1,0 +1,83 @@
+package inherited_memory_binding
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			m: memory m;
+			ps: process ps.i;
+		properties
+			Actual_Memory_Binding => (reference (m)) applies to ps;
+	end s.i;
+	
+	memory m
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end m;
+	
+	process ps
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end ps;
+	
+	process implementation ps.i
+		subcomponents
+			tg: thread group tg.i;
+	end ps.i;
+	
+	thread group tg
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end tg;
+	
+	thread group implementation tg.i
+		subcomponents
+			t: thread t.i;
+	end tg.i;
+	
+	thread t
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end t;
+	
+	thread implementation t.i
+		subcomponents
+			d: data d;
+	end t.i;
+	
+	data d
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end d;
+end inherited_memory_binding;
