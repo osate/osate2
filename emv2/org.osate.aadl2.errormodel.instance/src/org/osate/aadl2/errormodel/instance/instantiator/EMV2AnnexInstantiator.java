@@ -258,7 +258,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private void instantiateBindingPaths(ComponentInstance component) {
 		var processorPropagation = findBindingPropagation(component, BindingType.PROCESSOR);
-		if (processorPropagation != null && DeploymentProperties.acceptsActualProcessorBinding(component)) {
+		if (processorPropagation != null) {
 			DeploymentProperties.getActualProcessorBinding(component).ifPresent(bindingTargets -> {
 				for (var bindingTarget : bindingTargets) {
 					if (bindingTarget instanceof ComponentInstance bindingComponent) {
