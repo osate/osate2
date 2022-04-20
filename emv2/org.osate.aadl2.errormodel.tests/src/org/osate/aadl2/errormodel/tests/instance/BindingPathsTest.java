@@ -386,6 +386,10 @@ public class BindingPathsTest {
 		var pkg = testHelper.parseFile(PATH + "all_memory_binding_source_types.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		/*
+		 * This method also tests that BindingPath objects are not created when a data port or an event data port is the
+		 * source of a memory binding.
+		 */
 		assertEquals(22, annexInstance.getPropagationPaths().size());
 		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
 			assertEquals("Memory Binding: d.EMV2.memory -> m9.EMV2.bindings", bindingPath.getName());
