@@ -92,6 +92,7 @@ class IntegerWithUnitsTest {
 			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+			import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.IntegerWithUnits;
@@ -125,7 +126,7 @@ class IntegerWithUnitsTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(new IntegerWithUnits<>(resolved, Owned.class));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -161,7 +162,7 @@ class IntegerWithUnitsTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(new IntegerWithUnits<>(resolved, Time.class));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -197,7 +198,7 @@ class IntegerWithUnitsTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(new IntegerWithUnits<>(resolved, Mass.class));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -236,7 +237,7 @@ class IntegerWithUnitsTest {
 							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return new IntegerWithUnits<>(resolved1, List1Owned.class);
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -275,7 +276,7 @@ class IntegerWithUnitsTest {
 							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return new IntegerWithUnits<>(resolved1, Time.class);
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -314,7 +315,7 @@ class IntegerWithUnitsTest {
 							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return new IntegerWithUnits<>(resolved1, Mass.class);
 						}).collect(Collectors.toList()));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
@@ -350,7 +351,7 @@ class IntegerWithUnitsTest {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(new RecordProperty(resolved, lookupContext, mode));
-					} catch (PropertyNotPresentException e) {
+					} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 						return Optional.empty();
 					}
 				}
