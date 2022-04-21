@@ -27,20 +27,20 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.services.ReferenceBuilderService;
 
 /**
  * Factory class which creates {@link BusinessObjectNode} instances.
  */
 public class BusinessObjectNodeFactory {
-	private final ProjectReferenceService referenceService;
+	private final ReferenceBuilderService referenceBuilder;
 
 	/**
 	 * Creates a new instance which uses the specified reference service when creating {@link BusinessObjectNode} instances
-	 * @param referenceService the reference service
+	 * @param referenceBuilder is a reference builder
 	 */
-	public BusinessObjectNodeFactory(final ProjectReferenceService referenceService) {
-		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
+	public BusinessObjectNodeFactory(final ReferenceBuilderService referenceBuilder) {
+		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "referenceBuilder must not be null");
 	}
 
 	/**
@@ -57,7 +57,9 @@ public class BusinessObjectNodeFactory {
 			final UUID id,
 			final Object bo,
 			final Completeness completeness) {
-		final RelativeBusinessObjectReference relativeReference = bo == null ? null : Objects.requireNonNull(referenceService.getRelativeReference(bo), "unable to get relative reference");
+		final RelativeBusinessObjectReference relativeReference = bo == null ? null
+				: Objects.requireNonNull(referenceBuilder.getRelativeReference(bo),
+						"unable to get relative reference for " + bo);
 
 		// Validate
 		if(parent == null) {
