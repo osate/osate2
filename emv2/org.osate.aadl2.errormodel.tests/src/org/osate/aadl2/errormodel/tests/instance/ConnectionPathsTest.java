@@ -40,8 +40,10 @@ public class ConnectionPathsTest {
 			assertEquals("left.out_f -> right.in_f", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("out_f"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("out_f", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("in_f"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("in_f", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -59,8 +61,10 @@ public class ConnectionPathsTest {
 			assertEquals("left.out_f -> right.in_f", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("out_f"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("out_f", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("in_f"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("in_f", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -92,8 +96,10 @@ public class ConnectionPathsTest {
 					connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("left_feature_group.out_f"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("left_feature_group.out_f", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("right_feature_group.in_f"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("right_feature_group.in_f", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -112,8 +118,12 @@ public class ConnectionPathsTest {
 					connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("left_feature_group_1.left_feature_group_2.left_feature_group_3.out_f"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("left_feature_group_1.left_feature_group_2.left_feature_group_3.out_f",
+					connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("right_feature_group_1.right_feature_group_2.right_feature_group_3.in_f"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("right_feature_group_1.right_feature_group_2.right_feature_group_3.in_f",
+					connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -128,8 +138,10 @@ public class ConnectionPathsTest {
 			assertEquals("left.out_fg -> right.in_fg", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("out_fg"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("out_fg", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("in_fg"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("in_fg", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -144,24 +156,30 @@ public class ConnectionPathsTest {
 			assertEquals("left.out_fg.f_1 -> right.in_fg.f_1", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("out_fg.f_1"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("out_fg.f_1", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("in_fg.f_1"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("in_fg.f_1", connectionPath.getDestinationPropagation().getName());
 		});
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(1), connectionPath -> {
 			assertEquals("left.out_fg.f_2 -> right.in_fg.f_2", connectionPath.getName());
 			assertEquals("left.out_fg.f_2 -> right.in_fg.f_2", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("out_fg.f_2"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("out_fg.f_2", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("in_fg.f_2"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("in_fg.f_2", connectionPath.getDestinationPropagation().getName());
 		});
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(2), connectionPath -> {
 			assertEquals("left.out_fg.f_3 -> right.in_fg.f_3", connectionPath.getName());
 			assertEquals("left.out_fg.f_3 -> right.in_fg.f_3", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("out_fg.f_3"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("out_fg.f_3", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("in_fg.f_3"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("in_fg.f_3", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -180,8 +198,10 @@ public class ConnectionPathsTest {
 					connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("out_f_thread", "out_f_tg", "out_f_process"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("out_f_thread", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("in_f_thread", "in_f_tg", "in_f_process"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("in_f_thread", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -200,8 +220,10 @@ public class ConnectionPathsTest {
 					connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("out_f_thread", "out_f_process"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("out_f_thread", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("in_f_tg", "in_f_process"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("in_f_tg", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -224,8 +246,10 @@ public class ConnectionPathsTest {
 			assertEquals("right.right_feature -> left.left_feature", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("right_feature"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("right_feature", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("left_feature"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("left_feature", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -240,16 +264,20 @@ public class ConnectionPathsTest {
 			assertEquals("b -> m.ba", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("access"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("access", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("ba"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("ba", connectionPath.getDestinationPropagation().getName());
 		});
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(1), connectionPath -> {
 			assertEquals("m.ba -> b", connectionPath.getName());
 			assertEquals("m.ba -> b", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("ba"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("ba", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("access"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("access", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -264,8 +292,10 @@ public class ConnectionPathsTest {
 			assertEquals("m.ba -> b", connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("ba"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("ba", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("access"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("access", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 
@@ -284,9 +314,11 @@ public class ConnectionPathsTest {
 					connectionPath.getConnection().getName());
 			assertIterableEquals(List.of("access", "provides_ba_bottom", "provides_ba_middle", "provides_ba_top"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("access", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(
 					List.of("requires_ba_memory", "requires_ba_bottom", "requires_ba_middle", "requires_ba_top"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("requires_ba_memory", connectionPath.getDestinationPropagation().getName());
 		});
 		with((ConnectionPath) annexInstance.getPropagationPaths().get(1), connectionPath -> {
 			assertEquals(
@@ -298,8 +330,10 @@ public class ConnectionPathsTest {
 			assertIterableEquals(
 					List.of("requires_ba_memory", "requires_ba_bottom", "requires_ba_middle", "requires_ba_top"),
 					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("requires_ba_memory", connectionPath.getSourcePropagation().getName());
 			assertIterableEquals(List.of("access", "provides_ba_bottom", "provides_ba_middle", "provides_ba_top"),
 					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			assertEquals("access", connectionPath.getDestinationPropagation().getName());
 		});
 	}
 }

@@ -2098,6 +2098,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				"destinationPropagations", null, 0, -1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		addEOperation(connectionPathEClass, getErrorPropagationInstance(), "getSourcePropagation", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
+
+		addEOperation(connectionPathEClass, getErrorPropagationInstance(), "getDestinationPropagation", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
+
 		initEClass(bindingPathEClass, BindingPath.class, "BindingPath", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBindingPath_SourcePropagation(), getBindingPropagation(), null, "sourcePropagation", null, 0,

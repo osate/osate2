@@ -91,4 +91,20 @@ public interface ConnectionPath extends PropagationPathInstance {
 	 */
 	EList<ErrorPropagationInstance> getDestinationPropagations();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	ErrorPropagationInstance getSourcePropagation();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	ErrorPropagationInstance getDestinationPropagation();
+
 } // ConnectionPath

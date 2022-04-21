@@ -177,6 +177,26 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public ErrorPropagationInstance getSourcePropagation() {
+		return getSourcePropagations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public ErrorPropagationInstance getDestinationPropagation() {
+		return getDestinationPropagations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
