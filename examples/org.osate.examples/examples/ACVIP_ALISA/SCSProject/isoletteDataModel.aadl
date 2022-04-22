@@ -1,0 +1,185 @@
+-- Copyright 2022 Carnegie Mellon University.
+-- This material is based upon work funded and supported by the US Army Development
+-- Command Aviation and Missile Center under Contract No. FA8702-15-D-0002 with
+-- Carnegie Mellon University for the operation of the Software Engineering Institute,
+-- a federally funded research and development center sponsored by the United States
+-- Department of Defense.
+-- The view, opinions, and/or findings contained in this material are those of the author(s)
+-- and should not be construed as an official Government position, policy, or decision,
+-- unless designated by other documentation.
+--
+-- THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE MATERIAL IS FURNISHED
+-- ON AN "AS-IS" BASIS.
+-- CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+-- AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR
+-- MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE
+-- MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM
+-- FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+-- [DISTRIBUTION STATEMENT A] This material has been approved for public release and
+-- unlimited distribution.
+--  Please see Copyright notice for non-US Government use and distribution.
+--
+-- Internal use:* Permission to reproduce this material and to prepare derivative works from
+-- this material for internal use is granted, provided the copyright and “No Warranty”
+-- statements are included with all reproductions and derivative works.
+--
+-- External use:* This material may be reproduced in its entirety, without modification, and
+-- freely distributed in written or electronic form without requesting formal permission. 
+-- Permission is required for any other external and/or commercial use. Requests for permission
+-- should be directed to the Software Engineering Institute at permission@sei.cmu.edu.
+-- These restrictions do not apply to U.S. government entities.
+-- DM22-0114
+
+package isoletteDataModel
+public
+	with Data_Model, thermostat,heat_source, temperature_sensor, operator_interface;
+	
+	-- standard AADL data modeling annex
+	data heat_control
+	end heat_control;	
+	
+	data operator_feedback
+	end operator_feedback;
+	
+	data operator_settings
+	end operator_settings;
+		
+	-- top-level system enclosing the isolette elements	
+	system isoletteSystem
+	end isoletteSystem;
+
+	-- first-tier subcomponents and their connections
+	system implementation isoletteSystem.impl
+		subcomponents
+  			thermostat : system thermostat::thermostat_ss.impl;
+  			temperature_sensor : device temperature_sensor::temperature_sensor_dev.impl;
+  			heat_source : device heat_source::heat_source_dev.impl;
+  			operator_interface : system operator_interface::operator_interface_ss.impl;
+		connections
+  			current_temperature : port temperature_sensor.current_temperature -> thermostat.current_temperature;
+  			heat_control : port thermostat.heat_control -> heat_source.heat_control;
+  			operator_settings : port operator_interface.operator_settings -> thermostat.operator_settings;
+  			operator_feedback: port thermostat.operator_feedback -> operator_interface.operator_feedback;
+  	end isoletteSystem.impl; 
+
+	data measured_temperature_range
+  		properties  
+  			Data_Model::Real_Range => 68.0 .. 105.0;
+  			Data_Model::Measurement_Unit => "Fahrenheit";
+	end measured_temperature_range;  
+
+	--Valid/Invalid enumerated type
+	data valid_flag
+  		properties
+  			Data_Model::Data_Representation => Enum;
+  			Data_Model::Enumerators => ("Invalid","Valid");
+	end valid_flag;
+
+	data on_off
+  		properties
+  			Data_Model::Data_Representation => Enum;
+  			Data_Model::Enumerators => ("On","Off");
+	end on_off;
+
+	data status
+  		properties
+  			Data_Model::Data_Representation => Enum;
+  			Data_Model::Enumerators => ("Ok","Error");
+	end status;
+
+	--Current Temperature "t" is temp, "status" is valid/invalid flag 
+	data current_temperature 
+  		properties
+			Data_Model::Element_Names => ("t","status");
+  			Data_Model::Base_Type => (classifier (measured_temperature_range), 
+  		classifier (valid_flag));
+	end current_temperature; 
+
+	data temperature_range
+  		properties  
+  			Data_Model::Real_Range => 0.0 .. 105.0;
+  			Data_Model::Measurement_Unit => "Fahrenheit";
+	end temperature_range;  
+
+	data temperature
+		properties
+			Data_Model::Data_Representation => Struct; 
+			Data_Model::Element_Names => ("t","status");
+			Data_Model::Base_Type => (classifier (temperature_range), 
+  		classifier (valid_flag));
+	end temperature;
+
+	data implementation temperature_range.measured_temperature_range
+  		properties  
+  			Data_Model::Real_Range => 68.0 .. 105.0;
+	end temperature_range.measured_temperature_range;  
+
+	data implementation temperature_range.lower_desired_range
+  		properties     
+  			Data_Model::Real_Range => 97.0 .. 99.0;
+	end temperature_range.lower_desired_range; 
+
+	data implementation temperature_range.upper_desired_range
+  		properties  -- fixed-point representation of 1/10ths of a degree
+			Data_Model::Real_Range => 98.0 .. 100.0;
+	end temperature_range.upper_desired_range; 
+
+	data implementation temperature_range.lower_alarm_range
+		properties  -- fixed-point representation of 1/10ths of a degree
+  			Data_Model::Real_Range => 93.0 .. 98.0;
+	end temperature_range.lower_alarm_range; 
+
+	data implementation temperature_range.upper_alarm_range
+  		properties  -- fixed-point representation of 1/10ths of a degree
+			Data_Model::Real_Range => 99.0 .. 103.0;
+	end temperature_range.upper_alarm_range; 
+
+	--Current Temperature implemented as temperature with measured_temperature_range
+	data implementation temperature.current_temperature_impl 
+ 		properties
+  			Data_Model::Base_Type => (classifier (measured_temperature_range));
+	end temperature.current_temperature_impl; 
+
+	--Allowable lower temperature settings implemented as temperature with lower_desired_range
+	data implementation temperature.lower_desired_temperature 
+ 		properties
+  			Data_Model::Base_Type => (classifier (temperature_range.lower_desired_range));
+	end temperature.lower_desired_temperature; 
+
+	--Allowable upper temperature settings implemented as temperature with upper_desired_range
+	data implementation temperature.upper_desired_temperature 
+  		properties
+  			Data_Model::Base_Type => (classifier (temperature_range.upper_desired_range));
+	end temperature.upper_desired_temperature; 	
+
+	--Allowable lower alarm settings implemented as temperature with lower_desired_range
+	data implementation temperature.lower_alarm_temperature 
+  		properties
+  			Data_Model::Base_Type => (classifier (temperature_range.lower_alarm_range));
+	end temperature.lower_alarm_temperature; 
+
+	--Allowable upper alarm settings implemented as temperature with upper_desired_range
+	data implementation temperature.upper_alarm_temperature 
+  		properties
+  			Data_Model::Base_Type => (classifier (temperature_range.upper_alarm_range));
+	end temperature.upper_alarm_temperature; 	
+
+	data implementation heat_control.impl
+  		properties
+  			Data_Model::Base_Type => (classifier (on_off));
+	end heat_control.impl;	
+
+	-- implementations of operator feedback values
+	data alarm
+		properties
+			Data_Model::Base_Type => (classifier (on_off));
+	end alarm;
+
+	data implementation operator_feedback.impl
+  		subcomponents
+  			regulator_status: data status;
+  			monitor_status: data status;
+  			display_temperature: data temperature;
+  			alarm: data alarm;
+	end operator_feedback.impl;
+end isoletteDataModel;
