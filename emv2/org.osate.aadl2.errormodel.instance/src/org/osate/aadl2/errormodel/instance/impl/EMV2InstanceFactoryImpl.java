@@ -58,6 +58,7 @@ import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
+import org.osate.aadl2.errormodel.instance.UserDefinedPath;
 
 /**
  * <!-- begin-user-doc -->
@@ -153,6 +154,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createConnectionPath();
 		case EMV2InstancePackage.BINDING_PATH:
 			return createBindingPath();
+		case EMV2InstancePackage.USER_DEFINED_PATH:
+			return createUserDefinedPath();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -344,6 +347,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public BindingPath createBindingPath() {
 		BindingPathImpl bindingPath = new BindingPathImpl();
 		return bindingPath;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public UserDefinedPath createUserDefinedPath() {
+		UserDefinedPathImpl userDefinedPath = new UserDefinedPathImpl();
+		return userDefinedPath;
 	}
 
 	/**

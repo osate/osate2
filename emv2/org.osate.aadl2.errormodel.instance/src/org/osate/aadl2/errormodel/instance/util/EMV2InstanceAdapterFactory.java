@@ -63,6 +63,7 @@ import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
+import org.osate.aadl2.errormodel.instance.UserDefinedPath;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.InstanceObject;
 
@@ -284,6 +285,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseBindingPath(BindingPath object) {
 			return createBindingPathAdapter();
+		}
+
+		@Override
+		public Adapter caseUserDefinedPath(UserDefinedPath object) {
+			return createUserDefinedPathAdapter();
 		}
 
 		@Override
@@ -560,6 +566,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBindingPathAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.UserDefinedPath <em>User Defined Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.UserDefinedPath
+	 * @generated
+	 */
+	public Adapter createUserDefinedPathAdapter() {
 		return null;
 	}
 

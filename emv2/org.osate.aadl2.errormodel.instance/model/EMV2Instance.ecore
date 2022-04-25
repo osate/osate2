@@ -206,4 +206,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPropagation"
         eType="#//BindingPropagation"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserDefinedPath" eSuperTypes="#//PropagationPathInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="path" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//PropagationPath"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagation" eType="#//PointPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPropagation"
+        eType="#//PointPropagation"/>
+  </eClassifiers>
 </ecore:EPackage>

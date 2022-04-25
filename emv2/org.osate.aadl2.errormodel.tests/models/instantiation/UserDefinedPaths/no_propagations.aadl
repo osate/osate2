@@ -1,0 +1,32 @@
+package no_propagations
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			left: system left;
+			right: system right;
+		annex EMV2 {**
+			propagation paths
+				path1: left.left_point -> right.right_point;
+			end paths;
+		**};
+	end s.i;
+	
+	system left
+		annex EMV2 {**
+			propagation paths
+				left_point: propagation point;
+			end paths;
+		**};
+	end left;
+	
+	system right
+		annex EMV2 {**
+			propagation paths
+				right_point: propagation point;
+			end paths;
+		**};
+	end right;
+end no_propagations;

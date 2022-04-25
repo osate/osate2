@@ -68,6 +68,7 @@ import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
+import org.osate.aadl2.errormodel.instance.UserDefinedPath;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
@@ -196,6 +197,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass bindingPathEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass userDefinedPathEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1100,6 +1108,46 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getUserDefinedPath() {
+		return userDefinedPathEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getUserDefinedPath_Path() {
+		return (EReference) userDefinedPathEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getUserDefinedPath_SourcePropagation() {
+		return (EReference) userDefinedPathEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getUserDefinedPath_DestinationPropagation() {
+		return (EReference) userDefinedPathEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getEventInstance() {
 		return eventInstanceEClass;
 	}
@@ -1678,6 +1726,11 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(bindingPathEClass, BINDING_PATH__SOURCE_PROPAGATION);
 		createEReference(bindingPathEClass, BINDING_PATH__DESTINATION_PROPAGATION);
 
+		userDefinedPathEClass = createEClass(USER_DEFINED_PATH);
+		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__PATH);
+		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__SOURCE_PROPAGATION);
+		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__DESTINATION_PROPAGATION);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
@@ -1755,6 +1808,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		propagationPathInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		connectionPathEClass.getESuperTypes().add(getPropagationPathInstance());
 		bindingPathEClass.getESuperTypes().add(getPropagationPathInstance());
+		userDefinedPathEClass.getESuperTypes().add(getPropagationPathInstance());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2112,6 +2166,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getBindingPath_DestinationPropagation(), getBindingPropagation(), null, "destinationPropagation",
 				null, 0, 1, BindingPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(userDefinedPathEClass, UserDefinedPath.class, "UserDefinedPath", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getUserDefinedPath_Path(), theErrorModelPackage.getPropagationPath(), null, "path", null, 0, 1,
+				UserDefinedPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUserDefinedPath_SourcePropagation(), getPointPropagation(), null, "sourcePropagation", null,
+				0, 1, UserDefinedPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUserDefinedPath_DestinationPropagation(), getPointPropagation(), null,
+				"destinationPropagation", null, 0, 1, UserDefinedPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

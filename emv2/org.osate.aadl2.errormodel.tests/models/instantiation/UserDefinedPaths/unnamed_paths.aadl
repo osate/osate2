@@ -1,0 +1,47 @@
+package unnamed_paths
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			left: system left;
+			right: system right;
+		annex EMV2 {**
+			propagation paths
+				left.left_point -> right.right_point;
+				right.right_point -> left.left_point;
+			end paths;
+		**};
+	end s.i;
+	
+	system left
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				left_point: in propagation {ServiceError};
+				left_point: out propagation {ServiceError};
+			end propagations;
+			
+			propagation paths
+				left_point: propagation point;
+			end paths;
+		**};
+	end left;
+	
+	system right
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				right_point: in propagation {ServiceError};
+				right_point: out propagation {ServiceError};
+			end propagations;
+			
+			propagation paths
+				right_point: propagation point;
+			end paths;
+		**};
+	end right;
+end unnamed_paths;

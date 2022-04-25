@@ -1669,16 +1669,21 @@ public class EMV2Util {
 	 */
 	public static Collection<PropagationPath> getAllPropagationPaths(Classifier cl) {
 		HashMap<String, PropagationPath> result = new LinkedHashMap<>();
+		var unnamedPaths = new ArrayList<PropagationPath>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<PropagationPath> eflist = errorModelSubclause.getPaths();
 			for (PropagationPath propPointConn : eflist) {
-				if (!result.containsKey(propPointConn.getName())) {
+				if (propPointConn.getName() == null) {
+					unnamedPaths.add(propPointConn);
+				} else if (!result.containsKey(propPointConn.getName())) {
 					result.put(propPointConn.getName(), propPointConn);
 				}
 			}
 		}
-		return result.values();
+		var returnValue = new ArrayList<>(result.values());
+		returnValue.addAll(unnamedPaths);
+		return returnValue;
 	}
 
 	/**

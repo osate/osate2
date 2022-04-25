@@ -111,7 +111,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -186,7 +185,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<PropagationPath> ppaths = EMV2Util.getAllPropagationPaths(instance.getComponentClassifier());
 		for (PropagationPath ppath : ppaths) {
-			instantiatePropagationPath(ppath, emv2AI);
+			instantiatePropagationPath(ppath, emv2AI, instance);
 		}
 
 		// for bindings we need to first process all components EMV2 instantiations since the binding property instance
@@ -1148,6 +1147,19 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return null;
 	}
 
+	private PointPropagation findPointPropagation(PropagationPointInstance point) {
+		var annex = findEMV2AnnexInstance(EcoreUtil2.getContainerOfType(point, ComponentInstance.class));
+		if (annex == null) {
+			return null;
+		}
+		for (var propagation : annex.getPropagations()) {
+			if (propagation instanceof PointPropagation pointPropagation && pointPropagation.getPoint() == point) {
+				return pointPropagation;
+			}
+		}
+		return null;
+	}
+
 	private AccessPropagation findAccessPropagation(ComponentInstance component) {
 		var annex = findEMV2AnnexInstance(component);
 		if (annex == null) {
@@ -1429,72 +1441,139 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cios;
 	}
 
-	private void instantiatePropagationPath(PropagationPath pp, EMV2AnnexInstance annex) {
-		ComponentInstance contextCI = (ComponentInstance) annex.eContainer();
-		InstanceObject srcIO = findQualifiedPropagationPoint(pp.getSource(), contextCI);
-		InstanceObject dstIO = findQualifiedPropagationPoint(pp.getTarget(), contextCI);
-		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(srcIO.getComponentInstance());
-		EMV2AnnexInstance dstAnnex = findEMV2AnnexInstance(dstIO.getComponentInstance());
-		for (ConstrainedInstanceObject action : allOutgoingCIOs(srcIO, srcAnnex)) {
-			if (action.getInstanceObject() == srcIO) {
-				EList<TypeToken> outTypeTokens = action.getConstraint();
-				for (TypeToken tt : outTypeTokens) {
-					Collection<ConstrainedInstanceObject> dstCIOs = allOutPropagationConditionCIOs(dstIO, tt, dstAnnex);
-					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
-								.createOldPropagationPathInstance();
-						ppi.setSource(action);
-						ppi.setTarget(dstCIO);
-						ppi.setName(pp.getName() + "-" + dstCIO.getName());
-						annex.getOldPropagationPaths().add(ppi);
-					}
-					if (dstCIOs.isEmpty()) {
-						// use flow if no out propagation condition
-						dstCIOs = allIncomingFlowCIOs(dstIO, tt, dstAnnex);
-						for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-							OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
-									.createOldPropagationPathInstance();
-							ppi.setSource(action);
-							ppi.setTarget(dstCIO);
-							ppi.setName(pp.getName() + "-" + dstCIO.getName());
-							annex.getOldPropagationPaths().add(ppi);
-						}
-					}
-					dstCIOs = allTransitionConditionCIOs(dstIO, tt, dstAnnex);
-					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
-								.createOldPropagationPathInstance();
-						ppi.setSource(action);
-						ppi.setTarget(dstCIO);
-						ppi.setName(pp.getName() + "-" + dstCIO.getName());
-						annex.getOldPropagationPaths().add(ppi);
-					}
+	/*
+	 * Peter's old method for instantiating a user defined propagation path.
+	 */
+//	private void instantiatePropagationPath(PropagationPath pp, EMV2AnnexInstance annex) {
+//		ComponentInstance contextCI = (ComponentInstance) annex.eContainer();
+//		InstanceObject srcIO = findQualifiedPropagationPoint(pp.getSource(), contextCI);
+//		InstanceObject dstIO = findQualifiedPropagationPoint(pp.getTarget(), contextCI);
+//		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(srcIO.getComponentInstance());
+//		EMV2AnnexInstance dstAnnex = findEMV2AnnexInstance(dstIO.getComponentInstance());
+//		for (ConstrainedInstanceObject action : allOutgoingCIOs(srcIO, srcAnnex)) {
+//			if (action.getInstanceObject() == srcIO) {
+//				EList<TypeToken> outTypeTokens = action.getConstraint();
+//				for (TypeToken tt : outTypeTokens) {
+//					Collection<ConstrainedInstanceObject> dstCIOs = allOutPropagationConditionCIOs(dstIO, tt, dstAnnex);
+//					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+//						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+//								.createOldPropagationPathInstance();
+//						ppi.setSource(action);
+//						ppi.setTarget(dstCIO);
+//						ppi.setName(pp.getName() + "-" + dstCIO.getName());
+//						annex.getOldPropagationPaths().add(ppi);
+//					}
+//					if (dstCIOs.isEmpty()) {
+//						// use flow if no out propagation condition
+//						dstCIOs = allIncomingFlowCIOs(dstIO, tt, dstAnnex);
+//						for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+//							OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+//									.createOldPropagationPathInstance();
+//							ppi.setSource(action);
+//							ppi.setTarget(dstCIO);
+//							ppi.setName(pp.getName() + "-" + dstCIO.getName());
+//							annex.getOldPropagationPaths().add(ppi);
+//						}
+//					}
+//					dstCIOs = allTransitionConditionCIOs(dstIO, tt, dstAnnex);
+//					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+//						OldPropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE
+//								.createOldPropagationPathInstance();
+//						ppi.setSource(action);
+//						ppi.setTarget(dstCIO);
+//						ppi.setName(pp.getName() + "-" + dstCIO.getName());
+//						annex.getOldPropagationPaths().add(ppi);
+//					}
+//				}
+//			}
+//		}
+//	}
+
+	private void instantiatePropagationPath(PropagationPath path, EMV2AnnexInstance annex, ComponentInstance context) {
+		NamedElement source;
+		var sourcePath = path.getSource();
+		while (sourcePath.getNext() != null) {
+			sourcePath = sourcePath.getNext();
+		}
+		source = sourcePath.getPropagationPoint();
+
+		NamedElement destination;
+		var destinationPath = path.getTarget();
+		while (destinationPath.getNext() != null) {
+			destinationPath = destinationPath.getNext();
+		}
+		destination = destinationPath.getPropagationPoint();
+
+		// Paths that point to a feature are not instantiated.
+		if (source instanceof PropagationPoint sourcePoint
+				&& destination instanceof PropagationPoint destinationPoint) {
+			var sourceComponent = context;
+			sourcePath = path.getSource();
+			while (sourcePath.getSubcomponent() != null) {
+				sourceComponent = sourceComponent
+						.findSubcomponentInstance(sourcePath.getSubcomponent().getSubcomponent());
+				sourcePath = sourcePath.getNext();
+			}
+			var sourcePointInstance = findPropagationPointInstance(findEMV2AnnexInstance(sourceComponent), sourcePoint);
+
+			var destinationComponent = context;
+			destinationPath = path.getTarget();
+			while (destinationPath.getSubcomponent() != null) {
+				destinationComponent = destinationComponent
+						.findSubcomponentInstance(destinationPath.getSubcomponent().getSubcomponent());
+				destinationPath = destinationPath.getNext();
+			}
+			var destinationPointInstance = findPropagationPointInstance(findEMV2AnnexInstance(destinationComponent),
+					destinationPoint);
+
+			var sourcePropagation = findPointPropagation(sourcePointInstance);
+			var destinationPropagation = findPointPropagation(destinationPointInstance);
+
+			if (sourcePropagation != null && sourcePropagation.getDirection().outgoing()
+					&& destinationPropagation != null && destinationPropagation.getDirection().incoming()) {
+				var pathInstance = EMV2InstanceFactory.eINSTANCE.createUserDefinedPath();
+				if (path.getName() == null) {
+					var substringIndex = context.getInstanceObjectPath().length() + 1;
+					var sourceInstanceObjectPath = sourcePointInstance.getInstanceObjectPath()
+							.substring(substringIndex);
+					var destinationInstanceObjectPath = destinationPointInstance.getInstanceObjectPath()
+							.substring(substringIndex);
+					pathInstance.setName(sourceInstanceObjectPath + " -> " + destinationInstanceObjectPath);
+				} else {
+					pathInstance.setName(path.getName());
 				}
+				pathInstance.setPath(path);
+				pathInstance.setSourcePropagation(sourcePropagation);
+				pathInstance.setDestinationPropagation(destinationPropagation);
+				annex.getPropagationPaths().add(pathInstance);
 			}
 		}
 	}
 
-	private InstanceObject findQualifiedPropagationPoint(QualifiedPropagationPoint qpp, ComponentInstance context) {
-		QualifiedPropagationPoint lqpp = qpp;
-		ComponentInstance curci = context;
-		while (lqpp.getSubcomponent() != null) {
-			curci = curci.findSubcomponentInstance(lqpp.getSubcomponent().getSubcomponent());
-			if (curci == null) {
-				return null;
-			}
-			lqpp = lqpp.getNext();
-		}
-		if (lqpp.getPropagationPoint() != null) {
-			NamedElement ne = lqpp.getPropagationPoint();
-			if (ne instanceof Feature) {
-				return curci.findFeatureInstance((Feature) ne);
-			} else if (ne instanceof PropagationPoint) {
-				EMV2AnnexInstance aei = findEMV2AnnexInstance(curci);
-				return findPropagationPointInstance(aei, (PropagationPoint) ne);
-			}
-		}
-		return null;
-	}
+	/*
+	 * Used in Peter code that is commented out.
+	 */
+//	private InstanceObject findQualifiedPropagationPoint(QualifiedPropagationPoint qpp, ComponentInstance context) {
+//		QualifiedPropagationPoint lqpp = qpp;
+//		ComponentInstance curci = context;
+//		while (lqpp.getSubcomponent() != null) {
+//			curci = curci.findSubcomponentInstance(lqpp.getSubcomponent().getSubcomponent());
+//			if (curci == null) {
+//				return null;
+//			}
+//			lqpp = lqpp.getNext();
+//		}
+//		if (lqpp.getPropagationPoint() != null) {
+//			NamedElement ne = lqpp.getPropagationPoint();
+//			if (ne instanceof Feature) {
+//				return curci.findFeatureInstance((Feature) ne);
+//			} else if (ne instanceof PropagationPoint) {
+//				EMV2AnnexInstance aei = findEMV2AnnexInstance(curci);
+//				return findPropagationPointInstance(aei, (PropagationPoint) ne);
+//			}
+//		}
+//		return null;
+//	}
 
 
 	private void instantiateBindingPaths(ComponentInstance ci, EMV2AnnexInstance annex) {
