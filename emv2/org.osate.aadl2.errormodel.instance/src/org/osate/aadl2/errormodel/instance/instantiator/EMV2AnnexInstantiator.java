@@ -111,6 +111,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -1490,64 +1491,49 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 //	}
 
 	private void instantiatePropagationPath(PropagationPath path, EMV2AnnexInstance annex, ComponentInstance context) {
-		NamedElement source;
-		var sourcePath = path.getSource();
-		while (sourcePath.getNext() != null) {
-			sourcePath = sourcePath.getNext();
-		}
-		source = sourcePath.getPropagationPoint();
-
-		NamedElement destination;
-		var destinationPath = path.getTarget();
-		while (destinationPath.getNext() != null) {
-			destinationPath = destinationPath.getNext();
-		}
-		destination = destinationPath.getPropagationPoint();
-
 		// Paths that point to a feature are not instantiated.
-		if (source instanceof PropagationPoint sourcePoint
-				&& destination instanceof PropagationPoint destinationPoint) {
-			var sourceComponent = context;
-			sourcePath = path.getSource();
-			while (sourcePath.getSubcomponent() != null) {
-				sourceComponent = sourceComponent
-						.findSubcomponentInstance(sourcePath.getSubcomponent().getSubcomponent());
-				sourcePath = sourcePath.getNext();
+		if (getQualifiedPointReference(path.getSource()) instanceof PropagationPoint source
+				&& getQualifiedPointReference(path.getTarget()) instanceof PropagationPoint destination) {
+			var pathInstance = EMV2InstanceFactory.eINSTANCE.createUserDefinedPath();
+			pathInstance.setPath(path);
+			var sourcePointInstance = findPropagationPointInstance(path.getSource(), context, source);
+			pathInstance.setSourcePoint(sourcePointInstance);
+			var destinationPointInstance = findPropagationPointInstance(path.getTarget(), context, destination);
+			pathInstance.setDestinationPoint(destinationPointInstance);
+			if (path.getName() == null) {
+				var substringIndex = context.getInstanceObjectPath().length() + 1;
+				var sourcePath = sourcePointInstance.getInstanceObjectPath().substring(substringIndex);
+				var destinationPath = destinationPointInstance.getInstanceObjectPath().substring(substringIndex);
+				pathInstance.setName(sourcePath + " -> " + destinationPath);
+			} else {
+				pathInstance.setName(path.getName());
 			}
-			var sourcePointInstance = findPropagationPointInstance(findEMV2AnnexInstance(sourceComponent), sourcePoint);
-
-			var destinationComponent = context;
-			destinationPath = path.getTarget();
-			while (destinationPath.getSubcomponent() != null) {
-				destinationComponent = destinationComponent
-						.findSubcomponentInstance(destinationPath.getSubcomponent().getSubcomponent());
-				destinationPath = destinationPath.getNext();
-			}
-			var destinationPointInstance = findPropagationPointInstance(findEMV2AnnexInstance(destinationComponent),
-					destinationPoint);
-
 			var sourcePropagation = findPointPropagation(sourcePointInstance);
-			var destinationPropagation = findPointPropagation(destinationPointInstance);
-
-			if (sourcePropagation != null && sourcePropagation.getDirection().outgoing()
-					&& destinationPropagation != null && destinationPropagation.getDirection().incoming()) {
-				var pathInstance = EMV2InstanceFactory.eINSTANCE.createUserDefinedPath();
-				if (path.getName() == null) {
-					var substringIndex = context.getInstanceObjectPath().length() + 1;
-					var sourceInstanceObjectPath = sourcePointInstance.getInstanceObjectPath()
-							.substring(substringIndex);
-					var destinationInstanceObjectPath = destinationPointInstance.getInstanceObjectPath()
-							.substring(substringIndex);
-					pathInstance.setName(sourceInstanceObjectPath + " -> " + destinationInstanceObjectPath);
-				} else {
-					pathInstance.setName(path.getName());
-				}
-				pathInstance.setPath(path);
+			if (sourcePropagation != null && sourcePropagation.getDirection().outgoing()) {
 				pathInstance.setSourcePropagation(sourcePropagation);
-				pathInstance.setDestinationPropagation(destinationPropagation);
-				annex.getPropagationPaths().add(pathInstance);
 			}
+			var destinationPropagation = findPointPropagation(destinationPointInstance);
+			if (destinationPropagation != null && destinationPropagation.getDirection().incoming()) {
+				pathInstance.setDestinationPropagation(destinationPropagation);
+			}
+			annex.getPropagationPaths().add(pathInstance);
 		}
+	}
+
+	private static NamedElement getQualifiedPointReference(QualifiedPropagationPoint path) {
+		while (path.getNext() != null) {
+			path = path.getNext();
+		}
+		return path.getPropagationPoint();
+	}
+
+	private PropagationPointInstance findPropagationPointInstance(QualifiedPropagationPoint path,
+			ComponentInstance component, PropagationPoint point) {
+		while (path.getSubcomponent() != null) {
+			component = component.findSubcomponentInstance(path.getSubcomponent().getSubcomponent());
+			path = path.getNext();
+		}
+		return findPropagationPointInstance(findEMV2AnnexInstance(component), point);
 	}
 
 	/*

@@ -35,6 +35,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getPath <em>Path</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getSourcePoint <em>Source Point</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getDestinationPoint <em>Destination Point</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getSourcePropagation <em>Source Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getDestinationPropagation <em>Destination Propagation</em>}</li>
  * </ul>
@@ -65,6 +67,50 @@ public interface UserDefinedPath extends PropagationPathInstance {
 	 * @generated
 	 */
 	void setPath(PropagationPath value);
+
+	/**
+	 * Returns the value of the '<em><b>Source Point</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source Point</em>' reference.
+	 * @see #setSourcePoint(PropagationPointInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getUserDefinedPath_SourcePoint()
+	 * @model
+	 * @generated
+	 */
+	PropagationPointInstance getSourcePoint();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getSourcePoint <em>Source Point</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Source Point</em>' reference.
+	 * @see #getSourcePoint()
+	 * @generated
+	 */
+	void setSourcePoint(PropagationPointInstance value);
+
+	/**
+	 * Returns the value of the '<em><b>Destination Point</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destination Point</em>' reference.
+	 * @see #setDestinationPoint(PropagationPointInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getUserDefinedPath_DestinationPoint()
+	 * @model
+	 * @generated
+	 */
+	PropagationPointInstance getDestinationPoint();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getDestinationPoint <em>Destination Point</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Destination Point</em>' reference.
+	 * @see #getDestinationPoint()
+	 * @generated
+	 */
+	void setDestinationPoint(PropagationPointInstance value);
 
 	/**
 	 * Returns the value of the '<em><b>Source Propagation</b></em>' reference.

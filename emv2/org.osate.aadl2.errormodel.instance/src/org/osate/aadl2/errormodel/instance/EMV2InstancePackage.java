@@ -3686,13 +3686,31 @@ public interface EMV2InstancePackage extends EPackage {
 	int USER_DEFINED_PATH__PATH = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Source Point</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_PATH__SOURCE_POINT = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Destination Point</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_PATH__DESTINATION_POINT = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Source Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int USER_DEFINED_PATH__SOURCE_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 1;
+	int USER_DEFINED_PATH__SOURCE_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Destination Propagation</b></em>' reference.
@@ -3701,7 +3719,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int USER_DEFINED_PATH__DESTINATION_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 2;
+	int USER_DEFINED_PATH__DESTINATION_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>User Defined Path</em>' class.
@@ -3710,7 +3728,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int USER_DEFINED_PATH_FEATURE_COUNT = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 3;
+	int USER_DEFINED_PATH_FEATURE_COUNT = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
@@ -4505,6 +4523,28 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getUserDefinedPath_Path();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getSourcePoint <em>Source Point</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source Point</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.UserDefinedPath#getSourcePoint()
+	 * @see #getUserDefinedPath()
+	 * @generated
+	 */
+	EReference getUserDefinedPath_SourcePoint();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getDestinationPoint <em>Destination Point</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Destination Point</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.UserDefinedPath#getDestinationPoint()
+	 * @see #getUserDefinedPath()
+	 * @generated
+	 */
+	EReference getUserDefinedPath_DestinationPoint();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getSourcePropagation <em>Source Propagation</em>}'.
@@ -5604,6 +5644,22 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference USER_DEFINED_PATH__PATH = eINSTANCE.getUserDefinedPath_Path();
+
+		/**
+		 * The meta object literal for the '<em><b>Source Point</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference USER_DEFINED_PATH__SOURCE_POINT = eINSTANCE.getUserDefinedPath_SourcePoint();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination Point</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference USER_DEFINED_PATH__DESTINATION_POINT = eINSTANCE.getUserDefinedPath_DestinationPoint();
 
 		/**
 		 * The meta object literal for the '<em><b>Source Propagation</b></em>' reference feature.

@@ -1,5 +1,6 @@
 package org.osate.aadl2.errormodel.tests.instance;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.osate.testsupport.ScopeFunctions.with;
@@ -37,10 +38,10 @@ public class UserDefinedPathsTest {
 		with((UserDefinedPath) annexInstance.getPropagationPaths().get(0), userDefinedPath -> {
 			assertEquals("path1", userDefinedPath.getName());
 			assertEquals("path1", userDefinedPath.getPath().getName());
+			assertEquals("left_point", userDefinedPath.getSourcePoint().getName());
 			assertEquals("left_point", userDefinedPath.getSourcePropagation().getName());
-			assertEquals("left_point", userDefinedPath.getSourcePropagation().getPoint().getName());
+			assertEquals("right_point", userDefinedPath.getDestinationPoint().getName());
 			assertEquals("right_point", userDefinedPath.getDestinationPropagation().getName());
-			assertEquals("right_point", userDefinedPath.getDestinationPropagation().getPoint().getName());
 		});
 	}
 
@@ -49,8 +50,15 @@ public class UserDefinedPathsTest {
 		var pkg = testHelper.parseFile(PATH + "no_propagations.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		// Tests that propagation paths that refer to points without corresponding propagations are not instantiated.
-		assertEquals(0, annexInstance.getPropagationPaths().size());
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((UserDefinedPath) annexInstance.getPropagationPaths().get(0), userDefinedPath -> {
+			assertEquals("path1", userDefinedPath.getName());
+			assertEquals("path1", userDefinedPath.getPath().getName());
+			assertEquals("left_point", userDefinedPath.getSourcePoint().getName());
+			assertNull(userDefinedPath.getSourcePropagation());
+			assertEquals("right_point", userDefinedPath.getDestinationPoint().getName());
+			assertNull(userDefinedPath.getDestinationPropagation());
+		});
 	}
 
 	@Test
@@ -58,11 +66,15 @@ public class UserDefinedPathsTest {
 		var pkg = testHelper.parseFile(PATH + "wrong_direction.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		/*
-		 * Tests that a propagation path is not instantiated when the propagations corresponding to the referenced
-		 * points are in the wrong direction.
-		 */
-		assertEquals(0, annexInstance.getPropagationPaths().size());
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((UserDefinedPath) annexInstance.getPropagationPaths().get(0), userDefinedPath -> {
+			assertEquals("path1", userDefinedPath.getName());
+			assertEquals("path1", userDefinedPath.getPath().getName());
+			assertEquals("left_point", userDefinedPath.getSourcePoint().getName());
+			assertNull(userDefinedPath.getSourcePropagation());
+			assertEquals("right_point", userDefinedPath.getDestinationPoint().getName());
+			assertNull(userDefinedPath.getDestinationPropagation());
+		});
 	}
 
 	@Test
@@ -84,19 +96,19 @@ public class UserDefinedPathsTest {
 			assertEquals("left.EMV2.left_point -> right.EMV2.right_point", userDefinedPath.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getPaths().get(0), userDefinedPath.getPath());
+			assertEquals("left_point", userDefinedPath.getSourcePoint().getName());
 			assertEquals("left_point", userDefinedPath.getSourcePropagation().getName());
-			assertEquals("left_point", userDefinedPath.getSourcePropagation().getPoint().getName());
+			assertEquals("right_point", userDefinedPath.getDestinationPoint().getName());
 			assertEquals("right_point", userDefinedPath.getDestinationPropagation().getName());
-			assertEquals("right_point", userDefinedPath.getDestinationPropagation().getPoint().getName());
 		});
 		with((UserDefinedPath) annexInstance.getPropagationPaths().get(1), userDefinedPath -> {
 			assertEquals("right.EMV2.right_point -> left.EMV2.left_point", userDefinedPath.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getPaths().get(1), userDefinedPath.getPath());
+			assertEquals("right_point", userDefinedPath.getSourcePoint().getName());
 			assertEquals("right_point", userDefinedPath.getSourcePropagation().getName());
-			assertEquals("right_point", userDefinedPath.getSourcePropagation().getPoint().getName());
+			assertEquals("left_point", userDefinedPath.getDestinationPoint().getName());
 			assertEquals("left_point", userDefinedPath.getDestinationPropagation().getName());
-			assertEquals("left_point", userDefinedPath.getDestinationPropagation().getPoint().getName());
 		});
 	}
 
@@ -109,10 +121,10 @@ public class UserDefinedPathsTest {
 		with((UserDefinedPath) annexInstance.getPropagationPaths().get(0), userDefinedPath -> {
 			assertEquals("path1", userDefinedPath.getName());
 			assertEquals("path1", userDefinedPath.getPath().getName());
+			assertEquals("point3", userDefinedPath.getSourcePoint().getName());
 			assertEquals("point3", userDefinedPath.getSourcePropagation().getName());
-			assertEquals("point3", userDefinedPath.getSourcePropagation().getPoint().getName());
+			assertEquals("point4", userDefinedPath.getDestinationPoint().getName());
 			assertEquals("point4", userDefinedPath.getDestinationPropagation().getName());
-			assertEquals("point4", userDefinedPath.getDestinationPropagation().getPoint().getName());
 		});
 	}
 }

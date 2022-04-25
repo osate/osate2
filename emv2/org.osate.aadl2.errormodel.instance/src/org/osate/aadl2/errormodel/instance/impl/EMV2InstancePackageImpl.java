@@ -1128,7 +1128,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getUserDefinedPath_SourcePropagation() {
+	public EReference getUserDefinedPath_SourcePoint() {
 		return (EReference) userDefinedPathEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1138,8 +1138,28 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getUserDefinedPath_DestinationPropagation() {
+	public EReference getUserDefinedPath_DestinationPoint() {
 		return (EReference) userDefinedPathEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getUserDefinedPath_SourcePropagation() {
+		return (EReference) userDefinedPathEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getUserDefinedPath_DestinationPropagation() {
+		return (EReference) userDefinedPathEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1728,6 +1748,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		userDefinedPathEClass = createEClass(USER_DEFINED_PATH);
 		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__PATH);
+		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__SOURCE_POINT);
+		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__DESTINATION_POINT);
 		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__SOURCE_PROPAGATION);
 		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__DESTINATION_PROPAGATION);
 
@@ -2172,6 +2194,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getUserDefinedPath_Path(), theErrorModelPackage.getPropagationPath(), null, "path", null, 0, 1,
 				UserDefinedPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUserDefinedPath_SourcePoint(), getPropagationPointInstance(), null, "sourcePoint", null, 0, 1,
+				UserDefinedPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUserDefinedPath_DestinationPoint(), getPropagationPointInstance(), null, "destinationPoint",
+				null, 0, 1, UserDefinedPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUserDefinedPath_SourcePropagation(), getPointPropagation(), null, "sourcePropagation", null,
 				0, 1, UserDefinedPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
+import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.UserDefinedPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 
@@ -41,6 +42,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.UserDefinedPathImpl#getPath <em>Path</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.UserDefinedPathImpl#getSourcePoint <em>Source Point</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.UserDefinedPathImpl#getDestinationPoint <em>Destination Point</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.UserDefinedPathImpl#getSourcePropagation <em>Source Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.UserDefinedPathImpl#getDestinationPropagation <em>Destination Propagation</em>}</li>
  * </ul>
@@ -57,6 +60,26 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 	 * @ordered
 	 */
 	protected PropagationPath path;
+
+	/**
+	 * The cached value of the '{@link #getSourcePoint() <em>Source Point</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSourcePoint()
+	 * @generated
+	 * @ordered
+	 */
+	protected PropagationPointInstance sourcePoint;
+
+	/**
+	 * The cached value of the '{@link #getDestinationPoint() <em>Destination Point</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestinationPoint()
+	 * @generated
+	 * @ordered
+	 */
+	protected PropagationPointInstance destinationPoint;
 
 	/**
 	 * The cached value of the '{@link #getSourcePropagation() <em>Source Propagation</em>}' reference.
@@ -138,6 +161,95 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.USER_DEFINED_PATH__PATH, oldPath,
 					path));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropagationPointInstance getSourcePoint() {
+		if (sourcePoint != null && sourcePoint.eIsProxy()) {
+			InternalEObject oldSourcePoint = (InternalEObject) sourcePoint;
+			sourcePoint = (PropagationPointInstance) eResolveProxy(oldSourcePoint);
+			if (sourcePoint != oldSourcePoint) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_POINT, oldSourcePoint, sourcePoint));
+				}
+			}
+		}
+		return sourcePoint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PropagationPointInstance basicGetSourcePoint() {
+		return sourcePoint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSourcePoint(PropagationPointInstance newSourcePoint) {
+		PropagationPointInstance oldSourcePoint = sourcePoint;
+		sourcePoint = newSourcePoint;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_POINT,
+					oldSourcePoint, sourcePoint));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropagationPointInstance getDestinationPoint() {
+		if (destinationPoint != null && destinationPoint.eIsProxy()) {
+			InternalEObject oldDestinationPoint = (InternalEObject) destinationPoint;
+			destinationPoint = (PropagationPointInstance) eResolveProxy(oldDestinationPoint);
+			if (destinationPoint != oldDestinationPoint) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_POINT, oldDestinationPoint,
+							destinationPoint));
+				}
+			}
+		}
+		return destinationPoint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PropagationPointInstance basicGetDestinationPoint() {
+		return destinationPoint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDestinationPoint(PropagationPointInstance newDestinationPoint) {
+		PropagationPointInstance oldDestinationPoint = destinationPoint;
+		destinationPoint = newDestinationPoint;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_POINT, oldDestinationPoint, destinationPoint));
 		}
 	}
 
@@ -246,6 +358,16 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 				return getPath();
 			}
 			return basicGetPath();
+		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_POINT:
+			if (resolve) {
+				return getSourcePoint();
+			}
+			return basicGetSourcePoint();
+		case EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_POINT:
+			if (resolve) {
+				return getDestinationPoint();
+			}
+			return basicGetDestinationPoint();
 		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION:
 			if (resolve) {
 				return getSourcePropagation();
@@ -271,6 +393,12 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 		case EMV2InstancePackage.USER_DEFINED_PATH__PATH:
 			setPath((PropagationPath) newValue);
 			return;
+		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_POINT:
+			setSourcePoint((PropagationPointInstance) newValue);
+			return;
+		case EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_POINT:
+			setDestinationPoint((PropagationPointInstance) newValue);
+			return;
 		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION:
 			setSourcePropagation((PointPropagation) newValue);
 			return;
@@ -292,6 +420,12 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 		case EMV2InstancePackage.USER_DEFINED_PATH__PATH:
 			setPath((PropagationPath) null);
 			return;
+		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_POINT:
+			setSourcePoint((PropagationPointInstance) null);
+			return;
+		case EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_POINT:
+			setDestinationPoint((PropagationPointInstance) null);
+			return;
 		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION:
 			setSourcePropagation((PointPropagation) null);
 			return;
@@ -312,6 +446,10 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 		switch (featureID) {
 		case EMV2InstancePackage.USER_DEFINED_PATH__PATH:
 			return path != null;
+		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_POINT:
+			return sourcePoint != null;
+		case EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_POINT:
+			return destinationPoint != null;
 		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION:
 			return sourcePropagation != null;
 		case EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_PROPAGATION:
