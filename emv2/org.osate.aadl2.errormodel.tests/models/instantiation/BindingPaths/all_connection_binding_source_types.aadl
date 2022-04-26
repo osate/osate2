@@ -1,0 +1,109 @@
+package all_connection_binding_source_types
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			b1: bus b;
+			b2: bus b;
+			b3: bus b;
+			b4: bus b;
+			b5: bus b;
+			b6: bus b;
+			b7: bus b;
+			ps: process ps.i;
+			s2: system s2;
+			vb: virtual bus vb;
+		properties
+			Actual_Connection_Binding => (reference (b1)) applies to ps.t.f1;
+			Actual_Connection_Binding => (reference (b2)) applies to ps.conn1;
+			Actual_Connection_Binding => (reference (b3)) applies to ps.t;
+			Actual_Connection_Binding => (reference (b4)) applies to ps.tg;
+			Actual_Connection_Binding => (reference (b5)) applies to ps;
+			Actual_Connection_Binding => (reference (b6)) applies to s2;
+			Actual_Connection_Binding => (reference (b7)) applies to vb;
+	end s.i;
+	
+	bus b
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end b;
+	
+	process ps
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+			end propagations;
+		**};
+	end ps;
+	
+	process implementation ps.i
+		subcomponents
+			t: thread t;
+			tg: thread group tg;
+		connections
+			conn1: feature t.f1 -> tg.f2;
+	end ps.i;
+	
+	thread t
+		features
+			f1: feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+				f1: in propagation {ServiceError};
+				f1: out propagation {ServiceError};
+			end propagations;
+		**};
+	end t;
+	
+	thread group tg
+		features
+			f2: feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+				f2: in propagation {ServiceError};
+				f2: out propagation {ServiceError};
+			end propagations;
+		**};
+	end tg;
+	
+	system s2
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s2;
+	
+	virtual bus vb
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+			end propagations;
+		**};
+	end vb;
+end all_connection_binding_source_types;

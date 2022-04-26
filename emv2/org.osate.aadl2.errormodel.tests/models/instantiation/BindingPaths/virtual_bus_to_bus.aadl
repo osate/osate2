@@ -1,0 +1,33 @@
+package virtual_bus_to_bus
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			b: bus b;
+			vb: virtual bus vb;
+		properties
+			Actual_Connection_Binding => (reference (b)) applies to vb;
+	end s.i;
+	
+	bus b
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+			end propagations;
+		**};
+	end b;
+	
+	virtual bus vb
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: out propagation {ServiceError};
+			end propagations;
+		**};
+	end vb;
+end virtual_bus_to_bus;

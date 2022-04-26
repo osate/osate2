@@ -550,4 +550,240 @@ public class BindingPathsTest {
 			assertEquals("memory", bindingPath.getDestinationPropagation().getName());
 		});
 	}
+
+	@Test
+	public void testVirtualBusToBus() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "virtual_bus_to_bus.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+			assertEquals("Connection Binding: vb.EMV2.connection -> b.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+	}
+
+	@Test
+	public void testBusToVirtualBus() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "bus_to_virtual_bus.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+			assertEquals("Connection Binding: b.EMV2.bindings -> vb.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+	}
+
+	@Test
+	public void testBidirectionalBusAndVirtualBus() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "bidirectional_bus_and_virtual_bus.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getPropagationPaths().size());
+		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+			assertEquals("Connection Binding: vb.EMV2.connection -> b.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+			assertEquals("Connection Binding: b.EMV2.bindings -> vb.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+	}
+
+	@Test
+	public void testMultipleBuses() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "multiple_buses.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getPropagationPaths().size());
+		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+			assertEquals("Connection Binding: vb.EMV2.connection -> b1.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+			assertEquals("Connection Binding: b3.EMV2.bindings -> vb.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+	}
+
+	@Test
+	public void testAllConnectionBindingTargetTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_connection_binding_target_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(16, annexInstance.getPropagationPaths().size());
+		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+			assertEquals("Connection Binding: vb1.EMV2.connection -> proc.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+			assertEquals("Connection Binding: proc.EMV2.bindings -> vb1.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(2), bindingPath -> {
+			assertEquals("Connection Binding: vb2.EMV2.connection -> vp.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(3), bindingPath -> {
+			assertEquals("Connection Binding: vp.EMV2.bindings -> vb2.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(4), bindingPath -> {
+			assertEquals("Connection Binding: vb3.EMV2.connection -> b.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(5), bindingPath -> {
+			assertEquals("Connection Binding: b.EMV2.bindings -> vb3.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(6), bindingPath -> {
+			assertEquals("Connection Binding: vb4.EMV2.connection -> vb_target.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(7), bindingPath -> {
+			assertEquals("Connection Binding: vb_target.EMV2.bindings -> vb4.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(8), bindingPath -> {
+			assertEquals("Connection Binding: vb5.EMV2.connection -> dev.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(9), bindingPath -> {
+			assertEquals("Connection Binding: dev.EMV2.bindings -> vb5.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(10), bindingPath -> {
+			assertEquals("Connection Binding: vb6.EMV2.connection -> m.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(11), bindingPath -> {
+			assertEquals("Connection Binding: m.EMV2.bindings -> vb6.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(12), bindingPath -> {
+			assertEquals("Connection Binding: vb7.EMV2.connection -> s2.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(13), bindingPath -> {
+			assertEquals("Connection Binding: s2.EMV2.bindings -> vb7.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(14), bindingPath -> {
+			assertEquals("Connection Binding: vb8.EMV2.connection -> a.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(15), bindingPath -> {
+			assertEquals("Connection Binding: a.EMV2.bindings -> vb8.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+	}
+
+	@Test
+	public void testAllConnectionBindingSourceTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_connection_binding_source_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(10, annexInstance.getPropagationPaths().size());
+		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+			assertEquals("Connection Binding: ps.EMV2.connection -> b5.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+			assertEquals("Connection Binding: b5.EMV2.bindings -> ps.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(2), bindingPath -> {
+			assertEquals("Connection Binding: ps.t.EMV2.connection -> b3.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(3), bindingPath -> {
+			assertEquals("Connection Binding: b3.EMV2.bindings -> ps.t.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(4), bindingPath -> {
+			assertEquals("Connection Binding: ps.tg.EMV2.connection -> b4.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(5), bindingPath -> {
+			assertEquals("Connection Binding: b4.EMV2.bindings -> ps.tg.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(6), bindingPath -> {
+			assertEquals("Connection Binding: s2.EMV2.connection -> b6.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(7), bindingPath -> {
+			assertEquals("Connection Binding: b6.EMV2.bindings -> s2.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(8), bindingPath -> {
+			assertEquals("Connection Binding: vb.EMV2.connection -> b7.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(9), bindingPath -> {
+			assertEquals("Connection Binding: b7.EMV2.bindings -> vb.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+	}
+
+	@Test
+	public void testInheritedConnectionBinding() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "inherited_connection_binding.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(4, annexInstance.getPropagationPaths().size());
+		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+			assertEquals("Connection Binding: s2.EMV2.connection -> b.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+			assertEquals("Connection Binding: b.EMV2.bindings -> s2.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(2), bindingPath -> {
+			assertEquals("Connection Binding: s2.vb.EMV2.connection -> b.EMV2.bindings", bindingPath.getName());
+			assertEquals("connection", bindingPath.getSourcePropagation().getName());
+			assertEquals("bindings", bindingPath.getDestinationPropagation().getName());
+		});
+		with((BindingPath) annexInstance.getPropagationPaths().get(3), bindingPath -> {
+			assertEquals("Connection Binding: b.EMV2.bindings -> s2.vb.EMV2.connection", bindingPath.getName());
+			assertEquals("bindings", bindingPath.getSourcePropagation().getName());
+			assertEquals("connection", bindingPath.getDestinationPropagation().getName());
+		});
+	}
 }
