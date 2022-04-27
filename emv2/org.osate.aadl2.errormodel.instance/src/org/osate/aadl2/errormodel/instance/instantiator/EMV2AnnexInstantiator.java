@@ -276,8 +276,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								bindingPath.setName("Processor Binding: " + processorPropagationPath + " -> "
 										+ bindingsPropagationPath);
 								bindingPath.setType(BindingType.PROCESSOR);
-								bindingPath.setSourcePropagation(processorPropagation);
-								bindingPath.setDestinationPropagation(bindingsPropagation);
+								bindingPath.getSourcePropagations().add(processorPropagation);
+								bindingPath.getDestinationPropagations().add(bindingsPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
 							}
 							if (bindingsPropagation.getDirection().outgoing()
@@ -286,8 +286,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								bindingPath.setName("Processor Binding: " + bindingsPropagationPath + " -> "
 										+ processorPropagationPath);
 								bindingPath.setType(BindingType.PROCESSOR);
-								bindingPath.setSourcePropagation(bindingsPropagation);
-								bindingPath.setDestinationPropagation(processorPropagation);
+								bindingPath.getSourcePropagations().add(bindingsPropagation);
+								bindingPath.getDestinationPropagations().add(processorPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
 							}
 						}
@@ -314,8 +314,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								bindingPath.setName(
 										"Memory Binding: " + memoryPropagationPath + " -> " + bindingsPropagationPath);
 								bindingPath.setType(BindingType.MEMORY);
-								bindingPath.setSourcePropagation(memoryPropagation);
-								bindingPath.setDestinationPropagation(bindingsPropagation);
+								bindingPath.getSourcePropagations().add(memoryPropagation);
+								bindingPath.getDestinationPropagations().add(bindingsPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
 							}
 							if (bindingsPropagation.getDirection().outgoing()
@@ -324,8 +324,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								bindingPath.setName(
 										"Memory Binding: " + bindingsPropagationPath + " -> " + memoryPropagationPath);
 								bindingPath.setType(BindingType.MEMORY);
-								bindingPath.setSourcePropagation(bindingsPropagation);
-								bindingPath.setDestinationPropagation(memoryPropagation);
+								bindingPath.getSourcePropagations().add(bindingsPropagation);
+								bindingPath.getDestinationPropagations().add(memoryPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
 							}
 						}
@@ -352,8 +352,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								bindingPath.setName("Connection Binding: " + connectionPropagationPath + " -> "
 										+ bindingsPropagationPath);
 								bindingPath.setType(BindingType.CONNECTION);
-								bindingPath.setSourcePropagation(connectionPropagation);
-								bindingPath.setDestinationPropagation(bindingsPropagation);
+								bindingPath.getSourcePropagations().add(connectionPropagation);
+								bindingPath.getDestinationPropagations().add(bindingsPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
 							}
 						}
@@ -373,8 +373,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								bindingPath.setName("Connection Binding: " + bindingsPropagationPath + " -> "
 										+ connectionPropagationPath);
 								bindingPath.setType(BindingType.CONNECTION);
-								bindingPath.setSourcePropagation(bindingsPropagation);
-								bindingPath.setDestinationPropagation(connectionPropagation);
+								bindingPath.getSourcePropagations().add(bindingsPropagation);
+								bindingPath.getDestinationPropagations().add(connectionPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
 							}
 						}

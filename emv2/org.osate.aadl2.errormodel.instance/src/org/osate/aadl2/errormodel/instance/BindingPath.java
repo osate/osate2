@@ -23,6 +23,8 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Binding Path</b></em>'.
@@ -33,8 +35,8 @@ package org.osate.aadl2.errormodel.instance;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getType <em>Type</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagation <em>Source Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagation <em>Destination Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagations <em>Source Propagations</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagations <em>Destination Propagations</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath()
@@ -68,47 +70,27 @@ public interface BindingPath extends PropagationPathInstance {
 	void setType(BindingType value);
 
 	/**
-	 * Returns the value of the '<em><b>Source Propagation</b></em>' reference.
+	 * Returns the value of the '<em><b>Source Propagations</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.BindingPropagation}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source Propagation</em>' reference.
-	 * @see #setSourcePropagation(BindingPropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath_SourcePropagation()
+	 * @return the value of the '<em>Source Propagations</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath_SourcePropagations()
 	 * @model
 	 * @generated
 	 */
-	BindingPropagation getSourcePropagation();
+	EList<BindingPropagation> getSourcePropagations();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagation <em>Source Propagation</em>}' reference.
+	 * Returns the value of the '<em><b>Destination Propagations</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.BindingPropagation}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source Propagation</em>' reference.
-	 * @see #getSourcePropagation()
-	 * @generated
-	 */
-	void setSourcePropagation(BindingPropagation value);
-
-	/**
-	 * Returns the value of the '<em><b>Destination Propagation</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Destination Propagation</em>' reference.
-	 * @see #setDestinationPropagation(BindingPropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath_DestinationPropagation()
+	 * @return the value of the '<em>Destination Propagations</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath_DestinationPropagations()
 	 * @model
 	 * @generated
 	 */
-	BindingPropagation getDestinationPropagation();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagation <em>Destination Propagation</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Destination Propagation</em>' reference.
-	 * @see #getDestinationPropagation()
-	 * @generated
-	 */
-	void setDestinationPropagation(BindingPropagation value);
+	EList<BindingPropagation> getDestinationPropagations();
 
 } // BindingPath

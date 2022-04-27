@@ -23,10 +23,13 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
@@ -41,8 +44,8 @@ import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPathImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPathImpl#getSourcePropagation <em>Source Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPathImpl#getDestinationPropagation <em>Destination Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPathImpl#getSourcePropagations <em>Source Propagations</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPathImpl#getDestinationPropagations <em>Destination Propagations</em>}</li>
  * </ul>
  *
  * @generated
@@ -69,24 +72,24 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	protected BindingType type = TYPE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getSourcePropagation() <em>Source Propagation</em>}' reference.
+	 * The cached value of the '{@link #getSourcePropagations() <em>Source Propagations</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSourcePropagation()
+	 * @see #getSourcePropagations()
 	 * @generated
 	 * @ordered
 	 */
-	protected BindingPropagation sourcePropagation;
+	protected EList<BindingPropagation> sourcePropagations;
 
 	/**
-	 * The cached value of the '{@link #getDestinationPropagation() <em>Destination Propagation</em>}' reference.
+	 * The cached value of the '{@link #getDestinationPropagations() <em>Destination Propagations</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDestinationPropagation()
+	 * @see #getDestinationPropagations()
 	 * @generated
 	 * @ordered
 	 */
-	protected BindingPropagation destinationPropagation;
+	protected EList<BindingPropagation> destinationPropagations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,28 +141,12 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	 * @generated
 	 */
 	@Override
-	public BindingPropagation getSourcePropagation() {
-		if (sourcePropagation != null && sourcePropagation.eIsProxy()) {
-			InternalEObject oldSourcePropagation = (InternalEObject) sourcePropagation;
-			sourcePropagation = (BindingPropagation) eResolveProxy(oldSourcePropagation);
-			if (sourcePropagation != oldSourcePropagation) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION, oldSourcePropagation,
-							sourcePropagation));
-				}
-			}
+	public EList<BindingPropagation> getSourcePropagations() {
+		if (sourcePropagations == null) {
+			sourcePropagations = new EObjectResolvingEList<>(BindingPropagation.class, this,
+					EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS);
 		}
-		return sourcePropagation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BindingPropagation basicGetSourcePropagation() {
-		return sourcePropagation;
+		return sourcePropagations;
 	}
 
 	/**
@@ -168,59 +155,12 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	 * @generated
 	 */
 	@Override
-	public void setSourcePropagation(BindingPropagation newSourcePropagation) {
-		BindingPropagation oldSourcePropagation = sourcePropagation;
-		sourcePropagation = newSourcePropagation;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION,
-					oldSourcePropagation, sourcePropagation));
+	public EList<BindingPropagation> getDestinationPropagations() {
+		if (destinationPropagations == null) {
+			destinationPropagations = new EObjectResolvingEList<>(BindingPropagation.class, this,
+					EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS);
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public BindingPropagation getDestinationPropagation() {
-		if (destinationPropagation != null && destinationPropagation.eIsProxy()) {
-			InternalEObject oldDestinationPropagation = (InternalEObject) destinationPropagation;
-			destinationPropagation = (BindingPropagation) eResolveProxy(oldDestinationPropagation);
-			if (destinationPropagation != oldDestinationPropagation) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATION, oldDestinationPropagation,
-							destinationPropagation));
-				}
-			}
-		}
-		return destinationPropagation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BindingPropagation basicGetDestinationPropagation() {
-		return destinationPropagation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setDestinationPropagation(BindingPropagation newDestinationPropagation) {
-		BindingPropagation oldDestinationPropagation = destinationPropagation;
-		destinationPropagation = newDestinationPropagation;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATION, oldDestinationPropagation,
-					destinationPropagation));
-		}
+		return destinationPropagations;
 	}
 
 	/**
@@ -233,16 +173,10 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 		switch (featureID) {
 		case EMV2InstancePackage.BINDING_PATH__TYPE:
 			return getType();
-		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION:
-			if (resolve) {
-				return getSourcePropagation();
-			}
-			return basicGetSourcePropagation();
-		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATION:
-			if (resolve) {
-				return getDestinationPropagation();
-			}
-			return basicGetDestinationPropagation();
+		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS:
+			return getSourcePropagations();
+		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS:
+			return getDestinationPropagations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -252,17 +186,20 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case EMV2InstancePackage.BINDING_PATH__TYPE:
 			setType((BindingType) newValue);
 			return;
-		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION:
-			setSourcePropagation((BindingPropagation) newValue);
+		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS:
+			getSourcePropagations().clear();
+			getSourcePropagations().addAll((Collection<? extends BindingPropagation>) newValue);
 			return;
-		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATION:
-			setDestinationPropagation((BindingPropagation) newValue);
+		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS:
+			getDestinationPropagations().clear();
+			getDestinationPropagations().addAll((Collection<? extends BindingPropagation>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -279,11 +216,11 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 		case EMV2InstancePackage.BINDING_PATH__TYPE:
 			setType(TYPE_EDEFAULT);
 			return;
-		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION:
-			setSourcePropagation((BindingPropagation) null);
+		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS:
+			getSourcePropagations().clear();
 			return;
-		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATION:
-			setDestinationPropagation((BindingPropagation) null);
+		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS:
+			getDestinationPropagations().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -299,10 +236,10 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 		switch (featureID) {
 		case EMV2InstancePackage.BINDING_PATH__TYPE:
 			return type != TYPE_EDEFAULT;
-		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION:
-			return sourcePropagation != null;
-		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATION:
-			return destinationPropagation != null;
+		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS:
+			return sourcePropagations != null && !sourcePropagations.isEmpty();
+		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS:
+			return destinationPropagations != null && !destinationPropagations.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

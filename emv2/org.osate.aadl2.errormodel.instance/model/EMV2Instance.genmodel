@@ -163,8 +163,8 @@
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//BindingPath">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//BindingPath/type"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//BindingPath/sourcePropagation"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//BindingPath/destinationPropagation"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//BindingPath/sourcePropagations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//BindingPath/destinationPropagations"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//UserDefinedPath">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//UserDefinedPath/path"/>

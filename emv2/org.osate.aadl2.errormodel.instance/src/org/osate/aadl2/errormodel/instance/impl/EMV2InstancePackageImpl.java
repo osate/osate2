@@ -1098,7 +1098,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getBindingPath_SourcePropagation() {
+	public EReference getBindingPath_SourcePropagations() {
 		return (EReference) bindingPathEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1108,7 +1108,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getBindingPath_DestinationPropagation() {
+	public EReference getBindingPath_DestinationPropagations() {
 		return (EReference) bindingPathEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1754,8 +1754,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		bindingPathEClass = createEClass(BINDING_PATH);
 		createEAttribute(bindingPathEClass, BINDING_PATH__TYPE);
-		createEReference(bindingPathEClass, BINDING_PATH__SOURCE_PROPAGATION);
-		createEReference(bindingPathEClass, BINDING_PATH__DESTINATION_PROPAGATION);
+		createEReference(bindingPathEClass, BINDING_PATH__SOURCE_PROPAGATIONS);
+		createEReference(bindingPathEClass, BINDING_PATH__DESTINATION_PROPAGATIONS);
 
 		userDefinedPathEClass = createEClass(USER_DEFINED_PATH);
 		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__PATH);
@@ -2195,12 +2195,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBindingPath_Type(), getBindingType(), "type", null, 0, 1, BindingPath.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBindingPath_SourcePropagation(), getBindingPropagation(), null, "sourcePropagation", null, 0,
-				1, BindingPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+		initEReference(getBindingPath_SourcePropagations(), getBindingPropagation(), null, "sourcePropagations", null,
+				0, -1, BindingPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBindingPath_DestinationPropagation(), getBindingPropagation(), null, "destinationPropagation",
-				null, 0, 1, BindingPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBindingPath_DestinationPropagations(), getBindingPropagation(), null,
+				"destinationPropagations", null, 0, -1, BindingPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userDefinedPathEClass, UserDefinedPath.class, "UserDefinedPath", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

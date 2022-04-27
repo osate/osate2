@@ -3595,22 +3595,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_PATH__TYPE = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Source Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>Source Propagations</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_PATH__SOURCE_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 1;
+	int BINDING_PATH__SOURCE_PROPAGATIONS = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Destination Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>Destination Propagations</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_PATH__DESTINATION_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 2;
+	int BINDING_PATH__DESTINATION_PROPAGATIONS = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Binding Path</em>' class.
@@ -4502,26 +4502,26 @@ public interface EMV2InstancePackage extends EPackage {
 	EAttribute getBindingPath_Type();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagation <em>Source Propagation</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagations <em>Source Propagations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source Propagation</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagation()
+	 * @return the meta object for the reference list '<em>Source Propagations</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagations()
 	 * @see #getBindingPath()
 	 * @generated
 	 */
-	EReference getBindingPath_SourcePropagation();
+	EReference getBindingPath_SourcePropagations();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagation <em>Destination Propagation</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagations <em>Destination Propagations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Destination Propagation</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagation()
+	 * @return the meta object for the reference list '<em>Destination Propagations</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagations()
 	 * @see #getBindingPath()
 	 * @generated
 	 */
-	EReference getBindingPath_DestinationPropagation();
+	EReference getBindingPath_DestinationPropagations();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.UserDefinedPath <em>User Defined Path</em>}'.
@@ -5640,20 +5640,20 @@ public interface EMV2InstancePackage extends EPackage {
 		EAttribute BINDING_PATH__TYPE = eINSTANCE.getBindingPath_Type();
 
 		/**
-		 * The meta object literal for the '<em><b>Source Propagation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Source Propagations</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BINDING_PATH__SOURCE_PROPAGATION = eINSTANCE.getBindingPath_SourcePropagation();
+		EReference BINDING_PATH__SOURCE_PROPAGATIONS = eINSTANCE.getBindingPath_SourcePropagations();
 
 		/**
-		 * The meta object literal for the '<em><b>Destination Propagation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Destination Propagations</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BINDING_PATH__DESTINATION_PROPAGATION = eINSTANCE.getBindingPath_DestinationPropagation();
+		EReference BINDING_PATH__DESTINATION_PROPAGATIONS = eINSTANCE.getBindingPath_DestinationPropagations();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.UserDefinedPathImpl <em>User Defined Path</em>}' class.
