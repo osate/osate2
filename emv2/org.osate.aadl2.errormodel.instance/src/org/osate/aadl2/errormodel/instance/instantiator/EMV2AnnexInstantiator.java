@@ -275,6 +275,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
 								bindingPath.setName("Processor Binding: " + processorPropagationPath + " -> "
 										+ bindingsPropagationPath);
+								bindingPath.setType(BindingType.PROCESSOR);
 								bindingPath.setSourcePropagation(processorPropagation);
 								bindingPath.setDestinationPropagation(bindingsPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
@@ -284,6 +285,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
 								bindingPath.setName("Processor Binding: " + bindingsPropagationPath + " -> "
 										+ processorPropagationPath);
+								bindingPath.setType(BindingType.PROCESSOR);
 								bindingPath.setSourcePropagation(bindingsPropagation);
 								bindingPath.setDestinationPropagation(processorPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
@@ -311,6 +313,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
 								bindingPath.setName(
 										"Memory Binding: " + memoryPropagationPath + " -> " + bindingsPropagationPath);
+								bindingPath.setType(BindingType.MEMORY);
 								bindingPath.setSourcePropagation(memoryPropagation);
 								bindingPath.setDestinationPropagation(bindingsPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
@@ -320,6 +323,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
 								bindingPath.setName(
 										"Memory Binding: " + bindingsPropagationPath + " -> " + memoryPropagationPath);
+								bindingPath.setType(BindingType.MEMORY);
 								bindingPath.setSourcePropagation(bindingsPropagation);
 								bindingPath.setDestinationPropagation(memoryPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
@@ -347,6 +351,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
 								bindingPath.setName("Connection Binding: " + connectionPropagationPath + " -> "
 										+ bindingsPropagationPath);
+								bindingPath.setType(BindingType.CONNECTION);
 								bindingPath.setSourcePropagation(connectionPropagation);
 								bindingPath.setDestinationPropagation(bindingsPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
@@ -367,6 +372,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
 								bindingPath.setName("Connection Binding: " + bindingsPropagationPath + " -> "
 										+ connectionPropagationPath);
+								bindingPath.setType(BindingType.CONNECTION);
 								bindingPath.setSourcePropagation(bindingsPropagation);
 								bindingPath.setDestinationPropagation(connectionPropagation);
 								getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);

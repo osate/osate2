@@ -3586,13 +3586,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_PATH__ANNEX_INSTANCE = PROPAGATION_PATH_INSTANCE__ANNEX_INSTANCE;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_PATH__TYPE = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Source Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_PATH__SOURCE_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 0;
+	int BINDING_PATH__SOURCE_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Destination Propagation</b></em>' reference.
@@ -3601,7 +3610,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_PATH__DESTINATION_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 1;
+	int BINDING_PATH__DESTINATION_PROPAGATION = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Binding Path</em>' class.
@@ -3610,7 +3619,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_PATH_FEATURE_COUNT = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 2;
+	int BINDING_PATH_FEATURE_COUNT = PROPAGATION_PATH_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.UserDefinedPathImpl <em>User Defined Path</em>}' class.
@@ -4480,6 +4489,17 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getBindingPath();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.BindingPath#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.BindingPath#getType()
+	 * @see #getBindingPath()
+	 * @generated
+	 */
+	EAttribute getBindingPath_Type();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagation <em>Source Propagation</em>}'.
@@ -5610,6 +5630,14 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EClass BINDING_PATH = eINSTANCE.getBindingPath();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BINDING_PATH__TYPE = eINSTANCE.getBindingPath_Type();
 
 		/**
 		 * The meta object literal for the '<em><b>Source Propagation</b></em>' reference feature.

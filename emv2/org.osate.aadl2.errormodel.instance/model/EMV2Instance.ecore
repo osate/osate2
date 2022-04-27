@@ -202,6 +202,7 @@
         upperBound="-1" eType="#//ErrorPropagationInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BindingPath" eSuperTypes="#//PropagationPathInstance">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//BindingType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagation" eType="#//BindingPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPropagation"
         eType="#//BindingPropagation"/>

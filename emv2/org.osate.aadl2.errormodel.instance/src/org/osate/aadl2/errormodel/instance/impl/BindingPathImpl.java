@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
+import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 
 /**
@@ -39,6 +40,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPathImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPathImpl#getSourcePropagation <em>Source Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPathImpl#getDestinationPropagation <em>Destination Propagation</em>}</li>
  * </ul>
@@ -46,6 +48,26 @@ import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
  * @generated
  */
 public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPath {
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final BindingType TYPE_EDEFAULT = BindingType.PROCESSOR;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected BindingType type = TYPE_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getSourcePropagation() <em>Source Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -83,6 +105,31 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	@Override
 	protected EClass eStaticClass() {
 		return EMV2InstancePackage.Literals.BINDING_PATH;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public BindingType getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(BindingType newType) {
+		BindingType oldType = type;
+		type = newType == null ? TYPE_EDEFAULT : newType;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BINDING_PATH__TYPE, oldType,
+					type));
+		}
 	}
 
 	/**
@@ -184,6 +231,8 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case EMV2InstancePackage.BINDING_PATH__TYPE:
+			return getType();
 		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION:
 			if (resolve) {
 				return getSourcePropagation();
@@ -206,6 +255,9 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case EMV2InstancePackage.BINDING_PATH__TYPE:
+			setType((BindingType) newValue);
+			return;
 		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION:
 			setSourcePropagation((BindingPropagation) newValue);
 			return;
@@ -224,6 +276,9 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case EMV2InstancePackage.BINDING_PATH__TYPE:
+			setType(TYPE_EDEFAULT);
+			return;
 		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION:
 			setSourcePropagation((BindingPropagation) null);
 			return;
@@ -242,12 +297,32 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case EMV2InstancePackage.BINDING_PATH__TYPE:
+			return type != TYPE_EDEFAULT;
 		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATION:
 			return sourcePropagation != null;
 		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATION:
 			return destinationPropagation != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) {
+			return super.toString();
+		}
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (type: ");
+		result.append(type);
+		result.append(')');
+		return result.toString();
 	}
 
 } // BindingPathImpl

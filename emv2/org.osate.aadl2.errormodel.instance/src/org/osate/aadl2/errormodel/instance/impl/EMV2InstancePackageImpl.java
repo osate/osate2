@@ -1088,8 +1088,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EAttribute getBindingPath_Type() {
+		return (EAttribute) bindingPathEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getBindingPath_SourcePropagation() {
-		return (EReference) bindingPathEClass.getEStructuralFeatures().get(0);
+		return (EReference) bindingPathEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1099,7 +1109,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getBindingPath_DestinationPropagation() {
-		return (EReference) bindingPathEClass.getEStructuralFeatures().get(1);
+		return (EReference) bindingPathEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1743,6 +1753,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(connectionPathEClass, CONNECTION_PATH__DESTINATION_PROPAGATIONS);
 
 		bindingPathEClass = createEClass(BINDING_PATH);
+		createEAttribute(bindingPathEClass, BINDING_PATH__TYPE);
 		createEReference(bindingPathEClass, BINDING_PATH__SOURCE_PROPAGATION);
 		createEReference(bindingPathEClass, BINDING_PATH__DESTINATION_PROPAGATION);
 
@@ -2182,6 +2193,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(bindingPathEClass, BindingPath.class, "BindingPath", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBindingPath_Type(), getBindingType(), "type", null, 0, 1, BindingPath.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBindingPath_SourcePropagation(), getBindingPropagation(), null, "sourcePropagation", null, 0,
 				1, BindingPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -32,6 +32,7 @@ package org.osate.aadl2.errormodel.instance;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getSourcePropagation <em>Source Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPath#getDestinationPropagation <em>Destination Propagation</em>}</li>
  * </ul>
@@ -41,6 +42,31 @@ package org.osate.aadl2.errormodel.instance;
  * @generated
  */
 public interface BindingPath extends PropagationPathInstance {
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.osate.aadl2.errormodel.instance.BindingType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see org.osate.aadl2.errormodel.instance.BindingType
+	 * @see #setType(BindingType)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath_Type()
+	 * @model
+	 * @generated
+	 */
+	BindingType getType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.BindingPath#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see org.osate.aadl2.errormodel.instance.BindingType
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(BindingType value);
+
 	/**
 	 * Returns the value of the '<em><b>Source Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
