@@ -284,8 +284,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						bindingsPropagationsPaths = '(' + bindingsPropagationsPaths + ')';
 					}
 					var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-					bindingPath.setName(
-							"Processor Binding: " + processorPropagationPath + " -> " + bindingsPropagationsPaths);
+					bindingPath.setName(processorPropagationPath + " -> " + bindingsPropagationsPaths);
 					bindingPath.setType(BindingType.PROCESSOR);
 					bindingPath.getSourcePropagations().add(processorPropagation);
 					bindingPath.getDestinationPropagations().addAll(incomingBindingsPropagations);
@@ -309,7 +308,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					var processorPropagationPath = processorPropagation.getInstanceObjectPath()
 							.substring(substringIndex);
 					var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-					bindingPath.setName("Processor Binding: " + bindingsPropagationsPaths + " -> " + processorPropagationPath);
+					bindingPath.setName(bindingsPropagationsPaths + " -> " + processorPropagationPath);
 					bindingPath.setType(BindingType.PROCESSOR);
 					bindingPath.getSourcePropagations().addAll(outgoingBindingsPropagations);
 					bindingPath.getDestinationPropagations().add(processorPropagation);
@@ -343,8 +342,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						bindingsPropagationsPaths = '(' + bindingsPropagationsPaths + ')';
 					}
 					var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-					bindingPath
-							.setName("Memory Binding: " + memoryPropagationPath + " -> " + bindingsPropagationsPaths);
+					bindingPath.setName(memoryPropagationPath + " -> " + bindingsPropagationsPaths);
 					bindingPath.setType(BindingType.MEMORY);
 					bindingPath.getSourcePropagations().add(memoryPropagation);
 					bindingPath.getDestinationPropagations().addAll(incomingBindingsPropagations);
@@ -367,8 +365,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					}
 					var memoryPropagationPath = memoryPropagation.getInstanceObjectPath().substring(substringIndex);
 					var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-					bindingPath
-							.setName("Memory Binding: " + bindingsPropagationsPaths + " -> " + memoryPropagationPath);
+					bindingPath.setName(bindingsPropagationsPaths + " -> " + memoryPropagationPath);
 					bindingPath.setType(BindingType.MEMORY);
 					bindingPath.getSourcePropagations().addAll(outgoingBindingsPropagations);
 					bindingPath.getDestinationPropagations().add(memoryPropagation);
@@ -392,8 +389,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 							if (connectionPropagation.getDirection().outgoing()
 									&& bindingsPropagation.getDirection().incoming()) {
 								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-								bindingPath.setName("Connection Binding: " + connectionPropagationPath + " -> "
-										+ bindingsPropagationPath);
+								bindingPath.setName(connectionPropagationPath + " -> " + bindingsPropagationPath);
 								bindingPath.setType(BindingType.CONNECTION);
 								bindingPath.getSourcePropagations().add(connectionPropagation);
 								bindingPath.getDestinationPropagations().add(bindingsPropagation);
@@ -413,8 +409,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 							if (bindingsPropagation.getDirection().outgoing()
 									&& connectionPropagation.getDirection().incoming()) {
 								var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-								bindingPath.setName("Connection Binding: " + bindingsPropagationPath + " -> "
-										+ connectionPropagationPath);
+								bindingPath.setName(bindingsPropagationPath + " -> " + connectionPropagationPath);
 								bindingPath.setType(BindingType.CONNECTION);
 								bindingPath.getSourcePropagations().add(bindingsPropagation);
 								bindingPath.getDestinationPropagations().add(connectionPropagation);
