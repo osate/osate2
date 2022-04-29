@@ -213,6 +213,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		// Key has the binding targets and the values are the binding sources.
 		var commonProcessorBindings = new LinkedHashMap<UniqueBindingKey, List<ComponentInstance>>();
+		var commonMemoryBindings = new LinkedHashMap<UniqueBindingKey, List<ComponentInstance>>();
 		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(sourceComponent -> {
 			DeploymentProperties.getActualProcessorBinding(sourceComponent).ifPresent(bindingTargets -> {
 				var targetComponents = bindingTargets.stream()
@@ -226,6 +227,20 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					var declarativeAssociation = instanceAssociation.getPropertyAssociation();
 					var key = new UniqueBindingKey(declarativeAssociation, targetComponents);
 					commonProcessorBindings.computeIfAbsent(key, k -> new ArrayList<>()).add(sourceComponent);
+				}
+			});
+			DeploymentProperties.getActualMemoryBinding(sourceComponent).ifPresent(bindingTargets -> {
+				var targetComponents = bindingTargets.stream()
+						.filter(ComponentInstance.class::isInstance)
+						.map(ComponentInstance.class::cast)
+						.toList();
+				if (!targetComponents.isEmpty()) {
+					var instanceAssociation = getContainerOfType(
+							DeploymentProperties.getActualMemoryBinding_EObject(sourceComponent),
+							PropertyAssociationInstance.class);
+					var declarativeAssociation = instanceAssociation.getPropertyAssociation();
+					var key = new UniqueBindingKey(declarativeAssociation, targetComponents);
+					commonMemoryBindings.computeIfAbsent(key, k -> new ArrayList<>()).add(sourceComponent);
 				}
 			});
 		});
@@ -303,6 +318,80 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
 			}
 		});
+		commonMemoryBindings.entrySet().forEach(memoryBindingEntry -> {
+			var bindingSources = memoryBindingEntry.getValue();
+			var bindingTargets = memoryBindingEntry.getKey().bindingTargets();
+			var bindingSourcePropagations = bindingSources.stream()
+					.map(bindingSource -> findBindingPropagation(bindingSource, BindingType.MEMORY))
+					.toList();
+			var incomingSourcePropagations = bindingSourcePropagations.stream()
+					.filter(propagation -> propagation.getDirection().incoming())
+					.toList();
+			var outgoingSourcePropagations = bindingSourcePropagations.stream()
+					.filter(propagation -> propagation.getDirection().outgoing())
+					.toList();
+			var bindingTargetPropagations = bindingTargets.stream()
+					.map(bindingTarget -> findBindingPropagation(bindingTarget, BindingType.BINDINGS))
+					.toList();
+			var incomingTargetPropagations = bindingTargetPropagations.stream()
+					.filter(propagation -> propagation.getDirection().incoming())
+					.toList();
+			var outgoingTargetPropagations = bindingTargetPropagations.stream()
+					.filter(propagation -> propagation.getDirection().outgoing())
+					.toList();
+			if (!outgoingSourcePropagations.isEmpty() && !incomingTargetPropagations.isEmpty()) {
+				var commonContainer = Stream
+						.concat(outgoingSourcePropagations.stream(), incomingTargetPropagations.stream())
+						.map(propagation -> getContainerOfType(propagation, ComponentInstance.class))
+						.reduce(EMV2AnnexInstantiator::getCommonContainingComponent)
+						.get();
+				var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
+				var sourcePaths = outgoingSourcePropagations.stream()
+						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
+						.collect(Collectors.joining(", "));
+				if (outgoingSourcePropagations.size() > 1) {
+					sourcePaths = '(' + sourcePaths + ')';
+				}
+				var targetPaths = incomingTargetPropagations.stream()
+						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
+						.collect(Collectors.joining(", "));
+				if (incomingTargetPropagations.size() > 1) {
+					targetPaths = '(' + targetPaths + ')';
+				}
+				var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
+				bindingPath.setName(sourcePaths + " -> " + targetPaths);
+				bindingPath.setType(BindingType.MEMORY);
+				bindingPath.getSourcePropagations().addAll(outgoingSourcePropagations);
+				bindingPath.getDestinationPropagations().addAll(incomingTargetPropagations);
+				getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
+			}
+			if (!outgoingTargetPropagations.isEmpty() && !incomingSourcePropagations.isEmpty()) {
+				var commonContainer = Stream
+						.concat(outgoingTargetPropagations.stream(), incomingSourcePropagations.stream())
+						.map(propagation -> getContainerOfType(propagation, ComponentInstance.class))
+						.reduce(EMV2AnnexInstantiator::getCommonContainingComponent)
+						.get();
+				var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
+				var targetPaths = outgoingTargetPropagations.stream()
+						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
+						.collect(Collectors.joining(", "));
+				if (outgoingTargetPropagations.size() > 1) {
+					targetPaths = '(' + targetPaths + ')';
+				}
+				var sourcePaths = incomingSourcePropagations.stream()
+						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
+						.collect(Collectors.joining(", "));
+				if (incomingSourcePropagations.size() > 1) {
+					sourcePaths = '(' + sourcePaths + ')';
+				}
+				var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
+				bindingPath.setName(targetPaths + " -> " + sourcePaths);
+				bindingPath.setType(BindingType.MEMORY);
+				bindingPath.getSourcePropagations().addAll(outgoingTargetPropagations);
+				bindingPath.getDestinationPropagations().addAll(incomingSourcePropagations);
+				getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
+			}
+		});
 	}
 
 	private record UniqueBindingKey(PropertyAssociation propertyAssociation, List<ComponentInstance> bindingTargets) {
@@ -356,63 +445,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private void instantiateBindingPaths(ComponentInstance component) {
-		var memoryPropagation = findBindingPropagation(component, BindingType.MEMORY);
-		if (memoryPropagation != null) {
-			DeploymentProperties.getActualMemoryBinding(component).ifPresent(bindingTargets -> {
-				var bindingsPropagations = bindingTargets.stream()
-						.filter(ComponentInstance.class::isInstance)
-						.map(ComponentInstance.class::cast)
-						.map(bindingComponent -> findBindingPropagation(bindingComponent, BindingType.BINDINGS))
-						.filter(bindingPropagation -> bindingPropagation != null)
-						.toList();
-				var incomingBindingsPropagations = bindingsPropagations.stream()
-						.filter(bindingPropagation -> bindingPropagation.getDirection().incoming())
-						.toList();
-				if (memoryPropagation.getDirection().outgoing() && !incomingBindingsPropagations.isEmpty()) {
-					var commonContainer = component;
-					for (var incomingBindingsPropagation : incomingBindingsPropagations) {
-						commonContainer = getCommonContainingComponent(commonContainer, incomingBindingsPropagation);
-					}
-					var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
-					var memoryPropagationPath = memoryPropagation.getInstanceObjectPath().substring(substringIndex);
-					var bindingsPropagationsPaths = incomingBindingsPropagations.stream()
-							.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-							.collect(Collectors.joining(", "));
-					if (incomingBindingsPropagations.size() > 1) {
-						bindingsPropagationsPaths = '(' + bindingsPropagationsPaths + ')';
-					}
-					var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-					bindingPath.setName(memoryPropagationPath + " -> " + bindingsPropagationsPaths);
-					bindingPath.setType(BindingType.MEMORY);
-					bindingPath.getSourcePropagations().add(memoryPropagation);
-					bindingPath.getDestinationPropagations().addAll(incomingBindingsPropagations);
-					getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
-				}
-				var outgoingBindingsPropagations = bindingsPropagations.stream()
-						.filter(bindingPropagation -> bindingPropagation.getDirection().outgoing())
-						.toList();
-				if (!outgoingBindingsPropagations.isEmpty() && memoryPropagation.getDirection().incoming()) {
-					var commonContainer = component;
-					for (var outgoingBindingsPropagation : outgoingBindingsPropagations) {
-						commonContainer = getCommonContainingComponent(commonContainer, outgoingBindingsPropagation);
-					}
-					var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
-					var bindingsPropagationsPaths = outgoingBindingsPropagations.stream()
-							.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-							.collect(Collectors.joining(", "));
-					if (outgoingBindingsPropagations.size() > 1) {
-						bindingsPropagationsPaths = '(' + bindingsPropagationsPaths + ')';
-					}
-					var memoryPropagationPath = memoryPropagation.getInstanceObjectPath().substring(substringIndex);
-					var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-					bindingPath.setName(bindingsPropagationsPaths + " -> " + memoryPropagationPath);
-					bindingPath.setType(BindingType.MEMORY);
-					bindingPath.getSourcePropagations().addAll(outgoingBindingsPropagations);
-					bindingPath.getDestinationPropagations().add(memoryPropagation);
-					getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
-				}
-			});
-		}
 		var connectionPropagation = findBindingPropagation(component, BindingType.CONNECTION);
 		if (connectionPropagation != null) {
 			DeploymentProperties.getActualConnectionBinding(component).ifPresent(bindingTargets -> {

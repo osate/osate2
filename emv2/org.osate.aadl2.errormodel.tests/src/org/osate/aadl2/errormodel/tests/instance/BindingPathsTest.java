@@ -1004,11 +1004,15 @@ public class BindingPathsTest {
 		var pkg = testHelper.parseFile(PATH + "inherited_memory_binding.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(8, annexInstance.getPropagationPaths().size());
+		assertEquals(2, annexInstance.getPropagationPaths().size());
 		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
-			assertEquals("ps.EMV2.memory -> m.EMV2.bindings", bindingPath.getName());
+			assertEquals(
+					"(ps.EMV2.memory, ps.tg.EMV2.memory, ps.tg.t.EMV2.memory, ps.tg.t.d.EMV2.memory) -> m.EMV2.bindings",
+					bindingPath.getName());
 			assertEquals(BindingType.MEMORY, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.ps.EMV2.memory"),
+			assertIterableEquals(
+					List.of("s_i_Instance.ps.EMV2.memory", "s_i_Instance.ps.tg.EMV2.memory",
+							"s_i_Instance.ps.tg.t.EMV2.memory", "s_i_Instance.ps.tg.t.d.EMV2.memory"),
 					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
 			assertIterableEquals(List.of("s_i_Instance.m.EMV2.bindings"),
 					bindingPath.getDestinationPropagations()
@@ -1017,81 +1021,146 @@ public class BindingPathsTest {
 							.toList());
 		});
 		with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
-			assertEquals("m.EMV2.bindings -> ps.EMV2.memory", bindingPath.getName());
+			assertEquals(
+					"m.EMV2.bindings -> (ps.EMV2.memory, ps.tg.EMV2.memory, ps.tg.t.EMV2.memory, ps.tg.t.d.EMV2.memory)",
+					bindingPath.getName());
 			assertEquals(BindingType.MEMORY, bindingPath.getType());
 			assertIterableEquals(List.of("s_i_Instance.m.EMV2.bindings"),
 					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.ps.EMV2.memory"),
+			assertIterableEquals(
+					List.of("s_i_Instance.ps.EMV2.memory", "s_i_Instance.ps.tg.EMV2.memory",
+							"s_i_Instance.ps.tg.t.EMV2.memory", "s_i_Instance.ps.tg.t.d.EMV2.memory"),
 					bindingPath.getDestinationPropagations()
 							.stream()
 							.map(InstanceObject::getInstanceObjectPath)
 							.toList());
 		});
-		with((BindingPath) annexInstance.getPropagationPaths().get(2), bindingPath -> {
-			assertEquals("ps.tg.EMV2.memory -> m.EMV2.bindings", bindingPath.getName());
+	}
+
+	@Test
+	public void testInheritedMemoryBindingWithMultipleMemories() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "inherited_memory_binding_with_multiple_memories.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getPropagationPaths().size());
+		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+			assertEquals(
+					"(ps.EMV2.memory, ps.tg.EMV2.memory, ps.tg.t.EMV2.memory, ps.tg.t.d.EMV2.memory) -> (m1.EMV2.bindings, m2.EMV2.bindings)",
+					bindingPath.getName());
 			assertEquals(BindingType.MEMORY, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.ps.tg.EMV2.memory"),
+			assertIterableEquals(
+					List.of("s_i_Instance.ps.EMV2.memory", "s_i_Instance.ps.tg.EMV2.memory",
+							"s_i_Instance.ps.tg.t.EMV2.memory", "s_i_Instance.ps.tg.t.d.EMV2.memory"),
 					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.m.EMV2.bindings"),
+			assertIterableEquals(List.of("s_i_Instance.m1.EMV2.bindings", "s_i_Instance.m2.EMV2.bindings"),
 					bindingPath.getDestinationPropagations()
 							.stream()
 							.map(InstanceObject::getInstanceObjectPath)
 							.toList());
 		});
-		with((BindingPath) annexInstance.getPropagationPaths().get(3), bindingPath -> {
-			assertEquals("m.EMV2.bindings -> ps.tg.EMV2.memory", bindingPath.getName());
+		with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+			assertEquals(
+					"(m1.EMV2.bindings, m2.EMV2.bindings) -> (ps.EMV2.memory, ps.tg.EMV2.memory, ps.tg.t.EMV2.memory, ps.tg.t.d.EMV2.memory)",
+					bindingPath.getName());
 			assertEquals(BindingType.MEMORY, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.m.EMV2.bindings"),
+			assertIterableEquals(List.of("s_i_Instance.m1.EMV2.bindings", "s_i_Instance.m2.EMV2.bindings"),
 					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.ps.tg.EMV2.memory"),
+			assertIterableEquals(
+					List.of("s_i_Instance.ps.EMV2.memory", "s_i_Instance.ps.tg.EMV2.memory",
+							"s_i_Instance.ps.tg.t.EMV2.memory", "s_i_Instance.ps.tg.t.d.EMV2.memory"),
 					bindingPath.getDestinationPropagations()
 							.stream()
 							.map(InstanceObject::getInstanceObjectPath)
 							.toList());
 		});
-		with((BindingPath) annexInstance.getPropagationPaths().get(4), bindingPath -> {
-			assertEquals("ps.tg.t.EMV2.memory -> m.EMV2.bindings", bindingPath.getName());
-			assertEquals(BindingType.MEMORY, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.ps.tg.t.EMV2.memory"),
-					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.m.EMV2.bindings"),
-					bindingPath.getDestinationPropagations()
-							.stream()
-							.map(InstanceObject::getInstanceObjectPath)
-							.toList());
+	}
+
+	@Test
+	public void testSeparatedInheritedMemoryBinding() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "separated_inherited_memory_binding.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var instance = InstantiateModel.instantiate(system);
+		with(instance.getComponentInstances().get(0), component -> {
+			assertEquals("a", component.getName());
+			var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
+			assertEquals(2, annexInstance.getPropagationPaths().size());
+			with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+				assertEquals(
+						"(ps.EMV2.memory, ps.tg.EMV2.memory, ps.tg.t.EMV2.memory, ps.tg.t.d.EMV2.memory) -> m.EMV2.bindings",
+						bindingPath.getName());
+				assertEquals(BindingType.MEMORY, bindingPath.getType());
+				assertIterableEquals(
+						List.of("top_i_Instance.a.ps.EMV2.memory", "top_i_Instance.a.ps.tg.EMV2.memory",
+								"top_i_Instance.a.ps.tg.t.EMV2.memory", "top_i_Instance.a.ps.tg.t.d.EMV2.memory"),
+						bindingPath.getSourcePropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+				assertIterableEquals(List.of("top_i_Instance.a.m.EMV2.bindings"),
+						bindingPath.getDestinationPropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+			});
+			with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+				assertEquals(
+						"m.EMV2.bindings -> (ps.EMV2.memory, ps.tg.EMV2.memory, ps.tg.t.EMV2.memory, ps.tg.t.d.EMV2.memory)",
+						bindingPath.getName());
+				assertEquals(BindingType.MEMORY, bindingPath.getType());
+				assertIterableEquals(List.of("top_i_Instance.a.m.EMV2.bindings"),
+						bindingPath.getSourcePropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+				assertIterableEquals(
+						List.of("top_i_Instance.a.ps.EMV2.memory", "top_i_Instance.a.ps.tg.EMV2.memory",
+								"top_i_Instance.a.ps.tg.t.EMV2.memory", "top_i_Instance.a.ps.tg.t.d.EMV2.memory"),
+						bindingPath.getDestinationPropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+			});
 		});
-		with((BindingPath) annexInstance.getPropagationPaths().get(5), bindingPath -> {
-			assertEquals("m.EMV2.bindings -> ps.tg.t.EMV2.memory", bindingPath.getName());
-			assertEquals(BindingType.MEMORY, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.m.EMV2.bindings"),
-					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.ps.tg.t.EMV2.memory"),
-					bindingPath.getDestinationPropagations()
-							.stream()
-							.map(InstanceObject::getInstanceObjectPath)
-							.toList());
-		});
-		with((BindingPath) annexInstance.getPropagationPaths().get(6), bindingPath -> {
-			assertEquals("ps.tg.t.d.EMV2.memory -> m.EMV2.bindings", bindingPath.getName());
-			assertEquals(BindingType.MEMORY, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.ps.tg.t.d.EMV2.memory"),
-					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.m.EMV2.bindings"),
-					bindingPath.getDestinationPropagations()
-							.stream()
-							.map(InstanceObject::getInstanceObjectPath)
-							.toList());
-		});
-		with((BindingPath) annexInstance.getPropagationPaths().get(7), bindingPath -> {
-			assertEquals("m.EMV2.bindings -> ps.tg.t.d.EMV2.memory", bindingPath.getName());
-			assertEquals(BindingType.MEMORY, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.m.EMV2.bindings"),
-					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.ps.tg.t.d.EMV2.memory"),
-					bindingPath.getDestinationPropagations()
-							.stream()
-							.map(InstanceObject::getInstanceObjectPath)
-							.toList());
+		with(instance.getComponentInstances().get(1), component -> {
+			assertEquals("b", component.getName());
+			var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
+			assertEquals(2, annexInstance.getPropagationPaths().size());
+			with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+				assertEquals(
+						"(ps.EMV2.memory, ps.tg.EMV2.memory, ps.tg.t.EMV2.memory, ps.tg.t.d.EMV2.memory) -> m.EMV2.bindings",
+						bindingPath.getName());
+				assertEquals(BindingType.MEMORY, bindingPath.getType());
+				assertIterableEquals(
+						List.of("top_i_Instance.b.ps.EMV2.memory", "top_i_Instance.b.ps.tg.EMV2.memory",
+								"top_i_Instance.b.ps.tg.t.EMV2.memory", "top_i_Instance.b.ps.tg.t.d.EMV2.memory"),
+						bindingPath.getSourcePropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+				assertIterableEquals(List.of("top_i_Instance.b.m.EMV2.bindings"),
+						bindingPath.getDestinationPropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+			});
+			with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+				assertEquals(
+						"m.EMV2.bindings -> (ps.EMV2.memory, ps.tg.EMV2.memory, ps.tg.t.EMV2.memory, ps.tg.t.d.EMV2.memory)",
+						bindingPath.getName());
+				assertEquals(BindingType.MEMORY, bindingPath.getType());
+				assertIterableEquals(List.of("top_i_Instance.b.m.EMV2.bindings"),
+						bindingPath.getSourcePropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+				assertIterableEquals(
+						List.of("top_i_Instance.b.ps.EMV2.memory", "top_i_Instance.b.ps.tg.EMV2.memory",
+								"top_i_Instance.b.ps.tg.t.EMV2.memory", "top_i_Instance.b.ps.tg.t.d.EMV2.memory"),
+						bindingPath.getDestinationPropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+			});
 		});
 	}
 
