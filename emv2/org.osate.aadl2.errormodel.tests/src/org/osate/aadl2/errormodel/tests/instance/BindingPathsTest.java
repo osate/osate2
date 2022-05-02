@@ -1569,11 +1569,11 @@ public class BindingPathsTest {
 		var pkg = testHelper.parseFile(PATH + "inherited_connection_binding.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(4, annexInstance.getPropagationPaths().size());
+		assertEquals(2, annexInstance.getPropagationPaths().size());
 		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
-			assertEquals("s2.EMV2.connection -> b.EMV2.bindings", bindingPath.getName());
+			assertEquals("(s2.EMV2.connection, s2.vb.EMV2.connection) -> b.EMV2.bindings", bindingPath.getName());
 			assertEquals(BindingType.CONNECTION, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.s2.EMV2.connection"),
+			assertIterableEquals(List.of("s_i_Instance.s2.EMV2.connection", "s_i_Instance.s2.vb.EMV2.connection"),
 					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
 			assertIterableEquals(List.of("s_i_Instance.b.EMV2.bindings"),
 					bindingPath.getDestinationPropagations()
@@ -1582,37 +1582,122 @@ public class BindingPathsTest {
 							.toList());
 		});
 		with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
-			assertEquals("b.EMV2.bindings -> s2.EMV2.connection", bindingPath.getName());
+			assertEquals("b.EMV2.bindings -> (s2.EMV2.connection, s2.vb.EMV2.connection)", bindingPath.getName());
 			assertEquals(BindingType.CONNECTION, bindingPath.getType());
 			assertIterableEquals(List.of("s_i_Instance.b.EMV2.bindings"),
 					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.s2.EMV2.connection"),
+			assertIterableEquals(List.of("s_i_Instance.s2.EMV2.connection", "s_i_Instance.s2.vb.EMV2.connection"),
 					bindingPath.getDestinationPropagations()
 							.stream()
 							.map(InstanceObject::getInstanceObjectPath)
 							.toList());
 		});
-		with((BindingPath) annexInstance.getPropagationPaths().get(2), bindingPath -> {
-			assertEquals("s2.vb.EMV2.connection -> b.EMV2.bindings", bindingPath.getName());
+	}
+
+	@Test
+	public void testInheritedConnectionBindingWithMultipleBuses() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "inherited_connection_binding_with_multiple_buses.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getPropagationPaths().size());
+		with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+			assertEquals("(s2.EMV2.connection, s2.vb.EMV2.connection) -> b1.EMV2.bindings", bindingPath.getName());
 			assertEquals(BindingType.CONNECTION, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.s2.vb.EMV2.connection"),
+			assertIterableEquals(List.of("s_i_Instance.s2.EMV2.connection", "s_i_Instance.s2.vb.EMV2.connection"),
 					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.b.EMV2.bindings"),
+			assertIterableEquals(List.of("s_i_Instance.b1.EMV2.bindings"),
 					bindingPath.getDestinationPropagations()
 							.stream()
 							.map(InstanceObject::getInstanceObjectPath)
 							.toList());
 		});
-		with((BindingPath) annexInstance.getPropagationPaths().get(3), bindingPath -> {
-			assertEquals("b.EMV2.bindings -> s2.vb.EMV2.connection", bindingPath.getName());
+		with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+			assertEquals("b3.EMV2.bindings -> (s2.EMV2.connection, s2.vb.EMV2.connection)", bindingPath.getName());
 			assertEquals(BindingType.CONNECTION, bindingPath.getType());
-			assertIterableEquals(List.of("s_i_Instance.b.EMV2.bindings"),
+			assertIterableEquals(List.of("s_i_Instance.b3.EMV2.bindings"),
 					bindingPath.getSourcePropagations().stream().map(InstanceObject::getInstanceObjectPath).toList());
-			assertIterableEquals(List.of("s_i_Instance.s2.vb.EMV2.connection"),
+			assertIterableEquals(List.of("s_i_Instance.s2.EMV2.connection", "s_i_Instance.s2.vb.EMV2.connection"),
 					bindingPath.getDestinationPropagations()
 							.stream()
 							.map(InstanceObject::getInstanceObjectPath)
 							.toList());
+		});
+	}
+
+	@Test
+	public void testSeparatedInheritedConnectionBinding() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "separated_inherited_connection_binding.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var instance = InstantiateModel.instantiate(system);
+		with(instance.getComponentInstances().get(0), component -> {
+			assertEquals("a", component.getName());
+			var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
+			assertEquals(2, annexInstance.getPropagationPaths().size());
+			with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+				assertEquals("(s2.EMV2.connection, s2.vb.EMV2.connection) -> b.EMV2.bindings", bindingPath.getName());
+				assertEquals(BindingType.CONNECTION, bindingPath.getType());
+				assertIterableEquals(
+						List.of("top_i_Instance.a.s2.EMV2.connection", "top_i_Instance.a.s2.vb.EMV2.connection"),
+						bindingPath.getSourcePropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+				assertIterableEquals(List.of("top_i_Instance.a.b.EMV2.bindings"),
+						bindingPath.getDestinationPropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+			});
+			with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+				assertEquals("b.EMV2.bindings -> (s2.EMV2.connection, s2.vb.EMV2.connection)", bindingPath.getName());
+				assertEquals(BindingType.CONNECTION, bindingPath.getType());
+				assertIterableEquals(List.of("top_i_Instance.a.b.EMV2.bindings"),
+						bindingPath.getSourcePropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+				assertIterableEquals(
+						List.of("top_i_Instance.a.s2.EMV2.connection", "top_i_Instance.a.s2.vb.EMV2.connection"),
+						bindingPath.getDestinationPropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+			});
+		});
+		with(instance.getComponentInstances().get(1), component -> {
+			assertEquals("b", component.getName());
+			var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
+			assertEquals(2, annexInstance.getPropagationPaths().size());
+			with((BindingPath) annexInstance.getPropagationPaths().get(0), bindingPath -> {
+				assertEquals("(s2.EMV2.connection, s2.vb.EMV2.connection) -> b.EMV2.bindings", bindingPath.getName());
+				assertEquals(BindingType.CONNECTION, bindingPath.getType());
+				assertIterableEquals(
+						List.of("top_i_Instance.b.s2.EMV2.connection", "top_i_Instance.b.s2.vb.EMV2.connection"),
+						bindingPath.getSourcePropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+				assertIterableEquals(List.of("top_i_Instance.b.b.EMV2.bindings"),
+						bindingPath.getDestinationPropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+			});
+			with((BindingPath) annexInstance.getPropagationPaths().get(1), bindingPath -> {
+				assertEquals("b.EMV2.bindings -> (s2.EMV2.connection, s2.vb.EMV2.connection)", bindingPath.getName());
+				assertEquals(BindingType.CONNECTION, bindingPath.getType());
+				assertIterableEquals(List.of("top_i_Instance.b.b.EMV2.bindings"),
+						bindingPath.getSourcePropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+				assertIterableEquals(
+						List.of("top_i_Instance.b.s2.EMV2.connection", "top_i_Instance.b.s2.vb.EMV2.connection"),
+						bindingPath.getDestinationPropagations()
+								.stream()
+								.map(InstanceObject::getInstanceObjectPath)
+								.toList());
+			});
 		});
 	}
 }
