@@ -31,7 +31,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -209,271 +212,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(component -> {
 			component.getConnectionInstances().forEach(connection -> instantiateConnectionPath(connection, component));
 		});
-
-		// Key has the binding targets and the values are the binding sources.
-		var commonProcessorBindings = new LinkedHashMap<UniqueBindingKey, List<ComponentInstance>>();
-		var commonMemoryBindings = new LinkedHashMap<UniqueBindingKey, List<ComponentInstance>>();
-		var commonConnectionBindings = new LinkedHashMap<UniqueBindingKey, List<ComponentInstance>>();
-		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(sourceComponent -> {
-			DeploymentProperties.getActualProcessorBinding(sourceComponent).ifPresent(bindingTargets -> {
-				var targetComponents = bindingTargets.stream()
-						.filter(ComponentInstance.class::isInstance)
-						.map(ComponentInstance.class::cast)
-						.toList();
-				if (!targetComponents.isEmpty()) {
-					var instanceAssociation = getContainerOfType(
-							DeploymentProperties.getActualProcessorBinding_EObject(sourceComponent),
-							PropertyAssociationInstance.class);
-					var declarativeAssociation = instanceAssociation.getPropertyAssociation();
-					var key = new UniqueBindingKey(declarativeAssociation, targetComponents);
-					commonProcessorBindings.computeIfAbsent(key, k -> new ArrayList<>()).add(sourceComponent);
-				}
-			});
-			DeploymentProperties.getActualMemoryBinding(sourceComponent).ifPresent(bindingTargets -> {
-				var targetComponents = bindingTargets.stream()
-						.filter(ComponentInstance.class::isInstance)
-						.map(ComponentInstance.class::cast)
-						.toList();
-				if (!targetComponents.isEmpty()) {
-					var instanceAssociation = getContainerOfType(
-							DeploymentProperties.getActualMemoryBinding_EObject(sourceComponent),
-							PropertyAssociationInstance.class);
-					var declarativeAssociation = instanceAssociation.getPropertyAssociation();
-					var key = new UniqueBindingKey(declarativeAssociation, targetComponents);
-					commonMemoryBindings.computeIfAbsent(key, k -> new ArrayList<>()).add(sourceComponent);
-				}
-			});
-			DeploymentProperties.getActualConnectionBinding(sourceComponent).ifPresent(bindingTargets -> {
-				var targetComponents = bindingTargets.stream()
-						.filter(ComponentInstance.class::isInstance)
-						.map(ComponentInstance.class::cast)
-						.toList();
-				if (!targetComponents.isEmpty()) {
-					var instanceAssociation = getContainerOfType(
-							DeploymentProperties.getActualConnectionBinding_EObject(sourceComponent),
-							PropertyAssociationInstance.class);
-					var declarativeAssociation = instanceAssociation.getPropertyAssociation();
-					var key = new UniqueBindingKey(declarativeAssociation, targetComponents);
-					commonConnectionBindings.computeIfAbsent(key, k -> new ArrayList<>()).add(sourceComponent);
-				}
-			});
-		});
-		commonProcessorBindings.entrySet().forEach(processorBindingEntry -> {
-			var bindingSources = processorBindingEntry.getValue();
-			var bindingTargets = processorBindingEntry.getKey().bindingTargets();
-			var bindingSourcePropagations = bindingSources.stream()
-					.map(bindingSource -> findBindingPropagation(bindingSource, BindingType.PROCESSOR))
-					.toList();
-			var incomingSourcePropagations = bindingSourcePropagations.stream()
-					.filter(propagation -> propagation.getDirection().incoming())
-					.toList();
-			var outgoingSourcePropagations = bindingSourcePropagations.stream()
-					.filter(propagation -> propagation.getDirection().outgoing())
-					.toList();
-			var bindingTargetPropagations = bindingTargets.stream()
-					.map(bindingTarget -> findBindingPropagation(bindingTarget, BindingType.BINDINGS))
-					.toList();
-			var incomingTargetPropagations = bindingTargetPropagations.stream()
-					.filter(propagation -> propagation.getDirection().incoming())
-					.toList();
-			var outgoingTargetPropagations = bindingTargetPropagations.stream()
-					.filter(propagation -> propagation.getDirection().outgoing())
-					.toList();
-			if (!outgoingSourcePropagations.isEmpty() && !incomingTargetPropagations.isEmpty()) {
-				var commonContainer = Stream
-						.concat(outgoingSourcePropagations.stream(), incomingTargetPropagations.stream())
-						.map(propagation -> getContainerOfType(propagation, ComponentInstance.class))
-						.reduce((a, b) -> getCommonContainingComponent(a, b))
-						.get();
-				var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
-				var sourcePaths = outgoingSourcePropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (outgoingSourcePropagations.size() > 1) {
-					sourcePaths = '(' + sourcePaths + ')';
-				}
-				var targetPaths = incomingTargetPropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (incomingTargetPropagations.size() > 1) {
-					targetPaths = '(' + targetPaths + ')';
-				}
-				var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-				bindingPath.setName(sourcePaths + " -> " + targetPaths);
-				bindingPath.setType(BindingType.PROCESSOR);
-				bindingPath.getSourcePropagations().addAll(outgoingSourcePropagations);
-				bindingPath.getDestinationPropagations().addAll(incomingTargetPropagations);
-				getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
-			}
-			if (!outgoingTargetPropagations.isEmpty() && !incomingSourcePropagations.isEmpty()) {
-				var commonContainer = Stream
-						.concat(outgoingTargetPropagations.stream(), incomingSourcePropagations.stream())
-						.map(propagation -> getContainerOfType(propagation, ComponentInstance.class))
-						.reduce((a, b) -> getCommonContainingComponent(a, b))
-						.get();
-				var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
-				var targetPaths = outgoingTargetPropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (outgoingTargetPropagations.size() > 1) {
-					targetPaths = '(' + targetPaths + ')';
-				}
-				var sourcePaths = incomingSourcePropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (incomingSourcePropagations.size() > 1) {
-					sourcePaths = '(' + sourcePaths + ')';
-				}
-				var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-				bindingPath.setName(targetPaths + " -> " + sourcePaths);
-				bindingPath.setType(BindingType.PROCESSOR);
-				bindingPath.getSourcePropagations().addAll(outgoingTargetPropagations);
-				bindingPath.getDestinationPropagations().addAll(incomingSourcePropagations);
-				getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
-			}
-		});
-		commonMemoryBindings.entrySet().forEach(memoryBindingEntry -> {
-			var bindingSources = memoryBindingEntry.getValue();
-			var bindingTargets = memoryBindingEntry.getKey().bindingTargets();
-			var bindingSourcePropagations = bindingSources.stream()
-					.map(bindingSource -> findBindingPropagation(bindingSource, BindingType.MEMORY))
-					.toList();
-			var incomingSourcePropagations = bindingSourcePropagations.stream()
-					.filter(propagation -> propagation.getDirection().incoming())
-					.toList();
-			var outgoingSourcePropagations = bindingSourcePropagations.stream()
-					.filter(propagation -> propagation.getDirection().outgoing())
-					.toList();
-			var bindingTargetPropagations = bindingTargets.stream()
-					.map(bindingTarget -> findBindingPropagation(bindingTarget, BindingType.BINDINGS))
-					.toList();
-			var incomingTargetPropagations = bindingTargetPropagations.stream()
-					.filter(propagation -> propagation.getDirection().incoming())
-					.toList();
-			var outgoingTargetPropagations = bindingTargetPropagations.stream()
-					.filter(propagation -> propagation.getDirection().outgoing())
-					.toList();
-			if (!outgoingSourcePropagations.isEmpty() && !incomingTargetPropagations.isEmpty()) {
-				var commonContainer = Stream
-						.concat(outgoingSourcePropagations.stream(), incomingTargetPropagations.stream())
-						.map(propagation -> getContainerOfType(propagation, ComponentInstance.class))
-						.reduce(EMV2AnnexInstantiator::getCommonContainingComponent)
-						.get();
-				var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
-				var sourcePaths = outgoingSourcePropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (outgoingSourcePropagations.size() > 1) {
-					sourcePaths = '(' + sourcePaths + ')';
-				}
-				var targetPaths = incomingTargetPropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (incomingTargetPropagations.size() > 1) {
-					targetPaths = '(' + targetPaths + ')';
-				}
-				var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-				bindingPath.setName(sourcePaths + " -> " + targetPaths);
-				bindingPath.setType(BindingType.MEMORY);
-				bindingPath.getSourcePropagations().addAll(outgoingSourcePropagations);
-				bindingPath.getDestinationPropagations().addAll(incomingTargetPropagations);
-				getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
-			}
-			if (!outgoingTargetPropagations.isEmpty() && !incomingSourcePropagations.isEmpty()) {
-				var commonContainer = Stream
-						.concat(outgoingTargetPropagations.stream(), incomingSourcePropagations.stream())
-						.map(propagation -> getContainerOfType(propagation, ComponentInstance.class))
-						.reduce(EMV2AnnexInstantiator::getCommonContainingComponent)
-						.get();
-				var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
-				var targetPaths = outgoingTargetPropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (outgoingTargetPropagations.size() > 1) {
-					targetPaths = '(' + targetPaths + ')';
-				}
-				var sourcePaths = incomingSourcePropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (incomingSourcePropagations.size() > 1) {
-					sourcePaths = '(' + sourcePaths + ')';
-				}
-				var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-				bindingPath.setName(targetPaths + " -> " + sourcePaths);
-				bindingPath.setType(BindingType.MEMORY);
-				bindingPath.getSourcePropagations().addAll(outgoingTargetPropagations);
-				bindingPath.getDestinationPropagations().addAll(incomingSourcePropagations);
-				getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
-			}
-		});
-		commonConnectionBindings.entrySet().forEach(connectionBindingEntry -> {
-			var bindingSources = connectionBindingEntry.getValue();
-			var bindingTargets = connectionBindingEntry.getKey().bindingTargets();
-			var bindingSourcePropagations = bindingSources.stream()
-					.map(bindingSource -> findBindingPropagation(bindingSource, BindingType.CONNECTION))
-					.toList();
-			var incomingSourcePropagations = bindingSourcePropagations.stream()
-					.filter(propagation -> propagation.getDirection().incoming())
-					.toList();
-			var outgoingSourcePropagations = bindingSourcePropagations.stream()
-					.filter(propagation -> propagation.getDirection().outgoing())
-					.toList();
-			var firstTargetPropagation = findBindingPropagation(bindingTargets.get(0), BindingType.BINDINGS);
-			BindingPropagation lastTargetPropagation;
-			if (bindingTargets.size() == 1) {
-				lastTargetPropagation = firstTargetPropagation;
-			} else {
-				lastTargetPropagation = findBindingPropagation(bindingTargets.get(bindingTargets.size() - 1),
-						BindingType.BINDINGS);
-			}
-			if (!outgoingSourcePropagations.isEmpty() && firstTargetPropagation != null
-					&& firstTargetPropagation.getDirection().incoming()) {
-				var commonContainer = Stream
-						.concat(outgoingSourcePropagations.stream(), Stream.of(firstTargetPropagation))
-						.map(propagation -> getContainerOfType(propagation, ComponentInstance.class))
-						.reduce(EMV2AnnexInstantiator::getCommonContainingComponent)
-						.get();
-				var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
-				var sourcePaths = outgoingSourcePropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (outgoingSourcePropagations.size() > 1) {
-					sourcePaths = '(' + sourcePaths + ')';
-				}
-				var targetPath = firstTargetPropagation.getInstanceObjectPath().substring(substringIndex);
-				var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-				bindingPath.setName(sourcePaths + " -> " + targetPath);
-				bindingPath.setType(BindingType.CONNECTION);
-				bindingPath.getSourcePropagations().addAll(outgoingSourcePropagations);
-				bindingPath.getDestinationPropagations().add(firstTargetPropagation);
-				getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
-			}
-			if (lastTargetPropagation != null && lastTargetPropagation.getDirection().outgoing()
-					&& !incomingSourcePropagations.isEmpty()) {
-				var commonContainer = Stream
-						.concat(Stream.of(lastTargetPropagation), incomingSourcePropagations.stream())
-						.map(propagation -> getContainerOfType(propagation, ComponentInstance.class))
-						.reduce(EMV2AnnexInstantiator::getCommonContainingComponent)
-						.get();
-				var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
-				var targetPath = lastTargetPropagation.getInstanceObjectPath().substring(substringIndex);
-				var sourcePaths = incomingSourcePropagations.stream()
-						.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
-						.collect(Collectors.joining(", "));
-				if (incomingSourcePropagations.size() > 1) {
-					sourcePaths = '(' + sourcePaths + ')';
-				}
-				var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
-				bindingPath.setName(targetPath + " -> " + sourcePaths);
-				bindingPath.setType(BindingType.CONNECTION);
-				bindingPath.getSourcePropagations().add(lastTargetPropagation);
-				bindingPath.getDestinationPropagations().addAll(incomingSourcePropagations);
-				getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
-			}
-		});
-	}
-
-	private record UniqueBindingKey(PropertyAssociation propertyAssociation, List<ComponentInstance> bindingTargets) {
+		instantiateBindingPaths(instance);
 	}
 
 	private void instantiateConnectionPath(ConnectionInstance connection, ComponentInstance component) {
@@ -523,9 +262,152 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private static ComponentInstance getCommonContainingComponent(InstanceObject a, InstanceObject b) {
+	/*
+	 * The instantiation of BindingPath objects is a bit complicated. The idea is that there should be one BindingPath
+	 * object per declarative PropertyAssociation for that binding. However, a single declarative PropertyAssociation
+	 * can be instantiated into multiple PropertyAssociationInstance objects if the property is inherit and it is
+	 * applied to a container. This method collects all of the values from every PropertyAssociationInstance and groups
+	 * them by their singular declarative PropertyAssociation.
+	 *
+	 * For example, suppose that an Actual_Processor_Binding is applied to a process and that process contains multiple
+	 * threads. Now also suppose that the process and all of the threads have in processor propagations and the
+	 * processor that is the target of the binding has an out bindings propagation. This will result in one
+	 * BindingPath object being created in which the source is the bindings propagation on the processor and the
+	 * destination propagations are all of the processor propagations on the process and threads.
+	 *
+	 * The collection of all bindings for a given type must not only be grouped by a common singular declarative
+	 * PropertyAssociation, but also by their instance property values. There are some situations in which a single
+	 * declarative binding PropertyAssociation should result in multiple BindingPath objects. If a declarative binding
+	 * PropertyAssociation is not at the top system, but is instead in a child component, and the classifier of that
+	 * child component is used in multiple subcomponents, then the InstanceReferenceValue objects would be different for
+	 * the different subtrees of the instance model and we would want to create multiple BindingPath objects. The record
+	 * UniqueBindingKey fulfills this requirement by allowing a grouping by declarative PropertyAssociation and the
+	 * instance value objects.
+	 *
+	 * In addition to grouping by inherited properties, a BindingPath can also have a list of sources or list of
+	 * destinations if the binding property lists multiple targets. For example, if a thread is bound to three
+	 * processors, then a BindingPath will be created which lists the propagations for all three processors. Memory
+	 * binding works the same way, but connection binding is different. For connection binding, the list represents a
+	 * sequence of components that data flows through. Therefore, a BindingPath is created from the out connection
+	 * propagation on the binding source to the in bindings propagation on the first binding target and another
+	 * BindingPath is created from the out bindings propagation on the last binding target to the in connection
+	 * propagation on the binding source.
+	 */
+	private void instantiateBindingPaths(SystemInstance instance) {
+		// Key has the binding targets and the values are the binding sources.
+		var commonProcessorBindings = new LinkedHashMap<UniqueBindingKey, List<ComponentInstance>>();
+		var commonMemoryBindings = new LinkedHashMap<UniqueBindingKey, List<ComponentInstance>>();
+		var commonConnectionBindings = new LinkedHashMap<UniqueBindingKey, List<ComponentInstance>>();
+		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(source -> {
+			collectCommonBindings(source, commonProcessorBindings, DeploymentProperties::getActualProcessorBinding,
+					DeploymentProperties::getActualProcessorBinding_EObject);
+			collectCommonBindings(source, commonMemoryBindings, DeploymentProperties::getActualMemoryBinding,
+					DeploymentProperties::getActualMemoryBinding_EObject);
+			collectCommonBindings(source, commonConnectionBindings, DeploymentProperties::getActualConnectionBinding,
+					DeploymentProperties::getActualConnectionBinding_EObject);
+		});
+		commonProcessorBindings.forEach((key, sources) -> {
+			var sourcePropagations = sources.stream()
+					.map(source -> findBindingPropagation(source, BindingType.PROCESSOR))
+					.toList();
+			var targetPropagations = key.bindingTargets()
+					.stream()
+					.map(target -> findBindingPropagation(target, BindingType.BINDINGS))
+					.toList();
+			instantiateBindingPath(sourcePropagations, targetPropagations, BindingType.PROCESSOR);
+			instantiateBindingPath(targetPropagations, sourcePropagations, BindingType.PROCESSOR);
+		});
+		commonMemoryBindings.forEach((key, sources) -> {
+			var sourcePropagations = sources.stream()
+					.map(source -> findBindingPropagation(source, BindingType.MEMORY))
+					.toList();
+			var targetPropagations = key.bindingTargets()
+					.stream()
+					.map(target -> findBindingPropagation(target, BindingType.BINDINGS))
+					.toList();
+			instantiateBindingPath(sourcePropagations, targetPropagations, BindingType.MEMORY);
+			instantiateBindingPath(targetPropagations, sourcePropagations, BindingType.MEMORY);
+		});
+		commonConnectionBindings.forEach((key, sources) -> {
+			var sourcePropagations = sources.stream()
+					.map(source -> findBindingPropagation(source, BindingType.CONNECTION))
+					.toList();
+			var targets = key.bindingTargets();
+			var firstTargetPropagation = findBindingPropagation(targets.get(0), BindingType.BINDINGS);
+			BindingPropagation lastTargetPropagation;
+			if (targets.size() == 1) {
+				lastTargetPropagation = firstTargetPropagation;
+			} else {
+				lastTargetPropagation = findBindingPropagation(targets.get(targets.size() - 1), BindingType.BINDINGS);
+			}
+			if (firstTargetPropagation != null) {
+				instantiateBindingPath(sourcePropagations, List.of(firstTargetPropagation), BindingType.CONNECTION);
+			}
+			if (lastTargetPropagation != null) {
+				instantiateBindingPath(List.of(lastTargetPropagation), sourcePropagations, BindingType.CONNECTION);
+			}
+		});
+	}
+
+	private record UniqueBindingKey(PropertyAssociation propertyAssociation, List<ComponentInstance> bindingTargets) {
+	}
+
+	private static void collectCommonBindings(ComponentInstance source,
+			Map<UniqueBindingKey, List<ComponentInstance>> commonBindings,
+			Function<ComponentInstance, Optional<List<InstanceObject>>> getProperty,
+			Function<ComponentInstance, PropertyExpression> getExpression) {
+		getProperty.apply(source).ifPresent(targets -> {
+			var targetComponents = targets.stream()
+					.filter(ComponentInstance.class::isInstance)
+					.map(ComponentInstance.class::cast)
+					.toList();
+			if (!targetComponents.isEmpty()) {
+				var expression = getExpression.apply(source);
+				var instanceAssociation = getContainerOfType(expression, PropertyAssociationInstance.class);
+				var key = new UniqueBindingKey(instanceAssociation.getPropertyAssociation(), targetComponents);
+				commonBindings.computeIfAbsent(key, k -> new ArrayList<>()).add(source);
+			}
+		});
+	}
+
+	private void instantiateBindingPath(List<BindingPropagation> sourcePropagations,
+			List<BindingPropagation> destinationPropagations, BindingType bindingType) {
+		var outgoingSources = sourcePropagations.stream()
+				.filter(propagation -> propagation.getDirection().outgoing())
+				.toList();
+		var incomingDestinations = destinationPropagations.stream()
+				.filter(propagation -> propagation.getDirection().incoming())
+				.toList();
+		if (!outgoingSources.isEmpty() && !incomingDestinations.isEmpty()) {
+			var commonContainer = Stream.concat(outgoingSources.stream(), incomingDestinations.stream())
+					.map(propagation -> getContainerOfType(propagation, ComponentInstance.class))
+					.reduce(EMV2AnnexInstantiator::getCommonContainer)
+					.get();
+			var substringIndex = commonContainer.getInstanceObjectPath().length() + 1;
+			var sourcePaths = outgoingSources.stream()
+					.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
+					.collect(Collectors.joining(", "));
+			if (outgoingSources.size() > 1) {
+				sourcePaths = '(' + sourcePaths + ')';
+			}
+			var destinationPaths = incomingDestinations.stream()
+					.map(propagation -> propagation.getInstanceObjectPath().substring(substringIndex))
+					.collect(Collectors.joining(", "));
+			if (incomingDestinations.size() > 1) {
+				destinationPaths = '(' + destinationPaths + ')';
+			}
+			var bindingPath = EMV2InstanceFactory.eINSTANCE.createBindingPath();
+			bindingPath.setName(sourcePaths + " -> " + destinationPaths);
+			bindingPath.setType(bindingType);
+			bindingPath.getSourcePropagations().addAll(sourcePropagations);
+			bindingPath.getDestinationPropagations().addAll(destinationPropagations);
+			getOrCreateEMV2AnnexInstance(commonContainer).getPropagationPaths().add(bindingPath);
+		}
+	}
+
+	private static ComponentInstance getCommonContainer(ComponentInstance a, ComponentInstance b) {
 		if (EcoreUtil.isAncestor(a, b)) {
-			return getContainerOfType(a, ComponentInstance.class);
+			return a;
 		} else {
 			for (var container : EcoreUtil2.getAllContainers(a)) {
 				if (container instanceof ComponentInstance containerComponent
@@ -533,8 +415,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					return containerComponent;
 				}
 			}
+			return null;
 		}
-		return null;
 	}
 
 	private EMV2AnnexInstance getOrCreateEMV2AnnexInstance(ComponentInstance component) {
