@@ -23,9 +23,17 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
@@ -39,6 +47,8 @@ import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPropagationImpl#getBinding <em>Binding</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPropagationImpl#getSourceBindingPaths <em>Source Binding Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingPropagationImpl#getDestinationBindingPaths <em>Destination Binding Paths</em>}</li>
  * </ul>
  *
  * @generated
@@ -63,6 +73,26 @@ public class BindingPropagationImpl extends ErrorPropagationInstanceImpl impleme
 	 * @ordered
 	 */
 	protected BindingType binding = BINDING_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getSourceBindingPaths() <em>Source Binding Paths</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSourceBindingPaths()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BindingPath> sourceBindingPaths;
+
+	/**
+	 * The cached value of the '{@link #getDestinationBindingPaths() <em>Destination Binding Paths</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestinationBindingPaths()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BindingPath> destinationBindingPaths;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -114,10 +144,79 @@ public class BindingPropagationImpl extends ErrorPropagationInstanceImpl impleme
 	 * @generated
 	 */
 	@Override
+	public EList<BindingPath> getSourceBindingPaths() {
+		if (sourceBindingPaths == null) {
+			sourceBindingPaths = new EObjectWithInverseResolvingEList.ManyInverse<>(BindingPath.class, this,
+					EMV2InstancePackage.BINDING_PROPAGATION__SOURCE_BINDING_PATHS,
+					EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS);
+		}
+		return sourceBindingPaths;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<BindingPath> getDestinationBindingPaths() {
+		if (destinationBindingPaths == null) {
+			destinationBindingPaths = new EObjectWithInverseResolvingEList.ManyInverse<>(BindingPath.class,
+					this, EMV2InstancePackage.BINDING_PROPAGATION__DESTINATION_BINDING_PATHS,
+					EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS);
+		}
+		return destinationBindingPaths;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.BINDING_PROPAGATION__SOURCE_BINDING_PATHS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSourceBindingPaths()).basicAdd(otherEnd,
+					msgs);
+		case EMV2InstancePackage.BINDING_PROPAGATION__DESTINATION_BINDING_PATHS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDestinationBindingPaths()).basicAdd(otherEnd,
+					msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.BINDING_PROPAGATION__SOURCE_BINDING_PATHS:
+			return ((InternalEList<?>) getSourceBindingPaths()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.BINDING_PROPAGATION__DESTINATION_BINDING_PATHS:
+			return ((InternalEList<?>) getDestinationBindingPaths()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case EMV2InstancePackage.BINDING_PROPAGATION__BINDING:
 			return getBinding();
+		case EMV2InstancePackage.BINDING_PROPAGATION__SOURCE_BINDING_PATHS:
+			return getSourceBindingPaths();
+		case EMV2InstancePackage.BINDING_PROPAGATION__DESTINATION_BINDING_PATHS:
+			return getDestinationBindingPaths();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -127,11 +226,20 @@ public class BindingPropagationImpl extends ErrorPropagationInstanceImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case EMV2InstancePackage.BINDING_PROPAGATION__BINDING:
 			setBinding((BindingType) newValue);
+			return;
+		case EMV2InstancePackage.BINDING_PROPAGATION__SOURCE_BINDING_PATHS:
+			getSourceBindingPaths().clear();
+			getSourceBindingPaths().addAll((Collection<? extends BindingPath>) newValue);
+			return;
+		case EMV2InstancePackage.BINDING_PROPAGATION__DESTINATION_BINDING_PATHS:
+			getDestinationBindingPaths().clear();
+			getDestinationBindingPaths().addAll((Collection<? extends BindingPath>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -148,6 +256,12 @@ public class BindingPropagationImpl extends ErrorPropagationInstanceImpl impleme
 		case EMV2InstancePackage.BINDING_PROPAGATION__BINDING:
 			setBinding(BINDING_EDEFAULT);
 			return;
+		case EMV2InstancePackage.BINDING_PROPAGATION__SOURCE_BINDING_PATHS:
+			getSourceBindingPaths().clear();
+			return;
+		case EMV2InstancePackage.BINDING_PROPAGATION__DESTINATION_BINDING_PATHS:
+			getDestinationBindingPaths().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -162,6 +276,10 @@ public class BindingPropagationImpl extends ErrorPropagationInstanceImpl impleme
 		switch (featureID) {
 		case EMV2InstancePackage.BINDING_PROPAGATION__BINDING:
 			return binding != BINDING_EDEFAULT;
+		case EMV2InstancePackage.BINDING_PROPAGATION__SOURCE_BINDING_PATHS:
+			return sourceBindingPaths != null && !sourceBindingPaths.isEmpty();
+		case EMV2InstancePackage.BINDING_PROPAGATION__DESTINATION_BINDING_PATHS:
+			return destinationBindingPaths != null && !destinationBindingPaths.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

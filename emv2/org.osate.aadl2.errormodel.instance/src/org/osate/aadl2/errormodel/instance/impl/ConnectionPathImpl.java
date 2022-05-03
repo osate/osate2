@@ -26,11 +26,13 @@ package org.osate.aadl2.errormodel.instance.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
@@ -153,8 +155,9 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	@Override
 	public EList<ErrorPropagationInstance> getSourcePropagations() {
 		if (sourcePropagations == null) {
-			sourcePropagations = new EObjectResolvingEList<>(ErrorPropagationInstance.class,
-					this, EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS);
+			sourcePropagations = new EObjectWithInverseEList.ManyInverse<>(
+					ErrorPropagationInstance.class, this, EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS,
+					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS);
 		}
 		return sourcePropagations;
 	}
@@ -167,9 +170,9 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	@Override
 	public EList<ErrorPropagationInstance> getDestinationPropagations() {
 		if (destinationPropagations == null) {
-			destinationPropagations = new EObjectResolvingEList<>(
-					ErrorPropagationInstance.class, this,
-					EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS);
+			destinationPropagations = new EObjectWithInverseEList.ManyInverse<>(
+					ErrorPropagationInstance.class, this, EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS,
+					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS);
 		}
 		return destinationPropagations;
 	}
@@ -192,6 +195,41 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	@Override
 	public ErrorPropagationInstance getDestinationPropagation() {
 		return getDestinationPropagations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSourcePropagations()).basicAdd(otherEnd,
+					msgs);
+		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDestinationPropagations()).basicAdd(otherEnd,
+					msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS:
+			return ((InternalEList<?>) getSourcePropagations()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS:
+			return ((InternalEList<?>) getDestinationPropagations()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

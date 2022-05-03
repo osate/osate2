@@ -24,6 +24,7 @@
 package org.osate.aadl2.errormodel.instance.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -260,17 +261,6 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 	 */
 	@Override
 	public PointPropagation getSourcePropagation() {
-		if (sourcePropagation != null && sourcePropagation.eIsProxy()) {
-			InternalEObject oldSourcePropagation = (InternalEObject) sourcePropagation;
-			sourcePropagation = (PointPropagation) eResolveProxy(oldSourcePropagation);
-			if (sourcePropagation != oldSourcePropagation) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION, oldSourcePropagation,
-							sourcePropagation));
-				}
-			}
-		}
 		return sourcePropagation;
 	}
 
@@ -279,8 +269,20 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PointPropagation basicGetSourcePropagation() {
-		return sourcePropagation;
+	public NotificationChain basicSetSourcePropagation(PointPropagation newSourcePropagation, NotificationChain msgs) {
+		PointPropagation oldSourcePropagation = sourcePropagation;
+		sourcePropagation = newSourcePropagation;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION, oldSourcePropagation,
+					newSourcePropagation);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
 	}
 
 	/**
@@ -290,12 +292,24 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 	 */
 	@Override
 	public void setSourcePropagation(PointPropagation newSourcePropagation) {
-		PointPropagation oldSourcePropagation = sourcePropagation;
-		sourcePropagation = newSourcePropagation;
-		if (eNotificationRequired()) {
+		if (newSourcePropagation != sourcePropagation) {
+			NotificationChain msgs = null;
+			if (sourcePropagation != null) {
+				msgs = ((InternalEObject) sourcePropagation).eInverseRemove(this,
+						EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS, PointPropagation.class, msgs);
+			}
+			if (newSourcePropagation != null) {
+				msgs = ((InternalEObject) newSourcePropagation).eInverseAdd(this,
+						EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS, PointPropagation.class, msgs);
+			}
+			msgs = basicSetSourcePropagation(newSourcePropagation, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION, oldSourcePropagation,
-					sourcePropagation));
+					EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION, newSourcePropagation,
+					newSourcePropagation));
 		}
 	}
 
@@ -306,17 +320,6 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 	 */
 	@Override
 	public PointPropagation getDestinationPropagation() {
-		if (destinationPropagation != null && destinationPropagation.eIsProxy()) {
-			InternalEObject oldDestinationPropagation = (InternalEObject) destinationPropagation;
-			destinationPropagation = (PointPropagation) eResolveProxy(oldDestinationPropagation);
-			if (destinationPropagation != oldDestinationPropagation) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_PROPAGATION, oldDestinationPropagation,
-							destinationPropagation));
-				}
-			}
-		}
 		return destinationPropagation;
 	}
 
@@ -325,8 +328,21 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PointPropagation basicGetDestinationPropagation() {
-		return destinationPropagation;
+	public NotificationChain basicSetDestinationPropagation(PointPropagation newDestinationPropagation,
+			NotificationChain msgs) {
+		PointPropagation oldDestinationPropagation = destinationPropagation;
+		destinationPropagation = newDestinationPropagation;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_PROPAGATION, oldDestinationPropagation,
+					newDestinationPropagation);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
 	}
 
 	/**
@@ -336,13 +352,68 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 	 */
 	@Override
 	public void setDestinationPropagation(PointPropagation newDestinationPropagation) {
-		PointPropagation oldDestinationPropagation = destinationPropagation;
-		destinationPropagation = newDestinationPropagation;
-		if (eNotificationRequired()) {
+		if (newDestinationPropagation != destinationPropagation) {
+			NotificationChain msgs = null;
+			if (destinationPropagation != null) {
+				msgs = ((InternalEObject) destinationPropagation).eInverseRemove(this,
+						EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS, PointPropagation.class,
+						msgs);
+			}
+			if (newDestinationPropagation != null) {
+				msgs = ((InternalEObject) newDestinationPropagation).eInverseAdd(this,
+						EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS, PointPropagation.class,
+						msgs);
+			}
+			msgs = basicSetDestinationPropagation(newDestinationPropagation, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_PROPAGATION, oldDestinationPropagation,
-					destinationPropagation));
+					EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_PROPAGATION, newDestinationPropagation,
+					newDestinationPropagation));
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION:
+			if (sourcePropagation != null) {
+				msgs = ((InternalEObject) sourcePropagation).eInverseRemove(this,
+						EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS, PointPropagation.class, msgs);
+			}
+			return basicSetSourcePropagation((PointPropagation) otherEnd, msgs);
+		case EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_PROPAGATION:
+			if (destinationPropagation != null) {
+				msgs = ((InternalEObject) destinationPropagation).eInverseRemove(this,
+						EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS, PointPropagation.class,
+						msgs);
+			}
+			return basicSetDestinationPropagation((PointPropagation) otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION:
+			return basicSetSourcePropagation(null, msgs);
+		case EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_PROPAGATION:
+			return basicSetDestinationPropagation(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -369,15 +440,9 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 			}
 			return basicGetDestinationPoint();
 		case EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION:
-			if (resolve) {
-				return getSourcePropagation();
-			}
-			return basicGetSourcePropagation();
+			return getSourcePropagation();
 		case EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_PROPAGATION:
-			if (resolve) {
-				return getDestinationPropagation();
-			}
-			return basicGetDestinationPropagation();
+			return getDestinationPropagation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

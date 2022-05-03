@@ -26,10 +26,13 @@ package org.osate.aadl2.errormodel.instance.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
@@ -143,8 +146,9 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	@Override
 	public EList<BindingPropagation> getSourcePropagations() {
 		if (sourcePropagations == null) {
-			sourcePropagations = new EObjectResolvingEList<>(BindingPropagation.class, this,
-					EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS);
+			sourcePropagations = new EObjectWithInverseEList.ManyInverse<>(BindingPropagation.class,
+					this, EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS,
+					EMV2InstancePackage.BINDING_PROPAGATION__SOURCE_BINDING_PATHS);
 		}
 		return sourcePropagations;
 	}
@@ -157,10 +161,46 @@ public class BindingPathImpl extends EMV2InstanceObjectImpl implements BindingPa
 	@Override
 	public EList<BindingPropagation> getDestinationPropagations() {
 		if (destinationPropagations == null) {
-			destinationPropagations = new EObjectResolvingEList<>(BindingPropagation.class, this,
-					EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS);
+			destinationPropagations = new EObjectWithInverseEList.ManyInverse<>(
+					BindingPropagation.class, this, EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS,
+					EMV2InstancePackage.BINDING_PROPAGATION__DESTINATION_BINDING_PATHS);
 		}
 		return destinationPropagations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSourcePropagations()).basicAdd(otherEnd,
+					msgs);
+		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDestinationPropagations()).basicAdd(otherEnd,
+					msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.BINDING_PATH__SOURCE_PROPAGATIONS:
+			return ((InternalEList<?>) getSourcePropagations()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.BINDING_PATH__DESTINATION_PROPAGATIONS:
+			return ((InternalEList<?>) getDestinationPropagations()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

@@ -119,16 +119,28 @@
         eType="#//ErrorPathInstance" transient="true" eOpposite="#//ErrorPathInstance/sourcePropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationErrorPaths"
         upperBound="-1" eType="#//ErrorPathInstance" transient="true" eOpposite="#//ErrorPathInstance/destinationPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceConnectionPaths"
+        upperBound="-1" eType="#//ConnectionPath" transient="true" eOpposite="#//ConnectionPath/sourcePropagations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationConnectionPaths"
+        upperBound="-1" eType="#//ConnectionPath" transient="true" eOpposite="#//ConnectionPath/destinationPropagations"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePropagation" eSuperTypes="#//ErrorPropagationInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//FeatureInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PointPropagation" eSuperTypes="#//ErrorPropagationInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="point" eType="#//PropagationPointInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceUserDefinedPaths"
+        upperBound="-1" eType="#//UserDefinedPath" transient="true" eOpposite="#//UserDefinedPath/sourcePropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationUserDefinedPaths"
+        upperBound="-1" eType="#//UserDefinedPath" transient="true" eOpposite="#//UserDefinedPath/destinationPropagation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessPropagation" eSuperTypes="#//ErrorPropagationInstance"/>
   <eClassifiers xsi:type="ecore:EClass" name="BindingPropagation" eSuperTypes="#//ErrorPropagationInstance">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="binding" eType="#//BindingType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceBindingPaths" upperBound="-1"
+        eType="#//BindingPath" transient="true" eOpposite="#//BindingPath/sourcePropagations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationBindingPaths"
+        upperBound="-1" eType="#//BindingPath" transient="true" eOpposite="#//BindingPath/destinationPropagations"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BindingType">
     <eLiterals name="processor"/>
@@ -197,23 +209,25 @@
     <eOperations name="getDestinationPropagation" eType="#//ErrorPropagationInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagations" upperBound="-1"
-        eType="#//ErrorPropagationInstance"/>
+        eType="#//ErrorPropagationInstance" resolveProxies="false" eOpposite="#//ErrorPropagationInstance/sourceConnectionPaths"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPropagations"
-        upperBound="-1" eType="#//ErrorPropagationInstance"/>
+        upperBound="-1" eType="#//ErrorPropagationInstance" resolveProxies="false"
+        eOpposite="#//ErrorPropagationInstance/destinationConnectionPaths"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BindingPath" eSuperTypes="#//PropagationPathInstance">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//BindingType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagations" upperBound="-1"
-        eType="#//BindingPropagation"/>
+        eType="#//BindingPropagation" resolveProxies="false" eOpposite="#//BindingPropagation/sourceBindingPaths"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPropagations"
-        upperBound="-1" eType="#//BindingPropagation"/>
+        upperBound="-1" eType="#//BindingPropagation" resolveProxies="false" eOpposite="#//BindingPropagation/destinationBindingPaths"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UserDefinedPath" eSuperTypes="#//PropagationPathInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="path" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//PropagationPath"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePoint" eType="#//PropagationPointInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPoint" eType="#//PropagationPointInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagation" eType="#//PointPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagation" eType="#//PointPropagation"
+        resolveProxies="false" eOpposite="#//PointPropagation/sourceUserDefinedPaths"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPropagation"
-        eType="#//PointPropagation"/>
+        eType="#//PointPropagation" resolveProxies="false" eOpposite="#//PointPropagation/destinationUserDefinedPaths"/>
   </eClassifiers>
 </ecore:EPackage>

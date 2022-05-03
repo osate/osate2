@@ -23,6 +23,8 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Point Propagation</b></em>'.
@@ -33,6 +35,8 @@ package org.osate.aadl2.errormodel.instance;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.PointPropagation#getPoint <em>Point</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.PointPropagation#getSourceUserDefinedPaths <em>Source User Defined Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.PointPropagation#getDestinationUserDefinedPaths <em>Destination User Defined Paths</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPointPropagation()
@@ -61,5 +65,33 @@ public interface PointPropagation extends ErrorPropagationInstance {
 	 * @generated
 	 */
 	void setPoint(PropagationPointInstance value);
+
+	/**
+	 * Returns the value of the '<em><b>Source User Defined Paths</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.UserDefinedPath}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getSourcePropagation <em>Source Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source User Defined Paths</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPointPropagation_SourceUserDefinedPaths()
+	 * @see org.osate.aadl2.errormodel.instance.UserDefinedPath#getSourcePropagation
+	 * @model opposite="sourcePropagation" transient="true"
+	 * @generated
+	 */
+	EList<UserDefinedPath> getSourceUserDefinedPaths();
+
+	/**
+	 * Returns the value of the '<em><b>Destination User Defined Paths</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.UserDefinedPath}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.UserDefinedPath#getDestinationPropagation <em>Destination Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destination User Defined Paths</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPointPropagation_DestinationUserDefinedPaths()
+	 * @see org.osate.aadl2.errormodel.instance.UserDefinedPath#getDestinationPropagation
+	 * @model opposite="destinationPropagation" transient="true"
+	 * @generated
+	 */
+	EList<UserDefinedPath> getDestinationUserDefinedPaths();
 
 } // PointPropagation

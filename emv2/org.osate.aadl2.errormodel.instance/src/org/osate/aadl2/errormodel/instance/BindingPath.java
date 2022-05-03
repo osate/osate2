@@ -72,11 +72,13 @@ public interface BindingPath extends PropagationPathInstance {
 	/**
 	 * Returns the value of the '<em><b>Source Propagations</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.BindingPropagation}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.BindingPropagation#getSourceBindingPaths <em>Source Binding Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source Propagations</em>' reference list.
 	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath_SourcePropagations()
-	 * @model
+	 * @see org.osate.aadl2.errormodel.instance.BindingPropagation#getSourceBindingPaths
+	 * @model opposite="sourceBindingPaths" resolveProxies="false"
 	 * @generated
 	 */
 	EList<BindingPropagation> getSourcePropagations();
@@ -84,11 +86,13 @@ public interface BindingPath extends PropagationPathInstance {
 	/**
 	 * Returns the value of the '<em><b>Destination Propagations</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.BindingPropagation}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.BindingPropagation#getDestinationBindingPaths <em>Destination Binding Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Destination Propagations</em>' reference list.
 	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPath_DestinationPropagations()
-	 * @model
+	 * @see org.osate.aadl2.errormodel.instance.BindingPropagation#getDestinationBindingPaths
+	 * @model opposite="destinationBindingPaths" resolveProxies="false"
 	 * @generated
 	 */
 	EList<BindingPropagation> getDestinationPropagations();

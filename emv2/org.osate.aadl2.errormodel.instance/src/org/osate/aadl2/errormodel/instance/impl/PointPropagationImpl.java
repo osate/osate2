@@ -23,13 +23,20 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.UserDefinedPath;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,6 +47,8 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PointPropagationImpl#getPoint <em>Point</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PointPropagationImpl#getSourceUserDefinedPaths <em>Source User Defined Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PointPropagationImpl#getDestinationUserDefinedPaths <em>Destination User Defined Paths</em>}</li>
  * </ul>
  *
  * @generated
@@ -54,6 +63,25 @@ public class PointPropagationImpl extends ErrorPropagationInstanceImpl implement
 	 * @ordered
 	 */
 	protected PropagationPointInstance point;
+
+	/**
+	 * The cached value of the '{@link #getSourceUserDefinedPaths() <em>Source User Defined Paths</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSourceUserDefinedPaths()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<UserDefinedPath> sourceUserDefinedPaths;
+	/**
+	 * The cached value of the '{@link #getDestinationUserDefinedPaths() <em>Destination User Defined Paths</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestinationUserDefinedPaths()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<UserDefinedPath> destinationUserDefinedPaths;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,6 +152,71 @@ public class PointPropagationImpl extends ErrorPropagationInstanceImpl implement
 	 * @generated
 	 */
 	@Override
+	public EList<UserDefinedPath> getSourceUserDefinedPaths() {
+		if (sourceUserDefinedPaths == null) {
+			sourceUserDefinedPaths = new EObjectWithInverseResolvingEList<>(UserDefinedPath.class, this,
+					EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS,
+					EMV2InstancePackage.USER_DEFINED_PATH__SOURCE_PROPAGATION);
+		}
+		return sourceUserDefinedPaths;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<UserDefinedPath> getDestinationUserDefinedPaths() {
+		if (destinationUserDefinedPaths == null) {
+			destinationUserDefinedPaths = new EObjectWithInverseResolvingEList<>(UserDefinedPath.class,
+					this, EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS,
+					EMV2InstancePackage.USER_DEFINED_PATH__DESTINATION_PROPAGATION);
+		}
+		return destinationUserDefinedPaths;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSourceUserDefinedPaths()).basicAdd(otherEnd,
+					msgs);
+		case EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDestinationUserDefinedPaths())
+					.basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS:
+			return ((InternalEList<?>) getSourceUserDefinedPaths()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS:
+			return ((InternalEList<?>) getDestinationUserDefinedPaths()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case EMV2InstancePackage.POINT_PROPAGATION__POINT:
@@ -131,6 +224,10 @@ public class PointPropagationImpl extends ErrorPropagationInstanceImpl implement
 				return getPoint();
 			}
 			return basicGetPoint();
+		case EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS:
+			return getSourceUserDefinedPaths();
+		case EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS:
+			return getDestinationUserDefinedPaths();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,11 +237,20 @@ public class PointPropagationImpl extends ErrorPropagationInstanceImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case EMV2InstancePackage.POINT_PROPAGATION__POINT:
 			setPoint((PropagationPointInstance) newValue);
+			return;
+		case EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS:
+			getSourceUserDefinedPaths().clear();
+			getSourceUserDefinedPaths().addAll((Collection<? extends UserDefinedPath>) newValue);
+			return;
+		case EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS:
+			getDestinationUserDefinedPaths().clear();
+			getDestinationUserDefinedPaths().addAll((Collection<? extends UserDefinedPath>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,6 +267,12 @@ public class PointPropagationImpl extends ErrorPropagationInstanceImpl implement
 		case EMV2InstancePackage.POINT_PROPAGATION__POINT:
 			setPoint((PropagationPointInstance) null);
 			return;
+		case EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS:
+			getSourceUserDefinedPaths().clear();
+			return;
+		case EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS:
+			getDestinationUserDefinedPaths().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -175,6 +287,10 @@ public class PointPropagationImpl extends ErrorPropagationInstanceImpl implement
 		switch (featureID) {
 		case EMV2InstancePackage.POINT_PROPAGATION__POINT:
 			return point != null;
+		case EMV2InstancePackage.POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS:
+			return sourceUserDefinedPaths != null && !sourceUserDefinedPaths.isEmpty();
+		case EMV2InstancePackage.POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS:
+			return destinationUserDefinedPaths != null && !destinationUserDefinedPaths.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

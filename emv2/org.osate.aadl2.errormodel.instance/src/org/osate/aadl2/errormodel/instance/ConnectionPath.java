@@ -70,11 +70,13 @@ public interface ConnectionPath extends PropagationPathInstance {
 	/**
 	 * Returns the value of the '<em><b>Source Propagations</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceConnectionPaths <em>Source Connection Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source Propagations</em>' reference list.
 	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath_SourcePropagations()
-	 * @model
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceConnectionPaths
+	 * @model opposite="sourceConnectionPaths" resolveProxies="false"
 	 * @generated
 	 */
 	EList<ErrorPropagationInstance> getSourcePropagations();
@@ -82,11 +84,13 @@ public interface ConnectionPath extends PropagationPathInstance {
 	/**
 	 * Returns the value of the '<em><b>Destination Propagations</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationConnectionPaths <em>Destination Connection Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Destination Propagations</em>' reference list.
 	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConnectionPath_DestinationPropagations()
-	 * @model
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationConnectionPaths
+	 * @model opposite="destinationConnectionPaths" resolveProxies="false"
 	 * @generated
 	 */
 	EList<ErrorPropagationInstance> getDestinationPropagations();

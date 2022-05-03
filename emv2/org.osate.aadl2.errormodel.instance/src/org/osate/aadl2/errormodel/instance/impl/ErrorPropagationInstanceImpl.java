@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
@@ -58,6 +59,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getErrorSinks <em>Error Sinks</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getSourceErrorPaths <em>Source Error Paths</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getDestinationErrorPaths <em>Destination Error Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getSourceConnectionPaths <em>Source Connection Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getDestinationConnectionPaths <em>Destination Connection Paths</em>}</li>
  * </ul>
  *
  * @generated
@@ -143,6 +146,26 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @ordered
 	 */
 	protected EList<ErrorPathInstance> destinationErrorPaths;
+
+	/**
+	 * The cached value of the '{@link #getSourceConnectionPaths() <em>Source Connection Paths</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSourceConnectionPaths()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionPath> sourceConnectionPaths;
+
+	/**
+	 * The cached value of the '{@link #getDestinationConnectionPaths() <em>Destination Connection Paths</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestinationConnectionPaths()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionPath> destinationConnectionPaths;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -436,6 +459,37 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ConnectionPath> getSourceConnectionPaths() {
+		if (sourceConnectionPaths == null) {
+			sourceConnectionPaths = new EObjectWithInverseResolvingEList.ManyInverse<>(
+					ConnectionPath.class, this, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS,
+					EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS);
+		}
+		return sourceConnectionPaths;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ConnectionPath> getDestinationConnectionPaths() {
+		if (destinationConnectionPaths == null) {
+			destinationConnectionPaths = new EObjectWithInverseResolvingEList.ManyInverse<>(
+					ConnectionPath.class, this,
+					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS,
+					EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS);
+		}
+		return destinationConnectionPaths;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	@Override
@@ -471,6 +525,12 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS:
 			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDestinationErrorPaths()).basicAdd(otherEnd,
 					msgs);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSourceConnectionPaths()).basicAdd(otherEnd,
+					msgs);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDestinationConnectionPaths())
+					.basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -495,6 +555,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 			return ((InternalEList<?>) getSourceErrorPaths()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS:
 			return ((InternalEList<?>) getDestinationErrorPaths()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS:
+			return ((InternalEList<?>) getSourceConnectionPaths()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS:
+			return ((InternalEList<?>) getDestinationConnectionPaths()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -529,6 +593,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 			return getSourceErrorPaths();
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS:
 			return getDestinationErrorPaths();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS:
+			return getSourceConnectionPaths();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS:
+			return getDestinationConnectionPaths();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -570,6 +638,14 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 			getDestinationErrorPaths().clear();
 			getDestinationErrorPaths().addAll((Collection<? extends ErrorPathInstance>) newValue);
 			return;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS:
+			getSourceConnectionPaths().clear();
+			getSourceConnectionPaths().addAll((Collection<? extends ConnectionPath>) newValue);
+			return;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS:
+			getDestinationConnectionPaths().clear();
+			getDestinationConnectionPaths().addAll((Collection<? extends ConnectionPath>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -606,6 +682,12 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS:
 			getDestinationErrorPaths().clear();
 			return;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS:
+			getSourceConnectionPaths().clear();
+			return;
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS:
+			getDestinationConnectionPaths().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -634,6 +716,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 			return sourceErrorPaths != null && !sourceErrorPaths.isEmpty();
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS:
 			return destinationErrorPaths != null && !destinationErrorPaths.isEmpty();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS:
+			return sourceConnectionPaths != null && !sourceConnectionPaths.isEmpty();
+		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS:
+			return destinationConnectionPaths != null && !destinationConnectionPaths.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

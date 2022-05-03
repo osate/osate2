@@ -114,12 +114,14 @@ public interface UserDefinedPath extends PropagationPathInstance {
 
 	/**
 	 * Returns the value of the '<em><b>Source Propagation</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.PointPropagation#getSourceUserDefinedPaths <em>Source User Defined Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source Propagation</em>' reference.
 	 * @see #setSourcePropagation(PointPropagation)
 	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getUserDefinedPath_SourcePropagation()
-	 * @model
+	 * @see org.osate.aadl2.errormodel.instance.PointPropagation#getSourceUserDefinedPaths
+	 * @model opposite="sourceUserDefinedPaths" resolveProxies="false"
 	 * @generated
 	 */
 	PointPropagation getSourcePropagation();
@@ -136,12 +138,14 @@ public interface UserDefinedPath extends PropagationPathInstance {
 
 	/**
 	 * Returns the value of the '<em><b>Destination Propagation</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.errormodel.instance.PointPropagation#getDestinationUserDefinedPaths <em>Destination User Defined Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Destination Propagation</em>' reference.
 	 * @see #setDestinationPropagation(PointPropagation)
 	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getUserDefinedPath_DestinationPropagation()
-	 * @model
+	 * @see org.osate.aadl2.errormodel.instance.PointPropagation#getDestinationUserDefinedPaths
+	 * @model opposite="destinationUserDefinedPaths" resolveProxies="false"
 	 * @generated
 	 */
 	PointPropagation getDestinationPropagation();

@@ -3,6 +3,7 @@ package org.osate.aadl2.errormodel.tests.instance;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.osate.testsupport.ScopeFunctions.with;
 
 import org.eclipse.xtext.testing.InjectWith;
@@ -40,8 +41,12 @@ public class UserDefinedPathsTest {
 			assertEquals("path1", userDefinedPath.getPath().getName());
 			assertEquals("left_point", userDefinedPath.getSourcePoint().getName());
 			assertEquals("left_point", userDefinedPath.getSourcePropagation().getName());
+			assertTrue(userDefinedPath.getSourcePropagation().getSourceUserDefinedPaths().contains(userDefinedPath));
 			assertEquals("right_point", userDefinedPath.getDestinationPoint().getName());
 			assertEquals("right_point", userDefinedPath.getDestinationPropagation().getName());
+			assertTrue(userDefinedPath.getDestinationPropagation()
+					.getDestinationUserDefinedPaths()
+					.contains(userDefinedPath));
 		});
 	}
 
@@ -98,8 +103,12 @@ public class UserDefinedPathsTest {
 					.getParsedAnnexSubclause()).getPaths().get(0), userDefinedPath.getPath());
 			assertEquals("left_point", userDefinedPath.getSourcePoint().getName());
 			assertEquals("left_point", userDefinedPath.getSourcePropagation().getName());
+			assertTrue(userDefinedPath.getSourcePropagation().getSourceUserDefinedPaths().contains(userDefinedPath));
 			assertEquals("right_point", userDefinedPath.getDestinationPoint().getName());
 			assertEquals("right_point", userDefinedPath.getDestinationPropagation().getName());
+			assertTrue(userDefinedPath.getDestinationPropagation()
+					.getDestinationUserDefinedPaths()
+					.contains(userDefinedPath));
 		});
 		with((UserDefinedPath) annexInstance.getPropagationPaths().get(1), userDefinedPath -> {
 			assertEquals("right.EMV2.right_point -> left.EMV2.left_point", userDefinedPath.getName());
@@ -107,8 +116,12 @@ public class UserDefinedPathsTest {
 					.getParsedAnnexSubclause()).getPaths().get(1), userDefinedPath.getPath());
 			assertEquals("right_point", userDefinedPath.getSourcePoint().getName());
 			assertEquals("right_point", userDefinedPath.getSourcePropagation().getName());
+			assertTrue(userDefinedPath.getSourcePropagation().getSourceUserDefinedPaths().contains(userDefinedPath));
 			assertEquals("left_point", userDefinedPath.getDestinationPoint().getName());
 			assertEquals("left_point", userDefinedPath.getDestinationPropagation().getName());
+			assertTrue(userDefinedPath.getDestinationPropagation()
+					.getDestinationUserDefinedPaths()
+					.contains(userDefinedPath));
 		});
 	}
 
@@ -123,8 +136,12 @@ public class UserDefinedPathsTest {
 			assertEquals("path1", userDefinedPath.getPath().getName());
 			assertEquals("point3", userDefinedPath.getSourcePoint().getName());
 			assertEquals("point3", userDefinedPath.getSourcePropagation().getName());
+			assertTrue(userDefinedPath.getSourcePropagation().getSourceUserDefinedPaths().contains(userDefinedPath));
 			assertEquals("point4", userDefinedPath.getDestinationPoint().getName());
 			assertEquals("point4", userDefinedPath.getDestinationPropagation().getName());
+			assertTrue(userDefinedPath.getDestinationPropagation()
+					.getDestinationUserDefinedPaths()
+					.contains(userDefinedPath));
 		});
 	}
 }

@@ -1617,13 +1617,31 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 9;
+
+	/**
 	 * The number of structural features of the '<em>Error Propagation Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 8;
+	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.FeaturePropagationImpl <em>Feature Propagation</em>}' class.
@@ -1787,6 +1805,24 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROPAGATION__SOURCE_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROPAGATION__DESTINATION_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1970,6 +2006,24 @@ public interface EMV2InstancePackage extends EPackage {
 	int POINT_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
 
 	/**
+	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_PROPAGATION__SOURCE_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_PROPAGATION__DESTINATION_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS;
+
+	/**
 	 * The feature id for the '<em><b>Point</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1979,13 +2033,31 @@ public interface EMV2InstancePackage extends EPackage {
 	int POINT_PROPAGATION__POINT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Source User Defined Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Destination User Defined Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Point Propagation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POINT_PROPAGATION_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 1;
+	int POINT_PROPAGATION_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AccessPropagationImpl <em>Access Propagation</em>}' class.
@@ -2149,6 +2221,24 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int ACCESS_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__SOURCE_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__DESTINATION_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS;
 
 	/**
 	 * The number of structural features of the '<em>Access Propagation</em>' class.
@@ -2323,6 +2413,24 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
 
 	/**
+	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_PROPAGATION__SOURCE_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_PROPAGATION__DESTINATION_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS;
+
+	/**
 	 * The feature id for the '<em><b>Binding</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2332,13 +2440,31 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_PROPAGATION__BINDING = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Source Binding Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_PROPAGATION__SOURCE_BINDING_PATHS = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Destination Binding Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_PROPAGATION__DESTINATION_BINDING_PATHS = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Binding Propagation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_PROPAGATION_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 1;
+	int BINDING_PROPAGATION_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.TypeSetElement <em>Type Set Element</em>}' class.
@@ -4815,6 +4941,28 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getErrorPropagationInstance_DestinationErrorPaths();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceConnectionPaths <em>Source Connection Paths</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Source Connection Paths</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceConnectionPaths()
+	 * @see #getErrorPropagationInstance()
+	 * @generated
+	 */
+	EReference getErrorPropagationInstance_SourceConnectionPaths();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationConnectionPaths <em>Destination Connection Paths</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Destination Connection Paths</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationConnectionPaths()
+	 * @see #getErrorPropagationInstance()
+	 * @generated
+	 */
+	EReference getErrorPropagationInstance_DestinationConnectionPaths();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.FeaturePropagation <em>Feature Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4857,6 +5005,28 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getPointPropagation_Point();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.PointPropagation#getSourceUserDefinedPaths <em>Source User Defined Paths</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Source User Defined Paths</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.PointPropagation#getSourceUserDefinedPaths()
+	 * @see #getPointPropagation()
+	 * @generated
+	 */
+	EReference getPointPropagation_SourceUserDefinedPaths();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.PointPropagation#getDestinationUserDefinedPaths <em>Destination User Defined Paths</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Destination User Defined Paths</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.PointPropagation#getDestinationUserDefinedPaths()
+	 * @see #getPointPropagation()
+	 * @generated
+	 */
+	EReference getPointPropagation_DestinationUserDefinedPaths();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.AccessPropagation <em>Access Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4886,6 +5056,28 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBindingPropagation_Binding();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.BindingPropagation#getSourceBindingPaths <em>Source Binding Paths</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Source Binding Paths</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.BindingPropagation#getSourceBindingPaths()
+	 * @see #getBindingPropagation()
+	 * @generated
+	 */
+	EReference getBindingPropagation_SourceBindingPaths();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.BindingPropagation#getDestinationBindingPaths <em>Destination Binding Paths</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Destination Binding Paths</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.BindingPropagation#getDestinationBindingPaths()
+	 * @see #getBindingPropagation()
+	 * @generated
+	 */
+	EReference getBindingPropagation_DestinationBindingPaths();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TypeSetElement <em>Type Set Element</em>}'.
@@ -5888,6 +6080,24 @@ public interface EMV2InstancePackage extends EPackage {
 				.getErrorPropagationInstance_DestinationErrorPaths();
 
 		/**
+		 * The meta object literal for the '<em><b>Source Connection Paths</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS = eINSTANCE
+				.getErrorPropagationInstance_SourceConnectionPaths();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination Connection Paths</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS = eINSTANCE
+				.getErrorPropagationInstance_DestinationConnectionPaths();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.FeaturePropagationImpl <em>Feature Propagation</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5924,6 +6134,24 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference POINT_PROPAGATION__POINT = eINSTANCE.getPointPropagation_Point();
 
 		/**
+		 * The meta object literal for the '<em><b>Source User Defined Paths</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS = eINSTANCE
+				.getPointPropagation_SourceUserDefinedPaths();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination User Defined Paths</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS = eINSTANCE
+				.getPointPropagation_DestinationUserDefinedPaths();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.AccessPropagationImpl <em>Access Propagation</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5950,6 +6178,23 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BINDING_PROPAGATION__BINDING = eINSTANCE.getBindingPropagation_Binding();
+
+		/**
+		 * The meta object literal for the '<em><b>Source Binding Paths</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BINDING_PROPAGATION__SOURCE_BINDING_PATHS = eINSTANCE.getBindingPropagation_SourceBindingPaths();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination Binding Paths</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BINDING_PROPAGATION__DESTINATION_BINDING_PATHS = eINSTANCE
+				.getBindingPropagation_DestinationBindingPaths();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.TypeSetElement <em>Type Set Element</em>}' class.
