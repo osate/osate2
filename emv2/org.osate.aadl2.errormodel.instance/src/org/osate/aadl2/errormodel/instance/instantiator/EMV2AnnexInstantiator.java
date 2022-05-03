@@ -192,7 +192,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<PropagationPath> ppaths = EMV2Util.getAllPropagationPaths(instance.getComponentClassifier());
 		for (PropagationPath ppath : ppaths) {
-			instantiatePropagationPath(ppath, emv2AI, instance);
+			instantiateUserDefinedPath(ppath, emv2AI, instance);
 		}
 
 		// for bindings we need to first process all components EMV2 instantiations since the binding property instance
@@ -1564,7 +1564,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 //		}
 //	}
 
-	private void instantiatePropagationPath(PropagationPath path, EMV2AnnexInstance annex, ComponentInstance context) {
+	private void instantiateUserDefinedPath(PropagationPath path, EMV2AnnexInstance annex, ComponentInstance context) {
 		// Paths that point to a feature are not instantiated.
 		if (getQualifiedPointReference(path.getSource()) instanceof PropagationPoint source
 				&& getQualifiedPointReference(path.getTarget()) instanceof PropagationPoint destination) {
