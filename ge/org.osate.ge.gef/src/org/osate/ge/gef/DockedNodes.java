@@ -127,7 +127,7 @@ class DockedNodes {
 	/**
 	 * List of cache entries that contains how the layout information for each docked node.
 	 */
-	private final ArrayList<DockedNodeCacheEntry> cache = new ArrayList<>();
+	private ArrayList<DockedNodeCacheEntry> cache = new ArrayList<>();
 
 	/**
 	 * The side for which this instance contains nodes. Determines how nodes are laid out.
@@ -258,7 +258,7 @@ class DockedNodes {
 	 */
 	private void computeCachedValues() {
 		invalidateCache();
-		cache.clear();
+		cache = new ArrayList<>();
 		if (group.getChildren().isEmpty()) {
 			return;
 		}
