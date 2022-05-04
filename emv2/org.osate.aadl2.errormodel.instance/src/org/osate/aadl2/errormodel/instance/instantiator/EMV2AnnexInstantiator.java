@@ -57,6 +57,7 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
@@ -217,12 +218,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private void instantiateConnectionPath(ConnectionInstance connection, ComponentInstance component) {
 		if (connection.isComplete()) {
-			var sourcePropagations = new ArrayList<ErrorPropagationInstance>();
-			var destinationPropagations = new ArrayDeque<ErrorPropagationInstance>();
+			var sourcePropagations = new ArrayList<ConnectionEndPropagation>();
+			var destinationPropagations = new ArrayDeque<ConnectionEndPropagation>();
 			var encounteredAcross = false;
 			for (var ref : connection.getConnectionReferences()) {
 				if (!encounteredAcross) {
-					ErrorPropagationInstance propagation;
+					ConnectionEndPropagation propagation;
 					if (ref.getSource() instanceof FeatureInstance source) {
 						propagation = findFeaturePropagation(source);
 					} else if (ref.getSource() instanceof ComponentInstance source) {
@@ -238,7 +239,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					encounteredAcross = true;
 				}
 				if (encounteredAcross) {
-					ErrorPropagationInstance propagation;
+					ConnectionEndPropagation propagation;
 					if (ref.getDestination() instanceof FeatureInstance destination) {
 						propagation = findFeaturePropagation(destination);
 					} else if (ref.getDestination() instanceof ComponentInstance destination) {

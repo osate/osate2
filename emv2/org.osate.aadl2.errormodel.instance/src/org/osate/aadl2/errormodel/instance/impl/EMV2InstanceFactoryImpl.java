@@ -128,10 +128,10 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createOldPropagationPathInstance();
 		case EMV2InstancePackage.FEATURE_PROPAGATION:
 			return createFeaturePropagation();
-		case EMV2InstancePackage.POINT_PROPAGATION:
-			return createPointPropagation();
 		case EMV2InstancePackage.ACCESS_PROPAGATION:
 			return createAccessPropagation();
+		case EMV2InstancePackage.POINT_PROPAGATION:
+			return createPointPropagation();
 		case EMV2InstancePackage.BINDING_PROPAGATION:
 			return createBindingPropagation();
 		case EMV2InstancePackage.TYPE_INSTANCE:

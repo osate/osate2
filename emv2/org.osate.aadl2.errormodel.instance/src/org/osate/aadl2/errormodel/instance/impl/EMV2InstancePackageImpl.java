@@ -38,6 +38,7 @@ import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
@@ -239,6 +240,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass errorPropagationInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass connectionEndPropagationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1388,8 +1396,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorPropagationInstance_SourceConnectionPaths() {
-		return (EReference) errorPropagationInstanceEClass.getEStructuralFeatures().get(8);
+	public EClass getConnectionEndPropagation() {
+		return connectionEndPropagationEClass;
 	}
 
 	/**
@@ -1398,8 +1406,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorPropagationInstance_DestinationConnectionPaths() {
-		return (EReference) errorPropagationInstanceEClass.getEStructuralFeatures().get(9);
+	public EReference getConnectionEndPropagation_SourceConnectionPaths() {
+		return (EReference) connectionEndPropagationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConnectionEndPropagation_DestinationConnectionPaths() {
+		return (EReference) connectionEndPropagationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1753,18 +1771,20 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__ERROR_SINKS);
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS);
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS);
-		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS);
-		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS);
+
+		connectionEndPropagationEClass = createEClass(CONNECTION_END_PROPAGATION);
+		createEReference(connectionEndPropagationEClass, CONNECTION_END_PROPAGATION__SOURCE_CONNECTION_PATHS);
+		createEReference(connectionEndPropagationEClass, CONNECTION_END_PROPAGATION__DESTINATION_CONNECTION_PATHS);
 
 		featurePropagationEClass = createEClass(FEATURE_PROPAGATION);
 		createEReference(featurePropagationEClass, FEATURE_PROPAGATION__FEATURE);
+
+		accessPropagationEClass = createEClass(ACCESS_PROPAGATION);
 
 		pointPropagationEClass = createEClass(POINT_PROPAGATION);
 		createEReference(pointPropagationEClass, POINT_PROPAGATION__POINT);
 		createEReference(pointPropagationEClass, POINT_PROPAGATION__SOURCE_USER_DEFINED_PATHS);
 		createEReference(pointPropagationEClass, POINT_PROPAGATION__DESTINATION_USER_DEFINED_PATHS);
-
-		accessPropagationEClass = createEClass(ACCESS_PROPAGATION);
 
 		bindingPropagationEClass = createEClass(BINDING_PROPAGATION);
 		createEAttribute(bindingPropagationEClass, BINDING_PROPAGATION__BINDING);
@@ -1887,9 +1907,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		constraintElementEClass.getESuperTypes().add(getEMV2InstanceObject());
 		oldPropagationPathInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		errorPropagationInstanceEClass.getESuperTypes().add(getConstrainedInstanceObject());
-		featurePropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
+		connectionEndPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
+		featurePropagationEClass.getESuperTypes().add(getConnectionEndPropagation());
+		accessPropagationEClass.getESuperTypes().add(getConnectionEndPropagation());
 		pointPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
-		accessPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		bindingPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		typeSetElementEClass.getESuperTypes().add(getEMV2InstanceObject());
 		typeTokenInstanceEClass.getESuperTypes().add(getTypeSetElement());
@@ -2112,23 +2133,29 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				getErrorPathInstance_DestinationPropagation(), "destinationErrorPaths", null, 0, -1,
 				ErrorPropagationInstance.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorPropagationInstance_SourceConnectionPaths(), getConnectionPath(),
-				getConnectionPath_SourcePropagations(), "sourceConnectionPaths", null, 0, -1,
-				ErrorPropagationInstance.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorPropagationInstance_DestinationConnectionPaths(), getConnectionPath(),
-				getConnectionPath_DestinationPropagations(), "destinationConnectionPaths", null, 0, -1,
-				ErrorPropagationInstance.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(errorPropagationInstanceEClass, theAadl2Package.getDirectionType(), "getDirection", 0, 1,
 				IS_UNIQUE, IS_ORDERED);
+
+		initEClass(connectionEndPropagationEClass, ConnectionEndPropagation.class, "ConnectionEndPropagation",
+				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConnectionEndPropagation_SourceConnectionPaths(), getConnectionPath(),
+				getConnectionPath_SourcePropagations(), "sourceConnectionPaths", null, 0, -1,
+				ConnectionEndPropagation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnectionEndPropagation_DestinationConnectionPaths(), getConnectionPath(),
+				getConnectionPath_DestinationPropagations(), "destinationConnectionPaths", null, 0, -1,
+				ConnectionEndPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featurePropagationEClass, FeaturePropagation.class, "FeaturePropagation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeaturePropagation_Feature(), theInstancePackage.getFeatureInstance(), null, "feature", null,
 				0, 1, FeaturePropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(accessPropagationEClass, AccessPropagation.class, "AccessPropagation", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(pointPropagationEClass, PointPropagation.class, "PointPropagation", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -2143,9 +2170,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				getUserDefinedPath_DestinationPropagation(), "destinationUserDefinedPaths", null, 0, -1,
 				PointPropagation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(accessPropagationEClass, AccessPropagation.class, "AccessPropagation", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(bindingPropagationEClass, BindingPropagation.class, "BindingPropagation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2268,12 +2292,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getConnectionPath_Connection(), theInstancePackage.getConnectionInstance(), null, "connection",
 				null, 0, 1, ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnectionPath_SourcePropagations(), getErrorPropagationInstance(),
-				getErrorPropagationInstance_SourceConnectionPaths(), "sourcePropagations", null, 0, -1,
+		initEReference(getConnectionPath_SourcePropagations(), getConnectionEndPropagation(),
+				getConnectionEndPropagation_SourceConnectionPaths(), "sourcePropagations", null, 0, -1,
 				ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnectionPath_DestinationPropagations(), getErrorPropagationInstance(),
-				getErrorPropagationInstance_DestinationConnectionPaths(), "destinationPropagations", null, 0, -1,
+		initEReference(getConnectionPath_DestinationPropagations(), getConnectionEndPropagation(),
+				getConnectionEndPropagation_DestinationConnectionPaths(), "destinationPropagations", null, 0, -1,
 				ConnectionPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -34,6 +34,7 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
@@ -409,9 +410,41 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.CONNECTION_END_PROPAGATION: {
+			ConnectionEndPropagation connectionEndPropagation = (ConnectionEndPropagation) theEObject;
+			T result = caseConnectionEndPropagation(connectionEndPropagation);
+			if (result == null) {
+				result = caseErrorPropagationInstance(connectionEndPropagation);
+			}
+			if (result == null) {
+				result = caseConstrainedInstanceObject(connectionEndPropagation);
+			}
+			if (result == null) {
+				result = caseConstraintElement(connectionEndPropagation);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(connectionEndPropagation);
+			}
+			if (result == null) {
+				result = caseInstanceObject(connectionEndPropagation);
+			}
+			if (result == null) {
+				result = caseNamedElement(connectionEndPropagation);
+			}
+			if (result == null) {
+				result = caseElement(connectionEndPropagation);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case EMV2InstancePackage.FEATURE_PROPAGATION: {
 			FeaturePropagation featurePropagation = (FeaturePropagation) theEObject;
 			T result = caseFeaturePropagation(featurePropagation);
+			if (result == null) {
+				result = caseConnectionEndPropagation(featurePropagation);
+			}
 			if (result == null) {
 				result = caseErrorPropagationInstance(featurePropagation);
 			}
@@ -432,6 +465,38 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(featurePropagation);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ACCESS_PROPAGATION: {
+			AccessPropagation accessPropagation = (AccessPropagation) theEObject;
+			T result = caseAccessPropagation(accessPropagation);
+			if (result == null) {
+				result = caseConnectionEndPropagation(accessPropagation);
+			}
+			if (result == null) {
+				result = caseErrorPropagationInstance(accessPropagation);
+			}
+			if (result == null) {
+				result = caseConstrainedInstanceObject(accessPropagation);
+			}
+			if (result == null) {
+				result = caseConstraintElement(accessPropagation);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(accessPropagation);
+			}
+			if (result == null) {
+				result = caseInstanceObject(accessPropagation);
+			}
+			if (result == null) {
+				result = caseNamedElement(accessPropagation);
+			}
+			if (result == null) {
+				result = caseElement(accessPropagation);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -461,35 +526,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(pointPropagation);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.ACCESS_PROPAGATION: {
-			AccessPropagation accessPropagation = (AccessPropagation) theEObject;
-			T result = caseAccessPropagation(accessPropagation);
-			if (result == null) {
-				result = caseErrorPropagationInstance(accessPropagation);
-			}
-			if (result == null) {
-				result = caseConstrainedInstanceObject(accessPropagation);
-			}
-			if (result == null) {
-				result = caseConstraintElement(accessPropagation);
-			}
-			if (result == null) {
-				result = caseEMV2InstanceObject(accessPropagation);
-			}
-			if (result == null) {
-				result = caseInstanceObject(accessPropagation);
-			}
-			if (result == null) {
-				result = caseNamedElement(accessPropagation);
-			}
-			if (result == null) {
-				result = caseElement(accessPropagation);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1234,6 +1270,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseErrorPropagationInstance(ErrorPropagationInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Connection End Propagation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connection End Propagation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConnectionEndPropagation(ConnectionEndPropagation object) {
 		return null;
 	}
 

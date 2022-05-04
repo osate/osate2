@@ -895,7 +895,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorFlowInstance()
 	 * @generated
 	 */
-	int ERROR_FLOW_INSTANCE = 25;
+	int ERROR_FLOW_INSTANCE = 26;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorSourceInstanceImpl <em>Error Source Instance</em>}' class.
@@ -905,7 +905,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorSourceInstance()
 	 * @generated
 	 */
-	int ERROR_SOURCE_INSTANCE = 26;
+	int ERROR_SOURCE_INSTANCE = 27;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationConditionInstanceImpl <em>Error Propagation Condition Instance</em>}' class.
@@ -1160,7 +1160,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getPropagationPointInstance()
 	 * @generated
 	 */
-	int PROPAGATION_POINT_INSTANCE = 29;
+	int PROPAGATION_POINT_INSTANCE = 30;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.
@@ -1617,13 +1617,185 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 7;
 
 	/**
+	 * The number of structural features of the '<em>Error Propagation Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 8;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ConnectionEndPropagationImpl <em>Connection End Propagation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.ConnectionEndPropagationImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConnectionEndPropagation()
+	 * @generated
+	 */
+	int CONNECTION_END_PROPAGATION = 14;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__OWNED_ELEMENT = ERROR_PROPAGATION_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__OWNED_COMMENT = ERROR_PROPAGATION_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__NAME = ERROR_PROPAGATION_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__QUALIFIED_NAME = ERROR_PROPAGATION_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__OWNED_PROPERTY_ASSOCIATION = ERROR_PROPAGATION_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__ANNEX_INSTANCE = ERROR_PROPAGATION_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Instance Object</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__INSTANCE_OBJECT = ERROR_PROPAGATION_INSTANCE__INSTANCE_OBJECT;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__CONSTRAINT = ERROR_PROPAGATION_INSTANCE__CONSTRAINT;
+
+	/**
+	 * The feature id for the '<em><b>Propagation Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__PROPAGATION_KIND = ERROR_PROPAGATION_INSTANCE__PROPAGATION_KIND;
+
+	/**
+	 * The feature id for the '<em><b>In Error Propagation</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__IN_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION;
+
+	/**
+	 * The feature id for the '<em><b>Out Error Propagation</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__OUT_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION;
+
+	/**
+	 * The feature id for the '<em><b>In Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__IN_TYPE_SET = ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET;
+
+	/**
+	 * The feature id for the '<em><b>Out Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__OUT_TYPE_SET = ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET;
+
+	/**
+	 * The feature id for the '<em><b>Error Sources</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__ERROR_SOURCES = ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES;
+
+	/**
+	 * The feature id for the '<em><b>Error Sinks</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__ERROR_SINKS = ERROR_PROPAGATION_INSTANCE__ERROR_SINKS;
+
+	/**
+	 * The feature id for the '<em><b>Source Error Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__SOURCE_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Destination Error Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
+
+	/**
 	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 8;
+	int CONNECTION_END_PROPAGATION__SOURCE_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
@@ -1632,16 +1804,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 9;
+	int CONNECTION_END_PROPAGATION__DESTINATION_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Error Propagation Instance</em>' class.
+	 * The number of structural features of the '<em>Connection End Propagation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 10;
+	int CONNECTION_END_PROPAGATION_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.FeaturePropagationImpl <em>Feature Propagation</em>}' class.
@@ -1651,7 +1823,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getFeaturePropagation()
 	 * @generated
 	 */
-	int FEATURE_PROPAGATION = 14;
+	int FEATURE_PROPAGATION = 15;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1660,7 +1832,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__OWNED_ELEMENT = ERROR_PROPAGATION_INSTANCE__OWNED_ELEMENT;
+	int FEATURE_PROPAGATION__OWNED_ELEMENT = CONNECTION_END_PROPAGATION__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1669,7 +1841,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__OWNED_COMMENT = ERROR_PROPAGATION_INSTANCE__OWNED_COMMENT;
+	int FEATURE_PROPAGATION__OWNED_COMMENT = CONNECTION_END_PROPAGATION__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1678,7 +1850,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__NAME = ERROR_PROPAGATION_INSTANCE__NAME;
+	int FEATURE_PROPAGATION__NAME = CONNECTION_END_PROPAGATION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -1687,7 +1859,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__QUALIFIED_NAME = ERROR_PROPAGATION_INSTANCE__QUALIFIED_NAME;
+	int FEATURE_PROPAGATION__QUALIFIED_NAME = CONNECTION_END_PROPAGATION__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1696,7 +1868,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__OWNED_PROPERTY_ASSOCIATION = ERROR_PROPAGATION_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+	int FEATURE_PROPAGATION__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END_PROPAGATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
@@ -1705,7 +1877,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__ANNEX_INSTANCE = ERROR_PROPAGATION_INSTANCE__ANNEX_INSTANCE;
+	int FEATURE_PROPAGATION__ANNEX_INSTANCE = CONNECTION_END_PROPAGATION__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Instance Object</b></em>' reference.
@@ -1714,7 +1886,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__INSTANCE_OBJECT = ERROR_PROPAGATION_INSTANCE__INSTANCE_OBJECT;
+	int FEATURE_PROPAGATION__INSTANCE_OBJECT = CONNECTION_END_PROPAGATION__INSTANCE_OBJECT;
 
 	/**
 	 * The feature id for the '<em><b>Constraint</b></em>' containment reference list.
@@ -1723,7 +1895,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__CONSTRAINT = ERROR_PROPAGATION_INSTANCE__CONSTRAINT;
+	int FEATURE_PROPAGATION__CONSTRAINT = CONNECTION_END_PROPAGATION__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Propagation Kind</b></em>' attribute.
@@ -1732,7 +1904,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__PROPAGATION_KIND = ERROR_PROPAGATION_INSTANCE__PROPAGATION_KIND;
+	int FEATURE_PROPAGATION__PROPAGATION_KIND = CONNECTION_END_PROPAGATION__PROPAGATION_KIND;
 
 	/**
 	 * The feature id for the '<em><b>In Error Propagation</b></em>' reference.
@@ -1741,7 +1913,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__IN_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION;
+	int FEATURE_PROPAGATION__IN_ERROR_PROPAGATION = CONNECTION_END_PROPAGATION__IN_ERROR_PROPAGATION;
 
 	/**
 	 * The feature id for the '<em><b>Out Error Propagation</b></em>' reference.
@@ -1750,7 +1922,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__OUT_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION;
+	int FEATURE_PROPAGATION__OUT_ERROR_PROPAGATION = CONNECTION_END_PROPAGATION__OUT_ERROR_PROPAGATION;
 
 	/**
 	 * The feature id for the '<em><b>In Type Set</b></em>' containment reference.
@@ -1759,7 +1931,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__IN_TYPE_SET = ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET;
+	int FEATURE_PROPAGATION__IN_TYPE_SET = CONNECTION_END_PROPAGATION__IN_TYPE_SET;
 
 	/**
 	 * The feature id for the '<em><b>Out Type Set</b></em>' containment reference.
@@ -1768,7 +1940,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__OUT_TYPE_SET = ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET;
+	int FEATURE_PROPAGATION__OUT_TYPE_SET = CONNECTION_END_PROPAGATION__OUT_TYPE_SET;
 
 	/**
 	 * The feature id for the '<em><b>Error Sources</b></em>' reference list.
@@ -1777,7 +1949,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__ERROR_SOURCES = ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES;
+	int FEATURE_PROPAGATION__ERROR_SOURCES = CONNECTION_END_PROPAGATION__ERROR_SOURCES;
 
 	/**
 	 * The feature id for the '<em><b>Error Sinks</b></em>' reference list.
@@ -1786,7 +1958,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__ERROR_SINKS = ERROR_PROPAGATION_INSTANCE__ERROR_SINKS;
+	int FEATURE_PROPAGATION__ERROR_SINKS = CONNECTION_END_PROPAGATION__ERROR_SINKS;
 
 	/**
 	 * The feature id for the '<em><b>Source Error Paths</b></em>' reference list.
@@ -1795,7 +1967,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__SOURCE_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS;
+	int FEATURE_PROPAGATION__SOURCE_ERROR_PATHS = CONNECTION_END_PROPAGATION__SOURCE_ERROR_PATHS;
 
 	/**
 	 * The feature id for the '<em><b>Destination Error Paths</b></em>' reference list.
@@ -1804,7 +1976,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
+	int FEATURE_PROPAGATION__DESTINATION_ERROR_PATHS = CONNECTION_END_PROPAGATION__DESTINATION_ERROR_PATHS;
 
 	/**
 	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
@@ -1813,7 +1985,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__SOURCE_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS;
+	int FEATURE_PROPAGATION__SOURCE_CONNECTION_PATHS = CONNECTION_END_PROPAGATION__SOURCE_CONNECTION_PATHS;
 
 	/**
 	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
@@ -1822,7 +1994,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__DESTINATION_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS;
+	int FEATURE_PROPAGATION__DESTINATION_CONNECTION_PATHS = CONNECTION_END_PROPAGATION__DESTINATION_CONNECTION_PATHS;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1831,7 +2003,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION__FEATURE = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 0;
+	int FEATURE_PROPAGATION__FEATURE = CONNECTION_END_PROPAGATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Feature Propagation</em>' class.
@@ -1840,7 +2012,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROPAGATION_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 1;
+	int FEATURE_PROPAGATION_FEATURE_COUNT = CONNECTION_END_PROPAGATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.PointPropagationImpl <em>Point Propagation</em>}' class.
@@ -1850,7 +2022,197 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getPointPropagation()
 	 * @generated
 	 */
-	int POINT_PROPAGATION = 15;
+	int POINT_PROPAGATION = 17;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AccessPropagationImpl <em>Access Propagation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.AccessPropagationImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAccessPropagation()
+	 * @generated
+	 */
+	int ACCESS_PROPAGATION = 16;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__OWNED_ELEMENT = CONNECTION_END_PROPAGATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__OWNED_COMMENT = CONNECTION_END_PROPAGATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__NAME = CONNECTION_END_PROPAGATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__QUALIFIED_NAME = CONNECTION_END_PROPAGATION__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END_PROPAGATION__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__ANNEX_INSTANCE = CONNECTION_END_PROPAGATION__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Instance Object</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__INSTANCE_OBJECT = CONNECTION_END_PROPAGATION__INSTANCE_OBJECT;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__CONSTRAINT = CONNECTION_END_PROPAGATION__CONSTRAINT;
+
+	/**
+	 * The feature id for the '<em><b>Propagation Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__PROPAGATION_KIND = CONNECTION_END_PROPAGATION__PROPAGATION_KIND;
+
+	/**
+	 * The feature id for the '<em><b>In Error Propagation</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__IN_ERROR_PROPAGATION = CONNECTION_END_PROPAGATION__IN_ERROR_PROPAGATION;
+
+	/**
+	 * The feature id for the '<em><b>Out Error Propagation</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__OUT_ERROR_PROPAGATION = CONNECTION_END_PROPAGATION__OUT_ERROR_PROPAGATION;
+
+	/**
+	 * The feature id for the '<em><b>In Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__IN_TYPE_SET = CONNECTION_END_PROPAGATION__IN_TYPE_SET;
+
+	/**
+	 * The feature id for the '<em><b>Out Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__OUT_TYPE_SET = CONNECTION_END_PROPAGATION__OUT_TYPE_SET;
+
+	/**
+	 * The feature id for the '<em><b>Error Sources</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__ERROR_SOURCES = CONNECTION_END_PROPAGATION__ERROR_SOURCES;
+
+	/**
+	 * The feature id for the '<em><b>Error Sinks</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__ERROR_SINKS = CONNECTION_END_PROPAGATION__ERROR_SINKS;
+
+	/**
+	 * The feature id for the '<em><b>Source Error Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__SOURCE_ERROR_PATHS = CONNECTION_END_PROPAGATION__SOURCE_ERROR_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Destination Error Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__DESTINATION_ERROR_PATHS = CONNECTION_END_PROPAGATION__DESTINATION_ERROR_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__SOURCE_CONNECTION_PATHS = CONNECTION_END_PROPAGATION__SOURCE_CONNECTION_PATHS;
+
+	/**
+	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION__DESTINATION_CONNECTION_PATHS = CONNECTION_END_PROPAGATION__DESTINATION_CONNECTION_PATHS;
+
+	/**
+	 * The number of structural features of the '<em>Access Propagation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_PROPAGATION_FEATURE_COUNT = CONNECTION_END_PROPAGATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2006,24 +2368,6 @@ public interface EMV2InstancePackage extends EPackage {
 	int POINT_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
 
 	/**
-	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POINT_PROPAGATION__SOURCE_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS;
-
-	/**
-	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POINT_PROPAGATION__DESTINATION_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS;
-
-	/**
 	 * The feature id for the '<em><b>Point</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2060,196 +2404,6 @@ public interface EMV2InstancePackage extends EPackage {
 	int POINT_PROPAGATION_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AccessPropagationImpl <em>Access Propagation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.instance.impl.AccessPropagationImpl
-	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAccessPropagation()
-	 * @generated
-	 */
-	int ACCESS_PROPAGATION = 16;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__OWNED_ELEMENT = ERROR_PROPAGATION_INSTANCE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__OWNED_COMMENT = ERROR_PROPAGATION_INSTANCE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__NAME = ERROR_PROPAGATION_INSTANCE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__QUALIFIED_NAME = ERROR_PROPAGATION_INSTANCE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__OWNED_PROPERTY_ASSOCIATION = ERROR_PROPAGATION_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__ANNEX_INSTANCE = ERROR_PROPAGATION_INSTANCE__ANNEX_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Object</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__INSTANCE_OBJECT = ERROR_PROPAGATION_INSTANCE__INSTANCE_OBJECT;
-
-	/**
-	 * The feature id for the '<em><b>Constraint</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__CONSTRAINT = ERROR_PROPAGATION_INSTANCE__CONSTRAINT;
-
-	/**
-	 * The feature id for the '<em><b>Propagation Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__PROPAGATION_KIND = ERROR_PROPAGATION_INSTANCE__PROPAGATION_KIND;
-
-	/**
-	 * The feature id for the '<em><b>In Error Propagation</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__IN_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION;
-
-	/**
-	 * The feature id for the '<em><b>Out Error Propagation</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__OUT_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION;
-
-	/**
-	 * The feature id for the '<em><b>In Type Set</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__IN_TYPE_SET = ERROR_PROPAGATION_INSTANCE__IN_TYPE_SET;
-
-	/**
-	 * The feature id for the '<em><b>Out Type Set</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__OUT_TYPE_SET = ERROR_PROPAGATION_INSTANCE__OUT_TYPE_SET;
-
-	/**
-	 * The feature id for the '<em><b>Error Sources</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__ERROR_SOURCES = ERROR_PROPAGATION_INSTANCE__ERROR_SOURCES;
-
-	/**
-	 * The feature id for the '<em><b>Error Sinks</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__ERROR_SINKS = ERROR_PROPAGATION_INSTANCE__ERROR_SINKS;
-
-	/**
-	 * The feature id for the '<em><b>Source Error Paths</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__SOURCE_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_ERROR_PATHS;
-
-	/**
-	 * The feature id for the '<em><b>Destination Error Paths</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
-
-	/**
-	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__SOURCE_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS;
-
-	/**
-	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION__DESTINATION_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS;
-
-	/**
-	 * The number of structural features of the '<em>Access Propagation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_PROPAGATION_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.BindingPropagationImpl <em>Binding Propagation</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2257,7 +2411,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingPropagation()
 	 * @generated
 	 */
-	int BINDING_PROPAGATION = 17;
+	int BINDING_PROPAGATION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2413,24 +2567,6 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_PROPAGATION__DESTINATION_ERROR_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_ERROR_PATHS;
 
 	/**
-	 * The feature id for the '<em><b>Source Connection Paths</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINDING_PROPAGATION__SOURCE_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS;
-
-	/**
-	 * The feature id for the '<em><b>Destination Connection Paths</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINDING_PROPAGATION__DESTINATION_CONNECTION_PATHS = ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS;
-
-	/**
 	 * The feature id for the '<em><b>Binding</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2474,7 +2610,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeSetElement()
 	 * @generated
 	 */
-	int TYPE_SET_ELEMENT = 18;
+	int TYPE_SET_ELEMENT = 19;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2547,7 +2683,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeTokenInstance()
 	 * @generated
 	 */
-	int TYPE_TOKEN_INSTANCE = 19;
+	int TYPE_TOKEN_INSTANCE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2620,7 +2756,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeInstance()
 	 * @generated
 	 */
-	int TYPE_INSTANCE = 20;
+	int TYPE_INSTANCE = 21;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2702,7 +2838,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeSetInstance()
 	 * @generated
 	 */
-	int TYPE_SET_INSTANCE = 23;
+	int TYPE_SET_INSTANCE = 24;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AnonymousTypeSetImpl <em>Anonymous Type Set</em>}' class.
@@ -2712,7 +2848,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAnonymousTypeSet()
 	 * @generated
 	 */
-	int ANONYMOUS_TYPE_SET = 24;
+	int ANONYMOUS_TYPE_SET = 25;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeProductInstanceImpl <em>Type Product Instance</em>}' class.
@@ -2722,7 +2858,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeProductInstance()
 	 * @generated
 	 */
-	int TYPE_PRODUCT_INSTANCE = 21;
+	int TYPE_PRODUCT_INSTANCE = 22;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2804,7 +2940,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAbstractTypeSet()
 	 * @generated
 	 */
-	int ABSTRACT_TYPE_SET = 22;
+	int ABSTRACT_TYPE_SET = 23;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3192,7 +3328,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorSinkInstance()
 	 * @generated
 	 */
-	int ERROR_SINK_INSTANCE = 27;
+	int ERROR_SINK_INSTANCE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3292,7 +3428,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorPathInstance()
 	 * @generated
 	 */
-	int ERROR_PATH_INSTANCE = 28;
+	int ERROR_PATH_INSTANCE = 29;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3482,7 +3618,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getPropagationPathInstance()
 	 * @generated
 	 */
-	int PROPAGATION_PATH_INSTANCE = 30;
+	int PROPAGATION_PATH_INSTANCE = 31;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3555,7 +3691,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConnectionPath()
 	 * @generated
 	 */
-	int CONNECTION_PATH = 31;
+	int CONNECTION_PATH = 32;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3655,7 +3791,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingPath()
 	 * @generated
 	 */
-	int BINDING_PATH = 32;
+	int BINDING_PATH = 33;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3755,7 +3891,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getUserDefinedPath()
 	 * @generated
 	 */
-	int USER_DEFINED_PATH = 33;
+	int USER_DEFINED_PATH = 34;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3873,7 +4009,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 34;
+	int EOPERATION = 35;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -3883,7 +4019,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 35;
+	int BINDING_TYPE = 36;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -4941,26 +5077,36 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getErrorPropagationInstance_DestinationErrorPaths();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceConnectionPaths <em>Source Connection Paths</em>}'.
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConnectionEndPropagation <em>Connection End Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Connection End Propagation</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ConnectionEndPropagation
+	 * @generated
+	 */
+	EClass getConnectionEndPropagation();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ConnectionEndPropagation#getSourceConnectionPaths <em>Source Connection Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Source Connection Paths</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getSourceConnectionPaths()
-	 * @see #getErrorPropagationInstance()
+	 * @see org.osate.aadl2.errormodel.instance.ConnectionEndPropagation#getSourceConnectionPaths()
+	 * @see #getConnectionEndPropagation()
 	 * @generated
 	 */
-	EReference getErrorPropagationInstance_SourceConnectionPaths();
+	EReference getConnectionEndPropagation_SourceConnectionPaths();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationConnectionPaths <em>Destination Connection Paths</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ConnectionEndPropagation#getDestinationConnectionPaths <em>Destination Connection Paths</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Destination Connection Paths</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getDestinationConnectionPaths()
-	 * @see #getErrorPropagationInstance()
+	 * @see org.osate.aadl2.errormodel.instance.ConnectionEndPropagation#getDestinationConnectionPaths()
+	 * @see #getConnectionEndPropagation()
 	 * @generated
 	 */
-	EReference getErrorPropagationInstance_DestinationConnectionPaths();
+	EReference getConnectionEndPropagation_DestinationConnectionPaths();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.FeaturePropagation <em>Feature Propagation</em>}'.
@@ -6080,13 +6226,23 @@ public interface EMV2InstancePackage extends EPackage {
 				.getErrorPropagationInstance_DestinationErrorPaths();
 
 		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConnectionEndPropagationImpl <em>Connection End Propagation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.ConnectionEndPropagationImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConnectionEndPropagation()
+		 * @generated
+		 */
+		EClass CONNECTION_END_PROPAGATION = eINSTANCE.getConnectionEndPropagation();
+
+		/**
 		 * The meta object literal for the '<em><b>Source Connection Paths</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS = eINSTANCE
-				.getErrorPropagationInstance_SourceConnectionPaths();
+		EReference CONNECTION_END_PROPAGATION__SOURCE_CONNECTION_PATHS = eINSTANCE
+				.getConnectionEndPropagation_SourceConnectionPaths();
 
 		/**
 		 * The meta object literal for the '<em><b>Destination Connection Paths</b></em>' reference list feature.
@@ -6094,8 +6250,8 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS = eINSTANCE
-				.getErrorPropagationInstance_DestinationConnectionPaths();
+		EReference CONNECTION_END_PROPAGATION__DESTINATION_CONNECTION_PATHS = eINSTANCE
+				.getConnectionEndPropagation_DestinationConnectionPaths();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.FeaturePropagationImpl <em>Feature Propagation</em>}' class.

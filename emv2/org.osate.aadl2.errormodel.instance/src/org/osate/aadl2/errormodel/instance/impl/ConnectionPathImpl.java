@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
@@ -72,7 +73,7 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ErrorPropagationInstance> sourcePropagations;
+	protected EList<ConnectionEndPropagation> sourcePropagations;
 
 	/**
 	 * The cached value of the '{@link #getDestinationPropagations() <em>Destination Propagations</em>}' reference list.
@@ -82,7 +83,7 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ErrorPropagationInstance> destinationPropagations;
+	protected EList<ConnectionEndPropagation> destinationPropagations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -153,11 +154,11 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated
 	 */
 	@Override
-	public EList<ErrorPropagationInstance> getSourcePropagations() {
+	public EList<ConnectionEndPropagation> getSourcePropagations() {
 		if (sourcePropagations == null) {
 			sourcePropagations = new EObjectWithInverseEList.ManyInverse<>(
-					ErrorPropagationInstance.class, this, EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS,
-					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__SOURCE_CONNECTION_PATHS);
+					ConnectionEndPropagation.class, this, EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS,
+					EMV2InstancePackage.CONNECTION_END_PROPAGATION__SOURCE_CONNECTION_PATHS);
 		}
 		return sourcePropagations;
 	}
@@ -168,11 +169,11 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated
 	 */
 	@Override
-	public EList<ErrorPropagationInstance> getDestinationPropagations() {
+	public EList<ConnectionEndPropagation> getDestinationPropagations() {
 		if (destinationPropagations == null) {
 			destinationPropagations = new EObjectWithInverseEList.ManyInverse<>(
-					ErrorPropagationInstance.class, this, EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS,
-					EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__DESTINATION_CONNECTION_PATHS);
+					ConnectionEndPropagation.class, this, EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS,
+					EMV2InstancePackage.CONNECTION_END_PROPAGATION__DESTINATION_CONNECTION_PATHS);
 		}
 		return destinationPropagations;
 	}
@@ -267,11 +268,11 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 			return;
 		case EMV2InstancePackage.CONNECTION_PATH__SOURCE_PROPAGATIONS:
 			getSourcePropagations().clear();
-			getSourcePropagations().addAll((Collection<? extends ErrorPropagationInstance>) newValue);
+			getSourcePropagations().addAll((Collection<? extends ConnectionEndPropagation>) newValue);
 			return;
 		case EMV2InstancePackage.CONNECTION_PATH__DESTINATION_PROPAGATIONS:
 			getDestinationPropagations().clear();
-			getDestinationPropagations().addAll((Collection<? extends ErrorPropagationInstance>) newValue);
+			getDestinationPropagations().addAll((Collection<? extends ConnectionEndPropagation>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

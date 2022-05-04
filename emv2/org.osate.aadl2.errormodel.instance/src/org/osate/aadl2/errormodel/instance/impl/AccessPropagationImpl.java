@@ -34,7 +34,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
  *
  * @generated
  */
-public class AccessPropagationImpl extends ErrorPropagationInstanceImpl implements AccessPropagation {
+public class AccessPropagationImpl extends ConnectionEndPropagationImpl implements AccessPropagation {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

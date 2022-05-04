@@ -35,6 +35,7 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
@@ -193,18 +194,23 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseConnectionEndPropagation(ConnectionEndPropagation object) {
+			return createConnectionEndPropagationAdapter();
+		}
+
+		@Override
 		public Adapter caseFeaturePropagation(FeaturePropagation object) {
 			return createFeaturePropagationAdapter();
 		}
 
 		@Override
-		public Adapter casePointPropagation(PointPropagation object) {
-			return createPointPropagationAdapter();
+		public Adapter caseAccessPropagation(AccessPropagation object) {
+			return createAccessPropagationAdapter();
 		}
 
 		@Override
-		public Adapter caseAccessPropagation(AccessPropagation object) {
-			return createAccessPropagationAdapter();
+		public Adapter casePointPropagation(PointPropagation object) {
+			return createPointPropagationAdapter();
 		}
 
 		@Override
@@ -650,6 +656,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createErrorPropagationInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConnectionEndPropagation <em>Connection End Propagation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ConnectionEndPropagation
+	 * @generated
+	 */
+	public Adapter createConnectionEndPropagationAdapter() {
 		return null;
 	}
 
