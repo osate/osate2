@@ -1,0 +1,37 @@
+package multiple_buses
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			b1: bus b;
+			b2: bus b;
+			b3: bus b;
+			vb: virtual bus vb;
+		properties
+			Actual_Connection_Binding => (reference (b1), reference (b2), reference (b3)) applies to vb;
+	end s.i;
+	
+	bus b
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end b;
+	
+	virtual bus vb
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+			end propagations;
+		**};
+	end vb;
+end multiple_buses;

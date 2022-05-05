@@ -126,8 +126,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 
     <mirror>
       <id>openjfx-17-mirror</id>
-      <mirrorOf>https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.1</mirrorOf>
-      <url>file:/var/cache/p2mirror/current/openjfx-17.0.1</url>
+      <mirrorOf>https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.2</mirrorOf>
+      <url>file:/var/cache/p2mirror/current/openjfx-17.0.2</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>

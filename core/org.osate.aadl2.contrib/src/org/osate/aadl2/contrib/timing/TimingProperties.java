@@ -38,6 +38,7 @@ import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
@@ -71,7 +72,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -107,7 +108,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -143,7 +144,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -179,7 +180,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -215,7 +216,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -251,7 +252,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -287,7 +288,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -323,7 +324,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -359,7 +360,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -395,7 +396,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -431,7 +432,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -467,7 +468,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -503,7 +504,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -539,7 +540,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -575,7 +576,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -611,7 +612,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -647,7 +648,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -683,7 +684,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -719,7 +720,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, ProcessorSpeedUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -755,7 +756,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -791,7 +792,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -827,7 +828,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -863,7 +864,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((InstanceReferenceValue) resolved).getReferencedInstanceObject());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -899,7 +900,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -935,7 +936,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -971,7 +972,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1007,7 +1008,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1043,7 +1044,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1079,7 +1080,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1115,7 +1116,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((ClassifierValue) resolved).getClassifier());
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1151,7 +1152,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1187,7 +1188,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1223,7 +1224,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
@@ -1259,7 +1260,7 @@ public final class TimingProperties {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
-		} catch (PropertyNotPresentException e) {
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}

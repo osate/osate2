@@ -51,6 +51,7 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 			"org.osate.aadl2.Property",
 			"org.osate.aadl2.PropertyExpression",
 			"org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil",
+			"org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException",
 			"org.osate.aadl2.properties.PropertyNotPresentException",
 			"org.osate.pluginsupport.properties.CodeGenUtil"
 		)
@@ -81,7 +82,7 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 					PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 					return «baseOptionalType».of(«getValueExtractor(type, "resolved", 1)»);
-				} catch (PropertyNotPresentException e) {
+				} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 					return «baseOptionalType».empty();
 				}
 			}

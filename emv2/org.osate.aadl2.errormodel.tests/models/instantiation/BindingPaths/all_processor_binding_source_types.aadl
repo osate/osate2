@@ -1,0 +1,109 @@
+package all_processor_binding_source_types
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			proc1: processor proc;
+			proc2: processor proc;
+			proc3: processor proc;
+			proc4: processor proc;
+			proc5: processor proc;
+			proc6: processor proc;
+			ps: process ps.i;
+			s2: system s2;
+			vp: virtual processor vp;
+			dev: device dev;
+		properties
+			Actual_Processor_Binding => (reference (proc1)) applies to ps.t;
+			Actual_Processor_Binding => (reference (proc2)) applies to ps.tg;
+			Actual_Processor_Binding => (reference (proc3)) applies to ps;
+			Actual_Processor_Binding => (reference (proc4)) applies to s2;
+			Actual_Processor_Binding => (reference (proc5)) applies to vp;
+			Actual_Processor_Binding => (reference (proc6)) applies to dev;
+	end s.i;
+	
+	processor proc
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end proc;
+	
+	process ps
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end ps;
+	
+	process implementation ps.i
+		subcomponents
+			t: thread t;
+			tg: thread group tg;
+	end ps.i;
+	
+	thread t
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end t;
+	
+	thread group tg
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end tg;
+	
+	system s2
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s2;
+	
+	virtual processor vp
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end vp;
+	
+	device dev
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end dev;
+end all_processor_binding_source_types;

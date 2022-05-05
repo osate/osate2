@@ -44,7 +44,7 @@ import org.osate.aadl2.instance.FeatureInstance;
  *
  * @generated
  */
-public class FeaturePropagationImpl extends ErrorPropagationInstanceImpl implements FeaturePropagation {
+public class FeaturePropagationImpl extends ConnectionEndPropagationImpl implements FeaturePropagation {
 	/**
 	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -140,6 +140,7 @@ public class FeaturePropagationImpl extends ErrorPropagationInstanceImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {

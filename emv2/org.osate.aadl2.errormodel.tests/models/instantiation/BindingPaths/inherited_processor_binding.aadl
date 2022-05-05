@@ -1,0 +1,51 @@
+package inherited_processor_binding
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			proc: processor proc;
+			ps: process ps.i;
+		properties
+			Actual_Processor_Binding => (reference (proc)) applies to ps;
+	end s.i;
+	
+	processor proc
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end proc;
+	
+	process ps
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end ps;
+	
+	process implementation ps.i
+		subcomponents
+			t: thread t;
+	end ps.i;
+	
+	thread t
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end t;
+end inherited_processor_binding;

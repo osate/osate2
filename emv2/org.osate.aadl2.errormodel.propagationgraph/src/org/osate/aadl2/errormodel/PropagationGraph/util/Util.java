@@ -41,7 +41,6 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.VirtualProcessor;
-import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphFactory;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
@@ -418,35 +417,27 @@ public class Util {
 	protected static void populateBindingPaths(PropagationGraph pg, InstanceObject obj) {
 		if (obj instanceof ComponentInstance) {
 			final ComponentInstance ci = (ComponentInstance) obj;
-			if (DeploymentProperties.acceptsActualProcessorBinding(ci)) {
-				final List<InstanceObject> cpus = InstanceModelUtil.getProcessorBindings(ci);
-				for (final InstanceObject cpu : cpus) {
-					populateBindingPropagationPaths(pg, ci, (ComponentInstance) cpu, "processor");
-				}
+			final List<InstanceObject> cpus = InstanceModelUtil.getProcessorBindings(ci);
+			for (final InstanceObject cpu : cpus) {
+				populateBindingPropagationPaths(pg, ci, (ComponentInstance) cpu, "processor");
 			}
 			if (!(ci instanceof VirtualProcessor)) {
 				// do memory bindings
-				if (DeploymentProperties.acceptsActualMemoryBinding(ci)) {
-					final List<InstanceObject> mems = InstanceModelUtil.getMemoryBindings(ci);
-					for (final InstanceObject mem : mems) {
-						populateBindingPropagationPaths(pg, ci, (ComponentInstance) mem, "memory");
-					}
+				final List<InstanceObject> mems = InstanceModelUtil.getMemoryBindings(ci);
+				for (final InstanceObject mem : mems) {
+					populateBindingPropagationPaths(pg, ci, (ComponentInstance) mem, "memory");
 				}
 			}
 			if (ci instanceof VirtualBus) {
 				// do connection bindings
-				if (DeploymentProperties.acceptsActualConnectionBinding(ci)) {
-					final List<InstanceObject> boundresources = InstanceModelUtil.getConnectionBindings(ci);
-					for (final InstanceObject bres : boundresources) {
-						populateBindingPropagationPaths(pg, ci, (ComponentInstance) bres, "connection");
-					}
+				final List<InstanceObject> boundresources = InstanceModelUtil.getConnectionBindings(ci);
+				for (final InstanceObject bres : boundresources) {
+					populateBindingPropagationPaths(pg, ci, (ComponentInstance) bres, "connection");
 				}
 			}
-			if (DeploymentProperties.acceptsActualFunctionBinding(ci)) {
-				final List<InstanceObject> systems = InstanceModelUtil.getFunctionBindings(ci);
-				for (final InstanceObject system : systems) {
-					populateBindingPropagationPaths(pg, ci, (ComponentInstance) system, "binding");
-				}
+			final List<InstanceObject> systems = InstanceModelUtil.getFunctionBindings(ci);
+			for (final InstanceObject system : systems) {
+				populateBindingPropagationPaths(pg, ci, (ComponentInstance) system, "binding");
 			}
 		} else if (obj instanceof ConnectionInstance) {
 			// do connection bindings -- nb. all connections are allowed the actual_connection_binding property

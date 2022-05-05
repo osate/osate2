@@ -33,5 +33,5 @@ package org.osate.aadl2.errormodel.instance;
  * @model
  * @generated
  */
-public interface AccessPropagation extends ErrorPropagationInstance {
+public interface AccessPropagation extends ConnectionEndPropagation {
 } // AccessPropagation

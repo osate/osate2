@@ -1,0 +1,99 @@
+package all_processor_binding_target_types
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			proc: processor proc;
+			vp: virtual processor vp;
+			s2: system s2;
+			dev: device dev;
+			a: abstract a;
+			ps: process ps.i;
+		properties
+			Actual_Processor_Binding => (reference (proc)) applies to ps.t1;
+			Actual_Processor_Binding => (reference (vp)) applies to ps.t2;
+			Actual_Processor_Binding => (reference (s2)) applies to ps.t3;
+			Actual_Processor_Binding => (reference (dev)) applies to ps.t4;
+			Actual_Processor_Binding => (reference (a)) applies to ps.t5;
+	end s.i;
+	
+	processor proc
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end proc;
+	
+	virtual processor vp
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end vp;
+	
+	system s2
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s2;
+	
+	device dev
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end dev;
+	
+	abstract a
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end a;
+	
+	process ps
+	end ps;
+	
+	process implementation ps.i
+		subcomponents
+			t1: thread t;
+			t2: thread t;
+			t3: thread t;
+			t4: thread t;
+			t5: thread t;
+	end ps.i;
+	
+	thread t
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end t;
+end all_processor_binding_target_types;

@@ -29,7 +29,7 @@ Import-Package: org.apache.commons.logging,
  org.junit.runners;version="4.5.0",
  org.junit.runners.model;version="4.5.0",
  org.osate.xtext.aadl2
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.aadl2.errormodel.tests
 Automatic-Module-Name: org.osate.aadl2.errormodel.tests
