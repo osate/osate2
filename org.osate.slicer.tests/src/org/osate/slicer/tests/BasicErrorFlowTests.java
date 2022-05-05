@@ -41,6 +41,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.slicer.OsateSlicerVertex;
@@ -70,12 +71,12 @@ public class BasicErrorFlowTests {
 		tlg.buildGraph(si);
 
 		vertices = new String[6];
-		vertices[0] = "sys_impl_Instance.a.o1TimingSrc.{ItemTimingError}";
-		vertices[1] = "sys_impl_Instance.a.o1.{ItemTimingError}";
-		vertices[2] = "sys_impl_Instance.b.i1.{ItemTimingError}";
-		vertices[3] = "sys_impl_Instance.b.o3.{ItemTimingError}";
-		vertices[4] = "sys_impl_Instance.c.i3.{ItemTimingError}";
-		vertices[5] = "sys_impl_Instance.c.o3TimingSink.{ItemTimingError}";
+		vertices[0] = "sys_impl_Instance.a.o1TimingSrc.ItemTimingError";
+		vertices[1] = "sys_impl_Instance.a.o1.ItemTimingError";
+		vertices[2] = "sys_impl_Instance.b.i1.ItemTimingError";
+		vertices[3] = "sys_impl_Instance.b.o3.ItemTimingError";
+		vertices[4] = "sys_impl_Instance.c.i3.ItemTimingError";
+		vertices[5] = "sys_impl_Instance.c.o3TimingSink.ItemTimingError";
 	}
 
 	@Test
@@ -102,8 +103,8 @@ public class BasicErrorFlowTests {
 		var component = SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si);
 		var feature = SlicerTestUtil.getFeatureInstance(component, "i1");
 		var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
-		var typeSet = annexInstance.getPropagations().get(0).getInTypeSet();
-		var reachableComponents = tlg.forwardReach(feature, typeSet);
+		var token = (TypeTokenInstance) annexInstance.getPropagations().get(0).getInTypeSet().getElements().get(0);
+		var reachableComponents = tlg.forwardReach(feature, token);
 		assertEquals("Number of elements in forward reach", 4, reachableComponents.size());
 		// TODO: Probably should test the elements contained here. Use Joe's JUnit 5 code?
 	}
@@ -132,8 +133,8 @@ public class BasicErrorFlowTests {
 		var component = SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si);
 		var feature = SlicerTestUtil.getFeatureInstance(component, "o3");
 		var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
-		var typeSet = annexInstance.getPropagations().get(0).getInTypeSet();
-		var reachableComponents = tlg.backwardReach(feature, typeSet);
+		var token = (TypeTokenInstance) annexInstance.getPropagations().get(0).getInTypeSet().getElements().get(0);
+		var reachableComponents = tlg.backwardReach(feature, token);
 		assertEquals("Number of elements in backward reach", 4, reachableComponents.size());
 		// TODO: Probably should test the elements contained here. Use Joe's JUnit 5 code?
 	}

@@ -57,6 +57,7 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -167,13 +168,13 @@ public class SlicerRepresentation {
 	 * @param feat The feature
 	 * @param ats The error(s) propagated into or out of this feature
 	 */
-	private void addVertex(FeatureInstance feat, AnonymousTypeSet ats) {
+	private void addVertex(FeatureInstance feat, TypeTokenInstance token) {
 		var name = feat.getInstanceObjectPath();
-		if ((ats == null && vertexMap.containsKey(name))
-				|| (ats != null && vertexMap.containsKey(name + "." + ats.getFullName()))) {
+		if ((token == null && vertexMap.containsKey(name))
+				|| (token != null && vertexMap.containsKey(name + "." + token.getFullName()))) {
 			return; // No duplicates allowed
 		}
-		OsateSlicerVertex v = new OsateSlicerVertex(feat, ats);
+		OsateSlicerVertex v = new OsateSlicerVertex(feat, token);
 		g.addVertex(v);
 		vertexMap.put(v.getName(), v);
 	}
@@ -184,13 +185,13 @@ public class SlicerRepresentation {
 	 * @param efi An error source or sink
 	 * @param ats The error(s) propagated into or out by this sink or source
 	 */
-	private void addVertex(ErrorFlowInstance efi, AnonymousTypeSet ats) {
+	private void addVertex(ErrorFlowInstance efi, TypeTokenInstance token) {
 		var name = efi.getInstanceObjectPath().replace(".EMV2", "");
-		if ((ats == null && vertexMap.containsKey(name))
-				|| (ats != null && vertexMap.containsKey(name + "." + ats.getFullName()))) {
+		if ((token == null && vertexMap.containsKey(name))
+				|| (token != null && vertexMap.containsKey(name + "." + token.getFullName()))) {
 			return; // No duplicates allowed
 		}
-		OsateSlicerVertex v = new OsateSlicerVertex(efi, ats);
+		OsateSlicerVertex v = new OsateSlicerVertex(efi, token);
 		g.addVertex(v);
 		vertexMap.put(v.getName(), v);
 	}
@@ -243,7 +244,7 @@ public class SlicerRepresentation {
 	 * @param ats The error type that is propagated into / out of the feature to start from
 	 * @return The set of reachable features and errors
 	 */
-	public Collection<IObjErrorPair> forwardReach(InstanceObject featOrEFI, AnonymousTypeSet ats) {
+	public Collection<IObjErrorPair> forwardReach(InstanceObject featOrEFI, TypeTokenInstance token) {
 		if (!(featOrEFI instanceof FeatureInstance || featOrEFI instanceof ErrorSourceInstance
 				|| featOrEFI instanceof ErrorSinkInstance)) {
 			System.err.println("Unsupported InstanceObject " + featOrEFI.getInstanceObjectPath()
@@ -251,8 +252,8 @@ public class SlicerRepresentation {
 			return Collections.emptySet();
 		}
 		Set<IObjErrorPair> retSet = new HashSet<>();
-		forwardReachability(featOrEFI.getInstanceObjectPath() + "." + ats.getFullName()).vertexSet().forEach(v -> {
-			retSet.add(new IObjErrorPair(v.getFeatOrErrorFlow(), v.getErrorATS()));
+		forwardReachability(featOrEFI.getInstanceObjectPath() + "." + token.getFullName()).vertexSet().forEach(v -> {
+			retSet.add(new IObjErrorPair(v.getFeatOrErrorFlow(), v.getErrorToken()));
 		});
 		return retSet;
 	}
@@ -295,7 +296,7 @@ public class SlicerRepresentation {
 	 * @param ats The error type that is propagated into / out of the feature to start from
 	 * @return The set of reachable features and errors
 	 */
-	public Collection<IObjErrorPair> backwardReach(InstanceObject featOrEFI, AnonymousTypeSet ats) {
+	public Collection<IObjErrorPair> backwardReach(InstanceObject featOrEFI, TypeTokenInstance token) {
 		if (!(featOrEFI instanceof FeatureInstance || featOrEFI instanceof ErrorSourceInstance
 				|| featOrEFI instanceof ErrorSinkInstance)) {
 			System.err.println("Unsupported InstanceObject " + featOrEFI.getInstanceObjectPath()
@@ -303,8 +304,8 @@ public class SlicerRepresentation {
 			return Collections.emptySet();
 		}
 		Set<IObjErrorPair> retSet = new HashSet<>();
-		backwardReachability(featOrEFI.getInstanceObjectPath() + "." + ats.getFullName()).vertexSet().forEach(v -> {
-			retSet.add(new IObjErrorPair(v.getFeatOrErrorFlow(), v.getErrorATS()));
+		backwardReachability(featOrEFI.getInstanceObjectPath() + "." + token.getFullName()).vertexSet().forEach(v -> {
+			retSet.add(new IObjErrorPair(v.getFeatOrErrorFlow(), v.getErrorToken()));
 		});
 		return retSet;
 	}
@@ -501,7 +502,7 @@ public class SlicerRepresentation {
 					&& Sets.powerSet(
 							dstTypes.getElements().stream().map(TypeSetElement::getName).collect(Collectors.toSet()))
 							.contains(ImmutableSet.of(typeSetName))) {
-				return Optional.of(dstName + ".{" + typeSetName + "}");
+				return Optional.of(dstName + "." + typeSetName);
 			}
 			return Optional.empty();
 		}
@@ -511,34 +512,44 @@ public class SlicerRepresentation {
 		@Override
 		public Void caseErrorSourceInstance(ErrorSourceInstance esi) {
 			var srcName = esi.getInstanceObjectPath().replace(".EMV2", "");
-			var srcTypes = esi.getTypeSet();
+			var srcTypes = esi.getTypeSet().getElements();
 			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
-			addVertex(esi, srcTypes);
-			addVertex(((FeaturePropagation) esi.getPropagation()).getFeature(), srcTypes);
-			addEdge(srcName + "." + srcTypes.getFullName(), propName + "." + srcTypes.getFullName());
+			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
+				TypeTokenInstance tti = (TypeTokenInstance) tse;
+				addVertex(esi, tti);
+				addVertex(((FeaturePropagation) esi.getPropagation()).getFeature(), tti);
+				addEdge(srcName + "." + tti.getFullName(), propName + "." + tti.getFullName());
+			});
 			return null;
 		}
 
 		@Override
 		public Void caseErrorSinkInstance(ErrorSinkInstance esi) {
 			var dstName = esi.getInstanceObjectPath().replace(".EMV2", "");
-			var dstTypes = esi.getTypeSet();
+			var dstTypes = esi.getTypeSet().getElements();
 			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
-			addVertex(esi, dstTypes);
-			addVertex(((FeaturePropagation) esi.getPropagation()).getFeature(), dstTypes);
-			addEdge(propName + "." + dstTypes.getFullName(), dstName + "." + dstTypes.getFullName());
+			dstTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
+				TypeTokenInstance tti = (TypeTokenInstance) tse;
+				addVertex(esi, tti);
+				addVertex(((FeaturePropagation) esi.getPropagation()).getFeature(), tti);
+				addEdge(propName + "." + tti.getFullName(), dstName + "." + tti.getFullName());
+			});
 			return null;
 		}
 
 		@Override
 		public Void caseErrorPathInstance(ErrorPathInstance epi) {
-			var srcVrt = epi.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
-					+ epi.getSourceTypeSet().getFullName();
 			var dstVrt = epi.getDestinationPropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
-					+ epi.getDestinationTypeSet().getFullName();
-			addVertex(((FeaturePropagation) epi.getSourcePropagation()).getFeature(), epi.getSourceTypeSet());
-			addVertex(((FeaturePropagation) epi.getDestinationPropagation()).getFeature(), epi.getDestinationTypeSet());
-			addEdge(srcVrt, dstVrt);
+					+ epi.getDestinationTypeToken().getFullName();
+			addVertex(((FeaturePropagation) epi.getDestinationPropagation()).getFeature(),
+					epi.getDestinationTypeToken());
+			var srcTypes = epi.getSourceTypeSet().getElements();
+			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
+				TypeTokenInstance tti = (TypeTokenInstance) tse;
+				addVertex(((FeaturePropagation) epi.getSourcePropagation()).getFeature(), tti);
+				addEdge(epi.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
+						+ tti.getFullName(), dstVrt);
+			});
 			return null;
 		}
 

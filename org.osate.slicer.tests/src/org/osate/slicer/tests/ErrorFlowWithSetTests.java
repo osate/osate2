@@ -41,6 +41,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -54,7 +55,7 @@ import com.google.inject.Inject;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class BasicErrorTransformFlowTests {
+public class ErrorFlowWithSetTests {
 	@Inject
 	TestHelper<AadlPackage> myTestHelper;
 
@@ -65,23 +66,21 @@ public class BasicErrorTransformFlowTests {
 	@Before
 	public void setUp() throws Exception {
 		tlg = new SlicerRepresentation();
-		var pkg = myTestHelper.parseFile("org.osate.slicer.tests/aadl-models/BasicErrorTransformFlow.aadl");
+		var pkg = myTestHelper.parseFile("org.osate.slicer.tests/aadl-models/ErrorFlowWithSet.aadl");
 		var impl = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		si = InstantiateModel.instantiate(impl);
 		tlg.buildGraph(si);
-
-		vertices = new String[6];
-		vertices[0] = "sys_impl_Instance.a.o1TimingSrc.ItemTimingError";
-		vertices[1] = "sys_impl_Instance.a.o1.ItemTimingError";
-		vertices[2] = "sys_impl_Instance.b.i1.ItemTimingError";
-		// Note that b transforms the item error into a timing error
-		vertices[3] = "sys_impl_Instance.b.o3.ItemValueError";
-		vertices[4] = "sys_impl_Instance.c.i3.ItemValueError";
-		vertices[5] = "sys_impl_Instance.c.o3TimingSink.ItemValueError";
 	}
 
 	@Test
 	public void testForwardReachability() {
+		vertices = new String[6];
+		vertices[0] = "sys_impl_Instance.a.o1TimingSrc.ItemTimingError";
+		vertices[1] = "sys_impl_Instance.a.o1.ItemTimingError";
+		vertices[2] = "sys_impl_Instance.b.i1.ItemTimingError";
+		vertices[3] = "sys_impl_Instance.b.o3.ItemValueError";
+		vertices[4] = "sys_impl_Instance.c.i3.ItemValueError";
+		vertices[5] = "sys_impl_Instance.c.o3TimingSink.ItemValueError";
 		AbstractGraph<OsateSlicerVertex, DefaultEdge> g = tlg.forwardReachability(vertices[2]);
 		Map<String, OsateSlicerVertex> m = g.vertexSet() // Can't query the set directly, so derive a map
 				.stream()
@@ -104,7 +103,9 @@ public class BasicErrorTransformFlowTests {
 		var component = SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si);
 		var feature = SlicerTestUtil.getFeatureInstance(component, "i1");
 		var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
-		var token = (TypeTokenInstance) annexInstance.getPropagations().get(0).getInTypeSet().getElements().get(0);
+		var token = (TypeTokenInstance) ((ErrorPathInstance) annexInstance.getErrorFlows().get(0)).getSourceTypeSet()
+				.getElements()
+				.get(0);
 		var reachableComponents = tlg.forwardReach(feature, token);
 		assertEquals("Number of elements in forward reach", 4, reachableComponents.size());
 		// TODO: Probably should test the elements contained here. Use Joe's JUnit 5 code?
@@ -112,18 +113,34 @@ public class BasicErrorTransformFlowTests {
 
 	@Test
 	public void testBackwardReachability() {
-		AbstractGraph<OsateSlicerVertex, DefaultEdge> g = tlg.backwardReachability(vertices[3]);
+		vertices = new String[7];
+		vertices[0] = "sys_impl_Instance.a.o1TimingSrc.ItemValueError";
+		vertices[1] = "sys_impl_Instance.a.o1.ItemValueError";
+		vertices[2] = "sys_impl_Instance.b.i1.ItemValueError";
+		vertices[3] = "sys_impl_Instance.b.o3.ItemValueError";
+		vertices[4] = "sys_impl_Instance.a.o1TimingSrc.ItemTimingError";
+		vertices[5] = "sys_impl_Instance.a.o1.ItemTimingError";
+		vertices[6] = "sys_impl_Instance.b.i1.ItemTimingError";
+		AbstractGraph<OsateSlicerVertex, DefaultEdge> g = tlg
+				.backwardReachability(vertices[3]);
 		Map<String, OsateSlicerVertex> m = g.vertexSet() // Can't query the set directly, so derive a map
 				.stream()
 				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
 
-		assertEquals("Number of vertices in forward reach", 4, g.vertexSet().size());
+		assertEquals("Number of vertices in forward reach", 7, g.vertexSet().size());
 		assertTrue("Wrong vertices found in forward reach subgraph",
 				m.keySet().containsAll(Arrays.asList(vertices).subList(0, 4)));
 
-		// Should have three edges connecting the vertices in a linear path
-		assertEquals("Number of edges in forward reach", 3, g.edgeSet().size());
+		assertEquals("Number of edges in forward reach", 6, g.edgeSet().size());
 		for (int i = 0; i < 3; i++) {
+			assertTrue("Edge " + vertices[i] + " -> " + vertices[i + 1] + " doesn't exist!",
+					g.containsEdge(m.get(vertices[i]), m.get(vertices[i + 1])));
+		}
+		assertTrue(
+				"Edge sys_impl_Instance.b.i1.ItemTimingError -> sys_impl_Instance.b.o3.ItemValueError doesn't exist!",
+				g.containsEdge(m.get("sys_impl_Instance.b.i1.ItemTimingError"),
+						m.get("sys_impl_Instance.b.o3.ItemValueError")));
+		for (int i = 4; i < 6; i++) {
 			assertTrue("Edge " + vertices[i] + " -> " + vertices[i + 1] + " doesn't exist!",
 					g.containsEdge(m.get(vertices[i]), m.get(vertices[i + 1])));
 		}
@@ -134,9 +151,12 @@ public class BasicErrorTransformFlowTests {
 		var component = SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si);
 		var feature = SlicerTestUtil.getFeatureInstance(component, "o3");
 		var annexInstance = (EMV2AnnexInstance) component.getAnnexInstances().get(0);
-		var token = (TypeTokenInstance) annexInstance.getPropagations().get(1).getOutTypeSet().getElements().get(0);
+		var token = (TypeTokenInstance) ((ErrorPathInstance) annexInstance.getErrorFlows().get(0))
+				.getDestinationTypeSet()
+				.getElements()
+				.get(0);
 		var reachableComponents = tlg.backwardReach(feature, token);
-		assertEquals("Number of elements in backward reach", 4, reachableComponents.size());
+		assertEquals("Number of elements in backward reach", 7, reachableComponents.size());
 		// TODO: Probably should test the elements contained here. Use Joe's JUnit 5 code?
 	}
 

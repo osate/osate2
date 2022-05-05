@@ -25,10 +25,10 @@ package org.osate.slicer;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 
@@ -50,11 +50,17 @@ public class OsateSlicerVertex {
 	 */
 	final private String name;
 
+//	/**
+//	 * The error(s) associated with this vertex. Combined with the name, should be globally unique, ie, a primary key.
+//	 * If null, that means no errors are associated with the vertex.
+//	 */
+//	final private AnonymousTypeSet errorATS;
+
 	/**
 	 * The error(s) associated with this vertex. Combined with the name, should be globally unique, ie, a primary key.
 	 * If null, that means no errors are associated with the vertex.
 	 */
-	final private AnonymousTypeSet errorATS;
+	final private TypeTokenInstance token;
 
 	/**
 	 * The feature the vertex represents. If null, {@link #efi} must be set
@@ -72,7 +78,7 @@ public class OsateSlicerVertex {
 	 */
 	public OsateSlicerVertex(FeatureInstance feat) {
 		this.name = feat.getInstanceObjectPath();
-		this.errorATS = null;
+		this.token = null;
 		this.feat = feat;
 		this.efi = null;
 	}
@@ -80,11 +86,11 @@ public class OsateSlicerVertex {
 	/**
 	 * Create a new vertex with the supplied feature and error type information
 	 * @param feat The feature the vertex represents
-	 * @param errorATS The error(s) the vertex represents
+	 * @param token The error(s) the vertex represents
 	 */
-	public OsateSlicerVertex(FeatureInstance feat, AnonymousTypeSet errorATS) {
+	public OsateSlicerVertex(FeatureInstance feat, TypeTokenInstance token) {
 		this.name = feat.getInstanceObjectPath();
-		this.errorATS = errorATS;
+		this.token = token;
 		this.feat = feat;
 		this.efi = null;
 	}
@@ -94,13 +100,13 @@ public class OsateSlicerVertex {
 	 * @param efi The error source or sink the vertex represents
 	 * @param errorATS The error(s) the vertex represents
 	 */
-	public OsateSlicerVertex(ErrorFlowInstance efi, AnonymousTypeSet errorATS) {
+	public OsateSlicerVertex(ErrorFlowInstance efi, TypeTokenInstance token) {
 		if (!(efi instanceof ErrorSourceInstance || efi instanceof ErrorSinkInstance)) {
 			System.err.println("OsateSlicerVertex created with non-source/sink Error Flow Instance! "
 					+ efi.getInstanceObjectPath());
 		}
 		this.name = efi.getInstanceObjectPath().replace(".EMV2", "");
-		this.errorATS = errorATS;
+		this.token = token;
 		this.feat = null;
 		this.efi = efi;
 	}
@@ -125,15 +131,15 @@ public class OsateSlicerVertex {
 	}
 
 	public String getName() {
-		if (errorATS != null) {
-			return name + "." + errorATS.getFullName();
+		if (token != null) {
+			return name + "." + token.getFullName();
 		} else {
 			return name;
 		}
 	}
 
-	public AnonymousTypeSet getErrorATS() {
-		return errorATS;
+	public TypeTokenInstance getErrorToken() {
+		return token;
 	}
 
 	public InstanceObject getFeatOrErrorFlow() {
