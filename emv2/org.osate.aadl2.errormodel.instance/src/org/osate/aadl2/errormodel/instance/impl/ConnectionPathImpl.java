@@ -36,7 +36,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
@@ -184,7 +183,7 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated NOT
 	 */
 	@Override
-	public ErrorPropagationInstance getSourcePropagation() {
+	public ConnectionEndPropagation getSourcePropagation() {
 		return getSourcePropagations().get(0);
 	}
 
@@ -194,7 +193,7 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 * @generated NOT
 	 */
 	@Override
-	public ErrorPropagationInstance getDestinationPropagation() {
+	public ConnectionEndPropagation getDestinationPropagation() {
 		return getDestinationPropagations().get(0);
 	}
 

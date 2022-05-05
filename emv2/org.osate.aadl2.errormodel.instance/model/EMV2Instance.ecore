@@ -208,8 +208,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="PropagationPathInstance" abstract="true"
       interface="true" eSuperTypes="#//EMV2InstanceObject"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionPath" eSuperTypes="#//PropagationPathInstance">
-    <eOperations name="getSourcePropagation" eType="#//ErrorPropagationInstance"/>
-    <eOperations name="getDestinationPropagation" eType="#//ErrorPropagationInstance"/>
+    <eOperations name="getSourcePropagation" eType="#//ConnectionEndPropagation"/>
+    <eOperations name="getDestinationPropagation" eType="#//ConnectionEndPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePropagations" upperBound="-1"
         eType="#//ConnectionEndPropagation" resolveProxies="false" eOpposite="#//ConnectionEndPropagation/sourceConnectionPaths"/>

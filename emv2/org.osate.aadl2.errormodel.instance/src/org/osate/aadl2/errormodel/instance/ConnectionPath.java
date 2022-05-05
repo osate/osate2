@@ -101,7 +101,7 @@ public interface ConnectionPath extends PropagationPathInstance {
 	 * @model kind="operation"
 	 * @generated
 	 */
-	ErrorPropagationInstance getSourcePropagation();
+	ConnectionEndPropagation getSourcePropagation();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -109,6 +109,6 @@ public interface ConnectionPath extends PropagationPathInstance {
 	 * @model kind="operation"
 	 * @generated
 	 */
-	ErrorPropagationInstance getDestinationPropagation();
+	ConnectionEndPropagation getDestinationPropagation();
 
 } // ConnectionPath
