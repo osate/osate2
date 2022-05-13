@@ -192,9 +192,11 @@
             <topic href="api-docs/javadoc/org/osate/ge/gef/ui/editor/package-summary.html" label="org.osate.ge.gef.ui.editor"/>
             <topic href="api-docs/javadoc/org/osate/ge/gef/ui/editor/overlays/package-summary.html" label="org.osate.ge.gef.ui.editor.overlays"/>
             <topic href="api-docs/javadoc/org/osate/ge/gef/ui/services/package-summary.html" label="org.osate.ge.gef.ui.services"/>
+            <topic href="api-docs/javadoc/org/osate/ge/gef/ui/transientviews/package-summary.html" label="org.osate.ge.gef.ui.transientviews"/>
             <topic href="api-docs/javadoc/org/osate/ge/graphics/package-summary.html" label="org.osate.ge.graphics"/>
             <topic href="api-docs/javadoc/org/osate/ge/graphics/internal/package-summary.html" label="org.osate.ge.graphics.internal"/>
             <topic href="api-docs/javadoc/org/osate/ge/internal/package-summary.html" label="org.osate.ge.internal"/>
+            <topic href="api-docs/javadoc/org/osate/ge/internal/businessobjecthandlers/package-summary.html" label="org.osate.ge.internal.businessobjecthandlers"/>
             <topic href="api-docs/javadoc/org/osate/ge/internal/diagram/runtime/package-summary.html" label="org.osate.ge.internal.diagram.runtime"/>
             <topic href="api-docs/javadoc/org/osate/ge/internal/diagram/runtime/layout/package-summary.html" label="org.osate.ge.internal.diagram.runtime.layout"/>
             <topic href="api-docs/javadoc/org/osate/ge/internal/diagram/runtime/styling/package-summary.html" label="org.osate.ge.internal.diagram.runtime.styling"/>
