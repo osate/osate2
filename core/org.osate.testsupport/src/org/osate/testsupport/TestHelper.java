@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -40,6 +42,7 @@ import org.eclipse.xtext.service.OperationCanceledError;
 import org.eclipse.xtext.testing.util.ParseHelper;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.Issue;
+import org.osgi.framework.Bundle;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -139,6 +142,28 @@ public class TestHelper<T extends EObject> {
 	}
 
 	/**
+	 * Parse a set of files into the test resource set.
+	 * They can be of any extension supported by the InjectorProvider injected into the JUnit test class
+	 * The first file is assumed to have a root object of type T
+	 *
+	 * @param bundle the bundle/project where file exists
+	 * @param entry  the main file to parse
+	 * @param referenced other files that may be referenced by the main file
+	 * @return the root object of the main file
+	 * @since 3.1
+	 */
+	public T parseBundleFile(String bundle, String entry, String... referencedPaths) {
+		ResourceSet rs = rsHelper.getResourceSet();
+		Resource res = loadBundleFile(bundle, entry, rs);
+		if (res != null) {
+			@SuppressWarnings("unchecked")
+			final T root = (T) (res.getContents().isEmpty() ? null : res.getContents().get(0));
+			return root;
+		}
+		return null;
+	}
+
+	/**
 	 * load file as Xtext resource into resource set
 	 * @param filePath String
 	 * @param rs ResourceSet
@@ -171,4 +196,50 @@ public class TestHelper<T extends EObject> {
 		}
 	}
 
+	/**
+	 * load file as Xtext resource into resource set
+	 * @param bundlePath String
+	 * @param entry String
+	 * @param rs ResourceSet
+	 * @return
+	 * @since 3.1
+	 */
+	public Resource loadBundleFile(String bundlePath, String entry, ResourceSet rs) {
+		try {
+			Bundle bundle = Platform.getBundle(bundlePath);
+			URL fileURL = bundle.getEntry(entry);
+			URL resolvedFileURL = FileLocator.toFileURL(fileURL);
+
+			// We need to use the 3-arg constructor of URI in order to properly escape file system chars
+			java.net.URI resolvedURI = new java.net.URI(resolvedFileURL.getProtocol(), resolvedFileURL.getPath(), null);
+			File file = new File(resolvedURI);
+
+			String filePath = bundlePath + "/" + entry;
+			String fullPath = file.getPath();
+
+			// test if capitalization in filePath matches capitalization in file system
+			// necessary to assure tests don't fail on Linux while working on MacOS and Windows
+			String path = new File(filePath).toPath().toString();
+			// https://bugs.openjdk.java.net/browse/JDK-8069337
+			// can't use java.nio.file.LinkOption.NOFOLLOW_LINKS as arg to toRealPath()
+			String real = new File(fullPath).toPath().toRealPath().toString();
+			if (!real.endsWith(path)) {
+				return null;
+			}
+
+			// This way of constructing the URL works in JUnit plug-in and standalone tests
+			URL url = new URL("file:" + fullPath);
+			InputStream stream = url.openConnection().getInputStream();
+			Resource res = rs.createResource(URI.createURI(filePath));
+			if (res != null) {
+				res.load(stream, Collections.EMPTY_MAP);
+			}
+			return res;
+		} catch (IOException e) {
+			return null;
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
 }
