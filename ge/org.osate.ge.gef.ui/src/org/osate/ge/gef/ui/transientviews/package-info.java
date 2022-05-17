@@ -21,43 +21,8 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.businessobjecthandling;
-
-import java.util.Objects;
-import java.util.Optional;
-
 /**
- * Contains contextual information for determining the applicability of a business object handler.
- *
- * @since 2.0
- * @noextend This class is not intended to be subclassed by clients.
- */
-public class IsApplicableContext {
-	private final Object bo;
-
-	/**
-	 * Creates a new instance.
-	 * @param bo is the business object for which to check whether the business object handler is applicable.
-	 */
-	public IsApplicableContext(final Object bo) {
-		this.bo = Objects.requireNonNull(bo, "bo must not be null");
-	}
-
-	/**
-	 * Retrieves the business object for which the business object handler is being checked for applicability if the business object is an instance
-	 * of the specified class.
-	 * @param <T> is the requested type.
-	 * @param boType is the class to which to cast the business object.
-	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
-	 * an instance the specified class.
-	 *
-	 * @since 2.0
-	 */
-	public <T> Optional<T> getBusinessObject(final Class<T> boType) {
-		if (!boType.isInstance(bo)) {
-			return Optional.empty();
-		}
-
-		return Optional.of(boType.cast(bo));
-	}
-}
+ * Package containing the transient view API. This API allows plugins to produce JavaFX nodes for a non-persistent diagram
+ * from a tree of business objects.
+ **/
+package org.osate.ge.gef.ui.transientviews;

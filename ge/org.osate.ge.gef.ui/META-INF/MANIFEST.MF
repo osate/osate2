@@ -30,7 +30,8 @@ Export-Package: org.osate.ge.gef.ui;x-internal:=true,
  org.osate.ge.gef.ui.diagram;x-friends:="org.osate.ge.tests",
  org.osate.ge.gef.ui.editor;x-friends:="org.osate.ge.tests",
  org.osate.ge.gef.ui.editor.overlays;x-internal:=true,
- org.osate.ge.gef.ui.services;x-internal:=true
+ org.osate.ge.gef.ui.services;x-internal:=true,
+ org.osate.ge.gef.ui.transientviews
 Bundle-Vendor: The University of Alabama in Huntsville
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.osate.ge.gef.ui.AgeGefUiPlugin

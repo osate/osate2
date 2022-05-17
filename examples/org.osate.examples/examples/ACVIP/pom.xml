@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,24 +30,31 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 	<parent>
 		<groupId>org.osate</groupId>
-		<artifactId>examples.parent</artifactId>
+		<artifactId>examples</artifactId>
 		<version>2.11.0-SNAPSHOT</version>
-		<relativePath>../..</relativePath>
-	</parent>	
+	</parent>
 
 	<groupId>org.osate</groupId>
-	<artifactId>examples</artifactId>
+	<artifactId>ACVIP</artifactId>
 	<packaging>pom</packaging>
-
-	<modules>
-		<module>ACVIP</module>
-		<module>ACVIP_ALISA</module>	
-		<module>arp4761</module>
-		<module>continuous-safety-risk-evaluation</module>
-		<module>resource-budget</module>
-		<module>safety-tutorial</module>
-		<module>speed-regulation</module>
-		<module>stepper-motor</module>
-	</modules>
-
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.ruleoftech</groupId>
+				<artifactId>markdown-page-generator-plugin</artifactId>
+				<version>2.1.0</version>
+				<configuration>
+					<inputDirectory>${project.basedir}/doc/markdown</inputDirectory>
+					<outputDirectory>${project.basedir}/doc/html</outputDirectory>
+					<copyDirectories>images,css</copyDirectories>
+					<attributes>
+						<attribute>BlockQuote|style="font-size:90%"</attribute>
+					</attributes>
+					<pegdownExtensions>EXTANCHORLINKS,TOC</pegdownExtensions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>
