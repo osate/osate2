@@ -2357,6 +2357,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		int indentationLevel,
 		IFormattableDocument document
 	) {
+		println("FORMATTING CHECK: formatAnnexText()")
 		if (annexObject !== null && sourceTextRegion !== null) {
 			try {
 				unsafeFormatAnnexText(annexObject, annexName, sourceTextRegion, indentationLevel, document)
@@ -2375,6 +2376,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		int indentationLevel,
 		IFormattableDocument document
 	) {
+		println("FORMATTING CHECK: unsafeFormatAnnexText()")
 		if (textRegionAccess instanceof NodeModelBasedRegionAccess) {
 			val annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(annexObject).parseResult
 			if (annexParseResult !== null) {
@@ -2434,6 +2436,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		int indentationLevel,
 		IFormattableDocument document
 	) {
+		println("FORMATTING CHECK: invokeAnnexFormatter")
 		val replacements = annexFormatter.format(request)
 		val formatted = request.textRegionAccess.rewriter.renderToString(replacements)
 		
