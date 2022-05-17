@@ -2400,7 +2400,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			val annexInjector = AnnexUtil.getInjector(annexName)
 			val annexFormatter = annexInjector?.getInstance(IFormatter2)
 			if (annexFormatter !== null) {
-				try {
+//				try {
 					// Create resource and populate it with the library or subclause.
 					setupAnnexResource(annexInjector, annexObject)
 					
@@ -2411,9 +2411,9 @@ class Aadl2Formatter extends PropertiesFormatter {
 					
 					// Format the annex text.
 					invokeAnnexFormatter(annexFormatter, request, sourceTextRegion, indentationLevel, document)
-				} catch (NullPointerException e) {
-					// ignore
-				}
+//				} catch (NullPointerException e) {
+//					// ignore
+//				}
 			}
 		}
 	}
