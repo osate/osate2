@@ -2384,6 +2384,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			if (annexParseResult !== null) {
 				// Get the injector for the annex.
 				val annexInjector = AnnexUtil.getInjector(annexParseResult)
+				println("FORMATTING CHECK:   annexInjector = " + annexInjector)
 				val annexFormatter = annexInjector?.getInstance(IFormatter2)
 				println("FORMATTING CHECK:   annexFormatter = " + annexFormatter)
 				if (annexFormatter !== null) {

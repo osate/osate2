@@ -65,7 +65,6 @@ public class AnnexParseUtil {
 			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
 			ParseResultHolder parseResultHolder = ParseResultHolder.Factory.INSTANCE
 					.adapt(parseResult.getRootASTElement());
-			System.out.println("FORMATTING CHECK: Setting the parse result = " + parseResult);
 			parseResultHolder.setParseResult(parseResult);
 
 			if (parseResult.getRootASTElement() != null) {
