@@ -2377,12 +2377,15 @@ class Aadl2Formatter extends PropertiesFormatter {
 		IFormattableDocument document
 	) {
 		println("FORMATTING CHECK: unsafeFormatAnnexText()")
+		println("FORMATTING CHECK:   textRegionAccess = " + textRegionAccess)
 		if (textRegionAccess instanceof NodeModelBasedRegionAccess) {
 			val annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(annexObject).parseResult
+			println("FORMATTING CHECK:   annexParseResult = " + annexParseResult)
 			if (annexParseResult !== null) {
 				// Get the injector for the annex.
 				val annexInjector = AnnexUtil.getInjector(annexParseResult)
 				val annexFormatter = annexInjector?.getInstance(IFormatter2)
+				println("FORMATTING CHECK:   annexFormatter = " + annexFormatter)
 				if (annexFormatter !== null) {
 					// Create resource and populate it with the library or subclause and the parse result.
 					val fakeResource = setupAnnexResource(annexInjector, annexObject)
@@ -2401,6 +2404,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			// Get the injector for the annex.
 			val annexInjector = AnnexUtil.getInjector(annexName)
 			val annexFormatter = annexInjector?.getInstance(IFormatter2)
+			println("FORMATTING CHECK:   annexFormatter = " + annexFormatter)
 			if (annexFormatter !== null) {
 				try {
 					// Create resource and populate it with the library or subclause.
