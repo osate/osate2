@@ -84,7 +84,6 @@ class ErrorModelFormatter extends PropertiesFormatter {
 
 	// Grammar rules: ErrorModelSubclause and EMV2Subclause
 	def dispatch void format(ErrorModelSubclause errorModelSubclause, extension IFormattableDocument document) {
-		println("FORMATTING CHECK: ErrorModelFormatter.format(ErrorModelSubclause)")
 		if (errorModelSubclause.regionForEObject === null) {
 			return
 		}
@@ -461,7 +460,6 @@ class ErrorModelFormatter extends PropertiesFormatter {
 	
 	// Grammar rules: ErrorModelLibrary and EMV2Library
 	def dispatch void format(ErrorModelLibrary errorModelLibrary, extension IFormattableDocument document) {
-		println("FORMATTING CHECK: ErrorModelFormatter.format(ErrorModelLibrary)")
 		if (errorModelLibrary.regionForEObject === null) {
 			return
 		}

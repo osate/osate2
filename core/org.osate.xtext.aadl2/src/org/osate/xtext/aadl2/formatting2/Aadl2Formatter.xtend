@@ -2357,7 +2357,6 @@ class Aadl2Formatter extends PropertiesFormatter {
 		int indentationLevel,
 		IFormattableDocument document
 	) {
-		println("FORMATTING CHECK: formatAnnexText()")
 		if (annexObject !== null && sourceTextRegion !== null) {
 			try {
 				unsafeFormatAnnexText(annexObject, annexName, sourceTextRegion, indentationLevel, document)
@@ -2376,17 +2375,12 @@ class Aadl2Formatter extends PropertiesFormatter {
 		int indentationLevel,
 		IFormattableDocument document
 	) {
-		println("FORMATTING CHECK: unsafeFormatAnnexText()")
-		println("FORMATTING CHECK:   textRegionAccess = " + textRegionAccess.class)
 		if (textRegionAccess instanceof NodeModelBasedRegionAccess) {
 			val annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(annexObject).parseResult
-			println("FORMATTING CHECK:   annexParseResult = " + annexParseResult)
 			if (annexParseResult !== null) {
 				// Get the injector for the annex.
 				val annexInjector = AnnexUtil.getInjector(annexParseResult)
-				println("FORMATTING CHECK:   annexInjector = " + annexInjector)
 				val annexFormatter = annexInjector?.getInstance(IFormatter2)
-				println("FORMATTING CHECK:   annexFormatter = " + annexFormatter)
 				if (annexFormatter !== null) {
 					// Create resource and populate it with the library or subclause and the parse result.
 					val fakeResource = setupAnnexResource(annexInjector, annexObject)
@@ -2405,7 +2399,6 @@ class Aadl2Formatter extends PropertiesFormatter {
 			// Get the injector for the annex.
 			val annexInjector = AnnexUtil.getInjector(annexName)
 			val annexFormatter = annexInjector?.getInstance(IFormatter2)
-			println("FORMATTING CHECK:   annexFormatter = " + annexFormatter)
 			if (annexFormatter !== null) {
 				try {
 					// Create resource and populate it with the library or subclause.
@@ -2441,7 +2434,6 @@ class Aadl2Formatter extends PropertiesFormatter {
 		int indentationLevel,
 		IFormattableDocument document
 	) {
-		println("FORMATTING CHECK: invokeAnnexFormatter")
 		val replacements = annexFormatter.format(request)
 		val formatted = request.textRegionAccess.rewriter.renderToString(replacements)
 		
