@@ -1162,6 +1162,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					if (((FeaturePropagation) epi).getFeature() == cie) {
 						return epi;
 					}
+				} else if (epi instanceof AccessPropagation) {
+					if (getContainerOfType(epi, ComponentInstance.class) == cie) {
+						return epi;
+					}
 				} else if (epi instanceof PointPropagation) {
 					if (((PointPropagation) epi).getPoint() == cie) {
 						return epi;
