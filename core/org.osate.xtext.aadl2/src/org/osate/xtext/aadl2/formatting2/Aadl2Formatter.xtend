@@ -2377,7 +2377,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		IFormattableDocument document
 	) {
 		println("FORMATTING CHECK: unsafeFormatAnnexText()")
-		println("FORMATTING CHECK:   textRegionAccess = " + textRegionAccess)
+		println("FORMATTING CHECK:   textRegionAccess = " + textRegionAccess.class)
 		if (textRegionAccess instanceof NodeModelBasedRegionAccess) {
 			val annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(annexObject).parseResult
 			println("FORMATTING CHECK:   annexParseResult = " + annexParseResult)
