@@ -1084,14 +1084,16 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				 */
 				if (errorModelElement instanceof ErrorEvent) {
 					EventInstance evi = findEventInstance(referencedAnnex, (ErrorEvent) errorModelElement);
-					cio.setInstanceObject(evi);
-					cio.setName(evi.getName());
-					TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
-							: ((ErrorEvent) errorModelElement).getTypeSet();
-					if (ts != null) {
-						cio.getConstraint().addAll(ts.getTypeTokens());
+					if (evi != null) {
+						cio.setInstanceObject(evi);
+						cio.setName(evi.getName());
+						TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
+								: ((ErrorEvent) errorModelElement).getTypeSet();
+						if (ts != null) {
+							cio.getConstraint().addAll(ts.getTypeTokens());
+						}
+						return cio;
 					}
-					return cio;
 				}
 
 				/**
