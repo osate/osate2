@@ -745,6 +745,20 @@ public class BindingPathsTest {
 	}
 
 	@Test
+	public void testMissingThreadPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "missing_thread_propagation.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+	}
+
+	@Test
+	public void testMissingProcessorPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "missing_processor_propagation.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+	}
+
+	@Test
 	public void testDataToMemory() throws Exception {
 		var pkg = testHelper.parseFile(PATH + "data_to_memory.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
@@ -1658,6 +1672,20 @@ public class BindingPathsTest {
 	}
 
 	@Test
+	public void testMissingDataPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "missing_data_propagation.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+	}
+
+	@Test
+	public void testMissingMemoryPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "missing_memory_propagation.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+	}
+
+	@Test
 	public void testVirtualBusToBus() throws Exception {
 		var pkg = testHelper.parseFile(PATH + "virtual_bus_to_bus.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
@@ -2432,5 +2460,19 @@ public class BindingPathsTest {
 				});
 			});
 		});
+	}
+
+	@Test
+	public void testMissingVirtualBusPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "missing_virtual_bus_propagation.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+	}
+
+	@Test
+	public void testMissingBusPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "missing_bus_propagation.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
 	}
 }

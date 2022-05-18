@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Function;
@@ -310,10 +311,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		commonProcessorBindings.forEach((key, sources) -> {
 			var sourcePropagations = sources.stream()
 					.map(source -> findBindingPropagation(source, BindingType.PROCESSOR))
+					.filter(Objects::nonNull)
 					.toList();
 			var targetPropagations = key.bindingTargets()
 					.stream()
 					.map(target -> findBindingPropagation(target, BindingType.BINDINGS))
+					.filter(Objects::nonNull)
 					.toList();
 			instantiateBindingPath(sourcePropagations, targetPropagations, BindingType.PROCESSOR);
 			instantiateBindingPath(targetPropagations, sourcePropagations, BindingType.PROCESSOR);
@@ -321,10 +324,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		commonMemoryBindings.forEach((key, sources) -> {
 			var sourcePropagations = sources.stream()
 					.map(source -> findBindingPropagation(source, BindingType.MEMORY))
+					.filter(Objects::nonNull)
 					.toList();
 			var targetPropagations = key.bindingTargets()
 					.stream()
 					.map(target -> findBindingPropagation(target, BindingType.BINDINGS))
+					.filter(Objects::nonNull)
 					.toList();
 			instantiateBindingPath(sourcePropagations, targetPropagations, BindingType.MEMORY);
 			instantiateBindingPath(targetPropagations, sourcePropagations, BindingType.MEMORY);
@@ -332,6 +337,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		commonConnectionBindings.forEach((key, sources) -> {
 			var sourcePropagations = sources.stream()
 					.map(source -> findBindingPropagation(source, BindingType.CONNECTION))
+					.filter(Objects::nonNull)
 					.toList();
 			var targets = key.bindingTargets();
 			var firstTargetPropagation = findBindingPropagation(targets.get(0), BindingType.BINDINGS);
