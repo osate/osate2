@@ -1046,7 +1046,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					cio.setInstanceObject(si);
 					cio.setName(si.getName());
 					if (referencedErrorType != null) {
-						cio.getConstraint().addAll(referencedErrorType.getTypeTokens());
+						cio.getConstraint().addAll(EcoreUtil.copyAll(referencedErrorType.getTypeTokens()));
 					}
 					return cio;
 				} else if (sconditionElement.getQualifiedErrorPropagationReference() != null) {
@@ -1058,7 +1058,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					TypeSet referencedErrorType = (sconditionElement.getConstraint() != null)
 							? sconditionElement.getConstraint()
 							: ep.getTypeSet();
-					ConstrainedInstanceObject cio = createErrorPropagationCIO(ep, referencedErrorType,
+					ConstrainedInstanceObject cio = createErrorPropagationCIO(ep, EcoreUtil.copy(referencedErrorType),
 							findEMV2AnnexInstance(referencedComponent));
 					return cio;
 				}
@@ -1090,7 +1090,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
 								: ((ErrorEvent) errorModelElement).getTypeSet();
 						if (ts != null) {
-							cio.getConstraint().addAll(ts.getTypeTokens());
+							cio.getConstraint().addAll(EcoreUtil.copyAll(ts.getTypeTokens()));
 						}
 						return cio;
 					}
