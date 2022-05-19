@@ -28,7 +28,7 @@ pipeline {
     }
     stage('Build Products') {
       when {
-        branch 'master'
+        expression { env.GIT_BRANCH == 'origin/master' }
       }
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
@@ -45,7 +45,7 @@ pipeline {
     }
     stage('Deploy') {
       when {
-        branch 'master'
+        expression { env.GIT_BRANCH == 'origin/master' }
       }
       steps {
         sh 'bash ./deploy.sh'

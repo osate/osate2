@@ -1,0 +1,27 @@
+package missing_memory_propagation
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			m: memory m;
+			d: data d;
+		properties
+			Actual_Memory_Binding => (reference (m)) applies to d;
+	end s.i;
+	
+	memory m
+	end m;
+	
+	data d
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end d;
+end missing_memory_propagation;

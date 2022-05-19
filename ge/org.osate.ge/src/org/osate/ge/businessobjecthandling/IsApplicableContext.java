@@ -38,7 +38,6 @@ public class IsApplicableContext {
 	/**
 	 * Creates a new instance.
 	 * @param bo is the business object for which to check whether the business object handler is applicable.
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public IsApplicableContext(final Object bo) {
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");

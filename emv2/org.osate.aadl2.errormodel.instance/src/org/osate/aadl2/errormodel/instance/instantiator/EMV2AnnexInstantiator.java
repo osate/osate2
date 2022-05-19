@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Function;
@@ -89,6 +90,7 @@ import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.annexsupport.AnnexInstantiator;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
@@ -132,6 +134,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	@Override
 	public void instantiateAnnex(ComponentInstance instance, String annexName,
 			AnalysisErrorReporterManager errorManager) {
+		var soms = getContainerOfType(instance, SystemInstance.class).getSystemOperationModes();
+		if (soms.size() > 1 || soms.size() == 1 && !InstanceUtil.isNoMode(soms.get(0))) {
+			// TODO Remove this after we figure out how to deal with modes.
+			return;
+		}
+
 		EMV2AnnexInstance emv2AI = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
 		emv2AI.setName("EMV2");
 		instance.getAnnexInstances().add(emv2AI);
@@ -144,10 +152,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var eps = EMV2Util.getAllErrorPropagations(instance.getComponentClassifier());
 		instantiateErrorPropagations(eps, emv2AI);
 
-		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
-		for (ErrorBehaviorEvent ev : events) {
-			instantiateEvent(ev, emv2AI);
-		}
+//		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
+//		for (ErrorBehaviorEvent ev : events) {
+//			instantiateEvent(ev, emv2AI);
+//		}
 
 		for (var source : EMV2Util.getAllErrorSources(instance)) {
 			instantiateErrorSource(source, emv2AI);
@@ -161,55 +169,60 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiateErrorPath(path, emv2AI);
 		}
 
-		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
-		if (ebsm != null) {
-			instantiateStateMachine(ebsm, emv2AI);
-		}
-
-		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
-		for (ErrorBehaviorTransition tr : transitions) {
-			instantiateStateTransition(tr, emv2AI);
-		}
-
-		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
-		for (CompositeState cs : compstates) {
-			instantiateCompositeState(cs, emv2AI);
-		}
-
-		Collection<OutgoingPropagationCondition> OPCs = EMV2Util.getAllOutgoingPropagationConditions(instance);
-		for (OutgoingPropagationCondition opc : OPCs) {
-			instantiateOutgoingPropagationCondition(opc, emv2AI);
-		}
-
-		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getComponentClassifier());
-		for (ErrorDetection ed : eds) {
-			instantiateErrorDetection(ed, emv2AI);
-		}
-
-		Collection<ConnectionInstance> connis = instance.getConnectionInstances();
-		for (ConnectionInstance conni : connis) {
-			instantiateConnectionPropagationPaths(conni, emv2AI);
-		}
+//		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
+//		if (ebsm != null) {
+//			instantiateStateMachine(ebsm, emv2AI);
+//		}
+//
+//		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
+//		for (ErrorBehaviorTransition tr : transitions) {
+//			instantiateStateTransition(tr, emv2AI);
+//		}
+//
+//		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
+//		for (CompositeState cs : compstates) {
+//			instantiateCompositeState(cs, emv2AI);
+//		}
+//
+//		Collection<OutgoingPropagationCondition> OPCs = EMV2Util.getAllOutgoingPropagationConditions(instance);
+//		for (OutgoingPropagationCondition opc : OPCs) {
+//			instantiateOutgoingPropagationCondition(opc, emv2AI);
+//		}
+//
+//		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getComponentClassifier());
+//		for (ErrorDetection ed : eds) {
+//			instantiateErrorDetection(ed, emv2AI);
+//		}
+//
+//		Collection<ConnectionInstance> connis = instance.getConnectionInstances();
+//		for (ConnectionInstance conni : connis) {
+//			instantiateConnectionPropagationPaths(conni, emv2AI);
+//		}
 
 		Collection<PropagationPath> ppaths = EMV2Util.getAllPropagationPaths(instance.getComponentClassifier());
 		for (PropagationPath ppath : ppaths) {
 			instantiateUserDefinedPath(ppath, emv2AI, instance);
 		}
 
-		// for bindings we need to first process all components EMV2 instantiations since the binding property instance
-		// is attached to the component being bound and points to the resource.
-		// During the depth first traversal the resource component may not have its EMV2 instantiated yet, thus, we cannot create the binding propagation path
-		// instance.
-
-		if (instance instanceof SystemInstance) {
-			for (ComponentInstance ci : EcoreUtil2.eAllOfType(instance, ComponentInstance.class)) {
-				instantiateBindingPaths(ci, emv2AI);
-			}
-		}
+//		// for bindings we need to first process all components EMV2 instantiations since the binding property instance
+//		// is attached to the component being bound and points to the resource.
+//		// During the depth first traversal the resource component may not have its EMV2 instantiated yet, thus, we cannot create the binding propagation path
+//		// instance.
+//
+//		if (instance instanceof SystemInstance) {
+//			for (ComponentInstance ci : EcoreUtil2.eAllOfType(instance, ComponentInstance.class)) {
+//				instantiateBindingPaths(ci, emv2AI);
+//			}
+//		}
 	}
 
 	@Override
 	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
+		var soms = instance.getSystemOperationModes();
+		if (soms.size() > 1 || soms.size() == 1 && !InstanceUtil.isNoMode(soms.get(0))) {
+			// TODO Remove this after we figure out how to deal with modes.
+			return;
+		}
 		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(component -> {
 			component.getConnectionInstances().forEach(connection -> instantiateConnectionPath(connection, component));
 		});
@@ -310,10 +323,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		commonProcessorBindings.forEach((key, sources) -> {
 			var sourcePropagations = sources.stream()
 					.map(source -> findBindingPropagation(source, BindingType.PROCESSOR))
+					.filter(Objects::nonNull)
 					.toList();
 			var targetPropagations = key.bindingTargets()
 					.stream()
 					.map(target -> findBindingPropagation(target, BindingType.BINDINGS))
+					.filter(Objects::nonNull)
 					.toList();
 			instantiateBindingPath(sourcePropagations, targetPropagations, BindingType.PROCESSOR);
 			instantiateBindingPath(targetPropagations, sourcePropagations, BindingType.PROCESSOR);
@@ -321,10 +336,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		commonMemoryBindings.forEach((key, sources) -> {
 			var sourcePropagations = sources.stream()
 					.map(source -> findBindingPropagation(source, BindingType.MEMORY))
+					.filter(Objects::nonNull)
 					.toList();
 			var targetPropagations = key.bindingTargets()
 					.stream()
 					.map(target -> findBindingPropagation(target, BindingType.BINDINGS))
+					.filter(Objects::nonNull)
 					.toList();
 			instantiateBindingPath(sourcePropagations, targetPropagations, BindingType.MEMORY);
 			instantiateBindingPath(targetPropagations, sourcePropagations, BindingType.MEMORY);
@@ -332,6 +349,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		commonConnectionBindings.forEach((key, sources) -> {
 			var sourcePropagations = sources.stream()
 					.map(source -> findBindingPropagation(source, BindingType.CONNECTION))
+					.filter(Objects::nonNull)
 					.toList();
 			var targets = key.bindingTargets();
 			var firstTargetPropagation = findBindingPropagation(targets.get(0), BindingType.BINDINGS);
@@ -1040,7 +1058,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					cio.setInstanceObject(si);
 					cio.setName(si.getName());
 					if (referencedErrorType != null) {
-						cio.getConstraint().addAll(referencedErrorType.getTypeTokens());
+						cio.getConstraint().addAll(EcoreUtil.copyAll(referencedErrorType.getTypeTokens()));
 					}
 					return cio;
 				} else if (sconditionElement.getQualifiedErrorPropagationReference() != null) {
@@ -1052,7 +1070,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					TypeSet referencedErrorType = (sconditionElement.getConstraint() != null)
 							? sconditionElement.getConstraint()
 							: ep.getTypeSet();
-					ConstrainedInstanceObject cio = createErrorPropagationCIO(ep, referencedErrorType,
+					ConstrainedInstanceObject cio = createErrorPropagationCIO(ep, EcoreUtil.copy(referencedErrorType),
 							findEMV2AnnexInstance(referencedComponent));
 					return cio;
 				}
@@ -1078,14 +1096,16 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				 */
 				if (errorModelElement instanceof ErrorEvent) {
 					EventInstance evi = findEventInstance(referencedAnnex, (ErrorEvent) errorModelElement);
-					cio.setInstanceObject(evi);
-					cio.setName(evi.getName());
-					TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
-							: ((ErrorEvent) errorModelElement).getTypeSet();
-					if (ts != null) {
-						cio.getConstraint().addAll(ts.getTypeTokens());
+					if (evi != null) {
+						cio.setInstanceObject(evi);
+						cio.setName(evi.getName());
+						TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
+								: ((ErrorEvent) errorModelElement).getTypeSet();
+						if (ts != null) {
+							cio.getConstraint().addAll(EcoreUtil.copyAll(ts.getTypeTokens()));
+						}
+						return cio;
 					}
-					return cio;
 				}
 
 				/**
@@ -1160,6 +1180,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			if (outgoing ? epi.getDirection().outgoing() : epi.getDirection().incoming()) {
 				if (epi instanceof FeaturePropagation) {
 					if (((FeaturePropagation) epi).getFeature() == cie) {
+						return epi;
+					}
+				} else if (epi instanceof AccessPropagation) {
+					if (getContainerOfType(epi, ComponentInstance.class) == cie) {
 						return epi;
 					}
 				} else if (epi instanceof PointPropagation) {
