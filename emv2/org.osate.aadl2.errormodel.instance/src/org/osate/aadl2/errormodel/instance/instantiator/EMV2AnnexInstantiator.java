@@ -90,6 +90,7 @@ import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.annexsupport.AnnexInstantiator;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
@@ -133,6 +134,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	@Override
 	public void instantiateAnnex(ComponentInstance instance, String annexName,
 			AnalysisErrorReporterManager errorManager) {
+		var soms = getContainerOfType(instance, SystemInstance.class).getSystemOperationModes();
+		if (soms.size() > 1 || soms.size() == 1 && !InstanceUtil.isNoMode(soms.get(0))) {
+			// TODO Remove this after we figure out how to deal with modes.
+			return;
+		}
+
 		EMV2AnnexInstance emv2AI = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
 		emv2AI.setName("EMV2");
 		instance.getAnnexInstances().add(emv2AI);
@@ -211,6 +218,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	@Override
 	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
+		var soms = instance.getSystemOperationModes();
+		if (soms.size() > 1 || soms.size() == 1 && !InstanceUtil.isNoMode(soms.get(0))) {
+			// TODO Remove this after we figure out how to deal with modes.
+			return;
+		}
 		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(component -> {
 			component.getConnectionInstances().forEach(connection -> instantiateConnectionPath(connection, component));
 		});
