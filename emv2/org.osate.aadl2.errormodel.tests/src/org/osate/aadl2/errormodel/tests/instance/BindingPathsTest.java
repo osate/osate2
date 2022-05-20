@@ -3,7 +3,7 @@ package org.osate.aadl2.errormodel.tests.instance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.osate.testsupport.ScopeFunctions.with;
+import static org.osate.pluginsupport.ScopeFunctions.with;
 
 import java.util.List;
 
