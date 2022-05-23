@@ -51,4 +51,42 @@ public class StatesTest {
 		});
 		assertEquals("state1", annexInstance.getInitialState().getName());
 	}
+
+	@Test
+	public void testFirstNotInitial() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "first_not_initial.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(3, annexInstance.getStates().size());
+		with(annexInstance.getStates().get(0), state -> {
+			assertEquals("state1", state.getName());
+			assertEquals("state1", state.getState().getName());
+		});
+		with(annexInstance.getStates().get(1), state -> {
+			assertEquals("state2", state.getName());
+			assertEquals("state2", state.getState().getName());
+		});
+		with(annexInstance.getStates().get(2), state -> {
+			assertEquals("state3", state.getName());
+			assertEquals("state3", state.getState().getName());
+		});
+		assertEquals("state2", annexInstance.getInitialState().getName());
+	}
+
+	@Test
+	public void testReferenceToStandardStateMachine() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "reference_to_standard_state_machine.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getStates().size());
+		with(annexInstance.getStates().get(0), state -> {
+			assertEquals("Operational", state.getName());
+			assertEquals("Operational", state.getState().getName());
+		});
+		with(annexInstance.getStates().get(1), state -> {
+			assertEquals("FailStop", state.getName());
+			assertEquals("FailStop", state.getState().getName());
+		});
+		assertEquals("Operational", annexInstance.getInitialState().getName());
+	}
 }
