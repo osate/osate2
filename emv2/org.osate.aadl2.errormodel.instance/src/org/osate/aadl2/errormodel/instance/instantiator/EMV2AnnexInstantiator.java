@@ -158,10 +158,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var eps = EMV2Util.getAllErrorPropagations(instance.getComponentClassifier());
 		instantiateErrorPropagations(eps, emv2AI);
 
-//		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
-//		for (ErrorBehaviorEvent ev : events) {
-//			instantiateEvent(ev, emv2AI);
-//		}
+		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
+		for (ErrorBehaviorEvent ev : events) {
+			instantiateEvent(ev, emv2AI);
+		}
 
 		for (var source : EMV2Util.getAllErrorSources(instance)) {
 			instantiateErrorSource(source, emv2AI);
@@ -175,51 +175,51 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiateErrorPath(path, emv2AI);
 		}
 
-//		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
-//		if (ebsm != null) {
-//			instantiateStateMachine(ebsm, emv2AI);
-//		}
-//
-//		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
-//		for (ErrorBehaviorTransition tr : transitions) {
-//			instantiateStateTransition(tr, emv2AI);
-//		}
-//
-//		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
-//		for (CompositeState cs : compstates) {
-//			instantiateCompositeState(cs, emv2AI);
-//		}
-//
-//		Collection<OutgoingPropagationCondition> OPCs = EMV2Util.getAllOutgoingPropagationConditions(instance);
-//		for (OutgoingPropagationCondition opc : OPCs) {
-//			instantiateOutgoingPropagationCondition(opc, emv2AI);
-//		}
-//
-//		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getComponentClassifier());
-//		for (ErrorDetection ed : eds) {
-//			instantiateErrorDetection(ed, emv2AI);
-//		}
-//
-//		Collection<ConnectionInstance> connis = instance.getConnectionInstances();
-//		for (ConnectionInstance conni : connis) {
-//			instantiateConnectionPropagationPaths(conni, emv2AI);
-//		}
+		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
+		if (ebsm != null) {
+			instantiateStateMachine(ebsm, emv2AI);
+		}
+
+		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
+		for (ErrorBehaviorTransition tr : transitions) {
+			instantiateStateTransition(tr, emv2AI);
+		}
+
+		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
+		for (CompositeState cs : compstates) {
+			instantiateCompositeState(cs, emv2AI);
+		}
+
+		Collection<OutgoingPropagationCondition> OPCs = EMV2Util.getAllOutgoingPropagationConditions(instance);
+		for (OutgoingPropagationCondition opc : OPCs) {
+			instantiateOutgoingPropagationCondition(opc, emv2AI);
+		}
+
+		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getComponentClassifier());
+		for (ErrorDetection ed : eds) {
+			instantiateErrorDetection(ed, emv2AI);
+		}
+
+		Collection<ConnectionInstance> connis = instance.getConnectionInstances();
+		for (ConnectionInstance conni : connis) {
+			instantiateConnectionPropagationPaths(conni, emv2AI);
+		}
 
 		Collection<PropagationPath> ppaths = EMV2Util.getAllPropagationPaths(instance.getComponentClassifier());
 		for (PropagationPath ppath : ppaths) {
 			instantiateUserDefinedPath(ppath, emv2AI, instance);
 		}
 
-//		// for bindings we need to first process all components EMV2 instantiations since the binding property instance
-//		// is attached to the component being bound and points to the resource.
-//		// During the depth first traversal the resource component may not have its EMV2 instantiated yet, thus, we cannot create the binding propagation path
-//		// instance.
-//
-//		if (instance instanceof SystemInstance) {
-//			for (ComponentInstance ci : EcoreUtil2.eAllOfType(instance, ComponentInstance.class)) {
-//				instantiateBindingPaths(ci, emv2AI);
-//			}
-//		}
+		// for bindings we need to first process all components EMV2 instantiations since the binding property instance
+		// is attached to the component being bound and points to the resource.
+		// During the depth first traversal the resource component may not have its EMV2 instantiated yet, thus, we cannot create the binding propagation path
+		// instance.
+
+		if (instance instanceof SystemInstance) {
+			for (ComponentInstance ci : EcoreUtil2.eAllOfType(instance, ComponentInstance.class)) {
+				instantiateBindingPaths(ci, emv2AI);
+			}
+		}
 	}
 
 	@Override
