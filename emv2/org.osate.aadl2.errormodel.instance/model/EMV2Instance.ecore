@@ -24,6 +24,9 @@
         eType="#//ErrorPropagationInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPaths" upperBound="-1"
         eType="#//PropagationPathInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+        eType="#//StateInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialState" eType="#//StateInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
       eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>

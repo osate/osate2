@@ -44,6 +44,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
 import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
@@ -67,6 +68,8 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getOldPropagationPaths <em>Old Propagation Paths</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPaths <em>Propagation Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getStates <em>States</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getInitialState <em>Initial State</em>}</li>
  * </ul>
  *
  * @generated
@@ -181,6 +184,26 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<PropagationPathInstance> propagationPaths;
+
+	/**
+	 * The cached value of the '{@link #getStates() <em>States</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStates()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<StateInstance> states;
+
+	/**
+	 * The cached value of the '{@link #getInitialState() <em>Initial State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInitialState()
+	 * @generated
+	 * @ordered
+	 */
+	protected StateInstance initialState;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -406,6 +429,64 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @generated
 	 */
 	@Override
+	public EList<StateInstance> getStates() {
+		if (states == null) {
+			states = new EObjectContainmentEList<>(StateInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATES);
+		}
+		return states;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public StateInstance getInitialState() {
+		if (initialState != null && initialState.eIsProxy()) {
+			InternalEObject oldInitialState = (InternalEObject) initialState;
+			initialState = (StateInstance) eResolveProxy(oldInitialState);
+			if (initialState != oldInitialState) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.EMV2_ANNEX_INSTANCE__INITIAL_STATE, oldInitialState, initialState));
+				}
+			}
+		}
+		return initialState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StateInstance basicGetInitialState() {
+		return initialState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setInitialState(StateInstance newInitialState) {
+		StateInstance oldInitialState = initialState;
+		initialState = newInitialState;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__INITIAL_STATE, oldInitialState, initialState));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
@@ -430,6 +511,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return ((InternalEList<?>) getPropagations()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
 			return ((InternalEList<?>) getPropagationPaths()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATES:
+			return ((InternalEList<?>) getStates()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -464,6 +547,13 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return getPropagations();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
 			return getPropagationPaths();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATES:
+			return getStates();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__INITIAL_STATE:
+			if (resolve) {
+				return getInitialState();
+			}
+			return basicGetInitialState();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -520,6 +610,13 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			getPropagationPaths().clear();
 			getPropagationPaths().addAll((Collection<? extends PropagationPathInstance>) newValue);
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATES:
+			getStates().clear();
+			getStates().addAll((Collection<? extends StateInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__INITIAL_STATE:
+			setInitialState((StateInstance) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -565,6 +662,12 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
 			getPropagationPaths().clear();
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATES:
+			getStates().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__INITIAL_STATE:
+			setInitialState((StateInstance) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -599,6 +702,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return propagations != null && !propagations.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS:
 			return propagationPaths != null && !propagationPaths.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATES:
+			return states != null && !states.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__INITIAL_STATE:
+			return initialState != null;
 		}
 		return super.eIsSet(featureID);
 	}

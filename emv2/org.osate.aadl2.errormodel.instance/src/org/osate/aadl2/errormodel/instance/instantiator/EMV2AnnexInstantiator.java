@@ -177,7 +177,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
 		if (ebsm != null) {
-			instantiateStateMachine(ebsm, emv2AI);
+			for (var state : ebsm.getStates()) {
+				instantiateState(state, emv2AI);
+			}
 		}
 
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
@@ -502,28 +504,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cio;
 	}
 
-	private void instantiateStateMachine(ErrorBehaviorStateMachine ebsm, EMV2AnnexInstance annex) {
-		ComponentInstance ci = (ComponentInstance) annex.eContainer();
-		StateMachineInstance svi = EMV2InstanceFactory.eINSTANCE.createStateMachineInstance();
-		annex.setStateMachine(svi);
-		StateInstance initState = null;
-		for (ErrorBehaviorState st : ebsm.getStates()) {
-			StateInstance istate = createStateInstance(st);
-			if (st.isIntial()) {
-				initState = istate;
-			}
-			svi.getStates().add(istate);
-			// add property associations
-			instantiatePropertyAssociations(istate, ci, st, null);
+	private void instantiateState(ErrorBehaviorState state, EMV2AnnexInstance annex) {
+		var stateInstance = EMV2InstanceFactory.eINSTANCE.createStateInstance();
+		stateInstance.setName(state.getName());
+		stateInstance.setState(state);
+		annex.getStates().add(stateInstance);
+		if (state.isIntial()) {
+			annex.setInitialState(stateInstance);
 		}
-		svi.setCurrentState(initState);
-	}
-
-	private StateInstance createStateInstance(ErrorBehaviorState ss) {
-		StateInstance si = EMV2InstanceFactory.eINSTANCE.createStateInstance();
-		si.setName(ss.getName());
-		si.setState(ss);
-		return si;
 	}
 
 	private void instantiateStateTransition(ErrorBehaviorTransition st, EMV2AnnexInstance annex) {
