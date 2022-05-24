@@ -24,39 +24,22 @@
 package org.osate.examples.tests;
 
 
-import org.eclipse.emf.common.util.EList;
+import java.util.List;
+
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.Aadl2InjectorProvider;
-import org.osate.testsupport.TestHelper;
-
-import com.google.inject.Inject;
 
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class ResourceBudgetTest {
-	@Inject
-	private TestHelper<AadlPackage> testHelper;
-	private String bundle = "org.osate.examples";
-	private String entry = "examples/resource-budget/resourcebudgets.aadl";
+public class ResourceBudgetTest extends ExampleConfig {
+	public ResourceBudgetTest() {
+		String entry = "examples/resource-budget/resourcebudgets.aadl";
+		List<String> references = List.of("");
+		List<String> components = List.of("MySystem.Tier0", "MySystem.Tier2");
 
-	@Test
-	public void emptyTest() throws Exception {
-		AadlPackage pkg = testHelper.parseBundleFile(bundle, entry);
-		final EList<Classifier> cls = pkg.getOwnedPublicSection().getOwnedClassifiers();
-		for (Classifier classifier : cls) {
-			if (classifier instanceof SystemImplementation) {
-				SystemImplementation impl = (SystemImplementation) classifier;
-				SystemInstance si = InstantiateModel.instantiate(impl);
-			}
-		}
+		addEntry(entry, references, components);
 	}
 }

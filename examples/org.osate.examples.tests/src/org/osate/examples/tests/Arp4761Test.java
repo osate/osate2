@@ -23,60 +23,51 @@
  *******************************************************************************/
 package org.osate.examples.tests;
 
-import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.Aadl2InjectorProvider;
-import org.osate.testsupport.TestHelper;
-
-import com.google.inject.Inject;
 
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Arp4761Test {
-	@Inject
-	private TestHelper<AadlPackage> testHelper;
-	private String bundle = "org.osate.examples";
-	private String entry = "examples/arp4761/";
-	private List<String> files = Arrays.asList("advanced/functional/wbs/command-control.aadl",
-			"advanced/functional/wbs/generic.aadl",
-			"advanced/functional/wbs/main.aadl", "advanced/functional/electrical.aadl",
-			"advanced/functional/generic_functions.aadl", "advanced/functional/hydraulic.aadl",
-			"advanced/functional/main.aadl", "advanced/functional/throttle.aadl",
-			"advanced/functional/WBSFunctionalErrorLib.aadl", "advanced/implementation/bscu.aadl",
-			"advanced/implementation/common.aadl", "advanced/implementation/communication.aadl",
-			"advanced/implementation/pedals.aadl", "advanced/implementation/platform.aadl",
-			"advanced/implementation/power.aadl", "advanced/implementation/pump.aadl",
-			"advanced/implementation/valves.aadl", "advanced/implementation/wbs.aadl",
-			"advanced/implementation/WBSImplementationErrorLib.aadl", "advanced/implementation/wheel.aadl",
-			"advanced/integration/main.aadl", "advanced/integration/WBSMappingErrorLib.aadl",
-			"advanced/misc/functional-initial.aadl", "simple/bscu.aadl", "simple/common.aadl",
-			"simple/communication.aadl", "simple/error.aadl", "simple/pedals.aadl", "simple/platform.aadl",
-			"simple/power.aadl", "simple/proofs.aadl", "simple/pump.aadl", "simple/valves.aadl", "simple/wbs.aadl",
-			"simple/wheel.aadl");
+public class Arp4761Test extends ExampleConfig {
+	/*
+	 * @Inject
+	 * private TestHelper<AadlPackage> testHelper;
+	 * private String bundle = "org.osate.examples";
+	 * private String entry = "examples/arp4761/";
+	 * private List<String> files = Arrays.asList("advanced/functional/wbs/command-control.aadl",
+	 * "advanced/functional/wbs/generic.aadl",
+	 * "advanced/functional/wbs/main.aadl", "advanced/functional/electrical.aadl",
+	 * "advanced/functional/generic_functions.aadl", "advanced/functional/hydraulic.aadl",
+	 * "advanced/functional/main.aadl", "advanced/functional/throttle.aadl",
+	 * "advanced/functional/WBSFunctionalErrorLib.aadl", "advanced/implementation/bscu.aadl",
+	 * "advanced/implementation/common.aadl", "advanced/implementation/communication.aadl",
+	 * "advanced/implementation/pedals.aadl", "advanced/implementation/platform.aadl",
+	 * "advanced/implementation/power.aadl", "advanced/implementation/pump.aadl",
+	 * "advanced/implementation/valves.aadl", "advanced/implementation/wbs.aadl",
+	 * "advanced/implementation/WBSImplementationErrorLib.aadl", "advanced/implementation/wheel.aadl",
+	 * "advanced/integration/main.aadl", "advanced/integration/WBSMappingErrorLib.aadl",
+	 * "advanced/misc/functional-initial.aadl", "simple/bscu.aadl", "simple/common.aadl",
+	 * "simple/communication.aadl", "simple/error.aadl", "simple/pedals.aadl", "simple/platform.aadl",
+	 * "simple/power.aadl", "simple/proofs.aadl", "simple/pump.aadl", "simple/valves.aadl", "simple/wbs.aadl",
+	 * "simple/wheel.aadl");
+	 */
+	public Arp4761Test() {
+		String entry = "examples/arp4761/simple/wbs.aadl";
+		List<String> references = List.of(this.bundle + "/examples/arp4761/simple/bscu.aadl",
+				this.bundle + "/examples/arp4761/simple/wheel.aadl",
+				this.bundle + "/examples/arp4761/simple/communication.aadl",
+				this.bundle + "/examples/arp4761/simple/valves.aadl",
+				this.bundle + "/examples/arp4761/simple/pedals.aadl",
+				this.bundle + "/examples/arp4761/simple/power.aadl",
+				this.bundle + "/examples/arp4761/simple/pump.aadl",
+				this.bundle + "/examples/arp4761/simple/error.aadl");
+		List<String> components = List.of("wbs.ima");
 
-	@Test
-	public void emptyTest() throws Exception {
-		for (String file : files) {
-			AadlPackage pkg = testHelper.parseBundleFile(bundle, entry + file);
-			final EList<Classifier> cls = pkg.getOwnedPublicSection().getOwnedClassifiers();
-			for (Classifier classifier : cls) {
-				if (classifier instanceof SystemImplementation) {
-					SystemImplementation impl = (SystemImplementation) classifier;
-					SystemInstance si = InstantiateModel.instantiate(impl);
-				}
-			}
-		}
+		addEntry(entry, references, components);
 	}
 }

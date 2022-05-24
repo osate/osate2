@@ -23,47 +23,22 @@
  *******************************************************************************/
 package org.osate.examples.tests;
 
-import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.Aadl2InjectorProvider;
-import org.osate.testsupport.TestHelper;
-
-import com.google.inject.Inject;
 
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class AcvipTest {
-	@Inject
-	private TestHelper<AadlPackage> testHelper;
-	private String bundle = "org.osate.examples";
-	private String entry = "examples/ACVIP/";
-	private List<String> files = Arrays.asList("InitialSCS.aadl", "DataDictionary/DataDictionary.aadl",
-			"EfectorsInc/Brake.aadl", "Infrastructure/Infrastructure.aadl", "MSI/Controller.aadl", "MSI/SCS.aadl",
-			"SensorsInc/SimpleSensor.aadl");
+public class AcvipTest extends ExampleConfig {
+	public AcvipTest() {
+		String entry = "examples/ACVIP/InitialSCS.aadl";
+		List<String> references = List.of("");
+		List<String> components = List.of("HighLevelSCS.i");
 
-	@Test
-	public void emptyTest() throws Exception {
-		for (String file : files) {
-			AadlPackage pkg = testHelper.parseBundleFile(bundle, entry + file);
-			final EList<Classifier> cls = pkg.getOwnedPublicSection().getOwnedClassifiers();
-			for (Classifier classifier : cls) {
-				if (classifier instanceof SystemImplementation) {
-					SystemImplementation impl = (SystemImplementation) classifier;
-					SystemInstance si = InstantiateModel.instantiate(impl);
-				}
-			}
-		}
+		addEntry(entry, references, components);
 	}
 }

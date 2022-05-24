@@ -23,45 +23,22 @@
  *******************************************************************************/
 package org.osate.examples.tests;
 
-import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.Aadl2InjectorProvider;
-import org.osate.testsupport.TestHelper;
-
-import com.google.inject.Inject;
 
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class StepperMotorTest {
-	@Inject
-	private TestHelper<AadlPackage> testHelper;
-	private String bundle = "org.osate.examples";
-	private String entry = "examples/stepper-motor/packages/";
-	private List<String> files = Arrays.asList("CasePositionControl.aadl", "SMErrorTypes.aadl");
-
-	@Test
-	public void emptyTest() throws Exception {
-		for (String file : files) {
-			AadlPackage pkg = testHelper.parseBundleFile(bundle, entry + file);
-			final EList<Classifier> cls = pkg.getOwnedPublicSection().getOwnedClassifiers();
-			for (Classifier classifier : cls) {
-				if (classifier instanceof SystemImplementation) {
-					SystemImplementation impl = (SystemImplementation) classifier;
-					SystemInstance si = InstantiateModel.instantiate(impl);
-				}
-			}
-		}
+public class StepperMotorTest extends ExampleConfig {
+	public StepperMotorTest() {
+		String entry = "examples/stepper-motor/packages/CasePositionControl.aadl";
+		List<String> references = List.of(this.bundle + "/examples/stepper-motor/Propertysets/CasePSC.aadl",
+				this.bundle + "/examples/stepper-motor/packages/SMErrorTypes.aadl"); //
+		List<String> components = List.of("SMS.Original", "SMS.MidFrame", "SMS.buffered", "SMS.Position");
+		addEntry(entry, references, components);
 	}
 }

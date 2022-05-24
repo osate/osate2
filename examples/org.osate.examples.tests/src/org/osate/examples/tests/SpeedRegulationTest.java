@@ -23,46 +23,38 @@
  *******************************************************************************/
 package org.osate.examples.tests;
 
-import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.Aadl2InjectorProvider;
-import org.osate.testsupport.TestHelper;
-
-import com.google.inject.Inject;
 
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class SpeedRegulationTest {
-	@Inject
-	private TestHelper<AadlPackage> testHelper;
-	private String bundle = "org.osate.examples";
-	private String entry = "examples/speed-regulation/model/";
-	private List<String> files = Arrays.asList("devices.aadl", "error.aadl", "icd.aadl", "integration.aadl",
-			"platform.aadl", "software.aadl");
+public class SpeedRegulationTest extends ExampleConfig {
+	/*
+	 * @Inject
+	 * private TestHelper<AadlPackage> testHelper;
+	 * private String bundle = "org.osate.examples";
+	 * private List<String> entries = List.of("examples/speed-regulation/model/integration.aadl");
+	 * private List<String> components = List.of("integration.aadl/integration.implementation1",
+	 * "integration.aadl/integration.implementation2"); // check with Jerome
+	 *
+	 * @Test
+	 * public void InstantionTest() throws Exception {
+	 * testHelper.InstantionTest(bundle, entries, components);
+	 * }
+	 */
+	public SpeedRegulationTest() {
+		String entry = "examples/speed-regulation/model/integration.aadl";
+		List<String> references = List.of(this.bundle + "/examples/speed-regulation/model/software.aadl",
+				this.bundle + "/examples/speed-regulation/model/platform.aadl",
+				this.bundle + "/examples/speed-regulation/model/devices.aadl",
+				this.bundle + "/examples/speed-regulation/model/error.aadl");
+		List<String> components = List.of("integration.implementation1", "integration.implementation2");
 
-	@Test
-	public void emptyTest() throws Exception {
-		for (String file : files) {
-			AadlPackage pkg = testHelper.parseBundleFile(bundle, entry + file);
-			final EList<Classifier> cls = pkg.getOwnedPublicSection().getOwnedClassifiers();
-			for (Classifier classifier : cls) {
-				if (classifier instanceof SystemImplementation) {
-					SystemImplementation impl = (SystemImplementation) classifier;
-					SystemInstance si = InstantiateModel.instantiate(impl);
-				}
-			}
-		}
+		addEntry(entry, references, components);
 	}
 }
