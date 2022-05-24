@@ -508,6 +508,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var stateInstance = EMV2InstanceFactory.eINSTANCE.createStateInstance();
 		stateInstance.setName(state.getName());
 		stateInstance.setState(state);
+		if (state.getTypeSet() != null) {
+			stateInstance.setTypeSet(createAnonymousTypeSet(state.getTypeSet()));
+		}
 		annex.getStates().add(stateInstance);
 		if (state.isIntial()) {
 			annex.setInitialState(stateInstance);

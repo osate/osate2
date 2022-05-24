@@ -626,6 +626,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getStateInstance_TypeSet() {
+		return (EReference) stateInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstrainedInstanceObject() {
 		return constrainedInstanceObjectEClass;
 	}
@@ -1735,6 +1745,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		stateInstanceEClass = createEClass(STATE_INSTANCE);
 		createEReference(stateInstanceEClass, STATE_INSTANCE__STATE);
+		createEReference(stateInstanceEClass, STATE_INSTANCE__TYPE_SET);
 
 		constrainedInstanceObjectEClass = createEClass(CONSTRAINED_INSTANCE_OBJECT);
 		createEReference(constrainedInstanceObjectEClass, CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT);
@@ -2014,6 +2025,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStateInstance_State(), theErrorModelPackage.getErrorBehaviorState(), null, "state", null, 0,
 				1, StateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStateInstance_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				StateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constrainedInstanceObjectEClass, ConstrainedInstanceObject.class, "ConstrainedInstanceObject",
