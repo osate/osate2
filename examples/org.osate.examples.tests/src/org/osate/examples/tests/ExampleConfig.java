@@ -25,7 +25,6 @@ public class ExampleConfig {
 
 	@Test
 	public void InstantionTest() throws Exception {
-		// TODO figure out why it is struggling to load in references
 		testHelper.ValidationAndInstantiationTest(this);
 	}
 }

@@ -34,28 +34,6 @@ import org.osate.testsupport.Aadl2InjectorProvider;
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
 public class Arp4761Test extends ExampleConfig {
-	/*
-	 * @Inject
-	 * private TestHelper<AadlPackage> testHelper;
-	 * private String bundle = "org.osate.examples";
-	 * private String entry = "examples/arp4761/";
-	 * private List<String> files = Arrays.asList("advanced/functional/wbs/command-control.aadl",
-	 * "advanced/functional/wbs/generic.aadl",
-	 * "advanced/functional/wbs/main.aadl", "advanced/functional/electrical.aadl",
-	 * "advanced/functional/generic_functions.aadl", "advanced/functional/hydraulic.aadl",
-	 * "advanced/functional/main.aadl", "advanced/functional/throttle.aadl",
-	 * "advanced/functional/WBSFunctionalErrorLib.aadl", "advanced/implementation/bscu.aadl",
-	 * "advanced/implementation/common.aadl", "advanced/implementation/communication.aadl",
-	 * "advanced/implementation/pedals.aadl", "advanced/implementation/platform.aadl",
-	 * "advanced/implementation/power.aadl", "advanced/implementation/pump.aadl",
-	 * "advanced/implementation/valves.aadl", "advanced/implementation/wbs.aadl",
-	 * "advanced/implementation/WBSImplementationErrorLib.aadl", "advanced/implementation/wheel.aadl",
-	 * "advanced/integration/main.aadl", "advanced/integration/WBSMappingErrorLib.aadl",
-	 * "advanced/misc/functional-initial.aadl", "simple/bscu.aadl", "simple/common.aadl",
-	 * "simple/communication.aadl", "simple/error.aadl", "simple/pedals.aadl", "simple/platform.aadl",
-	 * "simple/power.aadl", "simple/proofs.aadl", "simple/pump.aadl", "simple/valves.aadl", "simple/wbs.aadl",
-	 * "simple/wheel.aadl");
-	 */
 	public Arp4761Test() {
 		String entry = "examples/arp4761/simple/wbs.aadl";
 		List<String> references = List.of(this.bundle + "/examples/arp4761/simple/bscu.aadl",

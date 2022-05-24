@@ -2,7 +2,6 @@ package org.osate.examples.tests;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.validation.Issue;
 import org.junit.Test;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
@@ -32,12 +31,6 @@ public class TestHelper<T extends EObject> {
 						SystemInstance si = InstantiateModel.instantiate(impl);
 						FluentIssueCollection issues = testHelper.testResource(pkg.eResource());
 						if (issues.getIssues().size() > 0) {
-							System.out.println(issues.getIssues().size() + " Error(s) found in " + config.bundle + "/"
-									+ entry.entry);
-							// TODO remove println
-							for (Issue issue : issues.getIssues()) {
-								System.out.println(issue.getMessage());
-							}
 							throw new Exception(issues.getIssues().size() + " Error(s) found in " + config.bundle + "/"
 									+ entry.entry);
 						}

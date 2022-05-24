@@ -34,19 +34,6 @@ import org.osate.testsupport.Aadl2InjectorProvider;
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
 public class SpeedRegulationTest extends ExampleConfig {
-	/*
-	 * @Inject
-	 * private TestHelper<AadlPackage> testHelper;
-	 * private String bundle = "org.osate.examples";
-	 * private List<String> entries = List.of("examples/speed-regulation/model/integration.aadl");
-	 * private List<String> components = List.of("integration.aadl/integration.implementation1",
-	 * "integration.aadl/integration.implementation2"); // check with Jerome
-	 *
-	 * @Test
-	 * public void InstantionTest() throws Exception {
-	 * testHelper.InstantionTest(bundle, entries, components);
-	 * }
-	 */
 	public SpeedRegulationTest() {
 		String entry = "examples/speed-regulation/model/integration.aadl";
 		List<String> references = List.of(this.bundle + "/examples/speed-regulation/model/software.aadl",
