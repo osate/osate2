@@ -5,4 +5,4 @@ Bundle-Vendor: CMU/SEI
 Bundle-SymbolicName: org.osate.aadl2.errormodel.contrib;singleton:=true
 Bundle-Version: 1.0.8.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.osate.pluginsupport;bundle-version="[7.1.0,8.0.0)"
+Require-Bundle: org.osate.pluginsupport;bundle-version="[7.2.0,8.0.0)"

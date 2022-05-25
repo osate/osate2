@@ -131,9 +131,15 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class EMV2AnnexInstantiator implements AnnexInstantiator {
+	public static final String PROPERTY_NAME = "org.osate.emv2.instance";
+
 	@Override
 	public void instantiateAnnex(ComponentInstance instance, String annexName,
 			AnalysisErrorReporterManager errorManager) {
+		if (!"true".equalsIgnoreCase(System.getProperty(PROPERTY_NAME))) {
+			// Don't instantiate EMV2 elements unless explicitly enabled.
+			return;
+		}
 		var soms = getContainerOfType(instance, SystemInstance.class).getSystemOperationModes();
 		if (soms.size() > 1 || soms.size() == 1 && !InstanceUtil.isNoMode(soms.get(0))) {
 			// TODO Remove this after we figure out how to deal with modes.
@@ -218,6 +224,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	@Override
 	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
+		if (!"true".equalsIgnoreCase(System.getProperty(PROPERTY_NAME))) {
+			// Don't instantiate EMV2 elements unless explicitly enabled.
+			return;
+		}
 		var soms = instance.getSystemOperationModes();
 		if (soms.size() > 1 || soms.size() == 1 && !InstanceUtil.isNoMode(soms.get(0))) {
 			// TODO Remove this after we figure out how to deal with modes.
