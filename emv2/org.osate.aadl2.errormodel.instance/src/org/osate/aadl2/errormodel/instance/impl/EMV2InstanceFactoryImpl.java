@@ -43,6 +43,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
@@ -122,6 +123,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createErrorDetectionInstance();
 		case EMV2InstancePackage.EVENT_INSTANCE:
 			return createEventInstance();
+		case EMV2InstancePackage.ERROR_EVENT_INSTANCE:
+			return createErrorEventInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
 			return createConstraintExpression();
 		case EMV2InstancePackage.OLD_PROPAGATION_PATH_INSTANCE:
@@ -369,6 +372,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public EventInstance createEventInstance() {
 		EventInstanceImpl eventInstance = new EventInstanceImpl();
 		return eventInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorEventInstance createErrorEventInstance() {
+		ErrorEventInstanceImpl errorEventInstance = new ErrorEventInstanceImpl();
+		return errorEventInstance;
 	}
 
 	/**

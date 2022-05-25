@@ -43,6 +43,7 @@ import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
@@ -315,6 +316,29 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(eventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_EVENT_INSTANCE: {
+			ErrorEventInstance errorEventInstance = (ErrorEventInstance) theEObject;
+			T result = caseErrorEventInstance(errorEventInstance);
+			if (result == null) {
+				result = caseEventInstance(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorEventInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1210,6 +1234,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEventInstance(EventInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Event Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Event Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorEventInstance(ErrorEventInstance object) {
 		return null;
 	}
 

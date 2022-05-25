@@ -187,6 +187,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	EventInstance createEventInstance();
 
 	/**
+	 * Returns a new object of class '<em>Error Event Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Error Event Instance</em>'.
+	 * @generated
+	 */
+	ErrorEventInstance createErrorEventInstance();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

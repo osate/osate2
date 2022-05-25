@@ -64,9 +64,9 @@ import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
-import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
@@ -86,7 +86,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
@@ -99,7 +98,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -112,7 +110,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
@@ -125,7 +122,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -467,41 +463,22 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		annex.getPropagationPoints().add(gi);
 	}
 
-	private void instantiateEvent(ErrorBehaviorEvent g, EMV2AnnexInstance annex) {
-		ComponentInstance ci = (ComponentInstance) annex.eContainer();
-		EventInstance gi = createEventInstance(g);
-		annex.getEvents().add(gi);
-		if (g instanceof ErrorEvent) {
-			 TypeSet ts = ((ErrorEvent)g).getTypeSet();
-			if (ts != null) {
-				for (TypeToken tt : ts.getTypeTokens()) {
-					ConstrainedInstanceObject cio = createConstrainedInstanceObject(gi, tt);
-					gi.getGeneratedTypedEvents().add(cio);
-					instantiatePropertyAssociations(cio, ci, g, tt);
-				}
-			} else {
-				instantiatePropertyAssociations(gi, ci, g, null);
-			}
-		}
-	}
-
-	private EventInstance createEventInstance(ErrorBehaviorEvent g) {
-		EventInstance gi = EMV2InstanceFactory.eINSTANCE.createEventInstance();
-		gi.setName(g.getName());
-		gi.setEvent(g);
-		return gi;
-	}
-
-	private ConstrainedInstanceObject createConstrainedInstanceObject(EventInstance context, TypeToken token) {
-		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
-		cio.setInstanceObject(context);
-		if (!token.getType().isEmpty()) {
-			cio.setName(context.getName() + ":" + token.toString());
-			cio.getConstraint().add(EcoreUtil.copy(token));
+	private void instantiateEvent(ErrorBehaviorEvent event, EMV2AnnexInstance annex) {
+		if (event instanceof ErrorEvent errorEvent) {
+			annex.getEvents().add(createErrorEventInstance(errorEvent));
 		} else {
-			cio.setName(context.getName());
+			throw new RuntimeException("Unexpected event: " + event);
 		}
-		return cio;
+	}
+
+	private ErrorEventInstance createErrorEventInstance(ErrorEvent event) {
+		var eventInstance = EMV2InstanceFactory.eINSTANCE.createErrorEventInstance();
+		eventInstance.setName(event.getName());
+		eventInstance.setErrorEvent(event);
+		if (event.getTypeSet() != null) {
+			eventInstance.setTypeSet(createAnonymousTypeSet(event.getTypeSet()));
+		}
+		return eventInstance;
 	}
 
 	private void instantiateState(ErrorBehaviorState state, EMV2AnnexInstance annex) {
@@ -1814,37 +1791,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		// subcomponents are bound too
 		for (ComponentInstance subci : comp.getComponentInstances()) {
 			instantiateBindingPropagationPaths(annex, subci, boundResource, resourcebindingKind);
-		}
-	}
-
-	private void instantiatePropertyAssociations(EMV2InstanceObject emv2io, ComponentInstance ci,
-			NamedElement emv2element, TypeToken tt) {
-		ErrorTypes et = tt != null && tt.getType().size() == 1 ? tt.getType().get(0) : null;
-		// token with a single type can have property values. Multiple types represents a product type
-		List<EMV2PropertyAssociation> ODs = EMV2Properties.getOccurrenceDistributionProperty(ci, emv2element, et);
-		instantiatePropertyAssociation(ODs, emv2io);
-		List<EMV2PropertyAssociation> Hazards = EMV2Properties.getHazardsProperty(ci, emv2element, et);
-		instantiatePropertyAssociation(Hazards, emv2io);
-		List<EMV2PropertyAssociation> SEVs = EMV2Properties.getSeverityProperty(ci, emv2element, et);
-		instantiatePropertyAssociation(SEVs, emv2io);
-		List<EMV2PropertyAssociation> Likes = EMV2Properties.getLikelihoodProperty(ci, emv2element, et);
-		instantiatePropertyAssociation(Likes, emv2io);
-		// currently only the above properties are actually being used in analyses
-		// for other EMV2 properties here is the generic method
-//			List<EMV2PropertyAssociation> PAs = EMV2Properties.getProperty("EMV2::propertyname",ci, emv2element, et);
-//			instantiatePropertyAssociation(PAs, emv2io);
-	}
-
-	private void instantiatePropertyAssociation(List<EMV2PropertyAssociation> PAs, EMV2InstanceObject emv2io) {
-		if (!PAs.isEmpty()) {
-			EMV2PropertyAssociation pa = PAs.get(0);
-			PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
-			newPA.setProperty(pa.getProperty());
-			newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
-			// handle reference/symbolic labels? or do it when retrieving it from instance
-			if (!newPA.getOwnedValues().isEmpty()) {
-				emv2io.getOwnedPropertyAssociations().add(newPA);
-			}
 		}
 	}
 

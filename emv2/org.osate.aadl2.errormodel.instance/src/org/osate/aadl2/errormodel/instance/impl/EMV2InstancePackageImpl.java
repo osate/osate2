@@ -49,6 +49,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
@@ -212,6 +213,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass eventInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass errorEventInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1246,6 +1254,36 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getErrorEventInstance() {
+		return errorEventInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getErrorEventInstance_ErrorEvent() {
+		return (EReference) errorEventInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getErrorEventInstance_TypeSet() {
+		return (EReference) errorEventInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -1783,6 +1821,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(eventInstanceEClass, EVENT_INSTANCE__EVENT);
 		createEReference(eventInstanceEClass, EVENT_INSTANCE__GENERATED_TYPED_EVENTS);
 
+		errorEventInstanceEClass = createEClass(ERROR_EVENT_INSTANCE);
+		createEReference(errorEventInstanceEClass, ERROR_EVENT_INSTANCE__ERROR_EVENT);
+		createEReference(errorEventInstanceEClass, ERROR_EVENT_INSTANCE__TYPE_SET);
+
 		constraintExpressionEClass = createEClass(CONSTRAINT_EXPRESSION);
 		createEAttribute(constraintExpressionEClass, CONSTRAINT_EXPRESSION__OPERATOR);
 		createEAttribute(constraintExpressionEClass, CONSTRAINT_EXPRESSION__K);
@@ -1936,6 +1978,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		errorPropagationConditionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		errorDetectionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		eventInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		errorEventInstanceEClass.getESuperTypes().add(getEventInstance());
 		constraintExpressionEClass.getESuperTypes().add(getConstraintElement());
 		constraintElementEClass.getESuperTypes().add(getEMV2InstanceObject());
 		oldPropagationPathInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
@@ -2117,6 +2160,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getEventInstance_GeneratedTypedEvents(), getConstrainedInstanceObject(), null,
 				"generatedTypedEvents", null, 0, -1, EventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(errorEventInstanceEClass, ErrorEventInstance.class, "ErrorEventInstance", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getErrorEventInstance_ErrorEvent(), theErrorModelPackage.getErrorEvent(), null, "errorEvent",
+				null, 0, 1, ErrorEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorEventInstance_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				ErrorEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constraintExpressionEClass, ConstraintExpression.class, "ConstraintExpression", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

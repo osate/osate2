@@ -84,6 +84,10 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EventInstance/event"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EventInstance/generatedTypedEvents"/>
     </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//ErrorEventInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorEventInstance/errorEvent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorEventInstance/typeSet"/>
+    </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//ConstraintExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//ConstraintExpression/operator"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//ConstraintExpression/k"/>
