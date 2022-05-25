@@ -30,7 +30,6 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.runner.RunWith;
 import org.osate.testsupport.Aadl2InjectorProvider;
 
-
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
 public class StepperMotorTest extends ExampleConfig {
@@ -38,7 +37,7 @@ public class StepperMotorTest extends ExampleConfig {
 		String entry = "examples/stepper-motor/packages/CasePositionControl.aadl";
 		List<String> references = List.of(this.bundle + "/examples/stepper-motor/Propertysets/CasePSC.aadl",
 				this.bundle + "/examples/stepper-motor/packages/SMErrorTypes.aadl"); //
-		List<String> components = List.of("SMS.Original", "SMS.MidFrame", "SMS.buffered", "SMS.Position");
-		addEntry(entry, references, components);
+
+		addEntry(entry, references);
 	}
 }

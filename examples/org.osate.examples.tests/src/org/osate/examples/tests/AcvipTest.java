@@ -37,8 +37,7 @@ public class AcvipTest extends ExampleConfig {
 	public AcvipTest() {
 		String entry = "examples/ACVIP/InitialSCS.aadl";
 		List<String> references = List.of("");
-		List<String> components = List.of("HighLevelSCS.i");
 
-		addEntry(entry, references, components);
+		addEntry(entry, references);
 	}
 }

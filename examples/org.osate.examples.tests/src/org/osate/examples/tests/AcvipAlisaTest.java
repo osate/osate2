@@ -38,8 +38,7 @@ public class AcvipAlisaTest extends ExampleConfig {
 		String entry = "examples/ACVIP_ALISA/SCSProject/IntegratedSCS.aadl";
 		List<String> references = List.of(this.bundle + "/examples/ACVIP_ALISA/SCSProject/PhysicalParts.aadl",
 				this.bundle + "/examples/ACVIP_ALISA/SCSProject/SoftwareParts.aadl");
-		List<String> components = List.of("SCS.singletier0");
 
-		addEntry(entry, references, components);
+		addEntry(entry, references);
 	}
 }

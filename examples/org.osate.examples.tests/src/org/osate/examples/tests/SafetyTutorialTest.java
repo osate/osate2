@@ -39,8 +39,7 @@ public class SafetyTutorialTest extends ExampleConfig {
 		List<String> references = List.of(this.bundle + "/examples/safety-tutorial/packages/GPSParts.aadl",
 				this.bundle + "/examples/safety-tutorial/packages/HardwareParts.aadl",
 				this.bundle + "/examples/safety-tutorial/packages/GPSErrorLibrary.aadl");
-		List<String> components = List.of("GPS.parts_SingleSensorTransient", "GPS.BasicBound", "GPS.basic");
 
-		addEntry(entry, references, components);
+		addEntry(entry, references);
 	}
 }

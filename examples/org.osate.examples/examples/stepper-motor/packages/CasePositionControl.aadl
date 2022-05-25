@@ -9,10 +9,9 @@ public
 	end SM_Position;
 
 	data implementation SM_Position.PercentOpen
-
 		properties
 			Data_Model::Base_Type => (classifier (Base_Types::Float));
-			Data_Model::Data_Representation => Fixed;
+			Data_Model::Data_Representation => Float;
 			Data_Model::Measurement_Unit => "Percent";
 			Data_Model::Integer_Range => 0 .. 100;
 	end SM_Position.PercentOpen;
@@ -30,11 +29,14 @@ public
 
 	data implementation SM_Position_Change.DataRecord
 		subcomponents
-			StepCount: data {
-				Data_Model::Data_Representation => Integer;
-				Data_Model::Measurement_Unit => "Steps";
-				Data_Model::Integer_Range => 0 .. PCSProperties::MaxStepCount;
-			};
+			StepCount: data Base_Types::Integer 
+			--  The BA does not access operations on StepCound if the type has additional properties.
+			--		{
+			--			Data_Model::Data_Representation => Integer;
+			--			Data_Model::Measurement_Unit => "Steps";
+			--			Data_Model::Integer_Range => 0 .. PCSProperties::MaxStepCount;
+			--		}
+			;
 			Step_Direction: data {
 				Data_Model::Data_Representation => Enum;
 				Data_Model::Enumerators => ("Open", "Close");
@@ -50,7 +52,7 @@ public
 	process SMS_App_Process_SMPC
 		features
 			Desired_Position: in data port SM_Position.PercentOpen;
-			Commanded_Position: out event data port SM_Position_Change;
+			Commanded_Position: out event data port SM_Position_Change.DataRecord;
 		flows
 			flowpath: flow path Desired_Position -> Commanded_Position;
 		annex EMV2 {**
@@ -128,7 +130,7 @@ public
 		features
 			Desired_Position: in data port SM_Position.PercentOpen {
 				Input_Rate => [Value_Range => 0.40 .. 40.0; Rate_Unit => PerSecond;];};
-			Commanded_Position: out event data port SM_Position_Change {
+			Commanded_Position: out event data port SM_Position_Change.DataRecord {
 				Output_time => ([Time => Completion; Offset => 0ns .. 0ns;]);
 			};
 		flows
@@ -167,7 +169,7 @@ public
 	thread implementation SM_PCS.impl
 		subcomponents
 			DesiredPositionState: data SM_Position.Steps;
-			CommandedPositionState: data SM_Position.Steps;
+			CommandedPositionState: data SM_Position_Change.DataRecord;
 		annex Behavior_Specification {**
 			variables
 			    distance: Base_Types::Integer;
@@ -189,23 +191,26 @@ public
 				end if;
 				
 				distance := DesiredPositionState - CommandedPositionState ;
-				if (abs(distance)>MaxStepCount)
-				    stepcount := MaxStepCount 
+				if ( abs(distance) > #PCSProperties::MaxStepCount )
+				    stepcount := #PCSProperties::MaxStepCount 
 				else
 				    stepcount := abs(distance)
 				end if;
-	            Commanded_Position.Step_Rate := #PCSProperties::MaxStepCount;
-	            if (distance>0){
-				    Commanded_Position.Step_Direction := Open;
-				    Commanded_Position.Step_Count := stepcount;
-				    CommandedPositionState := CommandedPositionState + stepcount
+	            
+	            if (distance>0){	            	
+				    CommandedPositionState.Step_Rate := #PCSProperties::MaxStepCount;
+				    CommandedPositionState.Step_Direction := "Open";
+				    CommandedPositionState.StepCount := CommandedPositionState.StepCount + stepcount
+			
 				    }
 				else {
-				    Commanded_Position.Step_Direction = Close;
-				    Commanded_Position.Step_Count = stepcount;
-				    CommandedPositionState = CommandedPositionState - stepcount
+				    CommandedPositionState.Step_Rate := #PCSProperties::MaxStepCount;
+				    CommandedPositionState.Step_Direction := "Close";
+				    CommandedPositionState.StepCount :=  CommandedPositionState.StepCount - stepcount
+		
 				    }
 				end if;
+				Commanded_Position := CommandedPositionState;
 				Commanded_Position!
 			}; -- end action
 		**};
@@ -257,7 +262,7 @@ public
 			DesiredPositionState: data SM_Position.Steps;
 	annex Behavior_Specification {**
 		states
-		Ready: initial state;
+		Ready: initial complete state;
 		transitions
 		Ready -[on dispatch ]-> Ready {
 			if ((Desired_Position'fresh) and  (Desired_Position >= 0)  and (Desired_Position <= #PCSProperties::MaxPercent))
@@ -278,14 +283,14 @@ public
 		-- it responds to commands from SM_PCS and to completion of a step
 		features
 			-- logical interface
-			Commanded_Position: in event data port SM_Position_Change {
+			Commanded_Position: in event data port SM_Position_Change.DataRecord {
 				Queue_Size => 0;
 				Overflow_Handling_Protocol => Error;
 			};
-			SM_Command_Signals: feature group inverse of SM_Command_Signals;
+			SM_Command_Signals: feature group SM_Command_Signalsi;
 			-- physical interface
 			DMA: requires bus access Device_Bus;
-			Power: requires bus access Power_Supply.Volt12;
+			Power: requires bus access Power_Supply;
 		flows
 			flowpath: flow path Commanded_Position -> SM_Command_Signals {Latency => 1ms .. 1ms;};
 		properties
@@ -324,8 +329,11 @@ public
 		subcomponents
 			StepsToDo: data SM_Position_Change.DataRecord;
 		annex Behavior_Specification {**
+			variables
+			command : SM_Position_Change.DataRecord;
+				step_rate : Base_Types::Integer; 	
 			states
-			Ready: initial state;
+			Ready: initial complete state;
 			WaitOnStep: complete state;
 			Decide: state;
 			transitions
@@ -335,14 +343,17 @@ public
 			WaitOnStep -[on dispatch Commanded_Position]-> WaitOnStep {
 				StepsToDo := Commanded_Position
 			};
-			WaitOnStep -[on dispatch DoStempCmd.StepDone]-> Decide ;
-			Decide -[StepsToDo.Step_Count = 0]-> Ready ;
-			Decide -[StepsToDo.Step_Count > 0]-> WaitOnStep {
-				StepsToDo.Step_Count :=  StepsToDo.Step_Count - 1;
-				if (StepsToDo.Step_Direction = Open)
-					SM_Command_Signals.SM_Cmd.Increment_Step!(StepsToDo.Step_Rate)
+			WaitOnStep -[on dispatch SM_Command_Signals.Step_Completion]-> Decide ;
+			Decide -[StepsToDo.StepCount = 0]-> Ready ;
+			Decide -[StepsToDo.StepCount > 0]-> WaitOnStep {
+				StepsToDo.StepCount :=  StepsToDo.StepCount - 1;
+				if (StepsToDo.Step_Direction = "Open") {
+					command := Commanded_Position?;
+					SM_Command_Signals.SM_Cmd.Increment_Step!(command.Step_Rate)
+					}
 				else 
-					SM_Command_Signals.SM_Cmd.Decrement_Step!(StepsToDo.Step_Rate)
+					command := Commanded_Position?;
+					SM_Command_Signals.SM_Cmd.Decrement_Step!(command.Step_Rate)
 				end if
 			};
 		**};
@@ -363,7 +374,7 @@ public
 		**};
 		annex Behavior_Specification {**
 			states
-				Ready: initial state;
+				Ready: initial complete state;
 				Decide: state;
 				WaitOnStep: complete state;
 				Processing: state;
@@ -371,12 +382,12 @@ public
 				Ready -[on dispatch Commanded_Position]-> Decide {
 					StepsToDo := Commanded_Position
 				};
-				WaitOnStep -[on dispatch SM_Command_Signals.StepDone]-> Decide; 
-				Decide -[StepsToDo.Step_Count = 0]-> Ready ;
-				Decide -[StepsToDo.Step_Count > 0]-> WaitOnStep 
+				WaitOnStep -[on dispatch SM_Command_Signals.Step_Completion]-> Decide; 
+				Decide -[StepsToDo.StepCount = 0]-> Ready ;
+				Decide -[StepsToDo.StepCount > 0]-> WaitOnStep 
 				{
-					StepsToDo.Step_Count :=  StepsToDo.Step_Count - 1;
-					if (StepsToDo.Step_Direction = Open)
+					StepsToDo.StepCount :=  StepsToDo.StepCount - 1;
+					if (StepsToDo.Step_Direction = "Open")
 						SM_Command_Signals.SM_Cmd.Increment_Step!(StepsToDo.Step_Rate)
 					else 
 						SM_Command_Signals.SM_Cmd.Decrement_Step!(StepsToDo.Step_Rate)
@@ -395,11 +406,10 @@ public
 				Overflow_Handling_Protocol => Error;
 			};
 			-- added for compliance of behavior specs
-			StepDone: in event port;
-			SM_Command_Signals: feature group inverse of SM_Command_Signals;
+			SM_Command_Signals: feature group SM_Command_Signalsi;
 			-- physical interface
 			DevBus: requires bus access Device_Bus;
-			Power: requires bus access Power_Supply.Volt12;
+			Power: requires bus access Power_Supply;
 		flows
 			flowpath: flow path Commanded_Position -> SM_Command_Signals {Latency => 1ms .. 1ms;};
 		properties
@@ -436,6 +446,7 @@ public
 		subcomponents
 			DesiredPositionState: data SM_Position.Steps;
 			CommandedPositionState: data SM_Position.Steps;
+			StepsToDo: data SM_Position_Change.DataRecord;
 		annex Behavior_Specification {**
 			states
 			Ready: initial complete state;
@@ -443,15 +454,15 @@ public
 			Ready -[on dispatch Commanded_Position]-> Ready {
 				DesiredPositionState := Commanded_Position  
 			};
-			Ready -[on dispatch SM_Command_Signals.StepDone]-> Ready {
+			Ready -[on dispatch SM_Command_Signals.Step_Completion]-> Ready {
 				if (CommandedPositionState > DesiredPositionState)
 				{
-					CommandedPositionState :=  CommandedPositionState - 1;
+					CommandedPositionState := CommandedPositionState - 1;
 					SM_Command_Signals.SM_Cmd.Decrement_Step!(StepsToDo.Step_Rate)
 				}
 				elsif (CommandedPositionState < DesiredPositionState)
 				{
-					CommandedPositionState :=  CommandedPositionState + 1;
+					CommandedPositionState := CommandedPositionState + 1;
 					SM_Command_Signals.SM_Cmd.Increment_Step!(StepsToDo.Step_Rate)
 				}
 				end if
@@ -465,6 +476,15 @@ public
 			Step_Completion: out event port;
 	end SM_Command_Signals;
 
+	-- TODO: the BA plugin has issues resolving inverse of feature groups.
+	-- We declare them explicitly to appease the typing phase.
+	feature group SM_Command_Signalsi
+		Features
+			SM_Cmd: feature group SM_Step_Cmd_Signalsi;
+			Step_Completion: in event port;
+			 inverse of SM_Command_Signals
+	end SM_Command_Signalsi;
+
 	feature group SM_Step_Cmd_Signals
 		Features
 			Increment_Step: in event data port Base_Types::Integer;
@@ -472,12 +492,20 @@ public
 			Goto_Home: in event port;
 	end SM_Step_Cmd_Signals;
 
+	feature group SM_Step_Cmd_Signalsi
+		Features
+			Increment_Step: out event data port Base_Types::Integer;
+			Decrement_Step: out event data port Base_Types::Integer;
+			Goto_Home: out event port;
+			inverse of SM_Step_Cmd_Signals
+	end SM_Step_Cmd_Signalsi;
+
 	device Stepper_Motor
 		features
 			SM_Command_Signals: feature group SM_Command_Signals;
 
 			Mechanical_Control_Position: out feature; --data port SM_Position.PercentOpen;
-			Power: requires bus access Power_Supply.Volt12;
+			Power: requires bus access Power_Supply;
 		flows
 			flowsink: flow sink SM_Command_Signals {Latency => 1ms .. 1ms;};
 		properties
@@ -506,7 +534,7 @@ public
 
 	device implementation Stepper_Motor.basic
 		subcomponents
-			ActualPositionState: data SM_Position;
+			ActualPositionState: data SM_Position.Steps;
 		annex Behavior_Specification {**
 			states 
 			Ready: initial complete state; 
@@ -542,7 +570,7 @@ public
 		features
 			desiredThrust: in data port;
 			thrustReading: in data port;
-			valvePosition: out data port SM_Position;
+			valvePosition: out data port SM_Position.PercentOpen; 
 		flows
 			flowsource: flow source valvePosition {Latency => 1ms .. 1ms;};
 		annex EMV2 {**
@@ -559,7 +587,7 @@ public
 
 	processor ECU
 		features
-			power: requires bus access Power_Supply.Volt12;
+			power: requires bus access Power_Supply;
 			Dev_Bus: requires bus access Device_Bus;
 		annex EMV2 {**
 			use types SMErrorTypes;
@@ -588,12 +616,6 @@ public
 			end propagations;
 		**};
 	end Power_Supply;
-
-	bus implementation Power_Supply.Volt12
-	end Power_Supply.Volt12;
-
-	bus implementation Power_Supply.Volt6
-	end Power_Supply.Volt6;
 
 	bus Device_Bus
 		annex EMV2 {**
@@ -638,7 +660,7 @@ public
 			Desired_Position: in data port SM_Position.PercentOpen;
 			Mechanical_Control_Position: out feature; --data port SM_Position.PercentOpen;
 			DMA: requires bus access Device_Bus;
-			Power: requires bus access Power_Supply.Volt12;
+			Power: requires bus access Power_Supply;
 		flows
 			flowsink: flow sink Desired_Position;
 		properties
@@ -669,7 +691,7 @@ public
 	system implementation SMS.Original
 		subcomponents
 			SM_PCS_App: process SMS_App_Process_SMPC.original;
-			SM_ACT: device SM_ACT; --.impl;
+			SM_ACT: device SM_ACT.impl;
 			SM_Motor: device Stepper_Motor;
 		connections
 			IncomingDesiredPosition: port Desired_Position -> SM_PCS_App.Desired_Position;

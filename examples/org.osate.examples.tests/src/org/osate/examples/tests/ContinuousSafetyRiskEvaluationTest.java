@@ -40,8 +40,7 @@ public class ContinuousSafetyRiskEvaluationTest extends ExampleConfig {
 				this.bundle + "/examples/continuous-safety-risk-evaluation/AircraftSafetyExample_AOADiscrepancy.aadl",
 				this.bundle + "/examples/continuous-safety-risk-evaluation/AircraftSafetyExample_AOAVendors.aadl",
 				this.bundle + "/examples/continuous-safety-risk-evaluation/acemlib.aadl");
-		List<String> components = List.of("ac.TwoSensorSpec", "ac.TwoSensorVA", "ac.TwoSensorVB");
 
-		addEntry(entry, references, components);
+		addEntry(entry, references);
 	}
 }

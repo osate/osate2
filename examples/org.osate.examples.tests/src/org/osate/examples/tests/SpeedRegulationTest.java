@@ -40,8 +40,7 @@ public class SpeedRegulationTest extends ExampleConfig {
 				this.bundle + "/examples/speed-regulation/model/platform.aadl",
 				this.bundle + "/examples/speed-regulation/model/devices.aadl",
 				this.bundle + "/examples/speed-regulation/model/error.aadl");
-		List<String> components = List.of("integration.implementation1", "integration.implementation2");
 
-		addEntry(entry, references, components);
+		addEntry(entry, references);
 	}
 }

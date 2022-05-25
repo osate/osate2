@@ -44,8 +44,7 @@ public class Arp4761Test extends ExampleConfig {
 				this.bundle + "/examples/arp4761/simple/power.aadl",
 				this.bundle + "/examples/arp4761/simple/pump.aadl",
 				this.bundle + "/examples/arp4761/simple/error.aadl");
-		List<String> components = List.of("wbs.ima");
 
-		addEntry(entry, references, components);
+		addEntry(entry, references);
 	}
 }

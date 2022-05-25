@@ -38,8 +38,7 @@ public class ResourceBudgetTest extends ExampleConfig {
 	public ResourceBudgetTest() {
 		String entry = "examples/resource-budget/resourcebudgets.aadl";
 		List<String> references = List.of("");
-		List<String> components = List.of("MySystem.Tier0", "MySystem.Tier2");
 
-		addEntry(entry, references, components);
+		addEntry(entry, references);
 	}
 }

@@ -1,42 +1,32 @@
 package org.osate.examples.tests;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import java.util.ArrayList;
+
+import org.eclipse.xtext.validation.Issue;
 import org.junit.Test;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instantiation.InstantiateModel;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
 
 @Singleton
-public class TestHelper<T extends EObject> {
+public class TestHelper extends XtextTest {
 	@Inject
 	private org.osate.testsupport.TestHelper<AadlPackage> testHelper;
 
 	@Test
 	public void ValidationAndInstantiationTest(ExampleConfig config) throws Exception {
 		for (ExampleEntry entry : config.entries) {
-			AadlPackage pkg = testHelper.parseFile(config.bundle + "/" + entry.entry,
+			this._before();
+			var testFileResult = issues = testHelper.testFile(config.bundle + "/" + entry.entry,
 					entry.references.toArray(new String[] {}));
-			final EList<Classifier> cls = pkg.getOwnedPublicSection().getOwnedClassifiers();
-			for (Classifier classifier : cls) {
-				if (classifier instanceof SystemImplementation) {
-					SystemImplementation impl = (SystemImplementation) classifier;
-					if (entry.components.contains(impl.getName())) {
-						SystemInstance si = InstantiateModel.instantiate(impl);
-						FluentIssueCollection issues = testHelper.testResource(pkg.eResource());
-						if (issues.getIssues().size() > 0) {
-							throw new Exception(issues.getIssues().size() + " Error(s) found in " + config.bundle + "/"
-									+ entry.entry);
-						}
-					}
-				}
-			}
+			var issueCollection = new FluentIssueCollection(testFileResult.getResource(), new ArrayList<Issue>(),
+					new ArrayList<String>());
+
+			issueCollection.sizeIs(testFileResult.getIssues().size());
+			assertConstraints(issueCollection);
 		}
 	}
 }
