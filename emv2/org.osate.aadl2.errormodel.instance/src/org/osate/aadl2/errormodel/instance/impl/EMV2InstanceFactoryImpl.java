@@ -54,6 +54,7 @@ import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
@@ -128,6 +129,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createErrorEventInstance();
 		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE:
 			return createRecoverEventInstance();
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE:
+			return createRepairEventInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
 			return createConstraintExpression();
 		case EMV2InstancePackage.OLD_PROPAGATION_PATH_INSTANCE:
@@ -397,6 +400,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public RecoverEventInstance createRecoverEventInstance() {
 		RecoverEventInstanceImpl recoverEventInstance = new RecoverEventInstanceImpl();
 		return recoverEventInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public RepairEventInstance createRepairEventInstance() {
+		RepairEventInstanceImpl repairEventInstance = new RepairEventInstanceImpl();
+		return repairEventInstance;
 	}
 
 	/**

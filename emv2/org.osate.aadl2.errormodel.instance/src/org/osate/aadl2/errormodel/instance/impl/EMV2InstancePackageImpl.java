@@ -63,6 +63,7 @@ import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
@@ -228,6 +229,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass recoverEventInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass repairEventInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1312,6 +1320,26 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getRepairEventInstance() {
+		return repairEventInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getRepairEventInstance_RepairEvent() {
+		return (EReference) repairEventInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -1856,6 +1884,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		recoverEventInstanceEClass = createEClass(RECOVER_EVENT_INSTANCE);
 		createEReference(recoverEventInstanceEClass, RECOVER_EVENT_INSTANCE__RECOVER_EVENT);
 
+		repairEventInstanceEClass = createEClass(REPAIR_EVENT_INSTANCE);
+		createEReference(repairEventInstanceEClass, REPAIR_EVENT_INSTANCE__REPAIR_EVENT);
+
 		constraintExpressionEClass = createEClass(CONSTRAINT_EXPRESSION);
 		createEAttribute(constraintExpressionEClass, CONSTRAINT_EXPRESSION__OPERATOR);
 		createEAttribute(constraintExpressionEClass, CONSTRAINT_EXPRESSION__K);
@@ -2011,6 +2042,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		eventInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		errorEventInstanceEClass.getESuperTypes().add(getEventInstance());
 		recoverEventInstanceEClass.getESuperTypes().add(getEventInstance());
+		repairEventInstanceEClass.getESuperTypes().add(getEventInstance());
 		constraintExpressionEClass.getESuperTypes().add(getConstraintElement());
 		constraintElementEClass.getESuperTypes().add(getEMV2InstanceObject());
 		oldPropagationPathInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
@@ -2207,6 +2239,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getRecoverEventInstance_RecoverEvent(), theErrorModelPackage.getRecoverEvent(), null,
 				"recoverEvent", null, 0, 1, RecoverEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(repairEventInstanceEClass, RepairEventInstance.class, "RepairEventInstance", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRepairEventInstance_RepairEvent(), theErrorModelPackage.getRepairEvent(), null, "repairEvent",
+				null, 0, 1, RepairEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constraintExpressionEClass, ConstraintExpression.class, "ConstraintExpression", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

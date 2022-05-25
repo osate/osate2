@@ -58,6 +58,7 @@ import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
@@ -183,6 +184,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseRecoverEventInstance(RecoverEventInstance object) {
 			return createRecoverEventInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseRepairEventInstance(RepairEventInstance object) {
+			return createRepairEventInstanceAdapter();
 		}
 
 		@Override
@@ -640,6 +646,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRecoverEventInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.RepairEventInstance <em>Repair Event Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.RepairEventInstance
+	 * @generated
+	 */
+	public Adapter createRepairEventInstanceAdapter() {
 		return null;
 	}
 

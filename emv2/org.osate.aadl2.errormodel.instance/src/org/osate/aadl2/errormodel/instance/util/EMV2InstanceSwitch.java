@@ -57,6 +57,7 @@ import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
@@ -363,6 +364,29 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(recoverEventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE: {
+			RepairEventInstance repairEventInstance = (RepairEventInstance) theEObject;
+			T result = caseRepairEventInstance(repairEventInstance);
+			if (result == null) {
+				result = caseEventInstance(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseElement(repairEventInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1288,6 +1312,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseRecoverEventInstance(RecoverEventInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Repair Event Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Repair Event Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRepairEventInstance(RepairEventInstance object) {
 		return null;
 	}
 

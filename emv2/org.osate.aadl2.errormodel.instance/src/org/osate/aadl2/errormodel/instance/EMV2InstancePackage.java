@@ -540,7 +540,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConstraintElement()
 	 * @generated
 	 */
-	int CONSTRAINT_ELEMENT = 13;
+	int CONSTRAINT_ELEMENT = 14;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -922,7 +922,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorFlowInstance()
 	 * @generated
 	 */
-	int ERROR_FLOW_INSTANCE = 28;
+	int ERROR_FLOW_INSTANCE = 29;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorSourceInstanceImpl <em>Error Source Instance</em>}' class.
@@ -932,7 +932,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorSourceInstance()
 	 * @generated
 	 */
-	int ERROR_SOURCE_INSTANCE = 29;
+	int ERROR_SOURCE_INSTANCE = 30;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationConditionInstanceImpl <em>Error Propagation Condition Instance</em>}' class.
@@ -1187,7 +1187,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getPropagationPointInstance()
 	 * @generated
 	 */
-	int PROPAGATION_POINT_INSTANCE = 32;
+	int PROPAGATION_POINT_INSTANCE = 33;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.
@@ -1490,6 +1490,106 @@ public interface EMV2InstancePackage extends EPackage {
 	int RECOVER_EVENT_INSTANCE_FEATURE_COUNT = EVENT_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.RepairEventInstanceImpl <em>Repair Event Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.RepairEventInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getRepairEventInstance()
+	 * @generated
+	 */
+	int REPAIR_EVENT_INSTANCE = 12;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__OWNED_ELEMENT = EVENT_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__OWNED_COMMENT = EVENT_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__NAME = EVENT_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__QUALIFIED_NAME = EVENT_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EVENT_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__ANNEX_INSTANCE = EVENT_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__EVENT = EVENT_INSTANCE__EVENT;
+
+	/**
+	 * The feature id for the '<em><b>Generated Typed Events</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__GENERATED_TYPED_EVENTS = EVENT_INSTANCE__GENERATED_TYPED_EVENTS;
+
+	/**
+	 * The feature id for the '<em><b>Repair Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__REPAIR_EVENT = EVENT_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Repair Event Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE_FEATURE_COUNT = EVENT_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1497,7 +1597,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConstraintExpression()
 	 * @generated
 	 */
-	int CONSTRAINT_EXPRESSION = 12;
+	int CONSTRAINT_EXPRESSION = 13;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1597,7 +1697,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOldPropagationPathInstance()
 	 * @generated
 	 */
-	int OLD_PROPAGATION_PATH_INSTANCE = 14;
+	int OLD_PROPAGATION_PATH_INSTANCE = 15;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1697,7 +1797,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorPropagationInstance()
 	 * @generated
 	 */
-	int ERROR_PROPAGATION_INSTANCE = 15;
+	int ERROR_PROPAGATION_INSTANCE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1869,7 +1969,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConnectionEndPropagation()
 	 * @generated
 	 */
-	int CONNECTION_END_PROPAGATION = 16;
+	int CONNECTION_END_PROPAGATION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2059,7 +2159,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getFeaturePropagation()
 	 * @generated
 	 */
-	int FEATURE_PROPAGATION = 17;
+	int FEATURE_PROPAGATION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2258,7 +2358,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getPointPropagation()
 	 * @generated
 	 */
-	int POINT_PROPAGATION = 19;
+	int POINT_PROPAGATION = 20;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AccessPropagationImpl <em>Access Propagation</em>}' class.
@@ -2268,7 +2368,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAccessPropagation()
 	 * @generated
 	 */
-	int ACCESS_PROPAGATION = 18;
+	int ACCESS_PROPAGATION = 19;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2647,7 +2747,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingPropagation()
 	 * @generated
 	 */
-	int BINDING_PROPAGATION = 20;
+	int BINDING_PROPAGATION = 21;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2846,7 +2946,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeSetElement()
 	 * @generated
 	 */
-	int TYPE_SET_ELEMENT = 21;
+	int TYPE_SET_ELEMENT = 22;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2919,7 +3019,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeTokenInstance()
 	 * @generated
 	 */
-	int TYPE_TOKEN_INSTANCE = 22;
+	int TYPE_TOKEN_INSTANCE = 23;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2992,7 +3092,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeInstance()
 	 * @generated
 	 */
-	int TYPE_INSTANCE = 23;
+	int TYPE_INSTANCE = 24;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3074,7 +3174,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeSetInstance()
 	 * @generated
 	 */
-	int TYPE_SET_INSTANCE = 26;
+	int TYPE_SET_INSTANCE = 27;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AnonymousTypeSetImpl <em>Anonymous Type Set</em>}' class.
@@ -3084,7 +3184,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAnonymousTypeSet()
 	 * @generated
 	 */
-	int ANONYMOUS_TYPE_SET = 27;
+	int ANONYMOUS_TYPE_SET = 28;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeProductInstanceImpl <em>Type Product Instance</em>}' class.
@@ -3094,7 +3194,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeProductInstance()
 	 * @generated
 	 */
-	int TYPE_PRODUCT_INSTANCE = 24;
+	int TYPE_PRODUCT_INSTANCE = 25;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3176,7 +3276,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAbstractTypeSet()
 	 * @generated
 	 */
-	int ABSTRACT_TYPE_SET = 25;
+	int ABSTRACT_TYPE_SET = 26;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3564,7 +3664,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorSinkInstance()
 	 * @generated
 	 */
-	int ERROR_SINK_INSTANCE = 30;
+	int ERROR_SINK_INSTANCE = 31;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3664,7 +3764,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorPathInstance()
 	 * @generated
 	 */
-	int ERROR_PATH_INSTANCE = 31;
+	int ERROR_PATH_INSTANCE = 32;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3854,7 +3954,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getPropagationPathInstance()
 	 * @generated
 	 */
-	int PROPAGATION_PATH_INSTANCE = 33;
+	int PROPAGATION_PATH_INSTANCE = 34;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3927,7 +4027,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConnectionPath()
 	 * @generated
 	 */
-	int CONNECTION_PATH = 34;
+	int CONNECTION_PATH = 35;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4027,7 +4127,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingPath()
 	 * @generated
 	 */
-	int BINDING_PATH = 35;
+	int BINDING_PATH = 36;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4127,7 +4227,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getUserDefinedPath()
 	 * @generated
 	 */
-	int USER_DEFINED_PATH = 36;
+	int USER_DEFINED_PATH = 37;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4245,7 +4345,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 37;
+	int EOPERATION = 38;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -4255,7 +4355,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 38;
+	int BINDING_TYPE = 39;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -5203,6 +5303,27 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getRecoverEventInstance_RecoverEvent();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.RepairEventInstance <em>Repair Event Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Repair Event Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.RepairEventInstance
+	 * @generated
+	 */
+	EClass getRepairEventInstance();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.RepairEventInstance#getRepairEvent <em>Repair Event</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Repair Event</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.RepairEventInstance#getRepairEvent()
+	 * @see #getRepairEventInstance()
+	 * @generated
+	 */
+	EReference getRepairEventInstance_RepairEvent();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -6458,6 +6579,24 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference RECOVER_EVENT_INSTANCE__RECOVER_EVENT = eINSTANCE.getRecoverEventInstance_RecoverEvent();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.RepairEventInstanceImpl <em>Repair Event Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.RepairEventInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getRepairEventInstance()
+		 * @generated
+		 */
+		EClass REPAIR_EVENT_INSTANCE = eINSTANCE.getRepairEventInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Repair Event</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REPAIR_EVENT_INSTANCE__REPAIR_EVENT = eINSTANCE.getRepairEventInstance_RepairEvent();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

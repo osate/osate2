@@ -75,6 +75,7 @@ import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
@@ -120,6 +121,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -470,6 +472,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			annex.getEvents().add(createErrorEventInstance(errorEvent));
 		} else if (event instanceof RecoverEvent recoverEvent) {
 			annex.getEvents().add(createRecoverEventInstance(recoverEvent));
+		} else if (event instanceof RepairEvent repairEvent) {
+			annex.getEvents().add(createRepairEventInstance(repairEvent));
 		} else {
 			throw new RuntimeException("Unexpected event: " + event);
 		}
@@ -489,6 +493,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var eventInstance = EMV2InstanceFactory.eINSTANCE.createRecoverEventInstance();
 		eventInstance.setName(event.getName());
 		eventInstance.setRecoverEvent(event);
+		return eventInstance;
+	}
+
+	private RepairEventInstance createRepairEventInstance(RepairEvent event) {
+		var eventInstance = EMV2InstanceFactory.eINSTANCE.createRepairEventInstance();
+		eventInstance.setName(event.getName());
+		eventInstance.setRepairEvent(event);
 		return eventInstance;
 	}
 
