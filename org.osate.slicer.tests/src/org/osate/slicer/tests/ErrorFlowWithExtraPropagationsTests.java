@@ -43,6 +43,7 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
+import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.slicer.OsateSlicerVertex;
@@ -65,6 +66,8 @@ public class ErrorFlowWithExtraPropagationsTests {
 
 	@Before
 	public void setUp() throws Exception {
+		// Need to set this property to turn on emv2 instantiation
+		System.setProperty(EMV2AnnexInstantiator.PROPERTY_NAME, "true");
 		tlg = new SlicerRepresentation();
 		var pkg = myTestHelper.parseFile("org.osate.slicer.tests/aadl-models/ErrorFlowWithExtraPropagations.aadl");
 		var impl = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);

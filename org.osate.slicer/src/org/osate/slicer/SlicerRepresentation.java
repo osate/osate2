@@ -49,6 +49,8 @@ import org.jgrapht.traverse.BreadthFirstIterator;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.BindingPath;
+import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
@@ -511,6 +513,9 @@ public class SlicerRepresentation {
 	private class Emv2SlicerSwitch extends EMV2InstanceSwitch<Void> {
 		@Override
 		public Void caseErrorSourceInstance(ErrorSourceInstance esi) {
+			if (esi.getPropagation() instanceof BindingPropagation) {
+				return null;
+			}
 			var srcName = esi.getInstanceObjectPath().replace(".EMV2", "");
 			var srcTypes = esi.getTypeSet().getElements();
 			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
@@ -539,6 +544,10 @@ public class SlicerRepresentation {
 
 		@Override
 		public Void caseErrorPathInstance(ErrorPathInstance epi) {
+			if (epi.getDestinationPropagation() instanceof BindingPropagation
+					|| epi.getSourcePropagation() instanceof BindingPropagation) {
+				return null;
+			}
 			var dstVrt = epi.getDestinationPropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
 					+ epi.getDestinationTypeToken().getFullName();
 			addVertex(((FeaturePropagation) epi.getDestinationPropagation()).getFeature(),
@@ -550,6 +559,11 @@ public class SlicerRepresentation {
 				addEdge(epi.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
 						+ tti.getFullName(), dstVrt);
 			});
+			return null;
+		}
+
+		@Override
+		public Void caseBindingPath(BindingPath bp) {
 			return null;
 		}
 
