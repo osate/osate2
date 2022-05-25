@@ -1,8 +1,8 @@
-package error_events
+package error_events_in_state_machine
 public
 	system s
 		annex EMV2 {**
-			use behavior error_events::machine1;
+			use behavior error_events_in_state_machine::machine1;
 		**};
 	end s;
 	
@@ -19,4 +19,4 @@ public
 				event4: error event {ItemTimingError, ItemValueError} if "condition";
 		end behavior;
 	**};
-end error_events;
+end error_events_in_state_machine;

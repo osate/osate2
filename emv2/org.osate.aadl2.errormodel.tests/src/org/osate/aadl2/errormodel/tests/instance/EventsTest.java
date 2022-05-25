@@ -34,8 +34,36 @@ public class EventsTest {
 	}
 
 	@Test
-	public void testErrorEvents() throws Exception {
-		var pkg = testHelper.parseFile(PATH + "error_events.aadl");
+	public void testErrorEventsInStateMachine() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "error_events_in_state_machine.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(4, annexInstance.getEvents().size());
+		with((ErrorEventInstance) annexInstance.getEvents().get(0), event -> {
+			assertEquals("event1", event.getName());
+			assertEquals("event1", event.getErrorEvent().getName());
+			assertNull(event.getTypeSet());
+		});
+		with((ErrorEventInstance) annexInstance.getEvents().get(1), event -> {
+			assertEquals("event2", event.getName());
+			assertEquals("event2", event.getErrorEvent().getName());
+			assertEquals("{ServiceError}", event.getTypeSet().getName());
+		});
+		with((ErrorEventInstance) annexInstance.getEvents().get(2), event -> {
+			assertEquals("event3", event.getName());
+			assertEquals("event3", event.getErrorEvent().getName());
+			assertNull(event.getTypeSet());
+		});
+		with((ErrorEventInstance) annexInstance.getEvents().get(3), event -> {
+			assertEquals("event4", event.getName());
+			assertEquals("event4", event.getErrorEvent().getName());
+			assertEquals("{ItemTimingError, ItemValueError}", event.getTypeSet().getName());
+		});
+	}
+
+	@Test
+	public void testErrorEventsInComponentErrorBehavior() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "error_events_in_component_error_behavior.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(4, annexInstance.getEvents().size());
