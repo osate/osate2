@@ -13,6 +13,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
+import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -86,6 +87,22 @@ public class EventsTest {
 			assertEquals("event4", event.getName());
 			assertEquals("event4", event.getErrorEvent().getName());
 			assertEquals("{ItemTimingError, ItemValueError}", event.getTypeSet().getName());
+		});
+	}
+
+	@Test
+	public void testRecoverEventsInStateMachine() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "recover_events_in_state_machine.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getEvents().size());
+		with((RecoverEventInstance) annexInstance.getEvents().get(0), event -> {
+			assertEquals("recover1", event.getName());
+			assertEquals("recover1", event.getRecoverEvent().getName());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(1), event -> {
+			assertEquals("recover2", event.getName());
+			assertEquals("recover2", event.getRecoverEvent().getName());
 		});
 	}
 }
