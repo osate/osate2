@@ -208,4 +208,115 @@ public class EventsTest {
 					event.getEventInitiators().stream().map(NamedElement::getName).toList());
 		});
 	}
+
+	@Test
+	public void testEventsInStateMachineAndComponentErrorBehavior() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "events_in_state_machine_and_component_error_behavior.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(6, annexInstance.getEvents().size());
+		with((ErrorEventInstance) annexInstance.getEvents().get(0), event -> {
+			assertEquals("error1", event.getName());
+			assertEquals("error1", event.getErrorEvent().getName());
+			assertNull(event.getTypeSet());
+		});
+		with((ErrorEventInstance) annexInstance.getEvents().get(1), event -> {
+			assertEquals("error2", event.getName());
+			assertEquals("error2", event.getErrorEvent().getName());
+			assertNull(event.getTypeSet());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(2), event -> {
+			assertEquals("recover1", event.getName());
+			assertEquals("recover1", event.getRecoverEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(3), event -> {
+			assertEquals("recover2", event.getName());
+			assertEquals("recover2", event.getRecoverEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+		with((RepairEventInstance) annexInstance.getEvents().get(4), event -> {
+			assertEquals("repair1", event.getName());
+			assertEquals("repair1", event.getRepairEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+		with((RepairEventInstance) annexInstance.getEvents().get(5), event -> {
+			assertEquals("repair2", event.getName());
+			assertEquals("repair2", event.getRepairEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+	}
+
+	@Test
+	public void testOverrideEventsInheritedFromClassifier() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "override_events_inherited_from_classifier.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(3, annexInstance.getEvents().size());
+		with((ErrorEventInstance) annexInstance.getEvents().get(0), event -> {
+			assertEquals("ERROR1", event.getName());
+			assertEquals("ERROR1", event.getErrorEvent().getName());
+			assertEquals("{ItemTimingError}", event.getTypeSet().getName());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(1), event -> {
+			assertEquals("RECOVER1", event.getName());
+			assertEquals("RECOVER1", event.getRecoverEvent().getName());
+			assertIterableEquals(List.of("ep2"),
+					event.getEventInitiators().stream().map(NamedElement::getName).toList());
+		});
+		with((RepairEventInstance) annexInstance.getEvents().get(2), event -> {
+			assertEquals("REPAIR1", event.getName());
+			assertEquals("REPAIR1", event.getRepairEvent().getName());
+			assertIterableEquals(List.of("ep2"),
+					event.getEventInitiators().stream().map(NamedElement::getName).toList());
+		});
+	}
+
+	@Test
+	public void testOverrideEventsInheritedFromStateMachine() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "override_events_inherited_from_state_machine.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(3, annexInstance.getEvents().size());
+		with((ErrorEventInstance) annexInstance.getEvents().get(0), event -> {
+			assertEquals("ERROR1", event.getName());
+			assertEquals("ERROR1", event.getErrorEvent().getName());
+			assertEquals("{ItemTimingError}", event.getTypeSet().getName());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(1), event -> {
+			assertEquals("RECOVER1", event.getName());
+			assertEquals("RECOVER1", event.getRecoverEvent().getName());
+			assertIterableEquals(List.of("ep1"),
+					event.getEventInitiators().stream().map(NamedElement::getName).toList());
+		});
+		with((RepairEventInstance) annexInstance.getEvents().get(2), event -> {
+			assertEquals("REPAIR1", event.getName());
+			assertEquals("REPAIR1", event.getRepairEvent().getName());
+			assertIterableEquals(List.of("ep1"),
+					event.getEventInitiators().stream().map(NamedElement::getName).toList());
+		});
+	}
+
+	@Test
+	public void testConflictingInheritedEvents() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "conflicting_inherited_events.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(3, annexInstance.getEvents().size());
+		with((ErrorEventInstance) annexInstance.getEvents().get(0), event -> {
+			assertEquals("error1", event.getName());
+			assertEquals("error1", event.getErrorEvent().getName());
+			assertEquals("{ServiceError}", event.getTypeSet().getName());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(1), event -> {
+			assertEquals("recover1", event.getName());
+			assertEquals("recover1", event.getRecoverEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+		with((RepairEventInstance) annexInstance.getEvents().get(2), event -> {
+			assertEquals("repair1", event.getName());
+			assertEquals("repair1", event.getRepairEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+	}
 }

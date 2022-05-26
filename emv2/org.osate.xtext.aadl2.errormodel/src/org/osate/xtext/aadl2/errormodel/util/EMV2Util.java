@@ -1692,7 +1692,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorBehaviorEvent> list of ErrorBehaviorEvents as HashMap for quick lookup of names
 	 */
 	public static Collection<ErrorBehaviorEvent> getAllErrorBehaviorEvents(Classifier cl) {
-		HashMap<String, ErrorBehaviorEvent> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorBehaviorEvent>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {

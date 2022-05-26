@@ -1,0 +1,31 @@
+package override_events_inherited_from_state_machine
+public
+	system s
+		features
+			ep1: in out event port;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior override_events_inherited_from_state_machine::machine1;
+			
+			component error behavior
+				events
+					ERROR1: error event {ItemTimingError};
+					RECOVER1: recover event when ep1;
+					REPAIR1: repair event when ep1;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			events
+				error1: error event {ServiceError};
+				recover1: recover event;
+				repair1: repair event;
+		end behavior;
+	**};
+end override_events_inherited_from_state_machine;
