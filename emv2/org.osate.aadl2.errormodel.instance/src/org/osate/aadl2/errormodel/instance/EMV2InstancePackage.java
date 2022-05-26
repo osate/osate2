@@ -1590,13 +1590,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int REPAIR_EVENT_INSTANCE__REPAIR_EVENT = EVENT_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Event Initiators</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPAIR_EVENT_INSTANCE__EVENT_INITIATORS = EVENT_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Repair Event Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REPAIR_EVENT_INSTANCE_FEATURE_COUNT = EVENT_INSTANCE_FEATURE_COUNT + 1;
+	int REPAIR_EVENT_INSTANCE_FEATURE_COUNT = EVENT_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.
@@ -5346,6 +5355,17 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getRepairEventInstance_RepairEvent();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.RepairEventInstance#getEventInitiators <em>Event Initiators</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Event Initiators</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.RepairEventInstance#getEventInitiators()
+	 * @see #getRepairEventInstance()
+	 * @generated
+	 */
+	EReference getRepairEventInstance_EventInitiators();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6625,6 +6645,14 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference REPAIR_EVENT_INSTANCE__REPAIR_EVENT = eINSTANCE.getRepairEventInstance_RepairEvent();
+
+		/**
+		 * The meta object literal for the '<em><b>Event Initiators</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REPAIR_EVENT_INSTANCE__EVENT_INITIATORS = eINSTANCE.getRepairEventInstance_EventInitiators();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

@@ -463,7 +463,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else if (event instanceof RecoverEvent recoverEvent) {
 			annex.getEvents().add(createRecoverEventInstance(recoverEvent, annex));
 		} else if (event instanceof RepairEvent repairEvent) {
-			annex.getEvents().add(createRepairEventInstance(repairEvent));
+			annex.getEvents().add(createRepairEventInstance(repairEvent, annex));
 		} else {
 			throw new RuntimeException("Unexpected event: " + event);
 		}
@@ -494,10 +494,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return eventInstance;
 	}
 
-	private RepairEventInstance createRepairEventInstance(RepairEvent event) {
+	private RepairEventInstance createRepairEventInstance(RepairEvent event, EMV2AnnexInstance annex) {
 		var eventInstance = EMV2InstanceFactory.eINSTANCE.createRepairEventInstance();
 		eventInstance.setName(event.getName());
 		eventInstance.setRepairEvent(event);
+		var component = getContainerOfType(annex, ComponentInstance.class);
+		for (var initiator : event.getEventInitiator()) {
+			if (initiator instanceof Feature feature) {
+				eventInstance.getEventInitiators().add(findFeatureInstance(component, feature));
+			} else if (initiator instanceof ModeTransition transition) {
+				eventInstance.getEventInitiators().add(findModeTransitionInstance(component, transition));
+			}
+		}
 		return eventInstance;
 	}
 

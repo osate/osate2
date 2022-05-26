@@ -99,6 +99,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RepairEventInstance" eSuperTypes="#//EventInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="repairEvent" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//RepairEvent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventInitiators" upperBound="-1"
+        eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstanceEnd"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstraintExpression" eSuperTypes="#//ConstraintElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//EOperation"/>

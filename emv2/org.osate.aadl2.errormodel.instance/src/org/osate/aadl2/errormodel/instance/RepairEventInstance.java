@@ -23,6 +23,8 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
+import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 
 /**
@@ -35,6 +37,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.RepairEventInstance#getRepairEvent <em>Repair Event</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.RepairEventInstance#getEventInitiators <em>Event Initiators</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getRepairEventInstance()
@@ -63,5 +66,17 @@ public interface RepairEventInstance extends EventInstance {
 	 * @generated
 	 */
 	void setRepairEvent(RepairEvent value);
+
+	/**
+	 * Returns the value of the '<em><b>Event Initiators</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.instance.ConnectionInstanceEnd}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Event Initiators</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getRepairEventInstance_EventInitiators()
+	 * @model
+	 * @generated
+	 */
+	EList<ConnectionInstanceEnd> getEventInitiators();
 
 } // RepairEventInstance

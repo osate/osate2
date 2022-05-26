@@ -1350,6 +1350,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getRepairEventInstance_EventInitiators() {
+		return (EReference) repairEventInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -1897,6 +1907,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		repairEventInstanceEClass = createEClass(REPAIR_EVENT_INSTANCE);
 		createEReference(repairEventInstanceEClass, REPAIR_EVENT_INSTANCE__REPAIR_EVENT);
+		createEReference(repairEventInstanceEClass, REPAIR_EVENT_INSTANCE__EVENT_INITIATORS);
 
 		constraintExpressionEClass = createEClass(CONSTRAINT_EXPRESSION);
 		createEAttribute(constraintExpressionEClass, CONSTRAINT_EXPRESSION__OPERATOR);
@@ -2259,6 +2270,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getRepairEventInstance_RepairEvent(), theErrorModelPackage.getRepairEvent(), null, "repairEvent",
 				null, 0, 1, RepairEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRepairEventInstance_EventInitiators(), theInstancePackage.getConnectionInstanceEnd(), null,
+				"eventInitiators", null, 0, -1, RepairEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constraintExpressionEClass, ConstraintExpression.class, "ConstraintExpression", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

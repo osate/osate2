@@ -23,12 +23,17 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 
 /**
@@ -40,6 +45,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.RepairEventInstanceImpl#getRepairEvent <em>Repair Event</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.RepairEventInstanceImpl#getEventInitiators <em>Event Initiators</em>}</li>
  * </ul>
  *
  * @generated
@@ -54,6 +60,16 @@ public class RepairEventInstanceImpl extends EventInstanceImpl implements Repair
 	 * @ordered
 	 */
 	protected RepairEvent repairEvent;
+
+	/**
+	 * The cached value of the '{@link #getEventInitiators() <em>Event Initiators</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEventInitiators()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionInstanceEnd> eventInitiators;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,6 +140,20 @@ public class RepairEventInstanceImpl extends EventInstanceImpl implements Repair
 	 * @generated
 	 */
 	@Override
+	public EList<ConnectionInstanceEnd> getEventInitiators() {
+		if (eventInitiators == null) {
+			eventInitiators = new EObjectResolvingEList<>(ConnectionInstanceEnd.class, this,
+					EMV2InstancePackage.REPAIR_EVENT_INSTANCE__EVENT_INITIATORS);
+		}
+		return eventInitiators;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE__REPAIR_EVENT:
@@ -131,6 +161,8 @@ public class RepairEventInstanceImpl extends EventInstanceImpl implements Repair
 				return getRepairEvent();
 			}
 			return basicGetRepairEvent();
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE__EVENT_INITIATORS:
+			return getEventInitiators();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,11 +172,16 @@ public class RepairEventInstanceImpl extends EventInstanceImpl implements Repair
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE__REPAIR_EVENT:
 			setRepairEvent((RepairEvent) newValue);
+			return;
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE__EVENT_INITIATORS:
+			getEventInitiators().clear();
+			getEventInitiators().addAll((Collection<? extends ConnectionInstanceEnd>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,6 +198,9 @@ public class RepairEventInstanceImpl extends EventInstanceImpl implements Repair
 		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE__REPAIR_EVENT:
 			setRepairEvent((RepairEvent) null);
 			return;
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE__EVENT_INITIATORS:
+			getEventInitiators().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -175,6 +215,8 @@ public class RepairEventInstanceImpl extends EventInstanceImpl implements Repair
 		switch (featureID) {
 		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE__REPAIR_EVENT:
 			return repairEvent != null;
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE__EVENT_INITIATORS:
+			return eventInitiators != null && !eventInitiators.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
