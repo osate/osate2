@@ -2,7 +2,10 @@ package org.osate.aadl2.errormodel.tests.instance;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.osate.pluginsupport.ScopeFunctions.with;
+
+import java.util.List;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
@@ -10,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
@@ -100,10 +104,59 @@ public class EventsTest {
 		with((RecoverEventInstance) annexInstance.getEvents().get(0), event -> {
 			assertEquals("recover1", event.getName());
 			assertEquals("recover1", event.getRecoverEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
 		});
 		with((RecoverEventInstance) annexInstance.getEvents().get(1), event -> {
 			assertEquals("recover2", event.getName());
 			assertEquals("recover2", event.getRecoverEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+	}
+
+	@Test
+	public void testRecoverEventsInComponentErrorBehavior() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "recover_events_in_component_error_behavior.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(7, annexInstance.getEvents().size());
+		with((RecoverEventInstance) annexInstance.getEvents().get(0), event -> {
+			assertEquals("recover1", event.getName());
+			assertEquals("recover1", event.getRecoverEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(1), event -> {
+			assertEquals("recover2", event.getName());
+			assertEquals("recover2", event.getRecoverEvent().getName());
+			assertIterableEquals(List.of("ep1"),
+					event.getEventInitiators().stream().map(NamedElement::getName).toList());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(2), event -> {
+			assertEquals("recover3", event.getName());
+			assertEquals("recover3", event.getRecoverEvent().getName());
+			assertIterableEquals(List.of("m1_ep1_m2"),
+					event.getEventInitiators().stream().map(NamedElement::getName).toList());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(3), event -> {
+			assertEquals("recover4", event.getName());
+			assertEquals("recover4", event.getRecoverEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(4), event -> {
+			assertEquals("recover5", event.getName());
+			assertEquals("recover5", event.getRecoverEvent().getName());
+			assertIterableEquals(List.of("ep1", "m1_ep1_m2"),
+					event.getEventInitiators().stream().map(NamedElement::getName).toList());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(5), event -> {
+			assertEquals("recover6", event.getName());
+			assertEquals("recover6", event.getRecoverEvent().getName());
+			assertEquals(0, event.getEventInitiators().size());
+		});
+		with((RecoverEventInstance) annexInstance.getEvents().get(6), event -> {
+			assertEquals("recover7", event.getName());
+			assertEquals("recover7", event.getRecoverEvent().getName());
+			assertIterableEquals(List.of("ep1", "m1_ep1_m2"),
+					event.getEventInitiators().stream().map(NamedElement::getName).toList());
 		});
 	}
 

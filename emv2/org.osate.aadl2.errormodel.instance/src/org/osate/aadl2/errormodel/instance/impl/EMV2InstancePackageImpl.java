@@ -1320,6 +1320,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getRecoverEventInstance_EventInitiators() {
+		return (EReference) recoverEventInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getRepairEventInstance() {
 		return repairEventInstanceEClass;
 	}
@@ -1883,6 +1893,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		recoverEventInstanceEClass = createEClass(RECOVER_EVENT_INSTANCE);
 		createEReference(recoverEventInstanceEClass, RECOVER_EVENT_INSTANCE__RECOVER_EVENT);
+		createEReference(recoverEventInstanceEClass, RECOVER_EVENT_INSTANCE__EVENT_INITIATORS);
 
 		repairEventInstanceEClass = createEClass(REPAIR_EVENT_INSTANCE);
 		createEReference(repairEventInstanceEClass, REPAIR_EVENT_INSTANCE__REPAIR_EVENT);
@@ -2238,6 +2249,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRecoverEventInstance_RecoverEvent(), theErrorModelPackage.getRecoverEvent(), null,
 				"recoverEvent", null, 0, 1, RecoverEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRecoverEventInstance_EventInitiators(), theInstancePackage.getConnectionInstanceEnd(), null,
+				"eventInitiators", null, 0, -1, RecoverEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(repairEventInstanceEClass, RepairEventInstance.class, "RepairEventInstance", !IS_ABSTRACT,

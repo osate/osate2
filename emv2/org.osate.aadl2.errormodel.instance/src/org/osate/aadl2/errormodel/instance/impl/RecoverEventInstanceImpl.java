@@ -23,12 +23,17 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 
 /**
@@ -40,6 +45,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.RecoverEventInstanceImpl#getRecoverEvent <em>Recover Event</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.RecoverEventInstanceImpl#getEventInitiators <em>Event Initiators</em>}</li>
  * </ul>
  *
  * @generated
@@ -54,6 +60,16 @@ public class RecoverEventInstanceImpl extends EventInstanceImpl implements Recov
 	 * @ordered
 	 */
 	protected RecoverEvent recoverEvent;
+
+	/**
+	 * The cached value of the '{@link #getEventInitiators() <em>Event Initiators</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEventInitiators()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionInstanceEnd> eventInitiators;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,6 +140,20 @@ public class RecoverEventInstanceImpl extends EventInstanceImpl implements Recov
 	 * @generated
 	 */
 	@Override
+	public EList<ConnectionInstanceEnd> getEventInitiators() {
+		if (eventInitiators == null) {
+			eventInitiators = new EObjectResolvingEList<>(ConnectionInstanceEnd.class, this,
+					EMV2InstancePackage.RECOVER_EVENT_INSTANCE__EVENT_INITIATORS);
+		}
+		return eventInitiators;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE__RECOVER_EVENT:
@@ -131,6 +161,8 @@ public class RecoverEventInstanceImpl extends EventInstanceImpl implements Recov
 				return getRecoverEvent();
 			}
 			return basicGetRecoverEvent();
+		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE__EVENT_INITIATORS:
+			return getEventInitiators();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,11 +172,16 @@ public class RecoverEventInstanceImpl extends EventInstanceImpl implements Recov
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE__RECOVER_EVENT:
 			setRecoverEvent((RecoverEvent) newValue);
+			return;
+		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE__EVENT_INITIATORS:
+			getEventInitiators().clear();
+			getEventInitiators().addAll((Collection<? extends ConnectionInstanceEnd>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,6 +198,9 @@ public class RecoverEventInstanceImpl extends EventInstanceImpl implements Recov
 		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE__RECOVER_EVENT:
 			setRecoverEvent((RecoverEvent) null);
 			return;
+		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE__EVENT_INITIATORS:
+			getEventInitiators().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -175,6 +215,8 @@ public class RecoverEventInstanceImpl extends EventInstanceImpl implements Recov
 		switch (featureID) {
 		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE__RECOVER_EVENT:
 			return recoverEvent != null;
+		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE__EVENT_INITIATORS:
+			return eventInitiators != null && !eventInitiators.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

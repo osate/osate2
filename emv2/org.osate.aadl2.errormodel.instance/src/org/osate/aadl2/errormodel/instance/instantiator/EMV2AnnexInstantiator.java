@@ -46,6 +46,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
@@ -89,6 +90,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -459,7 +461,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		if (event instanceof ErrorEvent errorEvent) {
 			annex.getEvents().add(createErrorEventInstance(errorEvent));
 		} else if (event instanceof RecoverEvent recoverEvent) {
-			annex.getEvents().add(createRecoverEventInstance(recoverEvent));
+			annex.getEvents().add(createRecoverEventInstance(recoverEvent, annex));
 		} else if (event instanceof RepairEvent repairEvent) {
 			annex.getEvents().add(createRepairEventInstance(repairEvent));
 		} else {
@@ -477,10 +479,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return eventInstance;
 	}
 
-	private RecoverEventInstance createRecoverEventInstance(RecoverEvent event) {
+	private RecoverEventInstance createRecoverEventInstance(RecoverEvent event, EMV2AnnexInstance annex) {
 		var eventInstance = EMV2InstanceFactory.eINSTANCE.createRecoverEventInstance();
 		eventInstance.setName(event.getName());
 		eventInstance.setRecoverEvent(event);
+		var component = getContainerOfType(annex, ComponentInstance.class);
+		for (var initiator : event.getEventInitiator()) {
+			if (initiator instanceof Feature feature) {
+				eventInstance.getEventInitiators().add(findFeatureInstance(component, feature));
+			} else if (initiator instanceof ModeTransition transition) {
+				eventInstance.getEventInitiators().add(findModeTransitionInstance(component, transition));
+			}
+		}
 		return eventInstance;
 	}
 
@@ -1160,6 +1170,24 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 		}
 		return fi;
+	}
+
+	private FeatureInstance findFeatureInstance(ComponentInstance component, Feature feature) {
+		for (var featureInstance : component.getFeatureInstances()) {
+			if (featureInstance.getFeature() == feature) {
+				return featureInstance;
+			}
+		}
+		return null;
+	}
+
+	private ModeTransitionInstance findModeTransitionInstance(ComponentInstance component, ModeTransition transition) {
+		for (var transitionInstance : component.getModeTransitionInstances()) {
+			if (transitionInstance.getModeTransition() == transition) {
+				return transitionInstance;
+			}
+		}
+		return null;
 	}
 
 	private ErrorPropagationInstance findErrorPropagationInstance(EMV2AnnexInstance annex, ConnectionInstanceEnd cie,

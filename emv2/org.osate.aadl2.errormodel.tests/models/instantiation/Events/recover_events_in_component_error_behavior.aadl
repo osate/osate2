@@ -1,0 +1,28 @@
+package recover_events_in_component_error_behavior
+public
+	system s
+		features
+			ep1: in out event port;
+		modes
+			m1: initial mode;
+			m2: mode;
+			mt1: m1 -[ep1]-> m2;
+	end s;
+
+	system implementation s.i
+		internal features
+			es1: event;
+		annex EMV2 {**
+			component error behavior
+				events
+					recover1: recover event;
+					recover2: recover event when ep1;
+					recover3: recover event when mt1;
+					recover4: recover event when es1;
+					recover5: recover event when ep1, mt1, es1;
+					recover6: recover event if "condition";
+					recover7: recover event when ep1, mt1, es1 if "condition";
+			end component;
+		**};
+	end s.i;
+end recover_events_in_component_error_behavior;

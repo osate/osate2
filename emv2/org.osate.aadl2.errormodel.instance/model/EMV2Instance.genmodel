@@ -90,6 +90,7 @@
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//RecoverEventInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//RecoverEventInstance/recoverEvent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//RecoverEventInstance/eventInitiators"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//RepairEventInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//RepairEventInstance/repairEvent"/>
