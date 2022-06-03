@@ -45,7 +45,7 @@ import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
 
 /**
@@ -56,7 +56,6 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPoints <em>Propagation Points</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getStateMachine <em>State Machine</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getErrorPropagationConditions <em>Error Propagation Conditions</em>}</li>
@@ -68,21 +67,12 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getStates <em>States</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getInitialState <em>Initial State</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getTransitions <em>Transitions</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2AnnexInstance {
-	/**
-	 * The cached value of the '{@link #getTransitions() <em>Transitions</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTransitions()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<StateTransitionInstance> transitions;
-
 	/**
 	 * The cached value of the '{@link #getPropagationPoints() <em>Propagation Points</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -194,6 +184,16 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	protected EList<EventInstance> events;
 
 	/**
+	 * The cached value of the '{@link #getTransitions() <em>Transitions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTransitions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TransitionInstance> transitions;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -218,9 +218,9 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @generated
 	 */
 	@Override
-	public EList<StateTransitionInstance> getTransitions() {
+	public EList<TransitionInstance> getTransitions() {
 		if (transitions == null) {
-			transitions = new EObjectContainmentEList<>(StateTransitionInstance.class, this,
+			transitions = new EObjectContainmentEList<>(TransitionInstance.class, this,
 					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS);
 		}
 		return transitions;
@@ -462,8 +462,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-			return ((InternalEList<?>) getTransitions()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			return ((InternalEList<?>) getPropagationPoints()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
@@ -484,6 +482,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return ((InternalEList<?>) getStates()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
 			return ((InternalEList<?>) getEvents()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			return ((InternalEList<?>) getTransitions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -496,8 +496,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-			return getTransitions();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			return getPropagationPoints();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
@@ -523,6 +521,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return basicGetInitialState();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
 			return getEvents();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			return getTransitions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -536,10 +536,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-			getTransitions().clear();
-			getTransitions().addAll((Collection<? extends StateTransitionInstance>) newValue);
-			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			getPropagationPoints().clear();
 			getPropagationPoints().addAll((Collection<? extends PropagationPointInstance>) newValue);
@@ -582,6 +578,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			getEvents().clear();
 			getEvents().addAll((Collection<? extends EventInstance>) newValue);
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			getTransitions().clear();
+			getTransitions().addAll((Collection<? extends TransitionInstance>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -594,9 +594,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-			getTransitions().clear();
-			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			getPropagationPoints().clear();
 			return;
@@ -630,6 +627,9 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
 			getEvents().clear();
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			getTransitions().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -642,8 +642,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
-			return transitions != null && !transitions.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			return propagationPoints != null && !propagationPoints.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
@@ -666,6 +664,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return initialState != null;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
 			return events != null && !events.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+			return transitions != null && !transitions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

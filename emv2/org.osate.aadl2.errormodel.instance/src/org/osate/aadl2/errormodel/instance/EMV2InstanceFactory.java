@@ -79,15 +79,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	ConstrainedInstanceObject createConstrainedInstanceObject();
 
 	/**
-	 * Returns a new object of class '<em>State Transition Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>State Transition Instance</em>'.
-	 * @generated
-	 */
-	StateTransitionInstance createStateTransitionInstance();
-
-	/**
 	 * Returns a new object of class '<em>Composite State Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -212,6 +203,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	 * @generated
 	 */
 	RepairEventInstance createRepairEventInstance();
+
+	/**
+	 * Returns a new object of class '<em>Transition Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Transition Instance</em>'.
+	 * @generated
+	 */
+	TransitionInstance createTransitionInstance();
 
 	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.

@@ -56,7 +56,7 @@ import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
@@ -112,8 +112,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createStateMachineInstance();
 		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT:
 			return createConstrainedInstanceObject();
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE:
-			return createStateTransitionInstance();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
 			return createCompositeStateInstance();
 		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE:
@@ -162,6 +160,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createRecoverEventInstance();
 		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE:
 			return createRepairEventInstance();
+		case EMV2InstancePackage.TRANSITION_INSTANCE:
+			return createTransitionInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -243,17 +243,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ConstrainedInstanceObject createConstrainedInstanceObject() {
 		ConstrainedInstanceObjectImpl constrainedInstanceObject = new ConstrainedInstanceObjectImpl();
 		return constrainedInstanceObject;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public StateTransitionInstance createStateTransitionInstance() {
-		StateTransitionInstanceImpl stateTransitionInstance = new StateTransitionInstanceImpl();
-		return stateTransitionInstance;
 	}
 
 	/**
@@ -408,6 +397,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public RepairEventInstance createRepairEventInstance() {
 		RepairEventInstanceImpl repairEventInstance = new RepairEventInstanceImpl();
 		return repairEventInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public TransitionInstance createTransitionInstance() {
+		TransitionInstanceImpl transitionInstance = new TransitionInstanceImpl();
+		return transitionInstance;
 	}
 
 	/**

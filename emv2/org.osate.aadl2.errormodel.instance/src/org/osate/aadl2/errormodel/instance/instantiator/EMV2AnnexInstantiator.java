@@ -76,7 +76,7 @@ import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
@@ -517,7 +517,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private void instantiateStateTransition(ErrorBehaviorTransition st, TransitionBranch tb,
 			EMV2AnnexInstance annex) {
 		StateMachineInstance smi = annex.getStateMachine();
-		StateTransitionInstance sti = EMV2InstanceFactory.eINSTANCE.createStateTransitionInstance();
+		TransitionInstance sti = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
 		sti.setName(st.getName());
 		if (tb != null) {
 			sti.setStateTransition(tb);
@@ -534,7 +534,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			if (st.isAllStates()) {
 				annex.getTransitions().remove(sti);
 				for (StateInstance si : smi.getStates()) {
-					StateTransitionInstance nsti = EcoreUtil.copy(sti);
+					TransitionInstance nsti = EcoreUtil.copy(sti);
 					nsti.getInStates().add(si);
 					nsti.setTargetState(si);
 				}

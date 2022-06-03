@@ -2,8 +2,6 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instance" nsURI="http://www.osate.org/EMV2Instance" nsPrefix="EMV2Instance">
   <eClassifiers xsi:type="ecore:EClass" name="EMV2AnnexInstance" eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//AnnexInstance">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
-        eType="#//StateTransitionInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPoints" upperBound="-1"
         eType="#//PropagationPointInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="#//StateMachineInstance"
@@ -25,6 +23,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialState" eType="#//StateInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1"
         eType="#//EventInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
+        eType="#//TransitionInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
       eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
@@ -40,14 +40,6 @@
         eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeToken"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="propagationKind" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StateTransitionInstance" eSuperTypes="#//EMV2InstanceObject">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="stateTransition" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inStates" upperBound="-1"
-        eType="#//StateInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompositeStateInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
@@ -245,5 +237,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="repairEvent" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//RepairEvent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="eventInitiators" upperBound="-1"
         eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstanceEnd"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionInstance" eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateTransition" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inStates" upperBound="-1"
+        eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
   </eClassifiers>
 </ecore:EPackage>

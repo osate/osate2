@@ -36,25 +36,25 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.StateInstance;
-import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TransitionInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>State Transition Instance</b></em>'.
+ * An implementation of the model object '<em><b>Transition Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.StateTransitionInstanceImpl#getStateTransition <em>State Transition</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.StateTransitionInstanceImpl#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.StateTransitionInstanceImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.StateTransitionInstanceImpl#getTargetState <em>Target State</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getStateTransition <em>State Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getInStates <em>In States</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getTargetState <em>Target State</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implements StateTransitionInstance {
+public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements TransitionInstance {
 	/**
 	 * The cached value of the '{@link #getStateTransition() <em>State Transition</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -100,7 +100,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StateTransitionInstanceImpl() {
+	protected TransitionInstanceImpl() {
 		super();
 	}
 
@@ -111,7 +111,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.STATE_TRANSITION_INSTANCE;
+		return EMV2InstancePackage.Literals.TRANSITION_INSTANCE;
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 			if (stateTransition != oldStateTransition) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition,
+							EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition,
 							stateTransition));
 				}
 			}
@@ -155,8 +155,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 		stateTransition = newStateTransition;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition,
-					stateTransition));
+					EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition, stateTransition));
 		}
 	}
 
@@ -169,7 +168,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	public EList<StateInstance> getInStates() {
 		if (inStates == null) {
 			inStates = new EObjectResolvingEList<>(StateInstance.class, this,
-					EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES);
+					EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES);
 		}
 		return inStates;
 	}
@@ -194,7 +193,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 		condition = newCondition;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION, oldCondition, newCondition);
+					EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION, oldCondition, newCondition);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -215,19 +214,19 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 			NotificationChain msgs = null;
 			if (condition != null) {
 				msgs = ((InternalEObject) condition).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION, null, msgs);
 			}
 			if (newCondition != null) {
 				msgs = ((InternalEObject) newCondition).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION, null, msgs);
 			}
 			msgs = basicSetCondition(newCondition, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION, newCondition, newCondition));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION,
+					newCondition, newCondition));
 		}
 	}
 
@@ -244,7 +243,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 			if (targetState != oldTargetState) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
+							EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
 				}
 			}
 		}
@@ -270,8 +269,8 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 		StateInstance oldTargetState = targetState;
 		targetState = newTargetState;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE,
+					oldTargetState, targetState));
 		}
 	}
 
@@ -283,7 +282,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
 			return basicSetCondition(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -297,16 +296,16 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION:
 			if (resolve) {
 				return getStateTransition();
 			}
 			return basicGetStateTransition();
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
 			return getInStates();
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
 			return getCondition();
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
 			if (resolve) {
 				return getTargetState();
 			}
@@ -324,17 +323,17 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION:
 			setStateTransition((EObject) newValue);
 			return;
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
 			getInStates().clear();
 			getInStates().addAll((Collection<? extends StateInstance>) newValue);
 			return;
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
 			setCondition((ConstraintElement) newValue);
 			return;
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
 			setTargetState((StateInstance) newValue);
 			return;
 		}
@@ -349,16 +348,16 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION:
 			setStateTransition((EObject) null);
 			return;
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
 			getInStates().clear();
 			return;
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
 			setCondition((ConstraintElement) null);
 			return;
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
 			setTargetState((StateInstance) null);
 			return;
 		}
@@ -373,16 +372,16 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION:
 			return stateTransition != null;
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
 			return inStates != null && !inStates.isEmpty();
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
 			return condition != null;
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
+		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
 			return targetState != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} // StateTransitionInstanceImpl
+} // TransitionInstanceImpl
