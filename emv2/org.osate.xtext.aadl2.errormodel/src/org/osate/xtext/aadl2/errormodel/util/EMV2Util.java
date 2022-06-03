@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -1865,9 +1866,9 @@ public class EMV2Util {
 	 * @param unnamed Collection of unnamed ErrorBehaviorTransition
 	 * @return Collection<ErrorBehaviorTransition> list of ErrorBehaviorTransition as HashMap for quick lookup of names
 	 */
-	private static HashMap<String, ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl,
+	private static Map<String, ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl,
 			Collection<ErrorBehaviorTransition> unnamed) {
-		HashMap<String, ErrorBehaviorTransition> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorBehaviorTransition>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {

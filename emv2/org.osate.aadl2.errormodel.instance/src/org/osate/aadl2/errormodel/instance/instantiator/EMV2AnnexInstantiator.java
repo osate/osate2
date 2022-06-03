@@ -501,10 +501,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private void instantiateStateTransition(ErrorBehaviorTransition st, EMV2AnnexInstance annex) {
-		StateMachineInstance smi = annex.getStateMachine();
-		if (smi == null) {
-			return ;
-		}
 		if (st.getDestinationBranches().isEmpty()) {
 			instantiateStateTransition(st, null, annex);
 		} else {
