@@ -50,7 +50,6 @@ import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
-import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
@@ -125,8 +124,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createErrorDetectionInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
 			return createConstraintExpression();
-		case EMV2InstancePackage.OLD_PROPAGATION_PATH_INSTANCE:
-			return createOldPropagationPathInstance();
 		case EMV2InstancePackage.FEATURE_PROPAGATION:
 			return createFeaturePropagation();
 		case EMV2InstancePackage.ACCESS_PROPAGATION:
@@ -422,17 +419,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ConstraintExpression createConstraintExpression() {
 		ConstraintExpressionImpl constraintExpression = new ConstraintExpressionImpl();
 		return constraintExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public OldPropagationPathInstance createOldPropagationPathInstance() {
-		OldPropagationPathInstanceImpl oldPropagationPathInstance = new OldPropagationPathInstanceImpl();
-		return oldPropagationPathInstance;
 	}
 
 	/**

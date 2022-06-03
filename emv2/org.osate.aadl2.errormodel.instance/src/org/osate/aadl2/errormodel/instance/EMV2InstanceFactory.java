@@ -223,15 +223,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	ConstraintExpression createConstraintExpression();
 
 	/**
-	 * Returns a new object of class '<em>Old Propagation Path Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Old Propagation Path Instance</em>'.
-	 * @generated
-	 */
-	OldPropagationPathInstance createOldPropagationPathInstance();
-
-	/**
 	 * Returns a new object of class '<em>Feature Propagation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
