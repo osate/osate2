@@ -304,95 +304,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.EVENT_INSTANCE: {
-			EventInstance eventInstance = (EventInstance) theEObject;
-			T result = caseEventInstance(eventInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(eventInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(eventInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(eventInstance);
-			}
-			if (result == null) {
-				result = caseElement(eventInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.ERROR_EVENT_INSTANCE: {
-			ErrorEventInstance errorEventInstance = (ErrorEventInstance) theEObject;
-			T result = caseErrorEventInstance(errorEventInstance);
-			if (result == null) {
-				result = caseEventInstance(errorEventInstance);
-			}
-			if (result == null) {
-				result = caseEMV2InstanceObject(errorEventInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(errorEventInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(errorEventInstance);
-			}
-			if (result == null) {
-				result = caseElement(errorEventInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE: {
-			RecoverEventInstance recoverEventInstance = (RecoverEventInstance) theEObject;
-			T result = caseRecoverEventInstance(recoverEventInstance);
-			if (result == null) {
-				result = caseEventInstance(recoverEventInstance);
-			}
-			if (result == null) {
-				result = caseEMV2InstanceObject(recoverEventInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(recoverEventInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(recoverEventInstance);
-			}
-			if (result == null) {
-				result = caseElement(recoverEventInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE: {
-			RepairEventInstance repairEventInstance = (RepairEventInstance) theEObject;
-			T result = caseRepairEventInstance(repairEventInstance);
-			if (result == null) {
-				result = caseEventInstance(repairEventInstance);
-			}
-			if (result == null) {
-				result = caseEMV2InstanceObject(repairEventInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(repairEventInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(repairEventInstance);
-			}
-			if (result == null) {
-				result = caseElement(repairEventInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION: {
 			ConstraintExpression constraintExpression = (ConstraintExpression) theEObject;
 			T result = caseConstraintExpression(constraintExpression);
@@ -989,6 +900,95 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(userDefinedPath);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.EVENT_INSTANCE: {
+			EventInstance eventInstance = (EventInstance) theEObject;
+			T result = caseEventInstance(eventInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(eventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(eventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(eventInstance);
+			}
+			if (result == null) {
+				result = caseElement(eventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_EVENT_INSTANCE: {
+			ErrorEventInstance errorEventInstance = (ErrorEventInstance) theEObject;
+			T result = caseErrorEventInstance(errorEventInstance);
+			if (result == null) {
+				result = caseEventInstance(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorEventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE: {
+			RecoverEventInstance recoverEventInstance = (RecoverEventInstance) theEObject;
+			T result = caseRecoverEventInstance(recoverEventInstance);
+			if (result == null) {
+				result = caseEventInstance(recoverEventInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(recoverEventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(recoverEventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(recoverEventInstance);
+			}
+			if (result == null) {
+				result = caseElement(recoverEventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE: {
+			RepairEventInstance repairEventInstance = (RepairEventInstance) theEObject;
+			T result = caseRepairEventInstance(repairEventInstance);
+			if (result == null) {
+				result = caseEventInstance(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseElement(repairEventInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);

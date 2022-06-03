@@ -172,26 +172,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseEventInstance(EventInstance object) {
-			return createEventInstanceAdapter();
-		}
-
-		@Override
-		public Adapter caseErrorEventInstance(ErrorEventInstance object) {
-			return createErrorEventInstanceAdapter();
-		}
-
-		@Override
-		public Adapter caseRecoverEventInstance(RecoverEventInstance object) {
-			return createRecoverEventInstanceAdapter();
-		}
-
-		@Override
-		public Adapter caseRepairEventInstance(RepairEventInstance object) {
-			return createRepairEventInstanceAdapter();
-		}
-
-		@Override
 		public Adapter caseConstraintExpression(ConstraintExpression object) {
 			return createConstraintExpressionAdapter();
 		}
@@ -314,6 +294,26 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseUserDefinedPath(UserDefinedPath object) {
 			return createUserDefinedPathAdapter();
+		}
+
+		@Override
+		public Adapter caseEventInstance(EventInstance object) {
+			return createEventInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorEventInstance(ErrorEventInstance object) {
+			return createErrorEventInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseRecoverEventInstance(RecoverEventInstance object) {
+			return createRecoverEventInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseRepairEventInstance(RepairEventInstance object) {
+			return createRepairEventInstanceAdapter();
 		}
 
 		@Override

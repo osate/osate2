@@ -123,14 +123,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createErrorPropagationConditionInstance();
 		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE:
 			return createErrorDetectionInstance();
-		case EMV2InstancePackage.EVENT_INSTANCE:
-			return createEventInstance();
-		case EMV2InstancePackage.ERROR_EVENT_INSTANCE:
-			return createErrorEventInstance();
-		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE:
-			return createRecoverEventInstance();
-		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE:
-			return createRepairEventInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
 			return createConstraintExpression();
 		case EMV2InstancePackage.OLD_PROPAGATION_PATH_INSTANCE:
@@ -165,6 +157,14 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createBindingPath();
 		case EMV2InstancePackage.USER_DEFINED_PATH:
 			return createUserDefinedPath();
+		case EMV2InstancePackage.EVENT_INSTANCE:
+			return createEventInstance();
+		case EMV2InstancePackage.ERROR_EVENT_INSTANCE:
+			return createErrorEventInstance();
+		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE:
+			return createRecoverEventInstance();
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE:
+			return createRepairEventInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
