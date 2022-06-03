@@ -6,25 +6,25 @@
         eType="#//StateTransitionInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPoints" upperBound="-1"
         eType="#//PropagationPointInstance" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1"
-        eType="#//EventInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="#//StateMachineInstance"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorPropagationConditions"
         upperBound="-1" eType="#//ErrorPropagationConditionInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorDetections" upperBound="-1"
         eType="#//ErrorDetectionInstance" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="errorFlows" upperBound="-1"
-        eType="#//ErrorFlowInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="composites" upperBound="-1"
         eType="#//CompositeStateInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagations" upperBound="-1"
         eType="#//ErrorPropagationInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorFlows" upperBound="-1"
+        eType="#//ErrorFlowInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPaths" upperBound="-1"
         eType="#//PropagationPathInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
         eType="#//StateInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialState" eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1"
+        eType="#//EventInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
       eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
