@@ -110,8 +110,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createEMV2AnnexInstance();
 		case EMV2InstancePackage.STATE_MACHINE_INSTANCE:
 			return createStateMachineInstance();
-		case EMV2InstancePackage.STATE_INSTANCE:
-			return createStateInstance();
 		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT:
 			return createConstrainedInstanceObject();
 		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE:
@@ -154,6 +152,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createBindingPath();
 		case EMV2InstancePackage.USER_DEFINED_PATH:
 			return createUserDefinedPath();
+		case EMV2InstancePackage.STATE_INSTANCE:
+			return createStateInstance();
 		case EMV2InstancePackage.EVENT_INSTANCE:
 			return createEventInstance();
 		case EMV2InstancePackage.ERROR_EVENT_INSTANCE:

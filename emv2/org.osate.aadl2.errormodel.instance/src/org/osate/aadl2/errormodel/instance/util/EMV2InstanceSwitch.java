@@ -180,26 +180,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.STATE_INSTANCE: {
-			StateInstance stateInstance = (StateInstance) theEObject;
-			T result = caseStateInstance(stateInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(stateInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(stateInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(stateInstance);
-			}
-			if (result == null) {
-				result = caseElement(stateInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: {
 			ConstrainedInstanceObject constrainedInstanceObject = (ConstrainedInstanceObject) theEObject;
 			T result = caseConstrainedInstanceObject(constrainedInstanceObject);
@@ -879,6 +859,26 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(userDefinedPath);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.STATE_INSTANCE: {
+			StateInstance stateInstance = (StateInstance) theEObject;
+			T result = caseStateInstance(stateInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(stateInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(stateInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(stateInstance);
+			}
+			if (result == null) {
+				result = caseElement(stateInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);

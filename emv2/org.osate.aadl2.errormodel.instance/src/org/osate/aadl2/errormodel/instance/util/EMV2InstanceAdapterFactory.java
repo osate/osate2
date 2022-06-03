@@ -141,11 +141,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseStateInstance(StateInstance object) {
-			return createStateInstanceAdapter();
-		}
-
-		@Override
 		public Adapter caseConstrainedInstanceObject(ConstrainedInstanceObject object) {
 			return createConstrainedInstanceObjectAdapter();
 		}
@@ -288,6 +283,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseUserDefinedPath(UserDefinedPath object) {
 			return createUserDefinedPathAdapter();
+		}
+
+		@Override
+		public Adapter caseStateInstance(StateInstance object) {
+			return createStateInstanceAdapter();
 		}
 
 		@Override
