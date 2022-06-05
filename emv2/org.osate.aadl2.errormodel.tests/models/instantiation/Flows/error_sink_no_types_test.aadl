@@ -1,0 +1,19 @@
+package error_sink_no_types_test
+public
+	system s
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: in propagation {ServiceError, ItemTimingError, SequenceTimingError};
+				flows
+					sink_1: error sink f;
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end error_sink_no_types_test;

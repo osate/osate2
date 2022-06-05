@@ -1,0 +1,41 @@
+package processor_to_thread
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			proc: processor proc;
+			ps: process ps.i;
+		properties
+			Actual_Processor_Binding => (reference (proc)) applies to ps.t;
+	end s.i;
+	
+	processor proc
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end proc;
+	
+	process ps
+	end ps;
+	
+	process implementation ps.i
+		subcomponents
+			t: thread t;
+	end ps.i;
+	
+	thread t
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+			end propagations;
+		**};
+	end t;
+end processor_to_thread;

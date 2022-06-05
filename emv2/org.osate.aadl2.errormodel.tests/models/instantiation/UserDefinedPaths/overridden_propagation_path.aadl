@@ -1,0 +1,56 @@
+package overridden_propagation_path
+public
+	system s
+	end s;
+	
+	system implementation s.parent
+		subcomponents
+			left: system left;
+			right: system right;
+		annex EMV2 {**
+			propagation paths
+				path1: left.point1 -> right.point2;
+			end paths;
+		**};
+	end s.parent;
+	
+	system implementation s.child extends s.parent
+		annex EMV2 {**
+			propagation paths
+				path1: left.point3 -> right.point4;
+			end paths;
+		**};
+	end s.child;
+	
+	system left
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				point1: out propagation {ServiceError};
+				point3: out propagation {ServiceError};
+			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+				point3: propagation point;
+			end paths;
+		**};
+	end left;
+	
+	system right
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				point2: in propagation {ServiceError};
+				point4: in propagation {ServiceError};
+			end propagations;
+			
+			propagation paths
+				point2: propagation point;
+				point4: propagation point;
+			end paths;
+		**};
+	end right;
+end overridden_propagation_path;

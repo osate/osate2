@@ -1,0 +1,37 @@
+package empty_feature_group_test
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			left: process left_process;
+			right: process right_process;
+		connections
+			conn_1: feature group left.out_fg -> right.in_fg;
+	end s.i;
+	
+	process left_process
+		features
+			out_fg: out feature group;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				out_fg: out propagation {ServiceError};
+			end propagations;
+		**};
+	end left_process;
+	
+	process right_process
+		features
+			in_fg: in feature group;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				in_fg: in propagation {ServiceError};
+			end propagations;
+		**};
+	end right_process;
+end empty_feature_group_test;

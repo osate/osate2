@@ -1,0 +1,37 @@
+package wrong_direction
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			left: process left_process;
+			right: process right_process;
+		connections
+			conn_1: feature left.left_feature -> right.right_feature;
+	end s.i;
+	
+	process left_process
+		features
+			left_feature: feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				left_feature: in propagation {ServiceError};
+			end propagations;
+		**};
+	end left_process;
+	
+	process right_process
+		features
+			right_feature: feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				right_feature: out propagation {ServiceError};
+			end propagations;
+		**};
+	end right_process;
+end wrong_direction;

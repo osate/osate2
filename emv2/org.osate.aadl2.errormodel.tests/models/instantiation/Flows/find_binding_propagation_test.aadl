@@ -1,0 +1,20 @@
+package find_binding_propagation_test
+public
+	system s
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {CommonErrors};
+				memory: out propagation {CommonErrors};
+				flows
+					source_1: error source memory {ServiceError};
+					sink_1: error sink processor {ItemTimingError};
+					path_1: error path processor {SequenceTimingError} -> memory {ServiceTimingError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end find_binding_propagation_test;

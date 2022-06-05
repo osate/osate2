@@ -1,0 +1,30 @@
+package all_tokens_test
+public
+	system s
+		features
+			f: feature;
+		annex EMV2 {**
+			use types ErrorLibrary, all_tokens_test;
+			
+			error propagations
+				f: in propagation {Error1, CommonErrors, Error2 * Error3, ProductSet};
+				f: out propagation {ServiceError, TimingRelatedError, ReplicationError * ConcurrencyError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error types
+			Error1: type;
+			Error2: type;
+			Error3: type;
+			Error4: type;
+			Error5: type;
+			Error6: type;
+			ProductSet: type set {Error4 * Error5, Error6};
+		end types;
+	**};
+end all_tokens_test;

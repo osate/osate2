@@ -1,0 +1,165 @@
+package access_path_on_every_level
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			left_top: system left_top.i;
+			right_top: system right_top.i;
+		connections
+			across: bus access left_top.provides_ba_top <-> right_top.requires_ba_top;
+	end s.i;
+	
+	---------------------------
+	----- Left components -----
+	---------------------------
+	
+	system left_top
+		features
+			provides_ba_top: provides bus access b;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				provides_ba_top: in propagation {ServiceError};
+				provides_ba_top: out propagation {ServiceError};
+			end propagations;
+		**};
+	end left_top;
+	
+	system implementation left_top.i
+		subcomponents
+			left_middle: system left_middle.i;
+		connections
+			up_top: bus access left_middle.provides_ba_middle <-> provides_ba_top;
+	end left_top.i;
+	
+	system left_middle
+		features
+			provides_ba_middle: provides bus access b;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				provides_ba_middle: in propagation {ServiceError};
+				provides_ba_middle: out propagation {ServiceError};
+			end propagations;
+		**};
+	end left_middle;
+	
+	system implementation left_middle.i
+		subcomponents
+			left_bottom: system left_bottom.i;
+		connections
+			up_middle: bus access left_bottom.provides_ba_bottom <-> provides_ba_middle;
+	end left_middle.i;
+	
+	system left_bottom
+		features
+			provides_ba_bottom: provides bus access b;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				provides_ba_bottom: in propagation {ServiceError};
+				provides_ba_bottom: out propagation {ServiceError};
+			end propagations;
+		**};
+	end left_bottom;
+	
+	system implementation left_bottom.i
+		subcomponents
+			b: bus b;
+		connections
+			up_bottom: bus access b <-> provides_ba_bottom;
+	end left_bottom.i;
+	
+	bus b
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				access: in propagation {ServiceError};
+				access: out propagation {ServiceError};
+			end propagations;
+		**};
+	end b;
+	
+	----------------------------
+	----- Right components -----
+	----------------------------
+	
+	system right_top
+		features
+			requires_ba_top: requires bus access b;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				requires_ba_top: in propagation {ServiceError};
+				requires_ba_top: out propagation {ServiceError};
+			end propagations;
+		**};
+	end right_top;
+	
+	system implementation right_top.i
+		subcomponents
+			right_middle: system right_middle.i;
+		connections
+			down_top: bus access requires_ba_top <-> right_middle.requires_ba_middle;
+	end right_top.i;
+	
+	system right_middle
+		features
+			requires_ba_middle: requires bus access b;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				requires_ba_middle: in propagation {ServiceError};
+				requires_ba_middle: out propagation {ServiceError};
+			end propagations;
+		**};
+	end right_middle;
+	
+	system implementation right_middle.i
+		subcomponents
+			right_bottom: system right_bottom.i;
+		connections
+			down_middle: bus access requires_ba_middle <-> right_bottom.requires_ba_bottom;
+	end right_middle.i;
+	
+	system right_bottom
+		features
+			requires_ba_bottom: requires bus access b;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				requires_ba_bottom: in propagation {ServiceError};
+				requires_ba_bottom: out propagation {ServiceError};
+			end propagations;
+		**};
+	end right_bottom;
+	
+	system implementation right_bottom.i
+		subcomponents
+			m: memory m;
+		connections
+			down_bottom: bus access requires_ba_bottom <-> m.requires_ba_memory;
+	end right_bottom.i;
+	
+	memory m
+		features
+			requires_ba_memory: requires bus access b;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				requires_ba_memory: in propagation {ServiceError};
+				requires_ba_memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end m;
+end access_path_on_every_level;

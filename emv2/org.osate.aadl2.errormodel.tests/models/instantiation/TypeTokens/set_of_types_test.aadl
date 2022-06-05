@@ -1,0 +1,25 @@
+package set_of_types_test
+public
+	system s
+		features
+			f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary, set_of_types_test;
+			
+			error propagations
+				f: out propagation {TimingRelatedError, ValueErrors};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error types
+			use types ErrorLibrary;
+			
+			ValueErrors renames type set ValueRelatedError;
+		end types;
+	**};
+end set_of_types_test;

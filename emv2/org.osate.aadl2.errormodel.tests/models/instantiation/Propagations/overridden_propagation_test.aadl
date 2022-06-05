@@ -1,0 +1,37 @@
+package overridden_propagation_test
+public
+	system parent
+		features
+			f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: out propagation {ServiceError};
+				point1: out propagation {ServiceError};
+				access: out propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+			end paths;
+		**};
+	end parent;
+	
+	system child extends parent
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				F: out propagation {ItemTimingError};
+				POINT1: out propagation {ItemTimingError};
+				ACCESS: out propagation {ItemTimingError};
+				PROCESSOR: out propagation {ItemTimingError};
+			end propagations;
+		**};
+	end child;
+	
+	system implementation child.i
+	end child.i;
+end overridden_propagation_test;

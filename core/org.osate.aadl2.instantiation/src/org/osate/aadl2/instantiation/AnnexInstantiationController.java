@@ -31,6 +31,7 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
@@ -55,7 +56,7 @@ public class AnnexInstantiationController extends ForAllElement {
 		this.errorManager = errorManager;
 	}
 
-	void instantiateAllAnnexes(ComponentInstance root) {
+	void instantiateAllAnnexes(SystemInstance root) {
 		processPostOrderComponentInstance(root);
 		for (String annexName : allAnnexes) {
 			AnnexInstantiator instantiator = registry.getAnnexInstantiator(annexName);

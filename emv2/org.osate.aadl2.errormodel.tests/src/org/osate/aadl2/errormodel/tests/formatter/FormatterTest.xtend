@@ -25,13 +25,13 @@ package org.osate.aadl2.errormodel.tests.formatter
 
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.formatter.FormatterTestHelper
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.^extension.ExtendWith
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
 
-@RunWith(XtextRunner)
+@ExtendWith(InjectionExtension)
 @InjectWith(ErrorModelInjectorProvider)
 class FormatterTest {
 	@Inject extension FormatterTestHelper

@@ -1,0 +1,19 @@
+package binding_reference_test
+public
+	system s
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: out propagation {ServiceError};
+				memory: out propagation {ServiceError};
+				connection: out propagation {ServiceError};
+				binding: out propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end binding_reference_test;

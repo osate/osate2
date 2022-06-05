@@ -1,0 +1,19 @@
+package containment_test
+public
+	system s
+		features
+			in_feature: in feature;
+			out_feature: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				in_feature: not in propagation {ServiceError};
+				out_feature: not out propagation {ServiceError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end containment_test;

@@ -1,0 +1,33 @@
+package data_to_memory
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			m: memory m;
+			d: data d;
+		properties
+			Actual_Memory_Binding => (reference (m)) applies to d;
+	end s.i;
+	
+	memory m
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+			end propagations;
+		**};
+	end m;
+	
+	data d
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end d;
+end data_to_memory;
