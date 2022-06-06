@@ -127,7 +127,7 @@ public
 		subcomponents
 			SatelliteSignalReceiver1: device GPSParts::sensor;
 			SatelliteSignalReceiver2: device GPSParts::sensor;
-			processing: process GPSParts::GPSProcessing;
+			processing: process GPSParts::GPSProcessing_redundancy {Classifier_Substitution_Rule => Type_Extension;};
 			cpu1: processor HardwareParts::CPU;
 			network: bus HardwareParts::Network;
 			powersupply1: device HardwareParts::PowerSupply;
@@ -164,20 +164,20 @@ public
 	-- Now with the GPSProcessing specification that includes the redundancy logic for the sensor inputs.
 	system implementation GPS.BasicRedundancy extends GPS.Basic
 		subcomponents
-			processing: refined to process GPSParts::GPSProcessing_redundancy;
+			processing: refined to process GPSParts::GPSProcessing_redundancy{Classifier_Substitution_Rule => Type_Extension;};
 	end GPS.BasicRedundancy;
 
 	-- here with the GPSProcessing specification that includes the redundancy logic for the sensor inputs via an error state.
 	-- Should produce the same fault tree as BasicRedundancy
 	system implementation GPS.BasicState extends GPS.basic
 		subcomponents
-			processing: refined to process GPSParts::GPSProcessing_redundancyState;
+			processing: refined to process GPSParts::GPSProcessing_redundancyState{Classifier_Substitution_Rule => Signature_Match;};
 	end GPS.BasicState;
 
 	-- In this configuration we include software errors as compute errors that result in
 	system implementation GPS.computeerror extends GPS.basic
 		subcomponents
-			processing: refined to process GPSParts::GPSProcessing_computeError;
+			processing: refined to process GPSParts::GPSProcessing_computeError{Classifier_Substitution_Rule => Signature_Match;};
 		annex EMV2 {**
 			component error behavior
 				-- mapping of GPS producing GPS output to the GPS out propagation
