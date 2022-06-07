@@ -180,7 +180,11 @@ class DataSizePropertyTest extends XtextTest {
 				//Tests checkDataSizeProperty
 				assertError(testFileResult.issues, issueCollection, 'Data size of "d1.i11" (3 Bytes) is larger than the sum of its subcomponents (2 Bytes).')
 			]
-
+			publicSection.ownedClassifiers.get(13) => [
+				"d1.i13".assertEquals(name)
+				//Tests checkDataSizeProperty
+				assertError(testFileResult.issues, issueCollection, 'Data size of "d1.i13" (1 Bytes) is smaller than the sum of its subcomponents (2 Bytes).')
+			]
 		]
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
