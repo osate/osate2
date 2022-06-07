@@ -4238,13 +4238,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int TRANSITION_INSTANCE__TARGET_STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Transition</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION_INSTANCE__TRANSITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Transition Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+	int TRANSITION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
@@ -5244,6 +5253,17 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTransitionInstance_TargetState();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTransition <em>Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Transition</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TransitionInstance#getTransition()
+	 * @see #getTransitionInstance()
+	 * @generated
+	 */
+	EReference getTransitionInstance_Transition();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -6482,6 +6502,14 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference TRANSITION_INSTANCE__TARGET_STATE = eINSTANCE.getTransitionInstance_TargetState();
+
+		/**
+		 * The meta object literal for the '<em><b>Transition</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TRANSITION_INSTANCE__TRANSITION = eINSTANCE.getTransitionInstance_Transition();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

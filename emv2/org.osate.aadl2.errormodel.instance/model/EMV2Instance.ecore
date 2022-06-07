@@ -245,5 +245,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorBehaviorTransition"/>
   </eClassifiers>
 </ecore:EPackage>

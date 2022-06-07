@@ -1342,6 +1342,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getTransitionInstance_Transition() {
+		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -1944,6 +1954,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__IN_STATES);
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__CONDITION);
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__TARGET_STATE);
+		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__TRANSITION);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -2457,6 +2468,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getTransitionInstance_TargetState(), getStateInstance(), null, "targetState", null, 0, 1,
 				TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransitionInstance_Transition(), theErrorModelPackage.getErrorBehaviorTransition(), null,
+				"transition", null, 0, 1, TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

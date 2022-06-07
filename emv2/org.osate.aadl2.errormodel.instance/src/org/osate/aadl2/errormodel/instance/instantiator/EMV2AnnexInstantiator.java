@@ -500,14 +500,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private void instantiateStateTransition(ErrorBehaviorTransition st, EMV2AnnexInstance annex) {
-		if (st.getDestinationBranches().isEmpty()) {
-			instantiateStateTransition(st, null, annex);
-		} else {
-			for (TransitionBranch br : st.getDestinationBranches()) {
-				instantiateStateTransition(st, br, annex);
-			}
+	private void instantiateStateTransition(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
+		var transitionInstance = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
+		if (transition.getName() != null) {
+			transitionInstance.setName(transition.getName());
 		}
+		transitionInstance.setTransition(transition);
+		annex.getTransitions().add(transitionInstance);
 	}
 
 	private void instantiateStateTransition(ErrorBehaviorTransition st, TransitionBranch tb,
