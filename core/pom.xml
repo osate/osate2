@@ -36,6 +36,7 @@
 		<module>org.osate.license</module>
 		<module>org.osate.mylyn.aadl.ui</module>
 		<module>org.osate.pluginsupport</module>
+		<module>org.osate.resolute</module>
 		<module>org.osate.results</module>
 		<module>org.osate.testsupport</module>
 		<module>org.osate.ui</module>
