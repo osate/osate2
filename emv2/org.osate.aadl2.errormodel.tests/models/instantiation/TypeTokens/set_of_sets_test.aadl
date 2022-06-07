@@ -1,0 +1,17 @@
+package set_of_sets_test
+public
+	system s
+		features
+			f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end set_of_sets_test;

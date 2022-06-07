@@ -1,0 +1,107 @@
+package propagations_on_some_levels
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			left_process: process left_process.i;
+			right_process: process right_process.i;
+		connections
+			across: feature left_process.out_f_process -> right_process.in_f_process;
+	end s.i;
+	
+	---------------------------
+	----- Left components -----
+	---------------------------
+	
+	process left_process
+		features
+			out_f_process: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				out_f_process: out propagation {ServiceError};
+			end propagations;
+		**};
+	end left_process;
+	
+	process implementation left_process.i
+		subcomponents
+			left_tg: thread group left_tg.i;
+		connections
+			up_process: feature left_tg.out_f_tg -> out_f_process;
+	end left_process.i;
+	
+	thread group left_tg
+		features
+			out_f_tg: out feature;
+	end left_tg;
+	
+	thread group implementation left_tg.i
+		subcomponents
+			left_thread: thread left_thread;
+		connections
+			up_tg: feature left_thread.out_f_thread -> out_f_tg;
+	end left_tg.i;
+	
+	thread left_thread
+		features
+			out_f_thread: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				out_f_thread: out propagation {ServiceError};
+			end propagations;
+		**};
+	end left_thread;
+	
+	----------------------------
+	----- Right components -----
+	----------------------------
+	
+	process right_process
+		features
+			in_f_process: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				in_f_process: in propagation {ServiceError};
+			end propagations;
+		**};
+	end right_process;
+	
+	process implementation right_process.i
+		subcomponents
+			right_tg: thread group right_tg.i;
+		connections
+			down_process: feature in_f_process -> right_tg.in_f_tg;
+	end right_process.i;
+	
+	thread group right_tg
+		features
+			in_f_tg: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				in_f_tg: in propagation {ServiceError};
+			end propagations;
+		**};
+	end right_tg;
+	
+	thread group implementation right_tg.i
+		subcomponents
+			right_thread: thread right_thread;
+		connections
+			down_tg: feature in_f_tg -> right_thread.in_f_thread;
+	end right_tg.i;
+	
+	thread right_thread
+		features
+			in_f_thread: in feature;
+	end right_thread;
+end propagations_on_some_levels;

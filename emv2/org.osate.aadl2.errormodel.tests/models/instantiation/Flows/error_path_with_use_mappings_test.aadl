@@ -1,0 +1,33 @@
+package error_path_with_use_mappings_test
+public
+	system s
+		features
+			f_in: in feature;
+			f_out: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use mappings error_path_with_use_mappings_test::mappings_1;
+			
+			error propagations
+				f_in: in propagation {ServiceError, ItemTimingError, SequenceTimingError};
+				f_out: out propagation {CommonErrors};
+				flows
+					path_1: error path f_in {ServiceError} -> f_out;
+					path_2: error path f_in {ItemTimingError} ->
+						f_out use mappings error_path_with_use_mappings_test::mappings_1;
+			end propagations;
+		**};
+	end s;
+
+	system implementation s.i
+	end s.i;
+
+	annex EMV2 {**
+		type mappings mappings_1
+			use types ErrorLibrary;
+		
+			{ServiceError} -> {ReplicationError};
+			{ItemTimingError, SequenceTimingError} -> {ConcurrencyError};
+		end mappings;
+	**};
+end error_path_with_use_mappings_test;

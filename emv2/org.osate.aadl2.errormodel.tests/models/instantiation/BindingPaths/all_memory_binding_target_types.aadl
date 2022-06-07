@@ -1,0 +1,91 @@
+package all_memory_binding_target_types
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			m: memory m;
+			s2: system s2;
+			proc: processor proc;
+			vp: virtual processor vp;
+			a: abstract a;
+			d1: data d;
+			d2: data d;
+			d3: data d;
+			d4: data d;
+			d5: data d;
+		properties
+			Actual_Memory_Binding => (reference (m)) applies to d1;
+			Actual_Memory_Binding => (reference (s2)) applies to d2;
+			Actual_Memory_Binding => (reference (proc)) applies to d3;
+			Actual_Memory_Binding => (reference (vp)) applies to d4;
+			Actual_Memory_Binding => (reference (a)) applies to d5;
+	end s.i;
+	
+	memory m
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end m;
+	
+	system s2
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s2;
+	
+	processor proc
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end proc;
+	
+	virtual processor vp
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end vp;
+	
+	abstract a
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end a;
+	
+	data d
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end d;
+end all_memory_binding_target_types;

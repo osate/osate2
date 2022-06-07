@@ -1,0 +1,38 @@
+package feature_reference_test
+public
+	system s
+		features
+			f1: out feature;
+			fg1: feature group fgt1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f1: out propagation {ServiceError};
+				fg1.f2: out propagation {ServiceError};
+				fg1.fg2.f3: out propagation {ServiceError};
+				fg1.fg2.fg3.f4: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	feature group fgt1
+		features
+			f2: out feature;
+			fg2: feature group fgt2;
+	end fgt1;
+	
+	feature group fgt2
+		features
+			f3: out feature;
+			fg3: feature group fgt3;
+	end fgt2;
+	
+	feature group fgt3
+		features
+			f4: out feature;
+	end fgt3;
+end feature_reference_test;

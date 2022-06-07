@@ -1,0 +1,34 @@
+package find_overridden_point_propagation_test
+public
+	system parent
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				point1: in propagation {ItemTimingError, SequenceTimingError};
+				point2: out propagation {ServiceError, ServiceTimingError};
+				flows
+					source_1: error source point2 {ServiceError};
+					sink_1: error sink point1 {ItemTimingError};
+					path_1: error path point1 {SequenceTimingError} -> point2 {ServiceTimingError};
+			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+				point2: propagation point;
+			end paths;
+		**};
+	end parent;
+	
+	system child extends parent
+		annex EMV2 {**
+			error propagations
+				point1: in propagation {CommonErrors};
+				point2: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end child;
+	
+	system implementation child.i
+	end child.i;
+end find_overridden_point_propagation_test;

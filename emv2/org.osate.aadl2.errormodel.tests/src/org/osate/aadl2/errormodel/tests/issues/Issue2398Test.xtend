@@ -26,15 +26,15 @@ package org.osate.aadl2.errormodel.tests.issues
 import com.google.inject.Inject
 import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.serializer.SerializerTestHelper
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.^extension.ExtendWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
 import org.osate.testsupport.TestHelper
 
-@RunWith(XtextRunner)
+@ExtendWith(InjectionExtension)
 @InjectWith(ErrorModelInjectorProvider)
 class Issue2398Test extends XtextTest {
 	val static PROJECT_LOCATION = "org.osate.aadl2.errormodel.tests/models/issue2398/"

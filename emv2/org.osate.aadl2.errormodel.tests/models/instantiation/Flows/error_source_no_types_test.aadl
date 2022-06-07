@@ -1,0 +1,19 @@
+package error_source_no_types_test
+public
+	system s
+		features
+			f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: out propagation {ServiceError, ItemTimingError, SequenceTimingError};
+				flows
+					source_1: error source f;
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end error_source_no_types_test;

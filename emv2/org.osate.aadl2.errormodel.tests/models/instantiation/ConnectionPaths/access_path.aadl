@@ -1,0 +1,37 @@
+package access_path
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			b: bus b;
+			m: memory m;
+		connections
+			conn_1: bus access b <-> m.ba;
+	end s.i;
+	
+	bus b
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				access: in propagation {ServiceError};
+				access: out propagation {ServiceError};
+			end propagations;
+		**};
+	end b;
+	
+	memory m
+		features
+			ba: requires bus access b;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				ba: in propagation {ServiceError};
+				ba: out propagation {ServiceError};
+			end propagations;
+		**};
+	end m;
+end access_path;

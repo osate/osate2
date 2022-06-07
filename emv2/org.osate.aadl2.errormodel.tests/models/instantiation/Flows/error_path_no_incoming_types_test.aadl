@@ -1,0 +1,21 @@
+package error_path_no_incoming_types_test
+public
+	system s
+		features
+			f_in: in feature;
+			f_out: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f_in: in propagation {ServiceError, ItemTimingError, SequenceTimingError};
+				f_out: out propagation {ServiceError};
+				flows
+					path_1: error path f_in -> f_out {ServiceError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end error_path_no_incoming_types_test;

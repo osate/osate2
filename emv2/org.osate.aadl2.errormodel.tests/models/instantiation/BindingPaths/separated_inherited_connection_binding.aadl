@@ -1,0 +1,60 @@
+package separated_inherited_connection_binding
+public
+	system top
+	end top;
+	
+	system implementation top.i
+		subcomponents
+			a: system s.i;
+			b: system s.i;
+	end top.i;
+	
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			b: bus b;
+			s2: system s2.i;
+		properties
+			Actual_Connection_Binding => (reference (b)) applies to s2;
+	end s.i;
+	
+	bus b
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end b;
+	
+	system s2
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s2;
+	
+	system implementation s2.i
+		subcomponents
+			vb: virtual bus vb;
+	end s2.i;
+	
+	virtual bus vb
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+			end propagations;
+		**};
+	end vb;
+end separated_inherited_connection_binding;

@@ -1,0 +1,17 @@
+package internal_feature_reference_test
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		internal features
+			event_source_1: event;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				event_source_1: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s.i;
+end internal_feature_reference_test;
