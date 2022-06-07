@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ResoluteAccess
+Bundle-SymbolicName: org.osate.resolute;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.resolute.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ org.osate.aadl2,
+ org.osate.results
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: org.osate.resolute
+Bundle-ActivationPolicy: lazy
+Export-Package: org.osate.resolute
