@@ -84,11 +84,11 @@
    </configurations>
 
    <repositories>
-      <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
+      <repository location="http://osate-build.sei.cmu.edu/download/osate/stable/2.11.0/updates/" enabled="true" />
       <repository location="http://download.eclipse.org/eclipse/updates/4.23" enabled="true" />
       <repository location="http://download.eclipse.org/releases/2022-03" enabled="true" />
       <repository location="https://download.eclipse.org/justj/jres/17/updates/release/latest" enabled="true" />
-      <repository location="https://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
+      <repository location="https://osate-build.sei.cmu.edu/download/osate/stable/2.11.0/updates/" enabled="true" />
       <repository location="https://download.eclipse.org/eclipse/updates/4.23" enabled="true" />
       <repository location="https://download.eclipse.org/releases/2022-03" enabled="true" />
       <repository location="https://download.eclipse.org/justj/jres/17/updates/release/latest" enabled="true" />
