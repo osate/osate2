@@ -7,8 +7,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>2.7.1</tycho.version>
-		<tycho-extras.version>2.7.1</tycho-extras.version>
+		<tycho.version>2.7.3</tycho.version>
+		<tycho-extras.version>2.7.3</tycho-extras.version>
 		<eclipse.version>2022-03</eclipse.version>
 		<xtext.version>2.26.0</xtext.version>
 		<xsemantics.version>1.21.0-SNAPSHOT</xsemantics.version>
@@ -324,7 +324,7 @@
 						<artifactId>maven-jarsigner-plugin</artifactId>
 						<version>3.0.0</version>
 						<configuration>
-							<alias>carnegie mellon university’s internet2 id</alias>
+							<alias>osate code signing certificate</alias>
 						</configuration>
 						<executions>
 							<execution>
