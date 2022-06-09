@@ -53,6 +53,7 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
+import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
@@ -76,6 +77,7 @@ import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
@@ -506,7 +508,34 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			transitionInstance.setName(transition.getName());
 		}
 		transitionInstance.setTransition(transition);
+		if (transition.isAllStates()) {
+			transitionInstance.setSource(createAllSources());
+		} else {
+			transitionInstance.setSource(createStateReference(transition, annex));
+		}
 		annex.getTransitions().add(transitionInstance);
+	}
+
+	private AllSources createAllSources() {
+		var allSources = EMV2InstanceFactory.eINSTANCE.createAllSources();
+		allSources.setName("all");
+		return allSources;
+	}
+
+	private StateReference createStateReference(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
+		var stateReference = EMV2InstanceFactory.eINSTANCE.createStateReference();
+		stateReference.setState(findStateInstance(annex, transition.getSource()));
+		if (transition.getTypeTokenConstraint() != null) {
+			stateReference.setTypeSet(createAnonymousTypeSet(transition.getTypeTokenConstraint()));
+		} else if (transition.getSource().getTypeSet() != null) {
+			stateReference.setTypeSet(createAnonymousTypeSet(transition.getSource().getTypeSet()));
+		}
+		var name = stateReference.getState().getName();
+		if (stateReference.getTypeSet() != null) {
+			name = name + ' ' + stateReference.getTypeSet().getName();
+		}
+		stateReference.setName(name);
+		return stateReference;
 	}
 
 	private void instantiateStateTransition(ErrorBehaviorTransition st, TransitionBranch tb,
@@ -912,9 +941,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private StateInstance findStateInstance(EMV2AnnexInstance annex, ErrorBehaviorState state) {
-		StateMachineInstance svi = annex.getStateMachine();
-		if (svi != null) {
-			return findStateInstance(svi,state);
+		for (var stateInstance : annex.getStates()) {
+			if (stateInstance.getState() == state) {
+				return stateInstance;
+			}
 		}
 		return null;
 	}

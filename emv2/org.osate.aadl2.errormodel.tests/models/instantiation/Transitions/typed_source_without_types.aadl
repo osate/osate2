@@ -1,0 +1,24 @@
+package typed_source_without_types
+public
+	system s
+		annex EMV2 {**
+			use behavior typed_source_without_types::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			events
+				error1: error event;
+			states
+				state1: initial state {CommonErrors};
+				state2: state;
+			transitions
+				transition1: state1 -[error1]-> state2;
+		end behavior;
+	**};
+end typed_source_without_types;

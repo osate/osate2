@@ -246,5 +246,15 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="transition" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorBehaviorTransition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//TransitionSource"
+        containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionSource" abstract="true" interface="true"
+      eSuperTypes="#//EMV2InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StateReference" eSuperTypes="#//TransitionSource">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AllSources" eSuperTypes="#//TransitionSource"/>
 </ecore:EPackage>

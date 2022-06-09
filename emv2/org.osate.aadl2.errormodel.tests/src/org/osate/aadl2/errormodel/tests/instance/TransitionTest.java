@@ -14,7 +14,9 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -46,6 +48,7 @@ public class TransitionTest {
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
 		});
 	}
 
@@ -58,6 +61,7 @@ public class TransitionTest {
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
 		});
 	}
 
@@ -70,10 +74,12 @@ public class TransitionTest {
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
 		});
 		with(annexInstance.getTransitions().get(1), transition -> {
 			assertEquals("transition2", transition.getName());
 			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
 		});
 	}
 
@@ -86,6 +92,7 @@ public class TransitionTest {
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("TRANSITION1", transition.getName());
 			assertEquals("TRANSITION1", transition.getTransition().getName());
+			assertEquals("state2", transition.getSource().getName());
 		});
 	}
 
@@ -98,6 +105,7 @@ public class TransitionTest {
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("TRANSITION1", transition.getName());
 			assertEquals("TRANSITION1", transition.getTransition().getName());
+			assertEquals("state2", transition.getSource().getName());
 		});
 	}
 
@@ -112,6 +120,7 @@ public class TransitionTest {
 			assertNull(transition.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getTransitions().get(0), transition.getTransition());
+			assertEquals("start", transition.getSource().getName());
 		});
 		with(annexInstance.getTransitions().get(1), transition -> {
 			// TODO Update after we generate names for unnamed transitions.
@@ -121,6 +130,7 @@ public class TransitionTest {
 					.get(0)
 					.getOwnedAnnexSubclauses()
 					.get(0)).getParsedAnnexSubclause()).getTransitions().get(0), transition.getTransition());
+			assertEquals("start", transition.getSource().getName());
 		});
 		with(annexInstance.getTransitions().get(2), transition -> {
 			// TODO Update after we generate names for unnamed transitions.
@@ -129,6 +139,84 @@ public class TransitionTest {
 					((ErrorModelLibrary) ((DefaultAnnexLibrary) pkg.getPublicSection().getOwnedAnnexLibraries().get(0))
 							.getParsedAnnexLibrary()).getBehaviors().get(0).getTransitions().get(0),
 					transition.getTransition());
+			assertEquals("start", transition.getSource().getName());
+		});
+	}
+
+	@Test
+	public void testUntypedSource() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "untyped_source.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			with((StateReference) transition.getSource(), source -> {
+				assertEquals("state1", source.getName());
+				assertEquals("state1", source.getState().getName());
+				assertNull(source.getTypeSet());
+			});
+		});
+	}
+
+	@Test
+	public void testTypedSourceWithTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_source_with_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			with((StateReference) transition.getSource(), source -> {
+				assertEquals("state1 {ServiceError}", source.getName());
+				assertEquals("state1", source.getState().getName());
+				assertEquals("{ServiceError}", source.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			with((StateReference) transition.getSource(), source -> {
+				assertEquals("state1 {ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}",
+						source.getName());
+				assertEquals("state1", source.getState().getName());
+				assertEquals("{ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}",
+						source.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testTypedSourceWithoutTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_source_without_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			with((StateReference) transition.getSource(), source -> {
+				assertEquals("state1 {CommonErrors}", source.getName());
+				assertEquals("state1", source.getState().getName());
+				assertEquals("{CommonErrors}", source.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testAllSources() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_sources.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			with((AllSources) transition.getSource(), source -> {
+				assertEquals("all", source.getName());
+			});
 		});
 	}
 }

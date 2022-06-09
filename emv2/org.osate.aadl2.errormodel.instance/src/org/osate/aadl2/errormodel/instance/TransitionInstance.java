@@ -41,6 +41,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTargetState <em>Target State</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTransition <em>Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getSource <em>Source</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTransitionInstance()
@@ -147,5 +148,27 @@ public interface TransitionInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	void setTransition(ErrorBehaviorTransition value);
+
+	/**
+	 * Returns the value of the '<em><b>Source</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source</em>' containment reference.
+	 * @see #setSource(TransitionSource)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTransitionInstance_Source()
+	 * @model containment="true"
+	 * @generated
+	 */
+	TransitionSource getSource();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getSource <em>Source</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Source</em>' containment reference.
+	 * @see #getSource()
+	 * @generated
+	 */
+	void setSource(TransitionSource value);
 
 } // TransitionInstance

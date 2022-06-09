@@ -214,6 +214,24 @@ public interface EMV2InstanceFactory extends EFactory {
 	TransitionInstance createTransitionInstance();
 
 	/**
+	 * Returns a new object of class '<em>State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>State Reference</em>'.
+	 * @generated
+	 */
+	StateReference createStateReference();
+
+	/**
+	 * Returns a new object of class '<em>All Sources</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>All Sources</em>'.
+	 * @generated
+	 */
+	AllSources createAllSources();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
