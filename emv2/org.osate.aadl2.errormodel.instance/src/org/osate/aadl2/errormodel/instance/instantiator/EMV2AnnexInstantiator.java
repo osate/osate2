@@ -80,6 +80,7 @@ import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
+import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
@@ -509,11 +510,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			transitionInstance.setName(transition.getName());
 		}
 		transitionInstance.setTransition(transition);
-		if (transition.isAllStates()) {
-			transitionInstance.setSource(createAllSources());
-		} else {
-			transitionInstance.setSource(createStateReference(transition, annex));
-		}
+		transitionInstance.setSource(createTransitionSource(transition, annex));
 		if (transition.getCondition() instanceof ConditionElement conditionElement) {
 			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
 			if (path.getPath() == null && path.getNamedElement() instanceof ErrorBehaviorEvent event) {
@@ -521,6 +518,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 		}
 		annex.getTransitions().add(transitionInstance);
+	}
+
+	private TransitionSource createTransitionSource(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
+		if (transition.isAllStates()) {
+			return createAllSources();
+		} else {
+			return createStateReference(transition, annex);
+		}
 	}
 
 	private AllSources createAllSources() {
