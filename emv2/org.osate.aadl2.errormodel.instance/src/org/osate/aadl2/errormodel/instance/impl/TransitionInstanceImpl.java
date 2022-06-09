@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.osate.aadl2.errormodel.instance.ConstraintElement;
+import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
@@ -50,10 +50,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getStateTransition <em>State Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getTargetState <em>Target State</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getTransition <em>Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getCondition <em>Condition</em>}</li>
  * </ul>
  *
  * @generated
@@ -78,16 +78,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	 * @ordered
 	 */
 	protected EList<StateInstance> inStates;
-
-	/**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCondition()
-	 * @generated
-	 * @ordered
-	 */
-	protected ConstraintElement condition;
 
 	/**
 	 * The cached value of the '{@link #getTargetState() <em>Target State</em>}' reference.
@@ -118,6 +108,16 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	 * @ordered
 	 */
 	protected TransitionSource source;
+
+	/**
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCondition()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConditionExpressionInstance condition;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -203,7 +203,7 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	 * @generated
 	 */
 	@Override
-	public ConstraintElement getCondition() {
+	public ConditionExpressionInstance getCondition() {
 		return condition;
 	}
 
@@ -212,8 +212,8 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCondition(ConstraintElement newCondition, NotificationChain msgs) {
-		ConstraintElement oldCondition = condition;
+	public NotificationChain basicSetCondition(ConditionExpressionInstance newCondition, NotificationChain msgs) {
+		ConditionExpressionInstance oldCondition = condition;
 		condition = newCondition;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
@@ -233,7 +233,7 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	 * @generated
 	 */
 	@Override
-	public void setCondition(ConstraintElement newCondition) {
+	public void setCondition(ConditionExpressionInstance newCondition) {
 		if (newCondition != condition) {
 			NotificationChain msgs = null;
 			if (condition != null) {
@@ -407,10 +407,10 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
-			return basicSetCondition(null, msgs);
 		case EMV2InstancePackage.TRANSITION_INSTANCE__SOURCE:
 			return basicSetSource(null, msgs);
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
+			return basicSetCondition(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -430,8 +430,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 			return basicGetStateTransition();
 		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
 			return getInStates();
-		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
-			return getCondition();
 		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
 			if (resolve) {
 				return getTargetState();
@@ -444,6 +442,8 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 			return basicGetTransition();
 		case EMV2InstancePackage.TRANSITION_INSTANCE__SOURCE:
 			return getSource();
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
+			return getCondition();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -464,9 +464,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 			getInStates().clear();
 			getInStates().addAll((Collection<? extends StateInstance>) newValue);
 			return;
-		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
-			setCondition((ConstraintElement) newValue);
-			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
 			setTargetState((StateInstance) newValue);
 			return;
@@ -475,6 +472,9 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__SOURCE:
 			setSource((TransitionSource) newValue);
+			return;
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
+			setCondition((ConditionExpressionInstance) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -494,9 +494,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
 			getInStates().clear();
 			return;
-		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
-			setCondition((ConstraintElement) null);
-			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
 			setTargetState((StateInstance) null);
 			return;
@@ -505,6 +502,9 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__SOURCE:
 			setSource((TransitionSource) null);
+			return;
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
+			setCondition((ConditionExpressionInstance) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -522,14 +522,14 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 			return stateTransition != null;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
 			return inStates != null && !inStates.isEmpty();
-		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
-			return condition != null;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
 			return targetState != null;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__TRANSITION:
 			return transition != null;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__SOURCE:
 			return source != null;
+		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
+			return condition != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -4220,22 +4220,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int TRANSITION_INSTANCE__IN_STATES = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRANSITION_INSTANCE__CONDITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Target State</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_INSTANCE__TARGET_STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
+	int TRANSITION_INSTANCE__TARGET_STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Transition</b></em>' reference.
@@ -4244,7 +4235,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_INSTANCE__TRANSITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+	int TRANSITION_INSTANCE__TRANSITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' containment reference.
@@ -4253,7 +4244,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_INSTANCE__SOURCE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 5;
+	int TRANSITION_INSTANCE__SOURCE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION_INSTANCE__CONDITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Transition Instance</em>' class.
@@ -4502,6 +4502,170 @@ public interface EMV2InstancePackage extends EPackage {
 	int ALL_SOURCES_FEATURE_COUNT = TRANSITION_SOURCE_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.ConditionExpressionInstance <em>Condition Expression Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.ConditionExpressionInstance
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConditionExpressionInstance()
+	 * @generated
+	 */
+	int CONDITION_EXPRESSION_INSTANCE = 40;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_EXPRESSION_INSTANCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_EXPRESSION_INSTANCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_EXPRESSION_INSTANCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_EXPRESSION_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+
+	/**
+	 * The number of structural features of the '<em>Condition Expression Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.EventReferenceImpl <em>Event Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.EventReferenceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEventReference()
+	 * @generated
+	 */
+	int EVENT_REFERENCE = 41;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_REFERENCE__OWNED_ELEMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_REFERENCE__OWNED_COMMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_REFERENCE__NAME = CONDITION_EXPRESSION_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_REFERENCE__QUALIFIED_NAME = CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_REFERENCE__OWNED_PROPERTY_ASSOCIATION = CONDITION_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_REFERENCE__ANNEX_INSTANCE = CONDITION_EXPRESSION_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_REFERENCE__EVENT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_REFERENCE__TYPE_SET = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Event Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_REFERENCE_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4509,7 +4673,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 40;
+	int EOPERATION = 42;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -4519,7 +4683,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 41;
+	int BINDING_TYPE = 43;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -5573,6 +5737,48 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getAllSources();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConditionExpressionInstance <em>Condition Expression Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Condition Expression Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ConditionExpressionInstance
+	 * @generated
+	 */
+	EClass getConditionExpressionInstance();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EventReference <em>Event Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Event Reference</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.EventReference
+	 * @generated
+	 */
+	EClass getEventReference();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.EventReference#getEvent <em>Event</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Event</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.EventReference#getEvent()
+	 * @see #getEventReference()
+	 * @generated
+	 */
+	EReference getEventReference_Event();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.EventReference#getTypeSet <em>Type Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.EventReference#getTypeSet()
+	 * @see #getEventReference()
+	 * @generated
+	 */
+	EReference getEventReference_TypeSet();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -6873,6 +7079,42 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EClass ALL_SOURCES = eINSTANCE.getAllSources();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.ConditionExpressionInstance <em>Condition Expression Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.ConditionExpressionInstance
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConditionExpressionInstance()
+		 * @generated
+		 */
+		EClass CONDITION_EXPRESSION_INSTANCE = eINSTANCE.getConditionExpressionInstance();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.EventReferenceImpl <em>Event Reference</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.EventReferenceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEventReference()
+		 * @generated
+		 */
+		EClass EVENT_REFERENCE = eINSTANCE.getEventReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Event</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_REFERENCE__EVENT = eINSTANCE.getEventReference_Event();
+
+		/**
+		 * The meta object literal for the '<em><b>Type Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_REFERENCE__TYPE_SET = eINSTANCE.getEventReference_TypeSet();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

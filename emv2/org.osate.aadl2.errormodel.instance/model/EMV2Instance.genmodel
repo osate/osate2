@@ -187,10 +187,10 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//TransitionInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TransitionInstance/stateTransition"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TransitionInstance/inStates"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TransitionInstance/condition"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TransitionInstance/targetState"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TransitionInstance/transition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TransitionInstance/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//TransitionInstance/condition"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EMV2Instance.ecore#//TransitionSource"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//StateReference">
@@ -198,5 +198,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateReference/typeSet"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//AllSources"/>
+    <genClasses image="false" ecoreClass="EMV2Instance.ecore#//ConditionExpressionInstance"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//EventReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EventReference/event"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EventReference/typeSet"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

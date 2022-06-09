@@ -70,6 +70,7 @@ import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -175,7 +176,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
 		for (ErrorBehaviorTransition tr : transitions) {
-			instantiateStateTransition(tr, emv2AI);
+			instantiateTransition(tr, emv2AI);
 		}
 
 		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
@@ -502,7 +503,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private void instantiateStateTransition(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
+	private void instantiateTransition(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
 		var transitionInstance = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
 		if (transition.getName() != null) {
 			transitionInstance.setName(transition.getName());
@@ -512,6 +513,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			transitionInstance.setSource(createAllSources());
 		} else {
 			transitionInstance.setSource(createStateReference(transition, annex));
+		}
+		if (transition.getCondition() instanceof ConditionElement conditionElement) {
+			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
+			if (path.getPath() == null && path.getNamedElement() instanceof ErrorBehaviorEvent event) {
+				transitionInstance.setCondition(createEventReference(event, conditionElement.getConstraint(), annex));
+			}
 		}
 		annex.getTransitions().add(transitionInstance);
 	}
@@ -538,6 +545,31 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return stateReference;
 	}
 
+	private EventReference createEventReference(ErrorBehaviorEvent event, TypeSet constraint, EMV2AnnexInstance annex) {
+		var eventReference = EMV2InstanceFactory.eINSTANCE.createEventReference();
+		eventReference.setEvent(findEventInstance(annex, event));
+		/*
+		 * In OSATE, it is possible to refer to an event and use the keyword 'noerror'. This is not permitted by the
+		 * syntax in the standard and 'noerror' should only be used with propagations. An OSATE issue has been filed
+		 * stating that the validator should complain in such cases: https://github.com/osate/osate2/issues/2817
+		 *
+		 * I consider it to be undefined behavior if an event is used with 'noerror', therefore, I have decided to treat
+		 * such references as if the event was untyped.
+		 */
+		if (constraint != null && !constraint.getTypeTokens().isEmpty()
+				&& !constraint.getTypeTokens().get(0).isNoError()) {
+			eventReference.setTypeSet(createAnonymousTypeSet(constraint));
+		} else if (constraint == null && event instanceof ErrorEvent errorEvent && errorEvent.getTypeSet() != null) {
+			eventReference.setTypeSet(createAnonymousTypeSet(errorEvent.getTypeSet()));
+		}
+		var name = event.getName();
+		if (eventReference.getTypeSet() != null) {
+			name = name + ' ' + eventReference.getTypeSet().getName();
+		}
+		eventReference.setName(name);
+		return eventReference;
+	}
+
 	private void instantiateStateTransition(ErrorBehaviorTransition st, TransitionBranch tb,
 			EMV2AnnexInstance annex) {
 		StateMachineInstance smi = annex.getStateMachine();
@@ -551,7 +583,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		annex.getTransitions().add(sti);
 		ConditionExpression behaviorCondition = st.getCondition();
 		ConstraintElement cio = instantiateCondition(behaviorCondition, annex);
-		sti.setCondition(cio);
+//		sti.setCondition(cio);
 		boolean isSteadyState = tb != null ? tb.isSteadyState() : st.isSteadyState();
 		ErrorBehaviorState target = tb != null ? tb.getTarget() : st.getTarget();
 		if (isSteadyState) {
@@ -1146,7 +1178,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private EventInstance findEventInstance(EMV2AnnexInstance annex, ErrorBehaviorEvent ev) {
 		for (EventInstance ei : annex.getEvents()) {
-			if (ei.getEvent() == ev) {
+			if (ei.getName().equalsIgnoreCase(ev.getName())) {
 				return ei;
 			}
 		}

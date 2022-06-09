@@ -38,10 +38,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getStateTransition <em>State Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTargetState <em>Target State</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTransition <em>Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getCondition <em>Condition</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTransitionInstance()
@@ -88,12 +88,12 @@ public interface TransitionInstance extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(ConstraintElement)
+	 * @see #setCondition(ConditionExpressionInstance)
 	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTransitionInstance_Condition()
 	 * @model containment="true"
 	 * @generated
 	 */
-	ConstraintElement getCondition();
+	ConditionExpressionInstance getCondition();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getCondition <em>Condition</em>}' containment reference.
@@ -103,7 +103,7 @@ public interface TransitionInstance extends EMV2InstanceObject {
 	 * @see #getCondition()
 	 * @generated
 	 */
-	void setCondition(ConstraintElement value);
+	void setCondition(ConditionExpressionInstance value);
 
 	/**
 	 * Returns the value of the '<em><b>Target State</b></em>' reference.

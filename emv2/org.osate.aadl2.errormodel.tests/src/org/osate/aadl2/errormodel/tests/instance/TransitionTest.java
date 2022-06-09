@@ -16,6 +16,7 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
@@ -216,6 +217,208 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getTransition().getName());
 			with((AllSources) transition.getSource(), source -> {
 				assertEquals("all", source.getName());
+			});
+		});
+	}
+
+	@Test
+	public void testUntypedEvent() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "untyped_event.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(6, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("ok", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("error1", condition.getName());
+				assertEquals("error1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("failure", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("recover1", condition.getName());
+				assertEquals("recover1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("failure", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("repair1", condition.getName());
+				assertEquals("repair1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition4", transition.getName());
+			assertEquals("transition4", transition.getTransition().getName());
+			assertEquals("ok", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("local_error1", condition.getName());
+				assertEquals("local_error1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(4), transition -> {
+			assertEquals("transition5", transition.getName());
+			assertEquals("transition5", transition.getTransition().getName());
+			assertEquals("failure", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("local_recover1", condition.getName());
+				assertEquals("local_recover1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(5), transition -> {
+			assertEquals("transition6", transition.getName());
+			assertEquals("transition6", transition.getTransition().getName());
+			assertEquals("failure", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("local_repair1", condition.getName());
+				assertEquals("local_repair1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+	}
+
+	@Test
+	public void testTypedEventWithTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_event_with_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("error1 {ServiceError}", condition.getName());
+				assertEquals("error1", condition.getEvent().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("error1 {ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}",
+						condition.getName());
+				assertEquals("error1", condition.getEvent().getName());
+				assertEquals("{ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}",
+						condition.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testTypedEventWithoutTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_event_without_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("error1 {CommonErrors}", condition.getName());
+				assertEquals("error1", condition.getEvent().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testEventWithNoerror() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "event_with_noerror.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("error1", condition.getName());
+				assertEquals("error1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+	}
+
+	@Test
+	public void testFindOverriddenEvents() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "find_overridden_events.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(6, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("ok", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("error1", condition.getName());
+				assertEquals("ERROR1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("failure", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("recover1", condition.getName());
+				assertEquals("RECOVER1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("failure", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("repair1", condition.getName());
+				assertEquals("REPAIR1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition4", transition.getName());
+			assertEquals("transition4", transition.getTransition().getName());
+			assertEquals("ok", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("local_error1", condition.getName());
+				assertEquals("LOCAL_ERROR1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(4), transition -> {
+			assertEquals("transition5", transition.getName());
+			assertEquals("transition5", transition.getTransition().getName());
+			assertEquals("failure", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("local_recover1", condition.getName());
+				assertEquals("LOCAL_RECOVER1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
+			});
+		});
+		with(annexInstance.getTransitions().get(5), transition -> {
+			assertEquals("transition6", transition.getName());
+			assertEquals("transition6", transition.getTransition().getName());
+			assertEquals("failure", transition.getSource().getName());
+			with((EventReference) transition.getCondition(), condition -> {
+				assertEquals("local_repair1", condition.getName());
+				assertEquals("LOCAL_REPAIR1", condition.getEvent().getName());
+				assertNull(condition.getTypeSet());
 			});
 		});
 	}

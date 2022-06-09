@@ -242,11 +242,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="stateTransition" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inStates" upperBound="-1"
         eType="#//StateInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="transition" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorBehaviorTransition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//TransitionSource"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpressionInstance"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TransitionSource" abstract="true" interface="true"
@@ -257,4 +257,11 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AllSources" eSuperTypes="#//TransitionSource"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConditionExpressionInstance" abstract="true"
+      interface="true" eSuperTypes="#//EMV2InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EventReference" eSuperTypes="#//ConditionExpressionInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="#//EventInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

@@ -50,6 +50,7 @@ import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -168,6 +169,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createStateReference();
 		case EMV2InstancePackage.ALL_SOURCES:
 			return createAllSources();
+		case EMV2InstancePackage.EVENT_REFERENCE:
+			return createEventReference();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -436,6 +439,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public AllSources createAllSources() {
 		AllSourcesImpl allSources = new AllSourcesImpl();
 		return allSources;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EventReference createEventReference() {
+		EventReferenceImpl eventReference = new EventReferenceImpl();
+		return eventReference;
 	}
 
 	/**

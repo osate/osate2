@@ -1,0 +1,48 @@
+package find_overridden_events
+public
+	system s
+		annex EMV2 {**
+			use behavior find_overridden_events::machine1;
+			
+			component error behavior
+				events
+					local_error1: error event;
+					local_recover1: recover event;
+					local_repair1: repair event;
+				transitions
+					transition1: ok -[error1]-> failure;
+					transition2: failure -[recover1]-> ok;
+					transition3: failure -[repair1]-> ok;
+					transition4: ok -[local_error1]-> failure;
+					transition5: failure -[local_recover1]-> ok;
+					transition6: failure -[local_repair1]-> ok;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+		annex EMV2 {**
+			component error behavior
+				events
+					ERROR1: error event;
+					RECOVER1: recover event;
+					REPAIR1: repair event;
+					LOCAL_ERROR1: error event;
+					LOCAL_RECOVER1: recover event;
+					LOCAL_REPAIR1: repair event;
+			end component;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error1: error event;
+				recover1: recover event;
+				repair1: repair event;
+			states
+				ok: initial state;
+				failure: state;
+		end behavior;
+	**};
+end find_overridden_events;

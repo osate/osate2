@@ -35,6 +35,7 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
@@ -52,6 +53,7 @@ import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
@@ -1043,6 +1045,49 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.CONDITION_EXPRESSION_INSTANCE: {
+			ConditionExpressionInstance conditionExpressionInstance = (ConditionExpressionInstance) theEObject;
+			T result = caseConditionExpressionInstance(conditionExpressionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(conditionExpressionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(conditionExpressionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(conditionExpressionInstance);
+			}
+			if (result == null) {
+				result = caseElement(conditionExpressionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.EVENT_REFERENCE: {
+			EventReference eventReference = (EventReference) theEObject;
+			T result = caseEventReference(eventReference);
+			if (result == null) {
+				result = caseConditionExpressionInstance(eventReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(eventReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(eventReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(eventReference);
+			}
+			if (result == null) {
+				result = caseElement(eventReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1420,6 +1465,36 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAllSources(AllSources object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Condition Expression Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Condition Expression Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConditionExpressionInstance(ConditionExpressionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventReference(EventReference object) {
 		return null;
 	}
 
