@@ -30,7 +30,7 @@ public
 	data implementation SM_Position_Change.DataRecord
 		subcomponents
 			StepCount: data Base_Types::Integer 
-			--  The BA does not access operations on StepCound if the type has additional properties.
+			--  The BA does not access operations on StepCount if the type has additional properties.
 			--		{
 			--			Data_Model::Data_Representation => Integer;
 			--			Data_Model::Measurement_Unit => "Steps";
