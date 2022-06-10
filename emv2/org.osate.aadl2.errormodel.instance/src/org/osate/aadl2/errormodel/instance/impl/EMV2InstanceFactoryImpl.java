@@ -52,8 +52,10 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
@@ -171,6 +173,10 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createAllSources();
 		case EMV2InstancePackage.EVENT_REFERENCE:
 			return createEventReference();
+		case EMV2InstancePackage.PROPAGATION_REFERENCE:
+			return createPropagationReference();
+		case EMV2InstancePackage.NO_ERROR_PROPAGATION_REFERENCE:
+			return createNoErrorPropagationReference();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -450,6 +456,28 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public EventReference createEventReference() {
 		EventReferenceImpl eventReference = new EventReferenceImpl();
 		return eventReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropagationReference createPropagationReference() {
+		PropagationReferenceImpl propagationReference = new PropagationReferenceImpl();
+		return propagationReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NoErrorPropagationReference createNoErrorPropagationReference() {
+		NoErrorPropagationReferenceImpl noErrorPropagationReference = new NoErrorPropagationReferenceImpl();
+		return noErrorPropagationReference;
 	}
 
 	/**

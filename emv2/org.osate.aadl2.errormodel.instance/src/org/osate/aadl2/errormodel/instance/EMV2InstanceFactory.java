@@ -241,6 +241,24 @@ public interface EMV2InstanceFactory extends EFactory {
 	EventReference createEventReference();
 
 	/**
+	 * Returns a new object of class '<em>Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Propagation Reference</em>'.
+	 * @generated
+	 */
+	PropagationReference createPropagationReference();
+
+	/**
+	 * Returns a new object of class '<em>No Error Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>No Error Propagation Reference</em>'.
+	 * @generated
+	 */
+	NoErrorPropagationReference createNoErrorPropagationReference();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -50,6 +50,7 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
@@ -58,6 +59,7 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
@@ -72,8 +74,10 @@ import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
@@ -101,6 +105,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -177,7 +182,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
 		for (ErrorBehaviorTransition tr : transitions) {
-			instantiateTransition(tr, emv2AI);
+			instantiateTransition(tr, instance, emv2AI);
 		}
 
 		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
@@ -504,7 +509,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private void instantiateTransition(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
+	private void instantiateTransition(ErrorBehaviorTransition transition, ComponentInstance component,
+			EMV2AnnexInstance annex) {
 		var transitionInstance = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
 		if (transition.getName() != null) {
 			transitionInstance.setName(transition.getName());
@@ -513,8 +519,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		transitionInstance.setSource(createTransitionSource(transition, annex));
 		if (transition.getCondition() instanceof ConditionElement conditionElement) {
 			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
-			if (path.getPath() == null && path.getNamedElement() instanceof ErrorBehaviorEvent event) {
+			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {
 				transitionInstance.setCondition(createEventReference(event, conditionElement.getConstraint(), annex));
+			} else {
+				transitionInstance
+						.setCondition(createPropagationReference(component, path, conditionElement.getConstraint()));
 			}
 		}
 		annex.getTransitions().add(transitionInstance);
@@ -573,6 +582,62 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		eventReference.setName(name);
 		return eventReference;
+	}
+
+	private ConditionExpressionInstance createPropagationReference(ComponentInstance component, EMV2PathElement path,
+			TypeSet constraint) {
+		var currentComponent = component;
+		var namePrefix = "";
+		while (path.getNamedElement() instanceof Subcomponent subcomponent) {
+			currentComponent = currentComponent.findSubcomponentInstance(subcomponent);
+			namePrefix += currentComponent.getName() + '.';
+			path = path.getPath();
+		}
+		while (path.getPath() != null) {
+			path = path.getPath();
+		}
+		ErrorPropagationInstance propagationInstance;
+		if (path.getNamedElement() instanceof ErrorPropagation propagation) {
+			propagationInstance = findErrorPropagationInstance(findEMV2AnnexInstance(currentComponent), propagation);
+		} else if (path.getEmv2PropagationKind().equalsIgnoreCase("access")) {
+			propagationInstance = findAccessPropagation(currentComponent);
+		} else {
+			propagationInstance = findBindingPropagation(currentComponent,
+					BindingType.get(path.getEmv2PropagationKind().toLowerCase()));
+		}
+		if (constraint != null && !constraint.getTypeTokens().isEmpty()
+				&& constraint.getTypeTokens().get(0).isNoError()) {
+			return createNoErrorPropagationReference(propagationInstance, namePrefix);
+		} else {
+			return createPropagationReference(propagationInstance, constraint, currentComponent == component,
+					namePrefix);
+		}
+	}
+
+	private PropagationReference createPropagationReference(ErrorPropagationInstance propagation, TypeSet constraint,
+			boolean isInPropagation, String namePrefix) {
+		var propagationReference = EMV2InstanceFactory.eINSTANCE.createPropagationReference();
+		propagationReference.setPropagation(propagation);
+		TypeSet typeSet;
+		if (constraint != null) {
+			typeSet = constraint;
+		} else if (isInPropagation) {
+			typeSet = propagation.getInErrorPropagation().getTypeSet();
+		} else {
+			typeSet = propagation.getOutErrorPropagation().getTypeSet();
+		}
+		var anonymousTypeSet = createAnonymousTypeSet(typeSet);
+		propagationReference.setTypeSet(anonymousTypeSet);
+		propagationReference.setName(namePrefix + propagation.getName() + ' ' + anonymousTypeSet.getName());
+		return propagationReference;
+	}
+
+	private NoErrorPropagationReference createNoErrorPropagationReference(ErrorPropagationInstance propagation,
+			String namePrefix) {
+		var propagationReference = EMV2InstanceFactory.eINSTANCE.createNoErrorPropagationReference();
+		propagationReference.setPropagation(propagation);
+		propagationReference.setName(namePrefix + propagation.getName() + " {noerror}");
+		return propagationReference;
 	}
 
 	private void instantiateStateTransition(ErrorBehaviorTransition st, TransitionBranch tb,
@@ -637,7 +702,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {
 		var propagationInstances = new TreeMap<String, ErrorPropagationInstance>(String.CASE_INSENSITIVE_ORDER);
 		for (var ep : eps) {
-			var epi = propagationInstances.computeIfAbsent(EMV2Util.getName(ep),
+			var epi = propagationInstances.computeIfAbsent(EMV2Util.getPropagationName(ep),
 					name -> createErrorPropagationInstance(annex, name, ep));
 			if (epi == null) {
 				// This can happen if the propagation points to an InternalFeature. In that case, simply skip this one.
@@ -1239,7 +1304,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ErrorPropagationInstance findErrorPropagationInstance(EMV2AnnexInstance annex, ErrorPropagation ep) {
-		var declarativeName = EMV2Util.getName(ep);
+		var declarativeName = EMV2Util.getPropagationName(ep);
 		for (ErrorPropagationInstance epi : annex.getPropagations()) {
 			if (epi.getName().equalsIgnoreCase(declarativeName)) {
 				return epi;

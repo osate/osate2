@@ -17,6 +17,8 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
+import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
@@ -338,8 +340,8 @@ public class TransitionTest {
 	}
 
 	@Test
-	public void testEventWithNoerror() throws Exception {
-		var pkg = testHelper.parseFile(PATH + "event_with_noerror.aadl");
+	public void testEventWithNoError() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "event_with_no_error.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getTransitions().size());
@@ -419,6 +421,600 @@ public class TransitionTest {
 				assertEquals("local_repair1", condition.getName());
 				assertEquals("LOCAL_REPAIR1", condition.getEvent().getName());
 				assertNull(condition.getTypeSet());
+			});
+		});
+	}
+
+	@Test
+	public void testLocalPropagationWithTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "local_propagation_with_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(4, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("f1 {ServiceError}", condition.getName());
+				assertEquals("f1", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("access {ServiceError}", condition.getName());
+				assertEquals("access", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("point1 {ServiceError}", condition.getName());
+				assertEquals("point1", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition4", transition.getName());
+			assertEquals("transition4", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("processor {ServiceError}", condition.getName());
+				assertEquals("processor", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testPropagationInFeatureGroupWithTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "propagation_in_feature_group_with_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("fg1.f1 {ServiceError}", condition.getName());
+				assertEquals("fg1.f1", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("fg1.fg2.fg3.f2 {ServiceError}", condition.getName());
+				assertEquals("fg1.fg2.fg3.f2", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testPropagationInSubcomponentWithTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "propagation_in_subcomponent_with_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(12, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition01", transition.getName());
+			assertEquals("transition01", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.f1 {ServiceError}", condition.getName());
+				assertEquals("f1", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition02", transition.getName());
+			assertEquals("transition02", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.access {ServiceError}", condition.getName());
+				assertEquals("access", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition03", transition.getName());
+			assertEquals("transition03", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.point1 {ServiceError}", condition.getName());
+				assertEquals("point1", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition04", transition.getName());
+			assertEquals("transition04", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.processor {ServiceError}", condition.getName());
+				assertEquals("processor", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(4), transition -> {
+			assertEquals("transition05", transition.getName());
+			assertEquals("transition05", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.fg1.f2 {ServiceError}", condition.getName());
+				assertEquals("fg1.f2", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(5), transition -> {
+			assertEquals("transition06", transition.getName());
+			assertEquals("transition06", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.fg1.fg2.fg3.f3 {ServiceError}", condition.getName());
+				assertEquals("fg1.fg2.fg3.f3", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(6), transition -> {
+			assertEquals("transition07", transition.getName());
+			assertEquals("transition07", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.f4 {ServiceError}", condition.getName());
+				assertEquals("f4", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(7), transition -> {
+			assertEquals("transition08", transition.getName());
+			assertEquals("transition08", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.access {ServiceError}", condition.getName());
+				assertEquals("access", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(8), transition -> {
+			assertEquals("transition09", transition.getName());
+			assertEquals("transition09", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.point2 {ServiceError}", condition.getName());
+				assertEquals("point2", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(9), transition -> {
+			assertEquals("transition10", transition.getName());
+			assertEquals("transition10", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.memory {ServiceError}", condition.getName());
+				assertEquals("memory", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(10), transition -> {
+			assertEquals("transition11", transition.getName());
+			assertEquals("transition11", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.fg4.f5 {ServiceError}", condition.getName());
+				assertEquals("fg4.f5", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(11), transition -> {
+			assertEquals("transition12", transition.getName());
+			assertEquals("transition12", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.fg4.fg5.fg6.f6 {ServiceError}", condition.getName());
+				assertEquals("fg4.fg5.fg6.f6", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testLocalPropagationWithoutTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "local_propagation_without_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(4, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("f1 {CommonErrors}", condition.getName());
+				assertEquals("f1", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("access {CommonErrors}", condition.getName());
+				assertEquals("access", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("point1 {CommonErrors}", condition.getName());
+				assertEquals("point1", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition4", transition.getName());
+			assertEquals("transition4", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("processor {CommonErrors}", condition.getName());
+				assertEquals("processor", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testPropagationInFeatureGroupWithoutTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "propagation_in_feature_group_without_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("fg1.f1 {CommonErrors}", condition.getName());
+				assertEquals("fg1.f1", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("fg1.fg2.fg3.f2 {CommonErrors}", condition.getName());
+				assertEquals("fg1.fg2.fg3.f2", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testPropagationInSubcomponentWithoutTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "propagation_in_subcomponent_without_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(12, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition01", transition.getName());
+			assertEquals("transition01", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.f1 {CommonErrors}", condition.getName());
+				assertEquals("f1", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition02", transition.getName());
+			assertEquals("transition02", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.access {CommonErrors}", condition.getName());
+				assertEquals("access", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition03", transition.getName());
+			assertEquals("transition03", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.point1 {CommonErrors}", condition.getName());
+				assertEquals("point1", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition04", transition.getName());
+			assertEquals("transition04", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.processor {CommonErrors}", condition.getName());
+				assertEquals("processor", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(4), transition -> {
+			assertEquals("transition05", transition.getName());
+			assertEquals("transition05", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.fg1.f2 {CommonErrors}", condition.getName());
+				assertEquals("fg1.f2", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(5), transition -> {
+			assertEquals("transition06", transition.getName());
+			assertEquals("transition06", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.fg1.fg2.fg3.f3 {CommonErrors}", condition.getName());
+				assertEquals("fg1.fg2.fg3.f3", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(6), transition -> {
+			assertEquals("transition07", transition.getName());
+			assertEquals("transition07", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.f4 {CommonErrors}", condition.getName());
+				assertEquals("f4", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(7), transition -> {
+			assertEquals("transition08", transition.getName());
+			assertEquals("transition08", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.access {CommonErrors}", condition.getName());
+				assertEquals("access", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(8), transition -> {
+			assertEquals("transition09", transition.getName());
+			assertEquals("transition09", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.point2 {CommonErrors}", condition.getName());
+				assertEquals("point2", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(9), transition -> {
+			assertEquals("transition10", transition.getName());
+			assertEquals("transition10", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.memory {CommonErrors}", condition.getName());
+				assertEquals("memory", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(10), transition -> {
+			assertEquals("transition11", transition.getName());
+			assertEquals("transition11", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.fg4.f5 {CommonErrors}", condition.getName());
+				assertEquals("fg4.f5", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(11), transition -> {
+			assertEquals("transition12", transition.getName());
+			assertEquals("transition12", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((PropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.fg4.fg5.fg6.f6 {CommonErrors}", condition.getName());
+				assertEquals("fg4.fg5.fg6.f6", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testLocalPropagationWithNoError() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "local_propagation_with_no_error.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(4, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("f1 {noerror}", condition.getName());
+				assertEquals("f1", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("access {noerror}", condition.getName());
+				assertEquals("access", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("point1 {noerror}", condition.getName());
+				assertEquals("point1", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition4", transition.getName());
+			assertEquals("transition4", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("processor {noerror}", condition.getName());
+				assertEquals("processor", condition.getPropagation().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testPropagationInFeatureGroupWithNoError() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "propagation_in_feature_group_with_no_error.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("fg1.f1 {noerror}", condition.getName());
+				assertEquals("fg1.f1", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("fg1.fg2.fg3.f2 {noerror}", condition.getName());
+				assertEquals("fg1.fg2.fg3.f2", condition.getPropagation().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testPropagationInSubcomponentWithNoError() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "propagation_in_subcomponent_with_no_error.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(12, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition01", transition.getName());
+			assertEquals("transition01", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.f1 {noerror}", condition.getName());
+				assertEquals("f1", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition02", transition.getName());
+			assertEquals("transition02", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.access {noerror}", condition.getName());
+				assertEquals("access", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition03", transition.getName());
+			assertEquals("transition03", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.point1 {noerror}", condition.getName());
+				assertEquals("point1", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition04", transition.getName());
+			assertEquals("transition04", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.processor {noerror}", condition.getName());
+				assertEquals("processor", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(4), transition -> {
+			assertEquals("transition05", transition.getName());
+			assertEquals("transition05", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.fg1.f2 {noerror}", condition.getName());
+				assertEquals("fg1.f2", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(5), transition -> {
+			assertEquals("transition06", transition.getName());
+			assertEquals("transition06", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.fg1.fg2.fg3.f3 {noerror}", condition.getName());
+				assertEquals("fg1.fg2.fg3.f3", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(6), transition -> {
+			assertEquals("transition07", transition.getName());
+			assertEquals("transition07", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.f4 {noerror}", condition.getName());
+				assertEquals("f4", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(7), transition -> {
+			assertEquals("transition08", transition.getName());
+			assertEquals("transition08", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.access {noerror}", condition.getName());
+				assertEquals("access", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(8), transition -> {
+			assertEquals("transition09", transition.getName());
+			assertEquals("transition09", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.point2 {noerror}", condition.getName());
+				assertEquals("point2", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(9), transition -> {
+			assertEquals("transition10", transition.getName());
+			assertEquals("transition10", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.memory {noerror}", condition.getName());
+				assertEquals("memory", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(10), transition -> {
+			assertEquals("transition11", transition.getName());
+			assertEquals("transition11", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.fg4.f5 {noerror}", condition.getName());
+				assertEquals("fg4.f5", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(11), transition -> {
+			assertEquals("transition12", transition.getName());
+			assertEquals("transition12", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
+				assertEquals("sub1.sub2.sub3.fg4.fg5.fg6.f6 {noerror}", condition.getName());
+				assertEquals("fg4.fg5.fg6.f6", condition.getPropagation().getName());
 			});
 		});
 	}

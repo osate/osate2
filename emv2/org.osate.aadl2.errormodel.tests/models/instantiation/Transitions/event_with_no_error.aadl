@@ -1,8 +1,8 @@
-package event_with_noerror
+package event_with_no_error
 public
 	system s
 		annex EMV2 {**
-			use behavior event_with_noerror::machine1;
+			use behavior event_with_no_error::machine1;
 		**};
 	end s;
 	
@@ -21,4 +21,4 @@ public
 				transition1: state1 -[error1 {noerror}]-> state2;
 		end behavior;
 	**};
-end event_with_noerror;
+end event_with_no_error;

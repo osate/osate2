@@ -55,9 +55,11 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
@@ -1088,6 +1090,52 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.PROPAGATION_REFERENCE: {
+			PropagationReference propagationReference = (PropagationReference) theEObject;
+			T result = casePropagationReference(propagationReference);
+			if (result == null) {
+				result = caseConditionExpressionInstance(propagationReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(propagationReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(propagationReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(propagationReference);
+			}
+			if (result == null) {
+				result = caseElement(propagationReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.NO_ERROR_PROPAGATION_REFERENCE: {
+			NoErrorPropagationReference noErrorPropagationReference = (NoErrorPropagationReference) theEObject;
+			T result = caseNoErrorPropagationReference(noErrorPropagationReference);
+			if (result == null) {
+				result = caseConditionExpressionInstance(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = caseElement(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1495,6 +1543,36 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEventReference(EventReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Propagation Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePropagationReference(PropagationReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>No Error Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>No Error Propagation Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNoErrorPropagationReference(NoErrorPropagationReference object) {
 		return null;
 	}
 

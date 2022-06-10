@@ -1,0 +1,127 @@
+package propagation_in_subcomponent_with_types
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: abstract a1.i;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior propagation_in_subcomponent_with_types::machine1;
+			
+			component error behavior
+				transitions
+					transition01: state1 -[sub1.f1 {ServiceError}]-> state2;
+					transition02: state1 -[sub1.access {ServiceError}]-> state2;
+					transition03: state1 -[sub1.point1 {ServiceError}]-> state2;
+					transition04: state1 -[sub1.processor {ServiceError}]-> state2;
+					transition05: state1 -[sub1.fg1.f2 {ServiceError}]-> state2;
+					transition06: state1 -[sub1.fg1.fg2.fg3.f3 {ServiceError}]-> state2;
+					transition07: state1 -[sub1.sub2.sub3.f4 {ServiceError}]-> state2;
+					transition08: state1 -[sub1.sub2.sub3.access {ServiceError}]-> state2;
+					transition09: state1 -[sub1.sub2.sub3.point2 {ServiceError}]-> state2;
+					transition10: state1 -[sub1.sub2.sub3.memory {ServiceError}]-> state2;
+					transition11: state1 -[sub1.sub2.sub3.fg4.f5 {ServiceError}]-> state2;
+					transition12: state1 -[sub1.sub2.sub3.fg4.fg5.fg6.f6 {ServiceError}]-> state2;
+			end component;
+		**};
+	end s.i;
+	
+	abstract a1
+		features
+			f1: out feature;
+			fg1: feature group fgt1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+				access: out propagation {CommonErrors};
+				point1: out propagation {CommonErrors};
+				processor: out propagation {CommonErrors};
+				fg1.f2: out propagation {CommonErrors};
+				fg1.fg2.fg3.f3: out propagation {CommonErrors};
+			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+			end paths;
+		**};
+	end a1;
+	
+	abstract implementation a1.i
+		subcomponents
+			sub2: abstract a2.i;
+	end a1.i;
+	
+	feature group fgt1
+		features
+			f2: out feature;
+			fg2: feature group fgt2;
+	end fgt1;
+	
+	feature group fgt2
+		features
+			fg3: feature group fgt3;
+	end fgt2;
+	
+	feature group fgt3
+		features
+			f3: out feature;
+	end fgt3;
+	
+	abstract a2
+	end a2;
+	
+	abstract implementation a2.i
+		subcomponents
+			sub3: abstract a3;
+	end a2.i;
+	
+	abstract a3
+		features
+			f4: out feature;
+			fg4: feature group fgt4;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f4: out propagation {CommonErrors};
+				access: out propagation {CommonErrors};
+				point2: out propagation {CommonErrors};
+				memory: out propagation {CommonErrors};
+				fg4.f5: out propagation {CommonErrors};
+				fg4.fg5.fg6.f6: out propagation {CommonErrors};
+			end propagations;
+			
+			propagation paths
+				point2: propagation point;
+			end paths;
+		**};
+	end a3;
+	
+	feature group fgt4
+		features
+			f5: out feature;
+			fg5: feature group fgt5;
+	end fgt4;
+	
+	feature group fgt5
+		features
+			fg6: feature group fgt6;
+	end fgt5;
+	
+	feature group fgt6
+		features
+			f6: out feature;
+	end fgt6;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end propagation_in_subcomponent_with_types;
