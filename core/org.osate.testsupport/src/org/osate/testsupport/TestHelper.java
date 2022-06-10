@@ -124,7 +124,7 @@ public class TestHelper<T extends EObject> {
 	 * The first file is assumed to have a root object of type T
 	 *
 	 * @param filePath the main file to parse
-	 * @param referenced other files that may be referenced by the main file
+	 * @param referencedPaths other files that may be referenced by the main file
 	 * @return the root object of the main file
 	 */
 	public T parseFile(String filePath, String... referencedPaths) {
@@ -148,7 +148,7 @@ public class TestHelper<T extends EObject> {
 	 *
 	 * @param bundle the bundle/project where file exists
 	 * @param entry  the main file to parse
-	 * @param referenced other files that may be referenced by the main file
+	 * @param referencedPaths other files that may be referenced by the main file
 	 * @return the root object of the main file
 	 * @since 3.1
 	 */
