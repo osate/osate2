@@ -1046,16 +1046,8 @@ public class TransitionTest {
 			assertEquals("state1", transition.getSource().getName());
 			with((OrExpressionInstance) transition.getCondition(), condition -> {
 				assertEquals("error1 or error2", condition.getName());
-				with((EventReference) condition.getLeft(), left -> {
-					assertEquals("error1", left.getName());
-					assertEquals("error1", left.getEvent().getName());
-					assertNull(left.getTypeSet());
-				});
-				with((EventReference) condition.getRight(), right -> {
-					assertEquals("error2", right.getName());
-					assertEquals("error2", right.getEvent().getName());
-					assertNull(right.getTypeSet());
-				});
+				assertEquals("error1", condition.getLeft().getName());
+				assertEquals("error2", condition.getRight().getName());
 			});
 		});
 		with(annexInstance.getTransitions().get(1), transition -> {
@@ -1068,28 +1060,12 @@ public class TransitionTest {
 					assertEquals("error3 or error4 or error5", left1.getName());
 					with((OrExpressionInstance) left1.getLeft(), left2 -> {
 						assertEquals("error3 or error4", left2.getName());
-						with((EventReference) left2.getLeft(), left3 -> {
-							assertEquals("error3", left3.getName());
-							assertEquals("error3", left3.getEvent().getName());
-							assertNull(left3.getTypeSet());
-						});
-						with((EventReference) left2.getRight(), right -> {
-							assertEquals("error4", right.getName());
-							assertEquals("error4", right.getEvent().getName());
-							assertNull(right.getTypeSet());
-						});
+						assertEquals("error3", left2.getLeft().getName());
+						assertEquals("error4", left2.getRight().getName());
 					});
-					with((EventReference) left1.getRight(), right -> {
-						assertEquals("error5", right.getName());
-						assertEquals("error5", right.getEvent().getName());
-						assertNull(right.getTypeSet());
-					});
+					assertEquals("error5", left1.getRight().getName());
 				});
-				with((EventReference) condition.getRight(), right -> {
-					assertEquals("error6", right.getName());
-					assertEquals("error6", right.getEvent().getName());
-					assertNull(right.getTypeSet());
-				});
+				assertEquals("error6", condition.getRight().getName());
 			});
 		});
 	}
