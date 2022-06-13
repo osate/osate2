@@ -56,6 +56,7 @@ import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
+import org.osate.aadl2.errormodel.instance.OrMoreExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
@@ -186,6 +187,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createAndExpressionInstance();
 		case EMV2InstancePackage.ALL_EXPRESSION_INSTANCE:
 			return createAllExpressionInstance();
+		case EMV2InstancePackage.OR_MORE_EXPRESSION_INSTANCE:
+			return createOrMoreExpressionInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -520,6 +523,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public AllExpressionInstance createAllExpressionInstance() {
 		AllExpressionInstanceImpl allExpressionInstance = new AllExpressionInstanceImpl();
 		return allExpressionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public OrMoreExpressionInstance createOrMoreExpressionInstance() {
+		OrMoreExpressionInstanceImpl orMoreExpressionInstance = new OrMoreExpressionInstanceImpl();
+		return orMoreExpressionInstance;
 	}
 
 	/**

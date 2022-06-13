@@ -59,6 +59,7 @@ import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
+import org.osate.aadl2.errormodel.instance.OrMoreExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -1208,6 +1209,29 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.OR_MORE_EXPRESSION_INSTANCE: {
+			OrMoreExpressionInstance orMoreExpressionInstance = (OrMoreExpressionInstance) theEObject;
+			T result = caseOrMoreExpressionInstance(orMoreExpressionInstance);
+			if (result == null) {
+				result = caseConditionExpressionInstance(orMoreExpressionInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(orMoreExpressionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(orMoreExpressionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(orMoreExpressionInstance);
+			}
+			if (result == null) {
+				result = caseElement(orMoreExpressionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1690,6 +1714,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAllExpressionInstance(AllExpressionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Or More Expression Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Or More Expression Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOrMoreExpressionInstance(OrMoreExpressionInstance object) {
 		return null;
 	}
 
