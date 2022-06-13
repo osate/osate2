@@ -53,6 +53,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
@@ -177,6 +178,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createPropagationReference();
 		case EMV2InstancePackage.NO_ERROR_PROPAGATION_REFERENCE:
 			return createNoErrorPropagationReference();
+		case EMV2InstancePackage.OR_EXPRESSION_INSTANCE:
+			return createOrExpressionInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -478,6 +481,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public NoErrorPropagationReference createNoErrorPropagationReference() {
 		NoErrorPropagationReferenceImpl noErrorPropagationReference = new NoErrorPropagationReferenceImpl();
 		return noErrorPropagationReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public OrExpressionInstance createOrExpressionInstance() {
+		OrExpressionInstanceImpl orExpressionInstance = new OrExpressionInstanceImpl();
+		return orExpressionInstance;
 	}
 
 	/**

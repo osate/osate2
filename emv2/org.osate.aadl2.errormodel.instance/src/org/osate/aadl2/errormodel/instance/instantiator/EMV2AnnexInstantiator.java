@@ -517,15 +517,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		transitionInstance.setTransition(transition);
 		transitionInstance.setSource(createTransitionSource(transition, annex));
-		if (transition.getCondition() instanceof ConditionElement conditionElement) {
-			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
-			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {
-				transitionInstance.setCondition(createEventReference(event, conditionElement.getConstraint(), annex));
-			} else {
-				transitionInstance
-						.setCondition(createPropagationReference(component, path, conditionElement.getConstraint()));
-			}
-		}
+		transitionInstance.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
 		annex.getTransitions().add(transitionInstance);
 	}
 
@@ -557,6 +549,29 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		stateReference.setName(name);
 		return stateReference;
+	}
+
+	private ConditionExpressionInstance createConditionExpressionInstance(ConditionExpression condition,
+			ComponentInstance component, EMV2AnnexInstance annex) {
+		if (condition instanceof OrExpression orExpression) {
+			var orExpressionInstance = EMV2InstanceFactory.eINSTANCE.createOrExpressionInstance();
+			orExpressionInstance
+					.setLeft(createConditionExpressionInstance(orExpression.getOperands().get(0), component, annex));
+			orExpressionInstance
+					.setRight(createConditionExpressionInstance(orExpression.getOperands().get(1), component, annex));
+			orExpressionInstance.setName(
+					orExpressionInstance.getLeft().getName() + " or " + orExpressionInstance.getRight().getName());
+			return orExpressionInstance;
+		} else if (condition instanceof ConditionElement conditionElement) {
+			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
+			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {
+				return createEventReference(event, conditionElement.getConstraint(), annex);
+			} else {
+				return createPropagationReference(component, path, conditionElement.getConstraint());
+			}
+		} else {
+			return null;
+		}
 	}
 
 	private EventReference createEventReference(ErrorBehaviorEvent event, TypeSet constraint, EMV2AnnexInstance annex) {

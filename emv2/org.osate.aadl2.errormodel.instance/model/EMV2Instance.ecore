@@ -272,4 +272,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="NoErrorPropagationReference" eSuperTypes="#//ConditionExpressionInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagation" eType="#//ErrorPropagationInstance"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrExpressionInstance" eSuperTypes="#//ConditionExpressionInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ConditionExpressionInstance"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//ConditionExpressionInstance"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

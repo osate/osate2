@@ -62,6 +62,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -291,6 +292,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass noErrorPropagationReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass orExpressionInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1558,6 +1566,36 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getOrExpressionInstance() {
+		return orExpressionInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getOrExpressionInstance_Left() {
+		return (EReference) orExpressionInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getOrExpressionInstance_Right() {
+		return (EReference) orExpressionInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2184,6 +2222,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		noErrorPropagationReferenceEClass = createEClass(NO_ERROR_PROPAGATION_REFERENCE);
 		createEReference(noErrorPropagationReferenceEClass, NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION);
 
+		orExpressionInstanceEClass = createEClass(OR_EXPRESSION_INSTANCE);
+		createEReference(orExpressionInstanceEClass, OR_EXPRESSION_INSTANCE__LEFT);
+		createEReference(orExpressionInstanceEClass, OR_EXPRESSION_INSTANCE__RIGHT);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
@@ -2272,6 +2314,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		propagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
+		orExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2751,6 +2794,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getNoErrorPropagationReference_Propagation(), getErrorPropagationInstance(), null, "propagation",
 				null, 0, 1, NoErrorPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(orExpressionInstanceEClass, OrExpressionInstance.class, "OrExpressionInstance", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getOrExpressionInstance_Left(), getConditionExpressionInstance(), null, "left", null, 0, 1,
+				OrExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOrExpressionInstance_Right(), getConditionExpressionInstance(), null, "right", null, 0, 1,
+				OrExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

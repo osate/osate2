@@ -18,6 +18,7 @@ import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
@@ -1029,6 +1030,66 @@ public class TransitionTest {
 			with((NoErrorPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.fg4.fg5.fg6.f6 {noerror}", condition.getName());
 				assertEquals("fg4.fg5.fg6.f6", condition.getPropagation().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testOrExpression() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "or_expression.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((OrExpressionInstance) transition.getCondition(), condition -> {
+				assertEquals("error1 or error2", condition.getName());
+				with((EventReference) condition.getLeft(), left -> {
+					assertEquals("error1", left.getName());
+					assertEquals("error1", left.getEvent().getName());
+					assertNull(left.getTypeSet());
+				});
+				with((EventReference) condition.getRight(), right -> {
+					assertEquals("error2", right.getName());
+					assertEquals("error2", right.getEvent().getName());
+					assertNull(right.getTypeSet());
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((OrExpressionInstance) transition.getCondition(), condition -> {
+				assertEquals("error3 or error4 or error5 or error6", condition.getName());
+				with((OrExpressionInstance) condition.getLeft(), left1 -> {
+					assertEquals("error3 or error4 or error5", left1.getName());
+					with((OrExpressionInstance) left1.getLeft(), left2 -> {
+						assertEquals("error3 or error4", left2.getName());
+						with((EventReference) left2.getLeft(), left3 -> {
+							assertEquals("error3", left3.getName());
+							assertEquals("error3", left3.getEvent().getName());
+							assertNull(left3.getTypeSet());
+						});
+						with((EventReference) left2.getRight(), right -> {
+							assertEquals("error4", right.getName());
+							assertEquals("error4", right.getEvent().getName());
+							assertNull(right.getTypeSet());
+						});
+					});
+					with((EventReference) left1.getRight(), right -> {
+						assertEquals("error5", right.getName());
+						assertEquals("error5", right.getEvent().getName());
+						assertNull(right.getTypeSet());
+					});
+				});
+				with((EventReference) condition.getRight(), right -> {
+					assertEquals("error6", right.getName());
+					assertEquals("error6", right.getEvent().getName());
+					assertNull(right.getTypeSet());
+				});
 			});
 		});
 	}

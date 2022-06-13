@@ -4839,6 +4839,97 @@ public interface EMV2InstancePackage extends EPackage {
 	int NO_ERROR_PROPAGATION_REFERENCE_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.OrExpressionInstanceImpl <em>Or Expression Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.OrExpressionInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOrExpressionInstance()
+	 * @generated
+	 */
+	int OR_EXPRESSION_INSTANCE = 44;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_EXPRESSION_INSTANCE__OWNED_ELEMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_EXPRESSION_INSTANCE__OWNED_COMMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_EXPRESSION_INSTANCE__NAME = CONDITION_EXPRESSION_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_EXPRESSION_INSTANCE__QUALIFIED_NAME = CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION = CONDITION_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_EXPRESSION_INSTANCE__ANNEX_INSTANCE = CONDITION_EXPRESSION_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_EXPRESSION_INSTANCE__LEFT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_EXPRESSION_INSTANCE__RIGHT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Or Expression Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_EXPRESSION_INSTANCE_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4846,7 +4937,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 44;
+	int EOPERATION = 45;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -4856,7 +4947,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 45;
+	int BINDING_TYPE = 46;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6005,6 +6096,38 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getNoErrorPropagationReference_Propagation();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.OrExpressionInstance <em>Or Expression Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Or Expression Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.OrExpressionInstance
+	 * @generated
+	 */
+	EClass getOrExpressionInstance();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.OrExpressionInstance#getLeft <em>Left</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Left</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.OrExpressionInstance#getLeft()
+	 * @see #getOrExpressionInstance()
+	 * @generated
+	 */
+	EReference getOrExpressionInstance_Left();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.OrExpressionInstance#getRight <em>Right</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Right</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.OrExpressionInstance#getRight()
+	 * @see #getOrExpressionInstance()
+	 * @generated
+	 */
+	EReference getOrExpressionInstance_Right();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -7385,6 +7508,32 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION = eINSTANCE.getNoErrorPropagationReference_Propagation();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.OrExpressionInstanceImpl <em>Or Expression Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.OrExpressionInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOrExpressionInstance()
+		 * @generated
+		 */
+		EClass OR_EXPRESSION_INSTANCE = eINSTANCE.getOrExpressionInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OR_EXPRESSION_INSTANCE__LEFT = eINSTANCE.getOrExpressionInstance_Left();
+
+		/**
+		 * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OR_EXPRESSION_INSTANCE__RIGHT = eINSTANCE.getOrExpressionInstance_Right();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.
