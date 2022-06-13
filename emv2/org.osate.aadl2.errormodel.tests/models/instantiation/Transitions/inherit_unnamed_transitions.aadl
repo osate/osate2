@@ -17,9 +17,9 @@ public
 		annex EMV2 {**
 			component error behavior
 				events
-					error3: error event;
+					error1: error event;
 				transitions
-					start -[error3]-> failure3;
+					start -[error1]-> failure1;
 			end component;
 		**};
 	end s.i;
@@ -27,14 +27,14 @@ public
 	annex EMV2 {**
 		error behavior machine1
 			events
-				error1: error event;
+				error3: error event;
 			states
 				start: initial state;
 				failure1: state;
 				failure2: state;
 				failure3: state;
 			transitions
-				start -[error1]-> failure1;
+				start -[error3]-> failure3;
 		end behavior;
 	**};
 end inherit_unnamed_transitions;

@@ -52,6 +52,7 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
 		});
 	}
 
@@ -65,6 +66,7 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
 		});
 	}
 
@@ -78,11 +80,13 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
 		});
 		with(annexInstance.getTransitions().get(1), transition -> {
 			assertEquals("transition2", transition.getName());
 			assertEquals("transition2", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error2", transition.getCondition().getName());
 		});
 	}
 
@@ -96,6 +100,7 @@ public class TransitionTest {
 			assertEquals("TRANSITION1", transition.getName());
 			assertEquals("TRANSITION1", transition.getTransition().getName());
 			assertEquals("state2", transition.getSource().getName());
+			assertEquals("recover1", transition.getCondition().getName());
 		});
 	}
 
@@ -109,6 +114,7 @@ public class TransitionTest {
 			assertEquals("TRANSITION1", transition.getName());
 			assertEquals("TRANSITION1", transition.getTransition().getName());
 			assertEquals("state2", transition.getSource().getName());
+			assertEquals("recover1", transition.getCondition().getName());
 		});
 	}
 
@@ -124,6 +130,7 @@ public class TransitionTest {
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getTransitions().get(0), transition.getTransition());
 			assertEquals("start", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
 		});
 		with(annexInstance.getTransitions().get(1), transition -> {
 			// TODO Update after we generate names for unnamed transitions.
@@ -134,6 +141,7 @@ public class TransitionTest {
 					.getOwnedAnnexSubclauses()
 					.get(0)).getParsedAnnexSubclause()).getTransitions().get(0), transition.getTransition());
 			assertEquals("start", transition.getSource().getName());
+			assertEquals("error2", transition.getCondition().getName());
 		});
 		with(annexInstance.getTransitions().get(2), transition -> {
 			// TODO Update after we generate names for unnamed transitions.
@@ -143,6 +151,7 @@ public class TransitionTest {
 							.getParsedAnnexLibrary()).getBehaviors().get(0).getTransitions().get(0),
 					transition.getTransition());
 			assertEquals("start", transition.getSource().getName());
+			assertEquals("error3", transition.getCondition().getName());
 		});
 	}
 
@@ -160,6 +169,7 @@ public class TransitionTest {
 				assertEquals("state1", source.getState().getName());
 				assertNull(source.getTypeSet());
 			});
+			assertEquals("error1", transition.getCondition().getName());
 		});
 	}
 
@@ -177,6 +187,7 @@ public class TransitionTest {
 				assertEquals("state1", source.getState().getName());
 				assertEquals("{ServiceError}", source.getTypeSet().getName());
 			});
+			assertEquals("error1", transition.getCondition().getName());
 		});
 		with(annexInstance.getTransitions().get(1), transition -> {
 			assertEquals("transition2", transition.getName());
@@ -188,6 +199,7 @@ public class TransitionTest {
 				assertEquals("{ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}",
 						source.getTypeSet().getName());
 			});
+			assertEquals("error2", transition.getCondition().getName());
 		});
 	}
 
@@ -205,6 +217,7 @@ public class TransitionTest {
 				assertEquals("state1", source.getState().getName());
 				assertEquals("{CommonErrors}", source.getTypeSet().getName());
 			});
+			assertEquals("error1", transition.getCondition().getName());
 		});
 	}
 
@@ -220,6 +233,7 @@ public class TransitionTest {
 			with((AllSources) transition.getSource(), source -> {
 				assertEquals("all", source.getName());
 			});
+			assertEquals("error1", transition.getCondition().getName());
 		});
 	}
 
