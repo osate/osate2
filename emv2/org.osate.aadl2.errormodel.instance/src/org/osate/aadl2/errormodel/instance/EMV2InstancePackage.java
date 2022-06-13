@@ -5021,6 +5021,97 @@ public interface EMV2InstancePackage extends EPackage {
 	int AND_EXPRESSION_INSTANCE_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AllExpressionInstanceImpl <em>All Expression Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.AllExpressionInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAllExpressionInstance()
+	 * @generated
+	 */
+	int ALL_EXPRESSION_INSTANCE = 46;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_EXPRESSION_INSTANCE__OWNED_ELEMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_EXPRESSION_INSTANCE__OWNED_COMMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_EXPRESSION_INSTANCE__NAME = CONDITION_EXPRESSION_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_EXPRESSION_INSTANCE__QUALIFIED_NAME = CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION = CONDITION_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_EXPRESSION_INSTANCE__ANNEX_INSTANCE = CONDITION_EXPRESSION_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Minus Count</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_EXPRESSION_INSTANCE__MINUS_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_EXPRESSION_INSTANCE__ELEMENTS = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>All Expression Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_EXPRESSION_INSTANCE_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5028,7 +5119,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 46;
+	int EOPERATION = 47;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -5038,7 +5129,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 47;
+	int BINDING_TYPE = 48;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6251,6 +6342,38 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAndExpressionInstance_Right();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.AllExpressionInstance <em>All Expression Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>All Expression Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.AllExpressionInstance
+	 * @generated
+	 */
+	EClass getAllExpressionInstance();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.AllExpressionInstance#getMinusCount <em>Minus Count</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Minus Count</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.AllExpressionInstance#getMinusCount()
+	 * @see #getAllExpressionInstance()
+	 * @generated
+	 */
+	EAttribute getAllExpressionInstance_MinusCount();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.AllExpressionInstance#getElements <em>Elements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Elements</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.AllExpressionInstance#getElements()
+	 * @see #getAllExpressionInstance()
+	 * @generated
+	 */
+	EReference getAllExpressionInstance_Elements();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -7683,6 +7806,32 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference AND_EXPRESSION_INSTANCE__RIGHT = eINSTANCE.getAndExpressionInstance_Right();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.AllExpressionInstanceImpl <em>All Expression Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.AllExpressionInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAllExpressionInstance()
+		 * @generated
+		 */
+		EClass ALL_EXPRESSION_INSTANCE = eINSTANCE.getAllExpressionInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Minus Count</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALL_EXPRESSION_INSTANCE__MINUS_COUNT = eINSTANCE.getAllExpressionInstance_MinusCount();
+
+		/**
+		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ALL_EXPRESSION_INSTANCE__ELEMENTS = eINSTANCE.getAllExpressionInstance_Elements();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

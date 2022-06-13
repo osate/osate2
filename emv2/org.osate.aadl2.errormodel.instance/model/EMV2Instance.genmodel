@@ -218,5 +218,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AndExpressionInstance/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AndExpressionInstance/right"/>
     </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//AllExpressionInstance">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//AllExpressionInstance/minusCount"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AllExpressionInstance/elements"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

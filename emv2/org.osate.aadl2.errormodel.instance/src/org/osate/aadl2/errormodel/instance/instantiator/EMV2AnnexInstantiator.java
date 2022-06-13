@@ -571,6 +571,22 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			andExpressionInstance.setName(
 					andExpressionInstance.getLeft().getName() + " and " + andExpressionInstance.getRight().getName());
 			return andExpressionInstance;
+		} else if (condition instanceof AllExpression allExpression) {
+			var allExpressionInstance = EMV2InstanceFactory.eINSTANCE.createAllExpressionInstance();
+			allExpressionInstance.setMinusCount(allExpression.getCount());
+			for (var element : allExpression.getOperands()) {
+				allExpressionInstance.getElements().add(createConditionExpressionInstance(element, component, annex));
+			}
+			var name = "all";
+			if (allExpression.getCount() != 0) {
+				name += " - " + allExpression.getCount();
+			}
+			name += allExpressionInstance.getElements()
+					.stream()
+					.map(NamedElement::getName)
+					.collect(Collectors.joining(", ", " (", ")"));
+			allExpressionInstance.setName(name);
+			return allExpressionInstance;
 		} else if (condition instanceof ConditionElement conditionElement) {
 			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
 			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {

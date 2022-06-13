@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
+import org.osate.aadl2.errormodel.instance.AllExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AndExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
@@ -183,6 +184,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createOrExpressionInstance();
 		case EMV2InstancePackage.AND_EXPRESSION_INSTANCE:
 			return createAndExpressionInstance();
+		case EMV2InstancePackage.ALL_EXPRESSION_INSTANCE:
+			return createAllExpressionInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -506,6 +509,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public AndExpressionInstance createAndExpressionInstance() {
 		AndExpressionInstanceImpl andExpressionInstance = new AndExpressionInstanceImpl();
 		return andExpressionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AllExpressionInstance createAllExpressionInstance() {
+		AllExpressionInstanceImpl allExpressionInstance = new AllExpressionInstanceImpl();
+		return allExpressionInstance;
 	}
 
 	/**

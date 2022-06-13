@@ -3,7 +3,10 @@ package org.osate.aadl2.errormodel.tests.instance;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.osate.pluginsupport.ScopeFunctions.with;
+
+import java.util.List;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
@@ -13,7 +16,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.errormodel.instance.AllExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AndExpressionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
@@ -1103,6 +1108,47 @@ public class TransitionTest {
 					assertEquals("error5", left1.getRight().getName());
 				});
 				assertEquals("error6", condition.getRight().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testAllExpression() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_expression.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(3, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((AllExpressionInstance) transition.getCondition(), condition -> {
+				assertEquals("all (error1)", condition.getName());
+				assertEquals(0, condition.getMinusCount());
+				assertIterableEquals(List.of("error1"),
+						condition.getElements().stream().map(NamedElement::getName).toList());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((AllExpressionInstance) transition.getCondition(), condition -> {
+				assertEquals("all (error2, error3, error4)", condition.getName());
+				assertEquals(0, condition.getMinusCount());
+				assertIterableEquals(List.of("error2", "error3", "error4"),
+						condition.getElements().stream().map(NamedElement::getName).toList());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((AllExpressionInstance) transition.getCondition(), condition -> {
+				assertEquals("all - 2 (error5, error6, error7, error8, error9)", condition.getName());
+				assertEquals(2, condition.getMinusCount());
+				assertIterableEquals(List.of("error5", "error6", "error7", "error8", "error9"),
+						condition.getElements().stream().map(NamedElement::getName).toList());
 			});
 		});
 	}

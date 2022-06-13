@@ -277,6 +277,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	AndExpressionInstance createAndExpressionInstance();
 
 	/**
+	 * Returns a new object of class '<em>All Expression Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>All Expression Instance</em>'.
+	 * @generated
+	 */
+	AllExpressionInstance createAllExpressionInstance();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
