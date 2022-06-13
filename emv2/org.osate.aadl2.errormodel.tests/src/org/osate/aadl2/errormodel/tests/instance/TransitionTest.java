@@ -15,6 +15,7 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllSources;
+import org.osate.aadl2.errormodel.instance.AndExpressionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
@@ -1060,6 +1061,42 @@ public class TransitionTest {
 					assertEquals("error3 or error4 or error5", left1.getName());
 					with((OrExpressionInstance) left1.getLeft(), left2 -> {
 						assertEquals("error3 or error4", left2.getName());
+						assertEquals("error3", left2.getLeft().getName());
+						assertEquals("error4", left2.getRight().getName());
+					});
+					assertEquals("error5", left1.getRight().getName());
+				});
+				assertEquals("error6", condition.getRight().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testAndExpression() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "and_expression.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((AndExpressionInstance) transition.getCondition(), condition -> {
+				assertEquals("error1 and error2", condition.getName());
+				assertEquals("error1", condition.getLeft().getName());
+				assertEquals("error2", condition.getRight().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((AndExpressionInstance) transition.getCondition(), condition -> {
+				assertEquals("error3 and error4 and error5 and error6", condition.getName());
+				with((AndExpressionInstance) condition.getLeft(), left1 -> {
+					assertEquals("error3 and error4 and error5", left1.getName());
+					with((AndExpressionInstance) left1.getLeft(), left2 -> {
+						assertEquals("error3 and error4", left2.getName());
 						assertEquals("error3", left2.getLeft().getName());
 						assertEquals("error4", left2.getRight().getName());
 					});

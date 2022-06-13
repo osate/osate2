@@ -32,6 +32,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AllSources;
+import org.osate.aadl2.errormodel.instance.AndExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
@@ -356,6 +357,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseOrExpressionInstance(OrExpressionInstance object) {
 			return createOrExpressionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseAndExpressionInstance(AndExpressionInstance object) {
+			return createAndExpressionInstanceAdapter();
 		}
 
 		@Override
@@ -814,6 +820,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createOrExpressionInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.AndExpressionInstance <em>And Expression Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.AndExpressionInstance
+	 * @generated
+	 */
+	public Adapter createAndExpressionInstanceAdapter() {
 		return null;
 	}
 

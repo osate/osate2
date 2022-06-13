@@ -214,5 +214,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OrExpressionInstance/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OrExpressionInstance/right"/>
     </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//AndExpressionInstance">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AndExpressionInstance/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AndExpressionInstance/right"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>
