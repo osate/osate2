@@ -83,7 +83,6 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateReference;
-import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
@@ -130,7 +129,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -705,53 +703,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return propagationReference;
 	}
 
-	private void instantiateStateTransition(ErrorBehaviorTransition st, TransitionBranch tb,
-			EMV2AnnexInstance annex) {
-		StateMachineInstance smi = annex.getStateMachine();
-		TransitionInstance sti = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
-		sti.setName(st.getName());
-		if (tb != null) {
-			sti.setStateTransition(tb);
-		} else {
-			sti.setStateTransition(st);
-		}
-		annex.getTransitions().add(sti);
-		ConditionExpression behaviorCondition = st.getCondition();
-		ConstraintElement cio = instantiateCondition(behaviorCondition, annex);
-//		sti.setCondition(cio);
-		boolean isSteadyState = tb != null ? tb.isSteadyState() : st.isSteadyState();
-		ErrorBehaviorState target = tb != null ? tb.getTarget() : st.getTarget();
-		if (isSteadyState) {
-			if (st.isAllStates()) {
-				annex.getTransitions().remove(sti);
-				for (StateInstance si : smi.getStates()) {
-					TransitionInstance nsti = EcoreUtil.copy(sti);
-					nsti.getInStates().add(si);
-					nsti.setTargetState(si);
-				}
-			} else {
-				StateInstance ssti = findStateInstance(annex, st.getSource());
-				if (ssti != null) {
-					sti.getInStates().add(ssti);
-					sti.setTargetState(ssti);
-				}
-			}
-		} else {
-			// explicit target state
-			sti.setTargetState(findStateInstance(annex, target));
-			if (st.isAllStates()) {
-				for (StateInstance si : smi.getStates()) {
-					sti.getInStates().add(si);
-				}
-			} else {
-				StateInstance si = findStateInstance(annex, st.getSource());
-				if (si != null) {
-					sti.getInStates().add(si);
-				}
-			}
-		}
-	}
-
 	private void instantiateCompositeState(CompositeState st, EMV2AnnexInstance annex) {
 		CompositeStateInstance sti = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
 		sti.setName(st.getName());
@@ -1111,15 +1062,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (var stateInstance : annex.getStates()) {
 			if (stateInstance.getState() == state) {
 				return stateInstance;
-			}
-		}
-		return null;
-	}
-
-	private StateInstance findStateInstance(StateMachineInstance svi, ErrorBehaviorState state) {
-		for (StateInstance si : svi.getStates()) {
-			if (si.getName().equals(state.getName())) {
-				return si;
 			}
 		}
 		return null;
