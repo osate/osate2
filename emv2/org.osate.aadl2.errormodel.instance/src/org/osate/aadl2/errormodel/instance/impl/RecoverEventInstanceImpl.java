@@ -50,7 +50,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
  *
  * @generated
  */
-public class RecoverEventInstanceImpl extends EventInstanceImpl implements RecoverEventInstance {
+public class RecoverEventInstanceImpl extends EMV2InstanceObjectImpl implements RecoverEventInstance {
 	/**
 	 * The cached value of the '{@link #getRecoverEvent() <em>Recover Event</em>}' reference.
 	 * <!-- begin-user-doc -->

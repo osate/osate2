@@ -50,7 +50,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
  *
  * @generated
  */
-public class RepairEventInstanceImpl extends EventInstanceImpl implements RepairEventInstance {
+public class RepairEventInstanceImpl extends EMV2InstanceObjectImpl implements RepairEventInstance {
 	/**
 	 * The cached value of the '{@link #getRepairEvent() <em>Repair Event</em>}' reference.
 	 * <!-- begin-user-doc -->

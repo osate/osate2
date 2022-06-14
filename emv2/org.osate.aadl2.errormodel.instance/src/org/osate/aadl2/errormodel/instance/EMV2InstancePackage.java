@@ -991,10 +991,10 @@ public interface EMV2InstancePackage extends EPackage {
 	int PROPAGATION_POINT_INSTANCE = 26;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EventInstance <em>Event Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.instance.impl.EventInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.EventInstance
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEventInstance()
 	 * @generated
 	 */
@@ -3814,31 +3814,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int EVENT_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
-	 * The feature id for the '<em><b>Event</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_INSTANCE__EVENT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Generated Typed Events</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_INSTANCE__GENERATED_TYPED_EVENTS = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
-
-	/**
 	 * The number of structural features of the '<em>Event Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+	int EVENT_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3893,24 +3875,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int ERROR_EVENT_INSTANCE__ANNEX_INSTANCE = EVENT_INSTANCE__ANNEX_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Event</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_EVENT_INSTANCE__EVENT = EVENT_INSTANCE__EVENT;
-
-	/**
-	 * The feature id for the '<em><b>Generated Typed Events</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ERROR_EVENT_INSTANCE__GENERATED_TYPED_EVENTS = EVENT_INSTANCE__GENERATED_TYPED_EVENTS;
 
 	/**
 	 * The feature id for the '<em><b>Error Event</b></em>' reference.
@@ -3994,24 +3958,6 @@ public interface EMV2InstancePackage extends EPackage {
 	int RECOVER_EVENT_INSTANCE__ANNEX_INSTANCE = EVENT_INSTANCE__ANNEX_INSTANCE;
 
 	/**
-	 * The feature id for the '<em><b>Event</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECOVER_EVENT_INSTANCE__EVENT = EVENT_INSTANCE__EVENT;
-
-	/**
-	 * The feature id for the '<em><b>Generated Typed Events</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECOVER_EVENT_INSTANCE__GENERATED_TYPED_EVENTS = EVENT_INSTANCE__GENERATED_TYPED_EVENTS;
-
-	/**
 	 * The feature id for the '<em><b>Recover Event</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4091,24 +4037,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int REPAIR_EVENT_INSTANCE__ANNEX_INSTANCE = EVENT_INSTANCE__ANNEX_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Event</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REPAIR_EVENT_INSTANCE__EVENT = EVENT_INSTANCE__EVENT;
-
-	/**
-	 * The feature id for the '<em><b>Generated Typed Events</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REPAIR_EVENT_INSTANCE__GENERATED_TYPED_EVENTS = EVENT_INSTANCE__GENERATED_TYPED_EVENTS;
 
 	/**
 	 * The feature id for the '<em><b>Repair Event</b></em>' reference.
@@ -6094,28 +6022,6 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getEventInstance();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.EventInstance#getEvent <em>Event</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Event</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.EventInstance#getEvent()
-	 * @see #getEventInstance()
-	 * @generated
-	 */
-	EReference getEventInstance_Event();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.EventInstance#getGeneratedTypedEvents <em>Generated Typed Events</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Generated Typed Events</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.EventInstance#getGeneratedTypedEvents()
-	 * @see #getEventInstance()
-	 * @generated
-	 */
-	EReference getEventInstance_GeneratedTypedEvents();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ErrorEventInstance <em>Error Event Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7654,30 +7560,14 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference USER_DEFINED_PATH__DESTINATION_PROPAGATION = eINSTANCE.getUserDefinedPath_DestinationPropagation();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.EventInstance <em>Event Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.aadl2.errormodel.instance.impl.EventInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.EventInstance
 		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEventInstance()
 		 * @generated
 		 */
 		EClass EVENT_INSTANCE = eINSTANCE.getEventInstance();
-
-		/**
-		 * The meta object literal for the '<em><b>Event</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EVENT_INSTANCE__EVENT = eINSTANCE.getEventInstance_Event();
-
-		/**
-		 * The meta object literal for the '<em><b>Generated Typed Events</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EVENT_INSTANCE__GENERATED_TYPED_EVENTS = eINSTANCE.getEventInstance_GeneratedTypedEvents();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ErrorEventInstanceImpl <em>Error Event Instance</em>}' class.

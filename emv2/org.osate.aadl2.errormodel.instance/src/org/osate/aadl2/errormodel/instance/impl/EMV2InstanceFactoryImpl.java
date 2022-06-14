@@ -51,7 +51,6 @@ import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
-import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
@@ -162,8 +161,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createUserDefinedPath();
 		case EMV2InstancePackage.STATE_INSTANCE:
 			return createStateInstance();
-		case EMV2InstancePackage.EVENT_INSTANCE:
-			return createEventInstance();
 		case EMV2InstancePackage.ERROR_EVENT_INSTANCE:
 			return createErrorEventInstance();
 		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE:
@@ -383,17 +380,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public UserDefinedPath createUserDefinedPath() {
 		UserDefinedPathImpl userDefinedPath = new UserDefinedPathImpl();
 		return userDefinedPath;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EventInstance createEventInstance() {
-		EventInstanceImpl eventInstance = new EventInstanceImpl();
-		return eventInstance;
 	}
 
 	/**

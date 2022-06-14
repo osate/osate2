@@ -47,7 +47,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
  *
  * @generated
  */
-public class ErrorEventInstanceImpl extends EventInstanceImpl implements ErrorEventInstance {
+public class ErrorEventInstanceImpl extends EMV2InstanceObjectImpl implements ErrorEventInstance {
 	/**
 	 * The cached value of the '{@link #getErrorEvent() <em>Error Event</em>}' reference.
 	 * <!-- begin-user-doc -->

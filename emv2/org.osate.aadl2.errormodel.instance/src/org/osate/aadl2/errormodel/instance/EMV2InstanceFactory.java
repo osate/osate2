@@ -169,15 +169,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	UserDefinedPath createUserDefinedPath();
 
 	/**
-	 * Returns a new object of class '<em>Event Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Event Instance</em>'.
-	 * @generated
-	 */
-	EventInstance createEventInstance();
-
-	/**
 	 * Returns a new object of class '<em>Error Event Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

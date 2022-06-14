@@ -1278,26 +1278,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getEventInstance_Event() {
-		return (EReference) eventInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEventInstance_GeneratedTypedEvents() {
-		return (EReference) eventInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getErrorEventInstance() {
 		return errorEventInstanceEClass;
 	}
@@ -2300,8 +2280,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(stateInstanceEClass, STATE_INSTANCE__TYPE_SET);
 
 		eventInstanceEClass = createEClass(EVENT_INSTANCE);
-		createEReference(eventInstanceEClass, EVENT_INSTANCE__EVENT);
-		createEReference(eventInstanceEClass, EVENT_INSTANCE__GENERATED_TYPED_EVENTS);
 
 		errorEventInstanceEClass = createEClass(ERROR_EVENT_INSTANCE);
 		createEReference(errorEventInstanceEClass, ERROR_EVENT_INSTANCE__ERROR_EVENT);
@@ -2834,14 +2812,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				StateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(eventInstanceEClass, EventInstance.class, "EventInstance", !IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(eventInstanceEClass, EventInstance.class, "EventInstance", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEventInstance_Event(), theErrorModelPackage.getErrorBehaviorEvent(), null, "event", null, 0,
-				1, EventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEventInstance_GeneratedTypedEvents(), getConstrainedInstanceObject(), null,
-				"generatedTypedEvents", null, 0, -1, EventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorEventInstanceEClass, ErrorEventInstance.class, "ErrorEventInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
