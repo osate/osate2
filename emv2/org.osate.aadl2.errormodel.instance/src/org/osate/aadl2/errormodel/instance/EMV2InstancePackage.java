@@ -4202,40 +4202,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int TRANSITION_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
-	 * The feature id for the '<em><b>State Transition</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRANSITION_INSTANCE__STATE_TRANSITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>In States</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRANSITION_INSTANCE__IN_STATES = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Target State</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRANSITION_INSTANCE__TARGET_STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Transition</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_INSTANCE__TRANSITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
+	int TRANSITION_INSTANCE__TRANSITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' containment reference.
@@ -4244,7 +4217,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_INSTANCE__SOURCE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+	int TRANSITION_INSTANCE__SOURCE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -4253,7 +4226,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_INSTANCE__CONDITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 5;
+	int TRANSITION_INSTANCE__CONDITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Transition Instance</em>' class.
@@ -4262,7 +4235,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 6;
+	int TRANSITION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.TransitionSource <em>Transition Source</em>}' class.
@@ -6249,28 +6222,6 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getTransitionInstance();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getStateTransition <em>State Transition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>State Transition</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TransitionInstance#getStateTransition()
-	 * @see #getTransitionInstance()
-	 * @generated
-	 */
-	EReference getTransitionInstance_StateTransition();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getInStates <em>In States</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>In States</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TransitionInstance#getInStates()
-	 * @see #getTransitionInstance()
-	 * @generated
-	 */
-	EReference getTransitionInstance_InStates();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getCondition <em>Condition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6280,17 +6231,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTransitionInstance_Condition();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTargetState <em>Target State</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target State</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TransitionInstance#getTargetState()
-	 * @see #getTransitionInstance()
-	 * @generated
-	 */
-	EReference getTransitionInstance_TargetState();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTransition <em>Transition</em>}'.
@@ -7828,36 +7768,12 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass TRANSITION_INSTANCE = eINSTANCE.getTransitionInstance();
 
 		/**
-		 * The meta object literal for the '<em><b>State Transition</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TRANSITION_INSTANCE__STATE_TRANSITION = eINSTANCE.getTransitionInstance_StateTransition();
-
-		/**
-		 * The meta object literal for the '<em><b>In States</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TRANSITION_INSTANCE__IN_STATES = eINSTANCE.getTransitionInstance_InStates();
-
-		/**
 		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference TRANSITION_INSTANCE__CONDITION = eINSTANCE.getTransitionInstance_Condition();
-
-		/**
-		 * The meta object literal for the '<em><b>Target State</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TRANSITION_INSTANCE__TARGET_STATE = eINSTANCE.getTransitionInstance_TargetState();
 
 		/**
 		 * The meta object literal for the '<em><b>Transition</b></em>' reference feature.

@@ -23,19 +23,13 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -48,9 +42,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getStateTransition <em>State Transition</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getTargetState <em>Target State</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getTransition <em>Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TransitionInstanceImpl#getCondition <em>Condition</em>}</li>
@@ -59,36 +50,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  * @generated
  */
 public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements TransitionInstance {
-	/**
-	 * The cached value of the '{@link #getStateTransition() <em>State Transition</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStateTransition()
-	 * @generated
-	 * @ordered
-	 */
-	protected EObject stateTransition;
-
-	/**
-	 * The cached value of the '{@link #getInStates() <em>In States</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInStates()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<StateInstance> inStates;
-
-	/**
-	 * The cached value of the '{@link #getTargetState() <em>Target State</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTargetState()
-	 * @generated
-	 * @ordered
-	 */
-	protected StateInstance targetState;
-
 	/**
 	 * The cached value of the '{@link #getTransition() <em>Transition</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -136,65 +97,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	@Override
 	protected EClass eStaticClass() {
 		return EMV2InstancePackage.Literals.TRANSITION_INSTANCE;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EObject getStateTransition() {
-		if (stateTransition != null && stateTransition.eIsProxy()) {
-			InternalEObject oldStateTransition = (InternalEObject) stateTransition;
-			stateTransition = eResolveProxy(oldStateTransition);
-			if (stateTransition != oldStateTransition) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition,
-							stateTransition));
-				}
-			}
-		}
-		return stateTransition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EObject basicGetStateTransition() {
-		return stateTransition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setStateTransition(EObject newStateTransition) {
-		EObject oldStateTransition = stateTransition;
-		stateTransition = newStateTransition;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition, stateTransition));
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<StateInstance> getInStates() {
-		if (inStates == null) {
-			inStates = new EObjectResolvingEList<>(StateInstance.class, this,
-					EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES);
-		}
-		return inStates;
 	}
 
 	/**
@@ -251,50 +153,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION,
 					newCondition, newCondition));
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public StateInstance getTargetState() {
-		if (targetState != null && targetState.eIsProxy()) {
-			InternalEObject oldTargetState = (InternalEObject) targetState;
-			targetState = (StateInstance) eResolveProxy(oldTargetState);
-			if (targetState != oldTargetState) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
-				}
-			}
-		}
-		return targetState;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StateInstance basicGetTargetState() {
-		return targetState;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setTargetState(StateInstance newTargetState) {
-		StateInstance oldTargetState = targetState;
-		targetState = newTargetState;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE,
-					oldTargetState, targetState));
 		}
 	}
 
@@ -423,18 +281,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION:
-			if (resolve) {
-				return getStateTransition();
-			}
-			return basicGetStateTransition();
-		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
-			return getInStates();
-		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
-			if (resolve) {
-				return getTargetState();
-			}
-			return basicGetTargetState();
 		case EMV2InstancePackage.TRANSITION_INSTANCE__TRANSITION:
 			if (resolve) {
 				return getTransition();
@@ -457,16 +303,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION:
-			setStateTransition((EObject) newValue);
-			return;
-		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
-			getInStates().clear();
-			getInStates().addAll((Collection<? extends StateInstance>) newValue);
-			return;
-		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
-			setTargetState((StateInstance) newValue);
-			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__TRANSITION:
 			setTransition((ErrorBehaviorTransition) newValue);
 			return;
@@ -488,15 +324,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION:
-			setStateTransition((EObject) null);
-			return;
-		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
-			getInStates().clear();
-			return;
-		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
-			setTargetState((StateInstance) null);
-			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__TRANSITION:
 			setTransition((ErrorBehaviorTransition) null);
 			return;
@@ -518,12 +345,6 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.TRANSITION_INSTANCE__STATE_TRANSITION:
-			return stateTransition != null;
-		case EMV2InstancePackage.TRANSITION_INSTANCE__IN_STATES:
-			return inStates != null && !inStates.isEmpty();
-		case EMV2InstancePackage.TRANSITION_INSTANCE__TARGET_STATE:
-			return targetState != null;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__TRANSITION:
 			return transition != null;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__SOURCE:

@@ -23,8 +23,6 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 /**
@@ -36,9 +34,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getStateTransition <em>State Transition</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTargetState <em>Target State</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTransition <em>Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getCondition <em>Condition</em>}</li>
@@ -49,40 +44,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  * @generated
  */
 public interface TransitionInstance extends EMV2InstanceObject {
-	/**
-	 * Returns the value of the '<em><b>State Transition</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>State Transition</em>' reference.
-	 * @see #setStateTransition(EObject)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTransitionInstance_StateTransition()
-	 * @model
-	 * @generated
-	 */
-	EObject getStateTransition();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getStateTransition <em>State Transition</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>State Transition</em>' reference.
-	 * @see #getStateTransition()
-	 * @generated
-	 */
-	void setStateTransition(EObject value);
-
-	/**
-	 * Returns the value of the '<em><b>In States</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.StateInstance}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In States</em>' reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTransitionInstance_InStates()
-	 * @model
-	 * @generated
-	 */
-	EList<StateInstance> getInStates();
-
 	/**
 	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -104,28 +65,6 @@ public interface TransitionInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	void setCondition(ConditionExpressionInstance value);
-
-	/**
-	 * Returns the value of the '<em><b>Target State</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target State</em>' reference.
-	 * @see #setTargetState(StateInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTransitionInstance_TargetState()
-	 * @model
-	 * @generated
-	 */
-	StateInstance getTargetState();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTargetState <em>Target State</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target State</em>' reference.
-	 * @see #getTargetState()
-	 * @generated
-	 */
-	void setTargetState(StateInstance value);
 
 	/**
 	 * Returns the value of the '<em><b>Transition</b></em>' reference.

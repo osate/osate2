@@ -1398,37 +1398,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getTransitionInstance_StateTransition() {
-		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getTransitionInstance_InStates() {
-		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EReference getTransitionInstance_Condition() {
-		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getTransitionInstance_TargetState() {
 		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1439,7 +1409,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getTransitionInstance_Transition() {
-		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(3);
+		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1449,7 +1419,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getTransitionInstance_Source() {
-		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(4);
+		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2346,9 +2316,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(repairEventInstanceEClass, REPAIR_EVENT_INSTANCE__EVENT_INITIATORS);
 
 		transitionInstanceEClass = createEClass(TRANSITION_INSTANCE);
-		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__STATE_TRANSITION);
-		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__IN_STATES);
-		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__TARGET_STATE);
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__TRANSITION);
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__SOURCE);
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__CONDITION);
@@ -2430,7 +2397,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		ErrorModelPackage theErrorModelPackage = (ErrorModelPackage) EPackage.Registry.INSTANCE
 				.getEPackage(ErrorModelPackage.eNS_URI);
 		Aadl2Package theAadl2Package = (Aadl2Package) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
-		EcorePackage theEcorePackage = (EcorePackage) EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -2906,15 +2872,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(transitionInstanceEClass, TransitionInstance.class, "TransitionInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTransitionInstance_StateTransition(), theEcorePackage.getEObject(), null, "stateTransition",
-				null, 0, 1, TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTransitionInstance_InStates(), getStateInstance(), null, "inStates", null, 0, -1,
-				TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTransitionInstance_TargetState(), getStateInstance(), null, "targetState", null, 0, 1,
-				TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransitionInstance_Transition(), theErrorModelPackage.getErrorBehaviorTransition(), null,
 				"transition", null, 0, 1, TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
