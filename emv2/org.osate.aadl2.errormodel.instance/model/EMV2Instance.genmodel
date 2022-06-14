@@ -226,5 +226,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//OrMoreExpressionInstance/count"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OrMoreExpressionInstance/elements"/>
     </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//OrLessExpressionInstance">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//OrLessExpressionInstance/count"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OrLessExpressionInstance/elements"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

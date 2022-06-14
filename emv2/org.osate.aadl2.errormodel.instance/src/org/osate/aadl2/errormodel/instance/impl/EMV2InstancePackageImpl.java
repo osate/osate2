@@ -65,6 +65,7 @@ import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
+import org.osate.aadl2.errormodel.instance.OrLessExpressionInstance;
 import org.osate.aadl2.errormodel.instance.OrMoreExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
@@ -323,6 +324,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass orMoreExpressionInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass orLessExpressionInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1710,6 +1718,36 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getOrLessExpressionInstance() {
+		return orLessExpressionInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getOrLessExpressionInstance_Count() {
+		return (EAttribute) orLessExpressionInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getOrLessExpressionInstance_Elements() {
+		return (EReference) orLessExpressionInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2352,6 +2390,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEAttribute(orMoreExpressionInstanceEClass, OR_MORE_EXPRESSION_INSTANCE__COUNT);
 		createEReference(orMoreExpressionInstanceEClass, OR_MORE_EXPRESSION_INSTANCE__ELEMENTS);
 
+		orLessExpressionInstanceEClass = createEClass(OR_LESS_EXPRESSION_INSTANCE);
+		createEAttribute(orLessExpressionInstanceEClass, OR_LESS_EXPRESSION_INSTANCE__COUNT);
+		createEReference(orLessExpressionInstanceEClass, OR_LESS_EXPRESSION_INSTANCE__ELEMENTS);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
@@ -2444,6 +2486,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		andExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		allExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		orMoreExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
+		orLessExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2958,6 +3001,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOrMoreExpressionInstance_Elements(), getConditionExpressionInstance(), null, "elements", null,
 				0, -1, OrMoreExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(orLessExpressionInstanceEClass, OrLessExpressionInstance.class, "OrLessExpressionInstance",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOrLessExpressionInstance_Count(), ecorePackage.getELong(), "count", null, 0, 1,
+				OrLessExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOrLessExpressionInstance_Elements(), getConditionExpressionInstance(), null, "elements", null,
+				0, -1, OrLessExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals

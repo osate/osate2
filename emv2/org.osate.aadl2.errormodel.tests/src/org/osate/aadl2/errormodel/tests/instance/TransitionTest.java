@@ -25,6 +25,7 @@ import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
+import org.osate.aadl2.errormodel.instance.OrLessExpressionInstance;
 import org.osate.aadl2.errormodel.instance.OrMoreExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.StateReference;
@@ -1166,6 +1167,25 @@ public class TransitionTest {
 			assertEquals("state1", transition.getSource().getName());
 			with((OrMoreExpressionInstance) transition.getCondition(), condition -> {
 				assertEquals("3 ormore (error1, error2, error3, error4, error5)", condition.getName());
+				assertEquals(3, condition.getCount());
+				assertIterableEquals(List.of("error1", "error2", "error3", "error4", "error5"),
+						condition.getElements().stream().map(NamedElement::getName).toList());
+			});
+		});
+	}
+
+	@Test
+	public void testOrLessExpression() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "or_less_expression.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			with((OrLessExpressionInstance) transition.getCondition(), condition -> {
+				assertEquals("3 orless (error1, error2, error3, error4, error5)", condition.getName());
 				assertEquals(3, condition.getCount());
 				assertIterableEquals(List.of("error1", "error2", "error3", "error4", "error5"),
 						condition.getElements().stream().map(NamedElement::getName).toList());

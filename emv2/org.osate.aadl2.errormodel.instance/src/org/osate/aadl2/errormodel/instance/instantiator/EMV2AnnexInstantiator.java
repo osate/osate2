@@ -120,6 +120,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
@@ -599,6 +600,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					.map(NamedElement::getName)
 					.collect(Collectors.joining(", ", orMoreExpression.getCount() + " ormore (", ")")));
 			return orMoreExpressionInstance;
+		} else if (condition instanceof OrlessExpression orLessExpression) {
+			var orLessExpressionInstance = EMV2InstanceFactory.eINSTANCE.createOrLessExpressionInstance();
+			orLessExpressionInstance.setCount(orLessExpression.getCount());
+			for (var element : orLessExpression.getOperands()) {
+				orLessExpressionInstance.getElements()
+						.add(createConditionExpressionInstance(element, component, annex));
+			}
+			orLessExpressionInstance.setName(orLessExpressionInstance.getElements()
+					.stream()
+					.map(NamedElement::getName)
+					.collect(Collectors.joining(", ", orLessExpression.getCount() + " orless (", ")")));
+			return orLessExpressionInstance;
 		} else if (condition instanceof ConditionElement conditionElement) {
 			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
 			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {
