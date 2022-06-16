@@ -100,4 +100,6 @@ censes only apply to the Third Party Software and not any other portion of this 
    <repository-reference location="https://download.eclipse.org/ease/release/0.8.0" enabled="true" />
    <repository-reference location="https://download.eclipse.org/justj/jres/17/updates/release/latest" enabled="true" />
    <repository-reference location="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.2" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/mylyn/releases/3.25" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/birt/update-site/4.9.0" enabled="true" />
 </site>
