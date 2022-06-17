@@ -21,6 +21,11 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+			<name>org.eclipse.pde.api.tools.apiAnalysisBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.oomph.version.VersionBuilder</name>
 			<arguments>
 				<dictionary>
@@ -47,11 +52,6 @@
 					<key>release.path</key>
 					<value>/releng/version-management/release.xml</value>
 				</dictionary>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.eclipse.pde.api.tools.apiAnalysisBuilder</name>
-			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>

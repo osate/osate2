@@ -272,6 +272,7 @@
             <topic href="api-docs/javadoc/org/osate/reqspec/util/package-summary.html" label="org.osate.reqspec.util"/>
             <topic href="api-docs/javadoc/org/osate/reqspec/validation/package-summary.html" label="org.osate.reqspec.validation"/>
             <topic href="api-docs/javadoc/org/osate/reqtrace/package-summary.html" label="org.osate.reqtrace"/>
+            <topic href="api-docs/javadoc/org/osate/resolute/package-summary.html" label="org.osate.resolute"/>
             <topic href="api-docs/javadoc/org/osate/result/package-summary.html" label="org.osate.result"/>
             <topic href="api-docs/javadoc/org/osate/result/impl/package-summary.html" label="org.osate.result.impl"/>
             <topic href="api-docs/javadoc/org/osate/result/util/package-summary.html" label="org.osate.result.util"/>
