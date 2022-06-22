@@ -455,13 +455,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
-			<artifactId>org.osate.reqtrace</artifactId>
-			<version>2.0.4-SNAPSHOT</version>
-			<optional>true</optional>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.osate</groupId>
 			<artifactId>org.osate.categories.ui</artifactId>
 			<version>3.0.6-SNAPSHOT</version>
 			<optional>true</optional>
@@ -477,7 +470,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.reqspec.ui</artifactId>
-			<version>3.0.6-SNAPSHOT</version>
+			<version>3.0.7-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -498,7 +491,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.verify.ui</artifactId>
-			<version>4.0.5-SNAPSHOT</version>
+			<version>4.0.6-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -512,14 +505,14 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.alisa.workbench</artifactId>
-			<version>3.0.6-SNAPSHOT</version>
+			<version>3.0.7-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.assure</artifactId>
-			<version>3.0.9-SNAPSHOT</version>
+			<version>3.0.10-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -561,7 +554,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.alisa.workbench.ui</artifactId>
-			<version>3.0.6-SNAPSHOT</version>
+			<version>3.0.7-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
