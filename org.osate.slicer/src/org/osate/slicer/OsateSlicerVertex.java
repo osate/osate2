@@ -25,12 +25,18 @@ package org.osate.slicer;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.slicer.iobjadapters.BoundComponentInstanceAdapter;
+import org.osate.slicer.iobjadapters.ErrorFlowInstanceAdapter;
+import org.osate.slicer.iobjadapters.FeatureInstanceAdapter;
+import org.osate.slicer.iobjadapters.VertexIObjAdapter;
 
 /**
  * The vertex type used by the slicer.
@@ -62,15 +68,21 @@ public class OsateSlicerVertex {
 	 */
 	final private TypeTokenInstance token;
 
-	/**
-	 * The feature the vertex represents. If null, {@link #efi} must be set
-	 */
-	final private FeatureInstance feat;
+//	/**
+//	 * The feature the vertex represents. If null, {@link #efi} must be set
+//	 */
+//	final private FeatureInstance feat;
+//
+//	/**
+//	 * The error source or sink the vertex represents. If null, {@link #feat} must be set
+//	 */
+//	final private ErrorFlowInstance efi;
 
 	/**
-	 * The error source or sink the vertex represents. If null, {@link #feat} must be set
+	 * A link to the AADL instance object (ie, feature, error source, error sink, or component + binding type)
+	 * that
 	 */
-	final private ErrorFlowInstance efi;
+	final private VertexIObjAdapter element;
 
 	/**
 	 * Create a new vertex with the supplied feature, but no error type information
@@ -79,8 +91,7 @@ public class OsateSlicerVertex {
 	public OsateSlicerVertex(FeatureInstance feat) {
 		this.name = feat.getInstanceObjectPath();
 		this.token = null;
-		this.feat = feat;
-		this.efi = null;
+		this.element = new FeatureInstanceAdapter(feat);
 	}
 
 	/**
@@ -91,8 +102,7 @@ public class OsateSlicerVertex {
 	public OsateSlicerVertex(FeatureInstance feat, TypeTokenInstance token) {
 		this.name = feat.getInstanceObjectPath();
 		this.token = token;
-		this.feat = feat;
-		this.efi = null;
+		this.element = new FeatureInstanceAdapter(feat);
 	}
 
 	/**
@@ -107,12 +117,17 @@ public class OsateSlicerVertex {
 		}
 		this.name = efi.getInstanceObjectPath().replace(".EMV2", "");
 		this.token = token;
-		this.feat = null;
-		this.efi = efi;
+		this.element = new ErrorFlowInstanceAdapter(efi);
+	}
+
+	public OsateSlicerVertex(ComponentInstance comp, BindingType bindingType, TypeTokenInstance token) {
+		this.name = comp.getInstanceObjectPath().replace(".EMV2", "") + "." + bindingType;
+		this.token = token;
+		this.element = new BoundComponentInstanceAdapter(comp, bindingType);
 	}
 
 	public EObject getContainer() {
-		return feat.eContainer();
+		return element.getContainer(); // restrict to feature adapter only?
 	}
 
 	@Override
@@ -142,12 +157,8 @@ public class OsateSlicerVertex {
 		return token;
 	}
 
-	public InstanceObject getFeatOrErrorFlow() {
-		if(feat != null) {
-			return feat;
-		} else {
-			return efi;
-		}
+	public InstanceObject getIObj() {
+		return element.getInstanceObject();
 	}
 
 	/**

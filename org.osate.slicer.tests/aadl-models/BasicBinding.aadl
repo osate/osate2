@@ -1,0 +1,109 @@
+package BasicBinding
+public
+	system s
+	end s;
+
+	system implementation s.i
+		subcomponents
+--			proc: processor proc;
+--			ps: process ps.i;
+			m: memory m;
+			d: data d;
+			b: bus b;
+			vb: virtual bus vb;
+		properties
+--			Actual_Processor_Binding => (reference (proc)) applies to ps.t;
+			Actual_Memory_Binding => (reference (m)) applies to d;
+			Actual_Connection_Binding => (reference (b)) applies to vb;
+--		annex EMV2 {**
+--			propagation paths
+--				path1: ps.one -> d.two;
+--			end paths;
+--		**};
+	end s.i;
+
+--	processor proc
+--		annex EMV2 {**
+--			use types ErrorLibrary;
+--			
+--			error propagations
+--				bindings: out propagation {ServiceError};
+--				flows
+--					o1Src : error source bindings {ServiceError};
+--			end propagations;
+--		**};
+--	end proc;
+
+--	process ps
+----		annex EMV2 {**
+----			use types ErrorLibrary;
+----			
+----			error propagations
+----				one: out propagation {ServiceError};
+----			end propagations;
+----			
+----			propagation paths
+----				one: propagation point;
+----			end paths;
+----		**};
+--	end ps;
+--
+--	process implementation ps.i
+--		subcomponents
+--			t: thread t;
+--	end ps.i;
+--
+--	thread t
+--		annex EMV2 {**
+--			use types ErrorLibrary;
+--			
+--			error propagations
+--				processor: in propagation {ServiceError};
+--			end propagations;
+--		**};
+--	end t;
+
+	data d
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: out propagation {ServiceError};
+				flows
+					o2Src : error source memory {ServiceError};
+			end propagations;
+		**};
+	end d;
+
+	memory m
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				flows
+					o2Snk : error sink bindings {ServiceError};
+			end propagations;
+		**};
+	end m;
+
+	bus b
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end b;
+
+	virtual bus vb
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+			end propagations;
+		**};
+	end vb;
+end BasicBinding;

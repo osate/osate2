@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.AbstractGraph;
@@ -51,9 +52,11 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
+import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
@@ -153,15 +156,17 @@ public class SlicerRepresentation {
 	 * Adds a new vertex that represents the supplied feature.
 	 *
 	 * @param feat The feature
+	 * @return The name of the newly-created and added vertex
 	 */
-	private void addVertex(FeatureInstance feat) {
+	private String addVertex(FeatureInstance feat) {
 		var name = feat.getInstanceObjectPath();
 		if (vertexMap.containsKey(name)) {
-			return; // No duplicates allowed
+			return name; // No duplicates allowed
 		}
 		OsateSlicerVertex v = new OsateSlicerVertex(feat);
 		g.addVertex(v);
 		vertexMap.put(name, v);
+		return name;
 	}
 
 	/**
@@ -169,16 +174,37 @@ public class SlicerRepresentation {
 	 *
 	 * @param feat The feature
 	 * @param ats The error(s) propagated into or out of this feature
+	 * @return The name of the newly-created and added vertex
 	 */
-	private void addVertex(FeatureInstance feat, TypeTokenInstance token) {
+	private String addVertex(FeatureInstance feat, TypeTokenInstance token) {
 		var name = feat.getInstanceObjectPath();
 		if ((token == null && vertexMap.containsKey(name))
 				|| (token != null && vertexMap.containsKey(name + "." + token.getFullName()))) {
-			return; // No duplicates allowed
+			return name; // No duplicates allowed
 		}
 		OsateSlicerVertex v = new OsateSlicerVertex(feat, token);
 		g.addVertex(v);
 		vertexMap.put(v.getName(), v);
+		return v.getName();
+	}
+
+	/**
+	 * Adds a new vertex that represents the given type token at the given component's specified binding
+	 *
+	 * @param comp The component
+	 * @param ats The error(s) propagated into or out of this feature
+	 * @return The name of the newly-created and added vertex
+	 */
+	private String addVertex(ComponentInstance comp, BindingType bindingType, TypeTokenInstance token) {
+		var name = comp.getInstanceObjectPath();
+		if ((token == null && vertexMap.containsKey(name))
+				|| (token != null && vertexMap.containsKey(name + "." + token.getFullName()))) {
+			return name; // No duplicates allowed
+		}
+		OsateSlicerVertex v = new OsateSlicerVertex(comp, bindingType, token);
+		g.addVertex(v);
+		vertexMap.put(v.getName(), v);
+		return v.getName();
 	}
 
 	/**
@@ -186,16 +212,18 @@ public class SlicerRepresentation {
 	 *
 	 * @param efi An error source or sink
 	 * @param ats The error(s) propagated into or out by this sink or source
+	 * @return The name of the newly-created and added vertex
 	 */
-	private void addVertex(ErrorFlowInstance efi, TypeTokenInstance token) {
+	private String addVertex(ErrorFlowInstance efi, TypeTokenInstance token) {
 		var name = efi.getInstanceObjectPath().replace(".EMV2", "");
 		if ((token == null && vertexMap.containsKey(name))
 				|| (token != null && vertexMap.containsKey(name + "." + token.getFullName()))) {
-			return; // No duplicates allowed
+			return name; // No duplicates allowed
 		}
 		OsateSlicerVertex v = new OsateSlicerVertex(efi, token);
 		g.addVertex(v);
 		vertexMap.put(v.getName(), v);
+		return v.getName();
 	}
 
 	/**
@@ -234,7 +262,7 @@ public class SlicerRepresentation {
 		Set<FeatureInstance> retSet = new HashSet<>();
 		forwardReachability(feature.getInstanceObjectPath()).vertexSet().forEach(v -> {
 			// Features without errors can't connect to error sinks (or sources) so this is safe
-			retSet.add((FeatureInstance) v.getFeatOrErrorFlow());
+			retSet.add((FeatureInstance) v.getIObj());
 		});
 		return retSet;
 	}
@@ -255,7 +283,7 @@ public class SlicerRepresentation {
 		}
 		Set<IObjErrorPair> retSet = new HashSet<>();
 		forwardReachability(featOrEFI.getInstanceObjectPath() + "." + token.getFullName()).vertexSet().forEach(v -> {
-			retSet.add(new IObjErrorPair(v.getFeatOrErrorFlow(), v.getErrorToken()));
+			retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
 		});
 		return retSet;
 	}
@@ -286,7 +314,7 @@ public class SlicerRepresentation {
 		Set<FeatureInstance> retSet = new HashSet<>();
 		backwardReachability(feature.getInstanceObjectPath()).vertexSet().forEach(v -> {
 			// Features without errors can't connect to error sinks (or sources) so this is safe
-			retSet.add((FeatureInstance) v.getFeatOrErrorFlow());
+			retSet.add((FeatureInstance) v.getIObj());
 		});
 		return retSet;
 	}
@@ -307,7 +335,7 @@ public class SlicerRepresentation {
 		}
 		Set<IObjErrorPair> retSet = new HashSet<>();
 		backwardReachability(featOrEFI.getInstanceObjectPath() + "." + token.getFullName()).vertexSet().forEach(v -> {
-			retSet.add(new IObjErrorPair(v.getFeatOrErrorFlow(), v.getErrorToken()));
+			retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
 		});
 		return retSet;
 	}
@@ -437,7 +465,7 @@ public class SlicerRepresentation {
 		boolean edgesModified;
 		Set<OsateSlicerVertex> sourcePropagations = g.vertexSet()
 				.stream()
-				.filter(v -> v.getFeatOrErrorFlow() instanceof ErrorSourceInstance)
+				.filter(v -> v.getIObj() instanceof ErrorSourceInstance)
 				.collect(Collectors.toSet());
 		do {
 			edgesModified = false;
@@ -486,8 +514,29 @@ public class SlicerRepresentation {
 		private final AnonymousTypeSet dstTypes;
 
 		public PossiblePropagation(PropagationPathInstance ppi) {
-			var src = ((ConnectionPath) ppi).getSourcePropagations().get(0);
-			var dst = ((ConnectionPath) ppi).getDestinationPropagations().get(0);
+			ErrorPropagationInstance src = null, dst = null;
+			if (ppi instanceof ConnectionPath) {
+				src = ((ConnectionPath) ppi).getSourcePropagation();
+				dst = ((ConnectionPath) ppi).getDestinationPropagation();
+			} else if (ppi instanceof BindingPath) {
+				src = ((BindingPath) ppi).getSourcePropagations().get(0);
+				dst = ((BindingPath) ppi).getDestinationPropagations().get(0);
+			}
+//			switch (ppi) {
+//			case ConnectionPath cp:
+//				src = cp.getSourcePropagation();
+//				dst = cp.getDestinationPropagation();
+//				break;
+//			case BindingPath bp:
+//				src = bp.getSourcePropagations().get(0);
+//				dst = bp.getDestinationPropagations().get(0);
+//				break;
+//			default:
+//				src = null;
+//				dst = null;
+//			}
+//			var src = ((ConnectionPath) ppi).getSourcePropagations().get(0);
+//			var dst = ((ConnectionPath) ppi).getDestinationPropagations().get(0);
 			// We don't need the srcName, so we don't calculate / store it
 			srcTypes = src.getOutTypeSet();
 			dstName = dst.getInstanceObjectPath().replace(".EMV2", "");
@@ -513,34 +562,44 @@ public class SlicerRepresentation {
 	private class Emv2SlicerSwitch extends EMV2InstanceSwitch<Void> {
 		@Override
 		public Void caseErrorSourceInstance(ErrorSourceInstance esi) {
-			if (esi.getPropagation() instanceof BindingPropagation) {
-				return null;
-			}
-			var srcName = esi.getInstanceObjectPath().replace(".EMV2", "");
 			var srcTypes = esi.getTypeSet().getElements();
-			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
+			var prop = esi.getPropagation();
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance tti = (TypeTokenInstance) tse;
-				addVertex(esi, tti);
-				addVertex(((FeaturePropagation) esi.getPropagation()).getFeature(), tti);
-				addEdge(srcName + "." + tti.getFullName(), propName + "." + tti.getFullName());
+				String srcVertexName = addVertex(esi, tti);
+				String tgtVertexName = null;
+				if (prop instanceof FeaturePropagation) {
+					tgtVertexName = addVertex(((FeaturePropagation) prop).getFeature(), tti);
+				} else if (prop instanceof BindingPropagation) {
+					var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
+					var bindingType = ((BindingPropagation) prop).getBinding();
+					tgtVertexName = addVertex(component, bindingType, tti);
+				}
+				addEdge(srcVertexName, tgtVertexName);
 			});
 			return null;
 		}
 
 		@Override
 		public Void caseErrorSinkInstance(ErrorSinkInstance esi) {
-			var dstName = esi.getInstanceObjectPath().replace(".EMV2", "");
 			var dstTypes = esi.getTypeSet().getElements();
-			var propName = esi.getPropagation().getInstanceObjectPath().replace(".EMV2", "");
+			var prop = esi.getPropagation();
 			dstTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance tti = (TypeTokenInstance) tse;
-				addVertex(esi, tti);
-				addVertex(((FeaturePropagation) esi.getPropagation()).getFeature(), tti);
-				addEdge(propName + "." + tti.getFullName(), dstName + "." + tti.getFullName());
+				String tgtVertexName = addVertex(esi, tti);
+				String srcVertexName = null;
+				if (prop instanceof FeaturePropagation) {
+					srcVertexName = addVertex(((FeaturePropagation) prop).getFeature(), tti);
+				} else if (prop instanceof BindingPropagation) {
+					var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
+					var bindingType = ((BindingPropagation) prop).getBinding();
+					srcVertexName = addVertex(component, bindingType, tti);
+				}
+				addEdge(srcVertexName, tgtVertexName);
 			});
 			return null;
 		}
+
 
 		@Override
 		public Void caseErrorPathInstance(ErrorPathInstance epi) {
@@ -563,15 +622,23 @@ public class SlicerRepresentation {
 		}
 
 		@Override
-		public Void caseBindingPath(BindingPath bp) {
-			return null;
-		}
-
-		@Override
 		public Void casePropagationPathInstance(PropagationPathInstance ppi) {
-			// Joe said to leave the .get(0) here -- eventually this method will be changed and it won't be necessary
-			var src = ((ConnectionPath) ppi).getSourcePropagations().get(0);
-			var srcName = src.getInstanceObjectPath().replace(".EMV2", "");
+			String srcName = "unknown";
+			if(ppi instanceof ConnectionPath) {
+				srcName = ((ConnectionPath) ppi).getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "");
+			} else if (ppi instanceof BindingPath) {
+				srcName = ((BindingPath) ppi).getSourcePropagations()
+						.get(0)
+						.getInstanceObjectPath()
+						.replace(".EMV2", "");
+			}
+//			String srcName = switch (ppi) {
+//			case ConnectionPath cp -> cp.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "");
+//			case BindingPath bp -> bp.getSourcePropagations().get(0).getInstanceObjectPath().replace(".EMV2", "");
+//			default -> "unknown";
+//			};
+//			var src = ((ConnectionPath) ppi).getSourcePropagation();
+//			var srcName = src.getInstanceObjectPath().replace(".EMV2", "");
 			possiblePropagations.put(srcName, new PossiblePropagation(ppi));
 			return null;
 		}
