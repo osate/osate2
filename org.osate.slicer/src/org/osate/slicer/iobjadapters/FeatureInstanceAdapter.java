@@ -7,8 +7,10 @@ import org.osate.aadl2.instance.InstanceObject;
 public class FeatureInstanceAdapter implements VertexIObjAdapter {
 
 	private final FeatureInstance feat;
+	private final String name;
 
 	public FeatureInstanceAdapter(FeatureInstance feat) {
+		this.name = feat.getInstanceObjectPath();
 		this.feat = feat;
 	}
 
@@ -20,5 +22,10 @@ public class FeatureInstanceAdapter implements VertexIObjAdapter {
 	@Override
 	public InstanceObject getInstanceObject() {
 		return feat;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

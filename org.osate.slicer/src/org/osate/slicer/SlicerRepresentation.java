@@ -522,21 +522,6 @@ public class SlicerRepresentation {
 				src = ((BindingPath) ppi).getSourcePropagations().get(0);
 				dst = ((BindingPath) ppi).getDestinationPropagations().get(0);
 			}
-//			switch (ppi) {
-//			case ConnectionPath cp:
-//				src = cp.getSourcePropagation();
-//				dst = cp.getDestinationPropagation();
-//				break;
-//			case BindingPath bp:
-//				src = bp.getSourcePropagations().get(0);
-//				dst = bp.getDestinationPropagations().get(0);
-//				break;
-//			default:
-//				src = null;
-//				dst = null;
-//			}
-//			var src = ((ConnectionPath) ppi).getSourcePropagations().get(0);
-//			var dst = ((ConnectionPath) ppi).getDestinationPropagations().get(0);
 			// We don't need the srcName, so we don't calculate / store it
 			srcTypes = src.getOutTypeSet();
 			dstName = dst.getInstanceObjectPath().replace(".EMV2", "");
@@ -607,16 +592,13 @@ public class SlicerRepresentation {
 					|| epi.getSourcePropagation() instanceof BindingPropagation) {
 				return null;
 			}
-			var dstVrt = epi.getDestinationPropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
-					+ epi.getDestinationTypeToken().getFullName();
-			addVertex(((FeaturePropagation) epi.getDestinationPropagation()).getFeature(),
+			var tgtVertexName = addVertex(((FeaturePropagation) epi.getDestinationPropagation()).getFeature(),
 					epi.getDestinationTypeToken());
 			var srcTypes = epi.getSourceTypeSet().getElements();
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance tti = (TypeTokenInstance) tse;
-				addVertex(((FeaturePropagation) epi.getSourcePropagation()).getFeature(), tti);
-				addEdge(epi.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "") + "."
-						+ tti.getFullName(), dstVrt);
+				String srcVertexName = addVertex(((FeaturePropagation) epi.getSourcePropagation()).getFeature(), tti);
+				addEdge(srcVertexName, tgtVertexName);
 			});
 			return null;
 		}
@@ -632,13 +614,6 @@ public class SlicerRepresentation {
 						.getInstanceObjectPath()
 						.replace(".EMV2", "");
 			}
-//			String srcName = switch (ppi) {
-//			case ConnectionPath cp -> cp.getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "");
-//			case BindingPath bp -> bp.getSourcePropagations().get(0).getInstanceObjectPath().replace(".EMV2", "");
-//			default -> "unknown";
-//			};
-//			var src = ((ConnectionPath) ppi).getSourcePropagation();
-//			var srcName = src.getInstanceObjectPath().replace(".EMV2", "");
 			possiblePropagations.put(srcName, new PossiblePropagation(ppi));
 			return null;
 		}

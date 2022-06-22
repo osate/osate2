@@ -41,8 +41,8 @@ import org.osate.slicer.iobjadapters.VertexIObjAdapter;
 /**
  * The vertex type used by the slicer.
  *
- * A vertex represents a feature, error source, or error sink and optionally error(s) propagating into or out of
- * the feature / source / sink. Not all features will have error information, but all sources and sinks will.
+ * A vertex represents an element in an AADL instance model and optionally error(s) propagating into or out of
+ * the elements. Not all features will have error information, but all sources, sinks, bindings, and propagation points will.
  *
  * See the <a href="https://jgrapht.org/guide/VertexAndEdgeTypes#vertices-as-pointers">
  * JGRaphT Docs</a> for additional explanation of the structure
@@ -50,33 +50,11 @@ import org.osate.slicer.iobjadapters.VertexIObjAdapter;
  * @author sprocter
  */
 public class OsateSlicerVertex {
-
-	/**
-	 * A name for the vertex. Combined with errorATS, should be globally unique, ie, a primary key
-	 */
-	final private String name;
-
-//	/**
-//	 * The error(s) associated with this vertex. Combined with the name, should be globally unique, ie, a primary key.
-//	 * If null, that means no errors are associated with the vertex.
-//	 */
-//	final private AnonymousTypeSet errorATS;
-
 	/**
 	 * The error(s) associated with this vertex. Combined with the name, should be globally unique, ie, a primary key.
 	 * If null, that means no errors are associated with the vertex.
 	 */
 	final private TypeTokenInstance token;
-
-//	/**
-//	 * The feature the vertex represents. If null, {@link #efi} must be set
-//	 */
-//	final private FeatureInstance feat;
-//
-//	/**
-//	 * The error source or sink the vertex represents. If null, {@link #feat} must be set
-//	 */
-//	final private ErrorFlowInstance efi;
 
 	/**
 	 * A link to the AADL instance object (ie, feature, error source, error sink, or component + binding type)
@@ -89,7 +67,6 @@ public class OsateSlicerVertex {
 	 * @param feat The feature the vertex represents
 	 */
 	public OsateSlicerVertex(FeatureInstance feat) {
-		this.name = feat.getInstanceObjectPath();
 		this.token = null;
 		this.element = new FeatureInstanceAdapter(feat);
 	}
@@ -100,7 +77,6 @@ public class OsateSlicerVertex {
 	 * @param token The error(s) the vertex represents
 	 */
 	public OsateSlicerVertex(FeatureInstance feat, TypeTokenInstance token) {
-		this.name = feat.getInstanceObjectPath();
 		this.token = token;
 		this.element = new FeatureInstanceAdapter(feat);
 	}
@@ -115,13 +91,11 @@ public class OsateSlicerVertex {
 			System.err.println("OsateSlicerVertex created with non-source/sink Error Flow Instance! "
 					+ efi.getInstanceObjectPath());
 		}
-		this.name = efi.getInstanceObjectPath().replace(".EMV2", "");
 		this.token = token;
 		this.element = new ErrorFlowInstanceAdapter(efi);
 	}
 
 	public OsateSlicerVertex(ComponentInstance comp, BindingType bindingType, TypeTokenInstance token) {
-		this.name = comp.getInstanceObjectPath().replace(".EMV2", "") + "." + bindingType;
 		this.token = token;
 		this.element = new BoundComponentInstanceAdapter(comp, bindingType);
 	}
@@ -147,16 +121,29 @@ public class OsateSlicerVertex {
 
 	public String getName() {
 		if (token != null) {
-			return name + "." + token.getFullName();
+			return element.getName() + "." + token.getFullName();
 		} else {
-			return name;
+			return element.getName();
 		}
 	}
 
+	/**
+	 * Returns the error token associated with this vertex, or null if it doesn't exist.
+	 *
+	 * @return the error token associated with this vertex.
+	 */
 	public TypeTokenInstance getErrorToken() {
 		return token;
 	}
 
+	/**
+	 * Returns the AADL instance model instance object associated with this vertex. Note that,
+	 * for various reasons, this is not guaranteed to be unique, ie, multiple vertices may
+	 * share the same instance object. Similarly, not all instance objects will have vertices
+	 * associated with them.
+	 *
+	 * @return The instance object this vertex represents.
+	 */
 	public InstanceObject getIObj() {
 		return element.getInstanceObject();
 	}
@@ -165,6 +152,6 @@ public class OsateSlicerVertex {
 	 * Returns the depth of the element the vertex represents in the instance tree
 	 */
 	public int getDepth() {
-		return StringUtils.countMatches(this.name, ".");
+		return StringUtils.countMatches(getName(), ".");
 	}
 }

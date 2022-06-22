@@ -7,8 +7,10 @@ import org.osate.aadl2.instance.InstanceObject;
 public class ErrorFlowInstanceAdapter implements VertexIObjAdapter {
 
 	private final ErrorFlowInstance efi;
+	private final String name;
 
 	public ErrorFlowInstanceAdapter(ErrorFlowInstance efi) {
+		this.name = efi.getInstanceObjectPath().replace(".EMV2", "");
 		this.efi = efi;
 	}
 
@@ -21,5 +23,10 @@ public class ErrorFlowInstanceAdapter implements VertexIObjAdapter {
 	@Override
 	public InstanceObject getInstanceObject() {
 		return efi;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

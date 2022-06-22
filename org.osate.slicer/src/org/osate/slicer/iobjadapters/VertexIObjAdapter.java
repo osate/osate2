@@ -9,4 +9,6 @@ public interface VertexIObjAdapter {
 
 	public InstanceObject getInstanceObject();
 
+	public String getName();
+
 }

@@ -9,8 +9,10 @@ public class BoundComponentInstanceAdapter implements VertexIObjAdapter {
 
 	private final ComponentInstance comp;
 	private final BindingType type;
+	private final String name;
 
 	public BoundComponentInstanceAdapter(ComponentInstance comp, BindingType bindingType) {
+		this.name = comp.getInstanceObjectPath().replace(".EMV2", "") + "." + bindingType;
 		this.comp = comp;
 		this.type = bindingType;
 	}
@@ -24,5 +26,10 @@ public class BoundComponentInstanceAdapter implements VertexIObjAdapter {
 	@Override
 	public InstanceObject getInstanceObject() {
 		return comp;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }
