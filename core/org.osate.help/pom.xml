@@ -12,7 +12,7 @@
 
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.help</artifactId>
-	<version>2.12.1-SNAPSHOT</version>
+	<version>2.12.2-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<!-- Generate javadoc for maven projects listed as dependencies -->
