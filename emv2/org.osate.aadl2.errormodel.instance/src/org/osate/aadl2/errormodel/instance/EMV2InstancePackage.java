@@ -4740,97 +4740,6 @@ public interface EMV2InstancePackage extends EPackage {
 	int NO_ERROR_PROPAGATION_REFERENCE_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.OrExpressionInstanceImpl <em>Or Expression Instance</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.instance.impl.OrExpressionInstanceImpl
-	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOrExpressionInstance()
-	 * @generated
-	 */
-	int OR_EXPRESSION_INSTANCE = 44;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_EXPRESSION_INSTANCE__OWNED_ELEMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_EXPRESSION_INSTANCE__OWNED_COMMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_EXPRESSION_INSTANCE__NAME = CONDITION_EXPRESSION_INSTANCE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_EXPRESSION_INSTANCE__QUALIFIED_NAME = CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION = CONDITION_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_EXPRESSION_INSTANCE__ANNEX_INSTANCE = CONDITION_EXPRESSION_INSTANCE__ANNEX_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Left</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_EXPRESSION_INSTANCE__LEFT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Right</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_EXPRESSION_INSTANCE__RIGHT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Or Expression Instance</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_EXPRESSION_INSTANCE_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 2;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AndExpressionInstanceImpl <em>And Expression Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4838,7 +4747,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAndExpressionInstance()
 	 * @generated
 	 */
-	int AND_EXPRESSION_INSTANCE = 45;
+	int AND_EXPRESSION_INSTANCE = 44;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4929,7 +4838,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAllExpressionInstance()
 	 * @generated
 	 */
-	int ALL_EXPRESSION_INSTANCE = 46;
+	int ALL_EXPRESSION_INSTANCE = 45;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5020,7 +4929,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOrMoreExpressionInstance()
 	 * @generated
 	 */
-	int OR_MORE_EXPRESSION_INSTANCE = 47;
+	int OR_MORE_EXPRESSION_INSTANCE = 46;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5111,7 +5020,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOrLessExpressionInstance()
 	 * @generated
 	 */
-	int OR_LESS_EXPRESSION_INSTANCE = 48;
+	int OR_LESS_EXPRESSION_INSTANCE = 47;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5195,6 +5104,106 @@ public interface EMV2InstancePackage extends EPackage {
 	int OR_LESS_EXPRESSION_INSTANCE_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.CountExpressionImpl <em>Count Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.CountExpressionImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpression()
+	 * @generated
+	 */
+	int COUNT_EXPRESSION = 48;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION__OWNED_ELEMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION__OWNED_COMMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION__NAME = CONDITION_EXPRESSION_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION__QUALIFIED_NAME = CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION__OWNED_PROPERTY_ASSOCIATION = CONDITION_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION__ANNEX_INSTANCE = CONDITION_EXPRESSION_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Operands</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION__OPERANDS = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Operation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION__OPERATION = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Count</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION__COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Count Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNT_EXPRESSION_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 3;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5213,6 +5222,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	int BINDING_TYPE = 50;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.CountExpressionOperation
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
+	 * @generated
+	 */
+	int COUNT_EXPRESSION_OPERATION = 51;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6308,38 +6327,6 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getNoErrorPropagationReference_Propagation();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.OrExpressionInstance <em>Or Expression Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Or Expression Instance</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.OrExpressionInstance
-	 * @generated
-	 */
-	EClass getOrExpressionInstance();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.OrExpressionInstance#getLeft <em>Left</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Left</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.OrExpressionInstance#getLeft()
-	 * @see #getOrExpressionInstance()
-	 * @generated
-	 */
-	EReference getOrExpressionInstance_Left();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.OrExpressionInstance#getRight <em>Right</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Right</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.OrExpressionInstance#getRight()
-	 * @see #getOrExpressionInstance()
-	 * @generated
-	 */
-	EReference getOrExpressionInstance_Right();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.AndExpressionInstance <em>And Expression Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6466,6 +6453,49 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOrLessExpressionInstance_Elements();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.CountExpression <em>Count Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Count Expression</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.CountExpression
+	 * @generated
+	 */
+	EClass getCountExpression();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.CountExpression#getOperands <em>Operands</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Operands</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.CountExpression#getOperands()
+	 * @see #getCountExpression()
+	 * @generated
+	 */
+	EReference getCountExpression_Operands();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.CountExpression#getOperation <em>Operation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Operation</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.CountExpression#getOperation()
+	 * @see #getCountExpression()
+	 * @generated
+	 */
+	EAttribute getCountExpression_Operation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.CountExpression#getCount <em>Count</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Count</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.CountExpression#getCount()
+	 * @see #getCountExpression()
+	 * @generated
+	 */
+	EAttribute getCountExpression_Count();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -6900,6 +6930,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getBindingType();
+
+	/**
+	 * Returns the meta object for enum '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Count Expression Operation</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.CountExpressionOperation
+	 * @generated
+	 */
+	EEnum getCountExpressionOperation();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -7808,32 +7848,6 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION = eINSTANCE.getNoErrorPropagationReference_Propagation();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.OrExpressionInstanceImpl <em>Or Expression Instance</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.osate.aadl2.errormodel.instance.impl.OrExpressionInstanceImpl
-		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOrExpressionInstance()
-		 * @generated
-		 */
-		EClass OR_EXPRESSION_INSTANCE = eINSTANCE.getOrExpressionInstance();
-
-		/**
-		 * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OR_EXPRESSION_INSTANCE__LEFT = eINSTANCE.getOrExpressionInstance_Left();
-
-		/**
-		 * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OR_EXPRESSION_INSTANCE__RIGHT = eINSTANCE.getOrExpressionInstance_Right();
-
-		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.AndExpressionInstanceImpl <em>And Expression Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -7936,6 +7950,40 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference OR_LESS_EXPRESSION_INSTANCE__ELEMENTS = eINSTANCE.getOrLessExpressionInstance_Elements();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.CountExpressionImpl <em>Count Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.CountExpressionImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpression()
+		 * @generated
+		 */
+		EClass COUNT_EXPRESSION = eINSTANCE.getCountExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Operands</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COUNT_EXPRESSION__OPERANDS = eINSTANCE.getCountExpression_Operands();
+
+		/**
+		 * The meta object literal for the '<em><b>Operation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COUNT_EXPRESSION__OPERATION = eINSTANCE.getCountExpression_Operation();
+
+		/**
+		 * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COUNT_EXPRESSION__COUNT = eINSTANCE.getCountExpression_Count();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.
@@ -8307,6 +8355,16 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EEnum BINDING_TYPE = eINSTANCE.getBindingType();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.CountExpressionOperation
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
+		 * @generated
+		 */
+		EEnum COUNT_EXPRESSION_OPERATION = eINSTANCE.getCountExpressionOperation();
 
 	}
 

@@ -24,6 +24,11 @@
       <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingType/binding"/>
       <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingType/bindings"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="EMV2Instance.ecore#//CountExpressionOperation">
+      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//CountExpressionOperation/equals"/>
+      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//CountExpressionOperation/less_equal"/>
+      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//CountExpressionOperation/greater_equal"/>
+    </genEnums>
     <genClasses ecoreClass="EMV2Instance.ecore#//EMV2AnnexInstance">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/propagationPoints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/stateMachine"/>
@@ -204,10 +209,6 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//NoErrorPropagationReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//NoErrorPropagationReference/propagation"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//OrExpressionInstance">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OrExpressionInstance/left"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OrExpressionInstance/right"/>
-    </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//AndExpressionInstance">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AndExpressionInstance/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AndExpressionInstance/right"/>
@@ -223,6 +224,11 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//OrLessExpressionInstance">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//OrLessExpressionInstance/count"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OrLessExpressionInstance/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//CountExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//CountExpression/operands"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//CountExpression/operation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//CountExpression/count"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

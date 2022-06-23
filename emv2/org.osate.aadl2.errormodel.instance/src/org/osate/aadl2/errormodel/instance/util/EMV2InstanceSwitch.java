@@ -43,6 +43,7 @@ import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
@@ -58,7 +59,6 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
-import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
 import org.osate.aadl2.errormodel.instance.OrLessExpressionInstance;
 import org.osate.aadl2.errormodel.instance.OrMoreExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -1141,29 +1141,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.OR_EXPRESSION_INSTANCE: {
-			OrExpressionInstance orExpressionInstance = (OrExpressionInstance) theEObject;
-			T result = caseOrExpressionInstance(orExpressionInstance);
-			if (result == null) {
-				result = caseConditionExpressionInstance(orExpressionInstance);
-			}
-			if (result == null) {
-				result = caseEMV2InstanceObject(orExpressionInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(orExpressionInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(orExpressionInstance);
-			}
-			if (result == null) {
-				result = caseElement(orExpressionInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case EMV2InstancePackage.AND_EXPRESSION_INSTANCE: {
 			AndExpressionInstance andExpressionInstance = (AndExpressionInstance) theEObject;
 			T result = caseAndExpressionInstance(andExpressionInstance);
@@ -1250,6 +1227,29 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(orLessExpressionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.COUNT_EXPRESSION: {
+			CountExpression countExpression = (CountExpression) theEObject;
+			T result = caseCountExpression(countExpression);
+			if (result == null) {
+				result = caseConditionExpressionInstance(countExpression);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(countExpression);
+			}
+			if (result == null) {
+				result = caseInstanceObject(countExpression);
+			}
+			if (result == null) {
+				result = caseNamedElement(countExpression);
+			}
+			if (result == null) {
+				result = caseElement(countExpression);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1697,21 +1697,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Or Expression Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Or Expression Instance</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseOrExpressionInstance(OrExpressionInstance object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>And Expression Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1768,6 +1753,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseOrLessExpressionInstance(OrLessExpressionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Count Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Count Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCountExpression(CountExpression object) {
 		return null;
 	}
 

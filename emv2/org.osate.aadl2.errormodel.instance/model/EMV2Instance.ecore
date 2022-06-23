@@ -265,12 +265,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="NoErrorPropagationReference" eSuperTypes="#//ConditionExpressionInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagation" eType="#//ErrorPropagationInstance"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OrExpressionInstance" eSuperTypes="#//ConditionExpressionInstance">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ConditionExpressionInstance"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//ConditionExpressionInstance"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AndExpressionInstance" eSuperTypes="#//ConditionExpressionInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ConditionExpressionInstance"
         containment="true"/>
@@ -291,5 +285,16 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
         eType="#//ConditionExpressionInstance" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CountExpression" eSuperTypes="#//ConditionExpressionInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"
+        eType="#//ConditionExpressionInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operation" eType="#//CountExpressionOperation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CountExpressionOperation">
+    <eLiterals name="equals"/>
+    <eLiterals name="less_equal"/>
+    <eLiterals name="greater_equal"/>
   </eClassifiers>
 </ecore:EPackage>

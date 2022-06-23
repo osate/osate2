@@ -64,6 +64,7 @@ import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EOperation;
@@ -553,14 +554,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private ConditionExpressionInstance createConditionExpressionInstance(ConditionExpression condition,
 			ComponentInstance component, EMV2AnnexInstance annex) {
 		if (condition instanceof OrExpression orExpression) {
-			var orExpressionInstance = EMV2InstanceFactory.eINSTANCE.createOrExpressionInstance();
-			orExpressionInstance
-					.setLeft(createConditionExpressionInstance(orExpression.getOperands().get(0), component, annex));
-			orExpressionInstance
-					.setRight(createConditionExpressionInstance(orExpression.getOperands().get(1), component, annex));
-			orExpressionInstance.setName(
-					orExpressionInstance.getLeft().getName() + " or " + orExpressionInstance.getRight().getName());
-			return orExpressionInstance;
+			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
+			countExpression.getOperands()
+					.add(createConditionExpressionInstance(orExpression.getOperands().get(0), component, annex));
+			countExpression.getOperands()
+					.add(createConditionExpressionInstance(orExpression.getOperands().get(1), component, annex));
+			countExpression.setOperation(CountExpressionOperation.GREATER_EQUAL);
+			countExpression.setCount(1);
+			countExpression.setName(countExpression.getOperands()
+					.stream()
+					.map(NamedElement::getName)
+					.collect(Collectors.joining(", ", "count(", ") >= 1")));
+			return countExpression;
 		} else if (condition instanceof AndExpression andExpression) {
 			var andExpressionInstance = EMV2InstanceFactory.eINSTANCE.createAndExpressionInstance();
 			andExpressionInstance

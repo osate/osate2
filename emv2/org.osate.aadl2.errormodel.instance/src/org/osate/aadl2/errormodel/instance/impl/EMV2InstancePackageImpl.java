@@ -47,6 +47,8 @@ import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
@@ -64,7 +66,6 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
-import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
 import org.osate.aadl2.errormodel.instance.OrLessExpressionInstance;
 import org.osate.aadl2.errormodel.instance.OrMoreExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -302,13 +303,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass orExpressionInstanceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass andExpressionInstanceEClass = null;
 
 	/**
@@ -331,6 +325,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass orLessExpressionInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass countExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -450,6 +451,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EEnum bindingTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum countExpressionOperationEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1548,36 +1556,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getOrExpressionInstance() {
-		return orExpressionInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getOrExpressionInstance_Left() {
-		return (EReference) orExpressionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getOrExpressionInstance_Right() {
-		return (EReference) orExpressionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getAndExpressionInstance() {
 		return andExpressionInstanceEClass;
 	}
@@ -1690,6 +1668,46 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EReference getOrLessExpressionInstance_Elements() {
 		return (EReference) orLessExpressionInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getCountExpression() {
+		return countExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getCountExpression_Operands() {
+		return (EReference) countExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getCountExpression_Operation() {
+		return (EAttribute) countExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getCountExpression_Count() {
+		return (EAttribute) countExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2108,6 +2126,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EEnum getCountExpressionOperation() {
+		return countExpressionOperationEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EMV2InstanceFactory getEMV2InstanceFactory() {
 		return (EMV2InstanceFactory) getEFactoryInstance();
 	}
@@ -2319,10 +2347,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		noErrorPropagationReferenceEClass = createEClass(NO_ERROR_PROPAGATION_REFERENCE);
 		createEReference(noErrorPropagationReferenceEClass, NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION);
 
-		orExpressionInstanceEClass = createEClass(OR_EXPRESSION_INSTANCE);
-		createEReference(orExpressionInstanceEClass, OR_EXPRESSION_INSTANCE__LEFT);
-		createEReference(orExpressionInstanceEClass, OR_EXPRESSION_INSTANCE__RIGHT);
-
 		andExpressionInstanceEClass = createEClass(AND_EXPRESSION_INSTANCE);
 		createEReference(andExpressionInstanceEClass, AND_EXPRESSION_INSTANCE__LEFT);
 		createEReference(andExpressionInstanceEClass, AND_EXPRESSION_INSTANCE__RIGHT);
@@ -2339,9 +2363,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEAttribute(orLessExpressionInstanceEClass, OR_LESS_EXPRESSION_INSTANCE__COUNT);
 		createEReference(orLessExpressionInstanceEClass, OR_LESS_EXPRESSION_INSTANCE__ELEMENTS);
 
+		countExpressionEClass = createEClass(COUNT_EXPRESSION);
+		createEReference(countExpressionEClass, COUNT_EXPRESSION__OPERANDS);
+		createEAttribute(countExpressionEClass, COUNT_EXPRESSION__OPERATION);
+		createEAttribute(countExpressionEClass, COUNT_EXPRESSION__COUNT);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
+		countExpressionOperationEEnum = createEEnum(COUNT_EXPRESSION_OPERATION);
 	}
 
 	/**
@@ -2426,11 +2456,11 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		propagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
-		orExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		andExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		allExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		orMoreExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		orLessExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
+		countExpressionEClass.getESuperTypes().add(getConditionExpressionInstance());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2896,15 +2926,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				null, 0, 1, NoErrorPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(orExpressionInstanceEClass, OrExpressionInstance.class, "OrExpressionInstance", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getOrExpressionInstance_Left(), getConditionExpressionInstance(), null, "left", null, 0, 1,
-				OrExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOrExpressionInstance_Right(), getConditionExpressionInstance(), null, "right", null, 0, 1,
-				OrExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(andExpressionInstanceEClass, AndExpressionInstance.class, "AndExpressionInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAndExpressionInstance_Left(), getConditionExpressionInstance(), null, "left", null, 0, 1,
@@ -2941,6 +2962,17 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				0, -1, OrLessExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(countExpressionEClass, CountExpression.class, "CountExpression", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCountExpression_Operands(), getConditionExpressionInstance(), null, "operands", null, 0, -1,
+				CountExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCountExpression_Operation(), getCountExpressionOperation(), "operation", null, 0, 1,
+				CountExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCountExpression_Count(), ecorePackage.getELong(), "count", null, 0, 1, CountExpression.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");
 		addEEnumLiteral(eOperationEEnum, EOperation.ANY);
@@ -2956,6 +2988,11 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		addEEnumLiteral(bindingTypeEEnum, BindingType.CONNECTION);
 		addEEnumLiteral(bindingTypeEEnum, BindingType.BINDING);
 		addEEnumLiteral(bindingTypeEEnum, BindingType.BINDINGS);
+
+		initEEnum(countExpressionOperationEEnum, CountExpressionOperation.class, "CountExpressionOperation");
+		addEEnumLiteral(countExpressionOperationEEnum, CountExpressionOperation.EQUALS);
+		addEEnumLiteral(countExpressionOperationEEnum, CountExpressionOperation.LESS_EQUAL);
+		addEEnumLiteral(countExpressionOperationEEnum, CountExpressionOperation.GREATER_EQUAL);
 
 		// Create resource
 		createResource(eNS_URI);

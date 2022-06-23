@@ -41,6 +41,8 @@ import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
@@ -54,7 +56,6 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
-import org.osate.aadl2.errormodel.instance.OrExpressionInstance;
 import org.osate.aadl2.errormodel.instance.OrLessExpressionInstance;
 import org.osate.aadl2.errormodel.instance.OrMoreExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -179,8 +180,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createPropagationReference();
 		case EMV2InstancePackage.NO_ERROR_PROPAGATION_REFERENCE:
 			return createNoErrorPropagationReference();
-		case EMV2InstancePackage.OR_EXPRESSION_INSTANCE:
-			return createOrExpressionInstance();
 		case EMV2InstancePackage.AND_EXPRESSION_INSTANCE:
 			return createAndExpressionInstance();
 		case EMV2InstancePackage.ALL_EXPRESSION_INSTANCE:
@@ -189,6 +188,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createOrMoreExpressionInstance();
 		case EMV2InstancePackage.OR_LESS_EXPRESSION_INSTANCE:
 			return createOrLessExpressionInstance();
+		case EMV2InstancePackage.COUNT_EXPRESSION:
+			return createCountExpression();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -206,6 +207,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createEOperationFromString(eDataType, initialValue);
 		case EMV2InstancePackage.BINDING_TYPE:
 			return createBindingTypeFromString(eDataType, initialValue);
+		case EMV2InstancePackage.COUNT_EXPRESSION_OPERATION:
+			return createCountExpressionOperationFromString(eDataType, initialValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -223,6 +226,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return convertEOperationToString(eDataType, instanceValue);
 		case EMV2InstancePackage.BINDING_TYPE:
 			return convertBindingTypeToString(eDataType, instanceValue);
+		case EMV2InstancePackage.COUNT_EXPRESSION_OPERATION:
+			return convertCountExpressionOperationToString(eDataType, instanceValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -487,17 +492,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public OrExpressionInstance createOrExpressionInstance() {
-		OrExpressionInstanceImpl orExpressionInstance = new OrExpressionInstanceImpl();
-		return orExpressionInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public AndExpressionInstance createAndExpressionInstance() {
 		AndExpressionInstanceImpl andExpressionInstance = new AndExpressionInstanceImpl();
 		return andExpressionInstance;
@@ -534,6 +528,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public OrLessExpressionInstance createOrLessExpressionInstance() {
 		OrLessExpressionInstanceImpl orLessExpressionInstance = new OrLessExpressionInstanceImpl();
 		return orLessExpressionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public CountExpression createCountExpression() {
+		CountExpressionImpl countExpression = new CountExpressionImpl();
+		return countExpression;
 	}
 
 	/**
@@ -678,6 +683,29 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	public String convertBindingTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CountExpressionOperation createCountExpressionOperationFromString(EDataType eDataType, String initialValue) {
+		CountExpressionOperation result = CountExpressionOperation.get(initialValue);
+		if (result == null) {
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCountExpressionOperationToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
