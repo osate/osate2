@@ -5,14 +5,14 @@ public
 
 	system implementation s.i
 		subcomponents
---			proc: processor proc;
---			ps: process ps.i;
+			proc: processor proc;
+			ps: process ps.i;
 			m: memory m;
 			d: data d;
 			b: bus b;
 			vb: virtual bus vb;
 		properties
---			Actual_Processor_Binding => (reference (proc)) applies to ps.t;
+			Actual_Processor_Binding => (reference (proc)) applies to ps.t;
 			Actual_Memory_Binding => (reference (m)) applies to d;
 			Actual_Connection_Binding => (reference (b)) applies to vb;
 --		annex EMV2 {**
@@ -22,46 +22,48 @@ public
 --		**};
 	end s.i;
 
---	processor proc
---		annex EMV2 {**
---			use types ErrorLibrary;
---			
---			error propagations
---				bindings: out propagation {ServiceError};
---				flows
---					o1Src : error source bindings {ServiceError};
---			end propagations;
---		**};
---	end proc;
+	processor proc
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: out propagation {ServiceError};
+				flows
+					o1Src : error source bindings {ServiceError};
+			end propagations;
+		**};
+	end proc;
 
---	process ps
-----		annex EMV2 {**
-----			use types ErrorLibrary;
-----			
-----			error propagations
-----				one: out propagation {ServiceError};
-----			end propagations;
-----			
-----			propagation paths
-----				one: propagation point;
-----			end paths;
-----		**};
---	end ps;
---
---	process implementation ps.i
---		subcomponents
---			t: thread t;
---	end ps.i;
---
---	thread t
+	process ps
 --		annex EMV2 {**
 --			use types ErrorLibrary;
 --			
 --			error propagations
---				processor: in propagation {ServiceError};
+--				one: out propagation {ServiceError};
 --			end propagations;
+--			
+--			propagation paths
+--				one: propagation point;
+--			end paths;
 --		**};
---	end t;
+	end ps;
+
+	process implementation ps.i
+		subcomponents
+			t: thread t;
+	end ps.i;
+
+	thread t
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				flows
+					o1Snk : error sink processor {ServiceError};
+			end propagations;
+		**};
+	end t;
 
 	data d
 		annex EMV2 {**
@@ -93,6 +95,8 @@ public
 			
 			error propagations
 				bindings: out propagation {ServiceError};
+				flows
+					o3Src : error source bindings {ServiceError};
 			end propagations;
 		**};
 	end b;
@@ -103,6 +107,8 @@ public
 			
 			error propagations
 				connection: in propagation {ServiceError};
+				flows
+					o3Snk : error sink connection {ServiceError};
 			end propagations;
 		**};
 	end vb;

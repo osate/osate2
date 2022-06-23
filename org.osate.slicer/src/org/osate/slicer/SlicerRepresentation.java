@@ -289,6 +289,24 @@ public class SlicerRepresentation {
 	}
 
 	/**
+	 * Calculates reachable instance objects + error tokens from the supplied component, binding, and error token triple.
+	 *
+	 * @param component Where to start the slice from, must be a component with some sort of binding relationship.
+	 * @param binding The specific binding relationship
+	 * @param token The error type that is propagated into / out of the component along the binding to start the slice from
+	 * @return The set of reachable instance model elements and errors
+	 */
+	public Collection<IObjErrorPair> forwardReach(ComponentInstance component, BindingType binding,
+			TypeTokenInstance token) {
+		Set<IObjErrorPair> retSet = new HashSet<>();
+		forwardReachability(component.getInstanceObjectPath() + "." + binding + "." + token.getFullName()).vertexSet()
+				.forEach(v -> {
+					retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
+				});
+		return retSet;
+	}
+
+	/**
 	 * Calculates components which can reach the supplied component
 	 *
 	 * @param component Where to start the backward slice from
@@ -337,6 +355,24 @@ public class SlicerRepresentation {
 		backwardReachability(featOrEFI.getInstanceObjectPath() + "." + token.getFullName()).vertexSet().forEach(v -> {
 			retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
 		});
+		return retSet;
+	}
+
+	/**
+	 * Calculates reachable instance objects + error tokens from the supplied component, binding, and error token triple.
+	 *
+	 * @param component Where to start the slice from, must be a component with some sort of binding relationship.
+	 * @param binding The specific binding relationship
+	 * @param token The error type that is propagated into / out of the component along the binding to start the slice from
+	 * @return The set of reachable instance model elements and errors
+	 */
+	public Collection<IObjErrorPair> backwardReach(ComponentInstance component, BindingType binding,
+			TypeTokenInstance token) {
+		Set<IObjErrorPair> retSet = new HashSet<>();
+		backwardReachability(component.getInstanceObjectPath() + "." + binding + "." + token.getFullName()).vertexSet()
+				.forEach(v -> {
+					retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
+				});
 		return retSet;
 	}
 
