@@ -580,21 +580,17 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					.collect(Collectors.joining(", ", "count(", ") == 2")));
 			return countExpression;
 		} else if (condition instanceof AllExpression allExpression) {
-			var allExpressionInstance = EMV2InstanceFactory.eINSTANCE.createAllExpressionInstance();
-			allExpressionInstance.setMinusCount(allExpression.getCount());
-			for (var element : allExpression.getOperands()) {
-				allExpressionInstance.getElements().add(createConditionExpressionInstance(element, component, annex));
+			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
+			for (var operand : allExpression.getOperands()) {
+				countExpression.getOperands().add(createConditionExpressionInstance(operand, component, annex));
 			}
-			var name = "all";
-			if (allExpression.getCount() != 0) {
-				name += " - " + allExpression.getCount();
-			}
-			name += allExpressionInstance.getElements()
+			countExpression.setOperation(CountExpressionOperation.EQUALS);
+			countExpression.setCount(allExpression.getOperands().size() - allExpression.getCount());
+			countExpression.setName(countExpression.getOperands()
 					.stream()
 					.map(NamedElement::getName)
-					.collect(Collectors.joining(", ", " (", ")"));
-			allExpressionInstance.setName(name);
-			return allExpressionInstance;
+					.collect(Collectors.joining(", ", "count(", ") == " + countExpression.getCount())));
+			return countExpression;
 		} else if (condition instanceof OrmoreExpression orMoreExpression) {
 			var orMoreExpressionInstance = EMV2InstanceFactory.eINSTANCE.createOrMoreExpressionInstance();
 			orMoreExpressionInstance.setCount(orMoreExpression.getCount());

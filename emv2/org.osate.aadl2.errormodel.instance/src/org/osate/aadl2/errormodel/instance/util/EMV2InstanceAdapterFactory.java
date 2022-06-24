@@ -31,7 +31,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
-import org.osate.aadl2.errormodel.instance.AllExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
@@ -354,11 +353,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseNoErrorPropagationReference(NoErrorPropagationReference object) {
 			return createNoErrorPropagationReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseAllExpressionInstance(AllExpressionInstance object) {
-			return createAllExpressionInstanceAdapter();
 		}
 
 		@Override
@@ -818,20 +812,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNoErrorPropagationReferenceAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.AllExpressionInstance <em>All Expression Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.AllExpressionInstance
-	 * @generated
-	 */
-	public Adapter createAllExpressionInstanceAdapter() {
 		return null;
 	}
 

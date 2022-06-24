@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
-import org.osate.aadl2.errormodel.instance.AllExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
@@ -296,13 +295,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass noErrorPropagationReferenceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass allExpressionInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1548,36 +1540,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getAllExpressionInstance() {
-		return allExpressionInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getAllExpressionInstance_MinusCount() {
-		return (EAttribute) allExpressionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getAllExpressionInstance_Elements() {
-		return (EReference) allExpressionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getOrMoreExpressionInstance() {
 		return orMoreExpressionInstanceEClass;
 	}
@@ -2309,10 +2271,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		noErrorPropagationReferenceEClass = createEClass(NO_ERROR_PROPAGATION_REFERENCE);
 		createEReference(noErrorPropagationReferenceEClass, NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION);
 
-		allExpressionInstanceEClass = createEClass(ALL_EXPRESSION_INSTANCE);
-		createEAttribute(allExpressionInstanceEClass, ALL_EXPRESSION_INSTANCE__MINUS_COUNT);
-		createEReference(allExpressionInstanceEClass, ALL_EXPRESSION_INSTANCE__ELEMENTS);
-
 		orMoreExpressionInstanceEClass = createEClass(OR_MORE_EXPRESSION_INSTANCE);
 		createEAttribute(orMoreExpressionInstanceEClass, OR_MORE_EXPRESSION_INSTANCE__COUNT);
 		createEReference(orMoreExpressionInstanceEClass, OR_MORE_EXPRESSION_INSTANCE__ELEMENTS);
@@ -2414,7 +2372,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		propagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
-		allExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		orMoreExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		orLessExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		countExpressionEClass.getESuperTypes().add(getConditionExpressionInstance());
@@ -2882,15 +2839,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getNoErrorPropagationReference_Propagation(), getErrorPropagationInstance(), null, "propagation",
 				null, 0, 1, NoErrorPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(allExpressionInstanceEClass, AllExpressionInstance.class, "AllExpressionInstance", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAllExpressionInstance_MinusCount(), ecorePackage.getELong(), "minusCount", null, 0, 1,
-				AllExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAllExpressionInstance_Elements(), getConditionExpressionInstance(), null, "elements", null, 0,
-				-1, AllExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(orMoreExpressionInstanceEClass, OrMoreExpressionInstance.class, "OrMoreExpressionInstance",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

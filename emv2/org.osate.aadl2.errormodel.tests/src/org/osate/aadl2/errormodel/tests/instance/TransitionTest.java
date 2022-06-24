@@ -18,7 +18,6 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.errormodel.instance.AllExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
@@ -1144,33 +1143,36 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((AllExpressionInstance) transition.getCondition(), condition -> {
-				assertEquals("all (error1)", condition.getName());
-				assertEquals(0, condition.getMinusCount());
+			with((CountExpression) transition.getCondition(), condition -> {
+				assertEquals("count(error1) == 1", condition.getName());
 				assertIterableEquals(List.of("error1"),
-						condition.getElements().stream().map(NamedElement::getName).toList());
+						condition.getOperands().stream().map(NamedElement::getName).toList());
+				assertEquals(CountExpressionOperation.EQUALS, condition.getOperation());
+				assertEquals(1, condition.getCount());
 			});
 		});
 		with(annexInstance.getTransitions().get(1), transition -> {
 			assertEquals("transition2", transition.getName());
 			assertEquals("transition2", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((AllExpressionInstance) transition.getCondition(), condition -> {
-				assertEquals("all (error2, error3, error4)", condition.getName());
-				assertEquals(0, condition.getMinusCount());
+			with((CountExpression) transition.getCondition(), condition -> {
+				assertEquals("count(error2, error3, error4) == 3", condition.getName());
 				assertIterableEquals(List.of("error2", "error3", "error4"),
-						condition.getElements().stream().map(NamedElement::getName).toList());
+						condition.getOperands().stream().map(NamedElement::getName).toList());
+				assertEquals(CountExpressionOperation.EQUALS, condition.getOperation());
+				assertEquals(3, condition.getCount());
 			});
 		});
 		with(annexInstance.getTransitions().get(2), transition -> {
 			assertEquals("transition3", transition.getName());
 			assertEquals("transition3", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((AllExpressionInstance) transition.getCondition(), condition -> {
-				assertEquals("all - 2 (error5, error6, error7, error8, error9)", condition.getName());
-				assertEquals(2, condition.getMinusCount());
+			with((CountExpression) transition.getCondition(), condition -> {
+				assertEquals("count(error5, error6, error7, error8, error9) == 3", condition.getName());
 				assertIterableEquals(List.of("error5", "error6", "error7", "error8", "error9"),
-						condition.getElements().stream().map(NamedElement::getName).toList());
+						condition.getOperands().stream().map(NamedElement::getName).toList());
+				assertEquals(CountExpressionOperation.EQUALS, condition.getOperation());
+				assertEquals(3, condition.getCount());
 			});
 		});
 	}

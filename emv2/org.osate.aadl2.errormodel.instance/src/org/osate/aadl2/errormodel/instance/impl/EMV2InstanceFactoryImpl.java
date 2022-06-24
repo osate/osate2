@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
-import org.osate.aadl2.errormodel.instance.AllExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
@@ -179,8 +178,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createPropagationReference();
 		case EMV2InstancePackage.NO_ERROR_PROPAGATION_REFERENCE:
 			return createNoErrorPropagationReference();
-		case EMV2InstancePackage.ALL_EXPRESSION_INSTANCE:
-			return createAllExpressionInstance();
 		case EMV2InstancePackage.OR_MORE_EXPRESSION_INSTANCE:
 			return createOrMoreExpressionInstance();
 		case EMV2InstancePackage.OR_LESS_EXPRESSION_INSTANCE:
@@ -481,17 +478,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public NoErrorPropagationReference createNoErrorPropagationReference() {
 		NoErrorPropagationReferenceImpl noErrorPropagationReference = new NoErrorPropagationReferenceImpl();
 		return noErrorPropagationReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public AllExpressionInstance createAllExpressionInstance() {
-		AllExpressionInstanceImpl allExpressionInstance = new AllExpressionInstanceImpl();
-		return allExpressionInstance;
 	}
 
 	/**

@@ -209,10 +209,6 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//NoErrorPropagationReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//NoErrorPropagationReference/propagation"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//AllExpressionInstance">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//AllExpressionInstance/minusCount"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AllExpressionInstance/elements"/>
-    </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//OrMoreExpressionInstance">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//OrMoreExpressionInstance/count"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OrMoreExpressionInstance/elements"/>
