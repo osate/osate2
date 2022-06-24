@@ -64,6 +64,7 @@ import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
@@ -554,67 +555,20 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private ConditionExpressionInstance createConditionExpressionInstance(ConditionExpression condition,
 			ComponentInstance component, EMV2AnnexInstance annex) {
 		if (condition instanceof OrExpression orExpression) {
-			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
-			countExpression.getOperands()
-					.add(createConditionExpressionInstance(orExpression.getOperands().get(0), component, annex));
-			countExpression.getOperands()
-					.add(createConditionExpressionInstance(orExpression.getOperands().get(1), component, annex));
-			countExpression.setOperation(CountExpressionOperation.GREATER_EQUAL);
-			countExpression.setCount(1);
-			countExpression.setName(countExpression.getOperands()
-					.stream()
-					.map(NamedElement::getName)
-					.collect(Collectors.joining(", ", "count(", ") >= 1")));
-			return countExpression;
+			return createCountExpression(orExpression.getOperands(), CountExpressionOperation.GREATER_EQUAL, 1,
+					component, annex);
 		} else if (condition instanceof AndExpression andExpression) {
-			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
-			countExpression.getOperands()
-					.add(createConditionExpressionInstance(andExpression.getOperands().get(0), component, annex));
-			countExpression.getOperands()
-					.add(createConditionExpressionInstance(andExpression.getOperands().get(1), component, annex));
-			countExpression.setOperation(CountExpressionOperation.EQUALS);
-			countExpression.setCount(2);
-			countExpression.setName(countExpression.getOperands()
-					.stream()
-					.map(NamedElement::getName)
-					.collect(Collectors.joining(", ", "count(", ") == 2")));
-			return countExpression;
+			return createCountExpression(andExpression.getOperands(), CountExpressionOperation.EQUALS, 2, component,
+					annex);
 		} else if (condition instanceof AllExpression allExpression) {
-			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
-			for (var operand : allExpression.getOperands()) {
-				countExpression.getOperands().add(createConditionExpressionInstance(operand, component, annex));
-			}
-			countExpression.setOperation(CountExpressionOperation.EQUALS);
-			countExpression.setCount(allExpression.getOperands().size() - allExpression.getCount());
-			countExpression.setName(countExpression.getOperands()
-					.stream()
-					.map(NamedElement::getName)
-					.collect(Collectors.joining(", ", "count(", ") == " + countExpression.getCount())));
-			return countExpression;
+			return createCountExpression(allExpression.getOperands(), CountExpressionOperation.EQUALS,
+					allExpression.getOperands().size() - allExpression.getCount(), component, annex);
 		} else if (condition instanceof OrmoreExpression orMoreExpression) {
-			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
-			for (var operand : orMoreExpression.getOperands()) {
-				countExpression.getOperands().add(createConditionExpressionInstance(operand, component, annex));
-			}
-			countExpression.setOperation(CountExpressionOperation.GREATER_EQUAL);
-			countExpression.setCount(orMoreExpression.getCount());
-			countExpression.setName(countExpression.getOperands()
-					.stream()
-					.map(NamedElement::getName)
-					.collect(Collectors.joining(", ", "count(", ") >= " + countExpression.getCount())));
-			return countExpression;
+			return createCountExpression(orMoreExpression.getOperands(), CountExpressionOperation.GREATER_EQUAL,
+					orMoreExpression.getCount(), component, annex);
 		} else if (condition instanceof OrlessExpression orLessExpression) {
-			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
-			for (var operand : orLessExpression.getOperands()) {
-				countExpression.getOperands().add(createConditionExpressionInstance(operand, component, annex));
-			}
-			countExpression.setOperation(CountExpressionOperation.LESS_EQUAL);
-			countExpression.setCount(orLessExpression.getCount());
-			countExpression.setName(countExpression.getOperands()
-					.stream()
-					.map(NamedElement::getName)
-					.collect(Collectors.joining(", ", "count(", ") <= " + countExpression.getCount())));
-			return countExpression;
+			return createCountExpression(orLessExpression.getOperands(), CountExpressionOperation.LESS_EQUAL,
+					orLessExpression.getCount(), component, annex);
 		} else if (condition instanceof ConditionElement conditionElement) {
 			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
 			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {
@@ -706,6 +660,26 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		propagationReference.setPropagation(propagation);
 		propagationReference.setName(namePrefix + propagation.getName() + " {noerror}");
 		return propagationReference;
+	}
+
+	private CountExpression createCountExpression(List<? extends ConditionExpression> operands,
+			CountExpressionOperation operation, long count, ComponentInstance component, EMV2AnnexInstance annex) {
+		var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
+		for (var operand : operands) {
+			countExpression.getOperands().add(createConditionExpressionInstance(operand, component, annex));
+		}
+		countExpression.setOperation(operation);
+		countExpression.setCount(count);
+		var symbol = switch (operation) {
+		case EQUALS -> "==";
+		case GREATER_EQUAL -> ">=";
+		case LESS_EQUAL -> "<=";
+		};
+		countExpression.setName(countExpression.getOperands()
+				.stream()
+				.map(NamedElement::getName)
+				.collect(Collectors.joining(", ", "count(", ") " + symbol + " " + count)));
+		return countExpression;
 	}
 
 	private void instantiateCompositeState(CompositeState st, EMV2AnnexInstance annex) {
