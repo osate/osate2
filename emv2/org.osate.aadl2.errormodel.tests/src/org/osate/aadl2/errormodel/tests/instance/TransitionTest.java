@@ -24,7 +24,6 @@ import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
-import org.osate.aadl2.errormodel.instance.OrLessExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
@@ -1206,11 +1205,12 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((OrLessExpressionInstance) transition.getCondition(), condition -> {
-				assertEquals("3 orless (error1, error2, error3, error4, error5)", condition.getName());
-				assertEquals(3, condition.getCount());
+			with((CountExpression) transition.getCondition(), condition -> {
+				assertEquals("count(error1, error2, error3, error4, error5) <= 3", condition.getName());
 				assertIterableEquals(List.of("error1", "error2", "error3", "error4", "error5"),
-						condition.getElements().stream().map(NamedElement::getName).toList());
+						condition.getOperands().stream().map(NamedElement::getName).toList());
+				assertEquals(CountExpressionOperation.LESS_EQUAL, condition.getOperation());
+				assertEquals(3, condition.getCount());
 			});
 		});
 	}

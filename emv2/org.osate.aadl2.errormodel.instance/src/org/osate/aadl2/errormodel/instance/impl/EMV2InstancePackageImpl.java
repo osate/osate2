@@ -64,7 +64,6 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
-import org.osate.aadl2.errormodel.instance.OrLessExpressionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -294,13 +293,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass noErrorPropagationReferenceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass orLessExpressionInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1532,36 +1524,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getOrLessExpressionInstance() {
-		return orLessExpressionInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getOrLessExpressionInstance_Count() {
-		return (EAttribute) orLessExpressionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getOrLessExpressionInstance_Elements() {
-		return (EReference) orLessExpressionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getCountExpression() {
 		return countExpressionEClass;
 	}
@@ -2233,10 +2195,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		noErrorPropagationReferenceEClass = createEClass(NO_ERROR_PROPAGATION_REFERENCE);
 		createEReference(noErrorPropagationReferenceEClass, NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION);
 
-		orLessExpressionInstanceEClass = createEClass(OR_LESS_EXPRESSION_INSTANCE);
-		createEAttribute(orLessExpressionInstanceEClass, OR_LESS_EXPRESSION_INSTANCE__COUNT);
-		createEReference(orLessExpressionInstanceEClass, OR_LESS_EXPRESSION_INSTANCE__ELEMENTS);
-
 		countExpressionEClass = createEClass(COUNT_EXPRESSION);
 		createEReference(countExpressionEClass, COUNT_EXPRESSION__OPERANDS);
 		createEAttribute(countExpressionEClass, COUNT_EXPRESSION__OPERATION);
@@ -2330,7 +2288,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		propagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
-		orLessExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		countExpressionEClass.getESuperTypes().add(getConditionExpressionInstance());
 
 		// Initialize classes and features; add operations and parameters
@@ -2796,15 +2753,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getNoErrorPropagationReference_Propagation(), getErrorPropagationInstance(), null, "propagation",
 				null, 0, 1, NoErrorPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(orLessExpressionInstanceEClass, OrLessExpressionInstance.class, "OrLessExpressionInstance",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOrLessExpressionInstance_Count(), ecorePackage.getELong(), "count", null, 0, 1,
-				OrLessExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOrLessExpressionInstance_Elements(), getConditionExpressionInstance(), null, "elements", null,
-				0, -1, OrLessExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(countExpressionEClass, CountExpression.class, "CountExpression", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

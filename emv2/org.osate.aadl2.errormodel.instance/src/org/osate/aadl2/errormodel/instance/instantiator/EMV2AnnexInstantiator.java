@@ -604,17 +604,17 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					.collect(Collectors.joining(", ", "count(", ") >= " + countExpression.getCount())));
 			return countExpression;
 		} else if (condition instanceof OrlessExpression orLessExpression) {
-			var orLessExpressionInstance = EMV2InstanceFactory.eINSTANCE.createOrLessExpressionInstance();
-			orLessExpressionInstance.setCount(orLessExpression.getCount());
-			for (var element : orLessExpression.getOperands()) {
-				orLessExpressionInstance.getElements()
-						.add(createConditionExpressionInstance(element, component, annex));
+			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
+			for (var operand : orLessExpression.getOperands()) {
+				countExpression.getOperands().add(createConditionExpressionInstance(operand, component, annex));
 			}
-			orLessExpressionInstance.setName(orLessExpressionInstance.getElements()
+			countExpression.setOperation(CountExpressionOperation.LESS_EQUAL);
+			countExpression.setCount(orLessExpression.getCount());
+			countExpression.setName(countExpression.getOperands()
 					.stream()
 					.map(NamedElement::getName)
-					.collect(Collectors.joining(", ", orLessExpression.getCount() + " orless (", ")")));
-			return orLessExpressionInstance;
+					.collect(Collectors.joining(", ", "count(", ") <= " + countExpression.getCount())));
+			return countExpression;
 		} else if (condition instanceof ConditionElement conditionElement) {
 			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
 			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {
