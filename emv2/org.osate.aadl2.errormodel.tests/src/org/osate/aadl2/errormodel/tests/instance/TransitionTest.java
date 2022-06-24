@@ -20,7 +20,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AllSources;
-import org.osate.aadl2.errormodel.instance.AndExpressionInstance;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
@@ -1070,12 +1069,11 @@ public class TransitionTest {
 				assertEquals(2, condition.getOperands().size());
 				with((CountExpression) condition.getOperands().get(0), nested1 -> {
 					assertEquals("count(count(error3, error4) >= 1, error5) >= 1", nested1.getName());
-					assertEquals(2, condition.getOperands().size());
+					assertEquals(2, nested1.getOperands().size());
 					with((CountExpression) nested1.getOperands().get(0), nested2 -> {
 						assertEquals("count(error3, error4) >= 1", nested2.getName());
-						assertEquals(2, nested2.getOperands().size());
-						assertEquals("error3", nested2.getOperands().get(0).getName());
-						assertEquals("error4", nested2.getOperands().get(1).getName());
+						assertIterableEquals(List.of("error3", "error4"),
+								nested2.getOperands().stream().map(NamedElement::getName).toList());
 						assertEquals(CountExpressionOperation.GREATER_EQUAL, nested2.getOperation());
 						assertEquals(1, nested2.getCount());
 					});
@@ -1100,28 +1098,38 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((AndExpressionInstance) transition.getCondition(), condition -> {
-				assertEquals("error1 and error2", condition.getName());
-				assertEquals("error1", condition.getLeft().getName());
-				assertEquals("error2", condition.getRight().getName());
+			with((CountExpression) transition.getCondition(), condition -> {
+				assertEquals("count(error1, error2) == 2", condition.getName());
+				assertIterableEquals(List.of("error1", "error2"),
+						condition.getOperands().stream().map(NamedElement::getName).toList());
+				assertEquals(CountExpressionOperation.EQUALS, condition.getOperation());
+				assertEquals(2, condition.getCount());
 			});
 		});
 		with(annexInstance.getTransitions().get(1), transition -> {
 			assertEquals("transition2", transition.getName());
 			assertEquals("transition2", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((AndExpressionInstance) transition.getCondition(), condition -> {
-				assertEquals("error3 and error4 and error5 and error6", condition.getName());
-				with((AndExpressionInstance) condition.getLeft(), left1 -> {
-					assertEquals("error3 and error4 and error5", left1.getName());
-					with((AndExpressionInstance) left1.getLeft(), left2 -> {
-						assertEquals("error3 and error4", left2.getName());
-						assertEquals("error3", left2.getLeft().getName());
-						assertEquals("error4", left2.getRight().getName());
+			with((CountExpression) transition.getCondition(), condition -> {
+				assertEquals("count(count(count(error3, error4) == 2, error5) == 2, error6) == 2", condition.getName());
+				assertEquals(2, condition.getOperands().size());
+				with((CountExpression) condition.getOperands().get(0), nested1 -> {
+					assertEquals("count(count(error3, error4) == 2, error5) == 2", nested1.getName());
+					assertEquals(2, nested1.getOperands().size());
+					with((CountExpression) nested1.getOperands().get(0), nested2 -> {
+						assertEquals("count(error3, error4) == 2", nested2.getName());
+						assertIterableEquals(List.of("error3", "error4"),
+								nested2.getOperands().stream().map(NamedElement::getName).toList());
+						assertEquals(CountExpressionOperation.EQUALS, nested2.getOperation());
+						assertEquals(2, nested2.getCount());
 					});
-					assertEquals("error5", left1.getRight().getName());
+					assertEquals("error5", nested1.getOperands().get(1).getName());
+					assertEquals(CountExpressionOperation.EQUALS, nested1.getOperation());
+					assertEquals(2, nested1.getCount());
 				});
-				assertEquals("error6", condition.getRight().getName());
+				assertEquals("error6", condition.getOperands().get(1).getName());
+				assertEquals(CountExpressionOperation.EQUALS, condition.getOperation());
+				assertEquals(2, condition.getCount());
 			});
 		});
 	}

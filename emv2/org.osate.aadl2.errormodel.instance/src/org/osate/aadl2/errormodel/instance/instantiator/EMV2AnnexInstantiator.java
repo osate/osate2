@@ -567,14 +567,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					.collect(Collectors.joining(", ", "count(", ") >= 1")));
 			return countExpression;
 		} else if (condition instanceof AndExpression andExpression) {
-			var andExpressionInstance = EMV2InstanceFactory.eINSTANCE.createAndExpressionInstance();
-			andExpressionInstance
-					.setLeft(createConditionExpressionInstance(andExpression.getOperands().get(0), component, annex));
-			andExpressionInstance
-					.setRight(createConditionExpressionInstance(andExpression.getOperands().get(1), component, annex));
-			andExpressionInstance.setName(
-					andExpressionInstance.getLeft().getName() + " and " + andExpressionInstance.getRight().getName());
-			return andExpressionInstance;
+			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
+			countExpression.getOperands()
+					.add(createConditionExpressionInstance(andExpression.getOperands().get(0), component, annex));
+			countExpression.getOperands()
+					.add(createConditionExpressionInstance(andExpression.getOperands().get(1), component, annex));
+			countExpression.setOperation(CountExpressionOperation.EQUALS);
+			countExpression.setCount(2);
+			countExpression.setName(countExpression.getOperands()
+					.stream()
+					.map(NamedElement::getName)
+					.collect(Collectors.joining(", ", "count(", ") == 2")));
+			return countExpression;
 		} else if (condition instanceof AllExpression allExpression) {
 			var allExpressionInstance = EMV2InstanceFactory.eINSTANCE.createAllExpressionInstance();
 			allExpressionInstance.setMinusCount(allExpression.getCount());

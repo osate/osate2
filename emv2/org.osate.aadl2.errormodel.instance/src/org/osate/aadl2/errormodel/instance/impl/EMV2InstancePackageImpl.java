@@ -35,7 +35,6 @@ import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AllExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AllSources;
-import org.osate.aadl2.errormodel.instance.AndExpressionInstance;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
@@ -297,13 +296,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass noErrorPropagationReferenceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass andExpressionInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1556,36 +1548,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getAndExpressionInstance() {
-		return andExpressionInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getAndExpressionInstance_Left() {
-		return (EReference) andExpressionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getAndExpressionInstance_Right() {
-		return (EReference) andExpressionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getAllExpressionInstance() {
 		return allExpressionInstanceEClass;
 	}
@@ -2347,10 +2309,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		noErrorPropagationReferenceEClass = createEClass(NO_ERROR_PROPAGATION_REFERENCE);
 		createEReference(noErrorPropagationReferenceEClass, NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION);
 
-		andExpressionInstanceEClass = createEClass(AND_EXPRESSION_INSTANCE);
-		createEReference(andExpressionInstanceEClass, AND_EXPRESSION_INSTANCE__LEFT);
-		createEReference(andExpressionInstanceEClass, AND_EXPRESSION_INSTANCE__RIGHT);
-
 		allExpressionInstanceEClass = createEClass(ALL_EXPRESSION_INSTANCE);
 		createEAttribute(allExpressionInstanceEClass, ALL_EXPRESSION_INSTANCE__MINUS_COUNT);
 		createEReference(allExpressionInstanceEClass, ALL_EXPRESSION_INSTANCE__ELEMENTS);
@@ -2456,7 +2414,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		propagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
-		andExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		allExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		orMoreExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		orLessExpressionInstanceEClass.getESuperTypes().add(getConditionExpressionInstance());
@@ -2925,15 +2882,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getNoErrorPropagationReference_Propagation(), getErrorPropagationInstance(), null, "propagation",
 				null, 0, 1, NoErrorPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(andExpressionInstanceEClass, AndExpressionInstance.class, "AndExpressionInstance", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAndExpressionInstance_Left(), getConditionExpressionInstance(), null, "left", null, 0, 1,
-				AndExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAndExpressionInstance_Right(), getConditionExpressionInstance(), null, "right", null, 0, 1,
-				AndExpressionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(allExpressionInstanceEClass, AllExpressionInstance.class, "AllExpressionInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
