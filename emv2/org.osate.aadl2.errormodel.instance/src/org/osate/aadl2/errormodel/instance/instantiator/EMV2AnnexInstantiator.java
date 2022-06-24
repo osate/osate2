@@ -592,17 +592,17 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					.collect(Collectors.joining(", ", "count(", ") == " + countExpression.getCount())));
 			return countExpression;
 		} else if (condition instanceof OrmoreExpression orMoreExpression) {
-			var orMoreExpressionInstance = EMV2InstanceFactory.eINSTANCE.createOrMoreExpressionInstance();
-			orMoreExpressionInstance.setCount(orMoreExpression.getCount());
-			for (var element : orMoreExpression.getOperands()) {
-				orMoreExpressionInstance.getElements()
-						.add(createConditionExpressionInstance(element, component, annex));
+			var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
+			for (var operand : orMoreExpression.getOperands()) {
+				countExpression.getOperands().add(createConditionExpressionInstance(operand, component, annex));
 			}
-			orMoreExpressionInstance.setName(orMoreExpressionInstance.getElements()
+			countExpression.setOperation(CountExpressionOperation.GREATER_EQUAL);
+			countExpression.setCount(orMoreExpression.getCount());
+			countExpression.setName(countExpression.getOperands()
 					.stream()
 					.map(NamedElement::getName)
-					.collect(Collectors.joining(", ", orMoreExpression.getCount() + " ormore (", ")")));
-			return orMoreExpressionInstance;
+					.collect(Collectors.joining(", ", "count(", ") >= " + countExpression.getCount())));
+			return countExpression;
 		} else if (condition instanceof OrlessExpression orLessExpression) {
 			var orLessExpressionInstance = EMV2InstanceFactory.eINSTANCE.createOrLessExpressionInstance();
 			orLessExpressionInstance.setCount(orLessExpression.getCount());

@@ -250,15 +250,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	NoErrorPropagationReference createNoErrorPropagationReference();
 
 	/**
-	 * Returns a new object of class '<em>Or More Expression Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Or More Expression Instance</em>'.
-	 * @generated
-	 */
-	OrMoreExpressionInstance createOrMoreExpressionInstance();
-
-	/**
 	 * Returns a new object of class '<em>Or Less Expression Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
