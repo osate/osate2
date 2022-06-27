@@ -2,7 +2,7 @@
 <feature
       id="org.osate.xtext.aadl2.errormodel.feature"
       label="Error Model Annex V2 for OSATE2"
-      version="9.1.0.qualifier"
+      version="9.1.2.qualifier"
       provider-name="CMU-SEI"
       plugin="org.osate.branding"
       license-feature="org.osate.license"
@@ -19,56 +19,6 @@
    <url>
       <update label="OSATE2" url="https://osate-build.sei.cmu.edu/download/osate/stable/latest/updates/"/>
    </url>
-
-   <requires>
-      <import plugin="org.eclipse.ui" version="3.115.0" match="compatible"/>
-      <import plugin="org.osate.aadl2.modelsupport" version="6.1.0" match="compatible"/>
-      <import plugin="org.osate.aadl2" version="4.0.0" match="compatible"/>
-      <import plugin="org.osate.ui" version="6.3.0" match="compatible"/>
-      <import plugin="org.osate.xtext.aadl2.errormodel" version="6.2.0" match="compatible"/>
-      <import plugin="org.osate.xtext.aadl2.properties" version="3.1.0" match="compatible"/>
-      <import plugin="org.osate.aadl2.errormodel.propagationgraph" version="6.2.0" match="compatible"/>
-      <import plugin="org.osate.pluginsupport" version="7.1.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext" version="2.20.0" match="compatible"/>
-      <import plugin="org.apache.log4j" version="1.2.15" match="compatible"/>
-      <import plugin="org.eclipse.xtext.util" version="2.20.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.common" version="2.7.0" match="compatible"/>
-      <import plugin="org.antlr.runtime" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext.common.types" version="2.20.0" match="compatible"/>
-      <import plugin="org.osate.annexsupport" version="4.0.0" match="compatible"/>
-      <import plugin="org.eclipse.uml2.codegen.ecore" version="1.9.100" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.xbase.lib" version="2.20.0" match="compatible"/>
-      <import plugin="org.osate.aadl2.errormodel.contrib" version="1.0.0" match="compatible"/>
-      <import plugin="org.osate.xtext.aadl2" version="6.2.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext.ui" version="2.20.0" match="compatible"/>
-      <import plugin="org.eclipse.ui.editors" version="3.7.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext.ui.shared" version="2.20.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext.builder" version="2.20.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext.common.types.ui" version="2.20.0" match="compatible"/>
-      <import plugin="org.osate.xtext.aadl2.properties.ui" version="4.1.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.transaction" version="1.9.0" match="compatible"/>
-      <import plugin="org.osate.xtext.aadl2.ui" version="6.3.0" match="compatible"/>
-      <import plugin="org.apache.commons.logging"/>
-      <import plugin="org.osate.core"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.20.0" match="compatible"/>
-      <import plugin="org.eclipse.core.resources" version="3.13.0" match="compatible"/>
-      <import plugin="org.eclipse.sirius" version="6.3.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.sirius.common.acceleo.aql" version="6.3.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2.errormodel.faulttree" version="6.1.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.edit" version="2.16.0" match="compatible"/>
-      <import plugin="org.osate.aadl2.edit" version="4.0.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.edit" version="2.13.0" match="compatible"/>
-      <import plugin="org.eclipse.sirius.ui" version="6.3.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.sirius.ext.base" version="5.0.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.browser" version="3.6.100" match="compatible"/>
-      <import plugin="org.eclipse.ui.ide" version="3.13.1" match="compatible"/>
-      <import plugin="org.eclipse.sirius.common.ui" version="5.1.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.results" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.jdt.core" version="3.13.102" match="compatible"/>
-      <import plugin="org.osate.aadl2.contrib" version="2.0.0" match="compatible"/>
-      <import plugin="org.osate.smaccm.stubs"/>
-      <import plugin="org.eclipse.core.runtime" version="3.18.0" match="compatible"/>
-   </requires>
 
    <plugin
          id="org.osate.aadl2.errormodel.analysis"

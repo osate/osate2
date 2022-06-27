@@ -2,7 +2,7 @@
 <feature
       id="org.osate.alisa.workbench.sdk"
       label="ALISA Requirement Specification and Verification"
-      version="7.1.1.qualifier"
+      version="8.0.0.qualifier"
       license-feature="org.osate.license"
       license-feature-version="1.0.2">
 
@@ -107,12 +107,6 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="org.osate.reqtrace"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
    <plugin
          id="org.osate.alisa.help"
