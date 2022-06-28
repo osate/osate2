@@ -70,9 +70,9 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -257,7 +257,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass stateReferenceEClass = null;
+	private EClass sourceStateReferenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1394,8 +1394,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getStateReference() {
-		return stateReferenceEClass;
+	public EClass getSourceStateReference() {
+		return sourceStateReferenceEClass;
 	}
 
 	/**
@@ -1404,8 +1404,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getStateReference_State() {
-		return (EReference) stateReferenceEClass.getEStructuralFeatures().get(0);
+	public EReference getSourceStateReference_State() {
+		return (EReference) sourceStateReferenceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1414,8 +1414,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getStateReference_TypeSet() {
-		return (EReference) stateReferenceEClass.getEStructuralFeatures().get(1);
+	public EReference getSourceStateReference_TypeSet() {
+		return (EReference) sourceStateReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2176,9 +2176,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		transitionSourceEClass = createEClass(TRANSITION_SOURCE);
 
-		stateReferenceEClass = createEClass(STATE_REFERENCE);
-		createEReference(stateReferenceEClass, STATE_REFERENCE__STATE);
-		createEReference(stateReferenceEClass, STATE_REFERENCE__TYPE_SET);
+		sourceStateReferenceEClass = createEClass(SOURCE_STATE_REFERENCE);
+		createEReference(sourceStateReferenceEClass, SOURCE_STATE_REFERENCE__STATE);
+		createEReference(sourceStateReferenceEClass, SOURCE_STATE_REFERENCE__TYPE_SET);
 
 		allSourcesEClass = createEClass(ALL_SOURCES);
 
@@ -2282,7 +2282,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		repairEventInstanceEClass.getESuperTypes().add(getEventInstance());
 		transitionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		transitionSourceEClass.getESuperTypes().add(getEMV2InstanceObject());
-		stateReferenceEClass.getESuperTypes().add(getTransitionSource());
+		sourceStateReferenceEClass.getESuperTypes().add(getTransitionSource());
 		allSourcesEClass.getESuperTypes().add(getTransitionSource());
 		conditionExpressionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
@@ -2715,14 +2715,14 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEClass(transitionSourceEClass, TransitionSource.class, "TransitionSource", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(stateReferenceEClass, StateReference.class, "StateReference", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStateReference_State(), getStateInstance(), null, "state", null, 0, 1, StateReference.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
-				StateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(sourceStateReferenceEClass, SourceStateReference.class, "SourceStateReference", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSourceStateReference_State(), getStateInstance(), null, "state", null, 0, 1,
+				SourceStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSourceStateReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				SourceStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(allSourcesEClass, AllSources.class, "AllSources", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

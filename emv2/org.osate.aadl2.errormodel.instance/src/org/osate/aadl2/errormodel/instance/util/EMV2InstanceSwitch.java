@@ -63,9 +63,9 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -1002,23 +1002,23 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.STATE_REFERENCE: {
-			StateReference stateReference = (StateReference) theEObject;
-			T result = caseStateReference(stateReference);
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE: {
+			SourceStateReference sourceStateReference = (SourceStateReference) theEObject;
+			T result = caseSourceStateReference(sourceStateReference);
 			if (result == null) {
-				result = caseTransitionSource(stateReference);
+				result = caseTransitionSource(sourceStateReference);
 			}
 			if (result == null) {
-				result = caseEMV2InstanceObject(stateReference);
+				result = caseEMV2InstanceObject(sourceStateReference);
 			}
 			if (result == null) {
-				result = caseInstanceObject(stateReference);
+				result = caseInstanceObject(sourceStateReference);
 			}
 			if (result == null) {
-				result = caseNamedElement(stateReference);
+				result = caseNamedElement(sourceStateReference);
 			}
 			if (result == null) {
-				result = caseElement(stateReference);
+				result = caseElement(sourceStateReference);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1511,17 +1511,17 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>State Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Source State Reference</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>State Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Source State Reference</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseStateReference(StateReference object) {
+	public T caseSourceStateReference(SourceStateReference object) {
 		return null;
 	}
 

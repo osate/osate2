@@ -25,7 +25,7 @@ import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
-import org.osate.aadl2.errormodel.instance.StateReference;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -170,7 +170,7 @@ public class TransitionTest {
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
-			with((StateReference) transition.getSource(), source -> {
+			with((SourceStateReference) transition.getSource(), source -> {
 				assertEquals("state1", source.getName());
 				assertEquals("state1", source.getState().getName());
 				assertNull(source.getTypeSet());
@@ -188,7 +188,7 @@ public class TransitionTest {
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
-			with((StateReference) transition.getSource(), source -> {
+			with((SourceStateReference) transition.getSource(), source -> {
 				assertEquals("state1 {ServiceError}", source.getName());
 				assertEquals("state1", source.getState().getName());
 				assertEquals("{ServiceError}", source.getTypeSet().getName());
@@ -198,7 +198,7 @@ public class TransitionTest {
 		with(annexInstance.getTransitions().get(1), transition -> {
 			assertEquals("transition2", transition.getName());
 			assertEquals("transition2", transition.getTransition().getName());
-			with((StateReference) transition.getSource(), source -> {
+			with((SourceStateReference) transition.getSource(), source -> {
 				assertEquals("state1 {ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}",
 						source.getName());
 				assertEquals("state1", source.getState().getName());
@@ -218,7 +218,7 @@ public class TransitionTest {
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
-			with((StateReference) transition.getSource(), source -> {
+			with((SourceStateReference) transition.getSource(), source -> {
 				assertEquals("state1 {CommonErrors}", source.getName());
 				assertEquals("state1", source.getState().getName());
 				assertEquals("{CommonErrors}", source.getTypeSet().getName());

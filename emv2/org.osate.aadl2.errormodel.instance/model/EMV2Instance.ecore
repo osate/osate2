@@ -244,7 +244,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TransitionSource" abstract="true" interface="true"
       eSuperTypes="#//EMV2InstanceObject"/>
-  <eClassifiers xsi:type="ecore:EClass" name="StateReference" eSuperTypes="#//TransitionSource">
+  <eClassifiers xsi:type="ecore:EClass" name="SourceStateReference" eSuperTypes="#//TransitionSource">
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//StateInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
         containment="true"/>

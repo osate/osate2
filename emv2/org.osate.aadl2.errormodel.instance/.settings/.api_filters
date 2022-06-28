@@ -88,6 +88,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="createSourceStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="createStateReference()"/>
             </message_arguments>
         </filter>
@@ -545,6 +550,56 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__TYPE_SET"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="STATE_INSTANCE__TYPE_SET"/>
             </message_arguments>
         </filter>
@@ -825,6 +880,21 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getSourceStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getSourceStateReference_State()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getSourceStateReference_TypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getStateInstance_TypeSet()"/>
             </message_arguments>
         </filter>
@@ -1002,6 +1072,21 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SOURCE_STATE_REFERENCE__TYPE_SET"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="STATE_INSTANCE__TYPE_SET"/>
             </message_arguments>
         </filter>
@@ -1088,6 +1173,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/SourceStateReference.java" type="org.osate.aadl2.errormodel.instance.SourceStateReference">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.SourceStateReference"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/StateInstance.java" type="org.osate.aadl2.errormodel.instance.StateInstance">
         <filter id="1211105284">
             <message_arguments>
@@ -1097,13 +1189,6 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="setTypeSet(AnonymousTypeSet)"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/osate/aadl2/errormodel/instance/StateReference.java" type="org.osate.aadl2.errormodel.instance.StateReference">
-        <filter id="1110441988">
-            <message_arguments>
-                <message_argument value="org.osate.aadl2.errormodel.instance.StateReference"/>
             </message_arguments>
         </filter>
     </resource>
@@ -1206,6 +1291,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/SourceStateReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/StateInstanceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.StateInstanceImpl">
         <filter id="1143996420">
             <message_arguments>
@@ -1215,13 +1307,6 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="typeSet"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/osate/aadl2/errormodel/instance/impl/StateReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl">
-        <filter id="1110441988">
-            <message_arguments>
-                <message_argument value="org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -1276,6 +1361,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createRepairEventInstanceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createSourceStateReferenceAdapter()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -1338,6 +1428,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseRepairEventInstance(RepairEventInstance)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseSourceStateReference(SourceStateReference)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

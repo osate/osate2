@@ -82,9 +82,9 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
@@ -536,8 +536,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return allSources;
 	}
 
-	private StateReference createStateReference(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
-		var stateReference = EMV2InstanceFactory.eINSTANCE.createStateReference();
+	private SourceStateReference createStateReference(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
+		var stateReference = EMV2InstanceFactory.eINSTANCE.createSourceStateReference();
 		stateReference.setState(findStateInstance(annex, transition.getSource()));
 		if (transition.getTypeTokenConstraint() != null) {
 			stateReference.setTypeSet(createAnonymousTypeSet(transition.getTypeTokenConstraint()));

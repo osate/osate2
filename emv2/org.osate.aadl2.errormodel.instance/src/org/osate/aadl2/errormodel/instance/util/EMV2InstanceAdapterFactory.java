@@ -64,9 +64,9 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -324,8 +324,8 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseStateReference(StateReference object) {
-			return createStateReferenceAdapter();
+		public Adapter caseSourceStateReference(SourceStateReference object) {
+			return createSourceStateReferenceAdapter();
 		}
 
 		@Override
@@ -720,16 +720,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.StateReference <em>State Reference</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.SourceStateReference <em>Source State Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.StateReference
+	 * @see org.osate.aadl2.errormodel.instance.SourceStateReference
 	 * @generated
 	 */
-	public Adapter createStateReferenceAdapter() {
+	public Adapter createSourceStateReferenceAdapter() {
 		return null;
 	}
 

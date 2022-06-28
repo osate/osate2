@@ -25,36 +25,36 @@ package org.osate.aadl2.errormodel.instance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>State Reference</b></em>'.
+ * A representation of the model object '<em><b>Source State Reference</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.StateReference#getState <em>State</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.StateReference#getTypeSet <em>Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.SourceStateReference#getState <em>State</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.SourceStateReference#getTypeSet <em>Type Set</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getStateReference()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getSourceStateReference()
  * @model
  * @generated
  */
-public interface StateReference extends TransitionSource {
+public interface SourceStateReference extends TransitionSource {
 	/**
 	 * Returns the value of the '<em><b>State</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>State</em>' reference.
 	 * @see #setState(StateInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getStateReference_State()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getSourceStateReference_State()
 	 * @model
 	 * @generated
 	 */
 	StateInstance getState();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.StateReference#getState <em>State</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.SourceStateReference#getState <em>State</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>State</em>' reference.
@@ -69,14 +69,14 @@ public interface StateReference extends TransitionSource {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type Set</em>' containment reference.
 	 * @see #setTypeSet(AnonymousTypeSet)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getStateReference_TypeSet()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getSourceStateReference_TypeSet()
 	 * @model containment="true"
 	 * @generated
 	 */
 	AnonymousTypeSet getTypeSet();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.StateReference#getTypeSet <em>Type Set</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.SourceStateReference#getTypeSet <em>Type Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type Set</em>' containment reference.
@@ -85,4 +85,4 @@ public interface StateReference extends TransitionSource {
 	 */
 	void setTypeSet(AnonymousTypeSet value);
 
-} // StateReference
+} // SourceStateReference

@@ -59,9 +59,9 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
@@ -166,8 +166,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createRepairEventInstance();
 		case EMV2InstancePackage.TRANSITION_INSTANCE:
 			return createTransitionInstance();
-		case EMV2InstancePackage.STATE_REFERENCE:
-			return createStateReference();
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE:
+			return createSourceStateReference();
 		case EMV2InstancePackage.ALL_SOURCES:
 			return createAllSources();
 		case EMV2InstancePackage.EVENT_REFERENCE:
@@ -425,9 +425,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public StateReference createStateReference() {
-		StateReferenceImpl stateReference = new StateReferenceImpl();
-		return stateReference;
+	public SourceStateReference createSourceStateReference() {
+		SourceStateReferenceImpl sourceStateReference = new SourceStateReferenceImpl();
+		return sourceStateReference;
 	}
 
 	/**

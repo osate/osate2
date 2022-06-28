@@ -30,24 +30,24 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
-import org.osate.aadl2.errormodel.instance.StateReference;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>State Reference</b></em>'.
+ * An implementation of the model object '<em><b>Source State Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl#getState <em>State</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl#getTypeSet <em>Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl#getState <em>State</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl#getTypeSet <em>Type Set</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateReference {
+public class SourceStateReferenceImpl extends EMV2InstanceObjectImpl implements SourceStateReference {
 	/**
 	 * The cached value of the '{@link #getState() <em>State</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -73,7 +73,7 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StateReferenceImpl() {
+	protected SourceStateReferenceImpl() {
 		super();
 	}
 
@@ -84,7 +84,7 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.STATE_REFERENCE;
+		return EMV2InstancePackage.Literals.SOURCE_STATE_REFERENCE;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 			if (state != oldState) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.STATE_REFERENCE__STATE, oldState, state));
+							EMV2InstancePackage.SOURCE_STATE_REFERENCE__STATE, oldState, state));
 				}
 			}
 		}
@@ -126,8 +126,8 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 		StateInstance oldState = state;
 		state = newState;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_REFERENCE__STATE, oldState,
-					state));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.SOURCE_STATE_REFERENCE__STATE,
+					oldState, state));
 		}
 	}
 
@@ -151,7 +151,7 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 		typeSet = newTypeSet;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.STATE_REFERENCE__TYPE_SET, oldTypeSet, newTypeSet);
+					EMV2InstancePackage.SOURCE_STATE_REFERENCE__TYPE_SET, oldTypeSet, newTypeSet);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -172,18 +172,18 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 			NotificationChain msgs = null;
 			if (typeSet != null) {
 				msgs = ((InternalEObject) typeSet).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.STATE_REFERENCE__TYPE_SET, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.SOURCE_STATE_REFERENCE__TYPE_SET, null, msgs);
 			}
 			if (newTypeSet != null) {
 				msgs = ((InternalEObject) newTypeSet).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.STATE_REFERENCE__TYPE_SET, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.SOURCE_STATE_REFERENCE__TYPE_SET, null, msgs);
 			}
 			msgs = basicSetTypeSet(newTypeSet, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_REFERENCE__TYPE_SET,
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.SOURCE_STATE_REFERENCE__TYPE_SET,
 					newTypeSet, newTypeSet));
 		}
 	}
@@ -196,7 +196,7 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE__TYPE_SET:
 			return basicSetTypeSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -210,12 +210,12 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_REFERENCE__STATE:
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE__STATE:
 			if (resolve) {
 				return getState();
 			}
 			return basicGetState();
-		case EMV2InstancePackage.STATE_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE__TYPE_SET:
 			return getTypeSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -229,10 +229,10 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_REFERENCE__STATE:
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE__STATE:
 			setState((StateInstance) newValue);
 			return;
-		case EMV2InstancePackage.STATE_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE__TYPE_SET:
 			setTypeSet((AnonymousTypeSet) newValue);
 			return;
 		}
@@ -247,10 +247,10 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_REFERENCE__STATE:
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE__STATE:
 			setState((StateInstance) null);
 			return;
-		case EMV2InstancePackage.STATE_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE__TYPE_SET:
 			setTypeSet((AnonymousTypeSet) null);
 			return;
 		}
@@ -265,12 +265,12 @@ public class StateReferenceImpl extends EMV2InstanceObjectImpl implements StateR
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.STATE_REFERENCE__STATE:
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE__STATE:
 			return state != null;
-		case EMV2InstancePackage.STATE_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE__TYPE_SET:
 			return typeSet != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} // StateReferenceImpl
+} // SourceStateReferenceImpl

@@ -205,13 +205,13 @@ public interface EMV2InstanceFactory extends EFactory {
 	TransitionInstance createTransitionInstance();
 
 	/**
-	 * Returns a new object of class '<em>State Reference</em>'.
+	 * Returns a new object of class '<em>Source State Reference</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>State Reference</em>'.
+	 * @return a new object of class '<em>Source State Reference</em>'.
 	 * @generated
 	 */
-	StateReference createStateReference();
+	SourceStateReference createSourceStateReference();
 
 	/**
 	 * Returns a new object of class '<em>All Sources</em>'.

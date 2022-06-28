@@ -4239,14 +4239,14 @@ public interface EMV2InstancePackage extends EPackage {
 	int TRANSITION_SOURCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl <em>State Reference</em>}' class.
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl <em>Source State Reference</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl
-	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getStateReference()
+	 * @see org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getSourceStateReference()
 	 * @generated
 	 */
-	int STATE_REFERENCE = 38;
+	int SOURCE_STATE_REFERENCE = 38;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4255,7 +4255,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_REFERENCE__OWNED_ELEMENT = TRANSITION_SOURCE__OWNED_ELEMENT;
+	int SOURCE_STATE_REFERENCE__OWNED_ELEMENT = TRANSITION_SOURCE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -4264,7 +4264,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_REFERENCE__OWNED_COMMENT = TRANSITION_SOURCE__OWNED_COMMENT;
+	int SOURCE_STATE_REFERENCE__OWNED_COMMENT = TRANSITION_SOURCE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4273,7 +4273,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_REFERENCE__NAME = TRANSITION_SOURCE__NAME;
+	int SOURCE_STATE_REFERENCE__NAME = TRANSITION_SOURCE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -4282,7 +4282,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_REFERENCE__QUALIFIED_NAME = TRANSITION_SOURCE__QUALIFIED_NAME;
+	int SOURCE_STATE_REFERENCE__QUALIFIED_NAME = TRANSITION_SOURCE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -4291,7 +4291,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_REFERENCE__OWNED_PROPERTY_ASSOCIATION = TRANSITION_SOURCE__OWNED_PROPERTY_ASSOCIATION;
+	int SOURCE_STATE_REFERENCE__OWNED_PROPERTY_ASSOCIATION = TRANSITION_SOURCE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
@@ -4300,7 +4300,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_REFERENCE__ANNEX_INSTANCE = TRANSITION_SOURCE__ANNEX_INSTANCE;
+	int SOURCE_STATE_REFERENCE__ANNEX_INSTANCE = TRANSITION_SOURCE__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>State</b></em>' reference.
@@ -4309,7 +4309,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_REFERENCE__STATE = TRANSITION_SOURCE_FEATURE_COUNT + 0;
+	int SOURCE_STATE_REFERENCE__STATE = TRANSITION_SOURCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
@@ -4318,16 +4318,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_REFERENCE__TYPE_SET = TRANSITION_SOURCE_FEATURE_COUNT + 1;
+	int SOURCE_STATE_REFERENCE__TYPE_SET = TRANSITION_SOURCE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>State Reference</em>' class.
+	 * The number of structural features of the '<em>Source State Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_REFERENCE_FEATURE_COUNT = TRANSITION_SOURCE_FEATURE_COUNT + 2;
+	int SOURCE_STATE_REFERENCE_FEATURE_COUNT = TRANSITION_SOURCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AllSourcesImpl <em>All Sources</em>}' class.
@@ -5826,36 +5826,36 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getTransitionSource();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.StateReference <em>State Reference</em>}'.
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.SourceStateReference <em>Source State Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>State Reference</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.StateReference
+	 * @return the meta object for class '<em>Source State Reference</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.SourceStateReference
 	 * @generated
 	 */
-	EClass getStateReference();
+	EClass getSourceStateReference();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.StateReference#getState <em>State</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.SourceStateReference#getState <em>State</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>State</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.StateReference#getState()
-	 * @see #getStateReference()
+	 * @see org.osate.aadl2.errormodel.instance.SourceStateReference#getState()
+	 * @see #getSourceStateReference()
 	 * @generated
 	 */
-	EReference getStateReference_State();
+	EReference getSourceStateReference_State();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.StateReference#getTypeSet <em>Type Set</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.SourceStateReference#getTypeSet <em>Type Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Type Set</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.StateReference#getTypeSet()
-	 * @see #getStateReference()
+	 * @see org.osate.aadl2.errormodel.instance.SourceStateReference#getTypeSet()
+	 * @see #getSourceStateReference()
 	 * @generated
 	 */
-	EReference getStateReference_TypeSet();
+	EReference getSourceStateReference_TypeSet();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.AllSources <em>All Sources</em>}'.
@@ -7240,14 +7240,14 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass TRANSITION_SOURCE = eINSTANCE.getTransitionSource();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl <em>State Reference</em>}' class.
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl <em>Source State Reference</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl
-		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getStateReference()
+		 * @see org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getSourceStateReference()
 		 * @generated
 		 */
-		EClass STATE_REFERENCE = eINSTANCE.getStateReference();
+		EClass SOURCE_STATE_REFERENCE = eINSTANCE.getSourceStateReference();
 
 		/**
 		 * The meta object literal for the '<em><b>State</b></em>' reference feature.
@@ -7255,7 +7255,7 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference STATE_REFERENCE__STATE = eINSTANCE.getStateReference_State();
+		EReference SOURCE_STATE_REFERENCE__STATE = eINSTANCE.getSourceStateReference_State();
 
 		/**
 		 * The meta object literal for the '<em><b>Type Set</b></em>' containment reference feature.
@@ -7263,7 +7263,7 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference STATE_REFERENCE__TYPE_SET = eINSTANCE.getStateReference_TypeSet();
+		EReference SOURCE_STATE_REFERENCE__TYPE_SET = eINSTANCE.getSourceStateReference_TypeSet();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.AllSourcesImpl <em>All Sources</em>}' class.
