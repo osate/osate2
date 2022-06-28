@@ -1235,4 +1235,24 @@ public class TransitionTest {
 			});
 		});
 	}
+
+	@Test
+	public void testTypedDestinationWithType() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_destination_with_type.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state2 {ServiceError}", destination.getName());
+				assertEquals("state2", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+	}
 }

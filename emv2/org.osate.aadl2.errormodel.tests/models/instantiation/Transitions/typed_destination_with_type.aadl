@@ -1,0 +1,24 @@
+package typed_destination_with_type
+public
+	system s
+		annex EMV2 {**
+			use behavior typed_destination_with_type::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			events
+				error1: error event;
+			states
+				state1: initial state;
+				state2: state {CommonErrors};
+			transitions
+				transition1: state1 -[error1]-> state2 {ServiceError};
+		end behavior;
+	**};
+end typed_destination_with_type;

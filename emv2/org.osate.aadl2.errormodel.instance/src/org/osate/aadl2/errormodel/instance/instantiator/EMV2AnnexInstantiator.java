@@ -522,7 +522,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		var destinationStateReference = EMV2InstanceFactory.eINSTANCE.createDestinationStateReference();
 		destinationStateReference.setState(findStateInstance(annex, transition.getTarget()));
-		destinationStateReference.setName(destinationStateReference.getState().getName());
+		if (transition.getTargetToken() != null) {
+			destinationStateReference.setTypeSet(createAnonymousTypeSet(transition.getTargetToken()));
+		}
+		var name = destinationStateReference.getState().getName();
+		if (destinationStateReference.getTypeSet() != null) {
+			name += ' ' + destinationStateReference.getTypeSet().getName();
+		}
+		destinationStateReference.setName(name);
 		transitionInstance.setDestination(destinationStateReference);
 
 		annex.getTransitions().add(transitionInstance);
