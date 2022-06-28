@@ -559,7 +559,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		var name = stateReference.getState().getName();
 		if (stateReference.getTypeSet() != null) {
-			name = name + ' ' + stateReference.getTypeSet().getName();
+			name += ' ' + stateReference.getTypeSet().getName();
 		}
 		stateReference.setName(name);
 		return stateReference;
@@ -613,7 +613,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		var name = event.getName();
 		if (eventReference.getTypeSet() != null) {
-			name = name + ' ' + eventReference.getTypeSet().getName();
+			name += ' ' + eventReference.getTypeSet().getName();
 		}
 		eventReference.setName(name);
 		return eventReference;
