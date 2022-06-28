@@ -47,6 +47,7 @@ import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
@@ -73,6 +74,7 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -300,6 +302,20 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass countExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass transitionDestinationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass destinationStateReferenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1364,6 +1380,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getTransitionInstance_Destination() {
+		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getTransitionInstance_Transition() {
 		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -1556,6 +1582,46 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EAttribute getCountExpression_Count() {
 		return (EAttribute) countExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getTransitionDestination() {
+		return transitionDestinationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getDestinationStateReference() {
+		return destinationStateReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDestinationStateReference_State() {
+		return (EReference) destinationStateReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDestinationStateReference_TypeSet() {
+		return (EReference) destinationStateReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2173,6 +2239,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__TRANSITION);
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__SOURCE);
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__CONDITION);
+		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__DESTINATION);
 
 		transitionSourceEClass = createEClass(TRANSITION_SOURCE);
 
@@ -2199,6 +2266,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(countExpressionEClass, COUNT_EXPRESSION__OPERANDS);
 		createEAttribute(countExpressionEClass, COUNT_EXPRESSION__OPERATION);
 		createEAttribute(countExpressionEClass, COUNT_EXPRESSION__COUNT);
+
+		transitionDestinationEClass = createEClass(TRANSITION_DESTINATION);
+
+		destinationStateReferenceEClass = createEClass(DESTINATION_STATE_REFERENCE);
+		createEReference(destinationStateReferenceEClass, DESTINATION_STATE_REFERENCE__STATE);
+		createEReference(destinationStateReferenceEClass, DESTINATION_STATE_REFERENCE__TYPE_SET);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -2289,6 +2362,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		propagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		countExpressionEClass.getESuperTypes().add(getConditionExpressionInstance());
+		transitionDestinationEClass.getESuperTypes().add(getEMV2InstanceObject());
+		destinationStateReferenceEClass.getESuperTypes().add(getTransitionDestination());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2711,6 +2786,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getTransitionInstance_Condition(), getConditionExpressionInstance(), null, "condition", null, 0,
 				1, TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransitionInstance_Destination(), getTransitionDestination(), null, "destination", null, 0, 1,
+				TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(transitionSourceEClass, TransitionSource.class, "TransitionSource", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -2764,6 +2842,21 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				!IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCountExpression_Count(), ecorePackage.getELong(), "count", null, 0, 1, CountExpression.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(transitionDestinationEClass, TransitionDestination.class, "TransitionDestination", IS_ABSTRACT,
+				IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(destinationStateReferenceEClass, DestinationStateReference.class, "DestinationStateReference",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDestinationStateReference_State(), getStateInstance(), null, "state", null, 0, 1,
+				DestinationStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDestinationStateReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				DestinationStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(destinationStateReferenceEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

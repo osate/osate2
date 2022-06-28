@@ -42,6 +42,7 @@ import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
@@ -66,6 +67,7 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -1160,6 +1162,49 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.TRANSITION_DESTINATION: {
+			TransitionDestination transitionDestination = (TransitionDestination) theEObject;
+			T result = caseTransitionDestination(transitionDestination);
+			if (result == null) {
+				result = caseEMV2InstanceObject(transitionDestination);
+			}
+			if (result == null) {
+				result = caseInstanceObject(transitionDestination);
+			}
+			if (result == null) {
+				result = caseNamedElement(transitionDestination);
+			}
+			if (result == null) {
+				result = caseElement(transitionDestination);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.DESTINATION_STATE_REFERENCE: {
+			DestinationStateReference destinationStateReference = (DestinationStateReference) theEObject;
+			T result = caseDestinationStateReference(destinationStateReference);
+			if (result == null) {
+				result = caseTransitionDestination(destinationStateReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(destinationStateReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(destinationStateReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(destinationStateReference);
+			}
+			if (result == null) {
+				result = caseElement(destinationStateReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1612,6 +1657,36 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCountExpression(CountExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Transition Destination</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Transition Destination</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTransitionDestination(TransitionDestination object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Destination State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Destination State Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDestinationStateReference(DestinationStateReference object) {
 		return null;
 	}
 

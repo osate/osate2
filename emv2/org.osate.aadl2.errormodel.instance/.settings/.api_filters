@@ -28,6 +28,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/DestinationStateReference.java" type="org.osate.aadl2.errormodel.instance.DestinationStateReference">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.DestinationStateReference"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/EMV2AnnexInstance.java" type="org.osate.aadl2.errormodel.instance.EMV2AnnexInstance">
         <filter id="1211105284">
             <message_arguments>
@@ -54,6 +61,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="createCountExpression()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="createDestinationStateReference()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -241,6 +253,56 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="COUNT_EXPRESSION__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -655,6 +717,46 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="TRANSITION_DESTINATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="TRANSITION_DESTINATION_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="TRANSITION_DESTINATION__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="TRANSITION_DESTINATION__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="TRANSITION_DESTINATION__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="TRANSITION_DESTINATION__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="TRANSITION_DESTINATION__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="TRANSITION_DESTINATION__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="TRANSITION_INSTANCE"/>
             </message_arguments>
         </filter>
@@ -671,6 +773,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="TRANSITION_INSTANCE__CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="TRANSITION_INSTANCE__DESTINATION"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -781,6 +888,21 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getCountExpression_Operation()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestinationStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestinationStateReference_State()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestinationStateReference_TypeSet()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -915,12 +1037,22 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getTransitionDestination()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getTransitionInstance()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getTransitionInstance_Condition()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getTransitionInstance_Destination()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -973,6 +1105,21 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="COUNT_EXPRESSION__OPERATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_STATE_REFERENCE__TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1107,12 +1254,22 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="TRANSITION_DESTINATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="TRANSITION_INSTANCE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="TRANSITION_INSTANCE__CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="TRANSITION_INSTANCE__DESTINATION"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1192,6 +1349,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/TransitionDestination.java" type="org.osate.aadl2.errormodel.instance.TransitionDestination">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.TransitionDestination"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/TransitionInstance.java" type="org.osate.aadl2.errormodel.instance.TransitionInstance">
         <filter id="1110441988">
             <message_arguments>
@@ -1217,6 +1381,13 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.impl.CountExpressionImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/DestinationStateReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.DestinationStateReferenceImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.DestinationStateReferenceImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -1335,6 +1506,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createDestinationStateReferenceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createErrorEventInstanceAdapter()"/>
             </message_arguments>
         </filter>
@@ -1375,6 +1551,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createTransitionDestinationAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createTransitionInstanceAdapter()"/>
             </message_arguments>
         </filter>
@@ -1398,6 +1579,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseCountExpression(CountExpression)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseDestinationStateReference(DestinationStateReference)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -1438,6 +1624,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseStateReference(StateReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseTransitionDestination(TransitionDestination)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

@@ -519,6 +519,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		transitionInstance.setTransition(transition);
 		transitionInstance.setSource(createTransitionSource(transition, annex));
 		transitionInstance.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
+
+		var destinationStateReference = EMV2InstanceFactory.eINSTANCE.createDestinationStateReference();
+		destinationStateReference.setState(findStateInstance(annex, transition.getTarget()));
+		destinationStateReference.setName(destinationStateReference.getState().getName());
+		transitionInstance.setDestination(destinationStateReference);
+
 		annex.getTransitions().add(transitionInstance);
 	}
 

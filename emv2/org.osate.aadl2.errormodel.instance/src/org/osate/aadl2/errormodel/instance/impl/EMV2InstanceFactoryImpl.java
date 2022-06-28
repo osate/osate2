@@ -41,6 +41,7 @@ import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
@@ -178,6 +179,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createNoErrorPropagationReference();
 		case EMV2InstancePackage.COUNT_EXPRESSION:
 			return createCountExpression();
+		case EMV2InstancePackage.DESTINATION_STATE_REFERENCE:
+			return createDestinationStateReference();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -483,6 +486,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public CountExpression createCountExpression() {
 		CountExpressionImpl countExpression = new CountExpressionImpl();
 		return countExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public DestinationStateReference createDestinationStateReference() {
+		DestinationStateReferenceImpl destinationStateReference = new DestinationStateReferenceImpl();
+		return destinationStateReference;
 	}
 
 	/**

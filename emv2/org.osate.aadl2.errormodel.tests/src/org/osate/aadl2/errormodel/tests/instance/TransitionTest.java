@@ -21,6 +21,7 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
@@ -1211,6 +1212,26 @@ public class TransitionTest {
 						condition.getOperands().stream().map(NamedElement::getName).toList());
 				assertEquals(CountExpressionOperation.LESS_EQUAL, condition.getOperation());
 				assertEquals(3, condition.getCount());
+			});
+		});
+	}
+
+	@Test
+	public void testUntypedDestination() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "untyped_destination.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state2", destination.getName());
+				assertEquals("state2", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
 			});
 		});
 	}

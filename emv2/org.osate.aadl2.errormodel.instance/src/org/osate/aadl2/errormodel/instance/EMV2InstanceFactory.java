@@ -259,6 +259,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	CountExpression createCountExpression();
 
 	/**
+	 * Returns a new object of class '<em>Destination State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Destination State Reference</em>'.
+	 * @generated
+	 */
+	DestinationStateReference createDestinationStateReference();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

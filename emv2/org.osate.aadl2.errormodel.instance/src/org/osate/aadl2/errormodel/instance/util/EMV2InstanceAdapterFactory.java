@@ -43,6 +43,7 @@ import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
@@ -67,6 +68,7 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -356,6 +358,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseCountExpression(CountExpression object) {
 			return createCountExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseTransitionDestination(TransitionDestination object) {
+			return createTransitionDestinationAdapter();
+		}
+
+		@Override
+		public Adapter caseDestinationStateReference(DestinationStateReference object) {
+			return createDestinationStateReferenceAdapter();
 		}
 
 		@Override
@@ -814,6 +826,34 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCountExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TransitionDestination <em>Transition Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.TransitionDestination
+	 * @generated
+	 */
+	public Adapter createTransitionDestinationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.DestinationStateReference <em>Destination State Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.DestinationStateReference
+	 * @generated
+	 */
+	public Adapter createDestinationStateReferenceAdapter() {
 		return null;
 	}
 
