@@ -161,22 +161,4 @@ censes only apply to the Third Party Software and not any other portion of this 
 		<topic href="help/html/AlisaDoc.html#viewing-and-executing-the-assurance-case" label="Viewing and Executing the Assurance Case" >
 		</topic>
 	</topic>
- <topic href="help/html/TypesExpressions.html" label="Types and Expressions in ALISA">
- <topic href="help/html/TypesExpressions.html#specifying-types" label="Specifying Types">
- </topic>
- <topic href="help/html/TypesExpressions.html#expression-notation" label="Expression Notation">
- </topic>
- <topic href="help/html/TypesExpressions.html#primary-expressions" label="Primary Expressions">
- </topic>
- </topic>
- <topic href="help/html/AnalysisResultFormat.html" label="Common Format for Analysis Results and Diagnostics">
- <topic href="help/html/AnalysisResultFormat.html#analysisresult-object-as-record-of-an-analysis-invocation" label="AnalysisResult Object as Record of an Analysis Invocation">
- </topic>
- <topic href="help/html/AnalysisResultFormat.html#result-objects-as-record-of-analysis-results" label="Result Objects as Record of Analysis Results">
- </topic>
- <topic href="help/html/AnalysisResultFormat.html#diagnostic-objects-as-record-of-result-issues" label="Diagnostic Objects as Record of Result Issues">
- </topic>
- </topic>
- <topic href="help/html/ReportGeneration.html" label="Report Generation">
- </topic>
 </toc>

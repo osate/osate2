@@ -9,9 +9,9 @@
 	<properties>
 		<tycho.version>2.7.3</tycho.version>
 		<tycho-extras.version>2.7.3</tycho-extras.version>
-		<eclipse.version>2022-03</eclipse.version>
-		<xtext.version>2.26.0</xtext.version>
-		<xsemantics.version>1.21.0-SNAPSHOT</xsemantics.version>
+		<eclipse.version>2022-06</eclipse.version>
+		<xtext.version>2.27.0</xtext.version>
+		<xsemantics.version>1.22.0-SNAPSHOT</xsemantics.version>
 		<openjfx.version>17.0.2</openjfx.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.12.0-SNAPSHOT</osate.version>
@@ -446,6 +446,7 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
+					<executionEnvironment>JavaSE-17</executionEnvironment>
 					<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
 					<resolver>p2</resolver>
 					<target>

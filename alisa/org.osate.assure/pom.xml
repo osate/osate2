@@ -12,7 +12,7 @@
 
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.assure</artifactId>
-	<version>3.0.9-SNAPSHOT</version>
+	<version>3.0.10-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 </project>
