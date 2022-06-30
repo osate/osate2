@@ -100,6 +100,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="createSameState()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="createSourceStateReference()"/>
             </message_arguments>
         </filter>
@@ -612,6 +617,46 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="SAME_STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SAME_STATE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SAME_STATE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SAME_STATE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SAME_STATE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SAME_STATE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SAME_STATE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="SAME_STATE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="SOURCE_STATE_REFERENCE"/>
             </message_arguments>
         </filter>
@@ -1002,6 +1047,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getSameState()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getSourceStateReference()"/>
             </message_arguments>
         </filter>
@@ -1219,6 +1269,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="SAME_STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="SOURCE_STATE_REFERENCE"/>
             </message_arguments>
         </filter>
@@ -1327,6 +1382,13 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.RepairEventInstance"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/SameState.java" type="org.osate.aadl2.errormodel.instance.SameState">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.SameState"/>
             </message_arguments>
         </filter>
     </resource>
@@ -1462,6 +1524,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/SameStateImpl.java" type="org.osate.aadl2.errormodel.instance.impl.SameStateImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.SameStateImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/SourceStateReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl">
         <filter id="1110441988">
             <message_arguments>
@@ -1541,6 +1610,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createSameStateAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createSourceStateReferenceAdapter()"/>
             </message_arguments>
         </filter>
@@ -1614,6 +1688,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseRepairEventInstance(RepairEventInstance)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseSameState(SameState)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

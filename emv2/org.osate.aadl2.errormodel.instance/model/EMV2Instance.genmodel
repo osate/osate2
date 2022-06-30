@@ -221,5 +221,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//DestinationStateReference/typeSet"/>
       <genOperations ecoreOperation="EMV2Instance.ecore#//DestinationStateReference/getTypeToken"/>
     </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//SameState"/>
   </genPackages>
 </genmodel:GenModel>

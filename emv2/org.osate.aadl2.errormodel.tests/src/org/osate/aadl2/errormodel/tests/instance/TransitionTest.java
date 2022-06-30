@@ -26,6 +26,7 @@ import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
+import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
@@ -1540,6 +1541,23 @@ public class TransitionTest {
 				assertEquals("state15", destination.getState().getName());
 				assertNull(destination.getTypeSet());
 				assertNull(destination.getTypeToken());
+			});
+		});
+	}
+
+	@Test
+	public void testSameState() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "same_state.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((SameState) transition.getDestination(), destination -> {
+				assertEquals("same state", destination.getName());
 			});
 		});
 	}

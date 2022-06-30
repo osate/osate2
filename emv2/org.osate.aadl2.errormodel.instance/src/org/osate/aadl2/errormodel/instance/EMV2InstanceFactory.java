@@ -268,6 +268,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	DestinationStateReference createDestinationStateReference();
 
 	/**
+	 * Returns a new object of class '<em>Same State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Same State</em>'.
+	 * @generated
+	 */
+	SameState createSameState();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

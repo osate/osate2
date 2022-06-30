@@ -60,6 +60,7 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
@@ -181,6 +182,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createCountExpression();
 		case EMV2InstancePackage.DESTINATION_STATE_REFERENCE:
 			return createDestinationStateReference();
+		case EMV2InstancePackage.SAME_STATE:
+			return createSameState();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -497,6 +500,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public DestinationStateReference createDestinationStateReference() {
 		DestinationStateReferenceImpl destinationStateReference = new DestinationStateReferenceImpl();
 		return destinationStateReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SameState createSameState() {
+		SameStateImpl sameState = new SameStateImpl();
+		return sameState;
 	}
 
 	/**

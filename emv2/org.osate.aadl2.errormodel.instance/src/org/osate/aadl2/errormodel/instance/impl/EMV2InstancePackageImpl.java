@@ -71,6 +71,7 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
@@ -316,6 +317,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass destinationStateReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sameStateEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1630,6 +1638,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getSameState() {
+		return sameStateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2273,6 +2291,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(destinationStateReferenceEClass, DESTINATION_STATE_REFERENCE__STATE);
 		createEReference(destinationStateReferenceEClass, DESTINATION_STATE_REFERENCE__TYPE_SET);
 
+		sameStateEClass = createEClass(SAME_STATE);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
@@ -2364,6 +2384,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		countExpressionEClass.getESuperTypes().add(getConditionExpressionInstance());
 		transitionDestinationEClass.getESuperTypes().add(getEMV2InstanceObject());
 		destinationStateReferenceEClass.getESuperTypes().add(getTransitionDestination());
+		sameStateEClass.getESuperTypes().add(getTransitionDestination());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2857,6 +2878,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		addEOperation(destinationStateReferenceEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE,
 				IS_ORDERED);
+
+		initEClass(sameStateEClass, SameState.class, "SameState", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

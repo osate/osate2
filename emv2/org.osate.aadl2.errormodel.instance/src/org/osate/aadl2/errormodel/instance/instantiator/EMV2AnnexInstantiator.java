@@ -520,31 +520,38 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		transitionInstance.setSource(createTransitionSource(transition, annex));
 		transitionInstance.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
 
-		var destinationStateReference = EMV2InstanceFactory.eINSTANCE.createDestinationStateReference();
-		destinationStateReference.setState(findStateInstance(annex, transition.getTarget()));
-		if (transition.getTargetToken() != null) {
-			destinationStateReference.setTypeSet(createAnonymousTypeSet(transition.getTargetToken()));
-		} else if (transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
-				&& !(transitionInstance.getCondition() instanceof CountExpression)) {
-			var sourceTypeSet = sourceStateReference.getTypeSet();
-			AnonymousTypeSet conditionTypeSet = null;
-			if (transitionInstance.getCondition() instanceof EventReference eventReference) {
-				conditionTypeSet = eventReference.getTypeSet();
-			} else if (transitionInstance.getCondition() instanceof PropagationReference propagationReference) {
-				conditionTypeSet = propagationReference.getTypeSet();
+		if (transition.isSteadyState()) {
+			var sameState = EMV2InstanceFactory.eINSTANCE.createSameState();
+			sameState.setName("same state");
+			transitionInstance.setDestination(sameState);
+		} else {
+			var destinationStateReference = EMV2InstanceFactory.eINSTANCE.createDestinationStateReference();
+			destinationStateReference.setState(findStateInstance(annex, transition.getTarget()));
+			if (transition.getTargetToken() != null) {
+				destinationStateReference.setTypeSet(createAnonymousTypeSet(transition.getTargetToken()));
+			} else if (transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
+					&& !(transitionInstance.getCondition() instanceof CountExpression)) {
+				var sourceTypeSet = sourceStateReference.getTypeSet();
+				AnonymousTypeSet conditionTypeSet = null;
+				if (transitionInstance.getCondition() instanceof EventReference eventReference) {
+					conditionTypeSet = eventReference.getTypeSet();
+				} else if (transitionInstance.getCondition() instanceof PropagationReference propagationReference) {
+					conditionTypeSet = propagationReference.getTypeSet();
+				}
+				if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
+					destinationStateReference.setTypeSet(EcoreUtil.copy(sourceTypeSet));
+				} else if (sourceTypeSet == null && conditionTypeSet != null
+						&& conditionTypeSet.flatten().size() == 1) {
+					destinationStateReference.setTypeSet(EcoreUtil.copy(conditionTypeSet));
+				}
 			}
-			if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
-				destinationStateReference.setTypeSet(EcoreUtil.copy(sourceTypeSet));
-			} else if (sourceTypeSet == null && conditionTypeSet != null && conditionTypeSet.flatten().size() == 1) {
-				destinationStateReference.setTypeSet(EcoreUtil.copy(conditionTypeSet));
+			var name = destinationStateReference.getState().getName();
+			if (destinationStateReference.getTypeSet() != null) {
+				name += ' ' + destinationStateReference.getTypeSet().getName();
 			}
+			destinationStateReference.setName(name);
+			transitionInstance.setDestination(destinationStateReference);
 		}
-		var name = destinationStateReference.getState().getName();
-		if (destinationStateReference.getTypeSet() != null) {
-			name += ' ' + destinationStateReference.getTypeSet().getName();
-		}
-		destinationStateReference.setName(name);
-		transitionInstance.setDestination(destinationStateReference);
 
 		annex.getTransitions().add(transitionInstance);
 	}
