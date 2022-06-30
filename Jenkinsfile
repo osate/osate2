@@ -21,7 +21,7 @@ pipeline {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
               sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
-                  -Plocal -Dsonar.login=$SONARTOKEN \
+                  -Plocal -Dsonar.login=$SONARTOKEN -Dsonar.branch.name=${env.BRANCH_NAME} \
                   -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
                   -Dcodecoverage=true -Dspotbugs=true -Djavadoc=false -Dpr.build=true'
             }
