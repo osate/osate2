@@ -21,7 +21,7 @@ pipeline {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
               sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
-                  -Plocal -Dsonar.login=$SONARTOKEN
+                  -Plocal -Dsonar.login=$SONARTOKEN \
                   -Dsonar.pullrequest.provider=GitHub \
                   -Dsonar.pullrequest.github.repository=$(echo $CHANGE_URL | cut -d/ -f4,5) \
                   -Dsonar.pullrequest.key=$CHANGE_ID \
