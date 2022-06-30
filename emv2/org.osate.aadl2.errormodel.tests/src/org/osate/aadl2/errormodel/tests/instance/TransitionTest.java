@@ -1255,4 +1255,292 @@ public class TransitionTest {
 			});
 		});
 	}
+
+	@Test
+	public void testTypedDestinationTypeFromSource() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_destination_type_from_source.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(8, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1 {ServiceError}", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state2 {ServiceError}", destination.getName());
+				assertEquals("state2", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state3 {ServiceError}", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state4 {ServiceError}", destination.getName());
+				assertEquals("state4", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("state5 {ServiceError}", transition.getSource().getName());
+			assertEquals("error2", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state6 {ServiceError}", destination.getName());
+				assertEquals("state6", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition4", transition.getName());
+			assertEquals("transition4", transition.getTransition().getName());
+			assertEquals("state7 {ServiceError}", transition.getSource().getName());
+			assertEquals("error2", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state8 {ServiceError}", destination.getName());
+				assertEquals("state8", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(4), transition -> {
+			assertEquals("transition5", transition.getName());
+			assertEquals("transition5", transition.getTransition().getName());
+			assertEquals("state9 {ServiceError}", transition.getSource().getName());
+			assertEquals("f1 {noerror}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state10 {ServiceError}", destination.getName());
+				assertEquals("state10", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(5), transition -> {
+			assertEquals("transition6", transition.getName());
+			assertEquals("transition6", transition.getTransition().getName());
+			assertEquals("state11 {ServiceError}", transition.getSource().getName());
+			assertEquals("f2 {noerror}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state12 {ServiceError}", destination.getName());
+				assertEquals("state12", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(6), transition -> {
+			assertEquals("transition7", transition.getName());
+			assertEquals("transition7", transition.getTransition().getName());
+			assertEquals("state13 {ServiceError}", transition.getSource().getName());
+			assertEquals("sub1.f3 {noerror}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state14 {ServiceError}", destination.getName());
+				assertEquals("state14", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(7), transition -> {
+			assertEquals("transition8", transition.getName());
+			assertEquals("transition8", transition.getTransition().getName());
+			assertEquals("state15 {ServiceError}", transition.getSource().getName());
+			assertEquals("sub1.f4 {noerror}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state16 {ServiceError}", destination.getName());
+				assertEquals("state16", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testTypedDestinationTypeFromCondition() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_destination_type_from_condition.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(6, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1 {ServiceError}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state2 {ServiceError}", destination.getName());
+				assertEquals("state2", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state3", transition.getSource().getName());
+			assertEquals("f1 {ServiceError}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state4 {ServiceError}", destination.getName());
+				assertEquals("state4", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("state5", transition.getSource().getName());
+			assertEquals("sub1.f3 {ServiceError}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state6 {ServiceError}", destination.getName());
+				assertEquals("state6", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition4", transition.getName());
+			assertEquals("transition4", transition.getTransition().getName());
+			assertEquals("state7", transition.getSource().getName());
+			assertEquals("error2 {ServiceError}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state8 {ServiceError}", destination.getName());
+				assertEquals("state8", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(4), transition -> {
+			assertEquals("transition5", transition.getName());
+			assertEquals("transition5", transition.getTransition().getName());
+			assertEquals("state9", transition.getSource().getName());
+			assertEquals("f2 {ServiceError}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state10 {ServiceError}", destination.getName());
+				assertEquals("state10", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getTransitions().get(5), transition -> {
+			assertEquals("transition6", transition.getName());
+			assertEquals("transition6", transition.getTransition().getName());
+			assertEquals("state11", transition.getSource().getName());
+			assertEquals("sub1.f4 {ServiceError}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state12 {ServiceError}", destination.getName());
+				assertEquals("state12", destination.getState().getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testTypedDestinationCannotDetermineType() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_destination_cannot_determine_type.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(8, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1 {ServiceError}", transition.getSource().getName());
+			assertEquals("error1 {ItemTimingError}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state2", destination.getName());
+				assertEquals("state2", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state3 {CommonErrors}", transition.getSource().getName());
+			assertEquals("error1 {CommonErrors}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state4", destination.getName());
+				assertEquals("state4", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("state5 {ServiceError, ItemTimingError}", transition.getSource().getName());
+			assertEquals("error2", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state6", destination.getName());
+				assertEquals("state6", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition4", transition.getName());
+			assertEquals("transition4", transition.getTransition().getName());
+			assertEquals("state7", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state8", destination.getName());
+				assertEquals("state8", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getTransitions().get(4), transition -> {
+			assertEquals("transition5", transition.getName());
+			assertEquals("transition5", transition.getTransition().getName());
+			assertEquals("state9", transition.getSource().getName());
+			assertEquals("f1 {noerror}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state10", destination.getName());
+				assertEquals("state10", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getTransitions().get(5), transition -> {
+			assertEquals("transition6", transition.getName());
+			assertEquals("transition6", transition.getTransition().getName());
+			assertEquals("state11", transition.getSource().getName());
+			assertEquals("sub1.f2 {noerror}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state12", destination.getName());
+				assertEquals("state12", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getTransitions().get(6), transition -> {
+			assertEquals("transition7", transition.getName());
+			assertEquals("transition7", transition.getTransition().getName());
+			assertEquals("all", transition.getSource().getName());
+			assertEquals("error1 {CommonErrors}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state13", destination.getName());
+				assertEquals("state13", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getTransitions().get(7), transition -> {
+			assertEquals("transition8", transition.getName());
+			assertEquals("transition8", transition.getTransition().getName());
+			assertEquals("state14", transition.getSource().getName());
+			assertEquals("error1 {ServiceError, ItemTimingError}", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state15", destination.getName());
+				assertEquals("state15", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+	}
 }

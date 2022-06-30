@@ -1,0 +1,74 @@
+package typed_destination_type_from_source
+public
+	system s
+		features
+			f1: in feature;
+			f2: in feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: abstract a1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior typed_destination_type_from_source::machine1;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+				f2: in propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				events
+					error1: error event;
+					error2: error event {CommonErrors};
+				transitions
+					transition1: state1 {ServiceError} -[error1]-> state2;
+					transition2: state3 -[error1]-> state4;
+					transition3: state5 {ServiceError} -[error2 {noerror}]-> state6;
+					transition4: state7 -[error2 {noerror}]-> state8;
+					transition5: state9 {ServiceError} -[f1 {noerror}]-> state10;
+					transition6: state11 -[f2 {noerror}]-> state12;
+					transition7: state13 {ServiceError} -[sub1.f3 {noerror}]-> state14;
+					transition8: state15 -[sub1.f4 {noerror}]-> state16;
+			end component;
+		**};
+	end s.i;
+	
+	abstract a1
+		features
+			f3: out feature;
+			f4: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f3: out propagation {CommonErrors};
+				f4: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end a1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state {CommonErrors};
+				state2: state {CommonErrors};
+				state3: state {ServiceError};
+				state4: state {CommonErrors};
+				state5: state {CommonErrors};
+				state6: state {CommonErrors};
+				state7: state {ServiceError};
+				state8: state {CommonErrors};
+				state9: state {CommonErrors};
+				state10: state {CommonErrors};
+				state11: state {ServiceError};
+				state12: state {CommonErrors};
+				state13: state {CommonErrors};
+				state14: state {CommonErrors};
+				state15: state {ServiceError};
+				state16: state {CommonErrors};
+		end behavior;
+	**};
+end typed_destination_type_from_source;
