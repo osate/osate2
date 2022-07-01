@@ -7,6 +7,27 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/Branch.java" type="org.osate.aadl2.errormodel.instance.Branch">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.Branch"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/BranchStateReference.java" type="org.osate.aadl2.errormodel.instance.BranchStateReference">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.BranchStateReference"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/Branches.java" type="org.osate.aadl2.errormodel.instance.Branches">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.Branches"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/ConditionExpressionInstance.java" type="org.osate.aadl2.errormodel.instance.ConditionExpressionInstance">
         <filter id="1110441988">
             <message_arguments>
@@ -1439,6 +1460,27 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/BranchImpl.java" type="org.osate.aadl2.errormodel.instance.impl.BranchImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.BranchImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/BranchStateReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.BranchStateReferenceImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.BranchStateReferenceImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/BranchesImpl.java" type="org.osate.aadl2.errormodel.instance.impl.BranchesImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.BranchesImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/CountExpressionImpl.java" type="org.osate.aadl2.errormodel.instance.impl.CountExpressionImpl">
         <filter id="1110441988">
             <message_arguments>
@@ -1478,7 +1520,54 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createBranchStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createBranches()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createCountExpressionOperationFromString(EDataType, String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/EMV2InstancePackageImpl.java" type="org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getBranch()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getBranchStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getBranchStateReference_State()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getBranchStateReference_TypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getBranch_Probability()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getBranches()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getBranches_Branches()"/>
             </message_arguments>
         </filter>
     </resource>
@@ -1565,6 +1654,21 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createBranchAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createBranchStateReferenceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createBranchesAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createConditionExpressionInstanceAdapter()"/>
             </message_arguments>
         </filter>
@@ -1643,6 +1747,21 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseAllSources(AllSources)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseBranch(Branch)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseBranchStateReference(BranchStateReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseBranches(Branches)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

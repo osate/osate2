@@ -34,6 +34,9 @@ import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
+import org.osate.aadl2.errormodel.instance.Branch;
+import org.osate.aadl2.errormodel.instance.BranchStateReference;
+import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
@@ -1229,6 +1232,72 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.BRANCHES: {
+			Branches branches = (Branches) theEObject;
+			T result = caseBranches(branches);
+			if (result == null) {
+				result = caseTransitionDestination(branches);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(branches);
+			}
+			if (result == null) {
+				result = caseInstanceObject(branches);
+			}
+			if (result == null) {
+				result = caseNamedElement(branches);
+			}
+			if (result == null) {
+				result = caseElement(branches);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.BRANCH: {
+			Branch branch = (Branch) theEObject;
+			T result = caseBranch(branch);
+			if (result == null) {
+				result = caseEMV2InstanceObject(branch);
+			}
+			if (result == null) {
+				result = caseInstanceObject(branch);
+			}
+			if (result == null) {
+				result = caseNamedElement(branch);
+			}
+			if (result == null) {
+				result = caseElement(branch);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.BRANCH_STATE_REFERENCE: {
+			BranchStateReference branchStateReference = (BranchStateReference) theEObject;
+			T result = caseBranchStateReference(branchStateReference);
+			if (result == null) {
+				result = caseBranch(branchStateReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(branchStateReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(branchStateReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(branchStateReference);
+			}
+			if (result == null) {
+				result = caseElement(branchStateReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1726,6 +1795,51 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSameState(SameState object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Branches</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Branches</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBranches(Branches object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Branch</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Branch</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBranch(Branch object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Branch State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Branch State Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBranchStateReference(BranchStateReference object) {
 		return null;
 	}
 

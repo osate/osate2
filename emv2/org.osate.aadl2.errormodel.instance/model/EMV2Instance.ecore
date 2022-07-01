@@ -287,4 +287,17 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SameState" eSuperTypes="#//TransitionDestination"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Branches" eSuperTypes="#//TransitionDestination">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="branches" upperBound="-1"
+        eType="#//Branch" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Branch" abstract="true" eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="probability" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BranchStateReference" eSuperTypes="#//Branch">
+    <eOperations name="getTypeToken" eType="#//TypeTokenInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

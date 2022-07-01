@@ -4,8 +4,10 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.osate.pluginsupport.ScopeFunctions.with;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.eclipse.xtext.testing.InjectWith;
@@ -19,6 +21,8 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllSources;
+import org.osate.aadl2.errormodel.instance.BranchStateReference;
+import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
@@ -1558,6 +1562,125 @@ public class TransitionTest {
 			assertEquals("error1", transition.getCondition().getName());
 			with((SameState) transition.getDestination(), destination -> {
 				assertEquals("same state", destination.getName());
+			});
+		});
+	}
+
+	@Test
+	public void testBranchProbabilities() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "branch_probabilities.aadl", PATH + "my_set.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(4, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state2 with 0.20001, state3 with 0.79999)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state2 with 0.20001", branch.getName());
+					assertEquals("state2", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.20001")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state3 with 0.79999", branch.getName());
+					assertEquals("state3", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.79999")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state4", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state5 with my_set::my_real, state6 with my_set::my_real)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state5 with my_set::my_real", branch.getName());
+					assertEquals("state5", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertNull(branch.getProbability());
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state6 with my_set::my_real", branch.getName());
+					assertEquals("state6", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertNull(branch.getProbability());
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("transition3", transition.getName());
+			assertEquals("transition3", transition.getTransition().getName());
+			assertEquals("state7", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state8 with 0.1, state9 with 0.2, state10 with 0.7)", destination.getName());
+				assertEquals(3, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state8 with 0.1", branch.getName());
+					assertEquals("state8", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state9 with 0.2", branch.getName());
+					assertEquals("state9", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.2")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(2), branch -> {
+					assertEquals("state10 with 0.7", branch.getName());
+					assertEquals("state10", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.7")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("transition4", transition.getName());
+			assertEquals("transition4", transition.getTransition().getName());
+			assertEquals("state11", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state12 with my_set::my_real, state13 with 0.25, state14 with others)",
+						destination.getName());
+				assertEquals(3, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state12 with my_set::my_real", branch.getName());
+					assertEquals("state12", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertNull(branch.getProbability());
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state13 with 0.25", branch.getName());
+					assertEquals("state13", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.25")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(2), branch -> {
+					assertEquals("state14 with others", branch.getName());
+					assertEquals("state14", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertNull(branch.getProbability());
+				});
 			});
 		});
 	}

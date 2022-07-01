@@ -26,6 +26,7 @@ package org.osate.aadl2.errormodel.instance.instantiator;
 import static org.eclipse.xtext.EcoreUtil2.getContainerOfType;
 import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.isNoError;
 
+import java.math.BigDecimal;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -524,6 +525,51 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			var sameState = EMV2InstanceFactory.eINSTANCE.createSameState();
 			sameState.setName("same state");
 			transitionInstance.setDestination(sameState);
+		} else if (!transition.getDestinationBranches().isEmpty()) {
+			var hasOthers = false;
+			var hasProperty = false;
+			for (var branch : transition.getDestinationBranches()) {
+				if (branch.getValue().isOthers()) {
+					hasOthers = true;
+				}
+				if (branch.getValue().getSymboliclabel() != null) {
+					hasProperty = true;
+				}
+			}
+			BigDecimal remaining = null;
+			if (hasOthers && !hasProperty) {
+				var sum = new BigDecimal(0);
+				for (var branch : transition.getDestinationBranches()) {
+					if (branch.getValue().getRealvalue() != null) {
+						sum = sum.add(new BigDecimal(branch.getValue().getRealvalue().replace("_", "")));
+					}
+				}
+				remaining = new BigDecimal(1).subtract(sum);
+			}
+			var branches = EMV2InstanceFactory.eINSTANCE.createBranches();
+			for (var branch : transition.getDestinationBranches()) {
+				var branchStateReference = EMV2InstanceFactory.eINSTANCE.createBranchStateReference();
+				branchStateReference.setState(findStateInstance(annex, branch.getTarget()));
+				var name = branchStateReference.getState().getName() + " with ";
+				if (branch.getValue().getRealvalue() != null) {
+					branchStateReference
+							.setProbability(new BigDecimal(branch.getValue().getRealvalue().replace("_", "")));
+					branchStateReference.setName(name + branchStateReference.getProbability());
+				} else if (branch.getValue().getSymboliclabel() != null) {
+					branchStateReference.setName(name + branch.getValue().getSymboliclabel().getQualifiedName());
+				} else if (remaining != null) {
+					branchStateReference.setProbability(remaining);
+					branchStateReference.setName(name + branchStateReference.getProbability());
+				} else {
+					branchStateReference.setName(name + "others");
+				}
+				branches.getBranches().add(branchStateReference);
+			}
+			branches.setName(branches.getBranches()
+					.stream()
+					.map(NamedElement::getName)
+					.collect(Collectors.joining(", ", "(", ")")));
+			transitionInstance.setDestination(branches);
 		} else {
 			var destinationStateReference = EMV2InstanceFactory.eINSTANCE.createDestinationStateReference();
 			destinationStateReference.setState(findStateInstance(annex, transition.getTarget()));
