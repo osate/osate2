@@ -56,7 +56,7 @@ import com.google.inject.Inject;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class BasicBinding {
+public class BasicBindingTests {
 	@Inject
 	TestHelper<AadlPackage> myTestHelper;
 

@@ -1,0 +1,69 @@
+package BasicAccess
+public
+
+	system s
+
+	end s;
+
+	system implementation s.impl
+		subcomponents
+			proc: process p.impl;
+	end s.impl;
+
+	process p
+
+	end p;
+
+	process implementation p.impl
+		subcomponents
+			thd1: thread t1;
+			thd2: thread t2;
+			dat: data d;
+		connections
+			a1: data access thd1.req_d -> dat;
+			a2: data access dat -> thd2.req_d;
+	end p.impl;
+
+	thread t1
+		features
+			req_d: requires data access d;
+			
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				req_d: out propagation {ServiceError};
+				flows
+					src : error source req_d {ServiceError}; 
+			end propagations;
+		**};
+	end t1;
+	
+	thread t2
+		features
+			req_d: requires data access d;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				req_d: in propagation {ServiceError};
+				flows
+					snk : error sink req_d {ServiceError};
+			end propagations;
+		**};
+	end t2;
+
+	data d
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				access : in propagation {ServiceError};
+				access : out propagation {ServiceError};
+				flows
+					p : error path access{ServiceError} -> access{ServiceError};
+			end propagations;
+		**};
+	end d;
+
+end BasicAccess;

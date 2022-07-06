@@ -31,7 +31,7 @@ import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.slicer.iobjadapters.BoundComponentInstanceAdapter;
 import org.osate.slicer.iobjadapters.ErrorFlowInstanceAdapter;
@@ -66,7 +66,7 @@ public class OsateSlicerVertex {
 	 * Create a new vertex with the supplied feature, but no error type information
 	 * @param feat The feature the vertex represents
 	 */
-	public OsateSlicerVertex(FeatureInstance feat) {
+	public OsateSlicerVertex(ConnectionInstanceEnd feat) {
 		this.token = null;
 		this.element = new FeatureInstanceAdapter(feat);
 	}
@@ -76,7 +76,7 @@ public class OsateSlicerVertex {
 	 * @param feat The feature the vertex represents
 	 * @param token The error(s) the vertex represents
 	 */
-	public OsateSlicerVertex(FeatureInstance feat, TypeTokenInstance token) {
+	public OsateSlicerVertex(ConnectionInstanceEnd feat, TypeTokenInstance token) {
 		this.token = token;
 		this.element = new FeatureInstanceAdapter(feat);
 	}

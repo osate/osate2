@@ -49,6 +49,7 @@ import org.jgrapht.nio.dot.DOTExporter;
 import org.jgrapht.traverse.BreadthFirstIterator;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
@@ -63,9 +64,11 @@ import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
+import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -133,6 +136,7 @@ public class SlicerRepresentation {
 			coreSwitch.doSwitch((Element) elem);
 		});
 
+		System.setProperty(EMV2AnnexInstantiator.PROPERTY_NAME, "true");
 		// Add vertices and edges from EMV2 instance
 		Emv2SlicerSwitch emv2Switch = new Emv2SlicerSwitch();
 		EcoreUtil.getAllContents(si.eResource(), true).forEachRemaining(elem -> {
@@ -158,7 +162,7 @@ public class SlicerRepresentation {
 	 * @param feat The feature
 	 * @return The name of the newly-created and added vertex
 	 */
-	private String addVertex(FeatureInstance feat) {
+	private String addVertex(ConnectionInstanceEnd feat) {
 		var name = feat.getInstanceObjectPath();
 		if (vertexMap.containsKey(name)) {
 			return name; // No duplicates allowed
@@ -176,7 +180,7 @@ public class SlicerRepresentation {
 	 * @param ats The error(s) propagated into or out of this feature
 	 * @return The name of the newly-created and added vertex
 	 */
-	private String addVertex(FeatureInstance feat, TypeTokenInstance token) {
+	private String addVertex(ConnectionInstanceEnd feat, TypeTokenInstance token) {
 		var name = feat.getInstanceObjectPath();
 		if ((token == null && vertexMap.containsKey(name))
 				|| (token != null && vertexMap.containsKey(name + "." + token.getFullName()))) {
@@ -224,6 +228,20 @@ public class SlicerRepresentation {
 		g.addVertex(v);
 		vertexMap.put(v.getName(), v);
 		return v.getName();
+	}
+
+	private String addVertex(ErrorPropagationInstance prop, TypeTokenInstance tti) {
+		if (prop instanceof FeaturePropagation) {
+			return addVertex(((FeaturePropagation) prop).getFeature(), tti);
+		} else if (prop instanceof AccessPropagation) {
+			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
+			return addVertex(component, tti);
+		} else if (prop instanceof BindingPropagation) {
+			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
+			var bindingType = ((BindingPropagation) prop).getBinding();
+			return addVertex(component, bindingType, tti);
+		}
+		return null;
 	}
 
 	/**
@@ -275,14 +293,13 @@ public class SlicerRepresentation {
 	 * @return The set of reachable features and errors
 	 */
 	public Collection<IObjErrorPair> forwardReach(InstanceObject featOrEFI, TypeTokenInstance token) {
+		Set<IObjErrorPair> retSet = new HashSet<>();
+		String infix = ".";
 		if (!(featOrEFI instanceof FeatureInstance || featOrEFI instanceof ErrorSourceInstance
 				|| featOrEFI instanceof ErrorSinkInstance)) {
-			System.err.println("Unsupported InstanceObject " + featOrEFI.getInstanceObjectPath()
-					+ " used in forward reachability query!");
-			return Collections.emptySet();
+			infix = ".access.";
 		}
-		Set<IObjErrorPair> retSet = new HashSet<>();
-		forwardReachability(featOrEFI.getInstanceObjectPath() + "." + token.getFullName()).vertexSet().forEach(v -> {
+		forwardReachability(featOrEFI.getInstanceObjectPath() + infix + token.getFullName()).vertexSet().forEach(v -> {
 			retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
 		});
 		return retSet;
@@ -345,14 +362,13 @@ public class SlicerRepresentation {
 	 * @return The set of reachable features and errors
 	 */
 	public Collection<IObjErrorPair> backwardReach(InstanceObject featOrEFI, TypeTokenInstance token) {
+		Set<IObjErrorPair> retSet = new HashSet<>();
+		String infix = ".";
 		if (!(featOrEFI instanceof FeatureInstance || featOrEFI instanceof ErrorSourceInstance
 				|| featOrEFI instanceof ErrorSinkInstance)) {
-			System.err.println("Unsupported InstanceObject " + featOrEFI.getInstanceObjectPath()
-					+ " used in backward reachability query!");
-			return Collections.emptySet();
+			infix = ".access.";
 		}
-		Set<IObjErrorPair> retSet = new HashSet<>();
-		backwardReachability(featOrEFI.getInstanceObjectPath() + "." + token.getFullName()).vertexSet().forEach(v -> {
+		backwardReachability(featOrEFI.getInstanceObjectPath() + infix + token.getFullName()).vertexSet().forEach(v -> {
 			retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
 		});
 		return retSet;
@@ -523,7 +539,7 @@ public class SlicerRepresentation {
 					}
 				}
 			}
-		// We keep redoing this until we walked over each source vertex without adding anything new
+			// We keep redoing this until we walked over each source vertex without adding anything new
 		} while (edgesModified);
 	}
 
@@ -588,14 +604,7 @@ public class SlicerRepresentation {
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance tti = (TypeTokenInstance) tse;
 				String srcVertexName = addVertex(esi, tti);
-				String tgtVertexName = null;
-				if (prop instanceof FeaturePropagation) {
-					tgtVertexName = addVertex(((FeaturePropagation) prop).getFeature(), tti);
-				} else if (prop instanceof BindingPropagation) {
-					var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
-					var bindingType = ((BindingPropagation) prop).getBinding();
-					tgtVertexName = addVertex(component, bindingType, tti);
-				}
+				String tgtVertexName = addVertex(prop, tti);
 				addEdge(srcVertexName, tgtVertexName);
 			});
 			return null;
@@ -608,33 +617,36 @@ public class SlicerRepresentation {
 			dstTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance tti = (TypeTokenInstance) tse;
 				String tgtVertexName = addVertex(esi, tti);
-				String srcVertexName = null;
-				if (prop instanceof FeaturePropagation) {
-					srcVertexName = addVertex(((FeaturePropagation) prop).getFeature(), tti);
-				} else if (prop instanceof BindingPropagation) {
-					var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
-					var bindingType = ((BindingPropagation) prop).getBinding();
-					srcVertexName = addVertex(component, bindingType, tti);
-				}
+				String srcVertexName = addVertex(prop, tti);
 				addEdge(srcVertexName, tgtVertexName);
 			});
 			return null;
 		}
 
+		@Override
+		public Void caseElement(Element e) {
+			// for debugging
+			return null;
+		}
 
 		@Override
 		public Void caseErrorPathInstance(ErrorPathInstance epi) {
-			if (epi.getDestinationPropagation() instanceof BindingPropagation
-					|| epi.getSourcePropagation() instanceof BindingPropagation) {
+			var destProp = epi.getDestinationPropagation();
+			var destTTI = epi.getDestinationTypeToken();
+			String tgtVertexName = addVertex(destProp, destTTI);
+			if (epi.getSourcePropagation().equals(epi.getDestinationPropagation())) {
+				// Because the EMV2 instantiator does not create new propagations for different directions, we skip
+				// re-creating the vertex and then giving it an edge to itself by just bailing out here.
+				// see, in the EMV2 instantiator documentation, the section on Propagations#Propagations-Direction
 				return null;
 			}
-			var tgtVertexName = addVertex(((FeaturePropagation) epi.getDestinationPropagation()).getFeature(),
-					epi.getDestinationTypeToken());
 			var srcTypes = epi.getSourceTypeSet().getElements();
+			var srcProp = epi.getSourcePropagation();
+			final String tgtVertexNameFinal = new String(tgtVertexName);
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
-				TypeTokenInstance tti = (TypeTokenInstance) tse;
-				String srcVertexName = addVertex(((FeaturePropagation) epi.getSourcePropagation()).getFeature(), tti);
-				addEdge(srcVertexName, tgtVertexName);
+				TypeTokenInstance srcTTI = (TypeTokenInstance) tse;
+				String srcVertexName = addVertex(srcProp, srcTTI);
+				addEdge(srcVertexName, tgtVertexNameFinal);
 			});
 			return null;
 		}
@@ -642,7 +654,7 @@ public class SlicerRepresentation {
 		@Override
 		public Void casePropagationPathInstance(PropagationPathInstance ppi) {
 			String srcName = "unknown";
-			if(ppi instanceof ConnectionPath) {
+			if (ppi instanceof ConnectionPath) {
 				srcName = ((ConnectionPath) ppi).getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "");
 			} else if (ppi instanceof BindingPath) {
 				srcName = ((BindingPath) ppi).getSourcePropagations()
@@ -652,6 +664,17 @@ public class SlicerRepresentation {
 			}
 			possiblePropagations.put(srcName, new PossiblePropagation(ppi));
 			return null;
+		}
+
+		@Override
+		public Void caseAccessPropagation(AccessPropagation object) {
+			// TODO Auto-generated method stub
+			return super.caseAccessPropagation(object);
+		}
+
+		@Override
+		public Void caseConnectionPath(ConnectionPath cp) {
+			return super.caseConnectionPath(cp);
 		}
 	}
 
@@ -684,6 +707,8 @@ public class SlicerRepresentation {
 		@Override
 		public Void caseConnectionInstance(ConnectionInstance ci) {
 			for (ConnectionReference cr : ci.getConnectionReferences()) {
+				addVertex(cr.getSource());
+				addVertex(cr.getDestination());
 				addEdge(cr.getSource().getInstanceObjectPath(), cr.getDestination().getInstanceObjectPath());
 			}
 
