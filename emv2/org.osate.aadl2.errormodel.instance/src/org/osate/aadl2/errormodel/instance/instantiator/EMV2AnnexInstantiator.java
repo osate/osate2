@@ -550,7 +550,29 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			for (var branch : transition.getDestinationBranches()) {
 				var branchStateReference = EMV2InstanceFactory.eINSTANCE.createBranchStateReference();
 				branchStateReference.setState(findStateInstance(annex, branch.getTarget()));
-				var name = branchStateReference.getState().getName() + " with ";
+				if (branch.getTargetToken() != null) {
+					branchStateReference.setTypeSet(createAnonymousTypeSet(branch.getTargetToken()));
+				} else if (transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
+						&& !(transitionInstance.getCondition() instanceof CountExpression)) {
+					var sourceTypeSet = sourceStateReference.getTypeSet();
+					AnonymousTypeSet conditionTypeSet = null;
+					if (transitionInstance.getCondition() instanceof EventReference eventReference) {
+						conditionTypeSet = eventReference.getTypeSet();
+					} else if (transitionInstance.getCondition() instanceof PropagationReference propagationReference) {
+						conditionTypeSet = propagationReference.getTypeSet();
+					}
+					if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
+						branchStateReference.setTypeSet(EcoreUtil.copy(sourceTypeSet));
+					} else if (sourceTypeSet == null && conditionTypeSet != null
+							&& conditionTypeSet.flatten().size() == 1) {
+						branchStateReference.setTypeSet(EcoreUtil.copy(conditionTypeSet));
+					}
+				}
+				var name = branchStateReference.getState().getName();
+				if (branchStateReference.getTypeSet() != null) {
+					name += ' ' + branchStateReference.getTypeSet().getName();
+				}
+				name += " with ";
 				if (branch.getValue().getRealvalue() != null) {
 					branchStateReference
 							.setProbability(new BigDecimal(branch.getValue().getRealvalue().replace("_", "")));

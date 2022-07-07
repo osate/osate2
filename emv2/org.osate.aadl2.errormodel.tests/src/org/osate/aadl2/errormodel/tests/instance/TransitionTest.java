@@ -1684,4 +1684,602 @@ public class TransitionTest {
 			});
 		});
 	}
+
+	@Test
+	public void testBranchStateReference() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "branch_state_reference.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(24, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("cannot_determine_type_1", transition.getName());
+			assertEquals("cannot_determine_type_1", transition.getTransition().getName());
+			assertEquals("state49 {ServiceError}", transition.getSource().getName());
+			assertEquals("error2 {ItemTimingError}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state50 with 0.1, state51 with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state50 with 0.1", branch.getName());
+					assertEquals("state50", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state51 with 0.9", branch.getName());
+					assertEquals("state51", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("cannot_determine_type_2", transition.getName());
+			assertEquals("cannot_determine_type_2", transition.getTransition().getName());
+			assertEquals("state52 {CommonErrors}", transition.getSource().getName());
+			assertEquals("error2 {CommonErrors}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state53 with 0.1, state54 with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state53 with 0.1", branch.getName());
+					assertEquals("state53", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state54 with 0.9", branch.getName());
+					assertEquals("state54", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(2), transition -> {
+			assertEquals("cannot_determine_type_3", transition.getName());
+			assertEquals("cannot_determine_type_3", transition.getTransition().getName());
+			assertEquals("state55 {ServiceError, ItemTimingError}", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state56 with 0.1, state57 with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state56 with 0.1", branch.getName());
+					assertEquals("state56", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state57 with 0.9", branch.getName());
+					assertEquals("state57", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(3), transition -> {
+			assertEquals("cannot_determine_type_4", transition.getName());
+			assertEquals("cannot_determine_type_4", transition.getTransition().getName());
+			assertEquals("state58", transition.getSource().getName());
+			assertEquals("error2", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state59 with 0.1, state60 with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state59 with 0.1", branch.getName());
+					assertEquals("state59", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state60 with 0.9", branch.getName());
+					assertEquals("state60", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(4), transition -> {
+			assertEquals("cannot_determine_type_5", transition.getName());
+			assertEquals("cannot_determine_type_5", transition.getTransition().getName());
+			assertEquals("state61", transition.getSource().getName());
+			assertEquals("f1 {noerror}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state62 with 0.1, state63 with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state62 with 0.1", branch.getName());
+					assertEquals("state62", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state63 with 0.9", branch.getName());
+					assertEquals("state63", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(5), transition -> {
+			assertEquals("cannot_determine_type_6", transition.getName());
+			assertEquals("cannot_determine_type_6", transition.getTransition().getName());
+			assertEquals("state64", transition.getSource().getName());
+			assertEquals("sub1.f4 {noerror}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state65 with 0.1, state66 with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state65 with 0.1", branch.getName());
+					assertEquals("state65", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state66 with 0.9", branch.getName());
+					assertEquals("state66", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(6), transition -> {
+			assertEquals("cannot_determine_type_7", transition.getName());
+			assertEquals("cannot_determine_type_7", transition.getTransition().getName());
+			assertEquals("all", transition.getSource().getName());
+			assertEquals("error2 {CommonErrors}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state67 with 0.1, state68 with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state67 with 0.1", branch.getName());
+					assertEquals("state67", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state68 with 0.9", branch.getName());
+					assertEquals("state68", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(7), transition -> {
+			assertEquals("cannot_determine_type_8", transition.getName());
+			assertEquals("cannot_determine_type_8", transition.getTransition().getName());
+			assertEquals("state69", transition.getSource().getName());
+			assertEquals("error2 {ServiceError, ItemTimingError}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state70 with 0.1, state71 with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state70 with 0.1", branch.getName());
+					assertEquals("state70", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state71 with 0.9", branch.getName());
+					assertEquals("state71", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(8), transition -> {
+			assertEquals("from_condition_1", transition.getName());
+			assertEquals("from_condition_1", transition.getTransition().getName());
+			assertEquals("state31", transition.getSource().getName());
+			assertEquals("error2 {ServiceError}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state32 {ServiceError} with 0.1, state33 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state32 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state32", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state33 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state33", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(9), transition -> {
+			assertEquals("from_condition_2", transition.getName());
+			assertEquals("from_condition_2", transition.getTransition().getName());
+			assertEquals("state34", transition.getSource().getName());
+			assertEquals("f1 {ServiceError}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state35 {ServiceError} with 0.1, state36 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state35 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state35", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state36 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state36", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(10), transition -> {
+			assertEquals("from_condition_3", transition.getName());
+			assertEquals("from_condition_3", transition.getTransition().getName());
+			assertEquals("state37", transition.getSource().getName());
+			assertEquals("sub1.f4 {ServiceError}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state38 {ServiceError} with 0.1, state39 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state38 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state38", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state39 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state39", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(11), transition -> {
+			assertEquals("from_condition_4", transition.getName());
+			assertEquals("from_condition_4", transition.getTransition().getName());
+			assertEquals("state40", transition.getSource().getName());
+			assertEquals("error3 {ServiceError}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state41 {ServiceError} with 0.1, state42 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state41 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state41", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state42 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state42", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(12), transition -> {
+			assertEquals("from_condition_5", transition.getName());
+			assertEquals("from_condition_5", transition.getTransition().getName());
+			assertEquals("state43", transition.getSource().getName());
+			assertEquals("f3 {ServiceError}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state44 {ServiceError} with 0.1, state45 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state44 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state44", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state45 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state45", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(13), transition -> {
+			assertEquals("from_condition_6", transition.getName());
+			assertEquals("from_condition_6", transition.getTransition().getName());
+			assertEquals("state46", transition.getSource().getName());
+			assertEquals("sub1.f6 {ServiceError}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state47 {ServiceError} with 0.1, state48 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state47 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state47", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state48 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state48", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(14), transition -> {
+			assertEquals("from_source_1", transition.getName());
+			assertEquals("from_source_1", transition.getTransition().getName());
+			assertEquals("state7 {ServiceError}", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state8 {ServiceError} with 0.1, state9 {ServiceError} with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state8 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state8", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state9 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state9", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(15), transition -> {
+			assertEquals("from_source_2", transition.getName());
+			assertEquals("from_source_2", transition.getTransition().getName());
+			assertEquals("state10 {ServiceError}", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state11 {ServiceError} with 0.1, state12 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state11 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state11", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state12 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state12", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(16), transition -> {
+			assertEquals("from_source_3", transition.getName());
+			assertEquals("from_source_3", transition.getTransition().getName());
+			assertEquals("state13 {ServiceError}", transition.getSource().getName());
+			assertEquals("error2", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state14 {ServiceError} with 0.1, state15 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state14 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state14", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state15 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state15", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(17), transition -> {
+			assertEquals("from_source_4", transition.getName());
+			assertEquals("from_source_4", transition.getTransition().getName());
+			assertEquals("state16 {ServiceError}", transition.getSource().getName());
+			assertEquals("error2", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state17 {ServiceError} with 0.1, state18 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state17 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state17", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state18 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state18", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(18), transition -> {
+			assertEquals("from_source_5", transition.getName());
+			assertEquals("from_source_5", transition.getTransition().getName());
+			assertEquals("state19 {ServiceError}", transition.getSource().getName());
+			assertEquals("f1 {noerror}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state20 {ServiceError} with 0.1, state21 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state20 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state20", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state21 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state21", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(19), transition -> {
+			assertEquals("from_source_6", transition.getName());
+			assertEquals("from_source_6", transition.getTransition().getName());
+			assertEquals("state22 {ServiceError}", transition.getSource().getName());
+			assertEquals("f2 {noerror}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state23 {ServiceError} with 0.1, state24 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state23 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state23", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state24 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state24", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(20), transition -> {
+			assertEquals("from_source_7", transition.getName());
+			assertEquals("from_source_7", transition.getTransition().getName());
+			assertEquals("state25 {ServiceError}", transition.getSource().getName());
+			assertEquals("sub1.f4 {noerror}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state26 {ServiceError} with 0.1, state27 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state26 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state26", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state27 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state27", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(21), transition -> {
+			assertEquals("from_source_8", transition.getName());
+			assertEquals("from_source_8", transition.getTransition().getName());
+			assertEquals("state28 {ServiceError}", transition.getSource().getName());
+			assertEquals("sub1.f5 {noerror}", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state29 {ServiceError} with 0.1, state30 {ServiceError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state29 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state29", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state30 {ServiceError} with 0.9", branch.getName());
+					assertEquals("state30", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(22), transition -> {
+			assertEquals("untyped", transition.getName());
+			assertEquals("untyped", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state2 with 0.1, state3 with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state2 with 0.1", branch.getName());
+					assertEquals("state2", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state3 with 0.9", branch.getName());
+					assertEquals("state3", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(23), transition -> {
+			assertEquals("with_type", transition.getName());
+			assertEquals("with_type", transition.getTransition().getName());
+			assertEquals("state4", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state5 {ServiceError} with 0.1, state6 {ItemTimingError} with 0.9)",
+						destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state5 {ServiceError} with 0.1", branch.getName());
+					assertEquals("state5", branch.getState().getName());
+					assertEquals("{ServiceError}", branch.getTypeSet().getName());
+					assertEquals("ServiceError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state6 {ItemTimingError} with 0.9", branch.getName());
+					assertEquals("state6", branch.getState().getName());
+					assertEquals("{ItemTimingError}", branch.getTypeSet().getName());
+					assertEquals("ItemTimingError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+	}
 }
