@@ -36,6 +36,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.slicer.iobjadapters.BoundComponentInstanceAdapter;
 import org.osate.slicer.iobjadapters.ErrorFlowInstanceAdapter;
 import org.osate.slicer.iobjadapters.FeatureInstanceAdapter;
+import org.osate.slicer.iobjadapters.PointPropagationAdapter;
 import org.osate.slicer.iobjadapters.VertexIObjAdapter;
 
 /**
@@ -93,6 +94,11 @@ public class OsateSlicerVertex {
 		}
 		this.token = token;
 		this.element = new ErrorFlowInstanceAdapter(efi);
+	}
+
+	public OsateSlicerVertex(ComponentInstance comp, String propagationName, TypeTokenInstance token) {
+		this.token = token;
+		this.element = new PointPropagationAdapter(comp, propagationName);
 	}
 
 	public OsateSlicerVertex(ComponentInstance comp, BindingType bindingType, TypeTokenInstance token) {

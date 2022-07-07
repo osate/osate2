@@ -61,9 +61,11 @@ import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
+import org.osate.aadl2.errormodel.instance.UserDefinedPath;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -193,6 +195,27 @@ public class SlicerRepresentation {
 	}
 
 	/**
+	 * Adds a new vertex that represents the given token leaving the given element via the
+	 * given propagation point
+	 *
+	 * @param elem The element with the user-defined propagation point
+	 * @param propagationName The name of the user-defined propagation point
+	 * @param token The error token propagated into or out of this propagation instance
+	 * @return The name of the newly-created and added vertex
+	 */
+	private String addVertex(ComponentInstance elem, String propagationName, TypeTokenInstance token) {
+		var elementName = elem.getInstanceObjectPath();
+		if ((token == null && vertexMap.containsKey(elementName))
+				|| (token != null && vertexMap.containsKey(elementName + "." + token.getFullName()))) {
+			return elementName; // No duplicates allowed
+		}
+		OsateSlicerVertex v = new OsateSlicerVertex(elem, propagationName, token);
+		g.addVertex(v);
+		vertexMap.put(v.getName(), v);
+		return v.getName();
+	}
+
+	/**
 	 * Adds a new vertex that represents the given type token at the given component's specified binding
 	 *
 	 * @param comp The component
@@ -240,6 +263,10 @@ public class SlicerRepresentation {
 			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
 			var bindingType = ((BindingPropagation) prop).getBinding();
 			return addVertex(component, bindingType, tti);
+		} else if (prop instanceof PointPropagation) {
+			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
+			var propName = ((PointPropagation) prop).getName();
+			return addVertex(component, ((PointPropagation) prop).getName(), tti);
 		}
 		return null;
 	}
@@ -302,6 +329,23 @@ public class SlicerRepresentation {
 		forwardReachability(featOrEFI.getInstanceObjectPath() + infix + token.getFullName()).vertexSet().forEach(v -> {
 			retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
 		});
+		return retSet;
+	}
+
+	/**
+	 * Calculates reachable feature / error sinks or sources from the supplied user-defined propagation point
+	 *
+	 * @param comp The component which contains the propagation point we want to slice from
+	 * @param propPointName The name of the propagation point
+	 * @param token The error token that is propagated into / out of the propagation point
+	 * @return The set of reachable features and errors
+	 */
+	public Collection<IObjErrorPair> forwardReach(InstanceObject comp, String propPointName, TypeTokenInstance token) {
+		Set<IObjErrorPair> retSet = new HashSet<>();
+		forwardReachability(comp.getInstanceObjectPath() + "." + propPointName + "." + token.getFullName()).vertexSet()
+				.forEach(v -> {
+					retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
+				});
 		return retSet;
 	}
 
@@ -371,6 +415,23 @@ public class SlicerRepresentation {
 		backwardReachability(featOrEFI.getInstanceObjectPath() + infix + token.getFullName()).vertexSet().forEach(v -> {
 			retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
 		});
+		return retSet;
+	}
+
+	/**
+	 * Calculates reachable feature / error sinks or sources from the supplied user-defined propagation point
+	 *
+	 * @param comp The component which contains the propagation point we want to slice from
+	 * @param propPointName The name of the propagation point
+	 * @param token The error token that is propagated into / out of the propagation point
+	 * @return The set of reachable features and errors
+	 */
+	public Collection<IObjErrorPair> backwardReach(InstanceObject comp, String propPointName, TypeTokenInstance token) {
+		Set<IObjErrorPair> retSet = new HashSet<>();
+		backwardReachability(comp.getInstanceObjectPath() + "." + propPointName + "." + token.getFullName()).vertexSet()
+				.forEach(v -> {
+					retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
+				});
 		return retSet;
 	}
 
@@ -573,6 +634,9 @@ public class SlicerRepresentation {
 			} else if (ppi instanceof BindingPath) {
 				src = ((BindingPath) ppi).getSourcePropagations().get(0);
 				dst = ((BindingPath) ppi).getDestinationPropagations().get(0);
+			} else if (ppi instanceof UserDefinedPath) {
+				src = ((UserDefinedPath) ppi).getSourcePropagation();
+				dst = ((UserDefinedPath) ppi).getDestinationPropagation();
 			}
 			// We don't need the srcName, so we don't calculate / store it
 			srcTypes = src.getOutTypeSet();
@@ -661,6 +725,8 @@ public class SlicerRepresentation {
 						.get(0)
 						.getInstanceObjectPath()
 						.replace(".EMV2", "");
+			} else if (ppi instanceof UserDefinedPath) {
+				srcName = ((UserDefinedPath) ppi).getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "");
 			}
 			possiblePropagations.put(srcName, new PossiblePropagation(ppi));
 			return null;
