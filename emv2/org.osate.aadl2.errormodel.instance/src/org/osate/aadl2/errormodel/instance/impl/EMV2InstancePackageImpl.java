@@ -39,6 +39,7 @@ import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.Branch;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -348,6 +349,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass branchStateReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass branchSameStateEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1742,6 +1750,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getBranchSameState() {
+		return branchSameStateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2397,6 +2415,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(branchStateReferenceEClass, BRANCH_STATE_REFERENCE__STATE);
 		createEReference(branchStateReferenceEClass, BRANCH_STATE_REFERENCE__TYPE_SET);
 
+		branchSameStateEClass = createEClass(BRANCH_SAME_STATE);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
@@ -2492,6 +2512,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		branchesEClass.getESuperTypes().add(getTransitionDestination());
 		branchEClass.getESuperTypes().add(getEMV2InstanceObject());
 		branchStateReferenceEClass.getESuperTypes().add(getBranch());
+		branchSameStateEClass.getESuperTypes().add(getBranch());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -3009,6 +3030,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(branchStateReferenceEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(branchSameStateEClass, BranchSameState.class, "BranchSameState", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

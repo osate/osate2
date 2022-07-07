@@ -21,6 +21,7 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllSources;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CountExpression;
@@ -2313,6 +2314,29 @@ public class TransitionTest {
 					assertEquals("state6", branch.getState().getName());
 					assertEquals("{ItemTimingError}", branch.getTypeSet().getName());
 					assertEquals("ItemTimingError", branch.getTypeToken().getName());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+	}
+
+	@Test
+	public void testBranchSameState() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "branch_same_state.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getTransitions().size());
+		with(annexInstance.getTransitions().get(0), transition -> {
+			assertEquals("transition1", transition.getName());
+			assertEquals("transition1", transition.getTransition().getName());
+			assertEquals("state1", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state2 with 0.1, same state with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				assertEquals("state2 with 0.1", destination.getBranches().get(0).getName());
+				with((BranchSameState) destination.getBranches().get(1), branch -> {
+					assertEquals("same state with 0.9", branch.getName());
 					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
 				});
 			});

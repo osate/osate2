@@ -36,6 +36,7 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.Branch;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -392,6 +393,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseBranchStateReference(BranchStateReference object) {
 			return createBranchStateReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseBranchSameState(BranchSameState object) {
+			return createBranchSameStateAdapter();
 		}
 
 		@Override
@@ -934,6 +940,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBranchStateReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.BranchSameState <em>Branch Same State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.BranchSameState
+	 * @generated
+	 */
+	public Adapter createBranchSameStateAdapter() {
 		return null;
 	}
 

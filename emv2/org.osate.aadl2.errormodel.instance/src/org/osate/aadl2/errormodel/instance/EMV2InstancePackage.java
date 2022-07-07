@@ -5350,6 +5350,88 @@ public interface EMV2InstancePackage extends EPackage {
 	int BRANCH_STATE_REFERENCE_FEATURE_COUNT = BRANCH_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.BranchSameStateImpl <em>Branch Same State</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.BranchSameStateImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBranchSameState()
+	 * @generated
+	 */
+	int BRANCH_SAME_STATE = 51;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BRANCH_SAME_STATE__OWNED_ELEMENT = BRANCH__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BRANCH_SAME_STATE__OWNED_COMMENT = BRANCH__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BRANCH_SAME_STATE__NAME = BRANCH__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BRANCH_SAME_STATE__QUALIFIED_NAME = BRANCH__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BRANCH_SAME_STATE__OWNED_PROPERTY_ASSOCIATION = BRANCH__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BRANCH_SAME_STATE__ANNEX_INSTANCE = BRANCH__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Probability</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BRANCH_SAME_STATE__PROBABILITY = BRANCH__PROBABILITY;
+
+	/**
+	 * The number of structural features of the '<em>Branch Same State</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BRANCH_SAME_STATE_FEATURE_COUNT = BRANCH_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5357,7 +5439,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 51;
+	int EOPERATION = 52;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -5367,7 +5449,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 52;
+	int BINDING_TYPE = 53;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
@@ -5377,7 +5459,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
 	 * @generated
 	 */
-	int COUNT_EXPRESSION_OPERATION = 53;
+	int COUNT_EXPRESSION_OPERATION = 54;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6651,6 +6733,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getBranchStateReference_TypeSet();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.BranchSameState <em>Branch Same State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Branch Same State</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.BranchSameState
+	 * @generated
+	 */
+	EClass getBranchSameState();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -8151,6 +8243,16 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference BRANCH_STATE_REFERENCE__TYPE_SET = eINSTANCE.getBranchStateReference_TypeSet();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.BranchSameStateImpl <em>Branch Same State</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.BranchSameStateImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBranchSameState()
+		 * @generated
+		 */
+		EClass BRANCH_SAME_STATE = eINSTANCE.getBranchSameState();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

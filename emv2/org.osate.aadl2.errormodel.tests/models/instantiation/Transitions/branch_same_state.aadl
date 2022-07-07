@@ -1,0 +1,26 @@
+package branch_same_state
+public
+	system s
+		annex EMV2 {**
+			use behavior branch_same_state::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error1: error event;
+			states
+				state1: initial state;
+				state2: state;
+			transitions
+				transition1: state1 -[error1]-> (
+					state2 with 0.1,
+					same state with 0.9
+				);
+		end behavior;
+	**};
+end branch_same_state;

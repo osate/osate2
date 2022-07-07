@@ -233,5 +233,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//BranchStateReference/typeSet"/>
       <genOperations ecoreOperation="EMV2Instance.ecore#//BranchStateReference/getTypeToken"/>
     </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//BranchSameState"/>
   </genPackages>
 </genmodel:GenModel>

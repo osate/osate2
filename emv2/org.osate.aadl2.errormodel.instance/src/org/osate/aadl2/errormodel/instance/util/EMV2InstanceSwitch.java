@@ -35,6 +35,7 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.Branch;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -1298,6 +1299,29 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.BRANCH_SAME_STATE: {
+			BranchSameState branchSameState = (BranchSameState) theEObject;
+			T result = caseBranchSameState(branchSameState);
+			if (result == null) {
+				result = caseBranch(branchSameState);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(branchSameState);
+			}
+			if (result == null) {
+				result = caseInstanceObject(branchSameState);
+			}
+			if (result == null) {
+				result = caseNamedElement(branchSameState);
+			}
+			if (result == null) {
+				result = caseElement(branchSameState);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1840,6 +1864,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBranchStateReference(BranchStateReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Branch Same State</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Branch Same State</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBranchSameState(BranchSameState object) {
 		return null;
 	}
 

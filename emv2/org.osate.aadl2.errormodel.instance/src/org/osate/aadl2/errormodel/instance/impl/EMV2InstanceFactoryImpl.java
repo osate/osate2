@@ -35,6 +35,7 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -190,6 +191,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createBranches();
 		case EMV2InstancePackage.BRANCH_STATE_REFERENCE:
 			return createBranchStateReference();
+		case EMV2InstancePackage.BRANCH_SAME_STATE:
+			return createBranchSameState();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -539,6 +542,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public BranchStateReference createBranchStateReference() {
 		BranchStateReferenceImpl branchStateReference = new BranchStateReferenceImpl();
 		return branchStateReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public BranchSameState createBranchSameState() {
+		BranchSameStateImpl branchSameState = new BranchSameStateImpl();
+		return branchSameState;
 	}
 
 	/**

@@ -59,6 +59,7 @@ import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
+import org.osate.aadl2.errormodel.instance.Branch;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
@@ -548,45 +549,53 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 			var branches = EMV2InstanceFactory.eINSTANCE.createBranches();
 			for (var branch : transition.getDestinationBranches()) {
-				var branchStateReference = EMV2InstanceFactory.eINSTANCE.createBranchStateReference();
-				branchStateReference.setState(findStateInstance(annex, branch.getTarget()));
-				if (branch.getTargetToken() != null) {
-					branchStateReference.setTypeSet(createAnonymousTypeSet(branch.getTargetToken()));
-				} else if (branch.getTarget().getTypeSet() != null
-						&& transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
-						&& !(transitionInstance.getCondition() instanceof CountExpression)) {
-					var sourceTypeSet = sourceStateReference.getTypeSet();
-					AnonymousTypeSet conditionTypeSet = null;
-					if (transitionInstance.getCondition() instanceof EventReference eventReference) {
-						conditionTypeSet = eventReference.getTypeSet();
-					} else if (transitionInstance.getCondition() instanceof PropagationReference propagationReference) {
-						conditionTypeSet = propagationReference.getTypeSet();
+				Branch branchInstance;
+				String name;
+				if (branch.isSteadyState()) {
+					branchInstance = EMV2InstanceFactory.eINSTANCE.createBranchSameState();
+					name = "same state";
+				} else {
+					var branchStateReference = EMV2InstanceFactory.eINSTANCE.createBranchStateReference();
+					branchInstance = branchStateReference;
+					branchStateReference.setState(findStateInstance(annex, branch.getTarget()));
+					if (branch.getTargetToken() != null) {
+						branchStateReference.setTypeSet(createAnonymousTypeSet(branch.getTargetToken()));
+					} else if (branch.getTarget().getTypeSet() != null
+							&& transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
+							&& !(transitionInstance.getCondition() instanceof CountExpression)) {
+						var sourceTypeSet = sourceStateReference.getTypeSet();
+						AnonymousTypeSet conditionTypeSet = null;
+						if (transitionInstance.getCondition() instanceof EventReference eventReference) {
+							conditionTypeSet = eventReference.getTypeSet();
+						} else if (transitionInstance
+								.getCondition() instanceof PropagationReference propagationReference) {
+							conditionTypeSet = propagationReference.getTypeSet();
+						}
+						if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
+							branchStateReference.setTypeSet(EcoreUtil.copy(sourceTypeSet));
+						} else if (sourceTypeSet == null && conditionTypeSet != null
+								&& conditionTypeSet.flatten().size() == 1) {
+							branchStateReference.setTypeSet(EcoreUtil.copy(conditionTypeSet));
+						}
 					}
-					if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
-						branchStateReference.setTypeSet(EcoreUtil.copy(sourceTypeSet));
-					} else if (sourceTypeSet == null && conditionTypeSet != null
-							&& conditionTypeSet.flatten().size() == 1) {
-						branchStateReference.setTypeSet(EcoreUtil.copy(conditionTypeSet));
+					name = branchStateReference.getState().getName();
+					if (branchStateReference.getTypeSet() != null) {
+						name += ' ' + branchStateReference.getTypeSet().getName();
 					}
-				}
-				var name = branchStateReference.getState().getName();
-				if (branchStateReference.getTypeSet() != null) {
-					name += ' ' + branchStateReference.getTypeSet().getName();
 				}
 				name += " with ";
 				if (branch.getValue().getRealvalue() != null) {
-					branchStateReference
-							.setProbability(new BigDecimal(branch.getValue().getRealvalue().replace("_", "")));
-					branchStateReference.setName(name + branchStateReference.getProbability());
+					branchInstance.setProbability(new BigDecimal(branch.getValue().getRealvalue().replace("_", "")));
+					branchInstance.setName(name + branchInstance.getProbability());
 				} else if (branch.getValue().getSymboliclabel() != null) {
-					branchStateReference.setName(name + branch.getValue().getSymboliclabel().getQualifiedName());
+					branchInstance.setName(name + branch.getValue().getSymboliclabel().getQualifiedName());
 				} else if (remaining != null) {
-					branchStateReference.setProbability(remaining);
-					branchStateReference.setName(name + branchStateReference.getProbability());
+					branchInstance.setProbability(remaining);
+					branchInstance.setName(name + branchInstance.getProbability());
 				} else {
-					branchStateReference.setName(name + "others");
+					branchInstance.setName(name + "others");
 				}
-				branches.getBranches().add(branchStateReference);
+				branches.getBranches().add(branchInstance);
 			}
 			branches.setName(branches.getBranches()
 					.stream()

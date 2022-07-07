@@ -295,6 +295,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	BranchStateReference createBranchStateReference();
 
 	/**
+	 * Returns a new object of class '<em>Branch Same State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Branch Same State</em>'.
+	 * @generated
+	 */
+	BranchSameState createBranchSameState();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
