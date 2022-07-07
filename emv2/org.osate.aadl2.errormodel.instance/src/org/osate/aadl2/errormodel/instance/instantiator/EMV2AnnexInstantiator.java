@@ -552,7 +552,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				branchStateReference.setState(findStateInstance(annex, branch.getTarget()));
 				if (branch.getTargetToken() != null) {
 					branchStateReference.setTypeSet(createAnonymousTypeSet(branch.getTargetToken()));
-				} else if (transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
+				} else if (branch.getTarget().getTypeSet() != null
+						&& transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
 						&& !(transitionInstance.getCondition() instanceof CountExpression)) {
 					var sourceTypeSet = sourceStateReference.getTypeSet();
 					AnonymousTypeSet conditionTypeSet = null;
@@ -597,7 +598,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			destinationStateReference.setState(findStateInstance(annex, transition.getTarget()));
 			if (transition.getTargetToken() != null) {
 				destinationStateReference.setTypeSet(createAnonymousTypeSet(transition.getTargetToken()));
-			} else if (transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
+			} else if (transition.getTarget().getTypeSet() != null
+					&& transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
 					&& !(transitionInstance.getCondition() instanceof CountExpression)) {
 				var sourceTypeSet = sourceStateReference.getTypeSet();
 				AnonymousTypeSet conditionTypeSet = null;

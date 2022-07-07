@@ -26,9 +26,13 @@ public
 					error2: error event {CommonErrors};
 					error3: error event {ServiceError};
 				transitions
-					untyped: state1 -[error1]-> (
+					untyped_1: state1 -[error1]-> (
 						state2 with 0.1,
 						state3 with 0.9
+					);
+					untyped_2: state_a {ServiceError} -[error1]-> (
+						state_b with 0.1,
+						state_c with 0.9
 					);
 					with_type: state4 -[error1]-> (
 						state5 {ServiceError} with 0.1,
@@ -149,6 +153,9 @@ public
 				state1: initial state;
 				state2: state;
 				state3: state;
+				state_a: state {CommonErrors};
+				state_b: state;
+				state_c: state;
 				state4: state;
 				state5: state {CommonErrors};
 				state6: state {CommonErrors};

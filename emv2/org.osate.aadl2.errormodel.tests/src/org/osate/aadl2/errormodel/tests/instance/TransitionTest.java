@@ -1226,7 +1226,7 @@ public class TransitionTest {
 		var pkg = testHelper.parseFile(PATH + "untyped_destination.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(1, annexInstance.getTransitions().size());
+		assertEquals(2, annexInstance.getTransitions().size());
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
@@ -1235,6 +1235,18 @@ public class TransitionTest {
 			with((DestinationStateReference) transition.getDestination(), destination -> {
 				assertEquals("state2", destination.getName());
 				assertEquals("state2", destination.getState().getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getTransitions().get(1), transition -> {
+			assertEquals("transition2", transition.getName());
+			assertEquals("transition2", transition.getTransition().getName());
+			assertEquals("state3 {ServiceError}", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((DestinationStateReference) transition.getDestination(), destination -> {
+				assertEquals("state4", destination.getName());
+				assertEquals("state4", destination.getState().getName());
 				assertNull(destination.getTypeSet());
 				assertNull(destination.getTypeToken());
 			});
@@ -1690,7 +1702,7 @@ public class TransitionTest {
 		var pkg = testHelper.parseFile(PATH + "branch_state_reference.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(24, annexInstance.getTransitions().size());
+		assertEquals(25, annexInstance.getTransitions().size());
 		with(annexInstance.getTransitions().get(0), transition -> {
 			assertEquals("cannot_determine_type_1", transition.getName());
 			assertEquals("cannot_determine_type_1", transition.getTransition().getName());
@@ -2233,8 +2245,8 @@ public class TransitionTest {
 			});
 		});
 		with(annexInstance.getTransitions().get(22), transition -> {
-			assertEquals("untyped", transition.getName());
-			assertEquals("untyped", transition.getTransition().getName());
+			assertEquals("untyped_1", transition.getName());
+			assertEquals("untyped_1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
 			assertEquals("error1", transition.getCondition().getName());
 			with((Branches) transition.getDestination(), destination -> {
@@ -2257,6 +2269,30 @@ public class TransitionTest {
 			});
 		});
 		with(annexInstance.getTransitions().get(23), transition -> {
+			assertEquals("untyped_2", transition.getName());
+			assertEquals("untyped_2", transition.getTransition().getName());
+			assertEquals("state_a {ServiceError}", transition.getSource().getName());
+			assertEquals("error1", transition.getCondition().getName());
+			with((Branches) transition.getDestination(), destination -> {
+				assertEquals("(state_b with 0.1, state_c with 0.9)", destination.getName());
+				assertEquals(2, destination.getBranches().size());
+				with((BranchStateReference) destination.getBranches().get(0), branch -> {
+					assertEquals("state_b with 0.1", branch.getName());
+					assertEquals("state_b", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.1")) == 0);
+				});
+				with((BranchStateReference) destination.getBranches().get(1), branch -> {
+					assertEquals("state_c with 0.9", branch.getName());
+					assertEquals("state_c", branch.getState().getName());
+					assertNull(branch.getTypeSet());
+					assertNull(branch.getTypeToken());
+					assertTrue(branch.getProbability().compareTo(new BigDecimal("0.9")) == 0);
+				});
+			});
+		});
+		with(annexInstance.getTransitions().get(24), transition -> {
 			assertEquals("with_type", transition.getName());
 			assertEquals("with_type", transition.getTransition().getName());
 			assertEquals("state4", transition.getSource().getName());
