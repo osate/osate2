@@ -515,9 +515,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private void instantiateTransition(ErrorBehaviorTransition transition, ComponentInstance component,
 			EMV2AnnexInstance annex) {
 		var transitionInstance = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
-		if (transition.getName() != null) {
-			transitionInstance.setName(transition.getName());
-		}
 		transitionInstance.setTransition(transition);
 		transitionInstance.setSource(createTransitionSource(transition, annex));
 		transitionInstance.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
@@ -631,7 +628,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			destinationStateReference.setName(name);
 			transitionInstance.setDestination(destinationStateReference);
 		}
-
+		if (transition.getName() == null) {
+			var sourceName = transitionInstance.getSource().getName();
+			var conditionName = transitionInstance.getCondition().getName();
+			var destinationName = transitionInstance.getDestination().getName();
+			transitionInstance.setName(sourceName + " -[" + conditionName + "]-> " + destinationName);
+		} else {
+			transitionInstance.setName(transition.getName());
+		}
 		annex.getTransitions().add(transitionInstance);
 	}
 

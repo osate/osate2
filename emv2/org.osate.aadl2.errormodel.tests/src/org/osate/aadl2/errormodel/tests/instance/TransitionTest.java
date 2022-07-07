@@ -144,8 +144,7 @@ public class TransitionTest {
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(3, annexInstance.getTransitions().size());
 		with(annexInstance.getTransitions().get(0), transition -> {
-			// TODO Update after we generate names for unnamed transitions.
-			assertNull(transition.getName());
+			assertEquals("start -[error1]-> failure1", transition.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getTransitions().get(0), transition.getTransition());
 			assertEquals("start", transition.getSource().getName());
@@ -153,8 +152,7 @@ public class TransitionTest {
 			assertEquals("failure1", transition.getDestination().getName());
 		});
 		with(annexInstance.getTransitions().get(1), transition -> {
-			// TODO Update after we generate names for unnamed transitions.
-			assertNull(transition.getName());
+			assertEquals("start -[error2]-> failure2", transition.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 					.getOwnedClassifiers()
 					.get(0)
@@ -165,8 +163,7 @@ public class TransitionTest {
 			assertEquals("failure2", transition.getDestination().getName());
 		});
 		with(annexInstance.getTransitions().get(2), transition -> {
-			// TODO Update after we generate names for unnamed transitions.
-			assertNull(transition.getName());
+			assertEquals("start -[error3]-> failure3", transition.getName());
 			assertSame(
 					((ErrorModelLibrary) ((DefaultAnnexLibrary) pkg.getPublicSection().getOwnedAnnexLibraries().get(0))
 							.getParsedAnnexLibrary()).getBehaviors().get(0).getTransitions().get(0),
