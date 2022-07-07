@@ -153,11 +153,6 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="createStateReference()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
                 <message_argument value="createTransitionInstance()"/>
             </message_arguments>
         </filter>
@@ -945,56 +940,6 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="STATE_REFERENCE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE_FEATURE_COUNT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__ANNEX_INSTANCE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__NAME"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__OWNED_COMMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__OWNED_ELEMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__OWNED_PROPERTY_ASSOCIATION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__QUALIFIED_NAME"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__STATE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__TYPE_SET"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
                 <message_argument value="TRANSITION_DESTINATION"/>
             </message_arguments>
         </filter>
@@ -1345,21 +1290,6 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="getStateReference()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getStateReference_State()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getStateReference_TypeSet()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
                 <message_argument value="getTransitionDestination()"/>
             </message_arguments>
         </filter>
@@ -1607,21 +1537,6 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="STATE_REFERENCE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__STATE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="STATE_REFERENCE__TYPE_SET"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
                 <message_argument value="TRANSITION_DESTINATION"/>
             </message_arguments>
         </filter>
@@ -1819,54 +1734,7 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="createBranchStateReference()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="createBranches()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
                 <message_argument value="createCountExpressionOperationFromString(EDataType, String)"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/osate/aadl2/errormodel/instance/impl/EMV2InstancePackageImpl.java" type="org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl">
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getBranch()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getBranchStateReference()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getBranchStateReference_State()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getBranchStateReference_TypeSet()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getBranch_Probability()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getBranches()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getBranches_Branches()"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2028,11 +1896,6 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="createStateReferenceAdapter()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
                 <message_argument value="createTransitionDestinationAdapter()"/>
             </message_arguments>
         </filter>
@@ -2126,11 +1989,6 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseSourceStateReference(SourceStateReference)"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="caseStateReference(StateReference)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
