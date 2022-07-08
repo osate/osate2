@@ -1,5 +1,6 @@
 package org.osate.aadl2.errormodel.tests.instance;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.osate.pluginsupport.ScopeFunctions.with;
 
@@ -39,6 +40,26 @@ public class OutgoingPropagationConditionTest {
 		assertEquals(1, annexInstance.getConditions().size());
 		with(annexInstance.getConditions().get(0), condition -> {
 			assertEquals("CONDITION1", condition.getName());
+		});
+	}
+
+	@Test
+	public void testInheritUnnamedConditions() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "inherit_unnamed_conditions.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(2);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(3, annexInstance.getConditions().size());
+		with(annexInstance.getConditions().get(0), condition -> {
+			// TODO Update after we create names for unnamed conditions.
+			assertNull(condition.getName());
+		});
+		with(annexInstance.getConditions().get(1), condition -> {
+			// TODO Update after we create names for unnamed conditions.
+			assertNull(condition.getName());
+		});
+		with(annexInstance.getConditions().get(2), condition -> {
+			// TODO Update after we create names for unnamed conditions.
+			assertNull(condition.getName());
 		});
 	}
 }
