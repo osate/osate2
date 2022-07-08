@@ -55,7 +55,6 @@ import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
-import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
@@ -70,7 +69,6 @@ import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -158,117 +156,35 @@ public class SlicerRepresentation {
 		System.out.println(this.toDot());
 	}
 
-	/**
-	 * Adds a new vertex that represents the supplied feature.
-	 *
-	 * @param feat The feature
-	 * @return The name of the newly-created and added vertex
-	 */
-	private String addVertex(ConnectionInstanceEnd feat) {
-		var name = feat.getInstanceObjectPath();
-		if (vertexMap.containsKey(name)) {
-			return name; // No duplicates allowed
-		}
-		OsateSlicerVertex v = new OsateSlicerVertex(feat);
-		g.addVertex(v);
-		vertexMap.put(name, v);
-		return name;
-	}
-
-	/**
-	 * Adds a new vertex that represents the given type set at the given vertex
-	 *
-	 * @param feat The feature
-	 * @param ats The error(s) propagated into or out of this feature
-	 * @return The name of the newly-created and added vertex
-	 */
-	private String addVertex(ConnectionInstanceEnd feat, TypeTokenInstance token) {
-		var name = feat.getInstanceObjectPath();
-		if ((token == null && vertexMap.containsKey(name))
-				|| (token != null && vertexMap.containsKey(name + "." + token.getFullName()))) {
-			return name; // No duplicates allowed
-		}
-		OsateSlicerVertex v = new OsateSlicerVertex(feat, token);
-		g.addVertex(v);
-		vertexMap.put(v.getName(), v);
-		return v.getName();
-	}
-
-	/**
-	 * Adds a new vertex that represents the given token leaving the given element via the
-	 * given propagation point
-	 *
-	 * @param elem The element with the user-defined propagation point
-	 * @param propagationName The name of the user-defined propagation point
-	 * @param token The error token propagated into or out of this propagation instance
-	 * @return The name of the newly-created and added vertex
-	 */
-	private String addVertex(ComponentInstance elem, String propagationName, TypeTokenInstance token) {
-		var elementName = elem.getInstanceObjectPath();
-		if ((token == null && vertexMap.containsKey(elementName))
-				|| (token != null && vertexMap.containsKey(elementName + "." + token.getFullName()))) {
-			return elementName; // No duplicates allowed
-		}
-		OsateSlicerVertex v = new OsateSlicerVertex(elem, propagationName, token);
-		g.addVertex(v);
-		vertexMap.put(v.getName(), v);
-		return v.getName();
-	}
-
-	/**
-	 * Adds a new vertex that represents the given type token at the given component's specified binding
-	 *
-	 * @param comp The component
-	 * @param ats The error(s) propagated into or out of this feature
-	 * @return The name of the newly-created and added vertex
-	 */
-	private String addVertex(ComponentInstance comp, BindingType bindingType, TypeTokenInstance token) {
-		var name = comp.getInstanceObjectPath();
-		if ((token == null && vertexMap.containsKey(name))
-				|| (token != null && vertexMap.containsKey(name + "." + token.getFullName()))) {
-			return name; // No duplicates allowed
-		}
-		OsateSlicerVertex v = new OsateSlicerVertex(comp, bindingType, token);
-		g.addVertex(v);
-		vertexMap.put(v.getName(), v);
-		return v.getName();
-	}
-
-	/**
-	 * Adds a new vertex that represents the given type set at the given error source or sink
-	 *
-	 * @param efi An error source or sink
-	 * @param ats The error(s) propagated into or out by this sink or source
-	 * @return The name of the newly-created and added vertex
-	 */
-	private String addVertex(ErrorFlowInstance efi, TypeTokenInstance token) {
-		var name = efi.getInstanceObjectPath().replace(".EMV2", "");
-		if ((token == null && vertexMap.containsKey(name))
-				|| (token != null && vertexMap.containsKey(name + "." + token.getFullName()))) {
-			return name; // No duplicates allowed
-		}
-		OsateSlicerVertex v = new OsateSlicerVertex(efi, token);
-		g.addVertex(v);
-		vertexMap.put(v.getName(), v);
-		return v.getName();
-	}
-
 	private String addVertex(ErrorPropagationInstance prop, TypeTokenInstance tti) {
 		if (prop instanceof FeaturePropagation) {
-			return addVertex(((FeaturePropagation) prop).getFeature(), tti);
+			var v = new OsateSlicerVertex(((FeaturePropagation) prop).getFeature(), tti);
+			return addVertex(v);
 		} else if (prop instanceof AccessPropagation) {
 			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
-			return addVertex(component, tti);
+			var v = new OsateSlicerVertex(component, tti);
+			return addVertex(v);
 		} else if (prop instanceof BindingPropagation) {
 			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
 			var bindingType = ((BindingPropagation) prop).getBinding();
-			return addVertex(component, bindingType, tti);
+			var v = new OsateSlicerVertex(component, bindingType, tti);
+			return addVertex(v);
 		} else if (prop instanceof PointPropagation) {
 			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
 			var propName = ((PointPropagation) prop).getName();
-			return addVertex(component, ((PointPropagation) prop).getName(), tti);
+			var v = new OsateSlicerVertex(component, propName, tti);
+			return addVertex(v);
 		}
 		return null;
+	}
+
+	private String addVertex(OsateSlicerVertex v) {
+		var name = v.getName();
+		if (!vertexMap.containsKey(name)) {
+			g.addVertex(v);
+			vertexMap.put(name, v);
+		}
+		return name;
 	}
 
 	/**
@@ -667,7 +583,7 @@ public class SlicerRepresentation {
 			var prop = esi.getPropagation();
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance tti = (TypeTokenInstance) tse;
-				String srcVertexName = addVertex(esi, tti);
+				String srcVertexName = addVertex(new OsateSlicerVertex(esi, tti));
 				String tgtVertexName = addVertex(prop, tti);
 				addEdge(srcVertexName, tgtVertexName);
 			});
@@ -680,7 +596,7 @@ public class SlicerRepresentation {
 			var prop = esi.getPropagation();
 			dstTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance tti = (TypeTokenInstance) tse;
-				String tgtVertexName = addVertex(esi, tti);
+				String tgtVertexName = addVertex(new OsateSlicerVertex(esi, tti));
 				String srcVertexName = addVertex(prop, tti);
 				addEdge(srcVertexName, tgtVertexName);
 			});
@@ -754,7 +670,7 @@ public class SlicerRepresentation {
 		public Void caseFeatureInstance(FeatureInstance fi) {
 			var fullFeatureName = fi.getInstanceObjectPath();
 			String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
-			addVertex(fi);
+			addVertex(new OsateSlicerVertex(fi));
 			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
 				if (!inFeats.containsKey(fullContainerName)) {
 					inFeats.put(fullContainerName, new HashSet<String>());
@@ -773,9 +689,9 @@ public class SlicerRepresentation {
 		@Override
 		public Void caseConnectionInstance(ConnectionInstance ci) {
 			for (ConnectionReference cr : ci.getConnectionReferences()) {
-				addVertex(cr.getSource());
-				addVertex(cr.getDestination());
-				addEdge(cr.getSource().getInstanceObjectPath(), cr.getDestination().getInstanceObjectPath());
+				String srcName = addVertex(new OsateSlicerVertex(cr.getSource()));
+				String dstName = addVertex(new OsateSlicerVertex(cr.getDestination()));
+				addEdge(srcName, dstName);
 			}
 
 			// If the component has a decomposition specified, we need to record that
