@@ -60,6 +60,9 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.Branch;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
+import org.osate.aadl2.errormodel.instance.BranchStateReference;
+import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
@@ -68,6 +71,7 @@ import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EOperation;
@@ -84,9 +88,11 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
@@ -133,6 +139,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -518,116 +525,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		transitionInstance.setTransition(transition);
 		transitionInstance.setSource(createTransitionSource(transition, annex));
 		transitionInstance.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
-
-		if (transition.isSteadyState()) {
-			var sameState = EMV2InstanceFactory.eINSTANCE.createSameState();
-			sameState.setName("same state");
-			transitionInstance.setDestination(sameState);
-		} else if (!transition.getDestinationBranches().isEmpty()) {
-			var hasOthers = false;
-			var hasProperty = false;
-			for (var branch : transition.getDestinationBranches()) {
-				if (branch.getValue().isOthers()) {
-					hasOthers = true;
-				}
-				if (branch.getValue().getSymboliclabel() != null) {
-					hasProperty = true;
-				}
-			}
-			BigDecimal remaining = null;
-			if (hasOthers && !hasProperty) {
-				var sum = new BigDecimal(0);
-				for (var branch : transition.getDestinationBranches()) {
-					if (branch.getValue().getRealvalue() != null) {
-						sum = sum.add(new BigDecimal(branch.getValue().getRealvalue().replace("_", "")));
-					}
-				}
-				remaining = new BigDecimal(1).subtract(sum);
-			}
-			var branches = EMV2InstanceFactory.eINSTANCE.createBranches();
-			for (var branch : transition.getDestinationBranches()) {
-				Branch branchInstance;
-				String name;
-				if (branch.isSteadyState()) {
-					branchInstance = EMV2InstanceFactory.eINSTANCE.createBranchSameState();
-					name = "same state";
-				} else {
-					var branchStateReference = EMV2InstanceFactory.eINSTANCE.createBranchStateReference();
-					branchInstance = branchStateReference;
-					branchStateReference.setState(findStateInstance(annex, branch.getTarget()));
-					if (branch.getTargetToken() != null) {
-						branchStateReference.setTypeSet(createAnonymousTypeSet(branch.getTargetToken()));
-					} else if (branch.getTarget().getTypeSet() != null
-							&& transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
-							&& !(transitionInstance.getCondition() instanceof CountExpression)) {
-						var sourceTypeSet = sourceStateReference.getTypeSet();
-						AnonymousTypeSet conditionTypeSet = null;
-						if (transitionInstance.getCondition() instanceof EventReference eventReference) {
-							conditionTypeSet = eventReference.getTypeSet();
-						} else if (transitionInstance
-								.getCondition() instanceof PropagationReference propagationReference) {
-							conditionTypeSet = propagationReference.getTypeSet();
-						}
-						if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
-							branchStateReference.setTypeSet(EcoreUtil.copy(sourceTypeSet));
-						} else if (sourceTypeSet == null && conditionTypeSet != null
-								&& conditionTypeSet.flatten().size() == 1) {
-							branchStateReference.setTypeSet(EcoreUtil.copy(conditionTypeSet));
-						}
-					}
-					name = branchStateReference.getState().getName();
-					if (branchStateReference.getTypeSet() != null) {
-						name += ' ' + branchStateReference.getTypeSet().getName();
-					}
-				}
-				name += " with ";
-				if (branch.getValue().getRealvalue() != null) {
-					branchInstance.setProbability(new BigDecimal(branch.getValue().getRealvalue().replace("_", "")));
-					branchInstance.setName(name + branchInstance.getProbability());
-				} else if (branch.getValue().getSymboliclabel() != null) {
-					branchInstance.setName(name + branch.getValue().getSymboliclabel().getQualifiedName());
-				} else if (remaining != null) {
-					branchInstance.setProbability(remaining);
-					branchInstance.setName(name + branchInstance.getProbability());
-				} else {
-					branchInstance.setName(name + "others");
-				}
-				branches.getBranches().add(branchInstance);
-			}
-			branches.setName(branches.getBranches()
-					.stream()
-					.map(NamedElement::getName)
-					.collect(Collectors.joining(", ", "(", ")")));
-			transitionInstance.setDestination(branches);
-		} else {
-			var destinationStateReference = EMV2InstanceFactory.eINSTANCE.createDestinationStateReference();
-			destinationStateReference.setState(findStateInstance(annex, transition.getTarget()));
-			if (transition.getTargetToken() != null) {
-				destinationStateReference.setTypeSet(createAnonymousTypeSet(transition.getTargetToken()));
-			} else if (transition.getTarget().getTypeSet() != null
-					&& transitionInstance.getSource() instanceof SourceStateReference sourceStateReference
-					&& !(transitionInstance.getCondition() instanceof CountExpression)) {
-				var sourceTypeSet = sourceStateReference.getTypeSet();
-				AnonymousTypeSet conditionTypeSet = null;
-				if (transitionInstance.getCondition() instanceof EventReference eventReference) {
-					conditionTypeSet = eventReference.getTypeSet();
-				} else if (transitionInstance.getCondition() instanceof PropagationReference propagationReference) {
-					conditionTypeSet = propagationReference.getTypeSet();
-				}
-				if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
-					destinationStateReference.setTypeSet(EcoreUtil.copy(sourceTypeSet));
-				} else if (sourceTypeSet == null && conditionTypeSet != null
-						&& conditionTypeSet.flatten().size() == 1) {
-					destinationStateReference.setTypeSet(EcoreUtil.copy(conditionTypeSet));
-				}
-			}
-			var name = destinationStateReference.getState().getName();
-			if (destinationStateReference.getTypeSet() != null) {
-				name += ' ' + destinationStateReference.getTypeSet().getName();
-			}
-			destinationStateReference.setName(name);
-			transitionInstance.setDestination(destinationStateReference);
-		}
+		transitionInstance.setDestination(createTransitionDestination(transition, transitionInstance.getSource(),
+				transitionInstance.getCondition(), annex));
 		if (transition.getName() == null) {
 			var sourceName = transitionInstance.getSource().getName();
 			var conditionName = transitionInstance.getCondition().getName();
@@ -643,7 +542,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		if (transition.isAllStates()) {
 			return createAllSources();
 		} else {
-			return createStateReference(transition, annex);
+			return createSourceStateReference(transition, annex);
 		}
 	}
 
@@ -653,7 +552,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return allSources;
 	}
 
-	private SourceStateReference createStateReference(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
+	private SourceStateReference createSourceStateReference(ErrorBehaviorTransition transition,
+			EMV2AnnexInstance annex) {
 		var stateReference = EMV2InstanceFactory.eINSTANCE.createSourceStateReference();
 		stateReference.setState(findStateInstance(annex, transition.getSource()));
 		if (transition.getTypeTokenConstraint() != null) {
@@ -797,6 +697,139 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				.map(NamedElement::getName)
 				.collect(Collectors.joining(", ", "count(", ") " + symbol + " " + count)));
 		return countExpression;
+	}
+
+	private TransitionDestination createTransitionDestination(ErrorBehaviorTransition transition,
+			TransitionSource source, ConditionExpressionInstance condition, EMV2AnnexInstance annex) {
+		if (transition.isSteadyState()) {
+			return createSameState();
+		} else if (!transition.getDestinationBranches().isEmpty()) {
+			return createBranches(transition.getDestinationBranches(), source, condition, annex);
+		} else {
+			return createDestinationStateReference(transition, source, condition, annex);
+		}
+	}
+
+	private DestinationStateReference createDestinationStateReference(ErrorBehaviorTransition transition,
+			TransitionSource source, ConditionExpressionInstance condition, EMV2AnnexInstance annex) {
+		var stateReference = EMV2InstanceFactory.eINSTANCE.createDestinationStateReference();
+		stateReference.setState(findStateInstance(annex, transition.getTarget()));
+		stateReference.setTypeSet(
+				createDestinationTypeSet(transition.getTargetToken(), transition.getTarget(), source, condition));
+		var name = stateReference.getState().getName();
+		if (stateReference.getTypeSet() != null) {
+			name += ' ' + stateReference.getTypeSet().getName();
+		}
+		stateReference.setName(name);
+		return stateReference;
+	}
+
+	private AnonymousTypeSet createDestinationTypeSet(TypeSet explicitTypeSet, ErrorBehaviorState destinationState,
+			TransitionSource source, ConditionExpressionInstance condition) {
+		if (explicitTypeSet != null) {
+			return createAnonymousTypeSet(explicitTypeSet);
+		} else if (destinationState.getTypeSet() != null && source instanceof SourceStateReference sourceStateReference
+				&& !(condition instanceof CountExpression)) {
+			var sourceTypeSet = sourceStateReference.getTypeSet();
+			AnonymousTypeSet conditionTypeSet = null;
+			if (condition instanceof EventReference eventReference) {
+				conditionTypeSet = eventReference.getTypeSet();
+			} else if (condition instanceof PropagationReference propagationReference) {
+				conditionTypeSet = propagationReference.getTypeSet();
+			}
+			if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
+				return EcoreUtil.copy(sourceTypeSet);
+			} else if (sourceTypeSet == null && conditionTypeSet != null && conditionTypeSet.flatten().size() == 1) {
+				return EcoreUtil.copy(conditionTypeSet);
+			}
+		}
+		return null;
+	}
+
+	private SameState createSameState() {
+		var sameState = EMV2InstanceFactory.eINSTANCE.createSameState();
+		sameState.setName("same state");
+		return sameState;
+	}
+
+	private Branches createBranches(List<TransitionBranch> branches, TransitionSource source,
+			ConditionExpressionInstance condition, EMV2AnnexInstance annex) {
+		var hasOthers = false;
+		var hasProperty = false;
+		for (var branch : branches) {
+			if (branch.getValue().isOthers()) {
+				hasOthers = true;
+			}
+			if (branch.getValue().getSymboliclabel() != null) {
+				hasProperty = true;
+			}
+		}
+		BigDecimal remaining = null;
+		if (hasOthers && !hasProperty) {
+			var sum = new BigDecimal(0);
+			for (var branch : branches) {
+				if (branch.getValue().getRealvalue() != null) {
+					sum = sum.add(new BigDecimal(branch.getValue().getRealvalue().replace("_", "")));
+				}
+			}
+			remaining = new BigDecimal(1).subtract(sum);
+		}
+		var branchesInstance = EMV2InstanceFactory.eINSTANCE.createBranches();
+		for (var branch : branches) {
+			branchesInstance.getBranches().add(createBranch(branch, source, condition, remaining, annex));
+		}
+		branchesInstance.setName(branchesInstance.getBranches()
+				.stream()
+				.map(NamedElement::getName)
+				.collect(Collectors.joining(", ", "(", ")")));
+		return branchesInstance;
+	}
+
+	private Branch createBranch(TransitionBranch branch, TransitionSource source, ConditionExpressionInstance condition,
+			BigDecimal remaining, EMV2AnnexInstance annex) {
+		BigDecimal probability;
+		String nameSuffix;
+		if (branch.getValue().getRealvalue() != null) {
+			probability = new BigDecimal(branch.getValue().getRealvalue().replace("_", ""));
+			nameSuffix = probability.toString();
+		} else if (branch.getValue().getSymboliclabel() != null) {
+			probability = null;
+			nameSuffix = branch.getValue().getSymboliclabel().getQualifiedName();
+		} else if (remaining != null) {
+			probability = remaining;
+			nameSuffix = remaining.toString();
+		} else {
+			probability = null;
+			nameSuffix = "others";
+		}
+		if (branch.isSteadyState()) {
+			return createBranchSameState(probability, nameSuffix);
+		} else {
+			return createBranchStateReference(branch, source, condition, probability, nameSuffix, annex);
+		}
+	}
+
+	private BranchSameState createBranchSameState(BigDecimal probability, String nameSuffix) {
+		var sameState = EMV2InstanceFactory.eINSTANCE.createBranchSameState();
+		sameState.setName("same state with " + nameSuffix);
+		sameState.setProbability(probability);
+		return sameState;
+	}
+
+	private BranchStateReference createBranchStateReference(TransitionBranch branch, TransitionSource source,
+			ConditionExpressionInstance condition, BigDecimal probability, String nameSuffix, EMV2AnnexInstance annex) {
+		var stateReference = EMV2InstanceFactory.eINSTANCE.createBranchStateReference();
+		stateReference.setState(findStateInstance(annex, branch.getTarget()));
+		stateReference
+				.setTypeSet(createDestinationTypeSet(branch.getTargetToken(), branch.getTarget(), source, condition));
+		stateReference.setProbability(probability);
+		var name = stateReference.getState().getName();
+		if (stateReference.getTypeSet() != null) {
+			name += ' ' + stateReference.getTypeSet().getName();
+		}
+		name += " with " + nameSuffix;
+		stateReference.setName(name);
+		return stateReference;
 	}
 
 	private void instantiateCompositeState(CompositeState st, EMV2AnnexInstance annex) {
