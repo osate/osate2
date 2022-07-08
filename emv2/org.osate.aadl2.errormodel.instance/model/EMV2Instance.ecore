@@ -6,8 +6,6 @@
         eType="#//PropagationPointInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="#//StateMachineInstance"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="errorPropagationConditions"
-        upperBound="-1" eType="#//ErrorPropagationConditionInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorDetections" upperBound="-1"
         eType="#//ErrorDetectionInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="composites" upperBound="-1"
@@ -25,6 +23,8 @@
         eType="#//EventInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
         eType="#//TransitionInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
+        eType="#//OutgoingPropagationConditionInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
       eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
@@ -46,17 +46,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compositeState" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//CompositeState"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationConditionInstance" eSuperTypes="#//EMV2InstanceObject">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="emv2Element" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//OutgoingPropagationCondition"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inStates" upperBound="-1"
-        eType="#//StateInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingPropagation" eType="#//ConstrainedInstanceObject"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sink" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorDetectionInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="emv2Element" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorDetection"/>
@@ -301,4 +290,16 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BranchSameState" eSuperTypes="#//Branch"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OutgoingPropagationConditionInstance"
+      eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="emv2Element" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//OutgoingPropagationCondition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inStates" upperBound="-1"
+        eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingPropagation" eType="#//ConstrainedInstanceObject"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sink" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
 </ecore:EPackage>

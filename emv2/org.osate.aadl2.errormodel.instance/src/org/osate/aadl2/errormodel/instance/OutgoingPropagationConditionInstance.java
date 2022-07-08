@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -24,45 +24,44 @@
 package org.osate.aadl2.errormodel.instance;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Error Propagation Condition Instance</b></em>'.
+ * A representation of the model object '<em><b>Outgoing Propagation Condition Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#getEmv2Element <em>Emv2 Element</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#isSource <em>Source</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#isSink <em>Sink</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getEmv2Element <em>Emv2 Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getInStates <em>In States</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#isSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#isSink <em>Sink</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationConditionInstance()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance()
  * @model
  * @generated
  */
-public interface ErrorPropagationConditionInstance extends EMV2InstanceObject {
+public interface OutgoingPropagationConditionInstance extends EMV2InstanceObject {
 	/**
 	 * Returns the value of the '<em><b>Emv2 Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Emv2 Element</em>' reference.
 	 * @see #setEmv2Element(OutgoingPropagationCondition)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationConditionInstance_Emv2Element()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance_Emv2Element()
 	 * @model
 	 * @generated
 	 */
 	OutgoingPropagationCondition getEmv2Element();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Emv2 Element</em>' reference.
@@ -77,7 +76,7 @@ public interface ErrorPropagationConditionInstance extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>In States</em>' reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationConditionInstance_InStates()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance_InStates()
 	 * @model
 	 * @generated
 	 */
@@ -89,14 +88,14 @@ public interface ErrorPropagationConditionInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Condition</em>' containment reference.
 	 * @see #setCondition(ConstraintElement)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationConditionInstance_Condition()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance_Condition()
 	 * @model containment="true"
 	 * @generated
 	 */
 	ConstraintElement getCondition();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#getCondition <em>Condition</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getCondition <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Condition</em>' containment reference.
@@ -111,14 +110,14 @@ public interface ErrorPropagationConditionInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Outgoing Propagation</em>' containment reference.
 	 * @see #setOutgoingPropagation(ConstrainedInstanceObject)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationConditionInstance_OutgoingPropagation()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance_OutgoingPropagation()
 	 * @model containment="true"
 	 * @generated
 	 */
 	ConstrainedInstanceObject getOutgoingPropagation();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Outgoing Propagation</em>' containment reference.
@@ -133,14 +132,14 @@ public interface ErrorPropagationConditionInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' attribute.
 	 * @see #setSource(boolean)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationConditionInstance_Source()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance_Source()
 	 * @model
 	 * @generated
 	 */
 	boolean isSource();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#isSource <em>Source</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#isSource <em>Source</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Source</em>' attribute.
@@ -155,14 +154,14 @@ public interface ErrorPropagationConditionInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Sink</em>' attribute.
 	 * @see #setSink(boolean)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationConditionInstance_Sink()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance_Sink()
 	 * @model
 	 * @generated
 	 */
 	boolean isSink();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance#isSink <em>Sink</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#isSink <em>Sink</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Sink</em>' attribute.
@@ -171,4 +170,4 @@ public interface ErrorPropagationConditionInstance extends EMV2InstanceObject {
 	 */
 	void setSink(boolean value);
 
-} // ErrorPropagationConditionInstance
+} // OutgoingPropagationConditionInstance

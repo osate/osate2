@@ -66,6 +66,11 @@
     <resource path="src/org/osate/aadl2/errormodel/instance/EMV2AnnexInstance.java" type="org.osate.aadl2.errormodel.instance.EMV2AnnexInstance">
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getConditions()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getInitialState()"/>
             </message_arguments>
         </filter>
@@ -124,6 +129,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="createNoErrorPropagationReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="createOutgoingPropagationConditionInstance()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -540,6 +550,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="EMV2_ANNEX_INSTANCE__CONDITIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__INITIAL_STATE"/>
             </message_arguments>
         </filter>
@@ -691,6 +706,76 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="NO_ERROR_PROPAGATION_REFERENCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__IN_STATES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SINK"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1170,6 +1255,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getEMV2AnnexInstance_Conditions()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getEMV2AnnexInstance_InitialState()"/>
             </message_arguments>
         </filter>
@@ -1216,6 +1306,41 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getNoErrorPropagationReference_Propagation()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionInstance()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionInstance_Condition()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionInstance_Emv2Element()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionInstance_InStates()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionInstance_OutgoingPropagation()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionInstance_Sink()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionInstance_Source()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1417,6 +1542,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="EMV2_ANNEX_INSTANCE__CONDITIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__INITIAL_STATE"/>
             </message_arguments>
         </filter>
@@ -1463,6 +1593,41 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__IN_STATES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SINK"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1592,6 +1757,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/OutgoingPropagationConditionInstance.java" type="org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/PropagationReference.java" type="org.osate.aadl2.errormodel.instance.PropagationReference">
         <filter id="1110441988">
             <message_arguments>
@@ -1717,6 +1889,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="conditions"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="initialState"/>
             </message_arguments>
         </filter>
@@ -1756,6 +1933,13 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.impl.NoErrorPropagationReferenceImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/OutgoingPropagationConditionInstanceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.OutgoingPropagationConditionInstanceImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.OutgoingPropagationConditionInstanceImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -1871,6 +2055,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createOutgoingPropagationConditionInstanceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createPropagationReferenceAdapter()"/>
             </message_arguments>
         </filter>
@@ -1964,6 +2153,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseNoErrorPropagationReference(NoErrorPropagationReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseOutgoingPropagationConditionInstance(OutgoingPropagationConditionInstance)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

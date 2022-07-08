@@ -77,12 +77,12 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
@@ -1110,7 +1110,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition opc, EMV2AnnexInstance annex) {
-		ErrorPropagationConditionInstance bi = EMV2InstanceFactory.eINSTANCE.createErrorPropagationConditionInstance();
+		OutgoingPropagationConditionInstance bi = EMV2InstanceFactory.eINSTANCE
+				.createOutgoingPropagationConditionInstance();
 		bi.setName(opc.getName());
 		bi.setEmv2Element(opc);
 		ConditionExpression behaviorCondition = opc.getCondition();
@@ -1131,16 +1132,16 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			Collection<ErrorPropagation> outeps = EMV2Util
 					.getAllOutgoingErrorPropagations(((ComponentInstance) annex.eContainer()).getComponentClassifier());
 			for (ErrorPropagation outep : outeps) {
-				ErrorPropagationConditionInstance bicopy = EcoreUtil.copy(bi);
+				OutgoingPropagationConditionInstance bicopy = EcoreUtil.copy(bi);
 				ConstrainedInstanceObject outcio = createErrorPropagationCIO(outep, opc.getTypeToken(), annex);
 				bicopy.setOutgoingPropagation(outcio);
-				annex.getErrorPropagationConditions().add(bicopy);
+				annex.getConditions().add(bicopy);
 			}
 		} else {
 			ErrorPropagation outep = opc.getOutgoing();
 			ConstrainedInstanceObject outcio = createErrorPropagationCIO(outep, opc.getTypeToken(), annex);
 			bi.setOutgoingPropagation(outcio);
-			annex.getErrorPropagationConditions().add(bi);
+			annex.getConditions().add(bi);
 		}
 	}
 

@@ -52,12 +52,12 @@ import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
@@ -125,8 +125,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createConstrainedInstanceObject();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
 			return createCompositeStateInstance();
-		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE:
-			return createErrorPropagationConditionInstance();
 		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE:
 			return createErrorDetectionInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
@@ -193,6 +191,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createBranchStateReference();
 		case EMV2InstancePackage.BRANCH_SAME_STATE:
 			return createBranchSameState();
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE:
+			return createOutgoingPropagationConditionInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -322,17 +322,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ErrorPathInstance createErrorPathInstance() {
 		ErrorPathInstanceImpl errorPathInstance = new ErrorPathInstanceImpl();
 		return errorPathInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ErrorPropagationConditionInstance createErrorPropagationConditionInstance() {
-		ErrorPropagationConditionInstanceImpl errorPropagationConditionInstance = new ErrorPropagationConditionInstanceImpl();
-		return errorPropagationConditionInstance;
 	}
 
 	/**
@@ -553,6 +542,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public BranchSameState createBranchSameState() {
 		BranchSameStateImpl branchSameState = new BranchSameStateImpl();
 		return branchSameState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public OutgoingPropagationConditionInstance createOutgoingPropagationConditionInstance() {
+		OutgoingPropagationConditionInstanceImpl outgoingPropagationConditionInstance = new OutgoingPropagationConditionInstanceImpl();
+		return outgoingPropagationConditionInstance;
 	}
 
 	/**

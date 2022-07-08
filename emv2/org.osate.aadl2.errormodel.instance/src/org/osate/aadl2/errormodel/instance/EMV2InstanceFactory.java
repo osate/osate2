@@ -115,15 +115,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	ErrorPathInstance createErrorPathInstance();
 
 	/**
-	 * Returns a new object of class '<em>Error Propagation Condition Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Error Propagation Condition Instance</em>'.
-	 * @generated
-	 */
-	ErrorPropagationConditionInstance createErrorPropagationConditionInstance();
-
-	/**
 	 * Returns a new object of class '<em>Error Detection Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -302,6 +293,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	 * @generated
 	 */
 	BranchSameState createBranchSameState();
+
+	/**
+	 * Returns a new object of class '<em>Outgoing Propagation Condition Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Outgoing Propagation Condition Instance</em>'.
+	 * @generated
+	 */
+	OutgoingPropagationConditionInstance createOutgoingPropagationConditionInstance();
 
 	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.

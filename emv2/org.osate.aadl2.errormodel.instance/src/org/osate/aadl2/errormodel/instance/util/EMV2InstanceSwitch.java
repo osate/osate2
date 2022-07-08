@@ -54,7 +54,6 @@ import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
@@ -62,6 +61,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -232,26 +232,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(compositeStateInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE: {
-			ErrorPropagationConditionInstance errorPropagationConditionInstance = (ErrorPropagationConditionInstance) theEObject;
-			T result = caseErrorPropagationConditionInstance(errorPropagationConditionInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(errorPropagationConditionInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(errorPropagationConditionInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(errorPropagationConditionInstance);
-			}
-			if (result == null) {
-				result = caseElement(errorPropagationConditionInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1322,6 +1302,26 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE: {
+			OutgoingPropagationConditionInstance outgoingPropagationConditionInstance = (OutgoingPropagationConditionInstance) theEObject;
+			T result = caseOutgoingPropagationConditionInstance(outgoingPropagationConditionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(outgoingPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(outgoingPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(outgoingPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = caseElement(outgoingPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1474,21 +1474,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseErrorPathInstance(ErrorPathInstance object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Error Propagation Condition Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Error Propagation Condition Instance</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseErrorPropagationConditionInstance(ErrorPropagationConditionInstance object) {
 		return null;
 	}
 
@@ -1879,6 +1864,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBranchSameState(BranchSameState object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOutgoingPropagationConditionInstance(OutgoingPropagationConditionInstance object) {
 		return null;
 	}
 

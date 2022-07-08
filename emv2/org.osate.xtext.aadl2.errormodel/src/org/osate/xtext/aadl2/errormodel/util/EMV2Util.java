@@ -1923,9 +1923,9 @@ public class EMV2Util {
 	 * @param unnamed Collection of unnamed OutgoingPropagationCondition
 	 * @return Collection<ErrorBehaviorTransition> list of OutgoingPropagationCondition as HashMap for quick lookup of names
 	 */
-	private static HashMap<String, OutgoingPropagationCondition> getAllOutgoingPropagationConditions(Classifier cl,
+	private static Map<String, OutgoingPropagationCondition> getAllOutgoingPropagationConditions(Classifier cl,
 			Collection<OutgoingPropagationCondition> unnamed) {
-		HashMap<String, OutgoingPropagationCondition> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, OutgoingPropagationCondition>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<OutgoingPropagationCondition> eflist = errorModelSubclause.getOutgoingPropagationConditions();
