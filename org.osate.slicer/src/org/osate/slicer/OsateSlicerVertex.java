@@ -32,7 +32,9 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.slicer.iobjadapters.AccessPropagationAdapter;
 import org.osate.slicer.iobjadapters.BoundComponentInstanceAdapter;
 import org.osate.slicer.iobjadapters.ErrorFlowInstanceAdapter;
 import org.osate.slicer.iobjadapters.FeatureInstanceAdapter;
@@ -64,22 +66,19 @@ public class OsateSlicerVertex {
 	final private VertexIObjAdapter element;
 
 	/**
-	 * Create a new vertex with the supplied feature, but no error type information
-	 * @param feat The feature the vertex represents
+	 * Create a new vertex with the supplied feature or other connection end and error type information
+	 * @param cie The end of a connection represented by the vertex. Mode transitions are currently not supported.
+	 * @param token The error(s) the vertex represents, or null if there isn't an error associated with this vertex
 	 */
-	public OsateSlicerVertex(ConnectionInstanceEnd feat) {
-		this.token = null;
-		this.element = new FeatureInstanceAdapter(feat);
-	}
-
-	/**
-	 * Create a new vertex with the supplied feature and error type information
-	 * @param feat The feature the vertex represents
-	 * @param token The error(s) the vertex represents
-	 */
-	public OsateSlicerVertex(ConnectionInstanceEnd feat, TypeTokenInstance token) {
+	public OsateSlicerVertex(ConnectionInstanceEnd cie, TypeTokenInstance token) {
 		this.token = token;
-		this.element = new FeatureInstanceAdapter(feat);
+		if (cie instanceof FeatureInstance) {
+			this.element = new FeatureInstanceAdapter((FeatureInstance) cie);
+		} else if (cie instanceof ComponentInstance) {
+			this.element = new AccessPropagationAdapter((ComponentInstance) cie);
+		} else {
+			this.element = null;
+		}
 	}
 
 	/**

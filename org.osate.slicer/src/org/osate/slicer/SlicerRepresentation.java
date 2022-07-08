@@ -153,38 +153,50 @@ public class SlicerRepresentation {
 		Graphs.addGraphReversed(rg, g);
 
 		// Debugging info, remove at-will
-		System.out.println(this.toDot());
+		System.out.println(this.toDot(g));
+
+//		System.out.println(this.toDot(backwardReachability("MyCar_CruiseControl_Instance.ta.to_throttle.Incident")));
 	}
 
-	private String addVertex(ErrorPropagationInstance prop, TypeTokenInstance tti) {
+	/**
+	 * Given a propagation and a token, this will get the associated vertex in the graph (creating it if it doesn't
+	 * exist, retrieving it if it does) and return its name.
+	 *
+	 * @param prop The propagation
+	 * @param tti The error token
+	 * @return The vertex's name
+	 */
+	private String getVertex(ErrorPropagationInstance prop, TypeTokenInstance tti) {
+		OsateSlicerVertex v = null;
 		if (prop instanceof FeaturePropagation) {
-			var v = new OsateSlicerVertex(((FeaturePropagation) prop).getFeature(), tti);
-			return addVertex(v);
+			v = new OsateSlicerVertex(((FeaturePropagation) prop).getFeature(), tti);
 		} else if (prop instanceof AccessPropagation) {
 			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
-			var v = new OsateSlicerVertex(component, tti);
-			return addVertex(v);
+			v = new OsateSlicerVertex(component, tti);
 		} else if (prop instanceof BindingPropagation) {
 			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
 			var bindingType = ((BindingPropagation) prop).getBinding();
-			var v = new OsateSlicerVertex(component, bindingType, tti);
-			return addVertex(v);
+			v = new OsateSlicerVertex(component, bindingType, tti);
 		} else if (prop instanceof PointPropagation) {
 			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
 			var propName = ((PointPropagation) prop).getName();
-			var v = new OsateSlicerVertex(component, propName, tti);
-			return addVertex(v);
+			v = new OsateSlicerVertex(component, propName, tti);
 		}
-		return null;
+		addVertex(v);
+		return v.getName();
 	}
 
-	private String addVertex(OsateSlicerVertex v) {
+	/**
+	 * Adds the given vertex to the graph, unless it already exists.
+	 *
+	 * @param v The vertex to add
+	 */
+	private void addVertex(OsateSlicerVertex v) {
 		var name = v.getName();
 		if (!vertexMap.containsKey(name)) {
 			g.addVertex(v);
 			vertexMap.put(name, v);
 		}
-		return name;
 	}
 
 	/**
@@ -342,7 +354,8 @@ public class SlicerRepresentation {
 	 * @param token The error token that is propagated into / out of the propagation point
 	 * @return The set of reachable features and errors
 	 */
-	public Collection<IObjErrorPair> backwardReach(InstanceObject comp, String propPointName, TypeTokenInstance token) {
+	public Collection<IObjErrorPair> backwardReach(ComponentInstance comp, String propPointName,
+			TypeTokenInstance token) {
 		Set<IObjErrorPair> retSet = new HashSet<>();
 		backwardReachability(comp.getInstanceObjectPath() + "." + propPointName + "." + token.getFullName()).vertexSet()
 				.forEach(v -> {
@@ -354,15 +367,15 @@ public class SlicerRepresentation {
 	/**
 	 * Calculates reachable instance objects + error tokens from the supplied component, binding, and error token triple.
 	 *
-	 * @param component Where to start the slice from, must be a component with some sort of binding relationship.
+	 * @param comp Where to start the slice from, must be a component with some sort of binding relationship.
 	 * @param binding The specific binding relationship
 	 * @param token The error type that is propagated into / out of the component along the binding to start the slice from
 	 * @return The set of reachable instance model elements and errors
 	 */
-	public Collection<IObjErrorPair> backwardReach(ComponentInstance component, BindingType binding,
+	public Collection<IObjErrorPair> backwardReach(ComponentInstance comp, BindingType binding,
 			TypeTokenInstance token) {
 		Set<IObjErrorPair> retSet = new HashSet<>();
-		backwardReachability(component.getInstanceObjectPath() + "." + binding + "." + token.getFullName()).vertexSet()
+		backwardReachability(comp.getInstanceObjectPath() + "." + binding + "." + token.getFullName()).vertexSet()
 				.forEach(v -> {
 					retSet.add(new IObjErrorPair(v.getIObj(), v.getErrorToken()));
 				});
@@ -426,7 +439,7 @@ public class SlicerRepresentation {
 	 *
 	 * @param srcVert The path to the vertex the caller wants the neighbors of
 	 * @param successors True if the caller wants vertices pointed at by edges from the srcVert,
-	 * false if s/he wants vertices which point at the srcVert
+	 * false if the caller wants vertices which point at the srcVert
 	 * @return Vertices representing features which are connected by a single edge to the supplied vertex
 	 */
 	private Collection<OsateSlicerVertex> getNeighbors(String srcVert, boolean successors) {
@@ -524,7 +537,7 @@ public class SlicerRepresentation {
 	 * Debug function which dumps the internal graph to dot so it can be fed into graphviz
 	 * @return A string which can be input to graphviz
 	 */
-	private String toDot() {
+	private String toDot(Graph<OsateSlicerVertex, DefaultEdge> g) {
 		DOTExporter<OsateSlicerVertex, DefaultEdge> exporter = new DOTExporter<>(v -> "\"" + v.getName() + "\"");
 		Writer writer = new StringWriter();
 		exporter.exportGraph(g, writer);
@@ -582,9 +595,11 @@ public class SlicerRepresentation {
 			var srcTypes = esi.getTypeSet().getElements();
 			var prop = esi.getPropagation();
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
-				TypeTokenInstance tti = (TypeTokenInstance) tse;
-				String srcVertexName = addVertex(new OsateSlicerVertex(esi, tti));
-				String tgtVertexName = addVertex(prop, tti);
+				var tti = (TypeTokenInstance) tse;
+				var srcVertex = new OsateSlicerVertex(esi, tti);
+				var srcVertexName = srcVertex.getName();
+				addVertex(srcVertex);
+				var tgtVertexName = getVertex(prop, tti);
 				addEdge(srcVertexName, tgtVertexName);
 			});
 			return null;
@@ -595,17 +610,13 @@ public class SlicerRepresentation {
 			var dstTypes = esi.getTypeSet().getElements();
 			var prop = esi.getPropagation();
 			dstTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
-				TypeTokenInstance tti = (TypeTokenInstance) tse;
-				String tgtVertexName = addVertex(new OsateSlicerVertex(esi, tti));
-				String srcVertexName = addVertex(prop, tti);
+				var tti = (TypeTokenInstance) tse;
+				var tgtVertex = new OsateSlicerVertex(esi, tti);
+				var tgtVertexName = tgtVertex.getName();
+				addVertex(tgtVertex);
+				var srcVertexName = getVertex(prop, tti);
 				addEdge(srcVertexName, tgtVertexName);
 			});
-			return null;
-		}
-
-		@Override
-		public Void caseElement(Element e) {
-			// for debugging
 			return null;
 		}
 
@@ -613,7 +624,7 @@ public class SlicerRepresentation {
 		public Void caseErrorPathInstance(ErrorPathInstance epi) {
 			var destProp = epi.getDestinationPropagation();
 			var destTTI = epi.getDestinationTypeToken();
-			String tgtVertexName = addVertex(destProp, destTTI);
+			String tgtVertexName = getVertex(destProp, destTTI);
 			if (epi.getSourcePropagation().equals(epi.getDestinationPropagation())) {
 				// Because the EMV2 instantiator does not create new propagations for different directions, we skip
 				// re-creating the vertex and then giving it an edge to itself by just bailing out here.
@@ -625,7 +636,7 @@ public class SlicerRepresentation {
 			final String tgtVertexNameFinal = new String(tgtVertexName);
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance srcTTI = (TypeTokenInstance) tse;
-				String srcVertexName = addVertex(srcProp, srcTTI);
+				String srcVertexName = getVertex(srcProp, srcTTI);
 				addEdge(srcVertexName, tgtVertexNameFinal);
 			});
 			return null;
@@ -647,17 +658,6 @@ public class SlicerRepresentation {
 			possiblePropagations.put(srcName, new PossiblePropagation(ppi));
 			return null;
 		}
-
-		@Override
-		public Void caseAccessPropagation(AccessPropagation object) {
-			// TODO Auto-generated method stub
-			return super.caseAccessPropagation(object);
-		}
-
-		@Override
-		public Void caseConnectionPath(ConnectionPath cp) {
-			return super.caseConnectionPath(cp);
-		}
 	}
 
 	/**
@@ -670,7 +670,7 @@ public class SlicerRepresentation {
 		public Void caseFeatureInstance(FeatureInstance fi) {
 			var fullFeatureName = fi.getInstanceObjectPath();
 			String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
-			addVertex(new OsateSlicerVertex(fi));
+			addVertex(new OsateSlicerVertex(fi, null));
 			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
 				if (!inFeats.containsKey(fullContainerName)) {
 					inFeats.put(fullContainerName, new HashSet<String>());
@@ -689,8 +689,12 @@ public class SlicerRepresentation {
 		@Override
 		public Void caseConnectionInstance(ConnectionInstance ci) {
 			for (ConnectionReference cr : ci.getConnectionReferences()) {
-				String srcName = addVertex(new OsateSlicerVertex(cr.getSource()));
-				String dstName = addVertex(new OsateSlicerVertex(cr.getDestination()));
+				var srcVertex = new OsateSlicerVertex(cr.getSource(), null);
+				var srcName = srcVertex.getName();
+				addVertex(srcVertex);
+				var dstVertex = new OsateSlicerVertex(cr.getDestination(), null);
+				var dstName = dstVertex.getName();
+				addVertex(dstVertex);
 				addEdge(srcName, dstName);
 			}
 
