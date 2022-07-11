@@ -538,10 +538,21 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private TransitionSource createTransitionSource(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
-		if (transition.isAllStates()) {
+		return createTransitionSource(transition.isAllStates(), transition.getSource(),
+				transition.getTypeTokenConstraint(), annex);
+	}
+
+	private TransitionSource createTransitionSource(OutgoingPropagationCondition condition, EMV2AnnexInstance annex) {
+		return createTransitionSource(condition.isAllStates(), condition.getState(), condition.getTypeTokenConstraint(),
+				annex);
+	}
+
+	private TransitionSource createTransitionSource(boolean allStates, ErrorBehaviorState state, TypeSet typeSet,
+			EMV2AnnexInstance annex) {
+		if (allStates) {
 			return createAllSources();
 		} else {
-			return createSourceStateReference(transition, annex);
+			return createSourceStateReference(state, typeSet, annex);
 		}
 	}
 
@@ -551,14 +562,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return allSources;
 	}
 
-	private SourceStateReference createSourceStateReference(ErrorBehaviorTransition transition,
+	private SourceStateReference createSourceStateReference(ErrorBehaviorState state, TypeSet typeSet,
 			EMV2AnnexInstance annex) {
 		var stateReference = EMV2InstanceFactory.eINSTANCE.createSourceStateReference();
-		stateReference.setState(findStateInstance(annex, transition.getSource()));
-		if (transition.getTypeTokenConstraint() != null) {
-			stateReference.setTypeSet(createAnonymousTypeSet(transition.getTypeTokenConstraint()));
-		} else if (transition.getSource().getTypeSet() != null) {
-			stateReference.setTypeSet(createAnonymousTypeSet(transition.getSource().getTypeSet()));
+		stateReference.setState(findStateInstance(annex, state));
+		if (typeSet != null) {
+			stateReference.setTypeSet(createAnonymousTypeSet(typeSet));
+		} else if (state.getTypeSet() != null) {
+			stateReference.setTypeSet(createAnonymousTypeSet(state.getTypeSet()));
 		}
 		var name = stateReference.getState().getName();
 		if (stateReference.getTypeSet() != null) {
@@ -1113,6 +1124,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var conditionInstance = EMV2InstanceFactory.eINSTANCE.createOutgoingPropagationConditionInstance();
 		conditionInstance.setName(condition.getName());
 		conditionInstance.setOutgoingPropagationCondition(condition);
+		conditionInstance.setSource(createTransitionSource(condition, annex));
 		annex.getConditions().add(conditionInstance);
 	}
 

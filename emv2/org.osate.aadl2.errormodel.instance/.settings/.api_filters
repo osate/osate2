@@ -755,6 +755,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="PROPAGATION_REFERENCE"/>
             </message_arguments>
         </filter>
@@ -1295,6 +1300,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionInstance_Source()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getPropagationReference()"/>
             </message_arguments>
         </filter>
@@ -1553,6 +1563,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION_CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">

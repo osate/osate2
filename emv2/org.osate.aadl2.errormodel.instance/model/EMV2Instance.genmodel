@@ -228,6 +228,7 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//BranchSameState"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//OutgoingPropagationConditionInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OutgoingPropagationConditionInstance/outgoingPropagationCondition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OutgoingPropagationConditionInstance/source"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

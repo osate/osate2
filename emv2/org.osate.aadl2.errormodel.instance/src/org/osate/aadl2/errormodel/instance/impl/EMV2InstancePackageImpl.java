@@ -1710,6 +1710,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getOutgoingPropagationConditionInstance_Source() {
+		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2361,6 +2371,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		outgoingPropagationConditionInstanceEClass = createEClass(OUTGOING_PROPAGATION_CONDITION_INSTANCE);
 		createEReference(outgoingPropagationConditionInstanceEClass,
 				OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION_CONDITION);
+		createEReference(outgoingPropagationConditionInstanceEClass, OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -2963,6 +2974,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				theErrorModelPackage.getOutgoingPropagationCondition(), null, "outgoingPropagationCondition", null, 0,
 				1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOutgoingPropagationConditionInstance_Source(), getTransitionSource(), null, "source", null, 0,
+				1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

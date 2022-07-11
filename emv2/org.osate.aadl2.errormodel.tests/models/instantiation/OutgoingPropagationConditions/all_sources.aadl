@@ -1,0 +1,32 @@
+package all_sources
+public
+	system s
+		features
+			f1: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior all_sources::machine1;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				propagations
+					condition1: all -[]-> f1 {ServiceError};
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+		end behavior;
+	**};
+end all_sources;
