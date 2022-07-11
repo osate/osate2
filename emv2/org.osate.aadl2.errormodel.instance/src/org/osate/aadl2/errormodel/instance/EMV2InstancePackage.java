@@ -5369,58 +5369,14 @@ public interface EMV2InstancePackage extends EPackage {
 	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
-	 * The feature id for the '<em><b>Emv2 Element</b></em>' reference.
+	 * The feature id for the '<em><b>Outgoing Propagation Condition</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>In States</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__IN_STATES = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Outgoing Propagation</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Sink</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__SINK = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 5;
+	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION_CONDITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT
+			+ 0;
 
 	/**
 	 * The number of structural features of the '<em>Outgoing Propagation Condition Instance</em>' class.
@@ -5429,7 +5385,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OUTGOING_PROPAGATION_CONDITION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 6;
+	int OUTGOING_PROPAGATION_CONDITION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
@@ -6679,70 +6635,15 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getOutgoingPropagationConditionInstance();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getEmv2Element <em>Emv2 Element</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getOutgoingPropagationCondition <em>Outgoing Propagation Condition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Emv2 Element</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getEmv2Element()
+	 * @return the meta object for the reference '<em>Outgoing Propagation Condition</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getOutgoingPropagationCondition()
 	 * @see #getOutgoingPropagationConditionInstance()
 	 * @generated
 	 */
-	EReference getOutgoingPropagationConditionInstance_Emv2Element();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getInStates <em>In States</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>In States</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getInStates()
-	 * @see #getOutgoingPropagationConditionInstance()
-	 * @generated
-	 */
-	EReference getOutgoingPropagationConditionInstance_InStates();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getCondition <em>Condition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Condition</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getCondition()
-	 * @see #getOutgoingPropagationConditionInstance()
-	 * @generated
-	 */
-	EReference getOutgoingPropagationConditionInstance_Condition();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Outgoing Propagation</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getOutgoingPropagation()
-	 * @see #getOutgoingPropagationConditionInstance()
-	 * @generated
-	 */
-	EReference getOutgoingPropagationConditionInstance_OutgoingPropagation();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#isSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Source</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#isSource()
-	 * @see #getOutgoingPropagationConditionInstance()
-	 * @generated
-	 */
-	EAttribute getOutgoingPropagationConditionInstance_Source();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#isSink <em>Sink</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Sink</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#isSink()
-	 * @see #getOutgoingPropagationConditionInstance()
-	 * @generated
-	 */
-	EAttribute getOutgoingPropagationConditionInstance_Sink();
+	EReference getOutgoingPropagationConditionInstance_OutgoingPropagationCondition();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -8201,58 +8102,13 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass OUTGOING_PROPAGATION_CONDITION_INSTANCE = eINSTANCE.getOutgoingPropagationConditionInstance();
 
 		/**
-		 * The meta object literal for the '<em><b>Emv2 Element</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Outgoing Propagation Condition</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference OUTGOING_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT = eINSTANCE
-				.getOutgoingPropagationConditionInstance_Emv2Element();
-
-		/**
-		 * The meta object literal for the '<em><b>In States</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OUTGOING_PROPAGATION_CONDITION_INSTANCE__IN_STATES = eINSTANCE
-				.getOutgoingPropagationConditionInstance_InStates();
-
-		/**
-		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION = eINSTANCE
-				.getOutgoingPropagationConditionInstance_Condition();
-
-		/**
-		 * The meta object literal for the '<em><b>Outgoing Propagation</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION = eINSTANCE
-				.getOutgoingPropagationConditionInstance_OutgoingPropagation();
-
-		/**
-		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE = eINSTANCE
-				.getOutgoingPropagationConditionInstance_Source();
-
-		/**
-		 * The meta object literal for the '<em><b>Sink</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OUTGOING_PROPAGATION_CONDITION_INSTANCE__SINK = eINSTANCE
-				.getOutgoingPropagationConditionInstance_Sink();
+		EReference OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION_CONDITION = eINSTANCE
+				.getOutgoingPropagationConditionInstance_OutgoingPropagationCondition();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

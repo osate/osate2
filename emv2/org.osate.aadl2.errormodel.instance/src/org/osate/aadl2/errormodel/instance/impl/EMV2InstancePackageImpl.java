@@ -1700,58 +1700,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getOutgoingPropagationConditionInstance_Emv2Element() {
+	public EReference getOutgoingPropagationConditionInstance_OutgoingPropagationCondition() {
 		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getOutgoingPropagationConditionInstance_InStates() {
-		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getOutgoingPropagationConditionInstance_Condition() {
-		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getOutgoingPropagationConditionInstance_OutgoingPropagation() {
-		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getOutgoingPropagationConditionInstance_Source() {
-		return (EAttribute) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getOutgoingPropagationConditionInstance_Sink() {
-		return (EAttribute) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2410,15 +2360,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		outgoingPropagationConditionInstanceEClass = createEClass(OUTGOING_PROPAGATION_CONDITION_INSTANCE);
 		createEReference(outgoingPropagationConditionInstanceEClass,
-				OUTGOING_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT);
-		createEReference(outgoingPropagationConditionInstanceEClass,
-				OUTGOING_PROPAGATION_CONDITION_INSTANCE__IN_STATES);
-		createEReference(outgoingPropagationConditionInstanceEClass,
-				OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION);
-		createEReference(outgoingPropagationConditionInstanceEClass,
-				OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION);
-		createEAttribute(outgoingPropagationConditionInstanceEClass, OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE);
-		createEAttribute(outgoingPropagationConditionInstanceEClass, OUTGOING_PROPAGATION_CONDITION_INSTANCE__SINK);
+				OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION_CONDITION);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -3017,26 +2959,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(outgoingPropagationConditionInstanceEClass, OutgoingPropagationConditionInstance.class,
 				"OutgoingPropagationConditionInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getOutgoingPropagationConditionInstance_Emv2Element(),
-				theErrorModelPackage.getOutgoingPropagationCondition(), null, "emv2Element", null, 0, 1,
-				OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOutgoingPropagationConditionInstance_InStates(), getStateInstance(), null, "inStates", null,
-				0, -1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOutgoingPropagationConditionInstance_Condition(), getConstraintElement(), null, "condition",
-				null, 0, 1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOutgoingPropagationConditionInstance_OutgoingPropagation(), getConstrainedInstanceObject(),
-				null, "outgoingPropagation", null, 0, 1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
-		initEAttribute(getOutgoingPropagationConditionInstance_Source(), ecorePackage.getEBoolean(), "source", null, 0,
+		initEReference(getOutgoingPropagationConditionInstance_OutgoingPropagationCondition(),
+				theErrorModelPackage.getOutgoingPropagationCondition(), null, "outgoingPropagationCondition", null, 0,
 				1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getOutgoingPropagationConditionInstance_Sink(), ecorePackage.getEBoolean(), "sink", null, 0, 1,
-				OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
-				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

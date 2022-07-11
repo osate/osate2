@@ -82,7 +82,6 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
-import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationReference;
@@ -1109,40 +1108,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cio;
 	}
 
-	private void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition opc, EMV2AnnexInstance annex) {
-		OutgoingPropagationConditionInstance bi = EMV2InstanceFactory.eINSTANCE
-				.createOutgoingPropagationConditionInstance();
-		bi.setName(opc.getName());
-		bi.setEmv2Element(opc);
-		ConditionExpression behaviorCondition = opc.getCondition();
-		ConstraintElement cio = instantiateCondition(behaviorCondition, annex);
-		bi.setCondition(cio);
-		// explicit target state
-		if (opc.isAllStates()) {
-			StateMachineInstance smi = annex.getStateMachine();
-			if (smi != null) {
-				for (StateInstance si : smi.getStates()) {
-					bi.getInStates().add(si);
-				}
-			}
-		} else {
-			bi.getInStates().add(findStateInstance(annex, opc.getState()));
-		}
-		if (opc.isAllPropagations()) {
-			Collection<ErrorPropagation> outeps = EMV2Util
-					.getAllOutgoingErrorPropagations(((ComponentInstance) annex.eContainer()).getComponentClassifier());
-			for (ErrorPropagation outep : outeps) {
-				OutgoingPropagationConditionInstance bicopy = EcoreUtil.copy(bi);
-				ConstrainedInstanceObject outcio = createErrorPropagationCIO(outep, opc.getTypeToken(), annex);
-				bicopy.setOutgoingPropagation(outcio);
-				annex.getConditions().add(bicopy);
-			}
-		} else {
-			ErrorPropagation outep = opc.getOutgoing();
-			ConstrainedInstanceObject outcio = createErrorPropagationCIO(outep, opc.getTypeToken(), annex);
-			bi.setOutgoingPropagation(outcio);
-			annex.getConditions().add(bi);
-		}
+	private void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition condition,
+			EMV2AnnexInstance annex) {
+		var conditionInstance = EMV2InstanceFactory.eINSTANCE.createOutgoingPropagationConditionInstance();
+		conditionInstance.setName(condition.getName());
+		conditionInstance.setOutgoingPropagationCondition(condition);
+		annex.getConditions().add(conditionInstance);
 	}
 
 	private void instantiateErrorDetection(ErrorDetection ed, EMV2AnnexInstance annex) {

@@ -725,27 +725,12 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__IN_STATES"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__NAME"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION"/>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION_CONDITION"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -766,16 +751,6 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__QUALIFIED_NAME"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SINK"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1315,32 +1290,7 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="getOutgoingPropagationConditionInstance_Condition()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getOutgoingPropagationConditionInstance_Emv2Element()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getOutgoingPropagationConditionInstance_InStates()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getOutgoingPropagationConditionInstance_OutgoingPropagation()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getOutgoingPropagationConditionInstance_Sink()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getOutgoingPropagationConditionInstance_Source()"/>
+                <message_argument value="getOutgoingPropagationConditionInstance_OutgoingPropagationCondition()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1602,32 +1552,7 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__IN_STATES"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SINK"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE"/>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION_CONDITION"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
