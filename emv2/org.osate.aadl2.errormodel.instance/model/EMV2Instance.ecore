@@ -296,5 +296,7 @@
         eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//OutgoingPropagationCondition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//TransitionSource"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpressionInstance"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

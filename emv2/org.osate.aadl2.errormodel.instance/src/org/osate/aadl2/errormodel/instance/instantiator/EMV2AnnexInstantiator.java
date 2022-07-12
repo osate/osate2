@@ -201,7 +201,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<OutgoingPropagationCondition> OPCs = EMV2Util.getAllOutgoingPropagationConditions(instance);
 		for (OutgoingPropagationCondition opc : OPCs) {
-			instantiateOutgoingPropagationCondition(opc, emv2AI);
+			instantiateOutgoingPropagationCondition(opc, instance, emv2AI);
 		}
 
 		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getComponentClassifier());
@@ -1120,11 +1120,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition condition,
-			EMV2AnnexInstance annex) {
+			ComponentInstance component, EMV2AnnexInstance annex) {
 		var conditionInstance = EMV2InstanceFactory.eINSTANCE.createOutgoingPropagationConditionInstance();
 		conditionInstance.setName(condition.getName());
 		conditionInstance.setOutgoingPropagationCondition(condition);
 		conditionInstance.setSource(createTransitionSource(condition, annex));
+		if (condition.getCondition() != null) {
+			conditionInstance
+					.setCondition(createConditionExpressionInstance(condition.getCondition(), component, annex));
+		}
 		annex.getConditions().add(conditionInstance);
 	}
 
