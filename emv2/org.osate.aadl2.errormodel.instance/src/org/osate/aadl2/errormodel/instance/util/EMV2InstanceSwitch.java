@@ -46,6 +46,7 @@ import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
@@ -61,6 +62,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
@@ -1322,6 +1324,55 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_DESTINATION: {
+			OutgoingPropagationConditionDestination outgoingPropagationConditionDestination = (OutgoingPropagationConditionDestination) theEObject;
+			T result = caseOutgoingPropagationConditionDestination(outgoingPropagationConditionDestination);
+			if (result == null) {
+				result = caseEMV2InstanceObject(outgoingPropagationConditionDestination);
+			}
+			if (result == null) {
+				result = caseInstanceObject(outgoingPropagationConditionDestination);
+			}
+			if (result == null) {
+				result = caseNamedElement(outgoingPropagationConditionDestination);
+			}
+			if (result == null) {
+				result = caseElement(outgoingPropagationConditionDestination);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.DESTINATION_PROPAGATION_REFERENCE: {
+			DestinationPropagationReference destinationPropagationReference = (DestinationPropagationReference) theEObject;
+			T result = caseDestinationPropagationReference(destinationPropagationReference);
+			if (result == null) {
+				result = casePropagationReference(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseOutgoingPropagationConditionDestination(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseConditionExpressionInstance(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseElement(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1879,6 +1930,36 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseOutgoingPropagationConditionInstance(OutgoingPropagationConditionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition Destination</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition Destination</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOutgoingPropagationConditionDestination(OutgoingPropagationConditionDestination object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Destination Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Destination Propagation Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDestinationPropagationReference(DestinationPropagationReference object) {
 		return null;
 	}
 

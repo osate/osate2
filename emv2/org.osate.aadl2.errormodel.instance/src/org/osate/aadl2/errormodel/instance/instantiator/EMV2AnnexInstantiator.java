@@ -1129,6 +1129,38 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			conditionInstance
 					.setCondition(createConditionExpressionInstance(condition.getCondition(), component, annex));
 		}
+
+		var propagationReference = EMV2InstanceFactory.eINSTANCE.createDestinationPropagationReference();
+		propagationReference.setPropagation(findErrorPropagationInstance(annex, condition.getOutgoing()));
+		if (condition.getTypeToken() == null) {
+			if (conditionInstance.getSource() instanceof SourceStateReference sourceStateReference
+					&& !(conditionInstance.getCondition() instanceof CountExpression)) {
+				var sourceTypeSet = sourceStateReference.getTypeSet();
+				AnonymousTypeSet conditionTypeSet = null;
+				if (conditionInstance.getCondition() instanceof EventReference eventReference) {
+					conditionTypeSet = eventReference.getTypeSet();
+				} else if (conditionInstance
+						.getCondition() instanceof PropagationReference conditionPropagationReference) {
+					conditionTypeSet = conditionPropagationReference.getTypeSet();
+				}
+				if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
+					propagationReference.setTypeSet(EcoreUtil.copy(sourceTypeSet));
+				} else if (sourceTypeSet == null && conditionTypeSet != null
+						&& conditionTypeSet.flatten().size() == 1) {
+					propagationReference.setTypeSet(EcoreUtil.copy(conditionTypeSet));
+				}
+			}
+		} else {
+			propagationReference.setTypeSet(createAnonymousTypeSet(condition.getTypeToken()));
+		}
+		if (propagationReference.getTypeSet() == null) {
+			propagationReference.setName(propagationReference.getPropagation().getName());
+		} else {
+			propagationReference.setName(propagationReference.getPropagation().getName() + ' '
+					+ propagationReference.getTypeSet().getName());
+		}
+		conditionInstance.setDestination(propagationReference);
+
 		annex.getConditions().add(conditionInstance);
 	}
 

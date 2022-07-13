@@ -47,6 +47,7 @@ import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
@@ -62,6 +63,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
@@ -398,6 +400,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseOutgoingPropagationConditionInstance(OutgoingPropagationConditionInstance object) {
 			return createOutgoingPropagationConditionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseOutgoingPropagationConditionDestination(OutgoingPropagationConditionDestination object) {
+			return createOutgoingPropagationConditionDestinationAdapter();
+		}
+
+		@Override
+		public Adapter caseDestinationPropagationReference(DestinationPropagationReference object) {
+			return createDestinationPropagationReferenceAdapter();
 		}
 
 		@Override
@@ -954,6 +966,34 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createOutgoingPropagationConditionInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination <em>Outgoing Propagation Condition Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination
+	 * @generated
+	 */
+	public Adapter createOutgoingPropagationConditionDestinationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.DestinationPropagationReference <em>Destination Propagation Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.DestinationPropagationReference
+	 * @generated
+	 */
+	public Adapter createDestinationPropagationReferenceAdapter() {
 		return null;
 	}
 

@@ -37,6 +37,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
  *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getOutgoingPropagationCondition <em>Outgoing Propagation Condition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getDestination <em>Destination</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance()
@@ -109,5 +110,27 @@ public interface OutgoingPropagationConditionInstance extends EMV2InstanceObject
 	 * @generated
 	 */
 	void setCondition(ConditionExpressionInstance value);
+
+	/**
+	 * Returns the value of the '<em><b>Destination</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destination</em>' containment reference.
+	 * @see #setDestination(OutgoingPropagationConditionDestination)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance_Destination()
+	 * @model containment="true"
+	 * @generated
+	 */
+	OutgoingPropagationConditionDestination getDestination();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getDestination <em>Destination</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Destination</em>' containment reference.
+	 * @see #getDestination()
+	 * @generated
+	 */
+	void setDestination(OutgoingPropagationConditionDestination value);
 
 } // OutgoingPropagationConditionInstance

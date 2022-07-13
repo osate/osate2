@@ -1,0 +1,78 @@
+package destination_type_from_source
+public
+	system s
+		features
+			f1: out feature;
+			f2: out feature;
+			f3: out feature;
+			f4: out feature;
+			f5: out feature;
+			f6: out feature;
+			f7: out feature;
+			f8: out feature;
+			f9: in feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: abstract a1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior destination_type_from_source::machine1;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+				f2: out propagation {CommonErrors};
+				f3: out propagation {CommonErrors};
+				f4: out propagation {CommonErrors};
+				f5: out propagation {CommonErrors};
+				f6: out propagation {CommonErrors};
+				f7: out propagation {CommonErrors};
+				f8: out propagation {CommonErrors};
+				f9: in propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				events
+					error1: error event;
+					error2: error event {CommonErrors};
+				propagations
+					condition1: state1 {ServiceError} -[error1]-> f1;
+					condition2: state2 -[error1]-> f2;
+					condition3: state3 {ServiceError} -[error2 {noerror}]-> f3;
+					condition4: state4 -[error2 {noerror}]-> f4;
+					condition5: state5 {ServiceError} -[f9 {noerror}]-> f5;
+					condition6: state6 -[f9 {noerror}]-> f6;
+					condition7: state7 {ServiceError} -[sub1.f10 {noerror}]-> f7;
+					condition8: state8 -[sub1.f10 {noerror}]-> f8;
+			end component;
+		**};
+	end s.i;
+	
+	abstract a1
+		features
+			f10: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f10: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end a1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state {CommonErrors};
+				state2: state {ServiceError};
+				state3: state {CommonErrors};
+				state4: state {ServiceError};
+				state5: state {CommonErrors};
+				state6: state {ServiceError};
+				state7: state {CommonErrors};
+				state8: state {ServiceError};
+		end behavior;
+	**};
+end destination_type_from_source;

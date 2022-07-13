@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
@@ -45,6 +46,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.OutgoingPropagationConditionInstanceImpl#getOutgoingPropagationCondition <em>Outgoing Propagation Condition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.OutgoingPropagationConditionInstanceImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.OutgoingPropagationConditionInstanceImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.OutgoingPropagationConditionInstanceImpl#getDestination <em>Destination</em>}</li>
  * </ul>
  *
  * @generated
@@ -80,6 +82,16 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 	 * @ordered
 	 */
 	protected ConditionExpressionInstance condition;
+
+	/**
+	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestination()
+	 * @generated
+	 * @ordered
+	 */
+	protected OutgoingPropagationConditionDestination destination;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -272,12 +284,74 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 	 * @generated
 	 */
 	@Override
+	public OutgoingPropagationConditionDestination getDestination() {
+		return destination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDestination(OutgoingPropagationConditionDestination newDestination,
+			NotificationChain msgs) {
+		OutgoingPropagationConditionDestination oldDestination = destination;
+		destination = newDestination;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION, oldDestination,
+					newDestination);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDestination(OutgoingPropagationConditionDestination newDestination) {
+		if (newDestination != destination) {
+			NotificationChain msgs = null;
+			if (destination != null) {
+				msgs = ((InternalEObject) destination).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION, null, msgs);
+			}
+			if (newDestination != null) {
+				msgs = ((InternalEObject) newDestination).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION, null, msgs);
+			}
+			msgs = basicSetDestination(newDestination, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION, newDestination,
+					newDestination));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE:
 			return basicSetSource(null, msgs);
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 			return basicSetCondition(null, msgs);
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION:
+			return basicSetDestination(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -299,6 +373,8 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 			return getSource();
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 			return getCondition();
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION:
+			return getDestination();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -319,6 +395,9 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 			return;
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 			setCondition((ConditionExpressionInstance) newValue);
+			return;
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION:
+			setDestination((OutgoingPropagationConditionDestination) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -341,6 +420,9 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 			setCondition((ConditionExpressionInstance) null);
 			return;
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION:
+			setDestination((OutgoingPropagationConditionDestination) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -359,6 +441,8 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 			return source != null;
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 			return condition != null;
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION:
+			return destination != null;
 		}
 		return super.eIsSet(featureID);
 	}

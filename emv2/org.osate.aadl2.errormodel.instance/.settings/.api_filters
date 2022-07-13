@@ -56,6 +56,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/DestinationPropagationReference.java" type="org.osate.aadl2.errormodel.instance.DestinationPropagationReference">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.DestinationPropagationReference"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/DestinationStateReference.java" type="org.osate.aadl2.errormodel.instance.DestinationStateReference">
         <filter id="1110441988">
             <message_arguments>
@@ -109,6 +116,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="createCountExpression()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="createDestinationPropagationReference()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -500,6 +512,56 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__PROPAGATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__TYPE_SET"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="DESTINATION_STATE_REFERENCE"/>
             </message_arguments>
         </filter>
@@ -710,6 +772,46 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE"/>
             </message_arguments>
         </filter>
@@ -726,6 +828,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1225,6 +1332,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getDestinationPropagationReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getDestinationStateReference()"/>
             </message_arguments>
         </filter>
@@ -1295,12 +1407,22 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionDestination()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getOutgoingPropagationConditionInstance()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getOutgoingPropagationConditionInstance_Condition()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getOutgoingPropagationConditionInstance_Destination()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1497,6 +1619,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="DESTINATION_STATE_REFERENCE"/>
             </message_arguments>
         </filter>
@@ -1567,12 +1694,22 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1712,6 +1849,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/OutgoingPropagationConditionDestination.java" type="org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/OutgoingPropagationConditionInstance.java" type="org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance">
         <filter id="1110441988">
             <message_arguments>
@@ -1826,6 +1970,13 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.impl.CountExpressionImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/DestinationPropagationReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.DestinationPropagationReferenceImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.DestinationPropagationReferenceImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -1990,6 +2141,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createDestinationPropagationReferenceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createDestinationStateReferenceAdapter()"/>
             </message_arguments>
         </filter>
@@ -2006,6 +2162,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createNoErrorPropagationReferenceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createOutgoingPropagationConditionDestinationAdapter()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -2092,6 +2253,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="caseDestinationPropagationReference(DestinationPropagationReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="caseDestinationStateReference(DestinationStateReference)"/>
             </message_arguments>
         </filter>
@@ -2108,6 +2274,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseNoErrorPropagationReference(NoErrorPropagationReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseOutgoingPropagationConditionDestination(OutgoingPropagationConditionDestination)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

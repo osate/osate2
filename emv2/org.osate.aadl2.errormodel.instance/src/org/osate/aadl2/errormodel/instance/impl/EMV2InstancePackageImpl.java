@@ -51,6 +51,7 @@ import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
+import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
@@ -68,6 +69,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
@@ -356,6 +358,20 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass outgoingPropagationConditionInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass outgoingPropagationConditionDestinationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass destinationPropagationReferenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1730,6 +1746,36 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getOutgoingPropagationConditionInstance_Destination() {
+		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getOutgoingPropagationConditionDestination() {
+		return outgoingPropagationConditionDestinationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getDestinationPropagationReference() {
+		return destinationPropagationReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2384,6 +2430,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(outgoingPropagationConditionInstanceEClass, OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE);
 		createEReference(outgoingPropagationConditionInstanceEClass,
 				OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION);
+		createEReference(outgoingPropagationConditionInstanceEClass,
+				OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION);
+
+		outgoingPropagationConditionDestinationEClass = createEClass(OUTGOING_PROPAGATION_CONDITION_DESTINATION);
+
+		destinationPropagationReferenceEClass = createEClass(DESTINATION_PROPAGATION_REFERENCE);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -2481,6 +2533,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		branchStateReferenceEClass.getESuperTypes().add(getBranch());
 		branchSameStateEClass.getESuperTypes().add(getBranch());
 		outgoingPropagationConditionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		outgoingPropagationConditionDestinationEClass.getESuperTypes().add(getEMV2InstanceObject());
+		destinationPropagationReferenceEClass.getESuperTypes().add(getPropagationReference());
+		destinationPropagationReferenceEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2992,6 +3047,19 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getOutgoingPropagationConditionInstance_Condition(), getConditionExpressionInstance(), null,
 				"condition", null, 0, 1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOutgoingPropagationConditionInstance_Destination(),
+				getOutgoingPropagationConditionDestination(), null, "destination", null, 0, 1,
+				OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(outgoingPropagationConditionDestinationEClass, OutgoingPropagationConditionDestination.class,
+				"OutgoingPropagationConditionDestination", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(destinationPropagationReferenceEClass, DestinationPropagationReference.class,
+				"DestinationPropagationReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		addEOperation(destinationPropagationReferenceEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

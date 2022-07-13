@@ -44,6 +44,7 @@ import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
+import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
@@ -193,6 +194,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createBranchSameState();
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE:
 			return createOutgoingPropagationConditionInstance();
+		case EMV2InstancePackage.DESTINATION_PROPAGATION_REFERENCE:
+			return createDestinationPropagationReference();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -553,6 +556,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public OutgoingPropagationConditionInstance createOutgoingPropagationConditionInstance() {
 		OutgoingPropagationConditionInstanceImpl outgoingPropagationConditionInstance = new OutgoingPropagationConditionInstanceImpl();
 		return outgoingPropagationConditionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public DestinationPropagationReference createDestinationPropagationReference() {
+		DestinationPropagationReferenceImpl destinationPropagationReference = new DestinationPropagationReferenceImpl();
+		return destinationPropagationReference;
 	}
 
 	/**

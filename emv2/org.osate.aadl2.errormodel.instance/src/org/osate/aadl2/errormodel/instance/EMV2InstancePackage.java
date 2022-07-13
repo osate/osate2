@@ -5397,13 +5397,186 @@ public interface EMV2InstancePackage extends EPackage {
 	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Destination</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Outgoing Propagation Condition Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTGOING_PROPAGATION_CONDITION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
+	int OUTGOING_PROPAGATION_CONDITION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination <em>Outgoing Propagation Condition Destination</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOutgoingPropagationConditionDestination()
+	 * @generated
+	 */
+	int OUTGOING_PROPAGATION_CONDITION_DESTINATION = 52;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTGOING_PROPAGATION_CONDITION_DESTINATION__NAME = EMV2_INSTANCE_OBJECT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTGOING_PROPAGATION_CONDITION_DESTINATION__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTGOING_PROPAGATION_CONDITION_DESTINATION__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+
+	/**
+	 * The number of structural features of the '<em>Outgoing Propagation Condition Destination</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTGOING_PROPAGATION_CONDITION_DESTINATION_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.DestinationPropagationReferenceImpl <em>Destination Propagation Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.DestinationPropagationReferenceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getDestinationPropagationReference()
+	 * @generated
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE = 53;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE__OWNED_ELEMENT = PROPAGATION_REFERENCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE__OWNED_COMMENT = PROPAGATION_REFERENCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE__NAME = PROPAGATION_REFERENCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE__QUALIFIED_NAME = PROPAGATION_REFERENCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE__OWNED_PROPERTY_ASSOCIATION = PROPAGATION_REFERENCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE__ANNEX_INSTANCE = PROPAGATION_REFERENCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Propagation</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE__PROPAGATION = PROPAGATION_REFERENCE__PROPAGATION;
+
+	/**
+	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE__TYPE_SET = PROPAGATION_REFERENCE__TYPE_SET;
+
+	/**
+	 * The number of structural features of the '<em>Destination Propagation Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESTINATION_PROPAGATION_REFERENCE_FEATURE_COUNT = PROPAGATION_REFERENCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
@@ -5413,7 +5586,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 52;
+	int EOPERATION = 54;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -5423,7 +5596,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 53;
+	int BINDING_TYPE = 55;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
@@ -5433,7 +5606,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
 	 * @generated
 	 */
-	int COUNT_EXPRESSION_OPERATION = 54;
+	int COUNT_EXPRESSION_OPERATION = 56;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6684,6 +6857,37 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOutgoingPropagationConditionInstance_Condition();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getDestination <em>Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Destination</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getDestination()
+	 * @see #getOutgoingPropagationConditionInstance()
+	 * @generated
+	 */
+	EReference getOutgoingPropagationConditionInstance_Destination();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination <em>Outgoing Propagation Condition Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Outgoing Propagation Condition Destination</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination
+	 * @generated
+	 */
+	EClass getOutgoingPropagationConditionDestination();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.DestinationPropagationReference <em>Destination Propagation Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Destination Propagation Reference</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.DestinationPropagationReference
+	 * @generated
+	 */
+	EClass getDestinationPropagationReference();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -8167,6 +8371,35 @@ public interface EMV2InstancePackage extends EPackage {
 		 */
 		EReference OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION = eINSTANCE
 				.getOutgoingPropagationConditionInstance_Condition();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION = eINSTANCE
+				.getOutgoingPropagationConditionInstance_Destination();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination <em>Outgoing Propagation Condition Destination</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOutgoingPropagationConditionDestination()
+		 * @generated
+		 */
+		EClass OUTGOING_PROPAGATION_CONDITION_DESTINATION = eINSTANCE.getOutgoingPropagationConditionDestination();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.DestinationPropagationReferenceImpl <em>Destination Propagation Reference</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.DestinationPropagationReferenceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getDestinationPropagationReference()
+		 * @generated
+		 */
+		EClass DESTINATION_PROPAGATION_REFERENCE = eINSTANCE.getDestinationPropagationReference();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

@@ -230,6 +230,11 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OutgoingPropagationConditionInstance/outgoingPropagationCondition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OutgoingPropagationConditionInstance/source"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OutgoingPropagationConditionInstance/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//OutgoingPropagationConditionInstance/destination"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EMV2Instance.ecore#//OutgoingPropagationConditionDestination"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//DestinationPropagationReference">
+      <genOperations ecoreOperation="EMV2Instance.ecore#//DestinationPropagationReference/getTypeToken"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
