@@ -253,7 +253,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NoErrorPropagationReference" eSuperTypes="#//ConditionExpressionInstance">
+  <eClassifiers xsi:type="ecore:EClass" name="NoErrorPropagationReference" eSuperTypes="#//ConditionExpressionInstance #//OutgoingPropagationConditionDestination">
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagation" eType="#//ErrorPropagationInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CountExpression" eSuperTypes="#//ConditionExpressionInstance">

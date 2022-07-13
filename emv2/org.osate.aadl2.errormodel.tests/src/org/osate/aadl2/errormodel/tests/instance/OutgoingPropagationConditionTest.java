@@ -570,4 +570,22 @@ public class OutgoingPropagationConditionTest {
 			});
 		});
 	}
+
+	@Test
+	public void testDestinationPropagationWithNoError() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "destination_propagation_with_no_error.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getConditions().size());
+		with(annexInstance.getConditions().get(0), condition -> {
+			assertEquals("condition1", condition.getName());
+			assertEquals("condition1", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state1", condition.getSource().getName());
+			assertNull(condition.getCondition());
+			with((NoErrorPropagationReference) condition.getDestination(), destination -> {
+				assertEquals("f1 {noerror}", destination.getName());
+				assertEquals("f1", destination.getPropagation().getName());
+			});
+		});
+	}
 }

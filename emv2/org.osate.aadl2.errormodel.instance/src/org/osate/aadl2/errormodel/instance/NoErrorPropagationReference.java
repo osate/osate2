@@ -39,7 +39,8 @@ package org.osate.aadl2.errormodel.instance;
  * @model
  * @generated
  */
-public interface NoErrorPropagationReference extends ConditionExpressionInstance {
+public interface NoErrorPropagationReference
+		extends ConditionExpressionInstance, OutgoingPropagationConditionDestination {
 	/**
 	 * Returns the value of the '<em><b>Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->

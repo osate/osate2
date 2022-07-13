@@ -1130,9 +1130,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					.setCondition(createConditionExpressionInstance(condition.getCondition(), component, annex));
 		}
 
-		var propagationReference = EMV2InstanceFactory.eINSTANCE.createDestinationPropagationReference();
-		propagationReference.setPropagation(findErrorPropagationInstance(annex, condition.getOutgoing()));
 		if (condition.getTypeToken() == null) {
+			var propagationReference = EMV2InstanceFactory.eINSTANCE.createDestinationPropagationReference();
+			propagationReference.setPropagation(findErrorPropagationInstance(annex, condition.getOutgoing()));
 			if (conditionInstance.getSource() instanceof SourceStateReference sourceStateReference
 					&& !(conditionInstance.getCondition() instanceof CountExpression)) {
 				var sourceTypeSet = sourceStateReference.getTypeSet();
@@ -1150,16 +1150,27 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					propagationReference.setTypeSet(EcoreUtil.copy(conditionTypeSet));
 				}
 			}
+			if (propagationReference.getTypeSet() == null) {
+				propagationReference.setName(propagationReference.getPropagation().getName());
+			} else {
+				propagationReference.setName(propagationReference.getPropagation().getName() + ' '
+						+ propagationReference.getTypeSet().getName());
+			}
+			conditionInstance.setDestination(propagationReference);
+		} else if (!condition.getTypeToken().getTypeTokens().isEmpty()
+				&& condition.getTypeToken().getTypeTokens().get(0).isNoError()) {
+			var propagationReference = EMV2InstanceFactory.eINSTANCE.createNoErrorPropagationReference();
+			propagationReference.setPropagation(findErrorPropagationInstance(annex, condition.getOutgoing()));
+			propagationReference.setName(propagationReference.getPropagation().getName() + " {noerror}");
+			conditionInstance.setDestination(propagationReference);
 		} else {
+			var propagationReference = EMV2InstanceFactory.eINSTANCE.createDestinationPropagationReference();
+			propagationReference.setPropagation(findErrorPropagationInstance(annex, condition.getOutgoing()));
 			propagationReference.setTypeSet(createAnonymousTypeSet(condition.getTypeToken()));
-		}
-		if (propagationReference.getTypeSet() == null) {
-			propagationReference.setName(propagationReference.getPropagation().getName());
-		} else {
 			propagationReference.setName(propagationReference.getPropagation().getName() + ' '
 					+ propagationReference.getTypeSet().getName());
+			conditionInstance.setDestination(propagationReference);
 		}
-		conditionInstance.setDestination(propagationReference);
 
 		annex.getConditions().add(conditionInstance);
 	}

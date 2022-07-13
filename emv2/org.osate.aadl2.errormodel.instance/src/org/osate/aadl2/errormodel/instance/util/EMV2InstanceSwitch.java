@@ -1110,6 +1110,9 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				result = caseConditionExpressionInstance(noErrorPropagationReference);
 			}
 			if (result == null) {
+				result = caseOutgoingPropagationConditionDestination(noErrorPropagationReference);
+			}
+			if (result == null) {
 				result = caseEMV2InstanceObject(noErrorPropagationReference);
 			}
 			if (result == null) {

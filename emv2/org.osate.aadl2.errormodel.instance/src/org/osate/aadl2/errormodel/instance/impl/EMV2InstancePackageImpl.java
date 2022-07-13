@@ -2524,6 +2524,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		propagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
+		noErrorPropagationReferenceEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
 		countExpressionEClass.getESuperTypes().add(getConditionExpressionInstance());
 		transitionDestinationEClass.getESuperTypes().add(getEMV2InstanceObject());
 		destinationStateReferenceEClass.getESuperTypes().add(getTransitionDestination());
