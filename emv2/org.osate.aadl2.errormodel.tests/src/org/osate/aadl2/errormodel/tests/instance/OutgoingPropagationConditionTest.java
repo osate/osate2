@@ -16,13 +16,13 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllPropagations;
 import org.osate.aadl2.errormodel.instance.AllPropagationsNoError;
 import org.osate.aadl2.errormodel.instance.AllSources;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
-import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
@@ -198,7 +198,7 @@ public class OutgoingPropagationConditionTest {
 			with((CountExpression) condition.getCondition(), conditionExpression -> {
 				assertEquals("count(f4 {ItemTimingError}, f5 {noerror}) == 2", conditionExpression.getName());
 				assertEquals(2, conditionExpression.getOperands().size());
-				with((PropagationReference) conditionExpression.getOperands().get(0), operand -> {
+				with((ConditionPropagationReference) conditionExpression.getOperands().get(0), operand -> {
 					assertEquals("f4 {ItemTimingError}", operand.getName());
 					assertEquals("f4", operand.getPropagation().getName());
 					assertEquals("{ItemTimingError}", operand.getTypeSet().getName());

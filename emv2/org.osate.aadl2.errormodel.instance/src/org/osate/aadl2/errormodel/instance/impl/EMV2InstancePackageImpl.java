@@ -46,6 +46,7 @@ import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
@@ -76,7 +77,6 @@ import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
-import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
@@ -289,7 +289,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass propagationReferenceEClass = null;
+	private EClass conditionPropagationReferenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1502,8 +1502,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getPropagationReference() {
-		return propagationReferenceEClass;
+	public EClass getConditionPropagationReference() {
+		return conditionPropagationReferenceEClass;
 	}
 
 	/**
@@ -1512,8 +1512,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getPropagationReference_Propagation() {
-		return (EReference) propagationReferenceEClass.getEStructuralFeatures().get(0);
+	public EReference getConditionPropagationReference_Propagation() {
+		return (EReference) conditionPropagationReferenceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1522,8 +1522,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getPropagationReference_TypeSet() {
-		return (EReference) propagationReferenceEClass.getEStructuralFeatures().get(1);
+	public EReference getConditionPropagationReference_TypeSet() {
+		return (EReference) conditionPropagationReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1784,6 +1784,26 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EClass getDestinationPropagationReference() {
 		return destinationPropagationReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDestinationPropagationReference_Propagation() {
+		return (EReference) destinationPropagationReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDestinationPropagationReference_TypeSet() {
+		return (EReference) destinationPropagationReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2438,9 +2458,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(eventReferenceEClass, EVENT_REFERENCE__EVENT);
 		createEReference(eventReferenceEClass, EVENT_REFERENCE__TYPE_SET);
 
-		propagationReferenceEClass = createEClass(PROPAGATION_REFERENCE);
-		createEReference(propagationReferenceEClass, PROPAGATION_REFERENCE__PROPAGATION);
-		createEReference(propagationReferenceEClass, PROPAGATION_REFERENCE__TYPE_SET);
+		conditionPropagationReferenceEClass = createEClass(CONDITION_PROPAGATION_REFERENCE);
+		createEReference(conditionPropagationReferenceEClass, CONDITION_PROPAGATION_REFERENCE__PROPAGATION);
+		createEReference(conditionPropagationReferenceEClass, CONDITION_PROPAGATION_REFERENCE__TYPE_SET);
 
 		noErrorPropagationReferenceEClass = createEClass(NO_ERROR_PROPAGATION_REFERENCE);
 		createEReference(noErrorPropagationReferenceEClass, NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION);
@@ -2482,6 +2502,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		outgoingPropagationConditionDestinationEClass = createEClass(OUTGOING_PROPAGATION_CONDITION_DESTINATION);
 
 		destinationPropagationReferenceEClass = createEClass(DESTINATION_PROPAGATION_REFERENCE);
+		createEReference(destinationPropagationReferenceEClass, DESTINATION_PROPAGATION_REFERENCE__PROPAGATION);
+		createEReference(destinationPropagationReferenceEClass, DESTINATION_PROPAGATION_REFERENCE__TYPE_SET);
 
 		allPropagationsEClass = createEClass(ALL_PROPAGATIONS);
 		createEReference(allPropagationsEClass, ALL_PROPAGATIONS__TYPE_SET);
@@ -2573,7 +2595,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		allSourcesEClass.getESuperTypes().add(getTransitionSource());
 		conditionExpressionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
-		propagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
+		conditionPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
 		countExpressionEClass.getESuperTypes().add(getConditionExpressionInstance());
@@ -2586,7 +2608,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		branchSameStateEClass.getESuperTypes().add(getBranch());
 		outgoingPropagationConditionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		outgoingPropagationConditionDestinationEClass.getESuperTypes().add(getEMV2InstanceObject());
-		destinationPropagationReferenceEClass.getESuperTypes().add(getPropagationReference());
 		destinationPropagationReferenceEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
 		allPropagationsEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
 		allPropagationsNoErrorEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
@@ -3021,13 +3042,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				EventReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(propagationReferenceEClass, PropagationReference.class, "PropagationReference", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPropagationReference_Propagation(), getErrorPropagationInstance(), null, "propagation", null,
-				0, 1, PropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPropagationReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
-				PropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEClass(conditionPropagationReferenceEClass, ConditionPropagationReference.class,
+				"ConditionPropagationReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConditionPropagationReference_Propagation(), getErrorPropagationInstance(), null,
+				"propagation", null, 0, 1, ConditionPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConditionPropagationReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				ConditionPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(noErrorPropagationReferenceEClass, NoErrorPropagationReference.class, "NoErrorPropagationReference",
@@ -3111,6 +3132,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(destinationPropagationReferenceEClass, DestinationPropagationReference.class,
 				"DestinationPropagationReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDestinationPropagationReference_Propagation(), getErrorPropagationInstance(), null,
+				"propagation", null, 0, 1, DestinationPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDestinationPropagationReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				DestinationPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(destinationPropagationReferenceEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE,
 				IS_ORDERED);

@@ -25,36 +25,36 @@ package org.osate.aadl2.errormodel.instance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Propagation Reference</b></em>'.
+ * A representation of the model object '<em><b>Condition Propagation Reference</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.PropagationReference#getPropagation <em>Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.PropagationReference#getTypeSet <em>Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ConditionPropagationReference#getPropagation <em>Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ConditionPropagationReference#getTypeSet <em>Type Set</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationReference()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConditionPropagationReference()
  * @model
  * @generated
  */
-public interface PropagationReference extends ConditionExpressionInstance {
+public interface ConditionPropagationReference extends ConditionExpressionInstance {
 	/**
 	 * Returns the value of the '<em><b>Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Propagation</em>' reference.
 	 * @see #setPropagation(ErrorPropagationInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationReference_Propagation()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConditionPropagationReference_Propagation()
 	 * @model
 	 * @generated
 	 */
 	ErrorPropagationInstance getPropagation();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PropagationReference#getPropagation <em>Propagation</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ConditionPropagationReference#getPropagation <em>Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Propagation</em>' reference.
@@ -69,14 +69,14 @@ public interface PropagationReference extends ConditionExpressionInstance {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type Set</em>' containment reference.
 	 * @see #setTypeSet(AnonymousTypeSet)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationReference_TypeSet()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConditionPropagationReference_TypeSet()
 	 * @model containment="true"
 	 * @generated
 	 */
 	AnonymousTypeSet getTypeSet();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PropagationReference#getTypeSet <em>Type Set</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ConditionPropagationReference#getTypeSet <em>Type Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type Set</em>' containment reference.
@@ -85,4 +85,4 @@ public interface PropagationReference extends ConditionExpressionInstance {
 	 */
 	void setTypeSet(AnonymousTypeSet value);
 
-} // PropagationReference
+} // ConditionPropagationReference

@@ -28,12 +28,63 @@ package org.osate.aadl2.errormodel.instance;
  * A representation of the model object '<em><b>Destination Propagation Reference</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.DestinationPropagationReference#getPropagation <em>Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.DestinationPropagationReference#getTypeSet <em>Type Set</em>}</li>
+ * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDestinationPropagationReference()
  * @model
  * @generated
  */
-public interface DestinationPropagationReference extends PropagationReference, OutgoingPropagationConditionDestination {
+public interface DestinationPropagationReference extends OutgoingPropagationConditionDestination {
+	/**
+	 * Returns the value of the '<em><b>Propagation</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Propagation</em>' reference.
+	 * @see #setPropagation(ErrorPropagationInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDestinationPropagationReference_Propagation()
+	 * @model
+	 * @generated
+	 */
+	ErrorPropagationInstance getPropagation();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DestinationPropagationReference#getPropagation <em>Propagation</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Propagation</em>' reference.
+	 * @see #getPropagation()
+	 * @generated
+	 */
+	void setPropagation(ErrorPropagationInstance value);
+
+	/**
+	 * Returns the value of the '<em><b>Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type Set</em>' containment reference.
+	 * @see #setTypeSet(AnonymousTypeSet)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDestinationPropagationReference_TypeSet()
+	 * @model containment="true"
+	 * @generated
+	 */
+	AnonymousTypeSet getTypeSet();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DestinationPropagationReference#getTypeSet <em>Type Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type Set</em>' containment reference.
+	 * @see #getTypeSet()
+	 * @generated
+	 */
+	void setTypeSet(AnonymousTypeSet value);
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

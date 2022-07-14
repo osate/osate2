@@ -42,6 +42,7 @@ import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
@@ -69,7 +70,6 @@ import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
-import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
@@ -1082,23 +1082,23 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.PROPAGATION_REFERENCE: {
-			PropagationReference propagationReference = (PropagationReference) theEObject;
-			T result = casePropagationReference(propagationReference);
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE: {
+			ConditionPropagationReference conditionPropagationReference = (ConditionPropagationReference) theEObject;
+			T result = caseConditionPropagationReference(conditionPropagationReference);
 			if (result == null) {
-				result = caseConditionExpressionInstance(propagationReference);
+				result = caseConditionExpressionInstance(conditionPropagationReference);
 			}
 			if (result == null) {
-				result = caseEMV2InstanceObject(propagationReference);
+				result = caseEMV2InstanceObject(conditionPropagationReference);
 			}
 			if (result == null) {
-				result = caseInstanceObject(propagationReference);
+				result = caseInstanceObject(conditionPropagationReference);
 			}
 			if (result == null) {
-				result = caseNamedElement(propagationReference);
+				result = caseNamedElement(conditionPropagationReference);
 			}
 			if (result == null) {
-				result = caseElement(propagationReference);
+				result = caseElement(conditionPropagationReference);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1353,13 +1353,7 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			DestinationPropagationReference destinationPropagationReference = (DestinationPropagationReference) theEObject;
 			T result = caseDestinationPropagationReference(destinationPropagationReference);
 			if (result == null) {
-				result = casePropagationReference(destinationPropagationReference);
-			}
-			if (result == null) {
 				result = caseOutgoingPropagationConditionDestination(destinationPropagationReference);
-			}
-			if (result == null) {
-				result = caseConditionExpressionInstance(destinationPropagationReference);
 			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(destinationPropagationReference);
@@ -1820,17 +1814,17 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Propagation Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Condition Propagation Reference</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Propagation Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Condition Propagation Reference</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePropagationReference(PropagationReference object) {
+	public T caseConditionPropagationReference(ConditionPropagationReference object) {
 		return null;
 	}
 

@@ -41,6 +41,7 @@ import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
@@ -63,7 +64,6 @@ import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
-import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
@@ -178,8 +178,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createAllSources();
 		case EMV2InstancePackage.EVENT_REFERENCE:
 			return createEventReference();
-		case EMV2InstancePackage.PROPAGATION_REFERENCE:
-			return createPropagationReference();
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE:
+			return createConditionPropagationReference();
 		case EMV2InstancePackage.NO_ERROR_PROPAGATION_REFERENCE:
 			return createNoErrorPropagationReference();
 		case EMV2InstancePackage.COUNT_EXPRESSION:
@@ -471,9 +471,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public PropagationReference createPropagationReference() {
-		PropagationReferenceImpl propagationReference = new PropagationReferenceImpl();
-		return propagationReference;
+	public ConditionPropagationReference createConditionPropagationReference() {
+		ConditionPropagationReferenceImpl conditionPropagationReference = new ConditionPropagationReferenceImpl();
+		return conditionPropagationReference;
 	}
 
 	/**

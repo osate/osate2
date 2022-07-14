@@ -29,25 +29,25 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
-import org.osate.aadl2.errormodel.instance.PropagationReference;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Propagation Reference</b></em>'.
+ * An implementation of the model object '<em><b>Condition Propagation Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PropagationReferenceImpl#getPropagation <em>Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PropagationReferenceImpl#getTypeSet <em>Type Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConditionPropagationReferenceImpl#getPropagation <em>Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ConditionPropagationReferenceImpl#getTypeSet <em>Type Set</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements PropagationReference {
+public class ConditionPropagationReferenceImpl extends EMV2InstanceObjectImpl implements ConditionPropagationReference {
 	/**
 	 * The cached value of the '{@link #getPropagation() <em>Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -73,7 +73,7 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PropagationReferenceImpl() {
+	protected ConditionPropagationReferenceImpl() {
 		super();
 	}
 
@@ -84,7 +84,7 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.PROPAGATION_REFERENCE;
+		return EMV2InstancePackage.Literals.CONDITION_PROPAGATION_REFERENCE;
 	}
 
 	/**
@@ -100,7 +100,8 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 			if (propagation != oldPropagation) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.PROPAGATION_REFERENCE__PROPAGATION, oldPropagation, propagation));
+							EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__PROPAGATION, oldPropagation,
+							propagation));
 				}
 			}
 		}
@@ -127,7 +128,7 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 		propagation = newPropagation;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.PROPAGATION_REFERENCE__PROPAGATION, oldPropagation, propagation));
+					EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__PROPAGATION, oldPropagation, propagation));
 		}
 	}
 
@@ -151,7 +152,7 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 		typeSet = newTypeSet;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.PROPAGATION_REFERENCE__TYPE_SET, oldTypeSet, newTypeSet);
+					EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__TYPE_SET, oldTypeSet, newTypeSet);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -172,19 +173,21 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 			NotificationChain msgs = null;
 			if (typeSet != null) {
 				msgs = ((InternalEObject) typeSet).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.PROPAGATION_REFERENCE__TYPE_SET, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__TYPE_SET, null,
+						msgs);
 			}
 			if (newTypeSet != null) {
 				msgs = ((InternalEObject) newTypeSet).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.PROPAGATION_REFERENCE__TYPE_SET, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__TYPE_SET, null,
+						msgs);
 			}
 			msgs = basicSetTypeSet(newTypeSet, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_REFERENCE__TYPE_SET,
-					newTypeSet, newTypeSet));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__TYPE_SET, newTypeSet, newTypeSet));
 		}
 	}
 
@@ -196,7 +199,7 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.PROPAGATION_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__TYPE_SET:
 			return basicSetTypeSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -210,12 +213,12 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.PROPAGATION_REFERENCE__PROPAGATION:
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__PROPAGATION:
 			if (resolve) {
 				return getPropagation();
 			}
 			return basicGetPropagation();
-		case EMV2InstancePackage.PROPAGATION_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__TYPE_SET:
 			return getTypeSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -229,10 +232,10 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.PROPAGATION_REFERENCE__PROPAGATION:
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__PROPAGATION:
 			setPropagation((ErrorPropagationInstance) newValue);
 			return;
-		case EMV2InstancePackage.PROPAGATION_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__TYPE_SET:
 			setTypeSet((AnonymousTypeSet) newValue);
 			return;
 		}
@@ -247,10 +250,10 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.PROPAGATION_REFERENCE__PROPAGATION:
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__PROPAGATION:
 			setPropagation((ErrorPropagationInstance) null);
 			return;
-		case EMV2InstancePackage.PROPAGATION_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__TYPE_SET:
 			setTypeSet((AnonymousTypeSet) null);
 			return;
 		}
@@ -265,12 +268,12 @@ public class PropagationReferenceImpl extends EMV2InstanceObjectImpl implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.PROPAGATION_REFERENCE__PROPAGATION:
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__PROPAGATION:
 			return propagation != null;
-		case EMV2InstancePackage.PROPAGATION_REFERENCE__TYPE_SET:
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE__TYPE_SET:
 			return typeSet != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} // PropagationReferenceImpl
+} // ConditionPropagationReferenceImpl

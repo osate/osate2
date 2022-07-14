@@ -43,6 +43,7 @@ import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
@@ -70,7 +71,6 @@ import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
-import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
@@ -350,8 +350,8 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter casePropagationReference(PropagationReference object) {
-			return createPropagationReferenceAdapter();
+		public Adapter caseConditionPropagationReference(ConditionPropagationReference object) {
+			return createConditionPropagationReferenceAdapter();
 		}
 
 		@Override
@@ -828,16 +828,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.PropagationReference <em>Propagation Reference</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConditionPropagationReference <em>Condition Propagation Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.PropagationReference
+	 * @see org.osate.aadl2.errormodel.instance.ConditionPropagationReference
 	 * @generated
 	 */
-	public Adapter createPropagationReferenceAdapter() {
+	public Adapter createConditionPropagationReferenceAdapter() {
 		return null;
 	}
 

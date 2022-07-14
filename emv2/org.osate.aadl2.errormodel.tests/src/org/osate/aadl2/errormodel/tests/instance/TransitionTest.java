@@ -24,13 +24,13 @@ import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
-import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
@@ -489,7 +489,7 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("f1 {ServiceError}", condition.getName());
 				assertEquals("f1", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -500,7 +500,7 @@ public class TransitionTest {
 			assertEquals("transition2", transition.getName());
 			assertEquals("transition2", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("access {ServiceError}", condition.getName());
 				assertEquals("access", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -511,7 +511,7 @@ public class TransitionTest {
 			assertEquals("transition3", transition.getName());
 			assertEquals("transition3", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("point1 {ServiceError}", condition.getName());
 				assertEquals("point1", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -522,7 +522,7 @@ public class TransitionTest {
 			assertEquals("transition4", transition.getName());
 			assertEquals("transition4", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("processor {ServiceError}", condition.getName());
 				assertEquals("processor", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -541,7 +541,7 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("fg1.f1 {ServiceError}", condition.getName());
 				assertEquals("fg1.f1", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -552,7 +552,7 @@ public class TransitionTest {
 			assertEquals("transition2", transition.getName());
 			assertEquals("transition2", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("fg1.fg2.fg3.f2 {ServiceError}", condition.getName());
 				assertEquals("fg1.fg2.fg3.f2", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -571,7 +571,7 @@ public class TransitionTest {
 			assertEquals("transition01", transition.getName());
 			assertEquals("transition01", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.f1 {ServiceError}", condition.getName());
 				assertEquals("f1", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -582,7 +582,7 @@ public class TransitionTest {
 			assertEquals("transition02", transition.getName());
 			assertEquals("transition02", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.access {ServiceError}", condition.getName());
 				assertEquals("access", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -593,7 +593,7 @@ public class TransitionTest {
 			assertEquals("transition03", transition.getName());
 			assertEquals("transition03", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.point1 {ServiceError}", condition.getName());
 				assertEquals("point1", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -604,7 +604,7 @@ public class TransitionTest {
 			assertEquals("transition04", transition.getName());
 			assertEquals("transition04", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.processor {ServiceError}", condition.getName());
 				assertEquals("processor", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -615,7 +615,7 @@ public class TransitionTest {
 			assertEquals("transition05", transition.getName());
 			assertEquals("transition05", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.fg1.f2 {ServiceError}", condition.getName());
 				assertEquals("fg1.f2", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -626,7 +626,7 @@ public class TransitionTest {
 			assertEquals("transition06", transition.getName());
 			assertEquals("transition06", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.fg1.fg2.fg3.f3 {ServiceError}", condition.getName());
 				assertEquals("fg1.fg2.fg3.f3", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -637,7 +637,7 @@ public class TransitionTest {
 			assertEquals("transition07", transition.getName());
 			assertEquals("transition07", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.f4 {ServiceError}", condition.getName());
 				assertEquals("f4", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -648,7 +648,7 @@ public class TransitionTest {
 			assertEquals("transition08", transition.getName());
 			assertEquals("transition08", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.access {ServiceError}", condition.getName());
 				assertEquals("access", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -659,7 +659,7 @@ public class TransitionTest {
 			assertEquals("transition09", transition.getName());
 			assertEquals("transition09", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.point2 {ServiceError}", condition.getName());
 				assertEquals("point2", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -670,7 +670,7 @@ public class TransitionTest {
 			assertEquals("transition10", transition.getName());
 			assertEquals("transition10", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.memory {ServiceError}", condition.getName());
 				assertEquals("memory", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -681,7 +681,7 @@ public class TransitionTest {
 			assertEquals("transition11", transition.getName());
 			assertEquals("transition11", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.fg4.f5 {ServiceError}", condition.getName());
 				assertEquals("fg4.f5", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -692,7 +692,7 @@ public class TransitionTest {
 			assertEquals("transition12", transition.getName());
 			assertEquals("transition12", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.fg4.fg5.fg6.f6 {ServiceError}", condition.getName());
 				assertEquals("fg4.fg5.fg6.f6", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
@@ -711,7 +711,7 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("f1 {CommonErrors}", condition.getName());
 				assertEquals("f1", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -722,7 +722,7 @@ public class TransitionTest {
 			assertEquals("transition2", transition.getName());
 			assertEquals("transition2", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("access {CommonErrors}", condition.getName());
 				assertEquals("access", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -733,7 +733,7 @@ public class TransitionTest {
 			assertEquals("transition3", transition.getName());
 			assertEquals("transition3", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("point1 {CommonErrors}", condition.getName());
 				assertEquals("point1", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -744,7 +744,7 @@ public class TransitionTest {
 			assertEquals("transition4", transition.getName());
 			assertEquals("transition4", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("processor {CommonErrors}", condition.getName());
 				assertEquals("processor", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -763,7 +763,7 @@ public class TransitionTest {
 			assertEquals("transition1", transition.getName());
 			assertEquals("transition1", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("fg1.f1 {CommonErrors}", condition.getName());
 				assertEquals("fg1.f1", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -774,7 +774,7 @@ public class TransitionTest {
 			assertEquals("transition2", transition.getName());
 			assertEquals("transition2", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("fg1.fg2.fg3.f2 {CommonErrors}", condition.getName());
 				assertEquals("fg1.fg2.fg3.f2", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -793,7 +793,7 @@ public class TransitionTest {
 			assertEquals("transition01", transition.getName());
 			assertEquals("transition01", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.f1 {CommonErrors}", condition.getName());
 				assertEquals("f1", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -804,7 +804,7 @@ public class TransitionTest {
 			assertEquals("transition02", transition.getName());
 			assertEquals("transition02", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.access {CommonErrors}", condition.getName());
 				assertEquals("access", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -815,7 +815,7 @@ public class TransitionTest {
 			assertEquals("transition03", transition.getName());
 			assertEquals("transition03", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.point1 {CommonErrors}", condition.getName());
 				assertEquals("point1", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -826,7 +826,7 @@ public class TransitionTest {
 			assertEquals("transition04", transition.getName());
 			assertEquals("transition04", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.processor {CommonErrors}", condition.getName());
 				assertEquals("processor", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -837,7 +837,7 @@ public class TransitionTest {
 			assertEquals("transition05", transition.getName());
 			assertEquals("transition05", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.fg1.f2 {CommonErrors}", condition.getName());
 				assertEquals("fg1.f2", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -848,7 +848,7 @@ public class TransitionTest {
 			assertEquals("transition06", transition.getName());
 			assertEquals("transition06", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.fg1.fg2.fg3.f3 {CommonErrors}", condition.getName());
 				assertEquals("fg1.fg2.fg3.f3", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -859,7 +859,7 @@ public class TransitionTest {
 			assertEquals("transition07", transition.getName());
 			assertEquals("transition07", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.f4 {CommonErrors}", condition.getName());
 				assertEquals("f4", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -870,7 +870,7 @@ public class TransitionTest {
 			assertEquals("transition08", transition.getName());
 			assertEquals("transition08", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.access {CommonErrors}", condition.getName());
 				assertEquals("access", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -881,7 +881,7 @@ public class TransitionTest {
 			assertEquals("transition09", transition.getName());
 			assertEquals("transition09", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.point2 {CommonErrors}", condition.getName());
 				assertEquals("point2", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -892,7 +892,7 @@ public class TransitionTest {
 			assertEquals("transition10", transition.getName());
 			assertEquals("transition10", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.memory {CommonErrors}", condition.getName());
 				assertEquals("memory", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -903,7 +903,7 @@ public class TransitionTest {
 			assertEquals("transition11", transition.getName());
 			assertEquals("transition11", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.fg4.f5 {CommonErrors}", condition.getName());
 				assertEquals("fg4.f5", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
@@ -914,7 +914,7 @@ public class TransitionTest {
 			assertEquals("transition12", transition.getName());
 			assertEquals("transition12", transition.getTransition().getName());
 			assertEquals("state1", transition.getSource().getName());
-			with((PropagationReference) transition.getCondition(), condition -> {
+			with((ConditionPropagationReference) transition.getCondition(), condition -> {
 				assertEquals("sub1.sub2.sub3.fg4.fg5.fg6.f6 {CommonErrors}", condition.getName());
 				assertEquals("fg4.fg5.fg6.f6", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());

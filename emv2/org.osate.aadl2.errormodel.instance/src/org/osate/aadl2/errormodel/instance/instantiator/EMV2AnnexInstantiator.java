@@ -65,6 +65,7 @@ import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
@@ -84,7 +85,6 @@ import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
-import org.osate.aadl2.errormodel.instance.PropagationReference;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
@@ -658,14 +658,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				&& constraint.getTypeTokens().get(0).isNoError()) {
 			return createNoErrorPropagationReference(propagationInstance, namePrefix);
 		} else {
-			return createPropagationReference(propagationInstance, constraint, currentComponent == component,
+			return createConditionPropagationReference(propagationInstance, constraint, currentComponent == component,
 					namePrefix);
 		}
 	}
 
-	private PropagationReference createPropagationReference(ErrorPropagationInstance propagation, TypeSet constraint,
-			boolean isInPropagation, String namePrefix) {
-		var propagationReference = EMV2InstanceFactory.eINSTANCE.createPropagationReference();
+	private ConditionPropagationReference createConditionPropagationReference(ErrorPropagationInstance propagation,
+			TypeSet constraint, boolean isInPropagation, String namePrefix) {
+		var propagationReference = EMV2InstanceFactory.eINSTANCE.createConditionPropagationReference();
 		propagationReference.setPropagation(propagation);
 		TypeSet typeSet;
 		if (constraint != null) {
@@ -744,7 +744,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			AnonymousTypeSet conditionTypeSet = null;
 			if (condition instanceof EventReference eventReference) {
 				conditionTypeSet = eventReference.getTypeSet();
-			} else if (condition instanceof PropagationReference propagationReference) {
+			} else if (condition instanceof ConditionPropagationReference propagationReference) {
 				conditionTypeSet = propagationReference.getTypeSet();
 			}
 			if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
@@ -1140,7 +1140,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					if (conditionInstance.getCondition() instanceof EventReference eventReference) {
 						conditionTypeSet = eventReference.getTypeSet();
 					} else if (conditionInstance
-							.getCondition() instanceof PropagationReference conditionPropagationReference) {
+							.getCondition() instanceof ConditionPropagationReference conditionPropagationReference) {
 						conditionTypeSet = conditionPropagationReference.getTypeSet();
 					}
 					if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
@@ -1177,7 +1177,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				if (conditionInstance.getCondition() instanceof EventReference eventReference) {
 					conditionTypeSet = eventReference.getTypeSet();
 				} else if (conditionInstance
-						.getCondition() instanceof PropagationReference conditionPropagationReference) {
+						.getCondition() instanceof ConditionPropagationReference conditionPropagationReference) {
 					conditionTypeSet = conditionPropagationReference.getTypeSet();
 				}
 				if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {

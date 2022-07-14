@@ -56,6 +56,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/ConditionPropagationReference.java" type="org.osate.aadl2.errormodel.instance.ConditionPropagationReference">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.ConditionPropagationReference"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/CountExpression.java" type="org.osate.aadl2.errormodel.instance.CountExpression">
         <filter id="1110441988">
             <message_arguments>
@@ -139,6 +146,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="createConditionPropagationReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="createCountExpression()"/>
             </message_arguments>
         </filter>
@@ -170,11 +182,6 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="createOutgoingPropagationConditionInstance()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="createPropagationReference()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -557,6 +564,56 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__PROPAGATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -981,56 +1038,6 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE_FEATURE_COUNT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__ANNEX_INSTANCE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__NAME"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__OWNED_COMMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__OWNED_ELEMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__OWNED_PROPERTY_ASSOCIATION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__PROPAGATION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__QUALIFIED_NAME"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__TYPE_SET"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
                 <message_argument value="RECOVER_EVENT_INSTANCE"/>
             </message_arguments>
         </filter>
@@ -1431,6 +1438,21 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getConditionPropagationReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getConditionPropagationReference_Propagation()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getConditionPropagationReference_TypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getCountExpression()"/>
             </message_arguments>
         </filter>
@@ -1457,6 +1479,16 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getDestinationPropagationReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestinationPropagationReference_Propagation()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestinationPropagationReference_TypeSet()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1557,21 +1589,6 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getOutgoingPropagationConditionInstance_Source()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getPropagationReference()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getPropagationReference_Propagation()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getPropagationReference_TypeSet()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1733,6 +1750,21 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__PROPAGATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONDITION_PROPAGATION_REFERENCE__TYPE_SET"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="COUNT_EXPRESSION"/>
             </message_arguments>
         </filter>
@@ -1759,6 +1791,16 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="DESTINATION_PROPAGATION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__PROPAGATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DESTINATION_PROPAGATION_REFERENCE__TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1859,21 +1901,6 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__PROPAGATION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="PROPAGATION_REFERENCE__TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2002,13 +2029,6 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src/org/osate/aadl2/errormodel/instance/PropagationReference.java" type="org.osate.aadl2.errormodel.instance.PropagationReference">
-        <filter id="1110441988">
-            <message_arguments>
-                <message_argument value="org.osate.aadl2.errormodel.instance.PropagationReference"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/RecoverEventInstance.java" type="org.osate.aadl2.errormodel.instance.RecoverEventInstance">
         <filter id="1110441988">
             <message_arguments>
@@ -2119,6 +2139,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/ConditionPropagationReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.ConditionPropagationReferenceImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.ConditionPropagationReferenceImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/CountExpressionImpl.java" type="org.osate.aadl2.errormodel.instance.impl.CountExpressionImpl">
         <filter id="1110441988">
             <message_arguments>
@@ -2199,13 +2226,6 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.impl.OutgoingPropagationConditionInstanceImpl"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/osate/aadl2/errormodel/instance/impl/PropagationReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.PropagationReferenceImpl">
-        <filter id="1110441988">
-            <message_arguments>
-                <message_argument value="org.osate.aadl2.errormodel.instance.impl.PropagationReferenceImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2299,6 +2319,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createConditionPropagationReferenceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createCountExpressionAdapter()"/>
             </message_arguments>
         </filter>
@@ -2335,11 +2360,6 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createOutgoingPropagationConditionInstanceAdapter()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="createPropagationReferenceAdapter()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -2421,6 +2441,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="caseConditionPropagationReference(ConditionPropagationReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="caseCountExpression(CountExpression)"/>
             </message_arguments>
         </filter>
@@ -2457,11 +2482,6 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseOutgoingPropagationConditionInstance(OutgoingPropagationConditionInstance)"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="casePropagationReference(PropagationReference)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

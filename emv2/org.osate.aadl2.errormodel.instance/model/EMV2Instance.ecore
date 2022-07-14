@@ -248,7 +248,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropagationReference" eSuperTypes="#//ConditionExpressionInstance">
+  <eClassifiers xsi:type="ecore:EClass" name="ConditionPropagationReference" eSuperTypes="#//ConditionExpressionInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagation" eType="#//ErrorPropagationInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
         containment="true"/>
@@ -303,8 +303,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OutgoingPropagationConditionDestination"
       abstract="true" interface="true" eSuperTypes="#//EMV2InstanceObject"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DestinationPropagationReference" eSuperTypes="#//PropagationReference #//OutgoingPropagationConditionDestination">
+  <eClassifiers xsi:type="ecore:EClass" name="DestinationPropagationReference" eSuperTypes="#//OutgoingPropagationConditionDestination">
     <eOperations name="getTypeToken" eType="#//TypeTokenInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propagation" eType="#//ErrorPropagationInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AllPropagations" eSuperTypes="#//OutgoingPropagationConditionDestination">
     <eOperations name="getTypeToken" eType="#//TypeTokenInstance"/>

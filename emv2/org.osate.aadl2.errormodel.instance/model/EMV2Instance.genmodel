@@ -195,9 +195,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EventReference/event"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EventReference/typeSet"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//PropagationReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationReference/propagation"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationReference/typeSet"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//ConditionPropagationReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConditionPropagationReference/propagation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConditionPropagationReference/typeSet"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//NoErrorPropagationReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//NoErrorPropagationReference/propagation"/>
@@ -234,6 +234,8 @@
     </genClasses>
     <genClasses image="false" ecoreClass="EMV2Instance.ecore#//OutgoingPropagationConditionDestination"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//DestinationPropagationReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//DestinationPropagationReference/propagation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//DestinationPropagationReference/typeSet"/>
       <genOperations ecoreOperation="EMV2Instance.ecore#//DestinationPropagationReference/getTypeToken"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//AllPropagations">
