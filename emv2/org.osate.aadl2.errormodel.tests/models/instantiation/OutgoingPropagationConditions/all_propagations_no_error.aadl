@@ -1,0 +1,23 @@
+package all_propagations_no_error
+public
+	system s
+		annex EMV2 {**
+			use behavior all_propagations_no_error::machine1;
+			
+			component error behavior
+				propagations
+					condition1: state1 -[]-> all {noerror};
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+		end behavior;
+	**};
+end all_propagations_no_error;

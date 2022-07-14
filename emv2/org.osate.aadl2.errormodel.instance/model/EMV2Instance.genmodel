@@ -240,5 +240,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AllPropagations/typeSet"/>
       <genOperations ecoreOperation="EMV2Instance.ecore#//AllPropagations/getTypeToken"/>
     </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//AllPropagationsNoError"/>
   </genPackages>
 </genmodel:GenModel>

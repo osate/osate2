@@ -14,6 +14,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllPropagations;
+import org.osate.aadl2.errormodel.instance.AllPropagationsNoError;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
@@ -871,6 +872,23 @@ public class OutgoingPropagationConditionTest {
 				assertEquals("all", destination.getName());
 				assertNull(destination.getTypeSet());
 				assertNull(destination.getTypeToken());
+			});
+		});
+	}
+
+	@Test
+	public void testAllPropagationsNoError() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_propagations_no_error.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getConditions().size());
+		with(annexInstance.getConditions().get(0), condition -> {
+			assertEquals("condition1", condition.getName());
+			assertEquals("condition1", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state1", condition.getSource().getName());
+			assertNull(condition.getCondition());
+			with((AllPropagationsNoError) condition.getDestination(), destination -> {
+				assertEquals("all {noerror}", destination.getName());
 			});
 		});
 	}

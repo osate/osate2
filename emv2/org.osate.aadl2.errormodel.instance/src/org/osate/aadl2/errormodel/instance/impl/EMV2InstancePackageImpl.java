@@ -34,6 +34,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AllPropagations;
+import org.osate.aadl2.errormodel.instance.AllPropagationsNoError;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
@@ -380,6 +381,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass allPropagationsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass allPropagationsNoErrorEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1804,6 +1812,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getAllPropagationsNoError() {
+		return allPropagationsNoErrorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2468,6 +2486,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		allPropagationsEClass = createEClass(ALL_PROPAGATIONS);
 		createEReference(allPropagationsEClass, ALL_PROPAGATIONS__TYPE_SET);
 
+		allPropagationsNoErrorEClass = createEClass(ALL_PROPAGATIONS_NO_ERROR);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
@@ -2569,6 +2589,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		destinationPropagationReferenceEClass.getESuperTypes().add(getPropagationReference());
 		destinationPropagationReferenceEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
 		allPropagationsEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
+		allPropagationsNoErrorEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -3101,6 +3122,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(allPropagationsEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(allPropagationsNoErrorEClass, AllPropagationsNoError.class, "AllPropagationsNoError", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

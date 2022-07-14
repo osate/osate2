@@ -5661,6 +5661,79 @@ public interface EMV2InstancePackage extends EPackage {
 	int ALL_PROPAGATIONS_FEATURE_COUNT = OUTGOING_PROPAGATION_CONDITION_DESTINATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AllPropagationsNoErrorImpl <em>All Propagations No Error</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.AllPropagationsNoErrorImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAllPropagationsNoError()
+	 * @generated
+	 */
+	int ALL_PROPAGATIONS_NO_ERROR = 55;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS_NO_ERROR__OWNED_ELEMENT = OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS_NO_ERROR__OWNED_COMMENT = OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS_NO_ERROR__NAME = OUTGOING_PROPAGATION_CONDITION_DESTINATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS_NO_ERROR__QUALIFIED_NAME = OUTGOING_PROPAGATION_CONDITION_DESTINATION__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS_NO_ERROR__OWNED_PROPERTY_ASSOCIATION = OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS_NO_ERROR__ANNEX_INSTANCE = OUTGOING_PROPAGATION_CONDITION_DESTINATION__ANNEX_INSTANCE;
+
+	/**
+	 * The number of structural features of the '<em>All Propagations No Error</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS_NO_ERROR_FEATURE_COUNT = OUTGOING_PROPAGATION_CONDITION_DESTINATION_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5668,7 +5741,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 55;
+	int EOPERATION = 56;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -5678,7 +5751,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 56;
+	int BINDING_TYPE = 57;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
@@ -5688,7 +5761,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
 	 * @generated
 	 */
-	int COUNT_EXPRESSION_OPERATION = 57;
+	int COUNT_EXPRESSION_OPERATION = 58;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6991,6 +7064,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAllPropagations_TypeSet();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.AllPropagationsNoError <em>All Propagations No Error</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>All Propagations No Error</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.AllPropagationsNoError
+	 * @generated
+	 */
+	EClass getAllPropagationsNoError();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -8521,6 +8604,16 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference ALL_PROPAGATIONS__TYPE_SET = eINSTANCE.getAllPropagations_TypeSet();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.AllPropagationsNoErrorImpl <em>All Propagations No Error</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.AllPropagationsNoErrorImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAllPropagationsNoError()
+		 * @generated
+		 */
+		EClass ALL_PROPAGATIONS_NO_ERROR = eINSTANCE.getAllPropagationsNoError();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

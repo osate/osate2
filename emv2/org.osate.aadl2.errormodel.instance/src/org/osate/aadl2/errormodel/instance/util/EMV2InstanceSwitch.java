@@ -31,6 +31,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AllPropagations;
+import org.osate.aadl2.errormodel.instance.AllPropagationsNoError;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
@@ -1400,6 +1401,29 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.ALL_PROPAGATIONS_NO_ERROR: {
+			AllPropagationsNoError allPropagationsNoError = (AllPropagationsNoError) theEObject;
+			T result = caseAllPropagationsNoError(allPropagationsNoError);
+			if (result == null) {
+				result = caseOutgoingPropagationConditionDestination(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = caseInstanceObject(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = caseNamedElement(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = caseElement(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -2002,6 +2026,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAllPropagations(AllPropagations object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>All Propagations No Error</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>All Propagations No Error</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAllPropagationsNoError(AllPropagationsNoError object) {
 		return null;
 	}
 

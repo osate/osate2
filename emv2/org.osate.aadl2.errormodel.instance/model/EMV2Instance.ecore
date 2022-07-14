@@ -311,4 +311,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AllPropagationsNoError" eSuperTypes="#//OutgoingPropagationConditionDestination"/>
 </ecore:EPackage>

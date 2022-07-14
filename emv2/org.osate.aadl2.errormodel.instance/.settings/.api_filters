@@ -7,6 +7,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/AllPropagationsNoError.java" type="org.osate.aadl2.errormodel.instance.AllPropagationsNoError">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.AllPropagationsNoError"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/AllSources.java" type="org.osate.aadl2.errormodel.instance.AllSources">
         <filter id="1110441988">
             <message_arguments>
@@ -107,6 +114,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="createAllPropagationsNoError()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="createAllSources()"/>
             </message_arguments>
         </filter>
@@ -200,6 +212,46 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="ALL_PROPAGATIONS_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_NO_ERROR"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_NO_ERROR_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_NO_ERROR__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_NO_ERROR__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_NO_ERROR__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_NO_ERROR__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_NO_ERROR__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_NO_ERROR__QUALIFIED_NAME"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1319,6 +1371,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getAllPropagationsNoError()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getAllPropagations_TypeSet()"/>
             </message_arguments>
         </filter>
@@ -1612,6 +1669,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="ALL_PROPAGATIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_NO_ERROR"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2015,6 +2077,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/AllPropagationsNoErrorImpl.java" type="org.osate.aadl2.errormodel.instance.impl.AllPropagationsNoErrorImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.AllPropagationsNoErrorImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/AllSourcesImpl.java" type="org.osate.aadl2.errormodel.instance.impl.AllSourcesImpl">
         <filter id="1110441988">
             <message_arguments>
@@ -2195,6 +2264,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createAllPropagationsNoErrorAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createAllSourcesAdapter()"/>
             </message_arguments>
         </filter>
@@ -2308,6 +2382,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseAllPropagations(AllPropagations)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseAllPropagationsNoError(AllPropagationsNoError)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

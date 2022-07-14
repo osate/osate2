@@ -322,6 +322,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	AllPropagations createAllPropagations();
 
 	/**
+	 * Returns a new object of class '<em>All Propagations No Error</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>All Propagations No Error</em>'.
+	 * @generated
+	 */
+	AllPropagationsNoError createAllPropagationsNoError();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

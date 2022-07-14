@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AllPropagations;
+import org.osate.aadl2.errormodel.instance.AllPropagationsNoError;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
@@ -199,6 +200,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createDestinationPropagationReference();
 		case EMV2InstancePackage.ALL_PROPAGATIONS:
 			return createAllPropagations();
+		case EMV2InstancePackage.ALL_PROPAGATIONS_NO_ERROR:
+			return createAllPropagationsNoError();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -581,6 +584,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public AllPropagations createAllPropagations() {
 		AllPropagationsImpl allPropagations = new AllPropagationsImpl();
 		return allPropagations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AllPropagationsNoError createAllPropagationsNoError() {
+		AllPropagationsNoErrorImpl allPropagationsNoError = new AllPropagationsNoErrorImpl();
+		return allPropagationsNoError;
 	}
 
 	/**

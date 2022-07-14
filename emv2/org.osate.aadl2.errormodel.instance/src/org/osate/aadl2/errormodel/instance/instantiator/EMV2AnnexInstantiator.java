@@ -1131,8 +1131,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 
 		if (condition.isAllPropagations()) {
-			var allPropagations = EMV2InstanceFactory.eINSTANCE.createAllPropagations();
 			if (condition.getTypeToken() == null) {
+				var allPropagations = EMV2InstanceFactory.eINSTANCE.createAllPropagations();
 				if (conditionInstance.getSource() instanceof SourceStateReference sourceStateReference
 						&& !(conditionInstance.getCondition() instanceof CountExpression)) {
 					var sourceTypeSet = sourceStateReference.getTypeSet();
@@ -1155,11 +1155,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				} else {
 					allPropagations.setName("all " + allPropagations.getTypeSet().getName());
 				}
+				conditionInstance.setDestination(allPropagations);
+			} else if (!condition.getTypeToken().getTypeTokens().isEmpty()
+					&& condition.getTypeToken().getTypeTokens().get(0).isNoError()) {
+				var allPropagations = EMV2InstanceFactory.eINSTANCE.createAllPropagationsNoError();
+				allPropagations.setName("all {noerror}");
+				conditionInstance.setDestination(allPropagations);
 			} else {
+				var allPropagations = EMV2InstanceFactory.eINSTANCE.createAllPropagations();
 				allPropagations.setTypeSet(createAnonymousTypeSet(condition.getTypeToken()));
 				allPropagations.setName("all " + allPropagations.getTypeSet().getName());
+				conditionInstance.setDestination(allPropagations);
 			}
-			conditionInstance.setDestination(allPropagations);
 		} else if (condition.getTypeToken() == null) {
 			var propagationReference = EMV2InstanceFactory.eINSTANCE.createDestinationPropagationReference();
 			propagationReference.setPropagation(findErrorPropagationInstance(annex, condition.getOutgoing()));
