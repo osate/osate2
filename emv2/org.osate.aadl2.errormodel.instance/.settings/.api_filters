@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.aadl2.errormodel.instance" version="2">
+    <resource path="src/org/osate/aadl2/errormodel/instance/AllPropagations.java" type="org.osate.aadl2.errormodel.instance.AllPropagations">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.AllPropagations"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/AllSources.java" type="org.osate.aadl2.errormodel.instance.AllSources">
         <filter id="1110441988">
             <message_arguments>
@@ -95,6 +102,11 @@
     <resource path="src/org/osate/aadl2/errormodel/instance/EMV2InstanceFactory.java" type="org.osate.aadl2.errormodel.instance.EMV2InstanceFactory">
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="createAllPropagations()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="createAllSources()"/>
             </message_arguments>
         </filter>
@@ -180,6 +192,51 @@
         </filter>
     </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/EMV2InstancePackage.java" type="org.osate.aadl2.errormodel.instance.EMV2InstancePackage">
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS__TYPE_SET"/>
+            </message_arguments>
+        </filter>
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="ALL_SOURCES"/>
@@ -1257,6 +1314,16 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getAllPropagations()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getAllPropagations_TypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getAllSources()"/>
             </message_arguments>
         </filter>
@@ -1542,6 +1609,16 @@
         </filter>
     </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/EMV2InstancePackage.java" type="org.osate.aadl2.errormodel.instance.EMV2InstancePackage$Literals">
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ALL_PROPAGATIONS__TYPE_SET"/>
+            </message_arguments>
+        </filter>
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="ALL_SOURCES"/>
@@ -1931,6 +2008,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/AllPropagationsImpl.java" type="org.osate.aadl2.errormodel.instance.impl.AllPropagationsImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.AllPropagationsImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/AllSourcesImpl.java" type="org.osate.aadl2.errormodel.instance.impl.AllSourcesImpl">
         <filter id="1110441988">
             <message_arguments>
@@ -2106,6 +2190,11 @@
     <resource path="src/org/osate/aadl2/errormodel/instance/util/EMV2InstanceAdapterFactory.java" type="org.osate.aadl2.errormodel.instance.util.EMV2InstanceAdapterFactory">
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createAllPropagationsAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createAllSourcesAdapter()"/>
             </message_arguments>
         </filter>
@@ -2216,6 +2305,11 @@
         </filter>
     </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/util/EMV2InstanceSwitch.java" type="org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseAllPropagations(AllPropagations)"/>
+            </message_arguments>
+        </filter>
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseAllSources(AllSources)"/>

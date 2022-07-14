@@ -306,4 +306,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="DestinationPropagationReference" eSuperTypes="#//PropagationReference #//OutgoingPropagationConditionDestination">
     <eOperations name="getTypeToken" eType="#//TypeTokenInstance"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AllPropagations" eSuperTypes="#//OutgoingPropagationConditionDestination">
+    <eOperations name="getTypeToken" eType="#//TypeTokenInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

@@ -1130,7 +1130,37 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					.setCondition(createConditionExpressionInstance(condition.getCondition(), component, annex));
 		}
 
-		if (condition.getTypeToken() == null) {
+		if (condition.isAllPropagations()) {
+			var allPropagations = EMV2InstanceFactory.eINSTANCE.createAllPropagations();
+			if (condition.getTypeToken() == null) {
+				if (conditionInstance.getSource() instanceof SourceStateReference sourceStateReference
+						&& !(conditionInstance.getCondition() instanceof CountExpression)) {
+					var sourceTypeSet = sourceStateReference.getTypeSet();
+					AnonymousTypeSet conditionTypeSet = null;
+					if (conditionInstance.getCondition() instanceof EventReference eventReference) {
+						conditionTypeSet = eventReference.getTypeSet();
+					} else if (conditionInstance
+							.getCondition() instanceof PropagationReference conditionPropagationReference) {
+						conditionTypeSet = conditionPropagationReference.getTypeSet();
+					}
+					if (sourceTypeSet != null && sourceTypeSet.flatten().size() == 1 && conditionTypeSet == null) {
+						allPropagations.setTypeSet(EcoreUtil.copy(sourceTypeSet));
+					} else if (sourceTypeSet == null && conditionTypeSet != null
+							&& conditionTypeSet.flatten().size() == 1) {
+						allPropagations.setTypeSet(EcoreUtil.copy(conditionTypeSet));
+					}
+				}
+				if (allPropagations.getTypeSet() == null) {
+					allPropagations.setName("all");
+				} else {
+					allPropagations.setName("all " + allPropagations.getTypeSet().getName());
+				}
+			} else {
+				allPropagations.setTypeSet(createAnonymousTypeSet(condition.getTypeToken()));
+				allPropagations.setName("all " + allPropagations.getTypeSet().getName());
+			}
+			conditionInstance.setDestination(allPropagations);
+		} else if (condition.getTypeToken() == null) {
 			var propagationReference = EMV2InstanceFactory.eINSTANCE.createDestinationPropagationReference();
 			propagationReference.setPropagation(findErrorPropagationInstance(annex, condition.getOutgoing()));
 			if (conditionInstance.getSource() instanceof SourceStateReference sourceStateReference

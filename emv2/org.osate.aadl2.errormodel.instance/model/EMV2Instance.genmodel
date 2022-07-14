@@ -236,5 +236,9 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//DestinationPropagationReference">
       <genOperations ecoreOperation="EMV2Instance.ecore#//DestinationPropagationReference/getTypeToken"/>
     </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//AllPropagations">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//AllPropagations/typeSet"/>
+      <genOperations ecoreOperation="EMV2Instance.ecore#//AllPropagations/getTypeToken"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

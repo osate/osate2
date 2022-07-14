@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.errormodel.instance.AllPropagations;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
@@ -585,6 +586,291 @@ public class OutgoingPropagationConditionTest {
 			with((NoErrorPropagationReference) condition.getDestination(), destination -> {
 				assertEquals("f1 {noerror}", destination.getName());
 				assertEquals("f1", destination.getPropagation().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testAllPropagationsWithType() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_propagations_with_type.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getConditions().size());
+		with(annexInstance.getConditions().get(0), condition -> {
+			assertEquals("condition1", condition.getName());
+			assertEquals("condition1", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state1", condition.getSource().getName());
+			assertNull(condition.getCondition());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testAllPropagationsTypeFromSource() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_propagations_type_from_source.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(8, annexInstance.getConditions().size());
+		with(annexInstance.getConditions().get(0), condition -> {
+			assertEquals("condition1", condition.getName());
+			assertEquals("condition1", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state1 {ServiceError}", condition.getSource().getName());
+			assertEquals("error1", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(1), condition -> {
+			assertEquals("condition2", condition.getName());
+			assertEquals("condition2", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state2 {ServiceError}", condition.getSource().getName());
+			assertEquals("error1", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(2), condition -> {
+			assertEquals("condition3", condition.getName());
+			assertEquals("condition3", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state3 {ServiceError}", condition.getSource().getName());
+			assertEquals("error2", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(3), condition -> {
+			assertEquals("condition4", condition.getName());
+			assertEquals("condition4", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state4 {ServiceError}", condition.getSource().getName());
+			assertEquals("error2", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(4), condition -> {
+			assertEquals("condition5", condition.getName());
+			assertEquals("condition5", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state5 {ServiceError}", condition.getSource().getName());
+			assertEquals("f1 {noerror}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(5), condition -> {
+			assertEquals("condition6", condition.getName());
+			assertEquals("condition6", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state6 {ServiceError}", condition.getSource().getName());
+			assertEquals("f1 {noerror}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(6), condition -> {
+			assertEquals("condition7", condition.getName());
+			assertEquals("condition7", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state7 {ServiceError}", condition.getSource().getName());
+			assertEquals("sub1.f2 {noerror}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(7), condition -> {
+			assertEquals("condition8", condition.getName());
+			assertEquals("condition8", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state8 {ServiceError}", condition.getSource().getName());
+			assertEquals("sub1.f2 {noerror}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testAllPropagationsTypeFromConditionExpression() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_propagations_type_from_condition_expression.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(6, annexInstance.getConditions().size());
+		with(annexInstance.getConditions().get(0), condition -> {
+			assertEquals("condition1", condition.getName());
+			assertEquals("condition1", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state1", condition.getSource().getName());
+			assertEquals("error1 {ServiceError}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(1), condition -> {
+			assertEquals("condition2", condition.getName());
+			assertEquals("condition2", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state2", condition.getSource().getName());
+			assertEquals("f1 {ServiceError}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(2), condition -> {
+			assertEquals("condition3", condition.getName());
+			assertEquals("condition3", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state3", condition.getSource().getName());
+			assertEquals("sub1.f3 {ServiceError}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(3), condition -> {
+			assertEquals("condition4", condition.getName());
+			assertEquals("condition4", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state4", condition.getSource().getName());
+			assertEquals("error2 {ServiceError}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(4), condition -> {
+			assertEquals("condition5", condition.getName());
+			assertEquals("condition5", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state5", condition.getSource().getName());
+			assertEquals("f2 {ServiceError}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+		with(annexInstance.getConditions().get(5), condition -> {
+			assertEquals("condition6", condition.getName());
+			assertEquals("condition6", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state6", condition.getSource().getName());
+			assertEquals("sub1.f4 {ServiceError}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all {ServiceError}", destination.getName());
+				assertEquals("{ServiceError}", destination.getTypeSet().getName());
+				assertEquals("ServiceError", destination.getTypeToken().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testAllPropagationsCannotDetermineType() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_propagations_cannot_determine_type.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(8, annexInstance.getConditions().size());
+		with(annexInstance.getConditions().get(0), condition -> {
+			assertEquals("condition1", condition.getName());
+			assertEquals("condition1", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state1 {ServiceError}", condition.getSource().getName());
+			assertEquals("error1 {ItemTimingError}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all", destination.getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getConditions().get(1), condition -> {
+			assertEquals("condition2", condition.getName());
+			assertEquals("condition2", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state2 {CommonErrors}", condition.getSource().getName());
+			assertEquals("error1 {CommonErrors}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all", destination.getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getConditions().get(2), condition -> {
+			assertEquals("condition3", condition.getName());
+			assertEquals("condition3", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state3 {ServiceError, ItemTimingError}", condition.getSource().getName());
+			assertEquals("error2", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all", destination.getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getConditions().get(3), condition -> {
+			assertEquals("condition4", condition.getName());
+			assertEquals("condition4", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state4", condition.getSource().getName());
+			assertEquals("error1", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all", destination.getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getConditions().get(4), condition -> {
+			assertEquals("condition5", condition.getName());
+			assertEquals("condition5", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state5", condition.getSource().getName());
+			assertEquals("f1 {noerror}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all", destination.getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getConditions().get(5), condition -> {
+			assertEquals("condition6", condition.getName());
+			assertEquals("condition6", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state6", condition.getSource().getName());
+			assertEquals("sub1.f2 {noerror}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all", destination.getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getConditions().get(6), condition -> {
+			assertEquals("condition7", condition.getName());
+			assertEquals("condition7", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("all", condition.getSource().getName());
+			assertEquals("error1 {CommonErrors}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all", destination.getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
+			});
+		});
+		with(annexInstance.getConditions().get(7), condition -> {
+			assertEquals("condition8", condition.getName());
+			assertEquals("condition8", condition.getOutgoingPropagationCondition().getName());
+			assertEquals("state8", condition.getSource().getName());
+			assertEquals("error1 {ServiceError, ItemTimingError}", condition.getCondition().getName());
+			with((AllPropagations) condition.getDestination(), destination -> {
+				assertEquals("all", destination.getName());
+				assertNull(destination.getTypeSet());
+				assertNull(destination.getTypeToken());
 			});
 		});
 	}

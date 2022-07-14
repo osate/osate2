@@ -5579,6 +5579,88 @@ public interface EMV2InstancePackage extends EPackage {
 	int DESTINATION_PROPAGATION_REFERENCE_FEATURE_COUNT = PROPAGATION_REFERENCE_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AllPropagationsImpl <em>All Propagations</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.AllPropagationsImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAllPropagations()
+	 * @generated
+	 */
+	int ALL_PROPAGATIONS = 54;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS__OWNED_ELEMENT = OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS__OWNED_COMMENT = OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS__NAME = OUTGOING_PROPAGATION_CONDITION_DESTINATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS__QUALIFIED_NAME = OUTGOING_PROPAGATION_CONDITION_DESTINATION__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS__OWNED_PROPERTY_ASSOCIATION = OUTGOING_PROPAGATION_CONDITION_DESTINATION__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS__ANNEX_INSTANCE = OUTGOING_PROPAGATION_CONDITION_DESTINATION__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS__TYPE_SET = OUTGOING_PROPAGATION_CONDITION_DESTINATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>All Propagations</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_PROPAGATIONS_FEATURE_COUNT = OUTGOING_PROPAGATION_CONDITION_DESTINATION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5586,7 +5668,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 54;
+	int EOPERATION = 55;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -5596,7 +5678,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 55;
+	int BINDING_TYPE = 56;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
@@ -5606,7 +5688,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
 	 * @generated
 	 */
-	int COUNT_EXPRESSION_OPERATION = 56;
+	int COUNT_EXPRESSION_OPERATION = 57;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6888,6 +6970,27 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getDestinationPropagationReference();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.AllPropagations <em>All Propagations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>All Propagations</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.AllPropagations
+	 * @generated
+	 */
+	EClass getAllPropagations();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.AllPropagations#getTypeSet <em>Type Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.AllPropagations#getTypeSet()
+	 * @see #getAllPropagations()
+	 * @generated
+	 */
+	EReference getAllPropagations_TypeSet();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -8400,6 +8503,24 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EClass DESTINATION_PROPAGATION_REFERENCE = eINSTANCE.getDestinationPropagationReference();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.AllPropagationsImpl <em>All Propagations</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.AllPropagationsImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getAllPropagations()
+		 * @generated
+		 */
+		EClass ALL_PROPAGATIONS = eINSTANCE.getAllPropagations();
+
+		/**
+		 * The meta object literal for the '<em><b>Type Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ALL_PROPAGATIONS__TYPE_SET = eINSTANCE.getAllPropagations_TypeSet();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.
