@@ -601,7 +601,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {
 				return createEventReference(event, conditionElement.getConstraint(), annex);
 			} else {
-				return createPropagationReference(component, path, conditionElement.getConstraint());
+				return createConditionPropagationReference(component, path, conditionElement.getConstraint());
 			}
 		} else {
 			return null;
@@ -633,8 +633,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return eventReference;
 	}
 
-	private ConditionExpressionInstance createPropagationReference(ComponentInstance component, EMV2PathElement path,
-			TypeSet constraint) {
+	private ConditionExpressionInstance createConditionPropagationReference(ComponentInstance component,
+			EMV2PathElement path, TypeSet constraint) {
 		var currentComponent = component;
 		var namePrefix = "";
 		while (path.getNamedElement() instanceof Subcomponent subcomponent) {
@@ -1122,7 +1122,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition condition,
 			ComponentInstance component, EMV2AnnexInstance annex) {
 		var conditionInstance = EMV2InstanceFactory.eINSTANCE.createOutgoingPropagationConditionInstance();
-		conditionInstance.setName(condition.getName());
 		conditionInstance.setOutgoingPropagationCondition(condition);
 		conditionInstance.setSource(createTransitionSource(condition, annex));
 		if (condition.getCondition() != null) {
@@ -1207,6 +1206,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			propagationReference.setName(propagationReference.getPropagation().getName() + ' '
 					+ propagationReference.getTypeSet().getName());
 			conditionInstance.setDestination(propagationReference);
+		}
+
+		if (condition.getName() == null) {
+			var sourceName = conditionInstance.getSource().getName();
+			var conditionExpressionName = "";
+			if (conditionInstance.getCondition() != null) {
+				conditionExpressionName = conditionInstance.getCondition().getName();
+			}
+			var destinationName = conditionInstance.getDestination().getName();
+			conditionInstance.setName(sourceName + " -[" + conditionExpressionName + "]-> " + destinationName);
+		} else {
+			conditionInstance.setName(condition.getName());
 		}
 
 		annex.getConditions().add(conditionInstance);

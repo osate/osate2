@@ -16,8 +16,10 @@ public
 			end propagations;
 			
 			component error behavior
+				events
+					event1: error event;
 				propagations
-					state1 -[]-> f1 {ServiceError};
+					state1 -[event1]-> f1 {ServiceError};
 			end component;
 		**};
 	end s1;

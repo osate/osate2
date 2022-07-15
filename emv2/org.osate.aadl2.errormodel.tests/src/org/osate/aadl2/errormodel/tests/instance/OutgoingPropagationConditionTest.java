@@ -67,8 +67,7 @@ public class OutgoingPropagationConditionTest {
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(3, annexInstance.getConditions().size());
 		with(annexInstance.getConditions().get(0), condition -> {
-			// TODO Update after we create names for unnamed conditions.
-			assertNull(condition.getName());
+			assertEquals("state3 -[]-> f3 {ServiceError}", condition.getName());
 			assertSame(
 					((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 							.getParsedAnnexSubclause()).getOutgoingPropagationConditions().get(0),
@@ -78,8 +77,7 @@ public class OutgoingPropagationConditionTest {
 			assertEquals("f3 {ServiceError}", condition.getDestination().getName());
 		});
 		with(annexInstance.getConditions().get(1), condition -> {
-			// TODO Update after we create names for unnamed conditions.
-			assertNull(condition.getName());
+			assertEquals("state2 -[]-> f2 {ServiceError}", condition.getName());
 			assertSame(
 					((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 							.getOwnedClassifiers()
@@ -92,8 +90,7 @@ public class OutgoingPropagationConditionTest {
 			assertEquals("f2 {ServiceError}", condition.getDestination().getName());
 		});
 		with(annexInstance.getConditions().get(2), condition -> {
-			// TODO Update after we create names for unnamed conditions.
-			assertNull(condition.getName());
+			assertEquals("state1 -[event1]-> f1 {ServiceError}", condition.getName());
 			assertSame(
 					((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 							.getOwnedClassifiers()
@@ -102,7 +99,7 @@ public class OutgoingPropagationConditionTest {
 							.get(0)).getParsedAnnexSubclause()).getOutgoingPropagationConditions().get(0),
 					condition.getOutgoingPropagationCondition());
 			assertEquals("state1", condition.getSource().getName());
-			assertNull(condition.getCondition());
+			assertEquals("event1", condition.getCondition().getName());
 			assertEquals("f1 {ServiceError}", condition.getDestination().getName());
 		});
 	}
