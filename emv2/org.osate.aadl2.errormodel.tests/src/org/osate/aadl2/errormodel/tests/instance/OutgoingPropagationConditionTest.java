@@ -56,6 +56,7 @@ public class OutgoingPropagationConditionTest {
 			assertEquals("CONDITION1", condition.getOutgoingPropagationCondition().getName());
 			assertEquals("state2", condition.getSource().getName());
 			assertNull(condition.getCondition());
+			assertEquals("f2 {ServiceError}", condition.getDestination().getName());
 		});
 	}
 
@@ -74,6 +75,7 @@ public class OutgoingPropagationConditionTest {
 					condition.getOutgoingPropagationCondition());
 			assertEquals("state3", condition.getSource().getName());
 			assertNull(condition.getCondition());
+			assertEquals("f3 {ServiceError}", condition.getDestination().getName());
 		});
 		with(annexInstance.getConditions().get(1), condition -> {
 			// TODO Update after we create names for unnamed conditions.
@@ -87,6 +89,7 @@ public class OutgoingPropagationConditionTest {
 					condition.getOutgoingPropagationCondition());
 			assertEquals("state2", condition.getSource().getName());
 			assertNull(condition.getCondition());
+			assertEquals("f2 {ServiceError}", condition.getDestination().getName());
 		});
 		with(annexInstance.getConditions().get(2), condition -> {
 			// TODO Update after we create names for unnamed conditions.
@@ -100,6 +103,7 @@ public class OutgoingPropagationConditionTest {
 					condition.getOutgoingPropagationCondition());
 			assertEquals("state1", condition.getSource().getName());
 			assertNull(condition.getCondition());
+			assertEquals("f1 {ServiceError}", condition.getDestination().getName());
 		});
 	}
 
@@ -118,6 +122,7 @@ public class OutgoingPropagationConditionTest {
 				assertNull(source.getTypeSet());
 			});
 			assertNull(condition.getCondition());
+			assertEquals("f1 {ServiceError}", condition.getDestination().getName());
 		});
 	}
 
@@ -136,6 +141,7 @@ public class OutgoingPropagationConditionTest {
 				assertEquals("{ServiceError}", source.getTypeSet().getName());
 			});
 			assertNull(condition.getCondition());
+			assertEquals("f1 {ServiceError}", condition.getDestination().getName());
 		});
 		with(annexInstance.getConditions().get(1), condition -> {
 			assertEquals("condition2", condition.getName());
@@ -148,6 +154,7 @@ public class OutgoingPropagationConditionTest {
 						source.getTypeSet().getName());
 			});
 			assertNull(condition.getCondition());
+			assertEquals("f2 {ServiceError}", condition.getDestination().getName());
 		});
 	}
 
@@ -166,6 +173,7 @@ public class OutgoingPropagationConditionTest {
 				assertEquals("{CommonErrors}", source.getTypeSet().getName());
 			});
 			assertNull(condition.getCondition());
+			assertEquals("f1 {ServiceError}", condition.getDestination().getName());
 		});
 	}
 
@@ -182,6 +190,7 @@ public class OutgoingPropagationConditionTest {
 				assertEquals("all", source.getName());
 			});
 			assertNull(condition.getCondition());
+			assertEquals("f1 {ServiceError}", condition.getDestination().getName());
 		});
 	}
 
@@ -210,12 +219,14 @@ public class OutgoingPropagationConditionTest {
 				assertEquals(CountExpressionOperation.EQUALS, conditionExpression.getOperation());
 				assertEquals(2, conditionExpression.getCount());
 			});
+			assertEquals("f3 {ServiceError}", condition.getDestination().getName());
 		});
 		with(annexInstance.getConditions().get(1), condition -> {
 			assertEquals("no_condition_expression", condition.getName());
 			assertEquals("no_condition_expression", condition.getOutgoingPropagationCondition().getName());
 			assertEquals("state1", condition.getSource().getName());
 			assertNull(condition.getCondition());
+			assertEquals("f1 {ServiceError}", condition.getDestination().getName());
 		});
 		with(annexInstance.getConditions().get(2), condition -> {
 			assertEquals("simple_condition_expression", condition.getName());
@@ -226,6 +237,7 @@ public class OutgoingPropagationConditionTest {
 				assertEquals("error1", conditionExpression.getEvent().getName());
 				assertNull(conditionExpression.getTypeSet());
 			});
+			assertEquals("f2 {ServiceError}", condition.getDestination().getName());
 		});
 	}
 
