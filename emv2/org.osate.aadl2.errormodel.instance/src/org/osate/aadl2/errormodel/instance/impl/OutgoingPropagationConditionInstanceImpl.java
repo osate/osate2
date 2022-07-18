@@ -32,7 +32,7 @@ import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
-import org.osate.aadl2.errormodel.instance.TransitionSource;
+import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 
 /**
@@ -71,7 +71,7 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 	 * @generated
 	 * @ordered
 	 */
-	protected TransitionSource source;
+	protected StateSource source;
 
 	/**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
@@ -165,7 +165,7 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 	 * @generated
 	 */
 	@Override
-	public TransitionSource getSource() {
+	public StateSource getSource() {
 		return source;
 	}
 
@@ -174,8 +174,8 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSource(TransitionSource newSource, NotificationChain msgs) {
-		TransitionSource oldSource = source;
+	public NotificationChain basicSetSource(StateSource newSource, NotificationChain msgs) {
+		StateSource oldSource = source;
 		source = newSource;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
@@ -195,7 +195,7 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 	 * @generated
 	 */
 	@Override
-	public void setSource(TransitionSource newSource) {
+	public void setSource(StateSource newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
 			if (source != null) {
@@ -391,7 +391,7 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 			setOutgoingPropagationCondition((OutgoingPropagationCondition) newValue);
 			return;
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE:
-			setSource((TransitionSource) newValue);
+			setSource((StateSource) newValue);
 			return;
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 			setCondition((ConditionExpressionInstance) newValue);
@@ -415,7 +415,7 @@ public class OutgoingPropagationConditionInstanceImpl extends EMV2InstanceObject
 			setOutgoingPropagationCondition((OutgoingPropagationCondition) null);
 			return;
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE:
-			setSource((TransitionSource) null);
+			setSource((StateSource) null);
 			return;
 		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 			setCondition((ConditionExpressionInstance) null);

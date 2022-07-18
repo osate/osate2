@@ -95,8 +95,8 @@ import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
-import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
@@ -526,7 +526,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			EMV2AnnexInstance annex) {
 		var transitionInstance = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
 		transitionInstance.setTransition(transition);
-		transitionInstance.setSource(createTransitionSource(transition, annex));
+		transitionInstance.setSource(createStateSource(transition, annex));
 		transitionInstance.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
 		transitionInstance.setDestination(createTransitionDestination(transition, transitionInstance.getSource(),
 				transitionInstance.getCondition(), annex));
@@ -541,17 +541,17 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		annex.getTransitions().add(transitionInstance);
 	}
 
-	private TransitionSource createTransitionSource(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
-		return createTransitionSource(transition.isAllStates(), transition.getSource(),
-				transition.getTypeTokenConstraint(), annex);
-	}
-
-	private TransitionSource createTransitionSource(OutgoingPropagationCondition condition, EMV2AnnexInstance annex) {
-		return createTransitionSource(condition.isAllStates(), condition.getState(), condition.getTypeTokenConstraint(),
+	private StateSource createStateSource(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
+		return createStateSource(transition.isAllStates(), transition.getSource(), transition.getTypeTokenConstraint(),
 				annex);
 	}
 
-	private TransitionSource createTransitionSource(boolean allStates, ErrorBehaviorState state, TypeSet typeSet,
+	private StateSource createStateSource(OutgoingPropagationCondition condition, EMV2AnnexInstance annex) {
+		return createStateSource(condition.isAllStates(), condition.getState(), condition.getTypeTokenConstraint(),
+				annex);
+	}
+
+	private StateSource createStateSource(boolean allStates, ErrorBehaviorState state, TypeSet typeSet,
 			EMV2AnnexInstance annex) {
 		if (allStates) {
 			return createAllSources();
@@ -713,8 +713,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return countExpression;
 	}
 
-	private TransitionDestination createTransitionDestination(ErrorBehaviorTransition transition,
-			TransitionSource source, ConditionExpressionInstance condition, EMV2AnnexInstance annex) {
+	private TransitionDestination createTransitionDestination(ErrorBehaviorTransition transition, StateSource source,
+			ConditionExpressionInstance condition, EMV2AnnexInstance annex) {
 		if (transition.isSteadyState()) {
 			return createSameState();
 		} else if (!transition.getDestinationBranches().isEmpty()) {
@@ -725,7 +725,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private DestinationStateReference createDestinationStateReference(ErrorBehaviorTransition transition,
-			TransitionSource source, ConditionExpressionInstance condition, EMV2AnnexInstance annex) {
+			StateSource source, ConditionExpressionInstance condition, EMV2AnnexInstance annex) {
 		var stateReference = EMV2InstanceFactory.eINSTANCE.createDestinationStateReference();
 		stateReference.setState(findStateInstance(annex, transition.getTarget()));
 		stateReference.setTypeSet(createDestinationTypeSet(transition.getTargetToken(),
@@ -739,7 +739,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private AnonymousTypeSet createDestinationTypeSet(TypeSet explicitTypeSet, boolean destinationIsTyped,
-			TransitionSource source, ConditionExpressionInstance condition) {
+			StateSource source, ConditionExpressionInstance condition) {
 		if (explicitTypeSet != null) {
 			return createAnonymousTypeSet(explicitTypeSet);
 		} else if (destinationIsTyped && source instanceof SourceStateReference stateReference
@@ -766,7 +766,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return sameState;
 	}
 
-	private Branches createBranches(List<TransitionBranch> branches, TransitionSource source,
+	private Branches createBranches(List<TransitionBranch> branches, StateSource source,
 			ConditionExpressionInstance condition, EMV2AnnexInstance annex) {
 		var hasOthers = false;
 		var hasProperty = false;
@@ -799,7 +799,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return branchesInstance;
 	}
 
-	private Branch createBranch(TransitionBranch branch, TransitionSource source, ConditionExpressionInstance condition,
+	private Branch createBranch(TransitionBranch branch, StateSource source, ConditionExpressionInstance condition,
 			BigDecimal remaining, EMV2AnnexInstance annex) {
 		BigDecimal probability;
 		String nameSuffix;
@@ -830,7 +830,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return sameState;
 	}
 
-	private BranchStateReference createBranchStateReference(TransitionBranch branch, TransitionSource source,
+	private BranchStateReference createBranchStateReference(TransitionBranch branch, StateSource source,
 			ConditionExpressionInstance condition, BigDecimal probability, String nameSuffix, EMV2AnnexInstance annex) {
 		var stateReference = EMV2InstanceFactory.eINSTANCE.createBranchStateReference();
 		stateReference.setState(findStateInstance(annex, branch.getTarget()));
@@ -1127,7 +1127,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			ComponentInstance component, EMV2AnnexInstance annex) {
 		var conditionInstance = EMV2InstanceFactory.eINSTANCE.createOutgoingPropagationConditionInstance();
 		conditionInstance.setOutgoingPropagationCondition(condition);
-		conditionInstance.setSource(createTransitionSource(condition, annex));
+		conditionInstance.setSource(createStateSource(condition, annex));
 		if (condition.getCondition() != null) {
 			conditionInstance
 					.setCondition(createConditionExpressionInstance(condition.getCondition(), component, annex));
@@ -1149,8 +1149,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private OutgoingPropagationConditionDestination createOutgoingPropagationConditionDestination(
-			OutgoingPropagationCondition condition, TransitionSource source,
-			ConditionExpressionInstance conditionExpression, EMV2AnnexInstance annex) {
+			OutgoingPropagationCondition condition, StateSource source, ConditionExpressionInstance conditionExpression,
+			EMV2AnnexInstance annex) {
 		if (condition.getTypeToken() != null && !condition.getTypeToken().getTypeTokens().isEmpty()
 				&& condition.getTypeToken().getTypeTokens().get(0).isNoError()) {
 			if (condition.isAllPropagations()) {
@@ -1167,8 +1167,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private DestinationPropagationReference createDestinationPropagationReference(
-			OutgoingPropagationCondition condition, TransitionSource source,
-			ConditionExpressionInstance conditionExpression, EMV2AnnexInstance annex) {
+			OutgoingPropagationCondition condition, StateSource source, ConditionExpressionInstance conditionExpression,
+			EMV2AnnexInstance annex) {
 		var propagationReference = EMV2InstanceFactory.eINSTANCE.createDestinationPropagationReference();
 		propagationReference.setPropagation(findErrorPropagationInstance(annex, condition.getOutgoing()));
 		propagationReference
@@ -1181,7 +1181,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return propagationReference;
 	}
 
-	private AllPropagations createAllPropagations(OutgoingPropagationCondition condition, TransitionSource source,
+	private AllPropagations createAllPropagations(OutgoingPropagationCondition condition, StateSource source,
 			ConditionExpressionInstance conditionExpression) {
 		var allPropagations = EMV2InstanceFactory.eINSTANCE.createAllPropagations();
 		allPropagations

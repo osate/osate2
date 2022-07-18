@@ -33,5 +33,5 @@ package org.osate.aadl2.errormodel.instance;
  * @model
  * @generated
  */
-public interface AllSources extends TransitionSource {
+public interface AllSources extends StateSource {
 } // AllSources

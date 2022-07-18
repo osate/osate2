@@ -83,9 +83,9 @@ import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
-import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
@@ -254,7 +254,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass transitionSourceEClass = null;
+	private EClass stateSourceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1392,6 +1392,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getStateSource() {
+		return stateSourceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getTransitionInstance_Transition() {
 		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -1404,16 +1414,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EReference getTransitionInstance_Source() {
 		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getTransitionSource() {
-		return transitionSourceEClass;
 	}
 
 	/**
@@ -2444,7 +2444,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__CONDITION);
 		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__DESTINATION);
 
-		transitionSourceEClass = createEClass(TRANSITION_SOURCE);
+		stateSourceEClass = createEClass(STATE_SOURCE);
 
 		sourceStateReferenceEClass = createEClass(SOURCE_STATE_REFERENCE);
 		createEReference(sourceStateReferenceEClass, SOURCE_STATE_REFERENCE__STATE);
@@ -2590,9 +2590,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		recoverEventInstanceEClass.getESuperTypes().add(getEventInstance());
 		repairEventInstanceEClass.getESuperTypes().add(getEventInstance());
 		transitionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
-		transitionSourceEClass.getESuperTypes().add(getEMV2InstanceObject());
-		sourceStateReferenceEClass.getESuperTypes().add(getTransitionSource());
-		allSourcesEClass.getESuperTypes().add(getTransitionSource());
+		stateSourceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		sourceStateReferenceEClass.getESuperTypes().add(getStateSource());
+		allSourcesEClass.getESuperTypes().add(getStateSource());
 		conditionExpressionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		conditionPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
@@ -3005,7 +3005,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getTransitionInstance_Transition(), theErrorModelPackage.getErrorBehaviorTransition(), null,
 				"transition", null, 0, 1, TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTransitionInstance_Source(), getTransitionSource(), null, "source", null, 0, 1,
+		initEReference(getTransitionInstance_Source(), getStateSource(), null, "source", null, 0, 1,
 				TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransitionInstance_Condition(), getConditionExpressionInstance(), null, "condition", null, 0,
@@ -3015,7 +3015,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(transitionSourceEClass, TransitionSource.class, "TransitionSource", IS_ABSTRACT, IS_INTERFACE,
+		initEClass(stateSourceEClass, StateSource.class, "StateSource", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(sourceStateReferenceEClass, SourceStateReference.class, "SourceStateReference", !IS_ABSTRACT,
@@ -3116,8 +3116,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				theErrorModelPackage.getOutgoingPropagationCondition(), null, "outgoingPropagationCondition", null, 0,
 				1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOutgoingPropagationConditionInstance_Source(), getTransitionSource(), null, "source", null, 0,
-				1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getOutgoingPropagationConditionInstance_Source(), getStateSource(), null, "source", null, 0, 1,
+				OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOutgoingPropagationConditionInstance_Condition(), getConditionExpressionInstance(), null,
 				"condition", null, 0, 1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE,

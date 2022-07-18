@@ -40,7 +40,7 @@ package org.osate.aadl2.errormodel.instance;
  * @model
  * @generated
  */
-public interface SourceStateReference extends TransitionSource {
+public interface SourceStateReference extends StateSource {
 	/**
 	 * Returns the value of the '<em><b>State</b></em>' reference.
 	 * <!-- begin-user-doc -->

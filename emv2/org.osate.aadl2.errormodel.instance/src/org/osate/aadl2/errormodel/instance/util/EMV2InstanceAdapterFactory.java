@@ -77,9 +77,9 @@ import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
-import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
@@ -325,8 +325,8 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseTransitionSource(TransitionSource object) {
-			return createTransitionSourceAdapter();
+		public Adapter caseStateSource(StateSource object) {
+			return createStateSourceAdapter();
 		}
 
 		@Override
@@ -758,16 +758,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TransitionSource <em>Transition Source</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.StateSource <em>State Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.TransitionSource
+	 * @see org.osate.aadl2.errormodel.instance.StateSource
 	 * @generated
 	 */
-	public Adapter createTransitionSourceAdapter() {
+	public Adapter createStateSourceAdapter() {
 		return null;
 	}
 

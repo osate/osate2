@@ -25,13 +25,13 @@ package org.osate.aadl2.errormodel.instance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Transition Source</b></em>'.
+ * A representation of the model object '<em><b>State Source</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTransitionSource()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getStateSource()
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface TransitionSource extends EMV2InstanceObject {
-} // TransitionSource
+public interface StateSource extends EMV2InstanceObject {
+} // StateSource

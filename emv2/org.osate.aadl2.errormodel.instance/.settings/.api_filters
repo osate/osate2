@@ -1233,6 +1233,46 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="STATE_SOURCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_SOURCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_SOURCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_SOURCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_SOURCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_SOURCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_SOURCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_SOURCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="TRANSITION_DESTINATION"/>
             </message_arguments>
         </filter>
@@ -1329,46 +1369,6 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="TRANSITION_INSTANCE__TRANSITION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="TRANSITION_SOURCE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="TRANSITION_SOURCE_FEATURE_COUNT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="TRANSITION_SOURCE__ANNEX_INSTANCE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="TRANSITION_SOURCE__NAME"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="TRANSITION_SOURCE__OWNED_COMMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="TRANSITION_SOURCE__OWNED_ELEMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="TRANSITION_SOURCE__OWNED_PROPERTY_ASSOCIATION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="TRANSITION_SOURCE__QUALIFIED_NAME"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1648,6 +1648,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getStateSource()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getTransitionDestination()"/>
             </message_arguments>
         </filter>
@@ -1674,11 +1679,6 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getTransitionInstance_Transition()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getTransitionSource()"/>
             </message_arguments>
         </filter>
     </resource>
@@ -1960,6 +1960,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="STATE_SOURCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="TRANSITION_DESTINATION"/>
             </message_arguments>
         </filter>
@@ -1986,11 +1991,6 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="TRANSITION_INSTANCE__TRANSITION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="TRANSITION_SOURCE"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2069,6 +2069,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/StateSource.java" type="org.osate.aadl2.errormodel.instance.StateSource">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.StateSource"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/TransitionDestination.java" type="org.osate.aadl2.errormodel.instance.TransitionDestination">
         <filter id="1110441988">
             <message_arguments>
@@ -2080,13 +2087,6 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.TransitionInstance"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/osate/aadl2/errormodel/instance/TransitionSource.java" type="org.osate.aadl2.errormodel.instance.TransitionSource">
-        <filter id="1110441988">
-            <message_arguments>
-                <message_argument value="org.osate.aadl2.errormodel.instance.TransitionSource"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2384,17 +2384,17 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createStateSourceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createTransitionDestinationAdapter()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createTransitionInstanceAdapter()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="createTransitionSourceAdapter()"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2506,17 +2506,17 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="caseStateSource(StateSource)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="caseTransitionDestination(TransitionDestination)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseTransitionInstance(TransitionInstance)"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="caseTransitionSource(TransitionSource)"/>
             </message_arguments>
         </filter>
     </resource>

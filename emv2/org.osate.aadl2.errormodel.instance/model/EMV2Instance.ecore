@@ -226,21 +226,21 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TransitionInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="transition" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorBehaviorTransition"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//TransitionSource"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//StateSource"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpressionInstance"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" eType="#//TransitionDestination"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TransitionSource" abstract="true" interface="true"
+  <eClassifiers xsi:type="ecore:EClass" name="StateSource" abstract="true" interface="true"
       eSuperTypes="#//EMV2InstanceObject"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SourceStateReference" eSuperTypes="#//TransitionSource">
+  <eClassifiers xsi:type="ecore:EClass" name="SourceStateReference" eSuperTypes="#//StateSource">
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//StateInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AllSources" eSuperTypes="#//TransitionSource"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AllSources" eSuperTypes="#//StateSource"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConditionExpressionInstance" abstract="true"
       interface="true" eSuperTypes="#//EMV2InstanceObject"/>
   <eClassifiers xsi:type="ecore:EClass" name="EventReference" eSuperTypes="#//ConditionExpressionInstance">
@@ -294,7 +294,7 @@
       eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingPropagationCondition"
         eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//OutgoingPropagationCondition"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//TransitionSource"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//StateSource"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpressionInstance"
         containment="true"/>

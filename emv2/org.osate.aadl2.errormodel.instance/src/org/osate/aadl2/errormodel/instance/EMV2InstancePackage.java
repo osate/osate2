@@ -4048,14 +4048,14 @@ public interface EMV2InstancePackage extends EPackage {
 	int TRANSITION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.TransitionSource <em>Transition Source</em>}' class.
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.StateSource <em>State Source</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.instance.TransitionSource
-	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTransitionSource()
+	 * @see org.osate.aadl2.errormodel.instance.StateSource
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getStateSource()
 	 * @generated
 	 */
-	int TRANSITION_SOURCE = 36;
+	int STATE_SOURCE = 36;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4064,7 +4064,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_SOURCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+	int STATE_SOURCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -4073,7 +4073,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_SOURCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+	int STATE_SOURCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4082,7 +4082,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_SOURCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
+	int STATE_SOURCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -4091,7 +4091,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_SOURCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+	int STATE_SOURCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -4100,7 +4100,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_SOURCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+	int STATE_SOURCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
@@ -4109,16 +4109,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_SOURCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+	int STATE_SOURCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
-	 * The number of structural features of the '<em>Transition Source</em>' class.
+	 * The number of structural features of the '<em>State Source</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_SOURCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+	int STATE_SOURCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl <em>Source State Reference</em>}' class.
@@ -4137,7 +4137,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_STATE_REFERENCE__OWNED_ELEMENT = TRANSITION_SOURCE__OWNED_ELEMENT;
+	int SOURCE_STATE_REFERENCE__OWNED_ELEMENT = STATE_SOURCE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -4146,7 +4146,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_STATE_REFERENCE__OWNED_COMMENT = TRANSITION_SOURCE__OWNED_COMMENT;
+	int SOURCE_STATE_REFERENCE__OWNED_COMMENT = STATE_SOURCE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4155,7 +4155,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_STATE_REFERENCE__NAME = TRANSITION_SOURCE__NAME;
+	int SOURCE_STATE_REFERENCE__NAME = STATE_SOURCE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -4164,7 +4164,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_STATE_REFERENCE__QUALIFIED_NAME = TRANSITION_SOURCE__QUALIFIED_NAME;
+	int SOURCE_STATE_REFERENCE__QUALIFIED_NAME = STATE_SOURCE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -4173,7 +4173,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_STATE_REFERENCE__OWNED_PROPERTY_ASSOCIATION = TRANSITION_SOURCE__OWNED_PROPERTY_ASSOCIATION;
+	int SOURCE_STATE_REFERENCE__OWNED_PROPERTY_ASSOCIATION = STATE_SOURCE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
@@ -4182,7 +4182,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_STATE_REFERENCE__ANNEX_INSTANCE = TRANSITION_SOURCE__ANNEX_INSTANCE;
+	int SOURCE_STATE_REFERENCE__ANNEX_INSTANCE = STATE_SOURCE__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>State</b></em>' reference.
@@ -4191,7 +4191,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_STATE_REFERENCE__STATE = TRANSITION_SOURCE_FEATURE_COUNT + 0;
+	int SOURCE_STATE_REFERENCE__STATE = STATE_SOURCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
@@ -4200,7 +4200,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_STATE_REFERENCE__TYPE_SET = TRANSITION_SOURCE_FEATURE_COUNT + 1;
+	int SOURCE_STATE_REFERENCE__TYPE_SET = STATE_SOURCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Source State Reference</em>' class.
@@ -4209,7 +4209,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_STATE_REFERENCE_FEATURE_COUNT = TRANSITION_SOURCE_FEATURE_COUNT + 2;
+	int SOURCE_STATE_REFERENCE_FEATURE_COUNT = STATE_SOURCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.AllSourcesImpl <em>All Sources</em>}' class.
@@ -4228,7 +4228,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_SOURCES__OWNED_ELEMENT = TRANSITION_SOURCE__OWNED_ELEMENT;
+	int ALL_SOURCES__OWNED_ELEMENT = STATE_SOURCE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -4237,7 +4237,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_SOURCES__OWNED_COMMENT = TRANSITION_SOURCE__OWNED_COMMENT;
+	int ALL_SOURCES__OWNED_COMMENT = STATE_SOURCE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4246,7 +4246,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_SOURCES__NAME = TRANSITION_SOURCE__NAME;
+	int ALL_SOURCES__NAME = STATE_SOURCE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -4255,7 +4255,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_SOURCES__QUALIFIED_NAME = TRANSITION_SOURCE__QUALIFIED_NAME;
+	int ALL_SOURCES__QUALIFIED_NAME = STATE_SOURCE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -4264,7 +4264,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_SOURCES__OWNED_PROPERTY_ASSOCIATION = TRANSITION_SOURCE__OWNED_PROPERTY_ASSOCIATION;
+	int ALL_SOURCES__OWNED_PROPERTY_ASSOCIATION = STATE_SOURCE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
@@ -4273,7 +4273,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_SOURCES__ANNEX_INSTANCE = TRANSITION_SOURCE__ANNEX_INSTANCE;
+	int ALL_SOURCES__ANNEX_INSTANCE = STATE_SOURCE__ANNEX_INSTANCE;
 
 	/**
 	 * The number of structural features of the '<em>All Sources</em>' class.
@@ -4282,7 +4282,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_SOURCES_FEATURE_COUNT = TRANSITION_SOURCE_FEATURE_COUNT + 0;
+	int ALL_SOURCES_FEATURE_COUNT = STATE_SOURCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.ConditionExpressionInstance <em>Condition Expression Instance</em>}' class.
@@ -6623,6 +6623,16 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getTransitionInstance_Destination();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.StateSource <em>State Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>State Source</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.StateSource
+	 * @generated
+	 */
+	EClass getStateSource();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TransitionInstance#getTransition <em>Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6643,16 +6653,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTransitionInstance_Source();
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TransitionSource <em>Transition Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Transition Source</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.TransitionSource
-	 * @generated
-	 */
-	EClass getTransitionSource();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.SourceStateReference <em>Source State Reference</em>}'.
@@ -8250,6 +8250,16 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference TRANSITION_INSTANCE__DESTINATION = eINSTANCE.getTransitionInstance_Destination();
 
 		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.StateSource <em>State Source</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.StateSource
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getStateSource()
+		 * @generated
+		 */
+		EClass STATE_SOURCE = eINSTANCE.getStateSource();
+
+		/**
 		 * The meta object literal for the '<em><b>Transition</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -8264,16 +8274,6 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference TRANSITION_INSTANCE__SOURCE = eINSTANCE.getTransitionInstance_Source();
-
-		/**
-		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.TransitionSource <em>Transition Source</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.osate.aadl2.errormodel.instance.TransitionSource
-		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTransitionSource()
-		 * @generated
-		 */
-		EClass TRANSITION_SOURCE = eINSTANCE.getTransitionSource();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.SourceStateReferenceImpl <em>Source State Reference</em>}' class.

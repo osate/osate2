@@ -72,12 +72,12 @@ public interface OutgoingPropagationConditionInstance extends EMV2InstanceObject
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' containment reference.
-	 * @see #setSource(TransitionSource)
+	 * @see #setSource(StateSource)
 	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getOutgoingPropagationConditionInstance_Source()
 	 * @model containment="true"
 	 * @generated
 	 */
-	TransitionSource getSource();
+	StateSource getSource();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance#getSource <em>Source</em>}' containment reference.
@@ -87,7 +87,7 @@ public interface OutgoingPropagationConditionInstance extends EMV2InstanceObject
 	 * @see #getSource()
 	 * @generated
 	 */
-	void setSource(TransitionSource value);
+	void setSource(StateSource value);
 
 	/**
 	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.

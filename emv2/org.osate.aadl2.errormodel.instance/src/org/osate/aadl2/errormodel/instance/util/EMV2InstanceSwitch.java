@@ -76,9 +76,9 @@ import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
-import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
@@ -973,20 +973,20 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.TRANSITION_SOURCE: {
-			TransitionSource transitionSource = (TransitionSource) theEObject;
-			T result = caseTransitionSource(transitionSource);
+		case EMV2InstancePackage.STATE_SOURCE: {
+			StateSource stateSource = (StateSource) theEObject;
+			T result = caseStateSource(stateSource);
 			if (result == null) {
-				result = caseEMV2InstanceObject(transitionSource);
+				result = caseEMV2InstanceObject(stateSource);
 			}
 			if (result == null) {
-				result = caseInstanceObject(transitionSource);
+				result = caseInstanceObject(stateSource);
 			}
 			if (result == null) {
-				result = caseNamedElement(transitionSource);
+				result = caseNamedElement(stateSource);
 			}
 			if (result == null) {
-				result = caseElement(transitionSource);
+				result = caseElement(stateSource);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -997,7 +997,7 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			SourceStateReference sourceStateReference = (SourceStateReference) theEObject;
 			T result = caseSourceStateReference(sourceStateReference);
 			if (result == null) {
-				result = caseTransitionSource(sourceStateReference);
+				result = caseStateSource(sourceStateReference);
 			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(sourceStateReference);
@@ -1020,7 +1020,7 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			AllSources allSources = (AllSources) theEObject;
 			T result = caseAllSources(allSources);
 			if (result == null) {
-				result = caseTransitionSource(allSources);
+				result = caseStateSource(allSources);
 			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(allSources);
@@ -1739,17 +1739,17 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Transition Source</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>State Source</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Transition Source</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>State Source</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTransitionSource(TransitionSource object) {
+	public T caseStateSource(StateSource object) {
 		return null;
 	}
 

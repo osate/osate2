@@ -30,9 +30,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
-import org.osate.aadl2.errormodel.instance.TransitionSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 /**
@@ -70,7 +70,7 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	 * @generated
 	 * @ordered
 	 */
-	protected TransitionSource source;
+	protected StateSource source;
 
 	/**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
@@ -275,7 +275,7 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	 * @generated
 	 */
 	@Override
-	public TransitionSource getSource() {
+	public StateSource getSource() {
 		return source;
 	}
 
@@ -284,8 +284,8 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSource(TransitionSource newSource, NotificationChain msgs) {
-		TransitionSource oldSource = source;
+	public NotificationChain basicSetSource(StateSource newSource, NotificationChain msgs) {
+		StateSource oldSource = source;
 		source = newSource;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
@@ -305,7 +305,7 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 	 * @generated
 	 */
 	@Override
-	public void setSource(TransitionSource newSource) {
+	public void setSource(StateSource newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
 			if (source != null) {
@@ -379,7 +379,7 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 			setTransition((ErrorBehaviorTransition) newValue);
 			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__SOURCE:
-			setSource((TransitionSource) newValue);
+			setSource((StateSource) newValue);
 			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
 			setCondition((ConditionExpressionInstance) newValue);
@@ -403,7 +403,7 @@ public class TransitionInstanceImpl extends EMV2InstanceObjectImpl implements Tr
 			setTransition((ErrorBehaviorTransition) null);
 			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__SOURCE:
-			setSource((TransitionSource) null);
+			setSource((StateSource) null);
 			return;
 		case EMV2InstancePackage.TRANSITION_INSTANCE__CONDITION:
 			setCondition((ConditionExpressionInstance) null);
