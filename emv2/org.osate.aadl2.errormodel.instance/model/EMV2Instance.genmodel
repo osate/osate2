@@ -238,6 +238,7 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//AllPropagationsNoError"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//DetectionInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//DetectionInstance/detection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//DetectionInstance/source"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

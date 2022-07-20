@@ -13,7 +13,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -75,6 +77,83 @@ public class DetectionsTest {
 					.get(0)
 					.getOwnedAnnexSubclauses()
 					.get(0)).getParsedAnnexSubclause()).getErrorDetections().get(0), detection.getDetection());
+		});
+	}
+
+	@Test
+	public void testUntypedSource() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "untyped_source.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getDetections().size());
+		with(annexInstance.getDetections().get(0), detection -> {
+			assertEquals("detection1", detection.getName());
+			assertEquals("detection1", detection.getDetection().getName());
+			with((SourceStateReference) detection.getSource(), source -> {
+				assertEquals("state1", source.getName());
+				assertEquals("state1", source.getState().getName());
+				assertNull(source.getTypeSet());
+			});
+		});
+	}
+
+	@Test
+	public void testTypedSourceWithTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_source_with_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getDetections().size());
+		with(annexInstance.getDetections().get(0), detection -> {
+			assertEquals("detection1", detection.getName());
+			assertEquals("detection1", detection.getDetection().getName());
+			with((SourceStateReference) detection.getSource(), source -> {
+				assertEquals("state1 {ServiceError}", source.getName());
+				assertEquals("state1", source.getState().getName());
+				assertEquals("{ServiceError}", source.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getDetections().get(1), detection -> {
+			assertEquals("detection2", detection.getName());
+			assertEquals("detection2", detection.getDetection().getName());
+			with((SourceStateReference) detection.getSource(), source -> {
+				assertEquals("state2 {ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}",
+						source.getName());
+				assertEquals("state2", source.getState().getName());
+				assertEquals("{ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}",
+						source.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testTypedSourceWithoutTypes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "typed_source_without_types.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getDetections().size());
+		with(annexInstance.getDetections().get(0), detection -> {
+			assertEquals("detection1", detection.getName());
+			assertEquals("detection1", detection.getDetection().getName());
+			with((SourceStateReference) detection.getSource(), source -> {
+				assertEquals("state1 {CommonErrors}", source.getName());
+				assertEquals("state1", source.getState().getName());
+				assertEquals("{CommonErrors}", source.getTypeSet().getName());
+			});
+		});
+	}
+
+	@Test
+	public void testAllSources() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "all_sources.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getDetections().size());
+		with(annexInstance.getDetections().get(0), detection -> {
+			assertEquals("detection1", detection.getName());
+			assertEquals("detection1", detection.getDetection().getName());
+			with((AllSources) detection.getSource(), source -> {
+				assertEquals("all", source.getName());
+			});
 		});
 	}
 }

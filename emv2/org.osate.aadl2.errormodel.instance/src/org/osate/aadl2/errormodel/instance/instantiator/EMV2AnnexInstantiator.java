@@ -545,6 +545,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				annex);
 	}
 
+	private StateSource createStateSource(ErrorDetection detection, EMV2AnnexInstance annex) {
+		return createStateSource(detection.isAllStates(), detection.getState(), detection.getTypeTokenConstraint(),
+				annex);
+	}
+
 	private StateSource createStateSource(boolean allStates, ErrorBehaviorState state, TypeSet typeSet,
 			EMV2AnnexInstance annex) {
 		if (allStates) {
@@ -1198,6 +1203,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		DetectionInstance detectionInstance = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
 		detectionInstance.setName(detection.getName());
 		detectionInstance.setDetection(detection);
+		detectionInstance.setSource(createStateSource(detection, annex));
 		annex.getDetections().add(detectionInstance);
 	}
 

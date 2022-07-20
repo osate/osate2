@@ -35,6 +35,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getDetection <em>Detection</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getSource <em>Source</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance()
@@ -63,5 +64,27 @@ public interface DetectionInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	void setDetection(ErrorDetection value);
+
+	/**
+	 * Returns the value of the '<em><b>Source</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source</em>' containment reference.
+	 * @see #setSource(StateSource)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance_Source()
+	 * @model containment="true"
+	 * @generated
+	 */
+	StateSource getSource();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getSource <em>Source</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Source</em>' containment reference.
+	 * @see #getSource()
+	 * @generated
+	 */
+	void setSource(StateSource value);
 
 } // DetectionInstance

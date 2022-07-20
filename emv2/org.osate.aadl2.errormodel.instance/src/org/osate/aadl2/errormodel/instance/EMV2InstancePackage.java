@@ -5689,13 +5689,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int DETECTION_INSTANCE__DETECTION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Source</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DETECTION_INSTANCE__SOURCE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Detection Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DETECTION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+	int DETECTION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
@@ -7016,6 +7025,17 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDetectionInstance_Detection();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Source</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.DetectionInstance#getSource()
+	 * @see #getDetectionInstance()
+	 * @generated
+	 */
+	EReference getDetectionInstance_Source();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -8542,6 +8562,14 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference DETECTION_INSTANCE__DETECTION = eINSTANCE.getDetectionInstance_Detection();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DETECTION_INSTANCE__SOURCE = eINSTANCE.getDetectionInstance_Source();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.
