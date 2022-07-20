@@ -23,8 +23,6 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 
 /**
@@ -36,11 +34,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getEmv2Element <em>Emv2 Element</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getErrorCode <em>Error Code</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getPort <em>Port</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getDetection <em>Detection</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance()
@@ -49,103 +43,25 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
  */
 public interface DetectionInstance extends EMV2InstanceObject {
 	/**
-	 * Returns the value of the '<em><b>Emv2 Element</b></em>' reference.
+	 * Returns the value of the '<em><b>Detection</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Emv2 Element</em>' reference.
-	 * @see #setEmv2Element(ErrorDetection)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance_Emv2Element()
+	 * @return the value of the '<em>Detection</em>' reference.
+	 * @see #setDetection(ErrorDetection)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance_Detection()
 	 * @model
 	 * @generated
 	 */
-	ErrorDetection getEmv2Element();
+	ErrorDetection getDetection();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getDetection <em>Detection</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Emv2 Element</em>' reference.
-	 * @see #getEmv2Element()
+	 * @param value the new value of the '<em>Detection</em>' reference.
+	 * @see #getDetection()
 	 * @generated
 	 */
-	void setEmv2Element(ErrorDetection value);
-
-	/**
-	 * Returns the value of the '<em><b>In States</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.StateInstance}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In States</em>' reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance_InStates()
-	 * @model
-	 * @generated
-	 */
-	EList<StateInstance> getInStates();
-
-	/**
-	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(ConstraintElement)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance_Condition()
-	 * @model containment="true"
-	 * @generated
-	 */
-	ConstraintElement getCondition();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getCondition <em>Condition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Condition</em>' containment reference.
-	 * @see #getCondition()
-	 * @generated
-	 */
-	void setCondition(ConstraintElement value);
-
-	/**
-	 * Returns the value of the '<em><b>Error Code</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Code</em>' attribute.
-	 * @see #setErrorCode(String)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance_ErrorCode()
-	 * @model
-	 * @generated
-	 */
-	String getErrorCode();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getErrorCode <em>Error Code</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Error Code</em>' attribute.
-	 * @see #getErrorCode()
-	 * @generated
-	 */
-	void setErrorCode(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Port</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Port</em>' reference.
-	 * @see #setPort(FeatureInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance_Port()
-	 * @model
-	 * @generated
-	 */
-	FeatureInstance getPort();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getPort <em>Port</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Port</em>' reference.
-	 * @see #getPort()
-	 * @generated
-	 */
-	void setPort(FeatureInstance value);
+	void setDetection(ErrorDetection value);
 
 } // DetectionInstance

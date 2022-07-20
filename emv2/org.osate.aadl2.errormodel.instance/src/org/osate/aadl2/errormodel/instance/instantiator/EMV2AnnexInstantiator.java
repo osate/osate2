@@ -43,16 +43,12 @@ import java.util.stream.Stream;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
 import org.osate.aadl2.errormodel.instance.AllPropagations;
@@ -94,7 +90,6 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
-import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -122,7 +117,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
@@ -1200,47 +1194,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return allPropagations;
 	}
 
-	private void instantiateDetection(ErrorDetection ed, EMV2AnnexInstance annex) {
-		DetectionInstance bi = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
-		bi.setName(ed.getName());
-		bi.setEmv2Element(ed);
-		annex.getDetections().add(bi);
-		ConditionExpression behaviorCondition = ed.getCondition();
-		ConstraintElement cio = instantiateCondition(behaviorCondition, annex);
-		bi.setCondition(cio);
-		// explicit target state
-		if (ed.isAllStates()) {
-			StateMachineInstance smi = annex.getStateMachine();
-			if (smi != null) {
-				for (StateInstance si : smi.getStates()) {
-					bi.getInStates().add(si);
-				}
-			}
-		} else {
-			bi.getInStates().add(findStateInstance(annex, ed.getState()));
-		}
-		// action. We keep shared action instances such that there is only one per type
-		TriggerPort tp = (TriggerPort) ed.getDetectionReportingPort().getElement();
-		ComponentInstance component = (ComponentInstance) annex.eContainer();
-		if (tp instanceof Feature) {
-			bi.setPort(component.findFeatureInstance((Feature) tp));
-		} else {
-			// internal feature not instantiated in core model
-		}
-		ErrorCodeValue ec = ed.getErrorCode();
-		if (ec != null && !ec.getIntValue().isEmpty()) {
-			bi.setErrorCode(ec.getIntValue());
-		} else if (ec != null && !ec.getEnumLiteral().isEmpty()) {
-			bi.setErrorCode(ec.getEnumLiteral());
-		} else if (ec != null && ec.getConstant() != null) {
-			PropertyConstant pc = ec.getConstant();
-			PropertyExpression val = pc.getConstantValue();
-			if (val instanceof IntegerLiteral) {
-				bi.setErrorCode(String.valueOf(((IntegerLiteral) val).getValue()));
-			} else if (val instanceof StringLiteral) {
-				bi.setErrorCode(((StringLiteral) val).getValue());
-			}
-		}
+	private void instantiateDetection(ErrorDetection detection, EMV2AnnexInstance annex) {
+		DetectionInstance detectionInstance = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
+		detectionInstance.setName(detection.getName());
+		detectionInstance.setDetection(detection);
+		annex.getDetections().add(detectionInstance);
 	}
 
 	private StateInstance findStateInstance(EMV2AnnexInstance annex, ErrorBehaviorState state) {

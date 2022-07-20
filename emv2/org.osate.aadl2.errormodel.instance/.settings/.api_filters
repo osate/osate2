@@ -810,22 +810,7 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__CONDITION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__EMV2_ELEMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__ERROR_CODE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__IN_STATES"/>
+                <message_argument value="DETECTION_INSTANCE__DETECTION"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -846,11 +831,6 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="DETECTION_INSTANCE__OWNED_PROPERTY_ASSOCIATION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__PORT"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1600,27 +1580,7 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="getDetectionInstance_Condition()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getDetectionInstance_Emv2Element()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getDetectionInstance_ErrorCode()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getDetectionInstance_InStates()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="getDetectionInstance_Port()"/>
+                <message_argument value="getDetectionInstance_Detection()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1947,27 +1907,7 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__CONDITION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__EMV2_ELEMENT"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__ERROR_CODE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__IN_STATES"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="DETECTION_INSTANCE__PORT"/>
+                <message_argument value="DETECTION_INSTANCE__DETECTION"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">

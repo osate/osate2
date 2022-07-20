@@ -58,7 +58,6 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPoints <em>Propagation Points</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getStateMachine <em>State Machine</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getDetections <em>Detections</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getErrorFlows <em>Error Flows</em>}</li>
@@ -68,6 +67,7 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getEvents <em>Events</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getConditions <em>Conditions</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getDetections <em>Detections</em>}</li>
  * </ul>
  *
  * @generated
@@ -92,16 +92,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected StateMachineInstance stateMachine;
-
-	/**
-	 * The cached value of the '{@link #getDetections() <em>Detections</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDetections()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<DetectionInstance> detections;
 
 	/**
 	 * The cached value of the '{@link #getComposites() <em>Composites</em>}' containment reference list.
@@ -192,6 +182,16 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<OutgoingPropagationConditionInstance> conditions;
+
+	/**
+	 * The cached value of the '{@link #getDetections() <em>Detections</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDetections()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DetectionInstance> detections;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -466,8 +466,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return ((InternalEList<?>) getPropagationPoints()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 			return basicSetStateMachine(null, msgs);
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
-			return ((InternalEList<?>) getDetections()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			return ((InternalEList<?>) getComposites()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
@@ -484,6 +482,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return ((InternalEList<?>) getTransitions()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__CONDITIONS:
 			return ((InternalEList<?>) getConditions()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
+			return ((InternalEList<?>) getDetections()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -500,8 +500,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return getPropagationPoints();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 			return getStateMachine();
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
-			return getDetections();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			return getComposites();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
@@ -523,6 +521,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return getTransitions();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__CONDITIONS:
 			return getConditions();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
+			return getDetections();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -542,10 +542,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 			setStateMachine((StateMachineInstance) newValue);
-			return;
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
-			getDetections().clear();
-			getDetections().addAll((Collection<? extends DetectionInstance>) newValue);
 			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			getComposites().clear();
@@ -582,6 +578,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			getConditions().clear();
 			getConditions().addAll((Collection<? extends OutgoingPropagationConditionInstance>) newValue);
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
+			getDetections().clear();
+			getDetections().addAll((Collection<? extends DetectionInstance>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -599,9 +599,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 			setStateMachine((StateMachineInstance) null);
-			return;
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
-			getDetections().clear();
 			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			getComposites().clear();
@@ -630,6 +627,9 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__CONDITIONS:
 			getConditions().clear();
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
+			getDetections().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -646,8 +646,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return propagationPoints != null && !propagationPoints.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 			return stateMachine != null;
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
-			return detections != null && !detections.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			return composites != null && !composites.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
@@ -666,6 +664,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return transitions != null && !transitions.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__CONDITIONS:
 			return conditions != null && !conditions.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
+			return detections != null && !detections.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
