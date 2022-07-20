@@ -51,10 +51,10 @@ import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
+import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
@@ -236,26 +236,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(compositeStateInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE: {
-			ErrorDetectionInstance errorDetectionInstance = (ErrorDetectionInstance) theEObject;
-			T result = caseErrorDetectionInstance(errorDetectionInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(errorDetectionInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(errorDetectionInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(errorDetectionInstance);
-			}
-			if (result == null) {
-				result = caseElement(errorDetectionInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1418,6 +1398,26 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.DETECTION_INSTANCE: {
+			DetectionInstance detectionInstance = (DetectionInstance) theEObject;
+			T result = caseDetectionInstance(detectionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(detectionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(detectionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(detectionInstance);
+			}
+			if (result == null) {
+				result = caseElement(detectionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1570,21 +1570,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseErrorPathInstance(ErrorPathInstance object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Error Detection Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Error Detection Instance</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseErrorDetectionInstance(ErrorDetectionInstance object) {
 		return null;
 	}
 
@@ -2035,6 +2020,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAllPropagationsNoError(AllPropagationsNoError object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Detection Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Detection Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDetectionInstance(DetectionInstance object) {
 		return null;
 	}
 

@@ -76,10 +76,10 @@ import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
+import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EOperation;
-import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
@@ -210,7 +210,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getComponentClassifier());
 		for (ErrorDetection ed : eds) {
-			instantiateErrorDetection(ed, emv2AI);
+			instantiateDetection(ed, emv2AI);
 		}
 
 		Collection<PropagationPath> ppaths = EMV2Util.getAllPropagationPaths(instance.getComponentClassifier());
@@ -1200,11 +1200,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return allPropagations;
 	}
 
-	private void instantiateErrorDetection(ErrorDetection ed, EMV2AnnexInstance annex) {
-		ErrorDetectionInstance bi = EMV2InstanceFactory.eINSTANCE.createErrorDetectionInstance();
+	private void instantiateDetection(ErrorDetection ed, EMV2AnnexInstance annex) {
+		DetectionInstance bi = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
 		bi.setName(ed.getName());
 		bi.setEmv2Element(ed);
-		annex.getErrorDetections().add(bi);
+		annex.getDetections().add(bi);
 		ConditionExpression behaviorCondition = ed.getCondition();
 		ConstraintElement cio = instantiateCondition(behaviorCondition, annex);
 		bi.setCondition(cio);
@@ -1228,11 +1228,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// internal feature not instantiated in core model
 		}
 		ErrorCodeValue ec = ed.getErrorCode();
-		if (!ec.getIntValue().isEmpty()) {
+		if (ec != null && !ec.getIntValue().isEmpty()) {
 			bi.setErrorCode(ec.getIntValue());
-		} else if (!ec.getEnumLiteral().isEmpty()) {
+		} else if (ec != null && !ec.getEnumLiteral().isEmpty()) {
 			bi.setErrorCode(ec.getEnumLiteral());
-		} else if (ec.getConstant() != null) {
+		} else if (ec != null && ec.getConstant() != null) {
 			PropertyConstant pc = ec.getConstant();
 			PropertyExpression val = pc.getConstantValue();
 			if (val instanceof IntegerLiteral) {

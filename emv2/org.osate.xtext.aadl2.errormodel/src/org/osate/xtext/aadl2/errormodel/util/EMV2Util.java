@@ -1991,8 +1991,8 @@ public class EMV2Util {
 	public static Collection<ErrorDetection> getAllErrorDetections(Classifier cl) {
 		BasicEList<ErrorDetection> unlist = new BasicEList<ErrorDetection>();
 		Collection<ErrorDetection> res = getAllErrorDetections(cl, unlist).values();
-		res.addAll(unlist);
-		return res;
+		unlist.addAll(res);
+		return unlist;
 	}
 
 	/**
@@ -2000,10 +2000,11 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @param unnamed Collection of unnamed OutgoingPropagationCondition
 	 * @return Collection<ErrorBehaviorTransition> list of OutgoingPropagationCondition as HashMap for quick lookup of names
+	 * @since 7.0
 	 */
-	public static HashMap<String, ErrorDetection> getAllErrorDetections(Classifier cl,
+	public static Map<String, ErrorDetection> getAllErrorDetections(Classifier cl,
 			Collection<ErrorDetection> unnamed) {
-		HashMap<String, ErrorDetection> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorDetection>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorDetection> eflist = errorModelSubclause.getErrorDetections();

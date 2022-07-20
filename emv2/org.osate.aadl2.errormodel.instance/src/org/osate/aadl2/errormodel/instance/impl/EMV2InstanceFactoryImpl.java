@@ -49,11 +49,11 @@ import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
+import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.EOperation;
-import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
@@ -128,8 +128,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createConstrainedInstanceObject();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
 			return createCompositeStateInstance();
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE:
-			return createErrorDetectionInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
 			return createConstraintExpression();
 		case EMV2InstancePackage.FEATURE_PROPAGATION:
@@ -202,6 +200,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createAllPropagations();
 		case EMV2InstancePackage.ALL_PROPAGATIONS_NO_ERROR:
 			return createAllPropagationsNoError();
+		case EMV2InstancePackage.DETECTION_INSTANCE:
+			return createDetectionInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -331,17 +331,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ErrorPathInstance createErrorPathInstance() {
 		ErrorPathInstanceImpl errorPathInstance = new ErrorPathInstanceImpl();
 		return errorPathInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ErrorDetectionInstance createErrorDetectionInstance() {
-		ErrorDetectionInstanceImpl errorDetectionInstance = new ErrorDetectionInstanceImpl();
-		return errorDetectionInstance;
 	}
 
 	/**
@@ -595,6 +584,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public AllPropagationsNoError createAllPropagationsNoError() {
 		AllPropagationsNoErrorImpl allPropagationsNoError = new AllPropagationsNoErrorImpl();
 		return allPropagationsNoError;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public DetectionInstance createDetectionInstance() {
+		DetectionInstanceImpl detectionInstance = new DetectionInstanceImpl();
+		return detectionInstance;
 	}
 
 	/**

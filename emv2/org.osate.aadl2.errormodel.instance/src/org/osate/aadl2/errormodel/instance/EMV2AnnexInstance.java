@@ -37,7 +37,7 @@ import org.osate.aadl2.instance.AnnexInstance;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagationPoints <em>Propagation Points</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getStateMachine <em>State Machine</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getErrorDetections <em>Error Detections</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getDetections <em>Detections</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getErrorFlows <em>Error Flows</em>}</li>
@@ -125,16 +125,16 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	void setStateMachine(StateMachineInstance value);
 
 	/**
-	 * Returns the value of the '<em><b>Error Detections</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorDetectionInstance}.
+	 * Returns the value of the '<em><b>Detections</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.DetectionInstance}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Detections</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_ErrorDetections()
+	 * @return the value of the '<em>Detections</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_Detections()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ErrorDetectionInstance> getErrorDetections();
+	EList<DetectionInstance> getDetections();
 
 	/**
 	 * Returns the value of the '<em><b>Error Flows</b></em>' containment reference list.

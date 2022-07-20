@@ -33,30 +33,30 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
+import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Error Detection Instance</b></em>'.
+ * An implementation of the model object '<em><b>Detection Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorDetectionInstanceImpl#getEmv2Element <em>Emv2 Element</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorDetectionInstanceImpl#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorDetectionInstanceImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorDetectionInstanceImpl#getErrorCode <em>Error Code</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorDetectionInstanceImpl#getPort <em>Port</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getEmv2Element <em>Emv2 Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getInStates <em>In States</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getErrorCode <em>Error Code</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getPort <em>Port</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implements ErrorDetectionInstance {
+public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements DetectionInstance {
 	/**
 	 * The cached value of the '{@link #getEmv2Element() <em>Emv2 Element</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -122,7 +122,7 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ErrorDetectionInstanceImpl() {
+	protected DetectionInstanceImpl() {
 		super();
 	}
 
@@ -133,7 +133,7 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.ERROR_DETECTION_INSTANCE;
+		return EMV2InstancePackage.Literals.DETECTION_INSTANCE;
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 			if (emv2Element != oldEmv2Element) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.ERROR_DETECTION_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+							EMV2InstancePackage.DETECTION_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
 				}
 			}
 		}
@@ -175,8 +175,8 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 		ErrorDetection oldEmv2Element = emv2Element;
 		emv2Element = newEmv2Element;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_DETECTION_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.DETECTION_INSTANCE__EMV2_ELEMENT,
+					oldEmv2Element, emv2Element));
 		}
 	}
 
@@ -189,7 +189,7 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 	public EList<StateInstance> getInStates() {
 		if (inStates == null) {
 			inStates = new EObjectResolvingEList<>(StateInstance.class, this,
-					EMV2InstancePackage.ERROR_DETECTION_INSTANCE__IN_STATES);
+					EMV2InstancePackage.DETECTION_INSTANCE__IN_STATES);
 		}
 		return inStates;
 	}
@@ -214,7 +214,7 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 		condition = newCondition;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_DETECTION_INSTANCE__CONDITION, oldCondition, newCondition);
+					EMV2InstancePackage.DETECTION_INSTANCE__CONDITION, oldCondition, newCondition);
 			if (msgs == null) {
 				msgs = notification;
 			} else {
@@ -235,19 +235,19 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 			NotificationChain msgs = null;
 			if (condition != null) {
 				msgs = ((InternalEObject) condition).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_DETECTION_INSTANCE__CONDITION, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.DETECTION_INSTANCE__CONDITION, null, msgs);
 			}
 			if (newCondition != null) {
 				msgs = ((InternalEObject) newCondition).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_DETECTION_INSTANCE__CONDITION, null, msgs);
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.DETECTION_INSTANCE__CONDITION, null, msgs);
 			}
 			msgs = basicSetCondition(newCondition, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_DETECTION_INSTANCE__CONDITION, newCondition, newCondition));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.DETECTION_INSTANCE__CONDITION,
+					newCondition, newCondition));
 		}
 	}
 
@@ -271,8 +271,8 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 		String oldErrorCode = errorCode;
 		errorCode = newErrorCode;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.ERROR_DETECTION_INSTANCE__ERROR_CODE, oldErrorCode, errorCode));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE,
+					oldErrorCode, errorCode));
 		}
 	}
 
@@ -289,7 +289,7 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 			if (port != oldPort) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.ERROR_DETECTION_INSTANCE__PORT, oldPort, port));
+							EMV2InstancePackage.DETECTION_INSTANCE__PORT, oldPort, port));
 				}
 			}
 		}
@@ -315,8 +315,8 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 		FeatureInstance oldPort = port;
 		port = newPort;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_DETECTION_INSTANCE__PORT,
-					oldPort, port));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.DETECTION_INSTANCE__PORT, oldPort,
+					port));
 		}
 	}
 
@@ -328,7 +328,7 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			return basicSetCondition(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -342,18 +342,18 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__EMV2_ELEMENT:
+		case EMV2InstancePackage.DETECTION_INSTANCE__EMV2_ELEMENT:
 			if (resolve) {
 				return getEmv2Element();
 			}
 			return basicGetEmv2Element();
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__IN_STATES:
+		case EMV2InstancePackage.DETECTION_INSTANCE__IN_STATES:
 			return getInStates();
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			return getCondition();
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__ERROR_CODE:
+		case EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE:
 			return getErrorCode();
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__PORT:
+		case EMV2InstancePackage.DETECTION_INSTANCE__PORT:
 			if (resolve) {
 				return getPort();
 			}
@@ -371,20 +371,20 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__EMV2_ELEMENT:
+		case EMV2InstancePackage.DETECTION_INSTANCE__EMV2_ELEMENT:
 			setEmv2Element((ErrorDetection) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__IN_STATES:
+		case EMV2InstancePackage.DETECTION_INSTANCE__IN_STATES:
 			getInStates().clear();
 			getInStates().addAll((Collection<? extends StateInstance>) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			setCondition((ConstraintElement) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__ERROR_CODE:
+		case EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE:
 			setErrorCode((String) newValue);
 			return;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__PORT:
+		case EMV2InstancePackage.DETECTION_INSTANCE__PORT:
 			setPort((FeatureInstance) newValue);
 			return;
 		}
@@ -399,19 +399,19 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__EMV2_ELEMENT:
+		case EMV2InstancePackage.DETECTION_INSTANCE__EMV2_ELEMENT:
 			setEmv2Element((ErrorDetection) null);
 			return;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__IN_STATES:
+		case EMV2InstancePackage.DETECTION_INSTANCE__IN_STATES:
 			getInStates().clear();
 			return;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			setCondition((ConstraintElement) null);
 			return;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__ERROR_CODE:
+		case EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE:
 			setErrorCode(ERROR_CODE_EDEFAULT);
 			return;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__PORT:
+		case EMV2InstancePackage.DETECTION_INSTANCE__PORT:
 			setPort((FeatureInstance) null);
 			return;
 		}
@@ -426,15 +426,15 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__EMV2_ELEMENT:
+		case EMV2InstancePackage.DETECTION_INSTANCE__EMV2_ELEMENT:
 			return emv2Element != null;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__IN_STATES:
+		case EMV2InstancePackage.DETECTION_INSTANCE__IN_STATES:
 			return inStates != null && !inStates.isEmpty();
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__CONDITION:
+		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			return condition != null;
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__ERROR_CODE:
+		case EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE:
 			return ERROR_CODE_EDEFAULT == null ? errorCode != null : !ERROR_CODE_EDEFAULT.equals(errorCode);
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE__PORT:
+		case EMV2InstancePackage.DETECTION_INSTANCE__PORT:
 			return port != null;
 		}
 		return super.eIsSet(featureID);
@@ -458,4 +458,4 @@ public class ErrorDetectionInstanceImpl extends EMV2InstanceObjectImpl implement
 		return result.toString();
 	}
 
-} // ErrorDetectionInstanceImpl
+} // DetectionInstanceImpl

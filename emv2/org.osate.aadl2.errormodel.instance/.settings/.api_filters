@@ -91,10 +91,22 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/DetectionInstance.java" type="org.osate.aadl2.errormodel.instance.DetectionInstance">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.DetectionInstance"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/EMV2AnnexInstance.java" type="org.osate.aadl2.errormodel.instance.EMV2AnnexInstance">
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getConditions()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDetections()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -162,6 +174,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="createDestinationStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="createDetectionInstance()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -778,7 +795,77 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="DETECTION_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__EMV2_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__ERROR_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__IN_STATES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__PORT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__CONDITIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="EMV2_ANNEX_INSTANCE__DETECTIONS"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1508,7 +1595,42 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getDetectionInstance()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDetectionInstance_Condition()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDetectionInstance_Emv2Element()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDetectionInstance_ErrorCode()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDetectionInstance_InStates()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDetectionInstance_Port()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getEMV2AnnexInstance_Conditions()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getEMV2AnnexInstance_Detections()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1820,7 +1942,42 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="DETECTION_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__EMV2_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__ERROR_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__IN_STATES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__PORT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__CONDITIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="EMV2_ANNEX_INSTANCE__DETECTIONS"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2167,6 +2324,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/DetectionInstanceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/EMV2AnnexInstanceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl">
         <filter id="1143996420">
             <message_arguments>
@@ -2176,6 +2340,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="conditions"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="detections"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -2339,6 +2508,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createDetectionInstanceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createErrorEventInstanceAdapter()"/>
             </message_arguments>
         </filter>
@@ -2457,6 +2631,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseDestinationStateReference(DestinationStateReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseDetectionInstance(DetectionInstance)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
