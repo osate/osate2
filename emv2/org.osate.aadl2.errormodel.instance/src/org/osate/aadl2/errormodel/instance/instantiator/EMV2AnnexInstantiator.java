@@ -101,7 +101,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -481,9 +480,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var component = getContainerOfType(annex, ComponentInstance.class);
 		for (var initiator : event.getEventInitiator()) {
 			if (initiator instanceof Feature feature) {
-				eventInstance.getEventInitiators().add(findFeatureInstance(component, feature));
+				eventInstance.getEventInitiators().add(component.findFeatureInstance(feature));
 			} else if (initiator instanceof ModeTransition transition) {
-				eventInstance.getEventInitiators().add(findModeTransitionInstance(component, transition));
+				eventInstance.getEventInitiators().add(component.findModeTransitionInstance(transition));
 			}
 		}
 		return eventInstance;
@@ -496,9 +495,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var component = getContainerOfType(annex, ComponentInstance.class);
 		for (var initiator : event.getEventInitiator()) {
 			if (initiator instanceof Feature feature) {
-				eventInstance.getEventInitiators().add(findFeatureInstance(component, feature));
+				eventInstance.getEventInitiators().add(component.findFeatureInstance(feature));
 			} else if (initiator instanceof ModeTransition transition) {
-				eventInstance.getEventInitiators().add(findModeTransitionInstance(component, transition));
+				eventInstance.getEventInitiators().add(component.findModeTransitionInstance(transition));
 			}
 		}
 		return eventInstance;
@@ -1458,24 +1457,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			var previousFeatureGroup = findFeatureInstance(portReference.getPrevious(), component);
 			return previousFeatureGroup.findFeatureInstance((Feature) portReference.getElement());
 		}
-	}
-
-	private FeatureInstance findFeatureInstance(ComponentInstance component, Feature feature) {
-		for (var featureInstance : component.getFeatureInstances()) {
-			if (featureInstance.getFeature() == feature) {
-				return featureInstance;
-			}
-		}
-		return null;
-	}
-
-	private ModeTransitionInstance findModeTransitionInstance(ComponentInstance component, ModeTransition transition) {
-		for (var transitionInstance : component.getModeTransitionInstances()) {
-			if (transitionInstance.getModeTransition() == transition) {
-				return transitionInstance;
-			}
-		}
-		return null;
 	}
 
 	private ErrorPropagationInstance findErrorPropagationInstance(EMV2AnnexInstance annex, ErrorPropagation ep) {
