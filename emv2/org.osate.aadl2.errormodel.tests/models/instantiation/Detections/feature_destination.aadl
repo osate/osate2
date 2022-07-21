@@ -9,9 +9,9 @@ public
 			
 			component error behavior
 				detections
-					detection1: state1 -[]-> f1!;
-					detection2: state2 -[]-> fg1.f2!;
-					detection3: state3 -[]-> fg1.fg2.fg3.f3!;
+					detection1: state1 -[]-> f1 !;
+					detection2: state2 -[]-> fg1.f2 !;
+					detection3: state3 -[]-> fg1.fg2.fg3.f3 !;
 			end component;
 		**};
 	end s;

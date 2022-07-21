@@ -10,7 +10,7 @@ public
 			
 			component error behavior
 				detections
-					state1 -[]-> f1!;
+					state1 -[]-> f1 !;
 			end component;
 		**};
 	end s1;
@@ -19,7 +19,7 @@ public
 		annex EMV2 {**
 			component error behavior
 				detections
-					state2 -[]-> f2!;
+					state2 -[]-> f2 !;
 			end component;
 		**};
 	end s2;
@@ -28,7 +28,7 @@ public
 		annex EMV2 {**
 			component error behavior
 				detections
-					state3 -[]-> f3!;
+					state3 -[]-> f3 !;
 			end component;
 		**};
 	end s2.i;

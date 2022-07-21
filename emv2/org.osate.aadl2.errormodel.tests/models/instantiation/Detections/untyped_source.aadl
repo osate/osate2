@@ -8,7 +8,7 @@ public
 			
 			component error behavior
 				detections
-					detection1: state1 -[]-> f1!;
+					detection1: state1 -[]-> f1 !;
 			end component;
 		**};
 	end s;

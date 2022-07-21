@@ -11,10 +11,10 @@ public
 			
 			component error behavior
 				detections
-					detection1: state1 -[]-> f1!;
-					detection2: state2 -[]-> f2!(42);
-					detection3: state3 -[]-> f3!("string literal");
-					detection4: state4 -[]-> f4!(my_set::my_constant);
+					detection1: state1 -[]-> f1 !;
+					detection2: state2 -[]-> f2 ! (42);
+					detection3: state3 -[]-> f3 ! ("string literal");
+					detection4: state4 -[]-> f4 ! (my_set::my_constant);
 			end component;
 		**};
 	end s;

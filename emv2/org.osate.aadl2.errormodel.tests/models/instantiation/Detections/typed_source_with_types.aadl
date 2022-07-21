@@ -10,9 +10,9 @@ public
 			
 			component error behavior
 				detections
-					detection1: state1 {ServiceError} -[]-> f1!;
+					detection1: state1 {ServiceError} -[]-> f1 !;
 					detection2: state2 {ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}
-						-[]-> f2!;
+						-[]-> f2 !;
 			end component;
 		**};
 	end s;

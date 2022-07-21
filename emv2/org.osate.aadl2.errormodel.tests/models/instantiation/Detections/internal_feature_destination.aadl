@@ -12,8 +12,8 @@ public
 			
 			component error behavior
 				detections
-					detection1: state1 -[]-> es1!;
-					detection2: state2 -[]-> eds2!;
+					detection1: state1 -[]-> es1 !;
+					detection2: state2 -[]-> eds2 !;
 			end component;
 		**};
 	end s.i;
