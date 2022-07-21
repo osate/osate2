@@ -241,6 +241,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//DetectionInstance/source"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//DetectionInstance/condition"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//DetectionInstance/destination"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//DetectionInstance/errorCode"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EMV2Instance.ecore#//ErrorCodeInstance"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//IntegerCode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//IntegerCode/code"/>
+    </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//StringCode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//StringCode/code"/>
+    </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//ConstantCode">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConstantCode/code"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

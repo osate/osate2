@@ -45,6 +45,7 @@ import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
@@ -55,6 +56,7 @@ import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
@@ -64,6 +66,7 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
@@ -77,6 +80,7 @@ import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateSource;
+import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -1418,6 +1422,95 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.ERROR_CODE_INSTANCE: {
+			ErrorCodeInstance errorCodeInstance = (ErrorCodeInstance) theEObject;
+			T result = caseErrorCodeInstance(errorCodeInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorCodeInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorCodeInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorCodeInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorCodeInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.INTEGER_CODE: {
+			IntegerCode integerCode = (IntegerCode) theEObject;
+			T result = caseIntegerCode(integerCode);
+			if (result == null) {
+				result = caseErrorCodeInstance(integerCode);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(integerCode);
+			}
+			if (result == null) {
+				result = caseInstanceObject(integerCode);
+			}
+			if (result == null) {
+				result = caseNamedElement(integerCode);
+			}
+			if (result == null) {
+				result = caseElement(integerCode);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.STRING_CODE: {
+			StringCode stringCode = (StringCode) theEObject;
+			T result = caseStringCode(stringCode);
+			if (result == null) {
+				result = caseErrorCodeInstance(stringCode);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(stringCode);
+			}
+			if (result == null) {
+				result = caseInstanceObject(stringCode);
+			}
+			if (result == null) {
+				result = caseNamedElement(stringCode);
+			}
+			if (result == null) {
+				result = caseElement(stringCode);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.CONSTANT_CODE: {
+			ConstantCode constantCode = (ConstantCode) theEObject;
+			T result = caseConstantCode(constantCode);
+			if (result == null) {
+				result = caseErrorCodeInstance(constantCode);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(constantCode);
+			}
+			if (result == null) {
+				result = caseInstanceObject(constantCode);
+			}
+			if (result == null) {
+				result = caseNamedElement(constantCode);
+			}
+			if (result == null) {
+				result = caseElement(constantCode);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -2035,6 +2128,66 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseDetectionInstance(DetectionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Code Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Code Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorCodeInstance(ErrorCodeInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Integer Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Integer Code</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIntegerCode(IntegerCode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>String Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>String Code</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStringCode(StringCode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Constant Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Constant Code</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConstantCode(ConstantCode object) {
 		return null;
 	}
 

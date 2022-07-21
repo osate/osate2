@@ -63,6 +63,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/ConstantCode.java" type="org.osate.aadl2.errormodel.instance.ConstantCode">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.ConstantCode"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/CountExpression.java" type="org.osate.aadl2.errormodel.instance.CountExpression">
         <filter id="1110441988">
             <message_arguments>
@@ -163,6 +170,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="createConstantCode()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="createCountExpression()"/>
             </message_arguments>
         </filter>
@@ -193,6 +205,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="createIntegerCode()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="createNoErrorPropagationReference()"/>
             </message_arguments>
         </filter>
@@ -219,6 +236,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="createSourceStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="createStringCode()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -635,6 +657,51 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="CONSTANT_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONSTANT_CODE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONSTANT_CODE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONSTANT_CODE__CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONSTANT_CODE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONSTANT_CODE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONSTANT_CODE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONSTANT_CODE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONSTANT_CODE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="COUNT_EXPRESSION"/>
             </message_arguments>
         </filter>
@@ -825,6 +892,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__ERROR_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="DETECTION_INSTANCE__NAME"/>
             </message_arguments>
         </filter>
@@ -871,6 +943,46 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__STATES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ERROR_CODE_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ERROR_CODE_INSTANCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ERROR_CODE_INSTANCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ERROR_CODE_INSTANCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ERROR_CODE_INSTANCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ERROR_CODE_INSTANCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ERROR_CODE_INSTANCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ERROR_CODE_INSTANCE__QUALIFIED_NAME"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -971,6 +1083,51 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="EVENT_REFERENCE__TYPE_SET"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE__CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE__QUALIFIED_NAME"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1355,6 +1512,51 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="STRING_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STRING_CODE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STRING_CODE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STRING_CODE__CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STRING_CODE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STRING_CODE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STRING_CODE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STRING_CODE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STRING_CODE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="TRANSITION_DESTINATION"/>
             </message_arguments>
         </filter>
@@ -1535,6 +1737,16 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getConstantCode()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getConstantCode_Code()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getCountExpression()"/>
             </message_arguments>
         </filter>
@@ -1610,6 +1822,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getDetectionInstance_ErrorCode()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getDetectionInstance_Source()"/>
             </message_arguments>
         </filter>
@@ -1631,6 +1848,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getEMV2AnnexInstance_States()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getErrorCodeInstance()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1661,6 +1883,16 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getEventReference_TypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getIntegerCode()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getIntegerCode_Code()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1761,6 +1993,16 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getStateSource()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getStringCode()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getStringCode_Code()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1877,6 +2119,16 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="CONSTANT_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="CONSTANT_CODE__CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="COUNT_EXPRESSION"/>
             </message_arguments>
         </filter>
@@ -1952,6 +2204,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__ERROR_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="DETECTION_INSTANCE__SOURCE"/>
             </message_arguments>
         </filter>
@@ -1973,6 +2230,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__STATES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="ERROR_CODE_INSTANCE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2003,6 +2265,16 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="EVENT_REFERENCE__TYPE_SET"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="INTEGER_CODE__CODE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2107,6 +2379,16 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="STRING_CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STRING_CODE__CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="TRANSITION_DESTINATION"/>
             </message_arguments>
         </filter>
@@ -2136,6 +2418,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/ErrorCodeInstance.java" type="org.osate.aadl2.errormodel.instance.ErrorCodeInstance">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.ErrorCodeInstance"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/ErrorEventInstance.java" type="org.osate.aadl2.errormodel.instance.ErrorEventInstance">
         <filter id="1110441988">
             <message_arguments>
@@ -2147,6 +2436,13 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.EventReference"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/IntegerCode.java" type="org.osate.aadl2.errormodel.instance.IntegerCode">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.IntegerCode"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2218,6 +2514,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/StringCode.java" type="org.osate.aadl2.errormodel.instance.StringCode">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.StringCode"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/TransitionDestination.java" type="org.osate.aadl2.errormodel.instance.TransitionDestination">
         <filter id="1110441988">
             <message_arguments>
@@ -2285,6 +2588,13 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.impl.ConditionPropagationReferenceImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/ConstantCodeImpl.java" type="org.osate.aadl2.errormodel.instance.impl.ConstantCodeImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.ConstantCodeImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2369,6 +2679,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/IntegerCodeImpl.java" type="org.osate.aadl2.errormodel.instance.impl.IntegerCodeImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.IntegerCodeImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/NoErrorPropagationReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.NoErrorPropagationReferenceImpl">
         <filter id="1110441988">
             <message_arguments>
@@ -2420,6 +2737,13 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="typeSet"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/StringCodeImpl.java" type="org.osate.aadl2.errormodel.instance.impl.StringCodeImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.StringCodeImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2478,6 +2802,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createConstantCodeAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createCountExpressionAdapter()"/>
             </message_arguments>
         </filter>
@@ -2498,12 +2827,22 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createErrorCodeInstanceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createErrorEventInstanceAdapter()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createEventReferenceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createIntegerCodeAdapter()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -2544,6 +2883,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createStateSourceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createStringCodeAdapter()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -2605,6 +2949,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="caseConstantCode(ConstantCode)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="caseCountExpression(CountExpression)"/>
             </message_arguments>
         </filter>
@@ -2625,12 +2974,22 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="caseErrorCodeInstance(ErrorCodeInstance)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="caseErrorEventInstance(ErrorEventInstance)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseEventReference(EventReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseIntegerCode(IntegerCode)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -2671,6 +3030,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseStateSource(StateSource)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseStringCode(StringCode)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

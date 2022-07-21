@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
@@ -47,6 +48,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getDestination <em>Destination</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getErrorCode <em>Error Code</em>}</li>
  * </ul>
  *
  * @generated
@@ -91,6 +93,16 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 	 * @ordered
 	 */
 	protected FeatureInstance destination;
+
+	/**
+	 * The cached value of the '{@link #getErrorCode() <em>Error Code</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getErrorCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected ErrorCodeInstance errorCode;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -319,12 +331,71 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 	 * @generated
 	 */
 	@Override
+	public ErrorCodeInstance getErrorCode() {
+		return errorCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetErrorCode(ErrorCodeInstance newErrorCode, NotificationChain msgs) {
+		ErrorCodeInstance oldErrorCode = errorCode;
+		errorCode = newErrorCode;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE, oldErrorCode, newErrorCode);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setErrorCode(ErrorCodeInstance newErrorCode) {
+		if (newErrorCode != errorCode) {
+			NotificationChain msgs = null;
+			if (errorCode != null) {
+				msgs = ((InternalEObject) errorCode).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE, null, msgs);
+			}
+			if (newErrorCode != null) {
+				msgs = ((InternalEObject) newErrorCode).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE, null, msgs);
+			}
+			msgs = basicSetErrorCode(newErrorCode, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE,
+					newErrorCode, newErrorCode));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case EMV2InstancePackage.DETECTION_INSTANCE__SOURCE:
 			return basicSetSource(null, msgs);
 		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			return basicSetCondition(null, msgs);
+		case EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE:
+			return basicSetErrorCode(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -351,6 +422,8 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 				return getDestination();
 			}
 			return basicGetDestination();
+		case EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE:
+			return getErrorCode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -374,6 +447,9 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 			return;
 		case EMV2InstancePackage.DETECTION_INSTANCE__DESTINATION:
 			setDestination((FeatureInstance) newValue);
+			return;
+		case EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE:
+			setErrorCode((ErrorCodeInstance) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -399,6 +475,9 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 		case EMV2InstancePackage.DETECTION_INSTANCE__DESTINATION:
 			setDestination((FeatureInstance) null);
 			return;
+		case EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE:
+			setErrorCode((ErrorCodeInstance) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -419,6 +498,8 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 			return condition != null;
 		case EMV2InstancePackage.DETECTION_INSTANCE__DESTINATION:
 			return destination != null;
+		case EMV2InstancePackage.DETECTION_INSTANCE__ERROR_CODE:
+			return errorCode != null;
 		}
 		return super.eIsSet(featureID);
 	}

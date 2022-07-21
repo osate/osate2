@@ -46,6 +46,7 @@ import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
@@ -56,6 +57,7 @@ import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
@@ -65,6 +67,7 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
@@ -78,6 +81,7 @@ import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateSource;
+import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -422,6 +426,26 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseDetectionInstance(DetectionInstance object) {
 			return createDetectionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorCodeInstance(ErrorCodeInstance object) {
+			return createErrorCodeInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseIntegerCode(IntegerCode object) {
+			return createIntegerCodeAdapter();
+		}
+
+		@Override
+		public Adapter caseStringCode(StringCode object) {
+			return createStringCodeAdapter();
+		}
+
+		@Override
+		public Adapter caseConstantCode(ConstantCode object) {
+			return createConstantCodeAdapter();
 		}
 
 		@Override
@@ -1034,6 +1058,62 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDetectionInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ErrorCodeInstance <em>Error Code Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorCodeInstance
+	 * @generated
+	 */
+	public Adapter createErrorCodeInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.IntegerCode <em>Integer Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.IntegerCode
+	 * @generated
+	 */
+	public Adapter createIntegerCodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.StringCode <em>String Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.StringCode
+	 * @generated
+	 */
+	public Adapter createStringCodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConstantCode <em>Constant Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ConstantCode
+	 * @generated
+	 */
+	public Adapter createConstantCodeAdapter() {
 		return null;
 	}
 

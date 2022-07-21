@@ -43,6 +43,7 @@ import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
@@ -60,6 +61,7 @@ import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -70,6 +72,7 @@ import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
+import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
@@ -202,6 +205,12 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createAllPropagationsNoError();
 		case EMV2InstancePackage.DETECTION_INSTANCE:
 			return createDetectionInstance();
+		case EMV2InstancePackage.INTEGER_CODE:
+			return createIntegerCode();
+		case EMV2InstancePackage.STRING_CODE:
+			return createStringCode();
+		case EMV2InstancePackage.CONSTANT_CODE:
+			return createConstantCode();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -595,6 +604,39 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public DetectionInstance createDetectionInstance() {
 		DetectionInstanceImpl detectionInstance = new DetectionInstanceImpl();
 		return detectionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public IntegerCode createIntegerCode() {
+		IntegerCodeImpl integerCode = new IntegerCodeImpl();
+		return integerCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public StringCode createStringCode() {
+		StringCodeImpl stringCode = new StringCodeImpl();
+		return stringCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ConstantCode createConstantCode() {
+		ConstantCodeImpl constantCode = new ConstantCodeImpl();
+		return constantCode;
 	}
 
 	/**

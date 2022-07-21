@@ -47,6 +47,7 @@ import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
@@ -65,6 +66,7 @@ import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
@@ -76,11 +78,13 @@ import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EOperation;
+import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -91,6 +95,7 @@ import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateSource;
+import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
@@ -116,6 +121,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
@@ -1213,7 +1219,41 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					.setCondition(createConditionExpressionInstance(detection.getCondition(), component, annex));
 		}
 		detectionInstance.setDestination(findFeatureInstance(detection.getDetectionReportingPort(), component));
+		if (detection.getErrorCode() != null) {
+			detectionInstance.setErrorCode(createErrorCodeInstance(detection.getErrorCode()));
+		}
 		annex.getDetections().add(detectionInstance);
+	}
+
+	private ErrorCodeInstance createErrorCodeInstance(ErrorCodeValue code) {
+		if (code.getIntValue() != null) {
+			return createIntegerCode(Long.parseLong(code.getIntValue()));
+		} else if (code.getEnumLiteral() != null) {
+			return createStringCode(code.getEnumLiteral());
+		} else {
+			return createConstantCode(code.getConstant());
+		}
+	}
+
+	private IntegerCode createIntegerCode(long code) {
+		var integerCode = EMV2InstanceFactory.eINSTANCE.createIntegerCode();
+		integerCode.setName(Long.toString(code));
+		integerCode.setCode(code);
+		return integerCode;
+	}
+
+	private StringCode createStringCode(String code) {
+		var stringCode = EMV2InstanceFactory.eINSTANCE.createStringCode();
+		stringCode.setName('"' + code + '"');
+		stringCode.setCode(code);
+		return stringCode;
+	}
+
+	private ConstantCode createConstantCode(PropertyConstant constant) {
+		var constantCode = EMV2InstanceFactory.eINSTANCE.createConstantCode();
+		constantCode.setName(constant.getQualifiedName());
+		constantCode.setCode(constant);
+		return constantCode;
 	}
 
 	private StateInstance findStateInstance(EMV2AnnexInstance annex, ErrorBehaviorState state) {

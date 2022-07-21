@@ -331,6 +331,33 @@ public interface EMV2InstanceFactory extends EFactory {
 	DetectionInstance createDetectionInstance();
 
 	/**
+	 * Returns a new object of class '<em>Integer Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Integer Code</em>'.
+	 * @generated
+	 */
+	IntegerCode createIntegerCode();
+
+	/**
+	 * Returns a new object of class '<em>String Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>String Code</em>'.
+	 * @generated
+	 */
+	StringCode createStringCode();
+
+	/**
+	 * Returns a new object of class '<em>Constant Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Constant Code</em>'.
+	 * @generated
+	 */
+	ConstantCode createConstantCode();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

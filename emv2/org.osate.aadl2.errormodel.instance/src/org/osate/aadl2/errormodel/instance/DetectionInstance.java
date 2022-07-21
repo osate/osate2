@@ -39,6 +39,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
  *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getDestination <em>Destination</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getErrorCode <em>Error Code</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance()
@@ -133,5 +134,27 @@ public interface DetectionInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	void setDestination(FeatureInstance value);
+
+	/**
+	 * Returns the value of the '<em><b>Error Code</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Error Code</em>' containment reference.
+	 * @see #setErrorCode(ErrorCodeInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance_ErrorCode()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ErrorCodeInstance getErrorCode();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getErrorCode <em>Error Code</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Error Code</em>' containment reference.
+	 * @see #getErrorCode()
+	 * @generated
+	 */
+	void setErrorCode(ErrorCodeInstance value);
 
 } // DetectionInstance

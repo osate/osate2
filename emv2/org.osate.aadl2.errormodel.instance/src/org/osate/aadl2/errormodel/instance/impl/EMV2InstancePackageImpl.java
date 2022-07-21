@@ -49,6 +49,7 @@ import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
@@ -62,6 +63,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.EOperation;
+import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
@@ -71,6 +73,7 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
@@ -84,6 +87,7 @@ import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateSource;
+import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -388,6 +392,34 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass detectionInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass errorCodeInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass integerCodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stringCodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass constantCodeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1832,6 +1864,86 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getDetectionInstance_ErrorCode() {
+		return (EReference) detectionInstanceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getErrorCodeInstance() {
+		return errorCodeInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getIntegerCode() {
+		return integerCodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getIntegerCode_Code() {
+		return (EAttribute) integerCodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getStringCode() {
+		return stringCodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getStringCode_Code() {
+		return (EAttribute) stringCodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getConstantCode() {
+		return constantCodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConstantCode_Code() {
+		return (EReference) constantCodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2498,6 +2610,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__SOURCE);
 		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__CONDITION);
 		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__DESTINATION);
+		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__ERROR_CODE);
+
+		errorCodeInstanceEClass = createEClass(ERROR_CODE_INSTANCE);
+
+		integerCodeEClass = createEClass(INTEGER_CODE);
+		createEAttribute(integerCodeEClass, INTEGER_CODE__CODE);
+
+		stringCodeEClass = createEClass(STRING_CODE);
+		createEAttribute(stringCodeEClass, STRING_CODE__CODE);
+
+		constantCodeEClass = createEClass(CONSTANT_CODE);
+		createEReference(constantCodeEClass, CONSTANT_CODE__CODE);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -2600,6 +2724,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		allPropagationsEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
 		allPropagationsNoErrorEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
 		detectionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		errorCodeInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		integerCodeEClass.getESuperTypes().add(getErrorCodeInstance());
+		stringCodeEClass.getESuperTypes().add(getErrorCodeInstance());
+		constantCodeEClass.getESuperTypes().add(getErrorCodeInstance());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -3138,6 +3266,28 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getDetectionInstance_Destination(), theInstancePackage.getFeatureInstance(), null, "destination",
 				null, 0, 1, DetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDetectionInstance_ErrorCode(), getErrorCodeInstance(), null, "errorCode", null, 0, 1,
+				DetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(errorCodeInstanceEClass, ErrorCodeInstance.class, "ErrorCodeInstance", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(integerCodeEClass, IntegerCode.class, "IntegerCode", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIntegerCode_Code(), ecorePackage.getELong(), "code", null, 0, 1, IntegerCode.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stringCodeEClass, StringCode.class, "StringCode", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStringCode_Code(), ecorePackage.getEString(), "code", null, 0, 1, StringCode.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(constantCodeEClass, ConstantCode.class, "ConstantCode", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConstantCode_Code(), theAadl2Package.getPropertyConstant(), null, "code", null, 0, 1,
+				ConstantCode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

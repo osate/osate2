@@ -15,12 +15,15 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
+import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -53,6 +56,7 @@ public class DetectionsTest {
 			assertEquals("state2", detection.getSource().getName());
 			assertNull(detection.getCondition());
 			assertEquals("f2", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 	}
 
@@ -70,6 +74,7 @@ public class DetectionsTest {
 			assertEquals("state3", detection.getSource().getName());
 			assertNull(detection.getCondition());
 			assertEquals("f3", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 		with(annexInstance.getDetections().get(1), detection -> {
 			// TODO Update after we generate names for unnamed detections.
@@ -82,6 +87,7 @@ public class DetectionsTest {
 			assertEquals("state2", detection.getSource().getName());
 			assertNull(detection.getCondition());
 			assertEquals("f2", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 		with(annexInstance.getDetections().get(2), detection -> {
 			// TODO Update after we generate names for unnamed detections.
@@ -94,6 +100,7 @@ public class DetectionsTest {
 			assertEquals("state1", detection.getSource().getName());
 			assertNull(detection.getCondition());
 			assertEquals("f1", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 	}
 
@@ -113,6 +120,7 @@ public class DetectionsTest {
 			});
 			assertNull(detection.getCondition());
 			assertEquals("f1", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 	}
 
@@ -132,6 +140,7 @@ public class DetectionsTest {
 			});
 			assertNull(detection.getCondition());
 			assertEquals("f1", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 		with(annexInstance.getDetections().get(1), detection -> {
 			assertEquals("detection2", detection.getName());
@@ -145,6 +154,7 @@ public class DetectionsTest {
 			});
 			assertNull(detection.getCondition());
 			assertEquals("f2", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 	}
 
@@ -164,6 +174,7 @@ public class DetectionsTest {
 			});
 			assertNull(detection.getCondition());
 			assertEquals("f1", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 	}
 
@@ -181,6 +192,7 @@ public class DetectionsTest {
 			});
 			assertNull(detection.getCondition());
 			assertEquals("f1", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 	}
 
@@ -210,12 +222,15 @@ public class DetectionsTest {
 				assertEquals(2, condition.getCount());
 			});
 			assertEquals("f3", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 		with(annexInstance.getDetections().get(1), detection -> {
 			assertEquals("no_condition_expression", detection.getName());
 			assertEquals("no_condition_expression", detection.getDetection().getName());
 			assertEquals("state1", detection.getSource().getName());
 			assertNull(detection.getCondition());
+			assertEquals("f1", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 		with(annexInstance.getDetections().get(2), detection -> {
 			assertEquals("simple_condition_expression", detection.getName());
@@ -227,6 +242,7 @@ public class DetectionsTest {
 				assertNull(condition.getTypeSet());
 			});
 			assertEquals("f2", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 	}
 
@@ -242,6 +258,7 @@ public class DetectionsTest {
 			assertEquals("state1", detection.getSource().getName());
 			assertNull(detection.getCondition());
 			assertEquals("f1", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 		with(annexInstance.getDetections().get(1), detection -> {
 			assertEquals("detection2", detection.getName());
@@ -249,6 +266,7 @@ public class DetectionsTest {
 			assertEquals("state2", detection.getSource().getName());
 			assertNull(detection.getCondition());
 			assertEquals("f2", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 		with(annexInstance.getDetections().get(2), detection -> {
 			assertEquals("detection3", detection.getName());
@@ -256,6 +274,7 @@ public class DetectionsTest {
 			assertEquals("state3", detection.getSource().getName());
 			assertNull(detection.getCondition());
 			assertEquals("f3", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
 		});
 	}
 
@@ -266,5 +285,54 @@ public class DetectionsTest {
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		// Tests that detections which point to internal features are not instantiated.
 		assertEquals(0, annexInstance.getDetections().size());
+	}
+
+	@Test
+	public void testErrorCodes() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "error_codes.aadl", PATH + "my_set.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(4, annexInstance.getDetections().size());
+		with(annexInstance.getDetections().get(0), detection -> {
+			assertEquals("detection1", detection.getName());
+			assertEquals("detection1", detection.getDetection().getName());
+			assertEquals("state1", detection.getSource().getName());
+			assertNull(detection.getCondition());
+			assertEquals("f1", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
+		});
+		with(annexInstance.getDetections().get(1), detection -> {
+			assertEquals("detection2", detection.getName());
+			assertEquals("detection2", detection.getDetection().getName());
+			assertEquals("state2", detection.getSource().getName());
+			assertNull(detection.getCondition());
+			assertEquals("f2", detection.getDestination().getName());
+			with((IntegerCode) detection.getErrorCode(), code -> {
+				assertEquals("42", code.getName());
+				assertEquals(42, code.getCode());
+			});
+		});
+		with(annexInstance.getDetections().get(2), detection -> {
+			assertEquals("detection3", detection.getName());
+			assertEquals("detection3", detection.getDetection().getName());
+			assertEquals("state3", detection.getSource().getName());
+			assertNull(detection.getCondition());
+			assertEquals("f3", detection.getDestination().getName());
+			with((StringCode) detection.getErrorCode(), code -> {
+				assertEquals("\"string literal\"", code.getName());
+				assertEquals("string literal", code.getCode());
+			});
+		});
+		with(annexInstance.getDetections().get(3), detection -> {
+			assertEquals("detection4", detection.getName());
+			assertEquals("detection4", detection.getDetection().getName());
+			assertEquals("state4", detection.getSource().getName());
+			assertNull(detection.getCondition());
+			assertEquals("f4", detection.getDestination().getName());
+			with((ConstantCode) detection.getErrorCode(), code -> {
+				assertEquals("my_set::my_constant", code.getName());
+				assertEquals("my_constant", code.getCode().getName());
+			});
+		});
 	}
 }

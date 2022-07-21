@@ -5716,13 +5716,341 @@ public interface EMV2InstancePackage extends EPackage {
 	int DETECTION_INSTANCE__DESTINATION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Error Code</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DETECTION_INSTANCE__ERROR_CODE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Detection Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DETECTION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
+	int DETECTION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 5;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.ErrorCodeInstance <em>Error Code Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.ErrorCodeInstance
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorCodeInstance()
+	 * @generated
+	 */
+	int ERROR_CODE_INSTANCE = 56;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_CODE_INSTANCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_CODE_INSTANCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_CODE_INSTANCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_CODE_INSTANCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_CODE_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_CODE_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+
+	/**
+	 * The number of structural features of the '<em>Error Code Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_CODE_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.IntegerCodeImpl <em>Integer Code</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.IntegerCodeImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getIntegerCode()
+	 * @generated
+	 */
+	int INTEGER_CODE = 57;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_CODE__OWNED_ELEMENT = ERROR_CODE_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_CODE__OWNED_COMMENT = ERROR_CODE_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_CODE__NAME = ERROR_CODE_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_CODE__QUALIFIED_NAME = ERROR_CODE_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_CODE__OWNED_PROPERTY_ASSOCIATION = ERROR_CODE_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_CODE__ANNEX_INSTANCE = ERROR_CODE_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_CODE__CODE = ERROR_CODE_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Integer Code</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_CODE_FEATURE_COUNT = ERROR_CODE_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.StringCodeImpl <em>String Code</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.StringCodeImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getStringCode()
+	 * @generated
+	 */
+	int STRING_CODE = 58;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CODE__OWNED_ELEMENT = ERROR_CODE_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CODE__OWNED_COMMENT = ERROR_CODE_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CODE__NAME = ERROR_CODE_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CODE__QUALIFIED_NAME = ERROR_CODE_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CODE__OWNED_PROPERTY_ASSOCIATION = ERROR_CODE_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CODE__ANNEX_INSTANCE = ERROR_CODE_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CODE__CODE = ERROR_CODE_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>String Code</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CODE_FEATURE_COUNT = ERROR_CODE_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstantCodeImpl <em>Constant Code</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.ConstantCodeImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConstantCode()
+	 * @generated
+	 */
+	int CONSTANT_CODE = 59;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_CODE__OWNED_ELEMENT = ERROR_CODE_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_CODE__OWNED_COMMENT = ERROR_CODE_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_CODE__NAME = ERROR_CODE_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_CODE__QUALIFIED_NAME = ERROR_CODE_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_CODE__OWNED_PROPERTY_ASSOCIATION = ERROR_CODE_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_CODE__ANNEX_INSTANCE = ERROR_CODE_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_CODE__CODE = ERROR_CODE_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Constant Code</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_CODE_FEATURE_COUNT = ERROR_CODE_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
@@ -5732,7 +6060,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 56;
+	int EOPERATION = 60;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -5742,7 +6070,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 57;
+	int BINDING_TYPE = 61;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
@@ -5752,7 +6080,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
 	 * @generated
 	 */
-	int COUNT_EXPRESSION_OPERATION = 58;
+	int COUNT_EXPRESSION_OPERATION = 62;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -7076,6 +7404,90 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDetectionInstance_Destination();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getErrorCode <em>Error Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Error Code</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.DetectionInstance#getErrorCode()
+	 * @see #getDetectionInstance()
+	 * @generated
+	 */
+	EReference getDetectionInstance_ErrorCode();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ErrorCodeInstance <em>Error Code Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Error Code Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorCodeInstance
+	 * @generated
+	 */
+	EClass getErrorCodeInstance();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.IntegerCode <em>Integer Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Integer Code</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.IntegerCode
+	 * @generated
+	 */
+	EClass getIntegerCode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.IntegerCode#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Code</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.IntegerCode#getCode()
+	 * @see #getIntegerCode()
+	 * @generated
+	 */
+	EAttribute getIntegerCode_Code();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.StringCode <em>String Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>String Code</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.StringCode
+	 * @generated
+	 */
+	EClass getStringCode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.instance.StringCode#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Code</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.StringCode#getCode()
+	 * @see #getStringCode()
+	 * @generated
+	 */
+	EAttribute getStringCode_Code();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstantCode <em>Constant Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Constant Code</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ConstantCode
+	 * @generated
+	 */
+	EClass getConstantCode();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ConstantCode#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Code</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ConstantCode#getCode()
+	 * @see #getConstantCode()
+	 * @generated
+	 */
+	EReference getConstantCode_Code();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
@@ -8626,6 +9038,78 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference DETECTION_INSTANCE__DESTINATION = eINSTANCE.getDetectionInstance_Destination();
+
+		/**
+		 * The meta object literal for the '<em><b>Error Code</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DETECTION_INSTANCE__ERROR_CODE = eINSTANCE.getDetectionInstance_ErrorCode();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.ErrorCodeInstance <em>Error Code Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.ErrorCodeInstance
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getErrorCodeInstance()
+		 * @generated
+		 */
+		EClass ERROR_CODE_INSTANCE = eINSTANCE.getErrorCodeInstance();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.IntegerCodeImpl <em>Integer Code</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.IntegerCodeImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getIntegerCode()
+		 * @generated
+		 */
+		EClass INTEGER_CODE = eINSTANCE.getIntegerCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTEGER_CODE__CODE = eINSTANCE.getIntegerCode_Code();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.StringCodeImpl <em>String Code</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.StringCodeImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getStringCode()
+		 * @generated
+		 */
+		EClass STRING_CODE = eINSTANCE.getStringCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STRING_CODE__CODE = eINSTANCE.getStringCode_Code();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstantCodeImpl <em>Constant Code</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.ConstantCodeImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getConstantCode()
+		 * @generated
+		 */
+		EClass CONSTANT_CODE = eINSTANCE.getConstantCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONSTANT_CODE__CODE = eINSTANCE.getConstantCode_Code();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.
