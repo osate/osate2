@@ -62,23 +62,39 @@ public class DetectionsTest {
 
 	@Test
 	public void testInheritUnnamedDetections() throws Exception {
-		var pkg = testHelper.parseFile(PATH + "inherit_unnamed_detections.aadl");
+		var pkg = testHelper.parseFile(PATH + "inherit_unnamed_detections.aadl", PATH + "my_set.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(2);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(3, annexInstance.getDetections().size());
+		assertEquals(5, annexInstance.getDetections().size());
 		with(annexInstance.getDetections().get(0), detection -> {
-			// TODO Update after we generate names for unnamed detections.
-			assertNull(detection.getName());
+			assertEquals("state3 -[]-> f3 ! (my_set::my_constant)", detection.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getErrorDetections().get(0), detection.getDetection());
 			assertEquals("state3", detection.getSource().getName());
 			assertNull(detection.getCondition());
 			assertEquals("f3", detection.getDestination().getName());
-			assertNull(detection.getErrorCode());
+			assertEquals("my_set::my_constant", detection.getErrorCode().getName());
 		});
 		with(annexInstance.getDetections().get(1), detection -> {
-			// TODO Update after we generate names for unnamed detections.
-			assertNull(detection.getName());
+			assertEquals("state4 -[error4]-> f4 !", detection.getName());
+			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
+					.getParsedAnnexSubclause()).getErrorDetections().get(1), detection.getDetection());
+			assertEquals("state4", detection.getSource().getName());
+			assertEquals("error4", detection.getCondition().getName());
+			assertEquals("f4", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
+		});
+		with(annexInstance.getDetections().get(2), detection -> {
+			assertEquals("state5 -[]-> f5 !", detection.getName());
+			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
+					.getParsedAnnexSubclause()).getErrorDetections().get(2), detection.getDetection());
+			assertEquals("state5", detection.getSource().getName());
+			assertNull(detection.getCondition());
+			assertEquals("f5", detection.getDestination().getName());
+			assertNull(detection.getErrorCode());
+		});
+		with(annexInstance.getDetections().get(3), detection -> {
+			assertEquals("state2 -[]-> f2 ! (\"two\")", detection.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 					.getOwnedClassifiers()
 					.get(1)
@@ -87,20 +103,19 @@ public class DetectionsTest {
 			assertEquals("state2", detection.getSource().getName());
 			assertNull(detection.getCondition());
 			assertEquals("f2", detection.getDestination().getName());
-			assertNull(detection.getErrorCode());
+			assertEquals("\"two\"", detection.getErrorCode().getName());
 		});
-		with(annexInstance.getDetections().get(2), detection -> {
-			// TODO Update after we generate names for unnamed detections.
-			assertNull(detection.getName());
+		with(annexInstance.getDetections().get(4), detection -> {
+			assertEquals("state1 -[error1]-> f1 ! (1)", detection.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 					.getOwnedClassifiers()
 					.get(0)
 					.getOwnedAnnexSubclauses()
 					.get(0)).getParsedAnnexSubclause()).getErrorDetections().get(0), detection.getDetection());
 			assertEquals("state1", detection.getSource().getName());
-			assertNull(detection.getCondition());
+			assertEquals("error1", detection.getCondition().getName());
 			assertEquals("f1", detection.getDestination().getName());
-			assertNull(detection.getErrorCode());
+			assertEquals("1", detection.getErrorCode().getName());
 		});
 	}
 

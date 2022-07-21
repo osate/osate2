@@ -1211,7 +1211,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			return;
 		}
 		DetectionInstance detectionInstance = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
-		detectionInstance.setName(detection.getName());
 		detectionInstance.setDetection(detection);
 		detectionInstance.setSource(createStateSource(detection, annex));
 		if (detection.getCondition() != null) {
@@ -1221,6 +1220,21 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		detectionInstance.setDestination(findFeatureInstance(detection.getDetectionReportingPort(), component));
 		if (detection.getErrorCode() != null) {
 			detectionInstance.setErrorCode(createErrorCodeInstance(detection.getErrorCode()));
+		}
+		if (detection.getName() == null) {
+			var sourceName = detectionInstance.getSource().getName();
+			var conditionName = "";
+			if (detectionInstance.getCondition() != null) {
+				conditionName = detectionInstance.getCondition().getName();
+			}
+			var destinationName = detectionInstance.getDestination().getName();
+			var codeName = "";
+			if (detectionInstance.getErrorCode() != null) {
+				codeName = " (" + detectionInstance.getErrorCode().getName() + ')';
+			}
+			detectionInstance.setName(sourceName + " -[" + conditionName + "]-> " + destinationName + " !" + codeName);
+		} else {
+			detectionInstance.setName(detection.getName());
 		}
 		annex.getDetections().add(detectionInstance);
 	}
