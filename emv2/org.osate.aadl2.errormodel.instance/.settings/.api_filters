@@ -810,6 +810,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="DETECTION_INSTANCE__DETECTION"/>
             </message_arguments>
         </filter>
@@ -1585,6 +1590,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getDetectionInstance_Condition()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getDetectionInstance_Detection()"/>
             </message_arguments>
         </filter>
@@ -1913,6 +1923,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="DETECTION_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="DETECTION_INSTANCE__CONDITION"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">

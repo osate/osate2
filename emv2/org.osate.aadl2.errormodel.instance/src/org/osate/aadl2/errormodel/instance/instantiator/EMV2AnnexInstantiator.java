@@ -204,7 +204,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getComponentClassifier());
 		for (ErrorDetection ed : eds) {
-			instantiateDetection(ed, emv2AI);
+			instantiateDetection(ed, instance, emv2AI);
 		}
 
 		Collection<PropagationPath> ppaths = EMV2Util.getAllPropagationPaths(instance.getComponentClassifier());
@@ -1199,11 +1199,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return allPropagations;
 	}
 
-	private void instantiateDetection(ErrorDetection detection, EMV2AnnexInstance annex) {
+	private void instantiateDetection(ErrorDetection detection, ComponentInstance component, EMV2AnnexInstance annex) {
 		DetectionInstance detectionInstance = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
 		detectionInstance.setName(detection.getName());
 		detectionInstance.setDetection(detection);
 		detectionInstance.setSource(createStateSource(detection, annex));
+		if (detection.getCondition() != null) {
+			detectionInstance
+					.setCondition(createConditionExpressionInstance(detection.getCondition(), component, annex));
+		}
 		annex.getDetections().add(detectionInstance);
 	}
 

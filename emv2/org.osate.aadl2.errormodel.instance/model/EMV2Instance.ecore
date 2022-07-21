@@ -310,5 +310,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="detection" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorDetection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//StateSource"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpressionInstance"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>
