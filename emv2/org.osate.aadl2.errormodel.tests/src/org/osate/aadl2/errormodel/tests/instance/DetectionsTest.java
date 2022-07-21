@@ -45,6 +45,7 @@ public class DetectionsTest {
 		with(annexInstance.getDetections().get(0), detection -> {
 			assertEquals("DETECTION1", detection.getName());
 			assertEquals("DETECTION1", detection.getDetection().getName());
+			assertEquals("state2", detection.getSource().getName());
 		});
 	}
 
@@ -59,6 +60,7 @@ public class DetectionsTest {
 			assertNull(detection.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getErrorDetections().get(0), detection.getDetection());
+			assertEquals("state3", detection.getSource().getName());
 		});
 		with(annexInstance.getDetections().get(1), detection -> {
 			// TODO Update after we generate names for unnamed detections.
@@ -68,6 +70,7 @@ public class DetectionsTest {
 					.get(1)
 					.getOwnedAnnexSubclauses()
 					.get(0)).getParsedAnnexSubclause()).getErrorDetections().get(0), detection.getDetection());
+			assertEquals("state2", detection.getSource().getName());
 		});
 		with(annexInstance.getDetections().get(2), detection -> {
 			// TODO Update after we generate names for unnamed detections.
@@ -77,6 +80,7 @@ public class DetectionsTest {
 					.get(0)
 					.getOwnedAnnexSubclauses()
 					.get(0)).getParsedAnnexSubclause()).getErrorDetections().get(0), detection.getDetection());
+			assertEquals("state1", detection.getSource().getName());
 		});
 	}
 
