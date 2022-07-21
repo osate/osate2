@@ -32,6 +32,7 @@ import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.StateSource;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 
 /**
@@ -45,6 +46,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getDetection <em>Detection</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.DetectionInstanceImpl#getDestination <em>Destination</em>}</li>
  * </ul>
  *
  * @generated
@@ -79,6 +81,16 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 	 * @ordered
 	 */
 	protected ConditionExpressionInstance condition;
+
+	/**
+	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestination()
+	 * @generated
+	 * @ordered
+	 */
+	protected FeatureInstance destination;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -263,6 +275,50 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 	 * @generated
 	 */
 	@Override
+	public FeatureInstance getDestination() {
+		if (destination != null && destination.eIsProxy()) {
+			InternalEObject oldDestination = (InternalEObject) destination;
+			destination = (FeatureInstance) eResolveProxy(oldDestination);
+			if (destination != oldDestination) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.DETECTION_INSTANCE__DESTINATION, oldDestination, destination));
+				}
+			}
+		}
+		return destination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureInstance basicGetDestination() {
+		return destination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDestination(FeatureInstance newDestination) {
+		FeatureInstance oldDestination = destination;
+		destination = newDestination;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.DETECTION_INSTANCE__DESTINATION,
+					oldDestination, destination));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case EMV2InstancePackage.DETECTION_INSTANCE__SOURCE:
@@ -290,6 +346,11 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 			return getSource();
 		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			return getCondition();
+		case EMV2InstancePackage.DETECTION_INSTANCE__DESTINATION:
+			if (resolve) {
+				return getDestination();
+			}
+			return basicGetDestination();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -310,6 +371,9 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 			return;
 		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			setCondition((ConditionExpressionInstance) newValue);
+			return;
+		case EMV2InstancePackage.DETECTION_INSTANCE__DESTINATION:
+			setDestination((FeatureInstance) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -332,6 +396,9 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			setCondition((ConditionExpressionInstance) null);
 			return;
+		case EMV2InstancePackage.DETECTION_INSTANCE__DESTINATION:
+			setDestination((FeatureInstance) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -350,6 +417,8 @@ public class DetectionInstanceImpl extends EMV2InstanceObjectImpl implements Det
 			return source != null;
 		case EMV2InstancePackage.DETECTION_INSTANCE__CONDITION:
 			return condition != null;
+		case EMV2InstancePackage.DETECTION_INSTANCE__DESTINATION:
+			return destination != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -23,6 +23,7 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 
 /**
@@ -37,6 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
  *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getDetection <em>Detection</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getDestination <em>Destination</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance()
@@ -109,5 +111,27 @@ public interface DetectionInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	void setCondition(ConditionExpressionInstance value);
+
+	/**
+	 * Returns the value of the '<em><b>Destination</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destination</em>' reference.
+	 * @see #setDestination(FeatureInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getDetectionInstance_Destination()
+	 * @model
+	 * @generated
+	 */
+	FeatureInstance getDestination();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.DetectionInstance#getDestination <em>Destination</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Destination</em>' reference.
+	 * @see #getDestination()
+	 * @generated
+	 */
+	void setDestination(FeatureInstance value);
 
 } // DetectionInstance

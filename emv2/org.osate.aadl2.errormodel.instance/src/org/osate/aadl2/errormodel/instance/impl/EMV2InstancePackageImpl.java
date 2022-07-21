@@ -1822,6 +1822,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getDetectionInstance_Destination() {
+		return (EReference) detectionInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2487,6 +2497,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__DETECTION);
 		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__SOURCE);
 		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__CONDITION);
+		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__DESTINATION);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -3124,6 +3135,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getDetectionInstance_Condition(), getConditionExpressionInstance(), null, "condition", null, 0,
 				1, DetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDetectionInstance_Destination(), theInstancePackage.getFeatureInstance(), null, "destination",
+				null, 0, 1, DetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

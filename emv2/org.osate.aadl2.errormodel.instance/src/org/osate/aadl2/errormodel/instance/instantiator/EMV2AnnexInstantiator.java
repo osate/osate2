@@ -135,6 +135,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -1200,6 +1201,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private void instantiateDetection(ErrorDetection detection, ComponentInstance component, EMV2AnnexInstance annex) {
+		if (detection.getDetectionReportingPort().getElement() instanceof InternalFeature) {
+			// Detection not instantiated since InternalFeatures are not instantiated.
+			return;
+		}
 		DetectionInstance detectionInstance = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
 		detectionInstance.setName(detection.getName());
 		detectionInstance.setDetection(detection);
@@ -1208,6 +1213,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			detectionInstance
 					.setCondition(createConditionExpressionInstance(detection.getCondition(), component, annex));
 		}
+		detectionInstance.setDestination(findFeatureInstance(detection.getDetectionReportingPort(), component));
 		annex.getDetections().add(detectionInstance);
 	}
 
@@ -1443,6 +1449,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 		}
 		return fi;
+	}
+
+	private FeatureInstance findFeatureInstance(ReportingPortReference portReference, ComponentInstance component) {
+		if (portReference.getPrevious() == null) {
+			return component.findFeatureInstance((Feature) portReference.getElement());
+		} else {
+			var previousFeatureGroup = findFeatureInstance(portReference.getPrevious(), component);
+			return previousFeatureGroup.findFeatureInstance((Feature) portReference.getElement());
+		}
 	}
 
 	private FeatureInstance findFeatureInstance(ComponentInstance component, Feature feature) {

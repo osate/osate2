@@ -52,6 +52,7 @@ public class DetectionsTest {
 			assertEquals("DETECTION1", detection.getDetection().getName());
 			assertEquals("state2", detection.getSource().getName());
 			assertNull(detection.getCondition());
+			assertEquals("f2", detection.getDestination().getName());
 		});
 	}
 
@@ -68,6 +69,7 @@ public class DetectionsTest {
 					.getParsedAnnexSubclause()).getErrorDetections().get(0), detection.getDetection());
 			assertEquals("state3", detection.getSource().getName());
 			assertNull(detection.getCondition());
+			assertEquals("f3", detection.getDestination().getName());
 		});
 		with(annexInstance.getDetections().get(1), detection -> {
 			// TODO Update after we generate names for unnamed detections.
@@ -79,6 +81,7 @@ public class DetectionsTest {
 					.get(0)).getParsedAnnexSubclause()).getErrorDetections().get(0), detection.getDetection());
 			assertEquals("state2", detection.getSource().getName());
 			assertNull(detection.getCondition());
+			assertEquals("f2", detection.getDestination().getName());
 		});
 		with(annexInstance.getDetections().get(2), detection -> {
 			// TODO Update after we generate names for unnamed detections.
@@ -90,6 +93,7 @@ public class DetectionsTest {
 					.get(0)).getParsedAnnexSubclause()).getErrorDetections().get(0), detection.getDetection());
 			assertEquals("state1", detection.getSource().getName());
 			assertNull(detection.getCondition());
+			assertEquals("f1", detection.getDestination().getName());
 		});
 	}
 
@@ -108,6 +112,7 @@ public class DetectionsTest {
 				assertNull(source.getTypeSet());
 			});
 			assertNull(detection.getCondition());
+			assertEquals("f1", detection.getDestination().getName());
 		});
 	}
 
@@ -126,6 +131,7 @@ public class DetectionsTest {
 				assertEquals("{ServiceError}", source.getTypeSet().getName());
 			});
 			assertNull(detection.getCondition());
+			assertEquals("f1", detection.getDestination().getName());
 		});
 		with(annexInstance.getDetections().get(1), detection -> {
 			assertEquals("detection2", detection.getName());
@@ -138,6 +144,7 @@ public class DetectionsTest {
 						source.getTypeSet().getName());
 			});
 			assertNull(detection.getCondition());
+			assertEquals("f2", detection.getDestination().getName());
 		});
 	}
 
@@ -156,6 +163,7 @@ public class DetectionsTest {
 				assertEquals("{CommonErrors}", source.getTypeSet().getName());
 			});
 			assertNull(detection.getCondition());
+			assertEquals("f1", detection.getDestination().getName());
 		});
 	}
 
@@ -172,6 +180,7 @@ public class DetectionsTest {
 				assertEquals("all", source.getName());
 			});
 			assertNull(detection.getCondition());
+			assertEquals("f1", detection.getDestination().getName());
 		});
 	}
 
@@ -200,6 +209,7 @@ public class DetectionsTest {
 				assertEquals(CountExpressionOperation.EQUALS, condition.getOperation());
 				assertEquals(2, condition.getCount());
 			});
+			assertEquals("f3", detection.getDestination().getName());
 		});
 		with(annexInstance.getDetections().get(1), detection -> {
 			assertEquals("no_condition_expression", detection.getName());
@@ -216,6 +226,45 @@ public class DetectionsTest {
 				assertEquals("error1", condition.getEvent().getName());
 				assertNull(condition.getTypeSet());
 			});
+			assertEquals("f2", detection.getDestination().getName());
 		});
+	}
+
+	@Test
+	public void testFeatureDestination() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "feature_destination.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(3, annexInstance.getDetections().size());
+		with(annexInstance.getDetections().get(0), detection -> {
+			assertEquals("detection1", detection.getName());
+			assertEquals("detection1", detection.getDetection().getName());
+			assertEquals("state1", detection.getSource().getName());
+			assertNull(detection.getCondition());
+			assertEquals("f1", detection.getDestination().getName());
+		});
+		with(annexInstance.getDetections().get(1), detection -> {
+			assertEquals("detection2", detection.getName());
+			assertEquals("detection2", detection.getDetection().getName());
+			assertEquals("state2", detection.getSource().getName());
+			assertNull(detection.getCondition());
+			assertEquals("f2", detection.getDestination().getName());
+		});
+		with(annexInstance.getDetections().get(2), detection -> {
+			assertEquals("detection3", detection.getName());
+			assertEquals("detection3", detection.getDetection().getName());
+			assertEquals("state3", detection.getSource().getName());
+			assertNull(detection.getCondition());
+			assertEquals("f3", detection.getDestination().getName());
+		});
+	}
+
+	@Test
+	public void testInternalFeatureDestination() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "internal_feature_destination.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		// Tests that detections which point to internal features are not instantiated.
+		assertEquals(0, annexInstance.getDetections().size());
 	}
 }
