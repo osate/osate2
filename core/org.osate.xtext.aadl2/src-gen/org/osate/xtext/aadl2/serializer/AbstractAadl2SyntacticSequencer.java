@@ -611,12 +611,15 @@ public abstract class AbstractAadl2SyntacticSequencer extends AbstractSyntacticS
 	}
 
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('properties' 'none' ';')?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     ownedPrivateSection=PrivatePackageSection (ambiguity) 'end' PNAME ';' (rule end)
 	 *     ownedPublicSection=PublicPackageSection (ambiguity) 'end' PNAME ';' (rule end)
+	 
+	 * </pre>
 	 */
 	protected void emit_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
