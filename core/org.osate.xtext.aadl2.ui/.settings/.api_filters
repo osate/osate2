@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.xtext.aadl2.ui" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/ui/AbstractAadl2UiModule.java" type="org.osate.xtext.aadl2.ui.AbstractAadl2UiModule">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIWorkspaceRootToInstance()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIXtextBuilderParticipant()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="configureBuilderPreferenceStoreInitializer(Binder)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
