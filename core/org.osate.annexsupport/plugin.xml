@@ -33,6 +33,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension-point id="instantiator" name="Annex Instantiator" schema="schema/annexinstantiator.exsd"/>
    <extension-point id="highlighter" name="Annex Highlighter" schema="schema/annexhighlighter.exsd"/>
    <extension-point id="contentassist" name="Content Assist" schema="schema/contentassist.exsd"/>
+   <extension-point id="generator" name="Annex Generator" schema="schema/annexgenerator.exsd"/>
      <extension point="org.osate.annexsupport.parser">
       <parser
             annexName="*"

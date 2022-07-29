@@ -23,10 +23,17 @@
  */
 package org.osate.xtext.aadl2.generator;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.PackageSection;
+import org.osate.annexsupport.AnnexGeneratorRegistry;
+import org.osate.annexsupport.AnnexRegistry;
 
 /**
  * Generates code from your model files on save.
@@ -35,17 +42,45 @@ import org.eclipse.xtext.generator.IGeneratorContext;
  * @since 6.3
  */
 public class Aadl2Generator extends AbstractGenerator {
+	private AnnexGeneratorRegistry annexGeneratorRegistry;
+
+	private void initAnnexGeneratorRegistry() {
+		if (annexGeneratorRegistry == null) {
+			annexGeneratorRegistry = (AnnexGeneratorRegistry) AnnexRegistry
+					.getRegistry(AnnexRegistry.ANNEX_GENERATOR_EXT_ID);
+		}
+	}
 
 	@Override
 	public void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		Iterator<Greeting> filtered = Iterators.filter(resource.getAllContents(), Greeting.class);
-//		Iterator<String> names = Iterators.transform(filtered, new Function<Greeting, String>() {
-//
-//			@Override
-//			public String apply(Greeting greeting) {
-//				return greeting.getName();
-//			}
-//		});
-//		fsa.generateFile("greetings.txt", "People to greet: " + IteratorExtensions.join(names, ", "));
+		if (resource.getContents().size() == 1 && resource.getContents().get(0) instanceof AadlPackage pkg) {
+			var annexNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+			collectAnnexNames(pkg.getOwnedPublicSection(), annexNames);
+			collectAnnexNames(pkg.getOwnedPrivateSection(), annexNames);
+			for (var annexName : annexNames) {
+				if (annexGeneratorRegistry == null) {
+					initAnnexGeneratorRegistry();
+				}
+				if (annexGeneratorRegistry != null) {
+					var generator = annexGeneratorRegistry.getAnnexGenerator(annexName);
+					if (generator != null) {
+						generator.doGenerate(resource, fsa, context);
+					}
+				}
+			}
+		}
+	}
+
+	private static void collectAnnexNames(PackageSection packageSection, Set<String> annexNames) {
+		if (packageSection != null) {
+			for (var library : packageSection.getOwnedAnnexLibraries()) {
+				annexNames.add(library.getName());
+			}
+			for (var classifier : packageSection.getOwnedClassifiers()) {
+				for (var subclause : classifier.getOwnedAnnexSubclauses()) {
+					annexNames.add(subclause.getName());
+				}
+			}
+		}
 	}
 }

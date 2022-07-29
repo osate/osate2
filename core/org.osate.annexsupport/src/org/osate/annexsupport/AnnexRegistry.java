@@ -76,6 +76,12 @@ public abstract class AnnexRegistry {
 	/** ID of annex content assist extention point */
 	public static final String ANNEX_CONTENT_ASSIST_EXT_ID = "contentassist";
 
+	/**
+	 * ID of annex generator extension point
+	 * @since 5.0
+	 */
+	public static final String ANNEX_GENERATOR_EXT_ID = "generator";
+
 	private static final String ATT_ANNEXNAME = "annexName";
 	private static final String ATT_ANNEXNSURI = "annexNSURI";
 
@@ -116,6 +122,8 @@ public abstract class AnnexRegistry {
 			return new AnnexHighlighterRegistry();
 		} else if (extensionId.equalsIgnoreCase(ANNEX_CONTENT_ASSIST_EXT_ID)) {
 			return new AnnexContentAssistRegistry();
+		} else if (extensionId.equalsIgnoreCase(ANNEX_GENERATOR_EXT_ID)) {
+			return new AnnexGeneratorRegistry();
 		} else {
 			throw new NullPointerException(extensionId + " is an invalid extension ID");
 		}
@@ -218,12 +226,20 @@ public abstract class AnnexRegistry {
 	}
 
 	/**
+	 * @since 5.0
+	 */
+	public static void registerGenerator(final String annexName, final AnnexGenerator extension) {
+		registerExtension(ANNEX_GENERATOR_EXT_ID, annexName, extension);
+	}
+
+	/**
 	 * Single method to register an annex from a stand-alone application.
+	 * @since 5.0
 	 */
 	public static void registerAnnex(final String annexName, final AnnexParser parser, final AnnexUnparser unparser,
 			final AnnexLinkingService linkingService, final AnnexContentAssist contextAssist,
 			final AnnexHighlighter highlighter, final AnnexInstantiator instantiator, final AnnexResolver resolver,
-			final AnnexTextPositionResolver textPositionResolver) {
+			final AnnexTextPositionResolver textPositionResolver, final AnnexGenerator generator) {
 		registerParser(annexName, parser);
 		registerUnparser(annexName, unparser);
 		registerLinkingService(annexName, linkingService);
@@ -232,6 +248,7 @@ public abstract class AnnexRegistry {
 		registerInstantiator(annexName, instantiator);
 		registerResolver(annexName, resolver);
 		registerTextPositionResolver(annexName, textPositionResolver);
+		registerGenerator(annexName, generator);
 	}
 
 	/**
