@@ -29,7 +29,17 @@ public class AnnexGeneratorProxy extends AnnexProxy implements AnnexGenerator {
 	}
 
 	@Override
+	public void beforeGenerate(Resource input, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		getGenerator().beforeGenerate(input, fsa, context);
+	}
+
+	@Override
 	public void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		getGenerator().doGenerate(resource, fsa, context);
+	}
+
+	@Override
+	public void afterGenerate(Resource input, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		getGenerator().afterGenerate(input, fsa, context);
 	}
 }

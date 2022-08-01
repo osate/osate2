@@ -25,6 +25,7 @@ package org.osate.xtext.aadl2.generator;
 
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.generator.AbstractGenerator;
@@ -32,6 +33,7 @@ import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.PackageSection;
+import org.osate.annexsupport.AnnexGenerator;
 import org.osate.annexsupport.AnnexGeneratorRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 
@@ -52,22 +54,42 @@ public class Aadl2Generator extends AbstractGenerator {
 	}
 
 	@Override
+	public void beforeGenerate(Resource input, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		callAnnexGenerators(input, generator -> generator.beforeGenerate(input, fsa, context));
+	}
+
+	@Override
 	public void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		callAnnexGenerators(resource, generator -> generator.doGenerate(resource, fsa, context));
+	}
+
+	@Override
+	public void afterGenerate(Resource input, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		callAnnexGenerators(input, generator -> generator.afterGenerate(input, fsa, context));
+	}
+
+	private void callAnnexGenerators(Resource resource, Consumer<AnnexGenerator> generatorCall) {
 		if (resource.getContents().size() == 1 && resource.getContents().get(0) instanceof AadlPackage pkg) {
 			var annexNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 			collectAnnexNames(pkg.getOwnedPublicSection(), annexNames);
 			collectAnnexNames(pkg.getOwnedPrivateSection(), annexNames);
 			for (var annexName : annexNames) {
-				if (annexGeneratorRegistry == null) {
-					initAnnexGeneratorRegistry();
-				}
-				if (annexGeneratorRegistry != null) {
-					var generator = annexGeneratorRegistry.getAnnexGenerator(annexName);
-					if (generator != null) {
-						generator.doGenerate(resource, fsa, context);
-					}
+				var generator = getAnnexGenerator(annexName);
+				if (generator != null) {
+					generatorCall.accept(generator);
 				}
 			}
+		}
+	}
+
+	private AnnexGenerator getAnnexGenerator(String annexName) {
+		if (annexGeneratorRegistry == null) {
+			initAnnexGeneratorRegistry();
+		}
+		if (annexGeneratorRegistry != null) {
+			return annexGeneratorRegistry.getAnnexGenerator(annexName);
+		} else {
+			return null;
 		}
 	}
 
