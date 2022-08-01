@@ -2003,6 +2003,9 @@ public abstract class AbstractAadl2ProposalProvider extends PropertiesProposalPr
 	public void completeMemoryImplementation_OwnedBusSubcomponent(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
 	}
+	public void completeMemoryImplementation_OwnedVirtualBusSubcomponent(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
+	}
 	public void completeMemoryImplementation_NoSubcomponents(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
