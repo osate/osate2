@@ -73,6 +73,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getGroupExtension();
 	}
@@ -82,6 +83,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Classifier getGeneral() {
 		Classifier general = basicGetGeneral();
 		return general != null && ((EObject) general).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) general)
@@ -93,6 +95,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Classifier basicGetGeneral() {
 		if (eIsSet(Aadl2Package.GROUP_EXTENSION__EXTENDED)) {
 			return basicGetExtended();
@@ -147,6 +150,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.GROUP_EXTENSION__EXTENDED:
@@ -163,6 +167,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.GROUP_EXTENSION__EXTENDED:
@@ -177,6 +182,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.GROUP_EXTENSION__EXTENDED:
@@ -191,6 +197,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.GROUP_EXTENSION__GENERAL:
@@ -206,6 +213,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetGeneral() {
 		return super.isSetGeneral() || eIsSet(Aadl2Package.GROUP_EXTENSION__EXTENDED);
 	}

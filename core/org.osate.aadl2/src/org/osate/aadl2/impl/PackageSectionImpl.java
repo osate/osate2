@@ -185,6 +185,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPackageSection();
 	}
@@ -194,6 +195,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
@@ -407,6 +409,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -428,6 +431,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -456,6 +460,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -497,6 +502,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -532,6 +538,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER:
@@ -563,6 +570,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -582,6 +590,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME)
 				|| eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME)

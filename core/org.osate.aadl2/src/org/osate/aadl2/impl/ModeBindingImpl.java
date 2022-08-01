@@ -81,6 +81,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModeBinding();
 	}
@@ -174,6 +175,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODE_BINDING__PARENT_MODE:
@@ -195,6 +197,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODE_BINDING__PARENT_MODE:
@@ -212,6 +215,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_BINDING__PARENT_MODE:
@@ -229,6 +233,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_BINDING__PARENT_MODE:

@@ -49,6 +49,7 @@ public abstract class EndToEndFlowElementImpl extends NamedElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEndToEndFlowElement();
 	}
