@@ -45,6 +45,7 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.ProcessType;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.SystemType;
@@ -78,7 +79,8 @@ class FlowSpecificationCreationUtil {
 
 		// Check that the feature is of the appropriate type
 		if (!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess
-				|| feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
+				|| feature instanceof FeatureGroup || feature instanceof AbstractFeature
+				|| feature instanceof SubprogramAccess)) {
 			return false;
 		}
 

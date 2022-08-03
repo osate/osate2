@@ -6686,8 +6686,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	/**
-	 * Checks that the feature of a flow is a DataAccess, FeatureGroup,
-	 * Parameter, or Port. Section 10.1 Naming Rule N2.
+	 * Checks section 10.1 Naming Rule N2.
 	 */
 	private void checkFlowFeatureType(FlowEnd flowEnd) {
 		Context flowEndContext = flowEnd.getContext();
@@ -6703,9 +6702,10 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					Aadl2Package.eINSTANCE.getFlowEnd_Context());
 		} else if (!(flowFeature instanceof DataAccess) && !(flowFeature instanceof AbstractFeature)
 				&& !(flowFeature instanceof FeatureGroup) && !(flowFeature instanceof Parameter)
-				&& !(flowFeature instanceof Port)) {
+				&& !(flowFeature instanceof Port) && !(flowFeature instanceof SubprogramAccess)) {
 			error('\'' + (flowEndContext != null ? flowEndContext.getName() + '.' : "") + flowFeature.getName()
-					+ "' must be a port, parameter, data access, feature group, or abstract feature.", flowEnd,
+					+ "' must be a port, parameter, data access, feature group, abstract feature, or subprogeram access.",
+					flowEnd,
 					Aadl2Package.eINSTANCE.getFlowEnd_Feature());
 		}
 	}
