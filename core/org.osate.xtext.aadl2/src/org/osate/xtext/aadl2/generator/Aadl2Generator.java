@@ -41,7 +41,7 @@ import org.osate.annexsupport.AnnexRegistry;
  * Generates code from your model files on save.
  *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
- * @since 6.3
+ * @since 7.0
  */
 public class Aadl2Generator extends AbstractGenerator {
 	private AnnexGeneratorRegistry annexGeneratorRegistry;
