@@ -105,6 +105,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFeatureInstanceAdapter() {
 		if (featureInstanceItemProvider == null) {
 			featureInstanceItemProvider = new FeatureInstanceItemProvider(this);
@@ -127,6 +128,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createPropertyAssociationInstanceAdapter() {
 		if (propertyAssociationInstanceItemProvider == null) {
 			propertyAssociationInstanceItemProvider = new PropertyAssociationInstanceItemProvider(this);
@@ -149,6 +151,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createConnectionInstanceAdapter() {
 		if (connectionInstanceItemProvider == null) {
 			connectionInstanceItemProvider = new ConnectionInstanceItemProvider(this);
@@ -171,6 +174,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createSystemOperationModeAdapter() {
 		if (systemOperationModeItemProvider == null) {
 			systemOperationModeItemProvider = new SystemOperationModeItemProvider(this);
@@ -193,6 +197,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createModeInstanceAdapter() {
 		if (modeInstanceItemProvider == null) {
 			modeInstanceItemProvider = new ModeInstanceItemProvider(this);
@@ -215,6 +220,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createModeTransitionInstanceAdapter() {
 		if (modeTransitionInstanceItemProvider == null) {
 			modeTransitionInstanceItemProvider = new ModeTransitionInstanceItemProvider(this);
@@ -237,6 +243,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createConnectionReferenceAdapter() {
 		if (connectionReferenceItemProvider == null) {
 			connectionReferenceItemProvider = new ConnectionReferenceItemProvider(this);
@@ -259,6 +266,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createComponentInstanceAdapter() {
 		if (componentInstanceItemProvider == null) {
 			componentInstanceItemProvider = new ComponentInstanceItemProvider(this);
@@ -281,6 +289,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createFlowSpecificationInstanceAdapter() {
 		if (flowSpecificationInstanceItemProvider == null) {
 			flowSpecificationInstanceItemProvider = new FlowSpecificationInstanceItemProvider(this);
@@ -303,6 +312,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createEndToEndFlowInstanceAdapter() {
 		if (endToEndFlowInstanceItemProvider == null) {
 			endToEndFlowInstanceItemProvider = new EndToEndFlowInstanceItemProvider(this);
@@ -325,6 +335,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createSystemInstanceAdapter() {
 		if (systemInstanceItemProvider == null) {
 			systemInstanceItemProvider = new SystemInstanceItemProvider(this);
@@ -347,6 +358,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter createInstanceReferenceValueAdapter() {
 		if (instanceReferenceValueItemProvider == null) {
 			instanceReferenceValueItemProvider = new InstanceReferenceValueItemProvider(this);
@@ -380,6 +392,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -390,6 +403,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -399,6 +413,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);

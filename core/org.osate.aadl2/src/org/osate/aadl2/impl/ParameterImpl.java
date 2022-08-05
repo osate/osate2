@@ -72,6 +72,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getParameter();
 	}
@@ -81,6 +82,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
 		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
@@ -93,6 +95,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureClassifier basicGetFeatureClassifier() {
 		if (eIsSet(Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER)) {
 			return basicGetDataFeatureClassifier();
@@ -148,6 +151,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER:
@@ -164,6 +168,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER:
@@ -178,6 +183,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER:
@@ -192,6 +198,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PARAMETER__FEATURE_CLASSIFIER:
@@ -207,6 +214,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetFeatureClassifier() {
 		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER);
 	}

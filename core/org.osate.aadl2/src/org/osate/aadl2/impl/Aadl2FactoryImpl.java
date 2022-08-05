@@ -71,6 +71,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Aadl2Package.COMMENT:
@@ -395,6 +396,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case Aadl2Package.FLOW_KIND:
@@ -429,6 +431,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case Aadl2Package.FLOW_KIND:

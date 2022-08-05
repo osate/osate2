@@ -80,6 +80,7 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.SYSTEM_OPERATION_MODE;
 	}
@@ -102,6 +103,7 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE:
@@ -116,6 +118,7 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE:
@@ -131,6 +134,7 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE:
@@ -145,6 +149,7 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE:

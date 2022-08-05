@@ -87,6 +87,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case InstancePackage.FEATURE_INSTANCE:
@@ -123,6 +124,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case InstancePackage.CONNECTION_KIND:
@@ -139,6 +141,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case InstancePackage.CONNECTION_KIND:

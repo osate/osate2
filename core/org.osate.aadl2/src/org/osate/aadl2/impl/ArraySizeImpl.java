@@ -89,6 +89,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getArraySize();
 	}
@@ -162,6 +163,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_SIZE__SIZE:
@@ -180,6 +182,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_SIZE__SIZE:
@@ -197,6 +200,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_SIZE__SIZE:
@@ -214,6 +218,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_SIZE__SIZE:
@@ -229,6 +234,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

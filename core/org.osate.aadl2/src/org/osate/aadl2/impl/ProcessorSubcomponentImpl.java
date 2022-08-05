@@ -73,6 +73,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorSubcomponent();
 	}
@@ -82,6 +83,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
 		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
@@ -94,6 +96,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubcomponentType basicGetSubcomponentType() {
 		if (eIsSet(Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE)) {
 			return basicGetProcessorSubcomponentType();
@@ -150,6 +153,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE:
@@ -166,6 +170,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE:
@@ -180,6 +185,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE:
@@ -194,6 +200,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT__SUBCOMPONENT_TYPE:
@@ -209,6 +216,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSubcomponentType() {
 		return super.isSetSubcomponentType()
 				|| eIsSet(Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE);

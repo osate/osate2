@@ -156,6 +156,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.MODE_INSTANCE;
 	}
@@ -271,6 +272,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION:
@@ -288,6 +290,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION:
@@ -326,6 +329,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION:
@@ -353,6 +357,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION:
@@ -385,6 +390,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION:
@@ -414,6 +420,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION:
@@ -437,6 +444,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

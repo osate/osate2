@@ -57,6 +57,7 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -169,6 +170,7 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/ModeInstance")); //$NON-NLS-1$
 	}
@@ -179,6 +181,7 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ModeInstance) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_ModeInstance_type") : //$NON-NLS-1$
@@ -192,6 +195,7 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 

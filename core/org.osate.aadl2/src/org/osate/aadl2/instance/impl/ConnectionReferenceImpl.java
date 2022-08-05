@@ -137,6 +137,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.CONNECTION_REFERENCE;
 	}
@@ -337,6 +338,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_REFERENCE__CONTEXT:
@@ -370,6 +372,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_REFERENCE__CONTEXT:
@@ -396,6 +399,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_REFERENCE__CONTEXT:
@@ -422,6 +426,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_REFERENCE__CONTEXT:
@@ -443,6 +448,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

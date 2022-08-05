@@ -148,6 +148,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNamedElement();
 	}
@@ -232,6 +233,16 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<PropertyExpression> getPropertyValues(String propertySetName, String propertyName) {
+		return NamedElementOperations.getPropertyValues(this, propertySetName, propertyName);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
@@ -245,6 +256,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -263,6 +275,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -281,6 +294,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -298,6 +312,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -316,6 +331,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

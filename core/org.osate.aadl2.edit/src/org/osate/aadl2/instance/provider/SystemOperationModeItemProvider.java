@@ -69,6 +69,7 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -99,6 +100,7 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemOperationMode")); //$NON-NLS-1$
 	}
@@ -109,6 +111,7 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((SystemOperationMode) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_SystemOperationMode_type") : //$NON-NLS-1$
@@ -122,6 +125,7 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
@@ -133,6 +137,7 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Aadl2EditPlugin.INSTANCE;
 	}

@@ -115,6 +115,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyAssociation> getOwnedPropertyAssociations() {
 		if (ownedPropertyAssociations == null) {
 			ownedPropertyAssociations = new EObjectContainmentEList<PropertyAssociation>(
@@ -150,6 +151,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -165,6 +167,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -179,6 +182,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -194,6 +198,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -208,6 +213,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:

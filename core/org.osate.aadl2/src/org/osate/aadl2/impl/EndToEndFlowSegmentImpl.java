@@ -82,6 +82,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEndToEndFlowSegment();
 	}
@@ -175,6 +176,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
@@ -196,6 +198,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
@@ -213,6 +216,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
@@ -230,6 +234,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:

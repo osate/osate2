@@ -50,6 +50,7 @@ public class DataPrototypeImpl extends ComponentPrototypeImpl implements DataPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDataPrototype();
 	}

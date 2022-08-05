@@ -245,6 +245,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.COMPONENT_INSTANCE;
 	}
@@ -567,6 +568,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -592,6 +594,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -634,6 +637,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -690,6 +694,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -737,6 +742,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -772,6 +778,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

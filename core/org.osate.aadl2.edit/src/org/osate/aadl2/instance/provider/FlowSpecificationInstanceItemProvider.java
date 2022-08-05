@@ -33,7 +33,6 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
-import org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.instance.FlowSpecificationInstance} object.
@@ -58,6 +57,7 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -156,19 +156,9 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
-		FlowSpecification fs = ((FlowSpecificationInstanceImpl) object).getFlowSpecification();
-		if (fs.getAllInEnd() == null && fs.getAllOutEnd() == null) {
-			return null;
-		} else if (fs.getAllInEnd() == null) {
-			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSource"));
-		} else if (fs.getAllOutEnd() == null) {
-			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSink"));
-		}
-
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPath"));
-
-		// return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSpecificationInstance")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSpecificationInstance")); //$NON-NLS-1$
 	}
 
 	/**
@@ -204,6 +194,7 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
