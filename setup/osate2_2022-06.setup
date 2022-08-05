@@ -403,6 +403,8 @@
         name="org.eclipse.oomph.version.feature.group"/>
     <requirement
         name="org.eclipse.oomph.version.headless.feature.group"/>
+    <repository
+        url="https://download.eclipse.org/oomph/updates/"/>
   </setupTask>
   <setupTask
       xsi:type="setup:VariableTask"
