@@ -6524,7 +6524,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_END__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * The feature id for the '<em><b>Context</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -38030,10 +38030,10 @@ public interface Aadl2Package extends EPackage {
 	EClass getFlowEnd();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.FlowEnd#getContext <em>Context</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.FlowEnd#getContext <em>Context</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Context</em>'.
+	 * @return the meta object for the containment reference '<em>Context</em>'.
 	 * @see org.osate.aadl2.FlowEnd#getContext()
 	 * @see #getFlowEnd()
 	 * @generated
