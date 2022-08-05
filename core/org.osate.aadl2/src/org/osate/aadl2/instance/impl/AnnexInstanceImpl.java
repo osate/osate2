@@ -81,6 +81,7 @@ public abstract class AnnexInstanceImpl extends NamedElementImpl implements Anne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnnexSubclause getAnnexSubclause() {
 		if (annexSubclause != null && ((EObject) annexSubclause).eIsProxy()) {
 			InternalEObject oldAnnexSubclause = (InternalEObject) annexSubclause;
@@ -109,6 +110,7 @@ public abstract class AnnexInstanceImpl extends NamedElementImpl implements Anne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAnnexSubclause(AnnexSubclause newAnnexSubclause) {
 		AnnexSubclause oldAnnexSubclause = annexSubclause;
 		annexSubclause = newAnnexSubclause;

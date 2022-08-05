@@ -93,6 +93,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumberType getNumberType() {
 		NumberType numberType = basicGetNumberType();
 		return numberType != null && ((EObject) numberType).eIsProxy()
@@ -118,6 +119,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumberType getReferencedNumberType() {
 		if (referencedNumberType != null && ((EObject) referencedNumberType).eIsProxy()) {
 			InternalEObject oldReferencedNumberType = (InternalEObject) referencedNumberType;
@@ -147,6 +149,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedNumberType(NumberType newReferencedNumberType) {
 		NumberType oldReferencedNumberType = referencedNumberType;
 		referencedNumberType = newReferencedNumberType;
@@ -161,6 +164,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumberType getOwnedNumberType() {
 		return ownedNumberType;
 	}
@@ -190,6 +194,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedNumberType(NumberType newOwnedNumberType) {
 		if (newOwnedNumberType != ownedNumberType) {
 			NotificationChain msgs = null;

@@ -90,9 +90,10 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeInstance> getCurrentModes() {
 		if (currentModes == null) {
-			currentModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+			currentModes = new EObjectResolvingEList<>(ModeInstance.class, this,
 					InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE);
 		}
 		return currentModes;

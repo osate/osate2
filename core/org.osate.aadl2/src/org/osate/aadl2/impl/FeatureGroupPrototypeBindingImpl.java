@@ -61,6 +61,16 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	protected FeatureGroupPrototypeActual actual;
 
 	/**
+	 * The cached value of the '{@link #getFormal() <em>Formal</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFormal()
+	 * @generated
+	 * @ordered
+	 */
+	protected Prototype formal;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -84,6 +94,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureGroupPrototypeActual getActual() {
 		return actual;
 	}
@@ -113,6 +124,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActual(FeatureGroupPrototypeActual newActual) {
 		if (newActual != actual) {
 			NotificationChain msgs = null;

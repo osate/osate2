@@ -88,9 +88,10 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BasicPropertyAssociation> getOwnedFieldValues() {
 		if (ownedFieldValues == null) {
-			ownedFieldValues = new EObjectContainmentEList<BasicPropertyAssociation>(BasicPropertyAssociation.class,
+			ownedFieldValues = new EObjectContainmentEList<>(BasicPropertyAssociation.class,
 					this, Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE);
 		}
 		return ownedFieldValues;

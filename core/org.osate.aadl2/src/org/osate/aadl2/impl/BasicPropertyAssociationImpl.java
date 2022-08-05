@@ -104,6 +104,7 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BasicProperty getProperty() {
 		if (property != null && ((EObject) property).eIsProxy()) {
 			InternalEObject oldProperty = (InternalEObject) property;
@@ -132,6 +133,7 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProperty(BasicProperty newProperty) {
 		BasicProperty oldProperty = property;
 		property = newProperty;
@@ -146,6 +148,7 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getOwnedValue() {
 		return ownedValue;
 	}
@@ -175,6 +178,7 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedValue(PropertyExpression newOwnedValue) {
 		if (newOwnedValue != ownedValue) {
 			NotificationChain msgs = null;

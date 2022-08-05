@@ -204,6 +204,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Feature getFeature() {
 		if (feature != null && ((EObject) feature).eIsProxy()) {
 			InternalEObject oldFeature = (InternalEObject) feature;
@@ -232,6 +233,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFeature(Feature newFeature) {
 		Feature oldFeature = feature;
 		feature = newFeature;
@@ -246,6 +248,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getIndex() {
 		return index;
 	}
@@ -255,6 +258,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIndex(long newIndex) {
 		long oldIndex = index;
 		index = newIndex;
@@ -286,9 +290,10 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FlowSpecificationInstance> getSrcFlowSpecs() {
 		if (srcFlowSpecs == null) {
-			srcFlowSpecs = new EObjectWithInverseEList<FlowSpecificationInstance>(FlowSpecificationInstance.class, this,
+			srcFlowSpecs = new EObjectWithInverseEList<>(FlowSpecificationInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE);
 		}
@@ -300,9 +305,10 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FlowSpecificationInstance> getDstFlowSpecs() {
 		if (dstFlowSpecs == null) {
-			dstFlowSpecs = new EObjectWithInverseEList<FlowSpecificationInstance>(FlowSpecificationInstance.class, this,
+			dstFlowSpecs = new EObjectWithInverseEList<>(FlowSpecificationInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION);
 		}
@@ -314,9 +320,10 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FeatureInstance> getFeatureInstances() {
 		if (featureInstances == null) {
-			featureInstances = new EObjectContainmentEList<FeatureInstance>(FeatureInstance.class, this,
+			featureInstances = new EObjectContainmentEList<>(FeatureInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__FEATURE_INSTANCE);
 		}
 		return featureInstances;
@@ -338,6 +345,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureCategory getCategory() {
 		return category;
 	}
@@ -347,6 +355,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCategory(FeatureCategory newCategory) {
 		FeatureCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
@@ -361,6 +370,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DirectionType getDirection() {
 		return direction;
 	}
@@ -370,6 +380,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDirection(DirectionType newDirection) {
 		DirectionType oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;

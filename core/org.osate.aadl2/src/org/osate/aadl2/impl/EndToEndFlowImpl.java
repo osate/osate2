@@ -125,6 +125,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Mode> getInModes() {
 		return ModalPathOperations.getInModes(this);
 	}
@@ -153,9 +154,10 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeFeature> getInModeOrTransitions() {
 		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+			inModeOrTransitions = new EObjectResolvingEList<>(ModeFeature.class, this,
 					Aadl2Package.END_TO_END_FLOW__IN_MODE_OR_TRANSITION);
 		}
 		return inModeOrTransitions;
@@ -202,6 +204,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EndToEndFlow getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
@@ -230,6 +233,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRefined(EndToEndFlow newRefined) {
 		EndToEndFlow oldRefined = refined;
 		refined = newRefined;
@@ -244,9 +248,10 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EndToEndFlowSegment> getOwnedEndToEndFlowSegments() {
 		if (ownedEndToEndFlowSegments == null) {
-			ownedEndToEndFlowSegments = new EObjectContainmentEList<EndToEndFlowSegment>(EndToEndFlowSegment.class,
+			ownedEndToEndFlowSegments = new EObjectContainmentEList<>(EndToEndFlowSegment.class,
 					this, Aadl2Package.END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT);
 		}
 		return ownedEndToEndFlowSegments;

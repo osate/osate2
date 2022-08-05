@@ -131,7 +131,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 */
 	public EList<FlowElementInstance> getFlowElements() {
 		if (flowElements == null) {
-			flowElements = new EObjectResolvingEList<FlowElementInstance>(FlowElementInstance.class, this,
+			flowElements = new EObjectResolvingEList<>(FlowElementInstance.class, this,
 					InstancePackage.END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT) {
 				private static final long serialVersionUID = 1L;
 
@@ -153,6 +153,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EndToEndFlow getEndToEndFlow() {
 		if (endToEndFlow != null && ((EObject) endToEndFlow).eIsProxy()) {
 			InternalEObject oldEndToEndFlow = (InternalEObject) endToEndFlow;
@@ -181,6 +182,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEndToEndFlow(EndToEndFlow newEndToEndFlow) {
 		EndToEndFlow oldEndToEndFlow = endToEndFlow;
 		endToEndFlow = newEndToEndFlow;
@@ -195,9 +197,10 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+			inModes = new EObjectResolvingEList<>(ModeInstance.class, this,
 					InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE);
 		}
 		return inModes;
@@ -208,9 +211,10 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SystemOperationMode> getInSystemOperationModes() {
 		if (inSystemOperationModes == null) {
-			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(SystemOperationMode.class, this,
+			inSystemOperationModes = new EObjectResolvingEList<>(SystemOperationMode.class, this,
 					InstancePackage.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE);
 		}
 		return inSystemOperationModes;
@@ -313,7 +317,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 
 	public EList<EList<ModeInstance>> getModesList() {
 		if (modesList == null) {
-			modesList = new BasicEList<EList<ModeInstance>>();
+			modesList = new BasicEList<>();
 		}
 		return modesList;
 	}

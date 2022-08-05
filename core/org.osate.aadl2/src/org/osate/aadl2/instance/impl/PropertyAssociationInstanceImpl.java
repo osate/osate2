@@ -81,6 +81,7 @@ public class PropertyAssociationInstanceImpl extends PropertyAssociationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyAssociation getPropertyAssociation() {
 		if (propertyAssociation != null && ((EObject) propertyAssociation).eIsProxy()) {
 			InternalEObject oldPropertyAssociation = (InternalEObject) propertyAssociation;
@@ -110,6 +111,7 @@ public class PropertyAssociationInstanceImpl extends PropertyAssociationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPropertyAssociation(PropertyAssociation newPropertyAssociation) {
 		PropertyAssociation oldPropertyAssociation = propertyAssociation;
 		propertyAssociation = newPropertyAssociation;

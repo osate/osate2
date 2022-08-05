@@ -61,6 +61,16 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	protected FeaturePrototypeActual actual;
 
 	/**
+	 * The cached value of the '{@link #getFormal() <em>Formal</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFormal()
+	 * @generated
+	 * @ordered
+	 */
+	protected Prototype formal;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -84,6 +94,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeaturePrototypeActual getActual() {
 		return actual;
 	}
@@ -113,6 +124,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActual(FeaturePrototypeActual newActual) {
 		if (newActual != actual) {
 			NotificationChain msgs = null;

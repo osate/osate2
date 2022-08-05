@@ -89,6 +89,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnitLiteral getBaseUnit() {
 		if (baseUnit != null && ((EObject) baseUnit).eIsProxy()) {
 			InternalEObject oldBaseUnit = (InternalEObject) baseUnit;
@@ -115,6 +116,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBaseUnit(UnitLiteral newBaseUnit) {
 		UnitLiteral oldBaseUnit = baseUnit;
 		baseUnit = newBaseUnit;
@@ -128,6 +130,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumberValue getFactor() {
 		return factor;
 	}
@@ -155,6 +158,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFactor(NumberValue newFactor) {
 		if (newFactor != factor) {
 			NotificationChain msgs = null;

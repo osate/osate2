@@ -109,6 +109,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAnnexName() {
 		return annexName;
 	}
@@ -118,6 +119,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAnnexName(String newAnnexName) {
 		String oldAnnexName = annexName;
 		annexName = newAnnexName;
@@ -132,9 +134,10 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getMetaclassNames() {
 		if (metaclassNames == null) {
-			metaclassNames = new EDataTypeEList<String>(String.class, this,
+			metaclassNames = new EDataTypeEList<>(String.class, this,
 					Aadl2Package.METACLASS_REFERENCE__METACLASS_NAME);
 		}
 		return metaclassNames;

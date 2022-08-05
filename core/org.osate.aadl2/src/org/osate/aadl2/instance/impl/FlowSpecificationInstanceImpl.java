@@ -134,6 +134,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureInstance getSource() {
 		return source;
 	}
@@ -163,6 +164,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSource(FeatureInstance newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
@@ -189,6 +191,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureInstance getDestination() {
 		return destination;
 	}
@@ -218,6 +221,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDestination(FeatureInstance newDestination) {
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
@@ -244,6 +248,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowSpecification getFlowSpecification() {
 		if (flowSpecification != null && ((EObject) flowSpecification).eIsProxy()) {
 			InternalEObject oldFlowSpecification = (InternalEObject) flowSpecification;
@@ -273,6 +278,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFlowSpecification(FlowSpecification newFlowSpecification) {
 		FlowSpecification oldFlowSpecification = flowSpecification;
 		flowSpecification = newFlowSpecification;
@@ -288,9 +294,10 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+			inModes = new EObjectResolvingEList<>(ModeInstance.class, this,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE);
 		}
 		return inModes;
@@ -301,9 +308,10 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeTransitionInstance> getInModeTransitions() {
 		if (inModeTransitions == null) {
-			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+			inModeTransitions = new EObjectResolvingEList<>(ModeTransitionInstance.class, this,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION);
 		}
 		return inModeTransitions;

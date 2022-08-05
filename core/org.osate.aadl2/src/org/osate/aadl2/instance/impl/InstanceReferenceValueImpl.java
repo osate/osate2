@@ -82,6 +82,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InstanceObject getReferencedInstanceObject() {
 		if (referencedInstanceObject != null && referencedInstanceObject.eIsProxy()) {
 			InternalEObject oldReferencedInstanceObject = (InternalEObject) referencedInstanceObject;
@@ -111,6 +112,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedInstanceObject(InstanceObject newReferencedInstanceObject) {
 		InstanceObject oldReferencedInstanceObject = referencedInstanceObject;
 		referencedInstanceObject = newReferencedInstanceObject;

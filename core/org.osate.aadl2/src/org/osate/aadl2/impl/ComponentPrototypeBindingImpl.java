@@ -66,6 +66,16 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl implemen
 	protected EList<ComponentPrototypeActual> actuals;
 
 	/**
+	 * The cached value of the '{@link #getFormal() <em>Formal</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFormal()
+	 * @generated
+	 * @ordered
+	 */
+	protected Prototype formal;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -89,9 +99,10 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ComponentPrototypeActual> getActuals() {
 		if (actuals == null) {
-			actuals = new EObjectContainmentEList<ComponentPrototypeActual>(ComponentPrototypeActual.class, this,
+			actuals = new EObjectContainmentEList<>(ComponentPrototypeActual.class, this,
 					Aadl2Package.COMPONENT_PROTOTYPE_BINDING__ACTUAL);
 		}
 		return actuals;

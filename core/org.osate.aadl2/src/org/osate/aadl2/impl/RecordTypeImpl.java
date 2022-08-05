@@ -88,7 +88,7 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.RECORD_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -107,9 +107,10 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BasicProperty> getOwnedFields() {
 		if (ownedFields == null) {
-			ownedFields = new EObjectContainmentEList<BasicProperty>(BasicProperty.class, this,
+			ownedFields = new EObjectContainmentEList<>(BasicProperty.class, this,
 					Aadl2Package.RECORD_TYPE__OWNED_FIELD);
 		}
 		return ownedFields;

@@ -113,6 +113,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getReferencedPropertyType() {
 		if (referencedPropertyType != null && ((EObject) referencedPropertyType).eIsProxy()) {
 			InternalEObject oldReferencedPropertyType = (InternalEObject) referencedPropertyType;
@@ -142,6 +143,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedPropertyType(PropertyType newReferencedPropertyType) {
 		PropertyType oldReferencedPropertyType = referencedPropertyType;
 		referencedPropertyType = newReferencedPropertyType;
@@ -169,6 +171,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getPropertyType() {
 		PropertyType propertyType = basicGetPropertyType();
 		return propertyType != null && ((EObject) propertyType).eIsProxy()
@@ -204,6 +207,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getOwnedPropertyType() {
 		return ownedPropertyType;
 	}
@@ -233,6 +237,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedPropertyType(PropertyType newOwnedPropertyType) {
 		if (newOwnedPropertyType != ownedPropertyType) {
 			NotificationChain msgs = null;
@@ -308,6 +313,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getConstantValue() {
 		return constantValue;
 	}
@@ -337,6 +343,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConstantValue(PropertyExpression newConstantValue) {
 		if (newConstantValue != constantValue) {
 			NotificationChain msgs = null;

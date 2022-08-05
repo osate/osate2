@@ -83,6 +83,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getOwnedValue() {
 		return ownedValue;
 	}
@@ -112,6 +113,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedValue(PropertyExpression newOwnedValue) {
 		if (newOwnedValue != ownedValue) {
 			NotificationChain msgs = null;

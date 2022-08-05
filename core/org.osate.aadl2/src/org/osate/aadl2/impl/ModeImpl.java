@@ -104,6 +104,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isInitial() {
 		return initial;
 	}
@@ -113,6 +114,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitial(boolean newInitial) {
 		boolean oldInitial = initial;
 		initial = newInitial;

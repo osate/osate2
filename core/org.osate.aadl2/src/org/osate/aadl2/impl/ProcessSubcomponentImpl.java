@@ -109,6 +109,7 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProcessSubcomponentType getProcessSubcomponentType() {
 		if (processSubcomponentType != null && ((EObject) processSubcomponentType).eIsProxy()) {
 			InternalEObject oldProcessSubcomponentType = (InternalEObject) processSubcomponentType;
@@ -138,6 +139,7 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProcessSubcomponentType(ProcessSubcomponentType newProcessSubcomponentType) {
 		ProcessSubcomponentType oldProcessSubcomponentType = processSubcomponentType;
 		processSubcomponentType = newProcessSubcomponentType;

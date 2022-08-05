@@ -92,6 +92,7 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Context getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
@@ -120,6 +121,7 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
@@ -133,6 +135,7 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Feature getFeature() {
 		if (feature != null && ((EObject) feature).eIsProxy()) {
 			InternalEObject oldFeature = (InternalEObject) feature;
@@ -161,6 +164,7 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFeature(Feature newFeature) {
 		Feature oldFeature = feature;
 		feature = newFeature;

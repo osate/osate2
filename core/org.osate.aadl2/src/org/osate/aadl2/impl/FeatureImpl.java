@@ -113,9 +113,10 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
-			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
+			arrayDimensions = new EObjectContainmentEList<>(ArrayDimension.class, this,
 					Aadl2Package.FEATURE__ARRAY_DIMENSION);
 		}
 		return arrayDimensions;
@@ -204,6 +205,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Feature getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
@@ -232,6 +234,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRefined(Feature newRefined) {
 		Feature oldRefined = refined;
 		refined = newRefined;
@@ -463,7 +466,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
 	public EList<Feature> getAllFeatureRefinements() {
-		BasicEList<Feature> returnlist = new BasicEList<Feature>();
+		BasicEList<Feature> returnlist = new BasicEList<>();
 		Feature more = this;
 		while (more != null) {
 			returnlist.add(more);

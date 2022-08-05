@@ -82,6 +82,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnitLiteral getUnit() {
 		if (unit != null && ((EObject) unit).eIsProxy()) {
 			InternalEObject oldUnit = (InternalEObject) unit;
@@ -110,6 +111,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnit(UnitLiteral newUnit) {
 		UnitLiteral oldUnit = unit;
 		unit = newUnit;

@@ -76,7 +76,7 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 */
 	@Override
 	public EList<NamedElement> getMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.GLOBAL_NAMESPACE__MEMBER, MEMBER_ESUBSETS);
 	}
 
@@ -96,6 +96,7 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PublicPackageSection> getPackages() {
 		// TODO: implement this method to return the 'Package' reference list
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -107,6 +108,7 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertySet> getPropertySets() {
 		// TODO: implement this method to return the 'Property Set' reference list
 		// Ensure that you remove @generated or mark it @generated NOT

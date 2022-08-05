@@ -109,6 +109,7 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponentType getDataSubcomponentType() {
 		if (dataSubcomponentType != null && ((EObject) dataSubcomponentType).eIsProxy()) {
 			InternalEObject oldDataSubcomponentType = (InternalEObject) dataSubcomponentType;
@@ -138,6 +139,7 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataSubcomponentType(DataSubcomponentType newDataSubcomponentType) {
 		DataSubcomponentType oldDataSubcomponentType = dataSubcomponentType;
 		dataSubcomponentType = newDataSubcomponentType;

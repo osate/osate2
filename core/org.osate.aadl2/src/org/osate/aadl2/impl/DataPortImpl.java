@@ -109,6 +109,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponentType getDataFeatureClassifier() {
 		if (dataFeatureClassifier != null && ((EObject) dataFeatureClassifier).eIsProxy()) {
 			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
@@ -138,6 +139,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataFeatureClassifier(DataSubcomponentType newDataFeatureClassifier) {
 		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
 		dataFeatureClassifier = newDataFeatureClassifier;

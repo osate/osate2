@@ -109,6 +109,7 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ThreadGroupSubcomponentType getThreadGroupSubcomponentType() {
 		if (threadGroupSubcomponentType != null && ((EObject) threadGroupSubcomponentType).eIsProxy()) {
 			InternalEObject oldThreadGroupSubcomponentType = (InternalEObject) threadGroupSubcomponentType;
@@ -138,6 +139,7 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setThreadGroupSubcomponentType(ThreadGroupSubcomponentType newThreadGroupSubcomponentType) {
 		ThreadGroupSubcomponentType oldThreadGroupSubcomponentType = threadGroupSubcomponentType;
 		threadGroupSubcomponentType = newThreadGroupSubcomponentType;

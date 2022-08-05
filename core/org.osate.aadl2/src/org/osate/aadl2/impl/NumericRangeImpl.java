@@ -90,6 +90,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getUpperBound() {
 		return upperBound;
 	}
@@ -119,6 +120,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUpperBound(PropertyExpression newUpperBound) {
 		if (newUpperBound != upperBound) {
 			NotificationChain msgs = null;
@@ -156,6 +158,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getLowerBound() {
 		return lowerBound;
 	}
@@ -185,6 +188,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLowerBound(PropertyExpression newLowerBound) {
 		if (newLowerBound != lowerBound) {
 			NotificationChain msgs = null;

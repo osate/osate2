@@ -155,7 +155,7 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 */
 	@Override
 	public EList<Feature> getOwnedFeatures() {
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.ABSTRACT_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.ABSTRACT_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -179,9 +179,10 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
-			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+			ownedBusAccesses = new EObjectContainmentEList<>(BusAccess.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS);
 		}
 		return ownedBusAccesses;
@@ -203,9 +204,10 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
-			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
+			ownedDataAccesses = new EObjectContainmentEList<>(DataAccess.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_DATA_ACCESS);
 		}
 		return ownedDataAccesses;
@@ -227,9 +229,10 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
-			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
+			ownedSubprogramAccesses = new EObjectContainmentEList<>(SubprogramAccess.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		}
 		return ownedSubprogramAccesses;
@@ -252,9 +255,10 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
-			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
+			ownedDataPorts = new EObjectContainmentEList<>(DataPort.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_DATA_PORT);
 		}
 		return ownedDataPorts;
@@ -276,9 +280,10 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
-			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
+			ownedEventPorts = new EObjectContainmentEList<>(EventPort.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_EVENT_PORT);
 		}
 		return ownedEventPorts;
@@ -300,9 +305,10 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
-			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
+			ownedEventDataPorts = new EObjectContainmentEList<>(EventDataPort.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_EVENT_DATA_PORT);
 		}
 		return ownedEventDataPorts;
@@ -324,9 +330,10 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
-			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<>(
 					SubprogramGroupAccess.class, this, Aadl2Package.ABSTRACT_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 		}
 		return ownedSubprogramGroupAccesses;

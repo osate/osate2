@@ -52,6 +52,16 @@ import org.osate.aadl2.UnitsType;
  */
 public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	/**
+	 * The cached value of the '{@link #getOwnedLiterals() <em>Owned Literal</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedLiterals()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EnumerationLiteral> ownedLiterals;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -77,7 +87,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.UNITS_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -99,21 +109,10 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	@Override
 	public EList<EnumerationLiteral> getOwnedLiterals() {
 		if (ownedLiterals == null) {
-			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(UnitLiteral.class, this,
+			ownedLiterals = new EObjectContainmentEList<>(UnitLiteral.class, this,
 					Aadl2Package.UNITS_TYPE__OWNED_LITERAL);
 		}
 		return ownedLiterals;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EnumerationLiteral createOwnedLiteral() {
-		UnitLiteral newOwnedLiteral = (UnitLiteral) create(Aadl2Package.eINSTANCE.getUnitLiteral());
-		getOwnedLiterals().add(newOwnedLiteral);
-		return newOwnedLiteral;
 	}
 
 	/**
@@ -162,7 +161,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers() || isSetOwnedLiterals();
+		return super.isSetOwnedMembers();
 	}
 
 	/*
