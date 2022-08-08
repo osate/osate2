@@ -978,7 +978,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param secondconn Connection
 	 * @return boolean true if same or refined
 	 */
-	private static boolean isSameOrRefined(Connection firstconn, Connection secondconn) {
+	static boolean isSameOrRefined(Connection firstconn, Connection secondconn) {
 		if (firstconn == secondconn) {
 			return true;
 		}
@@ -999,7 +999,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return false;
 	}
 
-	private static boolean isSameOrRefined(Feature f1, Feature f2) {
+	static boolean isSameOrRefined(Feature f1, Feature f2) {
 		if (f1 == f2) {
 			return true;
 		}
@@ -1020,7 +1020,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return false;
 	}
 
-	private static boolean isSameOrRefined(Subcomponent sub1, Subcomponent sub2) {
+	static boolean isSameOrRefined(Subcomponent sub1, Subcomponent sub2) {
 		if (sub1 == sub2) {
 			return true;
 		}
@@ -1041,7 +1041,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return false;
 	}
 
-	private static boolean isSameOrRefined(FlowSpecification fs1, FlowSpecification fs2) {
+	static boolean isSameOrRefined(FlowSpecification fs1, FlowSpecification fs2) {
 		if (fs1 == fs2) {
 			return true;
 		}
@@ -1062,7 +1062,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return false;
 	}
 
-	private static boolean isSameOrRefined(EndToEndFlow e2e1, EndToEndFlow e2e2) {
+	static boolean isSameOrRefined(EndToEndFlow e2e1, EndToEndFlow e2e2) {
 		if (e2e1 == e2e2) {
 			return true;
 		}
