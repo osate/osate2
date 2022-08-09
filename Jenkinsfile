@@ -18,10 +18,18 @@ pipeline {
       }
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
-          wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-            sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Plocal \
-                -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                -Dcodecoverage=true -Dspotbugs=true -Djavadoc=false -Dpr.build=true'
+          withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
+            wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
+              sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
+                  -Plocal -Dsonar.login=$SONARTOKEN \
+                  -Dsonar.pullrequest.provider=GitHub \
+                  -Dsonar.pullrequest.github.repository=$(echo $CHANGE_URL | cut -d/ -f4,5) \
+                  -Dsonar.pullrequest.key=$CHANGE_ID \
+                  -Dsonar.pullrequest.branch=$CHANGE_BRANCH \
+                  -Dsonar.pullrequest.base=$CHANGE_TARGET \
+                  -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                  -Dcodecoverage=true -Dspotbugs=true -Djavadoc=false -Dpr.build=true'
+            }
           }
         }
       }
