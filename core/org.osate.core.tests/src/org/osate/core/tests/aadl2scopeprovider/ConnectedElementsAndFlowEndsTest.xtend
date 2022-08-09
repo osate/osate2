@@ -249,8 +249,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					"fsource1".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
 				]
@@ -258,8 +256,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					"fsource2".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
 				]
@@ -267,8 +263,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					"fsource3".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
 				]
@@ -276,8 +270,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					"fsource4".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
 					//Not testing for this error, but the assert is here so that we can test the scope when the context is a data port.
@@ -287,8 +279,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					"fsource5".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
 					//Not testing for this error, but the assert is here so that we can test the scope when the context is a data port.
@@ -626,10 +616,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
-						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
-					])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
 				]
@@ -638,10 +624,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
-						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
-					])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
 				]
@@ -650,10 +632,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
-						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
-					])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
 				]
@@ -662,10 +640,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
-						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
-					])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
 					//Not testing for this error, but the assert is here so that we can test the scope when the context is a data port.
@@ -676,10 +650,6 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
 					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
-					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
-						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
-					])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
 					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
 					//Not testing for this error, but the assert is here so that we can test the scope when the context is a data port.
