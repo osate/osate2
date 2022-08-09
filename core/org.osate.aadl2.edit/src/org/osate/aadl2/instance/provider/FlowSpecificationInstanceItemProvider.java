@@ -33,6 +33,7 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.instance.FlowSpecificationInstance} object.
@@ -154,11 +155,20 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * This returns FlowSpecificationInstance.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSpecificationInstance")); //$NON-NLS-1$
+		FlowSpecification fs = ((FlowSpecificationInstanceImpl) object).getFlowSpecification();
+		if (fs.getAllInEnd() == null && fs.getAllOutEnd() == null) {
+			return null;
+		} else if (fs.getAllInEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSource"));
+		} else if (fs.getAllOutEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSink"));
+		}
+
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPath"));
 	}
 
 	/**

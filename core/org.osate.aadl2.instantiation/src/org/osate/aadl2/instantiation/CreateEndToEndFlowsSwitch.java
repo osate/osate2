@@ -325,8 +325,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				} else {
 					error(etei.getContainingComponentInstance(),
 							"Incomplete End-to-end flow instance " + etei.getName()
-							+ ": Could not find component instance for subcomponent " + sc.getName()
-							+ " in flow implementation " + errorElement.getName());
+									+ ": Could not find component instance for subcomponent " + sc.getName()
+									+ " in flow implementation " + errorElement.getName());
 				}
 			} else if (fe instanceof Subcomponent) {
 				ComponentInstance sci = ci.findSubcomponentInstance((Subcomponent) fe);
@@ -367,7 +367,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			processFlowStep(ci, etei, fs, iter);
 			if (subImpl != null && AadlUtil.hasPortComponents(subImpl)) {
 				warning(etei, "End-to-end flow " + etei.getName() + " contains component " + ci.getName()
-				+ " with subcomponents, but no flow implementation " + fs.getName() + " to them");
+						+ " with subcomponents, but no flow implementation " + fs.getName() + " to them");
 			}
 		} else {
 			Iterator<FlowImplementation> itt = flowImpls.iterator();
@@ -488,9 +488,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						/* [**] See note below. */
 						error(etei.getContainingComponentInstance(),
 								"Cannot create end to end flow '" + etei.getName()
-								+ "' because there are no semantic connections that continue the flow '"
-								+ flowFilter.getSpecification().getName() + "' from feature '"
-								+ flowFilter.getOutEnd().getFeature().getName() + "'");
+										+ "' because there are no semantic connections that continue the flow '"
+										+ flowFilter.getSpecification().getName() + "' from feature '"
+										+ flowFilter.getOutEnd().getFeature().getName() + "'");
 					}
 				}
 			} else {
@@ -639,23 +639,17 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			FeatureInstance conniFi = (FeatureInstance) cie;
 			ComponentInstance ci = conniFi.getContainingComponentInstance();
 			FlowSpecificationInstance fsi = ci.findFlowSpecInstance(fspec);
-			FeatureInstance fsSrcFi = fsi.getSource();
-			EObject e = conniFi;
-			while (e instanceof FeatureInstance) {
-				FeatureInstance fi = (FeatureInstance) e;
-				if (fsSrcFi.getIndex() > 0) {
-					// same array element?
+			if (fsi != null) {
+				FeatureInstance fsSrcFi = fsi.getSource();
+				EObject e = conniFi;
+				while (e instanceof FeatureInstance) {
+					FeatureInstance fi = (FeatureInstance) e;
 					if (fi == fsSrcFi) {
 						return true;
 					}
-				} else {
-					// some feature in array?
-					if (fi.getName().equalsIgnoreCase(fsSrcFi.getName())) {
-						return true;
-					}
+					// containment?
+					e = fi.eContainer();
 				}
-				// containment?
-				e = fi.eContainer();
 			}
 		}
 		return false;
@@ -698,7 +692,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 			if (connis.isEmpty()) {
 				error(etei, "Incomplete end-to-end flow instance " + etei.getName()
-				+ ": Missing connection instance to " + ((NamedElement) da).getName());
+						+ ": Missing connection instance to " + ((NamedElement) da).getName());
 				connections.clear();
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
@@ -723,7 +717,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						if (!errorReported) {
 							errorReported = true;
 							error(etei, "Data access feature " + da.getQualifiedName()
-							+ " is not a proxy for a data component.");
+									+ " is not a proxy for a data component.");
 						}
 					}
 
@@ -878,7 +872,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 			if (connis.isEmpty()) {
 				error(etei, "Incomplete end-to-end flow instance " + etei.getName()
-				+ ": Missing connection instance to " + ((NamedElement) ete).getName());
+						+ ": Missing connection instance to " + ((NamedElement) ete).getName());
 				connections.clear();
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();

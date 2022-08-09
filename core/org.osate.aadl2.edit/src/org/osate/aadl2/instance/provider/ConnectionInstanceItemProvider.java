@@ -34,7 +34,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.impl.ConnectionInstanceImpl;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.instance.ConnectionInstance} object.
@@ -218,10 +220,26 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 * This returns ConnectionInstance.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
+		switch (((ConnectionInstanceImpl) object).getKind().getValue()) {
+		case ConnectionKind.ACCESS_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/AccessConnectionInstance"));
+		case ConnectionKind.FEATURE_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureConnectionInstance"));
+		case ConnectionKind.FEATURE_GROUP_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupConnectionInstance"));
+		case ConnectionKind.MODE_TRANSITION_CONNECTION_VALUE:
+			break;
+		case ConnectionKind.PARAMETER_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/ParameterConnectionInstance"));
+		case ConnectionKind.PORT_CONNECTION_VALUE:
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/PortConnectionInstance"));
+		default:
+			break;
+		}
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/ConnectionInstance")); //$NON-NLS-1$
 	}
 
