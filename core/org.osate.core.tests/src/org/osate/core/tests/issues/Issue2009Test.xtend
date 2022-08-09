@@ -140,12 +140,11 @@ class Issue2009Test extends XtextTest {
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
-		// There should be 1 error and 2 warnings
-		assertTrue(messages.size == 3)
+		// There should be 2 errors and 2 warnings
+		assertTrue(messages.size == 4)
 		
 		// There should be one end to end flow instance
-		assertEquals(1, instance.endToEndFlows.size)
-		assertEquals("etef1", instance.endToEndFlows.get(0).name)
+		assertEquals(0, instance.endToEndFlows.size)
 	}	
 	
 	@Test
@@ -237,14 +236,17 @@ class Issue2009Test extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
 		// There should be no errors
-		assertTrue(messages.size == 0)
+		assertTrue(messages.size == 1)
+		messages.get(0) => [
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Cannot create end to end flow 'etef1F_wrong1' because there are no semantic connections that connect to the start of the flow 'snk2F' at feature 'i'", message)			
+		]
 		
 		// There should be 4 end to end flow instances
-		assertEquals(4, instance.endToEndFlows.size)
+		assertEquals(3, instance.endToEndFlows.size)
 		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
 		assertEquals("etef1", instance.endToEndFlows.get(1).name)
-		assertEquals("etef1F_wrong1", instance.endToEndFlows.get(2).name)
-		assertEquals("etef1_wrong1", instance.endToEndFlows.get(3).name)
+		assertEquals("etef1_wrong1", instance.endToEndFlows.get(2).name)
 	}	
 	
 	@Test
