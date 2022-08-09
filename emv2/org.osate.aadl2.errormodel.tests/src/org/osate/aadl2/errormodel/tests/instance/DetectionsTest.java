@@ -31,6 +31,7 @@ import org.osate.testsupport.TestHelper;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
 import com.google.inject.Inject;
+
 @ExtendWith(InjectionExtension.class)
 @InjectWith(ErrorModelInjectorProvider.class)
 public class DetectionsTest {

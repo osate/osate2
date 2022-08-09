@@ -74,6 +74,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.IntegerCode;
+import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
@@ -426,6 +427,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass modeMappingInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass constraintExpressionEClass = null;
 
 	/**
@@ -686,6 +694,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EReference getEMV2AnnexInstance_Detections() {
 		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_ModeMappings() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -1944,6 +1962,46 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EClass getModeMappingInstance() {
+		return modeMappingInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getModeMappingInstance_State() {
+		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getModeMappingInstance_TypeSet() {
+		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getModeMappingInstance_Modes() {
+		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstraintExpression() {
 		return constraintExpressionEClass;
 	}
@@ -2402,6 +2460,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__TRANSITIONS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__CONDITIONS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__DETECTIONS);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__MODE_MAPPINGS);
 
 		emv2InstanceObjectEClass = createEClass(EMV2_INSTANCE_OBJECT);
 
@@ -2623,6 +2682,11 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		constantCodeEClass = createEClass(CONSTANT_CODE);
 		createEReference(constantCodeEClass, CONSTANT_CODE__CODE);
 
+		modeMappingInstanceEClass = createEClass(MODE_MAPPING_INSTANCE);
+		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__STATE);
+		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__TYPE_SET);
+		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__MODES);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
@@ -2728,6 +2792,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		integerCodeEClass.getESuperTypes().add(getErrorCodeInstance());
 		stringCodeEClass.getESuperTypes().add(getErrorCodeInstance());
 		constantCodeEClass.getESuperTypes().add(getErrorCodeInstance());
+		modeMappingInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2766,6 +2831,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_Detections(), getDetectionInstance(), null, "detections", null, 0, -1,
+				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_ModeMappings(), getModeMappingInstance(), null, "modeMappings", null, 0, -1,
 				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3288,6 +3356,20 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getConstantCode_Code(), theAadl2Package.getPropertyConstant(), null, "code", null, 0, 1,
 				ConstantCode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(modeMappingInstanceEClass, ModeMappingInstance.class, "ModeMappingInstance", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getModeMappingInstance_State(), getStateInstance(), null, "state", null, 0, 1,
+				ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModeMappingInstance_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModeMappingInstance_Modes(), theInstancePackage.getModeInstance(), null, "modes", null, 0, -1,
+				ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(modeMappingInstanceEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

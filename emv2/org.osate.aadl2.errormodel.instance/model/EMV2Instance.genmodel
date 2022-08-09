@@ -42,6 +42,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/transitions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/conditions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/detections"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/modeMappings"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EMV2Instance.ecore#//EMV2InstanceObject"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//StateMachineInstance">
@@ -252,6 +253,12 @@
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//ConstantCode">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConstantCode/code"/>
+    </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//ModeMappingInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ModeMappingInstance/state"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ModeMappingInstance/typeSet"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ModeMappingInstance/modes"/>
+      <genOperations ecoreOperation="EMV2Instance.ecore#//ModeMappingInstance/getTypeToken"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

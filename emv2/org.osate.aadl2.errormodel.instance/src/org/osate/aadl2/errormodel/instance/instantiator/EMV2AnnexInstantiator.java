@@ -128,6 +128,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
@@ -211,6 +212,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getComponentClassifier());
 		for (ErrorDetection ed : eds) {
 			instantiateDetection(ed, instance, emv2AI);
+		}
+
+		for (var modeMapping : EMV2Util.getAllModeMappings(instance.getComponentClassifier())) {
+			instantiateModeMapping(modeMapping, instance, emv2AI);
 		}
 
 		Collection<PropagationPath> ppaths = EMV2Util.getAllPropagationPaths(instance.getComponentClassifier());
@@ -1268,6 +1273,27 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		constantCode.setName(constant.getQualifiedName());
 		constantCode.setCode(constant);
 		return constantCode;
+	}
+
+	private void instantiateModeMapping(ErrorStateToModeMapping modeMapping, ComponentInstance component,
+			EMV2AnnexInstance annex) {
+		var modeMappingInstance = EMV2InstanceFactory.eINSTANCE.createModeMappingInstance();
+		modeMappingInstance.setState(findStateInstance(annex, modeMapping.getErrorState()));
+		if (modeMapping.getTypeToken() != null) {
+			modeMappingInstance.setTypeSet(createAnonymousTypeSet(modeMapping.getTypeToken()));
+		}
+		for (var mode : modeMapping.getMappedModes()) {
+			modeMappingInstance.getModes().add(component.findModeInstance(mode));
+		}
+		var name = modeMapping.getErrorState().getName();
+		if (modeMappingInstance.getTypeSet() != null) {
+			name += ' ' + modeMappingInstance.getTypeSet().getName();
+		}
+		name += " in modes ("
+				+ modeMapping.getMappedModes().stream().map(NamedElement::getName).collect(Collectors.joining(", "))
+				+ ')';
+		modeMappingInstance.setName(name);
+		annex.getModeMappings().add(modeMappingInstance);
 	}
 
 	private StateInstance findStateInstance(EMV2AnnexInstance annex, ErrorBehaviorState state) {

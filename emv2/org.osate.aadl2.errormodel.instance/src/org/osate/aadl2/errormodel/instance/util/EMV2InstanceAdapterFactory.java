@@ -68,6 +68,7 @@ import org.osate.aadl2.errormodel.instance.EventInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.IntegerCode;
+import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
@@ -446,6 +447,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseConstantCode(ConstantCode object) {
 			return createConstantCodeAdapter();
+		}
+
+		@Override
+		public Adapter caseModeMappingInstance(ModeMappingInstance object) {
+			return createModeMappingInstanceAdapter();
 		}
 
 		@Override
@@ -1114,6 +1120,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConstantCodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance <em>Mode Mapping Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ModeMappingInstance
+	 * @generated
+	 */
+	public Adapter createModeMappingInstanceAdapter() {
 		return null;
 	}
 

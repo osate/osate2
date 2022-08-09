@@ -251,13 +251,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int EMV2_ANNEX_INSTANCE__DETECTIONS = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 11;
 
 	/**
+	 * The feature id for the '<em><b>Mode Mappings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMV2_ANNEX_INSTANCE__MODE_MAPPINGS = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 12;
+
+	/**
 	 * The number of structural features of the '<em>EMV2 Annex Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EMV2_ANNEX_INSTANCE_FEATURE_COUNT = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 12;
+	int EMV2_ANNEX_INSTANCE_FEATURE_COUNT = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 13;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.EMV2InstanceObjectImpl <em>Object</em>}' class.
@@ -6053,6 +6062,106 @@ public interface EMV2InstancePackage extends EPackage {
 	int CONSTANT_CODE_FEATURE_COUNT = ERROR_CODE_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl <em>Mode Mapping Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getModeMappingInstance()
+	 * @generated
+	 */
+	int MODE_MAPPING_INSTANCE = 60;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>State</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__TYPE_SET = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Modes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__MODES = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Mode Mapping Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6060,7 +6169,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 60;
+	int EOPERATION = 61;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -6070,7 +6179,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 61;
+	int BINDING_TYPE = 62;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
@@ -6080,7 +6189,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
 	 * @generated
 	 */
-	int COUNT_EXPRESSION_OPERATION = 62;
+	int COUNT_EXPRESSION_OPERATION = 63;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6157,6 +6266,17 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEMV2AnnexInstance_Detections();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getModeMappings <em>Mode Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mode Mappings</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getModeMappings()
+	 * @see #getEMV2AnnexInstance()
+	 * @generated
+	 */
+	EReference getEMV2AnnexInstance_ModeMappings();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getErrorFlows <em>Error Flows</em>}'.
@@ -7490,6 +7610,49 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getConstantCode_Code();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance <em>Mode Mapping Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Mode Mapping Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ModeMappingInstance
+	 * @generated
+	 */
+	EClass getModeMappingInstance();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getState <em>State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>State</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ModeMappingInstance#getState()
+	 * @see #getModeMappingInstance()
+	 * @generated
+	 */
+	EReference getModeMappingInstance_State();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getTypeSet <em>Type Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ModeMappingInstance#getTypeSet()
+	 * @see #getModeMappingInstance()
+	 * @generated
+	 */
+	EReference getModeMappingInstance_TypeSet();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getModes <em>Modes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Modes</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ModeMappingInstance#getModes()
+	 * @see #getModeMappingInstance()
+	 * @generated
+	 */
+	EReference getModeMappingInstance_Modes();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8012,6 +8175,14 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference EMV2_ANNEX_INSTANCE__DETECTIONS = eINSTANCE.getEMV2AnnexInstance_Detections();
+
+		/**
+		 * The meta object literal for the '<em><b>Mode Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EMV2_ANNEX_INSTANCE__MODE_MAPPINGS = eINSTANCE.getEMV2AnnexInstance_ModeMappings();
 
 		/**
 		 * The meta object literal for the '<em><b>Error Flows</b></em>' containment reference list feature.
@@ -9110,6 +9281,40 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONSTANT_CODE__CODE = eINSTANCE.getConstantCode_Code();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl <em>Mode Mapping Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getModeMappingInstance()
+		 * @generated
+		 */
+		EClass MODE_MAPPING_INSTANCE = eINSTANCE.getModeMappingInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>State</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODE_MAPPING_INSTANCE__STATE = eINSTANCE.getModeMappingInstance_State();
+
+		/**
+		 * The meta object literal for the '<em><b>Type Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODE_MAPPING_INSTANCE__TYPE_SET = eINSTANCE.getModeMappingInstance_TypeSet();
+
+		/**
+		 * The meta object literal for the '<em><b>Modes</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODE_MAPPING_INSTANCE__MODES = eINSTANCE.getModeMappingInstance_Modes();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.ConstraintExpressionImpl <em>Constraint Expression</em>}' class.

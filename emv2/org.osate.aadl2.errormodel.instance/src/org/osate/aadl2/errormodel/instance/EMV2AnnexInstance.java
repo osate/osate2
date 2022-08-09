@@ -47,6 +47,7 @@ import org.osate.aadl2.instance.AnnexInstance;
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getConditions <em>Conditions</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getDetections <em>Detections</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getModeMappings <em>Mode Mappings</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance()
@@ -135,6 +136,18 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	 * @generated
 	 */
 	EList<DetectionInstance> getDetections();
+
+	/**
+	 * Returns the value of the '<em><b>Mode Mappings</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ModeMappingInstance}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Mode Mappings</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_ModeMappings()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ModeMappingInstance> getModeMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Error Flows</b></em>' containment reference list.

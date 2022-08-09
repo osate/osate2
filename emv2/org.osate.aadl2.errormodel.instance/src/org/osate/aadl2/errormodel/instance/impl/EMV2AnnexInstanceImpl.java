@@ -40,6 +40,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -68,6 +69,7 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getConditions <em>Conditions</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getDetections <em>Detections</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getModeMappings <em>Mode Mappings</em>}</li>
  * </ul>
  *
  * @generated
@@ -192,6 +194,16 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<DetectionInstance> detections;
+
+	/**
+	 * The cached value of the '{@link #getModeMappings() <em>Mode Mappings</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModeMappings()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ModeMappingInstance> modeMappings;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -346,6 +358,20 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @generated
 	 */
 	@Override
+	public EList<ModeMappingInstance> getModeMappings() {
+		if (modeMappings == null) {
+			modeMappings = new EObjectContainmentEList<>(ModeMappingInstance.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS);
+		}
+		return modeMappings;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EList<ErrorFlowInstance> getErrorFlows() {
 		if (errorFlows == null) {
 			errorFlows = new EObjectContainmentEList<>(ErrorFlowInstance.class, this,
@@ -484,6 +510,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return ((InternalEList<?>) getConditions()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
 			return ((InternalEList<?>) getDetections()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS:
+			return ((InternalEList<?>) getModeMappings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -523,6 +551,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return getConditions();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
 			return getDetections();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS:
+			return getModeMappings();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -582,6 +612,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			getDetections().clear();
 			getDetections().addAll((Collection<? extends DetectionInstance>) newValue);
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS:
+			getModeMappings().clear();
+			getModeMappings().addAll((Collection<? extends ModeMappingInstance>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -630,6 +664,9 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
 			getDetections().clear();
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS:
+			getModeMappings().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -666,6 +703,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return conditions != null && !conditions.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__DETECTIONS:
 			return detections != null && !detections.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS:
+			return modeMappings != null && !modeMappings.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

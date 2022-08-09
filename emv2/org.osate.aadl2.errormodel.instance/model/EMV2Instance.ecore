@@ -25,6 +25,8 @@
         eType="#//OutgoingPropagationConditionInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="detections" upperBound="-1"
         eType="#//DetectionInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modeMappings" upperBound="-1"
+        eType="#//ModeMappingInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
       eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
@@ -326,5 +328,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstantCode" eSuperTypes="#//ErrorCodeInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="code" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertyConstant"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeMappingInstance" eSuperTypes="#//EMV2InstanceObject">
+    <eOperations name="getTypeToken" eType="#//TypeTokenInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modes" upperBound="-1"
+        eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ModeInstance"/>
   </eClassifiers>
 </ecore:EPackage>

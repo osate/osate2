@@ -62,6 +62,7 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.IntegerCode;
+import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -211,6 +212,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createStringCode();
 		case EMV2InstancePackage.CONSTANT_CODE:
 			return createConstantCode();
+		case EMV2InstancePackage.MODE_MAPPING_INSTANCE:
+			return createModeMappingInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -637,6 +640,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ConstantCode createConstantCode() {
 		ConstantCodeImpl constantCode = new ConstantCodeImpl();
 		return constantCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ModeMappingInstance createModeMappingInstance() {
+		ModeMappingInstanceImpl modeMappingInstance = new ModeMappingInstanceImpl();
+		return modeMappingInstance;
 	}
 
 	/**

@@ -123,6 +123,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getModeMappings()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getStates()"/>
             </message_arguments>
         </filter>
@@ -206,6 +211,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="createIntegerCode()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="createModeMappingInstance()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -942,6 +952,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="EMV2_ANNEX_INSTANCE__MODE_MAPPINGS"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__STATES"/>
             </message_arguments>
         </filter>
@@ -1128,6 +1143,61 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="INTEGER_CODE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__MODES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1847,6 +1917,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getEMV2AnnexInstance_ModeMappings()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getEMV2AnnexInstance_States()"/>
             </message_arguments>
         </filter>
@@ -1893,6 +1968,26 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getIntegerCode_Code()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getModeMappingInstance()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getModeMappingInstance_Modes()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getModeMappingInstance_State()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getModeMappingInstance_TypeSet()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2229,6 +2324,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="EMV2_ANNEX_INSTANCE__MODE_MAPPINGS"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__STATES"/>
             </message_arguments>
         </filter>
@@ -2275,6 +2375,26 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="INTEGER_CODE__CODE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__MODES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2443,6 +2563,13 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.IntegerCode"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/ModeMappingInstance.java" type="org.osate.aadl2.errormodel.instance.ModeMappingInstance">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.ModeMappingInstance"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2649,6 +2776,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="modeMappings"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="states"/>
             </message_arguments>
         </filter>
@@ -2683,6 +2815,13 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.impl.IntegerCodeImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/ModeMappingInstanceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2847,6 +2986,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createModeMappingInstanceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createNoErrorPropagationReferenceAdapter()"/>
             </message_arguments>
         </filter>
@@ -2990,6 +3134,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseIntegerCode(IntegerCode)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseModeMappingInstance(ModeMappingInstance)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

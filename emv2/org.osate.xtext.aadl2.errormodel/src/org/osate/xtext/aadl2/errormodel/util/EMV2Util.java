@@ -90,6 +90,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
@@ -2017,6 +2018,17 @@ public class EMV2Util {
 					}
 				}
 			}
+		}
+		return result;
+	}
+
+	/**
+	 * @since 7.0
+	 */
+	public static List<ErrorStateToModeMapping> getAllModeMappings(Classifier classifier) {
+		var result = new ArrayList<ErrorStateToModeMapping>();
+		for (var subclause : getAllContainingClassifierEMV2Subclauses(classifier)) {
+			result.addAll(subclause.getErrorStateToModeMappings());
 		}
 		return result;
 	}

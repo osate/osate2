@@ -358,6 +358,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	ConstantCode createConstantCode();
 
 	/**
+	 * Returns a new object of class '<em>Mode Mapping Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Mode Mapping Instance</em>'.
+	 * @generated
+	 */
+	ModeMappingInstance createModeMappingInstance();
+
+	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
