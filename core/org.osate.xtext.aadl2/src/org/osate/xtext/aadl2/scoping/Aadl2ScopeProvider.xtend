@@ -93,6 +93,8 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import org.osate.aadl2.DataPort
+import org.osate.aadl2.Port
 
 /**
  * This class contains custom scoping description.
@@ -488,7 +490,19 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			end.getContainerOfType(Classifier).allFeatures.filterRefined.scopeFor
 		else {
 			val feature = prev.feature
-			val classifier = feature.allClassifier
+			var classifier = feature.allClassifier
+			if (classifier === null)
+				classifier = switch feature {
+				FeatureGroup:
+				  	if (feature.featureGroupPrototype !== null) {
+						feature.featureGroupPrototype.constrainingFeatureGroupType
+					}
+				Port:
+				  	if (feature.prototype !== null) {
+						feature.prototype.constrainingClassifier
+					}
+				default: null
+				}
 			if (classifier === null)
 				IScope.NULLSCOPE
 			else
