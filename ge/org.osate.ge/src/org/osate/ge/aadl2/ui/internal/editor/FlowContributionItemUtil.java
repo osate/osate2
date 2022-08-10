@@ -161,17 +161,19 @@ public class FlowContributionItemUtil {
 		}
 
 		private static String flowEndToString(final FlowEnd flowEnd) {
-			final StringBuilder sb = new StringBuilder();
-			if (flowEnd.getContext() != null) {
-				sb.append(getName(flowEnd.getContext()));
-				sb.append('.');
+			String name = "";
+			FlowEnd end = flowEnd;
+
+			if (end.getFeature() != null) {
+				name = getName(flowEnd.getFeature());
 			}
 
-			if (flowEnd.getFeature() != null) {
-				sb.append(getName(flowEnd.getFeature()));
+			while (end.getContext() != null) {
+				name = getName(flowEnd.getContext().getFeature()) + "." + name;
+				end = end.getContext();
 			}
 
-			return sb.toString();
+			return name;
 		}
 
 		private static String flowSegmentToString(final FlowSegment flowSegment) {
