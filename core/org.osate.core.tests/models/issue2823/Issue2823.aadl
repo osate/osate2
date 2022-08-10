@@ -1,0 +1,9 @@
+package Issue2823
+public
+	system S
+	end S;
+	
+	system implementation S.impl
+	end S.impl;
+	
+end Issue2823;
