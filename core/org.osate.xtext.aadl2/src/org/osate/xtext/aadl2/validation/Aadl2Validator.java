@@ -474,6 +474,10 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	@Check(CheckType.FAST)
 	public void caseFlowImplementation(FlowImplementation flow) {
+		if (!checkDottedNameUsage(flow)) {
+			// Flow implementation is not allowed, no need to continue checking
+			return;
+		}
 		if (flow.getKind().equals(FlowKind.SOURCE) || flow.getKind().equals(FlowKind.PATH)) {
 			checkOutFeatureIdentifier(flow);
 		}
@@ -1488,16 +1492,15 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					if (Aadl2Util.isNull(inEnd)) {
 						return;
 					}
-					if (!isMatchingConnectionPoint(null, inEnd.getFeature(),
-							context(inEnd), connectedElement)) {
+					if (!isMatchingConnectionPoint(null, inEnd.getFeature(), context(inEnd), connectedElement)) {
 						boolean noMatch = false;
 						if (connection.isAllBidirectional()) {
 							didReverse = true;
 							ce = connection.getAllLastDestination();
 							cxt = connection.getAllDestinationContext();
 							connectedElement = connection.getRootConnection().getDestination();
-							if (!isMatchingConnectionPoint(null, inEnd.getFeature(),
-									context(inEnd), connectedElement)) {
+							if (!isMatchingConnectionPoint(null, inEnd.getFeature(), context(inEnd),
+									connectedElement)) {
 								noMatch = true;
 							}
 						} else {
@@ -1506,8 +1509,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						if (noMatch) {
 							error(flow.getOwnedFlowSegments().get(i),
 									"The source of connection '" + connection.getName()
-											+ "' does not match the in flow feature '" + fqName(inEnd)
-											+ '\'');
+											+ "' does not match the in flow feature '" + fqName(inEnd) + '\'');
 						}
 					} else {
 						ce = connection.getAllLastDestination();
@@ -1552,8 +1554,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						if (Aadl2Util.isNull(outEnd)) {
 							return;
 						}
-						if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd.getFeature(),
-								context(outEnd), connectedElement)
+						if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd.getFeature(), context(outEnd),
+								connectedElement)
 								|| (!connectedElement.getContext().getName().equals(flowSegment.getContext().getName())
 										&& !(ce instanceof Parameter)
 										&& (flowSegment.getContext() instanceof Subcomponent)
@@ -1618,12 +1620,10 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						return;
 					}
 					if (ce instanceof Feature) {
-						if (!isMatchingConnectionPoint(null, outEnd.getFeature(),
-								context(outEnd), connectedElement)) {
+						if (!isMatchingConnectionPoint(null, outEnd.getFeature(), context(outEnd), connectedElement)) {
 							error(flow.getOwnedFlowSegments().get(i),
 									"The destination of connection '" + connection.getName()
-											+ "' does not match the out flow feature '" + fqName(outEnd)
-											+ '\'');
+											+ "' does not match the out flow feature '" + fqName(outEnd) + '\'');
 						}
 					}
 				} else {
@@ -1636,8 +1636,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							return;
 						}
 						if (ce instanceof Feature) {
-							if (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(),
-									context(inEnd), connectedElement)
+							if (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(), context(inEnd),
+									connectedElement)
 									|| (!connectedElement.getContext()
 											.getName()
 											.equals(flowSegment.getContext().getName())
@@ -1678,6 +1678,30 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Cannot implement a spec that reaches more than one level into feature at end
+	 * Cannot reach down in implementation
+	 */
+	private boolean checkDottedNameUsage(FlowImplementation flow) {
+		FlowSpecification spec = flow.getSpecification();
+		if (spec != null) {
+			if (isReachDown(spec.getAllInEnd()) || isReachDown(spec.getAllOutEnd())) {
+				error(flow,
+						"Flow implementation is not allowed because the specification reaches down more than one level into a feature group");
+				return false;
+			}
+		}
+		if (isReachDown(flow.getInEnd()) || isReachDown(flow.getOutEnd())) {
+			error(flow, "Flow implementation is not allowed to reach down more than one level into a feature group");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean isReachDown(FlowEnd end) {
+		return (end != null && end.getContext() != null && end.getContext().getContext() != null);
 	}
 
 	/**
@@ -1779,8 +1803,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		FlowEnd specOutEnd = flow.getSpecification().getOutEnd();
 		FlowEnd implOutEnd = flow.getOutEnd();
 		if (specOutEnd != null && implOutEnd != null) {
-			if (context(specOutEnd) != context(implOutEnd)
-					|| specOutEnd.getFeature() != implOutEnd.getFeature()) {
+			if (context(specOutEnd) != context(implOutEnd) || specOutEnd.getFeature() != implOutEnd.getFeature()) {
 				return;
 			}
 		}
@@ -2564,8 +2587,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	private boolean doSubcomponentsAndFeaturesMatch(final Context flowContext, final FlowEnd flowEnd,
 			final Context connectionContext, final ConnectedElement connectedElement) {
 		// First check the features at the end of the flow and at the end of the connection
-		if (isMatchingConnectionPoint(flowContext, flowEnd.getFeature(), context(flowEnd),
-				connectedElement)) {
+		if (isMatchingConnectionPoint(flowContext, flowEnd.getFeature(), context(flowEnd), connectedElement)) {
 			// Then check the subcomponents that qualify the features
 			return connectionContext instanceof Subcomponent && flowContext instanceof Subcomponent
 					&& doSubcomponentsMatch((Subcomponent) connectionContext, (Subcomponent) flowContext);
