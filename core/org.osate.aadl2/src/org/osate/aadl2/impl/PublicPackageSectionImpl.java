@@ -60,6 +60,7 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPublicPackageSection();
 	}
@@ -101,6 +102,7 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION__PRIVATE_SECTION:
@@ -117,6 +119,7 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION__PRIVATE_SECTION:

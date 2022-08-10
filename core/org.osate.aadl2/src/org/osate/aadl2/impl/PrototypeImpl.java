@@ -72,6 +72,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPrototype();
 	}
@@ -123,6 +124,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED:
@@ -139,6 +141,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED:
@@ -153,6 +156,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED:
@@ -167,6 +171,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED_ELEMENT:
@@ -182,6 +187,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -194,6 +200,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement basicGetRefinedElement() {
 		if (eIsSet(Aadl2Package.PROTOTYPE__REFINED)) {
 			return basicGetRefined();
@@ -206,6 +213,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
 		return super.isSetRefinedElement() || eIsSet(Aadl2Package.PROTOTYPE__REFINED);
 	}

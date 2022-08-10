@@ -49,6 +49,7 @@ public abstract class VirtualBusClassifierImpl extends ComponentClassifierImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualBusClassifier();
 	}

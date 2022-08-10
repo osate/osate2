@@ -160,6 +160,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPropertyAssociation();
 	}
@@ -327,6 +328,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO:
@@ -342,6 +344,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY:
@@ -369,6 +372,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY:
@@ -401,6 +405,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY:
@@ -430,6 +435,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY:
@@ -453,6 +459,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

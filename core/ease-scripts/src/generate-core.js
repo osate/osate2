@@ -39,6 +39,7 @@ bot.waitUntil(org.eclipse.swtbot.swt.finder.waits.Conditions.shellCloses(shell))
 
 // convert to metamodel
 print("Convert to metamodel");
+root.select("<<EPackage, Metamodel>> <Model> AADL2");
 umlMenu.menu("Convert To").menu("Metamodel").click();
 bot.sleep(1000);
 
