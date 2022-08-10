@@ -661,12 +661,21 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		ErrorPropagationInstance propagationInstance;
 		if (path.getNamedElement() instanceof ErrorPropagation propagation) {
-			propagationInstance = findErrorPropagationInstance(findEMV2AnnexInstance(currentComponent), propagation);
+			var annex = findEMV2AnnexInstance(currentComponent);
+			if (annex == null) {
+				// Shouldn't happen if the declarative model is valid.
+				return null;
+			}
+			propagationInstance = findErrorPropagationInstance(annex, propagation);
 		} else if (path.getEmv2PropagationKind().equalsIgnoreCase("access")) {
 			propagationInstance = findAccessPropagation(currentComponent);
 		} else {
 			propagationInstance = findBindingPropagation(currentComponent,
 					BindingType.get(path.getEmv2PropagationKind().toLowerCase()));
+		}
+		if (propagationInstance == null) {
+			// Shouldn't happen if the declarative model is valid.
+			return null;
 		}
 		if (constraint != null && !constraint.getTypeTokens().isEmpty()
 				&& constraint.getTypeTokens().get(0).isNoError()) {
@@ -1167,6 +1176,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				return createAllPropagationsNoError();
 			} else {
 				var propagation = findErrorPropagationInstance(annex, condition.getOutgoing());
+				if (propagation == null) {
+					// Shouldn't happen if the declarative model is valid.
+					return null;
+				}
 				return createNoErrorPropagationReference(propagation, "");
 			}
 		} else if (condition.isAllPropagations()) {
