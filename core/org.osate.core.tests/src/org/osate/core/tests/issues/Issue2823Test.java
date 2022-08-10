@@ -21,48 +21,47 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.instance.textual.tests;
+package org.osate.core.tests.issues;
 
-import static org.junit.Assert.assertEquals;
+import java.util.Optional;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.eclipse.xtext.serializer.ISerializer;
-import org.eclipse.xtext.testing.util.ParseHelper;
-import org.eclipse.xtext.testing.validation.ValidationTestHelper;
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-import com.google.inject.Injector;
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.XtextTest;
 
-public abstract class AbstractSerializerTest {
-	private final ISerializer serializer;
-	private final ParseHelper<SystemInstance> instanceParseHelper;
-	private ValidationTestHelper validationTestHelper;
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue2823Test extends XtextTest {
 
-	@SuppressWarnings("unchecked")
-	public AbstractSerializerTest() {
-		var uri = URI.createFileURI("fake.instance");
-		var instanceProvider = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(uri);
-		serializer = instanceProvider.get(ISerializer.class);
-		instanceParseHelper = instanceProvider.get(Injector.class).getInstance(ParseHelper.class);
-		validationTestHelper = instanceProvider.get(ValidationTestHelper.class);
+	private static final String FILE = "org.osate.core.tests/models/issue2823/Issue2823.aadl";
+
+	@Inject
+	TestHelper<AadlPackage> testHelper;
+
+	@Test
+	public void testInstantiation() throws Exception {
+		AadlPackage pkg = testHelper.parseFile(FILE);
+		Optional<Classifier> impl = pkg.getOwnedPublicSection()
+				.getOwnedClassifiers()
+				.stream()
+				.filter(c -> c.getName().equals("S.impl"))
+				.findFirst();
+
+		SystemInstance instance = InstantiateModel.instantiate((ComponentImplementation) impl.get());
+		Assert.assertEquals("S_impl_Instance", instance.getName());
+		Assert.assertEquals("Classifier for root is wrong", impl.get(), instance.getClassifier());
 	}
 
-	protected void assertSerialize(AadlPackage aadlPackage, String implName, String expected) throws Exception {
-		var classifiers = aadlPackage.getPublicSection().getOwnedClassifiers();
-		var impl = classifiers.stream()
-				.filter(ComponentImplementation.class::isInstance)
-				.map(ComponentImplementation.class::cast)
-				.filter(component -> component.getName().equals(implName))
-				.findFirst()
-				.orElseThrow();
-		var inst = InstantiateModel.instantiate(impl);
-		inst.setClassifier(null);
-		assertEquals(expected, serializer.serialize(inst));
-		validationTestHelper
-				.assertNoIssues(instanceParseHelper.parse(expected, aadlPackage.eResource().getResourceSet()));
-	}
 }
