@@ -106,6 +106,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getInternalFeature();
 	}
@@ -181,6 +182,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.INTERNAL_FEATURE__DIRECTION:
@@ -198,6 +200,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -216,6 +219,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTERNAL_FEATURE__IN:
@@ -233,6 +237,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTERNAL_FEATURE__DIRECTION:
@@ -250,6 +255,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

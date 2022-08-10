@@ -58,6 +58,7 @@ public class BusAccessItemProvider extends AccessItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -106,6 +107,7 @@ public class BusAccessItemProvider extends AccessItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusAccess"));
 	}
@@ -116,6 +118,7 @@ public class BusAccessItemProvider extends AccessItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((BusAccess) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_BusAccess_type")
@@ -129,6 +132,7 @@ public class BusAccessItemProvider extends AccessItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -147,6 +151,7 @@ public class BusAccessItemProvider extends AccessItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}

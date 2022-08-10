@@ -6190,6 +6190,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMemoryImplementation_OwnedVirtualBusSubcomponent() {
+		return (EReference) memoryImplementationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMemoryPrototype() {
 		return memoryPrototypeEClass;
 	}
@@ -9145,6 +9154,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		memoryImplementationEClass = createEClass(MEMORY_IMPLEMENTATION);
 		createEReference(memoryImplementationEClass, MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
 		createEReference(memoryImplementationEClass, MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT);
+		createEReference(memoryImplementationEClass, MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 
 		memoryPrototypeEClass = createEClass(MEMORY_PROTOTYPE);
 
@@ -11423,6 +11433,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getMemoryImplementation_OwnedMemorySubcomponent(), getMemorySubcomponent(), null,
 				"ownedMemorySubcomponent", null, 0, -1, MemoryImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getMemoryImplementation_OwnedVirtualBusSubcomponent(), getVirtualBusSubcomponent(), null,
+				"ownedVirtualBusSubcomponent", null, 0, -1, MemoryImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(memoryPrototypeEClass, MemoryPrototype.class, "MemoryPrototype", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -12480,6 +12493,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		addAnnotation(getMemoryImplementation_OwnedBusSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getMemoryImplementation_OwnedMemorySubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getMemoryImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getSubprogramType_OwnedEventDataPort(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });

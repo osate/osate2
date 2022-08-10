@@ -23,10 +23,12 @@
  */
 package org.osate.aadl2.operations;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
 
 /**
@@ -95,6 +97,22 @@ public class NamedElementOperations extends ElementOperations {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLInfrastructure.</p>
+	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
+	 * <!-- end-model-doc -->
+	 * @generated
+	 */
+	public static EList<PropertyExpression> getPropertyValues(NamedElement namedElement, String propertySetName,
+			String propertyName) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 } // NamedElementOperations

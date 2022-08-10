@@ -151,6 +151,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProperty();
 	}
@@ -331,6 +332,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__DEFAULT_VALUE:
@@ -346,6 +348,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -370,6 +373,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -402,6 +406,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -431,6 +436,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -454,6 +460,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

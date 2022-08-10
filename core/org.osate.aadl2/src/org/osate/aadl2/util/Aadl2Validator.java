@@ -99,6 +99,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EPackage getEPackage() {
 		return Aadl2Package.eINSTANCE;
 	}
@@ -109,6 +110,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		switch (classifierID) {
@@ -3338,6 +3340,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		// TODO
 		// Specialize this to return a resource locator for messages specific to this validator.
@@ -3407,6 +3410,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected boolean isEcoreString(String key) {
 		return super.isEcoreString(key) || "_UI_FeatureHasTooFewValues_diagnostic".equals(key)
 				|| "_UI_FeatureHasTooManyValues_diagnostic".equals(key)
@@ -3418,6 +3422,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected boolean validate_MultiplicityConforms(EObject eObject, EStructuralFeature eStructuralFeature,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = true;

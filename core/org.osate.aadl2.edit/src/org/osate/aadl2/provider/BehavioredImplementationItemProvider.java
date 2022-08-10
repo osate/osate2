@@ -59,6 +59,7 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -92,6 +93,7 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
@@ -105,6 +107,7 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -118,6 +121,7 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((BehavioredImplementation) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_BehavioredImplementation_type")
@@ -131,6 +135,7 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -149,6 +154,7 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 

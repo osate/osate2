@@ -1,0 +1,22 @@
+package vbus_in_memory
+public
+	virtual bus VB
+	end VB;
+
+	virtual bus implementation VB.i
+	end VB.i;
+
+	memory M
+		features
+			vba: provides virtual bus access VB;
+	end M;
+
+	memory implementation M.i
+		subcomponents
+			m: memory M;
+			vb1: virtual bus VB;
+			vb2: virtual bus VB.i;
+		connections
+			c: virtual bus access vba <-> vb1;
+	end M.i;
+end vbus_in_memory;

@@ -59,7 +59,9 @@ public abstract class AbstractSerializerTest {
 				.filter(component -> component.getName().equals(implName))
 				.findFirst()
 				.orElseThrow();
-		assertEquals(expected, serializer.serialize(InstantiateModel.instantiate(impl)));
+		var inst = InstantiateModel.instantiate(impl);
+		inst.setClassifier(null);
+		assertEquals(expected, serializer.serialize(inst));
 		validationTestHelper
 				.assertNoIssues(instanceParseHelper.parse(expected, aadlPackage.eResource().getResourceSet()));
 	}

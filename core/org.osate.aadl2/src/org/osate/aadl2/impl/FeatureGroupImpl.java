@@ -98,6 +98,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroup();
 	}
@@ -249,6 +250,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
@@ -277,6 +279,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
@@ -294,6 +297,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
@@ -311,6 +315,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
@@ -330,6 +335,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -397,10 +403,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	public boolean isInverseOf(FeatureGroup fg2) {
 		FeatureGroupType fgt1 = getAllFeatureGroupType();
 		FeatureGroupType fgt2 = fg2.getAllFeatureGroupType();
-		if (fgt1.isInverseOf(fgt2) && (isInverse() == fg2.isInverse())) {
-			return true;
-		}
-		if (fgt1 == fgt2 && (isInverse() != fg2.isInverse())) {
+		if ((fgt1.isInverseOf(fgt2) && (isInverse() == fg2.isInverse()))
+				|| (fgt1 == fgt2 && (isInverse() != fg2.isInverse()))) {
 			return true;
 		}
 		return false;

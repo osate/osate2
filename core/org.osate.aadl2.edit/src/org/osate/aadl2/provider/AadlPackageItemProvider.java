@@ -63,6 +63,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -111,6 +112,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
@@ -125,6 +127,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -138,6 +141,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/AadlPackage"));
 	}
@@ -148,6 +152,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((AadlPackage) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_AadlPackage_type")
@@ -161,6 +166,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -180,6 +186,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -196,6 +203,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
 		if (feature == Aadl2Package.eINSTANCE.getAadlPackage_OwnedPublicSection()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature,

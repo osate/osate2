@@ -49,6 +49,7 @@ public abstract class AbstractImpl extends NamedElementImpl implements Abstract 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstract();
 	}

@@ -74,6 +74,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModalPath();
 	}
@@ -96,6 +97,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Mode> getInModes() {
 		return ModalPathOperations.getInModes(this);
 	}
@@ -142,6 +144,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
@@ -156,6 +159,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
@@ -171,6 +175,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
@@ -185,6 +190,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:

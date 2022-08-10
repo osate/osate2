@@ -54,6 +54,7 @@ public class SubprogramGroupPrototypeItemProvider extends ComponentPrototypeItem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -68,6 +69,7 @@ public class SubprogramGroupPrototypeItemProvider extends ComponentPrototypeItem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupPrototype"));
 	}
@@ -78,6 +80,7 @@ public class SubprogramGroupPrototypeItemProvider extends ComponentPrototypeItem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((SubprogramGroupPrototype) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_SubprogramGroupPrototype_type")
@@ -91,6 +94,7 @@ public class SubprogramGroupPrototypeItemProvider extends ComponentPrototypeItem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
@@ -103,6 +107,7 @@ public class SubprogramGroupPrototypeItemProvider extends ComponentPrototypeItem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}

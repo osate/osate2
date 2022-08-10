@@ -58,6 +58,7 @@ public class InternalFeatureItemProvider extends StructuralFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -123,6 +124,7 @@ public class InternalFeatureItemProvider extends StructuralFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((InternalFeature) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_InternalFeature_type")
@@ -136,6 +138,7 @@ public class InternalFeatureItemProvider extends StructuralFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -156,6 +159,7 @@ public class InternalFeatureItemProvider extends StructuralFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}

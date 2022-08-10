@@ -333,6 +333,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentImplementation();
 	}
@@ -352,6 +353,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
 		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
@@ -362,6 +364,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
@@ -372,6 +375,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Classifier> getGenerals() {
 		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL, GENERAL_ESUBSETS);
@@ -439,6 +443,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Generalization> getGeneralizations() {
 		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__GENERALIZATION, GENERALIZATION_ESUBSETS);
@@ -1126,6 +1131,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
@@ -1165,6 +1171,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
@@ -1229,6 +1236,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
@@ -1309,6 +1317,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
@@ -1377,6 +1386,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL:
@@ -1442,6 +1452,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -1463,6 +1474,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetGenerals() {
 		return super.isSetGenerals() || eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE)
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED);
@@ -1482,6 +1494,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetClassifierFeatures() {
 		return super.isSetClassifierFeatures() || isSetOwnedSubcomponents()
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION) || isSetOwnedConnections()
@@ -1494,6 +1507,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || isSetOwnedSubcomponents() || isSetOwnedConnections()
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW) || isSetOwnedProcessorFeatures()
@@ -1518,6 +1532,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetGeneralizations() {
 		return super.isSetGeneralizations() || eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION)
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION);
