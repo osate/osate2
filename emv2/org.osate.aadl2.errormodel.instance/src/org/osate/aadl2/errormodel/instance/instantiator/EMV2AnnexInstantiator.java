@@ -650,10 +650,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private ConditionExpressionInstance createConditionPropagationReference(ComponentInstance component,
 			EMV2PathElement path, TypeSet constraint) {
 		var currentComponent = component;
-		var namePrefix = "";
+		var namePrefix = new StringBuilder();
 		while (path.getNamedElement() instanceof Subcomponent subcomponent) {
 			currentComponent = currentComponent.findSubcomponentInstance(subcomponent);
-			namePrefix += currentComponent.getName() + '.';
+			namePrefix.append(currentComponent.getName());
+			namePrefix.append('.');
 			path = path.getPath();
 		}
 		while (path.getPath() != null) {
@@ -679,10 +680,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		if (constraint != null && !constraint.getTypeTokens().isEmpty()
 				&& constraint.getTypeTokens().get(0).isNoError()) {
-			return createNoErrorPropagationReference(propagationInstance, namePrefix);
+			return createNoErrorPropagationReference(propagationInstance, namePrefix.toString());
 		} else {
 			return createConditionPropagationReference(propagationInstance, constraint, currentComponent == component,
-					namePrefix);
+					namePrefix.toString());
 		}
 	}
 
