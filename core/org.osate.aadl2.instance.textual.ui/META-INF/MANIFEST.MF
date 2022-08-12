@@ -16,7 +16,7 @@ Require-Bundle: org.osate.aadl2.instance.textual;bundle-version="[3.0.0,4.0.0)";
  org.eclipse.compare;bundle-version="[3.7.0,4.0.0)",
  org.osate.xtext.aadl2.properties.ui;bundle-version="[4.1.0,5.0.0)",
  org.osate.xtext.aadl2.ui;bundle-version="[7.0.0,8.0.0)",
- org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
+ org.osate.aadl2;bundle-version="[4.1.0,5.0.0)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.xtend.lib;bundle-version="[2.25.0,3.0.0)";resolution:=optional,
  org.antlr.runtime;bundle-version="[3.2.0,4.0.0)"

@@ -50,6 +50,7 @@ public class ThreadPrototypeImpl extends ComponentPrototypeImpl implements Threa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getThreadPrototype();
 	}

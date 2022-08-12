@@ -40,6 +40,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.aadl2.MemoryImplementation#getOwnedBusSubcomponents <em>Owned Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.MemoryImplementation#getOwnedMemorySubcomponents <em>Owned Memory Subcomponent</em>}</li>
+ *   <li>{@link org.osate.aadl2.MemoryImplementation#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getMemoryImplementation()
@@ -118,6 +119,38 @@ public interface MemoryImplementation extends ComponentImplementation, MemoryCla
 	 * @generated
 	 */
 	MemorySubcomponent createOwnedMemorySubcomponent();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Virtual Bus Subcomponent</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.VirtualBusSubcomponent}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * </p>
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
+	 * </ul>
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Memory.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getMemoryImplementation_OwnedVirtualBusSubcomponent()
+	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
+	 * @generated
+	 */
+	EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.VirtualBusSubcomponent} and appends it to the '<em><b>Owned Virtual Bus Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.VirtualBusSubcomponent}.
+	 * @see #getOwnedVirtualBusSubcomponents()
+	 * @generated
+	 */
+	VirtualBusSubcomponent createOwnedVirtualBusSubcomponent();
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.

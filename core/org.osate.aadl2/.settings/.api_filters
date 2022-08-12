@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.aadl2" version="2">
+    <resource path="src/org/osate/aadl2/Aadl2Package.java" type="org.osate.aadl2.Aadl2Package">
+        <filter comment="Generated code" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.Aadl2Package"/>
+                <message_argument value="MEMORY_IMPLEMENTATION_FEATURE_COUNT"/>
+                <message_argument value="47"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="403767336">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.Aadl2Package"/>
+                <message_argument value="MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="403804204">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.Aadl2Package"/>
+                <message_argument value="getMemoryImplementation_OwnedVirtualBusSubcomponent()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getMemoryImplementation_OwnedVirtualBusSubcomponent()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/MemoryImplementation.java" type="org.osate.aadl2.MemoryImplementation">
+        <filter comment="Generated code" id="403804204">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.MemoryImplementation"/>
+                <message_argument value="createOwnedVirtualBusSubcomponent()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="403804204">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.MemoryImplementation"/>
+                <message_argument value="getOwnedVirtualBusSubcomponents()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="createOwnedVirtualBusSubcomponent()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getOwnedVirtualBusSubcomponents()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/NamedElement.java" type="org.osate.aadl2.NamedElement">
+        <filter comment="Generated code" id="403804204">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.NamedElement"/>
+                <message_argument value="getPropertyValues(String, String)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getPropertyValues(String, String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/impl/MemoryImplementationImpl.java" type="org.osate.aadl2.impl.MemoryImplementationImpl">
+        <filter comment="Generated code" id="336658481">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.impl.MemoryImplementationImpl"/>
+                <message_argument value="ownedVirtualBusSubcomponents"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="ownedVirtualBusSubcomponents"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/operations/NamedElementOperations.java" type="org.osate.aadl2.operations.NamedElementOperations">
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getPropertyValues(NamedElement, String, String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
