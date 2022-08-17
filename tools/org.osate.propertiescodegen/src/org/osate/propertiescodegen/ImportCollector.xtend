@@ -2,7 +2,7 @@ package org.osate.propertiescodegen
 
 import java.util.Set
 
-package class ImportCollector {
+class ImportCollector {
 	val Set<String> imports = newHashSet
 	
 	def void add(String... importsToAdd) {
