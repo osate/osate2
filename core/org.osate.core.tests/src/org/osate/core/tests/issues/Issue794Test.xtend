@@ -141,6 +141,19 @@ class Issue794Test extends XtextTest {
 						"'fg2.fg_out1' does not match the out flow feature identifier 'fg1.fg_out1' in the flow specification."
 					)
 				]
+				ownedFlowImplementations.get(5) => [
+					"flow6".assertEquals(specification.name)
+					ownedFlowSegments.get(0) => [
+						assertError(testFileResult.issues, issueCollection,
+							"The source of connection 'conn5' does not match the in flow feature 'fg1'"
+						)
+					]
+					ownedFlowSegments.get(2) => [
+						assertError(testFileResult.issues, issueCollection,
+							"The destination of connection 'conn10' does not match the out flow feature 'fg2'"
+						)
+					]
+				]
 				ownedFlowImplementations.get(7) => [
 					"flow8".assertEquals(specification.name)
 					assertError(testFileResult.issues, issueCollection,
