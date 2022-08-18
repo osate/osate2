@@ -1492,15 +1492,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					if (Aadl2Util.isNull(inEnd)) {
 						return;
 					}
-					if (!isMatchingConnectionPoint(null, inEnd.getFeature(), context(inEnd), connectedElement)) {
+					if (!isMatchingConnectionPoint(null, inEnd, connectedElement)) {
 						boolean noMatch = false;
 						if (connection.isAllBidirectional()) {
 							didReverse = true;
 							ce = connection.getAllLastDestination();
 							cxt = connection.getAllDestinationContext();
 							connectedElement = connection.getRootConnection().getDestination();
-							if (!isMatchingConnectionPoint(null, inEnd.getFeature(), context(inEnd),
-									connectedElement)) {
+							if (!isMatchingConnectionPoint(null, inEnd, connectedElement)) {
 								noMatch = true;
 							}
 						} else {
@@ -1532,8 +1531,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 											&& (flowSegment.getContext() instanceof Subcomponent
 													&& !(((Subcomponent) flowSegment.getContext())
 															.getSubcomponentType() instanceof Prototype)))
-											|| !isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(),
-													context(inEnd), connectedElement)) {
+											|| !isMatchingConnectionPoint(flowSegment.getContext(), inEnd,
+													connectedElement)) {
 //
 										error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
 												+ connection.getName()
@@ -1554,8 +1553,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						if (Aadl2Util.isNull(outEnd)) {
 							return;
 						}
-						if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd.getFeature(), context(outEnd),
-								connectedElement)
+						if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd, connectedElement)
 								|| (!connectedElement.getContext().getName().equals(flowSegment.getContext().getName())
 										&& !(ce instanceof Parameter)
 										&& (flowSegment.getContext() instanceof Subcomponent)
@@ -1567,8 +1565,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								ce = connection.getAllLastDestination();
 								cxt = connection.getAllDestinationContext();
 								connectedElement = connection.getRootConnection().getDestination();
-								if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd.getFeature(),
-										context(outEnd), connectedElement)) {
+								if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd, connectedElement)) {
 									noMatch = true;
 								}
 							} else {
@@ -1620,7 +1617,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						return;
 					}
 					if (ce instanceof Feature) {
-						if (!isMatchingConnectionPoint(null, outEnd.getFeature(), context(outEnd), connectedElement)) {
+						if (!isMatchingConnectionPoint(null, outEnd, connectedElement)) {
 							error(flow.getOwnedFlowSegments().get(i),
 									"The destination of connection '" + connection.getName()
 											+ "' does not match the out flow feature '" + fqName(outEnd) + '\'');
@@ -1636,8 +1633,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							return;
 						}
 						if (ce instanceof Feature) {
-							if (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(), context(inEnd),
-									connectedElement)
+							if (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd, connectedElement)
 									|| (!connectedElement.getContext()
 											.getName()
 											.equals(flowSegment.getContext().getName())
@@ -1819,42 +1815,43 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 * same thing. They may be refinements of the other. They may be features of
 	 * feature groups on one or the other side.
 	 */
-	private boolean isMatchingConnectionPoint(Context segmentContext, Feature fsFeature, Context fsContext,
+	private boolean isMatchingConnectionPoint(Context segmentContext, FlowEnd flowEnd,
 			ConnectedElement connectedElement) {
+		int i = 0;
+
 		List<NamedElement> chain = getConnectionChain(connectedElement);
 		if (!chain.isEmpty()) {
 			if (chain.get(0) instanceof Subcomponent) {
-				chain = chain.subList(1, chain.size());
-			} else if (segmentContext != null && chain.get(0) instanceof SubprogramCall) {
-				SubprogramCall call = (SubprogramCall) chain.get(0);
-				if (call.getContext() == null && call.getCalledSubprogram() instanceof SubprogramSubcomponent) {
-					SubprogramSubcomponent callSub = (SubprogramSubcomponent) call.getCalledSubprogram();
+				i++;
+			} else if (segmentContext != null && chain.get(0) instanceof SubprogramCall call) {
+				if (call.getContext() == null && call.getCalledSubprogram() instanceof SubprogramSubcomponent callSub) {
 					if (callSub.equals(segmentContext)) {
-						chain = chain.subList(1, chain.size());
+						i++;
 					}
 				}
 			}
 		}
-		if (fsContext instanceof RefinableElement) {
-			if (chain.size() >= 2) {
-				if (chain.get(0) instanceof RefinableElement && chain.get(1) instanceof RefinableElement) {
-					RefinableElement connContext = (RefinableElement) chain.get(0);
-					RefinableElement connFeature = (RefinableElement) chain.get(1);
-					return (AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext)
-							|| AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext))
-							&& (AadlUtil.isSameOrRefines(fsFeature, connFeature)
-									|| AadlUtil.isSameOrRefines(connFeature, fsFeature));
-				}
-			} else if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
-				RefinableElement connContext = (RefinableElement) chain.get(0);
-				return AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext)
-						|| AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext);
-			}
-		} else if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
-			RefinableElement connFeature = (RefinableElement) chain.get(0);
-			return AadlUtil.isSameOrRefines(fsFeature, connFeature) || AadlUtil.isSameOrRefines(connFeature, fsFeature);
+
+		while (flowEnd.getContext() != null) {
+			flowEnd = flowEnd.getContext();
 		}
-		return false;
+
+		boolean result;
+		for (result = true; result && i < chain.size()
+				&& flowEnd != null; i++, flowEnd = flowEnd.getOwner() instanceof FlowEnd fe ? fe : null) {
+			var connElement = chain.get(i);
+
+			if (connElement instanceof RefinableElement connFeature) {
+				var fsFeature = flowEnd.getFeature();
+				result = AadlUtil.isSameOrRefines(fsFeature, connFeature)
+						|| AadlUtil.isSameOrRefines(connFeature, fsFeature);
+			} else {
+				result = false;
+			}
+		}
+
+		// all features map and connection does not go deeper than start of flow
+		return result && i >= chain.size();
 	}
 
 	/**
@@ -2586,8 +2583,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 */
 	private boolean doSubcomponentsAndFeaturesMatch(final Context flowContext, final FlowEnd flowEnd,
 			final Context connectionContext, final ConnectedElement connectedElement) {
-		// First check the features at the end of the flow and at the end of the connection
-		if (isMatchingConnectionPoint(flowContext, flowEnd.getFeature(), context(flowEnd), connectedElement)) {
+		// First check the fgetConnectionChaineatures at the end of the flow and at the end of the connection
+		if (isMatchingConnectionPoint(flowContext, flowEnd, connectedElement)) {
 			// Then check the subcomponents that qualify the features
 			return connectionContext instanceof Subcomponent && flowContext instanceof Subcomponent
 					&& doSubcomponentsMatch((Subcomponent) connectionContext, (Subcomponent) flowContext);
@@ -6742,107 +6739,52 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 * @param flow
 	 */
 	private void checkFlowFeatureDirection(FlowSpecification flow) {
-		FlowEnd inEnd = flow.getInEnd();
-		if (inEnd != null) {
-			Context inCxt = context(inEnd);
-			Feature inFeature = inEnd.getFeature();
-			if ((inCxt == null || (!inCxt.eIsProxy() && inCxt instanceof FeatureGroup)) && !Aadl2Util.isNull(inFeature)
-					&& (inFeature instanceof DataAccess || inFeature instanceof AbstractFeature
-							|| inFeature instanceof FeatureGroup || inFeature instanceof Parameter
-							|| inFeature instanceof Port)) {
-				boolean oppositeDirection = false;
-				if (inCxt instanceof FeatureGroup) {
-					FeatureGroup fg = (FeatureGroup) inCxt;
-					if (fg.isInverse()) {
-						oppositeDirection = !oppositeDirection;
-					}
-					FeatureGroupType fgt = fg.getAllFeatureGroupType();
-					if (!Aadl2Util.isNull(fgt)) {
-						if (!Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
-							// change direction since the FGT is an inverse and
-							// does not have features, i.e., the inEnd points to
-							// a
-							// feature in the inverse of FGT
-							oppositeDirection = !oppositeDirection;
-						}
-					}
-				}
-				checkIncomingFeatureDirection(inFeature, flow, oppositeDirection, true);
-			}
-		}
-		FlowEnd outEnd = flow.getOutEnd();
-		if (outEnd != null) {
-			Context outCxt = context(outEnd);
-			Feature outFeature = outEnd.getFeature();
-			if ((outCxt == null || (!outCxt.eIsProxy() && outCxt instanceof FeatureGroup))
-					&& !Aadl2Util.isNull(outFeature)
-					&& (outFeature instanceof DataAccess || outFeature instanceof AbstractFeature
-							|| outFeature instanceof FeatureGroup || outFeature instanceof Parameter
-							|| outFeature instanceof Port)) {
-				boolean oppositeDirection = false;
-				if (outCxt instanceof FeatureGroup) {
-					FeatureGroup fg = (FeatureGroup) outCxt;
-					if (fg.isInverse()) {
-						oppositeDirection = !oppositeDirection;
-					}
-					FeatureGroupType fgt = fg.getAllFeatureGroupType();
-					if (!Aadl2Util.isNull(fgt)) {
-						if (!Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
-							// change direction since the FGT is an inverse and
-							// does not have features, i.e., the inEnd points to
-							// a
-							// feature in the inverse of FGT
-							oppositeDirection = !oppositeDirection;
-						}
-					}
-				}
-				checkOutgoingFeatureDirection(outFeature, flow, oppositeDirection, true);
-			}
-		}
+		checkFlowFeatureDirection(flow.getInEnd(), flow.getOutEnd());
 	}
 
 	private void checkFlowImplementationDirection(FlowImplementation flow) {
-		FlowEnd inEnd = flow.getInEnd();
+		checkFlowFeatureDirection(flow.getInEnd(), flow.getOutEnd());
+	}
+
+	private void checkFlowFeatureDirection(FlowEnd inEnd, FlowEnd outEnd) {
 		if (inEnd != null) {
 			Feature inFeature = inEnd.getFeature();
-			Context inCxt = context(inEnd);
-			FeatureGroup fg = inCxt instanceof FeatureGroup ? (FeatureGroup) inCxt : null;
-			if (fg == null) {
-				return;
+			if (!Aadl2Util.isNull(inFeature) && (inFeature instanceof DataAccess || inFeature instanceof AbstractFeature
+					|| inFeature instanceof FeatureGroup || inFeature instanceof Parameter
+					|| inFeature instanceof Port)) {
+				checkIncomingFeatureDirection(inFeature, inEnd, isOpposite(inEnd), true);
 			}
-			FeatureGroupType fgt = fg.getAllFeatureGroupType();
-			boolean inverseBoolean = false;
-			if (fg.isInverse()) {
-				inverseBoolean = true;
-			}
-			if (fgt.getInverse() != null) {
-				inverseBoolean = true;
-			}
-			checkIncomingFeatureDirection(inFeature, flow, inverseBoolean, true);
 		}
-		FlowEnd outEnd = flow.getOutEnd();
 		if (outEnd != null) {
 			Feature outFeature = outEnd.getFeature();
-			Context outCxt = context(outEnd);
-			FeatureGroup fg = outCxt instanceof FeatureGroup ? (FeatureGroup) outCxt : null;
-			if (fg == null) {
-				return;
+			if (!Aadl2Util.isNull(outFeature) && (outFeature instanceof DataAccess
+					|| outFeature instanceof AbstractFeature || outFeature instanceof FeatureGroup
+					|| outFeature instanceof Parameter || outFeature instanceof Port)) {
+				checkOutgoingFeatureDirection(outFeature, outEnd, isOpposite(outEnd), true);
 			}
-			FeatureGroupType fgt = fg.getAllFeatureGroupType();
-			boolean inverseBoolean = false;
-			if (fg.isInverse()) {
-				inverseBoolean = true;
-			}
-			if (fgt.getInverse() != null) {
-				inverseBoolean = true;
-			}
-			checkOutgoingFeatureDirection(outFeature, flow, inverseBoolean, true);
 		}
-
 	}
 
-	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow, boolean inverseOf,
-			boolean report) {
+	private boolean isOpposite(FlowEnd end) {
+		boolean oppositeDirection = false;
+		for (var ctx = end.getContext(); !Aadl2Util.isNull(ctx); ctx = ctx.getContext()) {
+			if (ctx.getFeature() instanceof FeatureGroup fg) {
+				if (fg.isInverse()) {
+					oppositeDirection = !oppositeDirection;
+				}
+				var fgt = fg.getAllFeatureGroupType();
+				if (!Aadl2Util.isNull(fgt) && !Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
+					// change direction since the FGT is an inverse and
+					// does not have features, i.e., the inEnd points to
+					// a feature in the inverse of FGT
+					oppositeDirection = !oppositeDirection;
+				}
+			}
+		}
+		return oppositeDirection;
+	}
+
+	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowEnd inEnd, boolean inverseOf, boolean report) {
 		// Test for L2
 		if (inFeature instanceof Port || inFeature instanceof Parameter || inFeature instanceof AbstractFeature) {
 			DirectionType fDirection = ((DirectedFeature) inFeature).getDirection();
@@ -6851,7 +6793,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			}
 			if (!fDirection.incoming()) {
 				if (report) {
-					error(flow.getInEnd(), '\'' + fqName(flow.getInEnd()) + "' must be an in or in out feature.");
+					error(inEnd, '\'' + fqName(inEnd) + "' must be an in or in out feature.");
 				}
 				return false;
 			} else {
@@ -6867,8 +6809,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			}
 			if (accessRight != AccessRights.READ_ONLY && accessRight != AccessRights.READ_WRITE) {
 				if (report) {
-					error(flow.getInEnd(),
-							'\'' + fqName(flow.getInEnd()) + "' must have an access right of Read_Only or Read_Write.");
+					error(inEnd, '\'' + fqName(inEnd) + "' must have an access right of Read_Only or Read_Write.");
 				}
 				return false;
 			} else {
@@ -6889,12 +6830,12 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				for (Feature f : fgt.getAllFeatures()) {
 					// check to see if there is at least one incoming feature in
 					// the feature group
-					if (checkIncomingFeatureDirection(f, flow, inInverseof ? !inverseOf : inverseOf, false)) {
+					if (checkIncomingFeatureDirection(f, inEnd, inInverseof ? !inverseOf : inverseOf, false)) {
 						return true;
 					}
 				}
 				if (report) {
-					error(flow.getInEnd(), '\'' + fqName(flow.getInEnd())
+					error(inEnd, '\'' + fqName(inEnd)
 							+ "' must contain at least one in or in out port or parameter, at least data access with an access right of Read_Only or Read_Write, or be empty.");
 					return false;
 				}
@@ -6905,71 +6846,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	}
 
-	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowImplementation flow, boolean inverseOf,
-			boolean report) {
-		// Test for L2
-		if (inFeature instanceof Port || inFeature instanceof Parameter || inFeature instanceof AbstractFeature) {
-			DirectionType fDirection = ((DirectedFeature) inFeature).getDirection();
-			if (inverseOf) {
-				fDirection = fDirection.getInverseDirection();
-			}
-			if (!fDirection.incoming()) {
-				if (report) {
-					error(flow.getInEnd(), '\'' + fqName(flow.getInEnd()) + "' must be an in or in out feature.");
-				}
-				return false;
-			} else {
-				return true;
-			}
-		}
-		// Test for L4
-		else if (inFeature instanceof DataAccess) {
-			AccessRights accessRight = org.osate.aadl2.contrib.memory.MemoryProperties.getAccessRight(inFeature)
-					.orElse(AccessRights.READ_WRITE);
-			if (inverseOf) {
-				accessRight = AadlContribUtils.getInverseDirection(accessRight);
-			}
-			if (accessRight != AccessRights.READ_ONLY && accessRight != AccessRights.READ_WRITE) {
-				if (report) {
-					error(flow.getInEnd(),
-							'\'' + fqName(flow.getInEnd()) + "' must have an access right of Read_Only or Read_Write.");
-				}
-				return false;
-			} else {
-				return true;
-			}
-		}
-		// Test for L6
-		else if (inFeature instanceof FeatureGroup) {
-			FeatureGroupType fgt = ((FeatureGroup) inFeature).getAllFeatureGroupType();
-			boolean inInverseof = ((FeatureGroup) inFeature).isInverse();
-			if (!Aadl2Util.isNull(fgt)) {
-				if (!Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
-					inInverseof = !inInverseof;
-				}
-				if (fgt.getAllFeatures().isEmpty()) {
-					return true;
-				}
-				for (Feature f : fgt.getAllFeatures()) {
-					// check to see if there is at least one incoming feature in
-					// the feature group
-					if (checkIncomingFeatureDirection(f, flow, inInverseof ? !inverseOf : inverseOf, false)) {
-						return true;
-					}
-				}
-				if (report) {
-					error(flow.getInEnd(), '\'' + fqName(flow.getInEnd())
-							+ "' must contain at least one in or in out port or parameter, at least data access with an access right of Read_Only or Read_Write, or be empty.");
-					return false;
-				}
-			}
-			return true;
-		}
-		return false;
-
-	}
-
-	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowSpecification flow, boolean inverseOf,
+	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowEnd outEnd, boolean inverseOf,
 			boolean report) {
 		// Test for L3
 		if (outFeature instanceof Port || outFeature instanceof Parameter || outFeature instanceof AbstractFeature) {
@@ -6980,7 +6857,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 			if (!fDirection.outgoing()) {
 				if (report) {
-					error(flow.getOutEnd(), '\'' + fqName(flow.getOutEnd()) + "' must be an out or in out feature.");
+					error(outEnd, '\'' + fqName(outEnd) + "' must be an out or in out feature.");
 				}
 				return false;
 			} else {
@@ -6994,8 +6871,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 			if (accessRight != AccessRights.WRITE_ONLY && accessRight != AccessRights.READ_WRITE) {
 				if (report) {
-					error(flow.getOutEnd(), '\'' + fqName(flow.getOutEnd())
-							+ "' must have an access right of Write_Only or Read_Write.");
+					error(outEnd, '\'' + fqName(outEnd) + "' must have an access right of Write_Only or Read_Write.");
 				}
 				return false;
 			} else {
@@ -7019,78 +6895,12 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					return true;
 				}
 				for (Feature f : fgt.getAllFeatures()) {
-					if (checkOutgoingFeatureDirection(f, flow, outInverseof ? !inverseOf : inverseOf, false)) {
+					if (checkOutgoingFeatureDirection(f, outEnd, outInverseof ? !inverseOf : inverseOf, false)) {
 						return true;
 					}
 				}
 				if (report) {
-					error(flow.getOutEnd(), '\'' + fqName(flow.getOutEnd())
-							+ "' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
-				}
-				return false;
-			} else {
-				return true;
-			}
-		}
-		return false;
-
-	}
-
-	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowImplementation flow, boolean inverseOf,
-			boolean report) {
-		// Test for L3
-		if (outFeature instanceof Port || outFeature instanceof Parameter || outFeature instanceof AbstractFeature) {
-			DirectionType fDirection = ((DirectedFeature) outFeature).getDirection();
-			if (inverseOf) {
-				fDirection = fDirection.getInverseDirection();
-			}
-			if (!fDirection.outgoing()) {
-				if (report) {
-					error(flow.getOutEnd(), '\'' + fqName(flow.getOutEnd()) + "' must be an out or in out feature.");
-				}
-				return false;
-			} else {
-				return true;
-			}
-		}
-		// Test for L5
-		else if (outFeature instanceof DataAccess) {
-			final AccessRights accessRight = org.osate.aadl2.contrib.memory.MemoryProperties.getAccessRight(outFeature)
-					.orElse(AccessRights.READ_WRITE);
-
-			if (accessRight != AccessRights.WRITE_ONLY && accessRight != AccessRights.READ_WRITE) {
-				if (report) {
-					error(flow.getOutEnd(), '\'' + fqName(flow.getOutEnd())
-							+ "' must have an access right of Write_Only or Read_Write.");
-				}
-				return false;
-			} else {
-				return true;
-			}
-		}
-		// Test for L7
-		else if (outFeature instanceof FeatureGroup) {
-			FeatureGroupType fgt = ((FeatureGroup) outFeature).getAllFeatureGroupType();
-			boolean outInverseof = ((FeatureGroup) outFeature).isInverse();
-			if (fgt != null) {
-				if (!Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
-					// change direction only if inverse of and no features.
-					// Otherwise, we check features in this fgt
-					outInverseof = !outInverseof;
-					// set up inverse fgt to be examined for features of the
-					// correct direction
-					fgt = fgt.getInverse();
-				}
-				if (fgt.getAllFeatures().isEmpty()) {
-					return true;
-				}
-				for (Feature f : fgt.getAllFeatures()) {
-					if (checkOutgoingFeatureDirection(f, flow, outInverseof ? !inverseOf : inverseOf, false)) {
-						return true;
-					}
-				}
-				if (report) {
-					error(flow.getOutEnd(), '\'' + fqName(flow.getOutEnd())
+					error(outEnd, '\'' + fqName(outEnd)
 							+ "' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
 				}
 				return false;
