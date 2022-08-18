@@ -38,6 +38,7 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.TableViewer;
@@ -153,11 +154,24 @@ public class CreateFlowImplementationTool implements Tool {
 				final AadlModificationService aadlModService = ctx.getAadlModificatonService();
 				final ColoringService coloringService = ctx.getColoringService();
 
+				// Check if we are trying to implement a spec for which no implementation is allowed
+				boolean forbidden = false;
+				var selected = selectedBoc.getBusinessObject();
+				if (selected instanceof FlowSpecification) {
+					var fs = (FlowSpecification) selected;
+					forbidden = noImpl(fs.getAllInEnd()) || noImpl(fs.getAllOutEnd());
+				}
+
 				// Check for existing errors and warnings
 				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
 				// Do not allow tool activation if there are errors in the models
 				final Set<Diagnostic> errors = FlowDialogUtil.getErrors(diagnostics);
-				if (!errors.isEmpty()) {
+				if (forbidden) {
+					Display.getDefault().asyncExec(() -> {
+						MessageDialog.openError(Display.getDefault().getActiveShell(), "Error",
+								"Cannot implement a flow specification that reaches more than two levels into a feature group");
+					});
+				} else if (!errors.isEmpty()) {
 					Display.getDefault()
 					.asyncExec(() -> new FlowDialogUtil.ErrorDialog("The Create Flow Implementation", errors)
 							.open());
@@ -223,6 +237,10 @@ public class CreateFlowImplementationTool implements Tool {
 		} finally {
 			uiService.deactivateActiveTool();
 		}
+	}
+
+	private boolean noImpl(FlowEnd end) {
+		return end != null && end.getContext() != null && end.getContext().getContext() != null;
 	}
 
 	private void setColor(final Object o, final Color color) {
@@ -423,12 +441,16 @@ public class CreateFlowImplementationTool implements Tool {
 							if ((fs.getKind() == FlowKind.PATH || fs.getKind() == FlowKind.SINK)
 									&& flowImpl.getInEnd() == null) {
 								final FlowEnd inEnd = flowImpl.createInEnd();
-								inEnd.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
+								final FlowEnd context = inEnd.createContext();
+								final Context ctx = ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc);
 								inEnd.setFeature((Feature) bo);
+								context.setFeature((Feature) ctx);
 							} else if (flowImpl.getOutEnd() == null) {
 								final FlowEnd outEnd = flowImpl.createOutEnd();
-								outEnd.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
+								final FlowEnd context = outEnd.createContext();
+								final Context ctx = ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc);
 								outEnd.setFeature((Feature) bo);
+								context.setFeature((Feature) ctx);
 							}
 						} else {
 							final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
@@ -464,7 +486,8 @@ public class CreateFlowImplementationTool implements Tool {
 						if (boc.getParent() instanceof DiagramElement) {
 							final DiagramElement container = (DiagramElement) boc.getParent();
 							final FlowEnd inEnd = fs.getAllInEnd();
-							if (inEnd != null) {
+							if (inEnd != null
+									&& !(inEnd.getContext() != null && inEnd.getContext().getContext() != null)) {
 								addSegmentSelection(FlowToolUtil.createSegmentData(referenceService, container, inEnd),
 										segmentSelections.size(), Color.MAGENTA.darker());
 							}

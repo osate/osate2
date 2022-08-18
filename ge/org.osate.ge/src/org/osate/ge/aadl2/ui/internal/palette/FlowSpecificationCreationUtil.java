@@ -60,10 +60,11 @@ import org.osate.ge.services.QueryService;
 
 class FlowSpecificationCreationUtil {
 	private static final ExecutableQuery<Object> COMPONENT_CLASSIFIER_OR_SUBCOMPONENT_QUERY = ExecutableQuery.create(
-			(root) -> root.ancestors().first(2).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
+			(root) -> root.ancestors()
+			.filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
 					|| fa.getBusinessObject() instanceof Subcomponent).first());
 	private static final ExecutableQuery<Object> CONTEXT_QUERY = ExecutableQuery
-			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof FeatureGroup).first());
+			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof FeatureGroup));
 
 	/**
 	 * Returns whether a specified feature diagram element may be used as a flow end for a flow specification.
@@ -104,7 +105,7 @@ class FlowSpecificationCreationUtil {
 	public static List<ComponentType> getPotentialOwnersByFeature(
 			BusinessObjectContext featureBoc,
 			final QueryService queryService) {
-		final Context context = getContext(featureBoc, queryService);
+		Context context = getContext(featureBoc, queryService);
 		final Feature feature = (Feature) featureBoc.getBusinessObject();
 		final String childName = context == null ? feature.getName() : context.getName();
 		if (childName == null) {
@@ -123,8 +124,17 @@ class FlowSpecificationCreationUtil {
 	}
 
 	static Context getContext(final BusinessObjectContext featureBoc, final QueryService queryService) {
-		return (Context) queryService.getFirstBusinessObject(CONTEXT_QUERY, featureBoc, featureBoc.getBusinessObject())
-				.orElse(null);
+		var results = queryService.getResults(CONTEXT_QUERY, featureBoc, featureBoc.getBusinessObject());
+		if (results.isEmpty()) {
+			return null;
+		}
+		var last = results.get(results.size() - 1);
+		return (Context) last.getBusinessObjectContext().getBusinessObject();
+	}
+
+	static List<Context> getContexts(final BusinessObjectContext featureBoc, final QueryService queryService) {
+		var results = queryService.getResults(CONTEXT_QUERY, featureBoc, featureBoc.getBusinessObject());
+		return results.stream().map(qr -> (Context) qr.getBusinessObjectContext().getBusinessObject()).toList();
 	}
 
 	private static boolean hasFeatureWithName(final ComponentType ct, final String nameToCheck) {

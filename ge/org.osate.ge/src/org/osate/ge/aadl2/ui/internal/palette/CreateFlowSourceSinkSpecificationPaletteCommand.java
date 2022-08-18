@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowEnd;
@@ -39,16 +40,16 @@ import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 
-public class CreateFlowSourceSinkSpecificationPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+public class CreateFlowSourceSinkSpecificationPaletteCommand extends BasePaletteCommand
+implements TargetedPaletteCommand {
 	private final FlowKind flowKind;
 
-	private CreateFlowSourceSinkSpecificationPaletteCommand(final String label, final String imageName, final FlowKind flowKind) {
-		super(label,
-				AadlCategories.FLOWS,
-				AadlImages.getImage(imageName));
+	private CreateFlowSourceSinkSpecificationPaletteCommand(final String label, final String imageName,
+			final FlowKind flowKind) {
+		super(label, AadlCategories.FLOWS, AadlImages.getImage(imageName));
 		this.flowKind = flowKind;
 	}
 
@@ -76,30 +77,25 @@ public class CreateFlowSourceSinkSpecificationPaletteCommand extends BasePalette
 
 			final List<ComponentType> potentialOwners = FlowSpecificationCreationUtil
 					.getPotentialOwnersByFeature(ctx.getTarget(), ctx.getQueryService());
-			if (potentialOwners
-					.isEmpty()
-					|| !FlowSpecificationCreationUtil.isValidFlowEnd(feature, ctx.getTarget(), requiredDirection,
-							ctx.getQueryService())) {
+			if (potentialOwners.isEmpty() || !FlowSpecificationCreationUtil.isValidFlowEnd(feature, ctx.getTarget(),
+					requiredDirection, ctx.getQueryService())) {
 				return null;
 			}
 
 			final BusinessObjectContext container = FlowSpecificationCreationUtil
-					.getFlowSpecificationOwnerBoc(ctx.getTarget(),
-					ctx.getQueryService());
+					.getFlowSpecificationOwnerBoc(ctx.getTarget(), ctx.getQueryService());
 			if (container == null) {
 				return null;
 			}
 
 			return Operation.createWithBuilder(createOp -> {
-				AadlUiUtil.selectClassifier(createOp,
-						potentialOwners)
-				.modifyPreviousResult(ct -> {
+				AadlUiUtil.selectClassifier(createOp, potentialOwners).modifyPreviousResult(ct -> {
 					final FlowSpecification fs = ct.createOwnedFlowSpecification();
 					fs.setKind(flowKind);
-							fs.setName(FlowSpecificationCreationUtil.getNewFlowSpecificationName(ct));
+					fs.setName(FlowSpecificationCreationUtil.getNewFlowSpecificationName(ct));
 
 					// Create the appropriate flow end depending on the type being created
-					final FlowEnd flowEnd;
+					FlowEnd flowEnd;
 					if (flowKind == FlowKind.SOURCE) {
 						flowEnd = fs.createOutEnd();
 					} else if (flowKind == FlowKind.SINK) {
@@ -108,8 +104,11 @@ public class CreateFlowSourceSinkSpecificationPaletteCommand extends BasePalette
 						throw new RuntimeException("Unexpected flow kind: " + flowKind);
 					}
 					flowEnd.setFeature(feature);
-							flowEnd.setContext(
-									FlowSpecificationCreationUtil.getContext(ctx.getTarget(), ctx.getQueryService()));
+					var contexts = FlowSpecificationCreationUtil.getContexts(ctx.getTarget(), ctx.getQueryService());
+					for (Context context : contexts) {
+						flowEnd = flowEnd.createContext();
+						flowEnd.setFeature((Feature) context);
+					}
 
 					// Clear the no flows flag
 					ct.setNoFlows(false);

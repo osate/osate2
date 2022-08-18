@@ -196,7 +196,7 @@ public class FlowContributionItemUtil {
 	}
 
 	static String getName(NamedElement ne) {
-		ne = (NamedElement) AgeAadlUtil.getRootRefinedElement(ne);
+		ne = AgeAadlUtil.getRootRefinedElement(ne);
 		return ne.getName() == null ? "<unknown>" : ne.getName();
 	}
 
