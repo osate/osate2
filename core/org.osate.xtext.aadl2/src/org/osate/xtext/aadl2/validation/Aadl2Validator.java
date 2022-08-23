@@ -1765,26 +1765,43 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 *            - connection(s) immediately before/after the subcomponent
 	 */
 	private void checkSubcomponentFlowHelper(Element segment, Subcomponent sub, List<Connection> conns) {
-		for (Connection conn : conns) {
-			ConnectionEnd ce = null;
-			if (sub == conn.getAllSourceContext()) {
-				ce = conn.getAllLastSource();
-			} else if (sub == conn.getAllDestinationContext()) {
-				ce = conn.getAllLastDestination();
+		for (Connection outerConn : conns) {
+			ConnectedElement ele = null;
+			if (sub == outerConn.getAllSourceContext()) {
+				ele = outerConn.getRootConnection().getSource();
+			} else if (sub == outerConn.getAllDestinationContext()) {
+				ele = outerConn.getRootConnection().getDestination();
 			}
-			if (ce != null && sub.getComponentImplementation() != null) {
+			if (!Aadl2Util.isNull(sub) && !Aadl2Util.isNull(sub.getComponentImplementation())) {
 				for (Connection innerConn : sub.getComponentImplementation().getAllConnections()) {
-					if ((innerConn.getAllSourceContext() == null && innerConn.getAllLastSource() == ce)
-							|| (innerConn.getAllDestinationContext() == null
-									&& innerConn.getAllLastDestination() == ce)) {
-						// connection continues inside subcomponent
-						error(segment, "Connection '" + conn.getName() + "' continues inside subcomponent '"
+					ConnectedElement src = innerConn.getRootConnection().getSource();
+					ConnectedElement dst = innerConn.getRootConnection().getDestination();
+					if (areConnected(ele, src) || areConnected(ele, dst)) {
+						error(segment, "Connection '" + outerConn.getName() + "' continues inside subcomponent '"
 								+ sub.getName() + "'");
 						break;
 					}
 				}
 			}
 		}
+	}
+
+	private boolean areConnected(ConnectedElement ce1, ConnectedElement ce2) {
+		if (ce1.getContext() instanceof Subcomponent) {
+			if (ce2.getContext() == null) {
+				return ce1.getConnectionEnd() == ce2.getConnectionEnd();
+			} else {
+				if (ce1.getConnectionEnd() == ce2.getContext()) {
+					ce1 = ce1.getNext();
+					if (ce1 != null && ce1.getConnectionEnd() != null && ce2.getConnectionEnd() != null) {
+						return ce1.getConnectionEnd() == ce2.getConnectionEnd();
+					} else {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	private void checkEmptyFlowImplementation(FlowImplementation flow) {
