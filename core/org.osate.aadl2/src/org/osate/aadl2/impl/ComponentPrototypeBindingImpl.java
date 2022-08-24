@@ -66,16 +66,6 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl implemen
 	protected EList<ComponentPrototypeActual> actuals;
 
 	/**
-	 * The cached value of the '{@link #getFormal() <em>Formal</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFormal()
-	 * @generated
-	 * @ordered
-	 */
-	protected Prototype formal;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

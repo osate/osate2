@@ -76,9 +76,11 @@ public class Serializer2Test extends AbstractSerializerTest {
 						connections
 							conn1: port p4 -> s1_sub.p1;
 							conn2: port s1_sub.p2 -> s2_sub.p3;
+							conn3: port s1_sub.p2 -> p5;
 						flows
 							f3: flow sink p4 -> conn1 -> s1_sub.f1 -> conn2 -> s2_sub.f2;
 							f4: flow sink p4 -> conn1 -> s1_sub -> conn2 -> s2_sub.f2;
+							f5: flow path p4 -> conn1 -> s1_sub -> conn3 -> p5;
 							etef1: end to end flow s1_sub -> conn2 -> s2_sub.f2;
 					end s3.i;
 
@@ -111,46 +113,47 @@ public class Serializer2Test extends AbstractSerializerTest {
 				""");
 		//@formatter:off
 		assertSerialize(pkg1, "s5.i", """
-				system s5_i_Instance : pkg1::s5.i {
-					system pkg1::s4 s4_sub [ 0 ] : pkg1::s5.i:s4_sub {
-						out dataPort p6 : pkg1::s4:p6
-						in dataPort p7 : pkg1::s4:p7
-						flow f6 ( -> p6 ) : pkg1::s4:f6
-						flow f7 ( p7 -> ) : pkg1::s4:f7
+			system s5_i_Instance : pkg1::s5.i {
+				system pkg1::s4 s4_sub [ 0 ] : pkg1::s5.i:s4_sub {
+					out dataPort p6 : pkg1::s4:p6
+					in dataPort p7 : pkg1::s4:p7
+					flow f6 ( -> p6 ) : pkg1::s4:f6
+					flow f7 ( p7 -> ) : pkg1::s4:f7
+				}
+				system pkg1::s3.i s3_sub [ 0 ] : pkg1::s5.i:s3_sub {
+					in dataPort p4 : pkg1::s3:p4
+					out dataPort p5 : pkg1::s3:p5
+					system pkg1::s1 s1_sub [ 0 ] : pkg1::s3.i:s1_sub {
+						in dataPort p1 : pkg1::s1:p1
+						out dataPort p2 : pkg1::s1:p2
+						flow f1 ( p1 -> p2 ) : pkg1::s1:f1
 					}
-					system pkg1::s3.i s3_sub [ 0 ] : pkg1::s5.i:s3_sub {
-						in dataPort p4 : pkg1::s3:p4
-						out dataPort p5 : pkg1::s3:p5
-						system pkg1::s1 s1_sub [ 0 ] : pkg1::s3.i:s1_sub {
-							in dataPort p1 : pkg1::s1:p1
-							out dataPort p2 : pkg1::s1:p2
-							flow f1 ( p1 -> p2 ) : pkg1::s1:f1
-						}
-						system pkg1::s2 s2_sub [ 0 ] : pkg1::s3.i:s2_sub {
-							in dataPort p3 : pkg1::s2:p3
-							flow f2 ( p3 -> ) : pkg1::s2:f2
-						}
-						complete portConnection "s1_sub.p2 -> s2_sub.p3" : s1_sub[0].p2 -> s2_sub[0].p3 {
-							s1_sub[0].p2 -> s2_sub[0].p3 : pkg1::s3.i:conn2 in parent
-						}
-						flow f3 ( p4 -> ) : pkg1::s3:f3
-						flow f4 ( p4 -> ) : pkg1::s3:f4
-						flow f5 ( p4 -> p5 ) : pkg1::s3:f5
-						end to end flow etef1 s1_sub[0] -> connection#0 -> s2_sub[0].f2 : pkg1::s3.i:etef1
+					system pkg1::s2 s2_sub [ 0 ] : pkg1::s3.i:s2_sub {
+						in dataPort p3 : pkg1::s2:p3
+						flow f2 ( p3 -> ) : pkg1::s2:f2
 					}
-					complete portConnection "s4_sub.p6 -> s3_sub.s1_sub.p1" : s4_sub[0].p6 -> s3_sub[0].s1_sub[0].p1 {
-						s4_sub[0].p6 -> s3_sub[0].p4 : pkg1::s5.i:conn3 in parent
-						s3_sub[0].p4 -> s3_sub[0].s1_sub[0].p1 : pkg1::s3.i:conn1 in s3_sub[0]
+					complete portConnection "s1_sub.p2 -> s2_sub.p3" : s1_sub[0].p2 -> s2_sub[0].p3 {
+						s1_sub[0].p2 -> s2_sub[0].p3 : pkg1::s3.i:conn2 in parent
 					}
-					complete portConnection "s3_sub.p5 -> s4_sub.p7" : s3_sub[0].p5 -> s4_sub[0].p7 {
-						s3_sub[0].p5 -> s4_sub[0].p7 : pkg1::s5.i:conn4 in parent
-					}
-					end to end flow etef2 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0].f1 -> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef2
-					end to end flow etef3 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0] -> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef3
-					end to end flow etef4 s4_sub[0].f6 -> connection#0 -> s3_sub[0].f5 : pkg1::s5.i:etef4
-					end to end flow etef5 etef4 -> connection#1 -> s4_sub[0].f7 : pkg1::s5.i:etef5
-					som "No Modes"
-				}""");
+					flow f3 ( p4 -> ) : pkg1::s3:f3
+					flow f4 ( p4 -> ) : pkg1::s3:f4
+					flow f5 ( p4 -> p5 ) : pkg1::s3:f5
+					end to end flow etef1 s1_sub[0] -> connection#0 -> s2_sub[0].f2 : pkg1::s3.i:etef1
+				}
+				complete portConnection "s4_sub.p6 -> s3_sub.s1_sub.p1" : s4_sub[0].p6 -> s3_sub[0].s1_sub[0].p1 {
+					s4_sub[0].p6 -> s3_sub[0].p4 : pkg1::s5.i:conn3 in parent
+					s3_sub[0].p4 -> s3_sub[0].s1_sub[0].p1 : pkg1::s3.i:conn1 in s3_sub[0]
+				}
+				complete portConnection "s3_sub.s1_sub.p2 -> s4_sub.p7" : s3_sub[0].s1_sub[0].p2 -> s4_sub[0].p7 {
+					s3_sub[0].s1_sub[0].p2 -> s3_sub[0].p5 : pkg1::s3.i:conn3 in s3_sub[0]
+					s3_sub[0].p5 -> s4_sub[0].p7 : pkg1::s5.i:conn4 in parent
+				}
+				end to end flow etef2 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0].f1 -> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef2
+				end to end flow etef3 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0] -> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef3
+				end to end flow etef4 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0] : pkg1::s5.i:etef4
+				end to end flow etef5 etef4 -> connection#1 -> s4_sub[0].f7 : pkg1::s5.i:etef5
+				som "No Modes"
+			}""");
 		//@formatter:on
 	}
 

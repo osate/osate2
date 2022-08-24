@@ -81,6 +81,7 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedBusSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedMemorySubcomponent());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedVirtualBusSubcomponent());
 		}
 		return childrenFeatures;
 	}
@@ -136,6 +137,7 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 		switch (notification.getFeatureID(MemoryImplementation.class)) {
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
+		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -160,6 +162,10 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 		newChildDescriptors
 				.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedMemorySubcomponent(),
 						Aadl2Factory.eINSTANCE.createMemorySubcomponent()));
+
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedVirtualBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
 	}
 
 }

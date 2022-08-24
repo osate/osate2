@@ -409,6 +409,7 @@ public class InstantiateModel {
 				+ FileNameConstants.INSTANCE_MODEL_POSTFIX;
 
 		root.setComponentImplementation(ci);
+		root.setClassifier(ci);
 		root.setName(instanceName);
 		root.setCategory(ci.getCategory());
 		aadlResource.getContents().add(root);

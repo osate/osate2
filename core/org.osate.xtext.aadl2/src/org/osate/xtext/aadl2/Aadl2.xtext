@@ -1000,6 +1000,7 @@ MemoryImplementation returns aadl2::MemoryImplementation:
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedMemorySubcomponent+=MemorySubcomponent
 	  | ownedBusSubcomponent+=BusSubcomponent
+	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?

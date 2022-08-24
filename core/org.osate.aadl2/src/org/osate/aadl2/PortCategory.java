@@ -67,10 +67,10 @@ public enum PortCategory implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #EVENT_DATA_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	EVENT_DATA(2, "eventData", "eventData");
+	EVENT_DATA(2, "event data", "event data");
 
 	/**
 	 * The '<em><b>Data</b></em>' literal value.

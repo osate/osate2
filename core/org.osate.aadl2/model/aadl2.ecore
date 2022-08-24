@@ -3275,6 +3275,13 @@
         <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemoryPrototype" eSuperTypes="#//ComponentPrototype #//Memory #//MemorySubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

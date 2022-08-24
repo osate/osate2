@@ -2176,6 +2176,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getMemoryImplementationAccess().getOwnedAbstractSubcomponentAssignment_7_1_0_0(), "rule__MemoryImplementation__OwnedAbstractSubcomponentAssignment_7_1_0_0");
 				builder.put(grammarAccess.getMemoryImplementationAccess().getOwnedMemorySubcomponentAssignment_7_1_0_1(), "rule__MemoryImplementation__OwnedMemorySubcomponentAssignment_7_1_0_1");
 				builder.put(grammarAccess.getMemoryImplementationAccess().getOwnedBusSubcomponentAssignment_7_1_0_2(), "rule__MemoryImplementation__OwnedBusSubcomponentAssignment_7_1_0_2");
+				builder.put(grammarAccess.getMemoryImplementationAccess().getOwnedVirtualBusSubcomponentAssignment_7_1_0_3(), "rule__MemoryImplementation__OwnedVirtualBusSubcomponentAssignment_7_1_0_3");
 				builder.put(grammarAccess.getMemoryImplementationAccess().getNoSubcomponentsAssignment_7_1_1_0(), "rule__MemoryImplementation__NoSubcomponentsAssignment_7_1_1_0");
 				builder.put(grammarAccess.getMemoryImplementationAccess().getOwnedEventSourceAssignment_8_1_0(), "rule__MemoryImplementation__OwnedEventSourceAssignment_8_1_0");
 				builder.put(grammarAccess.getMemoryImplementationAccess().getOwnedEventDataSourceAssignment_8_1_1(), "rule__MemoryImplementation__OwnedEventDataSourceAssignment_8_1_1");
@@ -2538,12 +2539,12 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__DataPort__OwnedPropertyAssociationAssignment_6_1");
 				builder.put(grammarAccess.getEventDataPortAccess().getNameAssignment_1_0_0(), "rule__EventDataPort__NameAssignment_1_0_0");
 				builder.put(grammarAccess.getEventDataPortAccess().getRefinedAssignment_1_1_0(), "rule__EventDataPort__RefinedAssignment_1_1_0");
-				builder.put(grammarAccess.getEventDataPortAccess().getInAssignment_2_0_0(), "rule__EventDataPort__InAssignment_2_0_0");
 			}
 		}
 		
 		private static final class Init1 {
 			private static void doInit(ImmutableMap.Builder<AbstractElement, String> builder, Aadl2GrammarAccess grammarAccess) {
+				builder.put(grammarAccess.getEventDataPortAccess().getInAssignment_2_0_0(), "rule__EventDataPort__InAssignment_2_0_0");
 				builder.put(grammarAccess.getEventDataPortAccess().getOutAssignment_2_0_1(), "rule__EventDataPort__OutAssignment_2_0_1");
 				builder.put(grammarAccess.getEventDataPortAccess().getOutAssignment_2_1(), "rule__EventDataPort__OutAssignment_2_1");
 				builder.put(grammarAccess.getEventDataPortAccess().getDataFeatureClassifierAssignment_4(), "rule__EventDataPort__DataFeatureClassifierAssignment_4");

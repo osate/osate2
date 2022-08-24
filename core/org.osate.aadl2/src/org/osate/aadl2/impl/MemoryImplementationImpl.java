@@ -40,6 +40,7 @@ import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.VirtualBusSubcomponent;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,6 +53,7 @@ import org.osate.aadl2.Subcomponent;
  *   <li>{@link org.osate.aadl2.impl.MemoryImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.MemoryImplementationImpl#getOwnedBusSubcomponents <em>Owned Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.MemoryImplementationImpl#getOwnedMemorySubcomponents <em>Owned Memory Subcomponent</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.MemoryImplementationImpl#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.MemoryImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
  *
@@ -76,6 +78,16 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	 * @ordered
 	 */
 	protected EList<MemorySubcomponent> ownedMemorySubcomponents;
+
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualBusSubcomponents() <em>Owned Virtual Bus Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualBusSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualBusSubcomponent> ownedVirtualBusSubcomponents;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -118,7 +130,8 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	protected static final int[] OWNED_SUBCOMPONENT_ESUBSETS = new int[] {
 			Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT,
 			Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT,
-			Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT };
+			Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT,
+			Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -174,6 +187,33 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
+		if (ownedVirtualBusSubcomponents == null) {
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<>(
+					VirtualBusSubcomponent.class, this,
+					Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
+		}
+		return ownedVirtualBusSubcomponents;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
+		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualBusSubcomponent());
+		getOwnedVirtualBusSubcomponents().add(newOwnedVirtualBusSubcomponent);
+		return newOwnedVirtualBusSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public MemoryType getType() {
@@ -221,6 +261,8 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
 			return ((InternalEList<?>) getOwnedMemorySubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -237,6 +279,8 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 			return getOwnedBusSubcomponents();
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
 			return getOwnedMemorySubcomponents();
+		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			return getOwnedVirtualBusSubcomponents();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -258,6 +302,10 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 			getOwnedMemorySubcomponents().clear();
 			getOwnedMemorySubcomponents().addAll((Collection<? extends MemorySubcomponent>) newValue);
 			return;
+		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			getOwnedVirtualBusSubcomponents().clear();
+			getOwnedVirtualBusSubcomponents().addAll((Collection<? extends VirtualBusSubcomponent>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -275,6 +323,9 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 			return;
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
 			getOwnedMemorySubcomponents().clear();
+			return;
+		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			getOwnedVirtualBusSubcomponents().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -294,6 +345,8 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 			return ownedBusSubcomponents != null && !ownedBusSubcomponents.isEmpty();
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
 			return ownedMemorySubcomponents != null && !ownedMemorySubcomponents.isEmpty();
+		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			return ownedVirtualBusSubcomponents != null && !ownedVirtualBusSubcomponents.isEmpty();
 		case Aadl2Package.MEMORY_IMPLEMENTATION__TYPE:
 			return isSetType();
 		}
@@ -308,7 +361,8 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	@Override
 	public boolean isSetOwnedSubcomponents() {
 		return super.isSetOwnedSubcomponents() || eIsSet(Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
-				|| eIsSet(Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT);
+				|| eIsSet(Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT)
+				|| eIsSet(Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 	}
 
 	public ComponentCategory getCategory() {

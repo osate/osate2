@@ -13821,6 +13821,12 @@ rule__MemoryImplementation__Alternatives_7_1_0
 		(rule__MemoryImplementation__OwnedBusSubcomponentAssignment_7_1_0_2)
 		{ after(grammarAccess.getMemoryImplementationAccess().getOwnedBusSubcomponentAssignment_7_1_0_2()); }
 	)
+	|
+	(
+		{ before(grammarAccess.getMemoryImplementationAccess().getOwnedVirtualBusSubcomponentAssignment_7_1_0_3()); }
+		(rule__MemoryImplementation__OwnedVirtualBusSubcomponentAssignment_7_1_0_3)
+		{ after(grammarAccess.getMemoryImplementationAccess().getOwnedVirtualBusSubcomponentAssignment_7_1_0_3()); }
+	)
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -117898,6 +117904,21 @@ rule__MemoryImplementation__OwnedBusSubcomponentAssignment_7_1_0_2
 		{ before(grammarAccess.getMemoryImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_2_0()); }
 		ruleBusSubcomponent
 		{ after(grammarAccess.getMemoryImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_2_0()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__MemoryImplementation__OwnedVirtualBusSubcomponentAssignment_7_1_0_3
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getMemoryImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_3_0()); }
+		ruleVirtualBusSubcomponent
+		{ after(grammarAccess.getMemoryImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_3_0()); }
 	)
 ;
 finally {

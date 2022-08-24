@@ -963,6 +963,8 @@
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryImplementation/ownedBusSubcomponent"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryImplementation/ownedMemorySubcomponent"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryImplementation/ownedVirtualBusSubcomponent"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//MemoryPrototype"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//SubprogramType">

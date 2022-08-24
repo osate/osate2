@@ -17466,26 +17466,46 @@ ruleMemoryImplementation returns [EObject current=null]
 							}
 						)
 					)
+					    |
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_3_0());
+							}
+							lv_ownedVirtualBusSubcomponent_18_0=ruleVirtualBusSubcomponent
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
+								}
+								add(
+									$current,
+									"ownedVirtualBusSubcomponent",
+									lv_ownedVirtualBusSubcomponent_18_0,
+									"org.osate.xtext.aadl2.Aadl2.VirtualBusSubcomponent");
+								afterParserOrEnumRuleCall();
+							}
+						)
+					)
 				)+
 				    |
 				(
 					(
 						(
-							lv_noSubcomponents_18_0=None
+							lv_noSubcomponents_19_0=None
 							{
-								newLeafNode(lv_noSubcomponents_18_0, grammarAccess.getMemoryImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
+								newLeafNode(lv_noSubcomponents_19_0, grammarAccess.getMemoryImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
 							}
 							{
 								if ($current==null) {
 									$current = createModelElement(grammarAccess.getMemoryImplementationRule());
 								}
-								setWithLastConsumed($current, "noSubcomponents", lv_noSubcomponents_18_0 != null, "none");
+								setWithLastConsumed($current, "noSubcomponents", lv_noSubcomponents_19_0 != null, "none");
 							}
 						)
 					)
-					otherlv_19=Semicolon
+					otherlv_20=Semicolon
 					{
-						newLeafNode(otherlv_19, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_7_1_1_1());
+						newLeafNode(otherlv_20, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_7_1_1_1());
 					}
 				)
 			)
@@ -17504,7 +17524,7 @@ ruleMemoryImplementation returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedEventSourceEventSourceParserRuleCall_8_1_0_0());
 						}
-						lv_ownedEventSource_21_0=ruleEventSource
+						lv_ownedEventSource_22_0=ruleEventSource
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
@@ -17512,7 +17532,7 @@ ruleMemoryImplementation returns [EObject current=null]
 							add(
 								$current,
 								"ownedEventSource",
-								lv_ownedEventSource_21_0,
+								lv_ownedEventSource_22_0,
 								"org.osate.xtext.aadl2.Aadl2.EventSource");
 							afterParserOrEnumRuleCall();
 						}
@@ -17524,7 +17544,7 @@ ruleMemoryImplementation returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedEventDataSourceEventDataSourceParserRuleCall_8_1_1_0());
 						}
-						lv_ownedEventDataSource_22_0=ruleEventDataSource
+						lv_ownedEventDataSource_23_0=ruleEventDataSource
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
@@ -17532,7 +17552,7 @@ ruleMemoryImplementation returns [EObject current=null]
 							add(
 								$current,
 								"ownedEventDataSource",
-								lv_ownedEventDataSource_22_0,
+								lv_ownedEventDataSource_23_0,
 								"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 							afterParserOrEnumRuleCall();
 						}
@@ -17541,9 +17561,9 @@ ruleMemoryImplementation returns [EObject current=null]
 			)+
 		)?
 		(
-			otherlv_23=Connections
+			otherlv_24=Connections
 			{
-				newLeafNode(otherlv_23, grammarAccess.getMemoryImplementationAccess().getConnectionsKeyword_9_0());
+				newLeafNode(otherlv_24, grammarAccess.getMemoryImplementationAccess().getConnectionsKeyword_9_0());
 			}
 			(
 				(
@@ -17552,7 +17572,7 @@ ruleMemoryImplementation returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedAccessConnectionAccessConnectionParserRuleCall_9_1_0_0_0());
 							}
-							lv_ownedAccessConnection_24_0=ruleAccessConnection
+							lv_ownedAccessConnection_25_0=ruleAccessConnection
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
@@ -17560,7 +17580,7 @@ ruleMemoryImplementation returns [EObject current=null]
 								add(
 									$current,
 									"ownedAccessConnection",
-									lv_ownedAccessConnection_24_0,
+									lv_ownedAccessConnection_25_0,
 									"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 								afterParserOrEnumRuleCall();
 							}
@@ -17572,7 +17592,7 @@ ruleMemoryImplementation returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_9_1_0_1_0());
 							}
-							lv_ownedFeatureGroupConnection_25_0=ruleFeatureGroupConnection
+							lv_ownedFeatureGroupConnection_26_0=ruleFeatureGroupConnection
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
@@ -17580,7 +17600,7 @@ ruleMemoryImplementation returns [EObject current=null]
 								add(
 									$current,
 									"ownedFeatureGroupConnection",
-									lv_ownedFeatureGroupConnection_25_0,
+									lv_ownedFeatureGroupConnection_26_0,
 									"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 								afterParserOrEnumRuleCall();
 							}
@@ -17592,7 +17612,7 @@ ruleMemoryImplementation returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedFeatureConnectionFeatureConnectionParserRuleCall_9_1_0_2_0());
 							}
-							lv_ownedFeatureConnection_26_0=ruleFeatureConnection
+							lv_ownedFeatureConnection_27_0=ruleFeatureConnection
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
@@ -17600,7 +17620,7 @@ ruleMemoryImplementation returns [EObject current=null]
 								add(
 									$current,
 									"ownedFeatureConnection",
-									lv_ownedFeatureConnection_26_0,
+									lv_ownedFeatureConnection_27_0,
 									"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 								afterParserOrEnumRuleCall();
 							}
@@ -17611,29 +17631,29 @@ ruleMemoryImplementation returns [EObject current=null]
 				(
 					(
 						(
-							lv_noConnections_27_0=None
+							lv_noConnections_28_0=None
 							{
-								newLeafNode(lv_noConnections_27_0, grammarAccess.getMemoryImplementationAccess().getNoConnectionsNoneKeyword_9_1_1_0_0());
+								newLeafNode(lv_noConnections_28_0, grammarAccess.getMemoryImplementationAccess().getNoConnectionsNoneKeyword_9_1_1_0_0());
 							}
 							{
 								if ($current==null) {
 									$current = createModelElement(grammarAccess.getMemoryImplementationRule());
 								}
-								setWithLastConsumed($current, "noConnections", lv_noConnections_27_0 != null, "none");
+								setWithLastConsumed($current, "noConnections", lv_noConnections_28_0 != null, "none");
 							}
 						)
 					)
-					otherlv_28=Semicolon
+					otherlv_29=Semicolon
 					{
-						newLeafNode(otherlv_28, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_9_1_1_1());
+						newLeafNode(otherlv_29, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_9_1_1_1());
 					}
 				)
 			)
 		)?
 		(
-			otherlv_29=Modes
+			otherlv_30=Modes
 			{
-				newLeafNode(otherlv_29, grammarAccess.getMemoryImplementationAccess().getModesKeyword_10_0());
+				newLeafNode(otherlv_30, grammarAccess.getMemoryImplementationAccess().getModesKeyword_10_0());
 			}
 			(
 				(
@@ -17642,7 +17662,7 @@ ruleMemoryImplementation returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedModeModeParserRuleCall_10_1_0_0_0());
 							}
-							lv_ownedMode_30_0=ruleMode
+							lv_ownedMode_31_0=ruleMode
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
@@ -17650,7 +17670,7 @@ ruleMemoryImplementation returns [EObject current=null]
 								add(
 									$current,
 									"ownedMode",
-									lv_ownedMode_30_0,
+									lv_ownedMode_31_0,
 									"org.osate.xtext.aadl2.Aadl2.Mode");
 								afterParserOrEnumRuleCall();
 							}
@@ -17662,7 +17682,7 @@ ruleMemoryImplementation returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedModeTransitionModeTransitionParserRuleCall_10_1_0_1_0());
 							}
-							lv_ownedModeTransition_31_0=ruleModeTransition
+							lv_ownedModeTransition_32_0=ruleModeTransition
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
@@ -17670,7 +17690,7 @@ ruleMemoryImplementation returns [EObject current=null]
 								add(
 									$current,
 									"ownedModeTransition",
-									lv_ownedModeTransition_31_0,
+									lv_ownedModeTransition_32_0,
 									"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 								afterParserOrEnumRuleCall();
 							}
@@ -17681,29 +17701,29 @@ ruleMemoryImplementation returns [EObject current=null]
 				(
 					(
 						(
-							lv_noModes_32_0=None
+							lv_noModes_33_0=None
 							{
-								newLeafNode(lv_noModes_32_0, grammarAccess.getMemoryImplementationAccess().getNoModesNoneKeyword_10_1_1_0_0());
+								newLeafNode(lv_noModes_33_0, grammarAccess.getMemoryImplementationAccess().getNoModesNoneKeyword_10_1_1_0_0());
 							}
 							{
 								if ($current==null) {
 									$current = createModelElement(grammarAccess.getMemoryImplementationRule());
 								}
-								setWithLastConsumed($current, "noModes", lv_noModes_32_0 != null, "none");
+								setWithLastConsumed($current, "noModes", lv_noModes_33_0 != null, "none");
 							}
 						)
 					)
-					otherlv_33=Semicolon
+					otherlv_34=Semicolon
 					{
-						newLeafNode(otherlv_33, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_10_1_1_1());
+						newLeafNode(otherlv_34, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_10_1_1_1());
 					}
 				)
 			)
 		)?
 		(
-			otherlv_34=Properties
+			otherlv_35=Properties
 			{
-				newLeafNode(otherlv_34, grammarAccess.getMemoryImplementationAccess().getPropertiesKeyword_11_0());
+				newLeafNode(otherlv_35, grammarAccess.getMemoryImplementationAccess().getPropertiesKeyword_11_0());
 			}
 			(
 				(
@@ -17711,7 +17731,7 @@ ruleMemoryImplementation returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_11_1_0_0());
 						}
-						lv_ownedPropertyAssociation_35_0=ruleContainedPropertyAssociation
+						lv_ownedPropertyAssociation_36_0=ruleContainedPropertyAssociation
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
@@ -17719,7 +17739,7 @@ ruleMemoryImplementation returns [EObject current=null]
 							add(
 								$current,
 								"ownedPropertyAssociation",
-								lv_ownedPropertyAssociation_35_0,
+								lv_ownedPropertyAssociation_36_0,
 								"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 							afterParserOrEnumRuleCall();
 						}
@@ -17729,21 +17749,21 @@ ruleMemoryImplementation returns [EObject current=null]
 				(
 					(
 						(
-							lv_noProperties_36_0=None
+							lv_noProperties_37_0=None
 							{
-								newLeafNode(lv_noProperties_36_0, grammarAccess.getMemoryImplementationAccess().getNoPropertiesNoneKeyword_11_1_1_0_0());
+								newLeafNode(lv_noProperties_37_0, grammarAccess.getMemoryImplementationAccess().getNoPropertiesNoneKeyword_11_1_1_0_0());
 							}
 							{
 								if ($current==null) {
 									$current = createModelElement(grammarAccess.getMemoryImplementationRule());
 								}
-								setWithLastConsumed($current, "noProperties", lv_noProperties_36_0 != null, "none");
+								setWithLastConsumed($current, "noProperties", lv_noProperties_37_0 != null, "none");
 							}
 						)
 					)
-					otherlv_37=Semicolon
+					otherlv_38=Semicolon
 					{
-						newLeafNode(otherlv_37, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_11_1_1_1());
+						newLeafNode(otherlv_38, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_11_1_1_1());
 					}
 				)
 			)
@@ -17753,7 +17773,7 @@ ruleMemoryImplementation returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_12_0());
 				}
-				lv_ownedAnnexSubclause_38_0=ruleAnnexSubclause
+				lv_ownedAnnexSubclause_39_0=ruleAnnexSubclause
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getMemoryImplementationRule());
@@ -17761,15 +17781,15 @@ ruleMemoryImplementation returns [EObject current=null]
 					add(
 						$current,
 						"ownedAnnexSubclause",
-						lv_ownedAnnexSubclause_38_0,
+						lv_ownedAnnexSubclause_39_0,
 						"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
-		otherlv_39=End
+		otherlv_40=End
 		{
-			newLeafNode(otherlv_39, grammarAccess.getMemoryImplementationAccess().getEndKeyword_13());
+			newLeafNode(otherlv_40, grammarAccess.getMemoryImplementationAccess().getEndKeyword_13());
 		}
 		{
 			newCompositeNode(grammarAccess.getMemoryImplementationAccess().getFULLINAMEParserRuleCall_14());
@@ -17778,9 +17798,9 @@ ruleMemoryImplementation returns [EObject current=null]
 		{
 			afterParserOrEnumRuleCall();
 		}
-		otherlv_41=Semicolon
+		otherlv_42=Semicolon
 		{
-			newLeafNode(otherlv_41, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_15());
+			newLeafNode(otherlv_42, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_15());
 		}
 	)
 ;

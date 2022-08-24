@@ -4115,6 +4115,13 @@ public class Aadl2DerivedUnionAdapter extends AdapterImpl {
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			break;
+		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getNamespace_Member());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
+			break;
 		}
 	}
 

@@ -13147,6 +13147,8 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final RuleCall cOwnedMemorySubcomponentMemorySubcomponentParserRuleCall_7_1_0_1_0 = (RuleCall)cOwnedMemorySubcomponentAssignment_7_1_0_1.eContents().get(0);
 		private final Assignment cOwnedBusSubcomponentAssignment_7_1_0_2 = (Assignment)cAlternatives_7_1_0.eContents().get(2);
 		private final RuleCall cOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_2_0 = (RuleCall)cOwnedBusSubcomponentAssignment_7_1_0_2.eContents().get(0);
+		private final Assignment cOwnedVirtualBusSubcomponentAssignment_7_1_0_3 = (Assignment)cAlternatives_7_1_0.eContents().get(3);
+		private final RuleCall cOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_3_0 = (RuleCall)cOwnedVirtualBusSubcomponentAssignment_7_1_0_3.eContents().get(0);
 		private final Group cGroup_7_1_1 = (Group)cAlternatives_7_1.eContents().get(1);
 		private final Assignment cNoSubcomponentsAssignment_7_1_1_0 = (Assignment)cGroup_7_1_1.eContents().get(0);
 		private final Keyword cNoSubcomponentsNoneKeyword_7_1_1_0_0 = (Keyword)cNoSubcomponentsAssignment_7_1_1_0.eContents().get(0);
@@ -13212,6 +13214,7 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//      ((ownedAbstractSubcomponent+=AbstractSubcomponent
 		//      | ownedMemorySubcomponent+=MemorySubcomponent
 		//      | ownedBusSubcomponent+=BusSubcomponent
+		//      | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 		//      )+
 		//    | (noSubcomponents?='none' ';'))
 		//    )?
@@ -13249,6 +13252,7 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 		//  | ownedMemorySubcomponent+=MemorySubcomponent
 		//  | ownedBusSubcomponent+=BusSubcomponent
+		//  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 		//  )+
 		//| (noSubcomponents?='none' ';'))
 		//)?
@@ -13360,6 +13364,7 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 		//  | ownedMemorySubcomponent+=MemorySubcomponent
 		//  | ownedBusSubcomponent+=BusSubcomponent
+		//  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 		//  )+
 		//| (noSubcomponents?='none' ';'))
 		//)?
@@ -13371,6 +13376,7 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 		//  | ownedMemorySubcomponent+=MemorySubcomponent
 		//  | ownedBusSubcomponent+=BusSubcomponent
+		//  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 		//  )+
 		//| (noSubcomponents?='none' ';'))
 		public Alternatives getAlternatives_7_1() { return cAlternatives_7_1; }
@@ -13378,6 +13384,7 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent
 		//      | ownedMemorySubcomponent+=MemorySubcomponent
 		//      | ownedBusSubcomponent+=BusSubcomponent
+		//      | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 		//      )+
 		public Alternatives getAlternatives_7_1_0() { return cAlternatives_7_1_0; }
 		
@@ -13398,6 +13405,12 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		
 		//BusSubcomponent
 		public RuleCall getOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_2_0() { return cOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_2_0; }
+		
+		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+		public Assignment getOwnedVirtualBusSubcomponentAssignment_7_1_0_3() { return cOwnedVirtualBusSubcomponentAssignment_7_1_0_3; }
+		
+		//VirtualBusSubcomponent
+		public RuleCall getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_3_0() { return cOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_3_0; }
 		
 		//(noSubcomponents?='none' ';')
 		public Group getGroup_7_1_1() { return cGroup_7_1_1; }
@@ -32089,6 +32102,7 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	//      ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	//      | ownedMemorySubcomponent+=MemorySubcomponent
 	//      | ownedBusSubcomponent+=BusSubcomponent
+	//      | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	//      )+
 	//    | (noSubcomponents?='none' ';'))
 	//    )?
