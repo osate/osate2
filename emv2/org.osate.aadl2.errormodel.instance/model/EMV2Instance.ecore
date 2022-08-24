@@ -330,7 +330,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="code" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertyConstant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeMappingInstance" eSuperTypes="#//EMV2InstanceObject">
-    <eOperations name="getTypeToken" eType="#//TypeTokenInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//StateInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
         containment="true"/>

@@ -101,12 +101,4 @@ public interface ModeMappingInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	EList<ModeInstance> getModes();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	TypeTokenInstance getTypeToken();
 } // ModeMappingInstance

@@ -1,17 +1,14 @@
-package typed_source
+package typed_source_without_types
 public
 	system s
 		modes
 			m1: initial mode;
-			m2: mode;
 		annex EMV2 {**
-			use types ErrorLibrary;
-			use behavior typed_source::machine1;
+			use behavior typed_source_without_types::machine1;
 			
 			component error behavior
 				mode mappings
-					state1 {ServiceError} in modes (m1);
-					state2 {ItemTimingError * ConcurrencyError} in modes (m2);
+					state1 in modes (m1);
 			end component;
 		**};
 	end s;
@@ -24,7 +21,6 @@ public
 			use types ErrorLibrary;
 			states
 				state1: initial state {CommonErrors};
-				state2: state {ItemTimingError * ConcurrencyError};
 		end behavior;
 	**};
-end typed_source;
+end typed_source_without_types;

@@ -36,7 +36,6 @@ import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
-import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.ModeInstance;
 
 /**
@@ -217,17 +216,6 @@ public class ModeMappingInstanceImpl extends EMV2InstanceObjectImpl implements M
 					EMV2InstancePackage.MODE_MAPPING_INSTANCE__MODES);
 		}
 		return modes;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public TypeTokenInstance getTypeToken() {
-		var typeSet = getTypeSet();
-		return typeSet == null ? null : typeSet.flatten().get(0);
 	}
 
 	/**
