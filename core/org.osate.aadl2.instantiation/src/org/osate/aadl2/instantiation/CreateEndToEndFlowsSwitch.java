@@ -635,19 +635,16 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowSpecification fspec) {
 		ConnectionInstanceEnd cie = conni.getDestination();
-		if (cie instanceof FeatureInstance) {
-			FeatureInstance conniFi = (FeatureInstance) cie;
+		if (cie instanceof FeatureInstance conniFi) {
 			ComponentInstance ci = conniFi.getContainingComponentInstance();
 			FlowSpecificationInstance fsi = ci.findFlowSpecInstance(fspec);
 			if (fsi != null) {
 				FeatureInstance fsSrcFi = fsi.getSource();
 				EObject e = conniFi;
-				while (e instanceof FeatureInstance) {
-					FeatureInstance fi = (FeatureInstance) e;
+				while (e instanceof FeatureInstance fi) {
 					if (fi == fsSrcFi) {
 						return true;
 					}
-					// containment?
 					e = fi.eContainer();
 				}
 			}

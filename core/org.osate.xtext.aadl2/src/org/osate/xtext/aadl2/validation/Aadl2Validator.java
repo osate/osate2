@@ -1616,12 +1616,11 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					if (Aadl2Util.isNull(outEnd)) {
 						return;
 					}
-					if (ce instanceof Feature) {
-						if (!isMatchingConnectionPoint(null, outEnd, connectedElement)) {
-							error(flow.getOwnedFlowSegments().get(i),
-									"The destination of connection '" + connection.getName()
-											+ "' does not match the out flow feature '" + fqName(outEnd) + '\'');
-						}
+					if (ce instanceof Feature && !isMatchingConnectionPoint(null, outEnd, connectedElement)) {
+						error(flow.getOwnedFlowSegments().get(i),
+								"The destination of connection '" + connection.getName()
+										+ "' does not match the out flow feature '" + fqName(outEnd) + '\'');
+
 					}
 				} else {
 					FlowSegment flowSegment = flow.getOwnedFlowSegments().get(i + 1);
@@ -1632,20 +1631,18 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						if (Aadl2Util.isNull(inEnd)) {
 							return;
 						}
-						if (ce instanceof Feature) {
-							if (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd, connectedElement)
-									|| (!connectedElement.getContext()
-											.getName()
-											.equals(flowSegment.getContext().getName())
-											&& ((flowSegment.getContext() instanceof Subcomponent)
-													&& !((Subcomponent) flowSegment.getContext() instanceof Prototype))
-											&& !(ce instanceof Parameter))) {
-								error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
-										+ connection.getName()
-										+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
-										+ flow.getOwnedFlowSegments().get(i + 1).getContext().getName() + '.'
-										+ nextFlowSegment.getName() + '\'');
-							}
+						if (ce instanceof Feature && (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd,
+								connectedElement)
+								|| (!connectedElement.getContext().getName().equals(flowSegment.getContext().getName())
+										&& ((flowSegment.getContext() instanceof Subcomponent)
+												&& !((Subcomponent) flowSegment.getContext() instanceof Prototype))
+										&& !(ce instanceof Parameter)))) {
+							error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
+									+ connection.getName()
+									+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
+									+ flow.getOwnedFlowSegments().get(i + 1).getContext().getName() + '.'
+									+ nextFlowSegment.getName() + '\'');
+
 						}
 					} else if (felem instanceof Subcomponent) {
 						/*
@@ -1682,12 +1679,11 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 */
 	private boolean checkDottedNameUsage(FlowImplementation flow) {
 		FlowSpecification spec = flow.getSpecification();
-		if (spec != null) {
-			if (isReachDown(spec.getAllInEnd()) || isReachDown(spec.getAllOutEnd())) {
-				error(flow,
-						"Flow implementation is not allowed because the specification reaches down more than one level into a feature group");
-				return false;
-			}
+		if (spec != null && isReachDown(spec.getAllInEnd()) || isReachDown(spec.getAllOutEnd())) {
+			error(flow,
+					"Flow implementation is not allowed because the specification reaches down more than one level into a feature group");
+			return false;
+
 		}
 		if (isReachDown(flow.getInEnd()) || isReachDown(flow.getOutEnd())) {
 			error(flow, "Flow implementation is not allowed to reach down more than one level into a feature group");
@@ -1772,7 +1768,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			} else if (sub == outerConn.getAllDestinationContext()) {
 				ele = outerConn.getRootConnection().getDestination();
 			}
-			if (!Aadl2Util.isNull(sub) && !Aadl2Util.isNull(sub.getComponentImplementation())) {
+			if (!Aadl2Util.isNull(ele) && !Aadl2Util.isNull(sub)
+					&& !Aadl2Util.isNull(sub.getComponentImplementation())) {
 				for (Connection innerConn : sub.getComponentImplementation().getAllConnections()) {
 					ConnectedElement src = innerConn.getRootConnection().getSource();
 					ConnectedElement dst = innerConn.getRootConnection().getDestination();
@@ -1807,18 +1804,18 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	private void checkEmptyFlowImplementation(FlowImplementation flow) {
 		FlowEnd specInEnd = flow.getSpecification().getAllInEnd();
 		FlowEnd implInEnd = flow.getInEnd();
-		if (specInEnd != null && implInEnd != null) {
-			if (context(specInEnd) != context(implInEnd) || specInEnd.getFeature() != implInEnd.getFeature()) {
-				return;
-			}
+		if (specInEnd != null && implInEnd != null
+				&& (context(specInEnd) != context(implInEnd) || specInEnd.getFeature() != implInEnd.getFeature())) {
+			return;
+
 		}
 
 		FlowEnd specOutEnd = flow.getSpecification().getOutEnd();
 		FlowEnd implOutEnd = flow.getOutEnd();
-		if (specOutEnd != null && implOutEnd != null) {
-			if (context(specOutEnd) != context(implOutEnd) || specOutEnd.getFeature() != implOutEnd.getFeature()) {
-				return;
-			}
+		if (specOutEnd != null && implOutEnd != null
+				&& (context(specOutEnd) != context(implOutEnd) || specOutEnd.getFeature() != implOutEnd.getFeature())) {
+			return;
+
 		}
 
 		if (flow.getOwnedFlowSegments().isEmpty()) {
@@ -1840,13 +1837,13 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		if (!chain.isEmpty()) {
 			if (chain.get(0) instanceof Subcomponent) {
 				i++;
-			} else if (segmentContext != null && chain.get(0) instanceof SubprogramCall call) {
-				if (call.getContext() == null && call.getCalledSubprogram() instanceof SubprogramSubcomponent callSub) {
-					if (callSub.equals(segmentContext)) {
-						i++;
-					}
-				}
+			} else if (segmentContext != null && chain.get(0) instanceof SubprogramCall call
+					&& call.getContext() == null && call.getCalledSubprogram() instanceof SubprogramSubcomponent callSub
+					&& callSub.equals(segmentContext)) {
+				i++;
+
 			}
+
 		}
 
 		while (flowEnd.getContext() != null) {
