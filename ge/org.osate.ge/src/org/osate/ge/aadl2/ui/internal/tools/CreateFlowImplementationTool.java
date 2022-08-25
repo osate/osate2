@@ -441,16 +441,20 @@ public class CreateFlowImplementationTool implements Tool {
 							if ((fs.getKind() == FlowKind.PATH || fs.getKind() == FlowKind.SINK)
 									&& flowImpl.getInEnd() == null) {
 								final FlowEnd inEnd = flowImpl.createInEnd();
-								final FlowEnd context = inEnd.createContext();
-								final Context ctx = ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc);
 								inEnd.setFeature((Feature) bo);
-								context.setFeature((Feature) ctx);
+								final Context ctx = ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc);
+								if (ctx != null) {
+									final FlowEnd context = inEnd.createContext();
+									context.setFeature((Feature) ctx);
+								}
 							} else if (flowImpl.getOutEnd() == null) {
 								final FlowEnd outEnd = flowImpl.createOutEnd();
-								final FlowEnd context = outEnd.createContext();
-								final Context ctx = ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc);
 								outEnd.setFeature((Feature) bo);
-								context.setFeature((Feature) ctx);
+								final Context ctx = ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc);
+								if (ctx != null) {
+									final FlowEnd context = outEnd.createContext();
+									context.setFeature((Feature) ctx);
+								}
 							}
 						} else {
 							final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
