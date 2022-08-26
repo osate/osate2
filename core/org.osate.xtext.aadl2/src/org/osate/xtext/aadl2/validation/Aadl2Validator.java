@@ -1679,7 +1679,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 */
 	private boolean checkDottedNameUsage(FlowImplementation flow) {
 		FlowSpecification spec = flow.getSpecification();
-		if (spec != null && isReachDown(spec.getAllInEnd()) || isReachDown(spec.getAllOutEnd())) {
+		if (spec != null && (isReachDown(spec.getAllInEnd()) || isReachDown(spec.getAllOutEnd()))) {
 			error(flow,
 					"Flow implementation is not allowed because the specification reaches down more than one level into a feature group");
 			return false;
@@ -1768,7 +1768,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			} else if (sub == outerConn.getAllDestinationContext()) {
 				ele = outerConn.getRootConnection().getDestination();
 			}
-			if (!Aadl2Util.isNull(ele) && !Aadl2Util.isNull(sub)
+			if (ele != null && !Aadl2Util.isNull(sub)
 					&& !Aadl2Util.isNull(sub.getComponentImplementation())) {
 				for (Connection innerConn : sub.getComponentImplementation().getAllConnections()) {
 					ConnectedElement src = innerConn.getRootConnection().getSource();
