@@ -98,7 +98,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	@Override
 	public EList<NamedElement> getMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER, MEMBER_ESUBSETS);
 	}
 
@@ -122,7 +122,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
 				Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
@@ -152,7 +152,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -187,7 +187,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 
 	public EList<SubprogramCallSequence> getAllSubprogramCallSequences() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<SubprogramCallSequence> returnlist = new BasicEList<SubprogramCallSequence>();
+		final BasicEList<SubprogramCallSequence> returnlist = new BasicEList<>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final BehavioredImplementation current = (BehavioredImplementation) it.next();
 			returnlist.addAll(current.getOwnedSubprogramCallSequences());
@@ -200,9 +200,10 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramCallSequence> getOwnedSubprogramCallSequences() {
 		if (ownedSubprogramCallSequences == null) {
-			ownedSubprogramCallSequences = new EObjectContainmentEList<SubprogramCallSequence>(
+			ownedSubprogramCallSequences = new EObjectContainmentEList<>(
 					SubprogramCallSequence.class, this,
 					Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE);
 		}

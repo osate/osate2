@@ -165,6 +165,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIn() {
 		return in;
 	}
@@ -174,6 +175,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
@@ -187,6 +189,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOut() {
 		return out;
 	}
@@ -196,6 +199,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;

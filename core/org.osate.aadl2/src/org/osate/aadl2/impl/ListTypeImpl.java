@@ -93,6 +93,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getElementType() {
 		PropertyType elementType = basicGetElementType();
 		return elementType != null && ((EObject) elementType).eIsProxy()
@@ -118,6 +119,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getOwnedElementType() {
 		return ownedElementType;
 	}
@@ -147,6 +149,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedElementType(PropertyType newOwnedElementType) {
 		if (newOwnedElementType != ownedElementType) {
 			NotificationChain msgs = null;
@@ -184,6 +187,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getReferencedElementType() {
 		if (referencedElementType != null && ((EObject) referencedElementType).eIsProxy()) {
 			InternalEObject oldReferencedElementType = (InternalEObject) referencedElementType;
@@ -213,6 +217,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedElementType(PropertyType newReferencedElementType) {
 		PropertyType oldReferencedElementType = referencedElementType;
 		referencedElementType = newReferencedElementType;

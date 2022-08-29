@@ -115,7 +115,7 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 				Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -138,9 +138,10 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
 		if (ownedBusSubcomponents == null) {
-			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
+			ownedBusSubcomponents = new EObjectContainmentEList<>(BusSubcomponent.class, this,
 					Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
 		}
 		return ownedBusSubcomponents;
@@ -162,9 +163,10 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<MemorySubcomponent> getOwnedMemorySubcomponents() {
 		if (ownedMemorySubcomponents == null) {
-			ownedMemorySubcomponents = new EObjectContainmentEList<MemorySubcomponent>(MemorySubcomponent.class, this,
+			ownedMemorySubcomponents = new EObjectContainmentEList<>(MemorySubcomponent.class, this,
 					Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT);
 		}
 		return ownedMemorySubcomponents;
@@ -187,9 +189,10 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
-			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<>(
 					VirtualBusSubcomponent.class, this,
 					Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}

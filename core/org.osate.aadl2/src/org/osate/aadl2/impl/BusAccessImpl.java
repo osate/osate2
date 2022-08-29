@@ -128,6 +128,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BusFeatureClassifier getBusFeatureClassifier() {
 		if (busFeatureClassifier != null && ((EObject) busFeatureClassifier).eIsProxy()) {
 			InternalEObject oldBusFeatureClassifier = (InternalEObject) busFeatureClassifier;
@@ -157,6 +158,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBusFeatureClassifier(BusFeatureClassifier newBusFeatureClassifier) {
 		BusFeatureClassifier oldBusFeatureClassifier = busFeatureClassifier;
 		busFeatureClassifier = newBusFeatureClassifier;
@@ -171,6 +173,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isVirtual() {
 		return virtual;
 	}
@@ -180,6 +183,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVirtual(boolean newVirtual) {
 		boolean oldVirtual = virtual;
 		virtual = newVirtual;

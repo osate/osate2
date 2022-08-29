@@ -102,9 +102,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AnnexInstance> getAnnexInstances() {
 		if (annexInstances == null) {
-			annexInstances = new EObjectContainmentEList<AnnexInstance>(AnnexInstance.class, this,
+			annexInstances = new EObjectContainmentEList<>(AnnexInstance.class, this,
 					InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE);
 		}
 		return annexInstances;
@@ -115,9 +116,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyAssociation> getOwnedPropertyAssociations() {
 		if (ownedPropertyAssociations == null) {
-			ownedPropertyAssociations = new EObjectContainmentEList<PropertyAssociation>(
+			ownedPropertyAssociations = new EObjectContainmentEList<>(
 					PropertyAssociationInstance.class, this,
 					InstancePackage.INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION);
 		}
@@ -150,6 +152,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -165,6 +168,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -179,6 +183,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -194,6 +199,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -208,6 +214,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -391,10 +398,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	public Iterable<ConnectionInstance> allEnclosingConnectionInstances() {
 		final InstanceObject target = this;
-		return new Iterable<ConnectionInstance>() {
+		return new Iterable<>() {
 
 			public Iterator<ConnectionInstance> iterator() {
-				return new Iterator<ConnectionInstance>() {
+				return new Iterator<>() {
 					ConnectionInstance next;
 					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
 							: target.getContainingComponentInstance();
@@ -443,7 +450,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	}
 
 	public EList<ConnectionInstance> getAllEnclosingConnectionInstances() {
-		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		EList<ConnectionInstance> result = new BasicEList<>();
 
 		for (ConnectionInstance conni : allEnclosingConnectionInstances()) {
 			result.add(conni);
@@ -457,7 +464,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
 	 */
 	public List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath) {
-		List<InstanceObject> result = new LinkedList<InstanceObject>();
+		List<InstanceObject> result = new LinkedList<>();
 
 		findInstanceObjectsHelper(referencePath.listIterator(), result);
 		return result;

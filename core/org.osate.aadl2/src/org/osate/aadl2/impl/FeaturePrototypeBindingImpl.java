@@ -84,6 +84,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeaturePrototypeActual getActual() {
 		return actual;
 	}
@@ -113,6 +114,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActual(FeaturePrototypeActual newActual) {
 		if (newActual != actual) {
 			NotificationChain msgs = null;

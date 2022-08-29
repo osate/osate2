@@ -120,6 +120,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeaturePrototype getFeaturePrototype() {
 		if (featurePrototype != null && ((EObject) featurePrototype).eIsProxy()) {
 			InternalEObject oldFeaturePrototype = (InternalEObject) featurePrototype;
@@ -148,6 +149,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFeaturePrototype(FeaturePrototype newFeaturePrototype) {
 		FeaturePrototype oldFeaturePrototype = featurePrototype;
 		featurePrototype = newFeaturePrototype;
@@ -162,6 +164,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbstractFeatureClassifier getAbstractFeatureClassifier() {
 		if (abstractFeatureClassifier != null && ((EObject) abstractFeatureClassifier).eIsProxy()) {
 			InternalEObject oldAbstractFeatureClassifier = (InternalEObject) abstractFeatureClassifier;
@@ -192,6 +195,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAbstractFeatureClassifier(AbstractFeatureClassifier newAbstractFeatureClassifier) {
 		AbstractFeatureClassifier oldAbstractFeatureClassifier = abstractFeatureClassifier;
 		abstractFeatureClassifier = newAbstractFeatureClassifier;

@@ -108,6 +108,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureGroupType getExtended() {
 		if (extended != null && ((EObject) extended).eIsProxy()) {
 			InternalEObject oldExtended = (InternalEObject) extended;
@@ -136,6 +137,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExtended(FeatureGroupType newExtended) {
 		FeatureGroupType oldExtended = extended;
 		extended = newExtended;

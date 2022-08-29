@@ -40,12 +40,12 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
-import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.services.QueryService;
 
 public class CreateFlowPathSpecificationPaletteCommand extends BasePaletteCommand
-		implements CreateConnectionPaletteCommand {
+implements CreateConnectionPaletteCommand {
 
 	public CreateFlowPathSpecificationPaletteCommand() {
 		super("Flow Path Specification", AadlCategories.FLOWS, AadlImages.getImage("FlowPath"));
@@ -89,13 +89,21 @@ public class CreateFlowPathSpecificationPaletteCommand extends BasePaletteComman
 				fs.setName(FlowSpecificationCreationUtil.getNewFlowSpecificationName(ct));
 
 				// Create the flow ends
-				final FlowEnd inFlowEnd = fs.createInEnd();
+				FlowEnd inFlowEnd = fs.createInEnd();
 				inFlowEnd.setFeature(srcFeature);
-				inFlowEnd.setContext(FlowSpecificationCreationUtil.getContext(srcBoc, ctx.getQueryService()));
+				var srcContexts = FlowSpecificationCreationUtil.getContexts(srcBoc, ctx.getQueryService());
+				for (var context : srcContexts) {
+					inFlowEnd = inFlowEnd.createContext();
+					inFlowEnd.setFeature((Feature) context);
+				}
 
-				final FlowEnd outFlowEnd = fs.createOutEnd();
+				FlowEnd outFlowEnd = fs.createOutEnd();
 				outFlowEnd.setFeature(dstFeature);
-				outFlowEnd.setContext(FlowSpecificationCreationUtil.getContext(dstBoc, ctx.getQueryService()));
+				var dstContexts = FlowSpecificationCreationUtil.getContexts(dstBoc, ctx.getQueryService());
+				for (var context : dstContexts) {
+					outFlowEnd = outFlowEnd.createContext();
+					outFlowEnd.setFeature((Feature) context);
+				}
 
 				ct.setNoFlows(false);
 

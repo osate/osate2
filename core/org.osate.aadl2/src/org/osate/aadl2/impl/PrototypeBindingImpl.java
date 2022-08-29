@@ -80,6 +80,7 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Prototype getFormal() {
 		if (formal != null && ((EObject) formal).eIsProxy()) {
 			InternalEObject oldFormal = (InternalEObject) formal;
@@ -108,6 +109,7 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFormal(Prototype newFormal) {
 		Prototype oldFormal = formal;
 		formal = newFormal;

@@ -87,6 +87,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case InstancePackage.FEATURE_INSTANCE:
@@ -123,6 +124,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case InstancePackage.CONNECTION_KIND:
@@ -139,6 +141,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case InstancePackage.CONNECTION_KIND:
@@ -155,6 +158,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureInstance createFeatureInstance() {
 		FeatureInstanceImpl featureInstance = new FeatureInstanceImpl();
 		return featureInstance;
@@ -165,6 +169,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyAssociationInstance createPropertyAssociationInstance() {
 		PropertyAssociationInstanceImpl propertyAssociationInstance = new PropertyAssociationInstanceImpl();
 		return propertyAssociationInstance;
@@ -175,6 +180,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionInstance createConnectionInstance() {
 		ConnectionInstanceImpl connectionInstance = new ConnectionInstanceImpl();
 		return connectionInstance;
@@ -185,6 +191,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemOperationMode createSystemOperationMode() {
 		SystemOperationModeImpl systemOperationMode = new SystemOperationModeImpl();
 		return systemOperationMode;
@@ -195,6 +202,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModeInstance createModeInstance() {
 		ModeInstanceImpl modeInstance = new ModeInstanceImpl();
 		return modeInstance;
@@ -205,6 +213,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModeTransitionInstance createModeTransitionInstance() {
 		ModeTransitionInstanceImpl modeTransitionInstance = new ModeTransitionInstanceImpl();
 		return modeTransitionInstance;
@@ -215,6 +224,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionReference createConnectionReference() {
 		ConnectionReferenceImpl connectionReference = new ConnectionReferenceImpl();
 		return connectionReference;
@@ -225,6 +235,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentInstance createComponentInstance() {
 		ComponentInstanceImpl componentInstance = new ComponentInstanceImpl();
 		return componentInstance;
@@ -235,6 +246,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowSpecificationInstance createFlowSpecificationInstance() {
 		FlowSpecificationInstanceImpl flowSpecificationInstance = new FlowSpecificationInstanceImpl();
 		return flowSpecificationInstance;
@@ -245,6 +257,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EndToEndFlowInstance createEndToEndFlowInstance() {
 		EndToEndFlowInstanceImpl endToEndFlowInstance = new EndToEndFlowInstanceImpl();
 		return endToEndFlowInstance;
@@ -255,6 +268,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemInstance createSystemInstance() {
 		SystemInstanceImpl systemInstance = new SystemInstanceImpl();
 		return systemInstance;
@@ -265,6 +279,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InstanceReferenceValue createInstanceReferenceValue() {
 		InstanceReferenceValueImpl instanceReferenceValue = new InstanceReferenceValueImpl();
 		return instanceReferenceValue;
@@ -321,6 +336,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InstancePackage getInstancePackage() {
 		return (InstancePackage) getEPackage();
 	}

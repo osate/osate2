@@ -190,6 +190,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PortCategory getCategory() {
 		return category;
 	}
@@ -199,6 +200,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCategory(PortCategory newCategory) {
 		PortCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
@@ -213,6 +215,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentClassifier getClassifier() {
 		if (classifier != null && ((EObject) classifier).eIsProxy()) {
 			InternalEObject oldClassifier = (InternalEObject) classifier;
@@ -241,6 +244,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassifier(ComponentClassifier newClassifier) {
 		ComponentClassifier oldClassifier = classifier;
 		classifier = newClassifier;
@@ -255,6 +259,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentPrototype getComponentPrototype() {
 		if (componentPrototype != null && ((EObject) componentPrototype).eIsProxy()) {
 			InternalEObject oldComponentPrototype = (InternalEObject) componentPrototype;
@@ -284,6 +289,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComponentPrototype(ComponentPrototype newComponentPrototype) {
 		ComponentPrototype oldComponentPrototype = componentPrototype;
 		componentPrototype = newComponentPrototype;
@@ -298,6 +304,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIn() {
 		return in;
 	}
@@ -307,6 +314,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
@@ -320,6 +328,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOut() {
 		return out;
 	}
@@ -329,6 +338,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;

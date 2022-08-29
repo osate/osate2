@@ -109,6 +109,7 @@ public class MemorySubcomponentImpl extends SubcomponentImpl implements MemorySu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MemorySubcomponentType getMemorySubcomponentType() {
 		if (memorySubcomponentType != null && ((EObject) memorySubcomponentType).eIsProxy()) {
 			InternalEObject oldMemorySubcomponentType = (InternalEObject) memorySubcomponentType;
@@ -138,6 +139,7 @@ public class MemorySubcomponentImpl extends SubcomponentImpl implements MemorySu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMemorySubcomponentType(MemorySubcomponentType newMemorySubcomponentType) {
 		MemorySubcomponentType oldMemorySubcomponentType = memorySubcomponentType;
 		memorySubcomponentType = newMemorySubcomponentType;

@@ -85,6 +85,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Classifier getClassifier() {
 		if (classifier != null && ((EObject) classifier).eIsProxy()) {
 			InternalEObject oldClassifier = (InternalEObject) classifier;
@@ -113,6 +114,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassifier(Classifier newClassifier) {
 		Classifier oldClassifier = classifier;
 		classifier = newClassifier;

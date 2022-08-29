@@ -109,6 +109,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProcessorSubcomponentType getProcessorSubcomponentType() {
 		if (processorSubcomponentType != null && ((EObject) processorSubcomponentType).eIsProxy()) {
 			InternalEObject oldProcessorSubcomponentType = (InternalEObject) processorSubcomponentType;
@@ -138,6 +139,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProcessorSubcomponentType(ProcessorSubcomponentType newProcessorSubcomponentType) {
 		ProcessorSubcomponentType oldProcessorSubcomponentType = processorSubcomponentType;
 		processorSubcomponentType = newProcessorSubcomponentType;

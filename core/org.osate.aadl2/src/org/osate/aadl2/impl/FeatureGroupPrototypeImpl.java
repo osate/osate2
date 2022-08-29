@@ -80,6 +80,7 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureGroupType getConstrainingFeatureGroupType() {
 		if (constrainingFeatureGroupType != null && ((EObject) constrainingFeatureGroupType).eIsProxy()) {
 			InternalEObject oldConstrainingFeatureGroupType = (InternalEObject) constrainingFeatureGroupType;
@@ -109,6 +110,7 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConstrainingFeatureGroupType(FeatureGroupType newConstrainingFeatureGroupType) {
 		FeatureGroupType oldConstrainingFeatureGroupType = constrainingFeatureGroupType;
 		constrainingFeatureGroupType = newConstrainingFeatureGroupType;

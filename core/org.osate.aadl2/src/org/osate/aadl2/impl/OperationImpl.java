@@ -113,6 +113,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OperationKind getOp() {
 		return op;
 	}
@@ -122,6 +123,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOp(OperationKind newOp) {
 		OperationKind oldOp = op;
 		op = newOp == null ? OP_EDEFAULT : newOp;
@@ -135,9 +137,10 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyExpression> getOwnedPropertyExpressions() {
 		if (ownedPropertyExpressions == null) {
-			ownedPropertyExpressions = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this,
+			ownedPropertyExpressions = new EObjectContainmentEList<>(PropertyExpression.class, this,
 					Aadl2Package.OPERATION__OWNED_PROPERTY_EXPRESSION);
 		}
 		return ownedPropertyExpressions;

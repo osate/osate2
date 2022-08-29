@@ -108,6 +108,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isInverse() {
 		return inverse;
 	}
@@ -117,6 +118,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInverse(boolean newInverse) {
 		boolean oldInverse = inverse;
 		inverse = newInverse;
@@ -208,6 +210,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureType getFeatureType() {
 		if (featureType != null && ((EObject) featureType).eIsProxy()) {
 			InternalEObject oldFeatureType = (InternalEObject) featureType;
@@ -236,6 +239,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFeatureType(FeatureType newFeatureType) {
 		FeatureType oldFeatureType = featureType;
 		featureType = newFeatureType;

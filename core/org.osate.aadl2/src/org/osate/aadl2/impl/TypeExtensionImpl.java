@@ -107,6 +107,7 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentType getExtended() {
 		if (extended != null && ((EObject) extended).eIsProxy()) {
 			InternalEObject oldExtended = (InternalEObject) extended;
@@ -135,6 +136,7 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExtended(ComponentType newExtended) {
 		ComponentType oldExtended = extended;
 		extended = newExtended;

@@ -89,6 +89,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbstractNamedValue getNamedValue() {
 		if (namedValue != null && ((EObject) namedValue).eIsProxy()) {
 			InternalEObject oldNamedValue = (InternalEObject) namedValue;
@@ -117,6 +118,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNamedValue(AbstractNamedValue newNamedValue) {
 		AbstractNamedValue oldNamedValue = namedValue;
 		namedValue = newNamedValue;

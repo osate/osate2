@@ -91,6 +91,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Mode getParentMode() {
 		if (parentMode != null && ((EObject) parentMode).eIsProxy()) {
 			InternalEObject oldParentMode = (InternalEObject) parentMode;
@@ -119,6 +120,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParentMode(Mode newParentMode) {
 		Mode oldParentMode = parentMode;
 		parentMode = newParentMode;
@@ -133,6 +135,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Mode getDerivedMode() {
 		if (derivedMode != null && ((EObject) derivedMode).eIsProxy()) {
 			InternalEObject oldDerivedMode = (InternalEObject) derivedMode;
@@ -161,6 +164,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDerivedMode(Mode newDerivedMode) {
 		Mode oldDerivedMode = derivedMode;
 		derivedMode = newDerivedMode;
