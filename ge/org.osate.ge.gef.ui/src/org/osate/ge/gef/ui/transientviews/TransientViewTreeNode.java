@@ -82,6 +82,7 @@ public class TransientViewTreeNode {
 	/**
 	 * Returns the parent node
 	 * @return the parent of this transient view node
+	 * @since 1.2
 	 */
 	public final TransientViewTreeNode getParent() {
 		return parent;
