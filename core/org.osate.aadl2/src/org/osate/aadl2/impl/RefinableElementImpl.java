@@ -70,6 +70,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Classifier getRefinementContext() {
 		Classifier refinementContext = basicGetRefinementContext();
 		return refinementContext != null && ((EObject) refinementContext).eIsProxy()
@@ -93,6 +94,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()

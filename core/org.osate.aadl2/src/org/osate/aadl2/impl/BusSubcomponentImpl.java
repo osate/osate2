@@ -109,6 +109,7 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BusSubcomponentType getBusSubcomponentType() {
 		if (busSubcomponentType != null && ((EObject) busSubcomponentType).eIsProxy()) {
 			InternalEObject oldBusSubcomponentType = (InternalEObject) busSubcomponentType;
@@ -138,6 +139,7 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBusSubcomponentType(BusSubcomponentType newBusSubcomponentType) {
 		BusSubcomponentType oldBusSubcomponentType = busSubcomponentType;
 		busSubcomponentType = newBusSubcomponentType;

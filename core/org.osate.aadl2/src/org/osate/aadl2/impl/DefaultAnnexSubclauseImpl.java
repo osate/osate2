@@ -101,6 +101,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSourceText() {
 		return sourceText;
 	}
@@ -110,6 +111,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSourceText(String newSourceText) {
 		String oldSourceText = sourceText;
 		sourceText = newSourceText;
@@ -124,6 +126,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnnexSubclause getParsedAnnexSubclause() {
 		return parsedAnnexSubclause;
 	}
@@ -155,6 +158,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParsedAnnexSubclause(AnnexSubclause newParsedAnnexSubclause) {
 		if (newParsedAnnexSubclause != parsedAnnexSubclause) {
 			NotificationChain msgs = null;

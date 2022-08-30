@@ -87,6 +87,7 @@ public class CommentImpl extends ElementImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getBody() {
 		return body;
 	}
@@ -96,6 +97,7 @@ public class CommentImpl extends ElementImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBody(String newBody) {
 		String oldBody = body;
 		body = newBody;

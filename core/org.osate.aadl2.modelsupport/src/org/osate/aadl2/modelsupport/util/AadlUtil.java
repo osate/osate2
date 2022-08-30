@@ -1919,13 +1919,12 @@ public final class AadlUtil {
 	}
 
 	public static String getFlowEndName(FlowEnd end) {
-		Context cxt = end.getContext();
-		Feature cend = end.getFeature();
-		if (cxt != null) {
-			return cxt.getName() + '.' + cend.getName();
-		} else {
-			return cend.getName();
+		FlowEnd ctx = end.getContext();
+		String result;
+		for (result = end.getFeature().getName(); ctx != null; ctx = ctx.getContext()) {
+			result = ctx.getFeature().getName() + '.' + result;
 		}
+		return result;
 	}
 
 	public static String getFlowSegmentName(FlowSegment end) {

@@ -87,9 +87,10 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyExpression> getOwnedListElements() {
 		if (ownedListElements == null) {
-			ownedListElements = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this,
+			ownedListElements = new EObjectContainmentEList<>(PropertyExpression.class, this,
 					Aadl2Package.LIST_VALUE__OWNED_LIST_ELEMENT);
 		}
 		return ownedListElements;

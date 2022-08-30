@@ -92,6 +92,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EndToEndFlowElement getFlowElement() {
 		if (flowElement != null && ((EObject) flowElement).eIsProxy()) {
 			InternalEObject oldFlowElement = (InternalEObject) flowElement;
@@ -120,6 +121,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFlowElement(EndToEndFlowElement newFlowElement) {
 		EndToEndFlowElement oldFlowElement = flowElement;
 		flowElement = newFlowElement;
@@ -134,6 +136,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Context getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
@@ -162,6 +165,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;

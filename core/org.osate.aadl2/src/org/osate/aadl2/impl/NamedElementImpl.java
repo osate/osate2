@@ -128,9 +128,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * thread local is a {@link LinkedList} whose items are
 	 * {@link Property} objects.
 	 */
-	private static ThreadLocal<LinkedList<Property>> lookupStack = new ThreadLocal<LinkedList<Property>>() {
+	private static ThreadLocal<LinkedList<Property>> lookupStack = new ThreadLocal<>() {
 		protected LinkedList<Property> initialValue() {
-			return new LinkedList<Property>();
+			return new LinkedList<>();
 		}
 	};
 
@@ -158,6 +158,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -167,6 +168,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -190,9 +192,10 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyAssociation> getOwnedPropertyAssociations() {
 		if (ownedPropertyAssociations == null) {
-			ownedPropertyAssociations = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class,
+			ownedPropertyAssociations = new EObjectContainmentEList<>(PropertyAssociation.class,
 					this, Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION);
 		}
 		return ownedPropertyAssociations;
@@ -656,7 +659,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			if (pe instanceof ListValue) {
 				return ((ListValue) pe).getOwnedListElements();
 			} else {
-				List<PropertyExpression> pes = new BasicEList<PropertyExpression>();
+				List<PropertyExpression> pes = new BasicEList<>();
 
 				pes.add(pe);
 				return pes;

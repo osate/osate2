@@ -42,6 +42,53 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FlowEndElements">
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureAssignment_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureAssignment_1_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureFeatureCrossReference_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureFeatureCrossReference_1_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureFeatureIDTerminalRuleCall_0_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureFeatureIDTerminalRuleCall_1_2_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFlowEndContextAction_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFullStopKeyword_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_1()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$MemoryImplementationElements">
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>

@@ -156,6 +156,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Mode> getInModes() {
 		return ModalPathOperations.getInModes(this);
 	}
@@ -185,9 +186,10 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeFeature> getInModeOrTransitions() {
 		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+			inModeOrTransitions = new EObjectResolvingEList<>(ModeFeature.class, this,
 					Aadl2Package.FLOW_SPECIFICATION__IN_MODE_OR_TRANSITION);
 		}
 		return inModeOrTransitions;
@@ -198,6 +200,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowKind getKind() {
 		return kind;
 	}
@@ -207,6 +210,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(FlowKind newKind) {
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -221,6 +225,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowEnd getOutEnd() {
 		return outEnd;
 	}
@@ -260,6 +265,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOutEnd(FlowEnd newOutEnd) {
 		if (newOutEnd != outEnd) {
 			NotificationChain msgs = null;
@@ -297,6 +303,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowEnd getInEnd() {
 		return inEnd;
 	}
@@ -336,6 +343,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInEnd(FlowEnd newInEnd) {
 		if (newInEnd != inEnd) {
 			NotificationChain msgs = null;
@@ -373,6 +381,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowSpecification getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
@@ -401,6 +410,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRefined(FlowSpecification newRefined) {
 		FlowSpecification oldRefined = refined;
 		refined = newRefined;

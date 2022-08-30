@@ -107,6 +107,7 @@ public class RealizationImpl extends GeneralizationImpl implements Realization {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentType getImplemented() {
 		if (implemented != null && ((EObject) implemented).eIsProxy()) {
 			InternalEObject oldImplemented = (InternalEObject) implemented;
@@ -135,6 +136,7 @@ public class RealizationImpl extends GeneralizationImpl implements Realization {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setImplemented(ComponentType newImplemented) {
 		ComponentType oldImplemented = implemented;
 		implemented = newImplemented;

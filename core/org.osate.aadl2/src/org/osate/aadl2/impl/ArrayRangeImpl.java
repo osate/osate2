@@ -108,6 +108,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getLowerBound() {
 		return lowerBound;
 	}
@@ -117,6 +118,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLowerBound(long newLowerBound) {
 		long oldLowerBound = lowerBound;
 		lowerBound = newLowerBound;
@@ -131,6 +133,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getUpperBound() {
 		return upperBound;
 	}
@@ -140,6 +143,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUpperBound(long newUpperBound) {
 		long oldUpperBound = upperBound;
 		upperBound = newUpperBound;

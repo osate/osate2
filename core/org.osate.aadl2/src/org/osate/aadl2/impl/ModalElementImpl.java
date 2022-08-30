@@ -81,9 +81,10 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Mode> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.MODAL_ELEMENT__IN_MODE);
+			inModes = new EObjectResolvingEList<>(Mode.class, this, Aadl2Package.MODAL_ELEMENT__IN_MODE);
 		}
 		return inModes;
 	}

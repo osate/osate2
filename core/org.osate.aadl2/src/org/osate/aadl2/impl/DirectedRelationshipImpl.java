@@ -70,8 +70,9 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getSources() {
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE,
 				null);
 	}
 
@@ -82,7 +83,7 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 */
 	@Override
 	public EList<Element> getRelatedElements() {
-		return new DerivedUnionEObjectEList<Element>(Element.class, this,
+		return new DerivedUnionEObjectEList<>(Element.class, this,
 				Aadl2Package.DIRECTED_RELATIONSHIP__RELATED_ELEMENT, RELATED_ELEMENT_ESUBSETS);
 	}
 
@@ -102,8 +103,9 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getTargets() {
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__TARGET,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__TARGET,
 				null);
 	}
 

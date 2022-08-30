@@ -99,6 +99,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CalledSubprogram getCalledSubprogram() {
 		if (calledSubprogram != null && ((EObject) calledSubprogram).eIsProxy()) {
 			InternalEObject oldCalledSubprogram = (InternalEObject) calledSubprogram;
@@ -127,6 +128,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCalledSubprogram(CalledSubprogram newCalledSubprogram) {
 		CalledSubprogram oldCalledSubprogram = calledSubprogram;
 		calledSubprogram = newCalledSubprogram;
@@ -141,6 +143,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CallContext getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
@@ -169,6 +172,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(CallContext newContext) {
 		CallContext oldContext = context;
 		context = newContext;

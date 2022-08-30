@@ -151,7 +151,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 */
 	public EList<Classifier> getFeaturingClassifiers() {
 		// BasicEList<Classifier> list = new BasicEList<Classifier>();
-		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(Classifier.class, this,
+		final EList<Classifier> list = new NonNotifyingEObjectEList<>(Classifier.class, this,
 				Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER);
 		list.add(getContainingClassifier());
 		return list;
@@ -162,6 +162,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowSpecification getSpecification() {
 		if (specification != null && ((EObject) specification).eIsProxy()) {
 			InternalEObject oldSpecification = (InternalEObject) specification;
@@ -190,6 +191,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSpecification(FlowSpecification newSpecification) {
 		FlowSpecification oldSpecification = specification;
 		specification = newSpecification;
@@ -204,9 +206,10 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FlowSegment> getOwnedFlowSegments() {
 		if (ownedFlowSegments == null) {
-			ownedFlowSegments = new EObjectContainmentEList<FlowSegment>(FlowSegment.class, this,
+			ownedFlowSegments = new EObjectContainmentEList<>(FlowSegment.class, this,
 					Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT);
 		}
 		return ownedFlowSegments;
@@ -228,6 +231,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowEnd getInEnd() {
 		return inEnd;
 	}
@@ -257,6 +261,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInEnd(FlowEnd newInEnd) {
 		if (newInEnd != inEnd) {
 			NotificationChain msgs = null;
@@ -294,6 +299,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowEnd getOutEnd() {
 		return outEnd;
 	}
@@ -323,6 +329,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOutEnd(FlowEnd newOutEnd) {
 		if (newOutEnd != outEnd) {
 			NotificationChain msgs = null;
@@ -378,6 +385,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowKind getKind() {
 		return kind;
 	}
@@ -387,6 +395,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(FlowKind newKind) {
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;

@@ -77,7 +77,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.UNITS_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -99,7 +99,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	@Override
 	public EList<EnumerationLiteral> getOwnedLiterals() {
 		if (ownedLiterals == null) {
-			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(UnitLiteral.class, this,
+			ownedLiterals = new EObjectContainmentEList<>(UnitLiteral.class, this,
 					Aadl2Package.UNITS_TYPE__OWNED_LITERAL);
 		}
 		return ownedLiterals;

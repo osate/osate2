@@ -80,6 +80,7 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureGroupType getRenamedFeatureGroupType() throws AssertionError {
 		if (renamedFeatureGroupType != null && ((EObject) renamedFeatureGroupType).eIsProxy()) {
 			InternalEObject oldRenamedFeatureGroupType = (InternalEObject) renamedFeatureGroupType;
@@ -109,6 +110,7 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRenamedFeatureGroupType(FeatureGroupType newRenamedFeatureGroupType) {
 		FeatureGroupType oldRenamedFeatureGroupType = renamedFeatureGroupType;
 		renamedFeatureGroupType = newRenamedFeatureGroupType;

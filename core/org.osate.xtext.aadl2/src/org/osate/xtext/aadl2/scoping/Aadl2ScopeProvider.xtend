@@ -93,6 +93,8 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import org.osate.aadl2.DataPort
+import org.osate.aadl2.Port
 
 /**
  * This class contains custom scoping description.
@@ -475,37 +477,37 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		(context.allModes + context.allModeTransitions).scopeFor
 	}
 
-	// Reference is from FlowEnd in Aadl2.xtext
-	/**
-	 * @since 6.0
-	 */
-	def scope_FlowEnd_context(ComponentClassifier context, EReference reference) {
-		context.allContexts.filterRefined.scopeFor
-	}
-
-	/*
-	 * Reference is from FlowEnd in Aadl2.xtext
-	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the FlowEnd.  When the FlowEnd
-	 * is a single identifier, e.g. "port1", then the passed context is a FlowSpecification.  In this case, we know that the FlowEnd's Context is null even
-	 * though we can't access it and check it here.  When the FlowEnd is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a
-	 * FlowEnd, thus calling the other scope method.
-	 */
-	/**
-	 * @since 6.0
-	 */
 	def scope_FlowEnd_feature(Flow context, EReference reference) {
 		context.getContainerOfType(Classifier).getAllFeatures().filterRefined.scopeFor
 	}
-
+	
 	/*
 	 * Reference is from FlowEnd in Aadl2.xtext
-	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the FlowEnd.  When the FlowEnd
-	 * is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a FlowEnd and we can access and check the FlowEnd's Context object.
 	 */
-	def scope_FlowEnd_feature(FlowEnd context, EReference reference) {
-		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [
-			getAllFeatures().filterRefined
-		])
+	def scope_FlowEnd_feature(FlowEnd end, EReference reference) {
+		val prev = end.context
+		if (prev === null)
+			end.getContainerOfType(Classifier).allFeatures.filterRefined.scopeFor
+		else {
+			val feature = prev.feature
+			var classifier = feature.allClassifier
+			if (classifier === null)
+				classifier = switch feature {
+				FeatureGroup:
+				  	if (feature.featureGroupPrototype !== null) {
+						feature.featureGroupPrototype.constrainingFeatureGroupType
+					}
+				Port:
+				  	if (feature.prototype !== null) {
+						feature.prototype.constrainingClassifier
+					}
+				default: null
+				}
+			if (classifier === null)
+				IScope.NULLSCOPE
+			else
+				classifier.allFeatures.filterRefined.scopeFor
+		}
 	}
 
 	// Reference is from FlowSpecRefinement in Aadl2.xtext

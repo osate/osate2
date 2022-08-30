@@ -109,6 +109,7 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualBusSubcomponentType getVirtualBusSubcomponentType() {
 		if (virtualBusSubcomponentType != null && ((EObject) virtualBusSubcomponentType).eIsProxy()) {
 			InternalEObject oldVirtualBusSubcomponentType = (InternalEObject) virtualBusSubcomponentType;
@@ -138,6 +139,7 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVirtualBusSubcomponentType(VirtualBusSubcomponentType newVirtualBusSubcomponentType) {
 		VirtualBusSubcomponentType oldVirtualBusSubcomponentType = virtualBusSubcomponentType;
 		virtualBusSubcomponentType = newVirtualBusSubcomponentType;

@@ -93,8 +93,9 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getOwnedElements() {
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.ELEMENT__OWNED_ELEMENT,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.ELEMENT__OWNED_ELEMENT,
 				OWNED_ELEMENT_ESUBSETS);
 	}
 
@@ -113,9 +114,10 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Comment> getOwnedComments() {
 		if (ownedComments == null) {
-			ownedComments = new EObjectContainmentEList<Comment>(Comment.class, this,
+			ownedComments = new EObjectContainmentEList<>(Comment.class, this,
 					Aadl2Package.ELEMENT__OWNED_COMMENT);
 		}
 		return ownedComments;
@@ -263,7 +265,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	public EList<Element> getChildren() {
 		// TODO if we use this we need to change InstanceObject to not use
 		// ownedElement return getOwnedElements();
-		EList<Element> list = new BasicEList<Element>(20);
+		EList<Element> list = new BasicEList<>(20);
 		for (EObject eo : eContents()) {
 			if (eo instanceof Element) {
 				list.add((Element) eo);

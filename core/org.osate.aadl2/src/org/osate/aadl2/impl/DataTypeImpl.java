@@ -111,7 +111,7 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 */
 	@Override
 	public EList<Feature> getOwnedFeatures() {
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.DATA_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.DATA_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -132,9 +132,10 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
-			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
+			ownedSubprogramAccesses = new EObjectContainmentEList<>(SubprogramAccess.class, this,
 					Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		}
 		return ownedSubprogramAccesses;
@@ -157,9 +158,10 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
-			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
+			ownedDataAccesses = new EObjectContainmentEList<>(DataAccess.class, this,
 					Aadl2Package.DATA_TYPE__OWNED_DATA_ACCESS);
 		}
 		return ownedDataAccesses;
@@ -181,9 +183,10 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
-			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<>(
 					SubprogramGroupAccess.class, this, Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 		}
 		return ownedSubprogramGroupAccesses;

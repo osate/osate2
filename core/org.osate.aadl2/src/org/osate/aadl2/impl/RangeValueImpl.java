@@ -107,6 +107,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getMinimum() {
 		return minimum;
 	}
@@ -136,6 +137,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMinimum(PropertyExpression newMinimum) {
 		if (newMinimum != minimum) {
 			NotificationChain msgs = null;
@@ -173,6 +175,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getMaximum() {
 		return maximum;
 	}
@@ -202,6 +205,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaximum(PropertyExpression newMaximum) {
 		if (newMaximum != maximum) {
 			NotificationChain msgs = null;
@@ -239,6 +243,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getDelta() {
 		return delta;
 	}
@@ -268,6 +273,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDelta(PropertyExpression newDelta) {
 		if (newDelta != delta) {
 			NotificationChain msgs = null;

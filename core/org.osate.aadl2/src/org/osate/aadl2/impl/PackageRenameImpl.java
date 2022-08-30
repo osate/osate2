@@ -101,6 +101,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AadlPackage getRenamedPackage() {
 		if (renamedPackage != null && ((EObject) renamedPackage).eIsProxy()) {
 			InternalEObject oldRenamedPackage = (InternalEObject) renamedPackage;
@@ -129,6 +130,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRenamedPackage(AadlPackage newRenamedPackage) {
 		AadlPackage oldRenamedPackage = renamedPackage;
 		renamedPackage = newRenamedPackage;
@@ -143,6 +145,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isRenameAll() {
 		return renameAll;
 	}
@@ -152,6 +155,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRenameAll(boolean newRenameAll) {
 		boolean oldRenameAll = renameAll;
 		renameAll = newRenameAll;

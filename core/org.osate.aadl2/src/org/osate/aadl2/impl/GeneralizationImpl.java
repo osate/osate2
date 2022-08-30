@@ -76,7 +76,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 */
 	@Override
 	public EList<Element> getTargets() {
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.GENERALIZATION__TARGET,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.GENERALIZATION__TARGET,
 				TARGET_ESUBSETS);
 	}
 
@@ -97,7 +97,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 */
 	@Override
 	public EList<Element> getSources() {
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.GENERALIZATION__SOURCE,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.GENERALIZATION__SOURCE,
 				SOURCE_ESUBSETS);
 	}
 
@@ -116,6 +116,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Classifier getGeneral() {
 		Classifier general = basicGetGeneral();
 		return general != null && ((EObject) general).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) general)
@@ -157,6 +158,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSpecific(Classifier newSpecific) {
 		// TODO: implement this method to set the 'Specific' reference
 		// Ensure that you remove @generated or mark it @generated NOT

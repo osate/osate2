@@ -97,9 +97,10 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Mode> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE);
+			inModes = new EObjectResolvingEList<>(Mode.class, this, Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE);
 		}
 		return inModes;
 	}
@@ -109,9 +110,10 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramCall> getOwnedSubprogramCalls() {
 		if (ownedSubprogramCalls == null) {
-			ownedSubprogramCalls = new EObjectContainmentEList<SubprogramCall>(SubprogramCall.class, this,
+			ownedSubprogramCalls = new EObjectContainmentEList<>(SubprogramCall.class, this,
 					Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_SUBPROGRAM_CALL);
 		}
 		return ownedSubprogramCalls;

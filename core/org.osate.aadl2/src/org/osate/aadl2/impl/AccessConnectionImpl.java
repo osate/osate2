@@ -88,6 +88,7 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AccessCategory getAccessCategory() {
 		return accessCategory;
 	}
@@ -97,6 +98,7 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAccessCategory(AccessCategory newAccessCategory) {
 		AccessCategory oldAccessCategory = accessCategory;
 		accessCategory = newAccessCategory == null ? ACCESS_CATEGORY_EDEFAULT : newAccessCategory;

@@ -1,0 +1,86 @@
+package P
+public
+
+	feature group fg
+		features
+			fi: in feature;
+			fo: out feature;
+	end fg;
+
+	feature group ffg
+		features
+			fg: feature group inverse of fg;
+	end ffg;
+
+	abstract L
+		features
+			fl: feature group ffg;
+		flows
+			fsrc: flow source fl.fg.fi;
+	end L;
+
+	abstract implementation L.i
+	end L.i;
+
+	abstract M
+		features
+			fl: feature group inverse of ffg;
+			fr: feature group inverse of ffg;
+		flows
+			fp: flow path fl -> fr;
+			fpth: flow path fl.fg.fi -> fr.fg.fo;
+	end M;
+
+	abstract MM
+		features
+			fgl: feature group inverse of ffg;
+			fgr: feature group inverse of ffg;
+		flows
+			fpthx: flow path fgl.fg.fi -> fgr.fg.fo;
+	end MM;
+
+	abstract implementation M.i
+		subcomponents
+			mm: abstract MM;
+		connections
+			c1: feature group fl -> mm.fgl;
+			c2: feature group mm.fgr -> fr;
+		flows
+			fp: flow path fl -> c1 -> mm.fpthx -> c2 -> fr.fg;
+	end M.i;
+
+	abstract R
+		features
+			fr: feature group ffg;
+		flows
+			fsnk: flow sink fr.fg.fo;
+	end R;
+
+	abstract implementation R.i
+	end R.i;
+
+	system S1
+	end S1;
+
+	system implementation S1.i
+		subcomponents
+			l: abstract L.i;
+			m: abstract M.i;
+			r: abstract R.i;
+		connections
+			cl: feature l.fl -> m.fl;
+			cl1: feature l.fl.fg <-> m.fl.fg;
+			cl2: feature l.fl.fg.fi -> m.fl.fg.fi;
+			cr: feature m.fr -> r.fr;
+			cr1: feature m.fr.fg <-> r.fr.fg;
+			cr2: feature m.fr.fg.fo -> r.fr.fg.fo;
+		flows
+			e2e: end to end flow l.fsrc -> cl -> m -> cr -> r.fsnk;
+			e2e1: end to end flow l.fsrc -> cl1 -> m -> cr1 -> r.fsnk;
+			e2e2: end to end flow l.fsrc -> cl2 -> m -> cr2 -> r.fsnk;
+			e2e3: end to end flow l.fsrc -> cl -> m.fp -> cr -> r.fsnk;
+			e2e4: end to end flow l.fsrc -> cl1 -> m.fp -> cr1 -> r.fsnk;
+			e2e5: end to end flow l.fsrc -> cl2 -> m.fp -> cr2 -> r.fsnk;
+	end S1.i;
+
+end P;

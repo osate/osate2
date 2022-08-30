@@ -109,6 +109,7 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualProcessorSubcomponentType getVirtualProcessorSubcomponentType() {
 		if (virtualProcessorSubcomponentType != null && ((EObject) virtualProcessorSubcomponentType).eIsProxy()) {
 			InternalEObject oldVirtualProcessorSubcomponentType = (InternalEObject) virtualProcessorSubcomponentType;
@@ -139,6 +140,7 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVirtualProcessorSubcomponentType(
 			VirtualProcessorSubcomponentType newVirtualProcessorSubcomponentType) {
 		VirtualProcessorSubcomponentType oldVirtualProcessorSubcomponentType = virtualProcessorSubcomponentType;

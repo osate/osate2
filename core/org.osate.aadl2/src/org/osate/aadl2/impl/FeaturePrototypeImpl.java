@@ -156,6 +156,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentClassifier getConstrainingClassifier() {
 		if (constrainingClassifier != null && ((EObject) constrainingClassifier).eIsProxy()) {
 			InternalEObject oldConstrainingClassifier = (InternalEObject) constrainingClassifier;
@@ -185,6 +186,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConstrainingClassifier(ComponentClassifier newConstrainingClassifier) {
 		ComponentClassifier oldConstrainingClassifier = constrainingClassifier;
 		constrainingClassifier = newConstrainingClassifier;
@@ -200,6 +202,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIn() {
 		return in;
 	}
@@ -209,6 +212,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
@@ -222,6 +226,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOut() {
 		return out;
 	}
@@ -231,6 +236,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;

@@ -186,7 +186,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		// DONE: implement this method to return the 'In Mode' reference list
 		// EList<Mode> inModes = new BasicInternalEList<Mode>(Mode.class);
 		// DB This should be an EStructuralFeature.Setting
-		EList<Mode> inModes = new NonNotifyingEObjectEList<Mode>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
+		EList<Mode> inModes = new NonNotifyingEObjectEList<>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
 		// XXX the resolving EList was notifying the Thread subcomponent of a
 		// change to In_Modes
 		// which recursively caused the thread subcomponent notify itself
@@ -216,9 +216,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
-			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
+			arrayDimensions = new EObjectContainmentEList<>(ArrayDimension.class, this,
 					Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION);
 		}
 		return arrayDimensions;
@@ -287,9 +288,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PrototypeBinding> getOwnedPrototypeBindings() {
 		if (ownedPrototypeBindings == null) {
-			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			ownedPrototypeBindings = new EObjectContainmentEList<>(PrototypeBinding.class, this,
 					Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING);
 		}
 		return ownedPrototypeBindings;
@@ -333,9 +335,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeBinding> getOwnedModeBindings() {
 		if (ownedModeBindings == null) {
-			ownedModeBindings = new EObjectContainmentEList<ModeBinding>(ModeBinding.class, this,
+			ownedModeBindings = new EObjectContainmentEList<>(ModeBinding.class, this,
 					Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING);
 		}
 		return ownedModeBindings;
@@ -357,6 +360,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isAllModes() {
 		return allModes;
 	}
@@ -366,6 +370,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAllModes(boolean newAllModes) {
 		boolean oldAllModes = allModes;
 		allModes = newAllModes;
@@ -380,9 +385,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ComponentImplementationReference> getImplementationReferences() {
 		if (implementationReferences == null) {
-			implementationReferences = new EObjectContainmentEList<ComponentImplementationReference>(
+			implementationReferences = new EObjectContainmentEList<>(
 					ComponentImplementationReference.class, this, Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE);
 		}
 		return implementationReferences;
@@ -405,6 +411,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Subcomponent getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
@@ -823,7 +830,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
 	public EList<Subcomponent> getAllSubcomponentRefinements() {
-		BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
+		BasicEList<Subcomponent> returnlist = new BasicEList<>();
 		Subcomponent more = this;
 		while (!Aadl2Util.isNull(more)) {
 			returnlist.add(more);

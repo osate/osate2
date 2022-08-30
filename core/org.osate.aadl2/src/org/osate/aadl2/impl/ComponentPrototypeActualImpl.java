@@ -120,6 +120,7 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentCategory getCategory() {
 		return category;
 	}
@@ -129,6 +130,7 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCategory(ComponentCategory newCategory) {
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
@@ -143,9 +145,10 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PrototypeBinding> getBindings() {
 		if (bindings == null) {
-			bindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			bindings = new EObjectContainmentEList<>(PrototypeBinding.class, this,
 					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING);
 		}
 		return bindings;
@@ -196,6 +199,7 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSubcomponentType(SubcomponentType newSubcomponentType) {
 		SubcomponentType oldSubcomponentType = subcomponentType;
 		subcomponentType = newSubcomponentType;

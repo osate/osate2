@@ -88,7 +88,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.ENUMERATION_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -107,9 +107,10 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EnumerationLiteral> getOwnedLiterals() {
 		if (ownedLiterals == null) {
-			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(EnumerationLiteral.class, this,
+			ownedLiterals = new EObjectContainmentEList<>(EnumerationLiteral.class, this,
 					Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL);
 		}
 		return ownedLiterals;

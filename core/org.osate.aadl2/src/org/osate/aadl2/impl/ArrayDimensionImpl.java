@@ -80,6 +80,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArraySize getSize() {
 		return size;
 	}
@@ -109,6 +110,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(ArraySize newSize) {
 		if (newSize != size) {
 			NotificationChain msgs = null;

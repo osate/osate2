@@ -122,7 +122,7 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 */
 	@Override
 	public EList<Element> getOwnedElements() {
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.AADL_PACKAGE__OWNED_ELEMENT,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.AADL_PACKAGE__OWNED_ELEMENT,
 				OWNED_ELEMENT_ESUBSETS);
 	}
 
@@ -274,6 +274,7 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PublicPackageSection getOwnedPublicSection() {
 		return ownedPublicSection;
 	}
@@ -312,6 +313,7 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedPublicSection(PublicPackageSection newOwnedPublicSection) {
 		if (newOwnedPublicSection != ownedPublicSection) {
 			NotificationChain msgs = null;
@@ -350,6 +352,7 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrivatePackageSection getOwnedPrivateSection() {
 		return ownedPrivateSection;
 	}
@@ -388,6 +391,7 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedPrivateSection(PrivatePackageSection newOwnedPrivateSection) {
 		if (newOwnedPrivateSection != ownedPrivateSection) {
 			NotificationChain msgs = null;

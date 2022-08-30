@@ -101,6 +101,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isArray() {
 		return array;
 	}
@@ -110,6 +111,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setArray(boolean newArray) {
 		boolean oldArray = array;
 		array = newArray;
@@ -124,6 +126,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentClassifier getConstrainingClassifier() {
 		if (constrainingClassifier != null && ((EObject) constrainingClassifier).eIsProxy()) {
 			InternalEObject oldConstrainingClassifier = (InternalEObject) constrainingClassifier;
@@ -153,6 +156,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConstrainingClassifier(ComponentClassifier newConstrainingClassifier) {
 		ComponentClassifier oldConstrainingClassifier = constrainingClassifier;
 		constrainingClassifier = newConstrainingClassifier;

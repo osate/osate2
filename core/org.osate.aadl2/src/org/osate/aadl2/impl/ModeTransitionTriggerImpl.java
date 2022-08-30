@@ -91,6 +91,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Context getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
@@ -119,6 +120,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
@@ -133,6 +135,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TriggerPort getTriggerPort() {
 		if (triggerPort != null && ((EObject) triggerPort).eIsProxy()) {
 			InternalEObject oldTriggerPort = (InternalEObject) triggerPort;
@@ -161,6 +164,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTriggerPort(TriggerPort newTriggerPort) {
 		TriggerPort oldTriggerPort = triggerPort;
 		triggerPort = newTriggerPort;

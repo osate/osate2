@@ -42,8 +42,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
@@ -1284,15 +1282,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 */
 		if (!(isPeriodic || fei == ci)) { // the flow element is a FlowSpecificationInstance (It is not periodic or a component instance)
 			final FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
-			final FlowEnd allInEnd = fsi.getFlowSpecification().getAllInEnd();
-			if (allInEnd != null) { // we have an input feature
-				FeatureInstance fi = null;
-				if (allInEnd.getContext() instanceof FeatureGroup) {
-					final FeatureInstance fgi = ci.findFeatureInstance((FeatureGroup) allInEnd.getContext());
-					fi = fgi.findFeatureInstance(allInEnd.getFeature());
-				} else {
-					fi = ci.findFeatureInstance(allInEnd.getFeature());
-				}
+			FeatureInstance fi = fsi.getSource();
+			if (fi != null) { // we have an input feature
 				final FeatureCategory featureCategory = fi.getCategory();
 				if (featureCategory == FeatureCategory.EVENT_PORT
 						|| featureCategory == FeatureCategory.EVENT_DATA_PORT) {

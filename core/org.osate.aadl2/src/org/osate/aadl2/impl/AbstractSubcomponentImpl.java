@@ -109,6 +109,7 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbstractSubcomponentType getAbstractSubcomponentType() {
 		if (abstractSubcomponentType != null && ((EObject) abstractSubcomponentType).eIsProxy()) {
 			InternalEObject oldAbstractSubcomponentType = (InternalEObject) abstractSubcomponentType;
@@ -138,6 +139,7 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAbstractSubcomponentType(AbstractSubcomponentType newAbstractSubcomponentType) {
 		AbstractSubcomponentType oldAbstractSubcomponentType = abstractSubcomponentType;
 		abstractSubcomponentType = newAbstractSubcomponentType;

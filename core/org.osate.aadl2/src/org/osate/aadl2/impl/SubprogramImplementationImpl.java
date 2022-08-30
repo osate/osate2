@@ -104,7 +104,7 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 */
 	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 				Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -126,9 +126,10 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
-			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
+			ownedDataSubcomponents = new EObjectContainmentEList<>(DataSubcomponent.class, this,
 					Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 		}
 		return ownedDataSubcomponents;
@@ -151,9 +152,10 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
-			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
+			ownedSubprogramSubcomponents = new EObjectContainmentEList<>(
 					SubprogramSubcomponent.class, this,
 					Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 		}

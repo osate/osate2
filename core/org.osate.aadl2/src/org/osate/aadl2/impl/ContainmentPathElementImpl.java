@@ -130,9 +130,10 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArrayRange> getArrayRanges() {
 		if (arrayRanges == null) {
-			arrayRanges = new EObjectContainmentEList<ArrayRange>(ArrayRange.class, this,
+			arrayRanges = new EObjectContainmentEList<>(ArrayRange.class, this,
 					Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE);
 		}
 		return arrayRanges;
@@ -154,6 +155,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedElement getNamedElement() {
 		if (namedElement != null && ((EObject) namedElement).eIsProxy()) {
 			InternalEObject oldNamedElement = (InternalEObject) namedElement;
@@ -182,6 +184,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNamedElement(NamedElement newNamedElement) {
 		NamedElement oldNamedElement = namedElement;
 		namedElement = newNamedElement;
@@ -196,6 +199,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAnnexName() {
 		return annexName;
 	}
@@ -205,6 +209,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAnnexName(String newAnnexName) {
 		String oldAnnexName = annexName;
 		annexName = newAnnexName;
@@ -219,6 +224,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContainmentPathElement getPath() {
 		return path;
 	}
@@ -248,6 +254,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPath(ContainmentPathElement newPath) {
 		if (newPath != path) {
 			NotificationChain msgs = null;

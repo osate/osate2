@@ -109,6 +109,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DeviceSubcomponentType getDeviceSubcomponentType() {
 		if (deviceSubcomponentType != null && ((EObject) deviceSubcomponentType).eIsProxy()) {
 			InternalEObject oldDeviceSubcomponentType = (InternalEObject) deviceSubcomponentType;
@@ -138,6 +139,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDeviceSubcomponentType(DeviceSubcomponentType newDeviceSubcomponentType) {
 		DeviceSubcomponentType oldDeviceSubcomponentType = deviceSubcomponentType;
 		deviceSubcomponentType = newDeviceSubcomponentType;

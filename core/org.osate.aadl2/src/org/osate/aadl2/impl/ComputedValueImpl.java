@@ -88,6 +88,7 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFunction() {
 		return function;
 	}
@@ -97,6 +98,7 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFunction(String newFunction) {
 		String oldFunction = function;
 		function = newFunction;

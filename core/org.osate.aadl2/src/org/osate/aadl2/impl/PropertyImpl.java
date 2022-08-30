@@ -161,6 +161,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isInherit() {
 		return inherit;
 	}
@@ -170,6 +171,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInherit(boolean newInherit) {
 		boolean oldInherit = inherit;
 		inherit = newInherit;
@@ -183,6 +185,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getDefaultValue() {
 		return defaultValue;
 	}
@@ -212,6 +215,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDefaultValue(PropertyExpression newDefaultValue) {
 		if (newDefaultValue != defaultValue) {
 			NotificationChain msgs = null;
@@ -238,9 +242,10 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyOwner> getAppliesTos() {
 		if (appliesTos == null) {
-			appliesTos = new EObjectContainmentEList<PropertyOwner>(PropertyOwner.class, this,
+			appliesTos = new EObjectContainmentEList<>(PropertyOwner.class, this,
 					Aadl2Package.PROPERTY__APPLIES_TO);
 		}
 		return appliesTos;
@@ -262,6 +267,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEmptyListDefault() {
 		return emptyListDefault;
 	}
@@ -271,6 +277,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEmptyListDefault(boolean newEmptyListDefault) {
 		boolean oldEmptyListDefault = emptyListDefault;
 		emptyListDefault = newEmptyListDefault;
@@ -299,7 +306,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public EList<MetaclassReference> getAppliesToMetaclasses() {
 		// DONE: implement this method to return the 'Applies To Metaclass'
 		// reference list
-		EList<MetaclassReference> result = new BasicEList<MetaclassReference>();
+		EList<MetaclassReference> result = new BasicEList<>();
 
 		for (PropertyOwner po : getAppliesTos()) {
 			if (po instanceof MetaclassReference) {
@@ -317,7 +324,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public EList<Classifier> getAppliesToClassifiers() {
 		// DONE: implement this method to return the 'Applies To Classifier'
 		// reference list
-		EList<Classifier> result = new BasicEList<Classifier>();
+		EList<Classifier> result = new BasicEList<>();
 
 		for (PropertyOwner po : getAppliesTos()) {
 			if (po instanceof Classifier) {
@@ -477,7 +484,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 
 	public PropertyEvaluationResult evaluate(EvaluationContext ctx, int depth) {
 		List<PropertyAssociation> pas = getPropertyValue(ctx).getAssociations();
-		List<EvaluatedProperty> vals = new LinkedList<EvaluatedProperty>();
+		List<EvaluatedProperty> vals = new LinkedList<>();
 
 		for (PropertyAssociation pa : pas) {
 			vals.add(pa.evaluate(ctx, depth));
