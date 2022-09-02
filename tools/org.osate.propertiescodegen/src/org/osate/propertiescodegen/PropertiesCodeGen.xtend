@@ -96,7 +96,7 @@ class PropertiesCodeGen {
 		new GeneratedClass(typeName + ".java", contents)
 	}
 	
-	def package static String getPackageName(PropertySet propertySet) {
+	def static String getPackageName(PropertySet propertySet) {
 		var String packageName = null
 		val previousNode = NodeModelUtils.getNode(propertySet).leafNodes.filter[!it.hidden].head.previousSibling
 		if (previousNode !== null) {
