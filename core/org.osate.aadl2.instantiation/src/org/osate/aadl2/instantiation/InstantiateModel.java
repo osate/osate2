@@ -467,14 +467,6 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		// instantiation of annexes
-		monitor.subTask("Instantiating annexes");
-		AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
-		aic.instantiateAllAnnexes(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
-
 		// Note that caching properties may create new top level component instances for
 		// referenced classifiers, so we need to use indexed access
 		var contents = root.eResource().getContents();
@@ -484,6 +476,14 @@ public class InstantiateModel {
 				// handle connection patterns
 				processConnections(ci);
 			}
+		}
+
+		// instantiation of annexes
+		monitor.subTask("Instantiating annexes");
+		AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
+		aic.instantiateAllAnnexes(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
 		}
 
 //		OsateResourceManager.save(aadlResource);
