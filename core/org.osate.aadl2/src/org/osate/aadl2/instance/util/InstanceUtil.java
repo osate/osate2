@@ -286,7 +286,7 @@ public class InstanceUtil {
 					classifier = (ft instanceof Classifier) ? (Classifier) ft : null;
 					prototype = (ft instanceof Prototype) ? (Prototype) ft : null;
 				} else {
-					FeatureClassifier fc = fi.getFeature().getFeatureClassifier();
+					FeatureClassifier fc = fi.getFeature().getAllFeatureClassifier();
 
 					classifier = (fc instanceof Classifier cl) ? cl : null;
 					prototype = (fc instanceof Prototype p) ? p : null;
@@ -458,10 +458,9 @@ public class InstanceUtil {
 		} else if (parent instanceof ComponentInstance) {
 			Subcomponent parentSub = ((ComponentInstance) parent).getSubcomponent();
 
-			if (parentSub == null) {
-				return null;
+			if (parentSub != null) {
+				result = parentSub.lookupPrototypeBinding(proto);
 			}
-			result = parentSub.lookupPrototypeBinding(proto);
 		}
 		// lookup in parent's classifier (nested prototype bindings)
 		if (result == null && parent != null) {
