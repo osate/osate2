@@ -35,6 +35,7 @@ import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
@@ -105,6 +106,14 @@ public class InstanceUtil {
 		public EList<PrototypeBinding> getBindings() {
 			return bindings;
 		}
+
+		/**
+		 * @since 5.0
+		 */
+		public boolean hasBindings() {
+			return !(bindings == null || bindings.isEmpty());
+		}
+
 	}
 
 	private static final EList<PrototypeBinding> noBindings = new BasicEList<PrototypeBinding>();
@@ -255,7 +264,7 @@ public class InstanceUtil {
 			}
 		}
 		if (iobj instanceof SystemInstance) {
-			ic = new InstantiatedClassifier(((SystemInstance) iobj).getComponentImplementation(), null);
+			ic = new InstantiatedClassifier(((SystemInstance) iobj).getComponentImplementation(), noBindings);
 		}
 		if (ic == null) {
 			Classifier classifier = null;
@@ -263,15 +272,25 @@ public class InstanceUtil {
 			Prototype prototype = null;
 			if (iobj instanceof ComponentInstance) {
 				Subcomponent sub = ((ComponentInstance) iobj).getSubcomponent();
+				if (sub == null) {
+					return null;
+				}
 
 				classifier = sub.getClassifier();
 				prototypeBindings = sub.getOwnedPrototypeBindings();
 				prototype = sub.getPrototype();
-			} else if (iobj instanceof FeatureInstance) {
-				FeatureType ft = ((FeatureGroup) ((FeatureInstance) iobj).getFeature()).getFeatureType();
+			} else if (iobj instanceof FeatureInstance fi) {
+				if (fi.getFeature() instanceof FeatureGroup fg) {
+					FeatureType ft = fg.getFeatureType();
 
-				classifier = (ft instanceof Classifier) ? (Classifier) ft : null;
-				prototype = (ft instanceof Prototype) ? (Prototype) ft : null;
+					classifier = (ft instanceof Classifier) ? (Classifier) ft : null;
+					prototype = (ft instanceof Prototype) ? (Prototype) ft : null;
+				} else {
+					FeatureClassifier fc = fi.getFeature().getFeatureClassifier();
+
+					classifier = (fc instanceof Classifier cl) ? cl : null;
+					prototype = (fc instanceof Prototype p) ? p : null;
+				}
 			} else {
 				return null;
 			}

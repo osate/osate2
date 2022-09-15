@@ -41,4 +41,10 @@ import org.osate.aadl2.parsesupport.AObject;
  * @generated
  */
 public interface FeatureClassifier extends AObject {
+
+	/**
+	 * @since 5.0
+	 */
+	ComponentCategory getCategory();
+
 } // FeatureClassifier

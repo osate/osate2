@@ -481,7 +481,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 *
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	@Override
 	public Classifier getAllClassifier() {
 		Classifier cc = getClassifier();
 		Feature f = this;
@@ -490,6 +490,28 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			cc = f.getClassifier();
 		}
 		return cc;
+	}
+
+	@Override
+	public ComponentPrototype getAllPrototype() {
+		ComponentPrototype cp = getPrototype();
+		Feature f = this;
+		while (cp == null && f.getRefined() != null) {
+			f = f.getRefined();
+			cp = f.getPrototype();
+		}
+		return cp;
+	}
+
+	@Override
+	public FeatureClassifier getAllFeatureClassifier() {
+		FeatureClassifier fc = getFeatureClassifier();
+		Feature f = this;
+		while (fc == null && f.getRefined() != null) {
+			f = f.getRefined();
+			fc = f.getFeatureClassifier();
+		}
+		return fc;
 	}
 
 	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
