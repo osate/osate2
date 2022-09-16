@@ -87,17 +87,7 @@
         </filter>
         <filter comment="EMF generated code" id="1211105284">
             <message_arguments>
-                <message_argument value="SYSTEM_INSTANCE__REFERENCED_COMPONENT"/>
-            </message_arguments>
-        </filter>
-        <filter comment="EMF generated code" id="1211105284">
-            <message_arguments>
                 <message_argument value="getFeatureInstance_Type()"/>
-            </message_arguments>
-        </filter>
-        <filter comment="EMF generated code" id="1211105284">
-            <message_arguments>
-                <message_argument value="getSystemInstance_ReferencedComponent()"/>
             </message_arguments>
         </filter>
     </resource>
@@ -105,28 +95,6 @@
         <filter comment="EMF generated code" id="1211105284">
             <message_arguments>
                 <message_argument value="FEATURE_INSTANCE__TYPE"/>
-            </message_arguments>
-        </filter>
-        <filter comment="EMF generated code" id="1211105284">
-            <message_arguments>
-                <message_argument value="SYSTEM_INSTANCE__REFERENCED_COMPONENT"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/osate/aadl2/instance/SystemInstance.java" type="org.osate.aadl2.instance.SystemInstance">
-        <filter comment="EMF generated code" id="1211105284">
-            <message_arguments>
-                <message_argument value="createReferencedComponent()"/>
-            </message_arguments>
-        </filter>
-        <filter comment="EMF generated code" id="1211105284">
-            <message_arguments>
-                <message_argument value="createReferencedComponent(EClass)"/>
-            </message_arguments>
-        </filter>
-        <filter comment="EMF generated code" id="1211105284">
-            <message_arguments>
-                <message_argument value="getReferencedComponents()"/>
             </message_arguments>
         </filter>
     </resource>
@@ -139,13 +107,6 @@
         <filter comment="EMF generated code" id="1143996420">
             <message_arguments>
                 <message_argument value="type"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/osate/aadl2/instance/impl/SystemInstanceImpl.java" type="org.osate.aadl2.instance.impl.SystemInstanceImpl">
-        <filter comment="EMF generated code" id="1143996420">
-            <message_arguments>
-                <message_argument value="referencedComponents"/>
             </message_arguments>
         </filter>
     </resource>
