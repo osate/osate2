@@ -98,6 +98,7 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentImplementation getImplementation() {
 		if (implementation != null && ((EObject) implementation).eIsProxy()) {
 			InternalEObject oldImplementation = (InternalEObject) implementation;
@@ -127,6 +128,7 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setImplementation(ComponentImplementation newImplementation) {
 		ComponentImplementation oldImplementation = implementation;
 		implementation = newImplementation;
@@ -142,9 +144,10 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PrototypeBinding> getOwnedPrototypeBindings() {
 		if (ownedPrototypeBindings == null) {
-			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			ownedPrototypeBindings = new EObjectContainmentEList<>(PrototypeBinding.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_PROTOTYPE_BINDING);
 		}
 		return ownedPrototypeBindings;

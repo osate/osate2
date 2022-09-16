@@ -108,6 +108,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponentType getDataFeatureClassifier() {
 		if (dataFeatureClassifier != null && ((EObject) dataFeatureClassifier).eIsProxy()) {
 			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
@@ -137,6 +138,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataFeatureClassifier(DataSubcomponentType newDataFeatureClassifier) {
 		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
 		dataFeatureClassifier = newDataFeatureClassifier;

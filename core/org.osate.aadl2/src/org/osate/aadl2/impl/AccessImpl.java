@@ -104,6 +104,7 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AccessType getKind() {
 		return kind;
 	}
@@ -113,6 +114,7 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(AccessType newKind) {
 		AccessType oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;

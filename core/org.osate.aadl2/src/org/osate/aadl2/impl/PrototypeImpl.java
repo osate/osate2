@@ -82,6 +82,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Prototype getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
@@ -110,6 +111,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRefined(Prototype newRefined) {
 		Prototype oldRefined = refined;
 		refined = newRefined;

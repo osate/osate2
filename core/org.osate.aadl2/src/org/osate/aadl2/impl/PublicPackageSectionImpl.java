@@ -70,6 +70,7 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrivatePackageSection getPrivateSection() {
 		PrivatePackageSection privateSection = basicGetPrivateSection();
 		return privateSection != null && ((EObject) privateSection).eIsProxy()

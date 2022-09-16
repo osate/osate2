@@ -88,6 +88,7 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isValue() {
 		return value;
 	}
@@ -101,6 +102,7 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(boolean newValue) {
 		boolean oldValue = value;
 		value = newValue;

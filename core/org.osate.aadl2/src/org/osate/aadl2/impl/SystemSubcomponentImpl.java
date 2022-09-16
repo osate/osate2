@@ -109,6 +109,7 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemSubcomponentType getSystemSubcomponentType() {
 		if (systemSubcomponentType != null && ((EObject) systemSubcomponentType).eIsProxy()) {
 			InternalEObject oldSystemSubcomponentType = (InternalEObject) systemSubcomponentType;
@@ -138,6 +139,7 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSystemSubcomponentType(SystemSubcomponentType newSystemSubcomponentType) {
 		SystemSubcomponentType oldSystemSubcomponentType = systemSubcomponentType;
 		systemSubcomponentType = newSystemSubcomponentType;

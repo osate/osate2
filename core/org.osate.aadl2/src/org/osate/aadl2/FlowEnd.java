@@ -46,7 +46,7 @@ package org.osate.aadl2;
  */
 public interface FlowEnd extends Element {
 	/**
-	 * Returns the value of the '<em><b>Context</b></em>' reference.
+	 * Returns the value of the '<em><b>Context</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Context</em>' reference isn't clear,
@@ -56,23 +56,33 @@ public interface FlowEnd extends Element {
 	 * <!-- begin-model-doc -->
 	 * <p>From package AADLConstructs::Flows.</p>
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Context</em>' reference.
-	 * @see #setContext(Context)
+	 * @return the value of the '<em>Context</em>' containment reference.
+	 * @see #setContext(FlowEnd)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowEnd_Context()
-	 * @model ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
-	Context getContext();
+	FlowEnd getContext();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.FlowEnd#getContext <em>Context</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.FlowEnd#getContext <em>Context</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Context</em>' reference.
+	 * @param value the new value of the '<em>Context</em>' containment reference.
 	 * @see #getContext()
 	 * @generated
 	 */
-	void setContext(Context value);
+	void setContext(FlowEnd value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.FlowEnd} and sets the '<em><b>Context</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.FlowEnd}.
+	 * @see #getContext()
+	 * @generated
+	 */
+	FlowEnd createContext();
 
 	/**
 	 * Returns the value of the '<em><b>Feature</b></em>' reference.

@@ -114,6 +114,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getBase() {
 		return base;
 	}
@@ -123,6 +124,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBase(long newBase) {
 		long oldBase = base;
 		base = newBase;
@@ -136,6 +138,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getValue() {
 		return value;
 	}
@@ -145,6 +148,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(long newValue) {
 		long oldValue = value;
 		value = newValue;

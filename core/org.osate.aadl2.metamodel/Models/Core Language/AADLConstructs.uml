@@ -2035,7 +2035,7 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="_D5kAgK1MEeCEBvwFrdo_PA">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:id="_T0XnzqvVEeC0h7jzzZfZ7Q" name="context" visibility="public" type="Connections-Context" association="_T0XnyqvVEeC0h7jzzZfZ7Q">
+        <ownedAttribute xmi:id="_T0XnzqvVEeC0h7jzzZfZ7Q" name="context" visibility="public" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_T0XnyqvVEeC0h7jzzZfZ7Q">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T0Xn0KvVEeC0h7jzzZfZ7Q"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T0Xnz6vVEeC0h7jzzZfZ7Q" value="1"/>
         </ownedAttribute>
@@ -2053,7 +2053,6 @@ The context owns the connection end instance.</body>
       <packagedElement xmi:type="uml:Association" xmi:id="_T0XnyqvVEeC0h7jzzZfZ7Q" name="A_flowEnd_context" memberEnd="_T0Xny6vVEeC0h7jzzZfZ7Q _T0XnzqvVEeC0h7jzzZfZ7Q">
         <ownedEnd xmi:id="_T0Xny6vVEeC0h7jzzZfZ7Q" name="flowEnd" visibility="public" type="_AzAPoKvVEeC0h7jzzZfZ7Q" association="_T0XnyqvVEeC0h7jzzZfZ7Q">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T0XnzavVEeC0h7jzzZfZ7Q"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T0XnzKvVEeC0h7jzzZfZ7Q" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_tDLx4KvbEeC0h7jzzZfZ7Q" name="FlowSegment">

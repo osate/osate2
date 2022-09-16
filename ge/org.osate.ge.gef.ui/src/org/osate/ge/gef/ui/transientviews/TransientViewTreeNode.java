@@ -37,6 +37,7 @@ import org.osate.ge.graphics.Style;
  * @since 1.1
  */
 public class TransientViewTreeNode {
+	private final TransientViewTreeNode parent;
 	private final Object bo;
 	private Object userData;
 	private Style style = Style.EMPTY;
@@ -44,11 +45,13 @@ public class TransientViewTreeNode {
 
 	/**
 	 * Private constructor to prevent direct instantiation
+	 * @param parent the parent node. May be null.
 	 * @param bo the business object to be included in the view.
 	 * @see #createChild(TransientViewTreeNode, Object)
 	 * @see #createRoot()
 	 */
-	private TransientViewTreeNode(final Object bo) {
+	private TransientViewTreeNode(final TransientViewTreeNode parent, final Object bo) {
+		this.parent = parent;
 		this.bo = bo;
 	}
 
@@ -58,7 +61,7 @@ public class TransientViewTreeNode {
 	 * @return the new root node
 	 */
 	public static TransientViewTreeNode createRoot() {
-		return new TransientViewTreeNode(null);
+		return new TransientViewTreeNode(null, null);
 	}
 
 	/**
@@ -71,9 +74,18 @@ public class TransientViewTreeNode {
 		Objects.requireNonNull(parent, "parent must not be null");
 		Objects.requireNonNull(bo, "bo must not be null");
 
-		final TransientViewTreeNode child = new TransientViewTreeNode(bo);
+		final TransientViewTreeNode child = new TransientViewTreeNode(parent, bo);
 		parent.children.add(child);
 		return child;
+	}
+
+	/**
+	 * Returns the parent node
+	 * @return the parent of this transient view node
+	 * @since 1.2
+	 */
+	public final TransientViewTreeNode getParent() {
+		return parent;
 	}
 
 	/**

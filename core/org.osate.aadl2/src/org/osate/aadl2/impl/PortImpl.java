@@ -76,6 +76,7 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PortCategory getCategory() {
 		// TODO: implement this method to return the 'Category' attribute
 		// Ensure that you remove @generated or mark it @generated NOT

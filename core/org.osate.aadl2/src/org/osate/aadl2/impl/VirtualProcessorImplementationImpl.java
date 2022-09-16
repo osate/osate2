@@ -104,7 +104,7 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 */
 	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 				Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -126,9 +126,10 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
-			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<>(
 					VirtualBusSubcomponent.class, this,
 					Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}
@@ -152,9 +153,10 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents() {
 		if (ownedVirtualProcessorSubcomponents == null) {
-			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<VirtualProcessorSubcomponent>(
+			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<>(
 					VirtualProcessorSubcomponent.class, this,
 					Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
 		}

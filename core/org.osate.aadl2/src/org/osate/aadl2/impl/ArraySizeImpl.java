@@ -99,6 +99,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getSize() {
 		return size;
 	}
@@ -108,6 +109,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(long newSize) {
 		long oldSize = size;
 		size = newSize;
@@ -121,6 +123,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArraySizeProperty getSizeProperty() {
 		if (sizeProperty != null && ((EObject) sizeProperty).eIsProxy()) {
 			InternalEObject oldSizeProperty = (InternalEObject) sizeProperty;
@@ -149,6 +152,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSizeProperty(ArraySizeProperty newSizeProperty) {
 		ArraySizeProperty oldSizeProperty = sizeProperty;
 		sizeProperty = newSizeProperty;

@@ -108,6 +108,7 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramSubcomponentType getSubprogramFeatureClassifier() {
 		if (subprogramFeatureClassifier != null && ((EObject) subprogramFeatureClassifier).eIsProxy()) {
 			InternalEObject oldSubprogramFeatureClassifier = (InternalEObject) subprogramFeatureClassifier;
@@ -137,6 +138,7 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSubprogramFeatureClassifier(SubprogramSubcomponentType newSubprogramFeatureClassifier) {
 		SubprogramSubcomponentType oldSubprogramFeatureClassifier = subprogramFeatureClassifier;
 		subprogramFeatureClassifier = newSubprogramFeatureClassifier;

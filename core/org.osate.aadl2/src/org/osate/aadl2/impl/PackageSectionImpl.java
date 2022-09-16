@@ -197,7 +197,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -219,9 +219,10 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Classifier> getOwnedClassifiers() {
 		if (ownedClassifiers == null) {
-			ownedClassifiers = new EObjectContainmentEList<Classifier>(Classifier.class, this,
+			ownedClassifiers = new EObjectContainmentEList<>(Classifier.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER);
 		}
 		return ownedClassifiers;
@@ -243,9 +244,10 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PackageRename> getOwnedPackageRenames() {
 		if (ownedPackageRenames == null) {
-			ownedPackageRenames = new EObjectContainmentEList<PackageRename>(PackageRename.class, this,
+			ownedPackageRenames = new EObjectContainmentEList<>(PackageRename.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME);
 		}
 		return ownedPackageRenames;
@@ -267,9 +269,10 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ComponentTypeRename> getOwnedComponentTypeRenames() {
 		if (ownedComponentTypeRenames == null) {
-			ownedComponentTypeRenames = new EObjectContainmentEList<ComponentTypeRename>(ComponentTypeRename.class,
+			ownedComponentTypeRenames = new EObjectContainmentEList<>(ComponentTypeRename.class,
 					this, Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME);
 		}
 		return ownedComponentTypeRenames;
@@ -292,6 +295,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoAnnexes() {
 		return noAnnexes;
 	}
@@ -301,6 +305,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoAnnexes(boolean newNoAnnexes) {
 		boolean oldNoAnnexes = noAnnexes;
 		noAnnexes = newNoAnnexes;
@@ -315,6 +320,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoProperties() {
 		return noProperties;
 	}
@@ -324,6 +330,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoProperties(boolean newNoProperties) {
 		boolean oldNoProperties = noProperties;
 		noProperties = newNoProperties;
@@ -338,9 +345,10 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FeatureGroupTypeRename> getOwnedFeatureGroupTypeRenames() {
 		if (ownedFeatureGroupTypeRenames == null) {
-			ownedFeatureGroupTypeRenames = new EObjectContainmentEList<FeatureGroupTypeRename>(
+			ownedFeatureGroupTypeRenames = new EObjectContainmentEList<>(
 					FeatureGroupTypeRename.class, this, Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME);
 		}
 		return ownedFeatureGroupTypeRenames;
@@ -363,9 +371,10 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AnnexLibrary> getOwnedAnnexLibraries() {
 		if (ownedAnnexLibraries == null) {
-			ownedAnnexLibraries = new EObjectContainmentEList<AnnexLibrary>(AnnexLibrary.class, this,
+			ownedAnnexLibraries = new EObjectContainmentEList<>(AnnexLibrary.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY);
 		}
 		return ownedAnnexLibraries;
@@ -396,9 +405,10 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModelUnit> getImportedUnits() {
 		if (importedUnits == null) {
-			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
+			importedUnits = new EObjectResolvingEList<>(ModelUnit.class, this,
 					Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT);
 		}
 		return importedUnits;

@@ -2873,6 +2873,11 @@
                 <message_argument value="basicSetTypeSet(AnonymousTypeSet, NotificationChain)"/>
             </message_arguments>
         </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="eInverseRemove(InternalEObject, int, NotificationChain)"/>
+            </message_arguments>
+        </filter>
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="typeSet"/>

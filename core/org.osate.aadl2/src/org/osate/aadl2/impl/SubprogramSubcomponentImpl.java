@@ -109,6 +109,7 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramSubcomponentType getSubprogramSubcomponentType() {
 		if (subprogramSubcomponentType != null && ((EObject) subprogramSubcomponentType).eIsProxy()) {
 			InternalEObject oldSubprogramSubcomponentType = (InternalEObject) subprogramSubcomponentType;
@@ -138,6 +139,7 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSubprogramSubcomponentType(SubprogramSubcomponentType newSubprogramSubcomponentType) {
 		SubprogramSubcomponentType oldSubprogramSubcomponentType = subprogramSubcomponentType;
 		subprogramSubcomponentType = newSubprogramSubcomponentType;

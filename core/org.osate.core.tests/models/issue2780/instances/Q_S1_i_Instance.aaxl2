@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="S1_i_Instance" category="system">
+  <componentInstance name="l">
+    <featureInstance name="fl" category="featureGroup" direction="in out">
+      <featureInstance name="fg" category="featureGroup" direction="in out">
+        <featureInstance name="fi" category="abstractFeature" direction="out">
+          <feature xsi:type="aadl2:AbstractFeature" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.0"/>
+        </featureInstance>
+        <featureInstance name="fo" category="abstractFeature">
+          <feature xsi:type="aadl2:AbstractFeature" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.1"/>
+        </featureInstance>
+        <feature xsi:type="aadl2:FeatureGroup" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.0"/>
+      </featureInstance>
+      <feature xsi:type="aadl2:FeatureGroup" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFeatureGroup.0"/>
+    </featureInstance>
+    <flowSpecification name="fsrc" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+      <flowSpecification href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFlowSpecification.0"/>
+    </flowSpecification>
+    <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedAbstractSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:AbstractImplementation" href="../Q.aadl#Q.L.i"/>
+  </componentInstance>
+  <componentInstance name="m">
+    <featureInstance name="fl" category="featureGroup" direction="in out">
+      <featureInstance name="fg" category="featureGroup" direction="in out">
+        <featureInstance name="fi" category="abstractFeature">
+          <feature xsi:type="aadl2:AbstractFeature" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.0"/>
+        </featureInstance>
+        <featureInstance name="fo" category="abstractFeature" direction="out">
+          <feature xsi:type="aadl2:AbstractFeature" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.1"/>
+        </featureInstance>
+        <feature xsi:type="aadl2:FeatureGroup" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.0"/>
+      </featureInstance>
+      <feature xsi:type="aadl2:FeatureGroup" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedFeatureGroup.0"/>
+    </featureInstance>
+    <featureInstance name="fr" category="featureGroup" direction="in out">
+      <featureInstance name="fg" category="featureGroup" direction="in out">
+        <featureInstance name="fi" category="abstractFeature">
+          <feature xsi:type="aadl2:AbstractFeature" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.0"/>
+        </featureInstance>
+        <featureInstance name="fo" category="abstractFeature" direction="out">
+          <feature xsi:type="aadl2:AbstractFeature" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.1"/>
+        </featureInstance>
+        <feature xsi:type="aadl2:FeatureGroup" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.0"/>
+      </featureInstance>
+      <feature xsi:type="aadl2:FeatureGroup" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedFeatureGroup.1"/>
+    </featureInstance>
+    <flowSpecification name="fpth" source="//@componentInstance.1/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.1">
+      <flowSpecification href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedFlowSpecification.0"/>
+    </flowSpecification>
+    <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedAbstractSubcomponent.1"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:AbstractImplementation" href="../Q.aadl#Q.M.i"/>
+  </componentInstance>
+  <componentInstance name="r">
+    <featureInstance name="fr" category="featureGroup" direction="in out">
+      <featureInstance name="fg" category="featureGroup" direction="in out">
+        <featureInstance name="fi" category="abstractFeature" direction="out">
+          <feature xsi:type="aadl2:AbstractFeature" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.0"/>
+        </featureInstance>
+        <featureInstance name="fo" category="abstractFeature">
+          <feature xsi:type="aadl2:AbstractFeature" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.1"/>
+        </featureInstance>
+        <feature xsi:type="aadl2:FeatureGroup" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.0"/>
+      </featureInstance>
+      <feature xsi:type="aadl2:FeatureGroup" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedFeatureGroup.0"/>
+    </featureInstance>
+    <flowSpecification name="fsnk" source="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1">
+      <flowSpecification href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedFlowSpecification.0"/>
+    </flowSpecification>
+    <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedAbstractSubcomponent.2"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:AbstractImplementation" href="../Q.aadl#Q.R.i"/>
+  </componentInstance>
+  <endToEndFlow name="e2e" flowElement="//@componentInstance.0/@flowSpecification.0 //@connectionInstance.0 //@componentInstance.1 //@connectionInstance.4 //@componentInstance.2/@flowSpecification.0">
+    <endToEndFlow href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedEndToEndFlow.0"/>
+  </endToEndFlow>
+  <endToEndFlow name="e2e1" flowElement="//@componentInstance.0/@flowSpecification.0 //@connectionInstance.1 //@componentInstance.1 //@connectionInstance.5 //@componentInstance.2/@flowSpecification.0">
+    <endToEndFlow href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedEndToEndFlow.1"/>
+  </endToEndFlow>
+  <endToEndFlow name="e2e2" flowElement="//@componentInstance.0/@flowSpecification.0 //@connectionInstance.2 //@componentInstance.1 //@connectionInstance.6 //@componentInstance.2/@flowSpecification.0">
+    <endToEndFlow href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedEndToEndFlow.2"/>
+  </endToEndFlow>
+  <endToEndFlow name="e2e3" flowElement="//@componentInstance.0/@flowSpecification.0 //@connectionInstance.0 //@componentInstance.1/@flowSpecification.0 //@connectionInstance.4 //@componentInstance.2/@flowSpecification.0">
+    <endToEndFlow href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedEndToEndFlow.3"/>
+  </endToEndFlow>
+  <endToEndFlow name="e2e4" flowElement="//@componentInstance.0/@flowSpecification.0 //@connectionInstance.1 //@componentInstance.1/@flowSpecification.0 //@connectionInstance.5 //@componentInstance.2/@flowSpecification.0">
+    <endToEndFlow href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedEndToEndFlow.4"/>
+  </endToEndFlow>
+  <endToEndFlow name="e2e5" flowElement="//@componentInstance.0/@flowSpecification.0 //@connectionInstance.2 //@componentInstance.1/@flowSpecification.0 //@connectionInstance.6 //@componentInstance.2/@flowSpecification.0">
+    <endToEndFlow href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedEndToEndFlow.5"/>
+  </endToEndFlow>
+  <connectionInstance name="l.fl.fg.fi -> m.fl.fg.fi" complete="true" destination="//@componentInstance.1/@featureInstance.0/@featureInstance.0/@featureInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureConnection" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFeatureConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="l.fl.fg.fi -> m.fl.fg.fi" complete="true" destination="//@componentInstance.1/@featureInstance.0/@featureInstance.0/@featureInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureConnection" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFeatureConnection.1"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="l.fl.fg.fi -> m.fl.fg.fi" complete="true" destination="//@componentInstance.1/@featureInstance.0/@featureInstance.0/@featureInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureConnection" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFeatureConnection.2"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="m.fl.fg.fo -> l.fl.fg.fo" complete="true" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.1" source="//@componentInstance.1/@featureInstance.0/@featureInstance.0/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.1/@featureInstance.0/@featureInstance.0/@featureInstance.1" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.1" reverse="true">
+      <connection xsi:type="aadl2:FeatureConnection" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFeatureConnection.1"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="m.fr.fg.fo -> r.fr.fg.fo" complete="true" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1" source="//@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.1" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1">
+      <connection xsi:type="aadl2:FeatureConnection" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFeatureConnection.3"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="m.fr.fg.fo -> r.fr.fg.fo" complete="true" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1" source="//@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.1" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1">
+      <connection xsi:type="aadl2:FeatureConnection" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFeatureConnection.4"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="m.fr.fg.fo -> r.fr.fg.fo" complete="true" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1" source="//@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.1" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1">
+      <connection xsi:type="aadl2:FeatureConnection" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFeatureConnection.5"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="r.fr.fg.fi -> m.fr.fg.fi" complete="true" destination="//@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.0" reverse="true">
+      <connection xsi:type="aadl2:FeatureConnection" href="../Q.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFeatureConnection.4"/>
+    </connectionReference>
+  </connectionInstance>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:SystemImplementation" href="../Q.aadl#Q.S1.i"/>
+</instance:SystemInstance>

@@ -109,6 +109,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramGroupSubcomponentType getSubprogramGroupSubcomponentType() {
 		if (subprogramGroupSubcomponentType != null && ((EObject) subprogramGroupSubcomponentType).eIsProxy()) {
 			InternalEObject oldSubprogramGroupSubcomponentType = (InternalEObject) subprogramGroupSubcomponentType;
@@ -139,6 +140,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType newSubprogramGroupSubcomponentType) {
 		SubprogramGroupSubcomponentType oldSubprogramGroupSubcomponentType = subprogramGroupSubcomponentType;
 		subprogramGroupSubcomponentType = newSubprogramGroupSubcomponentType;

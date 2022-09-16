@@ -80,6 +80,7 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataClassifier getDataClassifier() {
 		if (dataClassifier != null && ((EObject) dataClassifier).eIsProxy()) {
 			InternalEObject oldDataClassifier = (InternalEObject) dataClassifier;
@@ -108,6 +109,7 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataClassifier(DataClassifier newDataClassifier) {
 		DataClassifier oldDataClassifier = dataClassifier;
 		dataClassifier = newDataClassifier;

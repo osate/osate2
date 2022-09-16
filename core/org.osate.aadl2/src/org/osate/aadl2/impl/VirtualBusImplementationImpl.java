@@ -92,7 +92,7 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl im
 	 */
 	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 				Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -113,9 +113,10 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
-			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<>(
 					VirtualBusSubcomponent.class, this,
 					Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}

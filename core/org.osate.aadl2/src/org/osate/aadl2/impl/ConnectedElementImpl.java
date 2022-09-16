@@ -104,6 +104,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Context getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
@@ -132,6 +133,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
@@ -146,6 +148,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionEnd getConnectionEnd() {
 		if (connectionEnd != null && ((EObject) connectionEnd).eIsProxy()) {
 			InternalEObject oldConnectionEnd = (InternalEObject) connectionEnd;
@@ -174,6 +177,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnectionEnd(ConnectionEnd newConnectionEnd) {
 		ConnectionEnd oldConnectionEnd = connectionEnd;
 		connectionEnd = newConnectionEnd;
@@ -188,6 +192,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectedElement getNext() {
 		return next;
 	}
@@ -217,6 +222,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNext(ConnectedElement newNext) {
 		if (newNext != next) {
 			NotificationChain msgs = null;

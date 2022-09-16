@@ -152,6 +152,7 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataClassifier getDataClassifier() {
 		if (dataClassifier != null && ((EObject) dataClassifier).eIsProxy()) {
 			InternalEObject oldDataClassifier = (InternalEObject) dataClassifier;
@@ -180,6 +181,7 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataClassifier(DataClassifier newDataClassifier) {
 		DataClassifier oldDataClassifier = dataClassifier;
 		dataClassifier = newDataClassifier;
@@ -194,6 +196,7 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIn() {
 		return in;
 	}
@@ -203,6 +206,7 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
@@ -216,6 +220,7 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOut() {
 		return out;
 	}
@@ -225,6 +230,7 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;

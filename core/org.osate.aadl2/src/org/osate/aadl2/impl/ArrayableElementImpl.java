@@ -83,9 +83,10 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
-			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
+			arrayDimensions = new EObjectContainmentEList<>(ArrayDimension.class, this,
 					Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION);
 		}
 		return arrayDimensions;

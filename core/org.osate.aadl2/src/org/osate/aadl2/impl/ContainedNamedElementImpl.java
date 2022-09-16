@@ -85,6 +85,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContainmentPathElement getPath() {
 		return path;
 	}
@@ -114,6 +115,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPath(ContainmentPathElement newPath) {
 		if (newPath != path) {
 			NotificationChain msgs = null;

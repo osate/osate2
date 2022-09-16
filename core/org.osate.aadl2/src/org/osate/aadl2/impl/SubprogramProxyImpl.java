@@ -80,6 +80,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramClassifier getSubprogramClassifier() {
 		if (subprogramClassifier != null && ((EObject) subprogramClassifier).eIsProxy()) {
 			InternalEObject oldSubprogramClassifier = (InternalEObject) subprogramClassifier;
@@ -109,6 +110,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSubprogramClassifier(SubprogramClassifier newSubprogramClassifier) {
 		SubprogramClassifier oldSubprogramClassifier = subprogramClassifier;
 		subprogramClassifier = newSubprogramClassifier;

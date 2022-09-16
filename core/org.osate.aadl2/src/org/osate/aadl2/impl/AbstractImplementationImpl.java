@@ -224,7 +224,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 				Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -257,9 +257,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
 		if (ownedBusSubcomponents == null) {
-			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
+			ownedBusSubcomponents = new EObjectContainmentEList<>(BusSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
 		}
 		return ownedBusSubcomponents;
@@ -281,9 +282,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
-			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
+			ownedDataSubcomponents = new EObjectContainmentEList<>(DataSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 		}
 		return ownedDataSubcomponents;
@@ -306,9 +308,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DeviceSubcomponent> getOwnedDeviceSubcomponents() {
 		if (ownedDeviceSubcomponents == null) {
-			ownedDeviceSubcomponents = new EObjectContainmentEList<DeviceSubcomponent>(DeviceSubcomponent.class, this,
+			ownedDeviceSubcomponents = new EObjectContainmentEList<>(DeviceSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_DEVICE_SUBCOMPONENT);
 		}
 		return ownedDeviceSubcomponents;
@@ -331,9 +334,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<MemorySubcomponent> getOwnedMemorySubcomponents() {
 		if (ownedMemorySubcomponents == null) {
-			ownedMemorySubcomponents = new EObjectContainmentEList<MemorySubcomponent>(MemorySubcomponent.class, this,
+			ownedMemorySubcomponents = new EObjectContainmentEList<>(MemorySubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT);
 		}
 		return ownedMemorySubcomponents;
@@ -356,9 +360,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ProcessSubcomponent> getOwnedProcessSubcomponents() {
 		if (ownedProcessSubcomponents == null) {
-			ownedProcessSubcomponents = new EObjectContainmentEList<ProcessSubcomponent>(ProcessSubcomponent.class,
+			ownedProcessSubcomponents = new EObjectContainmentEList<>(ProcessSubcomponent.class,
 					this, Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_PROCESS_SUBCOMPONENT);
 		}
 		return ownedProcessSubcomponents;
@@ -381,9 +386,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ProcessorSubcomponent> getOwnedProcessorSubcomponents() {
 		if (ownedProcessorSubcomponents == null) {
-			ownedProcessorSubcomponents = new EObjectContainmentEList<ProcessorSubcomponent>(
+			ownedProcessorSubcomponents = new EObjectContainmentEList<>(
 					ProcessorSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_PROCESSOR_SUBCOMPONENT);
 		}
@@ -407,9 +413,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SystemSubcomponent> getOwnedSystemSubcomponents() {
 		if (ownedSystemSubcomponents == null) {
-			ownedSystemSubcomponents = new EObjectContainmentEList<SystemSubcomponent>(SystemSubcomponent.class, this,
+			ownedSystemSubcomponents = new EObjectContainmentEList<>(SystemSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_SYSTEM_SUBCOMPONENT);
 		}
 		return ownedSystemSubcomponents;
@@ -432,9 +439,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
-			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
+			ownedSubprogramSubcomponents = new EObjectContainmentEList<>(
 					SubprogramSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 		}
@@ -458,9 +466,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents() {
 		if (ownedSubprogramGroupSubcomponents == null) {
-			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<SubprogramGroupSubcomponent>(
+			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<>(
 					SubprogramGroupSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT);
 		}
@@ -484,9 +493,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ThreadSubcomponent> getOwnedThreadSubcomponents() {
 		if (ownedThreadSubcomponents == null) {
-			ownedThreadSubcomponents = new EObjectContainmentEList<ThreadSubcomponent>(ThreadSubcomponent.class, this,
+			ownedThreadSubcomponents = new EObjectContainmentEList<>(ThreadSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_THREAD_SUBCOMPONENT);
 		}
 		return ownedThreadSubcomponents;
@@ -509,9 +519,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ThreadGroupSubcomponent> getOwnedThreadGroupSubcomponents() {
 		if (ownedThreadGroupSubcomponents == null) {
-			ownedThreadGroupSubcomponents = new EObjectContainmentEList<ThreadGroupSubcomponent>(
+			ownedThreadGroupSubcomponents = new EObjectContainmentEList<>(
 					ThreadGroupSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT);
 		}
@@ -535,9 +546,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
-			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<>(
 					VirtualBusSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}
@@ -561,9 +573,10 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents() {
 		if (ownedVirtualProcessorSubcomponents == null) {
-			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<VirtualProcessorSubcomponent>(
+			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<>(
 					VirtualProcessorSubcomponent.class, this,
 					Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
 		}

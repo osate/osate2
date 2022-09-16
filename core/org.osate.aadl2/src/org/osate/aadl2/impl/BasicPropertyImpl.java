@@ -94,6 +94,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getReferencedPropertyType() {
 		if (referencedPropertyType != null && ((EObject) referencedPropertyType).eIsProxy()) {
 			InternalEObject oldReferencedPropertyType = (InternalEObject) referencedPropertyType;
@@ -123,6 +124,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedPropertyType(PropertyType newReferencedPropertyType) {
 		PropertyType oldReferencedPropertyType = referencedPropertyType;
 		referencedPropertyType = newReferencedPropertyType;
@@ -137,6 +139,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getPropertyType() {
 		PropertyType propertyType = basicGetPropertyType();
 		return propertyType != null && ((EObject) propertyType).eIsProxy()
@@ -172,6 +175,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getOwnedPropertyType() {
 		return ownedPropertyType;
 	}
@@ -201,6 +205,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedPropertyType(PropertyType newOwnedPropertyType) {
 		if (newOwnedPropertyType != ownedPropertyType) {
 			NotificationChain msgs = null;

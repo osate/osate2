@@ -109,6 +109,7 @@ public class ThreadSubcomponentImpl extends SubcomponentImpl implements ThreadSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ThreadSubcomponentType getThreadSubcomponentType() {
 		if (threadSubcomponentType != null && ((EObject) threadSubcomponentType).eIsProxy()) {
 			InternalEObject oldThreadSubcomponentType = (InternalEObject) threadSubcomponentType;
@@ -138,6 +139,7 @@ public class ThreadSubcomponentImpl extends SubcomponentImpl implements ThreadSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setThreadSubcomponentType(ThreadSubcomponentType newThreadSubcomponentType) {
 		ThreadSubcomponentType oldThreadSubcomponentType = threadSubcomponentType;
 		threadSubcomponentType = newThreadSubcomponentType;

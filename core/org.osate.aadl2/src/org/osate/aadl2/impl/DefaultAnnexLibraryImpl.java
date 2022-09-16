@@ -101,6 +101,7 @@ public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements Default
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSourceText() {
 		return sourceText;
 	}
@@ -110,6 +111,7 @@ public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements Default
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSourceText(String newSourceText) {
 		String oldSourceText = sourceText;
 		sourceText = newSourceText;
@@ -124,6 +126,7 @@ public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements Default
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnnexLibrary getParsedAnnexLibrary() {
 		return parsedAnnexLibrary;
 	}
@@ -154,6 +157,7 @@ public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements Default
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParsedAnnexLibrary(AnnexLibrary newParsedAnnexLibrary) {
 		if (newParsedAnnexLibrary != parsedAnnexLibrary) {
 			NotificationChain msgs = null;

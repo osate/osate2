@@ -68,8 +68,9 @@ public abstract class RelationshipImpl extends ElementImpl implements Relationsh
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getRelatedElements() {
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.RELATIONSHIP__RELATED_ELEMENT,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.RELATIONSHIP__RELATED_ELEMENT,
 				null);
 	}
 
