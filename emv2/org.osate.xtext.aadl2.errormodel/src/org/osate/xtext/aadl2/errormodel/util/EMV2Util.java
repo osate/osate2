@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -89,6 +90,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
@@ -1692,7 +1694,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorBehaviorEvent> list of ErrorBehaviorEvents as HashMap for quick lookup of names
 	 */
 	public static Collection<ErrorBehaviorEvent> getAllErrorBehaviorEvents(Classifier cl) {
-		HashMap<String, ErrorBehaviorEvent> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorBehaviorEvent>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1865,9 +1867,9 @@ public class EMV2Util {
 	 * @param unnamed Collection of unnamed ErrorBehaviorTransition
 	 * @return Collection<ErrorBehaviorTransition> list of ErrorBehaviorTransition as HashMap for quick lookup of names
 	 */
-	private static HashMap<String, ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl,
+	private static Map<String, ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl,
 			Collection<ErrorBehaviorTransition> unnamed) {
-		HashMap<String, ErrorBehaviorTransition> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorBehaviorTransition>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1922,9 +1924,9 @@ public class EMV2Util {
 	 * @param unnamed Collection of unnamed OutgoingPropagationCondition
 	 * @return Collection<ErrorBehaviorTransition> list of OutgoingPropagationCondition as HashMap for quick lookup of names
 	 */
-	private static HashMap<String, OutgoingPropagationCondition> getAllOutgoingPropagationConditions(Classifier cl,
+	private static Map<String, OutgoingPropagationCondition> getAllOutgoingPropagationConditions(Classifier cl,
 			Collection<OutgoingPropagationCondition> unnamed) {
-		HashMap<String, OutgoingPropagationCondition> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, OutgoingPropagationCondition>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<OutgoingPropagationCondition> eflist = errorModelSubclause.getOutgoingPropagationConditions();
@@ -1990,8 +1992,8 @@ public class EMV2Util {
 	public static Collection<ErrorDetection> getAllErrorDetections(Classifier cl) {
 		BasicEList<ErrorDetection> unlist = new BasicEList<ErrorDetection>();
 		Collection<ErrorDetection> res = getAllErrorDetections(cl, unlist).values();
-		res.addAll(unlist);
-		return res;
+		unlist.addAll(res);
+		return unlist;
 	}
 
 	/**
@@ -1999,10 +2001,11 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @param unnamed Collection of unnamed OutgoingPropagationCondition
 	 * @return Collection<ErrorBehaviorTransition> list of OutgoingPropagationCondition as HashMap for quick lookup of names
+	 * @since 7.0
 	 */
-	public static HashMap<String, ErrorDetection> getAllErrorDetections(Classifier cl,
+	public static Map<String, ErrorDetection> getAllErrorDetections(Classifier cl,
 			Collection<ErrorDetection> unnamed) {
-		HashMap<String, ErrorDetection> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorDetection>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorDetection> eflist = errorModelSubclause.getErrorDetections();
@@ -2015,6 +2018,17 @@ public class EMV2Util {
 					}
 				}
 			}
+		}
+		return result;
+	}
+
+	/**
+	 * @since 7.0
+	 */
+	public static List<ErrorStateToModeMapping> getAllModeMappings(Classifier classifier) {
+		var result = new ArrayList<ErrorStateToModeMapping>();
+		for (var subclause : getAllContainingClassifierEMV2Subclauses(classifier)) {
+			result.addAll(subclause.getErrorStateToModeMappings());
 		}
 		return result;
 	}

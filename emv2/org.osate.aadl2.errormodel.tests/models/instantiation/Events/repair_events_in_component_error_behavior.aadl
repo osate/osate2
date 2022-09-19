@@ -1,0 +1,26 @@
+package repair_events_in_component_error_behavior
+public
+	system s
+		features
+			ep1: in out event port;
+		modes
+			m1: initial mode;
+			m2: mode;
+			mt1: m1 -[ep1]-> m2;
+	end s;
+	
+	system implementation s.i
+		internal features
+			es1: event;
+		annex EMV2 {**
+			component error behavior
+				events
+					repair1: repair event;
+					repair2: repair event when ep1;
+					repair3: repair event when mt1;
+					repair4: repair event when es1;
+					repair5: repair event when ep1, mt1, es1;
+			end component;
+		**};
+	end s.i;
+end repair_events_in_component_error_behavior;

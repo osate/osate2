@@ -35,17 +35,19 @@ import org.osate.aadl2.instance.AnnexInstance;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagationPoints <em>Propagation Points</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getEvents <em>Events</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getStateMachine <em>State Machine</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getErrorPropagationConditions <em>Error Propagation Conditions</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getErrorDetections <em>Error Detections</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getErrorFlows <em>Error Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getComposites <em>Composites</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getOldPropagationPaths <em>Old Propagation Paths</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagations <em>Propagations</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getErrorFlows <em>Error Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagationPaths <em>Propagation Paths</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getStates <em>States</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getInitialState <em>Initial State</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getConditions <em>Conditions</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getDetections <em>Detections</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getModeMappings <em>Mode Mappings</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance()
@@ -55,7 +57,7 @@ import org.osate.aadl2.instance.AnnexInstance;
 public interface EMV2AnnexInstance extends AnnexInstance {
 	/**
 	 * Returns the value of the '<em><b>Transitions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.StateTransitionInstance}.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.TransitionInstance}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Transitions</em>' containment reference list.
@@ -63,7 +65,19 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<StateTransitionInstance> getTransitions();
+	EList<TransitionInstance> getTransitions();
+
+	/**
+	 * Returns the value of the '<em><b>Conditions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Conditions</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_Conditions()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<OutgoingPropagationConditionInstance> getConditions();
 
 	/**
 	 * Returns the value of the '<em><b>Propagation Points</b></em>' containment reference list.
@@ -112,28 +126,28 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	void setStateMachine(StateMachineInstance value);
 
 	/**
-	 * Returns the value of the '<em><b>Error Propagation Conditions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance}.
+	 * Returns the value of the '<em><b>Detections</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.DetectionInstance}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Propagation Conditions</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_ErrorPropagationConditions()
+	 * @return the value of the '<em>Detections</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_Detections()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ErrorPropagationConditionInstance> getErrorPropagationConditions();
+	EList<DetectionInstance> getDetections();
 
 	/**
-	 * Returns the value of the '<em><b>Error Detections</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorDetectionInstance}.
+	 * Returns the value of the '<em><b>Mode Mappings</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ModeMappingInstance}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Detections</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_ErrorDetections()
+	 * @return the value of the '<em>Mode Mappings</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_ModeMappings()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ErrorDetectionInstance> getErrorDetections();
+	EList<ModeMappingInstance> getModeMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Error Flows</b></em>' containment reference list.
@@ -160,18 +174,6 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	EList<CompositeStateInstance> getComposites();
 
 	/**
-	 * Returns the value of the '<em><b>Old Propagation Paths</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.OldPropagationPathInstance}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Old Propagation Paths</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_OldPropagationPaths()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<OldPropagationPathInstance> getOldPropagationPaths();
-
-	/**
 	 * Returns the value of the '<em><b>Propagations</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance}.
 	 * <!-- begin-user-doc -->
@@ -194,5 +196,39 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	 * @generated
 	 */
 	EList<PropagationPathInstance> getPropagationPaths();
+
+	/**
+	 * Returns the value of the '<em><b>States</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.StateInstance}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>States</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_States()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<StateInstance> getStates();
+
+	/**
+	 * Returns the value of the '<em><b>Initial State</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Initial State</em>' reference.
+	 * @see #setInitialState(StateInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_InitialState()
+	 * @model
+	 * @generated
+	 */
+	StateInstance getInitialState();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getInitialState <em>Initial State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Initial State</em>' reference.
+	 * @see #getInitialState()
+	 * @generated
+	 */
+	void setInitialState(StateInstance value);
 
 } // EMV2AnnexInstance

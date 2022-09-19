@@ -30,34 +30,60 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
+import org.osate.aadl2.errormodel.instance.AllPropagations;
+import org.osate.aadl2.errormodel.instance.AllPropagationsNoError;
+import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
+import org.osate.aadl2.errormodel.instance.Branch;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
+import org.osate.aadl2.errormodel.instance.BranchStateReference;
+import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
+import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
+import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
-import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
+import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
+import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SameState;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.StateSource;
+import org.osate.aadl2.errormodel.instance.StringCode;
+import org.osate.aadl2.errormodel.instance.TransitionDestination;
+import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
@@ -178,26 +204,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.STATE_INSTANCE: {
-			StateInstance stateInstance = (StateInstance) theEObject;
-			T result = caseStateInstance(stateInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(stateInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(stateInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(stateInstance);
-			}
-			if (result == null) {
-				result = caseElement(stateInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: {
 			ConstrainedInstanceObject constrainedInstanceObject = (ConstrainedInstanceObject) theEObject;
 			T result = caseConstrainedInstanceObject(constrainedInstanceObject);
@@ -221,26 +227,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE: {
-			StateTransitionInstance stateTransitionInstance = (StateTransitionInstance) theEObject;
-			T result = caseStateTransitionInstance(stateTransitionInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(stateTransitionInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(stateTransitionInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(stateTransitionInstance);
-			}
-			if (result == null) {
-				result = caseElement(stateTransitionInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: {
 			CompositeStateInstance compositeStateInstance = (CompositeStateInstance) theEObject;
 			T result = caseCompositeStateInstance(compositeStateInstance);
@@ -255,66 +241,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(compositeStateInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE: {
-			ErrorPropagationConditionInstance errorPropagationConditionInstance = (ErrorPropagationConditionInstance) theEObject;
-			T result = caseErrorPropagationConditionInstance(errorPropagationConditionInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(errorPropagationConditionInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(errorPropagationConditionInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(errorPropagationConditionInstance);
-			}
-			if (result == null) {
-				result = caseElement(errorPropagationConditionInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE: {
-			ErrorDetectionInstance errorDetectionInstance = (ErrorDetectionInstance) theEObject;
-			T result = caseErrorDetectionInstance(errorDetectionInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(errorDetectionInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(errorDetectionInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(errorDetectionInstance);
-			}
-			if (result == null) {
-				result = caseElement(errorDetectionInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.EVENT_INSTANCE: {
-			EventInstance eventInstance = (EventInstance) theEObject;
-			T result = caseEventInstance(eventInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(eventInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(eventInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(eventInstance);
-			}
-			if (result == null) {
-				result = caseElement(eventInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -358,26 +284,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(constraintElement);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.OLD_PROPAGATION_PATH_INSTANCE: {
-			OldPropagationPathInstance oldPropagationPathInstance = (OldPropagationPathInstance) theEObject;
-			T result = caseOldPropagationPathInstance(oldPropagationPathInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(oldPropagationPathInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(oldPropagationPathInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(oldPropagationPathInstance);
-			}
-			if (result == null) {
-				result = caseElement(oldPropagationPathInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -923,6 +829,709 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.STATE_INSTANCE: {
+			StateInstance stateInstance = (StateInstance) theEObject;
+			T result = caseStateInstance(stateInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(stateInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(stateInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(stateInstance);
+			}
+			if (result == null) {
+				result = caseElement(stateInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.EVENT_INSTANCE: {
+			EventInstance eventInstance = (EventInstance) theEObject;
+			T result = caseEventInstance(eventInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(eventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(eventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(eventInstance);
+			}
+			if (result == null) {
+				result = caseElement(eventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_EVENT_INSTANCE: {
+			ErrorEventInstance errorEventInstance = (ErrorEventInstance) theEObject;
+			T result = caseErrorEventInstance(errorEventInstance);
+			if (result == null) {
+				result = caseEventInstance(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorEventInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorEventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE: {
+			RecoverEventInstance recoverEventInstance = (RecoverEventInstance) theEObject;
+			T result = caseRecoverEventInstance(recoverEventInstance);
+			if (result == null) {
+				result = caseEventInstance(recoverEventInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(recoverEventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(recoverEventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(recoverEventInstance);
+			}
+			if (result == null) {
+				result = caseElement(recoverEventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE: {
+			RepairEventInstance repairEventInstance = (RepairEventInstance) theEObject;
+			T result = caseRepairEventInstance(repairEventInstance);
+			if (result == null) {
+				result = caseEventInstance(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(repairEventInstance);
+			}
+			if (result == null) {
+				result = caseElement(repairEventInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.TRANSITION_INSTANCE: {
+			TransitionInstance transitionInstance = (TransitionInstance) theEObject;
+			T result = caseTransitionInstance(transitionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(transitionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(transitionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(transitionInstance);
+			}
+			if (result == null) {
+				result = caseElement(transitionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.STATE_SOURCE: {
+			StateSource stateSource = (StateSource) theEObject;
+			T result = caseStateSource(stateSource);
+			if (result == null) {
+				result = caseEMV2InstanceObject(stateSource);
+			}
+			if (result == null) {
+				result = caseInstanceObject(stateSource);
+			}
+			if (result == null) {
+				result = caseNamedElement(stateSource);
+			}
+			if (result == null) {
+				result = caseElement(stateSource);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE: {
+			SourceStateReference sourceStateReference = (SourceStateReference) theEObject;
+			T result = caseSourceStateReference(sourceStateReference);
+			if (result == null) {
+				result = caseStateSource(sourceStateReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(sourceStateReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(sourceStateReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(sourceStateReference);
+			}
+			if (result == null) {
+				result = caseElement(sourceStateReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ALL_SOURCES: {
+			AllSources allSources = (AllSources) theEObject;
+			T result = caseAllSources(allSources);
+			if (result == null) {
+				result = caseStateSource(allSources);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(allSources);
+			}
+			if (result == null) {
+				result = caseInstanceObject(allSources);
+			}
+			if (result == null) {
+				result = caseNamedElement(allSources);
+			}
+			if (result == null) {
+				result = caseElement(allSources);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.CONDITION_EXPRESSION_INSTANCE: {
+			ConditionExpressionInstance conditionExpressionInstance = (ConditionExpressionInstance) theEObject;
+			T result = caseConditionExpressionInstance(conditionExpressionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(conditionExpressionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(conditionExpressionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(conditionExpressionInstance);
+			}
+			if (result == null) {
+				result = caseElement(conditionExpressionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.EVENT_REFERENCE: {
+			EventReference eventReference = (EventReference) theEObject;
+			T result = caseEventReference(eventReference);
+			if (result == null) {
+				result = caseConditionExpressionInstance(eventReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(eventReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(eventReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(eventReference);
+			}
+			if (result == null) {
+				result = caseElement(eventReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE: {
+			ConditionPropagationReference conditionPropagationReference = (ConditionPropagationReference) theEObject;
+			T result = caseConditionPropagationReference(conditionPropagationReference);
+			if (result == null) {
+				result = caseConditionExpressionInstance(conditionPropagationReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(conditionPropagationReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(conditionPropagationReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(conditionPropagationReference);
+			}
+			if (result == null) {
+				result = caseElement(conditionPropagationReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.NO_ERROR_PROPAGATION_REFERENCE: {
+			NoErrorPropagationReference noErrorPropagationReference = (NoErrorPropagationReference) theEObject;
+			T result = caseNoErrorPropagationReference(noErrorPropagationReference);
+			if (result == null) {
+				result = caseConditionExpressionInstance(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = caseOutgoingPropagationConditionDestination(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = caseElement(noErrorPropagationReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.COUNT_EXPRESSION: {
+			CountExpression countExpression = (CountExpression) theEObject;
+			T result = caseCountExpression(countExpression);
+			if (result == null) {
+				result = caseConditionExpressionInstance(countExpression);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(countExpression);
+			}
+			if (result == null) {
+				result = caseInstanceObject(countExpression);
+			}
+			if (result == null) {
+				result = caseNamedElement(countExpression);
+			}
+			if (result == null) {
+				result = caseElement(countExpression);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.TRANSITION_DESTINATION: {
+			TransitionDestination transitionDestination = (TransitionDestination) theEObject;
+			T result = caseTransitionDestination(transitionDestination);
+			if (result == null) {
+				result = caseEMV2InstanceObject(transitionDestination);
+			}
+			if (result == null) {
+				result = caseInstanceObject(transitionDestination);
+			}
+			if (result == null) {
+				result = caseNamedElement(transitionDestination);
+			}
+			if (result == null) {
+				result = caseElement(transitionDestination);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.DESTINATION_STATE_REFERENCE: {
+			DestinationStateReference destinationStateReference = (DestinationStateReference) theEObject;
+			T result = caseDestinationStateReference(destinationStateReference);
+			if (result == null) {
+				result = caseTransitionDestination(destinationStateReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(destinationStateReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(destinationStateReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(destinationStateReference);
+			}
+			if (result == null) {
+				result = caseElement(destinationStateReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.SAME_STATE: {
+			SameState sameState = (SameState) theEObject;
+			T result = caseSameState(sameState);
+			if (result == null) {
+				result = caseTransitionDestination(sameState);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(sameState);
+			}
+			if (result == null) {
+				result = caseInstanceObject(sameState);
+			}
+			if (result == null) {
+				result = caseNamedElement(sameState);
+			}
+			if (result == null) {
+				result = caseElement(sameState);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.BRANCHES: {
+			Branches branches = (Branches) theEObject;
+			T result = caseBranches(branches);
+			if (result == null) {
+				result = caseTransitionDestination(branches);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(branches);
+			}
+			if (result == null) {
+				result = caseInstanceObject(branches);
+			}
+			if (result == null) {
+				result = caseNamedElement(branches);
+			}
+			if (result == null) {
+				result = caseElement(branches);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.BRANCH: {
+			Branch branch = (Branch) theEObject;
+			T result = caseBranch(branch);
+			if (result == null) {
+				result = caseEMV2InstanceObject(branch);
+			}
+			if (result == null) {
+				result = caseInstanceObject(branch);
+			}
+			if (result == null) {
+				result = caseNamedElement(branch);
+			}
+			if (result == null) {
+				result = caseElement(branch);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.BRANCH_STATE_REFERENCE: {
+			BranchStateReference branchStateReference = (BranchStateReference) theEObject;
+			T result = caseBranchStateReference(branchStateReference);
+			if (result == null) {
+				result = caseBranch(branchStateReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(branchStateReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(branchStateReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(branchStateReference);
+			}
+			if (result == null) {
+				result = caseElement(branchStateReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.BRANCH_SAME_STATE: {
+			BranchSameState branchSameState = (BranchSameState) theEObject;
+			T result = caseBranchSameState(branchSameState);
+			if (result == null) {
+				result = caseBranch(branchSameState);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(branchSameState);
+			}
+			if (result == null) {
+				result = caseInstanceObject(branchSameState);
+			}
+			if (result == null) {
+				result = caseNamedElement(branchSameState);
+			}
+			if (result == null) {
+				result = caseElement(branchSameState);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE: {
+			OutgoingPropagationConditionInstance outgoingPropagationConditionInstance = (OutgoingPropagationConditionInstance) theEObject;
+			T result = caseOutgoingPropagationConditionInstance(outgoingPropagationConditionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(outgoingPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(outgoingPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(outgoingPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = caseElement(outgoingPropagationConditionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_DESTINATION: {
+			OutgoingPropagationConditionDestination outgoingPropagationConditionDestination = (OutgoingPropagationConditionDestination) theEObject;
+			T result = caseOutgoingPropagationConditionDestination(outgoingPropagationConditionDestination);
+			if (result == null) {
+				result = caseEMV2InstanceObject(outgoingPropagationConditionDestination);
+			}
+			if (result == null) {
+				result = caseInstanceObject(outgoingPropagationConditionDestination);
+			}
+			if (result == null) {
+				result = caseNamedElement(outgoingPropagationConditionDestination);
+			}
+			if (result == null) {
+				result = caseElement(outgoingPropagationConditionDestination);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.DESTINATION_PROPAGATION_REFERENCE: {
+			DestinationPropagationReference destinationPropagationReference = (DestinationPropagationReference) theEObject;
+			T result = caseDestinationPropagationReference(destinationPropagationReference);
+			if (result == null) {
+				result = caseOutgoingPropagationConditionDestination(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseInstanceObject(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseNamedElement(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = caseElement(destinationPropagationReference);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ALL_PROPAGATIONS: {
+			AllPropagations allPropagations = (AllPropagations) theEObject;
+			T result = caseAllPropagations(allPropagations);
+			if (result == null) {
+				result = caseOutgoingPropagationConditionDestination(allPropagations);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(allPropagations);
+			}
+			if (result == null) {
+				result = caseInstanceObject(allPropagations);
+			}
+			if (result == null) {
+				result = caseNamedElement(allPropagations);
+			}
+			if (result == null) {
+				result = caseElement(allPropagations);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ALL_PROPAGATIONS_NO_ERROR: {
+			AllPropagationsNoError allPropagationsNoError = (AllPropagationsNoError) theEObject;
+			T result = caseAllPropagationsNoError(allPropagationsNoError);
+			if (result == null) {
+				result = caseOutgoingPropagationConditionDestination(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = caseInstanceObject(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = caseNamedElement(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = caseElement(allPropagationsNoError);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.DETECTION_INSTANCE: {
+			DetectionInstance detectionInstance = (DetectionInstance) theEObject;
+			T result = caseDetectionInstance(detectionInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(detectionInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(detectionInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(detectionInstance);
+			}
+			if (result == null) {
+				result = caseElement(detectionInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.ERROR_CODE_INSTANCE: {
+			ErrorCodeInstance errorCodeInstance = (ErrorCodeInstance) theEObject;
+			T result = caseErrorCodeInstance(errorCodeInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(errorCodeInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(errorCodeInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(errorCodeInstance);
+			}
+			if (result == null) {
+				result = caseElement(errorCodeInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.INTEGER_CODE: {
+			IntegerCode integerCode = (IntegerCode) theEObject;
+			T result = caseIntegerCode(integerCode);
+			if (result == null) {
+				result = caseErrorCodeInstance(integerCode);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(integerCode);
+			}
+			if (result == null) {
+				result = caseInstanceObject(integerCode);
+			}
+			if (result == null) {
+				result = caseNamedElement(integerCode);
+			}
+			if (result == null) {
+				result = caseElement(integerCode);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.STRING_CODE: {
+			StringCode stringCode = (StringCode) theEObject;
+			T result = caseStringCode(stringCode);
+			if (result == null) {
+				result = caseErrorCodeInstance(stringCode);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(stringCode);
+			}
+			if (result == null) {
+				result = caseInstanceObject(stringCode);
+			}
+			if (result == null) {
+				result = caseNamedElement(stringCode);
+			}
+			if (result == null) {
+				result = caseElement(stringCode);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.CONSTANT_CODE: {
+			ConstantCode constantCode = (ConstantCode) theEObject;
+			T result = caseConstantCode(constantCode);
+			if (result == null) {
+				result = caseErrorCodeInstance(constantCode);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(constantCode);
+			}
+			if (result == null) {
+				result = caseInstanceObject(constantCode);
+			}
+			if (result == null) {
+				result = caseNamedElement(constantCode);
+			}
+			if (result == null) {
+				result = caseElement(constantCode);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.MODE_MAPPING_INSTANCE: {
+			ModeMappingInstance modeMappingInstance = (ModeMappingInstance) theEObject;
+			T result = caseModeMappingInstance(modeMappingInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(modeMappingInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(modeMappingInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(modeMappingInstance);
+			}
+			if (result == null) {
+				result = caseElement(modeMappingInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -1004,21 +1613,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>State Transition Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>State Transition Instance</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseStateTransitionInstance(StateTransitionInstance object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Composite State Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1090,36 +1684,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseErrorPathInstance(ErrorPathInstance object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Error Propagation Condition Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Error Propagation Condition Instance</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseErrorPropagationConditionInstance(ErrorPropagationConditionInstance object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Error Detection Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Error Detection Instance</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseErrorDetectionInstance(ErrorDetectionInstance object) {
 		return null;
 	}
 
@@ -1214,6 +1778,456 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Event Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Event Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorEventInstance(ErrorEventInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Recover Event Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Recover Event Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRecoverEventInstance(RecoverEventInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Repair Event Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Repair Event Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRepairEventInstance(RepairEventInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Transition Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Transition Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTransitionInstance(TransitionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>State Source</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>State Source</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStateSource(StateSource object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Source State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Source State Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSourceStateReference(SourceStateReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>All Sources</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>All Sources</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAllSources(AllSources object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Condition Expression Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Condition Expression Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConditionExpressionInstance(ConditionExpressionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventReference(EventReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Condition Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Condition Propagation Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConditionPropagationReference(ConditionPropagationReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>No Error Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>No Error Propagation Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNoErrorPropagationReference(NoErrorPropagationReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Count Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Count Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCountExpression(CountExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Transition Destination</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Transition Destination</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTransitionDestination(TransitionDestination object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Destination State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Destination State Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDestinationStateReference(DestinationStateReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Same State</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Same State</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSameState(SameState object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Branches</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Branches</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBranches(Branches object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Branch</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Branch</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBranch(Branch object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Branch State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Branch State Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBranchStateReference(BranchStateReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Branch Same State</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Branch Same State</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBranchSameState(BranchSameState object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOutgoingPropagationConditionInstance(OutgoingPropagationConditionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition Destination</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition Destination</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOutgoingPropagationConditionDestination(OutgoingPropagationConditionDestination object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Destination Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Destination Propagation Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDestinationPropagationReference(DestinationPropagationReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>All Propagations</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>All Propagations</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAllPropagations(AllPropagations object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>All Propagations No Error</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>All Propagations No Error</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAllPropagationsNoError(AllPropagationsNoError object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Detection Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Detection Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDetectionInstance(DetectionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Code Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Code Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorCodeInstance(ErrorCodeInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Integer Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Integer Code</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIntegerCode(IntegerCode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>String Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>String Code</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStringCode(StringCode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Constant Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Constant Code</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConstantCode(ConstantCode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Mode Mapping Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Mode Mapping Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseModeMappingInstance(ModeMappingInstance object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1240,21 +2254,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConstraintElement(ConstraintElement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Old Propagation Path Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Old Propagation Path Instance</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseOldPropagationPathInstance(OldPropagationPathInstance object) {
 		return null;
 	}
 

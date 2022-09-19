@@ -1,0 +1,41 @@
+package local_propagation_with_no_error
+public
+	system s
+		features
+			f1: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior local_propagation_with_no_error::machine1;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+				access: in propagation {CommonErrors};
+				point1: in propagation {CommonErrors};
+				processor: in propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				transitions
+					transition1: state1 -[f1 {noerror}]-> state2;
+					transition2: state1 -[access {noerror}]-> state2;
+					transition3: state1 -[point1 {noerror}]-> state2;
+					transition4: state1 -[processor {noerror}]-> state2;
+			end component;
+			
+			propagation paths
+				point1: propagation point;
+			end paths;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end local_propagation_with_no_error;

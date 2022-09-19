@@ -1,0 +1,19 @@
+package recover_events_in_state_machine
+public
+	system s
+		annex EMV2 {**
+			use behavior recover_events_in_state_machine::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				recover1: recover event;
+				recover2: recover event if "condition";
+		end behavior;
+	**};
+end recover_events_in_state_machine;

@@ -1,0 +1,27 @@
+package untyped_destination
+public
+	system s
+		annex EMV2 {**
+			use behavior untyped_destination::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			events
+				error1: error event;
+			states
+				state1: initial state;
+				state2: state;
+				state3: state {CommonErrors};
+				state4: state;
+			transitions
+				transition1: state1 -[error1]-> state2;
+				transition2: state3 {ServiceError} -[error1]-> state4;
+		end behavior;
+	**};
+end untyped_destination;

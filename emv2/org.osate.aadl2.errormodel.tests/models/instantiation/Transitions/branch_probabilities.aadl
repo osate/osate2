@@ -1,0 +1,48 @@
+package branch_probabilities
+public
+	system s
+		annex EMV2 {**
+			use behavior branch_probabilities::machine1;
+			
+			component error behavior
+				events
+					error1: error event;
+				transitions
+					transition1: state1 -[error1]-> (state2 with 0.20001, state3 with 0.79_999); 
+					transition2: state4 -[error1]-> (state5 with my_set::my_real, state6 with my_set::my_real);
+					transition3: state7 -[error1]-> (state8 with 0.1, state9 with 0.2, state10 with others);
+					transition4: state11 -[error1]-> (
+						state12 with my_set::my_real,
+						state13 with 0.25,
+						state14 with others
+					);
+			end component;
+			
+			properties
+				my_set::my_real => 0.5 applies to transition2;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+				state4: state;
+				state5: state;
+				state6: state;
+				state7: state;
+				state8: state;
+				state9: state;
+				state10: state;
+				state11: state;
+				state12: state;
+				state13: state;
+				state14: state;
+		end behavior;
+	**};
+end branch_probabilities;

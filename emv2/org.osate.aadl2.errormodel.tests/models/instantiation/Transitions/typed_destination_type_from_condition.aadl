@@ -1,0 +1,68 @@
+package typed_destination_type_from_condition
+public
+	system s
+		features
+			f1: in feature;
+			f2: in feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: abstract a1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior typed_destination_type_from_condition::machine1;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+				f2: in propagation {ServiceError};
+			end propagations;
+			
+			component error behavior
+				events
+					error1: error event {CommonErrors};
+					error2: error event {ServiceError};
+				transitions
+					transition1: state1 -[error1 {ServiceError}]-> state2;
+					transition2: state3 -[f1 {ServiceError}]-> state4;
+					transition3: state5 -[sub1.f3 {ServiceError}]-> state6;
+					transition4: state7 -[error2]-> state8;
+					transition5: state9 -[f2]-> state10;
+					transition6: state11 -[sub1.f4]-> state12;
+			end component;
+		**};
+	end s.i;
+	
+	abstract a1
+		features
+			f3: out feature;
+			f4: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f3: out propagation {CommonErrors};
+				f4: out propagation {ServiceError};
+			end propagations;
+		**};
+	end a1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state;
+				state2: state {CommonErrors};
+				state3: state;
+				state4: state {CommonErrors};
+				state5: state;
+				state6: state {CommonErrors};
+				state7: state;
+				state8: state {CommonErrors};
+				state9: state;
+				state10: state {CommonErrors};
+				state11: state;
+				state12: state {CommonErrors};
+		end behavior;
+	**};
+end typed_destination_type_from_condition;
