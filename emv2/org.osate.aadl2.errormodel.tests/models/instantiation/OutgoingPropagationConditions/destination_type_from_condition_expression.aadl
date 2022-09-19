@@ -1,0 +1,73 @@
+package destination_type_from_condition_expression
+public
+	system s
+		features
+			f1: out feature;
+			f2: out feature;
+			f3: out feature;
+			f4: out feature;
+			f5: out feature;
+			f6: out feature;
+			f7: in feature;
+			f8: in feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: abstract a1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior destination_type_from_condition_expression::machine1;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+				f2: out propagation {CommonErrors};
+				f3: out propagation {CommonErrors};
+				f4: out propagation {CommonErrors};
+				f5: out propagation {CommonErrors};
+				f6: out propagation {CommonErrors};
+				f7: in propagation {CommonErrors};
+				f8: in propagation {ServiceError};
+			end propagations;
+			
+			component error behavior
+				events
+					error1: error event {CommonErrors};
+					error2: error event {ServiceError};
+				propagations
+					condition1: state1 -[error1 {ServiceError}]-> f1;
+					condition2: state2 -[f7 {ServiceError}]-> f2;
+					condition3: state3 -[sub1.f9 {ServiceError}]-> f3;
+					condition4: state4 -[error2]-> f4;
+					condition5: state5 -[f8]-> f5;
+					condition6: state6 -[sub1.f10]-> f6;
+			end component;
+		**};
+	end s.i;
+	
+	abstract a1
+		features
+			f9: out feature;
+			f10: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f9: out propagation {CommonErrors};
+				f10: out propagation {ServiceError};
+			end propagations;
+		**};
+	end a1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+				state4: state;
+				state5: state;
+				state6: state;
+		end behavior;
+	**};
+end destination_type_from_condition_expression;

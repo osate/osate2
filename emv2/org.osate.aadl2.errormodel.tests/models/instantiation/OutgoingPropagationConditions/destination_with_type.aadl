@@ -1,0 +1,55 @@
+package destination_with_type
+public
+	system s
+		features
+			f1: out feature;
+			fg1: feature group fgt1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior destination_with_type::machine1;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+				fg1.fg2.fg3.f2: out propagation {CommonErrors};
+				access: out propagation {CommonErrors};
+				processor: out propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				propagations
+					condition1: state1 -[]-> f1 {ServiceError};
+					condition2: state2 -[]-> fg1.fg2.fg3.f2 {ServiceError};
+					condition3: state3 -[]-> access {ServiceError};
+					condition4: state4 -[]-> processor {ServiceError};
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	feature group fgt1
+		features
+			fg2: feature group fgt2;
+	end fgt1;
+	
+	feature group fgt2
+		features
+			fg3: feature group fgt3;
+	end fgt2;
+	
+	feature group fgt3
+		features
+			f2: out feature;
+	end fgt3;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+				state4: state;
+		end behavior;
+	**};
+end destination_with_type;

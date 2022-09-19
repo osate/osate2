@@ -1,0 +1,30 @@
+package typed_source_with_types
+public
+	system s
+		modes
+			m1: initial mode;
+			m2: mode;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior typed_source_with_types::machine1;
+			
+			component error behavior
+				mode mappings
+					state1 {ServiceError} in modes (m1);
+					state2 {ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError} in modes (m2);
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state {CommonErrors};
+				state2: state {CommonErrors};
+		end behavior;
+	**};
+end typed_source_with_types;

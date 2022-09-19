@@ -1,0 +1,30 @@
+package transitions_in_state_machine_and_component_error_behavior
+public
+	system s
+		annex EMV2 {**
+			use behavior transitions_in_state_machine_and_component_error_behavior::machine1;
+			
+			component error behavior
+				events
+					error1: error event;
+				transitions
+					transition1: state1 -[error1]-> state2;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error2: error event;
+			states
+				state1: initial state;
+				state2: state;
+			transitions
+				transition2: state1 -[error2]-> state2;
+		end behavior;
+	**};
+end transitions_in_state_machine_and_component_error_behavior;

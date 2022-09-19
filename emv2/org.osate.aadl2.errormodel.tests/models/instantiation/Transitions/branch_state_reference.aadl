@@ -1,0 +1,229 @@
+package branch_state_reference
+public
+	system s
+		features
+			f1: in feature;
+			f2: in feature;
+			f3: in feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: abstract a1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior branch_state_reference::machine1;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+				f2: in propagation {CommonErrors};
+				f3: in propagation {ServiceError};
+			end propagations;
+			
+			component error behavior
+				events
+					error1: error event;
+					error2: error event {CommonErrors};
+					error3: error event {ServiceError};
+				transitions
+					untyped_1: state1 -[error1]-> (
+						state2 with 0.1,
+						state3 with 0.9
+					);
+					untyped_2: state_a {ServiceError} -[error1]-> (
+						state_b with 0.1,
+						state_c with 0.9
+					);
+					with_type: state4 -[error1]-> (
+						state5 {ServiceError} with 0.1,
+						state6 {ItemTimingError} with 0.9
+					);
+					from_source_1: state7 {ServiceError} -[error1]-> (
+						state8 with 0.1,
+						state9 with 0.9
+					);
+					from_source_2: state10 -[error1]-> (
+						state11 with 0.1,
+						state12 with 0.9
+					);
+					from_source_3: state13 {ServiceError} -[error2 {noerror}]-> (
+						state14 with 0.1,
+						state15 with 0.9
+					);
+					from_source_4: state16 -[error2 {noerror}]-> (
+						state17 with 0.1,
+						state18 with 0.9
+					);
+					from_source_5: state19 {ServiceError} -[f1 {noerror}]-> (
+						state20 with 0.1,
+						state21 with 0.9
+					);
+					from_source_6: state22 -[f2 {noerror}]-> (
+						state23 with 0.1,
+						state24 with 0.9
+					);
+					from_source_7: state25 {ServiceError} -[sub1.f4 {noerror}]-> (
+						state26 with 0.1,
+						state27 with 0.9
+					);
+					from_source_8: state28 -[sub1.f5 {noerror}]-> (
+						state29 with 0.1,
+						state30 with 0.9
+					);
+					from_condition_1: state31 -[error2 {ServiceError}]-> (
+						state32 with 0.1,
+						state33 with 0.9
+					);
+					from_condition_2: state34 -[f1 {ServiceError}]-> (
+						state35 with 0.1,
+						state36 with 0.9
+					);
+					from_condition_3: state37 -[sub1.f4 {ServiceError}]-> (
+						state38 with 0.1,
+						state39 with 0.9
+					);
+					from_condition_4: state40 -[error3]-> (
+						state41 with 0.1,
+						state42 with 0.9
+					);
+					from_condition_5: state43 -[f3]-> (
+						state44 with 0.1,
+						state45 with 0.9
+					);
+					from_condition_6: state46 -[sub1.f6]-> (
+						state47 with 0.1,
+						state48 with 0.9
+					);
+					cannot_determine_type_1: state49 {ServiceError} -[error2 {ItemTimingError}]-> (
+						state50 with 0.1,
+						state51 with 0.9
+					);
+					cannot_determine_type_2: state52 -[error2]-> (
+						state53 with 0.1,
+						state54 with 0.9
+					);
+					cannot_determine_type_3: state55 {ServiceError, ItemTimingError} -[error1]-> (
+						state56 with 0.1,
+						state57 with 0.9
+					);
+					cannot_determine_type_4: state58 -[error2 {noerror}]-> (
+						state59 with 0.1,
+						state60 with 0.9
+					);
+					cannot_determine_type_5: state61 -[f1 {noerror}]-> (
+						state62 with 0.1,
+						state63 with 0.9
+					);
+					cannot_determine_type_6: state64 -[sub1.f4 {noerror}]-> (
+						state65 with 0.1,
+						state66 with 0.9
+					);
+					cannot_determine_type_7: all -[error2]-> (
+						state67 with 0.1,
+						state68 with 0.9
+					);
+					cannot_determine_type_8: state69 -[error2 {ServiceError, ItemTimingError}]-> (
+						state70 with 0.1,
+						state71 with 0.9
+					);
+			end component;
+		**};
+	end s.i;
+	
+	abstract a1
+		features
+			f4: out feature;
+			f5: out feature;
+			f6: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f4: out propagation {CommonErrors};
+				f5: out propagation {CommonErrors};
+				f6: out propagation {ServiceError};
+			end propagations;
+		**};
+	end a1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+				state_a: state {CommonErrors};
+				state_b: state;
+				state_c: state;
+				state4: state;
+				state5: state {CommonErrors};
+				state6: state {CommonErrors};
+				state7: state {CommonErrors};
+				state8: state {CommonErrors};
+				state9: state {CommonErrors};
+				state10: state {ServiceError};
+				state11: state {CommonErrors};
+				state12: state {CommonErrors};
+				state13: state {CommonErrors};
+				state14: state {CommonErrors};
+				state15: state {CommonErrors};
+				state16: state {ServiceError};
+				state17: state {CommonErrors};
+				state18: state {CommonErrors};
+				state19: state {CommonErrors};
+				state20: state {CommonErrors};
+				state21: state {CommonErrors};
+				state22: state {ServiceError};
+				state23: state {CommonErrors};
+				state24: state {CommonErrors};
+				state25: state {CommonErrors};
+				state26: state {CommonErrors};
+				state27: state {CommonErrors};
+				state28: state {ServiceError};
+				state29: state {CommonErrors};
+				state30: state {CommonErrors};
+				state31: state;
+				state32: state {CommonErrors};
+				state33: state {CommonErrors};
+				state34: state;
+				state35: state {CommonErrors};
+				state36: state {CommonErrors};
+				state37: state;
+				state38: state {CommonErrors};
+				state39: state {CommonErrors};
+				state40: state;
+				state41: state {CommonErrors};
+				state42: state {CommonErrors};
+				state43: state;
+				state44: state {CommonErrors};
+				state45: state {CommonErrors};
+				state46: state;
+				state47: state {CommonErrors};
+				state48: state {CommonErrors};
+				state49: state {CommonErrors};
+				state50: state {CommonErrors};
+				state51: state {CommonErrors};
+				state52: state {CommonErrors};
+				state53: state {CommonErrors};
+				state54: state {CommonErrors};
+				state55: state {CommonErrors};
+				state56: state {CommonErrors};
+				state57: state {CommonErrors};
+				state58: state;
+				state59: state {CommonErrors};
+				state60: state {CommonErrors};
+				state61: state;
+				state62: state {CommonErrors};
+				state63: state {CommonErrors};
+				state64: state;
+				state65: state {CommonErrors};
+				state66: state {CommonErrors};
+				state67: state {CommonErrors};
+				state68: state {CommonErrors};
+				state69: state;
+				state70: state {CommonErrors};
+				state71: state {CommonErrors};
+		end behavior;
+	**};
+end branch_state_reference;

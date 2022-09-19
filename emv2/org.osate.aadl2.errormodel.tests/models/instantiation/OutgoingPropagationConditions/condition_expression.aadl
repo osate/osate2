@@ -1,0 +1,45 @@
+package condition_expression
+public
+	system s
+		features
+			f1: out feature;
+			f2: out feature;
+			f3: out feature;
+			f4: in feature;
+			f5: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior condition_expression::machine1;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+				f2: out propagation {CommonErrors};
+				f3: out propagation {CommonErrors};
+				f4: in propagation {CommonErrors};
+				f5: in propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				events
+					error1: error event;
+				propagations
+					no_condition_expression: state1 -[]-> f1 {ServiceError};
+					simple_condition_expression: state2 -[error1]-> f2 {ServiceError};
+					complicated_condition_expression: state3
+						-[f4 {ItemTimingError} and f5 {noerror}]-> f3 {ServiceError};
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+		end behavior;
+	**};
+end condition_expression;

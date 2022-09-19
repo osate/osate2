@@ -1,0 +1,20 @@
+package error_states
+public
+	system s
+		annex EMV2 {**
+			use behavior error_states::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+		end behavior;
+	**};
+end error_states;

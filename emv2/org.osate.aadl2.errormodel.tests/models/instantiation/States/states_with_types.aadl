@@ -1,0 +1,21 @@
+package states_with_types
+public
+	system s
+		annex EMV2 {**
+			use behavior states_with_types::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state {ServiceError};
+				state2: state {ServiceError, ItemTimingError, ReplicationError * ConcurrencyError};
+				state3: state {TimingRelatedError};
+		end behavior;
+	**};
+end states_with_types;

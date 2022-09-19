@@ -79,15 +79,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	ConstrainedInstanceObject createConstrainedInstanceObject();
 
 	/**
-	 * Returns a new object of class '<em>State Transition Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>State Transition Instance</em>'.
-	 * @generated
-	 */
-	StateTransitionInstance createStateTransitionInstance();
-
-	/**
 	 * Returns a new object of class '<em>Composite State Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -122,24 +113,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	 * @generated
 	 */
 	ErrorPathInstance createErrorPathInstance();
-
-	/**
-	 * Returns a new object of class '<em>Error Propagation Condition Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Error Propagation Condition Instance</em>'.
-	 * @generated
-	 */
-	ErrorPropagationConditionInstance createErrorPropagationConditionInstance();
-
-	/**
-	 * Returns a new object of class '<em>Error Detection Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Error Detection Instance</em>'.
-	 * @generated
-	 */
-	ErrorDetectionInstance createErrorDetectionInstance();
 
 	/**
 	 * Returns a new object of class '<em>Propagation Point Instance</em>'.
@@ -178,13 +151,220 @@ public interface EMV2InstanceFactory extends EFactory {
 	UserDefinedPath createUserDefinedPath();
 
 	/**
-	 * Returns a new object of class '<em>Event Instance</em>'.
+	 * Returns a new object of class '<em>Error Event Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Event Instance</em>'.
+	 * @return a new object of class '<em>Error Event Instance</em>'.
 	 * @generated
 	 */
-	EventInstance createEventInstance();
+	ErrorEventInstance createErrorEventInstance();
+
+	/**
+	 * Returns a new object of class '<em>Recover Event Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Recover Event Instance</em>'.
+	 * @generated
+	 */
+	RecoverEventInstance createRecoverEventInstance();
+
+	/**
+	 * Returns a new object of class '<em>Repair Event Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Repair Event Instance</em>'.
+	 * @generated
+	 */
+	RepairEventInstance createRepairEventInstance();
+
+	/**
+	 * Returns a new object of class '<em>Transition Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Transition Instance</em>'.
+	 * @generated
+	 */
+	TransitionInstance createTransitionInstance();
+
+	/**
+	 * Returns a new object of class '<em>Source State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Source State Reference</em>'.
+	 * @generated
+	 */
+	SourceStateReference createSourceStateReference();
+
+	/**
+	 * Returns a new object of class '<em>All Sources</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>All Sources</em>'.
+	 * @generated
+	 */
+	AllSources createAllSources();
+
+	/**
+	 * Returns a new object of class '<em>Event Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Event Reference</em>'.
+	 * @generated
+	 */
+	EventReference createEventReference();
+
+	/**
+	 * Returns a new object of class '<em>Condition Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Condition Propagation Reference</em>'.
+	 * @generated
+	 */
+	ConditionPropagationReference createConditionPropagationReference();
+
+	/**
+	 * Returns a new object of class '<em>No Error Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>No Error Propagation Reference</em>'.
+	 * @generated
+	 */
+	NoErrorPropagationReference createNoErrorPropagationReference();
+
+	/**
+	 * Returns a new object of class '<em>Count Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Count Expression</em>'.
+	 * @generated
+	 */
+	CountExpression createCountExpression();
+
+	/**
+	 * Returns a new object of class '<em>Destination State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Destination State Reference</em>'.
+	 * @generated
+	 */
+	DestinationStateReference createDestinationStateReference();
+
+	/**
+	 * Returns a new object of class '<em>Same State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Same State</em>'.
+	 * @generated
+	 */
+	SameState createSameState();
+
+	/**
+	 * Returns a new object of class '<em>Branches</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Branches</em>'.
+	 * @generated
+	 */
+	Branches createBranches();
+
+	/**
+	 * Returns a new object of class '<em>Branch State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Branch State Reference</em>'.
+	 * @generated
+	 */
+	BranchStateReference createBranchStateReference();
+
+	/**
+	 * Returns a new object of class '<em>Branch Same State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Branch Same State</em>'.
+	 * @generated
+	 */
+	BranchSameState createBranchSameState();
+
+	/**
+	 * Returns a new object of class '<em>Outgoing Propagation Condition Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Outgoing Propagation Condition Instance</em>'.
+	 * @generated
+	 */
+	OutgoingPropagationConditionInstance createOutgoingPropagationConditionInstance();
+
+	/**
+	 * Returns a new object of class '<em>Destination Propagation Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Destination Propagation Reference</em>'.
+	 * @generated
+	 */
+	DestinationPropagationReference createDestinationPropagationReference();
+
+	/**
+	 * Returns a new object of class '<em>All Propagations</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>All Propagations</em>'.
+	 * @generated
+	 */
+	AllPropagations createAllPropagations();
+
+	/**
+	 * Returns a new object of class '<em>All Propagations No Error</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>All Propagations No Error</em>'.
+	 * @generated
+	 */
+	AllPropagationsNoError createAllPropagationsNoError();
+
+	/**
+	 * Returns a new object of class '<em>Detection Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Detection Instance</em>'.
+	 * @generated
+	 */
+	DetectionInstance createDetectionInstance();
+
+	/**
+	 * Returns a new object of class '<em>Integer Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Integer Code</em>'.
+	 * @generated
+	 */
+	IntegerCode createIntegerCode();
+
+	/**
+	 * Returns a new object of class '<em>String Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>String Code</em>'.
+	 * @generated
+	 */
+	StringCode createStringCode();
+
+	/**
+	 * Returns a new object of class '<em>Constant Code</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Constant Code</em>'.
+	 * @generated
+	 */
+	ConstantCode createConstantCode();
+
+	/**
+	 * Returns a new object of class '<em>Mode Mapping Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Mode Mapping Instance</em>'.
+	 * @generated
+	 */
+	ModeMappingInstance createModeMappingInstance();
 
 	/**
 	 * Returns a new object of class '<em>Constraint Expression</em>'.
@@ -194,15 +374,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	 * @generated
 	 */
 	ConstraintExpression createConstraintExpression();
-
-	/**
-	 * Returns a new object of class '<em>Old Propagation Path Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Old Propagation Path Instance</em>'.
-	 * @generated
-	 */
-	OldPropagationPathInstance createOldPropagationPathInstance();
 
 	/**
 	 * Returns a new object of class '<em>Feature Propagation</em>'.

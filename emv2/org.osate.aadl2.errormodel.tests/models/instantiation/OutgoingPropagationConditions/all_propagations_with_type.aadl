@@ -1,0 +1,24 @@
+package all_propagations_with_type
+public
+	system s
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior all_propagations_with_type::machine1;
+			
+			component error behavior
+				propagations
+					condition1: state1 -[]-> all {ServiceError};
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+		end behavior;
+	**};
+end all_propagations_with_type;

@@ -1,0 +1,27 @@
+package events_in_state_machine_and_component_error_behavior
+public
+	system s
+		annex EMV2 {**
+			use behavior events_in_state_machine_and_component_error_behavior::machine1;
+			
+			component error behavior
+				events
+					error1: error event;
+					recover1: recover event;
+					repair1: repair event;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error2: error event;
+				recover2: recover event;
+				repair2: repair event;
+		end behavior;
+	**};
+end events_in_state_machine_and_component_error_behavior;

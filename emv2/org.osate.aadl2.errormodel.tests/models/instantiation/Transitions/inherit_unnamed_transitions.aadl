@@ -1,0 +1,40 @@
+package inherit_unnamed_transitions
+public
+	system s
+		annex EMV2 {**
+			use behavior inherit_unnamed_transitions::machine1;
+			
+			component error behavior
+				events
+					error2: error event;
+				transitions
+					start -[error2]-> failure2;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+		annex EMV2 {**
+			component error behavior
+				events
+					error1: error event;
+				transitions
+					start -[error1]-> failure1;
+			end component;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error3: error event;
+			states
+				start: initial state;
+				failure1: state;
+				failure2: state;
+				failure3: state;
+			transitions
+				start -[error3]-> failure3;
+		end behavior;
+	**};
+end inherit_unnamed_transitions;

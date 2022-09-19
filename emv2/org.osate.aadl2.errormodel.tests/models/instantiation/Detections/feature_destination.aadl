@@ -1,0 +1,46 @@
+package feature_destination
+public
+	system s
+		features
+			f1: feature;
+			fg1: feature group fgt1;
+		annex EMV2 {**
+			use behavior feature_destination::machine1;
+			
+			component error behavior
+				detections
+					detection1: state1 -[]-> f1 !;
+					detection2: state2 -[]-> fg1.f2 !;
+					detection3: state3 -[]-> fg1.fg2.fg3.f3 !;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	feature group fgt1
+		features
+			f2: feature;
+			fg2: feature group fgt2;
+	end fgt1;
+	
+	feature group fgt2
+		features
+			fg3: feature group fgt3;
+	end fgt2;
+	
+	feature group fgt3
+		features
+			f3: feature;
+	end fgt3;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+		end behavior;
+	**};
+end feature_destination;

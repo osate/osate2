@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Aadl2 Xtext Error Model
 Bundle-Vendor: CMU/SEI
-Bundle-Version: 6.3.2.qualifier
+Bundle-Version: 7.0.0.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.errormodel; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
@@ -45,5 +45,5 @@ Export-Package: org.osate.xtext.aadl2.errormodel,
  org.osate.xtext.aadl2.errormodel.valueconversion,
  org.osate.xtext.aadl2.errormodel.formatting2
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.osate.xtext.aadl2.errormodel
