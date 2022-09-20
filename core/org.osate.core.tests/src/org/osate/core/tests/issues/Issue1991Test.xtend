@@ -31,13 +31,12 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.ThreadImplementation
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.assertError
-import org.osate.aadl2.FlowImplementation
-import org.osate.aadl2.ThreadImplementation
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -100,28 +99,28 @@ class Issue1991Test extends XtextTest {
 			"FGtest".assertEquals(name)
 			publicSection.ownedClassifiers.get(2) as ThreadImplementation => [
 				"T.impl".assertEquals(name)
-				allFlowImplementations.get(0) as FlowImplementation => [
+				allFlowImplementations.get(0) => [
 					it.outEnd.assertError(testFileResult.issues, issueCollection, "'fg.inPort' must be an out or in out feature.")
 				]
-				allFlowImplementations.get(1) as FlowImplementation => [
+				allFlowImplementations.get(1) => [
 					it.outEnd.assertError(testFileResult.issues, issueCollection, "'fg_inv.outPort' must be an out or in out feature.")
 				]
-				allFlowImplementations.get(2) as FlowImplementation => [
+				allFlowImplementations.get(2) => [
 					it.inEnd.assertError(testFileResult.issues, issueCollection, "'fg.outPort' must be an in or in out feature.")
 				]
-				allFlowImplementations.get(3) as FlowImplementation => [
+				allFlowImplementations.get(3) => [
 					it.inEnd.assertError(testFileResult.issues, issueCollection, "'fg_inv.inPort' must be an in or in out feature.")
 				]
-				allFlowImplementations.get(4) as FlowImplementation => [
+				allFlowImplementations.get(4) => [
 					it.inEnd.assertError(testFileResult.issues, issueCollection, "'fg.outPort' must be an in or in out feature.")
 				]
-				allFlowImplementations.get(5) as FlowImplementation => [
+				allFlowImplementations.get(5) => [
 					it.inEnd.assertError(testFileResult.issues, issueCollection, "'fg_inv.inPort' must be an in or in out feature.")
 				]
-				allFlowImplementations.get(4) as FlowImplementation => [
+				allFlowImplementations.get(4) => [
 					it.outEnd.assertError(testFileResult.issues, issueCollection, "'fg_inv.outPort' must be an out or in out feature.")
 				]
-				allFlowImplementations.get(5) as FlowImplementation => [
+				allFlowImplementations.get(5) => [
 					it.outEnd.assertError(testFileResult.issues, issueCollection, "'fg.inPort' must be an out or in out feature.")
 				]
 			]
@@ -184,28 +183,28 @@ class Issue1991Test extends XtextTest {
 			"FGTtest".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) as ThreadImplementation => [
 				"T.impl".assertEquals(name)
-				allFlowImplementations.get(0) as FlowImplementation => [
+				allFlowImplementations.get(0) => [
 					it.outEnd.assertError(testFileResult.issues, issueCollection, "'fg.inPort' must be an out or in out feature.")
 				]
-				allFlowImplementations.get(1) as FlowImplementation => [
+				allFlowImplementations.get(1) => [
 					it.outEnd.assertError(testFileResult.issues, issueCollection, "'fg_inv.outPort' must be an out or in out feature.")
 				]
-				allFlowImplementations.get(2) as FlowImplementation => [
+				allFlowImplementations.get(2) => [
 					it.inEnd.assertError(testFileResult.issues, issueCollection, "'fg.outPort' must be an in or in out feature.")
 				]
-				allFlowImplementations.get(3) as FlowImplementation => [
+				allFlowImplementations.get(3) => [
 					it.inEnd.assertError(testFileResult.issues, issueCollection, "'fg_inv.inPort' must be an in or in out feature.")
 				]
-				allFlowImplementations.get(4) as FlowImplementation => [
+				allFlowImplementations.get(4) => [
 					it.inEnd.assertError(testFileResult.issues, issueCollection, "'fg.outPort' must be an in or in out feature.")
 				]
-				allFlowImplementations.get(5) as FlowImplementation => [
+				allFlowImplementations.get(5) => [
 					it.inEnd.assertError(testFileResult.issues, issueCollection, "'fg_inv.inPort' must be an in or in out feature.")
 				]
-				allFlowImplementations.get(4) as FlowImplementation => [
+				allFlowImplementations.get(4) => [
 					it.outEnd.assertError(testFileResult.issues, issueCollection, "'fg_inv.outPort' must be an out or in out feature.")
 				]
-				allFlowImplementations.get(5) as FlowImplementation => [
+				allFlowImplementations.get(5) => [
 					it.outEnd.assertError(testFileResult.issues, issueCollection, "'fg.inPort' must be an out or in out feature.")
 				]
 			]
