@@ -1,9 +1,70 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.ui" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/ide/contentassist/antlr/internal/InternalAadl2Parser.java" type="org.osate.xtext.aadl2.ide.contentassist.antlr.internal.InternalAadl2Parser">
+        <filter id="576720909">
+            <message_arguments>
+                <message_argument value="InternalAadl2Parser3"/>
+                <message_argument value="InternalAadl2Parser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/ui/contentassist/AbstractAadl2ProposalProvider.java">
+        <filter comment="Xtext generated code" id="0"/>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/ui/contentassist/AbstractAadl2ProposalProvider.java" type="org.osate.xtext.aadl2.ui.contentassist.AbstractAadl2ProposalProvider">
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
+                <message_argument value="completeBusImplementation_NoConnections(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeBusImplementation_OwnedAccessConnection(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeBusImplementation_OwnedFeatureConnection(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeBusImplementation_OwnedFeatureGroupConnection(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeBusImplementation_OwnedPortConnection(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
                 <message_argument value="completeMemoryImplementation_OwnedVirtualBusSubcomponent(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeVirtualBusImplementation_NoConnections(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeVirtualBusImplementation_OwnedAccessConnection(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeVirtualBusImplementation_OwnedFeatureConnection(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeVirtualBusImplementation_OwnedFeatureGroupConnection(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeVirtualBusImplementation_OwnedPortConnection(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
             </message_arguments>
         </filter>
     </resource>

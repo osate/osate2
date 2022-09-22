@@ -294,6 +294,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getBusImplementationAccess().getAlternatives_9_1(), "rule__BusImplementation__Alternatives_9_1");
 				builder.put(grammarAccess.getBusImplementationAccess().getAlternatives_9_1_0(), "rule__BusImplementation__Alternatives_9_1_0");
 				builder.put(grammarAccess.getBusImplementationAccess().getAlternatives_10_1(), "rule__BusImplementation__Alternatives_10_1");
+				builder.put(grammarAccess.getBusImplementationAccess().getAlternatives_10_1_0(), "rule__BusImplementation__Alternatives_10_1_0");
+				builder.put(grammarAccess.getBusImplementationAccess().getAlternatives_11_1(), "rule__BusImplementation__Alternatives_11_1");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getAlternatives_6_1(), "rule__VirtualBusImplementation__Alternatives_6_1");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getAlternatives_7_1(), "rule__VirtualBusImplementation__Alternatives_7_1");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getAlternatives_7_1_0(), "rule__VirtualBusImplementation__Alternatives_7_1_0");
@@ -301,6 +303,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getAlternatives_9_1(), "rule__VirtualBusImplementation__Alternatives_9_1");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getAlternatives_9_1_0(), "rule__VirtualBusImplementation__Alternatives_9_1_0");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getAlternatives_10_1(), "rule__VirtualBusImplementation__Alternatives_10_1");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getAlternatives_10_1_0(), "rule__VirtualBusImplementation__Alternatives_10_1_0");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getAlternatives_11_1(), "rule__VirtualBusImplementation__Alternatives_11_1");
 				builder.put(grammarAccess.getDataImplementationAccess().getAlternatives_7_1(), "rule__DataImplementation__Alternatives_7_1");
 				builder.put(grammarAccess.getDataImplementationAccess().getAlternatives_8_1(), "rule__DataImplementation__Alternatives_8_1");
 				builder.put(grammarAccess.getDataImplementationAccess().getAlternatives_8_1_0(), "rule__DataImplementation__Alternatives_8_1_0");
@@ -850,6 +854,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getBusImplementationAccess().getGroup_9_1_1(), "rule__BusImplementation__Group_9_1_1__0");
 				builder.put(grammarAccess.getBusImplementationAccess().getGroup_10(), "rule__BusImplementation__Group_10__0");
 				builder.put(grammarAccess.getBusImplementationAccess().getGroup_10_1_1(), "rule__BusImplementation__Group_10_1_1__0");
+				builder.put(grammarAccess.getBusImplementationAccess().getGroup_11(), "rule__BusImplementation__Group_11__0");
+				builder.put(grammarAccess.getBusImplementationAccess().getGroup_11_1_1(), "rule__BusImplementation__Group_11_1_1__0");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getGroup(), "rule__VirtualBusImplementation__Group__0");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getGroup_5(), "rule__VirtualBusImplementation__Group_5__0");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getGroup_5_2(), "rule__VirtualBusImplementation__Group_5_2__0");
@@ -862,6 +868,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getGroup_9_1_1(), "rule__VirtualBusImplementation__Group_9_1_1__0");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getGroup_10(), "rule__VirtualBusImplementation__Group_10__0");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getGroup_10_1_1(), "rule__VirtualBusImplementation__Group_10_1_1__0");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getGroup_11(), "rule__VirtualBusImplementation__Group_11__0");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getGroup_11_1_1(), "rule__VirtualBusImplementation__Group_11_1_1__0");
 				builder.put(grammarAccess.getDataImplementationAccess().getGroup(), "rule__DataImplementation__Group__0");
 				builder.put(grammarAccess.getDataImplementationAccess().getGroup_6(), "rule__DataImplementation__Group_6__0");
 				builder.put(grammarAccess.getDataImplementationAccess().getGroup_6_2(), "rule__DataImplementation__Group_6_2__0");
@@ -2202,12 +2210,17 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getBusImplementationAccess().getNoSubcomponentsAssignment_7_1_1_0(), "rule__BusImplementation__NoSubcomponentsAssignment_7_1_1_0");
 				builder.put(grammarAccess.getBusImplementationAccess().getOwnedEventSourceAssignment_8_1_0(), "rule__BusImplementation__OwnedEventSourceAssignment_8_1_0");
 				builder.put(grammarAccess.getBusImplementationAccess().getOwnedEventDataSourceAssignment_8_1_1(), "rule__BusImplementation__OwnedEventDataSourceAssignment_8_1_1");
-				builder.put(grammarAccess.getBusImplementationAccess().getOwnedModeAssignment_9_1_0_0(), "rule__BusImplementation__OwnedModeAssignment_9_1_0_0");
-				builder.put(grammarAccess.getBusImplementationAccess().getOwnedModeTransitionAssignment_9_1_0_1(), "rule__BusImplementation__OwnedModeTransitionAssignment_9_1_0_1");
-				builder.put(grammarAccess.getBusImplementationAccess().getNoModesAssignment_9_1_1_0(), "rule__BusImplementation__NoModesAssignment_9_1_1_0");
-				builder.put(grammarAccess.getBusImplementationAccess().getOwnedPropertyAssociationAssignment_10_1_0(), "rule__BusImplementation__OwnedPropertyAssociationAssignment_10_1_0");
-				builder.put(grammarAccess.getBusImplementationAccess().getNoPropertiesAssignment_10_1_1_0(), "rule__BusImplementation__NoPropertiesAssignment_10_1_1_0");
-				builder.put(grammarAccess.getBusImplementationAccess().getOwnedAnnexSubclauseAssignment_11(), "rule__BusImplementation__OwnedAnnexSubclauseAssignment_11");
+				builder.put(grammarAccess.getBusImplementationAccess().getOwnedPortConnectionAssignment_9_1_0_0(), "rule__BusImplementation__OwnedPortConnectionAssignment_9_1_0_0");
+				builder.put(grammarAccess.getBusImplementationAccess().getOwnedAccessConnectionAssignment_9_1_0_1(), "rule__BusImplementation__OwnedAccessConnectionAssignment_9_1_0_1");
+				builder.put(grammarAccess.getBusImplementationAccess().getOwnedFeatureGroupConnectionAssignment_9_1_0_2(), "rule__BusImplementation__OwnedFeatureGroupConnectionAssignment_9_1_0_2");
+				builder.put(grammarAccess.getBusImplementationAccess().getOwnedFeatureConnectionAssignment_9_1_0_3(), "rule__BusImplementation__OwnedFeatureConnectionAssignment_9_1_0_3");
+				builder.put(grammarAccess.getBusImplementationAccess().getNoConnectionsAssignment_9_1_1_0(), "rule__BusImplementation__NoConnectionsAssignment_9_1_1_0");
+				builder.put(grammarAccess.getBusImplementationAccess().getOwnedModeAssignment_10_1_0_0(), "rule__BusImplementation__OwnedModeAssignment_10_1_0_0");
+				builder.put(grammarAccess.getBusImplementationAccess().getOwnedModeTransitionAssignment_10_1_0_1(), "rule__BusImplementation__OwnedModeTransitionAssignment_10_1_0_1");
+				builder.put(grammarAccess.getBusImplementationAccess().getNoModesAssignment_10_1_1_0(), "rule__BusImplementation__NoModesAssignment_10_1_1_0");
+				builder.put(grammarAccess.getBusImplementationAccess().getOwnedPropertyAssociationAssignment_11_1_0(), "rule__BusImplementation__OwnedPropertyAssociationAssignment_11_1_0");
+				builder.put(grammarAccess.getBusImplementationAccess().getNoPropertiesAssignment_11_1_1_0(), "rule__BusImplementation__NoPropertiesAssignment_11_1_1_0");
+				builder.put(grammarAccess.getBusImplementationAccess().getOwnedAnnexSubclauseAssignment_12(), "rule__BusImplementation__OwnedAnnexSubclauseAssignment_12");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedRealizationAssignment_1(), "rule__VirtualBusImplementation__OwnedRealizationAssignment_1");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getNameAssignment_3(), "rule__VirtualBusImplementation__NameAssignment_3");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedExtensionAssignment_4(), "rule__VirtualBusImplementation__OwnedExtensionAssignment_4");
@@ -2220,12 +2233,17 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getNoSubcomponentsAssignment_7_1_1_0(), "rule__VirtualBusImplementation__NoSubcomponentsAssignment_7_1_1_0");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedEventSourceAssignment_8_1_0(), "rule__VirtualBusImplementation__OwnedEventSourceAssignment_8_1_0");
 				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedEventDataSourceAssignment_8_1_1(), "rule__VirtualBusImplementation__OwnedEventDataSourceAssignment_8_1_1");
-				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedModeAssignment_9_1_0_0(), "rule__VirtualBusImplementation__OwnedModeAssignment_9_1_0_0");
-				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedModeTransitionAssignment_9_1_0_1(), "rule__VirtualBusImplementation__OwnedModeTransitionAssignment_9_1_0_1");
-				builder.put(grammarAccess.getVirtualBusImplementationAccess().getNoModesAssignment_9_1_1_0(), "rule__VirtualBusImplementation__NoModesAssignment_9_1_1_0");
-				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedPropertyAssociationAssignment_10_1_0(), "rule__VirtualBusImplementation__OwnedPropertyAssociationAssignment_10_1_0");
-				builder.put(grammarAccess.getVirtualBusImplementationAccess().getNoPropertiesAssignment_10_1_1_0(), "rule__VirtualBusImplementation__NoPropertiesAssignment_10_1_1_0");
-				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedAnnexSubclauseAssignment_11(), "rule__VirtualBusImplementation__OwnedAnnexSubclauseAssignment_11");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedPortConnectionAssignment_9_1_0_0(), "rule__VirtualBusImplementation__OwnedPortConnectionAssignment_9_1_0_0");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedAccessConnectionAssignment_9_1_0_1(), "rule__VirtualBusImplementation__OwnedAccessConnectionAssignment_9_1_0_1");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedFeatureGroupConnectionAssignment_9_1_0_2(), "rule__VirtualBusImplementation__OwnedFeatureGroupConnectionAssignment_9_1_0_2");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedFeatureConnectionAssignment_9_1_0_3(), "rule__VirtualBusImplementation__OwnedFeatureConnectionAssignment_9_1_0_3");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getNoConnectionsAssignment_9_1_1_0(), "rule__VirtualBusImplementation__NoConnectionsAssignment_9_1_1_0");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedModeAssignment_10_1_0_0(), "rule__VirtualBusImplementation__OwnedModeAssignment_10_1_0_0");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedModeTransitionAssignment_10_1_0_1(), "rule__VirtualBusImplementation__OwnedModeTransitionAssignment_10_1_0_1");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getNoModesAssignment_10_1_1_0(), "rule__VirtualBusImplementation__NoModesAssignment_10_1_1_0");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedPropertyAssociationAssignment_11_1_0(), "rule__VirtualBusImplementation__OwnedPropertyAssociationAssignment_11_1_0");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getNoPropertiesAssignment_11_1_1_0(), "rule__VirtualBusImplementation__NoPropertiesAssignment_11_1_1_0");
+				builder.put(grammarAccess.getVirtualBusImplementationAccess().getOwnedAnnexSubclauseAssignment_12(), "rule__VirtualBusImplementation__OwnedAnnexSubclauseAssignment_12");
 				builder.put(grammarAccess.getDataImplementationAccess().getOwnedRealizationAssignment_2(), "rule__DataImplementation__OwnedRealizationAssignment_2");
 				builder.put(grammarAccess.getDataImplementationAccess().getNameAssignment_4(), "rule__DataImplementation__NameAssignment_4");
 				builder.put(grammarAccess.getDataImplementationAccess().getOwnedExtensionAssignment_5(), "rule__DataImplementation__OwnedExtensionAssignment_5");
@@ -2521,6 +2539,11 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getDataSubcomponentAccess().getImplementationReferenceAssignment_3_1_1(), "rule__DataSubcomponent__ImplementationReferenceAssignment_3_1_1");
 				builder.put(grammarAccess.getDataSubcomponentAccess().getImplementationReferenceAssignment_3_1_2_1(), "rule__DataSubcomponent__ImplementationReferenceAssignment_3_1_2_1");
 				builder.put(grammarAccess.getDataSubcomponentAccess().getOwnedPropertyAssociationAssignment_4_1(), "rule__DataSubcomponent__OwnedPropertyAssociationAssignment_4_1");
+			}
+		}
+		
+		private static final class Init1 {
+			private static void doInit(ImmutableMap.Builder<AbstractElement, String> builder, Aadl2GrammarAccess grammarAccess) {
 				builder.put(grammarAccess.getDataSubcomponentAccess().getOwnedModeBindingAssignment_5_2_0(), "rule__DataSubcomponent__OwnedModeBindingAssignment_5_2_0");
 				builder.put(grammarAccess.getDataSubcomponentAccess().getOwnedModeBindingAssignment_5_2_1_1(), "rule__DataSubcomponent__OwnedModeBindingAssignment_5_2_1_1");
 				builder.put(grammarAccess.getArrayDimensionAccess().getSizeAssignment_2(), "rule__ArrayDimension__SizeAssignment_2");
@@ -2539,11 +2562,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__DataPort__OwnedPropertyAssociationAssignment_6_1");
 				builder.put(grammarAccess.getEventDataPortAccess().getNameAssignment_1_0_0(), "rule__EventDataPort__NameAssignment_1_0_0");
 				builder.put(grammarAccess.getEventDataPortAccess().getRefinedAssignment_1_1_0(), "rule__EventDataPort__RefinedAssignment_1_1_0");
-			}
-		}
-		
-		private static final class Init1 {
-			private static void doInit(ImmutableMap.Builder<AbstractElement, String> builder, Aadl2GrammarAccess grammarAccess) {
 				builder.put(grammarAccess.getEventDataPortAccess().getInAssignment_2_0_0(), "rule__EventDataPort__InAssignment_2_0_0");
 				builder.put(grammarAccess.getEventDataPortAccess().getOutAssignment_2_0_1(), "rule__EventDataPort__OutAssignment_2_0_1");
 				builder.put(grammarAccess.getEventDataPortAccess().getOutAssignment_2_1(), "rule__EventDataPort__OutAssignment_2_1");
