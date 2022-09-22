@@ -25,6 +25,7 @@ package org.osate.core.tests.issues;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -72,9 +73,10 @@ public class Issue2785Test extends XtextTest {
 		SystemInstance instance = InstantiateModel.instantiate((ComponentImplementation) impl.get());
 		Assert.assertEquals("S_i_Instance", instance.getName());
 		List<ConnectionInstance> connis = instance.getConnectionInstances();
-		String[] names = { "b.vb -> p.a", "b.vb.a -> p.a", "p.fg.e -> b.vb.e", "p.fg.e -> b.vb.fg.e", "p.f -> b.vb.f",
-				"p.e -> b.vb.e", "p.a -> b.vb", "p.a -> b.vb.a" };
-		MatcherAssert.assertThat(connis.stream().map(NamedElement::getName).toList(), Matchers.containsInAnyOrder(names));
+		List<String> instanceNames = connis.stream().map(NamedElement::getName).collect(Collectors.toList());
+		String[] expectedNames = { "b.vb -> p.a", "b.vb.a -> p.a", "p.fg.e -> b.vb.e", "p.fg.e -> b.vb.fg.e",
+				"p.f -> b.vb.f", "p.e -> b.vb.e", "p.a -> b.vb", "p.a -> b.vb.a" };
+		MatcherAssert.assertThat(instanceNames, Matchers.containsInAnyOrder(expectedNames));
 	}
 
 }
