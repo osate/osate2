@@ -25,6 +25,7 @@
 package org.osate.codegen.checker.handlers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -141,7 +142,7 @@ public class CheckerHandler extends AbstractHandler {
 			try {
 				selectedSystemInstance = InstantiateModel.buildInstanceModelFile((SystemImplementation) selectedObject);
 			} catch (Exception e) {
-				MessageDialog.openError(window.getShell(), e.getMessage(), e.getStackTrace().toString());
+				MessageDialog.openError(window.getShell(), e.getMessage(), Arrays.toString(e.getStackTrace()));
 				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);
 				StatusManager manager = StatusManager.getManager();
 				manager.handle(status, StatusManager.LOG);

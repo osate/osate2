@@ -73,12 +73,10 @@ public class DefaultActionService implements ActionService {
 			@Override
 			public void modelChanged(boolean modelWasLocked) {
 				final ActionService actionService = getService();
-				if (actionService != null) {
-					if (!modelWasLocked) {
-						// Clear the action stack if the model was changed while it was not locked. This indicates that the graphical editor
-						// did not perform the change and undo/redo actions could be invalid or unintentionally revert model changes.
-						getService().clearActionStack();
-					}
+				if (actionService != null && !modelWasLocked) {
+					// Clear the action stack if the model was changed while it was not locked. This indicates that the graphical editor
+					// did not perform the change and undo/redo actions could be invalid or unintentionally revert model changes.
+					getService().clearActionStack();
 				}
 			}
 		};
@@ -92,9 +90,7 @@ public class DefaultActionService implements ActionService {
 			// Register a change listener with the model change notifier. Ideally, the two would be completely decoupled but by making this part of the
 			// context function, both are not explicitly coupled to one another.
 			modelChangeNotifier = context.get(ModelChangeNotifier.class);
-			if (modelChangeListener != null) {
-				modelChangeNotifier.addChangeListener(modelChangeListener);
-			}
+			modelChangeNotifier.addChangeListener(modelChangeListener);
 
 			return actionService;
 		}
@@ -135,10 +131,14 @@ public class DefaultActionService implements ActionService {
 		@Override
 		public ActionGroup execute() {
 			// Perform the actions in opposite order to undo
-			final List<AgeAction> newUndoActions = Lists.reverse(undoActions).stream().sequential()
-					.map(AgeAction::execute).filter(Objects::nonNull).collect(Collectors.toCollection(ArrayList::new));
+			final List<AgeAction> newUndoActions = Lists.reverse(undoActions)
+					.stream()
+					.sequential()
+					.map(AgeAction::execute)
+					.filter(Objects::nonNull)
+					.collect(Collectors.toCollection(ArrayList::new));
 
-			return newUndoActions.size() == 0 ? null : new ActionGroup(label, mode, newUndoActions);
+			return newUndoActions.isEmpty() ? null : new ActionGroup(label, mode, newUndoActions);
 		}
 
 		@Override
@@ -206,7 +206,7 @@ public class DefaultActionService implements ActionService {
 				history.operationChanged(this);
 			}
 		}
-	};
+	}
 
 	private ActionGroup currentActionGroup; // Action group that is currently being built.
 
@@ -227,8 +227,7 @@ public class DefaultActionService implements ActionService {
 	private static void invalidateInvalidActions(final IUndoableOperation[] ops) {
 		boolean invalidFound = false;
 		for (int i = ops.length - 1; i >= 0; i--) {
-			if (ops[i] instanceof AgeUndoableOperation) {
-				final AgeUndoableOperation op = (AgeUndoableOperation) ops[i];
+			if (ops[i] instanceof AgeUndoableOperation op) {
 				if (op.actionGroup != null && (invalidFound || !op.actionGroup.isValid())) {
 					op.invalidate();
 					invalidFound = true; // Invalidate remaining
@@ -256,7 +255,7 @@ public class DefaultActionService implements ActionService {
 				try {
 					// Run the runnable that is expected to call the executor to perform additional actions.
 					execute(label, mode, action);
-					return currentActionGroup.undoActions.size() > 0;
+					return !currentActionGroup.undoActions.isEmpty();
 				} finally {
 					endExecuteGroup(actionGroup);
 				}
@@ -288,10 +287,10 @@ public class DefaultActionService implements ActionService {
 		}
 
 		try {
-			return currentActionGroup.undoActions.size() > 0;
+			return !currentActionGroup.undoActions.isEmpty();
 		} finally {
 			// If the action group has reversible actions, add it to the action stack even if other actions threw an exception.
-			if (currentActionGroup.undoActions.size() > 0) {
+			if (!currentActionGroup.undoActions.isEmpty()) {
 				ExecutionMode mode = currentActionGroup.mode;
 
 				switch (mode) {
@@ -304,10 +303,8 @@ public class DefaultActionService implements ActionService {
 					final IUndoableOperation[] undoHistory = history.getUndoHistory(CONTEXT);
 					if (undoHistory.length > 0) {
 						final IUndoableOperation lastOp = undoHistory[undoHistory.length - 1];
-						if (lastOp instanceof AgeUndoableOperation) {
-							final AgeUndoableOperation last = (AgeUndoableOperation) lastOp;
+						if (lastOp instanceof AgeUndoableOperation last) {
 							last.actionGroup.undoActions.add(currentActionGroup);
-
 						}
 					}
 
