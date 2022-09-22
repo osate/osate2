@@ -24,6 +24,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 -->
 <FindBugsFilter>
     <Match>
-        <Bug category="EXPERIMENTAL,I18N,PERFORMANCE"/>
+        <Bug category="EXPERIMENTAL,I18N,PERFORMANCE" pattern="SA_LOCAL_SELF_COMPARISON"/>
     </Match>
 </FindBugsFilter>
