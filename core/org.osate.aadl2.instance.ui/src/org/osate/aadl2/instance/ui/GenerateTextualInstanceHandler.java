@@ -43,6 +43,7 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.FileExtensionProvider;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.textual.ui.internal.TextualActivator;
 
@@ -82,6 +83,8 @@ public class GenerateTextualInstanceHandler extends AbstractHandler {
 					if (eObject instanceof ComponentInstance component && !(component instanceof SystemInstance)
 							&& component.getIndices().size() == 1 && component.getIndices().get(0) == 0L) {
 						component.getIndices().clear();
+					} else if (eObject instanceof FeatureInstance fi) {
+						fi.setType(null);
 					}
 				});
 				try {

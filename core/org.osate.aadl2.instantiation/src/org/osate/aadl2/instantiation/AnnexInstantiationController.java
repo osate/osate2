@@ -56,13 +56,17 @@ public class AnnexInstantiationController extends ForAllElement {
 		this.errorManager = errorManager;
 	}
 
-	void instantiateAllAnnexes(SystemInstance root) {
+	void instantiateAllAnnexes(ComponentInstance root) {
 		processPostOrderComponentInstance(root);
 		for (String annexName : allAnnexes) {
 			AnnexInstantiator instantiator = registry.getAnnexInstantiator(annexName);
 
 			if (instantiator != null) {
-				instantiator.instantiateAnnex(root, annexName, errorManager);
+				if (root instanceof SystemInstance si) {
+					instantiator.instantiateAnnex(si, annexName, errorManager);
+				} else {
+					instantiator.instantiateAnnex(root, annexName, errorManager);
+				}
 			}
 		}
 
