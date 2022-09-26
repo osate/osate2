@@ -30,15 +30,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
-import static extension org.junit.Assert.*
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.instance.FlowSpecificationInstance
+import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -74,11 +73,11 @@ class Issue1815Test {
 		assertEquals(0, messages.size)
 		
 		// find subcomponent a1
-		val a1 = instance.componentInstances.findFirst[name == A1] as ComponentInstance
+		val a1 = instance.componentInstances.findFirst[name == A1]
 		checkPropertiesOfFlowSpecs(a1)
 		
 		// find subcomponent m1
-		val m1 = instance.componentInstances.findFirst[name == M1] as ComponentInstance
+		val m1 = instance.componentInstances.findFirst[name == M1]
 		checkPropertiesOfFlowSpecs(m1)
 		
 		/* Check the system instance itself.  This is where the error was that we fixed.  The property
@@ -98,7 +97,7 @@ class Issue1815Test {
 	 * has a LATENCY property association.
 	 */
 	private def void checkForPropertyAssociation(ComponentInstance ci, String flowSpecName) {
-		val fs = ci.flowSpecifications.findFirst[name == flowSpecName] as FlowSpecificationInstance
+		val fs = ci.flowSpecifications.findFirst[name == flowSpecName]
 		
 		val propAssocs = fs.ownedPropertyAssociations
 		assertEquals(1, propAssocs.size)

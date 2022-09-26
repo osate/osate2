@@ -1689,6 +1689,7 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn2".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'data subcomponent' is not a valid feature connection end.")
+				assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(2) => [
 					"fconn3".assertEquals(name)
@@ -1699,11 +1700,33 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn4".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram subcomponent' is not a valid feature connection end.")
+				assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(4) => [
 					"fconn5".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
+				]
+				ownedFeatureConnections.get(8) => [
+					"fconn9".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::fgt1'")
+				]
+				ownedFeatureConnections.get(10) => [
+					"fconn11".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
+				]
+				ownedFeatureConnections.get(12) => [
+					"fconn13".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::a1.i'")
+				]
+				ownedFeatureConnections.get(13) => [
+					"fconn14".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::a1.i'")
 				]
 				ownedFeatureConnections.get(14) => [
 					"fconn15".assertEquals(name)
@@ -1714,6 +1737,7 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn16".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(16) => [
 					"fconn17".assertEquals(name)
@@ -1724,11 +1748,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn18".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(18) => [
 					"fconn19".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(19) => [
 					"fconn20".assertEquals(name)
@@ -1759,6 +1785,7 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn25".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(25) => [
 					"fconn26".assertEquals(name)
@@ -1769,11 +1796,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn27".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(27) => [
 					"fconn28".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(28) => [
 					"fconn29".assertEquals(name)
@@ -1784,6 +1813,7 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn30".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in an 'event data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(30) => [
 					"fconn31".assertEquals(name)
@@ -1794,11 +1824,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn32".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in an 'event data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(32) => [
 					"fconn33".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in an 'event data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(33) => [
 					"fconn34".assertEquals(name)
@@ -1829,6 +1861,7 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn39".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in an 'event data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(39) => [
 					"fconn40".assertEquals(name)
@@ -1839,11 +1872,33 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn41".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in an 'event data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(41) => [
 					"fconn42".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in an 'event data port' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
+				]
+				ownedFeatureConnections.get(44) => [
+					"fconn45".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
+				]
+				ownedFeatureConnections.get(46) => [
+					"fconn47".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
+				]
+				ownedFeatureConnections.get(48) => [
+					"fconn49".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
+				]
+				ownedFeatureConnections.get(49) => [
+					"fconn50".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(50) => [
 					"fconn51".assertEquals(name)
@@ -1854,6 +1909,7 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn52".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'data subcomponent' in an 'abstract subcomponent' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(52) => [
 					"fconn53".assertEquals(name)
@@ -1864,11 +1920,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn54".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram subcomponent' in an 'abstract subcomponent' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(54) => [
 					"fconn55".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' in an 'abstract subcomponent' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(55) => [
 					"fconn56".assertEquals(name)
@@ -1885,21 +1943,40 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn60".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::a1.i'")
+				]
+				ownedFeatureConnections.get(61) => [
+					"fconn62".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
+				]
+				ownedFeatureConnections.get(63) => [
+					"fconn64".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
+				]
+				ownedFeatureConnections.get(64) => [
+					"fconn65".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(65) => [
 					"fconn66".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'data subcomponent' in a 'subprogram call' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(66) => [
 					"fconn67".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram subcomponent' in a 'subprogram call' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(67) => [
 					"fconn68".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' in a 'subprogram call' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(68) => [
 					"fconn69".assertEquals(name)
@@ -1910,6 +1987,21 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn70".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in a 'subprogram call' is not a valid feature connection end.")
+				]
+				ownedFeatureConnections.get(72) => [
+					"fconn73".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::a1.i'")
+				]
+				ownedFeatureConnections.get(73) => [
+					"fconn74".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
+				]
+				ownedFeatureConnections.get(74) => [
+					"fconn75".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureGroupConnections.get(0) => [
 					"fgconn1".assertEquals(name)
@@ -2631,6 +2723,16 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' is not a valid port connection end.")
 				]
+				ownedPortConnections.get(5) => [
+					"portconn6".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'pp1' to have classifier 'legalTypeTest::d1'")
+				]
+				ownedPortConnections.get(6) => [
+					"portconn7".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'eds1' to have classifier 'legalTypeTest::d1'")
+				]
 				ownedPortConnections.get(7) => [
 					"portconn8".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
@@ -2674,11 +2776,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn20".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in a 'data port' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'pp3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(20) => [
 					"portconn21".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in a 'data port' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'eds3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(21) => [
 					"portconn22".assertEquals(name)
@@ -2743,11 +2847,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn34".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in an 'event data port' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'pp3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(34) => [
 					"portconn35".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in an 'event data port' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'eds3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(35) => [
 					"portconn36".assertEquals(name)
@@ -2833,11 +2939,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn56".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in an 'abstract subcomponent' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'pp3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(56) => [
 					"portconn57".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in an 'abstract subcomponent' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'eds3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(57) => [
 					"portconn58".assertEquals(name)
@@ -2883,11 +2991,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn71".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in a 'data subcomponent' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'pp3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(71) => [
 					"portconn72".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in a 'data subcomponent' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'eds3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(72) => [
 					"portconn73".assertEquals(name)
@@ -2918,11 +3028,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn83".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in a 'subprogram call' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'pp2' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(83) => [
 					"portconn84".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in a 'subprogram call' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'eds2' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(84) => [
 					"portconn85".assertEquals(name)
@@ -3045,6 +3157,11 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					//Tests typeCheckAccessConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid access connection end.")
 				]
+				ownedFeatureConnections.get(0) => [
+					"fconn78".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::a1.i'")
+				]
 				ownedFeatureConnections.get(1) => [
 					"fconn79".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
@@ -3054,6 +3171,7 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn80".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(3) => [
 					"fconn81".assertEquals(name)
@@ -3064,11 +3182,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn82".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(5) => [
 					"fconn83".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
 				ownedFeatureConnections.get(6) => [
 					"fconn84".assertEquals(name)
@@ -3099,6 +3219,7 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn89".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(12) => [
 					"fconn90".assertEquals(name)
@@ -3109,11 +3230,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"fconn91".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureConnections.get(14) => [
 					"fconn92".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid feature connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedFeatureGroupConnections.get(0) => [
 					"fgconn78".assertEquals(name)
@@ -3290,11 +3413,13 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn98".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'pp3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(7) => [
 					"portconn99".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					assertWarning(testFileResult.issues, issueCollection, "Expected feature 'eds3' to have classifier 'legalTypeTest::d1'")
 				]
 				ownedPortConnections.get(8) => [
 					"portconn100".assertEquals(name)

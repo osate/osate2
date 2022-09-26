@@ -24,6 +24,7 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
+import java.util.List
 import org.eclipse.emf.common.util.EList
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -32,14 +33,12 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.instance.ConnectionReference
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
-import org.osate.aadl2.instance.ConnectionReference
-import java.util.List
-import org.osate.aadl2.instance.ComponentInstance
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -288,7 +287,7 @@ class Issue2161Test {
 		val sysImpl = cls.findFirst[name == ROOT_BIDIRECTIONAL] as SystemImplementation
 		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals(ROOT_BIDIRECTIONAL_INSTANCE, instance.name)
-		val process = instance.componentInstances.get(0) as ComponentInstance
+		val process = instance.componentInstances.get(0)
 		
 		// There should be exactly 2 connection instances
 		assertEquals(2, process.connectionInstances.size)
@@ -311,7 +310,7 @@ class Issue2161Test {
 		val sysImpl = cls.findFirst[name == ROOT_FROM_SHARED] as SystemImplementation
 		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals(ROOT_FROM_SHARED_INSTANCE, instance.name)
-		val process = instance.componentInstances.get(0) as ComponentInstance
+		val process = instance.componentInstances.get(0)
 		
 		// There should be exactly 1 connection instances
 		assertEquals(1, process.connectionInstances.size)
@@ -329,7 +328,7 @@ class Issue2161Test {
 		val sysImpl = cls.findFirst[name == ROOT_TO_SHARED] as SystemImplementation
 		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals(ROOT_TO_SHARED_INSTANCE, instance.name)
-		val process = instance.componentInstances.get(0) as ComponentInstance
+		val process = instance.componentInstances.get(0)
 		
 		// There should be exactly 1 connection instances
 		assertEquals(1, process.connectionInstances.size)
