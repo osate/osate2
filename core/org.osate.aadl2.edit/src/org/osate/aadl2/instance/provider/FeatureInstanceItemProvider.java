@@ -72,6 +72,7 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 			addDirectionPropertyDescriptor(object);
 			addFeaturePropertyDescriptor(object);
 			addIndexPropertyDescriptor(object);
+			addTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -167,6 +168,21 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 								"_UI_FeatureInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.FEATURE_INSTANCE__INDEX, true, false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FeatureInstance_type_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureInstance_type_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_FeatureInstance_type"), //$NON-NLS-1$
+						InstancePackage.Literals.FEATURE_INSTANCE__TYPE, true, false, true, null, null, null));
 	}
 
 	/**

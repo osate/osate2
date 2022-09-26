@@ -59,6 +59,10 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LTJ1gFn3Ed-39ebAzHAVCA"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MGtZYFn3Ed-39ebAzHAVCA" value="1"/>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_VYloACodEe2BQOUcRdWoeg" name="type" type="ComponentInstance" association="_VYhWkCodEe2BQOUcRdWoeg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VYmPECodEe2BQOUcRdWoeg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VYm2ICodEe2BQOUcRdWoeg" value="1"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="InstanceObject" name="InstanceObject" isAbstract="true">
       <ownedComment xmi:type="uml:Comment" xmi:id="_wqzocFn3Ed-39ebAzHAVCA">
@@ -701,6 +705,15 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_08Ylkc4aEei5kt9nRQtQ2A" key="nature" value="UML_Nature"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:Property" xmi:id="_08aawc4aEei5kt9nRQtQ2A" name="modeTransition" type="ModeTransitionInstance" association="_08U7MM4aEei5kt9nRQtQ2A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_VYhWkCodEe2BQOUcRdWoeg" name="A_featureInstance_type" memberEnd="_VYloACodEe2BQOUcRdWoeg _VYm2ISodEe2BQOUcRdWoeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_VYlA8CodEe2BQOUcRdWoeg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VYlA8SodEe2BQOUcRdWoeg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_VYm2ISodEe2BQOUcRdWoeg" name="featureinstance" type="FeatureInstance" association="_VYhWkCodEe2BQOUcRdWoeg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tO4HsCodEe2BQOUcRdWoeg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tPDG0CodEe2BQOUcRdWoeg" value="*"/>
+      </ownedEnd>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_profileApplication.0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">

@@ -27,6 +27,7 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeatureClassifier;
+import org.osate.aadl2.ComponentCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,6 +55,13 @@ public class AbstractFeatureClassifierImpl extends FeatureClassifierImpl impleme
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractFeatureClassifier();
+	}
+
+	/**
+	 * @since 5.0
+	 */
+	public ComponentCategory getCategory() {
+		return ComponentCategory.ABSTRACT;
 	}
 
 } // AbstractFeatureClassifierImpl

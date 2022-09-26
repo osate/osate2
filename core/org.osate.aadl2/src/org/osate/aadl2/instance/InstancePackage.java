@@ -389,13 +389,22 @@ public interface InstancePackage extends EPackage {
 	int FEATURE_INSTANCE__INDEX = CONNECTION_INSTANCE_END_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_INSTANCE__TYPE = CONNECTION_INSTANCE_END_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Feature Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_INSTANCE_FEATURE_COUNT = CONNECTION_INSTANCE_END_FEATURE_COUNT + 7;
+	int FEATURE_INSTANCE_FEATURE_COUNT = CONNECTION_INSTANCE_END_FEATURE_COUNT + 8;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.AnnexInstanceImpl <em>Annex Instance</em>}' class.
@@ -2002,6 +2011,17 @@ public interface InstancePackage extends EPackage {
 	EAttribute getFeatureInstance_Index();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.FeatureInstance#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Type</em>'.
+	 * @see org.osate.aadl2.instance.FeatureInstance#getType()
+	 * @see #getFeatureInstance()
+	 * @generated
+	 */
+	EReference getFeatureInstance_Type();
+
+	/**
 	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.FeatureInstance#getSrcFlowSpecs <em>Src Flow Spec</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2856,6 +2876,14 @@ public interface InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FEATURE_INSTANCE__INDEX = eINSTANCE.getFeatureInstance_Index();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FEATURE_INSTANCE__TYPE = eINSTANCE.getFeatureInstance_Type();
 
 		/**
 		 * The meta object literal for the '<em><b>Src Flow Spec</b></em>' reference list feature.
