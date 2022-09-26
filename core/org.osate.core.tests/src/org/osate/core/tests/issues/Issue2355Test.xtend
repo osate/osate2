@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,71 +31,48 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SubprogramImplementation
+import org.osate.aadl2.SystemImplementation
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
-import static extension org.junit.Assert.assertEquals
-import static extension org.osate.testsupport.AssertHelper.assertError
+import static extension org.osate.testsupport.AssertHelper.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue1564Test extends XtextTest {
+class Issue2355Test extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
+	val static FILE_LOCATION = "org.osate.core.tests/models/issue2355/Issue2355.aadl"
+		
+	
 	@Test
-	def void testIssue1564() {
-		val testFileResult = issues = testHelper.testFile("org.osate.core.tests/models/issue1564/issue1564.aadl")
+	def void testFeatureConnections() {
+		val testFileResult = issues = testHelper.testFile(FILE_LOCATION)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		
 		testFileResult.resource.contents.head as AadlPackage => [
-			"issue1564".assertEquals(name)
-			publicSection.ownedClassifiers.get(4) as SubprogramImplementation => [
-				"sp_not_modal.i2".assertEquals(name)
-				ownedSubprogramCallSequences.get(0) => [
-					"sequence2".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for non-modal implementation")
+			publicSection.ownedClassifiers.findFirst[name == "S.i"] as SystemImplementation => [
+				ownedFeatureConnections.get(0) => [
+					assertError(testFileResult.issues, issueCollection, "'aout' and 'bin' have incompatible classifiers.")
 				]
-				ownedSubprogramCallSequences.get(1) => [
-					"sequence3".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for non-modal implementation")
+				ownedFeatureConnections.get(2) => [
+					assertError(testFileResult.issues, issueCollection, "'ap' and 'bin' have incompatible classifiers.")
 				]
-			]
-			publicSection.ownedClassifiers.get(8) as SubprogramImplementation => [
-				"sp_modal.i5".assertEquals(name)
-				ownedSubprogramCallSequences.get(0) => [
-					"sequence7".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1")
+				ownedFeatureConnections.get(4) => [
+					assertError(testFileResult.issues, issueCollection, "'ap' and 'br' have incompatible classifiers.")
 				]
-				ownedSubprogramCallSequences.get(1) => [
-					"sequence8".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1")
+				ownedFeatureConnections.get(5) => [
+					assertError(testFileResult.issues, issueCollection, "'ap' must be a requires access feature for a connection to an accessed subcomponent.")
 				]
-			]
-			publicSection.ownedClassifiers.get(9) as SubprogramImplementation => [
-				"sp_modal.i6".assertEquals(name)
-				ownedSubprogramCallSequences.get(0) => [
-					"sequence9".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1")
-				]
-				ownedSubprogramCallSequences.get(1) => [
-					"sequence10".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1")
-				]
-			]
-			publicSection.ownedClassifiers.get(10) as SubprogramImplementation => [
-				"sp_modal.i7".assertEquals(name)
-				ownedSubprogramCallSequences.get(0) => [
-					"sequence11".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1, m2")
-				]
-				ownedSubprogramCallSequences.get(1) => [
-					"sequence12".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for modes: m1, m2")
+				ownedFeatureConnections.get(6) => [
+					assertError(testFileResult.issues, issueCollection, "'d1' and 'br' have incompatible classifiers.")
 				]
 			]
 		]
+
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
+	
 }

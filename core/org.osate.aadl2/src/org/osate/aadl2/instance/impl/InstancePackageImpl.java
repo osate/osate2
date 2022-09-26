@@ -294,6 +294,16 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	@Override
+	public EReference getFeatureInstance_Type() {
+		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getFeatureInstance_SrcFlowSpec() {
 		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -1077,6 +1087,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		createEAttribute(featureInstanceEClass, FEATURE_INSTANCE__DIRECTION);
 		createEReference(featureInstanceEClass, FEATURE_INSTANCE__FEATURE);
 		createEAttribute(featureInstanceEClass, FEATURE_INSTANCE__INDEX);
+		createEReference(featureInstanceEClass, FEATURE_INSTANCE__TYPE);
 
 		instanceObjectEClass = createEClass(INSTANCE_OBJECT);
 		createEReference(instanceObjectEClass, INSTANCE_OBJECT__ANNEX_INSTANCE);
@@ -1245,6 +1256,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEAttribute(getFeatureInstance_Index(), theAadl2Package.getInteger(), "index", null, 0, 1, //$NON-NLS-1$
 				FeatureInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
 				!IS_DERIVED, !IS_ORDERED);
+		initEReference(getFeatureInstance_Type(), getComponentInstance(), null, "type", null, 0, 1, //$NON-NLS-1$
+				FeatureInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(instanceObjectEClass, InstanceObject.class, "InstanceObject", IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
 				IS_GENERATED_INSTANCE_CLASS);

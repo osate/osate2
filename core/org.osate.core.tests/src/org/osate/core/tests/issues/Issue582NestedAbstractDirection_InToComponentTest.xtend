@@ -24,22 +24,20 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.instantiation.InstantiateModel
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.*
-import static extension org.osate.testsupport.AssertHelper.*
-import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
-import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
-import org.osate.aadl2.instantiation.InstantiateModel
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)

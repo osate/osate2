@@ -24,28 +24,20 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.SystemImplementation
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
+import org.osate.xtext.aadl2.properties.util.ModelingProperties
 
 import static extension org.junit.Assert.*
-import com.itemis.xtext.testing.XtextTest
-import com.itemis.xtext.testing.FluentIssueCollection
-import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.EndToEndFlow
-import org.osate.aadl2.Connection
 import static extension org.osate.testsupport.AssertHelper.assertError
-import org.osate.xtext.aadl2.properties.util.ModelingProperties
-import org.osate.aadl2.PortConnection
-import org.osate.testsupport.AssertHelper
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1
-import org.eclipse.xtext.validation.Issue
-import org.eclipse.emf.ecore.resource.Resource
-import java.util.ArrayList
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)

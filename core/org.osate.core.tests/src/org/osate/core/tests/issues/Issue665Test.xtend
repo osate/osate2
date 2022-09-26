@@ -36,9 +36,7 @@ import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
-import static extension org.junit.Assert.*
-import org.osate.aadl2.IntegerLiteral
-import java.text.MessageFormat
+import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -47,14 +45,6 @@ class Issue665Test {
 	
 	val static TEST_PS = "TestPS.aadl"
 	val static EXTENSION = ".aadl"
-	
-	val static FEATURE_ERROR_TEMPLATE = "Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"features{0}::{1}\" tries to replace it."
-	val static FEATURE_GROUP_ERROR_TEMPLATE = "Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"fg{0}::{1}\" tries to replace it."
-
-	val static A_I = "A.i"
-
-	val static INSTANCE_NAME = "A_i_Instance"
-
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -71,7 +61,7 @@ class Issue665Test {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
 		// Find the semantic connection
-		val sc = instance.connectionInstances.get(0)
+		instance.connectionInstances.get(0)
 		
 		assertEquals(0, messages.size)
 	}	
@@ -88,7 +78,7 @@ class Issue665Test {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
 		// Find the semantic connection
-		val sc = instance.connectionInstances.get(0)
+		instance.connectionInstances.get(0)
 		
 		assertEquals(0, messages.size)
 	}	

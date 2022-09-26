@@ -29,17 +29,16 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.Connection
 import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
-import static extension org.junit.Assert.*
-import org.osate.aadl2.Connection
-import org.osate.aadl2.instance.ConnectionInstance
+import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -81,8 +80,8 @@ class Issue676Test {
 	def void testIssue676() {
 		val pkg = testHelper.parseFile(PROJECT_LOCATION + ISSUE676)
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == S_I] as SystemImplementation
-		val conn1 = sysImpl.ownedConnections.findFirst[name == CONN1] as Connection
-		val conn2 = sysImpl.ownedConnections.findFirst[name == CONN2] as Connection
+		val conn1 = sysImpl.ownedConnections.findFirst[name == CONN1]
+		val conn2 = sysImpl.ownedConnections.findFirst[name == CONN2]
 		
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)

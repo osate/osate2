@@ -168,7 +168,20 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * Get the classifier of given feature or its refinement ancestor, if it has one, otherwise null.
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	Classifier getAllClassifier();
+
+	/**
+	 * Get the prototype of given feature or its refinement ancestor, if it has one, otherwise null.
+	 * @return The prototype, or <code>null</code> if no prototype.
+	 * @since 5.0
+	 */
+	ComponentPrototype getAllPrototype();
+
+	/**
+	 * Get the feature classifier of given feature or its refinement ancestor, if it has one, otherwise null.
+	 * @return The feature classifier (component classifier or prototype), or <code>null</code> if no feature classifier.
+	 * @since 5.0
+	 */
+	FeatureClassifier getAllFeatureClassifier();
 
 } // Feature

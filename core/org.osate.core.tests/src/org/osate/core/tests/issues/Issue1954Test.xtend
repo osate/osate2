@@ -76,17 +76,17 @@ class Issue1954Test extends XtextTest {
 				]
 
 				ownedFeatureConnections.findFirst[name == "f1"] => [
-					destination.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
+					destination.assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram subcomponent' is not a valid parameter connection end.")
 				]
 				ownedFeatureConnections.findFirst[name == "f2"] => [
-					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
+					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram subcomponent' is not a valid parameter connection end.")
 				]
 
 				ownedFeatureConnections.findFirst[name == "f5"] => [
-					destination.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
+					destination.assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram subcomponent' is not a valid parameter connection end.")
 				]
 				ownedFeatureConnections.findFirst[name == "f6"] => [
-					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
+					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram subcomponent' is not a valid parameter connection end.")
 				]
 			]
 		]
