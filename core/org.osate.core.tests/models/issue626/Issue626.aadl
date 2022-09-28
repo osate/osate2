@@ -1,0 +1,54 @@
+package Issue626
+public
+	
+	data D
+		features
+			f1: provides data access D1.i;
+	end D;
+	
+	data implementation D.i
+		subcomponents
+			d1: data D1.i;
+	end D.i;
+	
+	data D1
+	end D1;
+	
+	data implementation D1.i
+		properties
+			Data_Size => 100 Bytes;
+	end D1.i;
+	
+	data DP
+		prototypes
+			dt: data;
+		features
+			dpf: feature dt;
+	end DP;
+	
+	data implementation DP.i
+	end DP.i;
+	
+	data implementation DP.i1 extends DP.i(dt => data D.i)
+	end DP.i1;
+	
+	system S0
+		prototypes
+			dt: data;
+		features
+			f0: feature dt;
+	end S0;
+	
+	system S extends S0(dt => data DP.i(dt => data D1.i))
+		features
+			f1: requires data access D.i;
+			f2: provides data access DP.i1;
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			ds1: data DP.i(dt => data D.i);
+			ds2: data dt;
+	end S.i;
+	
+end Issue626;

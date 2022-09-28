@@ -13637,31 +13637,47 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Assignment cOwnedEventDataSourceAssignment_8_1_1 = (Assignment)cAlternatives_8_1.eContents().get(1);
 		private final RuleCall cOwnedEventDataSourceEventDataSourceParserRuleCall_8_1_1_0 = (RuleCall)cOwnedEventDataSourceAssignment_8_1_1.eContents().get(0);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cModesKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Keyword cConnectionsKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
 		private final Alternatives cAlternatives_9_1 = (Alternatives)cGroup_9.eContents().get(1);
 		private final Alternatives cAlternatives_9_1_0 = (Alternatives)cAlternatives_9_1.eContents().get(0);
-		private final Assignment cOwnedModeAssignment_9_1_0_0 = (Assignment)cAlternatives_9_1_0.eContents().get(0);
-		private final RuleCall cOwnedModeModeParserRuleCall_9_1_0_0_0 = (RuleCall)cOwnedModeAssignment_9_1_0_0.eContents().get(0);
-		private final Assignment cOwnedModeTransitionAssignment_9_1_0_1 = (Assignment)cAlternatives_9_1_0.eContents().get(1);
-		private final RuleCall cOwnedModeTransitionModeTransitionParserRuleCall_9_1_0_1_0 = (RuleCall)cOwnedModeTransitionAssignment_9_1_0_1.eContents().get(0);
+		private final Assignment cOwnedPortConnectionAssignment_9_1_0_0 = (Assignment)cAlternatives_9_1_0.eContents().get(0);
+		private final RuleCall cOwnedPortConnectionPortConnectionParserRuleCall_9_1_0_0_0 = (RuleCall)cOwnedPortConnectionAssignment_9_1_0_0.eContents().get(0);
+		private final Assignment cOwnedAccessConnectionAssignment_9_1_0_1 = (Assignment)cAlternatives_9_1_0.eContents().get(1);
+		private final RuleCall cOwnedAccessConnectionAccessConnectionParserRuleCall_9_1_0_1_0 = (RuleCall)cOwnedAccessConnectionAssignment_9_1_0_1.eContents().get(0);
+		private final Assignment cOwnedFeatureGroupConnectionAssignment_9_1_0_2 = (Assignment)cAlternatives_9_1_0.eContents().get(2);
+		private final RuleCall cOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_9_1_0_2_0 = (RuleCall)cOwnedFeatureGroupConnectionAssignment_9_1_0_2.eContents().get(0);
+		private final Assignment cOwnedFeatureConnectionAssignment_9_1_0_3 = (Assignment)cAlternatives_9_1_0.eContents().get(3);
+		private final RuleCall cOwnedFeatureConnectionFeatureConnectionParserRuleCall_9_1_0_3_0 = (RuleCall)cOwnedFeatureConnectionAssignment_9_1_0_3.eContents().get(0);
 		private final Group cGroup_9_1_1 = (Group)cAlternatives_9_1.eContents().get(1);
-		private final Assignment cNoModesAssignment_9_1_1_0 = (Assignment)cGroup_9_1_1.eContents().get(0);
-		private final Keyword cNoModesNoneKeyword_9_1_1_0_0 = (Keyword)cNoModesAssignment_9_1_1_0.eContents().get(0);
+		private final Assignment cNoConnectionsAssignment_9_1_1_0 = (Assignment)cGroup_9_1_1.eContents().get(0);
+		private final Keyword cNoConnectionsNoneKeyword_9_1_1_0_0 = (Keyword)cNoConnectionsAssignment_9_1_1_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_9_1_1_1 = (Keyword)cGroup_9_1_1.eContents().get(1);
 		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cPropertiesKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Keyword cModesKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
 		private final Alternatives cAlternatives_10_1 = (Alternatives)cGroup_10.eContents().get(1);
-		private final Assignment cOwnedPropertyAssociationAssignment_10_1_0 = (Assignment)cAlternatives_10_1.eContents().get(0);
-		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_10_1_0_0 = (RuleCall)cOwnedPropertyAssociationAssignment_10_1_0.eContents().get(0);
+		private final Alternatives cAlternatives_10_1_0 = (Alternatives)cAlternatives_10_1.eContents().get(0);
+		private final Assignment cOwnedModeAssignment_10_1_0_0 = (Assignment)cAlternatives_10_1_0.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_10_1_0_0_0 = (RuleCall)cOwnedModeAssignment_10_1_0_0.eContents().get(0);
+		private final Assignment cOwnedModeTransitionAssignment_10_1_0_1 = (Assignment)cAlternatives_10_1_0.eContents().get(1);
+		private final RuleCall cOwnedModeTransitionModeTransitionParserRuleCall_10_1_0_1_0 = (RuleCall)cOwnedModeTransitionAssignment_10_1_0_1.eContents().get(0);
 		private final Group cGroup_10_1_1 = (Group)cAlternatives_10_1.eContents().get(1);
-		private final Assignment cNoPropertiesAssignment_10_1_1_0 = (Assignment)cGroup_10_1_1.eContents().get(0);
-		private final Keyword cNoPropertiesNoneKeyword_10_1_1_0_0 = (Keyword)cNoPropertiesAssignment_10_1_1_0.eContents().get(0);
+		private final Assignment cNoModesAssignment_10_1_1_0 = (Assignment)cGroup_10_1_1.eContents().get(0);
+		private final Keyword cNoModesNoneKeyword_10_1_1_0_0 = (Keyword)cNoModesAssignment_10_1_1_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_10_1_1_1 = (Keyword)cGroup_10_1_1.eContents().get(1);
-		private final Assignment cOwnedAnnexSubclauseAssignment_11 = (Assignment)cGroup.eContents().get(11);
-		private final RuleCall cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_11_0 = (RuleCall)cOwnedAnnexSubclauseAssignment_11.eContents().get(0);
-		private final Keyword cEndKeyword_12 = (Keyword)cGroup.eContents().get(12);
-		private final RuleCall cFULLINAMEParserRuleCall_13 = (RuleCall)cGroup.eContents().get(13);
-		private final Keyword cSemicolonKeyword_14 = (Keyword)cGroup.eContents().get(14);
+		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
+		private final Keyword cPropertiesKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
+		private final Alternatives cAlternatives_11_1 = (Alternatives)cGroup_11.eContents().get(1);
+		private final Assignment cOwnedPropertyAssociationAssignment_11_1_0 = (Assignment)cAlternatives_11_1.eContents().get(0);
+		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_11_1_0_0 = (RuleCall)cOwnedPropertyAssociationAssignment_11_1_0.eContents().get(0);
+		private final Group cGroup_11_1_1 = (Group)cAlternatives_11_1.eContents().get(1);
+		private final Assignment cNoPropertiesAssignment_11_1_1_0 = (Assignment)cGroup_11_1_1.eContents().get(0);
+		private final Keyword cNoPropertiesNoneKeyword_11_1_1_0_0 = (Keyword)cNoPropertiesAssignment_11_1_1_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_11_1_1_1 = (Keyword)cGroup_11_1_1.eContents().get(1);
+		private final Assignment cOwnedAnnexSubclauseAssignment_12 = (Assignment)cGroup.eContents().get(12);
+		private final RuleCall cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_12_0 = (RuleCall)cOwnedAnnexSubclauseAssignment_12.eContents().get(0);
+		private final Keyword cEndKeyword_13 = (Keyword)cGroup.eContents().get(13);
+		private final RuleCall cFULLINAMEParserRuleCall_14 = (RuleCall)cGroup.eContents().get(14);
+		private final Keyword cSemicolonKeyword_15 = (Keyword)cGroup.eContents().get(15);
 		
 		//BusImplementation returns aadl2::BusImplementation:
 		//    BusImplementationKeywords
@@ -13684,6 +13700,11 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//            | ownedEventDataSource+= EventDataSource
 		//        )+
 		//    )?
+		//    ('connections'
+		//    ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//    |ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//    )+
+		//    | (noConnections?='none' ';')))?
 		//    ('modes'
 		//    ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 		//    | (noModes?='none' ';')))?
@@ -13715,6 +13736,11 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//        | ownedEventDataSource+= EventDataSource
 		//    )+
 		//)?
+		//('connections'
+		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//)+
+		//| (noConnections?='none' ';')))?
 		//('modes'
 		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 		//| (noModes?='none' ';')))?
@@ -13883,89 +13909,146 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//EventDataSource
 		public RuleCall getOwnedEventDataSourceEventDataSourceParserRuleCall_8_1_1_0() { return cOwnedEventDataSourceEventDataSourceParserRuleCall_8_1_1_0; }
 		
-		//('modes'
-		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-		//| (noModes?='none' ';')))?
+		//('connections'
+		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//)+
+		//| (noConnections?='none' ';')))?
 		public Group getGroup_9() { return cGroup_9; }
 		
-		//'modes'
-		public Keyword getModesKeyword_9_0() { return cModesKeyword_9_0; }
+		//'connections'
+		public Keyword getConnectionsKeyword_9_0() { return cConnectionsKeyword_9_0; }
 		
-		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-		//| (noModes?='none' ';'))
+		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//)+
+		//| (noConnections?='none' ';'))
 		public Alternatives getAlternatives_9_1() { return cAlternatives_9_1; }
 		
-		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//    |ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//    )+
 		public Alternatives getAlternatives_9_1_0() { return cAlternatives_9_1_0; }
 		
-		//ownedMode+=Mode
-		public Assignment getOwnedModeAssignment_9_1_0_0() { return cOwnedModeAssignment_9_1_0_0; }
+		//ownedPortConnection+=PortConnection
+		public Assignment getOwnedPortConnectionAssignment_9_1_0_0() { return cOwnedPortConnectionAssignment_9_1_0_0; }
 		
-		//Mode
-		public RuleCall getOwnedModeModeParserRuleCall_9_1_0_0_0() { return cOwnedModeModeParserRuleCall_9_1_0_0_0; }
+		//PortConnection
+		public RuleCall getOwnedPortConnectionPortConnectionParserRuleCall_9_1_0_0_0() { return cOwnedPortConnectionPortConnectionParserRuleCall_9_1_0_0_0; }
 		
-		//ownedModeTransition+=ModeTransition
-		public Assignment getOwnedModeTransitionAssignment_9_1_0_1() { return cOwnedModeTransitionAssignment_9_1_0_1; }
+		//ownedAccessConnection+=AccessConnection
+		public Assignment getOwnedAccessConnectionAssignment_9_1_0_1() { return cOwnedAccessConnectionAssignment_9_1_0_1; }
 		
-		//ModeTransition
-		public RuleCall getOwnedModeTransitionModeTransitionParserRuleCall_9_1_0_1_0() { return cOwnedModeTransitionModeTransitionParserRuleCall_9_1_0_1_0; }
+		//AccessConnection
+		public RuleCall getOwnedAccessConnectionAccessConnectionParserRuleCall_9_1_0_1_0() { return cOwnedAccessConnectionAccessConnectionParserRuleCall_9_1_0_1_0; }
 		
-		//(noModes?='none' ';')
+		//ownedFeatureGroupConnection+=FeatureGroupConnection
+		public Assignment getOwnedFeatureGroupConnectionAssignment_9_1_0_2() { return cOwnedFeatureGroupConnectionAssignment_9_1_0_2; }
+		
+		//FeatureGroupConnection
+		public RuleCall getOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_9_1_0_2_0() { return cOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_9_1_0_2_0; }
+		
+		//ownedFeatureConnection+=FeatureConnection
+		public Assignment getOwnedFeatureConnectionAssignment_9_1_0_3() { return cOwnedFeatureConnectionAssignment_9_1_0_3; }
+		
+		//FeatureConnection
+		public RuleCall getOwnedFeatureConnectionFeatureConnectionParserRuleCall_9_1_0_3_0() { return cOwnedFeatureConnectionFeatureConnectionParserRuleCall_9_1_0_3_0; }
+		
+		//(noConnections?='none' ';')
 		public Group getGroup_9_1_1() { return cGroup_9_1_1; }
 		
-		//noModes?='none'
-		public Assignment getNoModesAssignment_9_1_1_0() { return cNoModesAssignment_9_1_1_0; }
+		//noConnections?='none'
+		public Assignment getNoConnectionsAssignment_9_1_1_0() { return cNoConnectionsAssignment_9_1_1_0; }
 		
 		//'none'
-		public Keyword getNoModesNoneKeyword_9_1_1_0_0() { return cNoModesNoneKeyword_9_1_1_0_0; }
+		public Keyword getNoConnectionsNoneKeyword_9_1_1_0_0() { return cNoConnectionsNoneKeyword_9_1_1_0_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 		
-		//('properties'
-		//((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-		//| (noProperties?='none' ';')))?
+		//('modes'
+		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+		//| (noModes?='none' ';')))?
 		public Group getGroup_10() { return cGroup_10; }
 		
-		//'properties'
-		public Keyword getPropertiesKeyword_10_0() { return cPropertiesKeyword_10_0; }
+		//'modes'
+		public Keyword getModesKeyword_10_0() { return cModesKeyword_10_0; }
 		
-		//((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-		//| (noProperties?='none' ';'))
+		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+		//| (noModes?='none' ';'))
 		public Alternatives getAlternatives_10_1() { return cAlternatives_10_1; }
 		
-		//(ownedPropertyAssociation+=ContainedPropertyAssociation)+
-		public Assignment getOwnedPropertyAssociationAssignment_10_1_0() { return cOwnedPropertyAssociationAssignment_10_1_0; }
+		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+		public Alternatives getAlternatives_10_1_0() { return cAlternatives_10_1_0; }
 		
-		//ContainedPropertyAssociation
-		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_10_1_0_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_10_1_0_0; }
+		//ownedMode+=Mode
+		public Assignment getOwnedModeAssignment_10_1_0_0() { return cOwnedModeAssignment_10_1_0_0; }
 		
-		//(noProperties?='none' ';')
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_10_1_0_0_0() { return cOwnedModeModeParserRuleCall_10_1_0_0_0; }
+		
+		//ownedModeTransition+=ModeTransition
+		public Assignment getOwnedModeTransitionAssignment_10_1_0_1() { return cOwnedModeTransitionAssignment_10_1_0_1; }
+		
+		//ModeTransition
+		public RuleCall getOwnedModeTransitionModeTransitionParserRuleCall_10_1_0_1_0() { return cOwnedModeTransitionModeTransitionParserRuleCall_10_1_0_1_0; }
+		
+		//(noModes?='none' ';')
 		public Group getGroup_10_1_1() { return cGroup_10_1_1; }
 		
-		//noProperties?='none'
-		public Assignment getNoPropertiesAssignment_10_1_1_0() { return cNoPropertiesAssignment_10_1_1_0; }
+		//noModes?='none'
+		public Assignment getNoModesAssignment_10_1_1_0() { return cNoModesAssignment_10_1_1_0; }
 		
 		//'none'
-		public Keyword getNoPropertiesNoneKeyword_10_1_1_0_0() { return cNoPropertiesNoneKeyword_10_1_1_0_0; }
+		public Keyword getNoModesNoneKeyword_10_1_1_0_0() { return cNoModesNoneKeyword_10_1_1_0_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 		
-		//(ownedAnnexSubclause+=AnnexSubclause)*
-		public Assignment getOwnedAnnexSubclauseAssignment_11() { return cOwnedAnnexSubclauseAssignment_11; }
+		//('properties'
+		//((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+		//| (noProperties?='none' ';')))?
+		public Group getGroup_11() { return cGroup_11; }
 		
-		//AnnexSubclause
-		public RuleCall getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_11_0() { return cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_11_0; }
+		//'properties'
+		public Keyword getPropertiesKeyword_11_0() { return cPropertiesKeyword_11_0; }
 		
-		//'end'
-		public Keyword getEndKeyword_12() { return cEndKeyword_12; }
+		//((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+		//| (noProperties?='none' ';'))
+		public Alternatives getAlternatives_11_1() { return cAlternatives_11_1; }
 		
-		//FULLINAME
-		public RuleCall getFULLINAMEParserRuleCall_13() { return cFULLINAMEParserRuleCall_13; }
+		//(ownedPropertyAssociation+=ContainedPropertyAssociation)+
+		public Assignment getOwnedPropertyAssociationAssignment_11_1_0() { return cOwnedPropertyAssociationAssignment_11_1_0; }
+		
+		//ContainedPropertyAssociation
+		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_11_1_0_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_11_1_0_0; }
+		
+		//(noProperties?='none' ';')
+		public Group getGroup_11_1_1() { return cGroup_11_1_1; }
+		
+		//noProperties?='none'
+		public Assignment getNoPropertiesAssignment_11_1_1_0() { return cNoPropertiesAssignment_11_1_1_0; }
+		
+		//'none'
+		public Keyword getNoPropertiesNoneKeyword_11_1_1_0_0() { return cNoPropertiesNoneKeyword_11_1_1_0_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_14() { return cSemicolonKeyword_14; }
+		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
+		
+		//(ownedAnnexSubclause+=AnnexSubclause)*
+		public Assignment getOwnedAnnexSubclauseAssignment_12() { return cOwnedAnnexSubclauseAssignment_12; }
+		
+		//AnnexSubclause
+		public RuleCall getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_12_0() { return cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_12_0; }
+		
+		//'end'
+		public Keyword getEndKeyword_13() { return cEndKeyword_13; }
+		
+		//FULLINAME
+		public RuleCall getFULLINAMEParserRuleCall_14() { return cFULLINAMEParserRuleCall_14; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_15() { return cSemicolonKeyword_15; }
 	}
 	public class VirtualBusImplementationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.VirtualBusImplementation");
@@ -14016,31 +14099,47 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Assignment cOwnedEventDataSourceAssignment_8_1_1 = (Assignment)cAlternatives_8_1.eContents().get(1);
 		private final RuleCall cOwnedEventDataSourceEventDataSourceParserRuleCall_8_1_1_0 = (RuleCall)cOwnedEventDataSourceAssignment_8_1_1.eContents().get(0);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cModesKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Keyword cConnectionsKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
 		private final Alternatives cAlternatives_9_1 = (Alternatives)cGroup_9.eContents().get(1);
 		private final Alternatives cAlternatives_9_1_0 = (Alternatives)cAlternatives_9_1.eContents().get(0);
-		private final Assignment cOwnedModeAssignment_9_1_0_0 = (Assignment)cAlternatives_9_1_0.eContents().get(0);
-		private final RuleCall cOwnedModeModeParserRuleCall_9_1_0_0_0 = (RuleCall)cOwnedModeAssignment_9_1_0_0.eContents().get(0);
-		private final Assignment cOwnedModeTransitionAssignment_9_1_0_1 = (Assignment)cAlternatives_9_1_0.eContents().get(1);
-		private final RuleCall cOwnedModeTransitionModeTransitionParserRuleCall_9_1_0_1_0 = (RuleCall)cOwnedModeTransitionAssignment_9_1_0_1.eContents().get(0);
+		private final Assignment cOwnedPortConnectionAssignment_9_1_0_0 = (Assignment)cAlternatives_9_1_0.eContents().get(0);
+		private final RuleCall cOwnedPortConnectionPortConnectionParserRuleCall_9_1_0_0_0 = (RuleCall)cOwnedPortConnectionAssignment_9_1_0_0.eContents().get(0);
+		private final Assignment cOwnedAccessConnectionAssignment_9_1_0_1 = (Assignment)cAlternatives_9_1_0.eContents().get(1);
+		private final RuleCall cOwnedAccessConnectionAccessConnectionParserRuleCall_9_1_0_1_0 = (RuleCall)cOwnedAccessConnectionAssignment_9_1_0_1.eContents().get(0);
+		private final Assignment cOwnedFeatureGroupConnectionAssignment_9_1_0_2 = (Assignment)cAlternatives_9_1_0.eContents().get(2);
+		private final RuleCall cOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_9_1_0_2_0 = (RuleCall)cOwnedFeatureGroupConnectionAssignment_9_1_0_2.eContents().get(0);
+		private final Assignment cOwnedFeatureConnectionAssignment_9_1_0_3 = (Assignment)cAlternatives_9_1_0.eContents().get(3);
+		private final RuleCall cOwnedFeatureConnectionFeatureConnectionParserRuleCall_9_1_0_3_0 = (RuleCall)cOwnedFeatureConnectionAssignment_9_1_0_3.eContents().get(0);
 		private final Group cGroup_9_1_1 = (Group)cAlternatives_9_1.eContents().get(1);
-		private final Assignment cNoModesAssignment_9_1_1_0 = (Assignment)cGroup_9_1_1.eContents().get(0);
-		private final Keyword cNoModesNoneKeyword_9_1_1_0_0 = (Keyword)cNoModesAssignment_9_1_1_0.eContents().get(0);
+		private final Assignment cNoConnectionsAssignment_9_1_1_0 = (Assignment)cGroup_9_1_1.eContents().get(0);
+		private final Keyword cNoConnectionsNoneKeyword_9_1_1_0_0 = (Keyword)cNoConnectionsAssignment_9_1_1_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_9_1_1_1 = (Keyword)cGroup_9_1_1.eContents().get(1);
 		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cPropertiesKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Keyword cModesKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
 		private final Alternatives cAlternatives_10_1 = (Alternatives)cGroup_10.eContents().get(1);
-		private final Assignment cOwnedPropertyAssociationAssignment_10_1_0 = (Assignment)cAlternatives_10_1.eContents().get(0);
-		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_10_1_0_0 = (RuleCall)cOwnedPropertyAssociationAssignment_10_1_0.eContents().get(0);
+		private final Alternatives cAlternatives_10_1_0 = (Alternatives)cAlternatives_10_1.eContents().get(0);
+		private final Assignment cOwnedModeAssignment_10_1_0_0 = (Assignment)cAlternatives_10_1_0.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_10_1_0_0_0 = (RuleCall)cOwnedModeAssignment_10_1_0_0.eContents().get(0);
+		private final Assignment cOwnedModeTransitionAssignment_10_1_0_1 = (Assignment)cAlternatives_10_1_0.eContents().get(1);
+		private final RuleCall cOwnedModeTransitionModeTransitionParserRuleCall_10_1_0_1_0 = (RuleCall)cOwnedModeTransitionAssignment_10_1_0_1.eContents().get(0);
 		private final Group cGroup_10_1_1 = (Group)cAlternatives_10_1.eContents().get(1);
-		private final Assignment cNoPropertiesAssignment_10_1_1_0 = (Assignment)cGroup_10_1_1.eContents().get(0);
-		private final Keyword cNoPropertiesNoneKeyword_10_1_1_0_0 = (Keyword)cNoPropertiesAssignment_10_1_1_0.eContents().get(0);
+		private final Assignment cNoModesAssignment_10_1_1_0 = (Assignment)cGroup_10_1_1.eContents().get(0);
+		private final Keyword cNoModesNoneKeyword_10_1_1_0_0 = (Keyword)cNoModesAssignment_10_1_1_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_10_1_1_1 = (Keyword)cGroup_10_1_1.eContents().get(1);
-		private final Assignment cOwnedAnnexSubclauseAssignment_11 = (Assignment)cGroup.eContents().get(11);
-		private final RuleCall cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_11_0 = (RuleCall)cOwnedAnnexSubclauseAssignment_11.eContents().get(0);
-		private final Keyword cEndKeyword_12 = (Keyword)cGroup.eContents().get(12);
-		private final RuleCall cFULLINAMEParserRuleCall_13 = (RuleCall)cGroup.eContents().get(13);
-		private final Keyword cSemicolonKeyword_14 = (Keyword)cGroup.eContents().get(14);
+		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
+		private final Keyword cPropertiesKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
+		private final Alternatives cAlternatives_11_1 = (Alternatives)cGroup_11.eContents().get(1);
+		private final Assignment cOwnedPropertyAssociationAssignment_11_1_0 = (Assignment)cAlternatives_11_1.eContents().get(0);
+		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_11_1_0_0 = (RuleCall)cOwnedPropertyAssociationAssignment_11_1_0.eContents().get(0);
+		private final Group cGroup_11_1_1 = (Group)cAlternatives_11_1.eContents().get(1);
+		private final Assignment cNoPropertiesAssignment_11_1_1_0 = (Assignment)cGroup_11_1_1.eContents().get(0);
+		private final Keyword cNoPropertiesNoneKeyword_11_1_1_0_0 = (Keyword)cNoPropertiesAssignment_11_1_1_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_11_1_1_1 = (Keyword)cGroup_11_1_1.eContents().get(1);
+		private final Assignment cOwnedAnnexSubclauseAssignment_12 = (Assignment)cGroup.eContents().get(12);
+		private final RuleCall cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_12_0 = (RuleCall)cOwnedAnnexSubclauseAssignment_12.eContents().get(0);
+		private final Keyword cEndKeyword_13 = (Keyword)cGroup.eContents().get(13);
+		private final RuleCall cFULLINAMEParserRuleCall_14 = (RuleCall)cGroup.eContents().get(14);
+		private final Keyword cSemicolonKeyword_15 = (Keyword)cGroup.eContents().get(15);
 		
 		//VirtualBusImplementation returns aadl2::VirtualBusImplementation:
 		//    VirtualBusImplementationKeywords
@@ -14063,6 +14162,11 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//            | ownedEventDataSource+= EventDataSource
 		//        )+
 		//    )?
+		//    ('connections'
+		//    ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//    |ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//    )+
+		//    | (noConnections?='none' ';')))?
 		//    ('modes'
 		//    ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 		//    | (noModes?='none' ';')))?
@@ -14094,6 +14198,11 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//        | ownedEventDataSource+= EventDataSource
 		//    )+
 		//)?
+		//('connections'
+		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//)+
+		//| (noConnections?='none' ';')))?
 		//('modes'
 		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 		//| (noModes?='none' ';')))?
@@ -14262,89 +14371,146 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//EventDataSource
 		public RuleCall getOwnedEventDataSourceEventDataSourceParserRuleCall_8_1_1_0() { return cOwnedEventDataSourceEventDataSourceParserRuleCall_8_1_1_0; }
 		
-		//('modes'
-		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-		//| (noModes?='none' ';')))?
+		//('connections'
+		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//)+
+		//| (noConnections?='none' ';')))?
 		public Group getGroup_9() { return cGroup_9; }
 		
-		//'modes'
-		public Keyword getModesKeyword_9_0() { return cModesKeyword_9_0; }
+		//'connections'
+		public Keyword getConnectionsKeyword_9_0() { return cConnectionsKeyword_9_0; }
 		
-		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-		//| (noModes?='none' ';'))
+		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//)+
+		//| (noConnections?='none' ';'))
 		public Alternatives getAlternatives_9_1() { return cAlternatives_9_1; }
 		
-		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//    |ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+		//    )+
 		public Alternatives getAlternatives_9_1_0() { return cAlternatives_9_1_0; }
 		
-		//ownedMode+=Mode
-		public Assignment getOwnedModeAssignment_9_1_0_0() { return cOwnedModeAssignment_9_1_0_0; }
+		//ownedPortConnection+=PortConnection
+		public Assignment getOwnedPortConnectionAssignment_9_1_0_0() { return cOwnedPortConnectionAssignment_9_1_0_0; }
 		
-		//Mode
-		public RuleCall getOwnedModeModeParserRuleCall_9_1_0_0_0() { return cOwnedModeModeParserRuleCall_9_1_0_0_0; }
+		//PortConnection
+		public RuleCall getOwnedPortConnectionPortConnectionParserRuleCall_9_1_0_0_0() { return cOwnedPortConnectionPortConnectionParserRuleCall_9_1_0_0_0; }
 		
-		//ownedModeTransition+=ModeTransition
-		public Assignment getOwnedModeTransitionAssignment_9_1_0_1() { return cOwnedModeTransitionAssignment_9_1_0_1; }
+		//ownedAccessConnection+=AccessConnection
+		public Assignment getOwnedAccessConnectionAssignment_9_1_0_1() { return cOwnedAccessConnectionAssignment_9_1_0_1; }
 		
-		//ModeTransition
-		public RuleCall getOwnedModeTransitionModeTransitionParserRuleCall_9_1_0_1_0() { return cOwnedModeTransitionModeTransitionParserRuleCall_9_1_0_1_0; }
+		//AccessConnection
+		public RuleCall getOwnedAccessConnectionAccessConnectionParserRuleCall_9_1_0_1_0() { return cOwnedAccessConnectionAccessConnectionParserRuleCall_9_1_0_1_0; }
 		
-		//(noModes?='none' ';')
+		//ownedFeatureGroupConnection+=FeatureGroupConnection
+		public Assignment getOwnedFeatureGroupConnectionAssignment_9_1_0_2() { return cOwnedFeatureGroupConnectionAssignment_9_1_0_2; }
+		
+		//FeatureGroupConnection
+		public RuleCall getOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_9_1_0_2_0() { return cOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_9_1_0_2_0; }
+		
+		//ownedFeatureConnection+=FeatureConnection
+		public Assignment getOwnedFeatureConnectionAssignment_9_1_0_3() { return cOwnedFeatureConnectionAssignment_9_1_0_3; }
+		
+		//FeatureConnection
+		public RuleCall getOwnedFeatureConnectionFeatureConnectionParserRuleCall_9_1_0_3_0() { return cOwnedFeatureConnectionFeatureConnectionParserRuleCall_9_1_0_3_0; }
+		
+		//(noConnections?='none' ';')
 		public Group getGroup_9_1_1() { return cGroup_9_1_1; }
 		
-		//noModes?='none'
-		public Assignment getNoModesAssignment_9_1_1_0() { return cNoModesAssignment_9_1_1_0; }
+		//noConnections?='none'
+		public Assignment getNoConnectionsAssignment_9_1_1_0() { return cNoConnectionsAssignment_9_1_1_0; }
 		
 		//'none'
-		public Keyword getNoModesNoneKeyword_9_1_1_0_0() { return cNoModesNoneKeyword_9_1_1_0_0; }
+		public Keyword getNoConnectionsNoneKeyword_9_1_1_0_0() { return cNoConnectionsNoneKeyword_9_1_1_0_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 		
-		//('properties'
-		//((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-		//| (noProperties?='none' ';')))?
+		//('modes'
+		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+		//| (noModes?='none' ';')))?
 		public Group getGroup_10() { return cGroup_10; }
 		
-		//'properties'
-		public Keyword getPropertiesKeyword_10_0() { return cPropertiesKeyword_10_0; }
+		//'modes'
+		public Keyword getModesKeyword_10_0() { return cModesKeyword_10_0; }
 		
-		//((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-		//| (noProperties?='none' ';'))
+		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+		//| (noModes?='none' ';'))
 		public Alternatives getAlternatives_10_1() { return cAlternatives_10_1; }
 		
-		//(ownedPropertyAssociation+=ContainedPropertyAssociation)+
-		public Assignment getOwnedPropertyAssociationAssignment_10_1_0() { return cOwnedPropertyAssociationAssignment_10_1_0; }
+		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+		public Alternatives getAlternatives_10_1_0() { return cAlternatives_10_1_0; }
 		
-		//ContainedPropertyAssociation
-		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_10_1_0_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_10_1_0_0; }
+		//ownedMode+=Mode
+		public Assignment getOwnedModeAssignment_10_1_0_0() { return cOwnedModeAssignment_10_1_0_0; }
 		
-		//(noProperties?='none' ';')
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_10_1_0_0_0() { return cOwnedModeModeParserRuleCall_10_1_0_0_0; }
+		
+		//ownedModeTransition+=ModeTransition
+		public Assignment getOwnedModeTransitionAssignment_10_1_0_1() { return cOwnedModeTransitionAssignment_10_1_0_1; }
+		
+		//ModeTransition
+		public RuleCall getOwnedModeTransitionModeTransitionParserRuleCall_10_1_0_1_0() { return cOwnedModeTransitionModeTransitionParserRuleCall_10_1_0_1_0; }
+		
+		//(noModes?='none' ';')
 		public Group getGroup_10_1_1() { return cGroup_10_1_1; }
 		
-		//noProperties?='none'
-		public Assignment getNoPropertiesAssignment_10_1_1_0() { return cNoPropertiesAssignment_10_1_1_0; }
+		//noModes?='none'
+		public Assignment getNoModesAssignment_10_1_1_0() { return cNoModesAssignment_10_1_1_0; }
 		
 		//'none'
-		public Keyword getNoPropertiesNoneKeyword_10_1_1_0_0() { return cNoPropertiesNoneKeyword_10_1_1_0_0; }
+		public Keyword getNoModesNoneKeyword_10_1_1_0_0() { return cNoModesNoneKeyword_10_1_1_0_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 		
-		//(ownedAnnexSubclause+=AnnexSubclause)*
-		public Assignment getOwnedAnnexSubclauseAssignment_11() { return cOwnedAnnexSubclauseAssignment_11; }
+		//('properties'
+		//((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+		//| (noProperties?='none' ';')))?
+		public Group getGroup_11() { return cGroup_11; }
 		
-		//AnnexSubclause
-		public RuleCall getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_11_0() { return cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_11_0; }
+		//'properties'
+		public Keyword getPropertiesKeyword_11_0() { return cPropertiesKeyword_11_0; }
 		
-		//'end'
-		public Keyword getEndKeyword_12() { return cEndKeyword_12; }
+		//((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+		//| (noProperties?='none' ';'))
+		public Alternatives getAlternatives_11_1() { return cAlternatives_11_1; }
 		
-		//FULLINAME
-		public RuleCall getFULLINAMEParserRuleCall_13() { return cFULLINAMEParserRuleCall_13; }
+		//(ownedPropertyAssociation+=ContainedPropertyAssociation)+
+		public Assignment getOwnedPropertyAssociationAssignment_11_1_0() { return cOwnedPropertyAssociationAssignment_11_1_0; }
+		
+		//ContainedPropertyAssociation
+		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_11_1_0_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_11_1_0_0; }
+		
+		//(noProperties?='none' ';')
+		public Group getGroup_11_1_1() { return cGroup_11_1_1; }
+		
+		//noProperties?='none'
+		public Assignment getNoPropertiesAssignment_11_1_1_0() { return cNoPropertiesAssignment_11_1_1_0; }
+		
+		//'none'
+		public Keyword getNoPropertiesNoneKeyword_11_1_1_0_0() { return cNoPropertiesNoneKeyword_11_1_1_0_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_14() { return cSemicolonKeyword_14; }
+		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
+		
+		//(ownedAnnexSubclause+=AnnexSubclause)*
+		public Assignment getOwnedAnnexSubclauseAssignment_12() { return cOwnedAnnexSubclauseAssignment_12; }
+		
+		//AnnexSubclause
+		public RuleCall getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_12_0() { return cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_12_0; }
+		
+		//'end'
+		public Keyword getEndKeyword_13() { return cEndKeyword_13; }
+		
+		//FULLINAME
+		public RuleCall getFULLINAMEParserRuleCall_14() { return cFULLINAMEParserRuleCall_14; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_15() { return cSemicolonKeyword_15; }
 	}
 	public class DataImplementationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.DataImplementation");
@@ -32155,6 +32321,11 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	//            | ownedEventDataSource+= EventDataSource
 	//        )+
 	//    )?
+	//    ('connections'
+	//    ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	//    |ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	//    )+
+	//    | (noConnections?='none' ';')))?
 	//    ('modes'
 	//    ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	//    | (noModes?='none' ';')))?
@@ -32193,6 +32364,11 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	//            | ownedEventDataSource+= EventDataSource
 	//        )+
 	//    )?
+	//    ('connections'
+	//    ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	//    |ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	//    )+
+	//    | (noConnections?='none' ';')))?
 	//    ('modes'
 	//    ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	//    | (noModes?='none' ';')))?

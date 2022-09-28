@@ -54,6 +54,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -75,6 +76,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getFeature <em>Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getIndex <em>Index</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -181,6 +183,16 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	protected long index = INDEX_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ComponentInstance type;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -265,6 +277,50 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__INDEX, oldIndex,
 					index));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ComponentInstance getType() {
+		if (type != null && type.eIsProxy()) {
+			InternalEObject oldType = (InternalEObject) type;
+			type = (ComponentInstance) eResolveProxy(oldType);
+			if (type != oldType) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InstancePackage.FEATURE_INSTANCE__TYPE,
+							oldType, type));
+				}
+			}
+		}
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentInstance basicGetType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(ComponentInstance newType) {
+		ComponentInstance oldType = type;
+		type = newType;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__TYPE, oldType,
+					type));
 		}
 	}
 
@@ -433,6 +489,11 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 			return basicGetFeature();
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
 			return getIndex();
+		case InstancePackage.FEATURE_INSTANCE__TYPE:
+			if (resolve) {
+				return getType();
+			}
+			return basicGetType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -470,6 +531,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
 			setIndex((Long) newValue);
 			return;
+		case InstancePackage.FEATURE_INSTANCE__TYPE:
+			setType((ComponentInstance) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -503,6 +567,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
 			setIndex(INDEX_EDEFAULT);
 			return;
+		case InstancePackage.FEATURE_INSTANCE__TYPE:
+			setType((ComponentInstance) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -529,6 +596,8 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 			return feature != null;
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
 			return index != INDEX_EDEFAULT;
+		case InstancePackage.FEATURE_INSTANCE__TYPE:
+			return type != null;
 		}
 		return super.eIsSet(featureID);
 	}

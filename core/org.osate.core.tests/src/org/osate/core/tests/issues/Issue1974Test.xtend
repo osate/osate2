@@ -24,20 +24,20 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.Connection
+import org.osate.aadl2.SystemImplementation
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
-import static extension org.junit.Assert.*
-import com.itemis.xtext.testing.XtextTest
-import com.itemis.xtext.testing.FluentIssueCollection
-import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.EndToEndFlow
-import org.osate.aadl2.Connection
+import static org.junit.Assert.*
+
 import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
@@ -74,7 +74,7 @@ class Issue1974Test extends XtextTest {
 		testFileResult.resource.contents.head as AadlPackage => [
 			assertEquals("ports_unidirectional", name)
 			publicSection.ownedClassifiers.findFirst[name == "top.i"] as SystemImplementation => [
-				ownedEndToEndFlows.findFirst[name == "e2e_2a"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_2a"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -92,7 +92,7 @@ class Issue1974Test extends XtextTest {
 							"The destination of connection 'c0' does not match the succeeding subcomponent or in flow spec feature 'p'")
 					]
 				]
-				ownedEndToEndFlows.findFirst[name == "e2e_3b"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_3b"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -113,7 +113,7 @@ class Issue1974Test extends XtextTest {
 			]
 
 			publicSection.ownedClassifiers.findFirst[name == "top.i2"] as SystemImplementation => [
-				ownedEndToEndFlows.findFirst[name == "e2e_1a"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_1a"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -131,7 +131,7 @@ class Issue1974Test extends XtextTest {
 							"The destination of connection 'c1' does not match the succeeding subcomponent or in flow spec feature 'c'")
 					]
 				]
-				ownedEndToEndFlows.findFirst[name == "e2e_1b"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_1b"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -164,7 +164,7 @@ class Issue1974Test extends XtextTest {
 		testFileResult.resource.contents.head as AadlPackage => [
 			assertEquals("ports_bad_endpoints", name)
 			publicSection.ownedClassifiers.findFirst[name == "top.i"] as SystemImplementation => [
-				ownedEndToEndFlows.findFirst[name == "e2e_12_incorrect"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_12_incorrect"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -173,7 +173,7 @@ class Issue1974Test extends XtextTest {
 							"The destination of connection 'c12' does not match the succeeding subcomponent or in flow spec feature 'c.ip1'")
 					]
 				]
-				ownedEndToEndFlows.findFirst[name == "e2e_21_incorrect"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_21_incorrect"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -182,7 +182,7 @@ class Issue1974Test extends XtextTest {
 							"The source of connection 'c21' does not match the preceding subcomponent or out flow spec feature 'p.op1'")
 					]
 				]
-				ownedEndToEndFlows.findFirst[name == "e2e_22_incorrect"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_22_incorrect"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -195,7 +195,7 @@ class Issue1974Test extends XtextTest {
 			]
 
 			publicSection.ownedClassifiers.findFirst[name == "top.i2"] as SystemImplementation => [
-				ownedEndToEndFlows.findFirst[name == "e2e_12_incorrect"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_12_incorrect"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -204,7 +204,7 @@ class Issue1974Test extends XtextTest {
 							"The destination of connection 'c12' does not match the succeeding subcomponent or in flow spec feature 'c1.ip1'")
 					]
 				]
-				ownedEndToEndFlows.findFirst[name == "e2e_21_incorrect"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_21_incorrect"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -213,7 +213,7 @@ class Issue1974Test extends XtextTest {
 							"The source of connection 'c21' does not match the preceding subcomponent or out flow spec feature 'p1.op1'")
 					]
 				]
-				ownedEndToEndFlows.findFirst[name == "e2e_22_incorrect"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_22_incorrect"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -224,7 +224,7 @@ class Issue1974Test extends XtextTest {
 					]
 				]
 
-				ownedEndToEndFlows.findFirst[name == "e2e_12s_incorrect"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_12s_incorrect"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -233,7 +233,7 @@ class Issue1974Test extends XtextTest {
 							"The destination of connection 'c12' does not match the succeeding subcomponent or in flow spec feature 'c1'")
 					]
 				]
-				ownedEndToEndFlows.findFirst[name == "e2e_21s_incorrect"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_21s_incorrect"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)
@@ -242,7 +242,7 @@ class Issue1974Test extends XtextTest {
 							"The source of connection 'c21' does not match the preceding subcomponent or out flow spec feature 'p1'")
 					]
 				]
-				ownedEndToEndFlows.findFirst[name == "e2e_22s_incorrect"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_22s_incorrect"] => [
 					getOwnedEndToEndFlowSegments().get(1) => [
 						val flowElement = getFlowElement
 						assertTrue(flowElement instanceof Connection)

@@ -67,6 +67,49 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/instance/FeatureInstance.java" type="org.osate.aadl2.instance.FeatureInstance">
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getType()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="setType(ComponentInstance)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/InstancePackage.java" type="org.osate.aadl2.instance.InstancePackage">
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="FEATURE_INSTANCE__TYPE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getFeatureInstance_Type()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/InstancePackage.java" type="org.osate.aadl2.instance.InstancePackage$Literals">
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="FEATURE_INSTANCE__TYPE"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/impl/FeatureInstanceImpl.java" type="org.osate.aadl2.instance.impl.FeatureInstanceImpl">
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="basicGetType()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="type"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/operations/NamedElementOperations.java" type="org.osate.aadl2.operations.NamedElementOperations">
         <filter comment="Generated code" id="1143996420">
             <message_arguments>

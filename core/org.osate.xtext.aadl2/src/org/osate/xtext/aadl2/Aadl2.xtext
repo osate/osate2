@@ -1046,6 +1046,11 @@ BusImplementation returns aadl2::BusImplementation:
 			| ownedEventDataSource+= EventDataSource
 		)+
 	)?
+	('connections'
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| (noConnections?='none' ';')))?
 	('modes'
 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	| (noModes?='none' ';')))?
@@ -1077,6 +1082,11 @@ VirtualBusImplementation returns aadl2::VirtualBusImplementation:
 			| ownedEventDataSource+= EventDataSource
 		)+
 	)?
+	('connections'
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| (noConnections?='none' ';')))?
 	('modes'
 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	| (noModes?='none' ';')))?

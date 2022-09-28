@@ -178,19 +178,4 @@ public interface SystemInstance extends ComponentInstance {
 
 	SystemOperationMode getInitialSystemOperationMode();
 
-	/**
-	 * Iterates over all connection instances in the instance model.
-	 * This iterator give you all connection instances in the model by collecting them by walking the model.
-	 */
-	Iterable<ConnectionInstance> allConnectionInstances();
-
-	/**
-	 * Get all connection instances in the instance model.
-	 * This iterator give you all connection instances in the model by collecting them by walking the model.
-	 * This method provides the functionality of the getConnectionInstances method when all connection instances
-	 * were stored with the system instance. We now store a connection instance with the closest enclosing component instance
-	 * of both endpoints.
-	 */
-	EList<ConnectionInstance> getAllConnectionInstances();
-
 } // SystemInstance

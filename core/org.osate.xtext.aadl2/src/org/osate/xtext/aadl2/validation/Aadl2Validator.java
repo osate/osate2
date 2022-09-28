@@ -421,19 +421,52 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	@Check(CheckType.FAST)
 	public void caseFeatureConnection(FeatureConnection connection) {
 		checkFeatureGroupChaining(connection);
-		if (connection.getAllLastSource() instanceof FeatureGroupConnectionEnd
-				&& connection.getAllLastDestination() instanceof FeatureGroupConnectionEnd) {
+		ConnectionEnd src = connection.getAllLastSource();
+		ConnectionEnd dst = connection.getAllLastDestination();
+		if (src instanceof AbstractFeature || dst instanceof AbstractFeature) {
 			if (connection.getRefined() == null) {
-				typeCheckFeatureGroupConnectionEnd(connection.getSource());
-				typeCheckFeatureGroupConnectionEnd(connection.getDestination());
-				checkFeatureGroupConnectionDirection(connection);
+				typeCheckFeatureConnectionEnd(connection.getSource());
+				typeCheckFeatureConnectionEnd(connection.getDestination());
+				checkConnectionDirection(connection);
+				checkFeatureConnectionFeatureGroupToFeatureOrAbstract(connection);
 			}
-			checkFeatureGroupConnectionClassifiers(connection);
-		} else if (connection.getRefined() == null) {
-			typeCheckFeatureConnectionEnd(connection.getSource());
-			typeCheckFeatureConnectionEnd(connection.getDestination());
-			checkConnectionDirection(connection);
-			checkFeatureConnectionFeatureGroupToFeatureOrAbstract(connection);
+			checkFeatureConnectionClassifiers(connection);
+		} else {
+			if (src instanceof FeatureGroup && dst instanceof FeatureGroup) {
+				// check like feature group connection
+				if (connection.getRefined() == null) {
+					typeCheckFeatureGroupConnectionEnd(connection.getSource());
+					typeCheckFeatureGroupConnectionEnd(connection.getDestination());
+					checkFeatureGroupConnectionDirection(connection);
+				}
+				checkFeatureGroupConnectionClassifiers(connection);
+			} else if (src instanceof Parameter || dst instanceof Parameter) {
+				// check like parameter connection
+				if (connection.getRefined() == null) {
+					typeCheckParameterConnectionEnd(connection.getSource());
+					typeCheckParameterConnectionEnd(connection.getDestination());
+					checkThroughConnection(connection);
+				}
+				checkParameterConnectionClassifiers(connection);
+			} else if (src instanceof Access && !(dst instanceof Port)
+					|| !(src instanceof Port) && dst instanceof Access) {
+				if (connection.getRefined() == null) {
+					typeCheckAccessConnectionEnd(connection.getSource());
+					typeCheckAccessConnectionEnd(connection.getDestination());
+					checkAccessConnectionProvidesRequires(connection);
+					checkThroughConnection(connection);
+				}
+				checkAccessConnectionClassifiers(connection);
+			} else if (src instanceof PortConnectionEnd && dst instanceof PortConnectionEnd) {
+				if (connection.getRefined() == null) {
+					typeCheckPortConnectionEnd(connection.getSource());
+					typeCheckPortConnectionEnd(connection.getDestination());
+					checkConnectionDirection(connection);
+					checkPortConnectionEnds(connection);
+					checkAggregateDataPort(connection);
+				}
+				checkPortConnectionClassifiers(connection);
+			}
 		}
 	}
 
@@ -5457,13 +5490,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 * property constant. A virtual bus or bus must support the conversion from
 	 * the source data classifier to the destination classifier."
 	 */
-	private void checkPortConnectionClassifiers(PortConnection connection) {
+	private void checkPortConnectionClassifiers(Connection connection) {
 		ConnectionEnd source = connection.getAllLastSource();
 		ConnectionEnd destination = connection.getAllLastDestination();
 		if ((source instanceof DataAccess || source instanceof DataSubcomponent || source instanceof DataPort
-				|| source instanceof EventDataPort)
+				|| source instanceof EventDataPort || source instanceof EventDataSource || source instanceof PortProxy)
 				&& (destination instanceof DataAccess || destination instanceof DataSubcomponent
-						|| destination instanceof DataPort || destination instanceof EventDataPort)) {
+						|| destination instanceof DataPort || destination instanceof EventDataPort
+						|| destination instanceof EventDataSource || destination instanceof PortProxy)) {
 			Classifier sourceClassifier;
 			Classifier destinationClassifier;
 			final boolean sourceIsSubcomponent = source instanceof DataSubcomponent;
@@ -5471,12 +5505,12 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			if (sourceIsSubcomponent) {
 				sourceClassifier = ((DataSubcomponent) source).getAllClassifier();
 			} else {
-				sourceClassifier = ((Feature) source).getAllClassifier();
+				sourceClassifier = getClassifier(source);
 			}
 			if (destIsSubcomponent) {
 				destinationClassifier = ((DataSubcomponent) destination).getAllClassifier();
 			} else {
-				destinationClassifier = ((Feature) destination).getAllClassifier();
+				destinationClassifier = getClassifier(destination);
 			}
 			if (sourceClassifier == null && destinationClassifier != null) {
 				warning("Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
@@ -5532,6 +5566,95 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				} catch (PropertyIsModalException e) {
 					// ignored exception. handled in separate validation method checkConnectionPropertyIsModal(Connection connection)
 				}
+			}
+		}
+	}
+
+	private Classifier getClassifier(ConnectionEnd ce) {
+		if (ce instanceof Feature f) {
+			return f.getAllClassifier();
+		} else if (ce instanceof SubprogramProxy p) {
+			return p.getSubprogramClassifier();
+		} else if (ce instanceof PortProxy p) {
+			return p.getDataClassifier();
+		} else if (ce instanceof EventDataSource s) {
+			return s.getDataClassifier();
+		} else {
+			return null;
+		}
+	}
+
+	private void checkFeatureConnectionClassifiers(FeatureConnection connection) {
+		ConnectionEnd source = connection.getAllLastSource();
+		ConnectionEnd destination = connection.getAllLastDestination();
+		Classifier sourceClassifier;
+		Classifier destinationClassifier;
+		final boolean sourceIsSubcomponent = source instanceof Subcomponent;
+		final boolean destIsSubcomponent = destination instanceof Subcomponent;
+		if (sourceIsSubcomponent) {
+			sourceClassifier = ((Subcomponent) source).getAllClassifier();
+		} else {
+			sourceClassifier = getClassifier(source);
+		}
+		if (destIsSubcomponent) {
+			destinationClassifier = ((Subcomponent) destination).getAllClassifier();
+		} else {
+			destinationClassifier = getClassifier(destination);
+		}
+		if (sourceClassifier == null && destinationClassifier != null) {
+			warning("Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
+					+ "' to have classifier '" + destinationClassifier.getQualifiedName() + '\'', connection,
+					Aadl2Package.eINSTANCE.getConnection_Source());
+		} else if (sourceClassifier != null && destinationClassifier == null) {
+			warning("Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'" + destination.getName()
+					+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
+					Aadl2Package.eINSTANCE.getConnection_Destination());
+		} else if (sourceClassifier != null && destinationClassifier != null) {
+			try {
+				final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
+						.getClassifierMatchingRule(connection)
+						.orElse(ClassifierMatchingRule.CLASSIFIER_MATCH);
+				if (classifierMatchingRuleValue == ClassifierMatchingRule.CLASSIFIER_MATCH) {
+					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+							destinationClassifier)) {
+						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
+								+ "' have incompatible classifiers.");
+					}
+				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.EQUIVALENCE) {
+					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+							destinationClassifier)
+							&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection,
+									sourceClassifier, destinationClassifier)) {
+						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
+								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
+								+ destinationClassifier.getQualifiedName()
+								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
+								+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+					}
+				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
+					if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
+							destinationClassifier) && !isDataSubset(sourceClassifier, destinationClassifier)) {
+						error(connection,
+								"The data type of '" + source.getName() + "' ('" + sourceClassifier.getQualifiedName()
+										+ "') is not a subset of the data type of '" + destination.getName() + "' ('"
+										+ destinationClassifier.getQualifiedName()
+										+ "') based on name matching or the property constant '"
+										+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+					}
+				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
+					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+							destinationClassifier)
+							&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
+									destinationClassifier)) {
+						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
+								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
+								+ destinationClassifier.getQualifiedName()
+								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
+								+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+					}
+				}
+			} catch (PropertyIsModalException e) {
+				// ignored exception. handled in separate validation method checkConnectionPropertyIsModal(Connection connection)
 			}
 		}
 	}
@@ -5998,7 +6121,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	/**
 	 * Check connection ends of port connections Section 9.2 Legality rule L5
 	 */
-	private void checkPortConnectionEnds(PortConnection connection) {
+	private void checkPortConnectionEnds(Connection connection) {
 		ConnectionEnd source = connection.getAllLastSource();
 		ConnectionEnd destination = connection.getAllLastDestination();
 		if (source instanceof PortConnectionEnd && destination instanceof PortConnectionEnd) {
@@ -6048,7 +6171,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 	}
 
-	private void checkAggregateDataPort(PortConnection connection) {
+	private void checkAggregateDataPort(Connection connection) {
 		if (connection.getRefined() == null) {
 			Arrays.asList(connection.getSource(), connection.getDestination())
 					.stream()
@@ -6064,7 +6187,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 * as specified by the Classifier_Matching_Rule property apply (see Section
 	 * 9.2 (L13)). By default the data classifiers must be match."
 	 */
-	private void checkParameterConnectionClassifiers(ParameterConnection connection) {
+	private void checkParameterConnectionClassifiers(Connection connection) {
 		ConnectionEnd source = connection.getAllLastSource();
 		ConnectionEnd destination = connection.getAllLastDestination();
 		if (source instanceof ParameterConnectionEnd && destination instanceof ParameterConnectionEnd) {
@@ -6421,7 +6544,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 * Check provides/requires of access connection ends Section 9.4 Legality
 	 * rules L5, L6, and L7
 	 */
-	private void checkAccessConnectionProvidesRequires(AccessConnection connection) {
+	private void checkAccessConnectionProvidesRequires(Connection connection) {
 		ConnectionEnd source = connection.getAllLastSource();
 		ConnectionEnd destination = connection.getAllLastDestination();
 		AccessType sourceType = null;
@@ -6578,7 +6701,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 * Classifier_Matching_Rules property. By default the classifiers must be
 	 * the same (see Section 9.1)."
 	 */
-	private void checkAccessConnectionClassifiers(AccessConnection connection) {
+	private void checkAccessConnectionClassifiers(Connection connection) {
 		/*
 		 * Bug 2362: Source and destination with respect to the classifier type is determined by
 		 * direction of travel away from the provider and towards the requirer.
