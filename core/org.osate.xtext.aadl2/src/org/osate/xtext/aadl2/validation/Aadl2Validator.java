@@ -282,7 +282,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	@Check(CheckType.FAST)
 	public void caseDataType(DataType dataType) {
 		checkForInheritedFlowsAndModesFromAbstractType(dataType);
-
 	}
 
 	@Check(CheckType.FAST)
@@ -294,61 +293,51 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	@Check(CheckType.FAST)
 	public void caseThreadGroupImplementation(ThreadGroupImplementation threadGroupImplementation) {
 		checkForInheritedCallSequenceFromAbstractImplementation(threadGroupImplementation);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseProcessorImplementation(ProcessorImplementation processorImplementation) {
 		checkForInheritedCallSequenceFromAbstractImplementation(processorImplementation);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseVirtualProcessorImplementation(VirtualProcessorImplementation virtualProcessorImplementation) {
 		checkForInheritedCallSequenceFromAbstractImplementation(virtualProcessorImplementation);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseMemoryType(MemoryType memoryType) {
 		checkForInheritedFlowsFromAbstractType(memoryType);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseMemoryImplementation(MemoryImplementation memoryImplementation) {
 		checkForInheritedFlowsAndCallSequenceFromAbstractImplementation(memoryImplementation);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseBusType(BusType busType) {
 		checkForInheritedFlowsFromAbstractType(busType);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseBusImplementation(BusImplementation busImplementation) {
 		checkForInheritedConnectionsFlowsAndCallsFromAbstractImplementation(busImplementation);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseVirtualBusType(VirtualBusType virtualBusType) {
 		checkForInheritedFlowsFromAbstractType(virtualBusType);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseVirtualBusImplementation(VirtualBusImplementation virtualBusImplementation) {
 		checkForInheritedConnectionsFlowsAndCallsFromAbstractImplementation(virtualBusImplementation);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseDeviceImplementation(DeviceImplementation deviceImplementation) {
 		checkForInheritedCallsFromAbstractImplementation(deviceImplementation);
-
 	}
 
 	@Check(CheckType.FAST)
@@ -4718,40 +4707,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	/**
 	 * Checks legality rule 3 in section 8 (Features and Shared Access) on page
 	 * 125.
-	 * "Feature arrays must only be declared for threads, devices, and processors."
+	 * "Feature arrays must only be declared for thread, device, processor, memory, system, and abstract."
 	 */
 	private void checkForFeatureArrays(Feature feature) {
 		Element e = feature.getOwner();
-		if (e instanceof ComponentType) {
-			ComponentType componentType = (ComponentType) e;
-//			if (!(componentType instanceof AbstractType) && !(componentType instanceof ThreadType)
-//					&& !(componentType instanceof DataType) && !(componentType instanceof MemoryType)
-//					&& !(componentType instanceof BusType) &&
-//					// JD : allow for system type as well
-//					!(componentType instanceof SystemType) && !(componentType instanceof DeviceType)
-//					&& !(componentType instanceof ProcessorType)) {
-//				if (!feature.getArrayDimensions().isEmpty()) {
-//					error(feature,
-//							"Feature arrays can only be declared for abstract, thread, device, bus, data, memory, system and processor classifiers.");
-//					return;
-//				}
-//			}
-			if (feature instanceof FeatureGroup) {
-				// feature array can either be on the feature group declaration
-				// or on
-				// on features inside the feature group type of the feature
-				// group.
-				// Having it on both would lead to a multi-dimensional feature
-				// array.
-				FeatureGroup fg = (FeatureGroup) feature;
-				if (!fg.getArrayDimensions().isEmpty()) {
-					FeatureGroupType fgt = fg.getAllFeatureGroupType();
-					if (containsFeatureArrays(fgt)) {
-						error(feature,
-								"Feature group declared as array contains feature arrays. The resulting feature array would be multi-dimensional.");
-					}
-				}
-			}
+		if ((e instanceof ComponentType ct && !canHaveFeatureArrays(ct) || e instanceof FeatureGroupType)
+				&& !feature.getArrayDimensions().isEmpty()) {
+			error(feature,
+					"Feature arrays are allowed only in abstract, thread, device, memory, system, and processor classifiers.");
 		}
 	}
 
@@ -4829,11 +4792,10 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	/**
 	 * Checks legality rule 3 in section 8 (Features and Shared Access) on page
 	 * 125.
-	 * "Feature arrays must only be declared for threads, devices, and processors."
+	 * "Feature arrays must only be declared for threads, devices, processor, memory, system, and abstract."
 	 */
 	private void checkForInheritedFeatureArrays(ComponentType componentType) {
-		if (!(componentType instanceof AbstractType) && !(componentType instanceof ThreadType)
-				&& !(componentType instanceof DeviceType) && !(componentType instanceof ProcessorType)) {
+		if (!canHaveFeatureArrays(componentType)) {
 			boolean parentHasFeatureArray = false;
 			if (hasExtendCycles(componentType)) {
 				return;
@@ -4854,6 +4816,11 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						ComponentCategory.ABSTRACT.toString(), offset);
 			}
 		}
+	}
+
+	private boolean canHaveFeatureArrays(ComponentType ct) {
+		return ct instanceof AbstractType || ct instanceof ThreadType || ct instanceof DeviceType
+				|| ct instanceof ProcessorType || ct instanceof MemoryType || ct instanceof SystemType;
 	}
 
 	/**

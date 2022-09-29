@@ -1,0 +1,95 @@
+package FeatureArrays
+public
+	
+	abstract TOP
+		features fg: feature group FG;
+	end TOP;
+	
+	abstract implementation TOP.i
+		subcomponents
+			a: abstract A;
+			b: bus B;
+			d: device D;
+			m: memory M;
+			p: process P;
+			pr: processor PR;
+			sp: subprogram SP;
+			spg: subprogram group SPG;
+			s: system S;
+			t: thread T;
+			tg: thread group TG;
+			vb: virtual bus VB;
+			vp: virtual processor VP;
+	end TOP.i;
+	
+	abstract A
+		features
+		  f: feature[2];
+	end A;
+	
+	bus B
+		features
+		  f: feature[2];
+	end B;
+	
+	device D
+		features
+		  f: feature[2];
+	end D;
+	
+	memory M
+		features
+		  f: feature[2];
+	end M;
+	
+	process P
+		features
+		  f: feature[2];
+	end P;
+	
+	processor PR
+		features
+		  f: feature[2];
+	end PR;
+	
+	subprogram SP
+		features
+		  f: feature[2];
+	end SP;
+	
+	subprogram group SPG
+		features
+		  f: feature[2];
+	end SPG;
+	
+	system S
+		features
+		  f: feature[2];
+	end S;
+	
+	thread T
+		features
+		  f: feature[2];
+	end T;
+	
+	thread group TG
+		features
+		  f: feature[2];
+	end TG;
+	
+	virtual bus VB
+		features
+		  f: feature[2];
+	end VB;
+	
+	virtual processor VP
+		features
+		  f: feature[2];
+	end VP;
+	
+	feature group FG
+		features
+			f: feature[2];
+	end FG;
+	
+end FeatureArrays;
