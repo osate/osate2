@@ -5,7 +5,6 @@ Bundle-SymbolicName: org.osate.aadl2.modelsupport;singleton:=true
 Bundle-Version: 6.1.1.qualifier
 Bundle-Activator: org.osate.aadl2.modelsupport.Activator
 Require-Bundle: org.osate.aadl2;bundle-version="[5.0.0,6.0.0)",
- org.apache.log4j;bundle-version="[1.2.0,2.0.0)",
  org.osate.core;bundle-version="[4.0.0,5.0.0)";visibility:=reexport,
  org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.core.expressions;bundle-version="[3.6.200,4.0.0)"
@@ -18,5 +17,6 @@ Export-Package: org.osate.aadl2.modelsupport,
  org.osate.aadl2.modelsupport.util
 Bundle-Vendor: CMU/SEI
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Import-Package: org.eclipse.emf.transaction
+Import-Package: org.eclipse.emf.transaction,
+  org.apache.log4j;version="[1.2.19,2.0.0)"
 Automatic-Module-Name: org.osate.aadl2.modelsupport

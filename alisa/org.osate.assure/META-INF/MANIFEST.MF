@@ -49,7 +49,7 @@ Import-Package: com.rockwellcollins.atc.resolute.analysis.execution;resolution:=
  com.rockwellcollins.atc.resolute.analysis.views;resolution:=optional,
  com.rockwellcollins.atc.resolute.resolute;resolution:=optional,
  com.rockwellcollins.atc.resolute.validation;resolution:=optional,
- org.apache.log4j;version="[1.2.0,2.0.0)"
+ org.apache.log4j;version="[1.2.19,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.assure.assure,
  org.osate.assure.assure.impl,

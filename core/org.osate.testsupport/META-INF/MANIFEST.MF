@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui.ide;bundle-version="3.13.1",
  org.eclipse.xtext.junit4;bundle-version="2.20.0",
  org.junit;bundle-version="4.13.0";visibility:=reexport
 Import-Package: org.apache.commons.logging,
- org.apache.log4j;version="1.2.15",
+ org.apache.log4j;version="[1.2.19,2.0.0)",
  org.hamcrest.core,
  org.junit;version="4.5.0",
  org.junit.jupiter.api;version="5.6.0",
