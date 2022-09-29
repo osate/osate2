@@ -2752,6 +2752,9 @@ censes only apply to the Third Party Software and not any other portion of this 
         <generalization xmi:id="_WegLoL9xEemfm9dWGnR7ew">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
         </generalization>
+        <generalization xmi:id="_uovy8EA9Ee28P4eF_pNCHA">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Flows-FlowElement"/>
+        </generalization>
         <ownedAttribute xmi:id="Features-SubprogramAccess-subprogramClassifier" name="subprogramFeatureClassifier" visibility="public" type="_5fL3IKfLEeCYEIHXYlP5sg" association="Features-A_subprogramAccess_subprogramClassifier">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-SubprogramAccess-subprogramClassifier-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-SubprogramAccess-subprogramClassifier-_upperValue" value="1"/>
