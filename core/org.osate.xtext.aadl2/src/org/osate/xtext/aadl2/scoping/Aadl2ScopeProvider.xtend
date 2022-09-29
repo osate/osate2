@@ -713,6 +713,7 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	def private static allFlowElements(Classifier classifier) {
 		val ArrayList<FlowElement> flowElements = newArrayList
 		flowElements.addAll(classifier.getAllFeatures().filter(DataAccess))
+		flowElements.addAll(classifier.getAllFeatures().filter(SubprogramAccess))
 		switch classifier {
 			ComponentType:
 				flowElements.addAll(classifier.allFlowSpecifications)
