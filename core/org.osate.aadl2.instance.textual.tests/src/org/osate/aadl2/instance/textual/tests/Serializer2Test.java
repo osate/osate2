@@ -1018,8 +1018,7 @@ public class Serializer2Test extends AbstractSerializerTest {
 				system s1_i_Instance : pkg1::s1.i {
 					in out featureGroup fg1 : pkg1::s1:fg1 {
 						in out featureGroup fg2 : pkg1::fgt1:fg2
-						in out featureGroup fg3 [ 1 ] : pkg1::fgt1:fg3
-						in out featureGroup fg3 [ 2 ] : pkg1::fgt1:fg3
+						in out featureGroup fg3 : pkg1::fgt1:fg3
 					}
 					in eventPort p1 : pkg1::s1:p1
 					abstract pkg1::a1.i sub2 [ 0 ] : pkg1::s1.i:sub2 {
