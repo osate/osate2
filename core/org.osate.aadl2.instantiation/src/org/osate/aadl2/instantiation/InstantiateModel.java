@@ -935,18 +935,24 @@ public class InstantiateModel {
 				throw new InterruptedException();
 			}
 			final EList<ArrayDimension> dims = feature.getArrayDimensions();
-
-			if (dims.isEmpty()) {
-				fillFeatureInstance(ci, feature, false, 0);
+			boolean arrayAllowed = canBeArray(feature);
+			if (dims.isEmpty() || !arrayAllowed) {
+				var fi = fillFeatureInstance(ci, feature, false, 0);
+				if (!dims.isEmpty() && !arrayAllowed) {
+					errManager.warning(fi, "No array allowed here, instantiated as a single feature");
+				}
 			} else {
-				// feature dimension should always be one
 				class ArrayInstantiator {
 					void process(int dim) throws InterruptedException {
 						ArraySize arraySize = dims.get(dim).getSize();
 						long count = getElementCount(arraySize, ci);
 
 						for (int i = 1; i <= count; i++) {
-							fillFeatureInstance(ci, feature, false, i);
+							var fi = fillFeatureInstance(ci, feature, false, i);
+							if (i == 1 && dims.size() > 1) {
+								errManager.warning(fi,
+										"Feature array can have at most one dimension. Dimensions >1 ignored.");
+							}
 						}
 					}
 				}
@@ -955,7 +961,10 @@ public class InstantiateModel {
 		}
 	}
 
-	protected void fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse, int index)
+	/**
+	 * @since 3.0
+	 */
+	protected FeatureInstance fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse, int index)
 			throws InterruptedException {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 		fi.setName(feature.getName());
@@ -967,6 +976,7 @@ public class InstantiateModel {
 		fi.setDirection(getDirection(feature, inverse));
 
 		filloutFeatureInstance(fi, feature, inverse, index);
+		return fi;
 	}
 
 	/**
@@ -977,8 +987,9 @@ public class InstantiateModel {
 	 * @param inverse
 	 * @param index
 	 * @throws InterruptedException
+	 * @since 3.0
 	 */
-	protected void fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse, int index)
+	protected FeatureInstance fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse, int index)
 			throws InterruptedException {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 		fi.setName(feature.getName());
@@ -990,6 +1001,7 @@ public class InstantiateModel {
 
 		// must add before prototype resolution in fillFeatureInstance
 		filloutFeatureInstance(fi, feature, inverse, index);
+		return fi;
 	}
 
 	private DirectionType getDirection(Feature feature, boolean inverse) {
@@ -1155,24 +1167,24 @@ public class InstantiateModel {
 						+ "' has already been instantiated as enclosing feature group.");
 			} else {
 				final EList<ArrayDimension> dims = feature.getArrayDimensions();
-
-				if (dims.isEmpty()) {
-					fillFeatureInstance(fgi, feature, inverse, 0);
-				} else {
-					class ArrayInstantiator {
-						void process(int dim) throws InterruptedException {
-							ArraySize arraySize = dims.get(dim).getSize();
-							long count = getElementCount(arraySize, fgi.getContainingComponentInstance());
-
-							for (int i = 0; i < count; i++) {
-								fillFeatureInstance(fgi, feature, inverse, i + 1);
-							}
-						}
-					}
-					new ArrayInstantiator().process(0);
+				var fi = fillFeatureInstance(fgi, feature, inverse, 0);
+				if (!dims.isEmpty()) {
+					errManager.warning(fi, "No array allowed here, instantiated as a single feature");
 				}
 			}
 		}
+	}
+
+	private boolean canBeArray(Feature f) {
+		if (f.getOwner() instanceof Feature) {
+			return false;
+		} else if (f.getOwner() instanceof ComponentType ct) {
+			var cat = ct.getCategory();
+			return (cat == ComponentCategory.THREAD || cat == ComponentCategory.DEVICE
+					|| cat == ComponentCategory.PROCESSOR || cat == ComponentCategory.MEMORY
+					|| cat == ComponentCategory.SYSTEM || cat == ComponentCategory.ABSTRACT);
+		}
+		return false;
 	}
 
 	/*
