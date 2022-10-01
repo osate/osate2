@@ -10,11 +10,15 @@ package antlr;
  * The source for RecognitionException was found here:
  * https://github.com/nco/antlr2/blob/master/antlr/RecognitionException.java
  */
+/**
+ * @deprecated
+ */
+@Deprecated(since="5.0")
 @SuppressWarnings("serial")
 public class RecognitionException extends ANTLRException {
-	public String fileName;
-	public int line;
-	public int column;
+	private final String fileName;
+	private final int line;
+	private final int column;
 
 	public RecognitionException() {
 		this("parsing error");
@@ -24,7 +28,6 @@ public class RecognitionException extends ANTLRException {
 		this(message, null, -1, -1);
 	}
 
-	@Deprecated
 	public RecognitionException(String message, String fileName, int line) {
 		this(message, fileName, line, -1);
 	}
@@ -48,7 +51,6 @@ public class RecognitionException extends ANTLRException {
 		return column;
 	}
 
-	@Deprecated
 	public String getErrorMessage() {
 		return getMessage();
 	}
