@@ -881,8 +881,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {
 		var propagationInstances = new TreeMap<String, ErrorPropagationInstance>(String.CASE_INSENSITIVE_ORDER);
 		for (var ep : eps) {
-			var epi = propagationInstances.computeIfAbsent(EMV2Util.getPropagationName(ep),
-					name -> createErrorPropagationInstance(annex, name, ep));
+			var epi = propagationInstances.computeIfAbsent(EMV2Util.getPropagationName(ep), name -> {
+				try {
+					return createErrorPropagationInstance(annex, name, ep);
+				} catch (InternalFeatureEncounteredException e) {
+					return null;
+				}
+			});
 			if (epi == null) {
 				// This can happen if the propagation points to an InternalFeature. In that case, simply skip this one.
 				break;
@@ -907,7 +912,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ErrorPropagationInstance createErrorPropagationInstance(EMV2AnnexInstance annex, String name,
-			ErrorPropagation ep) {
+			ErrorPropagation ep) throws InternalFeatureEncounteredException {
 		ErrorPropagationInstance propagation;
 		if ("access".equalsIgnoreCase(ep.getKind())) {
 			propagation = createAccessPropagation(name);
@@ -922,7 +927,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				propagation = createPointPropagation(annex, name, point);
 			} else if (featureOrPP instanceof InternalFeature) {
 				// Propagation not instantiated since InternalFeatures are not instantiated.
-				return null;
+				throw new InternalFeatureEncounteredException();
 			} else {
 				throw new RuntimeException(
 						"featureorPPRef points to something other than a Feature, an InternalFeature, or a PropagationPoint: "
