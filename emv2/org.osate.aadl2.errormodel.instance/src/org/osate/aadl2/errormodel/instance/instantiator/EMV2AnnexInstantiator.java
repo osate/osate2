@@ -529,21 +529,26 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private void instantiateTransition(ErrorBehaviorTransition transition, ComponentInstance component,
 			EMV2AnnexInstance annex) {
-		var transitionInstance = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
-		transitionInstance.setTransition(transition);
-		transitionInstance.setSource(createStateSource(transition, annex));
-		transitionInstance.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
-		transitionInstance.setDestination(createTransitionDestination(transition, transitionInstance.getSource(),
-				transitionInstance.getCondition(), annex));
-		if (transition.getName() == null) {
-			var sourceName = transitionInstance.getSource().getName();
-			var conditionName = transitionInstance.getCondition().getName();
-			var destinationName = transitionInstance.getDestination().getName();
-			transitionInstance.setName(sourceName + " -[" + conditionName + "]-> " + destinationName);
-		} else {
-			transitionInstance.setName(transition.getName());
+		try {
+			var transitionInstance = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
+			transitionInstance.setTransition(transition);
+			transitionInstance.setSource(createStateSource(transition, annex));
+			transitionInstance
+					.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
+			transitionInstance.setDestination(createTransitionDestination(transition, transitionInstance.getSource(),
+					transitionInstance.getCondition(), annex));
+			if (transition.getName() == null) {
+				var sourceName = transitionInstance.getSource().getName();
+				var conditionName = transitionInstance.getCondition().getName();
+				var destinationName = transitionInstance.getDestination().getName();
+				transitionInstance.setName(sourceName + " -[" + conditionName + "]-> " + destinationName);
+			} else {
+				transitionInstance.setName(transition.getName());
+			}
+			annex.getTransitions().add(transitionInstance);
+		} catch (InternalFeatureEncounteredException e) {
+			// Abort instantiation of transition.
 		}
-		annex.getTransitions().add(transitionInstance);
 	}
 
 	private StateSource createStateSource(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
@@ -594,7 +599,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ConditionExpressionInstance createConditionExpressionInstance(ConditionExpression condition,
-			ComponentInstance component, EMV2AnnexInstance annex) {
+			ComponentInstance component, EMV2AnnexInstance annex) throws InternalFeatureEncounteredException {
 		if (condition instanceof OrExpression orExpression) {
 			return createCountExpression(orExpression.getOperands(), CountExpressionOperation.GREATER_EQUAL, 1,
 					component, annex);
@@ -648,7 +653,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ConditionExpressionInstance createConditionPropagationReference(ComponentInstance component,
-			EMV2PathElement path, TypeSet constraint) {
+			EMV2PathElement path, TypeSet constraint) throws InternalFeatureEncounteredException {
 		var currentComponent = component;
 		var namePrefix = new StringBuilder();
 		while (path.getNamedElement() instanceof Subcomponent subcomponent) {
@@ -662,6 +667,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		ErrorPropagationInstance propagationInstance;
 		if (path.getNamedElement() instanceof ErrorPropagation propagation) {
+			if (propagation.getFeatureorPPRef() != null
+					&& propagation.getFeatureorPPRef().getFeatureorPP() instanceof InternalFeature) {
+				throw new InternalFeatureEncounteredException();
+			}
 			var annex = findEMV2AnnexInstance(currentComponent);
 			if (annex == null) {
 				// Shouldn't happen if the declarative model is valid.
@@ -714,7 +723,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private CountExpression createCountExpression(List<? extends ConditionExpression> operands,
-			CountExpressionOperation operation, long count, ComponentInstance component, EMV2AnnexInstance annex) {
+			CountExpressionOperation operation, long count, ComponentInstance component, EMV2AnnexInstance annex)
+			throws InternalFeatureEncounteredException {
 		var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
 		for (var operand : operands) {
 			countExpression.getOperands().add(createConditionExpressionInstance(operand, component, annex));
@@ -1248,33 +1258,38 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// Detection not instantiated since InternalFeatures are not instantiated.
 			return;
 		}
-		DetectionInstance detectionInstance = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
-		detectionInstance.setDetection(detection);
-		detectionInstance.setSource(createStateSource(detection, annex));
-		if (detection.getCondition() != null) {
-			detectionInstance
-					.setCondition(createConditionExpressionInstance(detection.getCondition(), component, annex));
-		}
-		detectionInstance.setDestination(findFeatureInstance(detection.getDetectionReportingPort(), component));
-		if (detection.getErrorCode() != null) {
-			detectionInstance.setErrorCode(createErrorCodeInstance(detection.getErrorCode()));
-		}
-		if (detection.getName() == null) {
-			var sourceName = detectionInstance.getSource().getName();
-			var conditionName = "";
-			if (detectionInstance.getCondition() != null) {
-				conditionName = detectionInstance.getCondition().getName();
+		try {
+			DetectionInstance detectionInstance = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
+			detectionInstance.setDetection(detection);
+			detectionInstance.setSource(createStateSource(detection, annex));
+			if (detection.getCondition() != null) {
+				detectionInstance
+						.setCondition(createConditionExpressionInstance(detection.getCondition(), component, annex));
 			}
-			var destinationName = detectionInstance.getDestination().getName();
-			var codeName = "";
-			if (detectionInstance.getErrorCode() != null) {
-				codeName = " (" + detectionInstance.getErrorCode().getName() + ')';
+			detectionInstance.setDestination(findFeatureInstance(detection.getDetectionReportingPort(), component));
+			if (detection.getErrorCode() != null) {
+				detectionInstance.setErrorCode(createErrorCodeInstance(detection.getErrorCode()));
 			}
-			detectionInstance.setName(sourceName + " -[" + conditionName + "]-> " + destinationName + " !" + codeName);
-		} else {
-			detectionInstance.setName(detection.getName());
+			if (detection.getName() == null) {
+				var sourceName = detectionInstance.getSource().getName();
+				var conditionName = "";
+				if (detectionInstance.getCondition() != null) {
+					conditionName = detectionInstance.getCondition().getName();
+				}
+				var destinationName = detectionInstance.getDestination().getName();
+				var codeName = "";
+				if (detectionInstance.getErrorCode() != null) {
+					codeName = " (" + detectionInstance.getErrorCode().getName() + ')';
+				}
+				detectionInstance
+						.setName(sourceName + " -[" + conditionName + "]-> " + destinationName + " !" + codeName);
+			} else {
+				detectionInstance.setName(detection.getName());
+			}
+			annex.getDetections().add(detectionInstance);
+		} catch (InternalFeatureEncounteredException e) {
+			// Abort instantiation of detection.
 		}
-		annex.getDetections().add(detectionInstance);
 	}
 
 	private ErrorCodeInstance createErrorCodeInstance(ErrorCodeValue code) {

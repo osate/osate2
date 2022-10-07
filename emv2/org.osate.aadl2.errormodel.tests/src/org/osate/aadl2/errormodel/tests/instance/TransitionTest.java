@@ -2432,4 +2432,13 @@ public class TransitionTest {
 			});
 		});
 	}
+
+	@Test
+	public void testInternalFeaturePropagations() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "internal_feature_propagations.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		// Tests that transitions which refer to propagations which refer to internal features are not instantiated.
+		assertEquals(0, annexInstance.getTransitions().size());
+	}
 }
