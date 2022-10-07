@@ -1,0 +1,35 @@
+package internal_feature_condition
+public
+	system s
+		features
+			f1: feature;
+			f2: feature;
+	end s;
+	
+	system implementation s.i
+		internal features
+			es1: event;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior internal_feature_condition::machine1;
+			
+			error propagations
+				es1: in propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				detections
+					detection1: state1 -[es1]-> f1 !;
+					detection2: state2 -[es1 {noerror}]-> f2 !;
+			end component;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end internal_feature_condition;

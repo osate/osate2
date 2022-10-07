@@ -1,0 +1,34 @@
+package internal_feature_propagations
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		internal features
+			es1: event;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior internal_feature_propagations::machine1;
+			
+			error propagations
+				es1: in propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				transitions
+					transition1: state1 -[es1]-> state2;
+					transition2: state3 -[es1 {noerror}]-> state4;
+			end component;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+				state4: state;
+		end behavior;
+	**};
+end internal_feature_propagations;
