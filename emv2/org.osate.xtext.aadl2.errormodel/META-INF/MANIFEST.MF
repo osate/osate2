@@ -6,7 +6,6 @@ Bundle-Version: 7.0.0.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.errormodel; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
- org.apache.log4j;bundle-version="[1.2.15,2.0.0)";visibility:=reexport,
  org.apache.commons.logging;bundle-version="[1.0.4,2.0.0)";resolution:=optional;visibility:=reexport,
  org.eclipse.xtext.generator;bundle-version="[2.20.0,3.0.0)";resolution:=optional,
  org.eclipse.emf.codegen.ecore;bundle-version="[2.20.0,3.0.0)";resolution:=optional,
@@ -20,7 +19,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.osate.aadl2;bundle-version="[5.0.0,6.0.0)",
  org.osate.xtext.aadl2.properties;bundle-version="[3.1.0,4.0.0)";visibility:=reexport,
  org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
- org.osate.aadl2.modelsupport;bundle-version="[6.1.0,7.0.0)",
+ org.osate.aadl2.modelsupport;bundle-version="[7.0.0,8.0.0)",
  org.eclipse.ui;bundle-version="[3.7.0,4.0.0)",
  org.osate.annexsupport;bundle-version="[4.0.0,5.0.0)",
  org.objectweb.asm;bundle-version="[9.2.0,10.0.0)";resolution:=optional,
@@ -44,6 +43,6 @@ Export-Package: org.osate.xtext.aadl2.errormodel,
  org.osate.xtext.aadl2.errormodel.validation,
  org.osate.xtext.aadl2.errormodel.valueconversion,
  org.osate.xtext.aadl2.errormodel.formatting2
-Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
+Import-Package: org.apache.log4j;version="[1.2.19,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.osate.xtext.aadl2.errormodel

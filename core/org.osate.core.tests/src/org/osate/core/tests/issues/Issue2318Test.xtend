@@ -29,21 +29,20 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.Connection
 import org.osate.aadl2.PortConnection
 import org.osate.aadl2.ProcessImplementation
 import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.SystemType
+import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
-import static extension org.junit.Assert.*
-import org.osate.aadl2.SystemType
-import org.osate.aadl2.instance.ConnectionInstance
-import org.osate.aadl2.Connection
-import java.util.List
-import org.osate.aadl2.instance.ComponentInstance
+import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)

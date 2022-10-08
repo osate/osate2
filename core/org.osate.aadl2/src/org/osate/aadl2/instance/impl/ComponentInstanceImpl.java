@@ -28,11 +28,13 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -40,6 +42,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.ComponentCategory;
@@ -1084,7 +1087,10 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	}
 
 	public List<? extends NamedElement> getInstantiatedObjects() {
-		return Collections.singletonList(getSubcomponent());
+		if (getSubcomponent() != null) {
+			return Collections.singletonList(getSubcomponent());
+		}
+		return Collections.singletonList(getClassifier());
 	}
 
 	/**
@@ -1255,6 +1261,55 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			return true;
 		}
 		return false;
+	}
+
+	public Iterable<ConnectionInstance> allConnectionInstances() {
+		final TreeIterator<Object> iter = EcoreUtil.getAllContents(this, true);
+
+		return () -> new Iterator<>() {
+			ConnectionInstance next;
+
+			private boolean advance() {
+				boolean found = false;
+
+				next = null;
+				while (iter.hasNext()) {
+					Object obj = iter.next();
+					if (found = obj instanceof ConnectionInstance) {
+						next = (ConnectionInstance) obj;
+						iter.prune();
+						break;
+					}
+				}
+				return found;
+			}
+
+			public boolean hasNext() {
+				return next != null || advance();
+			}
+
+			public ConnectionInstance next() {
+				if (next == null && !advance()) {
+					throw new NoSuchElementException();
+				}
+				ConnectionInstance result = next;
+				next = null;
+				return result;
+			}
+
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
+		};
+	}
+
+	public EList<ConnectionInstance> getAllConnectionInstances() {
+		EList<ConnectionInstance> result = new BasicEList<>();
+
+		for (ConnectionInstance conni : allConnectionInstances()) {
+			result.add(conni);
+		}
+		return result;
 	}
 
 } // ComponentInstanceImpl

@@ -93,7 +93,6 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import org.osate.aadl2.DataPort
 import org.osate.aadl2.Port
 
 /**
