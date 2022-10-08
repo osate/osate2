@@ -45,6 +45,7 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.ProcessType;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.SystemType;
@@ -59,10 +60,11 @@ import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 class FlowSpecificationCreationUtil {
-	private static final ExecutableQuery<Object> COMPONENT_CLASSIFIER_OR_SUBCOMPONENT_QUERY = ExecutableQuery.create(
-			(root) -> root.ancestors()
-			.filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
-					|| fa.getBusinessObject() instanceof Subcomponent).first());
+	private static final ExecutableQuery<Object> COMPONENT_CLASSIFIER_OR_SUBCOMPONENT_QUERY = ExecutableQuery
+			.create((root) -> root.ancestors()
+					.filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
+							|| fa.getBusinessObject() instanceof Subcomponent)
+					.first());
 	private static final ExecutableQuery<Object> CONTEXT_QUERY = ExecutableQuery
 			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof FeatureGroup));
 
@@ -79,7 +81,8 @@ class FlowSpecificationCreationUtil {
 
 		// Check that the feature is of the appropriate type
 		if (!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess
-				|| feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
+				|| feature instanceof SubprogramAccess || feature instanceof FeatureGroup
+				|| feature instanceof AbstractFeature)) {
 			return false;
 		}
 
@@ -102,8 +105,7 @@ class FlowSpecificationCreationUtil {
 		return true;
 	}
 
-	public static List<ComponentType> getPotentialOwnersByFeature(
-			BusinessObjectContext featureBoc,
+	public static List<ComponentType> getPotentialOwnersByFeature(BusinessObjectContext featureBoc,
 			final QueryService queryService) {
 		Context context = getContext(featureBoc, queryService);
 		final Feature feature = (Feature) featureBoc.getBusinessObject();
@@ -118,9 +120,12 @@ class FlowSpecificationCreationUtil {
 		}
 		final Element bo = (Element) containerBoc.getBusinessObject();
 
-		return AadlUiUtil.getPotentialClassifierTypesForEditing(bo).stream()
-				.filter(tmpBo -> canOwnFlowSpecification(tmpBo)).map(ComponentType.class::cast)
-				.filter(ct -> hasFeatureWithName(ct, childName)).collect(Collectors.toList());
+		return AadlUiUtil.getPotentialClassifierTypesForEditing(bo)
+				.stream()
+				.filter(tmpBo -> canOwnFlowSpecification(tmpBo))
+				.map(ComponentType.class::cast)
+				.filter(ct -> hasFeatureWithName(ct, childName))
+				.collect(Collectors.toList());
 	}
 
 	static Context getContext(final BusinessObjectContext featureBoc, final QueryService queryService) {
