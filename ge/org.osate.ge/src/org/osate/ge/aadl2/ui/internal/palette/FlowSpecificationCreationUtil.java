@@ -65,7 +65,7 @@ class FlowSpecificationCreationUtil {
 							|| fa.getBusinessObject() instanceof Subcomponent)
 					.first());
 	private static final ExecutableQuery<Object> CONTEXT_QUERY = ExecutableQuery
-			.create(root -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof FeatureGroup));
+			.create(root -> root.ancestors().filter(fa -> fa.getBusinessObject() instanceof FeatureGroup));
 
 	/**
 	 * Returns whether a specified feature diagram element may be used as a flow end for a flow specification.
