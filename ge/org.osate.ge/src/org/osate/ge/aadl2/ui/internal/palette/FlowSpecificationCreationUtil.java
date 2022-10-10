@@ -25,7 +25,6 @@ package org.osate.ge.aadl2.ui.internal.palette;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AbstractType;
@@ -61,12 +60,12 @@ import org.osate.ge.services.QueryService;
 
 class FlowSpecificationCreationUtil {
 	private static final ExecutableQuery<Object> COMPONENT_CLASSIFIER_OR_SUBCOMPONENT_QUERY = ExecutableQuery
-			.create((root) -> root.ancestors()
-					.filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
+			.create(root -> root.ancestors()
+					.filter(fa -> fa.getBusinessObject() instanceof ComponentClassifier
 							|| fa.getBusinessObject() instanceof Subcomponent)
 					.first());
 	private static final ExecutableQuery<Object> CONTEXT_QUERY = ExecutableQuery
-			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof FeatureGroup));
+			.create(root -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof FeatureGroup));
 
 	/**
 	 * Returns whether a specified feature diagram element may be used as a flow end for a flow specification.
@@ -122,10 +121,10 @@ class FlowSpecificationCreationUtil {
 
 		return AadlUiUtil.getPotentialClassifierTypesForEditing(bo)
 				.stream()
-				.filter(tmpBo -> canOwnFlowSpecification(tmpBo))
+				.filter(FlowSpecificationCreationUtil::canOwnFlowSpecification)
 				.map(ComponentType.class::cast)
 				.filter(ct -> hasFeatureWithName(ct, childName))
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	static Context getContext(final BusinessObjectContext featureBoc, final QueryService queryService) {

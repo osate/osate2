@@ -1612,7 +1612,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								if (connection.isAllBidirectional()) {
 									ce = connection.getAllLastDestination();
 									cxt = connection.getAllDestinationContext();
-									connectedElement = connection.getRootConnection().getDestination();
 									if (cxt == null && prevFlowElement == ce) {
 										didReverse = true;
 									} else {

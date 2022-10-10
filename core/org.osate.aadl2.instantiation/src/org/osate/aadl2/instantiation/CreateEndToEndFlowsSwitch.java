@@ -711,9 +711,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					if (conni.getDestination() instanceof ComponentInstance) {
 						target = (ComponentInstance) conni.getDestination();
 
-						if (target.getCategory() == ComponentCategory.DATA) {
-							leaf = target.getSubcomponent();
-						} else if (target.getCategory() == ComponentCategory.SUBPROGRAM) {
+						if (target.getCategory() == ComponentCategory.DATA
+								|| target.getCategory() == ComponentCategory.SUBPROGRAM) {
 							leaf = target.getSubcomponent();
 						}
 					} else {
@@ -742,15 +741,15 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						if (iter.hasNext()) {
 							Element obj = iter.next();
 							Connection nextConn = null;
-							if (obj instanceof FlowSegment) {
-								FlowElement fe = ((FlowSegment) obj).getFlowElement();
-								if (fe instanceof Connection) {
-									nextConn = (Connection) fe;
+							if (obj instanceof FlowSegment fs) {
+								FlowElement fe = fs.getFlowElement();
+								if (fe instanceof Connection c) {
+									nextConn = c;
 								}
-							} else if (obj instanceof EndToEndFlowSegment) {
-								EndToEndFlowElement fe = ((EndToEndFlowSegment) obj).getFlowElement();
-								if (fe instanceof Connection) {
-									nextConn = (Connection) fe;
+							} else if (obj instanceof EndToEndFlowSegment eefs) {
+								EndToEndFlowElement fe = eefs.getFlowElement();
+								if (fe instanceof Connection c) {
+									nextConn = c;
 								}
 							}
 							if (nextConn != null) {
