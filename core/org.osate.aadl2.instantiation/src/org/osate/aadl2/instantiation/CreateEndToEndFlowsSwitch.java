@@ -37,6 +37,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Access;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
@@ -54,6 +55,7 @@ import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.ThreadClassifier;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -331,8 +333,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			} else if (fe instanceof Subcomponent) {
 				ComponentInstance sci = ci.findSubcomponentInstance((Subcomponent) fe);
 				processFlowStep(sci, etei, fe, iter);
-			} else if (fe instanceof DataAccess) {
-				processDataAccess(ci, etei, (DataAccess) fe, iter);
+			} else if (fe instanceof DataAccess da) {
+				processAccess(ci, etei, da, iter);
+			} else if (fe instanceof SubprogramAccess sa) {
+				processAccess(ci, etei, sa, iter);
 			} else if (fe instanceof EndToEndFlow) {
 				processEndToEndFlow(ci, etei, (EndToEndFlow) fe, iter);
 			}
@@ -679,17 +683,17 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param fe
 	 * @param iter
 	 */
-	private void processDataAccess(ComponentInstance ci, EndToEndFlowInstance etei, DataAccess da, FlowIterator iter) {
+	private void processAccess(ComponentInstance ci, EndToEndFlowInstance etei, Access a, FlowIterator iter) {
 		// add connection(s), will be empty when starting the ETE
 		if (connections.isEmpty()) {
-			addLeafElement(ci, etei, da);
+			addLeafElement(ci, etei, a);
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 		} else {
 			List<ConnectionInstance> connis = collectConnectionInstances(ci, etei);
 
 			if (connis.isEmpty()) {
 				error(etei, "Incomplete end-to-end flow instance " + etei.getName()
-						+ ": Missing connection instance to " + ((NamedElement) da).getName());
+						+ ": Missing connection instance to " + ((NamedElement) a).getName());
 				connections.clear();
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
@@ -707,14 +711,15 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					if (conni.getDestination() instanceof ComponentInstance) {
 						target = (ComponentInstance) conni.getDestination();
 
-						if (target.getCategory() == ComponentCategory.DATA) {
+						if (target.getCategory() == ComponentCategory.DATA
+								|| target.getCategory() == ComponentCategory.SUBPROGRAM) {
 							leaf = target.getSubcomponent();
 						}
 					} else {
 						if (!errorReported) {
 							errorReported = true;
-							error(etei, "Data access feature " + da.getQualifiedName()
-									+ " is not a proxy for a data component.");
+							error(etei, "Access feature " + a.getQualifiedName()
+									+ " is not a proxy for a data or subprogram component.");
 						}
 					}
 
@@ -736,15 +741,15 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						if (iter.hasNext()) {
 							Element obj = iter.next();
 							Connection nextConn = null;
-							if (obj instanceof FlowSegment) {
-								FlowElement fe = ((FlowSegment) obj).getFlowElement();
-								if (fe instanceof Connection) {
-									nextConn = (Connection) fe;
+							if (obj instanceof FlowSegment fs) {
+								FlowElement fe = fs.getFlowElement();
+								if (fe instanceof Connection c) {
+									nextConn = c;
 								}
-							} else if (obj instanceof EndToEndFlowSegment) {
-								EndToEndFlowElement fe = ((EndToEndFlowSegment) obj).getFlowElement();
-								if (fe instanceof Connection) {
-									nextConn = (Connection) fe;
+							} else if (obj instanceof EndToEndFlowSegment eefs) {
+								EndToEndFlowElement fe = eefs.getFlowElement();
+								if (fe instanceof Connection c) {
+									nextConn = c;
 								}
 							}
 							if (nextConn != null) {
