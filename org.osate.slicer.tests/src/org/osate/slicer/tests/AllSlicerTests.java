@@ -31,7 +31,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ SuperBasicTests.class, BasicHierarchyTests.class, BasicEndToEndFlowTests.class,
 		BasicErrorFlowTests.class, BasicErrorTransformFlowTests.class, ErrorFlowWithExtraPropagationsTests.class,
 		ErrorFlowWithSetTests.class, BasicBindingTests.class, BasicAccessTests.class,
-		BasicPointPropagationTests.class })
+		BasicPointPropagationTests.class, UnusedElementTests.class })
 public class AllSlicerTests {
 
 }

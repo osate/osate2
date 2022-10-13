@@ -77,6 +77,8 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
+import org.osate.slicer.assumptions.AssumptionCheckResult;
+import org.osate.slicer.assumptions.UnusedElementDetector;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -127,7 +129,12 @@ public class SlicerRepresentation {
 	 * Actual propagations will be calculated using this + explicit sources, sinks, and
 	 * flow paths in the {@link #calculateFixpoint()} method
 	 */
-	private Map<String, PossiblePropagation> possiblePropagations = new HashMap<>();
+	private Map<String, Collection<PossiblePropagation>> possiblePropagations = new HashMap<>();
+
+	/**
+	 * Results of checking various assumptions about the graph
+	 */
+	private AssumptionCheckResult acr;
 
 	public void buildGraph(SystemInstance si) {
 		// Add vertices and explicit edges from core AADL
@@ -152,10 +159,39 @@ public class SlicerRepresentation {
 		// Create a separate reversed graph, rather than a wrapper, saving CPU at the expense of memory
 		Graphs.addGraphReversed(rg, g);
 
+		// Run checks on the generated graph to see if there are any obvious problems / assumption violations
+		checkAssumptions();
+
 		// Debugging info, remove at-will
 		System.out.println(this.toDot(g));
 
 //		System.out.println(this.toDot(backwardReachability("MyCar_CruiseControl_Instance.ta.to_throttle.Incident")));
+	}
+
+	/**
+	 * Initiates assumption checks. All results are put into the AssumptionCheckResult field.
+	 */
+	private void checkAssumptions() {
+		UnusedElementDetector ued = new UnusedElementDetector(g, rg);
+		this.acr = ued.checkAssumptions();
+	}
+
+	/**
+	 * Gets error sources which can propagate into paths that do not terminate in sinks.
+	 *
+	 * @return Error source vertices which propagate tokens into paths that do not terminate in error sinks
+	 */
+	public Collection<OsateSlicerVertex> getNonTerminatingSourceVertices() {
+		return acr.getNonTerminatingSourceVertices();
+	}
+
+	/**
+	 * Gets error sinks which are not reachable from error sources.
+	 *
+	 * @return Error sink vertices which consume tokens via paths that do not begin in error sources
+	 */
+	public Collection<OsateSlicerVertex> getUnreachableSinkVertices() {
+		return acr.getUnreachableSinkVertices();
 	}
 
 	/**
@@ -513,19 +549,28 @@ public class SlicerRepresentation {
 			edgesModified = false;
 			for (OsateSlicerVertex srcVrt : sourcePropagations) {
 				LinkedList<DefaultEdge> edges = new LinkedList<>();
-				edges.addAll(g.outgoingEdgesOf(srcVrt));
+				var outgoingEdges = g.outgoingEdgesOf(srcVrt);
+				edges.addAll(outgoingEdges);
 				while (edges.size() > 0) {
 					DefaultEdge e = edges.pop();
 					OsateSlicerVertex dstVrt = g.getEdgeTarget(e);
 					edges.addAll(0, g.outgoingEdgesOf(dstVrt));
 					String componentName = dstVrt.getName().substring(0, dstVrt.getName().lastIndexOf('.'));
 					if (possiblePropagations.containsKey(componentName)) {
-						Optional<String> tgt = possiblePropagations.get(componentName).getTarget(dstVrt);
-						if (tgt.isPresent() && !g.containsEdge(dstVrt, vertexMap.get(tgt.get()))) {
-							edgesModified = true;
-							addEdge(dstVrt.getName(), tgt.get());
-							edges.push(g.getEdge(dstVrt, vertexMap.get(tgt.get())));
+						for (var propagation : possiblePropagations.get(componentName)) {
+							Optional<String> tgt = propagation.getTarget(dstVrt);
+							if (tgt.isPresent() && !g.containsEdge(dstVrt, vertexMap.get(tgt.get()))) {
+								edgesModified = true;
+								addEdge(dstVrt.getName(), tgt.get());
+								edges.push(g.getEdge(dstVrt, vertexMap.get(tgt.get())));
+							}
 						}
+//						Optional<String> tgt = possiblePropagations.get(componentName).getTarget(dstVrt);
+//						if (tgt.isPresent() && !g.containsEdge(dstVrt, vertexMap.get(tgt.get()))) {
+//							edgesModified = true;
+//							addEdge(dstVrt.getName(), tgt.get());
+//							edges.push(g.getEdge(dstVrt, vertexMap.get(tgt.get())));
+//						}
 					}
 				}
 			}
@@ -655,7 +700,10 @@ public class SlicerRepresentation {
 			} else if (ppi instanceof UserDefinedPath) {
 				srcName = ((UserDefinedPath) ppi).getSourcePropagation().getInstanceObjectPath().replace(".EMV2", "");
 			}
-			possiblePropagations.put(srcName, new PossiblePropagation(ppi));
+			if (!possiblePropagations.containsKey(srcName)) {
+				possiblePropagations.put(srcName, new HashSet<>());
+			}
+			possiblePropagations.get(srcName).add(new PossiblePropagation(ppi));
 			return null;
 		}
 	}
