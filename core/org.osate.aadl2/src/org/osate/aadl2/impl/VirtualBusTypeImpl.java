@@ -111,6 +111,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualBusType();
 	}
@@ -120,8 +121,9 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Feature> getOwnedFeatures() {
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -143,9 +145,10 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
-			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
+			ownedDataPorts = new EObjectContainmentEList<>(DataPort.class, this,
 					Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT);
 		}
 		return ownedDataPorts;
@@ -167,9 +170,10 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
-			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
+			ownedEventDataPorts = new EObjectContainmentEList<>(EventDataPort.class, this,
 					Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT);
 		}
 		return ownedEventDataPorts;
@@ -191,9 +195,10 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
-			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
+			ownedEventPorts = new EObjectContainmentEList<>(EventPort.class, this,
 					Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT);
 		}
 		return ownedEventPorts;
@@ -215,9 +220,10 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
-			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+			ownedBusAccesses = new EObjectContainmentEList<>(BusAccess.class, this,
 					Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_BUS_ACCESS);
 		}
 		return ownedBusAccesses;
@@ -239,6 +245,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
@@ -258,6 +265,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
@@ -278,6 +286,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
@@ -305,6 +314,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
@@ -328,6 +338,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_FEATURE:
@@ -349,6 +360,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedFeatures() {
 		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT)
 				|| eIsSet(Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT)

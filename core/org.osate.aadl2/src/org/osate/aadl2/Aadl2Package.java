@@ -6524,7 +6524,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_END__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * The feature id for the '<em><b>Context</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23485,13 +23485,22 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Owned Virtual Bus Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Memory Implementation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MEMORY_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
+	int MEMORY_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -38030,10 +38039,10 @@ public interface Aadl2Package extends EPackage {
 	EClass getFlowEnd();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.FlowEnd#getContext <em>Context</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.FlowEnd#getContext <em>Context</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Context</em>'.
+	 * @return the meta object for the containment reference '<em>Context</em>'.
 	 * @see org.osate.aadl2.FlowEnd#getContext()
 	 * @see #getFlowEnd()
 	 * @generated
@@ -40656,6 +40665,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getMemoryImplementation_OwnedMemorySubcomponent();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.MemoryImplementation#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Owned Virtual Bus Subcomponent</em>'.
+	 * @see org.osate.aadl2.MemoryImplementation#getOwnedVirtualBusSubcomponents()
+	 * @see #getMemoryImplementation()
+	 * @generated
+	 */
+	EReference getMemoryImplementation_OwnedVirtualBusSubcomponent();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.MemoryPrototype <em>Memory Prototype</em>}'.

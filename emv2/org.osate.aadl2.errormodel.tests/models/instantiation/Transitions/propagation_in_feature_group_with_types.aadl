@@ -1,0 +1,49 @@
+package propagation_in_feature_group_with_types
+public
+	system s
+		features
+			fg1: feature group fgt1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior propagation_in_feature_group_with_types::machine1;
+			
+			error propagations
+				fg1.f1: in propagation {CommonErrors};
+				fg1.fg2.fg3.f2: in propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				transitions
+					transition1: state1 -[fg1.f1 {ServiceError}]-> state2;
+					transition2: state1 -[fg1.fg2.fg3.f2 {ServiceError}]-> state2;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	feature group fgt1
+		features
+			f1: in feature;
+			fg2: feature group fgt2;
+	end fgt1;
+	
+	feature group fgt2
+		features
+			fg3: feature group fgt3;
+	end fgt2;
+	
+	feature group fgt3
+		features
+			f2: in feature;
+	end fgt3;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end propagation_in_feature_group_with_types;

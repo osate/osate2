@@ -1011,7 +1011,7 @@ class FTATest {
 		assertEquals(ft.events.size, 6)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		assertEquals(ft.root.computedProbability.doubleValue, 1.04e-1, 0.01)
-		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
+		assertEquals(ft.root.subEvents.get(1).subEventLogic, LogicOperation.KORMORE)
 	}
 
 	@Test
@@ -1020,7 +1020,7 @@ class FTATest {
 		assertEquals(ft.events.size, 6)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		assertEquals(ft.root.computedProbability.doubleValue, 0.0414, 0.01)
-		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
+		assertEquals(ft.root.subEvents.get(1).subEventLogic, LogicOperation.KORMORE)
 	}
 
 	@Test
@@ -1029,7 +1029,7 @@ class FTATest {
 		assertEquals(ft.events.size, 6)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		assertEquals(ft.root.computedProbability.doubleValue, 0.0414, 0.01)
-		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
+		assertEquals(ft.root.subEvents.get(1).subEventLogic, LogicOperation.KORMORE)
 	}
 
 	@Test

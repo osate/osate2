@@ -333,6 +333,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentImplementation();
 	}
@@ -342,8 +343,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -352,8 +354,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
@@ -362,8 +365,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -372,8 +376,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Classifier> getGenerals() {
-		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
+		return new DerivedUnionEObjectEList<>(Classifier.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL, GENERAL_ESUBSETS);
 	}
 
@@ -439,8 +444,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Generalization> getGeneralizations() {
-		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
+		return new DerivedUnionEObjectEList<>(Generalization.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__GENERALIZATION, GENERALIZATION_ESUBSETS);
 	}
 
@@ -449,6 +455,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoSubcomponents() {
 		return noSubcomponents;
 	}
@@ -458,6 +465,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoSubcomponents(boolean newNoSubcomponents) {
 		boolean oldNoSubcomponents = noSubcomponents;
 		noSubcomponents = newNoSubcomponents;
@@ -472,6 +480,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoCalls() {
 		return noCalls;
 	}
@@ -481,6 +490,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoCalls(boolean newNoCalls) {
 		boolean oldNoCalls = noCalls;
 		noCalls = newNoCalls;
@@ -495,9 +505,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventSource> getOwnedEventSources() {
 		if (ownedEventSources == null) {
-			ownedEventSources = new EObjectContainmentEList<EventSource>(EventSource.class, this,
+			ownedEventSources = new EObjectContainmentEList<>(EventSource.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE);
 		}
 		return ownedEventSources;
@@ -519,9 +530,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventDataSource> getOwnedEventDataSources() {
 		if (ownedEventDataSources == null) {
-			ownedEventDataSources = new EObjectContainmentEList<EventDataSource>(EventDataSource.class, this,
+			ownedEventDataSources = new EObjectContainmentEList<>(EventDataSource.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE);
 		}
 		return ownedEventDataSources;
@@ -543,9 +555,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PortProxy> getOwnedPortProxies() {
 		if (ownedPortProxies == null) {
-			ownedPortProxies = new EObjectContainmentEList<PortProxy>(PortProxy.class, this,
+			ownedPortProxies = new EObjectContainmentEList<>(PortProxy.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY);
 		}
 		return ownedPortProxies;
@@ -567,9 +580,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramProxy> getOwnedSubprogramProxies() {
 		if (ownedSubprogramProxies == null) {
-			ownedSubprogramProxies = new EObjectContainmentEList<SubprogramProxy>(SubprogramProxy.class, this,
+			ownedSubprogramProxies = new EObjectContainmentEList<>(SubprogramProxy.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY);
 		}
 		return ownedSubprogramProxies;
@@ -591,6 +605,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoConnections() {
 		return noConnections;
 	}
@@ -600,6 +615,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoConnections(boolean newNoConnections) {
 		boolean oldNoConnections = noConnections;
 		noConnections = newNoConnections;
@@ -658,9 +674,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FlowImplementation> getOwnedFlowImplementations() {
 		if (ownedFlowImplementations == null) {
-			ownedFlowImplementations = new EObjectContainmentEList<FlowImplementation>(FlowImplementation.class, this,
+			ownedFlowImplementations = new EObjectContainmentEList<>(FlowImplementation.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION);
 		}
 		return ownedFlowImplementations;
@@ -687,7 +704,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public EList<Connection> getOwnedConnections() {
 		// DONE: Implemented
 		// DB: The returned list must be an EStructuralFeature.Setting
-		final EList<Connection> connections = new NonNotifyingEObjectEList<Connection>(Connection.class, this,
+		final EList<Connection> connections = new NonNotifyingEObjectEList<>(Connection.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION);
 		// BasicInternalEList<Connection> connections = new BasicInternalEList<Connection>(
 		// Connection.class);
@@ -731,8 +748,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ProcessorFeature> getOwnedProcessorFeatures() {
-		return new DerivedUnionEObjectEList<ProcessorFeature>(ProcessorFeature.class, this,
+		return new DerivedUnionEObjectEList<>(ProcessorFeature.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_FEATURE, OWNED_PROCESSOR_FEATURE_ESUBSETS);
 	}
 
@@ -753,8 +771,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<InternalFeature> getOwnedInternalFeatures() {
-		return new DerivedUnionEObjectEList<InternalFeature>(InternalFeature.class, this,
+		return new DerivedUnionEObjectEList<>(InternalFeature.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE, OWNED_INTERNAL_FEATURE_ESUBSETS);
 	}
 
@@ -818,6 +837,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ImplementationExtension getOwnedExtension() {
 		return ownedExtension;
 	}
@@ -847,6 +867,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedExtension(ImplementationExtension newOwnedExtension) {
 		if (newOwnedExtension != ownedExtension) {
 			NotificationChain msgs = null;
@@ -885,6 +906,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Realization getOwnedRealization() {
 		return ownedRealization;
 	}
@@ -914,6 +936,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedRealization(Realization newOwnedRealization) {
 		if (newOwnedRealization != ownedRealization) {
 			NotificationChain msgs = null;
@@ -952,9 +975,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AbstractSubcomponent> getOwnedAbstractSubcomponents() {
 		if (ownedAbstractSubcomponents == null) {
-			ownedAbstractSubcomponents = new EObjectContainmentEList<AbstractSubcomponent>(AbstractSubcomponent.class,
+			ownedAbstractSubcomponents = new EObjectContainmentEList<>(AbstractSubcomponent.class,
 					this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT);
 		}
 		return ownedAbstractSubcomponents;
@@ -977,9 +1001,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AccessConnection> getOwnedAccessConnections() {
 		if (ownedAccessConnections == null) {
-			ownedAccessConnections = new EObjectContainmentEList<AccessConnection>(AccessConnection.class, this,
+			ownedAccessConnections = new EObjectContainmentEList<>(AccessConnection.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION);
 		}
 		return ownedAccessConnections;
@@ -1002,9 +1027,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ParameterConnection> getOwnedParameterConnections() {
 		if (ownedParameterConnections == null) {
-			ownedParameterConnections = new EObjectContainmentEList<ParameterConnection>(ParameterConnection.class,
+			ownedParameterConnections = new EObjectContainmentEList<>(ParameterConnection.class,
 					this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION);
 		}
 		return ownedParameterConnections;
@@ -1027,9 +1053,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PortConnection> getOwnedPortConnections() {
 		if (ownedPortConnections == null) {
-			ownedPortConnections = new EObjectContainmentEList<PortConnection>(PortConnection.class, this,
+			ownedPortConnections = new EObjectContainmentEList<>(PortConnection.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION);
 		}
 		return ownedPortConnections;
@@ -1051,9 +1078,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FeatureConnection> getOwnedFeatureConnections() {
 		if (ownedFeatureConnections == null) {
-			ownedFeatureConnections = new EObjectContainmentEList<FeatureConnection>(FeatureConnection.class, this,
+			ownedFeatureConnections = new EObjectContainmentEList<>(FeatureConnection.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION);
 		}
 		return ownedFeatureConnections;
@@ -1076,9 +1104,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FeatureGroupConnection> getOwnedFeatureGroupConnections() {
 		if (ownedFeatureGroupConnections == null) {
-			ownedFeatureGroupConnections = new EObjectContainmentEList<FeatureGroupConnection>(
+			ownedFeatureGroupConnections = new EObjectContainmentEList<>(
 					FeatureGroupConnection.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION);
 		}
@@ -1102,9 +1131,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EndToEndFlow> getOwnedEndToEndFlows() {
 		if (ownedEndToEndFlows == null) {
-			ownedEndToEndFlows = new EObjectContainmentEList<EndToEndFlow>(EndToEndFlow.class, this,
+			ownedEndToEndFlows = new EObjectContainmentEList<>(EndToEndFlow.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW);
 		}
 		return ownedEndToEndFlows;
@@ -1126,6 +1156,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
@@ -1165,6 +1196,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
@@ -1229,6 +1261,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
@@ -1309,6 +1342,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
@@ -1377,6 +1411,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL:
@@ -1442,6 +1477,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -1463,6 +1499,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetGenerals() {
 		return super.isSetGenerals() || eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE)
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED);
@@ -1482,6 +1519,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetClassifierFeatures() {
 		return super.isSetClassifierFeatures() || isSetOwnedSubcomponents()
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION) || isSetOwnedConnections()
@@ -1494,6 +1532,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || isSetOwnedSubcomponents() || isSetOwnedConnections()
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW) || isSetOwnedProcessorFeatures()
@@ -1518,6 +1557,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetGeneralizations() {
 		return super.isSetGeneralizations() || eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION)
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION);
@@ -1588,7 +1628,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<Connection> getAllConnections() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<Connection> returnlist = new BasicEList<Connection>();
+		final BasicEList<Connection> returnlist = new BasicEList<>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentImplementation current = (ComponentImplementation) li.previous();
@@ -1618,7 +1658,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @return EList connections with feature as source
 	 */
 	public EList<Connection> getIngoingConnections(Feature feature) {
-		EList<Connection> result = new BasicEList<Connection>();
+		EList<Connection> result = new BasicEList<>();
 
 		for (Connection conn : getAllConnections()) {
 			List<Feature> features = feature.getAllFeatureRefinements();
@@ -1695,7 +1735,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	// work.
 	public EList<Mode> getAllModes() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<Mode> returnlist = new BasicEList<Mode>();
+		final BasicEList<Mode> returnlist = new BasicEList<>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentImplementation current = (ComponentImplementation) it.next();
 			returnlist.addAll(current.getOwnedModes());
@@ -1721,7 +1761,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<ModeTransition> getAllModeTransitions() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<ModeTransition> returnlist = new BasicEList<ModeTransition>();
+		final BasicEList<ModeTransition> returnlist = new BasicEList<>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentImplementation current = (ComponentImplementation) it.next();
 			returnlist.addAll(current.getOwnedModeTransitions());
@@ -1746,7 +1786,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
 	public EList<Prototype> getAllPrototypes() {
-		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
+		final BasicEList<Prototype> returnlist = new BasicEList<>();
 
 		ComponentType type = getType();
 		if (Aadl2Util.isNull(type)) {
@@ -1800,7 +1840,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<EndToEndFlow> getAllEndToEndFlows() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<EndToEndFlow> returnlist = new BasicEList<EndToEndFlow>();
+		final BasicEList<EndToEndFlow> returnlist = new BasicEList<>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentImplementation current = (ComponentImplementation) li.previous();
@@ -1821,7 +1861,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<FlowImplementation> getAllFlowImplementations() {
-		final BasicEList<FlowImplementation> result = new BasicEList<FlowImplementation>();
+		final BasicEList<FlowImplementation> result = new BasicEList<>();
 
 		for (Classifier current : getSelfPlusAllExtended()) {
 			result.addAll(((ComponentImplementation) current).getOwnedFlowImplementations());
@@ -1864,7 +1904,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 		// extended implementations
 		// avoid loops
-		final Set<ComponentImplementation> seen = new HashSet<ComponentImplementation>();
+		final Set<ComponentImplementation> seen = new HashSet<>();
 		ComponentImplementation currentImpl = getExtended();
 		while (currentImpl != null && !seen.contains(currentImpl)) {
 			if (pas.addLocal(currentImpl)) {
@@ -1944,7 +1984,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	public EList<Connection> getOwnedConnections(Mode mode) {
 		EList<Connection> cl = getOwnedConnections();
-		EList<Connection> result = new BasicEList<Connection>();
+		EList<Connection> result = new BasicEList<>();
 		for (Connection cn : cl) {
 			EList<Mode> inModes = cn.getAllInModes();
 			if (inModes.isEmpty() || inModes.contains(mode)) {
@@ -1963,7 +2003,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	public EList<Connection> getAllConnections(Mode mode) {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<Connection> returnlist = new BasicEList<Connection>();
+		final BasicEList<Connection> returnlist = new BasicEList<>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentImplementation current = (ComponentImplementation) li.previous();
@@ -2021,7 +2061,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @see org.osate.aadl2.ComponentImplementation#getAllInternalFeatures()
 	 */
 	public EList<InternalFeature> getAllInternalFeatures() {
-		final BasicEList<InternalFeature> result = new BasicEList<InternalFeature>();
+		final BasicEList<InternalFeature> result = new BasicEList<>();
 		result.addAll(getAllEventSources());
 		result.addAll(getAllEventDataSources());
 		return result;
@@ -2034,7 +2074,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	public EList<EventSource> getAllEventSources() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<EventSource> result = new BasicEList<EventSource>();
+		final BasicEList<EventSource> result = new BasicEList<>();
 		for (Classifier classifier : ancestors) {
 			final ComponentImplementation current = (ComponentImplementation) classifier;
 			result.addAll(current.getOwnedEventSources());
@@ -2049,7 +2089,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	public EList<EventDataSource> getAllEventDataSources() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<EventDataSource> result = new BasicEList<EventDataSource>();
+		final BasicEList<EventDataSource> result = new BasicEList<>();
 		for (Classifier classifier : ancestors) {
 			final ComponentImplementation current = (ComponentImplementation) classifier;
 			result.addAll(current.getOwnedEventDataSources());
@@ -2063,7 +2103,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @see org.osate.aadl2.ComponentImplementation#getAllProcessorFeatures()
 	 */
 	public EList<ProcessorFeature> getAllProcessorFeatures() {
-		final BasicEList<ProcessorFeature> result = new BasicEList<ProcessorFeature>();
+		final BasicEList<ProcessorFeature> result = new BasicEList<>();
 		result.addAll(getAllPortProxies());
 		result.addAll(getAllSubprogramProxies());
 		return result;
@@ -2076,7 +2116,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	public EList<PortProxy> getAllPortProxies() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<PortProxy> result = new BasicEList<PortProxy>();
+		final BasicEList<PortProxy> result = new BasicEList<>();
 		for (Classifier classifier : ancestors) {
 			final ComponentImplementation current = (ComponentImplementation) classifier;
 			result.addAll(current.getOwnedPortProxies());
@@ -2091,7 +2131,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	public EList<SubprogramProxy> getAllSubprogramProxies() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<SubprogramProxy> result = new BasicEList<SubprogramProxy>();
+		final BasicEList<SubprogramProxy> result = new BasicEList<>();
 		for (Classifier classifier : ancestors) {
 			final ComponentImplementation current = (ComponentImplementation) classifier;
 			result.addAll(current.getOwnedSubprogramProxies());

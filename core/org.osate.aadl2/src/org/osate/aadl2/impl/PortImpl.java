@@ -66,6 +66,7 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPort();
 	}
@@ -75,6 +76,7 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PortCategory getCategory() {
 		// TODO: implement this method to return the 'Category' attribute
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -86,6 +88,7 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PORT__CATEGORY:
@@ -99,6 +102,7 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PORT__CATEGORY:

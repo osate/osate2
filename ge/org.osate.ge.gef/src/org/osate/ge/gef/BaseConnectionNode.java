@@ -130,6 +130,9 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 
 		// Apply initial style
 		apply(FxStyle.DEFAULT);
+
+		// Set view order so that connections are drawn on top of siblings.
+		setViewOrder(-1.0);
 	}
 
 	/**

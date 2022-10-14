@@ -1,0 +1,27 @@
+package or_less_expression
+public
+	system s
+		annex EMV2 {**
+			use behavior or_less_expression::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error1: error event;
+				error2: error event;
+				error3: error event;
+				error4: error event;
+				error5: error event;
+			states
+				state1: initial state;
+				state2: state;
+			transitions
+				transition1: state1 -[3 orless (error1, error2, error3, error4, error5)]-> state2;
+		end behavior;
+	**};
+end or_less_expression;

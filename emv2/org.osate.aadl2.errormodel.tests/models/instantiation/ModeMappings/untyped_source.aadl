@@ -1,0 +1,30 @@
+package untyped_source
+public
+	system s
+		modes
+			m1: initial mode;
+			m2: mode;
+			m3: mode;
+			m4: mode;
+		annex EMV2 {**
+			use behavior untyped_source::machine1;
+			
+			component error behavior
+				mode mappings
+					state1 in modes (m1);
+					state2 in modes (m2, m3, m4);
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end untyped_source;

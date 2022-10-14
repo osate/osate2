@@ -36,9 +36,7 @@ import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
-import static extension org.junit.Assert.*
-import org.osate.aadl2.IntegerLiteral
-import java.text.MessageFormat
+import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -52,6 +50,7 @@ class Issue1809Test {
 	
 	val static INSTANCE_NAME = "Top_impl_Instance"
 
+	val static ERROR_MSG = "Cannot create end to end flow 'ETE' because there are no semantic connections that connect to the start of the flow 'Thing_new_flow_spec3' at feature 'input'"
 	val static WARNING_MSG = "End-to-end flow ETE contains component three with subcomponents, but no flow implementation Thing_new_flow_spec3 to them"
 	
 	@Inject
@@ -70,11 +69,15 @@ class Issue1809Test {
 		// There should be no End To End Flow Instance
 		assertEquals(instance.endToEndFlows.size, 0)
 
-		// Should be 1 warning
+		// Should be 1 error and 1 warning
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertEquals(1, messages.size)
+		assertEquals(2, messages.size)
 		messages.get(0) => [
-			/* Error is reported on an actual ETEI object, but we don't have a way to get a reference to it because the 
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(ERROR_MSG, message)
+		]
+		messages.get(1) => [
+			/* Warning is reported on an actual ETEI object, but we don't have a way to get a reference to it because the 
 			 * system instance doesn't refer to it, and it isn't supposed to.
 			 */
 			assertEquals(QueuingAnalysisErrorReporter.WARNING, kind)
@@ -95,11 +98,15 @@ class Issue1809Test {
 		// There should be no End To End Flow Instance
 		assertEquals(instance.endToEndFlows.size, 0)
 
-		// Should be 1 warning
+		// Should be 1 error and 1 warning
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertEquals(1, messages.size)
+		assertEquals(2, messages.size)
 		messages.get(0) => [
-			/* Error is reported on an actual ETEI object, but we don't have a way to get a reference to it because the 
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(ERROR_MSG, message)
+		]
+		messages.get(1) => [
+			/* Warning is reported on an actual ETEI object, but we don't have a way to get a reference to it because the 
 			 * system instance doesn't refer to it, and it isn't supposed to.
 			 */
 			assertEquals(QueuingAnalysisErrorReporter.WARNING, kind)

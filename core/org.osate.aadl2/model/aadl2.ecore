@@ -1140,7 +1140,7 @@
       <details key="documentation" value="&lt;p>From package AADLConstructs::Flows.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
-        eType="#//Context">
+        eType="#//FlowEnd" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Flows.&lt;/p>"/>
       </eAnnotations>
@@ -1519,7 +1519,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//Context #//CalledSubprogram">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//Context #//FlowElement #//CalledSubprogram">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -3270,6 +3270,13 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemorySubcomponent"
         ordered="false" upperBound="-1" eType="#//MemorySubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>

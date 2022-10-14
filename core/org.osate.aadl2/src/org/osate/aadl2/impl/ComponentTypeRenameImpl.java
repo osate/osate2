@@ -92,6 +92,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentTypeRename();
 	}
@@ -101,6 +102,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentCategory getCategory() {
 		return category;
 	}
@@ -110,6 +112,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCategory(ComponentCategory newCategory) {
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
@@ -124,6 +127,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentType getRenamedComponentType() {
 		if (renamedComponentType != null && ((EObject) renamedComponentType).eIsProxy()) {
 			InternalEObject oldRenamedComponentType = (InternalEObject) renamedComponentType;
@@ -153,6 +157,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRenamedComponentType(ComponentType newRenamedComponentType) {
 		ComponentType oldRenamedComponentType = renamedComponentType;
 		renamedComponentType = newRenamedComponentType;
@@ -168,6 +173,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
@@ -186,6 +192,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
@@ -203,6 +210,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
@@ -220,6 +228,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
@@ -235,6 +244,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

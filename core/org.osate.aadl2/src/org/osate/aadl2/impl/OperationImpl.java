@@ -103,6 +103,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getOperation();
 	}
@@ -112,6 +113,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OperationKind getOp() {
 		return op;
 	}
@@ -121,6 +123,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOp(OperationKind newOp) {
 		OperationKind oldOp = op;
 		op = newOp == null ? OP_EDEFAULT : newOp;
@@ -134,9 +137,10 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyExpression> getOwnedPropertyExpressions() {
 		if (ownedPropertyExpressions == null) {
-			ownedPropertyExpressions = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this,
+			ownedPropertyExpressions = new EObjectContainmentEList<>(PropertyExpression.class, this,
 					Aadl2Package.OPERATION__OWNED_PROPERTY_EXPRESSION);
 		}
 		return ownedPropertyExpressions;
@@ -158,6 +162,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.OPERATION__OWNED_PROPERTY_EXPRESSION:
@@ -171,6 +176,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.OPERATION__OP:
@@ -187,6 +193,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.OPERATION__OP:
@@ -205,6 +212,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.OPERATION__OP:
@@ -222,6 +230,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.OPERATION__OP:
@@ -237,6 +246,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

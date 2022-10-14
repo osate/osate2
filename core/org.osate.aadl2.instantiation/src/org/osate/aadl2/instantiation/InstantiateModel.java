@@ -73,6 +73,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
@@ -95,6 +96,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.Prototype;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
@@ -409,6 +411,7 @@ public class InstantiateModel {
 				+ FileNameConstants.INSTANCE_MODEL_POSTFIX;
 
 		root.setComponentImplementation(ci);
+		root.setClassifier(ci);
 		root.setName(instanceName);
 		root.setCategory(ci.getCategory());
 		aadlResource.getContents().add(root);
@@ -464,9 +467,16 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		getUsedPropertyDefinitions(root);
-		// handle connection patterns
-		processConnections(root);
+		// Note that caching properties may create new top level component instances for
+		// referenced classifiers, so we need to use indexed access
+		var contents = root.eResource().getContents();
+		for (int i = 0; i < contents.size(); i++) {
+			if (contents.get(i) instanceof ComponentInstance ci) {
+				cacheProperties(ci);
+				// handle connection patterns
+				processConnections(ci);
+			}
+		}
 
 		// instantiation of annexes
 		monitor.subTask("Instantiating annexes");
@@ -509,7 +519,10 @@ public class InstantiateModel {
 		return instanceURI;
 	}
 
-	protected void getUsedPropertyDefinitions(SystemInstance root) throws InterruptedException {
+	/**
+	 * @since 3.0
+	 */
+	protected void cacheProperties(ComponentInstance root) throws InterruptedException {
 		/*
 		 * We now cache the property associations. First we cache the contained
 		 * property associations. In a second pass we cache regular property
@@ -869,40 +882,16 @@ public class InstantiateModel {
 			speci.setFlowSpecification(spec);
 			FlowEnd inend = spec.getAllInEnd();
 			if (inend != null) {
-				Feature srcfp = inend.getFeature();
-				Context srcpg = inend.getContext();
-				if (srcpg == null) {
-					FeatureInstance fi = ci.findFeatureInstance(srcfp);
-					if (fi != null) {
-						speci.setSource(fi);
-					}
-				} else if (srcpg instanceof FeatureGroup) {
-					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) srcpg);
-					if (pgi != null) {
-						FeatureInstance fi = pgi.findFeatureInstance(srcfp);
-						if (fi != null) {
-							speci.setSource(fi);
-						}
-					}
+				FeatureInstance fi = findFeatureInstance(ci, inend);
+				if (fi != null) {
+					speci.setSource(fi);
 				}
 			}
 			FlowEnd outend = spec.getAllOutEnd();
 			if (outend != null) {
-				Feature dstfp = outend.getFeature();
-				Context dstpg = outend.getContext();
-				if (dstpg == null) {
-					FeatureInstance fi = ci.findFeatureInstance(dstfp);
-					if (fi != null) {
-						speci.setDestination(fi);
-					}
-				} else if (dstpg instanceof FeatureGroup) {
-					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) dstpg);
-					if (pgi != null) {
-						FeatureInstance fi = pgi.findFeatureInstance(dstfp);
-						if (fi != null) {
-							speci.setDestination(fi);
-						}
-					}
+				FeatureInstance fi = findFeatureInstance(ci, outend);
+				if (fi != null) {
+					speci.setDestination(fi);
 				}
 			}
 			for (Mode mode : spec.getAllInModes()) {
@@ -928,6 +917,15 @@ public class InstantiateModel {
 		}
 	}
 
+	private FeatureInstance findFeatureInstance(ComponentInstance ci, FlowEnd end) {
+		if (end.getContext() == null) {
+			return ci.findFeatureInstance(end.getFeature());
+		} else {
+			FeatureInstance ctx = findFeatureInstance(ci, end.getContext());
+			return ctx.findFeatureInstance(end.getFeature());
+		}
+	}
+
 	/*
 	 * Add feature instances to component instance
 	 */
@@ -937,18 +935,24 @@ public class InstantiateModel {
 				throw new InterruptedException();
 			}
 			final EList<ArrayDimension> dims = feature.getArrayDimensions();
-
-			if (dims.isEmpty()) {
-				fillFeatureInstance(ci, feature, false, 0);
+			boolean arrayAllowed = canBeArray(feature);
+			if (dims.isEmpty() || !arrayAllowed) {
+				var fi = fillFeatureInstance(ci, feature, false, 0);
+				if (!dims.isEmpty() && !arrayAllowed) {
+					errManager.warning(fi, "No array allowed here, instantiated as a single feature");
+				}
 			} else {
-				// feature dimension should always be one
 				class ArrayInstantiator {
-					void process(int dim) {
+					void process(int dim) throws InterruptedException {
 						ArraySize arraySize = dims.get(dim).getSize();
 						long count = getElementCount(arraySize, ci);
 
 						for (int i = 1; i <= count; i++) {
-							fillFeatureInstance(ci, feature, false, i);
+							var fi = fillFeatureInstance(ci, feature, false, i);
+							if (i == 1 && dims.size() > 1) {
+								errManager.warning(fi,
+										"Feature array can have at most one dimension. Dimensions >1 ignored.");
+							}
 						}
 					}
 				}
@@ -957,7 +961,11 @@ public class InstantiateModel {
 		}
 	}
 
-	protected void fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse, int index) {
+	/**
+	 * @since 3.0
+	 */
+	protected FeatureInstance fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse, int index)
+			throws InterruptedException {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 		fi.setName(feature.getName());
 		fi.setFeature(feature);
@@ -968,6 +976,7 @@ public class InstantiateModel {
 		fi.setDirection(getDirection(feature, inverse));
 
 		filloutFeatureInstance(fi, feature, inverse, index);
+		return fi;
 	}
 
 	/**
@@ -977,8 +986,11 @@ public class InstantiateModel {
 	 * @param feature
 	 * @param inverse
 	 * @param index
+	 * @throws InterruptedException
+	 * @since 3.0
 	 */
-	protected void fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse, int index) {
+	protected FeatureInstance fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse, int index)
+			throws InterruptedException {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 		fi.setName(feature.getName());
 		fi.setFeature(feature);
@@ -989,6 +1001,7 @@ public class InstantiateModel {
 
 		// must add before prototype resolution in fillFeatureInstance
 		filloutFeatureInstance(fi, feature, inverse, index);
+		return fi;
 	}
 
 	private DirectionType getDirection(Feature feature, boolean inverse) {
@@ -1012,8 +1025,10 @@ public class InstantiateModel {
 	 * @param fi is feature instance of feature
 	 * @param inverse
 	 * @param index
+	 * @throws InterruptedException
 	 */
-	protected void filloutFeatureInstance(FeatureInstance fi, Feature feature, boolean inverse, int index) {
+	protected void filloutFeatureInstance(FeatureInstance fi, Feature feature, boolean inverse, int index)
+			throws InterruptedException {
 		fi.setIndex(index);
 
 		// resolve feature prototype
@@ -1067,6 +1082,11 @@ public class InstantiateModel {
 		// and destinations
 		if (feature instanceof FeatureGroup) {
 			expandFeatureGroupInstance(feature, fi, inverse);
+		} else {
+			FeatureClassifier fc = feature.getAllFeatureClassifier();
+			if (fc != null) {
+				instantiateFeatureClassifier(fi, fc);
+			}
 		}
 	}
 
@@ -1075,7 +1095,8 @@ public class InstantiateModel {
 	 *
 	 * @param fi Feature Instance that is a port group
 	 */
-	protected void expandFeatureGroupInstance(Feature feature, FeatureInstance fi, boolean inverse) {
+	protected void expandFeatureGroupInstance(Feature feature, FeatureInstance fi, boolean inverse)
+			throws InterruptedException {
 		if (feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup) feature;
 			FeatureType ft = ((FeatureGroup) feature).getFeatureType();
@@ -1136,32 +1157,34 @@ public class InstantiateModel {
 
 	/**
 	 * instantiate features in feature group take into account that they can be declared as arrays
+	 * @throws InterruptedException
 	 */
-	protected void instantiateFGFeatures(final FeatureInstance fgi, List<Feature> flist, final boolean inverse) {
+	protected void instantiateFGFeatures(final FeatureInstance fgi, List<Feature> flist, final boolean inverse)
+			throws InterruptedException {
 		for (final Feature feature : flist) {
 			if (hasFeatureInstance(fgi, feature)) {
 				errManager.error(fgi, "Cyclic containment dependency: Feature '" + feature.getName()
 						+ "' has already been instantiated as enclosing feature group.");
 			} else {
 				final EList<ArrayDimension> dims = feature.getArrayDimensions();
-
-				if (dims.isEmpty()) {
-					fillFeatureInstance(fgi, feature, inverse, 0);
-				} else {
-					class ArrayInstantiator {
-						void process(int dim) {
-							ArraySize arraySize = dims.get(dim).getSize();
-							long count = getElementCount(arraySize, fgi.getContainingComponentInstance());
-
-							for (int i = 0; i < count; i++) {
-								fillFeatureInstance(fgi, feature, inverse, i + 1);
-							}
-						}
-					}
-					new ArrayInstantiator().process(0);
+				var fi = fillFeatureInstance(fgi, feature, inverse, 0);
+				if (!dims.isEmpty()) {
+					errManager.warning(fi, "No array allowed here, instantiated as a single feature");
 				}
 			}
 		}
+	}
+
+	private boolean canBeArray(Feature f) {
+		if (f.getOwner() instanceof Feature) {
+			return false;
+		} else if (f.getOwner() instanceof ComponentType ct) {
+			var cat = ct.getCategory();
+			return (cat == ComponentCategory.THREAD || cat == ComponentCategory.DEVICE
+					|| cat == ComponentCategory.PROCESSOR || cat == ComponentCategory.MEMORY
+					|| cat == ComponentCategory.SYSTEM || cat == ComponentCategory.ABSTRACT);
+		}
+		return false;
 	}
 
 	/*
@@ -1180,11 +1203,83 @@ public class InstantiateModel {
 		return false;
 	}
 
+	/**
+	 *
+	 * @param classifier
+	 * @return
+	 * @throws InterruptedException
+	 * @since 3.0
+	 */
+	protected void instantiateFeatureClassifier(FeatureInstance fi, FeatureClassifier fc) throws InterruptedException {
+		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
+		final ComponentClassifier cc;
+		final InstantiatedClassifier ic;
+
+		ic = getInstantiatedClassifier(fi);
+
+		if (ic == null) {
+			cc = null;
+		} else {
+			cc = (ComponentClassifier) ic.getClassifier();
+		}
+		if (cc == null) {
+			errManager.warning(fi, "No classifier for prototype '" + ((Prototype) fc).getName() + "'");
+		} else {
+			var contents = fi.eResource().getContents();
+			boolean duplicate = false;
+			if (!ic.hasBindings()) {
+				for (var obj : contents) {
+					if (obj instanceof ComponentInstance ci) {
+						if (ci.getName().equalsIgnoreCase(cc.getQualifiedName())) {
+							duplicate = true;
+							fi.setType(ci);
+							break;
+						}
+					}
+				}
+			}
+			if (!duplicate) {
+				newInstance.setClassifier(cc);
+				newInstance.setName(cc.getQualifiedName() + (ic.hasBindings() ? "*" : ""));
+				newInstance.setCategory(cc.getCategory());
+				classifierCache.put(newInstance, ic);
+				contents.add(newInstance);
+				// root.getReferencedComponents().add(newInstance);
+				fi.setType(newInstance);
+				populateComponentInstance(newInstance, 0);
+
+				new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(newInstance);
+				if (monitor.isCanceled()) {
+					throw new InterruptedException();
+				}
+
+				final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager,
+						classifierCache);
+				vcs.processPreOrderAll(newInstance);
+				vcs.postProcess();
+				if (monitor.isCanceled()) {
+					throw new InterruptedException();
+				}
+
+				new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(newInstance);
+				if (monitor.isCanceled()) {
+					throw new InterruptedException();
+				}
+
+				AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
+				aic.instantiateAllAnnexes(newInstance);
+				if (monitor.isCanceled()) {
+					throw new InterruptedException();
+				}
+			}
+		}
+	}
+
 	// --------------------------------------------------------------------------------------------
 	// Methods for connection sets and connection patterns
 	// --------------------------------------------------------------------------------------------
 
-	private void processConnections(SystemInstance root) throws InterruptedException {
+	private void processConnections(ComponentInstance root) throws InterruptedException {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
@@ -2040,14 +2135,15 @@ public class InstantiateModel {
 	 *
 	 * @param si System Implementation
 	 * @return property definitions
+	 * @since 3.0
 	 */
-	public EList<Property> getAllUsedPropertyDefinitions(SystemInstance root) throws InterruptedException {
+	public EList<Property> getAllUsedPropertyDefinitions(ComponentInstance root) throws InterruptedException {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
 		EList<Property> result = new UniqueEList<Property>();
 
-		addUsedProperties(root, root.getComponentImplementation(), result);
+		addUsedProperties(root, root.getClassifier(), result);
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		// collect topdown component impl. do it and its type to find PA
 		while (it.hasNext()) {
@@ -2056,7 +2152,7 @@ public class InstantiateModel {
 			if (elem instanceof ComponentInstance) {
 				InstantiatedClassifier ic = getInstantiatedClassifier((ComponentInstance) elem);
 				if (ic != null && ic.getClassifier() != null) {
-					if (ic.getClassifier().equals(root.getComponentImplementation())) {
+					if (ic.getClassifier().equals(root.getClassifier())) {
 						addUsedProperties(root, ic.getClassifier(), result, false);
 					} else {
 						addUsedProperties(root, ic.getClassifier(), result);
@@ -2083,11 +2179,11 @@ public class InstantiateModel {
 		return result;
 	}
 
-	private void addUsedProperties(SystemInstance root, Classifier cc, EList<Property> result) {
+	private void addUsedProperties(InstanceObject root, Classifier cc, EList<Property> result) {
 		addUsedProperties(root, cc, result, true);
 	}
 
-	private void addUsedProperties(SystemInstance root, Classifier cc, EList<Property> result, boolean showError) {
+	private void addUsedProperties(InstanceObject root, Classifier cc, EList<Property> result, boolean showError) {
 
 		if (cc instanceof ComponentImplementation) {
 			ComponentImplementation impl = (ComponentImplementation) cc;

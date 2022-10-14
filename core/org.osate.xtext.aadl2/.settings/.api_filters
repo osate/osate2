@@ -1,5 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/parser/antlr/internal/InternalAadl2Parser.java" type="org.osate.xtext.aadl2.parser.antlr.internal.InternalAadl2Parser">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa1095"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa1136"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa1157"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa559"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa585"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa606"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa627"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa645"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa649"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa983"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/serializer/AbstractAadl2SyntacticSequencer.java" type="org.osate.xtext.aadl2.serializer.AbstractAadl2SyntacticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>
@@ -29,6 +81,399 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$BusImplementationElements">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getAlternatives_10_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getAlternatives_11_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getConnectionsKeyword_9_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getEndKeyword_13()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFULLINAMEParserRuleCall_14()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_11()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_11_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_10_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoConnectionsAssignment_9_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoConnectionsNoneKeyword_9_1_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoModesAssignment_10_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoModesNoneKeyword_10_1_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoPropertiesAssignment_11_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoPropertiesNoneKeyword_11_1_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedAccessConnectionAccessConnectionParserRuleCall_9_1_0_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedAccessConnectionAssignment_9_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_12_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedAnnexSubclauseAssignment_12()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedFeatureConnectionAssignment_9_1_0_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedFeatureConnectionFeatureConnectionParserRuleCall_9_1_0_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedFeatureGroupConnectionAssignment_9_1_0_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_9_1_0_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeAssignment_10_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeModeParserRuleCall_10_1_0_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeTransitionAssignment_10_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeTransitionModeTransitionParserRuleCall_10_1_0_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedPortConnectionAssignment_9_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedPortConnectionPortConnectionParserRuleCall_9_1_0_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedPropertyAssociationAssignment_11_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_11_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getPropertiesKeyword_11_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getSemicolonKeyword_11_1_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getSemicolonKeyword_15()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FlowEndElements">
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureAssignment_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureAssignment_1_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureFeatureCrossReference_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureFeatureCrossReference_1_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureFeatureIDTerminalRuleCall_0_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFeatureFeatureIDTerminalRuleCall_1_2_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFlowEndContextAction_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFullStopKeyword_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_1()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$MemoryImplementationElements">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedVirtualBusSubcomponentAssignment_7_1_0_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_3_0()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$VirtualBusImplementationElements">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getAlternatives_10_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getAlternatives_11_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getConnectionsKeyword_9_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getEndKeyword_13()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getFULLINAMEParserRuleCall_14()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_11()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_11_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_10_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoConnectionsAssignment_9_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoConnectionsNoneKeyword_9_1_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoModesAssignment_10_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoModesNoneKeyword_10_1_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoPropertiesAssignment_11_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getNoPropertiesNoneKeyword_11_1_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedAccessConnectionAccessConnectionParserRuleCall_9_1_0_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedAccessConnectionAssignment_9_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_12_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedAnnexSubclauseAssignment_12()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedFeatureConnectionAssignment_9_1_0_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedFeatureConnectionFeatureConnectionParserRuleCall_9_1_0_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedFeatureGroupConnectionAssignment_9_1_0_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_9_1_0_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeAssignment_10_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeModeParserRuleCall_10_1_0_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeTransitionAssignment_10_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeTransitionModeTransitionParserRuleCall_10_1_0_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedPortConnectionAssignment_9_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedPortConnectionPortConnectionParserRuleCall_9_1_0_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedPropertyAssociationAssignment_11_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_11_1_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getPropertiesKeyword_11_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getSemicolonKeyword_11_1_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="getSemicolonKeyword_15()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/xtext/aadl2/formatting2/regionaccess/Aadl2TextRegionAccessBuilder.java" type="org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder">
         <filter comment="xtext" id="643842064">
             <message_arguments>
@@ -37,28 +482,8 @@
                 <message_argument value="forSequence(ISerializationContext, EObject)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643842064">
-            <message_arguments>
-                <message_argument value="ITextRegionAccess"/>
-                <message_argument value="Aadl2TextRegionAccessBuilder"/>
-                <message_argument value="create()"/>
-            </message_arguments>
-        </filter>
-        <filter comment="xtext" id="643842064">
-            <message_arguments>
-                <message_argument value="TextRegionAccessBuilder"/>
-                <message_argument value="Aadl2TextRegionAccessBuilder"/>
-                <message_argument value="forNodeModel(XtextResource)"/>
-            </message_arguments>
-        </filter>
     </resource>
     <resource path="src/org/osate/xtext/aadl2/serializer/Aadl2CrossReferenceSerializer.java" type="org.osate.xtext.aadl2.serializer.Aadl2CrossReferenceSerializer">
-        <filter comment="xtext" id="576720909">
-            <message_arguments>
-                <message_argument value="CrossReferenceSerializer"/>
-                <message_argument value="Aadl2CrossReferenceSerializer"/>
-            </message_arguments>
-        </filter>
         <filter comment="xtext" id="643846161">
             <message_arguments>
                 <message_argument value="Acceptor"/>

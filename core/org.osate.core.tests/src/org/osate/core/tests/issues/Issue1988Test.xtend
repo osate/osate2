@@ -78,7 +78,7 @@ class Issue1988Test extends XtextTest {
 	def void testPortEmpty() {
 		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "PortEmpty.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		val pkg = testFileResult.resource.contents.head as AadlPackage;
+		testFileResult.resource.contents.head as AadlPackage;
 			
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
@@ -88,7 +88,7 @@ class Issue1988Test extends XtextTest {
 	def void testPortOkay() {
 		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "PortOkay.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		val pkg = testFileResult.resource.contents.head as AadlPackage;
+		testFileResult.resource.contents.head as AadlPackage;
 			
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
@@ -138,7 +138,7 @@ class Issue1988Test extends XtextTest {
 	def void testAccessEmpty() {
 		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "AccessEmpty.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		val pkg = testFileResult.resource.contents.head as AadlPackage;
+		testFileResult.resource.contents.head as AadlPackage;
 			
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
@@ -148,7 +148,7 @@ class Issue1988Test extends XtextTest {
 	def void testAccessOkay() {
 		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "AccessOkay.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		val pkg = testFileResult.resource.contents.head as AadlPackage;
+		testFileResult.resource.contents.head as AadlPackage;
 			
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
@@ -192,7 +192,7 @@ class Issue1988Test extends XtextTest {
 	def void testParameterEmpty() {
 		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "ParameterEmpty.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		val pkg = testFileResult.resource.contents.head as AadlPackage;
+		testFileResult.resource.contents.head as AadlPackage;
 			
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
@@ -202,7 +202,7 @@ class Issue1988Test extends XtextTest {
 	def void testParameterOkay() {
 		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "ParameterOkay.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		val pkg = testFileResult.resource.contents.head as AadlPackage;
+		testFileResult.resource.contents.head as AadlPackage;
 			
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)

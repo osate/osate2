@@ -1,0 +1,25 @@
+package all_sources
+public
+	system s
+		annex EMV2 {**
+			use behavior all_sources::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error1: error event;
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+				end_state: state;
+			transitions
+				transition1: all -[error1]-> end_state;
+		end behavior;
+	**};
+end all_sources;

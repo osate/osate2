@@ -1,0 +1,34 @@
+package override_transition_inherited_from_classifier
+public
+	system s
+		annex EMV2 {**
+			use behavior override_transition_inherited_from_classifier::machine1;
+			
+			component error behavior
+				events
+					error1: error event;
+				transitions
+					transition1: state1 -[error1]-> state2;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+		annex EMV2 {**
+			component error behavior
+				events
+					recover1: recover event;
+				transitions
+					TRANSITION1: state2 -[recover1]-> state1;
+			end component;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end override_transition_inherited_from_classifier;

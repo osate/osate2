@@ -82,6 +82,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFlowSegment();
 	}
@@ -91,6 +92,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowElement getFlowElement() {
 		if (flowElement != null && ((EObject) flowElement).eIsProxy()) {
 			InternalEObject oldFlowElement = (InternalEObject) flowElement;
@@ -119,6 +121,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFlowElement(FlowElement newFlowElement) {
 		FlowElement oldFlowElement = flowElement;
 		flowElement = newFlowElement;
@@ -133,6 +136,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Context getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
@@ -161,6 +165,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
@@ -175,6 +180,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT:
@@ -196,6 +202,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT:
@@ -213,6 +220,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT:
@@ -230,6 +238,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT:

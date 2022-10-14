@@ -30,31 +30,51 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
+import org.osate.aadl2.errormodel.instance.AllPropagations;
+import org.osate.aadl2.errormodel.instance.AllPropagationsNoError;
+import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
+import org.osate.aadl2.errormodel.instance.BranchStateReference;
+import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
+import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
+import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.EOperation;
-import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
-import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
-import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
+import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
+import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SameState;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.StringCode;
+import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
@@ -108,24 +128,12 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createEMV2AnnexInstance();
 		case EMV2InstancePackage.STATE_MACHINE_INSTANCE:
 			return createStateMachineInstance();
-		case EMV2InstancePackage.STATE_INSTANCE:
-			return createStateInstance();
 		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT:
 			return createConstrainedInstanceObject();
-		case EMV2InstancePackage.STATE_TRANSITION_INSTANCE:
-			return createStateTransitionInstance();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
 			return createCompositeStateInstance();
-		case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE:
-			return createErrorPropagationConditionInstance();
-		case EMV2InstancePackage.ERROR_DETECTION_INSTANCE:
-			return createErrorDetectionInstance();
-		case EMV2InstancePackage.EVENT_INSTANCE:
-			return createEventInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
 			return createConstraintExpression();
-		case EMV2InstancePackage.OLD_PROPAGATION_PATH_INSTANCE:
-			return createOldPropagationPathInstance();
 		case EMV2InstancePackage.FEATURE_PROPAGATION:
 			return createFeaturePropagation();
 		case EMV2InstancePackage.ACCESS_PROPAGATION:
@@ -156,6 +164,56 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createBindingPath();
 		case EMV2InstancePackage.USER_DEFINED_PATH:
 			return createUserDefinedPath();
+		case EMV2InstancePackage.STATE_INSTANCE:
+			return createStateInstance();
+		case EMV2InstancePackage.ERROR_EVENT_INSTANCE:
+			return createErrorEventInstance();
+		case EMV2InstancePackage.RECOVER_EVENT_INSTANCE:
+			return createRecoverEventInstance();
+		case EMV2InstancePackage.REPAIR_EVENT_INSTANCE:
+			return createRepairEventInstance();
+		case EMV2InstancePackage.TRANSITION_INSTANCE:
+			return createTransitionInstance();
+		case EMV2InstancePackage.SOURCE_STATE_REFERENCE:
+			return createSourceStateReference();
+		case EMV2InstancePackage.ALL_SOURCES:
+			return createAllSources();
+		case EMV2InstancePackage.EVENT_REFERENCE:
+			return createEventReference();
+		case EMV2InstancePackage.CONDITION_PROPAGATION_REFERENCE:
+			return createConditionPropagationReference();
+		case EMV2InstancePackage.NO_ERROR_PROPAGATION_REFERENCE:
+			return createNoErrorPropagationReference();
+		case EMV2InstancePackage.COUNT_EXPRESSION:
+			return createCountExpression();
+		case EMV2InstancePackage.DESTINATION_STATE_REFERENCE:
+			return createDestinationStateReference();
+		case EMV2InstancePackage.SAME_STATE:
+			return createSameState();
+		case EMV2InstancePackage.BRANCHES:
+			return createBranches();
+		case EMV2InstancePackage.BRANCH_STATE_REFERENCE:
+			return createBranchStateReference();
+		case EMV2InstancePackage.BRANCH_SAME_STATE:
+			return createBranchSameState();
+		case EMV2InstancePackage.OUTGOING_PROPAGATION_CONDITION_INSTANCE:
+			return createOutgoingPropagationConditionInstance();
+		case EMV2InstancePackage.DESTINATION_PROPAGATION_REFERENCE:
+			return createDestinationPropagationReference();
+		case EMV2InstancePackage.ALL_PROPAGATIONS:
+			return createAllPropagations();
+		case EMV2InstancePackage.ALL_PROPAGATIONS_NO_ERROR:
+			return createAllPropagationsNoError();
+		case EMV2InstancePackage.DETECTION_INSTANCE:
+			return createDetectionInstance();
+		case EMV2InstancePackage.INTEGER_CODE:
+			return createIntegerCode();
+		case EMV2InstancePackage.STRING_CODE:
+			return createStringCode();
+		case EMV2InstancePackage.CONSTANT_CODE:
+			return createConstantCode();
+		case EMV2InstancePackage.MODE_MAPPING_INSTANCE:
+			return createModeMappingInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -173,6 +231,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createEOperationFromString(eDataType, initialValue);
 		case EMV2InstancePackage.BINDING_TYPE:
 			return createBindingTypeFromString(eDataType, initialValue);
+		case EMV2InstancePackage.COUNT_EXPRESSION_OPERATION:
+			return createCountExpressionOperationFromString(eDataType, initialValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -190,6 +250,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return convertEOperationToString(eDataType, instanceValue);
 		case EMV2InstancePackage.BINDING_TYPE:
 			return convertBindingTypeToString(eDataType, instanceValue);
+		case EMV2InstancePackage.COUNT_EXPRESSION_OPERATION:
+			return convertCountExpressionOperationToString(eDataType, instanceValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -245,17 +307,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public StateTransitionInstance createStateTransitionInstance() {
-		StateTransitionInstanceImpl stateTransitionInstance = new StateTransitionInstanceImpl();
-		return stateTransitionInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public CompositeStateInstance createCompositeStateInstance() {
 		CompositeStateInstanceImpl compositeStateInstance = new CompositeStateInstanceImpl();
 		return compositeStateInstance;
@@ -292,28 +343,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ErrorPathInstance createErrorPathInstance() {
 		ErrorPathInstanceImpl errorPathInstance = new ErrorPathInstanceImpl();
 		return errorPathInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ErrorPropagationConditionInstance createErrorPropagationConditionInstance() {
-		ErrorPropagationConditionInstanceImpl errorPropagationConditionInstance = new ErrorPropagationConditionInstanceImpl();
-		return errorPropagationConditionInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ErrorDetectionInstance createErrorDetectionInstance() {
-		ErrorDetectionInstanceImpl errorDetectionInstance = new ErrorDetectionInstanceImpl();
-		return errorDetectionInstance;
 	}
 
 	/**
@@ -366,9 +395,262 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EventInstance createEventInstance() {
-		EventInstanceImpl eventInstance = new EventInstanceImpl();
-		return eventInstance;
+	public ErrorEventInstance createErrorEventInstance() {
+		ErrorEventInstanceImpl errorEventInstance = new ErrorEventInstanceImpl();
+		return errorEventInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public RecoverEventInstance createRecoverEventInstance() {
+		RecoverEventInstanceImpl recoverEventInstance = new RecoverEventInstanceImpl();
+		return recoverEventInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public RepairEventInstance createRepairEventInstance() {
+		RepairEventInstanceImpl repairEventInstance = new RepairEventInstanceImpl();
+		return repairEventInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public TransitionInstance createTransitionInstance() {
+		TransitionInstanceImpl transitionInstance = new TransitionInstanceImpl();
+		return transitionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SourceStateReference createSourceStateReference() {
+		SourceStateReferenceImpl sourceStateReference = new SourceStateReferenceImpl();
+		return sourceStateReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AllSources createAllSources() {
+		AllSourcesImpl allSources = new AllSourcesImpl();
+		return allSources;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EventReference createEventReference() {
+		EventReferenceImpl eventReference = new EventReferenceImpl();
+		return eventReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ConditionPropagationReference createConditionPropagationReference() {
+		ConditionPropagationReferenceImpl conditionPropagationReference = new ConditionPropagationReferenceImpl();
+		return conditionPropagationReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NoErrorPropagationReference createNoErrorPropagationReference() {
+		NoErrorPropagationReferenceImpl noErrorPropagationReference = new NoErrorPropagationReferenceImpl();
+		return noErrorPropagationReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public CountExpression createCountExpression() {
+		CountExpressionImpl countExpression = new CountExpressionImpl();
+		return countExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public DestinationStateReference createDestinationStateReference() {
+		DestinationStateReferenceImpl destinationStateReference = new DestinationStateReferenceImpl();
+		return destinationStateReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SameState createSameState() {
+		SameStateImpl sameState = new SameStateImpl();
+		return sameState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Branches createBranches() {
+		BranchesImpl branches = new BranchesImpl();
+		return branches;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public BranchStateReference createBranchStateReference() {
+		BranchStateReferenceImpl branchStateReference = new BranchStateReferenceImpl();
+		return branchStateReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public BranchSameState createBranchSameState() {
+		BranchSameStateImpl branchSameState = new BranchSameStateImpl();
+		return branchSameState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public OutgoingPropagationConditionInstance createOutgoingPropagationConditionInstance() {
+		OutgoingPropagationConditionInstanceImpl outgoingPropagationConditionInstance = new OutgoingPropagationConditionInstanceImpl();
+		return outgoingPropagationConditionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public DestinationPropagationReference createDestinationPropagationReference() {
+		DestinationPropagationReferenceImpl destinationPropagationReference = new DestinationPropagationReferenceImpl();
+		return destinationPropagationReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AllPropagations createAllPropagations() {
+		AllPropagationsImpl allPropagations = new AllPropagationsImpl();
+		return allPropagations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AllPropagationsNoError createAllPropagationsNoError() {
+		AllPropagationsNoErrorImpl allPropagationsNoError = new AllPropagationsNoErrorImpl();
+		return allPropagationsNoError;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public DetectionInstance createDetectionInstance() {
+		DetectionInstanceImpl detectionInstance = new DetectionInstanceImpl();
+		return detectionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public IntegerCode createIntegerCode() {
+		IntegerCodeImpl integerCode = new IntegerCodeImpl();
+		return integerCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public StringCode createStringCode() {
+		StringCodeImpl stringCode = new StringCodeImpl();
+		return stringCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ConstantCode createConstantCode() {
+		ConstantCodeImpl constantCode = new ConstantCodeImpl();
+		return constantCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ModeMappingInstance createModeMappingInstance() {
+		ModeMappingInstanceImpl modeMappingInstance = new ModeMappingInstanceImpl();
+		return modeMappingInstance;
 	}
 
 	/**
@@ -380,17 +662,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ConstraintExpression createConstraintExpression() {
 		ConstraintExpressionImpl constraintExpression = new ConstraintExpressionImpl();
 		return constraintExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public OldPropagationPathInstance createOldPropagationPathInstance() {
-		OldPropagationPathInstanceImpl oldPropagationPathInstance = new OldPropagationPathInstanceImpl();
-		return oldPropagationPathInstance;
 	}
 
 	/**
@@ -524,6 +795,29 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	public String convertBindingTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CountExpressionOperation createCountExpressionOperationFromString(EDataType eDataType, String initialValue) {
+		CountExpressionOperation result = CountExpressionOperation.get(initialValue);
+		if (result == null) {
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCountExpressionOperationToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

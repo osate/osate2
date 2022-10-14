@@ -1,0 +1,37 @@
+package untyped_event
+public
+	system s
+		annex EMV2 {**
+			use behavior untyped_event::machine1;
+			
+			component error behavior
+				events
+					local_error1: error event;
+					local_recover1: recover event;
+					local_repair1: repair event;
+				transitions
+					transition1: ok -[error1]-> failure;
+					transition2: failure -[recover1]-> ok;
+					transition3: failure -[repair1]-> ok;
+					transition4: ok -[local_error1]-> failure;
+					transition5: failure -[local_recover1]-> ok;
+					transition6: failure -[local_repair1]-> ok;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error1: error event;
+				recover1: recover event;
+				repair1: repair event;
+			states
+				ok: initial state;
+				failure: state;
+		end behavior;
+	**};
+end untyped_event;

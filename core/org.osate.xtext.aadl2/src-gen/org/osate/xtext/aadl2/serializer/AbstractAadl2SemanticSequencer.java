@@ -936,6 +936,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	}
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Model returns AadlPackage
 	 *     AadlPackage returns AadlPackage
@@ -946,6 +947,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ((ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) | ownedPrivateSection=PrivatePackageSection) 
 	 *         ownedPropertyAssociation+=BasicPropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_AadlPackage(ISerializationContext context, AadlPackage semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -953,6 +955,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AbstractFeature returns AbstractFeature
 	 *
@@ -964,6 +967,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_AbstractFeature(ISerializationContext context, AbstractFeature semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -971,6 +975,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns AbstractImplementation
 	 *     ComponentImplementation returns AbstractImplementation
@@ -985,7 +990,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent? 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
 	 *                 (
 	 *                     (
 	 *                         ownedSystemSubcomponent+=SystemSubcomponent | 
@@ -999,10 +1004,10 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                         ownedMemorySubcomponent+=MemorySubcomponent | 
 	 *                         ownedDeviceSubcomponent+=DeviceSubcomponent | 
 	 *                         ownedBusSubcomponent+=BusSubcomponent | 
-	 *                         ownedDataSubcomponent+=DataSubcomponent | 
-	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *                         ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                         ownedDataSubcomponent+=DataSubcomponent
 	 *                     )? 
-	 *                     ownedVirtualBusSubcomponent+=VirtualBusSubcomponent?
+	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
@@ -1014,15 +1019,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedParameterConnection+=ParameterConnection? 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection? 
 	 *                 (
 	 *                     (
 	 *                         ownedPortConnection+=PortConnection | 
 	 *                         ownedAccessConnection+=AccessConnection | 
-	 *                         ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                         ownedFeatureConnection+=FeatureConnection
+	 *                         ownedFeatureConnection+=FeatureConnection | 
+	 *                         ownedParameterConnection+=ParameterConnection
 	 *                     )? 
-	 *                     ownedParameterConnection+=ParameterConnection?
+	 *                     ownedFeatureGroupConnection+=FeatureGroupConnection?
 	 *                 )*
 	 *             ) | 
 	 *             noConnections?='none'
@@ -1032,6 +1037,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_AbstractImplementation(ISerializationContext context, AbstractImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1039,6 +1045,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns AbstractPrototype
 	 *     ComponentPrototype returns AbstractPrototype
@@ -1051,6 +1058,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_AbstractPrototype(ISerializationContext context, AbstractPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1058,6 +1066,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AbstractSubcomponent returns AbstractSubcomponent
 	 *
@@ -1072,6 +1081,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_AbstractSubcomponent(ISerializationContext context, AbstractSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1079,6 +1089,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns AbstractType
 	 *     ComponentType returns AbstractType
@@ -1092,19 +1103,19 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedSubprogramAccess+=SubprogramAccess? 
+	 *                 ownedEventPort+=EventPort? 
 	 *                 (
 	 *                     (
 	 *                         ownedDataPort+=DataPort | 
-	 *                         ownedEventPort+=EventPort | 
 	 *                         ownedEventDataPort+=EventDataPort | 
 	 *                         ownedFeatureGroup+=FeatureGroup | 
 	 *                         ownedDataAccess+=DataAccess | 
 	 *                         ownedBusAccess+=BusAccess | 
+	 *                         ownedSubprogramAccess+=SubprogramAccess | 
 	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                         ownedAbstractFeature+=AbstractFeature
 	 *                     )? 
-	 *                     ownedSubprogramAccess+=SubprogramAccess?
+	 *                     ownedEventPort+=EventPort?
 	 *                 )*
 	 *             )
 	 *         )? 
@@ -1113,6 +1124,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_AbstractType(ISerializationContext context, AbstractType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1120,18 +1132,20 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AccessConnection returns AccessConnection
 	 *
 	 * Constraint:
 	 *     (
 	 *         (
-	 *             (name=ID accessCategory=AccessCategory source=AccessConnectionEnd bidirectional?='<->'? destination=AccessConnectionEnd) | 
+	 *             (name=ID accessCategory=AccessCategory source=AccessConnectionEnd bidirectional?='&lt;-&gt;'? destination=AccessConnectionEnd) | 
 	 *             (refined=[AccessConnection|REFINEDNAME] accessCategory=AccessCategory)
 	 *         ) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_AccessConnection(ISerializationContext context, AccessConnection semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1139,11 +1153,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AccessSpecification returns AccessSpecification
 	 *
 	 * Constraint:
 	 *     (kind=AccessDirection category=AccessCategory classifier=[ComponentClassifier|QCREF]?)
+	 * </pre>
 	 */
 	protected void sequence_AccessSpecification(ISerializationContext context, AccessSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1151,11 +1167,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AllReference returns MetaclassReference
 	 *
 	 * Constraint:
 	 *     metaclassName+='all'
+	 * </pre>
 	 */
 	protected void sequence_AllReference(ISerializationContext context, MetaclassReference semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1163,11 +1181,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ArrayDimension returns ArrayDimension
 	 *
 	 * Constraint:
 	 *     size=ArraySize?
+	 * </pre>
 	 */
 	protected void sequence_ArrayDimension(ISerializationContext context, ArrayDimension semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1175,11 +1195,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ArraySize returns ArraySize
 	 *
 	 * Constraint:
 	 *     (size=INTVALUE | sizeProperty=[ArraySizeProperty|QPREF])
+	 * </pre>
 	 */
 	protected void sequence_ArraySize(ISerializationContext context, ArraySize semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1187,12 +1209,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns AadlBoolean
 	 *     BooleanType returns AadlBoolean
 	 *
 	 * Constraint:
 	 *     name=ID
+	 * </pre>
 	 */
 	protected void sequence_BooleanType(ISerializationContext context, AadlBoolean semanticObject) {
 		if (errorAcceptor != null) {
@@ -1206,6 +1230,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     BusAccess returns BusAccess
 	 *
@@ -1218,6 +1243,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_BusAccess(ISerializationContext context, BusAccess semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1225,6 +1251,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns BusImplementation
 	 *     ComponentImplementation returns BusImplementation
@@ -1246,10 +1273,21 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ownedEventSource+=EventSource? 
 	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
+	 *         (
+	 *             (
+	 *                 ownedAccessConnection+=AccessConnection? 
+	 *                 (
+	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)? 
+	 *                     ownedAccessConnection+=AccessConnection?
+	 *                 )*
+	 *             ) | 
+	 *             noConnections?='none'
+	 *         )? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_BusImplementation(ISerializationContext context, BusImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1257,6 +1295,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns BusPrototype
 	 *     ComponentPrototype returns BusPrototype
@@ -1269,6 +1308,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_BusPrototype(ISerializationContext context, BusPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1276,6 +1316,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     BusSubcomponent returns BusSubcomponent
 	 *
@@ -1290,6 +1331,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_BusSubcomponent(ISerializationContext context, BusSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1297,6 +1339,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns BusType
 	 *     ComponentType returns BusType
@@ -1310,23 +1353,23 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedEventDataPort+=EventDataPort? 
-	 *                 (
-	 *                     (
-	 *                         ownedFeatureGroup+=FeatureGroup | 
-	 *                         ownedBusAccess+=BusAccess | 
-	 *                         ownedDataPort+=DataPort | 
-	 *                         ownedEventPort+=EventPort | 
-	 *                         ownedAbstractFeature+=AbstractFeature
-	 *                     )? 
-	 *                     ownedEventDataPort+=EventDataPort?
-	 *                 )*
-	 *             )
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
 	 *         )? 
-	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (
+	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
+	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
+	 *             noModes?='none'
+	 *         )? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_BusType(ISerializationContext context, BusType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1334,11 +1377,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     CTRename returns ComponentTypeRename
 	 *
 	 * Constraint:
 	 *     (name=ID? category=ComponentCategory renamedComponentType=[ComponentType|QCREF])
+	 * </pre>
 	 */
 	protected void sequence_CTRename(ISerializationContext context, ComponentTypeRename semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1346,12 +1391,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns ClassifierType
 	 *     ClassifierType returns ClassifierType
 	 *
 	 * Constraint:
 	 *     (name=ID (classifierReference+=QMReference classifierReference+=QMReference*)?)
+	 * </pre>
 	 */
 	protected void sequence_ClassifierType(ISerializationContext context, ClassifierType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1359,11 +1406,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ComponentImplementationReference returns ComponentImplementationReference
 	 *
 	 * Constraint:
 	 *     (implementation=[ComponentImplementation|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)
+	 * </pre>
 	 */
 	protected void sequence_ComponentImplementationReference(ISerializationContext context, ComponentImplementationReference semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1371,12 +1420,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PrototypeBinding returns ComponentPrototypeBinding
 	 *     ComponentPrototypeBinding returns ComponentPrototypeBinding
 	 *
 	 * Constraint:
 	 *     (formal=[Prototype|ID] (actual+=ComponentReference | (actual+=ComponentReference actual+=ComponentReference*)))
+	 * </pre>
 	 */
 	protected void sequence_ComponentPrototypeBinding(ISerializationContext context, ComponentPrototypeBinding semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1384,11 +1435,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ComponentReference returns ComponentPrototypeActual
 	 *
 	 * Constraint:
 	 *     (category=ComponentCategory subcomponentType=[SubcomponentType|QCREF] (binding+=PrototypeBinding binding+=PrototypeBinding*)?)
+	 * </pre>
 	 */
 	protected void sequence_ComponentReference(ISerializationContext context, ComponentPrototypeActual semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1396,11 +1449,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ConnectedElementChain returns ConnectedElement
 	 *
 	 * Constraint:
 	 *     (connectionEnd=[ConnectionEnd|ID] next=ConnectedElementChain?)
+	 * </pre>
 	 */
 	protected void sequence_ConnectedElementChain(ISerializationContext context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1408,11 +1463,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ConnectedElement returns ConnectedElement
 	 *
 	 * Constraint:
 	 *     (context=[Context|ID]? connectionEnd=[ConnectionEnd|ID])
+	 * </pre>
 	 */
 	protected void sequence_ConnectedElement(ISerializationContext context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1420,11 +1477,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AbstractConnectionEnd returns ConnectedElement
 	 *
 	 * Constraint:
 	 *     ((context=[Context|ID]? connectionEnd=[ConnectionEnd|ID]) | connectionEnd=[PortProxy|ID] | connectionEnd=[InternalFeature|ID])
+	 * </pre>
 	 */
 	protected void sequence_ConnectedElement_InternalEvent_ProcessorPort(ISerializationContext context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1432,11 +1491,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NestedConnectedElement returns ConnectedElement
 	 *
 	 * Constraint:
 	 *     ((context=[Context|ID] connectionEnd=[ConnectionEnd|ID] next=ConnectedElementChain) | (context=[Context|ID]? connectionEnd=[ConnectionEnd|ID]))
+	 * </pre>
 	 */
 	protected void sequence_ConnectedElement_NestedConnectedElement(ISerializationContext context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1444,11 +1505,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ProcessorConnectionEnd returns ConnectedElement
 	 *
 	 * Constraint:
 	 *     ((context=[Context|ID]? connectionEnd=[ConnectionEnd|ID]) | connectionEnd=[PortProxy|ID])
+	 * </pre>
 	 */
 	protected void sequence_ConnectedElement_ProcessorPort(ISerializationContext context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1456,11 +1519,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AccessConnectionEnd returns ConnectedElement
 	 *
 	 * Constraint:
 	 *     ((context=[Context|ID]? connectionEnd=[ConnectionEnd|ID]) | connectionEnd=[SubprogramProxy|ID])
+	 * </pre>
 	 */
 	protected void sequence_ConnectedElement_ProcessorSubprogram(ISerializationContext context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1468,11 +1533,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ConnectionFlow returns FlowSegment
 	 *
 	 * Constraint:
 	 *     flowElement=[Connection|ID]
+	 * </pre>
 	 */
 	protected void sequence_ConnectionFlow(ISerializationContext context, FlowSegment semanticObject) {
 		if (errorAcceptor != null) {
@@ -1486,6 +1553,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     DataAccess returns DataAccess
 	 *
@@ -1497,6 +1565,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DataAccess(ISerializationContext context, DataAccess semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1504,6 +1573,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns DataImplementation
 	 *     ComponentImplementation returns DataImplementation
@@ -1517,47 +1587,30 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
-	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent)+ | 
+	 *             (
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent? 
+	 *                 (
+	 *                     (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)? 
+	 *                     ownedSubprogramSubcomponent+=SubprogramSubcomponent?
+	 *                 )*
+	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
+	 *         ownedEventSource+=EventSource? 
+	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
 	 *         (
 	 *             (
-	 *                 (
-	 *                     (ownedEventSource+=EventSource? noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?) | 
-	 *                     (
-	 *                         ownedEventSource+=EventSource? 
-	 *                         (ownedFeatureConnection+=FeatureConnection? (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?)* 
-	 *                         ownedFeatureConnection+=FeatureConnection? 
-	 *                         ownedEndToEndFlow+=EndToEndFlow?
-	 *                     )
-	 *                 ) 
-	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
-	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')?
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection? 
+	 *                 ((ownedAccessConnection+=AccessConnection | ownedFeatureConnection+=FeatureConnection)? ownedFeatureGroupConnection+=FeatureGroupConnection?)*
 	 *             ) | 
-	 *             (
-	 *                 ownedEventSource+=EventSource? 
-	 *                 noConnections?='none'? 
-	 *                 noFlows?='none'? 
-	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')
-	 *             ) | 
-	 *             (
-	 *                 ownedEventSource+=EventSource? 
-	 *                 (ownedFeatureConnection+=FeatureConnection? (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?)* 
-	 *                 (
-	 *                     (
-	 *                         ownedFeatureConnection+=FeatureConnection? 
-	 *                         noFlows?='none'? 
-	 *                         ownedModeTransition+=ModeTransition? 
-	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
-	 *                     ) | 
-	 *                     (ownedFeatureConnection+=FeatureConnection? noFlows?='none'? noModes?='none')
-	 *                 )
-	 *             )
-	 *         ) 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DataImplementation(ISerializationContext context, DataImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1565,6 +1618,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     DataPort returns DataPort
 	 *
@@ -1576,6 +1630,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DataPort(ISerializationContext context, DataPort semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1583,6 +1638,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns DataPrototype
 	 *     ComponentPrototype returns DataPrototype
@@ -1595,6 +1651,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DataPrototype(ISerializationContext context, DataPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1602,6 +1659,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     DataSubcomponent returns DataSubcomponent
 	 *
@@ -1616,6 +1674,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DataSubcomponent(ISerializationContext context, DataSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1623,6 +1682,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns DataType
 	 *     ComponentType returns DataType
@@ -1636,15 +1696,10 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedSubprogramAccess+=SubprogramAccess? 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess? 
 	 *                 (
-	 *                     (
-	 *                         ownedFeatureGroup+=FeatureGroup | 
-	 *                         ownedDataAccess+=DataAccess | 
-	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                         ownedAbstractFeature+=AbstractFeature
-	 *                     )? 
-	 *                     ownedSubprogramAccess+=SubprogramAccess?
+	 *                     (ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess | ownedAbstractFeature+=AbstractFeature)? 
+	 *                     ownedSubprogramGroupAccess+=SubprogramGroupAccess?
 	 *                 )*
 	 *             )
 	 *         )? 
@@ -1653,6 +1708,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DataType(ISerializationContext context, DataType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1660,12 +1716,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AnnexLibrary returns DefaultAnnexLibrary
 	 *     DefaultAnnexLibrary returns DefaultAnnexLibrary
 	 *
 	 * Constraint:
 	 *     (name=ID sourceText=ANNEXTEXT)
+	 * </pre>
 	 */
 	protected void sequence_DefaultAnnexLibrary(ISerializationContext context, DefaultAnnexLibrary semanticObject) {
 		if (errorAcceptor != null) {
@@ -1682,12 +1740,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AnnexSubclause returns DefaultAnnexSubclause
 	 *     DefaultAnnexSubclause returns DefaultAnnexSubclause
 	 *
 	 * Constraint:
 	 *     (name=ID sourceText=ANNEXTEXT (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
+	 * </pre>
 	 */
 	protected void sequence_DefaultAnnexSubclause(ISerializationContext context, DefaultAnnexSubclause semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1695,6 +1755,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns DeviceImplementation
 	 *     ComponentImplementation returns DeviceImplementation
@@ -1709,41 +1770,60 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
-	 *                 (
-	 *                     (ownedDataSubcomponent+=DataSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedBusSubcomponent+=BusSubcomponent)? 
-	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
-	 *                 )*
-	 *             ) | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedBusSubcomponent+=BusSubcomponent
+	 *             )+ | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventDataSource+=EventDataSource? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         ownedSubprogramProxy+=SubprogramProxy? 
+	 *         ownedEventSource+=EventSource? 
+	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
 	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
 	 *         (
 	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
 	 *                 (
-	 *                     (ownedEndToEndFlow+=EndToEndFlow? noModes?='none'?) | 
-	 *                     (ownedEndToEndFlow+=EndToEndFlow? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
-	 *                 )
+	 *                     (ownedPortProxy+=PortProxy? noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?) | 
+	 *                     (
+	 *                         ownedPortProxy+=PortProxy? 
+	 *                         (
+	 *                             ownedAccessConnection+=AccessConnection? 
+	 *                             (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                         )* 
+	 *                         ownedAccessConnection+=AccessConnection? 
+	 *                         ownedEndToEndFlow+=EndToEndFlow?
+	 *                     )
+	 *                 ) 
+	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
+	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')?
 	 *             ) | 
-	 *             (noFlows?='none'? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
-	 *             (noFlows?='none'? noModes?='none'?)
+	 *             (
+	 *                 ownedPortProxy+=PortProxy? 
+	 *                 noConnections?='none'? 
+	 *                 noFlows?='none'? 
+	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')
+	 *             ) | 
+	 *             (
+	 *                 ownedPortProxy+=PortProxy? 
+	 *                 (
+	 *                     ownedAccessConnection+=AccessConnection? 
+	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                 )* 
+	 *                 (
+	 *                     (
+	 *                         ownedAccessConnection+=AccessConnection? 
+	 *                         noFlows?='none'? 
+	 *                         ownedModeTransition+=ModeTransition? 
+	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
+	 *                     ) | 
+	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? noModes?='none')
+	 *                 )
+	 *             )
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DeviceImplementation(ISerializationContext context, DeviceImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1751,6 +1831,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns DevicePrototype
 	 *     ComponentPrototype returns DevicePrototype
@@ -1763,6 +1844,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DevicePrototype(ISerializationContext context, DevicePrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1770,6 +1852,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     DeviceSubcomponent returns DeviceSubcomponent
 	 *
@@ -1784,6 +1867,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DeviceSubcomponent(ISerializationContext context, DeviceSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1791,6 +1875,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns DeviceType
 	 *     ComponentType returns DeviceType
@@ -1804,26 +1889,26 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedEventPort+=EventPort? 
-	 *                 (
-	 *                     (
-	 *                         ownedDataPort+=DataPort | 
-	 *                         ownedEventDataPort+=EventDataPort | 
-	 *                         ownedFeatureGroup+=FeatureGroup | 
-	 *                         ownedBusAccess+=BusAccess | 
-	 *                         ownedSubprogramAccess+=SubprogramAccess | 
-	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                         ownedAbstractFeature+=AbstractFeature
-	 *                     )? 
-	 *                     ownedEventPort+=EventPort?
-	 *                 )*
-	 *             )
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (
+	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
+	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
+	 *             noModes?='none'
+	 *         )? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_DeviceType(ISerializationContext context, DeviceType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1831,11 +1916,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ETEConnectionFlow returns EndToEndFlowSegment
 	 *
 	 * Constraint:
 	 *     flowElement=[Connection|ID]
+	 * </pre>
 	 */
 	protected void sequence_ETEConnectionFlow(ISerializationContext context, EndToEndFlowSegment semanticObject) {
 		if (errorAcceptor != null) {
@@ -1849,11 +1936,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ETESubcomponentFlow returns EndToEndFlowSegment
 	 *
 	 * Constraint:
 	 *     (context=[Subcomponent|ID]? flowElement=[EndToEndFlowElement|ID])
+	 * </pre>
 	 */
 	protected void sequence_ETESubcomponentFlow(ISerializationContext context, EndToEndFlowSegment semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1861,6 +1950,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EndToEndFlow returns EndToEndFlow
 	 *
@@ -1877,6 +1967,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_EndToEndFlow(ISerializationContext context, EndToEndFlow semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1884,11 +1975,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EnumerationLiteral returns EnumerationLiteral
 	 *
 	 * Constraint:
 	 *     name=ID
+	 * </pre>
 	 */
 	protected void sequence_EnumerationLiteral(ISerializationContext context, EnumerationLiteral semanticObject) {
 		if (errorAcceptor != null) {
@@ -1902,12 +1995,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns EnumerationType
 	 *     EnumerationType returns EnumerationType
 	 *
 	 * Constraint:
 	 *     (name=ID ownedLiteral+=EnumerationLiteral ownedLiteral+=EnumerationLiteral*)
+	 * </pre>
 	 */
 	protected void sequence_EnumerationType(ISerializationContext context, EnumerationType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1915,6 +2010,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EventDataPort returns EventDataPort
 	 *
@@ -1926,6 +2022,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_EventDataPort(ISerializationContext context, EventDataPort semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1933,11 +2030,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EventDataSource returns EventDataSource
 	 *
 	 * Constraint:
 	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
+	 * </pre>
 	 */
 	protected void sequence_EventDataSource(ISerializationContext context, EventDataSource semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1945,6 +2044,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EventPort returns EventPort
 	 *
@@ -1955,6 +2055,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_EventPort(ISerializationContext context, EventPort semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1962,11 +2063,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EventSource returns EventSource
 	 *
 	 * Constraint:
 	 *     (name=ID ownedPropertyAssociation+=PropertyAssociation*)
+	 * </pre>
 	 */
 	protected void sequence_EventSource(ISerializationContext context, EventSource semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1974,11 +2077,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FGTRename returns FeatureGroupTypeRename
 	 *
 	 * Constraint:
 	 *     (name=ID? renamedFeatureGroupType=[FeatureGroupType|QCREF])
+	 * </pre>
 	 */
 	protected void sequence_FGTRename(ISerializationContext context, FeatureGroupTypeRename semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -1986,15 +2091,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FeatureConnection returns FeatureConnection
 	 *
 	 * Constraint:
 	 *     (
-	 *         ((name=ID source=NestedConnectedElement bidirectional?='<->'? destination=NestedConnectedElement) | refined=[FeatureConnection|REFINEDNAME]) 
+	 *         ((name=ID source=NestedConnectedElement bidirectional?='&lt;-&gt;'? destination=NestedConnectedElement) | refined=[FeatureConnection|REFINEDNAME]) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FeatureConnection(ISerializationContext context, FeatureConnection semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2002,15 +2109,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FeatureGroupConnection returns FeatureGroupConnection
 	 *
 	 * Constraint:
 	 *     (
-	 *         ((name=ID source=NestedConnectedElement bidirectional?='<->'? destination=NestedConnectedElement) | refined=[FeatureGroupConnection|REFINEDNAME]) 
+	 *         ((name=ID source=NestedConnectedElement bidirectional?='&lt;-&gt;'? destination=NestedConnectedElement) | refined=[FeatureGroupConnection|REFINEDNAME]) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FeatureGroupConnection(ISerializationContext context, FeatureGroupConnection semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2018,11 +2127,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FeatureGroupPrototypeActual returns FeatureGroupPrototypeActual
 	 *
 	 * Constraint:
 	 *     (featureType=[FeatureType|QCREF] (binding+=PrototypeBinding binding+=PrototypeBinding*)?)
+	 * </pre>
 	 */
 	protected void sequence_FeatureGroupPrototypeActual(ISerializationContext context, FeatureGroupPrototypeActual semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2030,12 +2141,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PrototypeBinding returns FeatureGroupPrototypeBinding
 	 *     FeatureGroupPrototypeBinding returns FeatureGroupPrototypeBinding
 	 *
 	 * Constraint:
 	 *     (formal=[Prototype|ID] actual=FeatureGroupPrototypeActual)
+	 * </pre>
 	 */
 	protected void sequence_FeatureGroupPrototypeBinding(ISerializationContext context, FeatureGroupPrototypeBinding semanticObject) {
 		if (errorAcceptor != null) {
@@ -2052,6 +2165,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns FeatureGroupPrototype
 	 *     FeatureGroupPrototype returns FeatureGroupPrototype
@@ -2062,6 +2176,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         constrainingFeatureGroupType=[FeatureGroupType|QCREF]? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FeatureGroupPrototype(ISerializationContext context, FeatureGroupPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2069,6 +2184,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns FeatureGroupType
 	 *     FeatureGroupType returns FeatureGroupType
@@ -2094,6 +2210,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FeatureGroupType(ISerializationContext context, FeatureGroupType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2101,6 +2218,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FeatureGroup returns FeatureGroup
 	 *
@@ -2112,6 +2230,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FeatureGroup(ISerializationContext context, FeatureGroup semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2119,12 +2238,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PrototypeBinding returns FeaturePrototypeBinding
 	 *     FeaturePrototypeBinding returns FeaturePrototypeBinding
 	 *
 	 * Constraint:
 	 *     (formal=[Prototype|ID] (actual=PortSpecification | actual=AccessSpecification | actual=FeaturePrototypeReference))
+	 * </pre>
 	 */
 	protected void sequence_FeaturePrototypeBinding(ISerializationContext context, FeaturePrototypeBinding semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2132,11 +2253,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FeaturePrototypeReference returns FeaturePrototypeReference
 	 *
 	 * Constraint:
 	 *     ((in?='in' | out?='out')? prototype=[FeaturePrototype|ID])
+	 * </pre>
 	 */
 	protected void sequence_FeaturePrototypeReference(ISerializationContext context, FeaturePrototypeReference semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2144,6 +2267,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns FeaturePrototype
 	 *     FeaturePrototype returns FeaturePrototype
@@ -2155,6 +2279,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FeaturePrototype(ISerializationContext context, FeaturePrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2162,11 +2287,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowEnd returns FlowEnd
+	 *     FlowEnd.FlowEnd_1_0 returns FlowEnd
 	 *
 	 * Constraint:
-	 *     (context=[Context|ID]? feature=[Feature|ID])
+	 *     (feature=[Feature|ID] | (context=FlowEnd_FlowEnd_1_0 feature=[Feature|ID]))
+	 * </pre>
 	 */
 	protected void sequence_FlowEnd(ISerializationContext context, FlowEnd semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2174,6 +2302,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowPathImpl returns FlowImplementation
 	 *
@@ -2187,6 +2316,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FlowPathImpl(ISerializationContext context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2194,6 +2324,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowImplementation returns FlowImplementation
 	 *
@@ -2225,6 +2356,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *         )
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(ISerializationContext context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2232,6 +2364,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowSpecification returns FlowSpecification
 	 *
@@ -2266,6 +2399,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *         )
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement(ISerializationContext context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2273,6 +2407,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowPathSpec returns FlowSpecification
 	 *
@@ -2285,6 +2420,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FlowPathSpec(ISerializationContext context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2292,6 +2428,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowSinkImpl returns FlowImplementation
 	 *
@@ -2304,6 +2441,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FlowSinkImpl(ISerializationContext context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2311,6 +2449,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowSinkSpec returns FlowSpecification
 	 *
@@ -2322,6 +2461,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FlowSinkSpec(ISerializationContext context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2329,6 +2469,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowSourceImpl returns FlowImplementation
 	 *
@@ -2341,6 +2482,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FlowSourceImpl(ISerializationContext context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2348,6 +2490,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowSourceSpec returns FlowSpecification
 	 *
@@ -2359,6 +2502,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FlowSourceSpec(ISerializationContext context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2366,6 +2510,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FlowSpecRefinement returns FlowSpecification
 	 *
@@ -2376,6 +2521,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_FlowSpecRefinement(ISerializationContext context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2383,11 +2529,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     GroupExtension returns GroupExtension
 	 *
 	 * Constraint:
 	 *     extended=[FeatureGroupType|QCREF]
+	 * </pre>
 	 */
 	protected void sequence_GroupExtension(ISerializationContext context, GroupExtension semanticObject) {
 		if (errorAcceptor != null) {
@@ -2401,11 +2549,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ImplementationExtension returns ImplementationExtension
 	 *
 	 * Constraint:
 	 *     extended=[ComponentImplementation|QCREF]
+	 * </pre>
 	 */
 	protected void sequence_ImplementationExtension(ISerializationContext context, ImplementationExtension semanticObject) {
 		if (errorAcceptor != null) {
@@ -2419,12 +2569,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NumberValue returns IntegerLiteral
 	 *     IntegerLit returns IntegerLiteral
 	 *
 	 * Constraint:
 	 *     value=SignedInt
+	 * </pre>
 	 */
 	protected void sequence_IntegerLit(ISerializationContext context, IntegerLiteral semanticObject) {
 		if (errorAcceptor != null) {
@@ -2438,6 +2590,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     IntegerRange returns NumericRange
 	 *
@@ -2446,6 +2599,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (lowerBound=IntegerTerm | lowerBound=SignedConstant | lowerBound=ConstantValue) 
 	 *         (upperBound=IntegerTerm | upperBound=SignedConstant | upperBound=ConstantValue)
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_IntegerRange(ISerializationContext context, NumericRange semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2453,12 +2607,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns AadlInteger
 	 *     IntegerType returns AadlInteger
 	 *
 	 * Constraint:
 	 *     (name=ID range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | referencedUnitsType=[UnitsType|QPREF])?)
+	 * </pre>
 	 */
 	protected void sequence_IntegerType(ISerializationContext context, AadlInteger semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2466,11 +2622,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     InternalEvent returns ConnectedElement
 	 *
 	 * Constraint:
 	 *     connectionEnd=[InternalFeature|ID]
+	 * </pre>
 	 */
 	protected void sequence_InternalEvent(ISerializationContext context, ConnectedElement semanticObject) {
 		if (errorAcceptor != null) {
@@ -2484,12 +2642,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns ListType
 	 *     ListType returns ListType
 	 *
 	 * Constraint:
 	 *     (referencedElementType=[PropertyType|QPREF] | ownedElementType=UnnamedPropertyType)
+	 * </pre>
 	 */
 	protected void sequence_ListType(ISerializationContext context, ListType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2497,6 +2657,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns MemoryImplementation
 	 *     ComponentImplementation returns MemoryImplementation
@@ -2511,18 +2672,29 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedMemorySubcomponent+=MemorySubcomponent? 
-	 *                 ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedBusSubcomponent+=BusSubcomponent)? ownedMemorySubcomponent+=MemorySubcomponent?)*
+	 *                 ownedBusSubcomponent+=BusSubcomponent? 
+	 *                 (
+	 *                     (
+	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                         ownedMemorySubcomponent+=MemorySubcomponent | 
+	 *                         ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+	 *                     )? 
+	 *                     ownedBusSubcomponent+=BusSubcomponent?
+	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
 	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
 	 *         (
 	 *             (
-	 *                 (ownedFeatureConnection+=FeatureConnection? (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?)* 
+	 *                 (ownedFeatureGroupConnection+=FeatureGroupConnection? (ownedAccessConnection+=AccessConnection | ownedFeatureConnection+=FeatureConnection)?)* 
 	 *                 (
-	 *                     (ownedFeatureConnection+=FeatureConnection? noModes?='none'?) | 
-	 *                     (ownedFeatureConnection+=FeatureConnection? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
+	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noModes?='none'?) | 
+	 *                     (
+	 *                         ownedFeatureGroupConnection+=FeatureGroupConnection? 
+	 *                         ownedModeTransition+=ModeTransition? 
+	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
+	 *                     )
 	 *                 )
 	 *             ) | 
 	 *             (noConnections?='none'? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
@@ -2531,6 +2703,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_MemoryImplementation(ISerializationContext context, MemoryImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2538,6 +2711,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns MemoryPrototype
 	 *     ComponentPrototype returns MemoryPrototype
@@ -2550,6 +2724,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_MemoryPrototype(ISerializationContext context, MemoryPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2557,6 +2732,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     MemorySubcomponent returns MemorySubcomponent
 	 *
@@ -2571,6 +2747,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_MemorySubcomponent(ISerializationContext context, MemorySubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2578,6 +2755,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns MemoryType
 	 *     ComponentType returns MemoryType
@@ -2591,23 +2769,23 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedEventPort+=EventPort? 
-	 *                 (
-	 *                     (
-	 *                         ownedFeatureGroup+=FeatureGroup | 
-	 *                         ownedBusAccess+=BusAccess | 
-	 *                         ownedDataPort+=DataPort | 
-	 *                         ownedEventDataPort+=EventDataPort | 
-	 *                         ownedAbstractFeature+=AbstractFeature
-	 *                     )? 
-	 *                     ownedEventPort+=EventPort?
-	 *                 )*
-	 *             )
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
 	 *         )? 
-	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (
+	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
+	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
+	 *             noModes?='none'
+	 *         )? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_MemoryType(ISerializationContext context, MemoryType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2615,11 +2793,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ModeRef returns ModeBinding
 	 *
 	 * Constraint:
 	 *     (parentMode=[Mode|ID] derivedMode=[Mode|ID]?)
+	 * </pre>
 	 */
 	protected void sequence_ModeRef(ISerializationContext context, ModeBinding semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2627,6 +2807,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ModeTransition returns ModeTransition
 	 *
@@ -2639,6 +2820,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         destination=[Mode|ID] 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ModeTransition(ISerializationContext context, ModeTransition semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2646,11 +2828,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Mode returns Mode
 	 *
 	 * Constraint:
 	 *     (name=ID initial?='initial'? ownedPropertyAssociation+=PropertyAssociation*)
+	 * </pre>
 	 */
 	protected void sequence_Mode(ISerializationContext context, Mode semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2658,11 +2842,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PackageRename returns PackageRename
 	 *
 	 * Constraint:
 	 *     (name=ID renamedPackage=[AadlPackage|PNAME] renameAll?='all'?)
+	 * </pre>
 	 */
 	protected void sequence_PackageRename(ISerializationContext context, PackageRename semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2670,6 +2856,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ParameterConnection returns ParameterConnection
 	 *
@@ -2679,6 +2866,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ParameterConnection(ISerializationContext context, ParameterConnection semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2686,6 +2874,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Parameter returns Parameter
 	 *
@@ -2697,6 +2886,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_Parameter(ISerializationContext context, org.osate.aadl2.Parameter semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2704,15 +2894,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PortConnection returns PortConnection
 	 *
 	 * Constraint:
 	 *     (
-	 *         ((name=ID source=AbstractConnectionEnd bidirectional?='<->'? destination=AbstractConnectionEnd) | refined=[PortConnection|REFINEDNAME]) 
+	 *         ((name=ID source=AbstractConnectionEnd bidirectional?='&lt;-&gt;'? destination=AbstractConnectionEnd) | refined=[PortConnection|REFINEDNAME]) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_PortConnection(ISerializationContext context, PortConnection semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2720,11 +2912,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PortProxy returns PortProxy
 	 *
 	 * Constraint:
 	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
+	 * </pre>
 	 */
 	protected void sequence_PortProxy(ISerializationContext context, PortProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2732,11 +2926,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PortSpecification returns PortSpecification
 	 *
 	 * Constraint:
 	 *     (((in?='in' out?='out'?) | out?='out') category=PortCategory classifier=[ComponentClassifier|QCREF]?)
+	 * </pre>
 	 */
 	protected void sequence_PortSpecification(ISerializationContext context, PortSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2744,6 +2940,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PrivatePackageSection returns PrivatePackageSection
 	 *
@@ -2756,6 +2953,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedClassifier+=Classifier? 
 	 *         (ownedAnnexLibrary+=AnnexLibrary? ownedClassifier+=Classifier?)*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_PrivatePackageSection(ISerializationContext context, PrivatePackageSection semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2763,6 +2961,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns ProcessImplementation
 	 *     ComponentImplementation returns ProcessImplementation
@@ -2777,28 +2976,28 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent? 
 	 *                 (
 	 *                     (
 	 *                         ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
 	 *                         ownedThreadSubcomponent+=ThreadSubcomponent | 
-	 *                         ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
 	 *                         ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
-	 *                         ownedDataSubcomponent+=DataSubcomponent
+	 *                         ownedDataSubcomponent+=DataSubcomponent | 
+	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent
 	 *                     )? 
-	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
+	 *                     ownedSubprogramSubcomponent+=SubprogramSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
 	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
-	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
+	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
 	 *         (
 	 *             (
 	 *                 (
-	 *                     (ownedPortProxy+=PortProxy? noConnections?='none'? ownedFlowImplementation+=FlowImplementation?) | 
+	 *                     (ownedSubprogramProxy+=SubprogramProxy? noConnections?='none'? ownedFlowImplementation+=FlowImplementation?) | 
 	 *                     (
-	 *                         ownedPortProxy+=PortProxy? 
+	 *                         ownedSubprogramProxy+=SubprogramProxy? 
 	 *                         (
 	 *                             ownedFeatureConnection+=FeatureConnection? 
 	 *                             (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?
@@ -2808,27 +3007,22 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                     )
 	 *                 ) 
 	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
-	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')?
+	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
 	 *             ) | 
 	 *             (
-	 *                 ownedPortProxy+=PortProxy? 
+	 *                 ownedSubprogramProxy+=SubprogramProxy? 
 	 *                 noConnections?='none'? 
 	 *                 noFlows?='none'? 
-	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')
+	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')
 	 *             ) | 
 	 *             (
-	 *                 ownedPortProxy+=PortProxy? 
+	 *                 ownedSubprogramProxy+=SubprogramProxy? 
 	 *                 (
 	 *                     ownedFeatureConnection+=FeatureConnection? 
 	 *                     (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?
 	 *                 )* 
 	 *                 (
-	 *                     (
-	 *                         ownedFeatureConnection+=FeatureConnection? 
-	 *                         noFlows?='none'? 
-	 *                         ownedModeTransition+=ModeTransition? 
-	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
-	 *                     ) | 
+	 *                     (ownedFeatureConnection+=FeatureConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
 	 *                     (ownedFeatureConnection+=FeatureConnection? noFlows?='none'? noModes?='none')
 	 *                 )
 	 *             )
@@ -2836,6 +3030,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ProcessImplementation(ISerializationContext context, ProcessImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2843,6 +3038,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns ProcessPrototype
 	 *     ComponentPrototype returns ProcessPrototype
@@ -2855,6 +3051,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ProcessPrototype(ISerializationContext context, ProcessPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2862,6 +3059,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ProcessSubcomponent returns ProcessSubcomponent
 	 *
@@ -2876,6 +3074,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ProcessSubcomponent(ISerializationContext context, ProcessSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2883,6 +3082,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns ProcessType
 	 *     ComponentType returns ProcessType
@@ -2896,26 +3096,26 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedEventPort+=EventPort? 
-	 *                 (
-	 *                     (
-	 *                         ownedDataPort+=DataPort | 
-	 *                         ownedEventDataPort+=EventDataPort | 
-	 *                         ownedFeatureGroup+=FeatureGroup | 
-	 *                         ownedDataAccess+=DataAccess | 
-	 *                         ownedSubprogramAccess+=SubprogramAccess | 
-	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                         ownedAbstractFeature+=AbstractFeature
-	 *                     )? 
-	 *                     ownedEventPort+=EventPort?
-	 *                 )*
-	 *             )
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (
+	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
+	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
+	 *             noModes?='none'
+	 *         )? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ProcessType(ISerializationContext context, ProcessType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2923,6 +3123,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns ProcessorImplementation
 	 *     ComponentImplementation returns ProcessorImplementation
@@ -2937,52 +3138,49 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent? 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
 	 *                 (
 	 *                     (
 	 *                         ownedMemorySubcomponent+=MemorySubcomponent | 
-	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent | 
 	 *                         ownedBusSubcomponent+=BusSubcomponent | 
+	 *                         ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
 	 *                         ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
 	 *                     )? 
-	 *                     ownedVirtualBusSubcomponent+=VirtualBusSubcomponent?
+	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
 	 *         (
 	 *             (
+	 *                 ownedEventSource+=EventSource? 
 	 *                 (
-	 *                     (
-	 *                         (
-	 *                             ownedPortConnection+=PortConnection? 
-	 *                             (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
-	 *                         )* 
-	 *                         ownedPortConnection+=PortConnection? 
-	 *                         ownedEndToEndFlow+=EndToEndFlow?
-	 *                     ) | 
-	 *                     (noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?)
-	 *                 ) 
-	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
-	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
-	 *             ) | 
-	 *             (
-	 *                 (
-	 *                     ownedPortConnection+=PortConnection? 
-	 *                     (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                     ownedAccessConnection+=AccessConnection? 
+	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
 	 *                 )* 
 	 *                 (
-	 *                     (ownedPortConnection+=PortConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *                     (ownedPortConnection+=PortConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'?) | 
+	 *                     (
+	 *                         ownedAccessConnection+=AccessConnection? 
+	 *                         ownedFlowImplementation+=FlowImplementation? 
+	 *                         (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)*
+	 *                     )
 	 *                 )
 	 *             ) | 
-	 *             (noConnections?='none'? noFlows?='none'? noModes?='none') | 
-	 *             (noConnections?='none'? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
+	 *             (
+	 *                 ownedEventSource+=EventSource? 
+	 *                 noConnections?='none'? 
+	 *                 ownedFlowImplementation+=FlowImplementation? 
+	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)*
+	 *             ) | 
+	 *             (ownedEventSource+=EventSource? noConnections?='none'? noFlows?='none'?)
 	 *         ) 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ProcessorImplementation(ISerializationContext context, ProcessorImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2990,11 +3188,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ProcessorPort returns ConnectedElement
 	 *
 	 * Constraint:
 	 *     connectionEnd=[PortProxy|ID]
+	 * </pre>
 	 */
 	protected void sequence_ProcessorPort(ISerializationContext context, ConnectedElement semanticObject) {
 		if (errorAcceptor != null) {
@@ -3008,6 +3208,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns ProcessorPrototype
 	 *     ComponentPrototype returns ProcessorPrototype
@@ -3020,6 +3221,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ProcessorPrototype(ISerializationContext context, ProcessorPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3027,6 +3229,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ProcessorSubcomponent returns ProcessorSubcomponent
 	 *
@@ -3044,6 +3247,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ProcessorSubcomponent(ISerializationContext context, ProcessorSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3051,11 +3255,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ProcessorSubprogram returns ConnectedElement
 	 *
 	 * Constraint:
 	 *     connectionEnd=[SubprogramProxy|ID]
+	 * </pre>
 	 */
 	protected void sequence_ProcessorSubprogram(ISerializationContext context, ConnectedElement semanticObject) {
 		if (errorAcceptor != null) {
@@ -3069,6 +3275,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns ProcessorType
 	 *     ComponentType returns ProcessorType
@@ -3082,26 +3289,26 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedEventDataPort+=EventDataPort? 
-	 *                 (
-	 *                     (
-	 *                         ownedDataPort+=DataPort | 
-	 *                         ownedEventPort+=EventPort | 
-	 *                         ownedFeatureGroup+=FeatureGroup | 
-	 *                         ownedBusAccess+=BusAccess | 
-	 *                         ownedSubprogramAccess+=SubprogramAccess | 
-	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                         ownedAbstractFeature+=AbstractFeature
-	 *                     )? 
-	 *                     ownedEventDataPort+=EventDataPort?
-	 *                 )*
-	 *             )
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (
+	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
+	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
+	 *             noModes?='none'
+	 *         )? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ProcessorType(ISerializationContext context, ProcessorType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3109,11 +3316,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyConstant returns PropertyConstant
 	 *
 	 * Constraint:
 	 *     (name=ID (referencedPropertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType) constantValue=ConstantPropertyExpression)
+	 * </pre>
 	 */
 	protected void sequence_PropertyConstant(ISerializationContext context, PropertyConstant semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3121,6 +3330,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyDefinition returns Property
 	 *
@@ -3132,6 +3342,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         defaultValue=PropertyExpression? 
 	 *         ((appliesTo+=PropertyOwner appliesTo+=PropertyOwner*) | appliesTo+=AllReference)
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_PropertyDefinition(ISerializationContext context, Property semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3139,6 +3350,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Model returns PropertySet
 	 *     PropertySet returns PropertySet
@@ -3150,6 +3362,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_PropertySet(ISerializationContext context, PropertySet semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3157,6 +3370,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PublicPackageSection returns PublicPackageSection
 	 *
@@ -3169,6 +3383,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedClassifier+=Classifier? 
 	 *         (ownedAnnexLibrary+=AnnexLibrary? ownedClassifier+=Classifier?)*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_PublicPackageSection(ISerializationContext context, PublicPackageSection semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3176,12 +3391,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     QCReference returns ClassifierValue
 	 *     PropertyOwner returns ClassifierValue
 	 *
 	 * Constraint:
 	 *     classifier=[ComponentClassifier|FQCREF]
+	 * </pre>
 	 */
 	protected void sequence_QCReference(ISerializationContext context, ClassifierValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -3195,12 +3412,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     QMReference returns MetaclassReference
 	 *     PropertyOwner returns MetaclassReference
 	 *
 	 * Constraint:
 	 *     (annexName=ID? (metaclassName+=CoreKeyWord | metaclassName+=ID)+)
+	 * </pre>
 	 */
 	protected void sequence_QMReference(ISerializationContext context, MetaclassReference semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3208,12 +3427,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns RangeType
 	 *     RangeType returns RangeType
 	 *
 	 * Constraint:
 	 *     (name=ID (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | referencedNumberType=[NumberType|QPREF]))
+	 * </pre>
 	 */
 	protected void sequence_RangeType(ISerializationContext context, RangeType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3221,12 +3442,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NumberValue returns RealLiteral
 	 *     RealLit returns RealLiteral
 	 *
 	 * Constraint:
 	 *     value=SignedReal
+	 * </pre>
 	 */
 	protected void sequence_RealLit(ISerializationContext context, RealLiteral semanticObject) {
 		if (errorAcceptor != null) {
@@ -3240,6 +3463,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     RealRange returns NumericRange
 	 *
@@ -3248,6 +3472,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (lowerBound=RealTerm | lowerBound=SignedConstant | lowerBound=ConstantValue) 
 	 *         (upperBound=RealTerm | upperBound=SignedConstant | upperBound=ConstantValue)
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_RealRange(ISerializationContext context, NumericRange semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3255,12 +3480,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns AadlReal
 	 *     RealType returns AadlReal
 	 *
 	 * Constraint:
 	 *     (name=ID range=RealRange? (ownedUnitsType=UnnamedUnitsType | referencedUnitsType=[UnitsType|QPREF])?)
+	 * </pre>
 	 */
 	protected void sequence_RealType(ISerializationContext context, AadlReal semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3268,11 +3495,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Realization returns Realization
 	 *
 	 * Constraint:
 	 *     implemented=[ComponentType|ID]
+	 * </pre>
 	 */
 	protected void sequence_Realization(ISerializationContext context, Realization semanticObject) {
 		if (errorAcceptor != null) {
@@ -3286,11 +3515,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     RecordField returns BasicProperty
 	 *
 	 * Constraint:
 	 *     (name=ID (referencedPropertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType))
+	 * </pre>
 	 */
 	protected void sequence_RecordField(ISerializationContext context, BasicProperty semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3298,12 +3529,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns RecordType
 	 *     RecordType returns RecordType
 	 *
 	 * Constraint:
 	 *     (name=ID ownedField+=RecordField+)
+	 * </pre>
 	 */
 	protected void sequence_RecordType(ISerializationContext context, RecordType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3311,12 +3544,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns ReferenceType
 	 *     ReferenceType returns ReferenceType
 	 *
 	 * Constraint:
 	 *     (name=ID (namedElementReference+=QMReference namedElementReference+=QMReference*)?)
+	 * </pre>
 	 */
 	protected void sequence_ReferenceType(ISerializationContext context, ReferenceType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3324,11 +3559,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     RenameAll returns PackageRename
 	 *
 	 * Constraint:
 	 *     (renamedPackage=[AadlPackage|PNAME] renameAll?='all')
+	 * </pre>
 	 */
 	protected void sequence_RenameAll(ISerializationContext context, PackageRename semanticObject) {
 		if (errorAcceptor != null) {
@@ -3345,12 +3582,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns AadlString
 	 *     StringType returns AadlString
 	 *
 	 * Constraint:
 	 *     name=ID
+	 * </pre>
 	 */
 	protected void sequence_StringType(ISerializationContext context, AadlString semanticObject) {
 		if (errorAcceptor != null) {
@@ -3364,11 +3603,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SubcomponentFlow returns FlowSegment
 	 *
 	 * Constraint:
 	 *     (context=[Subcomponent|ID]? flowElement=[FlowElement|ID])
+	 * </pre>
 	 */
 	protected void sequence_SubcomponentFlow(ISerializationContext context, FlowSegment semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3376,6 +3617,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SubprogramAccess returns SubprogramAccess
 	 *
@@ -3387,6 +3629,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramAccess(ISerializationContext context, SubprogramAccess semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3394,11 +3637,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SubprogramCallSequence returns SubprogramCallSequence
 	 *
 	 * Constraint:
 	 *     (name=ID ownedSubprogramCall+=SubprogramCall+ ownedPropertyAssociation+=PropertyAssociation* (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
+	 * </pre>
 	 */
 	protected void sequence_SubprogramCallSequence(ISerializationContext context, SubprogramCallSequence semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3406,6 +3651,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SubprogramCall returns SubprogramCall
 	 *
@@ -3419,6 +3665,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ) 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramCall(ISerializationContext context, SubprogramCall semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3426,6 +3673,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SubprogramGroupAccess returns SubprogramGroupAccess
 	 *
@@ -3437,6 +3685,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramGroupAccess(ISerializationContext context, SubprogramGroupAccess semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3444,6 +3693,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns SubprogramGroupImplementation
 	 *     ComponentImplementation returns SubprogramGroupImplementation
@@ -3470,18 +3720,24 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventDataSource+=EventDataSource? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         ownedSubprogramProxy+=SubprogramProxy? 
-	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
+	 *         ownedEventSource+=EventSource? 
+	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (
-	 *             (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')? 
+	 *             (
+	 *                 (ownedFeatureGroupConnection+=FeatureGroupConnection? (ownedAccessConnection+=AccessConnection | ownedFeatureConnection+=FeatureConnection)?)* 
+	 *                 (
+	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noModes?='none'?) | 
+	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
+	 *                 )
+	 *             ) | 
+	 *             (noConnections?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *             (noConnections?='none'? noModes?='none'?)
+	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramGroupImplementation(ISerializationContext context, SubprogramGroupImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3489,6 +3745,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns SubprogramGroupPrototype
 	 *     ComponentPrototype returns SubprogramGroupPrototype
@@ -3501,6 +3758,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramGroupPrototype(ISerializationContext context, SubprogramGroupPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3508,6 +3766,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SubprogramGroupSubcomponent returns SubprogramGroupSubcomponent
 	 *
@@ -3525,6 +3784,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramGroupSubcomponent(ISerializationContext context, SubprogramGroupSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3532,6 +3792,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns SubprogramGroupType
 	 *     ComponentType returns SubprogramGroupType
@@ -3555,6 +3816,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramGroupType(ISerializationContext context, SubprogramGroupType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3562,6 +3824,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns SubprogramImplementation
 	 *     ComponentImplementation returns SubprogramImplementation
@@ -3576,65 +3839,61 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
+	 *                 ownedDataSubcomponent+=DataSubcomponent? 
 	 *                 (
-	 *                     (ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedDataSubcomponent+=DataSubcomponent)? 
-	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
+	 *                     (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent)? 
+	 *                     ownedDataSubcomponent+=DataSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventDataSource+=EventDataSource? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         ownedPortProxy+=PortProxy? 
+	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
 	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
 	 *         (
 	 *             (
 	 *                 (
 	 *                     (
 	 *                         (
-	 *                             ownedPortConnection+=PortConnection? 
+	 *                             ownedParameterConnection+=ParameterConnection? 
 	 *                             (
+	 *                                 ownedPortConnection+=PortConnection | 
 	 *                                 ownedAccessConnection+=AccessConnection | 
 	 *                                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                                 ownedFeatureConnection+=FeatureConnection | 
-	 *                                 ownedParameterConnection+=ParameterConnection
+	 *                                 ownedFeatureConnection+=FeatureConnection
 	 *                             )?
 	 *                         )* 
-	 *                         ownedPortConnection+=PortConnection? 
-	 *                         ownedEndToEndFlow+=EndToEndFlow?
+	 *                         ownedParameterConnection+=ParameterConnection? 
+	 *                         ownedFlowImplementation+=FlowImplementation?
 	 *                     ) | 
-	 *                     (noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?)
+	 *                     (noConnections?='none'? ownedFlowImplementation+=FlowImplementation?)
 	 *                 ) 
-	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
-	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')?
+	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
+	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
 	 *             ) | 
 	 *             (
 	 *                 (
-	 *                     ownedPortConnection+=PortConnection? 
+	 *                     ownedParameterConnection+=ParameterConnection? 
 	 *                     (
+	 *                         ownedPortConnection+=PortConnection | 
 	 *                         ownedAccessConnection+=AccessConnection | 
 	 *                         ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                         ownedFeatureConnection+=FeatureConnection | 
-	 *                         ownedParameterConnection+=ParameterConnection
+	 *                         ownedFeatureConnection+=FeatureConnection
 	 *                     )?
 	 *                 )* 
 	 *                 (
-	 *                     (
-	 *                         ownedPortConnection+=PortConnection? 
-	 *                         noFlows?='none'? 
-	 *                         ownedModeTransition+=ModeTransition? 
-	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
-	 *                     ) | 
-	 *                     (ownedPortConnection+=PortConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedParameterConnection+=ParameterConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *                     (ownedParameterConnection+=ParameterConnection? noFlows?='none'? noModes?='none')
 	 *                 )
 	 *             ) | 
 	 *             (noConnections?='none'? noFlows?='none'? noModes?='none') | 
-	 *             (noConnections?='none'? noFlows?='none'? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
+	 *             (noConnections?='none'? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramImplementation(ISerializationContext context, SubprogramImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3642,6 +3901,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns SubprogramPrototype
 	 *     ComponentPrototype returns SubprogramPrototype
@@ -3654,6 +3914,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramPrototype(ISerializationContext context, SubprogramPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3661,11 +3922,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SubprogramProxy returns SubprogramProxy
 	 *
 	 * Constraint:
 	 *     (name=ID subprogramClassifier=[SubprogramClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
+	 * </pre>
 	 */
 	protected void sequence_SubprogramProxy(ISerializationContext context, SubprogramProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3673,6 +3936,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SubprogramSubcomponent returns SubprogramSubcomponent
 	 *
@@ -3690,6 +3954,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramSubcomponent(ISerializationContext context, SubprogramSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3697,6 +3962,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns SubprogramType
 	 *     ComponentType returns SubprogramType
@@ -3730,6 +3996,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SubprogramType(ISerializationContext context, SubprogramType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3737,6 +4004,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns SystemImplementation
 	 *     ComponentImplementation returns SystemImplementation
@@ -3751,22 +4019,22 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent? 
+	 *                 ownedMemorySubcomponent+=MemorySubcomponent? 
 	 *                 (
 	 *                     (
 	 *                         ownedSystemSubcomponent+=SystemSubcomponent | 
+	 *                         ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
 	 *                         ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
 	 *                         ownedProcessSubcomponent+=ProcessSubcomponent | 
 	 *                         ownedProcessorSubcomponent+=ProcessorSubcomponent | 
 	 *                         ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
-	 *                         ownedMemorySubcomponent+=MemorySubcomponent | 
 	 *                         ownedDeviceSubcomponent+=DeviceSubcomponent | 
 	 *                         ownedBusSubcomponent+=BusSubcomponent | 
 	 *                         ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
 	 *                         ownedDataSubcomponent+=DataSubcomponent | 
 	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent
 	 *                     )? 
-	 *                     ownedSubprogramSubcomponent+=SubprogramSubcomponent?
+	 *                     ownedMemorySubcomponent+=MemorySubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
@@ -3780,42 +4048,38 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                     (
 	 *                         ownedSubprogramProxy+=SubprogramProxy? 
 	 *                         (
-	 *                             ownedAccessConnection+=AccessConnection? 
-	 *                             (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                             ownedFeatureConnection+=FeatureConnection? 
+	 *                             (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?
 	 *                         )* 
-	 *                         ownedAccessConnection+=AccessConnection? 
+	 *                         ownedFeatureConnection+=FeatureConnection? 
 	 *                         ownedFlowImplementation+=FlowImplementation?
 	 *                     )
 	 *                 ) 
 	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
-	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')?
+	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
 	 *             ) | 
 	 *             (
 	 *                 ownedSubprogramProxy+=SubprogramProxy? 
 	 *                 noConnections?='none'? 
 	 *                 noFlows?='none'? 
-	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')
+	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')
 	 *             ) | 
 	 *             (
 	 *                 ownedSubprogramProxy+=SubprogramProxy? 
 	 *                 (
-	 *                     ownedAccessConnection+=AccessConnection? 
-	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                     ownedFeatureConnection+=FeatureConnection? 
+	 *                     (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?
 	 *                 )* 
 	 *                 (
-	 *                     (
-	 *                         ownedAccessConnection+=AccessConnection? 
-	 *                         noFlows?='none'? 
-	 *                         ownedModeTransition+=ModeTransition? 
-	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
-	 *                     ) | 
-	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedFeatureConnection+=FeatureConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *                     (ownedFeatureConnection+=FeatureConnection? noFlows?='none'? noModes?='none')
 	 *                 )
 	 *             )
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SystemImplementation(ISerializationContext context, SystemImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3823,6 +4087,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns SystemPrototype
 	 *     ComponentPrototype returns SystemPrototype
@@ -3835,6 +4100,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SystemPrototype(ISerializationContext context, SystemPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3842,6 +4108,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SystemSubcomponent returns SystemSubcomponent
 	 *
@@ -3856,6 +4123,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SystemSubcomponent(ISerializationContext context, SystemSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3863,6 +4131,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns SystemType
 	 *     ComponentType returns SystemType
@@ -3890,12 +4159,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
 	 *         (
 	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
-	 *             (ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
 	 *             noModes?='none'
 	 *         )? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SystemType(ISerializationContext context, SystemType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3903,6 +4173,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns ThreadGroupImplementation
 	 *     ComponentImplementation returns ThreadGroupImplementation
@@ -3917,55 +4188,48 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent? 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
 	 *                 (
 	 *                     (
+	 *                         ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
 	 *                         ownedThreadSubcomponent+=ThreadSubcomponent | 
 	 *                         ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
 	 *                         ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
-	 *                         ownedDataSubcomponent+=DataSubcomponent | 
-	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *                         ownedDataSubcomponent+=DataSubcomponent
 	 *                     )? 
-	 *                     ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent?
+	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
 	 *         ownedEventDataSource+=EventDataSource? 
 	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
+	 *         ownedPortProxy+=PortProxy? 
+	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
 	 *         (
 	 *             (
-	 *                 (
-	 *                     (
-	 *                         (
-	 *                             ownedAccessConnection+=AccessConnection? 
-	 *                             (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
-	 *                         )* 
-	 *                         ownedAccessConnection+=AccessConnection? 
-	 *                         ownedEndToEndFlow+=EndToEndFlow?
-	 *                     ) | 
-	 *                     (noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?)
-	 *                 ) 
-	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
-	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
-	 *             ) | 
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         (
 	 *             (
+	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
 	 *                 (
-	 *                     ownedAccessConnection+=AccessConnection? 
-	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
-	 *                 )* 
-	 *                 (
-	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedEndToEndFlow+=EndToEndFlow? noModes?='none'?) | 
+	 *                     (ownedEndToEndFlow+=EndToEndFlow? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
 	 *                 )
 	 *             ) | 
-	 *             (noConnections?='none'? noFlows?='none'? noModes?='none') | 
-	 *             (noConnections?='none'? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
+	 *             (noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *             (noFlows?='none'? noModes?='none'?)
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ThreadGroupImplementation(ISerializationContext context, ThreadGroupImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3973,6 +4237,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns ThreadGroupPrototype
 	 *     ComponentPrototype returns ThreadGroupPrototype
@@ -3985,6 +4250,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ThreadGroupPrototype(ISerializationContext context, ThreadGroupPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3992,6 +4258,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ThreadGroupSubcomponent returns ThreadGroupSubcomponent
 	 *
@@ -4009,6 +4276,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ThreadGroupSubcomponent(ISerializationContext context, ThreadGroupSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4016,6 +4284,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns ThreadGroupType
 	 *     ComponentType returns ThreadGroupType
@@ -4029,25 +4298,27 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataAccess+=DataAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
+	 *                 ownedEventDataPort+=EventDataPort? 
+	 *                 (
+	 *                     (
+	 *                         ownedDataPort+=DataPort | 
+	 *                         ownedEventPort+=EventPort | 
+	 *                         ownedFeatureGroup+=FeatureGroup | 
+	 *                         ownedDataAccess+=DataAccess | 
+	 *                         ownedSubprogramAccess+=SubprogramAccess | 
+	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                         ownedAbstractFeature+=AbstractFeature
+	 *                     )? 
+	 *                     ownedEventDataPort+=EventDataPort?
+	 *                 )*
+	 *             )
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (
-	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
-	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
-	 *             noModes?='none'
-	 *         )? 
+	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ThreadGroupType(ISerializationContext context, ThreadGroupType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4055,6 +4326,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns ThreadImplementation
 	 *     ComponentImplementation returns ThreadImplementation
@@ -4069,22 +4341,18 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent? 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent? 
 	 *                 (
-	 *                     (
-	 *                         ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
-	 *                         ownedDataSubcomponent+=DataSubcomponent | 
-	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent
-	 *                     )? 
-	 *                     ownedSubprogramSubcomponent+=SubprogramSubcomponent?
+	 *                     (ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent)? 
+	 *                     ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventDataSource+=EventDataSource? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         ownedSubprogramProxy+=SubprogramProxy? 
-	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
+	 *         ownedEventSource+=EventSource? 
+	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
+	 *         ownedPortProxy+=PortProxy? 
+	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
 	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
 	 *         (
 	 *             (
@@ -4101,15 +4369,16 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
 	 *                 (
 	 *                     (ownedFlowImplementation+=FlowImplementation? noModes?='none'?) | 
-	 *                     (ownedFlowImplementation+=FlowImplementation? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
+	 *                     (ownedFlowImplementation+=FlowImplementation? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
 	 *                 )
 	 *             ) | 
-	 *             (noFlows?='none'? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
+	 *             (noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
 	 *             (noFlows?='none'? noModes?='none'?)
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ThreadImplementation(ISerializationContext context, ThreadImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4117,6 +4386,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns ThreadPrototype
 	 *     ComponentPrototype returns ThreadPrototype
@@ -4129,6 +4399,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ThreadPrototype(ISerializationContext context, ThreadPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4136,6 +4407,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ThreadSubcomponent returns ThreadSubcomponent
 	 *
@@ -4150,6 +4422,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ThreadSubcomponent(ISerializationContext context, ThreadSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4157,6 +4430,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns ThreadType
 	 *     ComponentType returns ThreadType
@@ -4170,25 +4444,27 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataAccess+=DataAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
+	 *                 ownedAbstractFeature+=AbstractFeature? 
+	 *                 (
+	 *                     (
+	 *                         ownedDataPort+=DataPort | 
+	 *                         ownedEventPort+=EventPort | 
+	 *                         ownedEventDataPort+=EventDataPort | 
+	 *                         ownedFeatureGroup+=FeatureGroup | 
+	 *                         ownedDataAccess+=DataAccess | 
+	 *                         ownedSubprogramAccess+=SubprogramAccess | 
+	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	 *                     )? 
+	 *                     ownedAbstractFeature+=AbstractFeature?
+	 *                 )*
+	 *             )
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (
-	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
-	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
-	 *             noModes?='none'
-	 *         )? 
+	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ThreadType(ISerializationContext context, ThreadType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4196,11 +4472,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Trigger returns ModeTransitionTrigger
 	 *
 	 * Constraint:
 	 *     ((context=[Context|ID]? triggerPort=[Port|ID]) | triggerPort=[InternalFeature|ID] | triggerPort=[PortProxy|ID])
+	 * </pre>
 	 */
 	protected void sequence_Trigger(ISerializationContext context, ModeTransitionTrigger semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4208,11 +4486,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     TypeExtension returns TypeExtension
 	 *
 	 * Constraint:
 	 *     extended=[ComponentType|QCREF]
+	 * </pre>
 	 */
 	protected void sequence_TypeExtension(ISerializationContext context, TypeExtension semanticObject) {
 		if (errorAcceptor != null) {
@@ -4226,11 +4506,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnitLiteralConversion returns UnitLiteral
 	 *
 	 * Constraint:
 	 *     (name=ID baseUnit=[UnitLiteral|ID] factor=NumberValue)
+	 * </pre>
 	 */
 	protected void sequence_UnitLiteralConversion(ISerializationContext context, UnitLiteral semanticObject) {
 		if (errorAcceptor != null) {
@@ -4250,11 +4532,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnitLiteral returns UnitLiteral
 	 *
 	 * Constraint:
 	 *     name=ID
+	 * </pre>
 	 */
 	protected void sequence_UnitLiteral(ISerializationContext context, UnitLiteral semanticObject) {
 		if (errorAcceptor != null) {
@@ -4268,12 +4552,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyType returns UnitsType
 	 *     UnitsType returns UnitsType
 	 *
 	 * Constraint:
 	 *     (name=ID ownedLiteral+=UnitLiteral ownedLiteral+=UnitLiteralConversion*)
+	 * </pre>
 	 */
 	protected void sequence_UnitsType(ISerializationContext context, UnitsType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4281,12 +4567,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns AadlBoolean
 	 *     UnnamedBooleanType returns AadlBoolean
 	 *
 	 * Constraint:
 	 *     {AadlBoolean}
+	 * </pre>
 	 */
 	protected void sequence_UnnamedBooleanType(ISerializationContext context, AadlBoolean semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4294,12 +4582,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns ClassifierType
 	 *     UnnamedClassifierType returns ClassifierType
 	 *
 	 * Constraint:
 	 *     (classifierReference+=QMReference classifierReference+=QMReference*)?
+	 * </pre>
 	 */
 	protected void sequence_UnnamedClassifierType(ISerializationContext context, ClassifierType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4307,12 +4597,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns EnumerationType
 	 *     UnnamedEnumerationType returns EnumerationType
 	 *
 	 * Constraint:
 	 *     (ownedLiteral+=EnumerationLiteral ownedLiteral+=EnumerationLiteral*)
+	 * </pre>
 	 */
 	protected void sequence_UnnamedEnumerationType(ISerializationContext context, EnumerationType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4320,12 +4612,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns AadlInteger
 	 *     UnnamedIntegerType returns AadlInteger
 	 *
 	 * Constraint:
 	 *     (range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | referencedUnitsType=[UnitsType|QPREF])?)
+	 * </pre>
 	 */
 	protected void sequence_UnnamedIntegerType(ISerializationContext context, AadlInteger semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4333,12 +4627,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns RangeType
 	 *     UnnamedRangeType returns RangeType
 	 *
 	 * Constraint:
 	 *     (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | referencedNumberType=[NumberType|QPREF])
+	 * </pre>
 	 */
 	protected void sequence_UnnamedRangeType(ISerializationContext context, RangeType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4346,12 +4642,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns AadlReal
 	 *     UnnamedRealType returns AadlReal
 	 *
 	 * Constraint:
 	 *     (range=RealRange? (ownedUnitsType=UnnamedUnitsType | referencedUnitsType=[UnitsType|QPREF])?)
+	 * </pre>
 	 */
 	protected void sequence_UnnamedRealType(ISerializationContext context, AadlReal semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4359,12 +4657,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns RecordType
 	 *     UnnamedRecordType returns RecordType
 	 *
 	 * Constraint:
 	 *     ownedField+=RecordField+
+	 * </pre>
 	 */
 	protected void sequence_UnnamedRecordType(ISerializationContext context, RecordType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4372,12 +4672,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns ReferenceType
 	 *     UnnamedReferenceType returns ReferenceType
 	 *
 	 * Constraint:
 	 *     (namedElementReference+=QMReference namedElementReference+=QMReference*)?
+	 * </pre>
 	 */
 	protected void sequence_UnnamedReferenceType(ISerializationContext context, ReferenceType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4385,12 +4687,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns AadlString
 	 *     UnnamedStringType returns AadlString
 	 *
 	 * Constraint:
 	 *     {AadlString}
+	 * </pre>
 	 */
 	protected void sequence_UnnamedStringType(ISerializationContext context, AadlString semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4398,12 +4702,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     UnnamedPropertyType returns UnitsType
 	 *     UnnamedUnitsType returns UnitsType
 	 *
 	 * Constraint:
 	 *     (ownedLiteral+=UnitLiteral ownedLiteral+=UnitLiteralConversion*)
+	 * </pre>
 	 */
 	protected void sequence_UnnamedUnitsType(ISerializationContext context, UnitsType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4411,6 +4717,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns VirtualBusImplementation
 	 *     ComponentImplementation returns VirtualBusImplementation
@@ -4425,16 +4732,30 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
-	 *                 (ownedVirtualBusSubcomponent+=VirtualBusSubcomponent? ownedAbstractSubcomponent+=AbstractSubcomponent?)*
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent? 
+	 *                 (ownedAbstractSubcomponent+=AbstractSubcomponent? ownedVirtualBusSubcomponent+=VirtualBusSubcomponent?)*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
 	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
-	 *         ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')? 
+	 *         (
+	 *             (
+	 *                 (
+	 *                     ownedFeatureGroupConnection+=FeatureGroupConnection? 
+	 *                     (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                 )* 
+	 *                 (
+	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noModes?='none'?) | 
+	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
+	 *                 )
+	 *             ) | 
+	 *             (noConnections?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *             (noConnections?='none'? noModes?='none'?)
+	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_VirtualBusImplementation(ISerializationContext context, VirtualBusImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4442,6 +4763,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns VirtualBusPrototype
 	 *     ComponentPrototype returns VirtualBusPrototype
@@ -4454,6 +4776,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_VirtualBusPrototype(ISerializationContext context, VirtualBusPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4461,6 +4784,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VirtualBusSubcomponent returns VirtualBusSubcomponent
 	 *
@@ -4475,6 +4799,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_VirtualBusSubcomponent(ISerializationContext context, VirtualBusSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4482,6 +4807,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns VirtualBusType
 	 *     ComponentType returns VirtualBusType
@@ -4495,23 +4821,23 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedEventDataPort+=EventDataPort? 
-	 *                 (
-	 *                     (
-	 *                         ownedFeatureGroup+=FeatureGroup | 
-	 *                         ownedDataPort+=DataPort | 
-	 *                         ownedEventPort+=EventPort | 
-	 *                         ownedAbstractFeature+=AbstractFeature | 
-	 *                         ownedBusAccess+=BusAccess
-	 *                     )? 
-	 *                     ownedEventDataPort+=EventDataPort?
-	 *                 )*
-	 *             )
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedAbstractFeature+=AbstractFeature | 
+	 *                 ownedBusAccess+=BusAccess
+	 *             )+
 	 *         )? 
-	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (
+	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
+	 *             (ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *             noModes?='none'
+	 *         )? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_VirtualBusType(ISerializationContext context, VirtualBusType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4519,6 +4845,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns VirtualProcessorImplementation
 	 *     ComponentImplementation returns VirtualProcessorImplementation
@@ -4533,45 +4860,42 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent? 
 	 *                 (
-	 *                     (ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent)? 
-	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
+	 *                     (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent)? 
+	 *                     ownedVirtualBusSubcomponent+=VirtualBusSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventDataSource+=EventDataSource? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
+	 *         ownedEventSource+=EventSource? 
+	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
+	 *         ownedSubprogramProxy+=SubprogramProxy? 
+	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
 	 *         (
 	 *             (
-	 *                 ownedSubprogramProxy+=SubprogramProxy? 
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
 	 *                 (
-	 *                     ownedAccessConnection+=AccessConnection? 
-	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
-	 *                 )* 
-	 *                 (
-	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'?) | 
-	 *                     (
-	 *                         ownedAccessConnection+=AccessConnection? 
-	 *                         ownedEndToEndFlow+=EndToEndFlow? 
-	 *                         (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)*
-	 *                     )
+	 *                     (ownedEndToEndFlow+=EndToEndFlow? noModes?='none'?) | 
+	 *                     (ownedEndToEndFlow+=EndToEndFlow? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
 	 *                 )
 	 *             ) | 
-	 *             (
-	 *                 ownedSubprogramProxy+=SubprogramProxy? 
-	 *                 noConnections?='none'? 
-	 *                 ownedEndToEndFlow+=EndToEndFlow? 
-	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)*
-	 *             ) | 
-	 *             (ownedSubprogramProxy+=SubprogramProxy? noConnections?='none'? noFlows?='none'?)
+	 *             (noFlows?='none'? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
+	 *             (noFlows?='none'? noModes?='none'?)
 	 *         ) 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_VirtualProcessorImplementation(ISerializationContext context, VirtualProcessorImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4579,6 +4903,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Prototype returns VirtualProcessorPrototype
 	 *     ComponentPrototype returns VirtualProcessorPrototype
@@ -4591,6 +4916,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_VirtualProcessorPrototype(ISerializationContext context, VirtualProcessorPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4598,6 +4924,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VirtualProcessorSubcomponent returns VirtualProcessorSubcomponent
 	 *
@@ -4615,6 +4942,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_VirtualProcessorSubcomponent(ISerializationContext context, VirtualProcessorSubcomponent semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4622,6 +4950,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Classifier returns VirtualProcessorType
 	 *     ComponentType returns VirtualProcessorType
@@ -4635,10 +4964,10 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedDataPort+=DataPort? 
+	 *                 ownedEventPort+=EventPort? 
 	 *                 (
 	 *                     (
-	 *                         ownedEventPort+=EventPort | 
+	 *                         ownedDataPort+=DataPort | 
 	 *                         ownedEventDataPort+=EventDataPort | 
 	 *                         ownedFeatureGroup+=FeatureGroup | 
 	 *                         ownedSubprogramAccess+=SubprogramAccess | 
@@ -4646,7 +4975,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                         ownedAbstractFeature+=AbstractFeature | 
 	 *                         ownedBusAccess+=BusAccess
 	 *                     )? 
-	 *                     ownedDataPort+=DataPort?
+	 *                     ownedEventPort+=EventPort?
 	 *                 )*
 	 *             )
 	 *         )? 
@@ -4655,6 +4984,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_VirtualProcessorType(ISerializationContext context, VirtualProcessorType semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);

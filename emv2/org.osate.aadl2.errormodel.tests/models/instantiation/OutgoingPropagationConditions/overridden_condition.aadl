@@ -1,0 +1,39 @@
+package overridden_condition
+public
+	system s
+		features
+			f1: out feature;
+			f2: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior overridden_condition::machine1;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+				f2: out propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				propagations
+					condition1: state1 -[]-> f1 {ServiceError};
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+		annex EMV2 {**
+			component error behavior
+				propagations
+					CONDITION1: state2 -[]-> f2 {ServiceError};
+			end component;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end overridden_condition;

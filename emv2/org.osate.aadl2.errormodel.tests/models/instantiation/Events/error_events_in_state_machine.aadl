@@ -1,0 +1,22 @@
+package error_events_in_state_machine
+public
+	system s
+		annex EMV2 {**
+			use behavior error_events_in_state_machine::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			events
+				event1: error event;
+				event2: error event {ServiceError};
+				event3: error event if "condition";
+				event4: error event {ItemTimingError, ItemValueError} if "condition";
+		end behavior;
+	**};
+end error_events_in_state_machine;

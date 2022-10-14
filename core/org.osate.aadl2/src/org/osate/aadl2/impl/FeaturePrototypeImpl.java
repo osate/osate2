@@ -124,6 +124,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeaturePrototype();
 	}
@@ -155,6 +156,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentClassifier getConstrainingClassifier() {
 		if (constrainingClassifier != null && ((EObject) constrainingClassifier).eIsProxy()) {
 			InternalEObject oldConstrainingClassifier = (InternalEObject) constrainingClassifier;
@@ -184,6 +186,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConstrainingClassifier(ComponentClassifier newConstrainingClassifier) {
 		ComponentClassifier oldConstrainingClassifier = constrainingClassifier;
 		constrainingClassifier = newConstrainingClassifier;
@@ -199,6 +202,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIn() {
 		return in;
 	}
@@ -208,6 +212,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
@@ -221,6 +226,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOut() {
 		return out;
 	}
@@ -230,6 +236,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;
@@ -243,6 +250,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE__DIRECTION:
@@ -265,6 +273,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER:
@@ -285,6 +294,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER:
@@ -305,6 +315,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE__DIRECTION:
@@ -324,6 +335,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

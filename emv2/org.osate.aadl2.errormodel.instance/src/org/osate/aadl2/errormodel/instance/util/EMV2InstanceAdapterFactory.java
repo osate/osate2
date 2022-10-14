@@ -31,34 +31,60 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
+import org.osate.aadl2.errormodel.instance.AllPropagations;
+import org.osate.aadl2.errormodel.instance.AllPropagationsNoError;
+import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
+import org.osate.aadl2.errormodel.instance.Branch;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
+import org.osate.aadl2.errormodel.instance.BranchStateReference;
+import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
+import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
+import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
-import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
+import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
+import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SameState;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.StateSource;
+import org.osate.aadl2.errormodel.instance.StringCode;
+import org.osate.aadl2.errormodel.instance.TransitionDestination;
+import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
@@ -139,38 +165,13 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseStateInstance(StateInstance object) {
-			return createStateInstanceAdapter();
-		}
-
-		@Override
 		public Adapter caseConstrainedInstanceObject(ConstrainedInstanceObject object) {
 			return createConstrainedInstanceObjectAdapter();
 		}
 
 		@Override
-		public Adapter caseStateTransitionInstance(StateTransitionInstance object) {
-			return createStateTransitionInstanceAdapter();
-		}
-
-		@Override
 		public Adapter caseCompositeStateInstance(CompositeStateInstance object) {
 			return createCompositeStateInstanceAdapter();
-		}
-
-		@Override
-		public Adapter caseErrorPropagationConditionInstance(ErrorPropagationConditionInstance object) {
-			return createErrorPropagationConditionInstanceAdapter();
-		}
-
-		@Override
-		public Adapter caseErrorDetectionInstance(ErrorDetectionInstance object) {
-			return createErrorDetectionInstanceAdapter();
-		}
-
-		@Override
-		public Adapter caseEventInstance(EventInstance object) {
-			return createEventInstanceAdapter();
 		}
 
 		@Override
@@ -181,11 +182,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseConstraintElement(ConstraintElement object) {
 			return createConstraintElementAdapter();
-		}
-
-		@Override
-		public Adapter caseOldPropagationPathInstance(OldPropagationPathInstance object) {
-			return createOldPropagationPathInstanceAdapter();
 		}
 
 		@Override
@@ -299,6 +295,166 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseStateInstance(StateInstance object) {
+			return createStateInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseEventInstance(EventInstance object) {
+			return createEventInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorEventInstance(ErrorEventInstance object) {
+			return createErrorEventInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseRecoverEventInstance(RecoverEventInstance object) {
+			return createRecoverEventInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseRepairEventInstance(RepairEventInstance object) {
+			return createRepairEventInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseTransitionInstance(TransitionInstance object) {
+			return createTransitionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseStateSource(StateSource object) {
+			return createStateSourceAdapter();
+		}
+
+		@Override
+		public Adapter caseSourceStateReference(SourceStateReference object) {
+			return createSourceStateReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseAllSources(AllSources object) {
+			return createAllSourcesAdapter();
+		}
+
+		@Override
+		public Adapter caseConditionExpressionInstance(ConditionExpressionInstance object) {
+			return createConditionExpressionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseEventReference(EventReference object) {
+			return createEventReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseConditionPropagationReference(ConditionPropagationReference object) {
+			return createConditionPropagationReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseNoErrorPropagationReference(NoErrorPropagationReference object) {
+			return createNoErrorPropagationReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseCountExpression(CountExpression object) {
+			return createCountExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseTransitionDestination(TransitionDestination object) {
+			return createTransitionDestinationAdapter();
+		}
+
+		@Override
+		public Adapter caseDestinationStateReference(DestinationStateReference object) {
+			return createDestinationStateReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseSameState(SameState object) {
+			return createSameStateAdapter();
+		}
+
+		@Override
+		public Adapter caseBranches(Branches object) {
+			return createBranchesAdapter();
+		}
+
+		@Override
+		public Adapter caseBranch(Branch object) {
+			return createBranchAdapter();
+		}
+
+		@Override
+		public Adapter caseBranchStateReference(BranchStateReference object) {
+			return createBranchStateReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseBranchSameState(BranchSameState object) {
+			return createBranchSameStateAdapter();
+		}
+
+		@Override
+		public Adapter caseOutgoingPropagationConditionInstance(OutgoingPropagationConditionInstance object) {
+			return createOutgoingPropagationConditionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseOutgoingPropagationConditionDestination(OutgoingPropagationConditionDestination object) {
+			return createOutgoingPropagationConditionDestinationAdapter();
+		}
+
+		@Override
+		public Adapter caseDestinationPropagationReference(DestinationPropagationReference object) {
+			return createDestinationPropagationReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseAllPropagations(AllPropagations object) {
+			return createAllPropagationsAdapter();
+		}
+
+		@Override
+		public Adapter caseAllPropagationsNoError(AllPropagationsNoError object) {
+			return createAllPropagationsNoErrorAdapter();
+		}
+
+		@Override
+		public Adapter caseDetectionInstance(DetectionInstance object) {
+			return createDetectionInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseErrorCodeInstance(ErrorCodeInstance object) {
+			return createErrorCodeInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseIntegerCode(IntegerCode object) {
+			return createIntegerCodeAdapter();
+		}
+
+		@Override
+		public Adapter caseStringCode(StringCode object) {
+			return createStringCodeAdapter();
+		}
+
+		@Override
+		public Adapter caseConstantCode(ConstantCode object) {
+			return createConstantCodeAdapter();
+		}
+
+		@Override
+		public Adapter caseModeMappingInstance(ModeMappingInstance object) {
+			return createModeMappingInstanceAdapter();
+		}
+
+		@Override
 		public Adapter caseElement(Element object) {
 			return createElementAdapter();
 		}
@@ -408,20 +564,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.StateTransitionInstance <em>State Transition Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.StateTransitionInstance
-	 * @generated
-	 */
-	public Adapter createStateTransitionInstanceAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance <em>Composite State Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -488,34 +630,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createErrorPathInstanceAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance <em>Error Propagation Condition Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance
-	 * @generated
-	 */
-	public Adapter createErrorPropagationConditionInstanceAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ErrorDetectionInstance <em>Error Detection Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorDetectionInstance
-	 * @generated
-	 */
-	public Adapter createErrorDetectionInstanceAdapter() {
 		return null;
 	}
 
@@ -604,6 +718,426 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ErrorEventInstance <em>Error Event Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorEventInstance
+	 * @generated
+	 */
+	public Adapter createErrorEventInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.RecoverEventInstance <em>Recover Event Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.RecoverEventInstance
+	 * @generated
+	 */
+	public Adapter createRecoverEventInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.RepairEventInstance <em>Repair Event Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.RepairEventInstance
+	 * @generated
+	 */
+	public Adapter createRepairEventInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TransitionInstance <em>Transition Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.TransitionInstance
+	 * @generated
+	 */
+	public Adapter createTransitionInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.StateSource <em>State Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.StateSource
+	 * @generated
+	 */
+	public Adapter createStateSourceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.SourceStateReference <em>Source State Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.SourceStateReference
+	 * @generated
+	 */
+	public Adapter createSourceStateReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.AllSources <em>All Sources</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.AllSources
+	 * @generated
+	 */
+	public Adapter createAllSourcesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConditionExpressionInstance <em>Condition Expression Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ConditionExpressionInstance
+	 * @generated
+	 */
+	public Adapter createConditionExpressionInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.EventReference <em>Event Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.EventReference
+	 * @generated
+	 */
+	public Adapter createEventReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConditionPropagationReference <em>Condition Propagation Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ConditionPropagationReference
+	 * @generated
+	 */
+	public Adapter createConditionPropagationReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.NoErrorPropagationReference <em>No Error Propagation Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.NoErrorPropagationReference
+	 * @generated
+	 */
+	public Adapter createNoErrorPropagationReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.CountExpression <em>Count Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.CountExpression
+	 * @generated
+	 */
+	public Adapter createCountExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TransitionDestination <em>Transition Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.TransitionDestination
+	 * @generated
+	 */
+	public Adapter createTransitionDestinationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.DestinationStateReference <em>Destination State Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.DestinationStateReference
+	 * @generated
+	 */
+	public Adapter createDestinationStateReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.SameState <em>Same State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.SameState
+	 * @generated
+	 */
+	public Adapter createSameStateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.Branches <em>Branches</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.Branches
+	 * @generated
+	 */
+	public Adapter createBranchesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.Branch <em>Branch</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.Branch
+	 * @generated
+	 */
+	public Adapter createBranchAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.BranchStateReference <em>Branch State Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.BranchStateReference
+	 * @generated
+	 */
+	public Adapter createBranchStateReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.BranchSameState <em>Branch Same State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.BranchSameState
+	 * @generated
+	 */
+	public Adapter createBranchSameStateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance <em>Outgoing Propagation Condition Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance
+	 * @generated
+	 */
+	public Adapter createOutgoingPropagationConditionInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination <em>Outgoing Propagation Condition Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination
+	 * @generated
+	 */
+	public Adapter createOutgoingPropagationConditionDestinationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.DestinationPropagationReference <em>Destination Propagation Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.DestinationPropagationReference
+	 * @generated
+	 */
+	public Adapter createDestinationPropagationReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.AllPropagations <em>All Propagations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.AllPropagations
+	 * @generated
+	 */
+	public Adapter createAllPropagationsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.AllPropagationsNoError <em>All Propagations No Error</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.AllPropagationsNoError
+	 * @generated
+	 */
+	public Adapter createAllPropagationsNoErrorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.DetectionInstance <em>Detection Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.DetectionInstance
+	 * @generated
+	 */
+	public Adapter createDetectionInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ErrorCodeInstance <em>Error Code Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorCodeInstance
+	 * @generated
+	 */
+	public Adapter createErrorCodeInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.IntegerCode <em>Integer Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.IntegerCode
+	 * @generated
+	 */
+	public Adapter createIntegerCodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.StringCode <em>String Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.StringCode
+	 * @generated
+	 */
+	public Adapter createStringCodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConstantCode <em>Constant Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ConstantCode
+	 * @generated
+	 */
+	public Adapter createConstantCodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance <em>Mode Mapping Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.ModeMappingInstance
+	 * @generated
+	 */
+	public Adapter createModeMappingInstanceAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -628,20 +1162,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConstraintElementAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.OldPropagationPathInstance <em>Old Propagation Path Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.OldPropagationPathInstance
-	 * @generated
-	 */
-	public Adapter createOldPropagationPathInstanceAdapter() {
 		return null;
 	}
 

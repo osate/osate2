@@ -1,0 +1,22 @@
+package same_state
+public
+	system s
+		annex EMV2 {**
+			use behavior same_state::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error1: error event;
+			states
+				state1: initial state;
+			transitions
+				transition1: state1 -[error1]-> same state;
+		end behavior;
+	**};
+end same_state;

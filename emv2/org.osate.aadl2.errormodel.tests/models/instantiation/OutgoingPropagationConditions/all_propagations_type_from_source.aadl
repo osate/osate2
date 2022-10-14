@@ -1,0 +1,62 @@
+package all_propagations_type_from_source
+public
+	system s
+		features
+			f1: in feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: abstract a1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior all_propagations_type_from_source::machine1;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				events
+					error1: error event;
+					error2: error event {CommonErrors};
+				propagations
+					condition1: state1 {ServiceError} -[error1]-> all;
+					condition2: state2 -[error1]-> all;
+					condition3: state3 {ServiceError} -[error2 {noerror}]-> all;
+					condition4: state4 -[error2 {noerror}]-> all;
+					condition5: state5 {ServiceError} -[f1 {noerror}]-> all;
+					condition6: state6 -[f1 {noerror}]-> all;
+					condition7: state7 {ServiceError} -[sub1.f2 {noerror}]-> all;
+					condition8: state8 -[sub1.f2 {noerror}]-> all;
+			end component;
+		**};
+	end s.i;
+	
+	abstract a1
+		features
+			f2: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f2: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end a1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state {CommonErrors};
+				state2: state {ServiceError};
+				state3: state {CommonErrors};
+				state4: state {ServiceError};
+				state5: state {CommonErrors};
+				state6: state {ServiceError};
+				state7: state {CommonErrors};
+				state8: state {ServiceError};
+		end behavior;
+	**};
+end all_propagations_type_from_source;

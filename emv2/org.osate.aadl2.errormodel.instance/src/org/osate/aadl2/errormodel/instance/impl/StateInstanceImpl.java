@@ -24,9 +24,11 @@
 package org.osate.aadl2.errormodel.instance.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -40,6 +42,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.StateInstanceImpl#getState <em>State</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.StateInstanceImpl#getTypeSet <em>Type Set</em>}</li>
  * </ul>
  *
  * @generated
@@ -54,6 +57,16 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	 * @ordered
 	 */
 	protected ErrorBehaviorState state;
+
+	/**
+	 * The cached value of the '{@link #getTypeSet() <em>Type Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTypeSet()
+	 * @generated
+	 * @ordered
+	 */
+	protected AnonymousTypeSet typeSet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,6 +137,77 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	 * @generated
 	 */
 	@Override
+	public AnonymousTypeSet getTypeSet() {
+		return typeSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTypeSet(AnonymousTypeSet newTypeSet, NotificationChain msgs) {
+		AnonymousTypeSet oldTypeSet = typeSet;
+		typeSet = newTypeSet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.STATE_INSTANCE__TYPE_SET, oldTypeSet, newTypeSet);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setTypeSet(AnonymousTypeSet newTypeSet) {
+		if (newTypeSet != typeSet) {
+			NotificationChain msgs = null;
+			if (typeSet != null) {
+				msgs = ((InternalEObject) typeSet).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.STATE_INSTANCE__TYPE_SET, null, msgs);
+			}
+			if (newTypeSet != null) {
+				msgs = ((InternalEObject) newTypeSet).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.STATE_INSTANCE__TYPE_SET, null, msgs);
+			}
+			msgs = basicSetTypeSet(newTypeSet, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_INSTANCE__TYPE_SET,
+					newTypeSet, newTypeSet));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.STATE_INSTANCE__TYPE_SET:
+			return basicSetTypeSet(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case EMV2InstancePackage.STATE_INSTANCE__STATE:
@@ -131,6 +215,8 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 				return getState();
 			}
 			return basicGetState();
+		case EMV2InstancePackage.STATE_INSTANCE__TYPE_SET:
+			return getTypeSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -145,6 +231,9 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 		switch (featureID) {
 		case EMV2InstancePackage.STATE_INSTANCE__STATE:
 			setState((ErrorBehaviorState) newValue);
+			return;
+		case EMV2InstancePackage.STATE_INSTANCE__TYPE_SET:
+			setTypeSet((AnonymousTypeSet) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,6 +250,9 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 		case EMV2InstancePackage.STATE_INSTANCE__STATE:
 			setState((ErrorBehaviorState) null);
 			return;
+		case EMV2InstancePackage.STATE_INSTANCE__TYPE_SET:
+			setTypeSet((AnonymousTypeSet) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -175,6 +267,8 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 		switch (featureID) {
 		case EMV2InstancePackage.STATE_INSTANCE__STATE:
 			return state != null;
+		case EMV2InstancePackage.STATE_INSTANCE__TYPE_SET:
+			return typeSet != null;
 		}
 		return super.eIsSet(featureID);
 	}

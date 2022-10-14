@@ -83,6 +83,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRangeType();
 	}
@@ -92,6 +93,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumberType getNumberType() {
 		NumberType numberType = basicGetNumberType();
 		return numberType != null && ((EObject) numberType).eIsProxy()
@@ -117,6 +119,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumberType getReferencedNumberType() {
 		if (referencedNumberType != null && ((EObject) referencedNumberType).eIsProxy()) {
 			InternalEObject oldReferencedNumberType = (InternalEObject) referencedNumberType;
@@ -146,6 +149,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedNumberType(NumberType newReferencedNumberType) {
 		NumberType oldReferencedNumberType = referencedNumberType;
 		referencedNumberType = newReferencedNumberType;
@@ -160,6 +164,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumberType getOwnedNumberType() {
 		return ownedNumberType;
 	}
@@ -189,6 +194,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedNumberType(NumberType newOwnedNumberType) {
 		if (newOwnedNumberType != ownedNumberType) {
 			NotificationChain msgs = null;
@@ -226,6 +232,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE:
@@ -239,6 +246,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE:
@@ -262,6 +270,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE:
@@ -279,6 +288,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE:
@@ -296,6 +306,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE:

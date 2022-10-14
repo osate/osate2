@@ -1,0 +1,20 @@
+package first_not_initial
+public
+	system s
+		annex EMV2 {**
+			use behavior first_not_initial::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: state;
+				state2: initial state;
+				state3: state;
+		end behavior;
+	**};
+end first_not_initial;

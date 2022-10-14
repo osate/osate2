@@ -2215,7 +2215,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(FlowEnd flowEnd, extension IFormattableDocument document) {
-		flowEnd.regionFor.keyword(flowEndAccess.fullStopKeyword_0_1).surround[noSpace]
+		flowEnd.regionFor.keywords(flowEndAccess.fullStopKeyword_1_1).forEach[surround[noSpace]]
 	}
 	
 	def dispatch void format(FlowImplementation flowImplementation, extension IFormattableDocument document) {

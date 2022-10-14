@@ -1,0 +1,29 @@
+package override_events_inherited_from_classifier
+public
+	system s
+		features
+			ep1: in out event port;
+			ep2: in out event port;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			component error behavior
+				events
+					error1: error event {ServiceError};
+					recover1: recover event when ep1;
+					repair1: repair event when ep1;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+		annex EMV2 {**
+			component error behavior
+				events
+					ERROR1: error event {ItemTimingError};
+					RECOVER1: recover event when ep2;
+					REPAIR1: repair event when ep2;
+			end component;
+		**};
+	end s.i;
+end override_events_inherited_from_classifier;

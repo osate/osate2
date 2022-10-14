@@ -103,6 +103,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeature();
 	}
@@ -112,9 +113,10 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
-			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
+			arrayDimensions = new EObjectContainmentEList<>(ArrayDimension.class, this,
 					Aadl2Package.FEATURE__ARRAY_DIMENSION);
 		}
 		return arrayDimensions;
@@ -203,6 +205,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Feature getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
@@ -231,6 +234,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRefined(Feature newRefined) {
 		Feature oldRefined = refined;
 		refined = newRefined;
@@ -244,6 +248,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
@@ -257,6 +262,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
@@ -291,6 +297,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
@@ -309,6 +316,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
@@ -326,6 +334,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
@@ -349,6 +358,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ConnectionEnd.class) {
 			switch (derivedFeatureID) {
@@ -378,6 +388,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ConnectionEnd.class) {
 			switch (baseFeatureID) {
@@ -416,6 +427,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -428,6 +440,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement basicGetRefinedElement() {
 		if (eIsSet(Aadl2Package.FEATURE__REFINED)) {
 			return basicGetRefined();
@@ -440,6 +453,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
 		return super.isSetRefinedElement() || eIsSet(Aadl2Package.FEATURE__REFINED);
 	}
@@ -452,7 +466,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
 	public EList<Feature> getAllFeatureRefinements() {
-		BasicEList<Feature> returnlist = new BasicEList<Feature>();
+		BasicEList<Feature> returnlist = new BasicEList<>();
 		Feature more = this;
 		while (more != null) {
 			returnlist.add(more);
@@ -467,7 +481,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 *
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	@Override
 	public Classifier getAllClassifier() {
 		Classifier cc = getClassifier();
 		Feature f = this;
@@ -476,6 +490,28 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			cc = f.getClassifier();
 		}
 		return cc;
+	}
+
+	@Override
+	public ComponentPrototype getAllPrototype() {
+		ComponentPrototype cp = getPrototype();
+		Feature f = this;
+		while (cp == null && f.getRefined() != null) {
+			f = f.getRefined();
+			cp = f.getPrototype();
+		}
+		return cp;
+	}
+
+	@Override
+	public FeatureClassifier getAllFeatureClassifier() {
+		FeatureClassifier fc = getFeatureClassifier();
+		Feature f = this;
+		while (fc == null && f.getRefined() != null) {
+			f = f.getRefined();
+			fc = f.getFeatureClassifier();
+		}
+		return fc;
 	}
 
 	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas,

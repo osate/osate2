@@ -149,6 +149,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentClassifier();
 	}
@@ -158,8 +159,9 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
 				Aadl2Package.COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
@@ -179,8 +181,9 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -202,9 +205,10 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Mode> getOwnedModes() {
 		if (ownedModes == null) {
-			ownedModes = new EObjectContainmentEList<Mode>(Mode.class, this,
+			ownedModes = new EObjectContainmentEList<>(Mode.class, this,
 					Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE);
 		}
 		return ownedModes;
@@ -226,9 +230,10 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeTransition> getOwnedModeTransitions() {
 		if (ownedModeTransitions == null) {
-			ownedModeTransitions = new EObjectContainmentEList<ModeTransition>(ModeTransition.class, this,
+			ownedModeTransitions = new EObjectContainmentEList<>(ModeTransition.class, this,
 					Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION);
 		}
 		return ownedModeTransitions;
@@ -250,6 +255,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDerivedModes() {
 		return derivedModes;
 	}
@@ -259,6 +265,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDerivedModes(boolean newDerivedModes) {
 		boolean oldDerivedModes = derivedModes;
 		derivedModes = newDerivedModes;
@@ -273,6 +280,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoFlows() {
 		return noFlows;
 	}
@@ -282,6 +290,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoFlows(boolean newNoFlows) {
 		boolean oldNoFlows = noFlows;
 		noFlows = newNoFlows;
@@ -296,6 +305,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoModes() {
 		return noModes;
 	}
@@ -305,6 +315,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoModes(boolean newNoModes) {
 		boolean oldNoModes = noModes;
 		noModes = newNoModes;
@@ -319,6 +330,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE:
@@ -334,6 +346,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE:
@@ -356,6 +369,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE:
@@ -384,6 +398,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE:
@@ -410,6 +425,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE:
@@ -435,6 +451,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -456,6 +473,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetClassifierFeatures() {
 		return super.isSetClassifierFeatures() || eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE)
 				|| eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION);
@@ -466,6 +484,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE)
 				|| eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION);

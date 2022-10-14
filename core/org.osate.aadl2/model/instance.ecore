@@ -21,6 +21,7 @@
         lowerBound="1" eType="ecore:EClass aadl2.ecore#//Feature"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" ordered="false"
         unique="false" eType="ecore:EDataType aadl2.ecore#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false" eType="#//ComponentInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InstanceObject" abstract="true" eSuperTypes="aadl2.ecore#//NamedElement">
     <eAnnotations source="duplicates">

@@ -89,6 +89,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramCall();
 	}
@@ -98,6 +99,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CalledSubprogram getCalledSubprogram() {
 		if (calledSubprogram != null && ((EObject) calledSubprogram).eIsProxy()) {
 			InternalEObject oldCalledSubprogram = (InternalEObject) calledSubprogram;
@@ -126,6 +128,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCalledSubprogram(CalledSubprogram newCalledSubprogram) {
 		CalledSubprogram oldCalledSubprogram = calledSubprogram;
 		calledSubprogram = newCalledSubprogram;
@@ -140,6 +143,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CallContext getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
@@ -168,6 +172,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(CallContext newContext) {
 		CallContext oldContext = context;
 		context = newContext;
@@ -182,6 +187,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
@@ -203,6 +209,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
@@ -220,6 +227,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
@@ -237,6 +245,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:

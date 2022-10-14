@@ -771,8 +771,7 @@ public class Serializer1Test extends AbstractSerializerTest {
 				system s_i_Instance : pkg1::s.i {
 					in out featureGroup fg1 : pkg1::s:fg1 {
 						in dataPort p4 : pkg1::fgt1:p4
-						in dataPort p5 [ 1 ] : pkg1::fgt1:p5
-						in dataPort p5 [ 2 ] : pkg1::fgt1:p5
+						in dataPort p5 : pkg1::fgt1:p5
 					}
 					in out featureGroup fg2 [ 1 ] : pkg1::s:fg2 {
 						in dataPort p6 : pkg1::fgt2:p6
@@ -796,7 +795,7 @@ public class Serializer1Test extends AbstractSerializerTest {
 					flow f3 ( p1 -> p2 ) : pkg1::s:f3
 					flow f4 ( p3[1] -> ) : pkg1::s:f4
 					flow f5 ( fg1.p4 -> ) : pkg1::s:f5
-					flow f6 ( fg1.p5[1] -> ) : pkg1::s:f6
+					flow f6 ( fg1.p5 -> ) : pkg1::s:f6
 					flow f7 ( fg2[1].p6 -> ) : pkg1::s:f7
 					som "No Modes"
 				}""");

@@ -70,6 +70,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramProxy();
 	}
@@ -79,6 +80,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramClassifier getSubprogramClassifier() {
 		if (subprogramClassifier != null && ((EObject) subprogramClassifier).eIsProxy()) {
 			InternalEObject oldSubprogramClassifier = (InternalEObject) subprogramClassifier;
@@ -108,6 +110,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSubprogramClassifier(SubprogramClassifier newSubprogramClassifier) {
 		SubprogramClassifier oldSubprogramClassifier = subprogramClassifier;
 		subprogramClassifier = newSubprogramClassifier;
@@ -122,6 +125,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_PROXY__SUBPROGRAM_CLASSIFIER:
@@ -138,6 +142,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_PROXY__SUBPROGRAM_CLASSIFIER:
@@ -152,6 +157,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_PROXY__SUBPROGRAM_CLASSIFIER:
@@ -166,6 +172,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_PROXY__SUBPROGRAM_CLASSIFIER:

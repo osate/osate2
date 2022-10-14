@@ -33,37 +33,64 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.errormodel.instance.AbstractTypeSet;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
+import org.osate.aadl2.errormodel.instance.AllPropagations;
+import org.osate.aadl2.errormodel.instance.AllPropagationsNoError;
+import org.osate.aadl2.errormodel.instance.AllSources;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.BindingPath;
 import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
+import org.osate.aadl2.errormodel.instance.Branch;
+import org.osate.aadl2.errormodel.instance.BranchSameState;
+import org.osate.aadl2.errormodel.instance.BranchStateReference;
+import org.osate.aadl2.errormodel.instance.Branches;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
+import org.osate.aadl2.errormodel.instance.ConstantCode;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.ConstraintExpression;
+import org.osate.aadl2.errormodel.instance.CountExpression;
+import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
+import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
+import org.osate.aadl2.errormodel.instance.DestinationStateReference;
+import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.EOperation;
-import org.osate.aadl2.errormodel.instance.ErrorDetectionInstance;
+import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
+import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
-import org.osate.aadl2.errormodel.instance.OldPropagationPathInstance;
+import org.osate.aadl2.errormodel.instance.IntegerCode;
+import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
+import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
+import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
+import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.SameState;
+import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
-import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.StateSource;
+import org.osate.aadl2.errormodel.instance.StringCode;
+import org.osate.aadl2.errormodel.instance.TransitionDestination;
+import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
@@ -120,13 +147,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass stateTransitionInstanceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass compositeStateInstanceEClass = null;
 
 	/**
@@ -156,20 +176,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass errorPathInstanceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass errorPropagationConditionInstanceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass errorDetectionInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -218,6 +224,216 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass errorEventInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass recoverEventInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass repairEventInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass transitionInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stateSourceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sourceStateReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass allSourcesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass conditionExpressionInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass eventReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass conditionPropagationReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass noErrorPropagationReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass countExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass transitionDestinationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass destinationStateReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sameStateEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass branchesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass branchEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass branchStateReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass branchSameStateEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass outgoingPropagationConditionInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass outgoingPropagationConditionDestinationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass destinationPropagationReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass allPropagationsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass allPropagationsNoErrorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass detectionInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass errorCodeInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass integerCodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stringCodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass constantCodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass modeMappingInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass constraintExpressionEClass = null;
 
 	/**
@@ -226,13 +442,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass constraintElementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass oldPropagationPathInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -340,6 +549,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	private EEnum bindingTypeEEnum = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum countExpressionOperationEEnum = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -427,96 +643,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getEMV2AnnexInstance_Transitions() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_PropagationPoints() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_Events() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_StateMachine() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_ErrorPropagationConditions() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_ErrorDetections() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_ErrorFlows() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_Composites() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_OldPropagationPaths() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_Propagations() {
 		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -526,8 +652,118 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getEMV2AnnexInstance_PropagationPaths() {
+	public EReference getEMV2AnnexInstance_Conditions() {
 		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_PropagationPoints() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_Events() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_StateMachine() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_Detections() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_ModeMappings() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_ErrorFlows() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_Composites() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_Propagations() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_PropagationPaths() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_States() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_InitialState() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -606,6 +842,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getStateInstance_TypeSet() {
+		return (EReference) stateInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConstrainedInstanceObject() {
 		return constrainedInstanceObjectEClass;
 	}
@@ -638,56 +884,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EAttribute getConstrainedInstanceObject_PropagationKind() {
 		return (EAttribute) constrainedInstanceObjectEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getStateTransitionInstance() {
-		return stateTransitionInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getStateTransitionInstance_StateTransition() {
-		return (EReference) stateTransitionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getStateTransitionInstance_InStates() {
-		return (EReference) stateTransitionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getStateTransitionInstance_Condition() {
-		return (EReference) stateTransitionInstanceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getStateTransitionInstance_TargetState() {
-		return (EReference) stateTransitionInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -886,136 +1082,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getErrorPropagationConditionInstance() {
-		return errorPropagationConditionInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorPropagationConditionInstance_Emv2Element() {
-		return (EReference) errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorPropagationConditionInstance_InStates() {
-		return (EReference) errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorPropagationConditionInstance_Condition() {
-		return (EReference) errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorPropagationConditionInstance_OutgoingPropagation() {
-		return (EReference) errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getErrorPropagationConditionInstance_Source() {
-		return (EAttribute) errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getErrorPropagationConditionInstance_Sink() {
-		return (EAttribute) errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getErrorDetectionInstance() {
-		return errorDetectionInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorDetectionInstance_Emv2Element() {
-		return (EReference) errorDetectionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorDetectionInstance_InStates() {
-		return (EReference) errorDetectionInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorDetectionInstance_Condition() {
-		return (EReference) errorDetectionInstanceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getErrorDetectionInstance_ErrorCode() {
-		return (EAttribute) errorDetectionInstanceEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getErrorDetectionInstance_Port() {
-		return (EReference) errorDetectionInstanceEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getPropagationPointInstance() {
 		return propagationPointInstanceEClass;
 	}
@@ -1196,8 +1262,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getEventInstance_Event() {
-		return (EReference) eventInstanceEClass.getEStructuralFeatures().get(0);
+	public EClass getErrorEventInstance() {
+		return errorEventInstanceEClass;
 	}
 
 	/**
@@ -1206,8 +1272,728 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getEventInstance_GeneratedTypedEvents() {
-		return (EReference) eventInstanceEClass.getEStructuralFeatures().get(1);
+	public EReference getErrorEventInstance_ErrorEvent() {
+		return (EReference) errorEventInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getErrorEventInstance_TypeSet() {
+		return (EReference) errorEventInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getRecoverEventInstance() {
+		return recoverEventInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getRecoverEventInstance_RecoverEvent() {
+		return (EReference) recoverEventInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getRecoverEventInstance_EventInitiators() {
+		return (EReference) recoverEventInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getRepairEventInstance() {
+		return repairEventInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getRepairEventInstance_RepairEvent() {
+		return (EReference) repairEventInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getRepairEventInstance_EventInitiators() {
+		return (EReference) repairEventInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getTransitionInstance() {
+		return transitionInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTransitionInstance_Condition() {
+		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTransitionInstance_Destination() {
+		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getStateSource() {
+		return stateSourceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTransitionInstance_Transition() {
+		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTransitionInstance_Source() {
+		return (EReference) transitionInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getSourceStateReference() {
+		return sourceStateReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getSourceStateReference_State() {
+		return (EReference) sourceStateReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getSourceStateReference_TypeSet() {
+		return (EReference) sourceStateReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAllSources() {
+		return allSourcesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getConditionExpressionInstance() {
+		return conditionExpressionInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getEventReference() {
+		return eventReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEventReference_Event() {
+		return (EReference) eventReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEventReference_TypeSet() {
+		return (EReference) eventReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getConditionPropagationReference() {
+		return conditionPropagationReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConditionPropagationReference_Propagation() {
+		return (EReference) conditionPropagationReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConditionPropagationReference_TypeSet() {
+		return (EReference) conditionPropagationReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getNoErrorPropagationReference() {
+		return noErrorPropagationReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getNoErrorPropagationReference_Propagation() {
+		return (EReference) noErrorPropagationReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getCountExpression() {
+		return countExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getCountExpression_Operands() {
+		return (EReference) countExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getCountExpression_Operation() {
+		return (EAttribute) countExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getCountExpression_Count() {
+		return (EAttribute) countExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getTransitionDestination() {
+		return transitionDestinationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getDestinationStateReference() {
+		return destinationStateReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDestinationStateReference_State() {
+		return (EReference) destinationStateReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDestinationStateReference_TypeSet() {
+		return (EReference) destinationStateReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getSameState() {
+		return sameStateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getBranches() {
+		return branchesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getBranches_Branches() {
+		return (EReference) branchesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getBranch() {
+		return branchEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getBranch_Probability() {
+		return (EAttribute) branchEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getBranchStateReference() {
+		return branchStateReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getBranchStateReference_State() {
+		return (EReference) branchStateReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getBranchStateReference_TypeSet() {
+		return (EReference) branchStateReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getBranchSameState() {
+		return branchSameStateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getOutgoingPropagationConditionInstance() {
+		return outgoingPropagationConditionInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getOutgoingPropagationConditionInstance_OutgoingPropagationCondition() {
+		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getOutgoingPropagationConditionInstance_Source() {
+		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getOutgoingPropagationConditionInstance_Condition() {
+		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getOutgoingPropagationConditionInstance_Destination() {
+		return (EReference) outgoingPropagationConditionInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getOutgoingPropagationConditionDestination() {
+		return outgoingPropagationConditionDestinationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getDestinationPropagationReference() {
+		return destinationPropagationReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDestinationPropagationReference_Propagation() {
+		return (EReference) destinationPropagationReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDestinationPropagationReference_TypeSet() {
+		return (EReference) destinationPropagationReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAllPropagations() {
+		return allPropagationsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAllPropagations_TypeSet() {
+		return (EReference) allPropagationsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAllPropagationsNoError() {
+		return allPropagationsNoErrorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getDetectionInstance() {
+		return detectionInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDetectionInstance_Detection() {
+		return (EReference) detectionInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDetectionInstance_Source() {
+		return (EReference) detectionInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDetectionInstance_Condition() {
+		return (EReference) detectionInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDetectionInstance_Destination() {
+		return (EReference) detectionInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDetectionInstance_ErrorCode() {
+		return (EReference) detectionInstanceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getErrorCodeInstance() {
+		return errorCodeInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getIntegerCode() {
+		return integerCodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getIntegerCode_Code() {
+		return (EAttribute) integerCodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getStringCode() {
+		return stringCodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getStringCode_Code() {
+		return (EAttribute) stringCodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getConstantCode() {
+		return constantCodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConstantCode_Code() {
+		return (EReference) constantCodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getModeMappingInstance() {
+		return modeMappingInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getModeMappingInstance_State() {
+		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getModeMappingInstance_TypeSet() {
+		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getModeMappingInstance_Modes() {
+		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1258,46 +2044,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EClass getConstraintElement() {
 		return constraintElementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getOldPropagationPathInstance() {
-		return oldPropagationPathInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getOldPropagationPathInstance_Emv2Element() {
-		return (EReference) oldPropagationPathInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getOldPropagationPathInstance_Source() {
-		return (EReference) oldPropagationPathInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getOldPropagationPathInstance_Target() {
-		return (EReference) oldPropagationPathInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1666,6 +2412,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EEnum getCountExpressionOperation() {
+		return countExpressionOperationEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EMV2InstanceFactory getEMV2InstanceFactory() {
 		return (EMV2InstanceFactory) getEFactoryInstance();
 	}
@@ -1692,17 +2448,19 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		// Create classes and their features
 		emv2AnnexInstanceEClass = createEClass(EMV2_ANNEX_INSTANCE);
-		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__TRANSITIONS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS);
-		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__EVENTS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__STATE_MACHINE);
-		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS);
-		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS);
-		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ERROR_FLOWS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__COMPOSITES);
-		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__OLD_PROPAGATION_PATHS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__PROPAGATIONS);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ERROR_FLOWS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__STATES);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__INITIAL_STATE);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__EVENTS);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__TRANSITIONS);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__CONDITIONS);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__DETECTIONS);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__MODE_MAPPINGS);
 
 		emv2InstanceObjectEClass = createEClass(EMV2_INSTANCE_OBJECT);
 
@@ -1711,44 +2469,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(stateMachineInstanceEClass, STATE_MACHINE_INSTANCE__CURRENT_STATE);
 		createEReference(stateMachineInstanceEClass, STATE_MACHINE_INSTANCE__STATE_MACHINE);
 
-		stateInstanceEClass = createEClass(STATE_INSTANCE);
-		createEReference(stateInstanceEClass, STATE_INSTANCE__STATE);
-
 		constrainedInstanceObjectEClass = createEClass(CONSTRAINED_INSTANCE_OBJECT);
 		createEReference(constrainedInstanceObjectEClass, CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT);
 		createEReference(constrainedInstanceObjectEClass, CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT);
 		createEAttribute(constrainedInstanceObjectEClass, CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND);
 
-		stateTransitionInstanceEClass = createEClass(STATE_TRANSITION_INSTANCE);
-		createEReference(stateTransitionInstanceEClass, STATE_TRANSITION_INSTANCE__STATE_TRANSITION);
-		createEReference(stateTransitionInstanceEClass, STATE_TRANSITION_INSTANCE__IN_STATES);
-		createEReference(stateTransitionInstanceEClass, STATE_TRANSITION_INSTANCE__CONDITION);
-		createEReference(stateTransitionInstanceEClass, STATE_TRANSITION_INSTANCE__TARGET_STATE);
-
 		compositeStateInstanceEClass = createEClass(COMPOSITE_STATE_INSTANCE);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__TARGET_STATE);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__CONDITION);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE);
-
-		errorPropagationConditionInstanceEClass = createEClass(ERROR_PROPAGATION_CONDITION_INSTANCE);
-		createEReference(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT);
-		createEReference(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__IN_STATES);
-		createEReference(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__CONDITION);
-		createEReference(errorPropagationConditionInstanceEClass,
-				ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION);
-		createEAttribute(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__SOURCE);
-		createEAttribute(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__SINK);
-
-		errorDetectionInstanceEClass = createEClass(ERROR_DETECTION_INSTANCE);
-		createEReference(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__EMV2_ELEMENT);
-		createEReference(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__IN_STATES);
-		createEReference(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__CONDITION);
-		createEAttribute(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__ERROR_CODE);
-		createEReference(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__PORT);
-
-		eventInstanceEClass = createEClass(EVENT_INSTANCE);
-		createEReference(eventInstanceEClass, EVENT_INSTANCE__EVENT);
-		createEReference(eventInstanceEClass, EVENT_INSTANCE__GENERATED_TYPED_EVENTS);
 
 		constraintExpressionEClass = createEClass(CONSTRAINT_EXPRESSION);
 		createEAttribute(constraintExpressionEClass, CONSTRAINT_EXPRESSION__OPERATOR);
@@ -1756,11 +2485,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(constraintExpressionEClass, CONSTRAINT_EXPRESSION__CONSTRAINT_ELEMENTS);
 
 		constraintElementEClass = createEClass(CONSTRAINT_ELEMENT);
-
-		oldPropagationPathInstanceEClass = createEClass(OLD_PROPAGATION_PATH_INSTANCE);
-		createEReference(oldPropagationPathInstanceEClass, OLD_PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT);
-		createEReference(oldPropagationPathInstanceEClass, OLD_PROPAGATION_PATH_INSTANCE__SOURCE);
-		createEReference(oldPropagationPathInstanceEClass, OLD_PROPAGATION_PATH_INSTANCE__TARGET);
 
 		errorPropagationInstanceEClass = createEClass(ERROR_PROPAGATION_INSTANCE);
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION);
@@ -1850,9 +2574,123 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__SOURCE_PROPAGATION);
 		createEReference(userDefinedPathEClass, USER_DEFINED_PATH__DESTINATION_PROPAGATION);
 
+		stateInstanceEClass = createEClass(STATE_INSTANCE);
+		createEReference(stateInstanceEClass, STATE_INSTANCE__STATE);
+		createEReference(stateInstanceEClass, STATE_INSTANCE__TYPE_SET);
+
+		eventInstanceEClass = createEClass(EVENT_INSTANCE);
+
+		errorEventInstanceEClass = createEClass(ERROR_EVENT_INSTANCE);
+		createEReference(errorEventInstanceEClass, ERROR_EVENT_INSTANCE__ERROR_EVENT);
+		createEReference(errorEventInstanceEClass, ERROR_EVENT_INSTANCE__TYPE_SET);
+
+		recoverEventInstanceEClass = createEClass(RECOVER_EVENT_INSTANCE);
+		createEReference(recoverEventInstanceEClass, RECOVER_EVENT_INSTANCE__RECOVER_EVENT);
+		createEReference(recoverEventInstanceEClass, RECOVER_EVENT_INSTANCE__EVENT_INITIATORS);
+
+		repairEventInstanceEClass = createEClass(REPAIR_EVENT_INSTANCE);
+		createEReference(repairEventInstanceEClass, REPAIR_EVENT_INSTANCE__REPAIR_EVENT);
+		createEReference(repairEventInstanceEClass, REPAIR_EVENT_INSTANCE__EVENT_INITIATORS);
+
+		transitionInstanceEClass = createEClass(TRANSITION_INSTANCE);
+		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__TRANSITION);
+		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__SOURCE);
+		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__CONDITION);
+		createEReference(transitionInstanceEClass, TRANSITION_INSTANCE__DESTINATION);
+
+		stateSourceEClass = createEClass(STATE_SOURCE);
+
+		sourceStateReferenceEClass = createEClass(SOURCE_STATE_REFERENCE);
+		createEReference(sourceStateReferenceEClass, SOURCE_STATE_REFERENCE__STATE);
+		createEReference(sourceStateReferenceEClass, SOURCE_STATE_REFERENCE__TYPE_SET);
+
+		allSourcesEClass = createEClass(ALL_SOURCES);
+
+		conditionExpressionInstanceEClass = createEClass(CONDITION_EXPRESSION_INSTANCE);
+
+		eventReferenceEClass = createEClass(EVENT_REFERENCE);
+		createEReference(eventReferenceEClass, EVENT_REFERENCE__EVENT);
+		createEReference(eventReferenceEClass, EVENT_REFERENCE__TYPE_SET);
+
+		conditionPropagationReferenceEClass = createEClass(CONDITION_PROPAGATION_REFERENCE);
+		createEReference(conditionPropagationReferenceEClass, CONDITION_PROPAGATION_REFERENCE__PROPAGATION);
+		createEReference(conditionPropagationReferenceEClass, CONDITION_PROPAGATION_REFERENCE__TYPE_SET);
+
+		noErrorPropagationReferenceEClass = createEClass(NO_ERROR_PROPAGATION_REFERENCE);
+		createEReference(noErrorPropagationReferenceEClass, NO_ERROR_PROPAGATION_REFERENCE__PROPAGATION);
+
+		countExpressionEClass = createEClass(COUNT_EXPRESSION);
+		createEReference(countExpressionEClass, COUNT_EXPRESSION__OPERANDS);
+		createEAttribute(countExpressionEClass, COUNT_EXPRESSION__OPERATION);
+		createEAttribute(countExpressionEClass, COUNT_EXPRESSION__COUNT);
+
+		transitionDestinationEClass = createEClass(TRANSITION_DESTINATION);
+
+		destinationStateReferenceEClass = createEClass(DESTINATION_STATE_REFERENCE);
+		createEReference(destinationStateReferenceEClass, DESTINATION_STATE_REFERENCE__STATE);
+		createEReference(destinationStateReferenceEClass, DESTINATION_STATE_REFERENCE__TYPE_SET);
+
+		sameStateEClass = createEClass(SAME_STATE);
+
+		branchesEClass = createEClass(BRANCHES);
+		createEReference(branchesEClass, BRANCHES__BRANCHES);
+
+		branchEClass = createEClass(BRANCH);
+		createEAttribute(branchEClass, BRANCH__PROBABILITY);
+
+		branchStateReferenceEClass = createEClass(BRANCH_STATE_REFERENCE);
+		createEReference(branchStateReferenceEClass, BRANCH_STATE_REFERENCE__STATE);
+		createEReference(branchStateReferenceEClass, BRANCH_STATE_REFERENCE__TYPE_SET);
+
+		branchSameStateEClass = createEClass(BRANCH_SAME_STATE);
+
+		outgoingPropagationConditionInstanceEClass = createEClass(OUTGOING_PROPAGATION_CONDITION_INSTANCE);
+		createEReference(outgoingPropagationConditionInstanceEClass,
+				OUTGOING_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION_CONDITION);
+		createEReference(outgoingPropagationConditionInstanceEClass, OUTGOING_PROPAGATION_CONDITION_INSTANCE__SOURCE);
+		createEReference(outgoingPropagationConditionInstanceEClass,
+				OUTGOING_PROPAGATION_CONDITION_INSTANCE__CONDITION);
+		createEReference(outgoingPropagationConditionInstanceEClass,
+				OUTGOING_PROPAGATION_CONDITION_INSTANCE__DESTINATION);
+
+		outgoingPropagationConditionDestinationEClass = createEClass(OUTGOING_PROPAGATION_CONDITION_DESTINATION);
+
+		destinationPropagationReferenceEClass = createEClass(DESTINATION_PROPAGATION_REFERENCE);
+		createEReference(destinationPropagationReferenceEClass, DESTINATION_PROPAGATION_REFERENCE__PROPAGATION);
+		createEReference(destinationPropagationReferenceEClass, DESTINATION_PROPAGATION_REFERENCE__TYPE_SET);
+
+		allPropagationsEClass = createEClass(ALL_PROPAGATIONS);
+		createEReference(allPropagationsEClass, ALL_PROPAGATIONS__TYPE_SET);
+
+		allPropagationsNoErrorEClass = createEClass(ALL_PROPAGATIONS_NO_ERROR);
+
+		detectionInstanceEClass = createEClass(DETECTION_INSTANCE);
+		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__DETECTION);
+		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__SOURCE);
+		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__CONDITION);
+		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__DESTINATION);
+		createEReference(detectionInstanceEClass, DETECTION_INSTANCE__ERROR_CODE);
+
+		errorCodeInstanceEClass = createEClass(ERROR_CODE_INSTANCE);
+
+		integerCodeEClass = createEClass(INTEGER_CODE);
+		createEAttribute(integerCodeEClass, INTEGER_CODE__CODE);
+
+		stringCodeEClass = createEClass(STRING_CODE);
+		createEAttribute(stringCodeEClass, STRING_CODE__CODE);
+
+		constantCodeEClass = createEClass(CONSTANT_CODE);
+		createEReference(constantCodeEClass, CONSTANT_CODE__CODE);
+
+		modeMappingInstanceEClass = createEClass(MODE_MAPPING_INSTANCE);
+		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__STATE);
+		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__TYPE_SET);
+		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__MODES);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
+		countExpressionOperationEEnum = createEEnum(COUNT_EXPRESSION_OPERATION);
 	}
 
 	/**
@@ -1885,7 +2723,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				.getEPackage(InstancePackage.eNS_URI);
 		ErrorModelPackage theErrorModelPackage = (ErrorModelPackage) EPackage.Registry.INSTANCE
 				.getEPackage(ErrorModelPackage.eNS_URI);
-		EcorePackage theEcorePackage = (EcorePackage) EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 		Aadl2Package theAadl2Package = (Aadl2Package) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
 
 		// Create type parameters
@@ -1896,16 +2733,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		emv2AnnexInstanceEClass.getESuperTypes().add(theInstancePackage.getAnnexInstance());
 		emv2InstanceObjectEClass.getESuperTypes().add(theInstancePackage.getInstanceObject());
 		stateMachineInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
-		stateInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		constrainedInstanceObjectEClass.getESuperTypes().add(getConstraintElement());
-		stateTransitionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		compositeStateInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
-		errorPropagationConditionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
-		errorDetectionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
-		eventInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		constraintExpressionEClass.getESuperTypes().add(getConstraintElement());
 		constraintElementEClass.getESuperTypes().add(getEMV2InstanceObject());
-		oldPropagationPathInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		errorPropagationInstanceEClass.getESuperTypes().add(getConstrainedInstanceObject());
 		connectionEndPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		featurePropagationEClass.getESuperTypes().add(getConnectionEndPropagation());
@@ -1929,43 +2760,82 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		connectionPathEClass.getESuperTypes().add(getPropagationPathInstance());
 		bindingPathEClass.getESuperTypes().add(getPropagationPathInstance());
 		userDefinedPathEClass.getESuperTypes().add(getPropagationPathInstance());
+		stateInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		eventInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		errorEventInstanceEClass.getESuperTypes().add(getEventInstance());
+		recoverEventInstanceEClass.getESuperTypes().add(getEventInstance());
+		repairEventInstanceEClass.getESuperTypes().add(getEventInstance());
+		transitionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		stateSourceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		sourceStateReferenceEClass.getESuperTypes().add(getStateSource());
+		allSourcesEClass.getESuperTypes().add(getStateSource());
+		conditionExpressionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
+		conditionPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
+		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
+		noErrorPropagationReferenceEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
+		countExpressionEClass.getESuperTypes().add(getConditionExpressionInstance());
+		transitionDestinationEClass.getESuperTypes().add(getEMV2InstanceObject());
+		destinationStateReferenceEClass.getESuperTypes().add(getTransitionDestination());
+		sameStateEClass.getESuperTypes().add(getTransitionDestination());
+		branchesEClass.getESuperTypes().add(getTransitionDestination());
+		branchEClass.getESuperTypes().add(getEMV2InstanceObject());
+		branchStateReferenceEClass.getESuperTypes().add(getBranch());
+		branchSameStateEClass.getESuperTypes().add(getBranch());
+		outgoingPropagationConditionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		outgoingPropagationConditionDestinationEClass.getESuperTypes().add(getEMV2InstanceObject());
+		destinationPropagationReferenceEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
+		allPropagationsEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
+		allPropagationsNoErrorEClass.getESuperTypes().add(getOutgoingPropagationConditionDestination());
+		detectionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		errorCodeInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		integerCodeEClass.getESuperTypes().add(getErrorCodeInstance());
+		stringCodeEClass.getESuperTypes().add(getErrorCodeInstance());
+		constantCodeEClass.getESuperTypes().add(getErrorCodeInstance());
+		modeMappingInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEMV2AnnexInstance_Transitions(), getStateTransitionInstance(), null, "transitions", null, 0,
-				-1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_PropagationPoints(), getPropagationPointInstance(), null,
 				"propagationPoints", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEMV2AnnexInstance_Events(), getEventInstance(), null, "events", null, 0, -1,
-				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_StateMachine(), getStateMachineInstance(), null, "stateMachine", null, 0, 1,
-				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEMV2AnnexInstance_ErrorPropagationConditions(), getErrorPropagationConditionInstance(), null,
-				"errorPropagationConditions", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEMV2AnnexInstance_ErrorDetections(), getErrorDetectionInstance(), null, "errorDetections",
-				null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEMV2AnnexInstance_ErrorFlows(), getErrorFlowInstance(), null, "errorFlows", null, 0, -1,
 				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_Composites(), getCompositeStateInstance(), null, "composites", null, 0, -1,
 				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEMV2AnnexInstance_OldPropagationPaths(), getOldPropagationPathInstance(), null,
-				"oldPropagationPaths", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_Propagations(), getErrorPropagationInstance(), null, "propagations", null,
 				0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_ErrorFlows(), getErrorFlowInstance(), null, "errorFlows", null, 0, -1,
+				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_PropagationPaths(), getPropagationPathInstance(), null, "propagationPaths",
 				null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_States(), getStateInstance(), null, "states", null, 0, -1,
+				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_InitialState(), getStateInstance(), null, "initialState", null, 0, 1,
+				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_Events(), getEventInstance(), null, "events", null, 0, -1,
+				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_Transitions(), getTransitionInstance(), null, "transitions", null, 0, -1,
+				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_Conditions(), getOutgoingPropagationConditionInstance(), null, "conditions",
+				null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_Detections(), getDetectionInstance(), null, "detections", null, 0, -1,
+				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_ModeMappings(), getModeMappingInstance(), null, "modeMappings", null, 0, -1,
+				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(emv2InstanceObjectEClass, EMV2InstanceObject.class, "EMV2InstanceObject", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -1982,12 +2852,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				null, "stateMachine", null, 0, 1, StateMachineInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(stateInstanceEClass, StateInstance.class, "StateInstance", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStateInstance_State(), theErrorModelPackage.getErrorBehaviorState(), null, "state", null, 0,
-				1, StateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(constrainedInstanceObjectEClass, ConstrainedInstanceObject.class, "ConstrainedInstanceObject",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConstrainedInstanceObject_InstanceObject(), theInstancePackage.getInstanceObject(), null,
@@ -2000,21 +2864,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				null, 0, 1, ConstrainedInstanceObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
 				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(stateTransitionInstanceEClass, StateTransitionInstance.class, "StateTransitionInstance",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStateTransitionInstance_StateTransition(), theEcorePackage.getEObject(), null,
-				"stateTransition", null, 0, 1, StateTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateTransitionInstance_InStates(), getStateInstance(), null, "inStates", null, 0, -1,
-				StateTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateTransitionInstance_Condition(), getConstraintElement(), null, "condition", null, 0, 1,
-				StateTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateTransitionInstance_TargetState(), getStateInstance(), null, "targetState", null, 0, 1,
-				StateTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(compositeStateInstanceEClass, CompositeStateInstance.class, "CompositeStateInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCompositeStateInstance_TargetState(), getStateInstance(), null, "targetState", null, 0, 1,
@@ -2026,55 +2875,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getCompositeStateInstance_CompositeState(), theErrorModelPackage.getCompositeState(), null,
 				"compositeState", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(errorPropagationConditionInstanceEClass, ErrorPropagationConditionInstance.class,
-				"ErrorPropagationConditionInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getErrorPropagationConditionInstance_Emv2Element(),
-				theErrorModelPackage.getOutgoingPropagationCondition(), null, "emv2Element", null, 0, 1,
-				ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorPropagationConditionInstance_InStates(), getStateInstance(), null, "inStates", null, 0,
-				-1, ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorPropagationConditionInstance_Condition(), getConstraintElement(), null, "condition",
-				null, 0, 1, ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorPropagationConditionInstance_OutgoingPropagation(), getConstrainedInstanceObject(), null,
-				"outgoingPropagation", null, 0, 1, ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getErrorPropagationConditionInstance_Source(), ecorePackage.getEBoolean(), "source", null, 0, 1,
-				ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
-				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getErrorPropagationConditionInstance_Sink(), ecorePackage.getEBoolean(), "sink", null, 0, 1,
-				ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
-				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(errorDetectionInstanceEClass, ErrorDetectionInstance.class, "ErrorDetectionInstance", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getErrorDetectionInstance_Emv2Element(), theErrorModelPackage.getErrorDetection(), null,
-				"emv2Element", null, 0, 1, ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorDetectionInstance_InStates(), getStateInstance(), null, "inStates", null, 0, -1,
-				ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorDetectionInstance_Condition(), getConstraintElement(), null, "condition", null, 0, 1,
-				ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getErrorDetectionInstance_ErrorCode(), ecorePackage.getEString(), "errorCode", null, 0, 1,
-				ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorDetectionInstance_Port(), theInstancePackage.getFeatureInstance(), null, "port", null, 0,
-				1, ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(eventInstanceEClass, EventInstance.class, "EventInstance", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEventInstance_Event(), theErrorModelPackage.getErrorBehaviorEvent(), null, "event", null, 0,
-				1, EventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEventInstance_GeneratedTypedEvents(), getConstrainedInstanceObject(), null,
-				"generatedTypedEvents", null, 0, -1, EventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constraintExpressionEClass, ConstraintExpression.class, "ConstraintExpression", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2090,18 +2890,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(constraintElementEClass, ConstraintElement.class, "ConstraintElement", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(oldPropagationPathInstanceEClass, OldPropagationPathInstance.class, "OldPropagationPathInstance",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getOldPropagationPathInstance_Emv2Element(), theAadl2Package.getNamedElement(), null,
-				"emv2Element", null, 0, 1, OldPropagationPathInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOldPropagationPathInstance_Source(), getConstraintElement(), null, "source", null, 0, 1,
-				OldPropagationPathInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOldPropagationPathInstance_Target(), getConstrainedInstanceObject(), null, "target", null, 0,
-				1, OldPropagationPathInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorPropagationInstanceEClass, ErrorPropagationInstance.class, "ErrorPropagationInstance",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2340,6 +3128,247 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				UserDefinedPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(stateInstanceEClass, StateInstance.class, "StateInstance", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getStateInstance_State(), theErrorModelPackage.getErrorBehaviorState(), null, "state", null, 0,
+				1, StateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStateInstance_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				StateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(eventInstanceEClass, EventInstance.class, "EventInstance", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(errorEventInstanceEClass, ErrorEventInstance.class, "ErrorEventInstance", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getErrorEventInstance_ErrorEvent(), theErrorModelPackage.getErrorEvent(), null, "errorEvent",
+				null, 0, 1, ErrorEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorEventInstance_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				ErrorEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(recoverEventInstanceEClass, RecoverEventInstance.class, "RecoverEventInstance", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRecoverEventInstance_RecoverEvent(), theErrorModelPackage.getRecoverEvent(), null,
+				"recoverEvent", null, 0, 1, RecoverEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRecoverEventInstance_EventInitiators(), theInstancePackage.getConnectionInstanceEnd(), null,
+				"eventInitiators", null, 0, -1, RecoverEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(repairEventInstanceEClass, RepairEventInstance.class, "RepairEventInstance", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRepairEventInstance_RepairEvent(), theErrorModelPackage.getRepairEvent(), null, "repairEvent",
+				null, 0, 1, RepairEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRepairEventInstance_EventInitiators(), theInstancePackage.getConnectionInstanceEnd(), null,
+				"eventInitiators", null, 0, -1, RepairEventInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(transitionInstanceEClass, TransitionInstance.class, "TransitionInstance", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTransitionInstance_Transition(), theErrorModelPackage.getErrorBehaviorTransition(), null,
+				"transition", null, 0, 1, TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransitionInstance_Source(), getStateSource(), null, "source", null, 0, 1,
+				TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransitionInstance_Condition(), getConditionExpressionInstance(), null, "condition", null, 0,
+				1, TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransitionInstance_Destination(), getTransitionDestination(), null, "destination", null, 0, 1,
+				TransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stateSourceEClass, StateSource.class, "StateSource", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(sourceStateReferenceEClass, SourceStateReference.class, "SourceStateReference", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSourceStateReference_State(), getStateInstance(), null, "state", null, 0, 1,
+				SourceStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSourceStateReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				SourceStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(allSourcesEClass, AllSources.class, "AllSources", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(conditionExpressionInstanceEClass, ConditionExpressionInstance.class, "ConditionExpressionInstance",
+				IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(eventReferenceEClass, EventReference.class, "EventReference", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEventReference_Event(), getEventInstance(), null, "event", null, 0, 1, EventReference.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEventReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				EventReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(conditionPropagationReferenceEClass, ConditionPropagationReference.class,
+				"ConditionPropagationReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConditionPropagationReference_Propagation(), getErrorPropagationInstance(), null,
+				"propagation", null, 0, 1, ConditionPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConditionPropagationReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				ConditionPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(noErrorPropagationReferenceEClass, NoErrorPropagationReference.class, "NoErrorPropagationReference",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getNoErrorPropagationReference_Propagation(), getErrorPropagationInstance(), null, "propagation",
+				null, 0, 1, NoErrorPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(countExpressionEClass, CountExpression.class, "CountExpression", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCountExpression_Operands(), getConditionExpressionInstance(), null, "operands", null, 0, -1,
+				CountExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCountExpression_Operation(), getCountExpressionOperation(), "operation", null, 0, 1,
+				CountExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCountExpression_Count(), ecorePackage.getELong(), "count", null, 0, 1, CountExpression.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(transitionDestinationEClass, TransitionDestination.class, "TransitionDestination", IS_ABSTRACT,
+				IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(destinationStateReferenceEClass, DestinationStateReference.class, "DestinationStateReference",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDestinationStateReference_State(), getStateInstance(), null, "state", null, 0, 1,
+				DestinationStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDestinationStateReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				DestinationStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(destinationStateReferenceEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
+
+		initEClass(sameStateEClass, SameState.class, "SameState", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(branchesEClass, Branches.class, "Branches", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBranches_Branches(), getBranch(), null, "branches", null, 0, -1, Branches.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(branchEClass, Branch.class, "Branch", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBranch_Probability(), ecorePackage.getEBigDecimal(), "probability", null, 0, 1, Branch.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(branchStateReferenceEClass, BranchStateReference.class, "BranchStateReference", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBranchStateReference_State(), getStateInstance(), null, "state", null, 0, 1,
+				BranchStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBranchStateReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				BranchStateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(branchStateReferenceEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(branchSameStateEClass, BranchSameState.class, "BranchSameState", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(outgoingPropagationConditionInstanceEClass, OutgoingPropagationConditionInstance.class,
+				"OutgoingPropagationConditionInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getOutgoingPropagationConditionInstance_OutgoingPropagationCondition(),
+				theErrorModelPackage.getOutgoingPropagationCondition(), null, "outgoingPropagationCondition", null, 0,
+				1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOutgoingPropagationConditionInstance_Source(), getStateSource(), null, "source", null, 0, 1,
+				OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOutgoingPropagationConditionInstance_Condition(), getConditionExpressionInstance(), null,
+				"condition", null, 0, 1, OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOutgoingPropagationConditionInstance_Destination(),
+				getOutgoingPropagationConditionDestination(), null, "destination", null, 0, 1,
+				OutgoingPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(outgoingPropagationConditionDestinationEClass, OutgoingPropagationConditionDestination.class,
+				"OutgoingPropagationConditionDestination", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(destinationPropagationReferenceEClass, DestinationPropagationReference.class,
+				"DestinationPropagationReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDestinationPropagationReference_Propagation(), getErrorPropagationInstance(), null,
+				"propagation", null, 0, 1, DestinationPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDestinationPropagationReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				DestinationPropagationReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(destinationPropagationReferenceEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
+
+		initEClass(allPropagationsEClass, AllPropagations.class, "AllPropagations", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAllPropagations_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				AllPropagations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(allPropagationsEClass, getTypeTokenInstance(), "getTypeToken", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(allPropagationsNoErrorEClass, AllPropagationsNoError.class, "AllPropagationsNoError", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(detectionInstanceEClass, DetectionInstance.class, "DetectionInstance", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDetectionInstance_Detection(), theErrorModelPackage.getErrorDetection(), null, "detection",
+				null, 0, 1, DetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDetectionInstance_Source(), getStateSource(), null, "source", null, 0, 1,
+				DetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDetectionInstance_Condition(), getConditionExpressionInstance(), null, "condition", null, 0,
+				1, DetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDetectionInstance_Destination(), theInstancePackage.getFeatureInstance(), null, "destination",
+				null, 0, 1, DetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDetectionInstance_ErrorCode(), getErrorCodeInstance(), null, "errorCode", null, 0, 1,
+				DetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(errorCodeInstanceEClass, ErrorCodeInstance.class, "ErrorCodeInstance", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(integerCodeEClass, IntegerCode.class, "IntegerCode", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIntegerCode_Code(), ecorePackage.getELong(), "code", null, 0, 1, IntegerCode.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stringCodeEClass, StringCode.class, "StringCode", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStringCode_Code(), ecorePackage.getEString(), "code", null, 0, 1, StringCode.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(constantCodeEClass, ConstantCode.class, "ConstantCode", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConstantCode_Code(), theAadl2Package.getPropertyConstant(), null, "code", null, 0, 1,
+				ConstantCode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(modeMappingInstanceEClass, ModeMappingInstance.class, "ModeMappingInstance", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getModeMappingInstance_State(), getStateInstance(), null, "state", null, 0, 1,
+				ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModeMappingInstance_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModeMappingInstance_Modes(), theInstancePackage.getModeInstance(), null, "modes", null, 0, -1,
+				ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");
 		addEEnumLiteral(eOperationEEnum, EOperation.ANY);
@@ -2355,6 +3384,11 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		addEEnumLiteral(bindingTypeEEnum, BindingType.CONNECTION);
 		addEEnumLiteral(bindingTypeEEnum, BindingType.BINDING);
 		addEEnumLiteral(bindingTypeEEnum, BindingType.BINDINGS);
+
+		initEEnum(countExpressionOperationEEnum, CountExpressionOperation.class, "CountExpressionOperation");
+		addEEnumLiteral(countExpressionOperationEEnum, CountExpressionOperation.EQUALS);
+		addEEnumLiteral(countExpressionOperationEEnum, CountExpressionOperation.LESS_EQUAL);
+		addEEnumLiteral(countExpressionOperationEEnum, CountExpressionOperation.GREATER_EQUAL);
 
 		// Create resource
 		createResource(eNS_URI);

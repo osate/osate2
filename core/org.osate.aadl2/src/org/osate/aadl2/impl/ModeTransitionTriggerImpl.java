@@ -81,6 +81,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModeTransitionTrigger();
 	}
@@ -90,6 +91,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Context getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
@@ -118,6 +120,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
@@ -132,6 +135,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TriggerPort getTriggerPort() {
 		if (triggerPort != null && ((EObject) triggerPort).eIsProxy()) {
 			InternalEObject oldTriggerPort = (InternalEObject) triggerPort;
@@ -160,6 +164,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTriggerPort(TriggerPort newTriggerPort) {
 		TriggerPort oldTriggerPort = triggerPort;
 		triggerPort = newTriggerPort;
@@ -174,6 +179,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION_TRIGGER__CONTEXT:
@@ -195,6 +201,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION_TRIGGER__CONTEXT:
@@ -212,6 +219,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION_TRIGGER__CONTEXT:
@@ -229,6 +237,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION_TRIGGER__CONTEXT:

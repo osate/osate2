@@ -98,6 +98,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getArrayRange();
 	}
@@ -107,6 +108,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getLowerBound() {
 		return lowerBound;
 	}
@@ -116,6 +118,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLowerBound(long newLowerBound) {
 		long oldLowerBound = lowerBound;
 		lowerBound = newLowerBound;
@@ -130,6 +133,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getUpperBound() {
 		return upperBound;
 	}
@@ -139,6 +143,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUpperBound(long newUpperBound) {
 		long oldUpperBound = upperBound;
 		upperBound = newUpperBound;
@@ -153,6 +158,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_RANGE__LOWER_BOUND:
@@ -168,6 +174,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_RANGE__LOWER_BOUND:
@@ -185,6 +192,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_RANGE__LOWER_BOUND:
@@ -202,6 +210,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_RANGE__LOWER_BOUND:
@@ -217,6 +226,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

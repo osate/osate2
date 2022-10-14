@@ -74,6 +74,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroupPrototypeBinding();
 	}
@@ -83,6 +84,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureGroupPrototypeActual getActual() {
 		return actual;
 	}
@@ -112,6 +114,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActual(FeatureGroupPrototypeActual newActual) {
 		if (newActual != actual) {
 			NotificationChain msgs = null;
@@ -150,6 +153,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Prototype getFormal() {
 		if (formal != null && ((EObject) formal).eIsProxy()) {
 			InternalEObject oldFormal = (InternalEObject) formal;
@@ -169,6 +173,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Prototype basicGetFormal() {
 		return formal;
 	}
@@ -204,6 +209,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:
@@ -217,6 +223,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:
@@ -230,6 +237,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:
@@ -244,6 +252,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:
@@ -258,6 +267,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:

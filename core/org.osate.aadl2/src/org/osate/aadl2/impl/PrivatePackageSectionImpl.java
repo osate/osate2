@@ -60,6 +60,7 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPrivatePackageSection();
 	}
@@ -69,6 +70,7 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PublicPackageSection getPublicSection() {
 		PublicPackageSection publicSection = basicGetPublicSection();
 		return publicSection != null && ((EObject) publicSection).eIsProxy()
@@ -100,6 +102,7 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PRIVATE_PACKAGE_SECTION__PUBLIC_SECTION:
@@ -116,6 +119,7 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PRIVATE_PACKAGE_SECTION__PUBLIC_SECTION:

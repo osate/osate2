@@ -110,6 +110,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDirectedFeature();
 	}
@@ -164,6 +165,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIn() {
 		return in;
 	}
@@ -173,6 +175,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
@@ -186,6 +189,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOut() {
 		return out;
 	}
@@ -195,6 +199,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;
@@ -208,6 +213,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
@@ -225,6 +231,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
@@ -245,6 +252,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
@@ -265,6 +273,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
@@ -282,6 +291,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

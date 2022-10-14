@@ -1,0 +1,18 @@
+package repair_events_in_state_machine
+public
+	system s
+		annex EMV2 {**
+			use behavior repair_events_in_state_machine::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				repair1: repair event;
+		end behavior;
+	**};
+end repair_events_in_state_machine;

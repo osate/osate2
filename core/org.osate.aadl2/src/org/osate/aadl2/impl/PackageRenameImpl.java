@@ -91,6 +91,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPackageRename();
 	}
@@ -100,6 +101,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AadlPackage getRenamedPackage() {
 		if (renamedPackage != null && ((EObject) renamedPackage).eIsProxy()) {
 			InternalEObject oldRenamedPackage = (InternalEObject) renamedPackage;
@@ -128,6 +130,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRenamedPackage(AadlPackage newRenamedPackage) {
 		AadlPackage oldRenamedPackage = renamedPackage;
 		renamedPackage = newRenamedPackage;
@@ -142,6 +145,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isRenameAll() {
 		return renameAll;
 	}
@@ -151,6 +155,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRenameAll(boolean newRenameAll) {
 		boolean oldRenameAll = renameAll;
 		renameAll = newRenameAll;
@@ -165,6 +170,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE:
@@ -183,6 +189,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE:
@@ -200,6 +207,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE:
@@ -217,6 +225,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE:
@@ -232,6 +241,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

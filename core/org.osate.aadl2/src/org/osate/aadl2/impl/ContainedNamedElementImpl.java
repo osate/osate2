@@ -75,6 +75,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getContainedNamedElement();
 	}
@@ -84,6 +85,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContainmentPathElement getPath() {
 		return path;
 	}
@@ -113,6 +115,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPath(ContainmentPathElement newPath) {
 		if (newPath != path) {
 			NotificationChain msgs = null;
@@ -170,6 +173,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -183,6 +187,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -198,6 +203,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -213,6 +219,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -227,6 +234,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:

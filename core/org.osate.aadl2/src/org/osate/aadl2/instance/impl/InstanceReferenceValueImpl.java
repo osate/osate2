@@ -72,6 +72,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.INSTANCE_REFERENCE_VALUE;
 	}
@@ -81,6 +82,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InstanceObject getReferencedInstanceObject() {
 		if (referencedInstanceObject != null && referencedInstanceObject.eIsProxy()) {
 			InternalEObject oldReferencedInstanceObject = (InternalEObject) referencedInstanceObject;
@@ -110,6 +112,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedInstanceObject(InstanceObject newReferencedInstanceObject) {
 		InstanceObject oldReferencedInstanceObject = referencedInstanceObject;
 		referencedInstanceObject = newReferencedInstanceObject;
@@ -125,6 +128,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT:
@@ -141,6 +145,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT:
@@ -155,6 +160,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT:
@@ -169,6 +175,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT:

@@ -1,0 +1,30 @@
+package override_transition_inherited_from_state_machine
+public
+	system s
+		annex EMV2 {**
+			use behavior override_transition_inherited_from_state_machine::machine1;
+			
+			component error behavior
+				events
+					recover1: recover event;
+				transitions
+					TRANSITION1: state2 -[recover1]-> state1;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error1: error event;
+			states
+				state1: initial state;
+				state2: state;
+			transitions
+				transition1: state1 -[error1]-> state2;
+		end behavior;
+	**};
+end override_transition_inherited_from_state_machine;

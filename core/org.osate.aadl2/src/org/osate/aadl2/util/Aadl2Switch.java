@@ -70,6 +70,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
+	@Override
 	protected boolean isSwitchFor(EPackage ePackage) {
 		return ePackage == modelPackage;
 	}
@@ -81,6 +82,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
+	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 		case Aadl2Package.ELEMENT: {
@@ -1690,6 +1692,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseContext(subprogramAccess);
 			}
 			if (result == null) {
+				result = caseFlowElement(subprogramAccess);
+			}
+			if (result == null) {
 				result = caseCalledSubprogram(subprogramAccess);
 			}
 			if (result == null) {
@@ -1697,6 +1702,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseAccessConnectionEnd(subprogramAccess);
+			}
+			if (result == null) {
+				result = caseEndToEndFlowElement(subprogramAccess);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(subprogramAccess);
@@ -11383,6 +11391,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
+	@Override
 	public T defaultCase(EObject object) {
 		return null;
 	}

@@ -67,7 +67,7 @@ public enum PortCategory implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #EVENT_DATA_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
 	EVENT_DATA(2, "event data", "event data");
@@ -227,6 +227,7 @@ public enum PortCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
@@ -236,6 +237,7 @@ public enum PortCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -245,6 +247,7 @@ public enum PortCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -255,6 +258,7 @@ public enum PortCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		return literal;
 	}

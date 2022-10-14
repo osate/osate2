@@ -1,0 +1,61 @@
+package all_propagations_cannot_determine_type
+public
+	system s
+		features
+			f1: in feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: abstract a1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior all_propagations_cannot_determine_type::machine1;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				events
+					error1: error event {CommonErrors};
+					error2: error event;
+				propagations
+					condition1: state1 {ServiceError} -[error1 {ItemTimingError}]-> all;
+					condition2: state2 -[error1]-> all;
+					condition3: state3 {ServiceError, ItemTimingError} -[error2]-> all;
+					condition4: state4 -[error1 {noerror}]-> all;
+					condition5: state5 -[f1 {noerror}]-> all;
+					condition6: state6 -[sub1.f2 {noerror}]-> all;
+					condition7: all -[error1]-> all;
+					condition8: state8 -[error1 {ServiceError, ItemTimingError}]-> all;
+			end component;
+		**};
+	end s.i;
+	
+	abstract a1
+		features
+			f2: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f2: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end a1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state {CommonErrors};
+				state2: state {CommonErrors};
+				state3: state {CommonErrors};
+				state4: state;
+				state5: state;
+				state6: state;
+				state8: state;
+		end behavior;
+	**};
+end all_propagations_cannot_determine_type;

@@ -69,6 +69,7 @@ Run with
             <iu id="org.eclipse.gef.geometry.feature.group"/>
             <iu id="org.eclipse.gef.geometry.convert.fx.feature.group"/>
             <iu id="org.eclipse.gef.fx.feature.group"/>
+    		<iu id="org.hamcrest.library"/>
         </p2.mirror>
 
     	<p2.mirror>

@@ -84,6 +84,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractFeature();
 	}
@@ -93,6 +94,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
 		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
@@ -105,6 +107,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureClassifier basicGetFeatureClassifier() {
 		if (eIsSet(Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER)) {
 			return basicGetAbstractFeatureClassifier();
@@ -117,6 +120,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeaturePrototype getFeaturePrototype() {
 		if (featurePrototype != null && ((EObject) featurePrototype).eIsProxy()) {
 			InternalEObject oldFeaturePrototype = (InternalEObject) featurePrototype;
@@ -145,6 +149,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFeaturePrototype(FeaturePrototype newFeaturePrototype) {
 		FeaturePrototype oldFeaturePrototype = featurePrototype;
 		featurePrototype = newFeaturePrototype;
@@ -159,6 +164,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbstractFeatureClassifier getAbstractFeatureClassifier() {
 		if (abstractFeatureClassifier != null && ((EObject) abstractFeatureClassifier).eIsProxy()) {
 			InternalEObject oldAbstractFeatureClassifier = (InternalEObject) abstractFeatureClassifier;
@@ -189,6 +195,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAbstractFeatureClassifier(AbstractFeatureClassifier newAbstractFeatureClassifier) {
 		AbstractFeatureClassifier oldAbstractFeatureClassifier = abstractFeatureClassifier;
 		abstractFeatureClassifier = newAbstractFeatureClassifier;
@@ -204,6 +211,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
@@ -225,6 +233,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
@@ -242,6 +251,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
@@ -259,6 +269,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER:
@@ -276,6 +287,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetFeatureClassifier() {
 		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER);
 	}

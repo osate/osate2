@@ -1,0 +1,31 @@
+package typed_source_without_types
+public
+	system s
+		features
+			f1: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior typed_source_without_types::machine1;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				propagations
+					condition1: state1 -[]-> f1 {ServiceError};
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state {CommonErrors};
+		end behavior;
+	**};
+end typed_source_without_types;
