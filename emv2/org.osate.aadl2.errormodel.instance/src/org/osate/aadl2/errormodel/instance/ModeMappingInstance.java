@@ -25,6 +25,7 @@ package org.osate.aadl2.errormodel.instance;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.ModeInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,6 +36,7 @@ import org.osate.aadl2.instance.ModeInstance;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getModeMapping <em>Mode Mapping</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getState <em>State</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getTypeSet <em>Type Set</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getModes <em>Modes</em>}</li>
@@ -45,6 +47,28 @@ import org.osate.aadl2.instance.ModeInstance;
  * @generated
  */
 public interface ModeMappingInstance extends EMV2InstanceObject {
+
+	/**
+	 * Returns the value of the '<em><b>Mode Mapping</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Mode Mapping</em>' reference.
+	 * @see #setModeMapping(ErrorStateToModeMapping)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getModeMappingInstance_ModeMapping()
+	 * @model
+	 * @generated
+	 */
+	ErrorStateToModeMapping getModeMapping();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getModeMapping <em>Mode Mapping</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Mode Mapping</em>' reference.
+	 * @see #getModeMapping()
+	 * @generated
+	 */
+	void setModeMapping(ErrorStateToModeMapping value);
 
 	/**
 	 * Returns the value of the '<em><b>State</b></em>' reference.

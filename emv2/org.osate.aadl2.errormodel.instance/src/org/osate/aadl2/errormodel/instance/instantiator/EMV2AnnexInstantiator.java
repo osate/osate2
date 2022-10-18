@@ -1326,6 +1326,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private void instantiateModeMapping(ErrorStateToModeMapping modeMapping, ComponentInstance component,
 			EMV2AnnexInstance annex) {
 		var modeMappingInstance = EMV2InstanceFactory.eINSTANCE.createModeMappingInstance();
+		modeMappingInstance.setModeMapping(modeMapping);
 		modeMappingInstance.setState(findStateInstance(annex, modeMapping.getErrorState()));
 		if (modeMapping.getTypeToken() != null) {
 			modeMappingInstance.setTypeSet(createAnonymousTypeSet(modeMapping.getTypeToken()));

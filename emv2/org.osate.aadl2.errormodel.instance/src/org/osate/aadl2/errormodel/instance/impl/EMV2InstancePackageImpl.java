@@ -1972,7 +1972,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getModeMappingInstance_State() {
+	public EReference getModeMappingInstance_ModeMapping() {
 		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1982,7 +1982,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getModeMappingInstance_TypeSet() {
+	public EReference getModeMappingInstance_State() {
 		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1992,8 +1992,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getModeMappingInstance_Modes() {
+	public EReference getModeMappingInstance_TypeSet() {
 		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getModeMappingInstance_Modes() {
+		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2683,6 +2693,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(constantCodeEClass, CONSTANT_CODE__CODE);
 
 		modeMappingInstanceEClass = createEClass(MODE_MAPPING_INSTANCE);
+		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__MODE_MAPPING);
 		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__STATE);
 		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__TYPE_SET);
 		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__MODES);
@@ -3359,6 +3370,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(modeMappingInstanceEClass, ModeMappingInstance.class, "ModeMappingInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getModeMappingInstance_ModeMapping(), theErrorModelPackage.getErrorStateToModeMapping(), null,
+				"modeMapping", null, 0, 1, ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModeMappingInstance_State(), getStateInstance(), null, "state", null, 0, 1,
 				ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

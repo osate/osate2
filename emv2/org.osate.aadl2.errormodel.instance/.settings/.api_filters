@@ -1167,6 +1167,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__MODE_MAPPING"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="MODE_MAPPING_INSTANCE__NAME"/>
             </message_arguments>
         </filter>
@@ -1977,6 +1982,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getModeMappingInstance_ModeMapping()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getModeMappingInstance_Modes()"/>
             </message_arguments>
         </filter>
@@ -2385,6 +2395,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="MODE_MAPPING_INSTANCE__MODES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_MAPPING_INSTANCE__MODE_MAPPING"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">

@@ -6126,13 +6126,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int MODE_MAPPING_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
+	 * The feature id for the '<em><b>Mode Mapping</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_MAPPING_INSTANCE__MODE_MAPPING = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>State</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODE_MAPPING_INSTANCE__STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+	int MODE_MAPPING_INSTANCE__STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
@@ -6141,7 +6150,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODE_MAPPING_INSTANCE__TYPE_SET = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+	int MODE_MAPPING_INSTANCE__TYPE_SET = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Modes</b></em>' reference list.
@@ -6150,7 +6159,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODE_MAPPING_INSTANCE__MODES = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+	int MODE_MAPPING_INSTANCE__MODES = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Mode Mapping Instance</em>' class.
@@ -6159,7 +6168,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODE_MAPPING_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
+	int MODE_MAPPING_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
@@ -7618,6 +7627,17 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getModeMappingInstance();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getModeMapping <em>Mode Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Mode Mapping</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ModeMappingInstance#getModeMapping()
+	 * @see #getModeMappingInstance()
+	 * @generated
+	 */
+	EReference getModeMappingInstance_ModeMapping();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ModeMappingInstance#getState <em>State</em>}'.
@@ -9291,6 +9311,14 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EClass MODE_MAPPING_INSTANCE = eINSTANCE.getModeMappingInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Mode Mapping</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODE_MAPPING_INSTANCE__MODE_MAPPING = eINSTANCE.getModeMappingInstance_ModeMapping();
 
 		/**
 		 * The meta object literal for the '<em><b>State</b></em>' reference feature.
