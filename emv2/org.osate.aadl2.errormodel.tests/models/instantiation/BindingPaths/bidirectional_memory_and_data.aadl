@@ -1,0 +1,35 @@
+package bidirectional_memory_and_data
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			m: memory m;
+			d: data d;
+		properties
+			Actual_Memory_Binding => (reference (m)) applies to d;
+	end s.i;
+	
+	memory m
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end m;
+	
+	data d
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end d;
+end bidirectional_memory_and_data;

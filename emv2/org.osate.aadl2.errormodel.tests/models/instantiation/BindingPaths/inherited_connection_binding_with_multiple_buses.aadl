@@ -1,0 +1,53 @@
+package inherited_connection_binding_with_multiple_buses
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			b1: bus b;
+			b2: bus b;
+			b3: bus b;
+			s2: system s2.i;
+		properties
+			Actual_Connection_Binding => (reference (b1), reference (b2), reference (b3)) applies to s2;
+	end s.i;
+	
+	bus b
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end b;
+	
+	system s2
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s2;
+	
+	system implementation s2.i
+		subcomponents
+			vb: virtual bus vb;
+	end s2.i;
+	
+	virtual bus vb
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				connection: in propagation {ServiceError};
+				connection: out propagation {ServiceError};
+			end propagations;
+		**};
+	end vb;
+end inherited_connection_binding_with_multiple_buses;

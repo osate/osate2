@@ -31,7 +31,9 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.annexsupport.AnnexInstantiator;
 import org.osate.annexsupport.AnnexInstantiatorRegistry;
@@ -42,15 +44,37 @@ import org.osate.annexsupport.AnnexRegistry;
  */
 public class AnnexInstantiationController extends ForAllElement {
 
-	public void instantiateAllAnnexes(ComponentInstance root) {
+	private AnnexInstantiatorRegistry registry = (AnnexInstantiatorRegistry) AnnexRegistry
+			.getRegistry(AnnexRegistry.ANNEX_INSTANTIATOR_EXT_ID);
+
+	private Set<String> allAnnexes = new HashSet<String>();
+
+	private AnalysisErrorReporterManager errorManager;
+
+	AnnexInstantiationController(AnalysisErrorReporterManager errorManager) {
+		super();
+		this.errorManager = errorManager;
+	}
+
+	void instantiateAllAnnexes(ComponentInstance root) {
 		processPostOrderComponentInstance(root);
+		for (String annexName : allAnnexes) {
+			AnnexInstantiator instantiator = registry.getAnnexInstantiator(annexName);
+
+			if (instantiator != null) {
+				if (root instanceof SystemInstance si) {
+					instantiator.instantiateAnnex(si, annexName, errorManager);
+				} else {
+					instantiator.instantiateAnnex(root, annexName, errorManager);
+				}
+			}
+		}
+
 	}
 
 	@Override
 	protected void action(Element obj) {
 		ComponentInstance instance = (ComponentInstance) obj;
-		AnnexInstantiatorRegistry registry = (AnnexInstantiatorRegistry) AnnexRegistry
-				.getRegistry(AnnexRegistry.ANNEX_INSTANTIATOR_EXT_ID);
 		Set<String> annexes = new HashSet<String>();
 
 		if (InstanceUtil.getComponentImplementation(instance, 0, null) != null) {
@@ -76,8 +100,9 @@ public class AnnexInstantiationController extends ForAllElement {
 			AnnexInstantiator instantiator = registry.getAnnexInstantiator(annexName);
 
 			if (instantiator != null) {
-				instantiator.instantiateAnnex(instance, annexName);
+				instantiator.instantiateAnnex(instance, annexName, errorManager);
 			}
+			allAnnexes.add(annexName);
 		}
 	}
 

@@ -99,6 +99,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModeTransition();
 	}
@@ -108,6 +109,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Mode getSource() {
 		if (source != null && ((EObject) source).eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject) source;
@@ -136,6 +138,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSource(Mode newSource) {
 		Mode oldSource = source;
 		source = newSource;
@@ -150,6 +153,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Mode getDestination() {
 		if (destination != null && ((EObject) destination).eIsProxy()) {
 			InternalEObject oldDestination = (InternalEObject) destination;
@@ -178,6 +182,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDestination(Mode newDestination) {
 		Mode oldDestination = destination;
 		destination = newDestination;
@@ -192,9 +197,10 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeTransitionTrigger> getOwnedTriggers() {
 		if (ownedTriggers == null) {
-			ownedTriggers = new EObjectContainmentEList<ModeTransitionTrigger>(ModeTransitionTrigger.class, this,
+			ownedTriggers = new EObjectContainmentEList<>(ModeTransitionTrigger.class, this,
 					Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER);
 		}
 		return ownedTriggers;
@@ -217,6 +223,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER:
@@ -230,6 +237,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
@@ -254,6 +262,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
@@ -275,6 +284,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
@@ -295,6 +305,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__SOURCE:

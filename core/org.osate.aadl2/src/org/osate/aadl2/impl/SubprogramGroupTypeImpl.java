@@ -88,6 +88,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramGroupType();
 	}
@@ -97,8 +98,9 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Feature> getOwnedFeatures() {
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+		return new DerivedUnionEObjectEList<>(Feature.class, this,
 				Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -121,9 +123,10 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
-			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
+			ownedSubprogramAccesses = new EObjectContainmentEList<>(SubprogramAccess.class, this,
 					Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		}
 		return ownedSubprogramAccesses;
@@ -146,9 +149,10 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
-			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<>(
 					SubprogramGroupAccess.class, this,
 					Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 		}
@@ -172,6 +176,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS:
@@ -187,6 +192,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS:
@@ -203,6 +209,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS:
@@ -222,6 +229,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS:
@@ -239,6 +247,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_FEATURE:
@@ -256,6 +265,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedFeatures() {
 		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS)
 				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);

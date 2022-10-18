@@ -31,13 +31,12 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.ThreadImplementation
+import org.osate.aadl2.SubprogramImplementation
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.assertError
-import org.osate.aadl2.SubprogramImplementation
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)

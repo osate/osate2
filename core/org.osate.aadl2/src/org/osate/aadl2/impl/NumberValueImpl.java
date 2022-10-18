@@ -72,6 +72,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNumberValue();
 	}
@@ -81,6 +82,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnitLiteral getUnit() {
 		if (unit != null && ((EObject) unit).eIsProxy()) {
 			InternalEObject oldUnit = (InternalEObject) unit;
@@ -109,6 +111,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnit(UnitLiteral newUnit) {
 		UnitLiteral oldUnit = unit;
 		unit = newUnit;
@@ -140,6 +143,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__UNIT:
@@ -156,6 +160,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__UNIT:
@@ -170,6 +175,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__UNIT:
@@ -184,6 +190,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__UNIT:

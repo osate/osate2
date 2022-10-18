@@ -1,0 +1,28 @@
+package internal_feature_destination
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		internal features
+			es1: event;
+			eds2: event;
+		annex EMV2 {**
+			use behavior internal_feature_destination::machine1;
+			
+			component error behavior
+				detections
+					detection1: state1 -[]-> es1 !;
+					detection2: state2 -[]-> eds2 !;
+			end component;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end internal_feature_destination;

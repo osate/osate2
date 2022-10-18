@@ -934,6 +934,11 @@ censes only apply to the Third Party Software and not any other portion of this 
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Memory-MemoryImplementation-ownedMemorySubcomponent-_upperValue" value="*"/>
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="_z9GuUBFzEe2xFtyviYCoEw" name="ownedVirtualBusSubcomponent" type="Components-VirtualBus-VirtualBusSubcomponent" aggregation="composite" association="_z84E0BFzEe2xFtyviYCoEw">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_z9H8cBFzEe2xFtyviYCoEw"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_z9IjgBFzEe2xFtyviYCoEw" value="*"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="Components-Memory-A_memoryImplementation_memoryType" name="A_memoryImplementation_memoryType" isDerived="true" memberEnd="Components-Memory-A_memoryImplementation_memoryType-implementation Components-Memory-MemoryImplementation-type">
           <ownedEnd xmi:id="Components-Memory-A_memoryImplementation_memoryType-implementation" name="implementation" visibility="public" type="Components-Memory-MemoryImplementation" association="Components-Memory-A_memoryImplementation_memoryType">
@@ -993,6 +998,14 @@ censes only apply to the Third Party Software and not any other portion of this 
           <ownedEnd xmi:id="_ldmwK8jxEeCKY-_8-OsxgA" name="owner" visibility="public" type="Components-Memory-MemoryType" association="_ldmwKsjxEeCKY-_8-OsxgA">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ldmwLcjxEeCKY-_8-OsxgA"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ldmwLMjxEeCKY-_8-OsxgA" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_z84E0BFzEe2xFtyviYCoEw" name="A_memoryImplementation_ownedVirtualBusSubcompoent" memberEnd="_z9GuUBFzEe2xFtyviYCoEw _z9JKkBFzEe2xFtyviYCoEw">
+          <eAnnotations xmi:id="_z9DrABFzEe2xFtyviYCoEw" source="org.eclipse.papyrus">
+            <details xmi:id="_z9ESEBFzEe2xFtyviYCoEw" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:id="_z9JKkBFzEe2xFtyviYCoEw" name="owner" type="Components-Memory-MemoryImplementation" association="_z84E0BFzEe2xFtyviYCoEw">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bhrr0BF0Ee2xFtyviYCoEw"/>
           </ownedEnd>
         </packagedElement>
       </packagedElement>
@@ -2738,6 +2751,9 @@ censes only apply to the Third Party Software and not any other portion of this 
         <generalization xmi:id="Features-SubprogramAccess-_generalization.1" general="Calls-CalledSubprogram"/>
         <generalization xmi:id="_WegLoL9xEemfm9dWGnR7ew">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
+        </generalization>
+        <generalization xmi:id="_uovy8EA9Ee28P4eF_pNCHA">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Flows-FlowElement"/>
         </generalization>
         <ownedAttribute xmi:id="Features-SubprogramAccess-subprogramClassifier" name="subprogramFeatureClassifier" visibility="public" type="_5fL3IKfLEeCYEIHXYlP5sg" association="Features-A_subprogramAccess_subprogramClassifier">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-SubprogramAccess-subprogramClassifier-_lowerValue"/>

@@ -1,0 +1,6 @@
+verification methods SysMethods [
+    method LAT : "Conduct structured review" [
+    	description "Run Latency Analysis"
+        manual formalReview
+    ]
+]

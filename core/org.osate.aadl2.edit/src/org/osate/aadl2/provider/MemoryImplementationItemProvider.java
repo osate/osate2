@@ -58,6 +58,7 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -74,11 +75,13 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedBusSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedMemorySubcomponent());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedVirtualBusSubcomponent());
 		}
 		return childrenFeatures;
 	}
@@ -88,6 +91,7 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -101,6 +105,7 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemoryImplementation"));
 	}
@@ -111,6 +116,7 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((MemoryImplementation) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_MemoryImplementation_type")
@@ -124,12 +130,14 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(MemoryImplementation.class)) {
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
+		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -143,6 +151,7 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -153,6 +162,10 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 		newChildDescriptors
 				.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedMemorySubcomponent(),
 						Aadl2Factory.eINSTANCE.createMemorySubcomponent()));
+
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedVirtualBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
 	}
 
 }

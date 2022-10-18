@@ -126,6 +126,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAccessSpecification();
 	}
@@ -135,6 +136,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AccessType getKind() {
 		return kind;
 	}
@@ -144,6 +146,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(AccessType newKind) {
 		AccessType oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -158,6 +161,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AccessCategory getCategory() {
 		return category;
 	}
@@ -167,6 +171,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCategory(AccessCategory newCategory) {
 		AccessCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
@@ -181,6 +186,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentClassifier getClassifier() {
 		if (classifier != null && ((EObject) classifier).eIsProxy()) {
 			InternalEObject oldClassifier = (InternalEObject) classifier;
@@ -209,6 +215,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassifier(ComponentClassifier newClassifier) {
 		ComponentClassifier oldClassifier = classifier;
 		classifier = newClassifier;
@@ -223,6 +230,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentPrototype getComponentPrototype() {
 		if (componentPrototype != null && ((EObject) componentPrototype).eIsProxy()) {
 			InternalEObject oldComponentPrototype = (InternalEObject) componentPrototype;
@@ -252,6 +260,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComponentPrototype(ComponentPrototype newComponentPrototype) {
 		ComponentPrototype oldComponentPrototype = componentPrototype;
 		componentPrototype = newComponentPrototype;
@@ -266,6 +275,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_SPECIFICATION__KIND:
@@ -291,6 +301,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_SPECIFICATION__KIND:
@@ -314,6 +325,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_SPECIFICATION__KIND:
@@ -337,6 +349,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_SPECIFICATION__KIND:
@@ -356,6 +369,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

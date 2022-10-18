@@ -44,12 +44,6 @@
         </filter>
     </resource>
     <resource path="xtend-gen/org/osate/aadl2/instance/textual/serializer/InstanceCrossReferenceSerializer.java" type="org.osate.aadl2.instance.textual.serializer.InstanceCrossReferenceSerializer">
-        <filter comment="xtext" id="576720909">
-            <message_arguments>
-                <message_argument value="CrossReferenceSerializer"/>
-                <message_argument value="InstanceCrossReferenceSerializer"/>
-            </message_arguments>
-        </filter>
         <filter comment="xtext" id="643846161">
             <message_arguments>
                 <message_argument value="Acceptor"/>

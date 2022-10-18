@@ -1,0 +1,19 @@
+package point_reference_test
+public
+	system s
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				point1: out propagation {ServiceError};
+			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+			end paths;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end point_reference_test;

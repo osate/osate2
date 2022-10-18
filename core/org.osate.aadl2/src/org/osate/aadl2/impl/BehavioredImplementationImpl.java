@@ -86,6 +86,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBehavioredImplementation();
 	}
@@ -95,8 +96,9 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER, MEMBER_ESUBSETS);
 	}
 
@@ -118,8 +120,9 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
 				Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
@@ -147,8 +150,9 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -183,7 +187,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 
 	public EList<SubprogramCallSequence> getAllSubprogramCallSequences() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<SubprogramCallSequence> returnlist = new BasicEList<SubprogramCallSequence>();
+		final BasicEList<SubprogramCallSequence> returnlist = new BasicEList<>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final BehavioredImplementation current = (BehavioredImplementation) it.next();
 			returnlist.addAll(current.getOwnedSubprogramCallSequences());
@@ -196,9 +200,10 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramCallSequence> getOwnedSubprogramCallSequences() {
 		if (ownedSubprogramCallSequences == null) {
-			ownedSubprogramCallSequences = new EObjectContainmentEList<SubprogramCallSequence>(
+			ownedSubprogramCallSequences = new EObjectContainmentEList<>(
 					SubprogramCallSequence.class, this,
 					Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE);
 		}
@@ -231,6 +236,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE:
@@ -244,6 +250,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__SUBPROGRAM_CALL:
@@ -260,6 +267,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__SUBPROGRAM_CALL:
@@ -279,6 +287,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__SUBPROGRAM_CALL:
@@ -296,6 +305,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER:
@@ -317,6 +327,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMembers() {
 		return super.isSetMembers() || eIsSet(Aadl2Package.BEHAVIORED_IMPLEMENTATION__SUBPROGRAM_CALL);
 	}
@@ -326,6 +337,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetClassifierFeatures() {
 		return super.isSetClassifierFeatures()
 				|| eIsSet(Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE);
@@ -336,6 +348,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers()
 				|| eIsSet(Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE);

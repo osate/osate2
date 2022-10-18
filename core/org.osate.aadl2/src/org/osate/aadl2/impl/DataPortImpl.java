@@ -73,6 +73,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDataPort();
 	}
@@ -82,6 +83,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
 		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
@@ -94,6 +96,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureClassifier basicGetFeatureClassifier() {
 		if (eIsSet(Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER)) {
 			return basicGetDataFeatureClassifier();
@@ -106,6 +109,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponentType getDataFeatureClassifier() {
 		if (dataFeatureClassifier != null && ((EObject) dataFeatureClassifier).eIsProxy()) {
 			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
@@ -135,6 +139,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataFeatureClassifier(DataSubcomponentType newDataFeatureClassifier) {
 		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
 		dataFeatureClassifier = newDataFeatureClassifier;
@@ -149,6 +154,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER:
@@ -165,6 +171,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER:
@@ -179,6 +186,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER:
@@ -193,6 +201,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DATA_PORT__FEATURE_CLASSIFIER:
@@ -208,6 +217,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetFeatureClassifier() {
 		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER);
 	}

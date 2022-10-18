@@ -29,19 +29,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
@@ -110,6 +106,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.SYSTEM_INSTANCE;
 	}
@@ -118,9 +115,10 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SystemOperationMode> getSystemOperationModes() {
 		if (systemOperationModes == null) {
-			systemOperationModes = new EObjectContainmentEList<SystemOperationMode>(SystemOperationMode.class, this,
+			systemOperationModes = new EObjectContainmentEList<>(SystemOperationMode.class, this,
 					InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE);
 		}
 		return systemOperationModes;
@@ -142,6 +140,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentImplementation getComponentImplementation() {
 		if (componentImplementation != null && ((EObject) componentImplementation).eIsProxy()) {
 			InternalEObject oldComponentImplementation = (InternalEObject) componentImplementation;
@@ -171,6 +170,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComponentImplementation(ComponentImplementation newComponentImplementation) {
 		ComponentImplementation oldComponentImplementation = componentImplementation;
 		componentImplementation = newComponentImplementation;
@@ -189,6 +189,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
@@ -201,6 +202,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
@@ -219,6 +221,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
@@ -236,6 +239,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
@@ -252,6 +256,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
@@ -269,7 +274,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @return SOM that match the ModeInstance list
 	 */
 	public List<SystemOperationMode> getSystemOperationModesFor(List<ModeInstance> mis) {
-		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
+		final List<SystemOperationMode> output = new ArrayList<>();
 		for (SystemOperationMode som : getSystemOperationModes()) {
 			if (som.getCurrentModes().containsAll(mis)) {
 				output.add(som);
@@ -305,7 +310,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		 * not exist in some SOMs.
 		 */
 		currentSOM = null;
-		final LinkedList<ComponentInstance> comps = new LinkedList<ComponentInstance>();
+		final LinkedList<ComponentInstance> comps = new LinkedList<>();
 		comps.add(this);
 		while (!comps.isEmpty()) {
 			final ComponentInstance ci = comps.removeFirst();
@@ -349,7 +354,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * (org.osate.aadl2.Connection, org.osate.aadl2.Connection)
 	 */
 	public List<ConnectionInstance> findConnectionInstances(Connection first, Connection second) {
-		List<ConnectionInstance> result = new LinkedList<ConnectionInstance>();
+		List<ConnectionInstance> result = new LinkedList<>();
 
 		for (ConnectionInstance conni : getAllConnectionInstances()) {
 			boolean foundFirst = (first == second);
@@ -401,7 +406,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @return List of SOM that contains the mode instance
 	 */
 	public List<SystemOperationMode> getSystemOperationModesFor(final ModeInstance mi) {
-		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
+		final List<SystemOperationMode> output = new ArrayList<>();
 		for (final Iterator<SystemOperationMode> i = getSystemOperationModes().iterator(); i.hasNext();) {
 			final SystemOperationMode som = i.next();
 			if (som.getCurrentModes().contains(mi)) {
@@ -434,59 +439,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	public boolean isActive(SystemOperationMode som) {
 		return true;
-	}
-
-	public Iterable<ConnectionInstance> allConnectionInstances() {
-		final TreeIterator<Object> iter = EcoreUtil.getAllContents(this, true);
-
-		return new Iterable<ConnectionInstance>() {
-			public Iterator<ConnectionInstance> iterator() {
-				return new Iterator<ConnectionInstance>() {
-					ConnectionInstance next;
-
-					private boolean advance() {
-						boolean found = false;
-
-						next = null;
-						while (iter.hasNext()) {
-							Object obj = iter.next();
-							if (found = obj instanceof ConnectionInstance) {
-								next = (ConnectionInstance) obj;
-								iter.prune();
-								break;
-							}
-						}
-						return found;
-					}
-
-					public boolean hasNext() {
-						return next != null || advance();
-					}
-
-					public ConnectionInstance next() {
-						if (next == null && !advance()) {
-							throw new NoSuchElementException();
-						}
-						ConnectionInstance result = next;
-						next = null;
-						return result;
-					}
-
-					public void remove() {
-						throw new UnsupportedOperationException();
-					}
-				};
-			}
-		};
-	}
-
-	public EList<ConnectionInstance> getAllConnectionInstances() {
-		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-
-		for (ConnectionInstance conni : allConnectionInstances()) {
-			result.add(conni);
-		}
-		return result;
 	}
 
 } // SystemInstanceImpl

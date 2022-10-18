@@ -29,6 +29,7 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.ProcessImplementation
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instantiation.InstantiateModel
@@ -36,8 +37,6 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
-import org.osate.aadl2.ProcessImplementation
-import org.osate.aadl2.Connection
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -55,7 +54,7 @@ class Issue2057Test {
 		assertEquals(16, conns.size)
 
 		// Get the declarative connection
-		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "xxx"] as Connection
+		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "xxx"]
 		
 		// Test all the connection instances
 		for (var i = 0; i < conns.size; i++) {
@@ -73,7 +72,7 @@ class Issue2057Test {
 		assertEquals(16, conns.size)
 
 		// Get the declarative connection
-		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "yyy"] as Connection
+		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "yyy"]
 		
 		// Test all the connection instances
 		for (var i = 0; i < conns.size; i++) {
@@ -91,7 +90,7 @@ class Issue2057Test {
 		assertEquals(16, conns.size)
 
 		// Get the declarative connection
-		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "ccc"] as Connection
+		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "ccc"]
 		
 		// Test all the connection instances
 		for (var i = 0; i < conns.size; i++) {
@@ -109,7 +108,7 @@ class Issue2057Test {
 		assertEquals(16, conns.size)
 
 		// Get the declarative connection
-		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "yyy"] as Connection
+		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "yyy"]
 		
 		// Test all the connection instances
 		for (var i = 0; i < conns.size; i++) {
@@ -127,7 +126,7 @@ class Issue2057Test {
 		assertEquals(16, conns.size)
 
 		// Get the declarative connection
-		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "ccc"] as Connection
+		val declarativeConnection = (pkg.publicSection.ownedClassifiers.findFirst[name == "process1.impl"] as ProcessImplementation).ownedConnections.findFirst[name == "ccc"]
 		
 		// Test all the connection instances
 		for (var i = 0; i < conns.size; i++) {

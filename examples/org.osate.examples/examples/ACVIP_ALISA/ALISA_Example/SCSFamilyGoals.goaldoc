@@ -1,0 +1,15 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+document SCSFamilyGoals : "SCS family                                                                                                                           stakeholder goals" [
+	description "This document contains the stakeholder goals for a family of Simple Control Systems (SCS).
+The SCS provides control for a simple device (SD). 
+The SCS system consists for software, hardware, and physical components."
+	
+	section SystemFunctionality : "Functional system requirements" [
+		goal g1: "Feedback Control"[
+			description "The simple controller (SC) shall provide stable feedback control of the SD."
+			rationale "The SD is a safety critical device that cannot tolerate erratic behavior."
+			stakeholder SEI.John
+		]
+	]
+] 

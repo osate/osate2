@@ -30,7 +30,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -87,6 +90,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
@@ -1311,6 +1315,38 @@ public class EMV2Util {
 	}
 
 	/**
+	 * return list of error propagations including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return list of ErrorPropagation excluding duplicates
+	 * @since 6.3
+	 */
+	public static List<ErrorPropagation> getAllErrorPropagations(Classifier cl) {
+		var result = new ArrayList<ErrorPropagation>();
+		var subclauses = getAllContainingClassifierEMV2Subclauses(cl);
+		var propagations = subclauses.stream()
+				.flatMap(subclause -> subclause.getPropagations().stream())
+				.filter(propagation -> !propagation.isNot())
+				.collect(Collectors.toList());
+		// Filter out propagations in extended classifiers that are overridden.
+		for (var propagation : propagations) {
+			var propagationName = getPrintName(propagation);
+			var alreadyExists = false;
+			for (var existing : result) {
+				var existingName = getPrintName(existing);
+				if (propagation.getDirection() == existing.getDirection()
+						&& propagationName.equalsIgnoreCase(existingName)) {
+					alreadyExists = true;
+					break;
+				}
+			}
+			if (!alreadyExists) {
+				result.add(propagation);
+			}
+		}
+		return result;
+	}
+
+	/**
 	 * return list of ConnectionErrorSource including those inherited from classifiers being extended
 	 * @param cl Classifier
 	 * @return Collection<ConnectionErrorSource> list of ConnectionErrorSource excluding duplicates
@@ -1480,7 +1516,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error flow
 	 */
 	public static Collection<ErrorSource> getAllErrorSources(Classifier cl) {
-		HashMap<String, ErrorSource> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorSource>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
@@ -1505,7 +1541,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error paths declared in the flow section
 	 */
 	public static Collection<ErrorPath> getAllErrorPaths(Classifier cl) {
-		HashMap<String, ErrorPath> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorPath>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
@@ -1530,7 +1566,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error sinks declared in the flow section
 	 */
 	public static Collection<ErrorSink> getAllErrorSinks(Classifier cl) {
-		HashMap<String, ErrorSink> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorSink>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
@@ -1635,16 +1671,21 @@ public class EMV2Util {
 	 */
 	public static Collection<PropagationPath> getAllPropagationPaths(Classifier cl) {
 		HashMap<String, PropagationPath> result = new LinkedHashMap<>();
+		var unnamedPaths = new ArrayList<PropagationPath>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<PropagationPath> eflist = errorModelSubclause.getPaths();
 			for (PropagationPath propPointConn : eflist) {
-				if (!result.containsKey(propPointConn.getName())) {
+				if (propPointConn.getName() == null) {
+					unnamedPaths.add(propPointConn);
+				} else if (!result.containsKey(propPointConn.getName())) {
 					result.put(propPointConn.getName(), propPointConn);
 				}
 			}
 		}
-		return result.values();
+		var returnValue = new ArrayList<>(result.values());
+		returnValue.addAll(unnamedPaths);
+		return returnValue;
 	}
 
 	/**
@@ -1653,7 +1694,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorBehaviorEvent> list of ErrorBehaviorEvents as HashMap for quick lookup of names
 	 */
 	public static Collection<ErrorBehaviorEvent> getAllErrorBehaviorEvents(Classifier cl) {
-		HashMap<String, ErrorBehaviorEvent> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorBehaviorEvent>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1708,6 +1749,27 @@ public class EMV2Util {
 
 	public static Collection<ErrorBehaviorState> getAllErrorBehaviorStates(ComponentInstance ci) {
 		return getAllErrorBehaviorStates(ci.getComponentClassifier());
+	}
+
+	/**
+	 * @since 6.3
+	 */
+	public static ErrorBehaviorStateMachine getAllErrorBehaviorStateMachine(Classifier cl) {
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			if (ebsm != null) {
+				return ebsm;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @since 6.3
+	 */
+	public static ErrorBehaviorStateMachine getAllErrorBehaviorStateMachine(ComponentInstance ci) {
+		return getAllErrorBehaviorStateMachine(ci.getComponentClassifier());
 	}
 
 	/**
@@ -1805,9 +1867,9 @@ public class EMV2Util {
 	 * @param unnamed Collection of unnamed ErrorBehaviorTransition
 	 * @return Collection<ErrorBehaviorTransition> list of ErrorBehaviorTransition as HashMap for quick lookup of names
 	 */
-	private static HashMap<String, ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl,
+	private static Map<String, ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl,
 			Collection<ErrorBehaviorTransition> unnamed) {
-		HashMap<String, ErrorBehaviorTransition> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorBehaviorTransition>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1862,9 +1924,9 @@ public class EMV2Util {
 	 * @param unnamed Collection of unnamed OutgoingPropagationCondition
 	 * @return Collection<ErrorBehaviorTransition> list of OutgoingPropagationCondition as HashMap for quick lookup of names
 	 */
-	private static HashMap<String, OutgoingPropagationCondition> getAllOutgoingPropagationConditions(Classifier cl,
+	private static Map<String, OutgoingPropagationCondition> getAllOutgoingPropagationConditions(Classifier cl,
 			Collection<OutgoingPropagationCondition> unnamed) {
-		HashMap<String, OutgoingPropagationCondition> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, OutgoingPropagationCondition>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<OutgoingPropagationCondition> eflist = errorModelSubclause.getOutgoingPropagationConditions();
@@ -1930,8 +1992,8 @@ public class EMV2Util {
 	public static Collection<ErrorDetection> getAllErrorDetections(Classifier cl) {
 		BasicEList<ErrorDetection> unlist = new BasicEList<ErrorDetection>();
 		Collection<ErrorDetection> res = getAllErrorDetections(cl, unlist).values();
-		res.addAll(unlist);
-		return res;
+		unlist.addAll(res);
+		return unlist;
 	}
 
 	/**
@@ -1939,10 +2001,11 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @param unnamed Collection of unnamed OutgoingPropagationCondition
 	 * @return Collection<ErrorBehaviorTransition> list of OutgoingPropagationCondition as HashMap for quick lookup of names
+	 * @since 7.0
 	 */
-	public static HashMap<String, ErrorDetection> getAllErrorDetections(Classifier cl,
+	public static Map<String, ErrorDetection> getAllErrorDetections(Classifier cl,
 			Collection<ErrorDetection> unnamed) {
-		HashMap<String, ErrorDetection> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, ErrorDetection>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorDetection> eflist = errorModelSubclause.getErrorDetections();
@@ -1955,6 +2018,17 @@ public class EMV2Util {
 					}
 				}
 			}
+		}
+		return result;
+	}
+
+	/**
+	 * @since 7.0
+	 */
+	public static List<ErrorStateToModeMapping> getAllModeMappings(Classifier classifier) {
+		var result = new ArrayList<ErrorStateToModeMapping>();
+		for (var subclause : getAllContainingClassifierEMV2Subclauses(classifier)) {
+			result.addAll(subclause.getErrorStateToModeMappings());
 		}
 		return result;
 	}
@@ -2354,6 +2428,9 @@ public class EMV2Util {
 	 * @return Subcomponent
 	 */
 	public static Subcomponent getLastSubcomponent(EMV2Path epath) {
+		if (epath == null) {
+			return null;
+		}
 		if (epath.getContainmentPath() != null) {
 			// handle paths that come from the EMV2PropertyAssociation with the new syntax for the core path
 			ContainmentPathElement last = getLast(epath.getContainmentPath());

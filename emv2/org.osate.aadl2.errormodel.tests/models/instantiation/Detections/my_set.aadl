@@ -1,0 +1,3 @@
+property set my_set is
+	my_constant: constant aadlinteger => 1024;
+end my_set;

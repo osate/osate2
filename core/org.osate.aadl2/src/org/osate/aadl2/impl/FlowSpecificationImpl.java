@@ -146,6 +146,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFlowSpecification();
 	}
@@ -155,6 +156,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Mode> getInModes() {
 		return ModalPathOperations.getInModes(this);
 	}
@@ -184,9 +186,10 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeFeature> getInModeOrTransitions() {
 		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+			inModeOrTransitions = new EObjectResolvingEList<>(ModeFeature.class, this,
 					Aadl2Package.FLOW_SPECIFICATION__IN_MODE_OR_TRANSITION);
 		}
 		return inModeOrTransitions;
@@ -197,6 +200,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowKind getKind() {
 		return kind;
 	}
@@ -206,6 +210,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(FlowKind newKind) {
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -220,6 +225,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowEnd getOutEnd() {
 		return outEnd;
 	}
@@ -259,6 +265,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOutEnd(FlowEnd newOutEnd) {
 		if (newOutEnd != outEnd) {
 			NotificationChain msgs = null;
@@ -296,6 +303,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowEnd getInEnd() {
 		return inEnd;
 	}
@@ -335,6 +343,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInEnd(FlowEnd newInEnd) {
 		if (newInEnd != inEnd) {
 			NotificationChain msgs = null;
@@ -372,6 +381,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowSpecification getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
@@ -400,6 +410,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRefined(FlowSpecification newRefined) {
 		FlowSpecification oldRefined = refined;
 		refined = newRefined;
@@ -441,6 +452,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__OUT_END:
@@ -456,6 +468,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
@@ -483,6 +496,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
@@ -514,6 +528,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
@@ -543,6 +558,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
@@ -568,6 +584,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
@@ -605,6 +622,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
@@ -642,6 +660,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -659,6 +678,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -671,6 +691,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement basicGetRefinedElement() {
 		if (eIsSet(Aadl2Package.FLOW_SPECIFICATION__REFINED)) {
 			return basicGetRefined();
@@ -683,6 +704,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
 		return super.isSetRefinedElement() || eIsSet(Aadl2Package.FLOW_SPECIFICATION__REFINED);
 	}

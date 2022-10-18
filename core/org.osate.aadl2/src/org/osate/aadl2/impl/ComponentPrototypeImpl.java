@@ -91,6 +91,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentPrototype();
 	}
@@ -100,6 +101,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isArray() {
 		return array;
 	}
@@ -109,6 +111,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setArray(boolean newArray) {
 		boolean oldArray = array;
 		array = newArray;
@@ -123,6 +126,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentClassifier getConstrainingClassifier() {
 		if (constrainingClassifier != null && ((EObject) constrainingClassifier).eIsProxy()) {
 			InternalEObject oldConstrainingClassifier = (InternalEObject) constrainingClassifier;
@@ -152,6 +156,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConstrainingClassifier(ComponentClassifier newConstrainingClassifier) {
 		ComponentClassifier oldConstrainingClassifier = constrainingClassifier;
 		constrainingClassifier = newConstrainingClassifier;
@@ -167,6 +172,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -185,6 +191,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -202,6 +209,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -219,6 +227,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -234,6 +243,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

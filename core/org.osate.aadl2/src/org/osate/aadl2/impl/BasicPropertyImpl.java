@@ -84,6 +84,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBasicProperty();
 	}
@@ -93,6 +94,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getReferencedPropertyType() {
 		if (referencedPropertyType != null && ((EObject) referencedPropertyType).eIsProxy()) {
 			InternalEObject oldReferencedPropertyType = (InternalEObject) referencedPropertyType;
@@ -122,6 +124,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedPropertyType(PropertyType newReferencedPropertyType) {
 		PropertyType oldReferencedPropertyType = referencedPropertyType;
 		referencedPropertyType = newReferencedPropertyType;
@@ -136,6 +139,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getPropertyType() {
 		PropertyType propertyType = basicGetPropertyType();
 		return propertyType != null && ((EObject) propertyType).eIsProxy()
@@ -171,6 +175,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getOwnedPropertyType() {
 		return ownedPropertyType;
 	}
@@ -200,6 +205,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedPropertyType(PropertyType newOwnedPropertyType) {
 		if (newOwnedPropertyType != ownedPropertyType) {
 			NotificationChain msgs = null;
@@ -237,6 +243,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
@@ -250,6 +257,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Type getType() {
 		return getPropertyType();
 	}
@@ -259,6 +267,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Type basicGetType() {
 		return basicGetPropertyType();
 	}
@@ -286,6 +295,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY__REFERENCED_PROPERTY_TYPE:
@@ -309,6 +319,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY__REFERENCED_PROPERTY_TYPE:
@@ -326,6 +337,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY__REFERENCED_PROPERTY_TYPE:
@@ -343,6 +355,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY__TYPE:

@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Development Environment Problems
+    url: https://groups.google.com/g/osate
+    about: Please discuss problems with setting up a development environment on the mailing list before filing a bug report.
   - name: Ask a Question
     url: https://groups.google.com/g/osate
     about: Please ask and answer questions about OSATE or analysis plugins on the mailing list.

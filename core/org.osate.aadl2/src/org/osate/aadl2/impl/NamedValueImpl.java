@@ -79,6 +79,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNamedValue();
 	}
@@ -88,6 +89,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbstractNamedValue getNamedValue() {
 		if (namedValue != null && ((EObject) namedValue).eIsProxy()) {
 			InternalEObject oldNamedValue = (InternalEObject) namedValue;
@@ -116,6 +118,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNamedValue(AbstractNamedValue newNamedValue) {
 		AbstractNamedValue oldNamedValue = namedValue;
 		namedValue = newNamedValue;
@@ -130,6 +133,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -146,6 +150,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -160,6 +165,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -174,6 +180,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:

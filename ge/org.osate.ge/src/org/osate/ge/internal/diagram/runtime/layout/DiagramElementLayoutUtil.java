@@ -152,7 +152,7 @@ public class DiagramElementLayoutUtil {
 	/**
 	 * Performs a layout of the specified diagram nodes
 	 * @param actionLabel description of the action
-	 * @param diagram the diagram to layout. Tee specified nodes must be part of the specified diagram.
+	 * @param diagram the diagram to layout. The specified nodes must be part of the specified diagram.
 	 * @param diagramNodes the nodes to layout. If null, the entire diagram will be laid out
 	 * @param layoutInfoProvider the layout info provider which provides additional information required for performing the layout
 	 * @param options the layout options

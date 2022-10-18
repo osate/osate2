@@ -91,6 +91,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDefaultAnnexSubclause();
 	}
@@ -100,6 +101,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSourceText() {
 		return sourceText;
 	}
@@ -109,6 +111,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSourceText(String newSourceText) {
 		String oldSourceText = sourceText;
 		sourceText = newSourceText;
@@ -123,6 +126,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnnexSubclause getParsedAnnexSubclause() {
 		return parsedAnnexSubclause;
 	}
@@ -154,6 +158,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParsedAnnexSubclause(AnnexSubclause newParsedAnnexSubclause) {
 		if (newParsedAnnexSubclause != parsedAnnexSubclause) {
 			NotificationChain msgs = null;
@@ -203,6 +208,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE:
@@ -216,6 +222,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
@@ -231,6 +238,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
@@ -248,6 +256,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
@@ -265,6 +274,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
@@ -280,6 +290,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

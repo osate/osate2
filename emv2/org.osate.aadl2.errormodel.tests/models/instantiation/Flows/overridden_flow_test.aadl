@@ -1,0 +1,38 @@
+package overridden_flow_test
+public
+	system parent
+		features
+			f_in: in feature;
+			f_out: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f_in: in propagation {ItemTimingError, SequenceTimingError};
+				f_out: out propagation {ServiceError, ServiceTimingError};
+				flows
+					source_1: error source f_out {ServiceError};
+					sink_1: error sink f_in {ItemTimingError};
+					path_1: error path f_in {SequenceTimingError} -> f_out {ServiceTimingError};
+			end propagations;
+		**};
+	end parent;
+	
+	system child extends parent
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f_in: in propagation {SequenceValueError, ServiceValueError};
+				f_out: out propagation {ItemValueError, ReplicationError};
+				flows
+					SOURCE_1: error source f_out {ItemValueError};
+					SINK_1: error sink f_in {SequenceValueError};
+					PATH_1: error path f_in {ServiceValueError} -> f_out {ReplicationError};
+			end propagations;
+		**};
+	end child;
+	
+	system implementation child.i
+	end child.i;
+end overridden_flow_test;

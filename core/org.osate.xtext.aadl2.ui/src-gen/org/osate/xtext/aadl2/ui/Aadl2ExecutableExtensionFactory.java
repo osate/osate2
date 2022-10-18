@@ -24,10 +24,10 @@
 package org.osate.xtext.aadl2.ui;
 
 import com.google.inject.Injector;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 /**
  * This class was generated. Customizations should only happen in a newly
@@ -37,7 +37,7 @@ public class Aadl2ExecutableExtensionFactory extends AbstractGuiceAwareExecutabl
 
 	@Override
 	protected Bundle getBundle() {
-		return Platform.getBundle(Aadl2Activator.PLUGIN_ID);
+		return FrameworkUtil.getBundle(Aadl2Activator.class);
 	}
 	
 	@Override

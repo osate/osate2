@@ -1,0 +1,3 @@
+property set my_set is
+	my_real: aadlreal applies to (all);
+end my_set;

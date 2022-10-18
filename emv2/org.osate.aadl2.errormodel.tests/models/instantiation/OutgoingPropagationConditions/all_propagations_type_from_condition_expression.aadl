@@ -1,0 +1,61 @@
+package all_propagations_type_from_condition_expression
+public
+	system s
+		features
+			f1: in feature;
+			f2: in feature;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: abstract a1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior all_propagations_type_from_condition_expression::machine1;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+				f2: in propagation {ServiceError};
+			end propagations;
+			
+			component error behavior
+				events
+					error1: error event {CommonErrors};
+					error2: error event {ServiceError};
+				propagations
+					condition1: state1 -[error1 {ServiceError}]-> all;
+					condition2: state2 -[f1 {ServiceError}]-> all;
+					condition3: state3 -[sub1.f3 {ServiceError}]-> all;
+					condition4: state4 -[error2]-> all;
+					condition5: state5 -[f2]-> all;
+					condition6: state6 -[sub1.f4]-> all;
+			end component;
+		**};
+	end s.i;
+	
+	abstract a1
+		features
+			f3: out feature;
+			f4: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f3: out propagation {CommonErrors};
+				f4: out propagation {ServiceError};
+			end propagations;
+		**};
+	end a1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+				state4: state;
+				state5: state;
+				state6: state;
+		end behavior;
+	**};
+end all_propagations_type_from_condition_expression;

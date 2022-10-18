@@ -1,0 +1,24 @@
+package event_with_no_error
+public
+	system s
+		annex EMV2 {**
+			use behavior event_with_no_error::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			events
+				error1: error event {CommonErrors};
+			states
+				state1: initial state;
+				state2: state;
+			transitions
+				transition1: state1 -[error1 {noerror}]-> state2;
+		end behavior;
+	**};
+end event_with_no_error;

@@ -83,6 +83,7 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.CONNECTION_INSTANCE_END;
 	}
@@ -92,9 +93,10 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ConnectionInstance> getSrcConnectionInstances() {
 		if (srcConnectionInstances == null) {
-			srcConnectionInstances = new EObjectWithInverseEList<ConnectionInstance>(ConnectionInstance.class, this,
+			srcConnectionInstances = new EObjectWithInverseEList<>(ConnectionInstance.class, this,
 					InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE,
 					InstancePackage.CONNECTION_INSTANCE__SOURCE);
 		}
@@ -106,9 +108,10 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ConnectionInstance> getDstConnectionInstances() {
 		if (dstConnectionInstances == null) {
-			dstConnectionInstances = new EObjectWithInverseEList<ConnectionInstance>(ConnectionInstance.class, this,
+			dstConnectionInstances = new EObjectWithInverseEList<>(ConnectionInstance.class, this,
 					InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE,
 					InstancePackage.CONNECTION_INSTANCE__DESTINATION);
 		}
@@ -121,6 +124,7 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:
@@ -138,6 +142,7 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:
@@ -153,6 +158,7 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:
@@ -169,6 +175,7 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:
@@ -188,6 +195,7 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:
@@ -205,6 +213,7 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:

@@ -62,6 +62,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNamespace();
 	}
@@ -71,8 +72,9 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this, Aadl2Package.NAMESPACE__MEMBER,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this, Aadl2Package.NAMESPACE__MEMBER,
 				MEMBER_ESUBSETS);
 	}
 
@@ -81,8 +83,9 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.NAMESPACE__OWNED_MEMBER, null);
 	}
 
@@ -91,8 +94,9 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getOwnedElements() {
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.NAMESPACE__OWNED_ELEMENT,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.NAMESPACE__OWNED_ELEMENT,
 				OWNED_ELEMENT_ESUBSETS);
 	}
 
@@ -121,6 +125,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMESPACE__OWNED_MEMBER:
@@ -136,6 +141,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMESPACE__OWNED_MEMBER:
@@ -171,6 +177,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedElements() {
 		return super.isSetOwnedElements() || isSetOwnedMembers();
 	}

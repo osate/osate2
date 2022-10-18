@@ -70,6 +70,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getArrayDimension();
 	}
@@ -79,6 +80,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArraySize getSize() {
 		return size;
 	}
@@ -108,6 +110,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(ArraySize newSize) {
 		if (newSize != size) {
 			NotificationChain msgs = null;
@@ -145,6 +148,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:
@@ -158,6 +162,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:
@@ -171,6 +176,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:
@@ -185,6 +191,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:
@@ -199,6 +206,7 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:

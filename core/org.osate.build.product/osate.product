@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.11.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.11.91.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -14,7 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=1.11 -Dosgi.framework.extensions=org.eclipse.fx.osgi -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
+      <vmArgs>-Dosgi.requiredJavaVersion=1.17 -Dosgi.framework.extensions=org.eclipse.fx.osgi -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
       </vmArgs>
    </launcherArgs>
 
@@ -48,7 +48,6 @@
       <feature id="org.osate.utils.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
       <feature id="org.osate.examples.feature" installMode="root"/>
-      <feature id="org.osate.dependencies.birt"/>
       <feature id="org.eclipse.xsemantics.runtime.feature"/>
       <feature id="org.eclipse.egit"/>
       <feature id="org.eclipse.equinox.executable"/>
@@ -69,7 +68,7 @@
       <feature id="openjfx.standard.feature"/>
       <feature id="openjfx.swing.feature"/>
       <feature id="openjfx.swt.feature"/>
-      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full.stripped"/>
+      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full.stripped" installMode="root"/>
    </features>
 
    <configurations>
@@ -79,14 +78,15 @@
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
-      <property name="preferenceCustomization" value="plugin_customization.ini" />
       <property name="org.eclipse.update.reconcile" value="false" />
+      <property name="preferenceCustomization" value="plugin_customization.ini" />
    </configurations>
 
    <repositories>
-      <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.19" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2021-03" enabled="true" />
+      <repository location="https://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
+      <repository location="https://download.eclipse.org/eclipse/updates/4.24" enabled="true" />
+      <repository location="https://download.eclipse.org/releases/2022-06" enabled="true" />
+      <repository location="https://download.eclipse.org/justj/jres/17/updates/release/latest" enabled="true" />
    </repositories>
 
    <preferencesInfo>

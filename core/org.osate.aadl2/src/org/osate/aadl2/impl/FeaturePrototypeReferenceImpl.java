@@ -124,6 +124,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeaturePrototypeReference();
 	}
@@ -155,6 +156,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeaturePrototype getPrototype() {
 		if (prototype != null && ((EObject) prototype).eIsProxy()) {
 			InternalEObject oldPrototype = (InternalEObject) prototype;
@@ -183,6 +185,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPrototype(FeaturePrototype newPrototype) {
 		FeaturePrototype oldPrototype = prototype;
 		prototype = newPrototype;
@@ -197,6 +200,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIn() {
 		return in;
 	}
@@ -206,6 +210,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
@@ -220,6 +225,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOut() {
 		return out;
 	}
@@ -229,6 +235,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;
@@ -243,6 +250,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__DIRECTION:
@@ -265,6 +273,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE:
@@ -285,6 +294,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE:
@@ -305,6 +315,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__DIRECTION:
@@ -324,6 +335,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

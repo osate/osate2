@@ -1,0 +1,33 @@
+package all_expression
+public
+	system s
+		annex EMV2 {**
+			use behavior all_expression::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error1: error event;
+				error2: error event;
+				error3: error event;
+				error4: error event;
+				error5: error event;
+				error6: error event;
+				error7: error event;
+				error8: error event;
+				error9: error event;
+			states
+				state1: initial state;
+				state2: state;
+			transitions
+				transition1: state1 -[all (error1)]-> state2;
+				transition2: state1 -[all (error2, error3, error4)]-> state2;
+				transition3: state1 -[all - 2 (error5, error6, error7, error8, error9)]-> state2;
+		end behavior;
+	**};
+end all_expression;

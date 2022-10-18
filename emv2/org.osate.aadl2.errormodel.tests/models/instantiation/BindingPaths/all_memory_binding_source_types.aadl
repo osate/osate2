@@ -1,0 +1,194 @@
+package all_memory_binding_source_types
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			m1: memory m;
+			m2: memory m;
+			m3: memory m;
+			m4: memory m;
+			m5: memory m;
+			m6: memory m;
+			m7: memory m;
+			m8: memory m;
+			m9: memory m;
+			m10: memory m;
+			m11: memory m;
+			m12: memory m;
+			m13: memory m;
+			m_source: memory m_source;
+			ps: process ps.i;
+			s2: system s2;
+			proc: processor proc;
+			vp: virtual processor vp;
+			dev: device dev;
+			d: data d;
+			subp: subprogram subp;
+			subpg: subprogram group subpg;
+		properties
+			Actual_Memory_Binding => (reference (m1)) applies to m_source;
+			Actual_Memory_Binding => (reference (m2)) applies to ps.tg.t;
+			Actual_Memory_Binding => (reference (m3)) applies to ps.tg;
+			Actual_Memory_Binding => (reference (m4)) applies to ps;
+			Actual_Memory_Binding => (reference (m5)) applies to s2;
+			Actual_Memory_Binding => (reference (m6)) applies to proc;
+			Actual_Memory_Binding => (reference (m7)) applies to vp;
+			Actual_Memory_Binding => (reference (m8)) applies to dev;
+			Actual_Memory_Binding => (reference (m9)) applies to d;
+			Actual_Memory_Binding => (reference (m10)) applies to ps.dp;
+			Actual_Memory_Binding => (reference (m11)) applies to ps.edp;
+			Actual_Memory_Binding => (reference (m12)) applies to subp;
+			Actual_Memory_Binding => (reference (m13)) applies to subpg;
+	end s.i;
+	
+	memory m
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end m;
+	
+	memory m_source
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end m_source;
+	
+	process ps
+		features
+			dp: in out data port;
+			edp: in out event data port;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+				dp: in propagation {ServiceError};
+				dp: out propagation {ServiceError};
+				edp: in propagation {ServiceError};
+				edp: out propagation {ServiceError};
+			end propagations;
+		**};
+	end ps;
+	
+	process implementation ps.i
+		subcomponents
+			tg: thread group tg.i;
+	end ps.i;
+	
+	thread group tg
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end tg;
+	
+	thread group implementation tg.i
+		subcomponents
+			t: thread t;
+	end tg.i;
+	
+	thread t
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end t;
+	
+	system s2
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s2;
+	
+	processor proc
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end proc;
+	
+	virtual processor vp
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end vp;
+	
+	device dev
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end dev;
+	
+	data d
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end d;
+	
+	subprogram subp
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end subp;
+	
+	subprogram group subpg
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				memory: in propagation {ServiceError};
+				memory: out propagation {ServiceError};
+			end propagations;
+		**};
+	end subpg;
+end all_memory_binding_source_types;

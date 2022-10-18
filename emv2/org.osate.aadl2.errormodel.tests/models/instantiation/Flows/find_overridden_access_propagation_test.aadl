@@ -1,0 +1,29 @@
+package find_overridden_access_propagation_test
+public
+	system parent
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				access: in propagation {ItemTimingError, SequenceTimingError};
+				access: out propagation {ServiceError, ServiceTimingError};
+				flows
+					source_1: error source access {ServiceError};
+					sink_1: error sink access {ItemTimingError};
+					path_1: error path access {SequenceTimingError} -> access {ServiceTimingError};
+			end propagations;
+		**};
+	end parent;
+	
+	system child extends parent
+		annex EMV2 {**
+			error propagations
+				access: in propagation {CommonErrors};
+				access: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end child;
+	
+	system implementation child.i
+	end child.i;
+end find_overridden_access_propagation_test;

@@ -1,0 +1,49 @@
+package find_overridden_feature_propagation_test
+public
+	system parent
+		features
+			f_in1: in feature;
+			f_out1: out feature;
+			fg: feature group fgt;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f_in1: in propagation {ItemTimingError, SequenceTimingError};
+				f_out1: out propagation {ServiceError, ServiceTimingError};
+				
+				fg.f_in2: in propagation {ItemTimingError, SequenceTimingError};
+				fg.f_out2: out propagation {ServiceError, ServiceTimingError};
+				flows
+					source_1: error source f_out1 {ServiceError};
+					sink_1: error sink f_in1 {ItemTimingError};
+					path_1: error path f_in1 {SequenceTimingError} -> f_out1 {ServiceTimingError};
+					
+					source_2: error source fg.f_out2 {ServiceError};
+					sink_2: error sink fg.f_in2 {ItemTimingError};
+					path_2: error path fg.f_in2 {SequenceTimingError} -> fg.f_out2 {ServiceTimingError};
+			end propagations;
+		**};
+	end parent;
+	
+	system child extends parent
+		annex EMV2 {**
+			error propagations
+				f_in1: in propagation {CommonErrors};
+				f_out1: out propagation {CommonErrors};
+				
+				fg.f_in2: in propagation {CommonErrors};
+				fg.f_out2: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end child;
+	
+	system implementation child.i
+	end child.i;
+	
+	feature group fgt
+		features
+			f_in2: in feature;
+			f_out2: out feature;
+	end fgt;
+end find_overridden_feature_propagation_test;

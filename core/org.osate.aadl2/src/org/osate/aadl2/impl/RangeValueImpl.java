@@ -97,6 +97,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRangeValue();
 	}
@@ -106,6 +107,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getMinimum() {
 		return minimum;
 	}
@@ -135,6 +137,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMinimum(PropertyExpression newMinimum) {
 		if (newMinimum != minimum) {
 			NotificationChain msgs = null;
@@ -172,6 +175,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getMaximum() {
 		return maximum;
 	}
@@ -201,6 +205,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaximum(PropertyExpression newMaximum) {
 		if (newMaximum != maximum) {
 			NotificationChain msgs = null;
@@ -238,6 +243,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getDelta() {
 		return delta;
 	}
@@ -267,6 +273,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDelta(PropertyExpression newDelta) {
 		if (newDelta != delta) {
 			NotificationChain msgs = null;
@@ -303,6 +310,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
@@ -320,6 +328,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
@@ -337,6 +346,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
@@ -357,6 +367,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
@@ -377,6 +388,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:

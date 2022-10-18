@@ -24,6 +24,10 @@
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/FaultTree/provider/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree.provider"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/faulttree/util/package-summary.html" label="org.osate.aadl2.errormodel.faulttree.util"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/FaultTree/util/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree.util"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/instance/package-summary.html" label="org.osate.aadl2.errormodel.instance"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/instance/impl/package-summary.html" label="org.osate.aadl2.errormodel.instance.impl"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/instance/instantiator/package-summary.html" label="org.osate.aadl2.errormodel.instance.instantiator"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/instance/util/package-summary.html" label="org.osate.aadl2.errormodel.instance.util"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/PropagationGraph/package-summary.html" label="org.osate.aadl2.errormodel.PropagationGraph"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/PropagationGraph/impl/package-summary.html" label="org.osate.aadl2.errormodel.PropagationGraph.impl"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/PropagationGraph/util/package-summary.html" label="org.osate.aadl2.errormodel.PropagationGraph.util"/>
@@ -33,16 +37,13 @@
             <topic href="api-docs/javadoc/org/osate/aadl2/instance/provider/package-summary.html" label="org.osate.aadl2.instance.provider"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/package-summary.html" label="org.osate.aadl2.instance.textual"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/formatting/package-summary.html" label="org.osate.aadl2.instance.textual.formatting"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/ide/contentassist/antlr/package-summary.html" label="org.osate.aadl2.instance.textual.ide.contentassist.antlr"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/ide/contentassist/antlr/internal/package-summary.html" label="org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/parser/antlr/package-summary.html" label="org.osate.aadl2.instance.textual.parser.antlr"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/parser/antlr/internal/package-summary.html" label="org.osate.aadl2.instance.textual.parser.antlr.internal"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/serializer/package-summary.html" label="org.osate.aadl2.instance.textual.serializer"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/services/package-summary.html" label="org.osate.aadl2.instance.textual.services"/>
-            <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/ui/contentassist/package-summary.html" label="org.osate.aadl2.instance.textual.ui.contentassist"/>
-            <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/ui/contentassist/antlr/package-summary.html" label="org.osate.aadl2.instance.textual.ui.contentassist.antlr"/>
-            <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/ui/contentassist/antlr/internal/package-summary.html" label="org.osate.aadl2.instance.textual.ui.contentassist.antlr.internal"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/ui/internal/package-summary.html" label="org.osate.aadl2.instance.textual.ui.internal"/>
-            <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/ui/quickfix/package-summary.html" label="org.osate.aadl2.instance.textual.ui.quickfix"/>
-            <topic href="api-docs/javadoc/org/osate/aadl2/instance/textual/validation/package-summary.html" label="org.osate.aadl2.instance.textual.validation"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/instance/util/package-summary.html" label="org.osate.aadl2.instance.util"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/instantiation/package-summary.html" label="org.osate.aadl2.instantiation"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/modelsupport/package-summary.html" label="org.osate.aadl2.modelsupport"/>
@@ -195,9 +196,11 @@
             <topic href="api-docs/javadoc/org/osate/ge/gef/ui/editor/package-summary.html" label="org.osate.ge.gef.ui.editor"/>
             <topic href="api-docs/javadoc/org/osate/ge/gef/ui/editor/overlays/package-summary.html" label="org.osate.ge.gef.ui.editor.overlays"/>
             <topic href="api-docs/javadoc/org/osate/ge/gef/ui/services/package-summary.html" label="org.osate.ge.gef.ui.services"/>
+            <topic href="api-docs/javadoc/org/osate/ge/gef/ui/transientviews/package-summary.html" label="org.osate.ge.gef.ui.transientviews"/>
             <topic href="api-docs/javadoc/org/osate/ge/graphics/package-summary.html" label="org.osate.ge.graphics"/>
             <topic href="api-docs/javadoc/org/osate/ge/graphics/internal/package-summary.html" label="org.osate.ge.graphics.internal"/>
             <topic href="api-docs/javadoc/org/osate/ge/internal/package-summary.html" label="org.osate.ge.internal"/>
+            <topic href="api-docs/javadoc/org/osate/ge/internal/businessobjecthandlers/package-summary.html" label="org.osate.ge.internal.businessobjecthandlers"/>
             <topic href="api-docs/javadoc/org/osate/ge/internal/diagram/runtime/package-summary.html" label="org.osate.ge.internal.diagram.runtime"/>
             <topic href="api-docs/javadoc/org/osate/ge/internal/diagram/runtime/layout/package-summary.html" label="org.osate.ge.internal.diagram.runtime.layout"/>
             <topic href="api-docs/javadoc/org/osate/ge/internal/diagram/runtime/styling/package-summary.html" label="org.osate.ge.internal.diagram.runtime.styling"/>
@@ -268,7 +271,7 @@
             <topic href="api-docs/javadoc/org/osate/reqspec/ui/quickfix/package-summary.html" label="org.osate.reqspec.ui.quickfix"/>
             <topic href="api-docs/javadoc/org/osate/reqspec/util/package-summary.html" label="org.osate.reqspec.util"/>
             <topic href="api-docs/javadoc/org/osate/reqspec/validation/package-summary.html" label="org.osate.reqspec.validation"/>
-            <topic href="api-docs/javadoc/org/osate/reqtrace/package-summary.html" label="org.osate.reqtrace"/>
+            <topic href="api-docs/javadoc/org/osate/resolute/package-summary.html" label="org.osate.resolute"/>
             <topic href="api-docs/javadoc/org/osate/result/package-summary.html" label="org.osate.result"/>
             <topic href="api-docs/javadoc/org/osate/result/impl/package-summary.html" label="org.osate.result.impl"/>
             <topic href="api-docs/javadoc/org/osate/result/util/package-summary.html" label="org.osate.result.util"/>

@@ -128,9 +128,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * thread local is a {@link LinkedList} whose items are
 	 * {@link Property} objects.
 	 */
-	private static ThreadLocal<LinkedList<Property>> lookupStack = new ThreadLocal<LinkedList<Property>>() {
+	private static ThreadLocal<LinkedList<Property>> lookupStack = new ThreadLocal<>() {
 		protected LinkedList<Property> initialValue() {
-			return new LinkedList<Property>();
+			return new LinkedList<>();
 		}
 	};
 
@@ -148,6 +148,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNamedElement();
 	}
@@ -157,6 +158,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -166,6 +168,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -189,9 +192,10 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyAssociation> getOwnedPropertyAssociations() {
 		if (ownedPropertyAssociations == null) {
-			ownedPropertyAssociations = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class,
+			ownedPropertyAssociations = new EObjectContainmentEList<>(PropertyAssociation.class,
 					this, Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION);
 		}
 		return ownedPropertyAssociations;
@@ -232,6 +236,16 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<PropertyExpression> getPropertyValues(String propertySetName, String propertyName) {
+		return NamedElementOperations.getPropertyValues(this, propertySetName, propertyName);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
@@ -245,6 +259,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -263,6 +278,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -281,6 +297,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -298,6 +315,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -316,6 +334,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -640,7 +659,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			if (pe instanceof ListValue) {
 				return ((ListValue) pe).getOwnedListElements();
 			} else {
-				List<PropertyExpression> pes = new BasicEList<PropertyExpression>();
+				List<PropertyExpression> pes = new BasicEList<>();
 
 				pes.add(pe);
 				return pes;

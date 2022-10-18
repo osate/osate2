@@ -25,7 +25,6 @@ package org.osate.ge.aadl2.ui.internal.palette;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AbstractType;
@@ -45,6 +44,7 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.ProcessType;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.SystemType;
@@ -59,11 +59,13 @@ import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 class FlowSpecificationCreationUtil {
-	private static final ExecutableQuery<Object> COMPONENT_CLASSIFIER_OR_SUBCOMPONENT_QUERY = ExecutableQuery.create(
-			(root) -> root.ancestors().first(2).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
-					|| fa.getBusinessObject() instanceof Subcomponent).first());
+	private static final ExecutableQuery<Object> COMPONENT_CLASSIFIER_OR_SUBCOMPONENT_QUERY = ExecutableQuery
+			.create(root -> root.ancestors()
+					.filter(fa -> fa.getBusinessObject() instanceof ComponentClassifier
+							|| fa.getBusinessObject() instanceof Subcomponent)
+					.first());
 	private static final ExecutableQuery<Object> CONTEXT_QUERY = ExecutableQuery
-			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof FeatureGroup).first());
+			.create(root -> root.ancestors().filter(fa -> fa.getBusinessObject() instanceof FeatureGroup));
 
 	/**
 	 * Returns whether a specified feature diagram element may be used as a flow end for a flow specification.
@@ -78,7 +80,8 @@ class FlowSpecificationCreationUtil {
 
 		// Check that the feature is of the appropriate type
 		if (!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess
-				|| feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
+				|| feature instanceof SubprogramAccess || feature instanceof FeatureGroup
+				|| feature instanceof AbstractFeature)) {
 			return false;
 		}
 
@@ -101,10 +104,9 @@ class FlowSpecificationCreationUtil {
 		return true;
 	}
 
-	public static List<ComponentType> getPotentialOwnersByFeature(
-			BusinessObjectContext featureBoc,
+	public static List<ComponentType> getPotentialOwnersByFeature(BusinessObjectContext featureBoc,
 			final QueryService queryService) {
-		final Context context = getContext(featureBoc, queryService);
+		Context context = getContext(featureBoc, queryService);
 		final Feature feature = (Feature) featureBoc.getBusinessObject();
 		final String childName = context == null ? feature.getName() : context.getName();
 		if (childName == null) {
@@ -117,14 +119,26 @@ class FlowSpecificationCreationUtil {
 		}
 		final Element bo = (Element) containerBoc.getBusinessObject();
 
-		return AadlUiUtil.getPotentialClassifierTypesForEditing(bo).stream()
-				.filter(tmpBo -> canOwnFlowSpecification(tmpBo)).map(ComponentType.class::cast)
-				.filter(ct -> hasFeatureWithName(ct, childName)).collect(Collectors.toList());
+		return AadlUiUtil.getPotentialClassifierTypesForEditing(bo)
+				.stream()
+				.filter(FlowSpecificationCreationUtil::canOwnFlowSpecification)
+				.map(ComponentType.class::cast)
+				.filter(ct -> hasFeatureWithName(ct, childName))
+				.toList();
 	}
 
 	static Context getContext(final BusinessObjectContext featureBoc, final QueryService queryService) {
-		return (Context) queryService.getFirstBusinessObject(CONTEXT_QUERY, featureBoc, featureBoc.getBusinessObject())
-				.orElse(null);
+		var results = queryService.getResults(CONTEXT_QUERY, featureBoc, featureBoc.getBusinessObject());
+		if (results.isEmpty()) {
+			return null;
+		}
+		var last = results.get(results.size() - 1);
+		return (Context) last.getBusinessObjectContext().getBusinessObject();
+	}
+
+	static List<Context> getContexts(final BusinessObjectContext featureBoc, final QueryService queryService) {
+		var results = queryService.getResults(CONTEXT_QUERY, featureBoc, featureBoc.getBusinessObject());
+		return results.stream().map(qr -> (Context) qr.getBusinessObjectContext().getBusinessObject()).toList();
 	}
 
 	private static boolean hasFeatureWithName(final ComponentType ct, final String nameToCheck) {

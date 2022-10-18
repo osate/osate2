@@ -24,7 +24,7 @@
       <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-_AADLDetails2FComponents2FBus" source="AADLDetails/Components/Bus" references="Bus BusClassifier BusSubcomponent-busSubcomponentType BusSubcomponent BusType-ownedBusAccess BusType-ownedDataPort BusType-ownedEventDataPort BusType-ownedEventPort BusType BusImplementation-type BusImplementation-ownedVirtualBusSubcomponent BusImplementation A_busImplementation_busType-implementation A_busImplementation_busType A_busSubcomponent_busSubcomponentType-subcomponent A_busSubcomponent_busSubcomponentType A_busType_ownedBusAccess-owner A_busType_ownedBusAccess A_busImplementation_ownedVirtualBusSubcomponent-owner A_busImplementation_ownedVirtualBusSubcomponent BusSubcomponentType BusPrototype A_busType_ownedDataPort-owner A_busType_ownedDataPort A_busType_ownedEventDataPort-owner A_busType_ownedEventDataPort A_busType_ownedEventPort-owner A_busType_ownedEventPort"/>
       <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-_AADLDetails2FComponents2FData" source="AADLDetails/Components/Data" references="DataSubcomponent-dataSubcomponentType DataSubcomponent DataClassifier Data DataType-ownedSubprogramAccess DataType-ownedDataAccess DataType-ownedSubprogramGroupAccess DataType DataImplementation-type DataImplementation-ownedDataSubcomponent DataImplementation-ownedSubprogramSubcomponent DataImplementation A_dataSubcomponent_dataSubcomponentType-subcomponent A_dataSubcomponent_dataSubcomponentType A_dataImplementation_dataType-implementation A_dataImplementation_dataType A_dataType_ownedDataAccess-owner A_dataType_ownedDataAccess A_dataType_ownedSubprogramAccess-owner A_dataType_ownedSubprogramAccess A_dataType_ownedSubprogramGroupAccess-owner A_dataType_ownedSubprogramGroupAccess A_dataImplementation_ownedDataSubcomponent-owner A_dataImplementation_ownedDataSubcomponent A_dataImplementation_ownedSubprogramSubcomponent-owner A_dataImplementation_ownedSubprogramSubcomponent DataSubcomponentType DataPrototype"/>
       <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-_AADLDetails2FComponents2FDevice" source="AADLDetails/Components/Device" references="Device DeviceClassifier DeviceSubcomponent-deviceSubcomponentType DeviceSubcomponent DeviceType-ownedDataPort DeviceType-ownedEventDataPort DeviceType-ownedEventPort DeviceType-ownedBusAccess DeviceType-ownedSubprogramAccess DeviceType-ownedSubprogramGroupAccess DeviceType DeviceImplementation-type DeviceImplementation-ownedBusSubcomponent DeviceImplementation-ownedDataSubcomponent DeviceImplementation-ownedVirtualBusSubcomponent DeviceImplementation A_deviceImplementation_deviceType-implementation A_deviceImplementation_deviceType A_deviceSubcomponent_deviceSubcomponentType-subcomponent A_deviceSubcomponent_deviceSubcomponentType A_deviceType_ownedDataPort-owner A_deviceType_ownedDataPort A_deviceType_ownedEventDataPort-owner A_deviceType_ownedEventDataPort A_deviceType_ownedEventPort-owner A_deviceType_ownedEventPort A_deviceType_ownedBusAccess-owner A_deviceType_ownedBusAccess A_deviceType_ownedSubprogramAccess-owner A_deviceType_ownedSubprogramAccess A_deviceType_ownedSubprogramGroupAccess-owner A_deviceType_ownedSubprogramGroupAccess A_deviceImplementation_ownedBusSubcomponent-owner A_deviceImplementation_ownedBusSubcomponent A_deviceImplementation_ownedDataSubcomponent-owner A_deviceImplementation_ownedDataSubcomponent A_deviceImplementation_ownedVirtualBusSubcomponent-owner A_deviceImplementation_ownedVirtualBusSubcomponent DeviceSubcomponentType DevicePrototype"/>
-      <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-_AADLDetails2FComponents2FMemory" source="AADLDetails/Components/Memory" references="Memory MemoryClassifier MemoryType-ownedBusAccess MemoryType-ownedDataPort MemoryType-ownedEventDataPort MemoryType-ownedEventPort MemoryType MemorySubcomponent-memorySubcomponentType MemorySubcomponent MemoryImplementation-type MemoryImplementation-ownedBusSubcomponent MemoryImplementation-ownedMemorySubcomponent MemoryImplementation A_memoryImplementation_memoryType-implementation A_memoryImplementation_memoryType A_memorySubcomponent_memorySubcomponentType-subcomponent A_memorySubcomponent_memorySubcomponentType A_memoryImplementation_ownedBusSubcomponent-owner A_memoryImplementation_ownedBusSubcomponent A_memoryImplementation_ownedMemorySubcomponent-owner A_memoryImplementation_ownedMemorySubcomponent A_memoryType_ownedBusAccess-owner A_memoryType_ownedBusAccess MemoryPrototype MemorySubcomponentType A_memoryType_ownedDataPort-owner A_memoryType_ownedDataPort A_memoryType_ownedEventDataPort-owner A_memoryType_ownedEventDataPort A_memoryType_ownedEventPort-owner A_memoryType_ownedEventPort"/>
+      <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-_AADLDetails2FComponents2FMemory" source="AADLDetails/Components/Memory" references="Memory MemoryClassifier MemoryType-ownedBusAccess MemoryType-ownedDataPort MemoryType-ownedEventDataPort MemoryType-ownedEventPort MemoryType MemorySubcomponent-memorySubcomponentType MemorySubcomponent MemoryImplementation-type MemoryImplementation-ownedBusSubcomponent MemoryImplementation-ownedMemorySubcomponent MemoryImplementation-ownedVirtualBusSubcomponent MemoryImplementation A_memoryImplementation_memoryType-implementation A_memoryImplementation_memoryType A_memorySubcomponent_memorySubcomponentType-subcomponent A_memorySubcomponent_memorySubcomponentType A_memoryImplementation_ownedBusSubcomponent-owner A_memoryImplementation_ownedBusSubcomponent A_memoryImplementation_ownedMemorySubcomponent-owner A_memoryImplementation_ownedMemorySubcomponent A_memoryType_ownedBusAccess-owner A_memoryType_ownedBusAccess MemoryPrototype MemorySubcomponentType A_memoryType_ownedDataPort-owner A_memoryType_ownedDataPort A_memoryType_ownedEventDataPort-owner A_memoryType_ownedEventDataPort A_memoryType_ownedEventPort-owner A_memoryType_ownedEventPort A_memoryImplementation_ownedVirtualBusSubcompoent-owner A_memoryImplementation_ownedVirtualBusSubcompoent"/>
       <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-_AADLDetails2FComponents2FSubprogram" source="AADLDetails/Components/Subprogram" references="Subprogram SubprogramClassifier SubprogramSubcomponent-subprogramSubcomponentType SubprogramSubcomponent SubprogramType-ownedEventDataPort SubprogramType-ownedEventPort SubprogramType-ownedParameter SubprogramType-ownedDataAccess SubprogramType-ownedSubprogramAccess SubprogramType-ownedSubprogramGroupAccess SubprogramType SubprogramImplementation-type SubprogramImplementation-ownedDataSubcomponent SubprogramImplementation-ownedSubprogramSubcomponent SubprogramImplementation A_subprogramSubcomponent_subprogramSubcomponentType-subcomponent A_subprogramSubcomponent_subprogramSubcomponentType A_subprogramImplementation_subprogramType-implementation A_subprogramImplementation_subprogramType A_subprogramImplementation_ownedDataSubcomponent-owner A_subprogramImplementation_ownedDataSubcomponent A_subprogramType_ownedEventDataPort-owner A_subprogramType_ownedEventDataPort A_subprogramType_ownedEventPort-owner A_subprogramType_ownedEventPort A_subprogramType_ownedParameter-owner A_subprogramType_ownedParameter A_subprogramType_ownedDataAccess-owner A_subprogramType_ownedDataAccess A_subprogramType_ownedSubprogramAccess-owner A_subprogramType_ownedSubprogramAccess A_subprogramType_ownedSubprogramGroupAccess-owner A_subprogramType_ownedSubprogramGroupAccess SubprogramSubcomponentType SubprogramPrototype A_subprogramImplementation_owbedSubprogramSubcomponent-owner A_subprogramImplementation_owbedSubprogramSubcomponent"/>
       <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-_AADLDetails2FComponents2FSubprogramGroup" source="AADLDetails/Components/SubprogramGroup" references="SubprogramGroup SubprogramGroupClassifier SubprogramGroupType-ownedSubprogramAccess SubprogramGroupType-ownedSubprogramGroupAccess SubprogramGroupType SubprogramGroupSubcomponent-subprogramGroupSubcomponentType SubprogramGroupSubcomponent SubprogramGroupImplementation-type SubprogramGroupImplementation-ownedSubprogramSubcomponent SubprogramGroupImplementation-ownedSubprogramGroupSubcomponent SubprogramGroupImplementation-ownedDataSubcomponent SubprogramGroupImplementation A_subprogramGroupImplementation_subprogramGroupType-implementation A_subprogramGroupImplementation_subprogramGroupType A_subprogramGroupSubcomponent_subprogramSubcomponentType-subcomponent A_subprogramGroupSubcomponent_subprogramSubcomponentType A_subprogramGroupImplementation_ownedSubprogramSubcomponent-owner A_subprogramGroupImplementation_ownedSubprogramSubcomponent A_subprogramGroupType_ownedSubprogramAccess-owner A_subprogramGroupType_ownedSubprogramAccess A_subprogramGroupType_ownedSubprogramGroupAccess-owner A_subprogramGroupType_ownedSubprogramGroupAccess A_subprogramGroupImplementation_ownedSubprogramGroupSubcomponent-owner A_subprogramGroupImplementation_ownedSubprogramGroupSubcomponent SubprogramGroupSubcomponentType SubprogramGroupPrototype A_subprogramGroupImplementation_ownedDataSubcomponent-owner A_subprogramGroupImplementation_ownedDataSubcomponent"/>
       <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-_AADLDetails2FComponents2FSystem" source="AADLDetails/Components/System" references="System SystemClassifier SystemType-ownedBusAccess SystemType-ownedDataAccess SystemType-ownedDataPort SystemType-ownedSubprogramGroupAccess SystemType-ownedSubprogramAccess SystemType-ownedEventPort SystemType-ownedEventDataPort SystemType SystemSubcomponent-systemSubcomponentType SystemSubcomponent SystemImplementation-type SystemImplementation-ownedBusSubcomponent SystemImplementation-ownedDataSubcomponent SystemImplementation-ownedDeviceSubcomponent SystemImplementation-ownedMemorySubcomponent SystemImplementation-ownedProcessSubcomponent SystemImplementation-ownedProcessorSubcomponent SystemImplementation-ownedSubprogramSubcomponent SystemImplementation-ownedSubprogramGroupSubcomponent SystemImplementation-ownedSystemSubcomponent SystemImplementation-ownedVirtualBusSubcomponent SystemImplementation-ownedVirtualProcessorSubcomponent SystemImplementation A_systemSubcomponent_systemSubcomponentType-subcomponent A_systemSubcomponent_systemSubcomponentType A_systemImplementation_systemType-implementation A_systemImplementation_systemType A_systemImplementation_ownedBusSubcomponent-owner A_systemImplementation_ownedBusSubcomponent A_systemImplementation_ownedDataSubcomponent-owner A_systemImplementation_ownedDataSubcomponent A_systemImplementation_ownedDeviceSubcomponent-owner A_systemImplementation_ownedDeviceSubcomponent A_systemImplementation_ownedMemorySubcomponent-owner A_systemImplementation_ownedMemorySubcomponent A_systemImplementation_ownedProcessSubcomponent-owner A_systemImplementation_ownedProcessSubcomponent A_systemImplementation_ownedProcessorSubcomponent-owner A_systemImplementation_ownedProcessorSubcomponent A_systemImplementation_ownedSubprogramSubcomponent-owner A_systemImplementation_ownedSubprogramSubcomponent A_systemImplementation_ownedSubprogramGroupSubcomponent-owner A_systemImplementation_ownedSubprogramGroupSubcomponent A_systemImplementation_ownedSystemSubcomponent-owner A_systemImplementation_ownedSystemSubcomponent A_systemImplementation_ownedVirtualBusSubcomponent-owner A_systemImplementation_ownedVirtualBusSubcomponent A_systemImplementation_ownedVirtualProcessorSubcomponent-owner A_systemImplementation_ownedVirtualProcessorSubcomponent A_systemType_ownedBusAccess-owner A_systemType_ownedBusAccess A_systemType_ownedDataAccess-owner A_systemType_ownedDataAccess A_systemType_ownedDataPort-owner A_systemType_ownedDataPort A_systemType_ownedSubprogramGroupAccess-owner A_systemType_ownedSubprogramGroupAccess A_systemType_ownedSubprogramAccess-owner A_systemType_ownedSubprogramAccess A_systemType_ownedEventPort-owner A_systemType_ownedEventPort A_systemType_ownedEventDataPort-owner A_systemType_ownedEventDataPort SystemSubcomponentType SystemPrototype"/>
@@ -1271,7 +1271,7 @@ The context owns the connection end instance.</body>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FlowEnd" name="FlowEnd">
       <generalization xmi:id="FlowEnd-_generalization.0" general="Element"/>
-      <ownedAttribute xmi:id="FlowEnd-context" name="context" visibility="public" type="Context" association="A_flowEnd_context">
+      <ownedAttribute xmi:id="FlowEnd-context" name="context" visibility="public" type="FlowEnd" aggregation="composite" association="A_flowEnd_context">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FlowEnd-context-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="FlowEnd-context-_upperValue" value="1"/>
       </ownedAttribute>
@@ -1289,7 +1289,6 @@ The context owns the connection end instance.</body>
     <packagedElement xmi:type="uml:Association" xmi:id="A_flowEnd_context" name="A_flowEnd_context" visibility="private" memberEnd="A_flowEnd_context-flowEnd FlowEnd-context">
       <ownedEnd xmi:id="A_flowEnd_context-flowEnd" name="flowEnd" visibility="public" type="FlowEnd" association="A_flowEnd_context">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_flowEnd_context-flowEnd-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_flowEnd_context-flowEnd-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FlowSegment" name="FlowSegment">
@@ -2973,6 +2972,10 @@ The context owns the connection end instance.</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="MemoryImplementation-ownedMemorySubcomponent-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="MemoryImplementation-ownedMemorySubcomponent-_upperValue" value="*"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="MemoryImplementation-ownedVirtualBusSubcomponent" name="ownedVirtualBusSubcomponent" type="VirtualBusSubcomponent" aggregation="composite" subsettedProperty="ComponentImplementation-ownedSubcomponent" association="A_memoryImplementation_ownedVirtualBusSubcompoent">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="MemoryImplementation-ownedVirtualBusSubcomponent-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="MemoryImplementation-ownedVirtualBusSubcomponent-_upperValue" value="*"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_memoryImplementation_memoryType" name="A_memoryImplementation_memoryType" visibility="private" isDerived="true" memberEnd="A_memoryImplementation_memoryType-implementation MemoryImplementation-type">
       <generalization xmi:id="A_memoryImplementation_memoryType-_generalization.0" general="A_componentImplementation_ComponentType"/>
@@ -3036,6 +3039,15 @@ The context owns the connection end instance.</body>
       <ownedEnd xmi:id="A_memoryType_ownedEventPort-owner" name="owner" visibility="public" type="MemoryType" association="A_memoryType_ownedEventPort">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_memoryType_ownedEventPort-owner-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_memoryType_ownedEventPort-owner-_upperValue" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_memoryImplementation_ownedVirtualBusSubcompoent" name="A_memoryImplementation_ownedVirtualBusSubcompoent" visibility="private" memberEnd="MemoryImplementation-ownedVirtualBusSubcomponent A_memoryImplementation_ownedVirtualBusSubcompoent-owner">
+      <eAnnotations xmi:id="A_memoryImplementation_ownedVirtualBusSubcompoent-_org.eclipse.papyrus" source="org.eclipse.papyrus">
+        <details xmi:id="A_memoryImplementation_ownedVirtualBusSubcompoent-_org.eclipse.papyrus-_details.0" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <generalization xmi:id="A_memoryImplementation_ownedVirtualBusSubcompoent-_generalization.0" general="A_componentImplementation_ownedSubcomponent"/>
+      <ownedEnd xmi:id="A_memoryImplementation_ownedVirtualBusSubcompoent-owner" name="owner" type="MemoryImplementation" association="A_memoryImplementation_ownedVirtualBusSubcompoent">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_memoryImplementation_ownedVirtualBusSubcompoent-owner-_lowerValue"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Subprogram" name="Subprogram" isAbstract="true">
@@ -4596,6 +4608,7 @@ For access features, the classifier specifies the type of the shared component.<
       <generalization xmi:id="SubprogramAccess-_generalization.0" general="Access"/>
       <generalization xmi:id="SubprogramAccess-_generalization.1" general="CalledSubprogram"/>
       <generalization xmi:id="SubprogramAccess-_generalization.2" general="Context"/>
+      <generalization xmi:id="SubprogramAccess-_generalization.3" general="FlowElement"/>
       <ownedAttribute xmi:id="SubprogramAccess-subprogramFeatureClassifier" name="subprogramFeatureClassifier" visibility="public" type="SubprogramSubcomponentType" subsettedProperty="Feature-featureClassifier" association="A_subprogramAccess_subprogramFeatureClassifier">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="SubprogramAccess-subprogramFeatureClassifier-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="SubprogramAccess-subprogramFeatureClassifier-_upperValue" value="1"/>
@@ -6692,208 +6705,208 @@ For access features, the classifier specifies the type of the shared component.<
   <Ecore:EReference xmi:id="_feR2QEv2EeSNAfeIIJ0qNQ" isTransient="true" isVolatile="true" base_Property="ListType-elementType"/>
   <standard:Metaclass xmi:id="_aZhWADYhEeW7UdyEyvjiPw" base_Class="RangeType"/>
   <Ecore:EReference xmi:id="_oipz4DYhEeW7UdyEyvjiPw" isTransient="true" isVolatile="true" base_Property="RangeType-numberType"/>
-  <standard:Metaclass xmi:id="_2fvPwG7GEeqLh4lbS1uXXg" base_Class="Comment"/>
-  <standard:Metaclass xmi:id="_2fxE8G7GEeqLh4lbS1uXXg" base_Class="Type"/>
-  <standard:Metaclass xmi:id="_2fxE8W7GEeqLh4lbS1uXXg" base_Class="TypedElement"/>
-  <standard:Metaclass xmi:id="_2f19cG7GEeqLh4lbS1uXXg" base_Class="StructuralFeature"/>
-  <standard:Metaclass xmi:id="_2f19cW7GEeqLh4lbS1uXXg" base_Class="BehavioralFeature"/>
-  <standard:Metaclass xmi:id="_2f2kgG7GEeqLh4lbS1uXXg" base_Class="ArrayDimension"/>
-  <standard:Metaclass xmi:id="_2f2kgW7GEeqLh4lbS1uXXg" base_Class="ArrayableElement"/>
-  <standard:Metaclass xmi:id="_2f3LkG7GEeqLh4lbS1uXXg" base_Class="ComponentImplementationReference"/>
-  <standard:Metaclass xmi:id="_2f3yoG7GEeqLh4lbS1uXXg" base_Class="TypeExtension"/>
-  <standard:Metaclass xmi:id="_2f4ZsG7GEeqLh4lbS1uXXg" base_Class="ImplementationExtension"/>
-  <standard:Metaclass xmi:id="_2f5AwG7GEeqLh4lbS1uXXg" base_Class="Realization"/>
-  <standard:Metaclass xmi:id="_2f8EEG7GEeqLh4lbS1uXXg" base_Class="SubcomponentType"/>
-  <standard:Metaclass xmi:id="_2f8rIG7GEeqLh4lbS1uXXg" base_Class="Connection"/>
-  <standard:Metaclass xmi:id="_2f95QG7GEeqLh4lbS1uXXg" base_Class="ConnectionEnd"/>
-  <standard:Metaclass xmi:id="_2f95QW7GEeqLh4lbS1uXXg" base_Class="Context"/>
-  <standard:Metaclass xmi:id="_2f-gUG7GEeqLh4lbS1uXXg" base_Class="ConnectedElement"/>
-  <standard:Metaclass xmi:id="_2f_HYG7GEeqLh4lbS1uXXg" base_Class="AnnexLibrary"/>
-  <standard:Metaclass xmi:id="_2f_ucG7GEeqLh4lbS1uXXg" base_Class="AnnexSubclause"/>
-  <standard:Metaclass xmi:id="_2f_ucW7GEeqLh4lbS1uXXg" base_Class="DefaultAnnexLibrary"/>
-  <standard:Metaclass xmi:id="_2gAVgG7GEeqLh4lbS1uXXg" base_Class="DefaultAnnexSubclause"/>
-  <standard:Metaclass xmi:id="_2gCxwG7GEeqLh4lbS1uXXg" base_Class="GroupExtension"/>
-  <standard:Metaclass xmi:id="_2gEm8G7GEeqLh4lbS1uXXg" base_Class="FeatureType"/>
-  <standard:Metaclass xmi:id="_2gFOAG7GEeqLh4lbS1uXXg" base_Class="FeatureClassifier"/>
-  <standard:Metaclass xmi:id="_2gFOAW7GEeqLh4lbS1uXXg" base_Class="FlowSpecification"/>
-  <standard:Metaclass xmi:id="_2gF1EG7GEeqLh4lbS1uXXg" base_Class="FlowImplementation"/>
-  <standard:Metaclass xmi:id="_2gGcIG7GEeqLh4lbS1uXXg" base_Class="FlowElement"/>
-  <standard:Metaclass xmi:id="_2gHqQG7GEeqLh4lbS1uXXg" base_Class="EndToEndFlow"/>
-  <standard:Metaclass xmi:id="_2gIRUG7GEeqLh4lbS1uXXg" base_Class="EndToEndFlowElement"/>
-  <standard:Metaclass xmi:id="_2gJfcG7GEeqLh4lbS1uXXg" base_Class="FlowFeature"/>
-  <standard:Metaclass xmi:id="_2gKGgG7GEeqLh4lbS1uXXg" base_Class="FlowEnd"/>
-  <standard:Metaclass xmi:id="_2gKtkG7GEeqLh4lbS1uXXg" base_Class="FlowSegment"/>
-  <standard:Metaclass xmi:id="_2gL7sG7GEeqLh4lbS1uXXg" base_Class="EndToEndFlowSegment"/>
-  <standard:Metaclass xmi:id="_2gNJ0G7GEeqLh4lbS1uXXg" base_Class="Flow"/>
-  <standard:Metaclass xmi:id="_2gPmEG7GEeqLh4lbS1uXXg" base_Class="ModeTransitionTrigger"/>
-  <standard:Metaclass xmi:id="_2gQ0MG7GEeqLh4lbS1uXXg" base_Class="ModeFeature"/>
-  <standard:Metaclass xmi:id="_2gSCUG7GEeqLh4lbS1uXXg" base_Class="TriggerPort"/>
-  <standard:Metaclass xmi:id="_2gTQcG7GEeqLh4lbS1uXXg" base_Class="ModeBinding"/>
-  <standard:Metaclass xmi:id="_2gVFoG7GEeqLh4lbS1uXXg" base_Class="PackageRename"/>
-  <standard:Metaclass xmi:id="_2gVssG7GEeqLh4lbS1uXXg" base_Class="ComponentTypeRename"/>
-  <standard:Metaclass xmi:id="_2gZXEG7GEeqLh4lbS1uXXg" base_Class="FeatureGroupTypeRename"/>
-  <standard:Metaclass xmi:id="_2galMG7GEeqLh4lbS1uXXg" base_Class="PrototypeBinding"/>
-  <standard:Metaclass xmi:id="_2gbzUG7GEeqLh4lbS1uXXg" base_Class="ComponentPrototype"/>
-  <standard:Metaclass xmi:id="_2gcaYG7GEeqLh4lbS1uXXg" base_Class="ComponentPrototypeBinding"/>
-  <standard:Metaclass xmi:id="_2gdogG7GEeqLh4lbS1uXXg" base_Class="FeatureGroupPrototype"/>
-  <standard:Metaclass xmi:id="_2gePkG7GEeqLh4lbS1uXXg" base_Class="FeatureGroupPrototypeBinding"/>
-  <standard:Metaclass xmi:id="_2ggEwG7GEeqLh4lbS1uXXg" base_Class="FeaturePrototypeBinding"/>
-  <standard:Metaclass xmi:id="_2ghS4G7GEeqLh4lbS1uXXg" base_Class="FeaturePrototypeActual"/>
-  <standard:Metaclass xmi:id="_2ghS4W7GEeqLh4lbS1uXXg" base_Class="AccessSpecification"/>
-  <standard:Metaclass xmi:id="_2gkWMG7GEeqLh4lbS1uXXg" base_Class="ComponentPrototypeActual"/>
-  <standard:Metaclass xmi:id="_2glkUG7GEeqLh4lbS1uXXg" base_Class="FeatureGroupPrototypeActual"/>
-  <standard:Metaclass xmi:id="_2gnZgG7GEeqLh4lbS1uXXg" base_Class="SubprogramCallSequence"/>
-  <standard:Metaclass xmi:id="_2goAkG7GEeqLh4lbS1uXXg" base_Class="CalledSubprogram"/>
-  <standard:Metaclass xmi:id="_2gqc0G7GEeqLh4lbS1uXXg" base_Class="SubprogramCall"/>
-  <standard:Metaclass xmi:id="_2grD4G7GEeqLh4lbS1uXXg" base_Class="Prototype"/>
-  <standard:Metaclass xmi:id="_2grq8G7GEeqLh4lbS1uXXg" base_Class="Abstract"/>
-  <standard:Metaclass xmi:id="_2grq8W7GEeqLh4lbS1uXXg" base_Class="AbstractType"/>
-  <standard:Metaclass xmi:id="_2gvVUG7GEeqLh4lbS1uXXg" base_Class="AbstractClassifier"/>
-  <standard:Metaclass xmi:id="_2gwjcG7GEeqLh4lbS1uXXg" base_Class="AbstractSubcomponent"/>
-  <standard:Metaclass xmi:id="_2g2qEG7GEeqLh4lbS1uXXg" base_Class="AbstractSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2g3RIG7GEeqLh4lbS1uXXg" base_Class="AbstractPrototype"/>
-  <standard:Metaclass xmi:id="_2g34MG7GEeqLh4lbS1uXXg" base_Class="Bus"/>
-  <standard:Metaclass xmi:id="_2g4fQG7GEeqLh4lbS1uXXg" base_Class="BusClassifier"/>
-  <standard:Metaclass xmi:id="_2g4fQW7GEeqLh4lbS1uXXg" base_Class="BusSubcomponent"/>
-  <standard:Metaclass xmi:id="_2g5GUG7GEeqLh4lbS1uXXg" base_Class="BusType"/>
-  <standard:Metaclass xmi:id="_2g7ikG7GEeqLh4lbS1uXXg" base_Class="BusSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2g8JoG7GEeqLh4lbS1uXXg" base_Class="BusPrototype"/>
-  <standard:Metaclass xmi:id="_2g9XwG7GEeqLh4lbS1uXXg" base_Class="DataSubcomponent"/>
-  <standard:Metaclass xmi:id="_2g9-0G7GEeqLh4lbS1uXXg" base_Class="DataClassifier"/>
-  <standard:Metaclass xmi:id="_2g-l4G7GEeqLh4lbS1uXXg" base_Class="Data"/>
-  <standard:Metaclass xmi:id="_2g-l4W7GEeqLh4lbS1uXXg" base_Class="DataType"/>
-  <standard:Metaclass xmi:id="_2hC3UG7GEeqLh4lbS1uXXg" base_Class="DataSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2hC3UW7GEeqLh4lbS1uXXg" base_Class="DataPrototype"/>
-  <standard:Metaclass xmi:id="_2hDeYG7GEeqLh4lbS1uXXg" base_Class="Device"/>
-  <standard:Metaclass xmi:id="_2hDeYW7GEeqLh4lbS1uXXg" base_Class="DeviceClassifier"/>
-  <standard:Metaclass xmi:id="_2hEFcG7GEeqLh4lbS1uXXg" base_Class="DeviceSubcomponent"/>
-  <standard:Metaclass xmi:id="_2hEsgG7GEeqLh4lbS1uXXg" base_Class="DeviceType"/>
-  <standard:Metaclass xmi:id="_2hKzIG7GEeqLh4lbS1uXXg" base_Class="DeviceSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2hKzIW7GEeqLh4lbS1uXXg" base_Class="DevicePrototype"/>
-  <standard:Metaclass xmi:id="_2hLaMG7GEeqLh4lbS1uXXg" base_Class="Memory"/>
-  <standard:Metaclass xmi:id="_2hLaMW7GEeqLh4lbS1uXXg" base_Class="MemoryClassifier"/>
-  <standard:Metaclass xmi:id="_2hLaMm7GEeqLh4lbS1uXXg" base_Class="MemoryType"/>
-  <standard:Metaclass xmi:id="_2hMoUG7GEeqLh4lbS1uXXg" base_Class="MemorySubcomponent"/>
-  <standard:Metaclass xmi:id="_2hProG7GEeqLh4lbS1uXXg" base_Class="MemoryPrototype"/>
-  <standard:Metaclass xmi:id="_2hQSsG7GEeqLh4lbS1uXXg" base_Class="MemorySubcomponentType"/>
-  <standard:Metaclass xmi:id="_2hRg0G7GEeqLh4lbS1uXXg" base_Class="Subprogram"/>
-  <standard:Metaclass xmi:id="_2hRg0W7GEeqLh4lbS1uXXg" base_Class="SubprogramClassifier"/>
-  <standard:Metaclass xmi:id="_2hSH4G7GEeqLh4lbS1uXXg" base_Class="SubprogramSubcomponent"/>
-  <standard:Metaclass xmi:id="_2hXncG7GEeqLh4lbS1uXXg" base_Class="SubprogramSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2hXncW7GEeqLh4lbS1uXXg" base_Class="SubprogramPrototype"/>
-  <standard:Metaclass xmi:id="_2hYOgG7GEeqLh4lbS1uXXg" base_Class="SubprogramGroup"/>
-  <standard:Metaclass xmi:id="_2hY1kG7GEeqLh4lbS1uXXg" base_Class="SubprogramGroupClassifier"/>
-  <standard:Metaclass xmi:id="_2hZcoG7GEeqLh4lbS1uXXg" base_Class="SubprogramGroupType"/>
-  <standard:Metaclass xmi:id="_2haDsG7GEeqLh4lbS1uXXg" base_Class="SubprogramGroupSubcomponent"/>
-  <standard:Metaclass xmi:id="_2heVIG7GEeqLh4lbS1uXXg" base_Class="SubprogramGroupSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2heVIW7GEeqLh4lbS1uXXg" base_Class="SubprogramGroupPrototype"/>
-  <standard:Metaclass xmi:id="_2he8MG7GEeqLh4lbS1uXXg" base_Class="System"/>
-  <standard:Metaclass xmi:id="_2hfjQG7GEeqLh4lbS1uXXg" base_Class="SystemClassifier"/>
-  <standard:Metaclass xmi:id="_2hfjQW7GEeqLh4lbS1uXXg" base_Class="SystemType"/>
-  <standard:Metaclass xmi:id="_2hgxYG7GEeqLh4lbS1uXXg" base_Class="SystemSubcomponent"/>
-  <standard:Metaclass xmi:id="_2hrJcG7GEeqLh4lbS1uXXg" base_Class="SystemSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2hrJcW7GEeqLh4lbS1uXXg" base_Class="SystemPrototype"/>
-  <standard:Metaclass xmi:id="_2hrJcm7GEeqLh4lbS1uXXg" base_Class="Processor"/>
-  <standard:Metaclass xmi:id="_2hrwgG7GEeqLh4lbS1uXXg" base_Class="ProcessorClassifier"/>
-  <standard:Metaclass xmi:id="_2hrwgW7GEeqLh4lbS1uXXg" base_Class="ProcessorType"/>
-  <standard:Metaclass xmi:id="_2htlsG7GEeqLh4lbS1uXXg" base_Class="ProcessorSubcomponent"/>
-  <standard:Metaclass xmi:id="_2hzsUG7GEeqLh4lbS1uXXg" base_Class="ProcessorSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2hzsUW7GEeqLh4lbS1uXXg" base_Class="ProcessorPrototype"/>
-  <standard:Metaclass xmi:id="_2h0TYG7GEeqLh4lbS1uXXg" base_Class="Process"/>
-  <standard:Metaclass xmi:id="_2h0TYW7GEeqLh4lbS1uXXg" base_Class="ProcessClassifier"/>
-  <standard:Metaclass xmi:id="_2h0TYm7GEeqLh4lbS1uXXg" base_Class="ProcessType"/>
-  <standard:Metaclass xmi:id="_2h1hgG7GEeqLh4lbS1uXXg" base_Class="ProcessSubcomponent"/>
-  <standard:Metaclass xmi:id="_2h7oIG7GEeqLh4lbS1uXXg" base_Class="ProcessSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2h8PMG7GEeqLh4lbS1uXXg" base_Class="ProcessPrototype"/>
-  <standard:Metaclass xmi:id="_2h8PMW7GEeqLh4lbS1uXXg" base_Class="Thread"/>
-  <standard:Metaclass xmi:id="_2h82QG7GEeqLh4lbS1uXXg" base_Class="ThreadClassifier"/>
-  <standard:Metaclass xmi:id="_2h82QW7GEeqLh4lbS1uXXg" base_Class="ThreadType"/>
-  <standard:Metaclass xmi:id="_2h-EYG7GEeqLh4lbS1uXXg" base_Class="ThreadSubcomponent"/>
-  <standard:Metaclass xmi:id="_2iCV0G7GEeqLh4lbS1uXXg" base_Class="ThreadSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2iCV0W7GEeqLh4lbS1uXXg" base_Class="ThreadPrototype"/>
-  <standard:Metaclass xmi:id="_2iC84G7GEeqLh4lbS1uXXg" base_Class="ThreadGroup"/>
-  <standard:Metaclass xmi:id="_2iC84W7GEeqLh4lbS1uXXg" base_Class="ThreadGroupClassifier"/>
-  <standard:Metaclass xmi:id="_2iC84m7GEeqLh4lbS1uXXg" base_Class="ThreadGroupType"/>
-  <standard:Metaclass xmi:id="_2iELAG7GEeqLh4lbS1uXXg" base_Class="ThreadGroupSubcomponent"/>
-  <standard:Metaclass xmi:id="_2iJqkG7GEeqLh4lbS1uXXg" base_Class="ThreadGroupSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2iJqkW7GEeqLh4lbS1uXXg" base_Class="ThreadGroupPrototype"/>
-  <standard:Metaclass xmi:id="_2iKRoG7GEeqLh4lbS1uXXg" base_Class="VirtualBus"/>
-  <standard:Metaclass xmi:id="_2iKRoW7GEeqLh4lbS1uXXg" base_Class="VirtualBusClassifier"/>
-  <standard:Metaclass xmi:id="_2iK4sG7GEeqLh4lbS1uXXg" base_Class="VirtualBusType"/>
-  <standard:Metaclass xmi:id="_2iMG0G7GEeqLh4lbS1uXXg" base_Class="VirtualBusSubcomponent"/>
-  <standard:Metaclass xmi:id="_2iPKIG7GEeqLh4lbS1uXXg" base_Class="VirtualBusPrototype"/>
-  <standard:Metaclass xmi:id="_2iPxMG7GEeqLh4lbS1uXXg" base_Class="VirtualBusSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2iSNcG7GEeqLh4lbS1uXXg" base_Class="VirtualProcessor"/>
-  <standard:Metaclass xmi:id="_2iS0gG7GEeqLh4lbS1uXXg" base_Class="VirtualProcessorClassifier"/>
-  <standard:Metaclass xmi:id="_2iS0gW7GEeqLh4lbS1uXXg" base_Class="VirtualProcessorSubcomponent"/>
-  <standard:Metaclass xmi:id="_2iUCoG7GEeqLh4lbS1uXXg" base_Class="VirtualProcessorType"/>
-  <standard:Metaclass xmi:id="_2ibXYG7GEeqLh4lbS1uXXg" base_Class="VirtualProcessorSubcomponentType"/>
-  <standard:Metaclass xmi:id="_2ibXYW7GEeqLh4lbS1uXXg" base_Class="VirtualProcessorPrototype"/>
-  <standard:Metaclass xmi:id="_2iclgG7GEeqLh4lbS1uXXg" base_Class="AccessConnection"/>
-  <standard:Metaclass xmi:id="_2idMkG7GEeqLh4lbS1uXXg" base_Class="ParameterConnection"/>
-  <standard:Metaclass xmi:id="_2idzoG7GEeqLh4lbS1uXXg" base_Class="PortConnection"/>
-  <standard:Metaclass xmi:id="_2idzoW7GEeqLh4lbS1uXXg" base_Class="AccessConnectionEnd"/>
-  <standard:Metaclass xmi:id="_2ieasG7GEeqLh4lbS1uXXg" base_Class="ParameterConnectionEnd"/>
-  <standard:Metaclass xmi:id="_2ieasW7GEeqLh4lbS1uXXg" base_Class="PortConnectionEnd"/>
-  <standard:Metaclass xmi:id="_2ifBwG7GEeqLh4lbS1uXXg" base_Class="FeatureGroupConnection"/>
-  <standard:Metaclass xmi:id="_2ifo0G7GEeqLh4lbS1uXXg" base_Class="FeatureGroupConnectionEnd"/>
-  <standard:Metaclass xmi:id="_2igP4G7GEeqLh4lbS1uXXg" base_Class="FeatureConnection"/>
-  <standard:Metaclass xmi:id="_2ig28G7GEeqLh4lbS1uXXg" base_Class="FeatureConnectionEnd"/>
-  <standard:Metaclass xmi:id="_2inkoG7GEeqLh4lbS1uXXg" base_Class="DataAccess"/>
-  <standard:Metaclass xmi:id="_2ioLsG7GEeqLh4lbS1uXXg" base_Class="BusAccess"/>
-  <standard:Metaclass xmi:id="_2ioywG7GEeqLh4lbS1uXXg" base_Class="SubprogramAccess"/>
-  <standard:Metaclass xmi:id="_2iqA4G7GEeqLh4lbS1uXXg" base_Class="DataPort"/>
-  <standard:Metaclass xmi:id="_2iqn8G7GEeqLh4lbS1uXXg" base_Class="EventPort"/>
-  <standard:Metaclass xmi:id="_2irPAG7GEeqLh4lbS1uXXg" base_Class="EventDataPort"/>
-  <standard:Metaclass xmi:id="_2itEMG7GEeqLh4lbS1uXXg" base_Class="Parameter"/>
-  <standard:Metaclass xmi:id="_2itrQG7GEeqLh4lbS1uXXg" base_Class="SubprogramGroupAccess"/>
-  <standard:Metaclass xmi:id="_2i6fkG7GEeqLh4lbS1uXXg" base_Class="BusFeatureClassifier"/>
-  <standard:Metaclass xmi:id="_2i7GoG7GEeqLh4lbS1uXXg" base_Class="AbstractFeatureClassifier"/>
-  <standard:Metaclass xmi:id="_2i7GoW7GEeqLh4lbS1uXXg" base_Class="AbstractFeature"/>
-  <standard:Metaclass xmi:id="_2i__IG7GEeqLh4lbS1uXXg" base_Class="PropertyAssociation"/>
-  <standard:Metaclass xmi:id="_2jFesG7GEeqLh4lbS1uXXg" base_Class="BasicPropertyAssociation"/>
-  <standard:Metaclass xmi:id="_2jHT4G7GEeqLh4lbS1uXXg" base_Class="ArrayRange"/>
-  <standard:Metaclass xmi:id="_2jJwIG7GEeqLh4lbS1uXXg" base_Class="ContainmentPathElement"/>
-  <standard:Metaclass xmi:id="_2jQd0G7GEeqLh4lbS1uXXg" base_Class="ModalPropertyValue"/>
-  <standard:Metaclass xmi:id="_2jaO0G7GEeqLh4lbS1uXXg" base_Class="PropertyOwner"/>
-  <standard:Metaclass xmi:id="_2jfuYG7GEeqLh4lbS1uXXg" base_Class="PropertyExpression"/>
-  <standard:Metaclass xmi:id="_2jgVcG7GEeqLh4lbS1uXXg" base_Class="StringLiteral"/>
-  <standard:Metaclass xmi:id="_2jg8gG7GEeqLh4lbS1uXXg" base_Class="NumberValue"/>
-  <standard:Metaclass xmi:id="_2jiKoG7GEeqLh4lbS1uXXg" base_Class="ClassifierValue"/>
-  <standard:Metaclass xmi:id="_2jixsG7GEeqLh4lbS1uXXg" base_Class="ReferenceValue"/>
-  <standard:Metaclass xmi:id="_2jjYwG7GEeqLh4lbS1uXXg" base_Class="BooleanLiteral"/>
-  <standard:Metaclass xmi:id="_2jj_0G7GEeqLh4lbS1uXXg" base_Class="RangeValue"/>
-  <standard:Metaclass xmi:id="_2jlN8G7GEeqLh4lbS1uXXg" base_Class="IntegerLiteral"/>
-  <standard:Metaclass xmi:id="_2jl1AG7GEeqLh4lbS1uXXg" base_Class="RealLiteral"/>
-  <standard:Metaclass xmi:id="_2jnqMG7GEeqLh4lbS1uXXg" base_Class="PropertyValue"/>
-  <standard:Metaclass xmi:id="_2jnqMW7GEeqLh4lbS1uXXg" base_Class="Operation"/>
-  <standard:Metaclass xmi:id="_2jqGcG7GEeqLh4lbS1uXXg" base_Class="RecordValue"/>
-  <standard:Metaclass xmi:id="_2jqtgG7GEeqLh4lbS1uXXg" base_Class="ComputedValue"/>
-  <standard:Metaclass xmi:id="_2jrUkG7GEeqLh4lbS1uXXg" base_Class="ListValue"/>
-  <standard:Metaclass xmi:id="_2jr7oG7GEeqLh4lbS1uXXg" base_Class="AbstractNamedValue"/>
-  <standard:Metaclass xmi:id="_2jsisG7GEeqLh4lbS1uXXg" base_Class="NamedValue"/>
-  <standard:Metaclass xmi:id="_2jtJwG7GEeqLh4lbS1uXXg" base_Class="PropertySet"/>
-  <standard:Metaclass xmi:id="_2jxbMG7GEeqLh4lbS1uXXg" base_Class="ModelUnit"/>
-  <standard:Metaclass xmi:id="_2jzQYG7GEeqLh4lbS1uXXg" base_Class="NonListType"/>
-  <standard:Metaclass xmi:id="_2jz3cG7GEeqLh4lbS1uXXg" base_Class="AadlBoolean"/>
-  <standard:Metaclass xmi:id="_2jz3cW7GEeqLh4lbS1uXXg" base_Class="AadlString"/>
-  <standard:Metaclass xmi:id="_2j0egG7GEeqLh4lbS1uXXg" base_Class="AadlInteger"/>
-  <standard:Metaclass xmi:id="_2j1FkG7GEeqLh4lbS1uXXg" base_Class="AadlReal"/>
-  <standard:Metaclass xmi:id="_2j1FkW7GEeqLh4lbS1uXXg" base_Class="EnumerationType"/>
-  <standard:Metaclass xmi:id="_2j1soG7GEeqLh4lbS1uXXg" base_Class="EnumerationLiteral"/>
-  <standard:Metaclass xmi:id="_2j2TsG7GEeqLh4lbS1uXXg" base_Class="ClassifierType"/>
-  <standard:Metaclass xmi:id="_2j3h0G7GEeqLh4lbS1uXXg" base_Class="MetaclassReference"/>
-  <standard:Metaclass xmi:id="_2j5-EG7GEeqLh4lbS1uXXg" base_Class="NumericRange"/>
-  <standard:Metaclass xmi:id="_2j9ocG7GEeqLh4lbS1uXXg" base_Class="RecordType"/>
-  <standard:Metaclass xmi:id="_2j-PgG7GEeqLh4lbS1uXXg" base_Class="RecordField"/>
-  <standard:Metaclass xmi:id="_2j-2kG7GEeqLh4lbS1uXXg" base_Class="ReferenceType"/>
-  <standard:Metaclass xmi:id="_2kAEsG7GEeqLh4lbS1uXXg" base_Class="UnitsType"/>
-  <standard:Metaclass xmi:id="_2kArwG7GEeqLh4lbS1uXXg" base_Class="UnitLiteral"/>
-  <standard:Metaclass xmi:id="_2kDIAG7GEeqLh4lbS1uXXg" base_Class="PropertyType"/>
-  <standard:Metaclass xmi:id="_2kGLUG7GEeqLh4lbS1uXXg" base_Class="ArraySize"/>
-  <standard:Metaclass xmi:id="_2kGyYG7GEeqLh4lbS1uXXg" base_Class="ArraySizeProperty"/>
-  <standard:Metaclass xmi:id="_2kP8UG7GEeqLh4lbS1uXXg" base_Class="ProcessorFeature"/>
-  <standard:Metaclass xmi:id="_2kSYkG7GEeqLh4lbS1uXXg" base_Class="EventSource"/>
-  <standard:Metaclass xmi:id="_2kS_oG7GEeqLh4lbS1uXXg" base_Class="EventDataSource"/>
-  <standard:Metaclass xmi:id="_2kTmsG7GEeqLh4lbS1uXXg" base_Class="SubprogramProxy"/>
+  <standard:Metaclass xmi:id="_16GgsEA9Ee28P4eF_pNCHA" base_Class="Comment"/>
+  <standard:Metaclass xmi:id="_16HHwEA9Ee28P4eF_pNCHA" base_Class="Type"/>
+  <standard:Metaclass xmi:id="_16HHwUA9Ee28P4eF_pNCHA" base_Class="TypedElement"/>
+  <standard:Metaclass xmi:id="_16MAQEA9Ee28P4eF_pNCHA" base_Class="StructuralFeature"/>
+  <standard:Metaclass xmi:id="_16MAQUA9Ee28P4eF_pNCHA" base_Class="BehavioralFeature"/>
+  <standard:Metaclass xmi:id="_16MnUEA9Ee28P4eF_pNCHA" base_Class="ArrayDimension"/>
+  <standard:Metaclass xmi:id="_16NOYEA9Ee28P4eF_pNCHA" base_Class="ArrayableElement"/>
+  <standard:Metaclass xmi:id="_16N1cEA9Ee28P4eF_pNCHA" base_Class="ComponentImplementationReference"/>
+  <standard:Metaclass xmi:id="_16OcgEA9Ee28P4eF_pNCHA" base_Class="TypeExtension"/>
+  <standard:Metaclass xmi:id="_16OcgUA9Ee28P4eF_pNCHA" base_Class="ImplementationExtension"/>
+  <standard:Metaclass xmi:id="_16PDkEA9Ee28P4eF_pNCHA" base_Class="Realization"/>
+  <standard:Metaclass xmi:id="_16St8EA9Ee28P4eF_pNCHA" base_Class="SubcomponentType"/>
+  <standard:Metaclass xmi:id="_16TVAEA9Ee28P4eF_pNCHA" base_Class="Connection"/>
+  <standard:Metaclass xmi:id="_16T8EEA9Ee28P4eF_pNCHA" base_Class="ConnectionEnd"/>
+  <standard:Metaclass xmi:id="_16T8EUA9Ee28P4eF_pNCHA" base_Class="Context"/>
+  <standard:Metaclass xmi:id="_16UjIEA9Ee28P4eF_pNCHA" base_Class="ConnectedElement"/>
+  <standard:Metaclass xmi:id="_16VKMEA9Ee28P4eF_pNCHA" base_Class="AnnexLibrary"/>
+  <standard:Metaclass xmi:id="_16VKMUA9Ee28P4eF_pNCHA" base_Class="AnnexSubclause"/>
+  <standard:Metaclass xmi:id="_16VKMkA9Ee28P4eF_pNCHA" base_Class="DefaultAnnexLibrary"/>
+  <standard:Metaclass xmi:id="_16VxQEA9Ee28P4eF_pNCHA" base_Class="DefaultAnnexSubclause"/>
+  <standard:Metaclass xmi:id="_16YNgEA9Ee28P4eF_pNCHA" base_Class="GroupExtension"/>
+  <standard:Metaclass xmi:id="_16apwEA9Ee28P4eF_pNCHA" base_Class="FeatureType"/>
+  <standard:Metaclass xmi:id="_16bQ0EA9Ee28P4eF_pNCHA" base_Class="FeatureClassifier"/>
+  <standard:Metaclass xmi:id="_16b34EA9Ee28P4eF_pNCHA" base_Class="FlowSpecification"/>
+  <standard:Metaclass xmi:id="_16ce8EA9Ee28P4eF_pNCHA" base_Class="FlowImplementation"/>
+  <standard:Metaclass xmi:id="_16dtEEA9Ee28P4eF_pNCHA" base_Class="FlowElement"/>
+  <standard:Metaclass xmi:id="_16e7MEA9Ee28P4eF_pNCHA" base_Class="EndToEndFlow"/>
+  <standard:Metaclass xmi:id="_16hXcEA9Ee28P4eF_pNCHA" base_Class="EndToEndFlowElement"/>
+  <standard:Metaclass xmi:id="_16ilkEA9Ee28P4eF_pNCHA" base_Class="FlowFeature"/>
+  <standard:Metaclass xmi:id="_16ilkUA9Ee28P4eF_pNCHA" base_Class="FlowEnd"/>
+  <standard:Metaclass xmi:id="_16jMoEA9Ee28P4eF_pNCHA" base_Class="FlowSegment"/>
+  <standard:Metaclass xmi:id="_16kawEA9Ee28P4eF_pNCHA" base_Class="EndToEndFlowSegment"/>
+  <standard:Metaclass xmi:id="_16lB0EA9Ee28P4eF_pNCHA" base_Class="Flow"/>
+  <standard:Metaclass xmi:id="_16m3AEA9Ee28P4eF_pNCHA" base_Class="ModeTransitionTrigger"/>
+  <standard:Metaclass xmi:id="_16neEEA9Ee28P4eF_pNCHA" base_Class="ModeFeature"/>
+  <standard:Metaclass xmi:id="_16pTQEA9Ee28P4eF_pNCHA" base_Class="TriggerPort"/>
+  <standard:Metaclass xmi:id="_16p6UEA9Ee28P4eF_pNCHA" base_Class="ModeBinding"/>
+  <standard:Metaclass xmi:id="_16rvgEA9Ee28P4eF_pNCHA" base_Class="PackageRename"/>
+  <standard:Metaclass xmi:id="_16sWkEA9Ee28P4eF_pNCHA" base_Class="ComponentTypeRename"/>
+  <standard:Metaclass xmi:id="_16vZ4EA9Ee28P4eF_pNCHA" base_Class="FeatureGroupTypeRename"/>
+  <standard:Metaclass xmi:id="_16woAEA9Ee28P4eF_pNCHA" base_Class="PrototypeBinding"/>
+  <standard:Metaclass xmi:id="_16ydMEA9Ee28P4eF_pNCHA" base_Class="ComponentPrototype"/>
+  <standard:Metaclass xmi:id="_16zEQEA9Ee28P4eF_pNCHA" base_Class="ComponentPrototypeBinding"/>
+  <standard:Metaclass xmi:id="_160SYEA9Ee28P4eF_pNCHA" base_Class="FeatureGroupPrototype"/>
+  <standard:Metaclass xmi:id="_160SYUA9Ee28P4eF_pNCHA" base_Class="FeatureGroupPrototypeBinding"/>
+  <standard:Metaclass xmi:id="_162HkEA9Ee28P4eF_pNCHA" base_Class="FeaturePrototypeBinding"/>
+  <standard:Metaclass xmi:id="_163VsEA9Ee28P4eF_pNCHA" base_Class="FeaturePrototypeActual"/>
+  <standard:Metaclass xmi:id="_163VsUA9Ee28P4eF_pNCHA" base_Class="AccessSpecification"/>
+  <standard:Metaclass xmi:id="_166ZAEA9Ee28P4eF_pNCHA" base_Class="ComponentPrototypeActual"/>
+  <standard:Metaclass xmi:id="_167nIEA9Ee28P4eF_pNCHA" base_Class="FeatureGroupPrototypeActual"/>
+  <standard:Metaclass xmi:id="_16-DYEA9Ee28P4eF_pNCHA" base_Class="SubprogramCallSequence"/>
+  <standard:Metaclass xmi:id="_16-qcEA9Ee28P4eF_pNCHA" base_Class="CalledSubprogram"/>
+  <standard:Metaclass xmi:id="_17CU0EA9Ee28P4eF_pNCHA" base_Class="SubprogramCall"/>
+  <standard:Metaclass xmi:id="_17EKAEA9Ee28P4eF_pNCHA" base_Class="Prototype"/>
+  <standard:Metaclass xmi:id="_17FYIEA9Ee28P4eF_pNCHA" base_Class="Abstract"/>
+  <standard:Metaclass xmi:id="_17F_MEA9Ee28P4eF_pNCHA" base_Class="AbstractType"/>
+  <standard:Metaclass xmi:id="_17Ms4EA9Ee28P4eF_pNCHA" base_Class="AbstractClassifier"/>
+  <standard:Metaclass xmi:id="_17N7AEA9Ee28P4eF_pNCHA" base_Class="AbstractSubcomponent"/>
+  <standard:Metaclass xmi:id="_17UosEA9Ee28P4eF_pNCHA" base_Class="AbstractSubcomponentType"/>
+  <standard:Metaclass xmi:id="_17UosUA9Ee28P4eF_pNCHA" base_Class="AbstractPrototype"/>
+  <standard:Metaclass xmi:id="_17VPwEA9Ee28P4eF_pNCHA" base_Class="Bus"/>
+  <standard:Metaclass xmi:id="_17V20EA9Ee28P4eF_pNCHA" base_Class="BusClassifier"/>
+  <standard:Metaclass xmi:id="_17V20UA9Ee28P4eF_pNCHA" base_Class="BusSubcomponent"/>
+  <standard:Metaclass xmi:id="_17Wd4EA9Ee28P4eF_pNCHA" base_Class="BusType"/>
+  <standard:Metaclass xmi:id="_17ZhMEA9Ee28P4eF_pNCHA" base_Class="BusSubcomponentType"/>
+  <standard:Metaclass xmi:id="_17ZhMUA9Ee28P4eF_pNCHA" base_Class="BusPrototype"/>
+  <standard:Metaclass xmi:id="_17avUEA9Ee28P4eF_pNCHA" base_Class="DataSubcomponent"/>
+  <standard:Metaclass xmi:id="_17bWYEA9Ee28P4eF_pNCHA" base_Class="DataClassifier"/>
+  <standard:Metaclass xmi:id="_17b9cEA9Ee28P4eF_pNCHA" base_Class="Data"/>
+  <standard:Metaclass xmi:id="_17b9cUA9Ee28P4eF_pNCHA" base_Class="DataType"/>
+  <standard:Metaclass xmi:id="_17fn0EA9Ee28P4eF_pNCHA" base_Class="DataSubcomponentType"/>
+  <standard:Metaclass xmi:id="_17gO4EA9Ee28P4eF_pNCHA" base_Class="DataPrototype"/>
+  <standard:Metaclass xmi:id="_17gO4UA9Ee28P4eF_pNCHA" base_Class="Device"/>
+  <standard:Metaclass xmi:id="_17g18EA9Ee28P4eF_pNCHA" base_Class="DeviceClassifier"/>
+  <standard:Metaclass xmi:id="_17g18UA9Ee28P4eF_pNCHA" base_Class="DeviceSubcomponent"/>
+  <standard:Metaclass xmi:id="_17hdAEA9Ee28P4eF_pNCHA" base_Class="DeviceType"/>
+  <standard:Metaclass xmi:id="_17njoEA9Ee28P4eF_pNCHA" base_Class="DeviceSubcomponentType"/>
+  <standard:Metaclass xmi:id="_17njoUA9Ee28P4eF_pNCHA" base_Class="DevicePrototype"/>
+  <standard:Metaclass xmi:id="_17oKsEA9Ee28P4eF_pNCHA" base_Class="Memory"/>
+  <standard:Metaclass xmi:id="_17oKsUA9Ee28P4eF_pNCHA" base_Class="MemoryClassifier"/>
+  <standard:Metaclass xmi:id="_17oxwEA9Ee28P4eF_pNCHA" base_Class="MemoryType"/>
+  <standard:Metaclass xmi:id="_17pY0EA9Ee28P4eF_pNCHA" base_Class="MemorySubcomponent"/>
+  <standard:Metaclass xmi:id="_17vfcEA9Ee28P4eF_pNCHA" base_Class="MemoryPrototype"/>
+  <standard:Metaclass xmi:id="_17wGgEA9Ee28P4eF_pNCHA" base_Class="MemorySubcomponentType"/>
+  <standard:Metaclass xmi:id="_17x7sEA9Ee28P4eF_pNCHA" base_Class="Subprogram"/>
+  <standard:Metaclass xmi:id="_17x7sUA9Ee28P4eF_pNCHA" base_Class="SubprogramClassifier"/>
+  <standard:Metaclass xmi:id="_17yiwEA9Ee28P4eF_pNCHA" base_Class="SubprogramSubcomponent"/>
+  <standard:Metaclass xmi:id="_174CUEA9Ee28P4eF_pNCHA" base_Class="SubprogramSubcomponentType"/>
+  <standard:Metaclass xmi:id="_174CUUA9Ee28P4eF_pNCHA" base_Class="SubprogramPrototype"/>
+  <standard:Metaclass xmi:id="_174pYEA9Ee28P4eF_pNCHA" base_Class="SubprogramGroup"/>
+  <standard:Metaclass xmi:id="_175QcEA9Ee28P4eF_pNCHA" base_Class="SubprogramGroupClassifier"/>
+  <standard:Metaclass xmi:id="_175QcUA9Ee28P4eF_pNCHA" base_Class="SubprogramGroupType"/>
+  <standard:Metaclass xmi:id="_176ekEA9Ee28P4eF_pNCHA" base_Class="SubprogramGroupSubcomponent"/>
+  <standard:Metaclass xmi:id="_17-I8EA9Ee28P4eF_pNCHA" base_Class="SubprogramGroupSubcomponentType"/>
+  <standard:Metaclass xmi:id="_17-wAEA9Ee28P4eF_pNCHA" base_Class="SubprogramGroupPrototype"/>
+  <standard:Metaclass xmi:id="_17_XEEA9Ee28P4eF_pNCHA" base_Class="System"/>
+  <standard:Metaclass xmi:id="_17_XEUA9Ee28P4eF_pNCHA" base_Class="SystemClassifier"/>
+  <standard:Metaclass xmi:id="_17_-IEA9Ee28P4eF_pNCHA" base_Class="SystemType"/>
+  <standard:Metaclass xmi:id="_18E2oEA9Ee28P4eF_pNCHA" base_Class="SystemSubcomponent"/>
+  <standard:Metaclass xmi:id="_18Qc0EA9Ee28P4eF_pNCHA" base_Class="SystemSubcomponentType"/>
+  <standard:Metaclass xmi:id="_18RD4EA9Ee28P4eF_pNCHA" base_Class="SystemPrototype"/>
+  <standard:Metaclass xmi:id="_18RD4UA9Ee28P4eF_pNCHA" base_Class="Processor"/>
+  <standard:Metaclass xmi:id="_18Rq8EA9Ee28P4eF_pNCHA" base_Class="ProcessorClassifier"/>
+  <standard:Metaclass xmi:id="_18Rq8UA9Ee28P4eF_pNCHA" base_Class="ProcessorType"/>
+  <standard:Metaclass xmi:id="_18TgIEA9Ee28P4eF_pNCHA" base_Class="ProcessorSubcomponent"/>
+  <standard:Metaclass xmi:id="_18ZmwEA9Ee28P4eF_pNCHA" base_Class="ProcessorSubcomponentType"/>
+  <standard:Metaclass xmi:id="_18aN0EA9Ee28P4eF_pNCHA" base_Class="ProcessorPrototype"/>
+  <standard:Metaclass xmi:id="_18aN0UA9Ee28P4eF_pNCHA" base_Class="Process"/>
+  <standard:Metaclass xmi:id="_18a04EA9Ee28P4eF_pNCHA" base_Class="ProcessClassifier"/>
+  <standard:Metaclass xmi:id="_18a04UA9Ee28P4eF_pNCHA" base_Class="ProcessType"/>
+  <standard:Metaclass xmi:id="_18dRIEA9Ee28P4eF_pNCHA" base_Class="ProcessSubcomponent"/>
+  <standard:Metaclass xmi:id="_18kl4EA9Ee28P4eF_pNCHA" base_Class="ProcessSubcomponentType"/>
+  <standard:Metaclass xmi:id="_18lM8EA9Ee28P4eF_pNCHA" base_Class="ProcessPrototype"/>
+  <standard:Metaclass xmi:id="_18lM8UA9Ee28P4eF_pNCHA" base_Class="Thread"/>
+  <standard:Metaclass xmi:id="_18l0AEA9Ee28P4eF_pNCHA" base_Class="ThreadClassifier"/>
+  <standard:Metaclass xmi:id="_18mbEEA9Ee28P4eF_pNCHA" base_Class="ThreadType"/>
+  <standard:Metaclass xmi:id="_18npMEA9Ee28P4eF_pNCHA" base_Class="ThreadSubcomponent"/>
+  <standard:Metaclass xmi:id="_18uW4EA9Ee28P4eF_pNCHA" base_Class="ThreadSubcomponentType"/>
+  <standard:Metaclass xmi:id="_18uW4UA9Ee28P4eF_pNCHA" base_Class="ThreadPrototype"/>
+  <standard:Metaclass xmi:id="_18u98EA9Ee28P4eF_pNCHA" base_Class="ThreadGroup"/>
+  <standard:Metaclass xmi:id="_18u98UA9Ee28P4eF_pNCHA" base_Class="ThreadGroupClassifier"/>
+  <standard:Metaclass xmi:id="_18vlAEA9Ee28P4eF_pNCHA" base_Class="ThreadGroupType"/>
+  <standard:Metaclass xmi:id="_18xaMEA9Ee28P4eF_pNCHA" base_Class="ThreadGroupSubcomponent"/>
+  <standard:Metaclass xmi:id="_185WAEA9Ee28P4eF_pNCHA" base_Class="ThreadGroupSubcomponentType"/>
+  <standard:Metaclass xmi:id="_1859EEA9Ee28P4eF_pNCHA" base_Class="ThreadGroupPrototype"/>
+  <standard:Metaclass xmi:id="_1859EUA9Ee28P4eF_pNCHA" base_Class="VirtualBus"/>
+  <standard:Metaclass xmi:id="_186kIEA9Ee28P4eF_pNCHA" base_Class="VirtualBusClassifier"/>
+  <standard:Metaclass xmi:id="_186kIUA9Ee28P4eF_pNCHA" base_Class="VirtualBusType"/>
+  <standard:Metaclass xmi:id="_189ncEA9Ee28P4eF_pNCHA" base_Class="VirtualBusSubcomponent"/>
+  <standard:Metaclass xmi:id="_19ADsEA9Ee28P4eF_pNCHA" base_Class="VirtualBusPrototype"/>
+  <standard:Metaclass xmi:id="_19AqwEA9Ee28P4eF_pNCHA" base_Class="VirtualBusSubcomponentType"/>
+  <standard:Metaclass xmi:id="_19DHAEA9Ee28P4eF_pNCHA" base_Class="VirtualProcessor"/>
+  <standard:Metaclass xmi:id="_19DuEEA9Ee28P4eF_pNCHA" base_Class="VirtualProcessorClassifier"/>
+  <standard:Metaclass xmi:id="_19EVIEA9Ee28P4eF_pNCHA" base_Class="VirtualProcessorSubcomponent"/>
+  <standard:Metaclass xmi:id="_19E8MEA9Ee28P4eF_pNCHA" base_Class="VirtualProcessorType"/>
+  <standard:Metaclass xmi:id="_19Lp4EA9Ee28P4eF_pNCHA" base_Class="VirtualProcessorSubcomponentType"/>
+  <standard:Metaclass xmi:id="_19MQ8EA9Ee28P4eF_pNCHA" base_Class="VirtualProcessorPrototype"/>
+  <standard:Metaclass xmi:id="_19NfEEA9Ee28P4eF_pNCHA" base_Class="AccessConnection"/>
+  <standard:Metaclass xmi:id="_19NfEUA9Ee28P4eF_pNCHA" base_Class="ParameterConnection"/>
+  <standard:Metaclass xmi:id="_19OGIEA9Ee28P4eF_pNCHA" base_Class="PortConnection"/>
+  <standard:Metaclass xmi:id="_19OtMEA9Ee28P4eF_pNCHA" base_Class="AccessConnectionEnd"/>
+  <standard:Metaclass xmi:id="_19OtMUA9Ee28P4eF_pNCHA" base_Class="ParameterConnectionEnd"/>
+  <standard:Metaclass xmi:id="_19PUQEA9Ee28P4eF_pNCHA" base_Class="PortConnectionEnd"/>
+  <standard:Metaclass xmi:id="_19PUQUA9Ee28P4eF_pNCHA" base_Class="FeatureGroupConnection"/>
+  <standard:Metaclass xmi:id="_19P7UEA9Ee28P4eF_pNCHA" base_Class="FeatureGroupConnectionEnd"/>
+  <standard:Metaclass xmi:id="_19QiYEA9Ee28P4eF_pNCHA" base_Class="FeatureConnection"/>
+  <standard:Metaclass xmi:id="_19QiYUA9Ee28P4eF_pNCHA" base_Class="FeatureConnectionEnd"/>
+  <standard:Metaclass xmi:id="_19YeMEA9Ee28P4eF_pNCHA" base_Class="DataAccess"/>
+  <standard:Metaclass xmi:id="_19ZFQEA9Ee28P4eF_pNCHA" base_Class="BusAccess"/>
+  <standard:Metaclass xmi:id="_19ZsUEA9Ee28P4eF_pNCHA" base_Class="SubprogramAccess"/>
+  <standard:Metaclass xmi:id="_19a6cEA9Ee28P4eF_pNCHA" base_Class="DataPort"/>
+  <standard:Metaclass xmi:id="_19bhgEA9Ee28P4eF_pNCHA" base_Class="EventPort"/>
+  <standard:Metaclass xmi:id="_19cIkEA9Ee28P4eF_pNCHA" base_Class="EventDataPort"/>
+  <standard:Metaclass xmi:id="_19dWsEA9Ee28P4eF_pNCHA" base_Class="Parameter"/>
+  <standard:Metaclass xmi:id="_19ek0EA9Ee28P4eF_pNCHA" base_Class="SubprogramGroupAccess"/>
+  <standard:Metaclass xmi:id="_19t1YEA9Ee28P4eF_pNCHA" base_Class="BusFeatureClassifier"/>
+  <standard:Metaclass xmi:id="_19uccEA9Ee28P4eF_pNCHA" base_Class="AbstractFeatureClassifier"/>
+  <standard:Metaclass xmi:id="_19uccUA9Ee28P4eF_pNCHA" base_Class="AbstractFeature"/>
+  <standard:Metaclass xmi:id="_192YQEA9Ee28P4eF_pNCHA" base_Class="PropertyAssociation"/>
+  <standard:Metaclass xmi:id="_19_iMEA9Ee28P4eF_pNCHA" base_Class="BasicPropertyAssociation"/>
+  <standard:Metaclass xmi:id="_1-AwUEA9Ee28P4eF_pNCHA" base_Class="ArrayRange"/>
+  <standard:Metaclass xmi:id="_1-GP4EA9Ee28P4eF_pNCHA" base_Class="ContainmentPathElement"/>
+  <standard:Metaclass xmi:id="_1-SdIEA9Ee28P4eF_pNCHA" base_Class="ModalPropertyValue"/>
+  <standard:Metaclass xmi:id="_1-hGoEA9Ee28P4eF_pNCHA" base_Class="PropertyOwner"/>
+  <standard:Metaclass xmi:id="_1-l_IEA9Ee28P4eF_pNCHA" base_Class="PropertyExpression"/>
+  <standard:Metaclass xmi:id="_1-mmMEA9Ee28P4eF_pNCHA" base_Class="StringLiteral"/>
+  <standard:Metaclass xmi:id="_1-nNQEA9Ee28P4eF_pNCHA" base_Class="NumberValue"/>
+  <standard:Metaclass xmi:id="_1-pCcEA9Ee28P4eF_pNCHA" base_Class="ClassifierValue"/>
+  <standard:Metaclass xmi:id="_1-ppgEA9Ee28P4eF_pNCHA" base_Class="ReferenceValue"/>
+  <standard:Metaclass xmi:id="_1-q3oEA9Ee28P4eF_pNCHA" base_Class="BooleanLiteral"/>
+  <standard:Metaclass xmi:id="_1-resEA9Ee28P4eF_pNCHA" base_Class="RangeValue"/>
+  <standard:Metaclass xmi:id="_1-ss0EA9Ee28P4eF_pNCHA" base_Class="IntegerLiteral"/>
+  <standard:Metaclass xmi:id="_1-t68EA9Ee28P4eF_pNCHA" base_Class="RealLiteral"/>
+  <standard:Metaclass xmi:id="_1-wXMEA9Ee28P4eF_pNCHA" base_Class="PropertyValue"/>
+  <standard:Metaclass xmi:id="_1-w-QEA9Ee28P4eF_pNCHA" base_Class="Operation"/>
+  <standard:Metaclass xmi:id="_1-0BkEA9Ee28P4eF_pNCHA" base_Class="RecordValue"/>
+  <standard:Metaclass xmi:id="_1-1PsEA9Ee28P4eF_pNCHA" base_Class="ComputedValue"/>
+  <standard:Metaclass xmi:id="_1-12wEA9Ee28P4eF_pNCHA" base_Class="ListValue"/>
+  <standard:Metaclass xmi:id="_1-3E4EA9Ee28P4eF_pNCHA" base_Class="AbstractNamedValue"/>
+  <standard:Metaclass xmi:id="_1-3E4UA9Ee28P4eF_pNCHA" base_Class="NamedValue"/>
+  <standard:Metaclass xmi:id="_1-4TAEA9Ee28P4eF_pNCHA" base_Class="PropertySet"/>
+  <standard:Metaclass xmi:id="_1-_AsEA9Ee28P4eF_pNCHA" base_Class="ModelUnit"/>
+  <standard:Metaclass xmi:id="_1_DSIEA9Ee28P4eF_pNCHA" base_Class="NonListType"/>
+  <standard:Metaclass xmi:id="_1_D5MEA9Ee28P4eF_pNCHA" base_Class="AadlBoolean"/>
+  <standard:Metaclass xmi:id="_1_EgQEA9Ee28P4eF_pNCHA" base_Class="AadlString"/>
+  <standard:Metaclass xmi:id="_1_FHUEA9Ee28P4eF_pNCHA" base_Class="AadlInteger"/>
+  <standard:Metaclass xmi:id="_1_FuYEA9Ee28P4eF_pNCHA" base_Class="AadlReal"/>
+  <standard:Metaclass xmi:id="_1_GVcEA9Ee28P4eF_pNCHA" base_Class="EnumerationType"/>
+  <standard:Metaclass xmi:id="_1_IKoEA9Ee28P4eF_pNCHA" base_Class="EnumerationLiteral"/>
+  <standard:Metaclass xmi:id="_1_JYwEA9Ee28P4eF_pNCHA" base_Class="ClassifierType"/>
+  <standard:Metaclass xmi:id="_1_L1AEA9Ee28P4eF_pNCHA" base_Class="MetaclassReference"/>
+  <standard:Metaclass xmi:id="_1_TJwEA9Ee28P4eF_pNCHA" base_Class="NumericRange"/>
+  <standard:Metaclass xmi:id="_1_YCQEA9Ee28P4eF_pNCHA" base_Class="RecordType"/>
+  <standard:Metaclass xmi:id="_1_ZQYEA9Ee28P4eF_pNCHA" base_Class="RecordField"/>
+  <standard:Metaclass xmi:id="_1_Z3cEA9Ee28P4eF_pNCHA" base_Class="ReferenceType"/>
+  <standard:Metaclass xmi:id="_1_bFkEA9Ee28P4eF_pNCHA" base_Class="UnitsType"/>
+  <standard:Metaclass xmi:id="_1_cTsEA9Ee28P4eF_pNCHA" base_Class="UnitLiteral"/>
+  <standard:Metaclass xmi:id="_1_eI4EA9Ee28P4eF_pNCHA" base_Class="PropertyType"/>
+  <standard:Metaclass xmi:id="_1_f-EEA9Ee28P4eF_pNCHA" base_Class="ArraySize"/>
+  <standard:Metaclass xmi:id="_1_glIEA9Ee28P4eF_pNCHA" base_Class="ArraySizeProperty"/>
+  <standard:Metaclass xmi:id="_1_ldoEA9Ee28P4eF_pNCHA" base_Class="ProcessorFeature"/>
+  <standard:Metaclass xmi:id="_1_nS0EA9Ee28P4eF_pNCHA" base_Class="EventSource"/>
+  <standard:Metaclass xmi:id="_1_n54EA9Ee28P4eF_pNCHA" base_Class="EventDataSource"/>
+  <standard:Metaclass xmi:id="_1_n54UA9Ee28P4eF_pNCHA" base_Class="SubprogramProxy"/>
 </xmi:XMI>

@@ -31,15 +31,13 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.ProcessImplementation
+import org.osate.aadl2.ThreadImplementation
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.*
 import static extension org.osate.testsupport.AssertHelper.*
-import org.osate.aadl2.ThreadImplementation
-import org.osate.aadl2.FlowImplementation
-import org.osate.aadl2.ProcessImplementation
-import org.osate.aadl2.EndToEndFlow
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -76,14 +74,14 @@ class Issue1987Test extends XtextTest {
 			"DataTestBad".assertEquals(name)	
 			
 			publicSection.ownedClassifiers.findFirst[name == "T.i"] as ThreadImplementation => [
-				ownedFlowImplementations.findFirst[specification.name == "fsrc"] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == "fsrc"] => [
 					ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection,
 						"The source component 'myData' of connection 'c' does not match the preceding subcomponent 'myData2'")
 				]
 			]			
 
 			publicSection.ownedClassifiers.findFirst[name == "TT.i"] as ThreadImplementation => [
-				ownedFlowImplementations.findFirst[specification.name == "fsnk"] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == "fsnk"] => [
 					ownedFlowSegments.get(0).assertError(testFileResult.issues, issueCollection,
 						"The destination component 'myData' of connection 'c' does not match the succeeding subcomponent  'myData2'")
 				]
@@ -103,7 +101,7 @@ class Issue1987Test extends XtextTest {
 			"EndToEndFlowData".assertEquals(name)	
 			
 			publicSection.ownedClassifiers.findFirst[name == "P.top"] as ProcessImplementation => [
-				ownedEndToEndFlows.findFirst[name == "e2e_bad"] as EndToEndFlow => [
+				ownedEndToEndFlows.findFirst[name == "e2e_bad"] => [
 					ownedEndToEndFlowSegments.get(1).assertError(testFileResult.issues, issueCollection,
 						"The source of connection 'c1' does not match the preceding subcomponent or out flow spec feature 'dataD2'")
 					ownedEndToEndFlowSegments.get(3).assertError(testFileResult.issues, issueCollection,
@@ -125,13 +123,13 @@ class Issue1987Test extends XtextTest {
 			"SubprogramCallTest".assertEquals(name)	
 			
 			publicSection.ownedClassifiers.findFirst[name == "T.i"] as ThreadImplementation => [
-				ownedFlowImplementations.findFirst[specification.name == "fsrc"] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == "fsrc"] => [
 					ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection,
 						"The destination component 'call1' of connection 'b' does not match the succeeding subcomponent  'dummy'")
 					ownedFlowSegments.get(3).assertError(testFileResult.issues, issueCollection,
 						"The source of connection 'c' does not match the preceding subcomponent 'dummy'")
 				]
-				ownedFlowImplementations.findFirst[specification.name == "fsnk"] as FlowImplementation => [
+				ownedFlowImplementations.findFirst[specification.name == "fsnk"] => [
 					ownedFlowSegments.get(0).assertError(testFileResult.issues, issueCollection,
 						"The destination component 'call2' of connection 'e' does not match the succeeding subcomponent  'dummy'")
 					ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection,

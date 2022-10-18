@@ -1,0 +1,33 @@
+package conflicting_inherited_events
+public
+	system s
+		features
+			ep1: in out event port;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			component error behavior
+				events
+					error1: error event {ItemTimingError};
+					recover1: recover event when ep1;
+					repair1: repair event when ep1;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+		annex EMV2 {**
+			use behavior conflicting_inherited_events::machine1;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			events
+				error1: error event {ServiceError};
+				recover1: recover event;
+				repair1: repair event;
+		end behavior;
+	**};
+end conflicting_inherited_events;

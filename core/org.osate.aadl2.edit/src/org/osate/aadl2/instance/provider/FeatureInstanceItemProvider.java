@@ -61,6 +61,7 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -71,6 +72,7 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 			addDirectionPropertyDescriptor(object);
 			addFeaturePropertyDescriptor(object);
 			addIndexPropertyDescriptor(object);
+			addTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -169,6 +171,21 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	}
 
 	/**
+	 * This adds a property descriptor for the Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FeatureInstance_type_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureInstance_type_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_FeatureInstance_type"), //$NON-NLS-1$
+						InstancePackage.Literals.FEATURE_INSTANCE__TYPE, true, false, true, null, null, null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -176,6 +193,7 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
@@ -189,6 +207,7 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -244,6 +263,7 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 

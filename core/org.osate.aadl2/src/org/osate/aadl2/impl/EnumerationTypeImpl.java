@@ -76,6 +76,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEnumerationType();
 	}
@@ -85,8 +86,9 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.ENUMERATION_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -105,9 +107,10 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EnumerationLiteral> getOwnedLiterals() {
 		if (ownedLiterals == null) {
-			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(EnumerationLiteral.class, this,
+			ownedLiterals = new EObjectContainmentEList<>(EnumerationLiteral.class, this,
 					Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL);
 		}
 		return ownedLiterals;
@@ -138,6 +141,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL:
@@ -151,6 +155,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL:
@@ -165,6 +170,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL:
@@ -180,6 +186,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL:
@@ -194,6 +201,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ENUMERATION_TYPE__OWNED_MEMBER:
@@ -209,6 +217,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL);
 	}

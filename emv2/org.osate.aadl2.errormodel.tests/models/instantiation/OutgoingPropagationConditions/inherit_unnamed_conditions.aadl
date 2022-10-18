@@ -1,0 +1,53 @@
+package inherit_unnamed_conditions
+public
+	system s1
+		features
+			f1: out feature;
+			f2: out feature;
+			f3: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior inherit_unnamed_conditions::machine1;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+				f2: out propagation {CommonErrors};
+				f3: out propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				events
+					event1: error event;
+				propagations
+					state1 -[event1]-> f1 {ServiceError};
+			end component;
+		**};
+	end s1;
+	
+	system s2 extends s1
+		annex EMV2 {**
+			component error behavior
+				propagations
+					state2 -[]-> f2 {ServiceError};
+			end component;
+		**};
+	end s2;
+	
+	system implementation s2.i
+		annex EMV2 {**
+			component error behavior
+				propagations
+					state3 -[]-> f3 {ServiceError};
+			end component;
+		**};
+	end s2.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+		end behavior;
+	**};
+end inherit_unnamed_conditions;

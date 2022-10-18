@@ -1,0 +1,19 @@
+package error_events_in_component_error_behavior
+public
+	system s
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			component error behavior
+				events
+					event1: error event;
+					event2: error event {ServiceError};
+					event3: error event if "condition";
+					event4: error event {ItemTimingError, ItemValueError} if "condition";
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end error_events_in_component_error_behavior;

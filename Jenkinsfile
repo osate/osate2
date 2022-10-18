@@ -1,42 +1,60 @@
 pipeline {
   agent any
+  tools {
+     jdk "OpenJDK17"
+  }
   stages {
-    stage('Build Products') {
-      tools {
-        jdk "OpenJDK11"
+    stage('Update dependencies') {
+      steps {
+        withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
+            sh 'mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor \
+                -DgenerateBackupPoms=false -Dtycho.mode=maven'
+        }
+      }
+    }
+    stage('Build Pull Request') {
+      when {
+        branch pattern: "PR-\\d+", comparator: "REGEXP"
       }
       steps {
-        withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
-          sh(script: '''
-              mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor \
-                  -DgenerateBackupPoms=false -Dtycho.mode=maven
-          ''')
-          wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-            sh(script: '''
-                mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull \
-                    -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                    -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true
-            ''')
+        withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
+          withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
+            wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
+              sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
+                  -Plocal -Dsonar.login=$SONARTOKEN \
+                  -Dsonar.pullrequest.provider=GitHub \
+                  -Dsonar.pullrequest.github.repository=$(echo $CHANGE_URL | cut -d/ -f4,5) \
+                  -Dsonar.pullrequest.key=$CHANGE_ID \
+                  -Dsonar.pullrequest.branch=$CHANGE_BRANCH \
+                  -Dsonar.pullrequest.base=$CHANGE_TARGET \
+                  -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                  -Dcodecoverage=true -Dspotbugs=true -Djavadoc=false -Dpr.build=true'
+            }
           }
         }
       }
     }
-    stage('SonarCloud analysis') {
-      tools {
-        jdk "OpenJDK11"
+    stage('Build Products') {
+      when {
+        expression { env.GIT_BRANCH == 'origin/master' }
       }
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
-            sh(script: '''
-                mvn -s core/osate.releng/seisettings.xml sonar:sonar \
-                    -Dsonar.login=$SONARTOKEN
-            ''')
+            wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
+              sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
+                  -Pfull -Dsonar.login=$SONARTOKEN \
+                  -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                  -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'
+            }
           }
         }
       }
     }
     stage('Deploy') {
+      when {
+        expression { env.GIT_BRANCH == 'origin/master' }
+      }
       steps {
         sh 'bash ./deploy.sh'
       }

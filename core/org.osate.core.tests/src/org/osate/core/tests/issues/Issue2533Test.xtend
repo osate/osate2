@@ -24,6 +24,7 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -31,8 +32,6 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
-import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextTest
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)

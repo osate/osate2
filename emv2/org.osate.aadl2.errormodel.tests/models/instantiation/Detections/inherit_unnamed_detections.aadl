@@ -1,0 +1,54 @@
+package inherit_unnamed_detections
+public
+	system s1
+		features
+			f1: feature;
+			f2: feature;
+			f3: feature;
+			f4: feature;
+			f5: feature;
+		annex EMV2 {**
+			use behavior inherit_unnamed_detections::machine1;
+			
+			component error behavior
+				events
+					error1: error event;
+				detections
+					state1 -[error1]-> f1 ! (1);
+			end component;
+		**};
+	end s1;
+	
+	system s2 extends s1
+		annex EMV2 {**
+			component error behavior
+				detections
+					state2 -[]-> f2 ! ("two");
+			end component;
+		**};
+	end s2;
+	
+	system implementation s2.i
+		annex EMV2 {**
+			component error behavior
+				events
+					error4: error event;
+				detections
+					state3 -[]-> f3 ! (my_set::my_constant);
+					state4 -[error4]-> f4 !;
+					state5 -[]-> f5 !;
+			end component;
+		**};
+	end s2.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+				state4: state;
+				state5: state;
+		end behavior;
+	**};
+end inherit_unnamed_detections;

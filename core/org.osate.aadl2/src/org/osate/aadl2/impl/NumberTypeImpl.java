@@ -94,6 +94,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNumberType();
 	}
@@ -103,6 +104,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnitsType getOwnedUnitsType() {
 		return ownedUnitsType;
 	}
@@ -132,6 +134,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedUnitsType(UnitsType newOwnedUnitsType) {
 		if (newOwnedUnitsType != ownedUnitsType) {
 			NotificationChain msgs = null;
@@ -169,6 +172,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnitsType getReferencedUnitsType() {
 		if (referencedUnitsType != null && ((EObject) referencedUnitsType).eIsProxy()) {
 			InternalEObject oldReferencedUnitsType = (InternalEObject) referencedUnitsType;
@@ -198,6 +202,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedUnitsType(UnitsType newReferencedUnitsType) {
 		UnitsType oldReferencedUnitsType = referencedUnitsType;
 		referencedUnitsType = newReferencedUnitsType;
@@ -212,6 +217,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnitsType getUnitsType() {
 		UnitsType unitsType = basicGetUnitsType();
 		return unitsType != null && ((EObject) unitsType).eIsProxy()
@@ -234,6 +240,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumericRange getRange() {
 		return range;
 	}
@@ -263,6 +270,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRange(NumericRange newRange) {
 		if (newRange != range) {
 			NotificationChain msgs = null;
@@ -299,6 +307,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE:
@@ -314,6 +323,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE:
@@ -339,6 +349,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE:
@@ -359,6 +370,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE:
@@ -379,6 +391,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE:

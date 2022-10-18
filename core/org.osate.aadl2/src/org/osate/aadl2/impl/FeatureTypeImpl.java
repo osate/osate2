@@ -52,6 +52,7 @@ public abstract class FeatureTypeImpl extends AObjectImpl implements FeatureType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureType();
 	}

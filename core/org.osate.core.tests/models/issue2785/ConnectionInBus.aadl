@@ -1,0 +1,63 @@
+package ConnectionInBus
+public
+
+	feature group FG
+		features
+			e: in event port;
+	end FG;
+
+	system S
+	end S;
+
+	system implementation S.i
+		subcomponents
+			p: processor P;
+			b: bus B.i;
+		connections
+			sca: virtual bus access p.a <-> b.a;
+			scp: port p.e -> b.e;
+			scfg: feature group p.fg -> b.fg;
+			scf: feature p.f -> b.f;
+	end S.i;
+
+	processor P
+		features
+			a: requires virtual bus access vb;
+			e: out event port;
+			fg: feature group inverse of FG;
+			f: feature;
+	end P;
+
+	bus B
+		features
+			a: provides virtual bus access vb;
+			e: in event port;
+			fg: feature group FG;
+			f: feature;
+	end B;
+
+	virtual bus VB
+		features
+			a: provides virtual bus access VB;
+			e: in event port;
+			fg: feature group FG;
+			f: feature;
+		modes
+			m1: initial mode;
+			m2: mode;
+			mt1: m1 -[e]-> m2;
+	end VB;
+
+	bus implementation B.i
+		subcomponents
+			vb: virtual bus VB;
+		connections
+			ca1: virtual bus access a <-> vb;
+			ca2: virtual bus access a <-> vb.a;
+			cp: port e -> vb.e;
+			cf1: feature f -> vb.f;
+			cf2: feature fg.e -> vb.e;
+			cfg: feature group fg -> vb.fg;
+	end B.i;
+
+end ConnectionInBus;

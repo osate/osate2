@@ -73,6 +73,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDeviceSubcomponent();
 	}
@@ -82,6 +83,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
 		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
@@ -94,6 +96,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubcomponentType basicGetSubcomponentType() {
 		if (eIsSet(Aadl2Package.DEVICE_SUBCOMPONENT__DEVICE_SUBCOMPONENT_TYPE)) {
 			return basicGetDeviceSubcomponentType();
@@ -106,6 +109,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DeviceSubcomponentType getDeviceSubcomponentType() {
 		if (deviceSubcomponentType != null && ((EObject) deviceSubcomponentType).eIsProxy()) {
 			InternalEObject oldDeviceSubcomponentType = (InternalEObject) deviceSubcomponentType;
@@ -135,6 +139,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDeviceSubcomponentType(DeviceSubcomponentType newDeviceSubcomponentType) {
 		DeviceSubcomponentType oldDeviceSubcomponentType = deviceSubcomponentType;
 		deviceSubcomponentType = newDeviceSubcomponentType;
@@ -150,6 +155,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_SUBCOMPONENT__DEVICE_SUBCOMPONENT_TYPE:
@@ -166,6 +172,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_SUBCOMPONENT__DEVICE_SUBCOMPONENT_TYPE:
@@ -180,6 +187,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_SUBCOMPONENT__DEVICE_SUBCOMPONENT_TYPE:
@@ -194,6 +202,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_SUBCOMPONENT__SUBCOMPONENT_TYPE:
@@ -209,6 +218,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSubcomponentType() {
 		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.DEVICE_SUBCOMPONENT__DEVICE_SUBCOMPONENT_TYPE);
 	}

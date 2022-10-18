@@ -1,0 +1,54 @@
+package Issue1936
+public
+
+	subprogram SP
+	end SP;
+
+	thread T1
+		features
+			rsa: requires subprogram access SP;
+		flows
+			fsrc: flow source rsa;
+	end T1;
+
+	thread implementation T1.i
+	end T1.i;
+
+	thread T2
+		features
+			rsa: requires subprogram access SP;
+		flows
+			fsnk: flow sink rsa;
+	end T2;
+
+	thread implementation T2.i
+	end T2.i;
+
+	process P
+		features
+			rsa: requires subprogram access SP;
+	end P;
+
+	process implementation P.i
+		subcomponents
+			t1: thread T1.i;
+			t2: thread T2.i;
+		connections
+			csa1: subprogram access t1.rsa -> rsa;
+			csa2: subprogram access rsa -> t2.rsa;
+		flows
+			eep: end to end flow t1.fsrc -> csa1 -> rsa -> csa2 -> t2.fsnk;
+	end P.i;
+
+	system S
+	end S;
+
+	system implementation S.i
+		subcomponents
+			sp: subprogram SP;
+			p: process P.i;
+		connections
+			sda: subprogram access sp <-> p.rsa;
+	end S.i;
+
+end Issue1936;

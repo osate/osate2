@@ -1000,6 +1000,7 @@ MemoryImplementation returns aadl2::MemoryImplementation:
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedMemorySubcomponent+=MemorySubcomponent
 	  | ownedBusSubcomponent+=BusSubcomponent
+	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
@@ -1045,6 +1046,11 @@ BusImplementation returns aadl2::BusImplementation:
 			| ownedEventDataSource+= EventDataSource
 		)+
 	)?
+	('connections'
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| (noConnections?='none' ';')))?
 	('modes'
 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	| (noModes?='none' ';')))?
@@ -1076,6 +1082,11 @@ VirtualBusImplementation returns aadl2::VirtualBusImplementation:
 			| ownedEventDataSource+= EventDataSource
 		)+
 	)?
+	('connections'
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| (noConnections?='none' ';')))?
 	('modes'
 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	| (noModes?='none' ';')))?
@@ -1961,7 +1972,7 @@ FlowPathSpec returns aadl2::FlowSpecification:
 ;
 
 FlowEnd returns aadl2::FlowEnd:
-	(context=[aadl2::Context|ID] '.' )? feature=[aadl2::Feature|ID]
+	feature=[aadl2::Feature|ID] ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature|ID])*
 ;
 
 FlowSpecRefinement returns aadl2::FlowSpecification:

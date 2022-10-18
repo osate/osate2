@@ -1,0 +1,33 @@
+package overridden_detection
+public
+	system s
+		features
+			f1: feature;
+			f2: feature;
+		annex EMV2 {**
+			use behavior overridden_detection::machine1;
+			
+			component error behavior
+				detections
+					detection1: state1 -[]-> f1 !;
+			end component;
+		**};
+	end s;
+	
+	system implementation s.i
+		annex EMV2 {**
+			component error behavior
+				detections
+					DETECTION1: state2 -[]-> f2 !;
+			end component;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end overridden_detection;

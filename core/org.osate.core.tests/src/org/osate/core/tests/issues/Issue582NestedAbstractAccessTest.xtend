@@ -57,8 +57,20 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		
 		testFileResult.resource.contents.head as AadlPackage => [
 			publicSection.ownedClassifiers.findFirst[name == "SrcSys.allExplicit"] as SystemImplementation => [
+				ownedFeatureConnections.findFirst[name == "blank_to_provides"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
+				ownedFeatureConnections.findFirst[name == "blank_to_requires"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
+				ownedFeatureConnections.findFirst[name == "provides_to_blank"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'provides_to_blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
 				ownedAccessConnections.findFirst[name == "provides_to_requires"] => [
 					it.assertError(testFileResult.issues, issueCollection, "Source and destination must both be provides or requires for a connection mapping features up or down the containment hierarchy.")
+				]
+				ownedFeatureConnections.findFirst[name == "requires_to_blank"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'requires_to_blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
 				]
 				ownedAccessConnections.findFirst[name == "requires_to_provides"] => [
 					it.assertError(testFileResult.issues, issueCollection, "Source and destination must both be provides or requires for a connection mapping features up or down the containment hierarchy.")
@@ -66,20 +78,56 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 			]
 
 			publicSection.ownedClassifiers.findFirst[name == "Top.allExplicit"] as SystemImplementation => [
+				ownedFeatureConnections.findFirst[name == "blank_to_blank_to_provides"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_to_blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
+				ownedFeatureConnections.findFirst[name == "blank_to_blank_to_requires"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_to_blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
+				ownedFeatureConnections.findFirst[name == "blank_to_provides_to_blank"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
 				ownedAccessConnections.findFirst[name == "blank_to_provides_to_provides"] => [
 					it.assertError(testFileResult.issues, issueCollection, "Source and destination of access connections between sibling components cannot both be 'provides'.")
+				]
+				ownedFeatureConnections.findFirst[name == "blank_to_requires_to_blank"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
 				]
 				ownedAccessConnections.findFirst[name == "blank_to_requires_to_requires"] => [
 					it.assertError(testFileResult.issues, issueCollection, "Source and destination of access connections between sibling components cannot both be 'requires'.")
 				]
+				ownedFeatureConnections.findFirst[name == "provides_to_blank_to_provides"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'provides_to_blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
+				ownedFeatureConnections.findFirst[name == "provides_to_blank_to_requires"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'provides_to_blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
+				ownedFeatureConnections.findFirst[name == "provides_to_provides_to_blank"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
 				ownedAccessConnections.findFirst[name == "provides_to_provides_to_provides"] => [
 					it.assertError(testFileResult.issues, issueCollection, "Source and destination of access connections between sibling components cannot both be 'provides'.")
+				]
+				ownedFeatureConnections.findFirst[name == "provides_to_requires_to_blank"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
 				]
 				ownedAccessConnections.findFirst[name == "provides_to_requires_to_requires"] => [
 					it.assertError(testFileResult.issues, issueCollection, "Source and destination of access connections between sibling components cannot both be 'requires'.")
 				]
+				ownedFeatureConnections.findFirst[name == "requires_to_blank_to_provides"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'requires_to_blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
+				ownedFeatureConnections.findFirst[name == "requires_to_blank_to_requires"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'requires_to_blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
+				ownedFeatureConnections.findFirst[name == "requires_to_provides_to_blank"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
+				]
 				ownedAccessConnections.findFirst[name == "requires_to_provides_to_provides"] => [
 					it.assertError(testFileResult.issues, issueCollection, "Source and destination of access connections between sibling components cannot both be 'provides'.")
+				]
+				ownedFeatureConnections.findFirst[name == "requires_to_requires_to_blank"] => [
+					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'blank_feature' to have classifier 'TestNestedAbstractAccess::D'")
 				]
 				ownedAccessConnections.findFirst[name == "requires_to_requires_to_requires"] => [
 					it.assertError(testFileResult.issues, issueCollection, "Source and destination of access connections between sibling components cannot both be 'requires'.")

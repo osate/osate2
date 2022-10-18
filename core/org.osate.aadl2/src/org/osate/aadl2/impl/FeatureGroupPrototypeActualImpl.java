@@ -87,6 +87,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroupPrototypeActual();
 	}
@@ -96,9 +97,10 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PrototypeBinding> getBindings() {
 		if (bindings == null) {
-			bindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			bindings = new EObjectContainmentEList<>(PrototypeBinding.class, this,
 					Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING);
 		}
 		return bindings;
@@ -120,6 +122,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureType getFeatureType() {
 		if (featureType != null && ((EObject) featureType).eIsProxy()) {
 			InternalEObject oldFeatureType = (InternalEObject) featureType;
@@ -148,6 +151,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFeatureType(FeatureType newFeatureType) {
 		FeatureType oldFeatureType = featureType;
 		featureType = newFeatureType;
@@ -162,6 +166,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
@@ -175,6 +180,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
@@ -194,6 +200,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
@@ -212,6 +219,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
@@ -229,6 +237,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:

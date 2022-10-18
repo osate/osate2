@@ -1,0 +1,52 @@
+package inherited_processor_binding_with_multiple_processors
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			proc1: processor proc;
+			proc2: processor proc;
+			ps: process ps.i;
+		properties
+			Actual_Processor_Binding => (reference (proc1), reference (proc2)) applies to ps;
+	end s.i;
+	
+	processor proc
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				bindings: in propagation {ServiceError};
+				bindings: out propagation {ServiceError};
+			end propagations;
+		**};
+	end proc;
+	
+	process ps
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end ps;
+	
+	process implementation ps.i
+		subcomponents
+			t: thread t;
+	end ps.i;
+	
+	thread t
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				processor: in propagation {ServiceError};
+				processor: out propagation {ServiceError};
+			end propagations;
+		**};
+	end t;
+end inherited_processor_binding_with_multiple_processors;

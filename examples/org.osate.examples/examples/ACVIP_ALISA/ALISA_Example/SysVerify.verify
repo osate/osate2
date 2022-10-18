@@ -1,0 +1,7 @@
+verification plan SysVerify for SysReq 
+[
+	claim R2_Lat[
+		activities
+			a2: SysMethods.LAT()
+	]
+]

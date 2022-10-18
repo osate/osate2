@@ -60,6 +60,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRefinableElement();
 	}
@@ -69,6 +70,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Classifier getRefinementContext() {
 		Classifier refinementContext = basicGetRefinementContext();
 		return refinementContext != null && ((EObject) refinementContext).eIsProxy()
@@ -92,6 +94,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -113,6 +116,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
@@ -134,6 +138,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:

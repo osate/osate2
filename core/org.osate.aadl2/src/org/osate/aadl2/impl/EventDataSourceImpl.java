@@ -70,6 +70,7 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEventDataSource();
 	}
@@ -79,6 +80,7 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataClassifier getDataClassifier() {
 		if (dataClassifier != null && ((EObject) dataClassifier).eIsProxy()) {
 			InternalEObject oldDataClassifier = (InternalEObject) dataClassifier;
@@ -107,6 +109,7 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataClassifier(DataClassifier newDataClassifier) {
 		DataClassifier oldDataClassifier = dataClassifier;
 		dataClassifier = newDataClassifier;
@@ -121,6 +124,7 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER:
@@ -137,6 +141,7 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER:
@@ -151,6 +156,7 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER:
@@ -165,6 +171,7 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER:

@@ -204,6 +204,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.CONNECTION_INSTANCE;
 	}
@@ -213,9 +214,10 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SystemOperationMode> getInSystemOperationModes() {
 		if (inSystemOperationModes == null) {
-			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(SystemOperationMode.class, this,
+			inSystemOperationModes = new EObjectResolvingEList<>(SystemOperationMode.class, this,
 					InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE);
 		}
 		return inSystemOperationModes;
@@ -226,9 +228,10 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeTransitionInstance> getInModeTransitions() {
 		if (inModeTransitions == null) {
-			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+			inModeTransitions = new EObjectResolvingEList<>(ModeTransitionInstance.class, this,
 					InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION);
 		}
 		return inModeTransitions;
@@ -239,6 +242,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isComplete() {
 		return complete;
 	}
@@ -248,6 +252,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComplete(boolean newComplete) {
 		boolean oldComplete = complete;
 		complete = newComplete;
@@ -262,6 +267,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionKind getKind() {
 		return kind;
 	}
@@ -271,6 +277,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(ConnectionKind newKind) {
 		ConnectionKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -285,6 +292,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionInstanceEnd getDestination() {
 		return destination;
 	}
@@ -314,6 +322,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDestination(ConnectionInstanceEnd newDestination) {
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
@@ -342,9 +351,10 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ConnectionReference> getConnectionReferences() {
 		if (connectionReferences == null) {
-			connectionReferences = new EObjectContainmentEList<ConnectionReference>(ConnectionReference.class, this,
+			connectionReferences = new EObjectContainmentEList<>(ConnectionReference.class, this,
 					InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE);
 		}
 		return connectionReferences;
@@ -367,6 +377,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isBidirectional() {
 		return bidirectional;
 	}
@@ -376,6 +387,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBidirectional(boolean newBidirectional) {
 		boolean oldBidirectional = bidirectional;
 		bidirectional = newBidirectional;
@@ -390,6 +402,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionInstanceEnd getSource() {
 		return source;
 	}
@@ -419,6 +432,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSource(ConnectionInstanceEnd newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
@@ -447,6 +461,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__DESTINATION:
@@ -472,6 +487,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__DESTINATION:
@@ -489,6 +505,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
@@ -517,6 +534,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
@@ -555,6 +573,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
@@ -590,6 +609,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
@@ -617,6 +637,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -735,7 +756,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public List<Connection> getInstantiatedObjects() {
-		List<Connection> conns = new LinkedList<Connection>();
+		List<Connection> conns = new LinkedList<>();
 
 		for (ConnectionReference ref : getConnectionReferences()) {
 			conns.add(ref.getConnection());
@@ -810,9 +831,11 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * return list of Feature instances involved in a connection instance
 	 * In case of a fan-in/fan-out it includes both the feature group and the feature
 	 * For an end point in teh connection it may be a component instance
+	 * @deprecated will be removed in 2.12.0
 	 */
+	@Deprecated(since = "2.11.0", forRemoval = true)
 	public List<InstanceObject> getThroughFeatureInstances() {
-		final List<InstanceObject> featureList = new ArrayList<InstanceObject>();
+		final List<InstanceObject> featureList = new ArrayList<>();
 
 		InstanceObject lastDest = null;
 		for (ConnectionReference connRef : getConnectionReferences()) {
@@ -839,7 +862,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @param ctxt component instance
 	 * @param connEndPoint ConnectionEnd
 	 * @param connCtxt Context of th eendpoint
+	 * @deprecated will be removed in 2.12.0
 	 */
+	@Deprecated(since = "2.11.0", forRemoval = true)
 	public ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
 			final Context connCtxt) {
 		ConnectionInstanceEnd instance = null;

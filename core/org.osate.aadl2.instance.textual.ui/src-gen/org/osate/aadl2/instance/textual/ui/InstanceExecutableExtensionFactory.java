@@ -23,12 +23,11 @@
  */
 package org.osate.aadl2.instance.textual.ui;
 
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osgi.framework.Bundle;
-
 import com.google.inject.Injector;
-
-import org.osate.aadl2.instance.textual.ui.internal.InstanceActivator;
+import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
+import org.osate.aadl2.instance.textual.ui.internal.TextualActivator;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 /**
  * This class was generated. Customizations should only happen in a newly
@@ -38,12 +37,13 @@ public class InstanceExecutableExtensionFactory extends AbstractGuiceAwareExecut
 
 	@Override
 	protected Bundle getBundle() {
-		return InstanceActivator.getInstance().getBundle();
+		return FrameworkUtil.getBundle(TextualActivator.class);
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return InstanceActivator.getInstance().getInjector(InstanceActivator.ORG_OSATE_AADL2_INSTANCE_TEXTUAL_INSTANCE);
+		TextualActivator activator = TextualActivator.getInstance();
+		return activator != null ? activator.getInjector(TextualActivator.ORG_OSATE_AADL2_INSTANCE_TEXTUAL_INSTANCE) : null;
 	}
-	
+
 }

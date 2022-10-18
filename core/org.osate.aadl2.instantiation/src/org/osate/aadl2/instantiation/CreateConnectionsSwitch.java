@@ -191,7 +191,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					return DONE;
 				}
 				if (!(ci instanceof SystemInstance)) {
-					if (isFirstArrayElement(ci)) {
+					if (ci.getSubcomponent() != null && isFirstArrayElement(ci)) {
+						// don't process instantiated referenced classifiers
 						// process first component of innermost array only
 						instantiateConnections(ci);
 					}
@@ -204,7 +205,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private boolean isFirstArrayElement(ComponentInstance ci) {
-		while (!(ci instanceof SystemInstance)) {
+		while (ci != null && !(ci instanceof SystemInstance)) {
 			for (Long index : ci.getIndices()) {
 				if (index > 1) {
 					return false;

@@ -1,0 +1,11 @@
+package reference_to_standard_state_machine
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		annex EMV2 {**
+			use behavior ErrorLibrary::FailStop;
+		**};
+	end s.i;
+end reference_to_standard_state_machine;

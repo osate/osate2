@@ -83,6 +83,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getListType();
 	}
@@ -92,6 +93,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getElementType() {
 		PropertyType elementType = basicGetElementType();
 		return elementType != null && ((EObject) elementType).eIsProxy()
@@ -117,6 +119,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getOwnedElementType() {
 		return ownedElementType;
 	}
@@ -146,6 +149,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedElementType(PropertyType newOwnedElementType) {
 		if (newOwnedElementType != ownedElementType) {
 			NotificationChain msgs = null;
@@ -183,6 +187,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getReferencedElementType() {
 		if (referencedElementType != null && ((EObject) referencedElementType).eIsProxy()) {
 			InternalEObject oldReferencedElementType = (InternalEObject) referencedElementType;
@@ -212,6 +217,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferencedElementType(PropertyType newReferencedElementType) {
 		PropertyType oldReferencedElementType = referencedElementType;
 		referencedElementType = newReferencedElementType;
@@ -226,6 +232,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
@@ -239,6 +246,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
@@ -262,6 +270,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
@@ -279,6 +288,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
@@ -296,6 +306,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:

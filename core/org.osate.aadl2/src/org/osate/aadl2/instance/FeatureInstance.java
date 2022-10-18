@@ -47,6 +47,7 @@ import org.osate.aadl2.FeatureGroupType;
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getFeature <em>Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getIndex <em>Index</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getType <em>Type</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getFeatureInstance()
@@ -105,6 +106,32 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	 * @generated
 	 */
 	void setIndex(long value);
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Type</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' reference.
+	 * @see #setType(ComponentInstance)
+	 * @see org.osate.aadl2.instance.InstancePackage#getFeatureInstance_Type()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	ComponentInstance getType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.instance.FeatureInstance#getType <em>Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' reference.
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(ComponentInstance value);
 
 	/**
 	 * Returns the value of the '<em><b>Src Flow Spec</b></em>' reference list.

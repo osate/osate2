@@ -80,6 +80,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNumericRange();
 	}
@@ -89,6 +90,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getUpperBound() {
 		return upperBound;
 	}
@@ -118,6 +120,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUpperBound(PropertyExpression newUpperBound) {
 		if (newUpperBound != upperBound) {
 			NotificationChain msgs = null;
@@ -155,6 +158,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getLowerBound() {
 		return lowerBound;
 	}
@@ -184,6 +188,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLowerBound(PropertyExpression newLowerBound) {
 		if (newLowerBound != lowerBound) {
 			NotificationChain msgs = null;
@@ -221,6 +226,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:
@@ -236,6 +242,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:
@@ -251,6 +258,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:
@@ -268,6 +276,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:
@@ -285,6 +294,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:

@@ -2,7 +2,7 @@
 <feature
       id="org.osate.plugins.feature"
       label="Open Source AADL Tool Environment Analysis Plug-ins"
-      version="6.1.3.qualifier"
+      version="6.1.4.qualifier"
       provider-name="CMU-SEI"
       plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
@@ -18,41 +18,6 @@
    <copyright>
       Copyright (c) 2004-2022 by Carnegie Mellon University. All rights reserved.
    </copyright>
-
-   <requires>
-      <import plugin="org.osate.aadl2"/>
-      <import plugin="org.osate.ui"/>
-      <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.xtext.aadl2" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.contribution.sei"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.osate.aadl2.modelsupport"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.emf.edit"/>
-      <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.emf.common.ui"/>
-      <import plugin="org.osate.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.draw2d" version="3.7.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.zest.layouts" version="1.1.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.resources" version="3.7.100" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2.modelsupport" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.ui" version="2.1.1" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2.instantiation" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.core" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2.edit" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.osate.xtext.aadl2.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.transaction" version="1.4.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.console"/>
-      <import plugin="org.osate.xtext.aadl2.properties.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import feature="org.osate.core.feature" version="2.0.0.qualifier"/>
-   </requires>
 
    <plugin
          id="org.osate.analysis.architecture"

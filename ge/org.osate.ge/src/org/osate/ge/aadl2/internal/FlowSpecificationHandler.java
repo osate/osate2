@@ -23,8 +23,7 @@
  */
 package org.osate.ge.aadl2.internal;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Optional;
 
 import org.eclipse.xtext.util.Strings;
@@ -147,17 +146,18 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 	 * @param flowEnd
 	 * @return
 	 */
-	private static Object[] getBusinessObjectsPathToFlowEnd(final FlowEnd flowEnd) {
+	private static Object[] getBusinessObjectsPathToFlowEnd(FlowEnd flowEnd) {
 		if (flowEnd == null || flowEnd.getFeature() == null) {
 			return null;
 		}
 
-		final List<Object> path = new ArrayList<>(2);
-		if (flowEnd.getContext() != null) {
-			path.add(flowEnd.getContext());
-		}
-
+		final LinkedList<Object> path = new LinkedList<>();
 		path.add(flowEnd.getFeature());
+
+		while (flowEnd.getContext() != null) {
+			path.addFirst(flowEnd.getContext().getFeature());
+			flowEnd = flowEnd.getContext();
+		}
 
 		return path.toArray();
 	}

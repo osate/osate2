@@ -1,0 +1,26 @@
+package typed_event_with_types
+public
+	system s
+		annex EMV2 {**
+			use behavior typed_event_with_types::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			events
+				error1: error event {CommonErrors};
+			states
+				state1: initial state;
+				state2: state;
+			transitions
+				transition1: state1 -[error1 {ServiceError}]-> state2;
+				transition2: state1
+					-[error1 {ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}]-> state2;
+		end behavior;
+	**};
+end typed_event_with_types;
