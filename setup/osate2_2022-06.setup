@@ -582,7 +582,7 @@
     <requirement
         name="de.libutzki.xtext.semanticmodeloutline.feature.feature.group"/>
     <repository
-        url="https://xtexttools.libutzki.de/"/>
+        url="https://osate-build.sei.cmu.edu/p2/xtexttools"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
