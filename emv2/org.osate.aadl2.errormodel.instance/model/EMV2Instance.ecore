@@ -257,8 +257,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CountExpressionOperation">
     <eLiterals name="equals"/>
-    <eLiterals name="less_equal"/>
-    <eLiterals name="greater_equal"/>
+    <eLiterals name="less_equal" value="1"/>
+    <eLiterals name="greater_equal" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TransitionDestination" abstract="true"
       interface="true" eSuperTypes="#//EMV2InstanceObject"/>

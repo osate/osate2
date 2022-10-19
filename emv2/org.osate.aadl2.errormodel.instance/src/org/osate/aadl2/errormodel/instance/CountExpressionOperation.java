@@ -57,7 +57,7 @@ public enum CountExpressionOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LESS_EQUAL(0, "less_equal", "less_equal"),
+	LESS_EQUAL(1, "less_equal", "less_equal"),
 
 	/**
 	 * The '<em><b>Greater equal</b></em>' literal object.
@@ -67,7 +67,7 @@ public enum CountExpressionOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	GREATER_EQUAL(0, "greater_equal", "greater_equal");
+	GREATER_EQUAL(2, "greater_equal", "greater_equal");
 
 	/**
 	 * The '<em><b>Equals</b></em>' literal value.
@@ -89,7 +89,7 @@ public enum CountExpressionOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LESS_EQUAL_VALUE = 0;
+	public static final int LESS_EQUAL_VALUE = 1;
 
 	/**
 	 * The '<em><b>Greater equal</b></em>' literal value.
@@ -100,7 +100,7 @@ public enum CountExpressionOperation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int GREATER_EQUAL_VALUE = 0;
+	public static final int GREATER_EQUAL_VALUE = 2;
 
 	/**
 	 * An array of all the '<em><b>Count Expression Operation</b></em>' enumerators.
@@ -168,6 +168,10 @@ public enum CountExpressionOperation implements Enumerator {
 		switch (value) {
 		case EQUALS_VALUE:
 			return EQUALS;
+		case LESS_EQUAL_VALUE:
+			return LESS_EQUAL;
+		case GREATER_EQUAL_VALUE:
+			return GREATER_EQUAL;
 		}
 		return null;
 	}
