@@ -4,8 +4,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="EMV2AnnexInstance" eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//AnnexInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPoints" upperBound="-1"
         eType="#//PropagationPointInstance" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="#//StateMachineInstance"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="composites" upperBound="-1"
         eType="#//CompositeStateInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagations" upperBound="-1"
@@ -30,12 +28,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
       eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
-  <eClassifiers xsi:type="ecore:EClass" name="StateMachineInstance" eSuperTypes="#//EMV2InstanceObject">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
-        eType="#//StateInstance" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="currentState" eType="#//StateInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorBehaviorStateMachine"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstrainedInstanceObject" eSuperTypes="#//ConstraintElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="instanceObject" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" upperBound="-1"

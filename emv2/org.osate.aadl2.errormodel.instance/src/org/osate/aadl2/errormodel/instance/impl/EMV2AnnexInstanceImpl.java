@@ -45,7 +45,6 @@ import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
-import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
 
@@ -58,7 +57,6 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPoints <em>Propagation Points</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getStateMachine <em>State Machine</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getErrorFlows <em>Error Flows</em>}</li>
@@ -84,16 +82,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<PropagationPointInstance> propagationPoints;
-
-	/**
-	 * The cached value of the '{@link #getStateMachine() <em>State Machine</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStateMachine()
-	 * @generated
-	 * @ordered
-	 */
-	protected StateMachineInstance stateMachine;
 
 	/**
 	 * The cached value of the '{@link #getComposites() <em>Composites</em>}' containment reference list.
@@ -287,63 +275,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @generated
 	 */
 	@Override
-	public StateMachineInstance getStateMachine() {
-		return stateMachine;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetStateMachine(StateMachineInstance newStateMachine, NotificationChain msgs) {
-		StateMachineInstance oldStateMachine = stateMachine;
-		stateMachine = newStateMachine;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, oldStateMachine, newStateMachine);
-			if (msgs == null) {
-				msgs = notification;
-			} else {
-				msgs.add(notification);
-			}
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setStateMachine(StateMachineInstance newStateMachine) {
-		if (newStateMachine != stateMachine) {
-			NotificationChain msgs = null;
-			if (stateMachine != null) {
-				msgs = ((InternalEObject) stateMachine).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, null, msgs);
-			}
-			if (newStateMachine != null) {
-				msgs = ((InternalEObject) newStateMachine).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, null, msgs);
-			}
-			msgs = basicSetStateMachine(newStateMachine, msgs);
-			if (msgs != null) {
-				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, newStateMachine, newStateMachine));
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EList<DetectionInstance> getDetections() {
 		if (detections == null) {
 			detections = new EObjectContainmentEList<>(DetectionInstance.class, this,
@@ -490,8 +421,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		switch (featureID) {
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			return ((InternalEList<?>) getPropagationPoints()).basicRemove(otherEnd, msgs);
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-			return basicSetStateMachine(null, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			return ((InternalEList<?>) getComposites()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
@@ -526,8 +455,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		switch (featureID) {
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			return getPropagationPoints();
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-			return getStateMachine();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			return getComposites();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
@@ -569,9 +496,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			getPropagationPoints().clear();
 			getPropagationPoints().addAll((Collection<? extends PropagationPointInstance>) newValue);
-			return;
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-			setStateMachine((StateMachineInstance) newValue);
 			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			getComposites().clear();
@@ -631,9 +555,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			getPropagationPoints().clear();
 			return;
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-			setStateMachine((StateMachineInstance) null);
-			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			getComposites().clear();
 			return;
@@ -681,8 +602,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		switch (featureID) {
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			return propagationPoints != null && !propagationPoints.isEmpty();
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
-			return stateMachine != null;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
 			return composites != null && !composites.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
