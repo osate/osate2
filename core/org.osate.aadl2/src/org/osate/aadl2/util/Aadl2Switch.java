@@ -1692,6 +1692,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseContext(subprogramAccess);
 			}
 			if (result == null) {
+				result = caseFlowElement(subprogramAccess);
+			}
+			if (result == null) {
 				result = caseCalledSubprogram(subprogramAccess);
 			}
 			if (result == null) {
@@ -1699,6 +1702,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseAccessConnectionEnd(subprogramAccess);
+			}
+			if (result == null) {
+				result = caseEndToEndFlowElement(subprogramAccess);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(subprogramAccess);
