@@ -41,55 +41,55 @@ import org.osate.expr.expr.VarDecl;
 @SuppressWarnings("all")
 public class ExprInterpreter extends XsemanticsRuntimeSystem {
   public static final String COMBINENUMERIC = "org.osate.expr.evaluation.CombineNumeric";
-  
+
   public static final String CHOOSEROOT = "org.osate.expr.evaluation.ChooseRoot";
-  
+
   public static final String ERRORPOSITION = "org.osate.expr.evaluation.ErrorPosition";
-  
+
   public static final String INTERPRETBINARYEXPRESSION = "org.osate.expr.evaluation.InterpretBinaryExpression";
-  
+
   public static final String INTERPRETUNARYEXPRESSION = "org.osate.expr.evaluation.InterpretUnaryExpression";
-  
+
   public static final String INTERPRETVARDECL = "org.osate.expr.evaluation.InterpretVarDecl";
-  
+
   public static final String INTERPETITE = "org.osate.expr.evaluation.InterpetITE";
-  
+
   public static final String INTERPRETLITERAL = "org.osate.expr.evaluation.InterpretLiteral";
-  
+
   public static final String NOTIMPLEMENTED = "org.osate.expr.evaluation.NotImplemented";
-  
+
   public static final String EQUALBOOLEAN = "org.osate.expr.evaluation.EqualBoolean";
-  
+
   public static final String EQUALSTRING = "org.osate.expr.evaluation.EqualString";
-  
+
   public static final String EQUALNUMBER = "org.osate.expr.evaluation.EqualNumber";
-  
+
   public static final String EQUALRECORD = "org.osate.expr.evaluation.EqualRecord";
-  
+
   public static final String COMPARENUMBERS = "org.osate.expr.evaluation.CompareNumbers";
-  
+
   public static final String COMPARETONUMBER = "org.osate.expr.evaluation.CompareToNumber";
-  
+
   private PolymorphicDispatcher<ENumberType> combineNumericDispatcher;
-  
+
   private PolymorphicDispatcher<InstanceObject> chooseRootDispatcher;
-  
+
   private PolymorphicDispatcher<String> errorPositionDispatcher;
-  
+
   private PolymorphicDispatcher<Result<Value>> interpretExpressionDispatcher;
-  
+
   private PolymorphicDispatcher<Result<Value>> interpretVariableDispatcher;
-  
+
   private PolymorphicDispatcher<Result<Boolean>> equalDispatcher;
-  
+
   private PolymorphicDispatcher<Result<Boolean>> compareDispatcher;
-  
+
   private PolymorphicDispatcher<Result<Integer>> cmpNumDispatcher;
-  
+
   public ExprInterpreter() {
     init();
   }
-  
+
   public void init() {
     interpretExpressionDispatcher = buildPolymorphicDispatcher1(
     	"interpretExpressionImpl", 3, "|-", "~>");
@@ -108,11 +108,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     errorPositionDispatcher = buildPolymorphicDispatcher(
     	"errorPositionImpl", 2);
   }
-  
+
   public ENumberType combineNumeric(final ENumberType left, final ENumberType right) throws RuleFailedException {
     return combineNumeric(null, left, right);
   }
-  
+
   public ENumberType combineNumeric(final RuleApplicationTrace _trace_, final ENumberType left, final ENumberType right) throws RuleFailedException {
     try {
     	return combineNumericInternal(_trace_, left, right);
@@ -120,11 +120,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	throw extractRuleFailedException(_e_combineNumeric);
     }
   }
-  
+
   public InstanceObject chooseRoot(final EObject io, final RuleEnvironment G) throws RuleFailedException {
     return chooseRoot(null, io, G);
   }
-  
+
   public InstanceObject chooseRoot(final RuleApplicationTrace _trace_, final EObject io, final RuleEnvironment G) throws RuleFailedException {
     try {
     	return chooseRootInternal(_trace_, io, G);
@@ -132,11 +132,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	throw extractRuleFailedException(_e_chooseRoot);
     }
   }
-  
+
   public String errorPosition(final EObject o) throws RuleFailedException {
     return errorPosition(null, o);
   }
-  
+
   public String errorPosition(final RuleApplicationTrace _trace_, final EObject o) throws RuleFailedException {
     try {
     	return errorPositionInternal(_trace_, o);
@@ -144,15 +144,15 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	throw extractRuleFailedException(_e_errorPosition);
     }
   }
-  
+
   public Result<Value> interpretExpression(final Expression expression) {
     return interpretExpression(new RuleEnvironment(), null, expression);
   }
-  
+
   public Result<Value> interpretExpression(final RuleEnvironment _environment_, final Expression expression) {
     return interpretExpression(_environment_, null, expression);
   }
-  
+
   public Result<Value> interpretExpression(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Expression expression) {
     try {
     	return interpretExpressionInternal(_environment_, _trace_, expression);
@@ -160,15 +160,15 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_interpretExpression);
     }
   }
-  
+
   public Result<Value> interpretVariable(final VarDecl decl) {
     return interpretVariable(new RuleEnvironment(), null, decl);
   }
-  
+
   public Result<Value> interpretVariable(final RuleEnvironment _environment_, final VarDecl decl) {
     return interpretVariable(_environment_, null, decl);
   }
-  
+
   public Result<Value> interpretVariable(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VarDecl decl) {
     try {
     	return interpretVariableInternal(_environment_, _trace_, decl);
@@ -176,15 +176,15 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_interpretVariable);
     }
   }
-  
+
   public Result<Boolean> equal(final Value left, final Value right) {
     return equal(new RuleEnvironment(), null, left, right);
   }
-  
+
   public Result<Boolean> equal(final RuleEnvironment _environment_, final Value left, final Value right) {
     return equal(_environment_, null, left, right);
   }
-  
+
   public Result<Boolean> equal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Value left, final Value right) {
     try {
     	return equalInternal(_environment_, _trace_, left, right);
@@ -192,15 +192,15 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_equal);
     }
   }
-  
+
   public Boolean equalSucceeded(final Value left, final Value right) {
     return equalSucceeded(new RuleEnvironment(), null, left, right);
   }
-  
+
   public Boolean equalSucceeded(final RuleEnvironment _environment_, final Value left, final Value right) {
     return equalSucceeded(_environment_, null, left, right);
   }
-  
+
   public Boolean equalSucceeded(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Value left, final Value right) {
     try {
     	equalInternal(_environment_, _trace_, left, right);
@@ -209,15 +209,15 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return false;
     }
   }
-  
+
   public Result<Boolean> compare(final Value left, final Value right) {
     return compare(new RuleEnvironment(), null, left, right);
   }
-  
+
   public Result<Boolean> compare(final RuleEnvironment _environment_, final Value left, final Value right) {
     return compare(_environment_, null, left, right);
   }
-  
+
   public Result<Boolean> compare(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Value left, final Value right) {
     try {
     	return compareInternal(_environment_, _trace_, left, right);
@@ -225,15 +225,15 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_compare);
     }
   }
-  
+
   public Boolean compareSucceeded(final Value left, final Value right) {
     return compareSucceeded(new RuleEnvironment(), null, left, right);
   }
-  
+
   public Boolean compareSucceeded(final RuleEnvironment _environment_, final Value left, final Value right) {
     return compareSucceeded(_environment_, null, left, right);
   }
-  
+
   public Boolean compareSucceeded(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Value left, final Value right) {
     try {
     	compareInternal(_environment_, _trace_, left, right);
@@ -242,15 +242,15 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return false;
     }
   }
-  
+
   public Result<Integer> cmpNum(final Value left, final Value right) {
     return cmpNum(new RuleEnvironment(), null, left, right);
   }
-  
+
   public Result<Integer> cmpNum(final RuleEnvironment _environment_, final Value left, final Value right) {
     return cmpNum(_environment_, null, left, right);
   }
-  
+
   public Result<Integer> cmpNum(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Value left, final Value right) {
     try {
     	return cmpNumInternal(_environment_, _trace_, left, right);
@@ -258,7 +258,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_cmpNum);
     }
   }
-  
+
   protected ENumberType combineNumericInternal(final RuleApplicationTrace _trace_, final ENumberType left, final ENumberType right) {
     try {
     	checkParamsNotNull(left, right);
@@ -268,11 +268,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void combineNumericThrowException(final String _error, final String _issue, final Exception _ex, final ENumberType left, final ENumberType right, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected InstanceObject chooseRootInternal(final RuleApplicationTrace _trace_, final EObject io, final RuleEnvironment G) {
     try {
     	checkParamsNotNull(io, G);
@@ -282,11 +282,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void chooseRootThrowException(final String _error, final String _issue, final Exception _ex, final EObject io, final RuleEnvironment G, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected String errorPositionInternal(final RuleApplicationTrace _trace_, final EObject o) {
     try {
     	checkParamsNotNull(o);
@@ -296,11 +296,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void errorPositionThrowException(final String _error, final String _issue, final Exception _ex, final EObject o, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected Result<Value> interpretExpressionInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Expression expression) {
     try {
     	checkParamsNotNull(expression);
@@ -310,11 +310,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void interpretExpressionThrowException(final String _error, final String _issue, final Exception _ex, final Expression expression, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected Result<Value> interpretVariableInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VarDecl decl) {
     try {
     	checkParamsNotNull(decl);
@@ -324,11 +324,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void interpretVariableThrowException(final String _error, final String _issue, final Exception _ex, final VarDecl decl, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected Result<Boolean> equalInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Value left, final Value right) {
     try {
     	checkParamsNotNull(left, right);
@@ -338,11 +338,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void equalThrowException(final String _error, final String _issue, final Exception _ex, final Value left, final Value right, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected Result<Boolean> compareInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Value left, final Value right) {
     try {
     	checkParamsNotNull(left, right);
@@ -352,11 +352,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void compareThrowException(final String _error, final String _issue, final Exception _ex, final Value left, final Value right, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected Result<Integer> cmpNumInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Value left, final Value right) {
     try {
     	checkParamsNotNull(left, right);
@@ -366,11 +366,11 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void cmpNumThrowException(final String _error, final String _issue, final Exception _ex, final Value left, final Value right, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected ENumberType combineNumericImpl(final RuleApplicationTrace _trace_, final ENumberType left, final ENumberType right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -389,7 +389,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected ENumberType applyAuxFunCombineNumeric(final RuleApplicationTrace _trace_, final ENumberType left, final ENumberType right) throws RuleFailedException {
     ENumberType _xblockexpression = null;
     {
@@ -404,7 +404,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected InstanceObject chooseRootImpl(final RuleApplicationTrace _trace_, final EObject obj, final RuleEnvironment G) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -423,7 +423,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected InstanceObject applyAuxFunChooseRoot(final RuleApplicationTrace _trace_, final EObject obj, final RuleEnvironment G) throws RuleFailedException {
     InstanceObject _xblockexpression = null;
     {
@@ -439,7 +439,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected String errorPositionImpl(final RuleApplicationTrace _trace_, final EObject o) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -458,7 +458,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected String applyAuxFunErrorPosition(final RuleApplicationTrace _trace_, final EObject o) throws RuleFailedException {
     String _xblockexpression = null;
     {
@@ -468,7 +468,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected Result<Value> interpretExpressionImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final BinaryOperation binary) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -487,7 +487,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Value> applyRuleInterpretBinaryExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final BinaryOperation binary) throws RuleFailedException {
     Value result = null; // output parameter
     /* G |- binary.left ~> var Value leftVal */
@@ -668,7 +668,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     result = _switchResult;
     return new Result<Value>(result);
   }
-  
+
   protected Result<Value> interpretExpressionImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnaryOperation unary) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -687,7 +687,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Value> applyRuleInterpretUnaryExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnaryOperation unary) throws RuleFailedException {
     Value result = null; // output parameter
     /* G |- unary.operand ~> result */
@@ -732,7 +732,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return new Result<Value>(result);
   }
-  
+
   protected Result<Value> interpretVariableImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final VarDecl varDecl) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -751,7 +751,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Value> applyRuleInterpretVarDecl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final VarDecl varDecl) throws RuleFailedException {
     Literal propVal = null; // output parameter
     Object _env = this.<Object>env(G, "vals", Object.class);
@@ -770,7 +770,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return new Result<Value>(propVal);
   }
-  
+
   protected Result<Value> interpretExpressionImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Conditional ite) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -789,7 +789,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Value> applyRuleInterpetITE(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Conditional ite) throws RuleFailedException {
     Literal propVal = null; // output parameter
     /* G |- ite.^if ~> var EBooleanLiteral cond */
@@ -817,7 +817,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return new Result<Value>(propVal);
   }
-  
+
   protected Result<Value> interpretExpressionImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Literal l) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -836,16 +836,16 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Value> applyRuleInterpretLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Literal l) throws RuleFailedException {
     
     return new Result<Value>(_applyRuleInterpretLiteral_1(G, l));
   }
-  
+
   private Literal _applyRuleInterpretLiteral_1(final RuleEnvironment G, final Literal l) throws RuleFailedException {
     return l;
   }
-  
+
   protected Result<Value> interpretExpressionImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Expression e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -864,7 +864,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Value> applyRuleNotImplemented(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Expression e) throws RuleFailedException {
     Literal l = null; // output parameter
     /* fail error 'not implemented' source e */
@@ -873,7 +873,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     throwForExplicitFail(error, new ErrorInformation(source, null));
     return new Result<Value>(l);
   }
-  
+
   protected Result<Boolean> equalImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBooleanLiteral left, final EBooleanLiteral right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -892,7 +892,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRuleEqualBoolean(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBooleanLiteral left, final EBooleanLiteral right) throws RuleFailedException {
     boolean _isValue = left.isValue();
     boolean _isValue_1 = right.isValue();
@@ -902,7 +902,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> equalImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EStringLiteral left, final EStringLiteral right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -921,7 +921,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRuleEqualString(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EStringLiteral left, final EStringLiteral right) throws RuleFailedException {
     /* left.value.equals(right.value) */
     if (!left.getValue().equals(right.getValue())) {
@@ -929,7 +929,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> equalImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NumberLiteral left, final NumberLiteral right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -948,7 +948,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRuleEqualNumber(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NumberLiteral left, final NumberLiteral right) throws RuleFailedException {
     int _compareTo = ExprInterpreterUtil.compareTo(left, right);
     /* left.compareTo(right) == 0 */
@@ -957,7 +957,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> equalImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final RecordLiteral left, final RecordLiteral right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -976,7 +976,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRuleEqualRecord(final RuleEnvironment G, final RuleApplicationTrace _trace_, final RecordLiteral left, final RecordLiteral right) throws RuleFailedException {
     final Function1<FieldValue, Literal> _function = (FieldValue it) -> {
       Literal _xblockexpression = null;
@@ -1025,7 +1025,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> compareImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NumberLiteral left, final NumberLiteral right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1044,7 +1044,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRuleCompareNumbers(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NumberLiteral left, final NumberLiteral right) throws RuleFailedException {
     /* G |> left : right ~> var Integer cmp */
     Integer cmp = null;
@@ -1082,7 +1082,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     }
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Integer> cmpNumImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NumberLiteral left, final NumberLiteral right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1101,7 +1101,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Integer> applyRuleCompareToNumber(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NumberLiteral left, final NumberLiteral right) throws RuleFailedException {
     Integer cmp = null; // output parameter
     cmp = Integer.valueOf(ExprInterpreterUtil.compareTo(left, right));

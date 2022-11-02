@@ -76,117 +76,117 @@ import org.osate.expr.expr.VarDecl;
 @SuppressWarnings("all")
 public class ExprTypeSystem extends XsemanticsRuntimeSystem {
   public static final String COMBINENUMERIC = "org.osate.expr.CombineNumeric";
-  
+
   public static final String VARDECL = "org.osate.expr.VarDecl";
-  
+
   public static final String FUNDECL = "org.osate.expr.FunDecl";
-  
+
   public static final String TYPE = "org.osate.expr.Type";
-  
+
   public static final String EXPRESSION = "org.osate.expr.Expression";
-  
+
   public static final String BLOCKEXPRESSION = "org.osate.expr.BlockExpression";
-  
+
   public static final String ARGUMENT = "org.osate.expr.Argument";
-  
+
   public static final String BINARYEXPRESSION = "org.osate.expr.BinaryExpression";
-  
+
   public static final String SELECTEXPRESSION = "org.osate.expr.SelectExpression";
-  
+
   public static final String UNARYEXPRESSION = "org.osate.expr.UnaryExpression";
-  
+
   public static final String IFEXPRESSION = "org.osate.expr.IfExpression";
-  
+
   public static final String PROPERTYEXPRESSION = "org.osate.expr.PropertyExpression";
-  
+
   public static final String NAMEDELEMENTREF = "org.osate.expr.NamedElementRef";
-  
+
   public static final String EOBJECT = "org.osate.expr.EObject";
-  
+
   public static final String CLASSIFIER = "org.osate.expr.Classifier";
-  
+
   public static final String SUBCOMPONENT = "org.osate.expr.Subcomponent";
-  
+
   public static final String FEATURE = "org.osate.expr.Feature";
-  
+
   public static final String CONNECTION = "org.osate.expr.Connection";
-  
+
   public static final String FLOW = "org.osate.expr.Flow";
-  
+
   public static final String MODE = "org.osate.expr.Mode";
-  
+
   public static final String PROPERTY = "org.osate.expr.Property";
-  
+
   public static final String AADLBOOLEAN = "org.osate.expr.AadlBoolean";
-  
+
   public static final String AADLINTEGER = "org.osate.expr.AadlInteger";
-  
+
   public static final String AADLREAL = "org.osate.expr.AadlReal";
-  
+
   public static final String AADLSTRING = "org.osate.expr.AadlString";
-  
+
   public static final String AADLLISTTYPE = "org.osate.expr.AadlListType";
-  
+
   public static final String AADLRECORDTYPE = "org.osate.expr.AadlRecordType";
-  
+
   public static final String AADLENUMERATIONTYPE = "org.osate.expr.AadlEnumerationType";
-  
+
   public static final String EBOOLEANLITERAL = "org.osate.expr.EBooleanLiteral";
-  
+
   public static final String EINTEGERLITERAL = "org.osate.expr.EIntegerLiteral";
-  
+
   public static final String EREALLITERAL = "org.osate.expr.ERealLiteral";
-  
+
   public static final String ESTRINGLITERAL = "org.osate.expr.EStringLiteral";
-  
+
   public static final String LISTLITERAL = "org.osate.expr.ListLiteral";
-  
+
   public static final String SETLITERAL = "org.osate.expr.SetLiteral";
-  
+
   public static final String RECORDLITERAL = "org.osate.expr.RecordLiteral";
-  
+
   public static final String UNIONLITERAL = "org.osate.expr.UnionLiteral";
-  
+
   public static final String TUPLELITERAL = "org.osate.expr.TupleLiteral";
-  
+
   public static final String BAGLITERAL = "org.osate.expr.BagLiteral";
-  
+
   public static final String MAPLITERAL = "org.osate.expr.MapLiteral";
-  
+
   public static final String ENUMLITERAL = "org.osate.expr.EnumLiteral";
-  
+
   public static final String FIELD = "org.osate.expr.Field";
-  
+
   public static final String FIELDVALUE = "org.osate.expr.FieldValue";
-  
+
   public static final String SAMEEBOOLEAN = "org.osate.expr.SameEBoolean";
-  
+
   public static final String SAMEENUMBER = "org.osate.expr.SameENumber";
-  
+
   public static final String SAMEESTRING = "org.osate.expr.SameEString";
-  
+
   public static final String SAMELIST = "org.osate.expr.SameList";
-  
+
   public static final String PRIMITIVESTRING = "org.osate.expr.PrimitiveString";
-  
+
   public static final String PRIMITIVEBOOLEAN = "org.osate.expr.PrimitiveBoolean";
-  
+
   public static final String PRIMITIVEINTEGER = "org.osate.expr.PrimitiveInteger";
-  
+
   public static final String PRIMITIVEREAL = "org.osate.expr.PrimitiveReal";
-  
+
   private PolymorphicDispatcher<ENumberType> combineNumericDispatcher;
-  
+
   private PolymorphicDispatcher<Result<Type>> typeDispatcher;
-  
+
   private PolymorphicDispatcher<Result<Boolean>> compatibleDispatcher;
-  
+
   private PolymorphicDispatcher<Result<Boolean>> sameTypeDispatcher;
-  
+
   public ExprTypeSystem() {
     init();
   }
-  
+
   public void init() {
     typeDispatcher = buildPolymorphicDispatcher1(
     	"typeImpl", 3, "|-", ":");
@@ -197,11 +197,11 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     combineNumericDispatcher = buildPolymorphicDispatcher(
     	"combineNumericImpl", 3);
   }
-  
+
   public ENumberType combineNumeric(final ENumberType left, final ENumberType right) throws RuleFailedException {
     return combineNumeric(null, left, right);
   }
-  
+
   public ENumberType combineNumeric(final RuleApplicationTrace _trace_, final ENumberType left, final ENumberType right) throws RuleFailedException {
     try {
     	return combineNumericInternal(_trace_, left, right);
@@ -209,15 +209,15 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	throw extractRuleFailedException(_e_combineNumeric);
     }
   }
-  
+
   public Result<Type> type(final EObject o) {
     return type(new RuleEnvironment(), null, o);
   }
-  
+
   public Result<Type> type(final RuleEnvironment _environment_, final EObject o) {
     return type(_environment_, null, o);
   }
-  
+
   public Result<Type> type(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final EObject o) {
     try {
     	return typeInternal(_environment_, _trace_, o);
@@ -225,15 +225,15 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_type);
     }
   }
-  
+
   public Result<Boolean> compatible(final Type left, final Type right) {
     return compatible(new RuleEnvironment(), null, left, right);
   }
-  
+
   public Result<Boolean> compatible(final RuleEnvironment _environment_, final Type left, final Type right) {
     return compatible(_environment_, null, left, right);
   }
-  
+
   public Result<Boolean> compatible(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Type left, final Type right) {
     try {
     	return compatibleInternal(_environment_, _trace_, left, right);
@@ -241,15 +241,15 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_compatible);
     }
   }
-  
+
   public Boolean compatibleSucceeded(final Type left, final Type right) {
     return compatibleSucceeded(new RuleEnvironment(), null, left, right);
   }
-  
+
   public Boolean compatibleSucceeded(final RuleEnvironment _environment_, final Type left, final Type right) {
     return compatibleSucceeded(_environment_, null, left, right);
   }
-  
+
   public Boolean compatibleSucceeded(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Type left, final Type right) {
     try {
     	compatibleInternal(_environment_, _trace_, left, right);
@@ -258,15 +258,15 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return false;
     }
   }
-  
+
   public Result<Boolean> sameType(final Type left, final Type right) {
     return sameType(new RuleEnvironment(), null, left, right);
   }
-  
+
   public Result<Boolean> sameType(final RuleEnvironment _environment_, final Type left, final Type right) {
     return sameType(_environment_, null, left, right);
   }
-  
+
   public Result<Boolean> sameType(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Type left, final Type right) {
     try {
     	return sameTypeInternal(_environment_, _trace_, left, right);
@@ -274,15 +274,15 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_sameType);
     }
   }
-  
+
   public Boolean sameTypeSucceeded(final Type left, final Type right) {
     return sameTypeSucceeded(new RuleEnvironment(), null, left, right);
   }
-  
+
   public Boolean sameTypeSucceeded(final RuleEnvironment _environment_, final Type left, final Type right) {
     return sameTypeSucceeded(_environment_, null, left, right);
   }
-  
+
   public Boolean sameTypeSucceeded(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Type left, final Type right) {
     try {
     	sameTypeInternal(_environment_, _trace_, left, right);
@@ -291,11 +291,11 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return false;
     }
   }
-  
+
   public Result<Boolean> checkVarDecls(final VarDecl varDecl) {
     return checkVarDecls(null, varDecl);
   }
-  
+
   public Result<Boolean> checkVarDecls(final RuleApplicationTrace _trace_, final VarDecl varDecl) {
     try {
     	return checkVarDeclsInternal(_trace_, varDecl);
@@ -303,7 +303,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_CheckVarDecls);
     }
   }
-  
+
   protected Result<Boolean> checkVarDeclsInternal(final RuleApplicationTrace _trace_, final VarDecl varDecl) throws RuleFailedException {
     String _stringRep = this.stringRep(varDecl);
     String _plus = ("typing " + _stringRep);
@@ -352,11 +352,11 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     InputOutput.println();
     return new Result<Boolean>(true);
   }
-  
+
   public Result<Boolean> checkExpressions(final Expression exp) {
     return checkExpressions(null, exp);
   }
-  
+
   public Result<Boolean> checkExpressions(final RuleApplicationTrace _trace_, final Expression exp) {
     try {
     	return checkExpressionsInternal(_trace_, exp);
@@ -364,7 +364,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return resultForFailure(_e_CheckExpressions);
     }
   }
-  
+
   protected Result<Boolean> checkExpressionsInternal(final RuleApplicationTrace _trace_, final Expression exp) throws RuleFailedException {
     /* empty |- exp : var Type type */
     Type type = null;
@@ -374,7 +374,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     
     return new Result<Boolean>(true);
   }
-  
+
   protected ENumberType combineNumericInternal(final RuleApplicationTrace _trace_, final ENumberType left, final ENumberType right) {
     try {
     	checkParamsNotNull(left, right);
@@ -384,11 +384,11 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void combineNumericThrowException(final String _error, final String _issue, final Exception _ex, final ENumberType left, final ENumberType right, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected Result<Type> typeInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final EObject o) {
     try {
     	checkParamsNotNull(o);
@@ -398,7 +398,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void typeThrowException(final String _error, final String _issue, final Exception _ex, final EObject o, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     String _stringRep = this.stringRep(o);
     String _plus = ("cannot type " + _stringRep);
@@ -407,7 +407,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     throwRuleFailedException(error,
     	_issue, _ex, new ErrorInformation(source, null));
   }
-  
+
   protected Result<Boolean> compatibleInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Type left, final Type right) {
     try {
     	checkParamsNotNull(left, right);
@@ -417,11 +417,11 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void compatibleThrowException(final String _error, final String _issue, final Exception _ex, final Type left, final Type right, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected Result<Boolean> sameTypeInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final Type left, final Type right) {
     try {
     	checkParamsNotNull(left, right);
@@ -431,11 +431,11 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected void sameTypeThrowException(final String _error, final String _issue, final Exception _ex, final Type left, final Type right, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
-  
+
   protected ENumberType combineNumericImpl(final RuleApplicationTrace _trace_, final ENumberType left, final ENumberType right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -454,7 +454,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected ENumberType applyAuxFunCombineNumeric(final RuleApplicationTrace _trace_, final ENumberType left, final ENumberType right) throws RuleFailedException {
     ENumberType _xblockexpression = null;
     {
@@ -469,7 +469,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final VarDecl varDecl) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -488,7 +488,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleVarDecl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final VarDecl varDecl) throws RuleFailedException {
     Type type = null; // output parameter
     final Type declared = varDecl.getDeclType();
@@ -521,7 +521,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final FunDecl fun) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -540,7 +540,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleFunDecl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final FunDecl fun) throws RuleFailedException {
     Type type = null; // output parameter
     /* { fun.java type = fun.resultType } or { type = fun.resultType } */
@@ -560,7 +560,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Type t) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -579,16 +579,16 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleType(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Type t) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleType_1(G, t));
   }
-  
+
   private Type _applyRuleType_1(final RuleEnvironment G, final Type t) throws RuleFailedException {
     return t;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Expression e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -605,14 +605,14 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Expression e) throws RuleFailedException {
     Type type = null; // output parameter
     /* fail */
     throwForExplicitFail();
     return new Result<Type>(type);
   }
-  
+
   private void expressionThrowException(final Exception e_applyRuleExpression, final Expression e) throws RuleFailedException {
     String _stringRep = this.stringRep(e);
     String _plus = ("typing: unhandled case " + _stringRep);
@@ -621,7 +621,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     throwRuleFailedException(error,
     	EXPRESSION, e_applyRuleExpression, new ErrorInformation(source, null));
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Block block) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -640,7 +640,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleBlockExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Block block) throws RuleFailedException {
     Type type = null; // output parameter
     /* G |- block.result : type */
@@ -651,7 +651,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Argument a) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -670,7 +670,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleArgument(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Argument a) throws RuleFailedException {
     Type type = null; // output parameter
     /* G |- a.type : type */
@@ -681,7 +681,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final BinaryOperation binary) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -700,7 +700,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleBinaryExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final BinaryOperation binary) throws RuleFailedException {
     Type type = null; // output parameter
     /* G |- binary.left : var Type leftType */
@@ -941,7 +941,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Selection selection) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -960,7 +960,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleSelectExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Selection selection) throws RuleFailedException {
     Type type = null; // output parameter
     /* G |- selection.ref : type */
@@ -971,7 +971,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnaryOperation unary) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -990,7 +990,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleUnaryExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnaryOperation unary) throws RuleFailedException {
     Type type = null; // output parameter
     /* G |- unary.operand : var Type opType */
@@ -1039,7 +1039,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Conditional ifExp) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1058,7 +1058,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleIfExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Conditional ifExp) throws RuleFailedException {
     Type type = null; // output parameter
     /* G |- ifExp.^if : var Type ifType */
@@ -1110,7 +1110,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final PropertyExpression pe) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1129,7 +1129,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRulePropertyExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final PropertyExpression pe) throws RuleFailedException {
     Type type = null; // output parameter
     /* { pe.property instanceof Property G |- (pe.property as Property).propertyType : type } or { fail } */
@@ -1156,7 +1156,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NamedElementRef ner) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1175,7 +1175,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleNamedElementRef(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NamedElementRef ner) throws RuleFailedException {
     Type type = null; // output parameter
     /* G |- ner.ref : type */
@@ -1186,7 +1186,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EObject e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1205,12 +1205,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleEObject(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EObject e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleEObject_1(G, e));
   }
-  
+
   private MetaClass _applyRuleEObject_1(final RuleEnvironment G, final EObject e) throws RuleFailedException {
     MetaClass _xblockexpression = null;
     {
@@ -1220,7 +1220,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Classifier c) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1239,16 +1239,16 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleClassifier(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Classifier c) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleClassifier_1(G, c));
   }
-  
+
   private Classifier _applyRuleClassifier_1(final RuleEnvironment G, final Classifier c) throws RuleFailedException {
     return c;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Subcomponent s) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1267,12 +1267,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleSubcomponent(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Subcomponent s) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleSubcomponent_1(G, s));
   }
-  
+
   private MetaClass _applyRuleSubcomponent_1(final RuleEnvironment G, final Subcomponent s) throws RuleFailedException {
     MetaClass _xblockexpression = null;
     {
@@ -1282,7 +1282,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Feature f) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1301,12 +1301,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleFeature(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Feature f) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleFeature_1(G, f));
   }
-  
+
   private MetaClass _applyRuleFeature_1(final RuleEnvironment G, final Feature f) throws RuleFailedException {
     MetaClass _xblockexpression = null;
     {
@@ -1316,7 +1316,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Connection c) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1335,12 +1335,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleConnection(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Connection c) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleConnection_1(G, c));
   }
-  
+
   private MetaClass _applyRuleConnection_1(final RuleEnvironment G, final Connection c) throws RuleFailedException {
     MetaClass _xblockexpression = null;
     {
@@ -1350,7 +1350,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Flow f) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1369,12 +1369,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleFlow(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Flow f) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleFlow_1(G, f));
   }
-  
+
   private MetaClass _applyRuleFlow_1(final RuleEnvironment G, final Flow f) throws RuleFailedException {
     MetaClass _xblockexpression = null;
     {
@@ -1384,7 +1384,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Mode m) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1403,12 +1403,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleMode(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Mode m) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleMode_1(G, m));
   }
-  
+
   private MetaClass _applyRuleMode_1(final RuleEnvironment G, final Mode m) throws RuleFailedException {
     MetaClass _xblockexpression = null;
     {
@@ -1418,7 +1418,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Property p) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1437,12 +1437,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleProperty(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Property p) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleProperty_1(G, p));
   }
-  
+
   private MetaClass _applyRuleProperty_1(final RuleEnvironment G, final Property p) throws RuleFailedException {
     MetaClass _xblockexpression = null;
     {
@@ -1452,7 +1452,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     }
     return _xblockexpression;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final AadlBoolean t) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1471,17 +1471,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleAadlBoolean(final RuleEnvironment G, final RuleApplicationTrace _trace_, final AadlBoolean t) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleAadlBoolean_1(G, t));
   }
-  
+
   private EBoolean _applyRuleAadlBoolean_1(final RuleEnvironment G, final AadlBoolean t) throws RuleFailedException {
     EBoolean _createEBoolean = ExprFactory.eINSTANCE.createEBoolean();
     return _createEBoolean;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final AadlInteger t) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1500,17 +1500,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleAadlInteger(final RuleEnvironment G, final RuleApplicationTrace _trace_, final AadlInteger t) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleAadlInteger_1(G, t));
   }
-  
+
   private EInteger _applyRuleAadlInteger_1(final RuleEnvironment G, final AadlInteger t) throws RuleFailedException {
     EInteger _createEInteger = ExprFactory.eINSTANCE.createEInteger();
     return _createEInteger;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final AadlReal t) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1529,17 +1529,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleAadlReal(final RuleEnvironment G, final RuleApplicationTrace _trace_, final AadlReal t) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleAadlReal_1(G, t));
   }
-  
+
   private EReal _applyRuleAadlReal_1(final RuleEnvironment G, final AadlReal t) throws RuleFailedException {
     EReal _createEReal = ExprFactory.eINSTANCE.createEReal();
     return _createEReal;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final AadlString t) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1558,17 +1558,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleAadlString(final RuleEnvironment G, final RuleApplicationTrace _trace_, final AadlString t) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleAadlString_1(G, t));
   }
-  
+
   private EString _applyRuleAadlString_1(final RuleEnvironment G, final AadlString t) throws RuleFailedException {
     EString _createEString = ExprFactory.eINSTANCE.createEString();
     return _createEString;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ListType t) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1587,7 +1587,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleAadlListType(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ListType t) throws RuleFailedException {
     Type type = null; // output parameter
     final org.osate.expr.expr.ListType lt = ExprFactory.eINSTANCE.createListType();
@@ -1603,7 +1603,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     type = lt;
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final RecordType t) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1622,7 +1622,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleAadlRecordType(final RuleEnvironment G, final RuleApplicationTrace _trace_, final RecordType t) throws RuleFailedException {
     Type type = null; // output parameter
     final org.osate.expr.expr.RecordType rt = ExprFactory.eINSTANCE.createRecordType();
@@ -1643,7 +1643,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     type = rt;
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EnumerationType t) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1662,7 +1662,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleAadlEnumerationType(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EnumerationType t) throws RuleFailedException {
     Type type = null; // output parameter
     final EnumType et = ExprFactory.eINSTANCE.createEnumType();
@@ -1675,7 +1675,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     type = et;
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBooleanLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1694,17 +1694,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleEBooleanLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBooleanLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleEBooleanLiteral_1(G, e));
   }
-  
+
   private EBoolean _applyRuleEBooleanLiteral_1(final RuleEnvironment G, final EBooleanLiteral e) throws RuleFailedException {
     EBoolean _createEBoolean = ExprFactory.eINSTANCE.createEBoolean();
     return _createEBoolean;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EIntegerLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1723,17 +1723,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleEIntegerLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EIntegerLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleEIntegerLiteral_1(G, e));
   }
-  
+
   private EInteger _applyRuleEIntegerLiteral_1(final RuleEnvironment G, final EIntegerLiteral e) throws RuleFailedException {
     EInteger _createEInteger = ExprFactory.eINSTANCE.createEInteger();
     return _createEInteger;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ERealLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1752,17 +1752,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleERealLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ERealLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleERealLiteral_1(G, e));
   }
-  
+
   private EReal _applyRuleERealLiteral_1(final RuleEnvironment G, final ERealLiteral e) throws RuleFailedException {
     EReal _createEReal = ExprFactory.eINSTANCE.createEReal();
     return _createEReal;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EStringLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1781,17 +1781,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleEStringLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EStringLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleEStringLiteral_1(G, e));
   }
-  
+
   private EString _applyRuleEStringLiteral_1(final RuleEnvironment G, final EStringLiteral e) throws RuleFailedException {
     EString _createEString = ExprFactory.eINSTANCE.createEString();
     return _createEString;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ListLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1810,17 +1810,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleListLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ListLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleListLiteral_1(G, e));
   }
-  
+
   private org.osate.expr.expr.ListType _applyRuleListLiteral_1(final RuleEnvironment G, final ListLiteral e) throws RuleFailedException {
     org.osate.expr.expr.ListType _createListType = ExprFactory.eINSTANCE.createListType();
     return _createListType;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final SetLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1839,17 +1839,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleSetLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final SetLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleSetLiteral_1(G, e));
   }
-  
+
   private SetType _applyRuleSetLiteral_1(final RuleEnvironment G, final SetLiteral e) throws RuleFailedException {
     SetType _createSetType = ExprFactory.eINSTANCE.createSetType();
     return _createSetType;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final RecordLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1868,17 +1868,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleRecordLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final RecordLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleRecordLiteral_1(G, e));
   }
-  
+
   private org.osate.expr.expr.RecordType _applyRuleRecordLiteral_1(final RuleEnvironment G, final RecordLiteral e) throws RuleFailedException {
     org.osate.expr.expr.RecordType _createRecordType = ExprFactory.eINSTANCE.createRecordType();
     return _createRecordType;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnionLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1897,17 +1897,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleUnionLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnionLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleUnionLiteral_1(G, e));
   }
-  
+
   private UnionType _applyRuleUnionLiteral_1(final RuleEnvironment G, final UnionLiteral e) throws RuleFailedException {
     UnionType _createUnionType = ExprFactory.eINSTANCE.createUnionType();
     return _createUnionType;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final TupleLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1926,17 +1926,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleTupleLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final TupleLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleTupleLiteral_1(G, e));
   }
-  
+
   private TupleType _applyRuleTupleLiteral_1(final RuleEnvironment G, final TupleLiteral e) throws RuleFailedException {
     TupleType _createTupleType = ExprFactory.eINSTANCE.createTupleType();
     return _createTupleType;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final BagLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1955,17 +1955,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleBagLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final BagLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleBagLiteral_1(G, e));
   }
-  
+
   private BagType _applyRuleBagLiteral_1(final RuleEnvironment G, final BagLiteral e) throws RuleFailedException {
     BagType _createBagType = ExprFactory.eINSTANCE.createBagType();
     return _createBagType;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final MapLiteral e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1984,17 +1984,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleMapLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final MapLiteral e) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleMapLiteral_1(G, e));
   }
-  
+
   private MapType _applyRuleMapLiteral_1(final RuleEnvironment G, final MapLiteral e) throws RuleFailedException {
     MapType _createMapType = ExprFactory.eINSTANCE.createMapType();
     return _createMapType;
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EnumLiteral l) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2013,17 +2013,17 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleEnumLiteral(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EnumLiteral l) throws RuleFailedException {
     
     return new Result<Type>(_applyRuleEnumLiteral_1(G, l));
   }
-  
+
   private EnumType _applyRuleEnumLiteral_1(final RuleEnvironment G, final EnumLiteral l) throws RuleFailedException {
     EObject _eContainer = l.eContainer();
     return ((EnumType) _eContainer);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Field f) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2042,7 +2042,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleField(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Field f) throws RuleFailedException {
     Type type = null; // output parameter
     /* G |- f.type : type */
@@ -2053,7 +2053,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     
     return new Result<Type>(type);
   }
-  
+
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final FieldValue v) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2072,7 +2072,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Type> applyRuleFieldValue(final RuleEnvironment G, final RuleApplicationTrace _trace_, final FieldValue v) throws RuleFailedException {
     Type type = null; // output parameter
     /* G |- v.value : type */
@@ -2083,7 +2083,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     
     return new Result<Type>(type);
   }
-  
+
   protected Result<Boolean> sameTypeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBoolean t1, final EBoolean t2) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2102,12 +2102,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRuleSameEBoolean(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBoolean t1, final EBoolean t2) throws RuleFailedException {
     
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> sameTypeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ENumberType t1, final ENumberType t2) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2126,12 +2126,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRuleSameENumber(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ENumberType t1, final ENumberType t2) throws RuleFailedException {
     
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> sameTypeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EString t1, final EString t2) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2150,12 +2150,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRuleSameEString(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EString t1, final EString t2) throws RuleFailedException {
     
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> sameTypeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ListType left, final ListType right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2174,7 +2174,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRuleSameList(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ListType left, final ListType right) throws RuleFailedException {
     /* G |- left.elementType ~~ right.elementType */
     PropertyType _elementType = left.getElementType();
@@ -2182,7 +2182,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     sameTypeInternal(G, _trace_, _elementType, _elementType_1);
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> compatibleImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EString left, final EString right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2201,12 +2201,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRulePrimitiveString(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EString left, final EString right) throws RuleFailedException {
     
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> compatibleImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBoolean left, final EBoolean right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2225,12 +2225,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRulePrimitiveBoolean(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBoolean left, final EBoolean right) throws RuleFailedException {
     
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> compatibleImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EInteger left, final EInteger right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2249,12 +2249,12 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRulePrimitiveInteger(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EInteger left, final EInteger right) throws RuleFailedException {
     
     return new Result<Boolean>(true);
   }
-  
+
   protected Result<Boolean> compatibleImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EReal left, final EReal right) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -2273,7 +2273,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     	return null;
     }
   }
-  
+
   protected Result<Boolean> applyRulePrimitiveReal(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EReal left, final EReal right) throws RuleFailedException {
     
     return new Result<Boolean>(true);

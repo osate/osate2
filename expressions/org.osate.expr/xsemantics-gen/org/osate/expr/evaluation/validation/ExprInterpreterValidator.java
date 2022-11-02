@@ -9,10 +9,10 @@ import org.osate.expr.evaluation.ExprInterpreter;
 public class ExprInterpreterValidator extends AbstractDeclarativeValidator {
   @Inject
   protected XsemanticsValidatorErrorGenerator errorGenerator;
-  
+
   @Inject
   protected ExprInterpreter xsemanticsSystem;
-  
+
   protected ExprInterpreter getXsemanticsSystem() {
     return this.xsemanticsSystem;
   }

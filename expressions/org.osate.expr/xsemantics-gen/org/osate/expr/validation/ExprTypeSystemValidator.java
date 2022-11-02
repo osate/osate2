@@ -11,21 +11,21 @@ import org.osate.expr.expr.VarDecl;
 public class ExprTypeSystemValidator extends AbstractExprValidator {
   @Inject
   protected XsemanticsValidatorErrorGenerator errorGenerator;
-  
+
   @Inject
   protected ExprTypeSystem xsemanticsSystem;
-  
+
   protected ExprTypeSystem getXsemanticsSystem() {
     return this.xsemanticsSystem;
   }
-  
+
   @Check
   public void checkVarDecls(final VarDecl varDecl) {
     errorGenerator.generateErrors(this,
     	getXsemanticsSystem().checkVarDecls(varDecl),
     		varDecl);
   }
-  
+
   @Check
   public void checkExpressions(final Expression exp) {
     errorGenerator.generateErrors(this,
