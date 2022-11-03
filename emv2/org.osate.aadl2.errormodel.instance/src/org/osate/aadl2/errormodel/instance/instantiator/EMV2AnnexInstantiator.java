@@ -105,6 +105,7 @@ import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
@@ -124,6 +125,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
@@ -1084,6 +1086,23 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			typeSet = propagation.getTypeSet();
 		}
 		sinkInstance.setTypeSet(createAnonymousTypeSet(typeSet));
+
+		for (var association : EcoreUtil2.getContainerOfType(sink, ErrorModelSubclause.class).getProperties()) {
+			if (association.getOwnedValues().size() == 1
+					&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+				var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+				for (var path : association.getEmv2Path()) {
+					var target = path.getEmv2Target();
+					if (target.getNamedElement() == sink && target.getPath() == null) {
+						var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+						propertyInstance.setProperty(association.getProperty());
+						propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+						sinkInstance.getOwnedPropertyAssociations().add(propertyInstance);
+					}
+				}
+			}
+		}
+
 		annex.getErrorFlows().add(sinkInstance);
 	}
 
