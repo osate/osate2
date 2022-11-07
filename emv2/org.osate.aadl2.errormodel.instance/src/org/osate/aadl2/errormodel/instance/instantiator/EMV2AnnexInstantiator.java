@@ -1095,6 +1095,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					var target = path.getEmv2Target();
 					if (target.getNamedElement() == sink && target.getPath() == null) {
 						var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+						propertyInstance.setPropertyAssociation(association);
 						propertyInstance.setProperty(association.getProperty());
 						propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
 						sinkInstance.getOwnedPropertyAssociations().add(propertyInstance);

@@ -33,6 +33,7 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PropertyAssociation;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.*;
 
@@ -124,6 +125,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
       {
         EMV2PropertyAssociation emv2PropertyAssociation = (EMV2PropertyAssociation)theEObject;
         T result = caseEMV2PropertyAssociation(emv2PropertyAssociation);
+        if (result == null) result = casePropertyAssociation(emv2PropertyAssociation);
         if (result == null) result = caseElement(emv2PropertyAssociation);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -1477,6 +1479,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAnnexLibrary(AnnexLibrary object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Association</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Association</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyAssociation(PropertyAssociation object)
   {
     return null;
   }

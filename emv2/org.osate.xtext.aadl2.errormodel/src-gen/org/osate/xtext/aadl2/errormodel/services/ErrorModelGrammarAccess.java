@@ -228,9 +228,8 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 		private final RuleCall cQualifiedErrorBehaviorStateParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
 		private final RuleCall cSubcomponentElementParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
 		private final RuleCall cFeatureorPPReferenceParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
-		private final RuleCall cEMV2PropertyAssociationParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
-		private final RuleCall cEMV2PathParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
-		private final RuleCall cEMV2PathElementParserRuleCall_19 = (RuleCall)cAlternatives.eContents().get(19);
+		private final RuleCall cEMV2PathParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
+		private final RuleCall cEMV2PathElementParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
 		
 		//Element returns aadl2::Element:
 		//TypeSetElement
@@ -239,7 +238,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//|ConditionElement | AndExpression | ConditionTerm
 		//|ConditionExpression|OrmoreExpression|OrlessExpression
 		//    |ErrorStateToModeMapping|QualifiedErrorBehaviorState
-		//| SubcomponentElement | FeatureorPPReference | EMV2PropertyAssociation |EMV2Path | EMV2PathElement
+		//| SubcomponentElement | FeatureorPPReference |EMV2Path | EMV2PathElement
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -249,7 +248,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//|ConditionElement | AndExpression | ConditionTerm
 		//|ConditionExpression|OrmoreExpression|OrlessExpression
 		//    |ErrorStateToModeMapping|QualifiedErrorBehaviorState
-		//| SubcomponentElement | FeatureorPPReference | EMV2PropertyAssociation |EMV2Path | EMV2PathElement
+		//| SubcomponentElement | FeatureorPPReference |EMV2Path | EMV2PathElement
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//TypeSetElement
@@ -303,14 +302,32 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//FeatureorPPReference
 		public RuleCall getFeatureorPPReferenceParserRuleCall_16() { return cFeatureorPPReferenceParserRuleCall_16; }
 		
-		//EMV2PropertyAssociation
-		public RuleCall getEMV2PropertyAssociationParserRuleCall_17() { return cEMV2PropertyAssociationParserRuleCall_17; }
-		
 		//EMV2Path
-		public RuleCall getEMV2PathParserRuleCall_18() { return cEMV2PathParserRuleCall_18; }
+		public RuleCall getEMV2PathParserRuleCall_17() { return cEMV2PathParserRuleCall_17; }
 		
 		//EMV2PathElement
-		public RuleCall getEMV2PathElementParserRuleCall_19() { return cEMV2PathElementParserRuleCall_19; }
+		public RuleCall getEMV2PathElementParserRuleCall_18() { return cEMV2PathElementParserRuleCall_18; }
+	}
+	public class PropertyAssociationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.errormodel.ErrorModel.PropertyAssociation");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cEMV2PropertyAssociationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cBasicEMV2PropertyAssociationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//@Override
+		//PropertyAssociation returns aadl2::PropertyAssociation:
+		//    EMV2PropertyAssociation | BasicEMV2PropertyAssociation
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//EMV2PropertyAssociation | BasicEMV2PropertyAssociation
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//EMV2PropertyAssociation
+		public RuleCall getEMV2PropertyAssociationParserRuleCall_0() { return cEMV2PropertyAssociationParserRuleCall_0; }
+		
+		//BasicEMV2PropertyAssociation
+		public RuleCall getBasicEMV2PropertyAssociationParserRuleCall_1() { return cBasicEMV2PropertyAssociationParserRuleCall_1; }
 	}
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.errormodel.ErrorModel.ErrorModelSubclause");
@@ -6809,6 +6826,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 	private final NamedElementElements pNamedElement;
 	private final ModalElementElements pModalElement;
 	private final ElementElements pElement;
+	private final PropertyAssociationElements pPropertyAssociation;
 	private final ErrorModelSubclauseElements pErrorModelSubclause;
 	private final EMV2SubclauseElements pEMV2Subclause;
 	private final ErrorModelLibraryElements pErrorModelLibrary;
@@ -6903,6 +6921,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 		this.pNamedElement = new NamedElementElements();
 		this.pModalElement = new ModalElementElements();
 		this.pElement = new ElementElements();
+		this.pPropertyAssociation = new PropertyAssociationElements();
 		this.pErrorModelSubclause = new ErrorModelSubclauseElements();
 		this.pEMV2Subclause = new EMV2SubclauseElements();
 		this.pErrorModelLibrary = new ErrorModelLibraryElements();
@@ -7083,7 +7102,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 	//|ConditionElement | AndExpression | ConditionTerm
 	//|ConditionExpression|OrmoreExpression|OrlessExpression
 	//    |ErrorStateToModeMapping|QualifiedErrorBehaviorState
-	//| SubcomponentElement | FeatureorPPReference | EMV2PropertyAssociation |EMV2Path | EMV2PathElement
+	//| SubcomponentElement | FeatureorPPReference |EMV2Path | EMV2PathElement
 	//;
 	public ElementElements getElementAccess() {
 		return pElement;
@@ -7091,6 +7110,18 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 	
 	public ParserRule getElementRule() {
 		return getElementAccess().getRule();
+	}
+	
+	//@Override
+	//PropertyAssociation returns aadl2::PropertyAssociation:
+	//    EMV2PropertyAssociation | BasicEMV2PropertyAssociation
+	//;
+	public PropertyAssociationElements getPropertyAssociationAccess() {
+		return pPropertyAssociation;
+	}
+	
+	public ParserRule getPropertyAssociationRule() {
+		return getPropertyAssociationAccess().getRule();
 	}
 	
 	//ErrorModelSubclause returns ErrorModelSubclause:
@@ -8245,24 +8276,6 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 	
 	public ParserRule getContainedPropertyAssociationRule() {
 		return getContainedPropertyAssociationAccess().getRule();
-	}
-	
-	//PropertyAssociation returns aadl2::PropertyAssociation:
-	//    property=[aadl2::Property|QPREF]
-	//    ('=>' | append?='+=>') (constant?='constant')?
-	//    (
-	//     ownedValue+=OptionalModalPropertyValue
-	//    ( ',' ownedValue+=OptionalModalPropertyValue )*
-	//    )
-	//    (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
-	//    ';'
-	//    ;
-	public PropertiesGrammarAccess.PropertyAssociationElements getPropertyAssociationAccess() {
-		return gaProperties.getPropertyAssociationAccess();
-	}
-	
-	public ParserRule getPropertyAssociationRule() {
-		return getPropertyAssociationAccess().getRule();
 	}
 	
 	//BasicPropertyAssociation returns aadl2::PropertyAssociation:

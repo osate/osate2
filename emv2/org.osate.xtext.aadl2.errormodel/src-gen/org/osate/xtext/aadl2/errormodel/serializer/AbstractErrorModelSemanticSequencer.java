@@ -183,10 +183,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_ContainedPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getPropertyAssociationRule()) {
-					sequence_PropertyAssociation(context, (PropertyAssociation) semanticObject); 
-					return; 
-				}
 				else break;
 			case Aadl2Package.RANGE_VALUE:
 				sequence_NumericRangeTerm(context, (RangeValue) semanticObject); 
@@ -294,8 +290,11 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_BasicEMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getElementRule()
-						|| rule == grammarAccess.getEMV2PropertyAssociationRule()) {
+				else if (rule == grammarAccess.getPropertyAssociationRule()) {
+					sequence_BasicEMV2PropertyAssociation_EMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getEMV2PropertyAssociationRule()) {
 					sequence_EMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
 					return; 
 				}
@@ -602,6 +601,33 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * <pre>
 	 * Contexts:
+	 *     PropertyAssociation returns EMV2PropertyAssociation
+	 *
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             property=[Property|QPREF] 
+	 *             ownedValues+=OptionalModalPropertyValue 
+	 *             ownedValues+=OptionalModalPropertyValue* 
+	 *             (emv2Path+=EMV2Path emv2Path+=EMV2Path*)?
+	 *         ) | 
+	 *         (
+	 *             property=[Property|QPREF] 
+	 *             ownedValues+=OptionalModalPropertyValue 
+	 *             ownedValues+=OptionalModalPropertyValue* 
+	 *             (emv2Path+=BasicEMV2Path emv2Path+=BasicEMV2Path*)?
+	 *         )
+	 *     )
+	 * </pre>
+	 */
+	protected void sequence_BasicEMV2PropertyAssociation_EMV2PropertyAssociation(ISerializationContext context, EMV2PropertyAssociation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
 	 *     Element returns BranchValue
 	 *     BranchValue returns BranchValue
 	 *
@@ -764,7 +790,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     Element returns EMV2PropertyAssociation
 	 *     EMV2PropertyAssociation returns EMV2PropertyAssociation
 	 *
 	 * Constraint:

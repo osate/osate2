@@ -35,6 +35,7 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PropertyAssociation;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.*;
 
@@ -385,6 +386,11 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAnnexLibrary(AnnexLibrary object)
       {
         return createAnnexLibraryAdapter();
+      }
+      @Override
+      public Adapter casePropertyAssociation(PropertyAssociation object)
+      {
+        return createPropertyAssociationAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -1259,6 +1265,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAnnexLibraryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyAssociation <em>Property Association</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.PropertyAssociation
+   * @generated
+   */
+  public Adapter createPropertyAssociationAdapter()
   {
     return null;
   }

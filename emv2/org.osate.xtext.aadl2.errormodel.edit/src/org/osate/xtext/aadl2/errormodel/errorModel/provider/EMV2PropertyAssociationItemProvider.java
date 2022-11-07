@@ -34,13 +34,13 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 
-import org.osate.aadl2.provider.ElementItemProvider;
+import org.osate.aadl2.provider.PropertyAssociationItemProvider;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
@@ -52,7 +52,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EMV2PropertyAssociationItemProvider extends ElementItemProvider
+public class EMV2PropertyAssociationItemProvider extends PropertyAssociationItemProvider
 {
   /**
    * This constructs an instance from a factory and a notifier.
@@ -78,32 +78,8 @@ public class EMV2PropertyAssociationItemProvider extends ElementItemProvider
     {
       super.getPropertyDescriptors(object);
 
-      addPropertyPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
-  }
-
-  /**
-   * This adds a property descriptor for the Property feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addPropertyPropertyDescriptor(Object object)
-  {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_EMV2PropertyAssociation_property_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_EMV2PropertyAssociation_property_feature", "_UI_EMV2PropertyAssociation_type"),
-         ErrorModelPackage.Literals.EMV2_PROPERTY_ASSOCIATION__PROPERTY,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
   }
 
   /**
@@ -161,7 +137,8 @@ public class EMV2PropertyAssociationItemProvider extends ElementItemProvider
   @Override
   public String getText(Object object)
   {
-    return getString("_UI_EMV2PropertyAssociation_type");
+    EMV2PropertyAssociation emv2PropertyAssociation = (EMV2PropertyAssociation)object;
+    return getString("_UI_EMV2PropertyAssociation_type") + " " + emv2PropertyAssociation.isAppend();
   }
 
 
@@ -218,6 +195,31 @@ public class EMV2PropertyAssociationItemProvider extends ElementItemProvider
       (createChildParameter
         (ErrorModelPackage.Literals.EMV2_PROPERTY_ASSOCIATION__EMV2_PATH,
          ErrorModelFactory.eINSTANCE.createQualifiedErrorPropagation()));
+  }
+
+  /**
+   * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection)
+  {
+    Object childFeature = feature;
+    Object childObject = child;
+
+    boolean qualify =
+      childFeature == Aadl2Package.eINSTANCE.getPropertyAssociation_OwnedValue() ||
+      childFeature == ErrorModelPackage.Literals.EMV2_PROPERTY_ASSOCIATION__OWNED_VALUES;
+
+    if (qualify)
+    {
+      return getString
+        ("_UI_CreateChild_text2",
+         new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+    }
+    return super.getCreateChildText(owner, feature, child, selection);
   }
 
   /**

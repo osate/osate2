@@ -467,7 +467,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMV2_PROPERTY_ASSOCIATION__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+  int EMV2_PROPERTY_ASSOCIATION__OWNED_ELEMENT = Aadl2Package.PROPERTY_ASSOCIATION__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -476,7 +476,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMV2_PROPERTY_ASSOCIATION__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+  int EMV2_PROPERTY_ASSOCIATION__OWNED_COMMENT = Aadl2Package.PROPERTY_ASSOCIATION__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Property</b></em>' reference.
@@ -485,7 +485,52 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMV2_PROPERTY_ASSOCIATION__PROPERTY = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+  int EMV2_PROPERTY_ASSOCIATION__PROPERTY = Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY;
+
+  /**
+   * The feature id for the '<em><b>Applies To</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__APPLIES_TO = Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO;
+
+  /**
+   * The feature id for the '<em><b>In Binding</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__IN_BINDING = Aadl2Package.PROPERTY_ASSOCIATION__IN_BINDING;
+
+  /**
+   * The feature id for the '<em><b>Append</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__APPEND = Aadl2Package.PROPERTY_ASSOCIATION__APPEND;
+
+  /**
+   * The feature id for the '<em><b>Constant</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__CONSTANT = Aadl2Package.PROPERTY_ASSOCIATION__CONSTANT;
+
+  /**
+   * The feature id for the '<em><b>Owned Value</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__OWNED_VALUE = Aadl2Package.PROPERTY_ASSOCIATION__OWNED_VALUE;
 
   /**
    * The feature id for the '<em><b>Owned Values</b></em>' containment reference list.
@@ -494,7 +539,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMV2_PROPERTY_ASSOCIATION__OWNED_VALUES = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int EMV2_PROPERTY_ASSOCIATION__OWNED_VALUES = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Emv2 Path</b></em>' containment reference list.
@@ -503,7 +548,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMV2_PROPERTY_ASSOCIATION__EMV2_PATH = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+  int EMV2_PROPERTY_ASSOCIATION__EMV2_PATH = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>EMV2 Property Association</em>' class.
@@ -512,7 +557,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMV2_PROPERTY_ASSOCIATION_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+  int EMV2_PROPERTY_ASSOCIATION_FEATURE_COUNT = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathImpl <em>EMV2 Path</em>}' class.
@@ -4463,17 +4508,6 @@ public interface ErrorModelPackage extends EPackage
   EClass getEMV2PropertyAssociation();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getProperty <em>Property</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Property</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getProperty()
-   * @see #getEMV2PropertyAssociation()
-   * @generated
-   */
-  EReference getEMV2PropertyAssociation_Property();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getOwnedValues <em>Owned Values</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6587,14 +6621,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EClass EMV2_PROPERTY_ASSOCIATION = eINSTANCE.getEMV2PropertyAssociation();
-
-    /**
-     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EMV2_PROPERTY_ASSOCIATION__PROPERTY = eINSTANCE.getEMV2PropertyAssociation_Property();
 
     /**
      * The meta object literal for the '<em><b>Owned Values</b></em>' containment reference list feature.

@@ -38,6 +38,8 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.osate.aadl2.Aadl2Package;
+
 import org.osate.aadl2.provider.AnnexSubclauseItemProvider;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
@@ -342,6 +344,11 @@ public class ErrorModelSubclauseItemProvider extends AnnexSubclauseItemProvider
 
     newChildDescriptors.add
       (createChildParameter
+        (Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation(),
+         ErrorModelFactory.eINSTANCE.createEMV2PropertyAssociation()));
+
+    newChildDescriptors.add
+      (createChildParameter
         (ErrorModelPackage.Literals.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS,
          ErrorModelFactory.eINSTANCE.createErrorPropagation()));
 
@@ -444,6 +451,8 @@ public class ErrorModelSubclauseItemProvider extends AnnexSubclauseItemProvider
     Object childObject = child;
 
     boolean qualify =
+      childFeature == Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation() ||
+      childFeature == ErrorModelPackage.Literals.ERROR_MODEL_SUBCLAUSE__PROPERTIES ||
       childFeature == ErrorModelPackage.Literals.ERROR_MODEL_SUBCLAUSE__FLOWS ||
       childFeature == ErrorModelPackage.Literals.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES;
 

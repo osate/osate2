@@ -38,6 +38,8 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.osate.aadl2.Aadl2Package;
+
 import org.osate.aadl2.provider.NamedElementItemProvider;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -230,6 +232,11 @@ public class ErrorBehaviorStateMachineItemProvider extends NamedElementItemProvi
 
     newChildDescriptors.add
       (createChildParameter
+        (Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation(),
+         ErrorModelFactory.eINSTANCE.createEMV2PropertyAssociation()));
+
+    newChildDescriptors.add
+      (createChildParameter
         (ErrorModelPackage.Literals.ERROR_BEHAVIOR_STATE_MACHINE__EVENTS,
          ErrorModelFactory.eINSTANCE.createErrorBehaviorEvent()));
 
@@ -262,6 +269,31 @@ public class ErrorBehaviorStateMachineItemProvider extends NamedElementItemProvi
       (createChildParameter
         (ErrorModelPackage.Literals.ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES,
          ErrorModelFactory.eINSTANCE.createEMV2PropertyAssociation()));
+  }
+
+  /**
+   * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection)
+  {
+    Object childFeature = feature;
+    Object childObject = child;
+
+    boolean qualify =
+      childFeature == Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation() ||
+      childFeature == ErrorModelPackage.Literals.ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES;
+
+    if (qualify)
+    {
+      return getString
+        ("_UI_CreateChild_text2",
+         new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+    }
+    return super.getCreateChildText(owner, feature, child, selection);
   }
 
   /**

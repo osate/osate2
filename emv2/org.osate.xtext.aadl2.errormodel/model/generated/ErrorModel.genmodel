@@ -39,7 +39,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/transformations"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//EMV2PropertyAssociation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAssociation/property"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAssociation/ownedValues"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAssociation/emv2Path"/>
     </genClasses>

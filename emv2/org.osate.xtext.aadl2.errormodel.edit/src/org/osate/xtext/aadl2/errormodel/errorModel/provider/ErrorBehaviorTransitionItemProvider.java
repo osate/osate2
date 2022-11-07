@@ -39,6 +39,8 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.osate.aadl2.Aadl2Package;
+
 import org.osate.aadl2.provider.NamedElementItemProvider;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -280,6 +282,11 @@ public class ErrorBehaviorTransitionItemProvider extends NamedElementItemProvide
   protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object)
   {
     super.collectNewChildDescriptors(newChildDescriptors, object);
+
+    newChildDescriptors.add
+      (createChildParameter
+        (Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation(),
+         ErrorModelFactory.eINSTANCE.createEMV2PropertyAssociation()));
 
     newChildDescriptors.add
       (createChildParameter
