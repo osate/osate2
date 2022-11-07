@@ -197,6 +197,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	}
 
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     '('*
 	 *
@@ -207,24 +208,30 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
+	 
+	 * </pre>
 	 */
 	protected void emit_ConditionTerm_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     '('+
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
+	 
+	 * </pre>
 	 */
 	protected void emit_ConditionTerm_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('error' 'types' 'end' 'types' ';')?
 	 *
@@ -233,12 +240,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     name=QEMREF (ambiguity) behaviors+=ErrorBehaviorStateMachine
 	 *     name=QEMREF (ambiguity) mappings+=TypeMappingSet
 	 *     name=QEMREF (ambiguity) transformations+=TypeTransformationSet
+	 
+	 * </pre>
 	 */
 	protected void emit_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('error' 'types' 'end' 'types' ';')?
 	 *
@@ -247,12 +257,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     name=QEMREF 'public' 'annex' ID '{**' (ambiguity) behaviors+=ErrorBehaviorStateMachine
 	 *     name=QEMREF 'public' 'annex' ID '{**' (ambiguity) mappings+=TypeMappingSet
 	 *     name=QEMREF 'public' 'annex' ID '{**' (ambiguity) transformations+=TypeTransformationSet
+	 
+	 * </pre>
 	 */
 	protected void emit_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     (
 	  *         'component' 
@@ -691,12 +704,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 
+	 * </pre>
 	 */
 	protected void emit_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     (
 	  *         'composite' 
@@ -1217,12 +1233,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 
+	 * </pre>
 	 */
 	protected void emit_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('connection' 'error' 'end' 'connection' ';')?
 	 *
@@ -1669,12 +1688,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
+	 
+	 * </pre>
 	 */
 	protected void emit_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('error' 'propagations' 'end' 'propagations' ';')?
 	 *
@@ -2040,12 +2062,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'transitions' transitions+=ErrorBehaviorTransition
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF]
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 
+	 * </pre>
 	 */
 	protected void emit_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('propagation' 'paths' 'end' 'paths' ';')?
 	 *
@@ -2336,12 +2361,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'end' 'subclause' ';' (rule end)
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'end' 'subclause' ';' (rule end)
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
+	 
+	 * </pre>
 	 */
 	protected void emit_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('error' 'types' 'end' 'types' ';')?
 	 *
@@ -2350,12 +2378,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) behaviors+=ErrorBehaviorStateMachine
 	 *     (rule start) (ambiguity) mappings+=TypeMappingSet
 	 *     (rule start) (ambiguity) transformations+=TypeTransformationSet
+	 
+	 * </pre>
 	 */
 	protected void emit_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     (
 	  *         'component' 
@@ -2773,12 +2804,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 
+	 * </pre>
 	 */
 	protected void emit_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     (
 	  *         'composite' 
@@ -3266,12 +3300,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
+	 
+	 * </pre>
 	 */
 	protected void emit_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('connection' 'error' 'end' 'connection' ';')?
 	 *
@@ -3660,12 +3697,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
+	 
+	 * </pre>
 	 */
 	protected void emit_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('error' 'propagations' 'end' 'propagations' ';')?
 	 *
@@ -4016,12 +4056,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'transitions' transitions+=ErrorBehaviorTransition
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF]
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 
+	 * </pre>
 	 */
 	protected void emit_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('propagation' 'paths' 'end' 'paths' ';')?
 	 *
@@ -4254,12 +4297,15 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) (rule end)
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) (rule end)
+	 
+	 * </pre>
 	 */
 	protected void emit_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     '('*
 	 *
@@ -4271,18 +4317,23 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) qualifiedState=QualifiedErrorBehaviorState
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
+	 
+	 * </pre>
 	 */
 	protected void emit_SConditionTerm_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     '('+
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
+	 
+	 * </pre>
 	 */
 	protected void emit_SConditionTerm_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
