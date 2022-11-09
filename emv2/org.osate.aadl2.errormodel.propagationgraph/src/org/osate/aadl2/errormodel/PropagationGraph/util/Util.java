@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,7 +25,9 @@ package org.osate.aadl2.errormodel.PropagationGraph.util;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -38,6 +40,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.VirtualProcessor;
@@ -51,10 +54,12 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.pluginsupport.ExecuteJavaUtil;
+import org.osate.resolute.ResoluteUtil;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -120,6 +125,7 @@ public class Util {
 	 */
 	protected static void populateConnectionPropagationPaths(PropagationGraph pg,
 			ConnectionInstance connectionInstance) {
+		SystemOperationMode som = connectionInstance.getSystemInstance().getCurrentSystemOperationMode();
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
 		if (connrefs.isEmpty()) {
 			return;
@@ -409,6 +415,28 @@ public class Util {
 		return false;
 	}
 
+	// thread, thread group, process, system, virtual processor, device
+	private static final Set<ComponentCategory> mayHaveActualProcessorBindings = EnumSet.of(ComponentCategory.THREAD,
+			ComponentCategory.THREAD_GROUP, ComponentCategory.PROCESS, ComponentCategory.SYSTEM,
+			ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.DEVICE, ComponentCategory.ABSTRACT);
+
+	// thread, thread group, process, system, processor, device, data, data port, event data port, subprogram, subprogram group, virtual processor
+	private static final Set<ComponentCategory> mayHaveActualMemoryBindings = EnumSet.of(ComponentCategory.THREAD,
+			ComponentCategory.THREAD_GROUP, ComponentCategory.PROCESS, ComponentCategory.SYSTEM,
+			ComponentCategory.PROCESSOR, ComponentCategory.DEVICE, ComponentCategory.SUBPROGRAM,
+			ComponentCategory.SUBPROGRAM_GROUP, ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.ABSTRACT);
+
+	// feature, connection, thread, thread group, process, system, virtual bus)
+	private static final Set<ComponentCategory> mayHaveActualConnectionBindings = EnumSet.of(ComponentCategory.THREAD,
+			ComponentCategory.THREAD_GROUP, ComponentCategory.PROCESS, ComponentCategory.SYSTEM,
+			ComponentCategory.VIRTUAL_BUS, ComponentCategory.ABSTRACT);
+
+	// subprogram, thread, thread group, process, system, abstract, feature, virtual bus, virtual processor
+	private static final Set<ComponentCategory> mayHaveActualFunctionBinding = EnumSet.of(ComponentCategory.SUBPROGRAM,
+			ComponentCategory.THREAD, ComponentCategory.THREAD_GROUP, ComponentCategory.PROCESS,
+			ComponentCategory.SYSTEM, ComponentCategory.VIRTUAL_BUS, ComponentCategory.VIRTUAL_PROCESSOR,
+			ComponentCategory.ABSTRACT);
+
 	/**
 	 * populate direct bindings from the specified component to its resources
 	 *
@@ -417,27 +445,36 @@ public class Util {
 	protected static void populateBindingPaths(PropagationGraph pg, InstanceObject obj) {
 		if (obj instanceof ComponentInstance) {
 			final ComponentInstance ci = (ComponentInstance) obj;
-			final List<InstanceObject> cpus = InstanceModelUtil.getProcessorBindings(ci);
-			for (final InstanceObject cpu : cpus) {
-				populateBindingPropagationPaths(pg, ci, (ComponentInstance) cpu, "processor");
+			final ComponentCategory componentCategory = ci.getCategory();
+			if (mayHaveActualProcessorBindings.contains(componentCategory)) {
+				final List<InstanceObject> cpus = InstanceModelUtil.getProcessorBindings(ci);
+				for (final InstanceObject cpu : cpus) {
+					populateBindingPropagationPaths(pg, ci, (ComponentInstance) cpu, "processor");
+				}
 			}
 			if (!(ci instanceof VirtualProcessor)) {
 				// do memory bindings
-				final List<InstanceObject> mems = InstanceModelUtil.getMemoryBindings(ci);
-				for (final InstanceObject mem : mems) {
-					populateBindingPropagationPaths(pg, ci, (ComponentInstance) mem, "memory");
+				if (mayHaveActualMemoryBindings.contains(componentCategory)) {
+					final List<InstanceObject> mems = InstanceModelUtil.getMemoryBindings(ci);
+					for (final InstanceObject mem : mems) {
+						populateBindingPropagationPaths(pg, ci, (ComponentInstance) mem, "memory");
+					}
 				}
 			}
 			if (ci instanceof VirtualBus) {
 				// do connection bindings
-				final List<InstanceObject> boundresources = InstanceModelUtil.getConnectionBindings(ci);
-				for (final InstanceObject bres : boundresources) {
-					populateBindingPropagationPaths(pg, ci, (ComponentInstance) bres, "connection");
+				if (mayHaveActualConnectionBindings.contains(componentCategory)) {
+					final List<InstanceObject> boundresources = InstanceModelUtil.getConnectionBindings(ci);
+					for (final InstanceObject bres : boundresources) {
+						populateBindingPropagationPaths(pg, ci, (ComponentInstance) bres, "connection");
+					}
 				}
 			}
-			final List<InstanceObject> systems = InstanceModelUtil.getFunctionBindings(ci);
-			for (final InstanceObject system : systems) {
-				populateBindingPropagationPaths(pg, ci, (ComponentInstance) system, "binding");
+			if (mayHaveActualFunctionBinding.contains(componentCategory)) {
+				final List<InstanceObject> systems = InstanceModelUtil.getFunctionBindings(ci);
+				for (final InstanceObject system : systems) {
+					populateBindingPropagationPaths(pg, ci, (ComponentInstance) system, "binding");
+				}
 			}
 		} else if (obj instanceof ConnectionInstance) {
 			// do connection bindings -- nb. all connections are allowed the actual_connection_binding property
@@ -655,22 +692,6 @@ public class Util {
 		return true;
 	}
 
-	private static boolean RESOLUTE_INSTALLED;
-	static {
-		try {
-			if (ExecuteResoluteUtil.eInstance.tryLoad()) {
-				RESOLUTE_INSTALLED = true;
-			} else {
-				RESOLUTE_INSTALLED = false;
-			}
-		// For some reason
-		// } catch (NoClassDefFoundError e) {
-		// does not catch NoClassDefFoundError when running tests with tycho
-		} catch (Throwable e) {
-			RESOLUTE_INSTALLED = false;
-		}
-	}
-
 	public static boolean executeCondition(IfCondition ifCondition, InstanceObject target, EObject emv2target) {
 		ComponentInstance targetComponent = null;
 		InstanceObject targetElement = null;
@@ -689,13 +710,13 @@ public class Util {
 				return true;
 			}
 		} else if (!Aadl2Util.isNull(ifCondition.getResoluteFunction())) {
-			if (RESOLUTE_INSTALLED) {
-				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(
-						ifCondition.getResoluteFunction(),
+			if (ResoluteUtil.isResoluteInstalled()) {
+				Diagnostic res = ResoluteUtil.getResolute()
+						.executeResoluteFunctionOnce(ifCondition.getResoluteFunction(),
 						target.getSystemInstance(), targetComponent, targetElement, null);
 				return res != null && res.getDiagnosticType() != DiagnosticType.ERROR;
 			} else {
-			return true;
+				return true;
 			}
 		} else {
 			return true;

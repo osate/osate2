@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,6 @@
 
 package org.osate.assure.resolute.tests
 
-import com.rockwellcollins.atc.resolute.resolute.ResoluteLibrary
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
@@ -41,6 +40,7 @@ import org.osate.verify.verify.VerificationMethodRegistry
 
 import static extension org.junit.Assert.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.resolute.ResoluteUtil
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)
@@ -67,13 +67,12 @@ class AssureResoluteTests extends AssureTests {
 		val rs = ac.eResource.resourceSet
 		val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BasicResolute.aadl"), true)
 		val pkg = scssrc.contents.get(0) as AadlPackage
+		true.assertEquals(ResoluteUtil.isResoluteInstalled)
 		pkg => [
 			"BasicResolute".assertEquals(name)
 			1.assertEquals(publicSection.ownedAnnexLibraries.size)
-			(publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).
-				parsedAnnexLibrary as ResoluteLibrary => [
-				5.assertEquals(definitions.size)
-			]
+			5.assertEquals(ResoluteUtil.getResolute.getDefinitions((publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).
+				parsedAnnexLibrary).size)
 		]
 		assertNoIssues(pkg)
 	}
@@ -84,13 +83,12 @@ class AssureResoluteTests extends AssureTests {
 		val rs = ac.eResource.resourceSet
 		val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BudgetResolute.aadl"), true)
 		val pkg = scssrc.contents.get(0) as AadlPackage
+		true.assertEquals(ResoluteUtil.isResoluteInstalled)
 		pkg => [
 			"BudgetResolute".assertEquals(name)
 			1.assertEquals(publicSection.ownedAnnexLibraries.size)
-			(publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).
-				parsedAnnexLibrary as ResoluteLibrary => [
-				22.assertEquals(definitions.size)
-			]
+			22.assertEquals(ResoluteUtil.getResolute.getDefinitions((publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).
+				parsedAnnexLibrary).size)
 		]
 		assertNoIssues(pkg)
 	}
