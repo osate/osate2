@@ -239,4 +239,12 @@
             </message_arguments>
         </filter>
     </resource>
+	<resource path="xtend-gen/org/osate/verify/validation/VerifyValidator.java" type="org.osate.verify.validation.VerifyValidator">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="VerifyTypeSystemValidator"/>
+                <message_argument value="VerifyValidator"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>
