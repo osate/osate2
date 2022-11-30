@@ -62,7 +62,6 @@ import org.osate.aadl2.errormodel.instance.Branch;
 import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
-import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
@@ -876,16 +875,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return stateReference;
 	}
 
-	private void instantiateCompositeState(CompositeState st, EMV2AnnexInstance annex) {
-		CompositeStateInstance sti = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
-		sti.setName(st.getName());
-		sti.setCompositeState(st);
-		annex.getComposites().add(sti);
-		ConditionExpression behaviorCondition = st.getCondition();
-		ConstraintElement cio = instantiateCondition(behaviorCondition, annex);
-		sti.setCondition(cio);
-		// explicit target state
-		sti.setTargetState(findStateInstance(annex, st.getState()));
+	private void instantiateCompositeState(CompositeState composite, EMV2AnnexInstance annex) {
+		var compositeInstance = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
+		if (composite.getName() != null) {
+			compositeInstance.setName(composite.getName());
+		}
+		compositeInstance.setComposite(composite);
+		annex.getComposites().add(compositeInstance);
 	}
 
 	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {

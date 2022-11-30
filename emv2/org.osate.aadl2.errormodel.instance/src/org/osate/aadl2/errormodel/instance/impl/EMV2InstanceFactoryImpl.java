@@ -127,8 +127,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createEMV2AnnexInstance();
 		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT:
 			return createConstrainedInstanceObject();
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
-			return createCompositeStateInstance();
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
 			return createConstraintExpression();
 		case EMV2InstancePackage.FEATURE_PROPAGATION:
@@ -211,6 +209,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createConstantCode();
 		case EMV2InstancePackage.MODE_MAPPING_INSTANCE:
 			return createModeMappingInstance();
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
+			return createCompositeStateInstance();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}

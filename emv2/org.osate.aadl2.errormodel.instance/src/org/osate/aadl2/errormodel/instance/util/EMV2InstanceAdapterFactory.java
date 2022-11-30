@@ -164,11 +164,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseCompositeStateInstance(CompositeStateInstance object) {
-			return createCompositeStateInstanceAdapter();
-		}
-
-		@Override
 		public Adapter caseConstraintExpression(ConstraintExpression object) {
 			return createConstraintExpressionAdapter();
 		}
@@ -446,6 +441,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseModeMappingInstance(ModeMappingInstance object) {
 			return createModeMappingInstanceAdapter();
+		}
+
+		@Override
+		public Adapter caseCompositeStateInstance(CompositeStateInstance object) {
+			return createCompositeStateInstanceAdapter();
 		}
 
 		@Override

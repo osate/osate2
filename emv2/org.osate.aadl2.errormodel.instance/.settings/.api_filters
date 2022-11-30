@@ -49,6 +49,18 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/CompositeStateInstance.java" type="org.osate.aadl2.errormodel.instance.CompositeStateInstance">
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getComposite()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setComposite(CompositeState)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/ConditionExpressionInstance.java" type="org.osate.aadl2.errormodel.instance.ConditionExpressionInstance">
         <filter id="1110441988">
             <message_arguments>
@@ -573,6 +585,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="BRANCH__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__COMPOSITE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1792,6 +1809,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getCompositeStateInstance_Composite()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getConditionExpressionInstance()"/>
             </message_arguments>
         </filter>
@@ -2200,6 +2222,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="BRANCH__PROBABILITY"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__COMPOSITE"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2723,6 +2750,18 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.impl.BranchesImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/CompositeStateInstanceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="basicGetComposite()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="composite"/>
             </message_arguments>
         </filter>
     </resource>

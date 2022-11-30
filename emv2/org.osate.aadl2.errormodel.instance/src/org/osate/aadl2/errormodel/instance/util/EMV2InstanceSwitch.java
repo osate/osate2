@@ -206,26 +206,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: {
-			CompositeStateInstance compositeStateInstance = (CompositeStateInstance) theEObject;
-			T result = caseCompositeStateInstance(compositeStateInstance);
-			if (result == null) {
-				result = caseEMV2InstanceObject(compositeStateInstance);
-			}
-			if (result == null) {
-				result = caseInstanceObject(compositeStateInstance);
-			}
-			if (result == null) {
-				result = caseNamedElement(compositeStateInstance);
-			}
-			if (result == null) {
-				result = caseElement(compositeStateInstance);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case EMV2InstancePackage.CONSTRAINT_EXPRESSION: {
 			ConstraintExpression constraintExpression = (ConstraintExpression) theEObject;
 			T result = caseConstraintExpression(constraintExpression);
@@ -1505,6 +1485,26 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(modeMappingInstance);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: {
+			CompositeStateInstance compositeStateInstance = (CompositeStateInstance) theEObject;
+			T result = caseCompositeStateInstance(compositeStateInstance);
+			if (result == null) {
+				result = caseEMV2InstanceObject(compositeStateInstance);
+			}
+			if (result == null) {
+				result = caseInstanceObject(compositeStateInstance);
+			}
+			if (result == null) {
+				result = caseNamedElement(compositeStateInstance);
+			}
+			if (result == null) {
+				result = caseElement(compositeStateInstance);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);

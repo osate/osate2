@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -34,9 +34,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getTargetState <em>Target State</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getCompositeState <em>Composite State</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getComposite <em>Composite</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance()
@@ -45,69 +43,25 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
  */
 public interface CompositeStateInstance extends EMV2InstanceObject {
 	/**
-	 * Returns the value of the '<em><b>Target State</b></em>' reference.
+	 * Returns the value of the '<em><b>Composite</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target State</em>' reference.
-	 * @see #setTargetState(StateInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance_TargetState()
+	 * @return the value of the '<em>Composite</em>' reference.
+	 * @see #setComposite(CompositeState)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance_Composite()
 	 * @model
 	 * @generated
 	 */
-	StateInstance getTargetState();
+	CompositeState getComposite();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getTargetState <em>Target State</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getComposite <em>Composite</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target State</em>' reference.
-	 * @see #getTargetState()
+	 * @param value the new value of the '<em>Composite</em>' reference.
+	 * @see #getComposite()
 	 * @generated
 	 */
-	void setTargetState(StateInstance value);
-
-	/**
-	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(ConstraintElement)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance_Condition()
-	 * @model containment="true"
-	 * @generated
-	 */
-	ConstraintElement getCondition();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getCondition <em>Condition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Condition</em>' containment reference.
-	 * @see #getCondition()
-	 * @generated
-	 */
-	void setCondition(ConstraintElement value);
-
-	/**
-	 * Returns the value of the '<em><b>Composite State</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Composite State</em>' reference.
-	 * @see #setCompositeState(CompositeState)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance_CompositeState()
-	 * @model
-	 * @generated
-	 */
-	CompositeState getCompositeState();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getCompositeState <em>Composite State</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Composite State</em>' reference.
-	 * @see #getCompositeState()
-	 * @generated
-	 */
-	void setCompositeState(CompositeState value);
+	void setComposite(CompositeState value);
 
 } // CompositeStateInstance
