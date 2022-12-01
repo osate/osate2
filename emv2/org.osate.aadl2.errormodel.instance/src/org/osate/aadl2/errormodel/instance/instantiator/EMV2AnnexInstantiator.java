@@ -93,6 +93,7 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
@@ -614,6 +615,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else if (condition instanceof OrlessExpression orLessExpression) {
 			return createCountExpression(orLessExpression.getOperands(), CountExpressionOperation.LESS_EQUAL,
 					orLessExpression.getCount(), component, annex);
+		} else if (condition instanceof SConditionElement conditionElement) {
+			if (conditionElement.getQualifiedState() == null) {
+				return createConditionPropagationReference(component,
+						conditionElement.getQualifiedErrorPropagationReference().getEmv2Target(),
+						conditionElement.getConstraint());
+			} else {
+				return createStateReference(component, conditionElement.getQualifiedState(),
+						conditionElement.getConstraint());
+			}
 		} else if (condition instanceof ConditionElement conditionElement) {
 			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
 			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {
@@ -624,6 +634,36 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else {
 			return null;
 		}
+	}
+
+	private StateReference createStateReference(ComponentInstance component, QualifiedErrorBehaviorState path,
+			TypeSet constraint) {
+		var name = new StringBuilder();
+		while (path.getNext() != null) {
+			component = component.findSubcomponentInstance(path.getSubcomponent().getSubcomponent());
+			name.append(component.getName());
+			name.append('.');
+			path = path.getNext();
+		}
+		component = component.findSubcomponentInstance(path.getSubcomponent().getSubcomponent());
+		name.append(component.getName());
+		name.append('.');
+		name.append(path.getState().getName());
+
+		var stateReference = EMV2InstanceFactory.eINSTANCE.createStateReference();
+		var state = path.getState();
+		stateReference.setState(findStateInstance(findEMV2AnnexInstance(component), state));
+		if (constraint != null) {
+			stateReference.setTypeSet(createAnonymousTypeSet(constraint));
+		} else if (state.getTypeSet() != null) {
+			stateReference.setTypeSet(createAnonymousTypeSet(state.getTypeSet()));
+		}
+		if (stateReference.getTypeSet() != null) {
+			name.append(' ');
+			name.append(stateReference.getTypeSet().getName());
+		}
+		stateReference.setName(name.toString());
+		return stateReference;
 	}
 
 	private EventReference createEventReference(ErrorBehaviorEvent event, TypeSet constraint, EMV2AnnexInstance annex) {

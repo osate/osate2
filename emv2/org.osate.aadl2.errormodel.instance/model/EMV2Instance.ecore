@@ -328,4 +328,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpressionInstance"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StateReference" eSuperTypes="#//ConditionExpressionInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

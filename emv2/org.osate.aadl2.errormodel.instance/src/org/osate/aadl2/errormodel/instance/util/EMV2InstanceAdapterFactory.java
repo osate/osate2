@@ -80,6 +80,7 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
@@ -449,6 +450,11 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseStateReference(StateReference object) {
+			return createStateReferenceAdapter();
+		}
+
+		@Override
 		public Adapter caseElement(Element object) {
 			return createElementAdapter();
 		}
@@ -554,6 +560,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCompositeStateInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.StateReference <em>State Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.StateReference
+	 * @generated
+	 */
+	public Adapter createStateReferenceAdapter() {
 		return null;
 	}
 

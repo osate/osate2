@@ -86,6 +86,7 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
@@ -140,6 +141,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass compositeStateInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stateReferenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -856,6 +864,36 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EReference getCompositeStateInstance_Condition() {
 		return (EReference) compositeStateInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getStateReference() {
+		return stateReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getStateReference_State() {
+		return (EReference) stateReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getStateReference_TypeSet() {
+		return (EReference) stateReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2623,6 +2661,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__COMPOSITE);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__CONDITION);
 
+		stateReferenceEClass = createEClass(STATE_REFERENCE);
+		createEReference(stateReferenceEClass, STATE_REFERENCE__STATE);
+		createEReference(stateReferenceEClass, STATE_REFERENCE__TYPE_SET);
+
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
@@ -2728,6 +2770,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		constantCodeEClass.getESuperTypes().add(getErrorCodeInstance());
 		modeMappingInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		compositeStateInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		stateReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE,
@@ -3288,6 +3331,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getCompositeStateInstance_Condition(), getConditionExpressionInstance(), null, "condition", null,
 				0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stateReferenceEClass, StateReference.class, "StateReference", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getStateReference_State(), getStateInstance(), null, "state", null, 0, 1, StateReference.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStateReference_TypeSet(), getAnonymousTypeSet(), null, "typeSet", null, 0, 1,
+				StateReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

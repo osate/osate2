@@ -6053,6 +6053,97 @@ public interface EMV2InstancePackage extends EPackage {
 	int COMPOSITE_STATE_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl <em>State Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getStateReference()
+	 * @generated
+	 */
+	int STATE_REFERENCE = 60;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_REFERENCE__OWNED_ELEMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_REFERENCE__OWNED_COMMENT = CONDITION_EXPRESSION_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_REFERENCE__NAME = CONDITION_EXPRESSION_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_REFERENCE__QUALIFIED_NAME = CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_REFERENCE__OWNED_PROPERTY_ASSOCIATION = CONDITION_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_REFERENCE__ANNEX_INSTANCE = CONDITION_EXPRESSION_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>State</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_REFERENCE__STATE = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_REFERENCE__TYPE_SET = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>State Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_REFERENCE_FEATURE_COUNT = CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6060,7 +6151,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 60;
+	int EOPERATION = 61;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -6070,7 +6161,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 61;
+	int BINDING_TYPE = 62;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
@@ -6080,7 +6171,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
 	 * @generated
 	 */
-	int COUNT_EXPRESSION_OPERATION = 62;
+	int COUNT_EXPRESSION_OPERATION = 63;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6340,6 +6431,38 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getCompositeStateInstance_Condition();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.StateReference <em>State Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>State Reference</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.StateReference
+	 * @generated
+	 */
+	EClass getStateReference();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.StateReference#getState <em>State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>State</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.StateReference#getState()
+	 * @see #getStateReference()
+	 * @generated
+	 */
+	EReference getStateReference_State();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.errormodel.instance.StateReference#getTypeSet <em>Type Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.StateReference#getTypeSet()
+	 * @see #getStateReference()
+	 * @generated
+	 */
+	EReference getStateReference_TypeSet();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.ErrorFlowInstance <em>Error Flow Instance</em>}'.
@@ -8158,6 +8281,32 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPOSITE_STATE_INSTANCE__CONDITION = eINSTANCE.getCompositeStateInstance_Condition();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl <em>State Reference</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getStateReference()
+		 * @generated
+		 */
+		EClass STATE_REFERENCE = eINSTANCE.getStateReference();
+
+		/**
+		 * The meta object literal for the '<em><b>State</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_REFERENCE__STATE = eINSTANCE.getStateReference_State();
+
+		/**
+		 * The meta object literal for the '<em><b>Type Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_REFERENCE__TYPE_SET = eINSTANCE.getStateReference_TypeSet();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.ErrorFlowInstance <em>Error Flow Instance</em>}' class.

@@ -72,6 +72,7 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -211,6 +212,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createModeMappingInstance();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
 			return createCompositeStateInstance();
+		case EMV2InstancePackage.STATE_REFERENCE:
+			return createStateReference();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -296,6 +299,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public CompositeStateInstance createCompositeStateInstance() {
 		CompositeStateInstanceImpl compositeStateInstance = new CompositeStateInstanceImpl();
 		return compositeStateInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public StateReference createStateReference() {
+		StateReferenceImpl stateReference = new StateReferenceImpl();
+		return stateReference;
 	}
 
 	/**

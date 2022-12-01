@@ -79,6 +79,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	CompositeStateInstance createCompositeStateInstance();
 
 	/**
+	 * Returns a new object of class '<em>State Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>State Reference</em>'.
+	 * @generated
+	 */
+	StateReference createStateReference();
+
+	/**
 	 * Returns a new object of class '<em>Error Source Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
