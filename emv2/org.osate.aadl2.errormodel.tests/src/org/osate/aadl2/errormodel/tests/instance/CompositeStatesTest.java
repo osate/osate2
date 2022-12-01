@@ -13,7 +13,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -67,6 +69,67 @@ public class CompositeStatesTest {
 					.get(0)
 					.getOwnedAnnexSubclauses()
 					.get(0)).getParsedAnnexSubclause()).getStates().get(0), composite.getComposite());
+		});
+	}
+
+	@Test
+	public void testPropagationReference() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "propagation_reference.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(6, annexInstance.getComposites().size());
+		with(annexInstance.getComposites().get(0), composite -> {
+			assertEquals("composite1", composite.getName());
+			assertEquals("composite1", composite.getComposite().getName());
+			with((ConditionPropagationReference) composite.getCondition(), condition -> {
+				assertEquals("f1 {CommonErrors}", condition.getName());
+				assertEquals("f1", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getComposites().get(1), composite -> {
+			assertEquals("composite2", composite.getName());
+			assertEquals("composite2", composite.getComposite().getName());
+			with((ConditionPropagationReference) composite.getCondition(), condition -> {
+				assertEquals("f2 {ServiceError}", condition.getName());
+				assertEquals("f2", condition.getPropagation().getName());
+				assertEquals("{ServiceError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getComposites().get(2), composite -> {
+			assertEquals("composite3", composite.getName());
+			assertEquals("composite3", composite.getComposite().getName());
+			with((NoErrorPropagationReference) composite.getCondition(), condition -> {
+				assertEquals("f3 {noerror}", condition.getName());
+				assertEquals("f3", condition.getPropagation().getName());
+			});
+		});
+		with(annexInstance.getComposites().get(3), composite -> {
+			assertEquals("composite4", composite.getName());
+			assertEquals("composite4", composite.getComposite().getName());
+			with((ConditionPropagationReference) composite.getCondition(), condition -> {
+				assertEquals("memory {CommonErrors}", condition.getName());
+				assertEquals("memory", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getComposites().get(4), composite -> {
+			assertEquals("composite5", composite.getName());
+			assertEquals("composite5", composite.getComposite().getName());
+			with((ConditionPropagationReference) composite.getCondition(), condition -> {
+				assertEquals("fg1.f4 {ServiceError, ItemTimingError}", condition.getName());
+				assertEquals("fg1.f4", condition.getPropagation().getName());
+				assertEquals("{ServiceError, ItemTimingError}", condition.getTypeSet().getName());
+			});
+		});
+		with(annexInstance.getComposites().get(5), composite -> {
+			assertEquals("composite6", composite.getName());
+			assertEquals("composite6", composite.getComposite().getName());
+			with((ConditionPropagationReference) composite.getCondition(), condition -> {
+				assertEquals("fg1.fg2.fg3.f5 {CommonErrors}", condition.getName());
+				assertEquals("fg1.fg2.fg3.f5", condition.getPropagation().getName());
+				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
+			});
 		});
 	}
 }

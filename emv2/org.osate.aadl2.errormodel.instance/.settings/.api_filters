@@ -57,7 +57,17 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getCondition()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="setComposite(CompositeState)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setCondition(ConditionExpressionInstance)"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2757,6 +2767,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="basicGetComposite()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="basicSetCondition(ConditionExpressionInstance, NotificationChain)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

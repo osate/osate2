@@ -24,10 +24,12 @@
 package org.osate.aadl2.errormodel.instance.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 
@@ -40,6 +42,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getComposite <em>Composite</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getCondition <em>Condition</em>}</li>
  * </ul>
  *
  * @generated
@@ -54,6 +57,16 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @ordered
 	 */
 	protected CompositeState composite;
+
+	/**
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCondition()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConditionExpressionInstance condition;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,6 +137,77 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
+	public ConditionExpressionInstance getCondition() {
+		return condition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCondition(ConditionExpressionInstance newCondition, NotificationChain msgs) {
+		ConditionExpressionInstance oldCondition = condition;
+		condition = newCondition;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION, oldCondition, newCondition);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setCondition(ConditionExpressionInstance newCondition) {
+		if (newCondition != condition) {
+			NotificationChain msgs = null;
+			if (condition != null) {
+				msgs = ((InternalEObject) condition).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION, null, msgs);
+			}
+			if (newCondition != null) {
+				msgs = ((InternalEObject) newCondition).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION, null, msgs);
+			}
+			msgs = basicSetCondition(newCondition, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION, newCondition, newCondition));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
+			return basicSetCondition(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE:
@@ -131,6 +215,8 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 				return getComposite();
 			}
 			return basicGetComposite();
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
+			return getCondition();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -145,6 +231,9 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 		switch (featureID) {
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE:
 			setComposite((CompositeState) newValue);
+			return;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
+			setCondition((ConditionExpressionInstance) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,6 +250,9 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE:
 			setComposite((CompositeState) null);
 			return;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
+			setCondition((ConditionExpressionInstance) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -175,6 +267,8 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 		switch (featureID) {
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE:
 			return composite != null;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
+			return condition != null;
 		}
 		return super.eIsSet(featureID);
 	}

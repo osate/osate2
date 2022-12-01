@@ -35,6 +35,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getComposite <em>Composite</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getCondition <em>Condition</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance()
@@ -63,5 +64,27 @@ public interface CompositeStateInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	void setComposite(CompositeState value);
+
+	/**
+	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Condition</em>' containment reference.
+	 * @see #setCondition(ConditionExpressionInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance_Condition()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ConditionExpressionInstance getCondition();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getCondition <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Condition</em>' containment reference.
+	 * @see #getCondition()
+	 * @generated
+	 */
+	void setCondition(ConditionExpressionInstance value);
 
 } // CompositeStateInstance

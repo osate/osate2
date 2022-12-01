@@ -854,6 +854,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getCompositeStateInstance_Condition() {
+		return (EReference) compositeStateInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getErrorFlowInstance() {
 		return errorFlowInstanceEClass;
 	}
@@ -2611,6 +2621,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		compositeStateInstanceEClass = createEClass(COMPOSITE_STATE_INSTANCE);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__COMPOSITE);
+		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__CONDITION);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -3274,6 +3285,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getCompositeStateInstance_Composite(), theErrorModelPackage.getCompositeState(), null,
 				"composite", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositeStateInstance_Condition(), getConditionExpressionInstance(), null, "condition", null,
+				0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

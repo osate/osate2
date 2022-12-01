@@ -200,7 +200,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
 		for (CompositeState cs : compstates) {
-			instantiateCompositeState(cs, emv2AI);
+			instantiateCompositeState(cs, instance, emv2AI);
 		}
 
 		Collection<OutgoingPropagationCondition> OPCs = EMV2Util.getAllOutgoingPropagationConditions(instance);
@@ -875,13 +875,20 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return stateReference;
 	}
 
-	private void instantiateCompositeState(CompositeState composite, EMV2AnnexInstance annex) {
-		var compositeInstance = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
-		if (composite.getName() != null) {
-			compositeInstance.setName(composite.getName());
+	private void instantiateCompositeState(CompositeState composite, ComponentInstance component,
+			EMV2AnnexInstance annex) {
+		try {
+			var compositeInstance = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
+			if (composite.getName() != null) {
+				compositeInstance.setName(composite.getName());
+			}
+			compositeInstance.setComposite(composite);
+			compositeInstance
+					.setCondition(createConditionExpressionInstance(composite.getCondition(), component, annex));
+			annex.getComposites().add(compositeInstance);
+		} catch (InternalFeatureEncounteredException e) {
+			// Abort instantiation of transition.
 		}
-		compositeInstance.setComposite(composite);
-		annex.getComposites().add(compositeInstance);
 	}
 
 	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {
