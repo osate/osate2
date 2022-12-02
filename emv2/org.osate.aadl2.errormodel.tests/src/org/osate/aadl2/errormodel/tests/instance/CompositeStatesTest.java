@@ -68,18 +68,16 @@ public class CompositeStatesTest {
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(2, annexInstance.getComposites().size());
 		with(annexInstance.getComposites().get(0), composite -> {
-			// TODO Test name after we generate names for unnamed composites.
-			assertNull(composite.getName());
+			assertEquals("[f2 {CommonErrors}]-> state2 {ServiceError}", composite.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getStates().get(0), composite.getComposite());
 			assertEquals("f2 {CommonErrors}", composite.getCondition().getName());
 			assertEquals("state2", composite.getDestination().getName());
-			assertNull(composite.getDestinationTypeSet());
-			assertNull(composite.getDestinationTypeToken());
+			assertEquals("{ServiceError}", composite.getDestinationTypeSet().getName());
+			assertEquals("ServiceError", composite.getDestinationTypeToken().getName());
 		});
 		with(annexInstance.getComposites().get(1), composite -> {
-			// TODO Test name after we generate names for unnamed composites.
-			assertNull(composite.getName());
+			assertEquals("[f1 {CommonErrors}]-> state1", composite.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 					.getOwnedClassifiers()
 					.get(0)

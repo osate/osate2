@@ -24,16 +24,17 @@ public
 		annex EMV2 {**
 			composite error behavior
 				states
-					[in f2]-> state2;
+					[in f2]-> state2 {ServiceError};
 			end composite;
 		**};
 	end s.i;
 	
 	annex EMV2 {**
 		error behavior machine1
+			use types ErrorLibrary;
 			states
 				state1: initial state;
-				state2: state;
+				state2: state {CommonErrors};
 		end behavior;
 	**};
 end inherit_unnamed_composite;
