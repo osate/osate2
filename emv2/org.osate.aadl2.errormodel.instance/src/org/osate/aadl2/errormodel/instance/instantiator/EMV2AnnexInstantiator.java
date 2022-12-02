@@ -24,7 +24,6 @@
 package org.osate.aadl2.errormodel.instance.instantiator;
 
 import static org.eclipse.xtext.EcoreUtil2.getContainerOfType;
-import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.isNoError;
 
 import java.math.BigDecimal;
 import java.util.ArrayDeque;
@@ -67,9 +66,6 @@ import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConstantCode;
-import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
-import org.osate.aadl2.errormodel.instance.ConstraintElement;
-import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
@@ -77,7 +73,6 @@ import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
-import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
@@ -117,7 +112,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -1188,42 +1182,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		annex.getErrorFlows().add(pathInstance);
 	}
 
-	/**
-	 *
-	 * @param ep
-	 * @param ts type constraint from flow. Can be null. If null then use type set from error propagation
-	 * @param eai
-	 * @return
-	 */
-	private ConstrainedInstanceObject createErrorPropagationCIO(ErrorPropagation ep, TypeSet ts,
-			EMV2AnnexInstance eai) {
-		ComponentInstance ci = (ComponentInstance) eai.eContainer();
-		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
-		FeatureorPPReference fppref = ep.getFeatureorPPRef();
-		if (fppref != null) {
-			NamedElement fpp = fppref.getFeatureorPP();
-			if (fpp instanceof Feature) {
-				FeatureInstance fi = findFeatureInstance(ci, fppref);
-				cio.setInstanceObject(fi);
-				cio.setName(fi.getName());
-			} else if (fpp instanceof PropagationPoint) {
-				PropagationPointInstance ppi = findPropagationPointInstance(eai, (PropagationPoint) fpp);
-				cio.setInstanceObject(ppi);
-				cio.setName(ppi.getName());
-			}
-		} else if (ep.getKind() != null) {
-			cio.setInstanceObject(ci);
-			cio.setPropagationKind(ep.getKind());
-		}
-		TypeSet outts = (ts == null) ? ep.getTypeSet() : ts;
-		if (outts != null) {
-			for (TypeToken tt : outts.getTypeTokens()) {
-				cio.getConstraint().add(EcoreUtil.copy(tt));
-			}
-		}
-		return cio;
-	}
-
 	private void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition condition,
 			ComponentInstance component, EMV2AnnexInstance annex) {
 		try {
@@ -1421,183 +1379,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		return null;
 	}
-
-	private ConstraintElement instantiateCondition(ConditionExpression condition, EMV2AnnexInstance annex) {
-
-		// Mapping of AND expression
-		if (condition instanceof AndExpression) {
-			AndExpression expression = (AndExpression) condition;
-			ConstraintExpression andExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-			andExpr.setOperator(EOperation.ALL);
-			for (ConditionExpression ce : expression.getOperands()) {
-				ConstraintElement res = instantiateCondition(ce, annex);
-				if (res != null) {
-					andExpr.getConstraintElements().add(res);
-				}
-			}
-
-			return andExpr;
-		}
-
-		// Mapping of All expression
-		if (condition instanceof AllExpression) {
-			AllExpression allCondition = (AllExpression) condition;
-			if (allCondition.getCount() == 0) {
-				ConstraintExpression allExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-				allExpr.setOperator(EOperation.ALL);
-				for (ConditionExpression ce : allCondition.getOperands()) {
-					ConstraintElement res = instantiateCondition(ce, annex);
-					if (res != null) {
-						allExpr.getConstraintElements().add(res);
-					}
-				}
-				return allExpr;
-			}
-			return null;
-		}
-
-		// Mapping of OR expression
-		if (condition instanceof OrExpression) {
-			OrExpression orExpression = (OrExpression) condition;
-			ConstraintExpression allExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-			allExpr.setOperator(EOperation.ONEOF);
-			for (ConditionExpression ce : orExpression.getOperands()) {
-				ConstraintElement res = instantiateCondition(ce, annex);
-				if (res != null) {
-					allExpr.getConstraintElements().add(res);
-				}
-			}
-			return allExpr;
-		}
-
-		// Mapping of ORMORE expression
-		if (condition instanceof OrmoreExpression) {
-			OrmoreExpression omCondition = (OrmoreExpression) condition;
-
-			if (omCondition.getCount() == 1) {
-				/* 1 ormore is mapped to a OR gate */
-				ConstraintExpression allExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-				allExpr.setOperator(EOperation.ANY);
-				for (ConditionExpression ce : omCondition.getOperands()) {
-					ConstraintElement res = instantiateCondition(ce, annex);
-					if (res != null) {
-						allExpr.getConstraintElements().add(res);
-					}
-				}
-				return allExpr;
-			} else {
-				/* x ormore with x > 1 is mapped to a ORMORE gate */
-				ConstraintExpression omExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-				omExpr.setOperator(EOperation.KORMORE);
-				omExpr.setK(omCondition.getCount());
-				for (ConditionExpression ce : omCondition.getOperands()) {
-					ConstraintElement res = instantiateCondition(ce, annex);
-					if (res != null) {
-						omExpr.getConstraintElements().add(res);
-					}
-				}
-				return omExpr;
-			}
-		}
-
-		// Mapping of single condition element
-		if (condition instanceof ConditionElement) {
-			ConditionElement conditionElement = (ConditionElement) condition;
-
-			if (condition instanceof SConditionElement) {
-				SConditionElement sconditionElement = (SConditionElement) condition;
-				if (sconditionElement.getQualifiedState() != null) {
-					/**
-					 * In the following, it seems that we reference another
-					 * component. This is typically the case when the condition is
-					 * within an composite error behavior.
-					 *
-					 * So, we find the referenced component in the component
-					 * hierarchy and add all its contributors to the returned
-					 * events.
-					 */
-					QualifiedErrorBehaviorState qs = sconditionElement.getQualifiedState();
-					ComponentInstance component = (ComponentInstance) annex.eContainer();
-					ComponentInstance referencedComponent = EMV2Util.getLastComponentInstance(qs, component);
-					ErrorBehaviorState state = EMV2Util.getState(sconditionElement);
-					// either original type or mapped to constraint in condition or type set on state declaration
-					TypeSet referencedErrorType = (sconditionElement.getConstraint() != null)
-							? sconditionElement.getConstraint()
-							: state.getTypeSet();
-					EMV2AnnexInstance eai = findEMV2AnnexInstance(referencedComponent);
-					StateInstance si = findStateInstance(eai, state);
-					// state only
-					ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
-					cio.setInstanceObject(si);
-					cio.setName(si.getName());
-					if (referencedErrorType != null) {
-						cio.getConstraint().addAll(EcoreUtil.copyAll(referencedErrorType.getTypeTokens()));
-					}
-					return cio;
-				} else if (sconditionElement.getQualifiedErrorPropagationReference() != null) {
-					EMV2Path path = sconditionElement.getQualifiedErrorPropagationReference();
-					ComponentInstance component = (ComponentInstance) annex.eContainer();
-					ComponentInstance referencedComponent = EMV2Util.getLastComponentInstance(path, component);
-					ErrorPropagation ep = EMV2Util.getErrorPropagation(path);
-					// either original type or mapped to constraint in condition or type set on state declaration
-					TypeSet referencedErrorType = (sconditionElement.getConstraint() != null)
-							? sconditionElement.getConstraint()
-							: ep.getTypeSet();
-					ConstrainedInstanceObject cio = createErrorPropagationCIO(ep, EcoreUtil.copy(referencedErrorType),
-							findEMV2AnnexInstance(referencedComponent));
-					return cio;
-				}
-			} // end SConditionElement
-
-			if (conditionElement.getConstraint() != null) {
-				if (isNoError(conditionElement.getConstraint())) {
-					// this is a recovery transition since an incoming propagation constraint is NoError
-					return null;
-				}
-			}
-			if (conditionElement.getQualifiedErrorPropagationReference() != null) {
-				ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
-				EMV2Path path = conditionElement.getQualifiedErrorPropagationReference();
-
-				NamedElement errorModelElement = EMV2Util.getErrorModelElement(path);
-				ComponentInstance component = (ComponentInstance) annex.eContainer();
-				ComponentInstance referencedComponent = EMV2Util.getLastComponentInstance(path, component);
-				EMV2AnnexInstance referencedAnnex = findEMV2AnnexInstance(referencedComponent);
-				/**
-				 * Here, we have an error event. Likely, this is something we
-				 * can get when we are analyzing error component behavior.
-				 */
-				if (errorModelElement instanceof ErrorEvent) {
-					EventInstance evi = findEventInstance(referencedAnnex, (ErrorEvent) errorModelElement);
-					if (evi != null) {
-						cio.setInstanceObject(evi);
-						cio.setName(evi.getName());
-						TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
-								: ((ErrorEvent) errorModelElement).getTypeSet();
-						if (ts != null) {
-							cio.getConstraint().addAll(EcoreUtil.copyAll(ts.getTypeTokens()));
-						}
-						return cio;
-					}
-				}
-
-				/**
-				 * Here, we have an error propagation. This is notified with the
-				 * in propagation within a composite error model.
-				 */
-				if (errorModelElement instanceof ErrorPropagation) {
-					ErrorPropagation errorPropagation = (ErrorPropagation) errorModelElement;
-					TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
-							: errorPropagation.getTypeSet();
-					cio = createErrorPropagationCIO(errorPropagation, ts, referencedAnnex);
-					return cio;
-				}
-
-			}
-		}
-		return null;
-	}
-
 
 	private PropagationPointInstance findPropagationPointInstance(EMV2AnnexInstance annex, PropagationPoint pp) {
 		for (PropagationPointInstance ei : annex.getPropagationPoints()) {
