@@ -615,15 +615,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else if (condition instanceof OrlessExpression orLessExpression) {
 			return createCountExpression(orLessExpression.getOperands(), CountExpressionOperation.LESS_EQUAL,
 					orLessExpression.getCount(), component, annex);
-		} else if (condition instanceof SConditionElement conditionElement) {
-			if (conditionElement.getQualifiedState() == null) {
-				return createConditionPropagationReference(component,
-						conditionElement.getQualifiedErrorPropagationReference().getEmv2Target(),
-						conditionElement.getConstraint());
-			} else {
-				return createStateReference(component, conditionElement.getQualifiedState(),
-						conditionElement.getConstraint());
-			}
+		} else if (condition instanceof SConditionElement conditionElement
+				&& conditionElement.getQualifiedState() != null) {
+			return createStateReference(component, conditionElement.getQualifiedState(),
+					conditionElement.getConstraint());
 		} else if (condition instanceof ConditionElement conditionElement) {
 			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
 			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {

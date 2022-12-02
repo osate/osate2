@@ -1,0 +1,38 @@
+package count_expressions
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: system sub1;
+		annex EMV2 {**
+			use behavior count_expressions::machine1;
+			
+			composite error behavior
+				states
+					composite1: [sub1.state1 or sub1.state2]-> destinationState;
+					composite2: [sub1.state1 and sub1.state2]-> destinationState;
+					composite3: [2 ormore (sub1.state1, sub1.state2, sub1.state3)]-> destinationState;
+					composite4: [2 orless (sub1.state1, sub1.state2, sub1.state3)]-> destinationState;
+					composite5: [sub1.state1 and (sub1.state2 or sub1.state3)]-> destinationState;
+			end composite;
+		**};
+	end s.i;
+	
+	system sub1
+		annex EMV2 {**
+			use behavior count_expressions::machine1;
+		**};
+	end sub1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+				state3: state;
+				destinationState: state;
+		end behavior;
+	**};
+end count_expressions;
