@@ -3977,6 +3977,79 @@ public interface EMV2InstancePackage extends EPackage {
 	int ALL_SOURCES_FEATURE_COUNT = STATE_SOURCE_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CompositeConditionExpression <em>Composite Condition Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.CompositeConditionExpression
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCompositeConditionExpression()
+	 * @generated
+	 */
+	int COMPOSITE_CONDITION_EXPRESSION = 60;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_CONDITION_EXPRESSION__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_CONDITION_EXPRESSION__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_CONDITION_EXPRESSION__NAME = EMV2_INSTANCE_OBJECT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_CONDITION_EXPRESSION__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_CONDITION_EXPRESSION__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_CONDITION_EXPRESSION__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+
+	/**
+	 * The number of structural features of the '<em>Composite Condition Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_CONDITION_EXPRESSION_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.ConditionExpressionInstance <em>Condition Expression Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3993,7 +4066,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITION_EXPRESSION_INSTANCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+	int CONDITION_EXPRESSION_INSTANCE__OWNED_ELEMENT = COMPOSITE_CONDITION_EXPRESSION__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -4002,7 +4075,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITION_EXPRESSION_INSTANCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+	int CONDITION_EXPRESSION_INSTANCE__OWNED_COMMENT = COMPOSITE_CONDITION_EXPRESSION__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4011,7 +4084,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITION_EXPRESSION_INSTANCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
+	int CONDITION_EXPRESSION_INSTANCE__NAME = COMPOSITE_CONDITION_EXPRESSION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -4020,7 +4093,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+	int CONDITION_EXPRESSION_INSTANCE__QUALIFIED_NAME = COMPOSITE_CONDITION_EXPRESSION__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -4029,7 +4102,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITION_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+	int CONDITION_EXPRESSION_INSTANCE__OWNED_PROPERTY_ASSOCIATION = COMPOSITE_CONDITION_EXPRESSION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
@@ -4038,7 +4111,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITION_EXPRESSION_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+	int CONDITION_EXPRESSION_INSTANCE__ANNEX_INSTANCE = COMPOSITE_CONDITION_EXPRESSION__ANNEX_INSTANCE;
 
 	/**
 	 * The number of structural features of the '<em>Condition Expression Instance</em>' class.
@@ -4047,7 +4120,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+	int CONDITION_EXPRESSION_INSTANCE_FEATURE_COUNT = COMPOSITE_CONDITION_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.EventReferenceImpl <em>Event Reference</em>}' class.
@@ -6053,6 +6126,79 @@ public interface EMV2InstancePackage extends EPackage {
 	int COMPOSITE_STATE_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.OthersExpressionImpl <em>Others Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.OthersExpressionImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOthersExpression()
+	 * @generated
+	 */
+	int OTHERS_EXPRESSION = 61;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OTHERS_EXPRESSION__OWNED_ELEMENT = COMPOSITE_CONDITION_EXPRESSION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OTHERS_EXPRESSION__OWNED_COMMENT = COMPOSITE_CONDITION_EXPRESSION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OTHERS_EXPRESSION__NAME = COMPOSITE_CONDITION_EXPRESSION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OTHERS_EXPRESSION__QUALIFIED_NAME = COMPOSITE_CONDITION_EXPRESSION__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OTHERS_EXPRESSION__OWNED_PROPERTY_ASSOCIATION = COMPOSITE_CONDITION_EXPRESSION__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OTHERS_EXPRESSION__ANNEX_INSTANCE = COMPOSITE_CONDITION_EXPRESSION__ANNEX_INSTANCE;
+
+	/**
+	 * The number of structural features of the '<em>Others Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OTHERS_EXPRESSION_FEATURE_COUNT = COMPOSITE_CONDITION_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl <em>State Reference</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6060,7 +6206,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getStateReference()
 	 * @generated
 	 */
-	int STATE_REFERENCE = 60;
+	int STATE_REFERENCE = 62;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6151,7 +6297,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 61;
+	int EOPERATION = 63;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.BindingType <em>Binding Type</em>}' enum.
@@ -6161,7 +6307,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 62;
+	int BINDING_TYPE = 64;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.CountExpressionOperation <em>Count Expression Operation</em>}' enum.
@@ -6171,7 +6317,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCountExpressionOperation()
 	 * @generated
 	 */
-	int COUNT_EXPRESSION_OPERATION = 63;
+	int COUNT_EXPRESSION_OPERATION = 65;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -6431,6 +6577,26 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getCompositeStateInstance_Condition();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.CompositeConditionExpression <em>Composite Condition Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Composite Condition Expression</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.CompositeConditionExpression
+	 * @generated
+	 */
+	EClass getCompositeConditionExpression();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.OthersExpression <em>Others Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Others Expression</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.OthersExpression
+	 * @generated
+	 */
+	EClass getOthersExpression();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.StateReference <em>State Reference</em>}'.
@@ -8281,6 +8447,26 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPOSITE_STATE_INSTANCE__CONDITION = eINSTANCE.getCompositeStateInstance_Condition();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.CompositeConditionExpression <em>Composite Condition Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.CompositeConditionExpression
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getCompositeConditionExpression()
+		 * @generated
+		 */
+		EClass COMPOSITE_CONDITION_EXPRESSION = eINSTANCE.getCompositeConditionExpression();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.OthersExpressionImpl <em>Others Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.OthersExpressionImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getOthersExpression()
+		 * @generated
+		 */
+		EClass OTHERS_EXPRESSION = eINSTANCE.getOthersExpression();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl <em>State Reference</em>}' class.

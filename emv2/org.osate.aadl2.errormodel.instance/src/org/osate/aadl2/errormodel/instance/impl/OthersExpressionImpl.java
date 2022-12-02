@@ -21,17 +21,37 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.errormodel.instance;
+package org.osate.aadl2.errormodel.instance.impl;
+
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.OthersExpression;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Condition Expression Instance</b></em>'.
+ * An implementation of the model object '<em><b>Others Expression</b></em>'.
  * <!-- end-user-doc -->
  *
- *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConditionExpressionInstance()
- * @model interface="true" abstract="true"
  * @generated
  */
-public interface ConditionExpressionInstance extends CompositeConditionExpression {
-} // ConditionExpressionInstance
+public class OthersExpressionImpl extends EMV2InstanceObjectImpl implements OthersExpression {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OthersExpressionImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return EMV2InstancePackage.Literals.OTHERS_EXPRESSION;
+	}
+
+} // OthersExpressionImpl

@@ -22,6 +22,7 @@ import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OthersExpression;
 import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
@@ -53,6 +54,7 @@ public class CompositeStatesTest {
 		with(annexInstance.getComposites().get(0), composite -> {
 			assertEquals("COMPOSITE1", composite.getName());
 			assertEquals("COMPOSITE1", composite.getComposite().getName());
+			assertEquals("others", composite.getCondition().getName());
 		});
 	}
 
@@ -67,6 +69,7 @@ public class CompositeStatesTest {
 			assertNull(composite.getName());
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getStates().get(0), composite.getComposite());
+			assertEquals("f2 {CommonErrors}", composite.getCondition().getName());
 		});
 		with(annexInstance.getComposites().get(1), composite -> {
 			// TODO Test name after we generate names for unnamed composites.
@@ -76,6 +79,7 @@ public class CompositeStatesTest {
 					.get(0)
 					.getOwnedAnnexSubclauses()
 					.get(0)).getParsedAnnexSubclause()).getStates().get(0), composite.getComposite());
+			assertEquals("f1 {CommonErrors}", composite.getCondition().getName());
 		});
 	}
 
@@ -269,6 +273,21 @@ public class CompositeStatesTest {
 				});
 				assertEquals(CountExpressionOperation.EQUALS, condition.getOperation());
 				assertEquals(2, condition.getCount());
+			});
+		});
+	}
+
+	@Test
+	public void testOthersExpression() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "others_expression.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getComposites().size());
+		with(annexInstance.getComposites().get(0), composite -> {
+			assertEquals("composite1", composite.getName());
+			assertEquals("composite1", composite.getComposite().getName());
+			with((OthersExpression) composite.getCondition(), condition -> {
+				assertEquals("others", condition.getName());
 			});
 		});
 	}

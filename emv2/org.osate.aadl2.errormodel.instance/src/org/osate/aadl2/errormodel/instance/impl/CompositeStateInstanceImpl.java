@@ -28,8 +28,8 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.osate.aadl2.errormodel.instance.CompositeConditionExpression;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
-import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 
@@ -66,7 +66,7 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 * @ordered
 	 */
-	protected ConditionExpressionInstance condition;
+	protected CompositeConditionExpression condition;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -137,7 +137,7 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
-	public ConditionExpressionInstance getCondition() {
+	public CompositeConditionExpression getCondition() {
 		return condition;
 	}
 
@@ -146,8 +146,8 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCondition(ConditionExpressionInstance newCondition, NotificationChain msgs) {
-		ConditionExpressionInstance oldCondition = condition;
+	public NotificationChain basicSetCondition(CompositeConditionExpression newCondition, NotificationChain msgs) {
+		CompositeConditionExpression oldCondition = condition;
 		condition = newCondition;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
@@ -167,7 +167,7 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
-	public void setCondition(ConditionExpressionInstance newCondition) {
+	public void setCondition(CompositeConditionExpression newCondition) {
 		if (newCondition != condition) {
 			NotificationChain msgs = null;
 			if (condition != null) {
@@ -233,7 +233,7 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 			setComposite((CompositeState) newValue);
 			return;
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
-			setCondition((ConditionExpressionInstance) newValue);
+			setCondition((CompositeConditionExpression) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -251,7 +251,7 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 			setComposite((CompositeState) null);
 			return;
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
-			setCondition((ConditionExpressionInstance) null);
+			setCondition((CompositeConditionExpression) null);
 			return;
 		}
 		super.eUnset(featureID);

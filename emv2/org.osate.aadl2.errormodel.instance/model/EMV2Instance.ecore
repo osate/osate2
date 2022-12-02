@@ -221,7 +221,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AllSources" eSuperTypes="#//StateSource"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConditionExpressionInstance" abstract="true"
-      interface="true" eSuperTypes="#//EMV2InstanceObject"/>
+      interface="true" eSuperTypes="#//CompositeConditionExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="EventReference" eSuperTypes="#//ConditionExpressionInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="#//EventInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"
@@ -325,9 +325,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompositeStateInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="composite" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//CompositeState"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpressionInstance"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//CompositeConditionExpression"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeConditionExpression" abstract="true"
+      interface="true" eSuperTypes="#//EMV2InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OthersExpression" eSuperTypes="#//CompositeConditionExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="StateReference" eSuperTypes="#//ConditionExpressionInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//StateInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//AnonymousTypeSet"

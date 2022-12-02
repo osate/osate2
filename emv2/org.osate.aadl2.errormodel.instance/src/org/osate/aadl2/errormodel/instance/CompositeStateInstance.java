@@ -70,12 +70,12 @@ public interface CompositeStateInstance extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(ConditionExpressionInstance)
+	 * @see #setCondition(CompositeConditionExpression)
 	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance_Condition()
 	 * @model containment="true"
 	 * @generated
 	 */
-	ConditionExpressionInstance getCondition();
+	CompositeConditionExpression getCondition();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getCondition <em>Condition</em>}' containment reference.
@@ -85,6 +85,6 @@ public interface CompositeStateInstance extends EMV2InstanceObject {
 	 * @see #getCondition()
 	 * @generated
 	 */
-	void setCondition(ConditionExpressionInstance value);
+	void setCondition(CompositeConditionExpression value);
 
 } // CompositeStateInstance

@@ -40,6 +40,7 @@ import org.osate.aadl2.errormodel.instance.Branch;
 import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
+import org.osate.aadl2.errormodel.instance.CompositeConditionExpression;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
@@ -69,6 +70,7 @@ import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OthersExpression;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -988,6 +990,9 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			ConditionExpressionInstance conditionExpressionInstance = (ConditionExpressionInstance) theEObject;
 			T result = caseConditionExpressionInstance(conditionExpressionInstance);
 			if (result == null) {
+				result = caseCompositeConditionExpression(conditionExpressionInstance);
+			}
+			if (result == null) {
 				result = caseEMV2InstanceObject(conditionExpressionInstance);
 			}
 			if (result == null) {
@@ -1011,6 +1016,9 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				result = caseConditionExpressionInstance(eventReference);
 			}
 			if (result == null) {
+				result = caseCompositeConditionExpression(eventReference);
+			}
+			if (result == null) {
 				result = caseEMV2InstanceObject(eventReference);
 			}
 			if (result == null) {
@@ -1032,6 +1040,9 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			T result = caseConditionPropagationReference(conditionPropagationReference);
 			if (result == null) {
 				result = caseConditionExpressionInstance(conditionPropagationReference);
+			}
+			if (result == null) {
+				result = caseCompositeConditionExpression(conditionPropagationReference);
 			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(conditionPropagationReference);
@@ -1060,6 +1071,9 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				result = caseOutgoingPropagationConditionDestination(noErrorPropagationReference);
 			}
 			if (result == null) {
+				result = caseCompositeConditionExpression(noErrorPropagationReference);
+			}
+			if (result == null) {
 				result = caseEMV2InstanceObject(noErrorPropagationReference);
 			}
 			if (result == null) {
@@ -1081,6 +1095,9 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			T result = caseCountExpression(countExpression);
 			if (result == null) {
 				result = caseConditionExpressionInstance(countExpression);
+			}
+			if (result == null) {
+				result = caseCompositeConditionExpression(countExpression);
 			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(countExpression);
@@ -1512,11 +1529,57 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case EMV2InstancePackage.COMPOSITE_CONDITION_EXPRESSION: {
+			CompositeConditionExpression compositeConditionExpression = (CompositeConditionExpression) theEObject;
+			T result = caseCompositeConditionExpression(compositeConditionExpression);
+			if (result == null) {
+				result = caseEMV2InstanceObject(compositeConditionExpression);
+			}
+			if (result == null) {
+				result = caseInstanceObject(compositeConditionExpression);
+			}
+			if (result == null) {
+				result = caseNamedElement(compositeConditionExpression);
+			}
+			if (result == null) {
+				result = caseElement(compositeConditionExpression);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.OTHERS_EXPRESSION: {
+			OthersExpression othersExpression = (OthersExpression) theEObject;
+			T result = caseOthersExpression(othersExpression);
+			if (result == null) {
+				result = caseCompositeConditionExpression(othersExpression);
+			}
+			if (result == null) {
+				result = caseEMV2InstanceObject(othersExpression);
+			}
+			if (result == null) {
+				result = caseInstanceObject(othersExpression);
+			}
+			if (result == null) {
+				result = caseNamedElement(othersExpression);
+			}
+			if (result == null) {
+				result = caseElement(othersExpression);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case EMV2InstancePackage.STATE_REFERENCE: {
 			StateReference stateReference = (StateReference) theEObject;
 			T result = caseStateReference(stateReference);
 			if (result == null) {
 				result = caseConditionExpressionInstance(stateReference);
+			}
+			if (result == null) {
+				result = caseCompositeConditionExpression(stateReference);
 			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(stateReference);
@@ -1612,6 +1675,36 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCompositeStateInstance(CompositeStateInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Composite Condition Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Composite Condition Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCompositeConditionExpression(CompositeConditionExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Others Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Others Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOthersExpression(OthersExpression object) {
 		return null;
 	}
 

@@ -64,6 +64,7 @@ import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OthersExpression;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -212,6 +213,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			return createModeMappingInstance();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
 			return createCompositeStateInstance();
+		case EMV2InstancePackage.OTHERS_EXPRESSION:
+			return createOthersExpression();
 		case EMV2InstancePackage.STATE_REFERENCE:
 			return createStateReference();
 		default:
@@ -299,6 +302,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public CompositeStateInstance createCompositeStateInstance() {
 		CompositeStateInstanceImpl compositeStateInstance = new CompositeStateInstanceImpl();
 		return compositeStateInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public OthersExpression createOthersExpression() {
+		OthersExpressionImpl othersExpression = new OthersExpressionImpl();
+		return othersExpression;
 	}
 
 	/**

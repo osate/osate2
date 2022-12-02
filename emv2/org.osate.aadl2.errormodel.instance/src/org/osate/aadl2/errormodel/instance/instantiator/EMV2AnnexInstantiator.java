@@ -62,6 +62,7 @@ import org.osate.aadl2.errormodel.instance.Branch;
 import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
+import org.osate.aadl2.errormodel.instance.CompositeConditionExpression;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
@@ -85,6 +86,7 @@ import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OthersExpression;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -918,12 +920,26 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				compositeInstance.setName(composite.getName());
 			}
 			compositeInstance.setComposite(composite);
-			compositeInstance
-					.setCondition(createConditionExpressionInstance(composite.getCondition(), component, annex));
+			compositeInstance.setCondition(createCompositeConditionExpression(composite, component, annex));
 			annex.getComposites().add(compositeInstance);
 		} catch (InternalFeatureEncounteredException e) {
-			// Abort instantiation of transition.
+			// Abort instantiation of composite state.
 		}
+	}
+
+	private CompositeConditionExpression createCompositeConditionExpression(CompositeState composite,
+			ComponentInstance component, EMV2AnnexInstance annex) throws InternalFeatureEncounteredException {
+		if (composite.isOthers()) {
+			return createOthersExpression();
+		} else {
+			return createConditionExpressionInstance(composite.getCondition(), component, annex);
+		}
+	}
+
+	private OthersExpression createOthersExpression() {
+		var othersExpression = EMV2InstanceFactory.eINSTANCE.createOthersExpression();
+		othersExpression.setName("others");
+		return othersExpression;
 	}
 
 	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {

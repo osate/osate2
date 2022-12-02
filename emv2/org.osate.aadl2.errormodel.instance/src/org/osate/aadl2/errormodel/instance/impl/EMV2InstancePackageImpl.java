@@ -44,6 +44,7 @@ import org.osate.aadl2.errormodel.instance.Branch;
 import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
+import org.osate.aadl2.errormodel.instance.CompositeConditionExpression;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
@@ -76,6 +77,7 @@ import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OthersExpression;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
@@ -141,6 +143,20 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass compositeStateInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass compositeConditionExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass othersExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -864,6 +880,26 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EReference getCompositeStateInstance_Condition() {
 		return (EReference) compositeStateInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getCompositeConditionExpression() {
+		return compositeConditionExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getOthersExpression() {
+		return othersExpressionEClass;
 	}
 
 	/**
@@ -2661,6 +2697,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__COMPOSITE);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__CONDITION);
 
+		compositeConditionExpressionEClass = createEClass(COMPOSITE_CONDITION_EXPRESSION);
+
+		othersExpressionEClass = createEClass(OTHERS_EXPRESSION);
+
 		stateReferenceEClass = createEClass(STATE_REFERENCE);
 		createEReference(stateReferenceEClass, STATE_REFERENCE__STATE);
 		createEReference(stateReferenceEClass, STATE_REFERENCE__TYPE_SET);
@@ -2745,7 +2785,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		stateSourceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		sourceStateReferenceEClass.getESuperTypes().add(getStateSource());
 		allSourcesEClass.getESuperTypes().add(getStateSource());
-		conditionExpressionInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		conditionExpressionInstanceEClass.getESuperTypes().add(getCompositeConditionExpression());
 		eventReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		conditionPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 		noErrorPropagationReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
@@ -2770,6 +2810,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		constantCodeEClass.getESuperTypes().add(getErrorCodeInstance());
 		modeMappingInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		compositeStateInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
+		compositeConditionExpressionEClass.getESuperTypes().add(getEMV2InstanceObject());
+		othersExpressionEClass.getESuperTypes().add(getCompositeConditionExpression());
 		stateReferenceEClass.getESuperTypes().add(getConditionExpressionInstance());
 
 		// Initialize classes and features; add operations and parameters
@@ -3328,9 +3370,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getCompositeStateInstance_Composite(), theErrorModelPackage.getCompositeState(), null,
 				"composite", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCompositeStateInstance_Condition(), getConditionExpressionInstance(), null, "condition", null,
-				0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getCompositeStateInstance_Condition(), getCompositeConditionExpression(), null, "condition",
+				null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(compositeConditionExpressionEClass, CompositeConditionExpression.class,
+				"CompositeConditionExpression", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(othersExpressionEClass, OthersExpression.class, "OthersExpression", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(stateReferenceEClass, StateReference.class, "StateReference", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

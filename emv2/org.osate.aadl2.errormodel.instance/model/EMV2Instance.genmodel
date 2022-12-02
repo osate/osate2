@@ -253,6 +253,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//CompositeStateInstance/composite"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//CompositeStateInstance/condition"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="EMV2Instance.ecore#//CompositeConditionExpression"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//OthersExpression"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//StateReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateReference/state"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateReference/typeSet"/>

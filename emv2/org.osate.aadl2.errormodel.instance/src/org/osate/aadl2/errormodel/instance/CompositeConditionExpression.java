@@ -25,13 +25,13 @@ package org.osate.aadl2.errormodel.instance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Condition Expression Instance</b></em>'.
+ * A representation of the model object '<em><b>Composite Condition Expression</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getConditionExpressionInstance()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeConditionExpression()
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface ConditionExpressionInstance extends CompositeConditionExpression {
-} // ConditionExpressionInstance
+public interface CompositeConditionExpression extends EMV2InstanceObject {
+} // CompositeConditionExpression
