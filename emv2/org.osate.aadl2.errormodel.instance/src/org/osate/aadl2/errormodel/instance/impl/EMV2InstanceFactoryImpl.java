@@ -44,8 +44,6 @@ import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstantCode;
-import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
-import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
@@ -54,7 +52,6 @@ import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
@@ -127,10 +124,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 		switch (eClass.getClassifierID()) {
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE:
 			return createEMV2AnnexInstance();
-		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT:
-			return createConstrainedInstanceObject();
-		case EMV2InstancePackage.CONSTRAINT_EXPRESSION:
-			return createConstraintExpression();
 		case EMV2InstancePackage.FEATURE_PROPAGATION:
 			return createFeaturePropagation();
 		case EMV2InstancePackage.ACCESS_PROPAGATION:
@@ -230,8 +223,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case EMV2InstancePackage.EOPERATION:
-			return createEOperationFromString(eDataType, initialValue);
 		case EMV2InstancePackage.BINDING_TYPE:
 			return createBindingTypeFromString(eDataType, initialValue);
 		case EMV2InstancePackage.COUNT_EXPRESSION_OPERATION:
@@ -249,8 +240,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case EMV2InstancePackage.EOPERATION:
-			return convertEOperationToString(eDataType, instanceValue);
 		case EMV2InstancePackage.BINDING_TYPE:
 			return convertBindingTypeToString(eDataType, instanceValue);
 		case EMV2InstancePackage.COUNT_EXPRESSION_OPERATION:
@@ -280,17 +269,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public StateInstance createStateInstance() {
 		StateInstanceImpl stateInstance = new StateInstanceImpl();
 		return stateInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ConstrainedInstanceObject createConstrainedInstanceObject() {
-		ConstrainedInstanceObjectImpl constrainedInstanceObject = new ConstrainedInstanceObjectImpl();
-		return constrainedInstanceObject;
 	}
 
 	/**
@@ -673,17 +651,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public ConstraintExpression createConstraintExpression() {
-		ConstraintExpressionImpl constraintExpression = new ConstraintExpressionImpl();
-		return constraintExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public FeaturePropagation createFeaturePropagation() {
 		FeaturePropagationImpl featurePropagation = new FeaturePropagationImpl();
 		return featurePropagation;
@@ -764,29 +731,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public TypeProductInstance createTypeProductInstance() {
 		TypeProductInstanceImpl typeProductInstance = new TypeProductInstanceImpl();
 		return typeProductInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EOperation createEOperationFromString(EDataType eDataType, String initialValue) {
-		EOperation result = EOperation.get(initialValue);
-		if (result == null) {
-			throw new IllegalArgumentException(
-					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		}
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertEOperationToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

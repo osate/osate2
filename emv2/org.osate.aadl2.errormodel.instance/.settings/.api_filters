@@ -3152,13 +3152,6 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src/org/osate/aadl2/errormodel/instance/impl/EMV2InstancePackageImpl.java" type="org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl">
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getCompositeStateInstance_DestinationTypeSet()"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/ErrorEventInstanceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.ErrorEventInstanceImpl">
         <filter id="1110441988">
             <message_arguments>

@@ -51,9 +51,6 @@ import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstantCode;
-import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
-import org.osate.aadl2.errormodel.instance.ConstraintElement;
-import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
@@ -63,7 +60,6 @@ import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.EOperation;
 import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
@@ -129,13 +125,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass stateInstanceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass constrainedInstanceObjectEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -450,20 +439,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass constraintExpressionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass constraintElementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass errorPropagationInstanceEClass = null;
 
 	/**
@@ -549,13 +524,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass abstractTypeSetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum eOperationEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -810,46 +778,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EReference getStateInstance_TypeSet() {
 		return (EReference) stateInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getConstrainedInstanceObject() {
-		return constrainedInstanceObjectEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getConstrainedInstanceObject_InstanceObject() {
-		return (EReference) constrainedInstanceObjectEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getConstrainedInstanceObject_Constraint() {
-		return (EReference) constrainedInstanceObjectEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getConstrainedInstanceObject_PropagationKind() {
-		return (EAttribute) constrainedInstanceObjectEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2038,56 +1966,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getConstraintExpression() {
-		return constraintExpressionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getConstraintExpression_Operator() {
-		return (EAttribute) constraintExpressionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getConstraintExpression_K() {
-		return (EAttribute) constraintExpressionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getConstraintExpression_ConstraintElements() {
-		return (EReference) constraintExpressionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getConstraintElement() {
-		return constraintElementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getErrorPropagationInstance() {
 		return errorPropagationInstanceEClass;
 	}
@@ -2428,16 +2306,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EEnum getEOperation() {
-		return eOperationEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EEnum getBindingType() {
 		return bindingTypeEEnum;
 	}
@@ -2498,18 +2366,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS);
 
 		emv2InstanceObjectEClass = createEClass(EMV2_INSTANCE_OBJECT);
-
-		constrainedInstanceObjectEClass = createEClass(CONSTRAINED_INSTANCE_OBJECT);
-		createEReference(constrainedInstanceObjectEClass, CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT);
-		createEReference(constrainedInstanceObjectEClass, CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT);
-		createEAttribute(constrainedInstanceObjectEClass, CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND);
-
-		constraintExpressionEClass = createEClass(CONSTRAINT_EXPRESSION);
-		createEAttribute(constraintExpressionEClass, CONSTRAINT_EXPRESSION__OPERATOR);
-		createEAttribute(constraintExpressionEClass, CONSTRAINT_EXPRESSION__K);
-		createEReference(constraintExpressionEClass, CONSTRAINT_EXPRESSION__CONSTRAINT_ELEMENTS);
-
-		constraintElementEClass = createEClass(CONSTRAINT_ELEMENT);
 
 		errorPropagationInstanceEClass = createEClass(ERROR_PROPAGATION_INSTANCE);
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION);
@@ -2728,7 +2584,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(stateReferenceEClass, STATE_REFERENCE__TYPE_SET);
 
 		// Create enums
-		eOperationEEnum = createEEnum(EOPERATION);
 		bindingTypeEEnum = createEEnum(BINDING_TYPE);
 		countExpressionOperationEEnum = createEEnum(COUNT_EXPRESSION_OPERATION);
 	}
@@ -2772,10 +2627,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		// Add supertypes to classes
 		emv2AnnexInstanceEClass.getESuperTypes().add(theInstancePackage.getAnnexInstance());
 		emv2InstanceObjectEClass.getESuperTypes().add(theInstancePackage.getInstanceObject());
-		constrainedInstanceObjectEClass.getESuperTypes().add(getConstraintElement());
-		constraintExpressionEClass.getESuperTypes().add(getConstraintElement());
-		constraintElementEClass.getESuperTypes().add(getEMV2InstanceObject());
-		errorPropagationInstanceEClass.getESuperTypes().add(getConstrainedInstanceObject());
+		errorPropagationInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		connectionEndPropagationEClass.getESuperTypes().add(getErrorPropagationInstance());
 		featurePropagationEClass.getESuperTypes().add(getConnectionEndPropagation());
 		accessPropagationEClass.getESuperTypes().add(getConnectionEndPropagation());
@@ -2877,33 +2729,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(emv2InstanceObjectEClass, EMV2InstanceObject.class, "EMV2InstanceObject", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(constrainedInstanceObjectEClass, ConstrainedInstanceObject.class, "ConstrainedInstanceObject",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConstrainedInstanceObject_InstanceObject(), theInstancePackage.getInstanceObject(), null,
-				"instanceObject", null, 0, 1, ConstrainedInstanceObject.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConstrainedInstanceObject_Constraint(), theErrorModelPackage.getTypeToken(), null,
-				"constraint", null, 0, -1, ConstrainedInstanceObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConstrainedInstanceObject_PropagationKind(), ecorePackage.getEString(), "propagationKind",
-				null, 0, 1, ConstrainedInstanceObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
-				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(constraintExpressionEClass, ConstraintExpression.class, "ConstraintExpression", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getConstraintExpression_Operator(), getEOperation(), "operator", null, 0, 1,
-				ConstraintExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConstraintExpression_K(), ecorePackage.getELong(), "k", null, 0, 1,
-				ConstraintExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConstraintExpression_ConstraintElements(), getConstraintElement(), null, "constraintElements",
-				null, 0, -1, ConstraintExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(constraintElementEClass, ConstraintElement.class, "ConstraintElement", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(errorPropagationInstanceEClass, ErrorPropagationInstance.class, "ErrorPropagationInstance",
@@ -3421,14 +3246,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
-		initEEnum(eOperationEEnum, EOperation.class, "EOperation");
-		addEEnumLiteral(eOperationEEnum, EOperation.ANY);
-		addEEnumLiteral(eOperationEEnum, EOperation.ALL);
-		addEEnumLiteral(eOperationEEnum, EOperation.ONEOF);
-		addEEnumLiteral(eOperationEEnum, EOperation.KOFN);
-		addEEnumLiteral(eOperationEEnum, EOperation.KORMORE);
-		addEEnumLiteral(eOperationEEnum, EOperation.KORLESS);
-
 		initEEnum(bindingTypeEEnum, BindingType.class, "BindingType");
 		addEEnumLiteral(bindingTypeEEnum, BindingType.PROCESSOR);
 		addEEnumLiteral(bindingTypeEEnum, BindingType.MEMORY);

@@ -61,15 +61,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	StateInstance createStateInstance();
 
 	/**
-	 * Returns a new object of class '<em>Constrained Instance Object</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Constrained Instance Object</em>'.
-	 * @generated
-	 */
-	ConstrainedInstanceObject createConstrainedInstanceObject();
-
-	/**
 	 * Returns a new object of class '<em>Composite State Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -374,15 +365,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	 * @generated
 	 */
 	ModeMappingInstance createModeMappingInstance();
-
-	/**
-	 * Returns a new object of class '<em>Constraint Expression</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Constraint Expression</em>'.
-	 * @generated
-	 */
-	ConstraintExpression createConstraintExpression();
 
 	/**
 	 * Returns a new object of class '<em>Feature Propagation</em>'.

@@ -47,9 +47,6 @@ import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstantCode;
-import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
-import org.osate.aadl2.errormodel.instance.ConstraintElement;
-import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
@@ -186,81 +183,9 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: {
-			ConstrainedInstanceObject constrainedInstanceObject = (ConstrainedInstanceObject) theEObject;
-			T result = caseConstrainedInstanceObject(constrainedInstanceObject);
-			if (result == null) {
-				result = caseConstraintElement(constrainedInstanceObject);
-			}
-			if (result == null) {
-				result = caseEMV2InstanceObject(constrainedInstanceObject);
-			}
-			if (result == null) {
-				result = caseInstanceObject(constrainedInstanceObject);
-			}
-			if (result == null) {
-				result = caseNamedElement(constrainedInstanceObject);
-			}
-			if (result == null) {
-				result = caseElement(constrainedInstanceObject);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.CONSTRAINT_EXPRESSION: {
-			ConstraintExpression constraintExpression = (ConstraintExpression) theEObject;
-			T result = caseConstraintExpression(constraintExpression);
-			if (result == null) {
-				result = caseConstraintElement(constraintExpression);
-			}
-			if (result == null) {
-				result = caseEMV2InstanceObject(constraintExpression);
-			}
-			if (result == null) {
-				result = caseInstanceObject(constraintExpression);
-			}
-			if (result == null) {
-				result = caseNamedElement(constraintExpression);
-			}
-			if (result == null) {
-				result = caseElement(constraintExpression);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case EMV2InstancePackage.CONSTRAINT_ELEMENT: {
-			ConstraintElement constraintElement = (ConstraintElement) theEObject;
-			T result = caseConstraintElement(constraintElement);
-			if (result == null) {
-				result = caseEMV2InstanceObject(constraintElement);
-			}
-			if (result == null) {
-				result = caseInstanceObject(constraintElement);
-			}
-			if (result == null) {
-				result = caseNamedElement(constraintElement);
-			}
-			if (result == null) {
-				result = caseElement(constraintElement);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE: {
 			ErrorPropagationInstance errorPropagationInstance = (ErrorPropagationInstance) theEObject;
 			T result = caseErrorPropagationInstance(errorPropagationInstance);
-			if (result == null) {
-				result = caseConstrainedInstanceObject(errorPropagationInstance);
-			}
-			if (result == null) {
-				result = caseConstraintElement(errorPropagationInstance);
-			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(errorPropagationInstance);
 			}
@@ -283,12 +208,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			T result = caseConnectionEndPropagation(connectionEndPropagation);
 			if (result == null) {
 				result = caseErrorPropagationInstance(connectionEndPropagation);
-			}
-			if (result == null) {
-				result = caseConstrainedInstanceObject(connectionEndPropagation);
-			}
-			if (result == null) {
-				result = caseConstraintElement(connectionEndPropagation);
 			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(connectionEndPropagation);
@@ -317,12 +236,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				result = caseErrorPropagationInstance(featurePropagation);
 			}
 			if (result == null) {
-				result = caseConstrainedInstanceObject(featurePropagation);
-			}
-			if (result == null) {
-				result = caseConstraintElement(featurePropagation);
-			}
-			if (result == null) {
 				result = caseEMV2InstanceObject(featurePropagation);
 			}
 			if (result == null) {
@@ -349,12 +262,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				result = caseErrorPropagationInstance(accessPropagation);
 			}
 			if (result == null) {
-				result = caseConstrainedInstanceObject(accessPropagation);
-			}
-			if (result == null) {
-				result = caseConstraintElement(accessPropagation);
-			}
-			if (result == null) {
 				result = caseEMV2InstanceObject(accessPropagation);
 			}
 			if (result == null) {
@@ -378,12 +285,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				result = caseErrorPropagationInstance(pointPropagation);
 			}
 			if (result == null) {
-				result = caseConstrainedInstanceObject(pointPropagation);
-			}
-			if (result == null) {
-				result = caseConstraintElement(pointPropagation);
-			}
-			if (result == null) {
 				result = caseEMV2InstanceObject(pointPropagation);
 			}
 			if (result == null) {
@@ -405,12 +306,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			T result = caseBindingPropagation(bindingPropagation);
 			if (result == null) {
 				result = caseErrorPropagationInstance(bindingPropagation);
-			}
-			if (result == null) {
-				result = caseConstrainedInstanceObject(bindingPropagation);
-			}
-			if (result == null) {
-				result = caseConstraintElement(bindingPropagation);
 			}
 			if (result == null) {
 				result = caseEMV2InstanceObject(bindingPropagation);
@@ -1649,21 +1544,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Constrained Instance Object</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Constrained Instance Object</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseConstrainedInstanceObject(ConstrainedInstanceObject object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Composite State Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -2320,36 +2200,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseModeMappingInstance(ModeMappingInstance object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Constraint Expression</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Constraint Expression</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseConstraintExpression(ConstraintExpression object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Constraint Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Constraint Element</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseConstraintElement(ConstraintElement object) {
 		return null;
 	}
 

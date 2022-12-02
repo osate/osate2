@@ -48,9 +48,6 @@ import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConnectionPath;
 import org.osate.aadl2.errormodel.instance.ConstantCode;
-import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
-import org.osate.aadl2.errormodel.instance.ConstraintElement;
-import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
 import org.osate.aadl2.errormodel.instance.DestinationStateReference;
@@ -159,21 +156,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseEMV2InstanceObject(EMV2InstanceObject object) {
 			return createEMV2InstanceObjectAdapter();
-		}
-
-		@Override
-		public Adapter caseConstrainedInstanceObject(ConstrainedInstanceObject object) {
-			return createConstrainedInstanceObjectAdapter();
-		}
-
-		@Override
-		public Adapter caseConstraintExpression(ConstraintExpression object) {
-			return createConstraintExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseConstraintElement(ConstraintElement object) {
-			return createConstraintElementAdapter();
 		}
 
 		@Override
@@ -544,20 +526,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createStateInstanceAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject <em>Constrained Instance Object</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject
-	 * @generated
-	 */
-	public Adapter createConstrainedInstanceObjectAdapter() {
 		return null;
 	}
 
@@ -1174,34 +1142,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createModeMappingInstanceAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConstraintExpression <em>Constraint Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.ConstraintExpression
-	 * @generated
-	 */
-	public Adapter createConstraintExpressionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.ConstraintElement <em>Constraint Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.ConstraintElement
-	 * @generated
-	 */
-	public Adapter createConstraintElementAdapter() {
 		return null;
 	}
 
