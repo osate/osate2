@@ -28,9 +28,12 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.CompositeConditionExpression;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 
 /**
@@ -43,6 +46,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getComposite <em>Composite</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getDestination <em>Destination</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getDestinationTypeSet <em>Destination Type Set</em>}</li>
  * </ul>
  *
  * @generated
@@ -67,6 +72,26 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @ordered
 	 */
 	protected CompositeConditionExpression condition;
+
+	/**
+	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestination()
+	 * @generated
+	 * @ordered
+	 */
+	protected StateInstance destination;
+
+	/**
+	 * The cached value of the '{@link #getDestinationTypeSet() <em>Destination Type Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestinationTypeSet()
+	 * @generated
+	 * @ordered
+	 */
+	protected AnonymousTypeSet destinationTypeSet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -194,10 +219,129 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
+	public StateInstance getDestination() {
+		if (destination != null && destination.eIsProxy()) {
+			InternalEObject oldDestination = (InternalEObject) destination;
+			destination = (StateInstance) eResolveProxy(oldDestination);
+			if (destination != oldDestination) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION, oldDestination, destination));
+				}
+			}
+		}
+		return destination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StateInstance basicGetDestination() {
+		return destination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDestination(StateInstance newDestination) {
+		StateInstance oldDestination = destination;
+		destination = newDestination;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION, oldDestination, destination));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AnonymousTypeSet getDestinationTypeSet() {
+		return destinationTypeSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDestinationTypeSet(AnonymousTypeSet newDestinationTypeSet,
+			NotificationChain msgs) {
+		AnonymousTypeSet oldDestinationTypeSet = destinationTypeSet;
+		destinationTypeSet = newDestinationTypeSet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET, oldDestinationTypeSet,
+					newDestinationTypeSet);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDestinationTypeSet(AnonymousTypeSet newDestinationTypeSet) {
+		if (newDestinationTypeSet != destinationTypeSet) {
+			NotificationChain msgs = null;
+			if (destinationTypeSet != null) {
+				msgs = ((InternalEObject) destinationTypeSet).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET,
+						null, msgs);
+			}
+			if (newDestinationTypeSet != null) {
+				msgs = ((InternalEObject) newDestinationTypeSet).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET,
+						null, msgs);
+			}
+			msgs = basicSetDestinationTypeSet(newDestinationTypeSet, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET, newDestinationTypeSet,
+					newDestinationTypeSet));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public TypeTokenInstance getDestinationTypeToken() {
+		var typeSet = getDestinationTypeSet();
+		return typeSet == null ? null : typeSet.flatten().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 			return basicSetCondition(null, msgs);
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			return basicSetDestinationTypeSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -217,6 +361,13 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 			return basicGetComposite();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 			return getCondition();
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION:
+			if (resolve) {
+				return getDestination();
+			}
+			return basicGetDestination();
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			return getDestinationTypeSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -234,6 +385,12 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 			return;
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 			setCondition((CompositeConditionExpression) newValue);
+			return;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION:
+			setDestination((StateInstance) newValue);
+			return;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			setDestinationTypeSet((AnonymousTypeSet) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -253,6 +410,12 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 			setCondition((CompositeConditionExpression) null);
 			return;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION:
+			setDestination((StateInstance) null);
+			return;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			setDestinationTypeSet((AnonymousTypeSet) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -269,6 +432,10 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 			return composite != null;
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 			return condition != null;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION:
+			return destination != null;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			return destinationTypeSet != null;
 		}
 		return super.eIsSet(featureID);
 	}

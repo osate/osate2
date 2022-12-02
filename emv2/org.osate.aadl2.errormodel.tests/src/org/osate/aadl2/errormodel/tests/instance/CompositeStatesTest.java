@@ -55,6 +55,9 @@ public class CompositeStatesTest {
 			assertEquals("COMPOSITE1", composite.getName());
 			assertEquals("COMPOSITE1", composite.getComposite().getName());
 			assertEquals("others", composite.getCondition().getName());
+			assertEquals("state2", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 	}
 
@@ -70,6 +73,9 @@ public class CompositeStatesTest {
 			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0))
 					.getParsedAnnexSubclause()).getStates().get(0), composite.getComposite());
 			assertEquals("f2 {CommonErrors}", composite.getCondition().getName());
+			assertEquals("state2", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(1), composite -> {
 			// TODO Test name after we generate names for unnamed composites.
@@ -80,6 +86,9 @@ public class CompositeStatesTest {
 					.getOwnedAnnexSubclauses()
 					.get(0)).getParsedAnnexSubclause()).getStates().get(0), composite.getComposite());
 			assertEquals("f1 {CommonErrors}", composite.getCondition().getName());
+			assertEquals("state1", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 	}
 
@@ -97,6 +106,9 @@ public class CompositeStatesTest {
 				assertEquals("f1", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(1), composite -> {
 			assertEquals("composite2", composite.getName());
@@ -106,6 +118,9 @@ public class CompositeStatesTest {
 				assertEquals("f2", condition.getPropagation().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(2), composite -> {
 			assertEquals("composite3", composite.getName());
@@ -114,6 +129,9 @@ public class CompositeStatesTest {
 				assertEquals("f3 {noerror}", condition.getName());
 				assertEquals("f3", condition.getPropagation().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(3), composite -> {
 			assertEquals("composite4", composite.getName());
@@ -123,6 +141,9 @@ public class CompositeStatesTest {
 				assertEquals("memory", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(4), composite -> {
 			assertEquals("composite5", composite.getName());
@@ -132,6 +153,9 @@ public class CompositeStatesTest {
 				assertEquals("fg1.f4", condition.getPropagation().getName());
 				assertEquals("{ServiceError, ItemTimingError}", condition.getTypeSet().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(5), composite -> {
 			assertEquals("composite6", composite.getName());
@@ -141,6 +165,9 @@ public class CompositeStatesTest {
 				assertEquals("fg1.fg2.fg3.f5", condition.getPropagation().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 	}
 
@@ -158,6 +185,9 @@ public class CompositeStatesTest {
 				assertEquals("state1", condition.getState().getName());
 				assertNull(condition.getTypeSet());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(1), composite -> {
 			assertEquals("composite2", composite.getName());
@@ -167,6 +197,9 @@ public class CompositeStatesTest {
 				assertEquals("state2", condition.getState().getName());
 				assertEquals("{ServiceError}", condition.getTypeSet().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(2), composite -> {
 			assertEquals("composite3", composite.getName());
@@ -176,6 +209,9 @@ public class CompositeStatesTest {
 				assertEquals("state3", condition.getState().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(3), composite -> {
 			assertEquals("composite4", composite.getName());
@@ -185,6 +221,9 @@ public class CompositeStatesTest {
 				assertEquals("state4", condition.getState().getName());
 				assertNull(condition.getTypeSet());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(4), composite -> {
 			assertEquals("composite5", composite.getName());
@@ -194,6 +233,9 @@ public class CompositeStatesTest {
 				assertEquals("state5", condition.getState().getName());
 				assertEquals("{ServiceError, ItemTimingError}", condition.getTypeSet().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(5), composite -> {
 			assertEquals("composite6", composite.getName());
@@ -203,6 +245,9 @@ public class CompositeStatesTest {
 				assertEquals("state6", condition.getState().getName());
 				assertEquals("{CommonErrors}", condition.getTypeSet().getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 	}
 
@@ -222,6 +267,9 @@ public class CompositeStatesTest {
 				assertEquals(CountExpressionOperation.GREATER_EQUAL, condition.getOperation());
 				assertEquals(1, condition.getCount());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(1), composite -> {
 			assertEquals("composite2", composite.getName());
@@ -233,6 +281,9 @@ public class CompositeStatesTest {
 				assertEquals(CountExpressionOperation.EQUALS, condition.getOperation());
 				assertEquals(2, condition.getCount());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(2), composite -> {
 			assertEquals("composite3", composite.getName());
@@ -244,6 +295,9 @@ public class CompositeStatesTest {
 				assertEquals(CountExpressionOperation.GREATER_EQUAL, condition.getOperation());
 				assertEquals(2, condition.getCount());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(3), composite -> {
 			assertEquals("composite4", composite.getName());
@@ -255,6 +309,9 @@ public class CompositeStatesTest {
 				assertEquals(CountExpressionOperation.LESS_EQUAL, condition.getOperation());
 				assertEquals(2, condition.getCount());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 		with(annexInstance.getComposites().get(4), composite -> {
 			assertEquals("composite5", composite.getName());
@@ -274,6 +331,9 @@ public class CompositeStatesTest {
 				assertEquals(CountExpressionOperation.EQUALS, condition.getOperation());
 				assertEquals(2, condition.getCount());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
 		});
 	}
 
@@ -289,6 +349,33 @@ public class CompositeStatesTest {
 			with((OthersExpression) composite.getCondition(), condition -> {
 				assertEquals("others", condition.getName());
 			});
+			assertEquals("destinationState", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
+		});
+	}
+
+	@Test
+	public void testDestination() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "destination.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(2, annexInstance.getComposites().size());
+		with(annexInstance.getComposites().get(0), composite -> {
+			assertEquals("composite1", composite.getName());
+			assertEquals("composite1", composite.getComposite().getName());
+			assertEquals("f1 {CommonErrors}", composite.getCondition().getName());
+			assertEquals("state1", composite.getDestination().getName());
+			assertNull(composite.getDestinationTypeSet());
+			assertNull(composite.getDestinationTypeToken());
+		});
+		with(annexInstance.getComposites().get(1), composite -> {
+			assertEquals("composite2", composite.getName());
+			assertEquals("composite2", composite.getComposite().getName());
+			assertEquals("f2 {CommonErrors}", composite.getCondition().getName());
+			assertEquals("state2", composite.getDestination().getName());
+			assertEquals("{ServiceError}", composite.getDestinationTypeSet().getName());
+			assertEquals("ServiceError", composite.getDestinationTypeToken().getName());
 		});
 	}
 }

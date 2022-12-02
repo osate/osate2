@@ -921,6 +921,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 			compositeInstance.setComposite(composite);
 			compositeInstance.setCondition(createCompositeConditionExpression(composite, component, annex));
+			compositeInstance.setDestination(findStateInstance(annex, composite.getState()));
+			if (composite.getTypedToken() != null) {
+				compositeInstance.setDestinationTypeSet(createAnonymousTypeSet(composite.getTypedToken()));
+			}
 			annex.getComposites().add(compositeInstance);
 		} catch (InternalFeatureEncounteredException e) {
 			// Abort instantiation of composite state.

@@ -69,12 +69,37 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getDestination()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestinationTypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestinationTypeToken()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="setComposite(CompositeState)"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="setCondition(CompositeConditionExpression)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setDestination(StateInstance)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setDestinationTypeSet(AnonymousTypeSet)"/>
             </message_arguments>
         </filter>
     </resource>
@@ -657,6 +682,16 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="COMPOSITE_STATE_INSTANCE__COMPOSITE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__DESTINATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1976,6 +2011,16 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getCompositeStateInstance_Destination()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getCompositeStateInstance_DestinationTypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getConditionExpressionInstance()"/>
             </message_arguments>
         </filter>
@@ -2414,6 +2459,16 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="COMPOSITE_STATE_INSTANCE__COMPOSITE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__DESTINATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2982,12 +3037,32 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="basicGetDestination()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="basicSetCondition(CompositeConditionExpression, NotificationChain)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="basicSetDestinationTypeSet(AnonymousTypeSet, NotificationChain)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="composite"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="destination"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="destinationTypeSet"/>
             </message_arguments>
         </filter>
     </resource>
@@ -3074,6 +3149,13 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createCountExpressionOperationFromString(EDataType, String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/EMV2InstancePackageImpl.java" type="org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getCompositeStateInstance_DestinationTypeSet()"/>
             </message_arguments>
         </filter>
     </resource>

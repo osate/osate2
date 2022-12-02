@@ -888,6 +888,26 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getCompositeStateInstance_Destination() {
+		return (EReference) compositeStateInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getCompositeStateInstance_DestinationTypeSet() {
+		return (EReference) compositeStateInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getCompositeConditionExpression() {
 		return compositeConditionExpressionEClass;
 	}
@@ -2696,6 +2716,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		compositeStateInstanceEClass = createEClass(COMPOSITE_STATE_INSTANCE);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__COMPOSITE);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__CONDITION);
+		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__DESTINATION);
+		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET);
 
 		compositeConditionExpressionEClass = createEClass(COMPOSITE_CONDITION_EXPRESSION);
 
@@ -3373,6 +3395,15 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getCompositeStateInstance_Condition(), getCompositeConditionExpression(), null, "condition",
 				null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositeStateInstance_Destination(), getStateInstance(), null, "destination", null, 0, 1,
+				CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositeStateInstance_DestinationTypeSet(), getAnonymousTypeSet(), null,
+				"destinationTypeSet", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(compositeStateInstanceEClass, getTypeTokenInstance(), "getDestinationTypeToken", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
 
 		initEClass(compositeConditionExpressionEClass, CompositeConditionExpression.class,
 				"CompositeConditionExpression", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

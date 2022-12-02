@@ -36,6 +36,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getComposite <em>Composite</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getDestination <em>Destination</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getDestinationTypeSet <em>Destination Type Set</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance()
@@ -86,5 +88,57 @@ public interface CompositeStateInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	void setCondition(CompositeConditionExpression value);
+
+	/**
+	 * Returns the value of the '<em><b>Destination</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destination</em>' reference.
+	 * @see #setDestination(StateInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance_Destination()
+	 * @model
+	 * @generated
+	 */
+	StateInstance getDestination();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getDestination <em>Destination</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Destination</em>' reference.
+	 * @see #getDestination()
+	 * @generated
+	 */
+	void setDestination(StateInstance value);
+
+	/**
+	 * Returns the value of the '<em><b>Destination Type Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destination Type Set</em>' containment reference.
+	 * @see #setDestinationTypeSet(AnonymousTypeSet)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getCompositeStateInstance_DestinationTypeSet()
+	 * @model containment="true"
+	 * @generated
+	 */
+	AnonymousTypeSet getDestinationTypeSet();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.CompositeStateInstance#getDestinationTypeSet <em>Destination Type Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Destination Type Set</em>' containment reference.
+	 * @see #getDestinationTypeSet()
+	 * @generated
+	 */
+	void setDestinationTypeSet(AnonymousTypeSet value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	TypeTokenInstance getDestinationTypeToken();
 
 } // CompositeStateInstance
