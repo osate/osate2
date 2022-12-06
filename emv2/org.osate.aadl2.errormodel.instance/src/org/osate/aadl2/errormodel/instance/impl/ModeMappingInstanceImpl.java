@@ -37,6 +37,7 @@ import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ModeMappingInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.instance.ModeInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,6 +47,7 @@ import org.osate.aadl2.instance.ModeInstance;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl#getModeMapping <em>Mode Mapping</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl#getState <em>State</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl#getTypeSet <em>Type Set</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ModeMappingInstanceImpl#getModes <em>Modes</em>}</li>
@@ -54,6 +56,16 @@ import org.osate.aadl2.instance.ModeInstance;
  * @generated
  */
 public class ModeMappingInstanceImpl extends EMV2InstanceObjectImpl implements ModeMappingInstance {
+	/**
+	 * The cached value of the '{@link #getModeMapping() <em>Mode Mapping</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModeMapping()
+	 * @generated
+	 * @ordered
+	 */
+	protected ErrorStateToModeMapping modeMapping;
+
 	/**
 	 * The cached value of the '{@link #getState() <em>State</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -101,6 +113,50 @@ public class ModeMappingInstanceImpl extends EMV2InstanceObjectImpl implements M
 	@Override
 	protected EClass eStaticClass() {
 		return EMV2InstancePackage.Literals.MODE_MAPPING_INSTANCE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorStateToModeMapping getModeMapping() {
+		if (modeMapping != null && modeMapping.eIsProxy()) {
+			InternalEObject oldModeMapping = (InternalEObject) modeMapping;
+			modeMapping = (ErrorStateToModeMapping) eResolveProxy(oldModeMapping);
+			if (modeMapping != oldModeMapping) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							EMV2InstancePackage.MODE_MAPPING_INSTANCE__MODE_MAPPING, oldModeMapping, modeMapping));
+				}
+			}
+		}
+		return modeMapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ErrorStateToModeMapping basicGetModeMapping() {
+		return modeMapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setModeMapping(ErrorStateToModeMapping newModeMapping) {
+		ErrorStateToModeMapping oldModeMapping = modeMapping;
+		modeMapping = newModeMapping;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.MODE_MAPPING_INSTANCE__MODE_MAPPING, oldModeMapping, modeMapping));
+		}
 	}
 
 	/**
@@ -240,6 +296,11 @@ public class ModeMappingInstanceImpl extends EMV2InstanceObjectImpl implements M
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case EMV2InstancePackage.MODE_MAPPING_INSTANCE__MODE_MAPPING:
+			if (resolve) {
+				return getModeMapping();
+			}
+			return basicGetModeMapping();
 		case EMV2InstancePackage.MODE_MAPPING_INSTANCE__STATE:
 			if (resolve) {
 				return getState();
@@ -262,6 +323,9 @@ public class ModeMappingInstanceImpl extends EMV2InstanceObjectImpl implements M
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case EMV2InstancePackage.MODE_MAPPING_INSTANCE__MODE_MAPPING:
+			setModeMapping((ErrorStateToModeMapping) newValue);
+			return;
 		case EMV2InstancePackage.MODE_MAPPING_INSTANCE__STATE:
 			setState((StateInstance) newValue);
 			return;
@@ -284,6 +348,9 @@ public class ModeMappingInstanceImpl extends EMV2InstanceObjectImpl implements M
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case EMV2InstancePackage.MODE_MAPPING_INSTANCE__MODE_MAPPING:
+			setModeMapping((ErrorStateToModeMapping) null);
+			return;
 		case EMV2InstancePackage.MODE_MAPPING_INSTANCE__STATE:
 			setState((StateInstance) null);
 			return;
@@ -305,6 +372,8 @@ public class ModeMappingInstanceImpl extends EMV2InstanceObjectImpl implements M
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case EMV2InstancePackage.MODE_MAPPING_INSTANCE__MODE_MAPPING:
+			return modeMapping != null;
 		case EMV2InstancePackage.MODE_MAPPING_INSTANCE__STATE:
 			return state != null;
 		case EMV2InstancePackage.MODE_MAPPING_INSTANCE__TYPE_SET:

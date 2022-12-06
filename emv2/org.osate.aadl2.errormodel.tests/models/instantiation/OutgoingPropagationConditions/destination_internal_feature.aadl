@@ -1,0 +1,32 @@
+package destination_internal_feature
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		internal features
+			es1: event;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior destination_internal_feature::machine1;
+			
+			error propagations
+				es1: out propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				propagations
+					propagationCondition1: state1 -[]-> es1 {ServiceError};
+					propagationCondition2: state2 -[]-> es1 {noerror};
+			end component;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end destination_internal_feature;

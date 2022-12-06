@@ -72,7 +72,6 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
-import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
@@ -126,8 +125,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 		switch (eClass.getClassifierID()) {
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE:
 			return createEMV2AnnexInstance();
-		case EMV2InstancePackage.STATE_MACHINE_INSTANCE:
-			return createStateMachineInstance();
 		case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT:
 			return createConstrainedInstanceObject();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE:
@@ -266,17 +263,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public EMV2AnnexInstance createEMV2AnnexInstance() {
 		EMV2AnnexInstanceImpl emv2AnnexInstance = new EMV2AnnexInstanceImpl();
 		return emv2AnnexInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public StateMachineInstance createStateMachineInstance() {
-		StateMachineInstanceImpl stateMachineInstance = new StateMachineInstanceImpl();
-		return stateMachineInstance;
 	}
 
 	/**

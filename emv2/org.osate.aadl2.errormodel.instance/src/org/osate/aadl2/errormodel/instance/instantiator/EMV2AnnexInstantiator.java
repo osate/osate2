@@ -529,21 +529,26 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private void instantiateTransition(ErrorBehaviorTransition transition, ComponentInstance component,
 			EMV2AnnexInstance annex) {
-		var transitionInstance = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
-		transitionInstance.setTransition(transition);
-		transitionInstance.setSource(createStateSource(transition, annex));
-		transitionInstance.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
-		transitionInstance.setDestination(createTransitionDestination(transition, transitionInstance.getSource(),
-				transitionInstance.getCondition(), annex));
-		if (transition.getName() == null) {
-			var sourceName = transitionInstance.getSource().getName();
-			var conditionName = transitionInstance.getCondition().getName();
-			var destinationName = transitionInstance.getDestination().getName();
-			transitionInstance.setName(sourceName + " -[" + conditionName + "]-> " + destinationName);
-		} else {
-			transitionInstance.setName(transition.getName());
+		try {
+			var transitionInstance = EMV2InstanceFactory.eINSTANCE.createTransitionInstance();
+			transitionInstance.setTransition(transition);
+			transitionInstance.setSource(createStateSource(transition, annex));
+			transitionInstance
+					.setCondition(createConditionExpressionInstance(transition.getCondition(), component, annex));
+			transitionInstance.setDestination(createTransitionDestination(transition, transitionInstance.getSource(),
+					transitionInstance.getCondition(), annex));
+			if (transition.getName() == null) {
+				var sourceName = transitionInstance.getSource().getName();
+				var conditionName = transitionInstance.getCondition().getName();
+				var destinationName = transitionInstance.getDestination().getName();
+				transitionInstance.setName(sourceName + " -[" + conditionName + "]-> " + destinationName);
+			} else {
+				transitionInstance.setName(transition.getName());
+			}
+			annex.getTransitions().add(transitionInstance);
+		} catch (InternalFeatureEncounteredException e) {
+			// Abort instantiation of transition.
 		}
-		annex.getTransitions().add(transitionInstance);
 	}
 
 	private StateSource createStateSource(ErrorBehaviorTransition transition, EMV2AnnexInstance annex) {
@@ -594,7 +599,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ConditionExpressionInstance createConditionExpressionInstance(ConditionExpression condition,
-			ComponentInstance component, EMV2AnnexInstance annex) {
+			ComponentInstance component, EMV2AnnexInstance annex) throws InternalFeatureEncounteredException {
 		if (condition instanceof OrExpression orExpression) {
 			return createCountExpression(orExpression.getOperands(), CountExpressionOperation.GREATER_EQUAL, 1,
 					component, annex);
@@ -648,7 +653,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ConditionExpressionInstance createConditionPropagationReference(ComponentInstance component,
-			EMV2PathElement path, TypeSet constraint) {
+			EMV2PathElement path, TypeSet constraint) throws InternalFeatureEncounteredException {
 		var currentComponent = component;
 		var namePrefix = new StringBuilder();
 		while (path.getNamedElement() instanceof Subcomponent subcomponent) {
@@ -662,6 +667,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		ErrorPropagationInstance propagationInstance;
 		if (path.getNamedElement() instanceof ErrorPropagation propagation) {
+			if (propagation.getFeatureorPPRef() != null
+					&& propagation.getFeatureorPPRef().getFeatureorPP() instanceof InternalFeature) {
+				throw new InternalFeatureEncounteredException();
+			}
 			var annex = findEMV2AnnexInstance(currentComponent);
 			if (annex == null) {
 				// Shouldn't happen if the declarative model is valid.
@@ -714,7 +723,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private CountExpression createCountExpression(List<? extends ConditionExpression> operands,
-			CountExpressionOperation operation, long count, ComponentInstance component, EMV2AnnexInstance annex) {
+			CountExpressionOperation operation, long count, ComponentInstance component, EMV2AnnexInstance annex)
+			throws InternalFeatureEncounteredException {
 		var countExpression = EMV2InstanceFactory.eINSTANCE.createCountExpression();
 		for (var operand : operands) {
 			countExpression.getOperands().add(createConditionExpressionInstance(operand, component, annex));
@@ -881,8 +891,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {
 		var propagationInstances = new TreeMap<String, ErrorPropagationInstance>(String.CASE_INSENSITIVE_ORDER);
 		for (var ep : eps) {
-			var epi = propagationInstances.computeIfAbsent(EMV2Util.getPropagationName(ep),
-					name -> createErrorPropagationInstance(annex, name, ep));
+			var epi = propagationInstances.computeIfAbsent(EMV2Util.getPropagationName(ep), name -> {
+				try {
+					return createErrorPropagationInstance(annex, name, ep);
+				} catch (InternalFeatureEncounteredException e) {
+					return null;
+				}
+			});
 			if (epi == null) {
 				// This can happen if the propagation points to an InternalFeature. In that case, simply skip this one.
 				break;
@@ -907,7 +922,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ErrorPropagationInstance createErrorPropagationInstance(EMV2AnnexInstance annex, String name,
-			ErrorPropagation ep) {
+			ErrorPropagation ep) throws InternalFeatureEncounteredException {
 		ErrorPropagationInstance propagation;
 		if ("access".equalsIgnoreCase(ep.getKind())) {
 			propagation = createAccessPropagation(name);
@@ -922,7 +937,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				propagation = createPointPropagation(annex, name, point);
 			} else if (featureOrPP instanceof InternalFeature) {
 				// Propagation not instantiated since InternalFeatures are not instantiated.
-				return null;
+				throw new InternalFeatureEncounteredException();
 			} else {
 				throw new RuntimeException(
 						"featureorPPRef points to something other than a Feature, an InternalFeature, or a PropagationPoint: "
@@ -1145,43 +1160,52 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition condition,
 			ComponentInstance component, EMV2AnnexInstance annex) {
-		var conditionInstance = EMV2InstanceFactory.eINSTANCE.createOutgoingPropagationConditionInstance();
-		conditionInstance.setOutgoingPropagationCondition(condition);
-		conditionInstance.setSource(createStateSource(condition, annex));
-		if (condition.getCondition() != null) {
-			conditionInstance
-					.setCondition(createConditionExpressionInstance(condition.getCondition(), component, annex));
-		}
-		conditionInstance.setDestination(createOutgoingPropagationConditionDestination(condition,
-				conditionInstance.getSource(), conditionInstance.getCondition(), annex));
-		if (condition.getName() == null) {
-			var sourceName = conditionInstance.getSource().getName();
-			var conditionExpressionName = "";
-			if (conditionInstance.getCondition() != null) {
-				conditionExpressionName = conditionInstance.getCondition().getName();
+		try {
+			var conditionInstance = EMV2InstanceFactory.eINSTANCE.createOutgoingPropagationConditionInstance();
+			conditionInstance.setOutgoingPropagationCondition(condition);
+			conditionInstance.setSource(createStateSource(condition, annex));
+			if (condition.getCondition() != null) {
+				conditionInstance
+						.setCondition(createConditionExpressionInstance(condition.getCondition(), component, annex));
 			}
-			var destinationName = conditionInstance.getDestination().getName();
-			conditionInstance.setName(sourceName + " -[" + conditionExpressionName + "]-> " + destinationName);
-		} else {
-			conditionInstance.setName(condition.getName());
+			conditionInstance.setDestination(createOutgoingPropagationConditionDestination(condition,
+					conditionInstance.getSource(), conditionInstance.getCondition(), annex));
+			if (condition.getName() == null) {
+				var sourceName = conditionInstance.getSource().getName();
+				var conditionExpressionName = "";
+				if (conditionInstance.getCondition() != null) {
+					conditionExpressionName = conditionInstance.getCondition().getName();
+				}
+				var destinationName = conditionInstance.getDestination().getName();
+				conditionInstance.setName(sourceName + " -[" + conditionExpressionName + "]-> " + destinationName);
+			} else {
+				conditionInstance.setName(condition.getName());
+			}
+			annex.getConditions().add(conditionInstance);
+		} catch (InternalFeatureEncounteredException e) {
+			// Abort instantiation of outgoing propagation condition.
 		}
-		annex.getConditions().add(conditionInstance);
 	}
 
 	private OutgoingPropagationConditionDestination createOutgoingPropagationConditionDestination(
 			OutgoingPropagationCondition condition, StateSource source, ConditionExpressionInstance conditionExpression,
-			EMV2AnnexInstance annex) {
+			EMV2AnnexInstance annex) throws InternalFeatureEncounteredException {
 		if (condition.getTypeToken() != null && !condition.getTypeToken().getTypeTokens().isEmpty()
 				&& condition.getTypeToken().getTypeTokens().get(0).isNoError()) {
 			if (condition.isAllPropagations()) {
 				return createAllPropagationsNoError();
 			} else {
-				var propagation = findErrorPropagationInstance(annex, condition.getOutgoing());
-				if (propagation == null) {
+				var propagation = condition.getOutgoing();
+				if (propagation.getFeatureorPPRef() != null
+						&& propagation.getFeatureorPPRef().getFeatureorPP() instanceof InternalFeature) {
+					throw new InternalFeatureEncounteredException();
+				}
+				var propagationInstance = findErrorPropagationInstance(annex, propagation);
+				if (propagationInstance == null) {
 					// Shouldn't happen if the declarative model is valid.
 					return null;
 				}
-				return createNoErrorPropagationReference(propagation, "");
+				return createNoErrorPropagationReference(propagationInstance, "");
 			}
 		} else if (condition.isAllPropagations()) {
 			return createAllPropagations(condition, source, conditionExpression);
@@ -1192,9 +1216,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private DestinationPropagationReference createDestinationPropagationReference(
 			OutgoingPropagationCondition condition, StateSource source, ConditionExpressionInstance conditionExpression,
-			EMV2AnnexInstance annex) {
+			EMV2AnnexInstance annex) throws InternalFeatureEncounteredException {
+		var propagation = condition.getOutgoing();
+		if (propagation.getFeatureorPPRef() != null
+				&& propagation.getFeatureorPPRef().getFeatureorPP() instanceof InternalFeature) {
+			throw new InternalFeatureEncounteredException();
+		}
 		var propagationReference = EMV2InstanceFactory.eINSTANCE.createDestinationPropagationReference();
-		propagationReference.setPropagation(findErrorPropagationInstance(annex, condition.getOutgoing()));
+		propagationReference.setPropagation(findErrorPropagationInstance(annex, propagation));
 		propagationReference
 				.setTypeSet(createDestinationTypeSet(condition.getTypeToken(), true, source, conditionExpression));
 		var name = propagationReference.getPropagation().getName();
@@ -1229,33 +1258,38 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// Detection not instantiated since InternalFeatures are not instantiated.
 			return;
 		}
-		DetectionInstance detectionInstance = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
-		detectionInstance.setDetection(detection);
-		detectionInstance.setSource(createStateSource(detection, annex));
-		if (detection.getCondition() != null) {
-			detectionInstance
-					.setCondition(createConditionExpressionInstance(detection.getCondition(), component, annex));
-		}
-		detectionInstance.setDestination(findFeatureInstance(detection.getDetectionReportingPort(), component));
-		if (detection.getErrorCode() != null) {
-			detectionInstance.setErrorCode(createErrorCodeInstance(detection.getErrorCode()));
-		}
-		if (detection.getName() == null) {
-			var sourceName = detectionInstance.getSource().getName();
-			var conditionName = "";
-			if (detectionInstance.getCondition() != null) {
-				conditionName = detectionInstance.getCondition().getName();
+		try {
+			DetectionInstance detectionInstance = EMV2InstanceFactory.eINSTANCE.createDetectionInstance();
+			detectionInstance.setDetection(detection);
+			detectionInstance.setSource(createStateSource(detection, annex));
+			if (detection.getCondition() != null) {
+				detectionInstance
+						.setCondition(createConditionExpressionInstance(detection.getCondition(), component, annex));
 			}
-			var destinationName = detectionInstance.getDestination().getName();
-			var codeName = "";
-			if (detectionInstance.getErrorCode() != null) {
-				codeName = " (" + detectionInstance.getErrorCode().getName() + ')';
+			detectionInstance.setDestination(findFeatureInstance(detection.getDetectionReportingPort(), component));
+			if (detection.getErrorCode() != null) {
+				detectionInstance.setErrorCode(createErrorCodeInstance(detection.getErrorCode()));
 			}
-			detectionInstance.setName(sourceName + " -[" + conditionName + "]-> " + destinationName + " !" + codeName);
-		} else {
-			detectionInstance.setName(detection.getName());
+			if (detection.getName() == null) {
+				var sourceName = detectionInstance.getSource().getName();
+				var conditionName = "";
+				if (detectionInstance.getCondition() != null) {
+					conditionName = detectionInstance.getCondition().getName();
+				}
+				var destinationName = detectionInstance.getDestination().getName();
+				var codeName = "";
+				if (detectionInstance.getErrorCode() != null) {
+					codeName = " (" + detectionInstance.getErrorCode().getName() + ')';
+				}
+				detectionInstance
+						.setName(sourceName + " -[" + conditionName + "]-> " + destinationName + " !" + codeName);
+			} else {
+				detectionInstance.setName(detection.getName());
+			}
+			annex.getDetections().add(detectionInstance);
+		} catch (InternalFeatureEncounteredException e) {
+			// Abort instantiation of detection.
 		}
-		annex.getDetections().add(detectionInstance);
 	}
 
 	private ErrorCodeInstance createErrorCodeInstance(ErrorCodeValue code) {
@@ -1292,6 +1326,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private void instantiateModeMapping(ErrorStateToModeMapping modeMapping, ComponentInstance component,
 			EMV2AnnexInstance annex) {
 		var modeMappingInstance = EMV2InstanceFactory.eINSTANCE.createModeMappingInstance();
+		modeMappingInstance.setModeMapping(modeMapping);
 		modeMappingInstance.setState(findStateInstance(annex, modeMapping.getErrorState()));
 		if (modeMapping.getTypeToken() != null) {
 			modeMappingInstance.setTypeSet(createAnonymousTypeSet(modeMapping.getTypeToken()));
@@ -1663,5 +1698,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			path = path.getNext();
 		}
 		return findPropagationPointInstance(findEMV2AnnexInstance(component), point);
+	}
+
+	/**
+	 * This exception is thrown when attempting to instantiate an element, but a reference to an internal feature was
+	 * encountered. This could be a direct reference to an internal feature or a reference to a propagation that refers
+	 * to an internal feature. When this is thrown, the element (transition, detection, etc) should not be instantiated.
+	 *
+	 */
+	@SuppressWarnings("serial")
+	private static class InternalFeatureEncounteredException extends Exception {
 	}
 }

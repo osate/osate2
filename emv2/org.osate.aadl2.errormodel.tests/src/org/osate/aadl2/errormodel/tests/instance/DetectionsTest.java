@@ -351,4 +351,13 @@ public class DetectionsTest {
 			});
 		});
 	}
+
+	@Test
+	public void testInternalFEatureCondition() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "internal_feature_condition.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		// Tests that detections which point to propagations which point to internal features are not instantiated.
+		assertEquals(0, annexInstance.getDetections().size());
+	}
 }
