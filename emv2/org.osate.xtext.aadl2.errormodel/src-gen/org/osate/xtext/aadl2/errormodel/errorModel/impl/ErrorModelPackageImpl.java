@@ -1,5 +1,4 @@
 /**
- * *
  * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -853,7 +852,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   @Override
-  public EReference getEMV2PropertyAssociation_Property()
+  public EReference getEMV2PropertyAssociation_OwnedValues()
   {
     return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(0);
   }
@@ -864,20 +863,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   @Override
-  public EReference getEMV2PropertyAssociation_OwnedValues()
-  {
-    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EReference getEMV2PropertyAssociation_Emv2Path()
   {
-    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(2);
+    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2823,7 +2811,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(errorModelLibraryEClass, ERROR_MODEL_LIBRARY__TRANSFORMATIONS);
 
     emv2PropertyAssociationEClass = createEClass(EMV2_PROPERTY_ASSOCIATION);
-    createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__PROPERTY);
     createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__OWNED_VALUES);
     createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__EMV2_PATH);
 
@@ -3083,7 +3070,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     // Add supertypes to classes
     errorModelSubclauseEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
     errorModelLibraryEClass.getESuperTypes().add(theAadl2Package.getAnnexLibrary());
-    emv2PropertyAssociationEClass.getESuperTypes().add(theAadl2Package.getElement());
+    emv2PropertyAssociationEClass.getESuperTypes().add(theAadl2Package.getPropertyAssociation());
     emv2PathEClass.getESuperTypes().add(theAadl2Package.getElement());
     emv2PathElementEClass.getESuperTypes().add(theAadl2Package.getElement());
     errorTypesEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
@@ -3169,7 +3156,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getErrorModelLibrary_Transformations(), this.getTypeTransformationSet(), null, "transformations", null, 0, -1, ErrorModelLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(emv2PropertyAssociationEClass, EMV2PropertyAssociation.class, "EMV2PropertyAssociation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getEMV2PropertyAssociation_Property(), theAadl2Package.getProperty(), null, "property", null, 0, 1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMV2PropertyAssociation_OwnedValues(), theAadl2Package.getModalPropertyValue(), null, "ownedValues", null, 0, -1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMV2PropertyAssociation_Emv2Path(), this.getEMV2Path(), null, "emv2Path", null, 0, -1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

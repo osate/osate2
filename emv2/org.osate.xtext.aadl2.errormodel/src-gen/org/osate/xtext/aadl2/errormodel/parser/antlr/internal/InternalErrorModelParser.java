@@ -8661,7 +8661,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             					if (current==null) {
             						current = createModelElement(grammarAccess.getNoErrorTypeTokenRule());
             					}
-            					setWithLastConsumed(current, "noError", true, "noerror");
+            					setWithLastConsumed(current, "noError", lv_noError_1_0 != null, "noerror");
             				
 
             }
@@ -9563,7 +9563,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getTypeTransformationRule());
                     						}
-                    						setWithLastConsumed(current, "allSources", true, "all");
+                    						setWithLastConsumed(current, "allSources", lv_allSources_1_0 != null, "all");
                     					
 
                     }
@@ -10328,7 +10328,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     					if (current==null) {
                     						current = createModelElement(grammarAccess.getErrorPropagationRule());
                     					}
-                    					setWithLastConsumed(current, "not", true, "not");
+                    					setWithLastConsumed(current, "not", lv_not_4_0 != null, "not");
                     				
 
                     }
@@ -11235,7 +11235,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getErrorSourceRule());
                     						}
-                    						setWithLastConsumed(current, "all", true, "all");
+                    						setWithLastConsumed(current, "all", lv_all_5_0 != null, "all");
                     					
 
                     }
@@ -11732,7 +11732,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getErrorSinkRule());
                     						}
-                    						setWithLastConsumed(current, "allIncoming", true, "all");
+                    						setWithLastConsumed(current, "allIncoming", lv_allIncoming_5_0 != null, "all");
                     					
 
                     }
@@ -12041,7 +12041,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getErrorPathRule());
                     						}
-                    						setWithLastConsumed(current, "allIncoming", true, "all");
+                    						setWithLastConsumed(current, "allIncoming", lv_allIncoming_5_0 != null, "all");
                     					
 
                     }
@@ -12169,7 +12169,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getErrorPathRule());
                     						}
-                    						setWithLastConsumed(current, "allOutgoing", true, "all");
+                    						setWithLastConsumed(current, "allOutgoing", lv_allOutgoing_9_0 != null, "all");
                     					
 
                     }
@@ -14888,7 +14888,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     					if (current==null) {
                     						current = createModelElement(grammarAccess.getErrorBehaviorStateRule());
                     					}
-                    					setWithLastConsumed(current, "intial", true, "initial");
+                    					setWithLastConsumed(current, "intial", lv_intial_2_0 != null, "initial");
                     				
 
                     }
@@ -15206,7 +15206,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getErrorBehaviorTransitionRule());
                     						}
-                    						setWithLastConsumed(current, "allStates", true, "all");
+                    						setWithLastConsumed(current, "allStates", lv_allStates_4_0 != null, "all");
                     					
 
                     }
@@ -15380,7 +15380,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     							if (current==null) {
                     								current = createModelElement(grammarAccess.getErrorBehaviorTransitionRule());
                     							}
-                    							setWithLastConsumed(current, "steadyState", true, "same");
+                    							setWithLastConsumed(current, "steadyState", lv_steadyState_10_0 != null, "same");
                     						
 
                     }
@@ -15714,7 +15714,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     							if (current==null) {
                     								current = createModelElement(grammarAccess.getTransitionBranchRule());
                     							}
-                    							setWithLastConsumed(current, "steadyState", true, "same");
+                    							setWithLastConsumed(current, "steadyState", lv_steadyState_2_0 != null, "same");
                     						
 
                     }
@@ -15966,7 +15966,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getBranchValueRule());
                     						}
-                    						setWithLastConsumed(current, "others", true, "others");
+                    						setWithLastConsumed(current, "others", lv_others_3_0 != null, "others");
                     					
 
                     }
@@ -18110,7 +18110,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getOutgoingPropagationConditionRule());
                     						}
-                    						setWithLastConsumed(current, "allStates", true, "all");
+                    						setWithLastConsumed(current, "allStates", lv_allStates_4_0 != null, "all");
                     					
 
                     }
@@ -18245,7 +18245,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     							if (current==null) {
                     								current = createModelElement(grammarAccess.getOutgoingPropagationConditionRule());
                     							}
-                    							setWithLastConsumed(current, "allPropagations", true, "all");
+                    							setWithLastConsumed(current, "allPropagations", lv_allPropagations_9_0 != null, "all");
                     						
 
                     }
@@ -18560,7 +18560,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getErrorDetectionRule());
                     						}
-                    						setWithLastConsumed(current, "allStates", true, "all");
+                    						setWithLastConsumed(current, "allStates", lv_allStates_4_0 != null, "all");
                     					
 
                     }
@@ -19519,7 +19519,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getCompositeStateRule());
                     						}
-                    						setWithLastConsumed(current, "others", true, "others");
+                    						setWithLastConsumed(current, "others", lv_others_4_0 != null, "others");
                     					
 
                     }
@@ -21960,7 +21960,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getContainedPropertyAssociationRule());
                     						}
-                    						setWithLastConsumed(current, "append", true, "+=>");
+                    						setWithLastConsumed(current, "append", lv_append_2_0 != null, "+=>");
                     					
 
                     }
@@ -21996,7 +21996,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     					if (current==null) {
                     						current = createModelElement(grammarAccess.getContainedPropertyAssociationRule());
                     					}
-                    					setWithLastConsumed(current, "constant", true, "constant");
+                    					setWithLastConsumed(current, "constant", lv_constant_3_0 != null, "constant");
                     				
 
                     }
@@ -23224,7 +23224,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     						if (current==null) {
                     							current = createModelElement(grammarAccess.getBooleanLiteralRule());
                     						}
-                    						setWithLastConsumed(current, "value", true, "true");
+                    						setWithLastConsumed(current, "value", lv_value_1_0 != null, "true");
                     					
 
                     }

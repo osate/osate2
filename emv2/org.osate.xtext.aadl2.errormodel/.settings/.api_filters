@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.errormodel" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/ErrorModelPackage.java" type="org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage">
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="EMV2_PROPERTY_ASSOCIATION__APPEND"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="EMV2_PROPERTY_ASSOCIATION__APPLIES_TO"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="EMV2_PROPERTY_ASSOCIATION__CONSTANT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="EMV2_PROPERTY_ASSOCIATION__IN_BINDING"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="EMV2_PROPERTY_ASSOCIATION__OWNED_VALUE"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/util/ErrorModelAdapterFactory.java" type="org.osate.xtext.aadl2.errormodel.errorModel.util.ErrorModelAdapterFactory">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createPropertyAssociationAdapter()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/util/ErrorModelSwitch.java" type="org.osate.xtext.aadl2.errormodel.errorModel.util.ErrorModelSwitch">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="casePropertyAssociation(PropertyAssociation)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/serializer/AbstractErrorModelSemanticSequencer.java" type="org.osate.xtext.aadl2.errormodel.serializer.AbstractErrorModelSemanticSequencer">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="sequence_BasicEMV2PropertyAssociation_EMV2PropertyAssociation(ISerializationContext, EMV2PropertyAssociation)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/errormodel/serializer/AbstractErrorModelSyntacticSequencer.java" type="org.osate.xtext.aadl2.errormodel.serializer.AbstractErrorModelSyntacticSequencer">
         <filter id="576720909">
             <message_arguments>
@@ -250,6 +298,32 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/services/ErrorModelGrammarAccess.java" type="org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getPropertyAssociationAccess()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/services/ErrorModelGrammarAccess.java" type="org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess$ElementElements">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getEMV2PathElementParserRuleCall_18()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getEMV2PathParserRuleCall_17()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/services/ErrorModelGrammarAccess.java" type="org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess$PropertyAssociationElements">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="PropertyAssociationElements"/>
             </message_arguments>
         </filter>
     </resource>

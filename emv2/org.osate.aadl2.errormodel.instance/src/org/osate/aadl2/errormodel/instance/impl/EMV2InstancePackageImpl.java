@@ -86,7 +86,6 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
-import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
@@ -120,13 +119,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass emv2InstanceObjectEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass stateMachineInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -643,7 +635,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getEMV2AnnexInstance_Transitions() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(9);
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -653,7 +645,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getEMV2AnnexInstance_Conditions() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(10);
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -673,17 +665,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getEMV2AnnexInstance_Events() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_StateMachine() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(1);
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -693,7 +675,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getEMV2AnnexInstance_Detections() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(11);
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -703,7 +685,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getEMV2AnnexInstance_ModeMappings() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(12);
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -713,26 +695,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getEMV2AnnexInstance_ErrorFlows() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_Composites() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getEMV2AnnexInstance_Propagations() {
 		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -742,8 +704,28 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getEMV2AnnexInstance_Composites() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_Propagations() {
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getEMV2AnnexInstance_PropagationPaths() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(5);
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -753,7 +735,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getEMV2AnnexInstance_States() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(6);
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -763,7 +745,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 */
 	@Override
 	public EReference getEMV2AnnexInstance_InitialState() {
-		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(7);
+		return (EReference) emv2AnnexInstanceEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -774,46 +756,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EClass getEMV2InstanceObject() {
 		return emv2InstanceObjectEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getStateMachineInstance() {
-		return stateMachineInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getStateMachineInstance_States() {
-		return (EReference) stateMachineInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getStateMachineInstance_CurrentState() {
-		return (EReference) stateMachineInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getStateMachineInstance_StateMachine() {
-		return (EReference) stateMachineInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1972,7 +1914,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getModeMappingInstance_State() {
+	public EReference getModeMappingInstance_ModeMapping() {
 		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1982,7 +1924,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getModeMappingInstance_TypeSet() {
+	public EReference getModeMappingInstance_State() {
 		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1992,8 +1934,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getModeMappingInstance_Modes() {
+	public EReference getModeMappingInstance_TypeSet() {
 		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getModeMappingInstance_Modes() {
+		return (EReference) modeMappingInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2449,7 +2401,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		// Create classes and their features
 		emv2AnnexInstanceEClass = createEClass(EMV2_ANNEX_INSTANCE);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS);
-		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__STATE_MACHINE);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__COMPOSITES);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__PROPAGATIONS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ERROR_FLOWS);
@@ -2463,11 +2414,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__MODE_MAPPINGS);
 
 		emv2InstanceObjectEClass = createEClass(EMV2_INSTANCE_OBJECT);
-
-		stateMachineInstanceEClass = createEClass(STATE_MACHINE_INSTANCE);
-		createEReference(stateMachineInstanceEClass, STATE_MACHINE_INSTANCE__STATES);
-		createEReference(stateMachineInstanceEClass, STATE_MACHINE_INSTANCE__CURRENT_STATE);
-		createEReference(stateMachineInstanceEClass, STATE_MACHINE_INSTANCE__STATE_MACHINE);
 
 		constrainedInstanceObjectEClass = createEClass(CONSTRAINED_INSTANCE_OBJECT);
 		createEReference(constrainedInstanceObjectEClass, CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT);
@@ -2683,6 +2629,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(constantCodeEClass, CONSTANT_CODE__CODE);
 
 		modeMappingInstanceEClass = createEClass(MODE_MAPPING_INSTANCE);
+		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__MODE_MAPPING);
 		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__STATE);
 		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__TYPE_SET);
 		createEReference(modeMappingInstanceEClass, MODE_MAPPING_INSTANCE__MODES);
@@ -2732,7 +2679,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		// Add supertypes to classes
 		emv2AnnexInstanceEClass.getESuperTypes().add(theInstancePackage.getAnnexInstance());
 		emv2InstanceObjectEClass.getESuperTypes().add(theInstancePackage.getInstanceObject());
-		stateMachineInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		constrainedInstanceObjectEClass.getESuperTypes().add(getConstraintElement());
 		compositeStateInstanceEClass.getESuperTypes().add(getEMV2InstanceObject());
 		constraintExpressionEClass.getESuperTypes().add(getConstraintElement());
@@ -2800,9 +2746,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getEMV2AnnexInstance_PropagationPoints(), getPropagationPointInstance(), null,
 				"propagationPoints", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEMV2AnnexInstance_StateMachine(), getStateMachineInstance(), null, "stateMachine", null, 0, 1,
-				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_Composites(), getCompositeStateInstance(), null, "composites", null, 0, -1,
 				EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2839,18 +2782,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(emv2InstanceObjectEClass, EMV2InstanceObject.class, "EMV2InstanceObject", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(stateMachineInstanceEClass, StateMachineInstance.class, "StateMachineInstance", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStateMachineInstance_States(), getStateInstance(), null, "states", null, 0, -1,
-				StateMachineInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateMachineInstance_CurrentState(), getStateInstance(), null, "currentState", null, 0, 1,
-				StateMachineInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateMachineInstance_StateMachine(), theErrorModelPackage.getErrorBehaviorStateMachine(),
-				null, "stateMachine", null, 0, 1, StateMachineInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constrainedInstanceObjectEClass, ConstrainedInstanceObject.class, "ConstrainedInstanceObject",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3359,6 +3290,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(modeMappingInstanceEClass, ModeMappingInstance.class, "ModeMappingInstance", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getModeMappingInstance_ModeMapping(), theErrorModelPackage.getErrorStateToModeMapping(), null,
+				"modeMapping", null, 0, 1, ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModeMappingInstance_State(), getStateInstance(), null, "state", null, 0, 1,
 				ModeMappingInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

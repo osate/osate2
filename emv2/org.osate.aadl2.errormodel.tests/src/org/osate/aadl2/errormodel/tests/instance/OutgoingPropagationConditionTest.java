@@ -901,4 +901,16 @@ public class OutgoingPropagationConditionTest {
 			});
 		});
 	}
+
+	@Test
+	public void testDestinationInternalFeature() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "destination_internal_feature.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		/*
+		 * Tests that outgoing propagation conditions which refer to propagations which refer to internal features are
+		 * not instantiated.
+		 */
+		assertEquals(0, annexInstance.getConditions().size());
+	}
 }

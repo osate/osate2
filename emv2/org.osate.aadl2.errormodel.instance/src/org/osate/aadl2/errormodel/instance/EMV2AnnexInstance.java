@@ -36,7 +36,6 @@ import org.osate.aadl2.instance.AnnexInstance;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagationPoints <em>Propagation Points</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getStateMachine <em>State Machine</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getErrorFlows <em>Error Flows</em>}</li>
@@ -102,28 +101,6 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	 * @generated
 	 */
 	EList<EventInstance> getEvents();
-
-	/**
-	 * Returns the value of the '<em><b>State Machine</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>State Machine</em>' containment reference.
-	 * @see #setStateMachine(StateMachineInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_StateMachine()
-	 * @model containment="true"
-	 * @generated
-	 */
-	StateMachineInstance getStateMachine();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getStateMachine <em>State Machine</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>State Machine</em>' containment reference.
-	 * @see #getStateMachine()
-	 * @generated
-	 */
-	void setStateMachine(StateMachineInstance value);
 
 	/**
 	 * Returns the value of the '<em><b>Detections</b></em>' containment reference list.

@@ -1,5 +1,4 @@
 /**
- * *
  * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -37,6 +36,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import org.osate.aadl2.Aadl2Package;
 
 import org.osate.aadl2.provider.NamedElementItemProvider;
 
@@ -175,6 +176,11 @@ public class EMV2RootItemProvider extends NamedElementItemProvider
   protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object)
   {
     super.collectNewChildDescriptors(newChildDescriptors, object);
+
+    newChildDescriptors.add
+      (createChildParameter
+        (Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation(),
+         ErrorModelFactory.eINSTANCE.createEMV2PropertyAssociation()));
 
     newChildDescriptors.add
       (createChildParameter

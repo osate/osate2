@@ -183,10 +183,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_ContainedPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getPropertyAssociationRule()) {
-					sequence_PropertyAssociation(context, (PropertyAssociation) semanticObject); 
-					return; 
-				}
 				else break;
 			case Aadl2Package.RANGE_VALUE:
 				sequence_NumericRangeTerm(context, (RangeValue) semanticObject); 
@@ -294,8 +290,11 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_BasicEMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getElementRule()
-						|| rule == grammarAccess.getEMV2PropertyAssociationRule()) {
+				else if (rule == grammarAccess.getPropertyAssociationRule()) {
+					sequence_BasicEMV2PropertyAssociation_EMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getEMV2PropertyAssociationRule()) {
 					sequence_EMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
 					return; 
 				}
@@ -522,6 +521,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	}
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns AllExpression
 	 *     ConditionExpression returns AllExpression
@@ -533,6 +533,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (count=INTVALUE? operands+=ConditionElement operands+=ConditionElement*)
+	 * </pre>
 	 */
 	protected void sequence_AllExpression(ISerializationContext context, AllExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -540,6 +541,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns AndExpression
 	 *     ConditionExpression returns AndExpression
@@ -550,6 +552,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (operands+=AndExpression_AndExpression_1_0 operands+=ConditionTerm)
+	 * </pre>
 	 */
 	protected void sequence_AndExpression(ISerializationContext context, AndExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -557,11 +560,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     BasicEMV2Path returns EMV2Path
 	 *
 	 * Constraint:
 	 *     emv2Target=EMV2PathElementOrKind
+	 * </pre>
 	 */
 	protected void sequence_BasicEMV2Path(ISerializationContext context, EMV2Path semanticObject) {
 		if (errorAcceptor != null) {
@@ -575,6 +580,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     BasicEMV2PropertyAssociation returns EMV2PropertyAssociation
 	 *
@@ -585,6 +591,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         ownedValues+=OptionalModalPropertyValue* 
 	 *         (emv2Path+=BasicEMV2Path emv2Path+=BasicEMV2Path*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_BasicEMV2PropertyAssociation(ISerializationContext context, EMV2PropertyAssociation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -592,12 +599,41 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
+	 * Contexts:
+	 *     PropertyAssociation returns EMV2PropertyAssociation
+	 *
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             property=[Property|QPREF] 
+	 *             ownedValues+=OptionalModalPropertyValue 
+	 *             ownedValues+=OptionalModalPropertyValue* 
+	 *             (emv2Path+=EMV2Path emv2Path+=EMV2Path*)?
+	 *         ) | 
+	 *         (
+	 *             property=[Property|QPREF] 
+	 *             ownedValues+=OptionalModalPropertyValue 
+	 *             ownedValues+=OptionalModalPropertyValue* 
+	 *             (emv2Path+=BasicEMV2Path emv2Path+=BasicEMV2Path*)?
+	 *         )
+	 *     )
+	 * </pre>
+	 */
+	protected void sequence_BasicEMV2PropertyAssociation_EMV2PropertyAssociation(ISerializationContext context, EMV2PropertyAssociation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns BranchValue
 	 *     BranchValue returns BranchValue
 	 *
 	 * Constraint:
 	 *     (realvalue=REAL_LIT | symboliclabel=[Property|QEMREF] | others?='others')
+	 * </pre>
 	 */
 	protected void sequence_BranchValue(ISerializationContext context, BranchValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -605,12 +641,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns CompositeState
 	 *     CompositeState returns CompositeState
 	 *
 	 * Constraint:
 	 *     (name=ID? (condition=SConditionExpression | others?='others') state=[ErrorBehaviorState|ID] typedToken=TypeToken?)
+	 * </pre>
 	 */
 	protected void sequence_CompositeState(ISerializationContext context, CompositeState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -618,6 +656,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns ConditionElement
 	 *     ConditionExpression returns ConditionElement
@@ -629,6 +668,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation constraint=TypeTokenConstraintNoError?)
+	 * </pre>
 	 */
 	protected void sequence_ConditionElement(ISerializationContext context, ConditionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -636,6 +676,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns OrExpression
 	 *     ConditionExpression returns OrExpression
@@ -646,6 +687,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (operands+=ConditionExpression_OrExpression_1_0 operands+=AndExpression)
+	 * </pre>
 	 */
 	protected void sequence_ConditionExpression(ISerializationContext context, OrExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -653,11 +695,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EMV2ErrorPropagationPath returns EMV2PathElement
 	 *
 	 * Constraint:
 	 *     (emv2PropagationKind=PropagationKind | (namedElement=[NamedElement|ID] path=EMV2ErrorPropagationPath?))
+	 * </pre>
 	 */
 	protected void sequence_EMV2ErrorPropagationPath(ISerializationContext context, EMV2PathElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -665,6 +709,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EMV2Library returns ErrorModelLibrary
 	 *
@@ -691,6 +736,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *             transformations+=TypeTransformationSet*
 	 *         )
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_EMV2Library(ISerializationContext context, ErrorModelLibrary semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -698,11 +744,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EMV2PathElementOrKind returns EMV2PathElement
 	 *
 	 * Constraint:
 	 *     ((emv2PropagationKind=PropagationKind errorType=[ErrorTypes|ID]?) | (namedElement=[NamedElement|ID] path=EMV2PathElement?))
+	 * </pre>
 	 */
 	protected void sequence_EMV2PathElementOrKind(ISerializationContext context, EMV2PathElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -710,12 +758,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns EMV2PathElement
 	 *     EMV2PathElement returns EMV2PathElement
 	 *
 	 * Constraint:
 	 *     (namedElement=[NamedElement|ID] path=EMV2PathElement?)
+	 * </pre>
 	 */
 	protected void sequence_EMV2PathElement(ISerializationContext context, EMV2PathElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -723,12 +773,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns EMV2Path
 	 *     EMV2Path returns EMV2Path
 	 *
 	 * Constraint:
 	 *     (containmentPath=ContainmentPathElement? emv2Target=EMV2PathElementOrKind)
+	 * </pre>
 	 */
 	protected void sequence_EMV2Path(ISerializationContext context, EMV2Path semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -736,8 +788,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
-	 *     Element returns EMV2PropertyAssociation
 	 *     EMV2PropertyAssociation returns EMV2PropertyAssociation
 	 *
 	 * Constraint:
@@ -747,6 +799,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         ownedValues+=OptionalModalPropertyValue* 
 	 *         (emv2Path+=EMV2Path emv2Path+=EMV2Path*)?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_EMV2PropertyAssociation(ISerializationContext context, EMV2PropertyAssociation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -754,11 +807,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EMV2Root returns EMV2Root
 	 *
 	 * Constraint:
 	 *     (library=EMV2Library | subclauses+=EMV2Subclause+)?
+	 * </pre>
 	 */
 	protected void sequence_EMV2Root(ISerializationContext context, EMV2Root semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -766,6 +821,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     EMV2Subclause returns ErrorModelSubclause
 	 *
@@ -791,6 +847,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         paths+=PropagationPath* 
 	 *         properties+=EMV2PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_EMV2Subclause(ISerializationContext context, ErrorModelSubclause semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -798,6 +855,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorBehaviorStateMachine
 	 *     ErrorBehaviorStateMachine returns ErrorBehaviorStateMachine
@@ -812,6 +870,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         transitions+=ErrorBehaviorTransition* 
 	 *         properties+=BasicEMV2PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ErrorBehaviorStateMachine(ISerializationContext context, ErrorBehaviorStateMachine semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -819,12 +878,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorBehaviorState
 	 *     ErrorBehaviorState returns ErrorBehaviorState
 	 *
 	 * Constraint:
 	 *     (name=ID intial?='initial'? typeSet=TypeSetReference?)
+	 * </pre>
 	 */
 	protected void sequence_ErrorBehaviorState(ISerializationContext context, ErrorBehaviorState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -832,6 +893,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorBehaviorTransition
 	 *     ErrorBehaviorTransition returns ErrorBehaviorTransition
@@ -847,6 +909,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *             (destinationBranches+=TransitionBranch destinationBranches+=TransitionBranch+)
 	 *         )
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ErrorBehaviorTransition(ISerializationContext context, ErrorBehaviorTransition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -854,12 +917,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns ErrorCodeValue
 	 *     ErrorCodeValue returns ErrorCodeValue
 	 *
 	 * Constraint:
 	 *     (intValue=INTEGER_LIT | constant=[PropertyConstant|QPREF] | enumLiteral=STRING)
+	 * </pre>
 	 */
 	protected void sequence_ErrorCodeValue(ISerializationContext context, ErrorCodeValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -867,6 +932,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorDetection
 	 *     ErrorDetection returns ErrorDetection
@@ -879,6 +945,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         detectionReportingPort=ReportingPortReference 
 	 *         errorCode=ErrorCodeValue?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ErrorDetection(ISerializationContext context, ErrorDetection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -886,6 +953,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorEvent
 	 *     ErrorBehaviorEvent returns ErrorEvent
@@ -894,6 +962,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (name=ID typeSet=TypeSetReference? eventcondition=IfCondition?)
+	 * </pre>
 	 */
 	protected void sequence_ErrorEvent(ISerializationContext context, ErrorEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -901,6 +970,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AnnexLibrary returns ErrorModelLibrary
 	 *     NamedElement returns ErrorModelLibrary
@@ -916,6 +986,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         mappings+=TypeMappingSet* 
 	 *         transformations+=TypeTransformationSet*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ErrorModelLibrary(ISerializationContext context, ErrorModelLibrary semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -923,6 +994,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     AnnexSubclause returns ErrorModelSubclause
 	 *     ModalElement returns ErrorModelSubclause
@@ -949,6 +1021,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         paths+=PropagationPath* 
 	 *         properties+=EMV2PropertyAssociation*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ErrorModelSubclause(ISerializationContext context, ErrorModelSubclause semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -956,6 +1029,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorPath
 	 *     ErrorFlow returns ErrorPath
@@ -970,6 +1044,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (targetToken=TypeToken | typeMappingSet=[TypeMappingSet|QEMREF])? 
 	 *         flowcondition=IfCondition?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ErrorPath(ISerializationContext context, ErrorPath semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -977,6 +1052,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorPropagation
 	 *     ErrorPropagation returns ErrorPropagation
@@ -984,6 +1060,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     ((kind=PropagationKind | featureorPPRef=FeatureorPPReference) not?='not'? direction=PropagationDirection typeSet=TypeSetReference)
+	 * </pre>
 	 */
 	protected void sequence_ErrorPropagation(ISerializationContext context, ErrorPropagation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -991,6 +1068,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorSink
 	 *     ErrorFlow returns ErrorSink
@@ -1003,6 +1081,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         typeTokenConstraint=TypeTokenConstraint? 
 	 *         flowcondition=IfCondition?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ErrorSink(ISerializationContext context, ErrorSink semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1010,6 +1089,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorSource
 	 *     ErrorFlow returns ErrorSource
@@ -1027,6 +1107,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         )? 
 	 *         flowcondition=IfCondition?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ErrorSource(ISerializationContext context, ErrorSource semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1034,12 +1115,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns ErrorStateToModeMapping
 	 *     ErrorStateToModeMapping returns ErrorStateToModeMapping
 	 *
 	 * Constraint:
 	 *     (errorState=[ErrorBehaviorState|ID] typeToken=TypeToken? mappedModes+=[Mode|ID] mappedModes+=[Mode|ID]*)
+	 * </pre>
 	 */
 	protected void sequence_ErrorStateToModeMapping(ISerializationContext context, ErrorStateToModeMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1047,12 +1130,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns FeatureorPPReference
 	 *     FeatureorPPReference returns FeatureorPPReference
 	 *
 	 * Constraint:
 	 *     (featureorPP=[NamedElement|ID] next=FeatureorPPReference?)
+	 * </pre>
 	 */
 	protected void sequence_FeatureorPPReference(ISerializationContext context, FeatureorPPReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1060,11 +1145,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     IfCondition returns IfCondition
 	 *
 	 * Constraint:
 	 *     (description=STRING | resoluteFunction=[EObject|QEMREF] | javaMethod=QUALIFIEDNAME)
+	 * </pre>
 	 */
 	protected void sequence_IfCondition(ISerializationContext context, IfCondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1072,11 +1159,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NoErrorTypeSet returns TypeSet
 	 *
 	 * Constraint:
 	 *     typeTokens+=NoErrorTypeToken
+	 * </pre>
 	 */
 	protected void sequence_NoErrorTypeSet(ISerializationContext context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1084,12 +1173,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     TypeTokenOrNoError returns TypeSet
 	 *     TypeTokenConstraintNoError returns TypeSet
 	 *
 	 * Constraint:
 	 *     ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | typeTokens+=NoErrorTypeToken)
+	 * </pre>
 	 */
 	protected void sequence_NoErrorTypeSet_TypeSetConstructor(ISerializationContext context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1097,11 +1188,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NoErrorTypeToken returns TypeToken
 	 *
 	 * Constraint:
 	 *     noError?='noerror'
+	 * </pre>
 	 */
 	protected void sequence_NoErrorTypeToken(ISerializationContext context, TypeToken semanticObject) {
 		if (errorAcceptor != null) {
@@ -1115,6 +1208,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns OrlessExpression
 	 *     ConditionExpression returns OrlessExpression
@@ -1126,6 +1220,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (count=INTVALUE operands+=ConditionExpression operands+=ConditionExpression*)
+	 * </pre>
 	 */
 	protected void sequence_OrlessExpression(ISerializationContext context, OrlessExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1133,6 +1228,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns OrmoreExpression
 	 *     ConditionExpression returns OrmoreExpression
@@ -1144,6 +1240,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (count=INTVALUE operands+=ConditionExpression operands+=ConditionExpression*)
+	 * </pre>
 	 */
 	protected void sequence_OrmoreExpression(ISerializationContext context, OrmoreExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1151,6 +1248,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns OutgoingPropagationCondition
 	 *     OutgoingPropagationCondition returns OutgoingPropagationCondition
@@ -1163,6 +1261,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?='all') 
 	 *         typeToken=TypeTokenOrNoError?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_OutgoingPropagationCondition(ISerializationContext context, OutgoingPropagationCondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1170,12 +1269,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns PropagationPath
 	 *     PropagationPath returns PropagationPath
 	 *
 	 * Constraint:
 	 *     (name=ID? source=QualifiedPropagationPoint target=QualifiedPropagationPoint)
+	 * </pre>
 	 */
 	protected void sequence_PropagationPath(ISerializationContext context, PropagationPath semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1183,12 +1284,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns PropagationPoint
 	 *     PropagationPoint returns PropagationPoint
 	 *
 	 * Constraint:
 	 *     name=ID
+	 * </pre>
 	 */
 	protected void sequence_PropagationPoint(ISerializationContext context, PropagationPoint semanticObject) {
 		if (errorAcceptor != null) {
@@ -1202,12 +1305,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns QualifiedErrorBehaviorState
 	 *     QualifiedErrorBehaviorState returns QualifiedErrorBehaviorState
 	 *
 	 * Constraint:
 	 *     (subcomponent=SubcomponentElement (next=QualifiedErrorBehaviorState | state=[ErrorBehaviorState|ID]))
+	 * </pre>
 	 */
 	protected void sequence_QualifiedErrorBehaviorState(ISerializationContext context, QualifiedErrorBehaviorState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1215,11 +1320,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     QualifiedErrorEventOrPropagation returns QualifiedErrorEventOrPropagation
 	 *
 	 * Constraint:
 	 *     emv2Target=EMV2ErrorPropagationPath
+	 * </pre>
 	 */
 	protected void sequence_QualifiedErrorEventOrPropagation(ISerializationContext context, QualifiedErrorEventOrPropagation semanticObject) {
 		if (errorAcceptor != null) {
@@ -1233,11 +1340,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     QualifiedErrorPropagation returns QualifiedErrorPropagation
 	 *
 	 * Constraint:
 	 *     emv2Target=EMV2ErrorPropagationPath
+	 * </pre>
 	 */
 	protected void sequence_QualifiedErrorPropagation(ISerializationContext context, QualifiedErrorPropagation semanticObject) {
 		if (errorAcceptor != null) {
@@ -1251,12 +1360,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns QualifiedPropagationPoint
 	 *     QualifiedPropagationPoint returns QualifiedPropagationPoint
 	 *
 	 * Constraint:
 	 *     ((subcomponent=SubcomponentElement next=QualifiedPropagationPoint) | propagationPoint=[NamedElement|ID])
+	 * </pre>
 	 */
 	protected void sequence_QualifiedPropagationPoint(ISerializationContext context, QualifiedPropagationPoint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1264,6 +1375,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns RecoverEvent
 	 *     ErrorBehaviorEvent returns RecoverEvent
@@ -1272,6 +1384,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)? condition=IfCondition?)
+	 * </pre>
 	 */
 	protected void sequence_RecoverEvent(ISerializationContext context, RecoverEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1279,6 +1392,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns RepairEvent
 	 *     ErrorBehaviorEvent returns RepairEvent
@@ -1287,6 +1401,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)?)
+	 * </pre>
 	 */
 	protected void sequence_RepairEvent(ISerializationContext context, RepairEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1294,12 +1409,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ReportingPortReference returns ReportingPortReference
 	 *     ReportingPortReference.ReportingPortReference_1_0 returns ReportingPortReference
 	 *
 	 * Constraint:
 	 *     (element=[NamedElement|ID] | (previous=ReportingPortReference_ReportingPortReference_1_0 element=[NamedElement|ID]))
+	 * </pre>
 	 */
 	protected void sequence_ReportingPortReference(ISerializationContext context, ReportingPortReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1307,6 +1424,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SConditionExpression returns AllExpression
 	 *     SConditionExpression.OrExpression_1_0 returns AllExpression
@@ -1317,6 +1435,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (count=INTVALUE? operands+=SConditionElement operands+=SConditionElement*)
+	 * </pre>
 	 */
 	protected void sequence_SAllExpression(ISerializationContext context, AllExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1324,6 +1443,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SConditionExpression returns AndExpression
 	 *     SConditionExpression.OrExpression_1_0 returns AndExpression
@@ -1333,6 +1453,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (operands+=SAndExpression_AndExpression_1_0 operands+=SConditionTerm)
+	 * </pre>
 	 */
 	protected void sequence_SAndExpression(ISerializationContext context, AndExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1340,6 +1461,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SConditionExpression returns SConditionElement
 	 *     SConditionExpression.OrExpression_1_0 returns SConditionElement
@@ -1353,6 +1475,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint?) | 
 	 *         (qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?)
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SConditionElement(ISerializationContext context, SConditionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1360,6 +1483,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SConditionExpression returns OrExpression
 	 *     SConditionExpression.OrExpression_1_0 returns OrExpression
@@ -1369,6 +1493,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (operands+=SConditionExpression_OrExpression_1_0 operands+=SAndExpression)
+	 * </pre>
 	 */
 	protected void sequence_SConditionExpression(ISerializationContext context, OrExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1376,6 +1501,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SConditionExpression returns OrlessExpression
 	 *     SConditionExpression.OrExpression_1_0 returns OrlessExpression
@@ -1386,6 +1512,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (count=INTVALUE operands+=SConditionExpression operands+=SConditionExpression*)
+	 * </pre>
 	 */
 	protected void sequence_SOrlessExpression(ISerializationContext context, OrlessExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1393,6 +1520,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SConditionExpression returns OrmoreExpression
 	 *     SConditionExpression.OrExpression_1_0 returns OrmoreExpression
@@ -1403,6 +1531,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (count=INTVALUE operands+=SConditionExpression operands+=SConditionExpression*)
+	 * </pre>
 	 */
 	protected void sequence_SOrmoreExpression(ISerializationContext context, OrmoreExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1410,12 +1539,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns SubcomponentElement
 	 *     SubcomponentElement returns SubcomponentElement
 	 *
 	 * Constraint:
 	 *     subcomponent=[Subcomponent|ID]
+	 * </pre>
 	 */
 	protected void sequence_SubcomponentElement(ISerializationContext context, SubcomponentElement semanticObject) {
 		if (errorAcceptor != null) {
@@ -1429,12 +1560,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns TransitionBranch
 	 *     TransitionBranch returns TransitionBranch
 	 *
 	 * Constraint:
 	 *     (((target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | steadyState?='same') value=BranchValue)
+	 * </pre>
 	 */
 	protected void sequence_TransitionBranch(ISerializationContext context, TransitionBranch semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1442,6 +1575,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns ErrorType
 	 *     ErrorTypes returns ErrorType
@@ -1449,6 +1583,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (name=ID (superType=[ErrorType|QEMREF] | aliasedType=[ErrorType|QEMREF])?)
+	 * </pre>
 	 */
 	protected void sequence_TypeDefinition(ISerializationContext context, ErrorType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1456,12 +1591,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns TypeMappingSet
 	 *     TypeMappingSet returns TypeMappingSet
 	 *
 	 * Constraint:
 	 *     (name=ID (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? mapping+=TypeMapping+)
+	 * </pre>
 	 */
 	protected void sequence_TypeMappingSet(ISerializationContext context, TypeMappingSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1469,12 +1606,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns TypeMapping
 	 *     TypeMapping returns TypeMapping
 	 *
 	 * Constraint:
 	 *     (source=TypeTokenConstraint target=TypeToken)
+	 * </pre>
 	 */
 	protected void sequence_TypeMapping(ISerializationContext context, TypeMapping semanticObject) {
 		if (errorAcceptor != null) {
@@ -1491,6 +1630,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     TypeSetConstructor returns TypeSet
 	 *     TypeSetReference returns TypeSet
@@ -1499,6 +1639,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (typeTokens+=TypeSetElement typeTokens+=TypeSetElement*)
+	 * </pre>
 	 */
 	protected void sequence_TypeSetConstructor(ISerializationContext context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1506,6 +1647,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns TypeSet
 	 *     ErrorTypes returns TypeSet
@@ -1513,6 +1655,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *
 	 * Constraint:
 	 *     (name=ID ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | aliasedType=[TypeSet|QEMREF]))
+	 * </pre>
 	 */
 	protected void sequence_TypeSetDefinition(ISerializationContext context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1520,12 +1663,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns TypeToken
 	 *     TypeSetElement returns TypeToken
 	 *
 	 * Constraint:
 	 *     (type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*)
+	 * </pre>
 	 */
 	protected void sequence_TypeSetElement(ISerializationContext context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1533,12 +1678,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedElement returns TypeTransformationSet
 	 *     TypeTransformationSet returns TypeTransformationSet
 	 *
 	 * Constraint:
 	 *     (name=ID (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? transformation+=TypeTransformation+)
+	 * </pre>
 	 */
 	protected void sequence_TypeTransformationSet(ISerializationContext context, TypeTransformationSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1546,12 +1693,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Element returns TypeTransformation
 	 *     TypeTransformation returns TypeTransformation
 	 *
 	 * Constraint:
 	 *     ((source=TypeTokenConstraintNoError | allSources?='all') contributor=TypeTokenConstraintNoError? target=TypeToken)
+	 * </pre>
 	 */
 	protected void sequence_TypeTransformation(ISerializationContext context, TypeTransformation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

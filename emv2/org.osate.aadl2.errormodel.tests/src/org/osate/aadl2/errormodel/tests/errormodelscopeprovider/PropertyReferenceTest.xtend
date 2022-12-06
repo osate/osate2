@@ -32,6 +32,7 @@ import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
@@ -431,14 +432,14 @@ class PropertyReferenceTest extends XtextTest {
 				properties.head => [
 					1.1.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					//Tests EMV2PropertyAssociation's property reference
-					assertScope(ErrorModelPackage.eINSTANCE.EMV2PropertyAssociation_Property, expectedScope)
+					assertScope(Aadl2Package.eINSTANCE.propertyAssociation_Property, expectedScope)
 				]
 				behaviors.head => [
 					"bvr1".assertEquals(name)
 					properties.head => [
 						2.2.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						//Tests EMV2PropertyAssociation's property reference
-						assertScope(ErrorModelPackage.eINSTANCE.EMV2PropertyAssociation_Property, expectedScope)
+						assertScope(Aadl2Package.eINSTANCE.propertyAssociation_Property, expectedScope)
 					]
 				]
 			]
@@ -449,7 +450,7 @@ class PropertyReferenceTest extends XtextTest {
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).properties.head => [
 					3.3.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 					//Tests EMV2PropertyAssociation's property reference
-					assertScope(ErrorModelPackage.eINSTANCE.EMV2PropertyAssociation_Property, expectedScope)
+					assertScope(Aadl2Package.eINSTANCE.propertyAssociation_Property, expectedScope)
 				]
 			]
 		]

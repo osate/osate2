@@ -70,7 +70,12 @@ TypeSetElement
 |ConditionElement | AndExpression | ConditionTerm
 |ConditionExpression|OrmoreExpression|OrlessExpression
 	|ErrorStateToModeMapping|QualifiedErrorBehaviorState
-| SubcomponentElement | FeatureorPPReference | EMV2PropertyAssociation |EMV2Path | EMV2PathElement
+| SubcomponentElement | FeatureorPPReference | EMV2Path | EMV2PathElement
+;
+
+@Override 
+PropertyAssociation returns aadl2::PropertyAssociation:
+	EMV2PropertyAssociation | BasicEMV2PropertyAssociation
 ;
 
 
