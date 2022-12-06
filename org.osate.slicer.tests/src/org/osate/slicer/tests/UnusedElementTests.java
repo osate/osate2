@@ -85,9 +85,9 @@ public class UnusedElementTests {
 		si3 = InstantiateModel.instantiate(sysImpl3);
 		si4 = InstantiateModel.instantiate(sysImpl4);
 		si5 = InstantiateModel.instantiate(sysImpl5);
-//		tlg1.buildGraph(si1);
-//		tlg2.buildGraph(si2);
-//		tlg3.buildGraph(si3);
+		tlg1.buildGraph(si1);
+		tlg2.buildGraph(si2);
+		tlg3.buildGraph(si3);
 		tlg4.buildGraph(si4);
 		tlg5.buildGraph(si5);
 

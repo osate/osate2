@@ -24,12 +24,13 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
+		<relativePath>../org.osate.slicer.releng</relativePath>
 		<groupId>org.osate</groupId>
-		<artifactId>face2aadl.parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<artifactId>org.osate.slicer.releng</artifactId>
+		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>org.osate</groupId>
 	<artifactId>org.jgrapht</artifactId>
-	<version>1.4.0-SNAPSHOT</version>
+	<version>1.5.1-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 </project>

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JGraphT Libraries
 Bundle-SymbolicName: org.jgrapht
-Bundle-Version: 1.4.0.qualifier
+Bundle-Version: 1.5.1.qualifier
 Bundle-ClassPath: jgrapht-core-1.5.1.jar,
  jgrapht-io-1.5.1.jar
 Export-Package: org.jgrapht,

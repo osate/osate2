@@ -22,8 +22,6 @@ import org.osate.slicer.OsateSlicerVertex;
 public class UnusedElementDetector {
 
 	private Graph<OsateSlicerVertex, DefaultEdge> g, rg;
-	private boolean calculationsComplete = false;
-//	private UnusedElementListener uel = new UnusedElementListener();
 	private final String PATH_CONNECTOR = " -> ";
 	private final AssumptionCheckResult result = new AssumptionCheckResult();
 
@@ -31,24 +29,6 @@ public class UnusedElementDetector {
 		this.g = g;
 		this.rg = rg;
 	}
-
-//	public Collection<DefaultEdge> getUnusedEdges() {
-//		if (!calculationsComplete) {
-//			calculateUnusedElements();
-//		}
-//		Set<DefaultEdge> ret = new HashSet<>(g.edgeSet());
-//		ret.removeAll(uel.getTraversedEdges());
-//		return ret;
-//	}
-//
-//	public Collection<OsateSlicerVertex> getUnusedVertices() {
-//		if (!calculationsComplete) {
-//			calculateUnusedElements();
-//		}
-//		Set<OsateSlicerVertex> ret = new HashSet<>(g.vertexSet());
-//		ret.removeAll(uel.getTraversedVertices());
-//		return ret;
-//	}
 
 	private void calculateUnusedElements() {
 		var path = new StringBuilder();
@@ -63,61 +43,32 @@ public class UnusedElementDetector {
 		for (var v : sourceVertices) {
 			var iterator = new DepthFirstIterator<>(g, v);
 			path.setLength(0);
-//			iterator.addTraversalListener(uel);
-			var current = iterator.next();
-			path.append(current.getName());
-			while (iterator.hasNext()) {
+			OsateSlicerVertex current;
+			do {
 				current = iterator.next();
 				path.append(PATH_CONNECTOR);
 				path.append(current.getName());
-			}
-			if (!(current.getIObj() instanceof ErrorSinkInstance)) {
-				result.addNonTerminatingSourceVertex(v);
-				System.err.println(path.toString());
-			}
+				if ((g.outDegreeOf(current) == 0) && !(current.getIObj() instanceof ErrorSinkInstance)) {
+					result.addNonTerminatingSourceVertex(v);
+					System.err.println(path.toString());
+				}
+			} while (iterator.hasNext());
 		}
 		for (var v : sinkVertices) {
 			var iterator = new DepthFirstIterator<>(rg, v);
 			path.setLength(0);
-//			iterator.addTraversalListener(uel);
-			var current = iterator.next();
-			path.append(current.getName());
-			while (iterator.hasNext()) {
+			OsateSlicerVertex current;
+			do {
 				current = iterator.next();
 				path.append(PATH_CONNECTOR);
 				path.append(current.getName());
-			}
-			if (!(current.getIObj() instanceof ErrorSourceInstance)) {
-				result.addUnreachableSinkVertex(v);
-				System.err.println(path.toString());
-			}
+				if ((rg.outDegreeOf(current) == 0) && !(current.getIObj() instanceof ErrorSourceInstance)) {
+					result.addUnreachableSinkVertex(v);
+					System.err.println(path.toString());
+				}
+			} while (iterator.hasNext());
 		}
-		calculationsComplete = true;
 	}
-
-//	private class UnusedElementListener extends TraversalListenerAdapter<OsateSlicerVertex, DefaultEdge> {
-//
-//		private Set<DefaultEdge> traversedEdges = new HashSet<>();
-//		private Set<OsateSlicerVertex> traversedVertices = new HashSet<>();
-//
-//		@Override
-//		public void edgeTraversed(EdgeTraversalEvent<DefaultEdge> e) {
-//			traversedEdges.add(e.getEdge());
-//		}
-//
-//		@Override
-//		public void vertexTraversed(VertexTraversalEvent<OsateSlicerVertex> e) {
-//			traversedVertices.add(e.getVertex());
-//		}
-//
-//		public Set<DefaultEdge> getTraversedEdges() {
-//			return traversedEdges;
-//		}
-//
-//		public Set<OsateSlicerVertex> getTraversedVertices() {
-//			return traversedVertices;
-//		}
-//	}
 
 	public AssumptionCheckResult checkAssumptions() {
 		calculateUnusedElements();

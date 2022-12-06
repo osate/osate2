@@ -160,6 +160,8 @@ public class SlicerRepresentation {
 		Graphs.addGraphReversed(rg, g);
 
 		// Run checks on the generated graph to see if there are any obvious problems / assumption violations
+		System.out.println(this.toDot(g));
+		System.out.println(this.toDot(rg));
 		checkAssumptions();
 
 		// Debugging info, remove at-will
@@ -565,12 +567,6 @@ public class SlicerRepresentation {
 								edges.push(g.getEdge(dstVrt, vertexMap.get(tgt.get())));
 							}
 						}
-//						Optional<String> tgt = possiblePropagations.get(componentName).getTarget(dstVrt);
-//						if (tgt.isPresent() && !g.containsEdge(dstVrt, vertexMap.get(tgt.get()))) {
-//							edgesModified = true;
-//							addEdge(dstVrt.getName(), tgt.get());
-//							edges.push(g.getEdge(dstVrt, vertexMap.get(tgt.get())));
-//						}
 					}
 				}
 			}

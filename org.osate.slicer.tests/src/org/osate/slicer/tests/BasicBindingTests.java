@@ -63,7 +63,10 @@ public class BasicBindingTests {
 	private SlicerRepresentation tlg;
 	private SystemInstance si;
 
-	private String[] vert1, vert2, vert3;
+	private String[] vert1, vert2, vert3, vert4;
+
+//	Tuesday, December 8, 2022 -- Disabled tests related to the fourth source and sink
+//	They can / should be re-enabled when this issue is resolved: https://github.com/saeaadl/emv2/issues/72
 
 	@Before
 	public void setUp() throws Exception {
@@ -92,6 +95,12 @@ public class BasicBindingTests {
 		vert3[1] = "s_i_Instance.b.bindings.ServiceError";
 		vert3[2] = "s_i_Instance.vb.connection.ServiceError";
 		vert3[3] = "s_i_Instance.vb.o3Snk.ServiceError";
+
+//		vert4 = new String[4];
+//		vert4[0] = "s_i_Instance.sys1.o4Src.ServiceError";
+//		vert4[1] = "s_i_Instance.sys1.bindings.ServiceError";
+//		vert4[2] = "s_i_Instance.sys2.binding.ServiceError";
+//		vert4[3] = "s_i_Instance.sys2.o4Snk.ServiceError";
 	}
 
 	@Test
@@ -99,6 +108,7 @@ public class BasicBindingTests {
 		AbstractGraph<OsateSlicerVertex, DefaultEdge> g1 = tlg.forwardReachability(vert1[1]);
 		AbstractGraph<OsateSlicerVertex, DefaultEdge> g2 = tlg.forwardReachability(vert2[1]);
 		AbstractGraph<OsateSlicerVertex, DefaultEdge> g3 = tlg.forwardReachability(vert3[1]);
+//		AbstractGraph<OsateSlicerVertex, DefaultEdge> g4 = tlg.forwardReachability(vert4[1]);
 		Map<String, OsateSlicerVertex> m1 = g1.vertexSet() // Can't query the set directly, so derive a map
 				.stream()
 				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
@@ -108,6 +118,9 @@ public class BasicBindingTests {
 		Map<String, OsateSlicerVertex> m3 = g3.vertexSet()
 				.stream()
 				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
+//		Map<String, OsateSlicerVertex> m4 = g4.vertexSet()
+//				.stream()
+//				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
 
 		assertEquals("Number of vertices in forward reach", 3, g1.vertexSet().size());
 		assertTrue("Wrong vertices found in forward reach subgraph",
@@ -118,11 +131,15 @@ public class BasicBindingTests {
 		assertEquals("Number of vertices in forward reach", 3, g3.vertexSet().size());
 		assertTrue("Wrong vertices found in forward reach subgraph",
 				m3.keySet().containsAll(Arrays.asList(vert3).subList(1, 3)));
+//		assertEquals("Number of vertices in forward reach", 4, g4.vertexSet().size());
+//		assertTrue("Wrong vertices found in forward reach subgraph",
+//				m4.keySet().containsAll(Arrays.asList(vert4).subList(1, 3)));
 
 		// Should have two edges connecting the vertices in a linear path
 		assertEquals("Number of edges in forward reach", 2, g1.edgeSet().size());
 		assertEquals("Number of edges in forward reach", 2, g2.edgeSet().size());
 		assertEquals("Number of edges in forward reach", 2, g3.edgeSet().size());
+//		assertEquals("Number of edges in forward reach", 2, g4.edgeSet().size());
 		for (int i = 1; i < 3; i++) {
 			assertTrue("Edge " + vert1[i] + " -> " + vert1[i + 1] + " doesn't exist!",
 					g1.containsEdge(m1.get(vert1[i]), m1.get(vert1[i + 1])));
@@ -130,6 +147,8 @@ public class BasicBindingTests {
 					g2.containsEdge(m2.get(vert2[i]), m2.get(vert2[i + 1])));
 			assertTrue("Edge " + vert3[i] + " -> " + vert3[i + 1] + " doesn't exist!",
 					g3.containsEdge(m3.get(vert3[i]), m3.get(vert3[i + 1])));
+//			assertTrue("Edge " + vert4[i] + " -> " + vert4[i + 1] + " doesn't exist!",
+//					g4.containsEdge(m4.get(vert3[i]), m4.get(vert4[i + 1])));
 		}
 	}
 
@@ -148,6 +167,7 @@ public class BasicBindingTests {
 		AbstractGraph<OsateSlicerVertex, DefaultEdge> g1 = tlg.backwardReachability(vert1[2]);
 		AbstractGraph<OsateSlicerVertex, DefaultEdge> g2 = tlg.backwardReachability(vert2[2]);
 		AbstractGraph<OsateSlicerVertex, DefaultEdge> g3 = tlg.backwardReachability(vert3[2]);
+//		AbstractGraph<OsateSlicerVertex, DefaultEdge> g4 = tlg.backwardReachability(vert4[2]);
 		Map<String, OsateSlicerVertex> m1 = g1.vertexSet() // Can't query the set directly, so derive a map
 				.stream()
 				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
@@ -157,6 +177,9 @@ public class BasicBindingTests {
 		Map<String, OsateSlicerVertex> m3 = g3.vertexSet()
 				.stream()
 				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
+//		Map<String, OsateSlicerVertex> m4 = g4.vertexSet()
+//				.stream()
+//				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
 
 		assertEquals("Number of vertices in backward reach", 3, g1.vertexSet().size());
 		assertTrue("Wrong vertices found in backward reach subgraph",
@@ -167,11 +190,15 @@ public class BasicBindingTests {
 		assertEquals("Number of vertices in backward reach", 3, g3.vertexSet().size());
 		assertTrue("Wrong vertices found in backward reach subgraph",
 				m3.keySet().containsAll(Arrays.asList(vert3).subList(0, 2)));
+//		assertEquals("Number of vertices in backward reach", 4, g4.vertexSet().size());
+//		assertTrue("Wrong vertices found in backward reach subgraph",
+//				m4.keySet().containsAll(Arrays.asList(vert4).subList(0, 2)));
 
 		// Should have two edges connecting the vertices in a linear path
 		assertEquals("Number of edges in backward reach", 2, g1.edgeSet().size());
 		assertEquals("Number of edges in backward reach", 2, g2.edgeSet().size());
 		assertEquals("Number of edges in backward reach", 2, g3.edgeSet().size());
+//		assertEquals("Number of edges in backward reach", 2, g4.edgeSet().size());
 		for (int i = 0; i < 2; i++) {
 			assertTrue("Edge " + vert1[i] + " -> " + vert1[i + 1] + " doesn't exist!",
 					g1.containsEdge(m1.get(vert1[i]), m1.get(vert1[i + 1])));
@@ -179,6 +206,8 @@ public class BasicBindingTests {
 					g2.containsEdge(m2.get(vert2[i]), m2.get(vert2[i + 1])));
 			assertTrue("Edge " + vert3[i] + " -> " + vert3[i + 1] + " doesn't exist!",
 					g3.containsEdge(m3.get(vert3[i]), m3.get(vert3[i + 1])));
+//			assertTrue("Edge " + vert4[i] + " -> " + vert4[i + 1] + " doesn't exist!",
+//					g3.containsEdge(m4.get(vert4[i]), m4.get(vert4[i + 1])));
 		}
 	}
 
