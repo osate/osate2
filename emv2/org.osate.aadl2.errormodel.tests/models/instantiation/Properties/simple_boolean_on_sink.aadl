@@ -1,0 +1,24 @@
+package simple_boolean_on_sink
+public
+	system s
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: in propagation {ServiceError};
+				flows
+					sink1: error sink f;
+			end propagations;
+			
+			properties
+				ps::boolean_for_all => true applies to sink1;
+				ps::boolean_for_error_flow => true applies to sink1;
+				ps::boolean_for_error_sink => true applies to sink1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end simple_boolean_on_sink;

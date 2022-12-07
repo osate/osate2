@@ -28,6 +28,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
@@ -375,4 +376,8 @@ public class ErrorSinkInstanceImpl extends EMV2InstanceObjectImpl implements Err
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public boolean acceptsProperty(Property property) {
+		return getErrorSink().acceptsProperty(property);
+	}
 } // ErrorSinkInstanceImpl
