@@ -1,0 +1,5 @@
+property set ps is
+	boolean_for_all: aadlboolean applies to (all);
+	boolean_for_error_flow: aadlboolean applies to ({emv2}**error flow);
+	boolean_for_error_sink: aadlboolean applies to ({emv2}**error sink);
+end ps;
