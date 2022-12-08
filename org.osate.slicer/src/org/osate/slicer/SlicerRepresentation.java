@@ -441,6 +441,21 @@ public class SlicerRepresentation {
 	}
 
 	/**
+	 * Returns all ErrorSourceInstance objects in the system. More specifically, every ErrorSourceInstance
+	 * that is associated with a vertex in the underlying graph will be collected and returned.
+	 *
+	 * @return Error sources in the system
+	 */
+	public Collection<ErrorSourceInstance> getErrorSources() {
+		var sourceVertices = g.vertexSet()
+				.stream()
+				.filter(v -> v.getIObj() instanceof ErrorSourceInstance)
+				.map(v -> (ErrorSourceInstance) v.getIObj())
+				.collect(Collectors.toSet());
+		return sourceVertices;
+	}
+
+	/**
 	 * Gets "neighbor" components, which are those components that have features which are connected
 	 * by a single edge to features in the supplied components.
 	 *
@@ -505,6 +520,7 @@ public class SlicerRepresentation {
 	 */
 	private AsSubgraph<OsateSlicerVertex, DefaultEdge> reach(Graph<OsateSlicerVertex, DefaultEdge> graph,
 			String origin) {
+		origin = origin.replace(".EMV2", "");
 		BreadthFirstIterator<OsateSlicerVertex, DefaultEdge> bfi = new BreadthFirstIterator<>(graph,
 				vertexMap.get(origin));
 
