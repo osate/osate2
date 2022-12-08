@@ -136,6 +136,10 @@ public class SlicerRepresentation {
 	 */
 	private AssumptionCheckResult acr;
 
+	public enum ErrorStateValidity {
+		VALID, INVALID, ALL
+	};
+
 	public void buildGraph(SystemInstance si) {
 		// Add vertices and explicit edges from core AADL
 		SlicerSwitch coreSwitch = new SlicerSwitch();
@@ -160,14 +164,7 @@ public class SlicerRepresentation {
 		Graphs.addGraphReversed(rg, g);
 
 		// Run checks on the generated graph to see if there are any obvious problems / assumption violations
-		System.out.println(this.toDot(g));
-		System.out.println(this.toDot(rg));
 		checkAssumptions();
-
-		// Debugging info, remove at-will
-		System.out.println(this.toDot(g));
-
-//		System.out.println(this.toDot(backwardReachability("MyCar_CruiseControl_Instance.ta.to_throttle.Incident")));
 	}
 
 	/**
@@ -176,24 +173,6 @@ public class SlicerRepresentation {
 	private void checkAssumptions() {
 		UnusedElementDetector ued = new UnusedElementDetector(g, rg);
 		this.acr = ued.checkAssumptions();
-	}
-
-	/**
-	 * Gets error sources which can propagate into paths that do not terminate in sinks.
-	 *
-	 * @return Error source vertices which propagate tokens into paths that do not terminate in error sinks
-	 */
-	public Collection<OsateSlicerVertex> getNonTerminatingSourceVertices() {
-		return acr.getNonTerminatingSourceVertices();
-	}
-
-	/**
-	 * Gets error sinks which are not reachable from error sources.
-	 *
-	 * @return Error sink vertices which consume tokens via paths that do not begin in error sources
-	 */
-	public Collection<OsateSlicerVertex> getUnreachableSinkVertices() {
-		return acr.getUnreachableSinkVertices();
 	}
 
 	/**
@@ -441,18 +420,61 @@ public class SlicerRepresentation {
 	}
 
 	/**
-	 * Returns all ErrorSourceInstance objects in the system. More specifically, every ErrorSourceInstance
-	 * that is associated with a vertex in the underlying graph will be collected and returned.
-	 *
-	 * @return Error sources in the system
+	 * Gets error sources from the model. Depending on the parameter value, different subsets of the
+	 * complete set of error sources are returned:
+	 * <ul>
+	 *   <li>VALID -- Only error sources which can possibly terminate in a sink</li>
+	 *   <li>INVALID -- Only error sources which cannot possibly terminate in a sink</li>
+	 *   <li>ALL -- All error sinks</li>
+	 * </ul>
+	 * @param validity Valid for terminating error sinks, invalid for nonterminating, all for all.
+	 * @return Error sources from the model
 	 */
-	public Collection<ErrorSourceInstance> getErrorSources() {
-		var sourceVertices = g.vertexSet()
-				.stream()
+	public Collection<ErrorSourceInstance> getErrorSources(ErrorStateValidity validity) {
+		Collection<OsateSlicerVertex> startVertexSet = null;
+		if (validity == ErrorStateValidity.VALID) {
+			Collection<ErrorSourceInstance> ret = getErrorSources(ErrorStateValidity.ALL);
+			ret.removeAll(getErrorSources(ErrorStateValidity.INVALID));
+			return ret;
+		} else if (validity == ErrorStateValidity.ALL) {
+			startVertexSet = g.vertexSet();
+		} else if (validity == ErrorStateValidity.INVALID) {
+			startVertexSet = acr.getNonTerminatingSourceVertices();
+		}
+		var sourceVertices = startVertexSet.stream()
 				.filter(v -> v.getIObj() instanceof ErrorSourceInstance)
 				.map(v -> (ErrorSourceInstance) v.getIObj())
 				.collect(Collectors.toSet());
 		return sourceVertices;
+	}
+
+	/**
+	 * Gets error sinks from the model. Depending on the parameter value, different subsets of the
+	 * complete set of error sinks are returned:
+	 * <ul>
+	 *   <li>VALID -- Only error sinks which are reachable from any error source</li>
+	 *   <li>INVALID -- Only error sinks which are not reachable from any error source</li>
+	 *   <li>ALL -- All error sinks (reachable and unreachable) are returned</li>
+	 * </ul>
+	 * @param validity Valid for reachable error sinks, invalid for unreachable, all for all.
+	 * @return Error sinks from the model
+	 */
+	public Collection<ErrorSinkInstance> getErrorSinks(ErrorStateValidity validity) {
+		Collection<OsateSlicerVertex> startVertexSet = null;
+		if (validity == ErrorStateValidity.VALID) {
+			Collection<ErrorSinkInstance> ret = getErrorSinks(ErrorStateValidity.ALL);
+			ret.removeAll(getErrorSinks(ErrorStateValidity.INVALID));
+			return ret;
+		} else if (validity == ErrorStateValidity.ALL) {
+			startVertexSet = g.vertexSet();
+		} else if (validity == ErrorStateValidity.INVALID) {
+			startVertexSet = acr.getUnreachableSinkVertices();
+		}
+		var sinkVertices = startVertexSet.stream()
+				.filter(v -> v.getIObj() instanceof ErrorSinkInstance)
+				.map(v -> (ErrorSinkInstance) v.getIObj())
+				.collect(Collectors.toSet());
+		return sinkVertices;
 	}
 
 	/**

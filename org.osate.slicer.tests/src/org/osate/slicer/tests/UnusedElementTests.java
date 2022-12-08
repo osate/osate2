@@ -36,6 +36,7 @@ import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.slicer.SlicerRepresentation;
+import org.osate.slicer.SlicerRepresentation.ErrorStateValidity;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -102,19 +103,43 @@ public class UnusedElementTests {
 
 	@Test
 	public void testSinkReachability() {
-		assertEquals(0, tlg1.getNonTerminatingSourceVertices().size());
-		assertEquals(1, tlg2.getNonTerminatingSourceVertices().size());
-		assertEquals(1, tlg3.getNonTerminatingSourceVertices().size());
-		assertEquals(1, tlg4.getNonTerminatingSourceVertices().size());
-		assertEquals(0, tlg5.getNonTerminatingSourceVertices().size());
+		assertEquals(0, tlg1.getErrorSources(ErrorStateValidity.INVALID).size());
+		assertEquals(1, tlg2.getErrorSources(ErrorStateValidity.INVALID).size());
+		assertEquals(1, tlg3.getErrorSources(ErrorStateValidity.INVALID).size());
+		assertEquals(1, tlg4.getErrorSources(ErrorStateValidity.INVALID).size());
+		assertEquals(0, tlg5.getErrorSources(ErrorStateValidity.INVALID).size());
+
+		assertEquals(0, tlg1.getErrorSources(ErrorStateValidity.VALID).size());
+		assertEquals(0, tlg2.getErrorSources(ErrorStateValidity.VALID).size());
+		assertEquals(0, tlg3.getErrorSources(ErrorStateValidity.VALID).size());
+		assertEquals(0, tlg4.getErrorSources(ErrorStateValidity.VALID).size());
+		assertEquals(1, tlg5.getErrorSources(ErrorStateValidity.VALID).size());
+
+		assertEquals(0, tlg1.getErrorSources(ErrorStateValidity.ALL).size());
+		assertEquals(1, tlg2.getErrorSources(ErrorStateValidity.ALL).size());
+		assertEquals(1, tlg3.getErrorSources(ErrorStateValidity.ALL).size());
+		assertEquals(1, tlg4.getErrorSources(ErrorStateValidity.ALL).size());
+		assertEquals(1, tlg5.getErrorSources(ErrorStateValidity.ALL).size());
 	}
 
 	@Test
 	public void testSourceReachability() {
-		assertEquals(1, tlg1.getUnreachableSinkVertices().size());
-		assertEquals(0, tlg2.getUnreachableSinkVertices().size());
-		assertEquals(1, tlg3.getUnreachableSinkVertices().size());
-		assertEquals(0, tlg4.getUnreachableSinkVertices().size());
-		assertEquals(0, tlg5.getUnreachableSinkVertices().size());
+		assertEquals(1, tlg1.getErrorSinks(ErrorStateValidity.INVALID).size());
+		assertEquals(0, tlg2.getErrorSinks(ErrorStateValidity.INVALID).size());
+		assertEquals(1, tlg3.getErrorSinks(ErrorStateValidity.INVALID).size());
+		assertEquals(0, tlg4.getErrorSinks(ErrorStateValidity.INVALID).size());
+		assertEquals(0, tlg5.getErrorSinks(ErrorStateValidity.INVALID).size());
+
+		assertEquals(0, tlg1.getErrorSinks(ErrorStateValidity.VALID).size());
+		assertEquals(0, tlg2.getErrorSinks(ErrorStateValidity.VALID).size());
+		assertEquals(0, tlg3.getErrorSinks(ErrorStateValidity.VALID).size());
+		assertEquals(1, tlg4.getErrorSinks(ErrorStateValidity.VALID).size());
+		assertEquals(1, tlg5.getErrorSinks(ErrorStateValidity.VALID).size());
+
+		assertEquals(1, tlg1.getErrorSinks(ErrorStateValidity.ALL).size());
+		assertEquals(0, tlg2.getErrorSinks(ErrorStateValidity.ALL).size());
+		assertEquals(1, tlg3.getErrorSinks(ErrorStateValidity.ALL).size());
+		assertEquals(1, tlg4.getErrorSinks(ErrorStateValidity.ALL).size());
+		assertEquals(1, tlg5.getErrorSinks(ErrorStateValidity.ALL).size());
 	}
 }
