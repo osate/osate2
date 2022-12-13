@@ -23,6 +23,8 @@
  *******************************************************************************/
 package org.osate.slicer;
 
+import java.util.Optional;
+
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.errormodel.instance.BindingType;
@@ -55,9 +57,8 @@ import org.osate.slicer.iobjadapters.VertexIObjAdapter;
 public class OsateSlicerVertex {
 	/**
 	 * The error(s) associated with this vertex. Combined with the name, should be globally unique, ie, a primary key.
-	 * If null, that means no errors are associated with the vertex.
 	 */
-	final private TypeTokenInstance token;
+	final private Optional<TypeTokenInstance> token;
 
 	/**
 	 * A link to the AADL instance object (ie, feature, error source, error sink, or component + binding type)
@@ -70,7 +71,7 @@ public class OsateSlicerVertex {
 	 * @param cie The end of a connection represented by the vertex. Mode transitions are currently not supported.
 	 * @param token The error(s) the vertex represents, or null if there isn't an error associated with this vertex
 	 */
-	public OsateSlicerVertex(ConnectionInstanceEnd cie, TypeTokenInstance token) {
+	public OsateSlicerVertex(ConnectionInstanceEnd cie, Optional<TypeTokenInstance> token) {
 		this.token = token;
 		if (cie instanceof FeatureInstance) {
 			this.element = new FeatureInstanceAdapter((FeatureInstance) cie);
@@ -86,7 +87,7 @@ public class OsateSlicerVertex {
 	 * @param efi The error source or sink the vertex represents
 	 * @param errorATS The error(s) the vertex represents
 	 */
-	public OsateSlicerVertex(ErrorFlowInstance efi, TypeTokenInstance token) {
+	public OsateSlicerVertex(ErrorFlowInstance efi, Optional<TypeTokenInstance> token) {
 		if (!(efi instanceof ErrorSourceInstance || efi instanceof ErrorSinkInstance)) {
 			System.err.println("OsateSlicerVertex created with non-source/sink Error Flow Instance! "
 					+ efi.getInstanceObjectPath());
@@ -95,12 +96,12 @@ public class OsateSlicerVertex {
 		this.element = new ErrorFlowInstanceAdapter(efi);
 	}
 
-	public OsateSlicerVertex(ComponentInstance comp, String propagationName, TypeTokenInstance token) {
+	public OsateSlicerVertex(ComponentInstance comp, String propagationName, Optional<TypeTokenInstance> token) {
 		this.token = token;
 		this.element = new PointPropagationAdapter(comp, propagationName);
 	}
 
-	public OsateSlicerVertex(ComponentInstance comp, BindingType bindingType, TypeTokenInstance token) {
+	public OsateSlicerVertex(ComponentInstance comp, BindingType bindingType, Optional<TypeTokenInstance> token) {
 		this.token = token;
 		this.element = new BoundComponentInstanceAdapter(comp, bindingType);
 	}
@@ -125,19 +126,19 @@ public class OsateSlicerVertex {
 	}
 
 	public String getName() {
-		if (token != null) {
-			return element.getName() + "." + token.getFullName();
+		if (token.isPresent()) {
+			return element.getName() + "." + token.get().getFullName();
 		} else {
 			return element.getName();
 		}
 	}
 
 	/**
-	 * Returns the error token associated with this vertex, or null if it doesn't exist.
+	 * Returns the error token associated with this vertex.
 	 *
 	 * @return the error token associated with this vertex.
 	 */
-	public TypeTokenInstance getErrorToken() {
+	public Optional<TypeTokenInstance> getErrorToken() {
 		return token;
 	}
 

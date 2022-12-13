@@ -183,8 +183,9 @@ public class SlicerRepresentation {
 	 * @param tti The error token
 	 * @return The vertex's name
 	 */
-	private String getVertex(ErrorPropagationInstance prop, TypeTokenInstance tti) {
+	private String getVertex(ErrorPropagationInstance prop, TypeTokenInstance ttinstance) {
 		OsateSlicerVertex v = null;
+		Optional<TypeTokenInstance> tti = Optional.of(ttinstance);
 		if (prop instanceof FeaturePropagation) {
 			v = new OsateSlicerVertex(((FeaturePropagation) prop).getFeature(), tti);
 		} else if (prop instanceof AccessPropagation) {
@@ -675,7 +676,7 @@ public class SlicerRepresentation {
 			var prop = esi.getPropagation();
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				var tti = (TypeTokenInstance) tse;
-				var srcVertex = new OsateSlicerVertex(esi, tti);
+				var srcVertex = new OsateSlicerVertex(esi, Optional.of(tti));
 				var srcVertexName = srcVertex.getName();
 				addVertex(srcVertex);
 				var tgtVertexName = getVertex(prop, tti);
@@ -690,7 +691,7 @@ public class SlicerRepresentation {
 			var prop = esi.getPropagation();
 			dstTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				var tti = (TypeTokenInstance) tse;
-				var tgtVertex = new OsateSlicerVertex(esi, tti);
+				var tgtVertex = new OsateSlicerVertex(esi, Optional.of(tti));
 				var tgtVertexName = tgtVertex.getName();
 				addVertex(tgtVertex);
 				var srcVertexName = getVertex(prop, tti);
@@ -752,7 +753,7 @@ public class SlicerRepresentation {
 		public Void caseFeatureInstance(FeatureInstance fi) {
 			var fullFeatureName = fi.getInstanceObjectPath();
 			String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
-			addVertex(new OsateSlicerVertex(fi, null));
+			addVertex(new OsateSlicerVertex(fi, Optional.empty()));
 			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
 				if (!inFeats.containsKey(fullContainerName)) {
 					inFeats.put(fullContainerName, new HashSet<String>());
@@ -771,10 +772,10 @@ public class SlicerRepresentation {
 		@Override
 		public Void caseConnectionInstance(ConnectionInstance ci) {
 			for (ConnectionReference cr : ci.getConnectionReferences()) {
-				var srcVertex = new OsateSlicerVertex(cr.getSource(), null);
+				var srcVertex = new OsateSlicerVertex(cr.getSource(), Optional.empty());
 				var srcName = srcVertex.getName();
 				addVertex(srcVertex);
-				var dstVertex = new OsateSlicerVertex(cr.getDestination(), null);
+				var dstVertex = new OsateSlicerVertex(cr.getDestination(), Optional.empty());
 				var dstName = dstVertex.getName();
 				addVertex(dstVertex);
 				addEdge(srcName, dstName);
