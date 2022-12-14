@@ -1,5 +1,6 @@
-package org.osate.slicer.assumptions;
+package org.osate.slicer;
 
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import org.jgrapht.Graph;
@@ -7,7 +8,6 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.traverse.DepthFirstIterator;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
-import org.osate.slicer.OsateSlicerVertex;
 
 /**
  * This class calculates elements in the graph that are not used, but possibly should be.
@@ -23,7 +23,12 @@ public class UnusedElementDetector {
 
 	private Graph<OsateSlicerVertex, DefaultEdge> g, rg;
 	private final String PATH_CONNECTOR = " -> ";
-	private final AssumptionCheckResult result = new AssumptionCheckResult();
+
+	public record AssumptionCheckResult(HashSet<OsateSlicerVertex> nonTerminatingSourceVertices,
+			HashSet<OsateSlicerVertex> unreachableSinkVertices) {
+	};
+
+	private final AssumptionCheckResult result = new AssumptionCheckResult(new HashSet<>(), new HashSet<>());
 
 	public UnusedElementDetector(Graph<OsateSlicerVertex, DefaultEdge> g, Graph<OsateSlicerVertex, DefaultEdge> rg) {
 		this.g = g;
@@ -49,7 +54,7 @@ public class UnusedElementDetector {
 				path.append(PATH_CONNECTOR);
 				path.append(current.getName());
 				if ((g.outDegreeOf(current) == 0) && !(current.getIObj() instanceof ErrorSinkInstance)) {
-					result.addNonTerminatingSourceVertex(v);
+					result.nonTerminatingSourceVertices().add(v);
 					System.err.println(path.toString());
 				}
 			} while (iterator.hasNext());
@@ -63,7 +68,7 @@ public class UnusedElementDetector {
 				path.append(PATH_CONNECTOR);
 				path.append(current.getName());
 				if ((rg.outDegreeOf(current) == 0) && !(current.getIObj() instanceof ErrorSourceInstance)) {
-					result.addUnreachableSinkVertex(v);
+					result.unreachableSinkVertices().add(v);
 					System.err.println(path.toString());
 				}
 			} while (iterator.hasNext());

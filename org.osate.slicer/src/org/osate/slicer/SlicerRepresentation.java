@@ -77,8 +77,7 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
-import org.osate.slicer.assumptions.AssumptionCheckResult;
-import org.osate.slicer.assumptions.UnusedElementDetector;
+import org.osate.slicer.UnusedElementDetector.AssumptionCheckResult;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -138,6 +137,9 @@ public class SlicerRepresentation {
 
 	public enum ErrorStateValidity {
 		VALID, INVALID, ALL
+	};
+
+	public record IObjErrorPair(InstanceObject iobj, Optional<TypeTokenInstance> token) {
 	};
 
 	public void buildGraph(SystemInstance si) {
@@ -440,7 +442,7 @@ public class SlicerRepresentation {
 		} else if (validity == ErrorStateValidity.ALL) {
 			startVertexSet = g.vertexSet();
 		} else if (validity == ErrorStateValidity.INVALID) {
-			startVertexSet = acr.getNonTerminatingSourceVertices();
+			startVertexSet = acr.nonTerminatingSourceVertices();
 		}
 		var sourceVertices = startVertexSet.stream()
 				.filter(v -> v.getIObj() instanceof ErrorSourceInstance)
@@ -469,7 +471,7 @@ public class SlicerRepresentation {
 		} else if (validity == ErrorStateValidity.ALL) {
 			startVertexSet = g.vertexSet();
 		} else if (validity == ErrorStateValidity.INVALID) {
-			startVertexSet = acr.getUnreachableSinkVertices();
+			startVertexSet = acr.unreachableSinkVertices();
 		}
 		var sinkVertices = startVertexSet.stream()
 				.filter(v -> v.getIObj() instanceof ErrorSinkInstance)
@@ -543,6 +545,19 @@ public class SlicerRepresentation {
 	 */
 	private AsSubgraph<OsateSlicerVertex, DefaultEdge> reach(Graph<OsateSlicerVertex, DefaultEdge> graph,
 			String origin) {
+
+		// You might reasonably wonder why this is handwritten, instead of using some JGraphT built-in method.
+		// There are three reasons.
+		//
+		// 1. The JGraphT method to use would be org.jgrapht.graph.DirectedAcyclicGraph.getDescendants(OsateSlicerVertex)
+		//    It requires that graphs be acyclic, but this doesn't apply to EMV2 propagation graphs, which can have
+		//    cycles
+		// 2. That method returns a set of vertices, which is less information than a subgraph. Not a huge deal, but
+		//    kind of annoying.
+		// 3. The implementation in the library is virtually identical -- no memoization or other optimizations. They
+		//    use DFS instead of BFS, but that's... about it.
+
+
 		origin = origin.replace(".EMV2", "");
 		BreadthFirstIterator<OsateSlicerVertex, DefaultEdge> bfi = new BreadthFirstIterator<>(graph,
 				vertexMap.get(origin));

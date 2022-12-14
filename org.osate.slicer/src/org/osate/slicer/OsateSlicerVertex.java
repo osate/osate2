@@ -36,12 +36,11 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.slicer.iobjadapters.AccessPropagationAdapter;
-import org.osate.slicer.iobjadapters.BoundComponentInstanceAdapter;
-import org.osate.slicer.iobjadapters.ErrorFlowInstanceAdapter;
-import org.osate.slicer.iobjadapters.FeatureInstanceAdapter;
-import org.osate.slicer.iobjadapters.PointPropagationAdapter;
-import org.osate.slicer.iobjadapters.VertexIObjAdapter;
+import org.osate.slicer.VertexIObjAdapter.AccessPropagationAdapter;
+import org.osate.slicer.VertexIObjAdapter.BoundComponentInstanceAdapter;
+import org.osate.slicer.VertexIObjAdapter.ErrorFlowInstanceAdapter;
+import org.osate.slicer.VertexIObjAdapter.FeatureInstanceAdapter;
+import org.osate.slicer.VertexIObjAdapter.PointPropagationAdapter;
 
 /**
  * The vertex type used by the slicer.
@@ -107,7 +106,12 @@ public class OsateSlicerVertex {
 	}
 
 	public EObject getContainer() {
-		return element.getContainer(); // restrict to feature adapter only?
+		if (element instanceof FeatureInstanceAdapter) {
+			return ((FeatureInstanceAdapter) element).container();
+		} else {
+			System.err.println("Called getContainer on something that doesn't have a container!");
+			return null;
+		}
 	}
 
 	@Override
@@ -127,9 +131,9 @@ public class OsateSlicerVertex {
 
 	public String getName() {
 		if (token.isPresent()) {
-			return element.getName() + "." + token.get().getFullName();
+			return element.name() + "." + token.get().getFullName();
 		} else {
-			return element.getName();
+			return element.name();
 		}
 	}
 
@@ -151,7 +155,7 @@ public class OsateSlicerVertex {
 	 * @return The instance object this vertex represents.
 	 */
 	public InstanceObject getIObj() {
-		return element.getInstanceObject();
+		return element.instanceObject();
 	}
 
 	/**
