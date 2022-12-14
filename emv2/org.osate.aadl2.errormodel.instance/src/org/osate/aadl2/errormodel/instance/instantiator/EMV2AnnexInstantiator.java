@@ -643,7 +643,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		var stateReference = EMV2InstanceFactory.eINSTANCE.createStateReference();
 		var state = path.getState();
-		stateReference.setState(findStateInstance(findEMV2AnnexInstance(component), state));
+		var annex = findEMV2AnnexInstance(component);
+		if (annex == null) {
+			// Shouldn't happen if the declarative model is valid.
+			return null;
+		}
+		stateReference.setState(findStateInstance(annex, state));
 		if (constraint != null) {
 			stateReference.setTypeSet(createAnonymousTypeSet(constraint));
 		} else if (state.getTypeSet() != null) {
