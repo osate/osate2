@@ -33,5 +33,5 @@ package org.osate.aadl2.errormodel.instance;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface ConditionExpressionInstance extends EMV2InstanceObject {
+public interface ConditionExpressionInstance extends CompositeConditionExpression {
 } // ConditionExpressionInstance
