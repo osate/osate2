@@ -49,6 +49,60 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/CompositeConditionExpression.java" type="org.osate.aadl2.errormodel.instance.CompositeConditionExpression">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.CompositeConditionExpression"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/CompositeStateInstance.java" type="org.osate.aadl2.errormodel.instance.CompositeStateInstance">
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getComposite()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getCondition()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestination()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestinationTypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getDestinationTypeToken()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setComposite(CompositeState)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setCondition(CompositeConditionExpression)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setDestination(StateInstance)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setDestinationTypeSet(AnonymousTypeSet)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/ConditionExpressionInstance.java" type="org.osate.aadl2.errormodel.instance.ConditionExpressionInstance">
         <filter id="1110441988">
             <message_arguments>
@@ -225,6 +279,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="createOthersExpression()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="createOutgoingPropagationConditionInstance()"/>
             </message_arguments>
         </filter>
@@ -246,6 +305,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="createSourceStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="createStateReference()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -573,6 +637,61 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="BRANCH__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_CONDITION_EXPRESSION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_CONDITION_EXPRESSION_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_CONDITION_EXPRESSION__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_CONDITION_EXPRESSION__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_CONDITION_EXPRESSION__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_CONDITION_EXPRESSION__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_CONDITION_EXPRESSION__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_CONDITION_EXPRESSION__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__COMPOSITE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__DESTINATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1252,6 +1371,46 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="OTHERS_EXPRESSION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OTHERS_EXPRESSION_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OTHERS_EXPRESSION__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OTHERS_EXPRESSION__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OTHERS_EXPRESSION__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OTHERS_EXPRESSION__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OTHERS_EXPRESSION__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="OTHERS_EXPRESSION__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION"/>
             </message_arguments>
         </filter>
@@ -1547,6 +1706,56 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="STATE_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__TYPE_SET"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="STATE_SOURCE"/>
             </message_arguments>
         </filter>
@@ -1792,6 +2001,26 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getCompositeConditionExpression()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getCompositeStateInstance_Composite()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getCompositeStateInstance_Destination()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getCompositeStateInstance_DestinationTypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getConditionExpressionInstance()"/>
             </message_arguments>
         </filter>
@@ -2012,6 +2241,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getOthersExpression()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getOutgoingPropagationConditionDestination()"/>
             </message_arguments>
         </filter>
@@ -2093,6 +2327,21 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getStateInstance_TypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getStateReference_State()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getStateReference_TypeSet()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2200,6 +2449,26 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="BRANCH__PROBABILITY"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_CONDITION_EXPRESSION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__COMPOSITE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__DESTINATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2424,6 +2693,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="OTHERS_EXPRESSION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="OUTGOING_PROPAGATION_CONDITION_DESTINATION"/>
             </message_arguments>
         </filter>
@@ -2505,6 +2779,21 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="STATE_INSTANCE__TYPE_SET"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__STATE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_REFERENCE__TYPE_SET"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2595,6 +2884,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/OthersExpression.java" type="org.osate.aadl2.errormodel.instance.OthersExpression">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.OthersExpression"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/OutgoingPropagationConditionDestination.java" type="org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination">
         <filter id="1110441988">
             <message_arguments>
@@ -2646,6 +2942,13 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="setTypeSet(AnonymousTypeSet)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/StateReference.java" type="org.osate.aadl2.errormodel.instance.StateReference">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.StateReference"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2723,6 +3026,43 @@
         <filter id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.aadl2.errormodel.instance.impl.BranchesImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/CompositeStateInstanceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="basicGetComposite()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="basicGetDestination()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="basicSetCondition(CompositeConditionExpression, NotificationChain)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="basicSetDestinationTypeSet(AnonymousTypeSet, NotificationChain)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="composite"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="destination"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="destinationTypeSet"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2847,6 +3187,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/OthersExpressionImpl.java" type="org.osate.aadl2.errormodel.instance.impl.OthersExpressionImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.OthersExpressionImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/errormodel/instance/impl/OutgoingPropagationConditionInstanceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.OutgoingPropagationConditionInstanceImpl">
         <filter id="1110441988">
             <message_arguments>
@@ -2891,6 +3238,13 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="typeSet"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/StateReferenceImpl.java" type="org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.StateReferenceImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -2942,6 +3296,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createBranchesAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createCompositeConditionExpressionAdapter()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -3011,6 +3370,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createOthersExpressionAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createOutgoingPropagationConditionDestinationAdapter()"/>
             </message_arguments>
         </filter>
@@ -3037,6 +3401,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createSourceStateReferenceAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createStateReferenceAdapter()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -3094,6 +3463,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseBranches(Branches)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseCompositeConditionExpression(CompositeConditionExpression)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -3163,6 +3537,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="caseOthersExpression(OthersExpression)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="caseOutgoingPropagationConditionDestination(OutgoingPropagationConditionDestination)"/>
             </message_arguments>
         </filter>
@@ -3189,6 +3568,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseSourceStateReference(SourceStateReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseStateReference(StateReference)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

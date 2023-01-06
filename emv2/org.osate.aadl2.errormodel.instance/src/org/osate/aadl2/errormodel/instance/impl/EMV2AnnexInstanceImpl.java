@@ -56,8 +56,6 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPoints <em>Propagation Points</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getErrorFlows <em>Error Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPaths <em>Propagation Paths</em>}</li>
@@ -68,31 +66,13 @@ import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getConditions <em>Conditions</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getDetections <em>Detections</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getModeMappings <em>Mode Mappings</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getComposites <em>Composites</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPoints <em>Propagation Points</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2AnnexInstance {
-	/**
-	 * The cached value of the '{@link #getPropagationPoints() <em>Propagation Points</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPropagationPoints()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<PropagationPointInstance> propagationPoints;
-
-	/**
-	 * The cached value of the '{@link #getComposites() <em>Composites</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getComposites()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<CompositeStateInstance> composites;
-
 	/**
 	 * The cached value of the '{@link #getPropagations() <em>Propagations</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -192,6 +172,26 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<ModeMappingInstance> modeMappings;
+
+	/**
+	 * The cached value of the '{@link #getComposites() <em>Composites</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getComposites()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<CompositeStateInstance> composites;
+
+	/**
+	 * The cached value of the '{@link #getPropagationPoints() <em>Propagation Points</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPropagationPoints()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PropagationPointInstance> propagationPoints;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -419,10 +419,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-			return ((InternalEList<?>) getPropagationPoints()).basicRemove(otherEnd, msgs);
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-			return ((InternalEList<?>) getComposites()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			return ((InternalEList<?>) getPropagations()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
@@ -441,6 +437,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return ((InternalEList<?>) getDetections()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS:
 			return ((InternalEList<?>) getModeMappings()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			return ((InternalEList<?>) getComposites()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			return ((InternalEList<?>) getPropagationPoints()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -453,10 +453,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-			return getPropagationPoints();
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-			return getComposites();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			return getPropagations();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
@@ -480,6 +476,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return getDetections();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS:
 			return getModeMappings();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			return getComposites();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			return getPropagationPoints();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -493,14 +493,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-			getPropagationPoints().clear();
-			getPropagationPoints().addAll((Collection<? extends PropagationPointInstance>) newValue);
-			return;
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-			getComposites().clear();
-			getComposites().addAll((Collection<? extends CompositeStateInstance>) newValue);
-			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			getPropagations().clear();
 			getPropagations().addAll((Collection<? extends ErrorPropagationInstance>) newValue);
@@ -540,6 +532,14 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			getModeMappings().clear();
 			getModeMappings().addAll((Collection<? extends ModeMappingInstance>) newValue);
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			getComposites().clear();
+			getComposites().addAll((Collection<? extends CompositeStateInstance>) newValue);
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			getPropagationPoints().clear();
+			getPropagationPoints().addAll((Collection<? extends PropagationPointInstance>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -552,12 +552,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-			getPropagationPoints().clear();
-			return;
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-			getComposites().clear();
-			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			getPropagations().clear();
 			return;
@@ -588,6 +582,12 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS:
 			getModeMappings().clear();
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			getComposites().clear();
+			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			getPropagationPoints().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -600,10 +600,6 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
-			return propagationPoints != null && !propagationPoints.isEmpty();
-		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
-			return composites != null && !composites.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			return propagations != null && !propagations.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
@@ -624,6 +620,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return detections != null && !detections.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__MODE_MAPPINGS:
 			return modeMappings != null && !modeMappings.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+			return composites != null && !composites.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
+			return propagationPoints != null && !propagationPoints.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

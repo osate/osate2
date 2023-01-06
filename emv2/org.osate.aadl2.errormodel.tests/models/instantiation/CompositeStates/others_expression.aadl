@@ -1,0 +1,23 @@
+package others_expression
+public
+	system s
+		annex EMV2 {**
+			use behavior others_expression::machine1;
+			
+			composite error behavior
+				states
+					composite1: [others]-> destinationState;
+			end composite;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				destinationState: initial state;
+		end behavior;
+	**};
+end others_expression;

@@ -1,0 +1,35 @@
+package destination
+public
+	system s
+		features
+			f1: in feature;
+			f2: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior destination::machine1;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+				f2: in propagation {CommonErrors};
+			end propagations;
+			
+			composite error behavior
+				states
+					composite1: [in f1]-> state1;
+					composite2: [in f2]-> state2 {ServiceError};
+			end composite;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state;
+				state2: state {CommonErrors};
+		end behavior;
+	**};
+end destination;

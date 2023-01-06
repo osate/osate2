@@ -1965,9 +1965,9 @@ public class EMV2Util {
 	 * @param unnamed Collection of unnamed CompositeState
 	 * @return Collection<CompositeState> list of CompositeState as HashMap for quick lookup of names
 	 */
-	private static HashMap<String, CompositeState> getAllCompositeStates(Classifier cl,
+	private static Map<String, CompositeState> getAllCompositeStates(Classifier cl,
 			Collection<CompositeState> unnamed) {
-		HashMap<String, CompositeState> result = new LinkedHashMap<>();
+		var result = new TreeMap<String, CompositeState>(String.CASE_INSENSITIVE_ORDER);
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<CompositeState> eslist = errorModelSubclause.getStates();

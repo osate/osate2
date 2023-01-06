@@ -62,8 +62,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  *
  * @generated
  */
-public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceObjectImpl
-		implements ErrorPropagationInstance {
+public abstract class ErrorPropagationInstanceImpl extends EMV2InstanceObjectImpl implements ErrorPropagationInstance {
 	/**
 	 * The cached value of the '{@link #getInErrorPropagation() <em>In Error Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
