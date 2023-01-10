@@ -2,4 +2,11 @@ property set ps is
 	boolean_for_all: aadlboolean applies to (all);
 	boolean_for_error_flow: aadlboolean applies to ({emv2}**error flow);
 	boolean_for_error_sink: aadlboolean applies to ({emv2}**error sink);
+	
+	string1: aadlstring applies to (all);
+	string2: aadlstring applies to (all);
+	string3: aadlstring applies to (all);
+	string4: aadlstring applies to (all);
+	string5: aadlstring applies to (all);
+	string6: aadlstring applies to (all);
 end ps;

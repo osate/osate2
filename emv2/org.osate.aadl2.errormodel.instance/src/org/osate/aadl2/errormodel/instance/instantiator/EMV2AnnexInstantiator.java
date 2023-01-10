@@ -45,6 +45,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
@@ -114,6 +115,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -121,7 +123,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
@@ -145,6 +146,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+
+import com.google.common.collect.Lists;
 
 public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	public static final String PROPERTY_NAME = "org.osate.emv2.instance";
@@ -178,7 +181,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 
 		for (var sink : EMV2Util.getAllErrorSinks(instance)) {
-			instantiateErrorSink(sink, emv2AI);
+			instantiateErrorSink(sink, instance, emv2AI);
 		}
 
 		for (var path : EMV2Util.getAllErrorPaths(instance)) {
@@ -1131,7 +1134,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		annex.getErrorFlows().add(sourceInstance);
 	}
 
-	private void instantiateErrorSink(ErrorSink sink, EMV2AnnexInstance annex) {
+	private void instantiateErrorSink(ErrorSink sink, ComponentInstance component, EMV2AnnexInstance annex) {
 		if (sink.isAllIncoming()) {
 			// TODO Instantiate 'all' error sinks after we figure out what 'all' means.
 			return;
@@ -1152,22 +1155,29 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		sinkInstance.setTypeSet(createAnonymousTypeSet(typeSet));
 
-		for (var association : EcoreUtil2.getContainerOfType(sink, ErrorModelSubclause.class).getProperties()) {
-			if (association.getOwnedValues().size() == 1
-					&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
-				var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
-				for (var path : association.getEmv2Path()) {
-					var target = path.getEmv2Target();
-					if (target.getNamedElement() == sink && target.getPath() == null) {
-						var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
-						propertyInstance.setPropertyAssociation(association);
-						propertyInstance.setProperty(association.getProperty());
-						propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
-						sinkInstance.getOwnedPropertyAssociations().add(propertyInstance);
+		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+		for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(component))) {
+			for (var association : subclause.getProperties()) {
+				if (association.getOwnedValues().size() == 1
+						&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+					for (var path : association.getEmv2Path()) {
+						var target = path.getEmv2Target();
+						if (target.getNamedElement() == sink && target.getPath() == null) {
+							associations.put(association.getProperty(), association);
+						}
 					}
 				}
 			}
 		}
+
+		associations.forEach((property, association) -> {
+			var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+			propertyInstance.setPropertyAssociation(association);
+			propertyInstance.setProperty(property);
+			var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+			propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+			sinkInstance.getOwnedPropertyAssociations().add(propertyInstance);
+		});
 
 		annex.getErrorFlows().add(sinkInstance);
 	}
