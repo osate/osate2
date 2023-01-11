@@ -69,6 +69,40 @@ public class PropertiesTest {
 				((StringLiteral) lookup(sink, "ps::string6")).getValue());
 	}
 
+	@Test
+	public void testLookupOnSinkFromImplExtension() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_sink_from_impl_extension.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(3);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+
+		assertEquals(6, sink.getOwnedPropertyAssociations().size());
+		assertEquals("Value in s.i1", ((StringLiteral) lookup(sink, "ps::string1")).getValue());
+		assertEquals("Value in s.i2", ((StringLiteral) lookup(sink, "ps::string2")).getValue());
+		assertEquals("Value in s.i3", ((StringLiteral) lookup(sink, "ps::string3")).getValue());
+		assertEquals("Value in s.i2 overrides value in s.i1", ((StringLiteral) lookup(sink, "ps::string4")).getValue());
+		assertEquals("Value in s.i3 overrides value in s.i2", ((StringLiteral) lookup(sink, "ps::string5")).getValue());
+		assertEquals("Value in s.i3 overrides value in s.i2 and s.i1",
+				((StringLiteral) lookup(sink, "ps::string6")).getValue());
+	}
+
+	@Test
+	public void testLookupOnSinkFromTypeAndImpl() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_sink_from_type_and_impl.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(3);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+
+		assertEquals(7, sink.getOwnedPropertyAssociations().size());
+		assertEquals("Value in s1", ((StringLiteral) lookup(sink, "ps::string1")).getValue());
+		assertEquals("Value in s2", ((StringLiteral) lookup(sink, "ps::string2")).getValue());
+		assertEquals("Value in s1.i", ((StringLiteral) lookup(sink, "ps::string3")).getValue());
+		assertEquals("Value in s2.i", ((StringLiteral) lookup(sink, "ps::string4")).getValue());
+		assertEquals("Value in s1.i overrides value in s1", ((StringLiteral) lookup(sink, "ps::string5")).getValue());
+		assertEquals("Value in s2.i overrides value in s2", ((StringLiteral) lookup(sink, "ps::string6")).getValue());
+		assertEquals("Value in s1.i overrides value in s2", ((StringLiteral) lookup(sink, "ps::string7")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

@@ -9,4 +9,5 @@ property set ps is
 	string4: aadlstring applies to (all);
 	string5: aadlstring applies to (all);
 	string6: aadlstring applies to (all);
+	string7: aadlstring applies to (all);
 end ps;
