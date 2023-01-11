@@ -82,7 +82,7 @@ public
 			error propagations
 				i3 : in propagation {ItemTimingError};
 				flows
-					o3TimingSink : error sink i3 {ItemTimingError};
+					i3TimingSink : error sink i3 {ItemTimingError};
 			end propagations;
 		**};
 	end Thing.three;

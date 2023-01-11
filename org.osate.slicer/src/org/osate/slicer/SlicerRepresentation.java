@@ -25,6 +25,8 @@ package org.osate.slicer;
 
 import java.io.StringWriter;
 import java.io.Writer;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,7 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.jgrapht.Graph;
-import org.jgrapht.Graphs;
+import org.jgrapht.alg.connectivity.BiconnectivityInspector;
 import org.jgrapht.graph.AbstractGraph;
 import org.jgrapht.graph.AsSubgraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -101,7 +103,8 @@ public class SlicerRepresentation {
 	/**
 	 * A reversed-direction version of the main graph.
 	 */
-	private final Graph<OsateSlicerVertex, DefaultEdge> rg = new DefaultDirectedGraph<>(DefaultEdge.class);
+//	private final Graph<OsateSlicerVertex, DefaultEdge> rg = new DefaultDirectedGraph<>(DefaultEdge.class);
+	private final Graph<OsateSlicerVertex, DefaultEdge> rg = new EdgeReversedGraph<>(g);
 
 	/**
 	 * Maps vertex names to their objects
@@ -152,7 +155,9 @@ public class SlicerRepresentation {
 		System.setProperty(EMV2AnnexInstantiator.PROPERTY_NAME, "true");
 		// Add vertices and edges from EMV2 instance
 		Emv2SlicerSwitch emv2Switch = new Emv2SlicerSwitch();
+		var visitedElems = new HashSet<Element>();
 		EcoreUtil.getAllContents(si.eResource(), true).forEachRemaining(elem -> {
+			visitedElems.add((Element) elem);
 			emv2Switch.doSwitch((Element) elem);
 		});
 
@@ -163,10 +168,17 @@ public class SlicerRepresentation {
 		buildIntraConnections(hasExplicitDecomp);
 
 		// Create a separate reversed graph, rather than a wrapper, saving CPU at the expense of memory
-		Graphs.addGraphReversed(rg, g);
+//		Graphs.addGraphReversed(rg, g);
 
 		// Run checks on the generated graph to see if there are any obvious problems / assumption violations
 		checkAssumptions();
+//		System.out.println(this.toDot(g));
+//		reachThrough(g, "WBS_inst_Instance.ctrl_sys.bscu.channel1.elec_pedal_pos_R",
+//				"WBS_inst_Instance.ctrl_sys.bscu.channel1.monitor_sys.bscu_validity",
+//				"WBS_inst_Instance.ctrl_sys.bscu.channel1.monitor_sys.elec_pedal_pos_R");
+//		reachThrough(g, "WBS_inst_Instance.phys_sys.ground_speed",
+//				"WBS_inst_Instance.phys_sys.wheel_brake3.normal_hyd_piston.force_out",
+//				"WBS_inst_Instance.ctrl_sys.bscu.switch_gate_brake_as_cmd_pair_3_7.cmd_out");
 	}
 
 	/**
@@ -226,6 +238,9 @@ public class SlicerRepresentation {
 	 * @param tgt Target vertex
 	 */
 	private void addEdge(String src, String tgt) {
+		if (!vertexMap.containsKey(tgt)) {
+			System.err.println("Can't add edge, vertex " + tgt + " doesn't exist!");
+		}
 		g.addEdge(vertexMap.get(src), vertexMap.get(tgt));
 	}
 
@@ -573,6 +588,29 @@ public class SlicerRepresentation {
 		return reachableSubgraph;
 	}
 
+	public boolean reachFrom(Graph<OsateSlicerVertex, DefaultEdge> graph, String sourceName, String targetName) {
+		if (graph == null) {
+			graph = g; // XXX DEBUG CODE REMOVE
+		}
+		return reach(graph, sourceName).vertexSet().contains(vertexMap.get(targetName));
+	}
+
+	public boolean reachThrough(Graph<OsateSlicerVertex, DefaultEdge> graph, String sourceName, String targetName,
+			String midName) {
+		if (graph == null) {
+			graph = g; // XXX DEBUG CODE REMOVE
+		}
+
+		// TODO: This... should be inspected to make sure it's correct.
+		var start = Instant.now();
+		var g1 = reach(graph, sourceName);
+		var g2 = reach(new EdgeReversedGraph<>(g1), targetName);
+		var cutpoints = new BiconnectivityInspector<>(g2).getCutpoints();
+		var end = Instant.now();
+		System.out.println("Duration: " + Duration.between(start, end));
+		return cutpoints.contains(vertexMap.get(midName));
+	}
+
 	/**
 	 * This method connect component inports to component outports.
 	 * @param noInternalConnections Set of components which don't need inports connected to outports
@@ -605,12 +643,11 @@ public class SlicerRepresentation {
 			edgesModified = false;
 			for (OsateSlicerVertex srcVrt : sourcePropagations) {
 				LinkedList<DefaultEdge> edges = new LinkedList<>();
-				var outgoingEdges = g.outgoingEdgesOf(srcVrt);
-				edges.addAll(outgoingEdges);
+				g.outgoingEdgesOf(srcVrt).forEach(outgoingEdge -> edges.push(outgoingEdge));
 				while (edges.size() > 0) {
 					DefaultEdge e = edges.pop();
 					OsateSlicerVertex dstVrt = g.getEdgeTarget(e);
-					edges.addAll(0, g.outgoingEdgesOf(dstVrt));
+					g.outgoingEdgesOf(dstVrt).forEach(outgoingEdge -> edges.push(outgoingEdge));
 					String componentName = dstVrt.getName().substring(0, dstVrt.getName().lastIndexOf('.'));
 					if (possiblePropagations.containsKey(componentName)) {
 						for (var propagation : possiblePropagations.get(componentName)) {
@@ -732,6 +769,7 @@ public class SlicerRepresentation {
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance srcTTI = (TypeTokenInstance) tse;
 				String srcVertexName = getVertex(srcProp, srcTTI);
+				System.out.println("Error Path: " + srcVertexName + " -> " + tgtVertexNameFinal);
 				addEdge(srcVertexName, tgtVertexNameFinal);
 			});
 			return null;

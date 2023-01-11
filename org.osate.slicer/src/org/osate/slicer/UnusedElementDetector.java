@@ -55,7 +55,6 @@ public class UnusedElementDetector {
 				path.append(current.getName());
 				if ((g.outDegreeOf(current) == 0) && !(current.getIObj() instanceof ErrorSinkInstance)) {
 					result.nonTerminatingSourceVertices().add(v);
-					System.err.println(path.toString());
 				}
 			} while (iterator.hasNext());
 		}
@@ -69,7 +68,6 @@ public class UnusedElementDetector {
 				path.append(current.getName());
 				if ((rg.outDegreeOf(current) == 0) && !(current.getIObj() instanceof ErrorSourceInstance)) {
 					result.unreachableSinkVertices().add(v);
-					System.err.println(path.toString());
 				}
 			} while (iterator.hasNext());
 		}

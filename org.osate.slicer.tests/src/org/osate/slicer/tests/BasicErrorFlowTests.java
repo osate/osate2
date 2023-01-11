@@ -24,6 +24,7 @@
 package org.osate.slicer.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -79,7 +80,7 @@ public class BasicErrorFlowTests {
 		vertices[2] = "sys_impl_Instance.b.i1.ItemTimingError";
 		vertices[3] = "sys_impl_Instance.b.o3.ItemTimingError";
 		vertices[4] = "sys_impl_Instance.c.i3.ItemTimingError";
-		vertices[5] = "sys_impl_Instance.c.o3TimingSink.ItemTimingError";
+		vertices[5] = "sys_impl_Instance.c.i3TimingSink.ItemTimingError";
 	}
 
 	@Test
@@ -140,6 +141,22 @@ public class BasicErrorFlowTests {
 		var reachableComponents = tlg.backwardReach(feature, token);
 		assertEquals("Number of elements in backward reach", 4, reachableComponents.size());
 		// TODO: Probably should test the elements contained here. Use Joe's JUnit 5 code?
+	}
+
+	@Test
+	public void testReachFrom() {
+		assertTrue(tlg.reachFrom(null, vertices[1], vertices[4]));
+		assertFalse(tlg.reachFrom(null, vertices[4], vertices[1]));
+		assertTrue(tlg.reachFrom(null, "sys_impl_Instance.a.i2", "sys_impl_Instance.c.o1"));
+		assertFalse(tlg.reachFrom(null, "sys_impl_Instance.a.i2", "sys_impl_Instance.c.i3.ItemTimingError"));
+	}
+
+	@Test
+	public void testReachThrough() {
+		assertTrue(tlg.reachThrough(null, vertices[1], vertices[4], vertices[2]));
+		assertTrue(tlg.reachThrough(null, vertices[1], vertices[4], vertices[2]));
+		assertFalse(
+				tlg.reachThrough(null, "sys_impl_Instance.a.i2", "sys_impl_Instance.c.o1", "sys_impl_Instance.b.i3"));
 	}
 
 }
