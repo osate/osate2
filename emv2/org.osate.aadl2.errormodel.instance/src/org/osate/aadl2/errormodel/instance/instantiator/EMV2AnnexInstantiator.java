@@ -114,6 +114,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
@@ -1156,56 +1157,24 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		sinkInstance.setTypeSet(createAnonymousTypeSet(typeSet));
 
 		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
-		for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(component))) {
-			for (var association : subclause.getProperties()) {
-				if (association.getOwnedValues().size() == 1
-						&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
-					for (var path : association.getEmv2Path()) {
-						var target = path.getEmv2Target();
-						if (path.getContainmentPath() == null && target.getNamedElement() == sink
-								&& target.getPath() == null) {
-							associations.put(association.getProperty(), association);
-						}
-					}
-				}
-			}
-		}
 		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
-		expectedContainmentPath.addFirst(component);
-		var currentComponent = EcoreUtil2.getContainerOfType(component.eContainer(), ComponentInstance.class);
-		while (currentComponent != null) {
+		for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
+				.getContainingComponentInstance()) {
 			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
 				for (var association : subclause.getProperties()) {
 					if (association.getOwnedValues().size() == 1
 							&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
 						for (var path : association.getEmv2Path()) {
-							var matchesContainmentPath = true;
-							var expectedIter = expectedContainmentPath.iterator();
-							var currentCPE = path.getContainmentPath();
-							while (matchesContainmentPath && expectedIter.hasNext() && currentCPE != null) {
-								var expectedComponent = expectedIter.next();
-								if (expectedComponent.getSubcomponent() != currentCPE.getNamedElement()) {
-									matchesContainmentPath = false;
-								}
-								currentCPE = currentCPE.getPath();
-							}
-							if (matchesContainmentPath) {
-								if (expectedIter.hasNext() || currentCPE != null) {
-									matchesContainmentPath = false;
-								}
-							}
-							if (matchesContainmentPath) {
-								var target = path.getEmv2Target();
-								if (target.getNamedElement() == sink && target.getPath() == null) {
-									associations.put(association.getProperty(), association);
-								}
+							var target = path.getEmv2Target();
+							if (matchesContainmentPath(expectedContainmentPath, path)
+									&& target.getNamedElement() == sink && target.getPath() == null) {
+								associations.put(association.getProperty(), association);
 							}
 						}
 					}
 				}
 			}
 			expectedContainmentPath.addFirst(currentComponent);
-			currentComponent = EcoreUtil2.getContainerOfType(currentComponent.eContainer(), ComponentInstance.class);
 		}
 
 		associations.forEach((property, association) -> {
@@ -1218,6 +1187,20 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		});
 
 		annex.getErrorFlows().add(sinkInstance);
+	}
+
+	private static boolean matchesContainmentPath(Iterable<ComponentInstance> expectedContainmentPath,
+			EMV2Path path) {
+		var expectedIter = expectedContainmentPath.iterator();
+		var currentCPE = path.getContainmentPath();
+		while (expectedIter.hasNext() && currentCPE != null) {
+			var expectedComponent = expectedIter.next();
+			if (expectedComponent.getSubcomponent() != currentCPE.getNamedElement()) {
+				return false;
+			}
+			currentCPE = currentCPE.getPath();
+		}
+		return !expectedIter.hasNext() && currentCPE == null;
 	}
 
 	private void instantiateErrorPath(ErrorPath path, EMV2AnnexInstance annex) {
