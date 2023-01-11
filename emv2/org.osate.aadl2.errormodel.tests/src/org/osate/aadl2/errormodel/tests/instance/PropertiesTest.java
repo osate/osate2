@@ -2,6 +2,7 @@ package org.osate.aadl2.errormodel.tests.instance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.osate.pluginsupport.ScopeFunctions.with;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
@@ -101,6 +102,84 @@ public class PropertiesTest {
 		assertEquals("Value in s1.i overrides value in s1", ((StringLiteral) lookup(sink, "ps::string5")).getValue());
 		assertEquals("Value in s2.i overrides value in s2", ((StringLiteral) lookup(sink, "ps::string6")).getValue());
 		assertEquals("Value in s1.i overrides value in s2", ((StringLiteral) lookup(sink, "ps::string7")).getValue());
+	}
+
+	@Test
+	public void testLookupOnSinkFromContainer() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_sink_from_container.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var systemInstance = InstantiateModel.instantiate(system);
+		var inner = systemInstance.getComponentInstances().get(0).getComponentInstances().get(0);
+		var annexInstance = (EMV2AnnexInstance) inner.getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+
+		assertEquals(6, sink.getOwnedPropertyAssociations().size());
+		assertEquals("Value in inner", ((StringLiteral) lookup(sink, "ps::string1")).getValue());
+		assertEquals("Value in middle.i", ((StringLiteral) lookup(sink, "ps::string2")).getValue());
+		assertEquals("Value in outer.i", ((StringLiteral) lookup(sink, "ps::string3")).getValue());
+		assertEquals("Value in middle.i overrides value in inner",
+				((StringLiteral) lookup(sink, "ps::string4")).getValue());
+		assertEquals("Value in outer.i overrides value in middle.i",
+				((StringLiteral) lookup(sink, "ps::string5")).getValue());
+		assertEquals("Value in outer.i overrides value in middle.i and inner",
+				((StringLiteral) lookup(sink, "ps::string6")).getValue());
+	}
+
+	@Test
+	public void testCheckContainmentPath() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "check_containment_path.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var systemInstance = InstantiateModel.instantiate(system);
+		with(systemInstance.getComponentInstances().get(0), middle1 -> {
+			with(middle1.getComponentInstances().get(0), inner1 -> {
+				var annexInstance = (EMV2AnnexInstance) inner1.getAnnexInstances().get(0);
+				var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+
+				assertEquals(1, sink.getOwnedPropertyAssociations().size());
+				assertEquals("Value on inner1.sink1, but not inner2.sink1",
+						((StringLiteral) lookup(sink, "ps::string1")).getValue());
+			});
+			with(middle1.getComponentInstances().get(1), inner2 -> {
+				var annexInstance = (EMV2AnnexInstance) inner2.getAnnexInstances().get(0);
+				var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+
+				assertEquals(0, sink.getOwnedPropertyAssociations().size());
+			});
+		});
+		with(systemInstance.getComponentInstances().get(1), middle2 -> {
+			with(middle2.getComponentInstances().get(0), inner1 -> {
+				var annexInstance = (EMV2AnnexInstance) inner1.getAnnexInstances().get(0);
+				var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+
+				assertEquals(2, sink.getOwnedPropertyAssociations().size());
+				assertEquals("Value on inner1.sink1, but not inner2.sink1",
+						((StringLiteral) lookup(sink, "ps::string1")).getValue());
+				assertEquals("Value on middle2.inner1.sink1, but not others",
+						((StringLiteral) lookup(sink, "ps::string2")).getValue());
+			});
+			with(middle2.getComponentInstances().get(1), inner2 -> {
+				var annexInstance = (EMV2AnnexInstance) inner2.getAnnexInstances().get(0);
+				var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+
+				assertEquals(0, sink.getOwnedPropertyAssociations().size());
+			});
+		});
+	}
+
+	@Test
+	public void testLookupOnSinkFromContainerWithExtension() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_sink_from_container_with_extension.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(2);
+		var systemInstance = InstantiateModel.instantiate(system);
+		var inner = systemInstance.getComponentInstances().get(0);
+		var annexInstance = (EMV2AnnexInstance) inner.getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+
+		assertEquals(3, sink.getOwnedPropertyAssociations().size());
+		assertEquals("Value in outer.i1", ((StringLiteral) lookup(sink, "ps::string1")).getValue());
+		assertEquals("Value in outer.i2", ((StringLiteral) lookup(sink, "ps::string2")).getValue());
+		assertEquals("Value in outer.i2 overrides value in outer.i1",
+				((StringLiteral) lookup(sink, "ps::string3")).getValue());
 	}
 
 	private static PropertyExpression lookup(NamedElement holder, String name) {

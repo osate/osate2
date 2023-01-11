@@ -1,0 +1,37 @@
+package lookup_on_sink_from_container_with_extension
+public
+	system outer
+	end outer;
+	
+	system implementation outer.i1
+		subcomponents
+			inner: system inner;
+		annex EMV2 {**
+			properties
+				ps::string1 => "Value in outer.i1" applies to ^inner@sink1;
+				ps::string3 => "Should be overridden by value in outer.i2" applies to ^inner@sink1;
+		**};
+	end outer.i1;
+	
+	system implementation outer.i2 extends outer.i1
+		annex EMV2 {**
+			properties
+				ps::string2 => "Value in outer.i2" applies to ^inner@sink1;
+				ps::string3 => "Value in outer.i2 overrides value in outer.i1" applies to ^inner@sink1;
+		**};
+	end outer.i2;
+	
+	system inner
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: in propagation {ServiceError};
+				flows
+					sink1: error sink f;
+			end propagations;
+		**};
+	end inner;
+end lookup_on_sink_from_container_with_extension;

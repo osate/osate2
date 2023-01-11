@@ -1162,12 +1162,50 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
 					for (var path : association.getEmv2Path()) {
 						var target = path.getEmv2Target();
-						if (target.getNamedElement() == sink && target.getPath() == null) {
+						if (path.getContainmentPath() == null && target.getNamedElement() == sink
+								&& target.getPath() == null) {
 							associations.put(association.getProperty(), association);
 						}
 					}
 				}
 			}
+		}
+		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+		expectedContainmentPath.addFirst(component);
+		var currentComponent = EcoreUtil2.getContainerOfType(component.eContainer(), ComponentInstance.class);
+		while (currentComponent != null) {
+			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+				for (var association : subclause.getProperties()) {
+					if (association.getOwnedValues().size() == 1
+							&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+						for (var path : association.getEmv2Path()) {
+							var matchesContainmentPath = true;
+							var expectedIter = expectedContainmentPath.iterator();
+							var currentCPE = path.getContainmentPath();
+							while (matchesContainmentPath && expectedIter.hasNext() && currentCPE != null) {
+								var expectedComponent = expectedIter.next();
+								if (expectedComponent.getSubcomponent() != currentCPE.getNamedElement()) {
+									matchesContainmentPath = false;
+								}
+								currentCPE = currentCPE.getPath();
+							}
+							if (matchesContainmentPath) {
+								if (expectedIter.hasNext() || currentCPE != null) {
+									matchesContainmentPath = false;
+								}
+							}
+							if (matchesContainmentPath) {
+								var target = path.getEmv2Target();
+								if (target.getNamedElement() == sink && target.getPath() == null) {
+									associations.put(association.getProperty(), association);
+								}
+							}
+						}
+					}
+				}
+			}
+			expectedContainmentPath.addFirst(currentComponent);
+			currentComponent = EcoreUtil2.getContainerOfType(currentComponent.eContainer(), ComponentInstance.class);
 		}
 
 		associations.forEach((property, association) -> {
