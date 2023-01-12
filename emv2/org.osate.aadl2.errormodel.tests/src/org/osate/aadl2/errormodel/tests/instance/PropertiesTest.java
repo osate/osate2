@@ -197,18 +197,6 @@ public class PropertiesTest {
 		});
 	}
 
-	@Test
-	public void testPropertiesOnPropagationPoint() throws Exception {
-		var pkg = testHelper.parseFile(PATH + "properties_on_propagation_point.aadl", PATH + "ps.aadl");
-		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
-		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		var point = annexInstance.getPropagationPoints().get(0);
-
-		assertEquals(2, point.getOwnedPropertyAssociations().size());
-		assertTrue(((BooleanLiteral) lookup(point, "ps::boolean_for_all")).getValue());
-		assertTrue(((BooleanLiteral) lookup(point, "ps::boolean_for_propagation_point")).getValue());
-	}
-
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

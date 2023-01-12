@@ -23,14 +23,12 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
-import java.util.List;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
@@ -379,7 +377,7 @@ public class ErrorSinkInstanceImpl extends EMV2InstanceObjectImpl implements Err
 	}
 
 	@Override
-	public List<? extends NamedElement> getInstantiatedObjects() {
-		return List.of(getErrorSink());
+	public boolean acceptsProperty(Property property) {
+		return getErrorSink().acceptsProperty(property);
 	}
 } // ErrorSinkInstanceImpl

@@ -166,7 +166,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<PropagationPoint> pps = EMV2Util.getAllPropagationPoints(instance.getComponentClassifier());
 		for (PropagationPoint pp : pps) {
-			instantiatePropagationPoint(pp, instance, emv2AI);
+			instantiatePropagationPoint(pp, emv2AI);
 		}
 
 		var eps = EMV2Util.getAllErrorPropagations(instance.getComponentClassifier());
@@ -457,41 +457,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return annex;
 	}
 
-	private void instantiatePropagationPoint(PropagationPoint g, ComponentInstance component, EMV2AnnexInstance annex) {
+	private void instantiatePropagationPoint(PropagationPoint g, EMV2AnnexInstance annex) {
 		PropagationPointInstance gi = EMV2InstanceFactory.eINSTANCE.createPropagationPointInstance();
 		gi.setName(g.getName());
 		gi.setPropagationPoint(g);
-
-		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
-		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
-		for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
-				.getContainingComponentInstance()) {
-			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
-				for (var association : subclause.getProperties()) {
-					if (association.getOwnedValues().size() == 1
-							&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
-						for (var path : association.getEmv2Path()) {
-							var target = path.getEmv2Target();
-							if (matchesContainmentPath(expectedContainmentPath, path) && target.getNamedElement() == g
-									&& target.getPath() == null) {
-								associations.put(association.getProperty(), association);
-							}
-						}
-					}
-				}
-			}
-			expectedContainmentPath.addFirst(currentComponent);
-		}
-
-		associations.forEach((property, association) -> {
-			var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
-			propertyInstance.setPropertyAssociation(association);
-			propertyInstance.setProperty(property);
-			var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
-			propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
-			gi.getOwnedPropertyAssociations().add(propertyInstance);
-		});
-
 		annex.getPropagationPoints().add(gi);
 	}
 
