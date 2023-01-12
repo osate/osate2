@@ -1,0 +1,17 @@
+package properties_on_propagation_point
+public
+	system s
+		annex EMV2 {**
+			propagation paths
+				point1: propagation point;
+			end paths;
+			
+			properties
+				ps::boolean_for_all => true applies to point1;
+				ps::boolean_for_propagation_point => true applies to point1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end properties_on_propagation_point;

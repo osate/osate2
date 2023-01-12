@@ -431,7 +431,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 									emptyList
 								}
 							val localElements = flows + events + transitions + outgoingPropagationConditions +
-								errorDetections + states + connectionErrorSources + paths
+								errorDetections + states + connectionErrorSources + paths + points
 							behaviorElements + localElements
 						].flatten
 						val propagations = parentOfAssociation.allContainingClassifierEMV2Subclauses.map[propagations].
