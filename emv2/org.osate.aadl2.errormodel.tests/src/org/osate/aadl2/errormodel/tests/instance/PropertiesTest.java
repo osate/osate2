@@ -182,6 +182,21 @@ public class PropertiesTest {
 				((StringLiteral) lookup(sink, "ps::string3")).getValue());
 	}
 
+	@Test
+	public void testCheckTarget() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "check_target.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		with((ErrorSinkInstance) annexInstance.getErrorFlows().get(0), sink1 -> {
+			assertEquals(1, sink1.getOwnedPropertyAssociations().size());
+			assertEquals("Value on sink1, but not sink2", ((StringLiteral) lookup(sink1, "ps::string1")).getValue());
+		});
+		with((ErrorSinkInstance) annexInstance.getErrorFlows().get(1), sink2 -> {
+			assertEquals(0, sink2.getOwnedPropertyAssociations().size());
+		});
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);
