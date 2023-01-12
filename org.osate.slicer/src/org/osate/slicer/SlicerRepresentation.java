@@ -25,8 +25,6 @@ package org.osate.slicer;
 
 import java.io.StringWriter;
 import java.io.Writer;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -41,12 +39,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.jgrapht.Graph;
+import org.jgrapht.GraphPath;
 import org.jgrapht.alg.connectivity.BiconnectivityInspector;
+import org.jgrapht.alg.shortestpath.BFSShortestPath;
 import org.jgrapht.graph.AbstractGraph;
 import org.jgrapht.graph.AsSubgraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.EdgeReversedGraph;
+import org.jgrapht.graph.GraphWalk;
 import org.jgrapht.nio.dot.DOTExporter;
 import org.jgrapht.traverse.BreadthFirstIterator;
 import org.osate.aadl2.DirectionType;
@@ -175,10 +176,13 @@ public class SlicerRepresentation {
 //		System.out.println(this.toDot(g));
 //		reachThrough(g, "WBS_inst_Instance.ctrl_sys.bscu.channel1.elec_pedal_pos_R",
 //				"WBS_inst_Instance.ctrl_sys.bscu.channel1.monitor_sys.bscu_validity",
-//				"WBS_inst_Instance.ctrl_sys.bscu.channel1.monitor_sys.elec_pedal_pos_R");
+//				"WBS_inst_Instance.ctrl_sys.bscu.channel1.monitor_sys.elec_pedal_pos_R", true);
 //		reachThrough(g, "WBS_inst_Instance.phys_sys.ground_speed",
 //				"WBS_inst_Instance.phys_sys.wheel_brake3.normal_hyd_piston.force_out",
-//				"WBS_inst_Instance.ctrl_sys.bscu.switch_gate_brake_as_cmd_pair_3_7.cmd_out");
+//				"WBS_inst_Instance.ctrl_sys.bscu.switch_gate_brake_as_cmd_pair_3_7.cmd_out", true);
+//		reachThrough(g, "WBS_inst_Instance.phys_sys.ground_speed",
+//				"WBS_inst_Instance.ctrl_sys.bscu.switch_gate_brake_as_cmd_pair_3_7.cmd_out",
+//				"WBS_inst_Instance.phys_sys.wheel_brake3.normal_hyd_piston.force_out", true);
 	}
 
 	/**
@@ -565,13 +569,12 @@ public class SlicerRepresentation {
 		// There are three reasons.
 		//
 		// 1. The JGraphT method to use would be org.jgrapht.graph.DirectedAcyclicGraph.getDescendants(OsateSlicerVertex)
-		//    It requires that graphs be acyclic, but this doesn't apply to EMV2 propagation graphs, which can have
-		//    cycles
+		// It requires that graphs be acyclic, but this doesn't apply to EMV2 propagation graphs, which can have
+		// cycles
 		// 2. That method returns a set of vertices, which is less information than a subgraph. Not a huge deal, but
-		//    kind of annoying.
+		// kind of annoying.
 		// 3. The implementation in the library is virtually identical -- no memoization or other optimizations. They
-		//    use DFS instead of BFS, but that's... about it.
-
+		// use DFS instead of BFS, but that's... about it.
 
 		origin = origin.replace(".EMV2", "");
 		BreadthFirstIterator<OsateSlicerVertex, DefaultEdge> bfi = new BreadthFirstIterator<>(graph,
@@ -588,6 +591,13 @@ public class SlicerRepresentation {
 		return reachableSubgraph;
 	}
 
+	/**
+	 * Checks to see if the target is reachable from the source
+	 * @param graph The graph to check
+	 * @param sourceName Name of source node
+	 * @param targetName Name of target node
+	 * @return True if the target can be reached from the source, false otherwise
+	 */
 	public boolean reachFrom(Graph<OsateSlicerVertex, DefaultEdge> graph, String sourceName, String targetName) {
 		if (graph == null) {
 			graph = g; // XXX DEBUG CODE REMOVE
@@ -595,20 +605,38 @@ public class SlicerRepresentation {
 		return reach(graph, sourceName).vertexSet().contains(vertexMap.get(targetName));
 	}
 
-	public boolean reachThrough(Graph<OsateSlicerVertex, DefaultEdge> graph, String sourceName, String targetName,
-			String midName) {
+	/**
+	 * Checks to see if all paths from source to target go through mid.
+	 *
+	 * @param graph The graph to check
+	 * @param sourceName Name of source node
+	 * @param targetName Name of target node
+	 * @param midName Name of midpoint node, through which all paths must pass
+	 * @param counterexample True if the user wants a counterexample generated if the target is reachable from the
+	 * source without going through mid
+	 * @return Empty if all paths from source to target go through mid. Otherwise, contains a counterexample if
+	 * requested by the caller, if not, contains an empty path.
+	 */
+	public Optional<GraphPath<OsateSlicerVertex, DefaultEdge>> reachThrough(Graph<OsateSlicerVertex, DefaultEdge> graph,
+			String sourceName, String targetName, String midName, boolean counterexample) {
 		if (graph == null) {
 			graph = g; // XXX DEBUG CODE REMOVE
 		}
 
 		// TODO: This... should be inspected to make sure it's correct.
-		var start = Instant.now();
+
 		var g1 = reach(graph, sourceName);
 		var g2 = reach(new EdgeReversedGraph<>(g1), targetName);
-		var cutpoints = new BiconnectivityInspector<>(g2).getCutpoints();
-		var end = Instant.now();
-		System.out.println("Duration: " + Duration.between(start, end));
-		return cutpoints.contains(vertexMap.get(midName));
+		if (!new BiconnectivityInspector<>(g2).getCutpoints().contains(vertexMap.get(midName))) {
+			// midpoint not required for path construction
+			if (counterexample) {
+				return Optional.of(
+						BFSShortestPath.findPathBetween(graph, vertexMap.get(sourceName), vertexMap.get(targetName)));
+			} else {
+				return Optional.of(GraphWalk.emptyWalk(graph));
+			}
+		}
+		return Optional.empty();
 	}
 
 	/**

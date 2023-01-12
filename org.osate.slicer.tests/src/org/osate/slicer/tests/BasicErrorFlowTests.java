@@ -153,10 +153,10 @@ public class BasicErrorFlowTests {
 
 	@Test
 	public void testReachThrough() {
-		assertTrue(tlg.reachThrough(null, vertices[1], vertices[4], vertices[2]));
-		assertTrue(tlg.reachThrough(null, vertices[1], vertices[4], vertices[2]));
-		assertFalse(
-				tlg.reachThrough(null, "sys_impl_Instance.a.i2", "sys_impl_Instance.c.o1", "sys_impl_Instance.b.i3"));
+		assertTrue((tlg.reachThrough(null, vertices[1], vertices[4], vertices[2], true)).isEmpty());
+		assertTrue((tlg.reachThrough(null, vertices[1], vertices[3], vertices[4], true)).isPresent());
+		assertTrue((tlg.reachThrough(null, "sys_impl_Instance.a.i2", "sys_impl_Instance.c.o1", "sys_impl_Instance.b.i3",
+				true)).isPresent());
 	}
 
 }
