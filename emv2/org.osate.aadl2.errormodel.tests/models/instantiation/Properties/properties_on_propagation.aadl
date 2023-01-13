@@ -1,0 +1,70 @@
+package properties_on_propagation
+public
+	system s
+		features
+			f1: in feature;
+			f2: out feature;
+			f3: feature;
+			fg1: feature group fgt1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+				f2: out propagation {CommonErrors};
+				f3: in propagation {CommonErrors};
+				f3: out propagation {CommonErrors};
+				fg1.f4: in propagation {CommonErrors};
+				fg1.fg2.fg3.f5: in propagation {CommonErrors};
+				point1: out propagation {CommonErrors};
+				access: in propagation {CommonErrors};
+				memory: in propagation {CommonErrors};
+			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+			end paths;
+			
+			properties
+				ps::boolean_for_all => true applies to f1;
+				ps::boolean_for_propagation => true applies to f1;
+				ps::string1 => "Value on in propagation" applies to f1;
+				ps::string1 => "Value on type, but not on propagation" applies to f1.ServiceError;
+				
+				ps::string1 => "Value on out propagation" applies to f2;
+				
+				ps::string1 => "Value on in and out propagation" applies to f3;
+				
+				ps::string1 => "Value on propagation in feature group" applies to fg1.f4;
+				ps::string1 => "Value on type, but not on propagation" applies to fg1.f4.ServiceError;
+				
+				ps::string1 => "Value on propagation nested in feature group" applies to fg1.fg2.fg3.f5;
+				ps::string1 => "Value on type, but not on propagation" applies to fg1.fg2.fg3.f5.ServiceError;
+				
+				ps::string1 => "Value on point propagation" applies to point1;
+				
+				ps::string1 => "Value on access propagation" applies to access;
+				
+				ps::string1 => "Value on binding propagation" applies to memory;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	feature group fgt1
+		features
+			f4: feature;
+			fg2: feature group fgt2;
+	end fgt1;
+	
+	feature group fgt2
+		features
+			fg3: feature group fgt3;
+	end fgt2;
+	
+	feature group fgt3
+		features
+			f5: feature;
+	end fgt3;
+end properties_on_propagation;

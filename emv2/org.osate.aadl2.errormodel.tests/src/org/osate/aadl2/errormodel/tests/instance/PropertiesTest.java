@@ -197,6 +197,62 @@ public class PropertiesTest {
 		});
 	}
 
+	@Test
+	public void testPropertiesOnPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_propagation.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(8, annexInstance.getPropagations().size());
+		with(annexInstance.getPropagations().get(0), propagation -> {
+			assertEquals("f1", propagation.getName());
+			assertEquals(3, propagation.getOwnedPropertyAssociations().size());
+			assertTrue(((BooleanLiteral) lookup(propagation, "ps::boolean_for_all")).getValue());
+			assertTrue(((BooleanLiteral) lookup(propagation, "ps::boolean_for_propagation")).getValue());
+			assertEquals("Value on in propagation", ((StringLiteral) lookup(propagation, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(1), propagation -> {
+			assertEquals("f2", propagation.getName());
+			assertEquals(1, propagation.getOwnedPropertyAssociations().size());
+			assertEquals("Value on out propagation", ((StringLiteral) lookup(propagation, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(2), propagation -> {
+			assertEquals("f3", propagation.getName());
+			assertEquals(1, propagation.getOwnedPropertyAssociations().size());
+			assertEquals("Value on in and out propagation",
+					((StringLiteral) lookup(propagation, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(3), propagation -> {
+			assertEquals("fg1.f4", propagation.getName());
+			assertEquals(1, propagation.getOwnedPropertyAssociations().size());
+			assertEquals("Value on propagation in feature group",
+					((StringLiteral) lookup(propagation, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(4), propagation -> {
+			assertEquals("fg1.fg2.fg3.f5", propagation.getName());
+			assertEquals(1, propagation.getOwnedPropertyAssociations().size());
+			assertEquals("Value on propagation nested in feature group",
+					((StringLiteral) lookup(propagation, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(5), propagation -> {
+			assertEquals("point1", propagation.getName());
+			assertEquals(1, propagation.getOwnedPropertyAssociations().size());
+			assertEquals("Value on point propagation", ((StringLiteral) lookup(propagation, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(6), propagation -> {
+			assertEquals("access", propagation.getName());
+			assertEquals(1, propagation.getOwnedPropertyAssociations().size());
+			assertEquals("Value on access propagation",
+					((StringLiteral) lookup(propagation, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(7), propagation -> {
+			assertEquals("memory", propagation.getName());
+			assertEquals(1, propagation.getOwnedPropertyAssociations().size());
+			assertEquals("Value on binding propagation",
+					((StringLiteral) lookup(propagation, "ps::string1")).getValue());
+		});
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

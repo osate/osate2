@@ -23,7 +23,9 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -34,6 +36,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
@@ -637,4 +640,15 @@ public abstract class ErrorPropagationInstanceImpl extends EMV2InstanceObjectImp
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public List<? extends NamedElement> getInstantiatedObjects() {
+		var instantiatedObjects = new ArrayList<ErrorPropagation>();
+		if (getInErrorPropagation() != null) {
+			instantiatedObjects.add(getInErrorPropagation());
+		}
+		if (getOutErrorPropagation() != null) {
+			instantiatedObjects.add(getOutErrorPropagation());
+		}
+		return instantiatedObjects;
+	}
 } // ErrorPropagationInstanceImpl

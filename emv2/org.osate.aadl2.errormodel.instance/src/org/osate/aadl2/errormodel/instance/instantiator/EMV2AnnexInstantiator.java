@@ -170,7 +170,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 
 		var eps = EMV2Util.getAllErrorPropagations(instance.getComponentClassifier());
-		instantiateErrorPropagations(eps, emv2AI);
+		instantiateErrorPropagations(eps, instance, emv2AI);
 
 		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
 		for (ErrorBehaviorEvent ev : events) {
@@ -959,12 +959,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return othersExpression;
 	}
 
-	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {
+	private void instantiateErrorPropagations(List<ErrorPropagation> eps, ComponentInstance component,
+			EMV2AnnexInstance annex) {
 		var propagationInstances = new TreeMap<String, ErrorPropagationInstance>(String.CASE_INSENSITIVE_ORDER);
 		for (var ep : eps) {
 			var epi = propagationInstances.computeIfAbsent(EMV2Util.getPropagationName(ep), name -> {
 				try {
-					return createErrorPropagationInstance(annex, name, ep);
+					return createErrorPropagationInstance(annex, name, ep, component);
 				} catch (InternalFeatureEncounteredException e) {
 					return null;
 				}
@@ -993,7 +994,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ErrorPropagationInstance createErrorPropagationInstance(EMV2AnnexInstance annex, String name,
-			ErrorPropagation ep) throws InternalFeatureEncounteredException {
+			ErrorPropagation ep, ComponentInstance component) throws InternalFeatureEncounteredException {
 		ErrorPropagationInstance propagation;
 		if ("access".equalsIgnoreCase(ep.getKind())) {
 			propagation = createAccessPropagation(name);
@@ -1017,6 +1018,54 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else {
 			throw new RuntimeException("Both kind and featureOrPPRef are null: " + ep);
 		}
+
+		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+		for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
+				.getContainingComponentInstance()) {
+			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+				for (var association : subclause.getProperties()) {
+					if (association.getOwnedValues().size() == 1
+							&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+						for (var path : association.getEmv2Path()) {
+							var targetName = new StringBuilder();
+							for (var target = path.getEmv2Target(); target != null; target = target.getPath()) {
+								var namedElement = target.getNamedElement();
+								if (namedElement instanceof ErrorPropagation errorPropagation) {
+									var featureOrPPRef = errorPropagation.getFeatureorPPRef();
+									while (featureOrPPRef.getNext() != null) {
+										featureOrPPRef = featureOrPPRef.getNext();
+									}
+									targetName.append(featureOrPPRef.getFeatureorPP().getName());
+								} else if (namedElement != null) {
+									targetName.append(namedElement.getName());
+								} else {
+									targetName.append(target.getEmv2PropagationKind());
+								}
+								if (target.getPath() != null) {
+									targetName.append('.');
+								}
+							}
+							if (matchesContainmentPath(expectedContainmentPath, path)
+									&& targetName.toString().equalsIgnoreCase(name)) {
+								associations.put(association.getProperty(), association);
+							}
+						}
+					}
+				}
+			}
+			expectedContainmentPath.addFirst(currentComponent);
+		}
+
+		associations.forEach((property, association) -> {
+			var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+			propertyInstance.setPropertyAssociation(association);
+			propertyInstance.setProperty(property);
+			var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+			propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+			propagation.getOwnedPropertyAssociations().add(propertyInstance);
+		});
+
 		annex.getPropagations().add(propagation);
 		return propagation;
 	}
