@@ -364,6 +364,18 @@ public class PropertiesTest {
 		assertTrue(((BooleanLiteral) lookup(repair, "ps::boolean_for_repair_event")).getValue());
 	}
 
+	@Test
+	public void testPropertiesOnTransition() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_transition.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var transition = annexInstance.getTransitions().get(0);
+
+		assertEquals(2, transition.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(transition, "ps::boolean_for_all")).getValue());
+		assertTrue(((BooleanLiteral) lookup(transition, "ps::boolean_for_error_behavior_transition")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);
