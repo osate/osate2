@@ -309,6 +309,32 @@ public class PropertiesTest {
 				((StringLiteral) lookup(state, "ps::string3")).getValue());
 	}
 
+	@Test
+	public void testPropertiesOnErrorEvent() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_error_event.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(2, annexInstance.getEvents().size());
+		with(annexInstance.getEvents().get(0), error -> {
+			assertEquals("error1", error.getName());
+			assertEquals(6, error.getOwnedPropertyAssociations().size());
+			assertTrue(((BooleanLiteral) lookup(error, "ps::boolean_for_all")).getValue());
+			assertTrue(((BooleanLiteral) lookup(error, "ps::boolean_for_error_behavior_event")).getValue());
+			assertTrue(((BooleanLiteral) lookup(error, "ps::boolean_for_error_event")).getValue());
+			assertEquals("Value in machine1", ((StringLiteral) lookup(error, "ps::string1")).getValue());
+			assertEquals("Value in s", ((StringLiteral) lookup(error, "ps::string2")).getValue());
+			assertEquals("Value in s overrides value in machine1",
+					((StringLiteral) lookup(error, "ps::string3")).getValue());
+		});
+		with(annexInstance.getEvents().get(1), error -> {
+			assertEquals("error2", error.getName());
+			assertEquals(1, error.getOwnedPropertyAssociations().size());
+			assertEquals("Don't search in state machine for value",
+					((StringLiteral) lookup(error, "ps::string1")).getValue());
+		});
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

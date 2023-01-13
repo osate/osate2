@@ -174,7 +174,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
 		for (ErrorBehaviorEvent ev : events) {
-			instantiateEvent(ev, emv2AI);
+			instantiateEvent(ev, instance, emv2AI);
 		}
 
 		for (var source : EMV2Util.getAllErrorSources(instance)) {
@@ -464,9 +464,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		annex.getPropagationPoints().add(gi);
 	}
 
-	private void instantiateEvent(ErrorBehaviorEvent event, EMV2AnnexInstance annex) {
+	private void instantiateEvent(ErrorBehaviorEvent event, ComponentInstance component, EMV2AnnexInstance annex) {
 		if (event instanceof ErrorEvent errorEvent) {
-			annex.getEvents().add(createErrorEventInstance(errorEvent));
+			annex.getEvents().add(createErrorEventInstance(errorEvent, component));
 		} else if (event instanceof RecoverEvent recoverEvent) {
 			annex.getEvents().add(createRecoverEventInstance(recoverEvent, annex));
 		} else if (event instanceof RepairEvent repairEvent) {
@@ -476,13 +476,60 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private ErrorEventInstance createErrorEventInstance(ErrorEvent event) {
+	private ErrorEventInstance createErrorEventInstance(ErrorEvent event, ComponentInstance component) {
 		var eventInstance = EMV2InstanceFactory.eINSTANCE.createErrorEventInstance();
 		eventInstance.setName(event.getName());
 		eventInstance.setErrorEvent(event);
 		if (event.getTypeSet() != null) {
 			eventInstance.setTypeSet(createAnonymousTypeSet(event.getTypeSet()));
 		}
+
+		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+
+		var stateMachine = EcoreUtil2.getContainerOfType(event, ErrorBehaviorStateMachine.class);
+		if (stateMachine != null) {
+			for (var association : stateMachine.getProperties()) {
+				if (association.getOwnedValues().size() == 1
+						&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+					for (var path : association.getEmv2Path()) {
+						var target = path.getEmv2Target();
+						if (target.getNamedElement() == event && target.getPath() == null) {
+							associations.put(association.getProperty(), association);
+						}
+					}
+				}
+			}
+		}
+
+		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+		for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
+				.getContainingComponentInstance()) {
+			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+				for (var association : subclause.getProperties()) {
+					if (association.getOwnedValues().size() == 1
+							&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+						for (var path : association.getEmv2Path()) {
+							var target = path.getEmv2Target();
+							if (matchesContainmentPath(expectedContainmentPath, path)
+									&& target.getNamedElement() == event && target.getPath() == null) {
+								associations.put(association.getProperty(), association);
+							}
+						}
+					}
+				}
+			}
+			expectedContainmentPath.addFirst(currentComponent);
+		}
+
+		associations.forEach((property, association) -> {
+			var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+			propertyInstance.setPropertyAssociation(association);
+			propertyInstance.setProperty(property);
+			var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+			propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+			eventInstance.getOwnedPropertyAssociations().add(propertyInstance);
+		});
+
 		return eventInstance;
 	}
 
