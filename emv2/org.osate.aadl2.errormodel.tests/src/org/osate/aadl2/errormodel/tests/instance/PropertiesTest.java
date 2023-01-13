@@ -23,6 +23,7 @@ import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
+import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -348,6 +349,19 @@ public class PropertiesTest {
 		assertTrue(((BooleanLiteral) lookup(recover, "ps::boolean_for_all")).getValue());
 		assertTrue(((BooleanLiteral) lookup(recover, "ps::boolean_for_error_behavior_event")).getValue());
 		assertTrue(((BooleanLiteral) lookup(recover, "ps::boolean_for_recover_event")).getValue());
+	}
+
+	@Test
+	public void testPropertiesOnRepairEvent() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_repair_event.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var repair = (RepairEventInstance) annexInstance.getEvents().get(0);
+
+		assertEquals(3, repair.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(repair, "ps::boolean_for_all")).getValue());
+		assertTrue(((BooleanLiteral) lookup(repair, "ps::boolean_for_error_behavior_event")).getValue());
+		assertTrue(((BooleanLiteral) lookup(repair, "ps::boolean_for_repair_event")).getValue());
 	}
 
 	private static PropertyExpression lookup(NamedElement holder, String name) {

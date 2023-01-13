@@ -1,0 +1,19 @@
+package properties_on_repair_event
+public
+	system s
+		annex EMV2 {**
+			component error behavior
+				events
+					repair1: repair event;
+			end component;
+			
+			properties
+				ps::boolean_for_all => true applies to repair1;
+				ps::boolean_for_error_behavior_event => true applies to repair1;
+				ps::boolean_for_repair_event => true applies to repair1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end properties_on_repair_event;
