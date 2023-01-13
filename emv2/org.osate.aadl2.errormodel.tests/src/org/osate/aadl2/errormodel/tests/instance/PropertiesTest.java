@@ -19,6 +19,7 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
+import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -251,6 +252,19 @@ public class PropertiesTest {
 			assertEquals("Value on binding propagation",
 					((StringLiteral) lookup(propagation, "ps::string1")).getValue());
 		});
+	}
+
+	@Test
+	public void testPropertiesOnSource() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_source.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var source = (ErrorSourceInstance) annexInstance.getErrorFlows().get(0);
+
+		assertEquals(3, source.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(source, "ps::boolean_for_all")).getValue());
+		assertTrue(((BooleanLiteral) lookup(source, "ps::boolean_for_error_flow")).getValue());
+		assertTrue(((BooleanLiteral) lookup(source, "ps::boolean_for_error_source")).getValue());
 	}
 
 	private static PropertyExpression lookup(NamedElement holder, String name) {
