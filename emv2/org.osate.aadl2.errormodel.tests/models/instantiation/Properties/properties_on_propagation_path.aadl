@@ -1,0 +1,36 @@
+package properties_on_propagation_path
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			left: system left;
+			right: system right;
+		annex EMV2 {**
+			propagation paths
+				path1: left.left_point -> right.right_point;
+			end paths;
+			
+			properties
+				ps::boolean_for_all => true applies to path1;
+				ps::boolean_for_propagation_path => true applies to path1;
+		**};
+	end s.i;
+	
+	system left
+		annex EMV2 {**
+			propagation paths
+				left_point: propagation point;
+			end paths;
+		**};
+	end left;
+	
+	system right
+		annex EMV2 {**
+			propagation paths
+				right_point: propagation point;
+			end paths;
+		**};
+	end right;
+end properties_on_propagation_path;

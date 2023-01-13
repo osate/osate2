@@ -1685,6 +1685,37 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				pathInstance.setName(sourcePath + " -> " + destinationPath);
 			} else {
 				pathInstance.setName(path.getName());
+
+				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+				var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+				for (var currentComponent = context; currentComponent != null; currentComponent = currentComponent
+						.getContainingComponentInstance()) {
+					for (var subclause : Lists
+							.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+						for (var association : subclause.getProperties()) {
+							if (association.getOwnedValues().size() == 1
+									&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+								for (var emv2Path : association.getEmv2Path()) {
+									var target = emv2Path.getEmv2Target();
+									if (matchesContainmentPath(expectedContainmentPath, emv2Path)
+											&& target.getNamedElement() == path && target.getPath() == null) {
+										associations.put(association.getProperty(), association);
+									}
+								}
+							}
+						}
+					}
+					expectedContainmentPath.addFirst(currentComponent);
+				}
+
+				associations.forEach((property, association) -> {
+					var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+					propertyInstance.setPropertyAssociation(association);
+					propertyInstance.setProperty(property);
+					var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+					propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+					pathInstance.getOwnedPropertyAssociations().add(propertyInstance);
+				});
 			}
 			var sourcePropagation = findPointPropagation(sourcePointInstance);
 			if (sourcePropagation != null && sourcePropagation.getDirection().outgoing()) {

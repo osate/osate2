@@ -5,6 +5,7 @@ property set ps is
 	boolean_for_error_source: aadlboolean applies to ({emv2}**error source);
 	boolean_for_error_sink: aadlboolean applies to ({emv2}**error sink);
 	boolean_for_error_path: aadlboolean applies to ({emv2}**error path);
+	boolean_for_propagation_path: aadlboolean applies to ({emv2}**propagation path);
 	
 	string1: aadlstring applies to (all);
 	string2: aadlstring applies to (all);
