@@ -18,6 +18,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
@@ -265,6 +266,19 @@ public class PropertiesTest {
 		assertTrue(((BooleanLiteral) lookup(source, "ps::boolean_for_all")).getValue());
 		assertTrue(((BooleanLiteral) lookup(source, "ps::boolean_for_error_flow")).getValue());
 		assertTrue(((BooleanLiteral) lookup(source, "ps::boolean_for_error_source")).getValue());
+	}
+
+	@Test
+	public void testPropertiesOnPath() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_path.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var path = (ErrorPathInstance) annexInstance.getErrorFlows().get(0);
+
+		assertEquals(3, path.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(path, "ps::boolean_for_all")).getValue());
+		assertTrue(((BooleanLiteral) lookup(path, "ps::boolean_for_error_flow")).getValue());
+		assertTrue(((BooleanLiteral) lookup(path, "ps::boolean_for_error_path")).getValue());
 	}
 
 	private static PropertyExpression lookup(NamedElement holder, String name) {

@@ -186,7 +186,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 
 		for (var path : EMV2Util.getAllErrorPaths(instance)) {
-			instantiateErrorPath(path, emv2AI);
+			instantiateErrorPath(path, instance, emv2AI);
 		}
 
 		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
@@ -1283,7 +1283,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return !expectedIter.hasNext() && currentCPE == null;
 	}
 
-	private void instantiateErrorPath(ErrorPath path, EMV2AnnexInstance annex) {
+	private void instantiateErrorPath(ErrorPath path, ComponentInstance component, EMV2AnnexInstance annex) {
 		if (path.isAllIncoming() || path.isAllOutgoing()) {
 			// TODO Instantiate 'all' error paths after we figure out what 'all' means.
 			return;
@@ -1315,6 +1315,37 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		pathInstance.setSourceTypeSet(createAnonymousTypeSet(sourceTypeSet));
 		pathInstance.setDestinationTypeSet(createAnonymousTypeSet(path.getTargetToken()));
+
+		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+		for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
+				.getContainingComponentInstance()) {
+			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+				for (var association : subclause.getProperties()) {
+					if (association.getOwnedValues().size() == 1
+							&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+						for (var emv2Path : association.getEmv2Path()) {
+							var target = emv2Path.getEmv2Target();
+							if (matchesContainmentPath(expectedContainmentPath, emv2Path)
+									&& target.getNamedElement() == path && target.getPath() == null) {
+								associations.put(association.getProperty(), association);
+							}
+						}
+					}
+				}
+			}
+			expectedContainmentPath.addFirst(currentComponent);
+		}
+
+		associations.forEach((property, association) -> {
+			var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+			propertyInstance.setPropertyAssociation(association);
+			propertyInstance.setProperty(property);
+			var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+			propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+			pathInstance.getOwnedPropertyAssociations().add(propertyInstance);
+		});
+
 		annex.getErrorFlows().add(pathInstance);
 	}
 
