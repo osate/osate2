@@ -18,9 +18,11 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
+import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPathInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
+import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -316,7 +318,7 @@ public class PropertiesTest {
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 
 		assertEquals(2, annexInstance.getEvents().size());
-		with(annexInstance.getEvents().get(0), error -> {
+		with((ErrorEventInstance) annexInstance.getEvents().get(0), error -> {
 			assertEquals("error1", error.getName());
 			assertEquals(6, error.getOwnedPropertyAssociations().size());
 			assertTrue(((BooleanLiteral) lookup(error, "ps::boolean_for_all")).getValue());
@@ -327,12 +329,25 @@ public class PropertiesTest {
 			assertEquals("Value in s overrides value in machine1",
 					((StringLiteral) lookup(error, "ps::string3")).getValue());
 		});
-		with(annexInstance.getEvents().get(1), error -> {
+		with((ErrorEventInstance) annexInstance.getEvents().get(1), error -> {
 			assertEquals("error2", error.getName());
 			assertEquals(1, error.getOwnedPropertyAssociations().size());
 			assertEquals("Don't search in state machine for value",
 					((StringLiteral) lookup(error, "ps::string1")).getValue());
 		});
+	}
+
+	@Test
+	public void testPropertiesOnRecoverEvent() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_recover_event.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var recover = (RecoverEventInstance) annexInstance.getEvents().get(0);
+
+		assertEquals(3, recover.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(recover, "ps::boolean_for_all")).getValue());
+		assertTrue(((BooleanLiteral) lookup(recover, "ps::boolean_for_error_behavior_event")).getValue());
+		assertTrue(((BooleanLiteral) lookup(recover, "ps::boolean_for_recover_event")).getValue());
 	}
 
 	private static PropertyExpression lookup(NamedElement holder, String name) {

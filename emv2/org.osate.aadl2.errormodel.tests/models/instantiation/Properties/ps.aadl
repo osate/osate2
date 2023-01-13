@@ -8,6 +8,7 @@ property set ps is
 	boolean_for_error_behavior_state: aadlboolean applies to ({emv2}**error behavior state);
 	boolean_for_error_behavior_event: aadlboolean applies to ({emv2}**error behavior event);
 	boolean_for_error_event: aadlboolean applies to ({emv2}**error event);
+	boolean_for_recover_event: aadlboolean applies to ({emv2}**recover event);
 	boolean_for_propagation_path: aadlboolean applies to ({emv2}**propagation path);
 	
 	string1: aadlstring applies to (all);
