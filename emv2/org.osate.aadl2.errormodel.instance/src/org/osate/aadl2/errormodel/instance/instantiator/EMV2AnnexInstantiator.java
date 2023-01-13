@@ -1604,6 +1604,53 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				conditionInstance.setName(sourceName + " -[" + conditionExpressionName + "]-> " + destinationName);
 			} else {
 				conditionInstance.setName(condition.getName());
+
+				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+
+				var stateMachine = EcoreUtil2.getContainerOfType(condition, ErrorBehaviorStateMachine.class);
+				if (stateMachine != null) {
+					for (var association : stateMachine.getProperties()) {
+						if (association.getOwnedValues().size() == 1
+								&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+							for (var path : association.getEmv2Path()) {
+								var target = path.getEmv2Target();
+								if (target.getNamedElement() == condition && target.getPath() == null) {
+									associations.put(association.getProperty(), association);
+								}
+							}
+						}
+					}
+				}
+
+				var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+				for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
+						.getContainingComponentInstance()) {
+					for (var subclause : Lists
+							.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+						for (var association : subclause.getProperties()) {
+							if (association.getOwnedValues().size() == 1
+									&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+								for (var path : association.getEmv2Path()) {
+									var target = path.getEmv2Target();
+									if (matchesContainmentPath(expectedContainmentPath, path)
+											&& target.getNamedElement() == condition && target.getPath() == null) {
+										associations.put(association.getProperty(), association);
+									}
+								}
+							}
+						}
+					}
+					expectedContainmentPath.addFirst(currentComponent);
+				}
+
+				associations.forEach((property, association) -> {
+					var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+					propertyInstance.setPropertyAssociation(association);
+					propertyInstance.setProperty(property);
+					var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+					propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+					conditionInstance.getOwnedPropertyAssociations().add(propertyInstance);
+				});
 			}
 			annex.getConditions().add(conditionInstance);
 		} catch (InternalFeatureEncounteredException e) {

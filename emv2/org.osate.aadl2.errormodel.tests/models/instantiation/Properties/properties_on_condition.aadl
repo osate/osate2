@@ -1,0 +1,34 @@
+package properties_on_condition
+public
+	system s
+		features
+			f1: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior properties_on_condition::machine1;
+			
+			error propagations
+				f1: out propagation {CommonErrors};
+			end propagations;
+			
+			component error behavior
+				propagations
+					condition1: state1 -[]-> f1 {ServiceError};
+			end component;
+			
+			properties
+				ps::boolean_for_all => true applies to condition1;
+				ps::boolean_for_outgoing_propagation_condition => true applies to condition1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+		end behavior;
+	**};
+end properties_on_condition;
