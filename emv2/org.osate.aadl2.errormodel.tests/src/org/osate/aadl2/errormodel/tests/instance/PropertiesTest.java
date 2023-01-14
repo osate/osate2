@@ -388,6 +388,18 @@ public class PropertiesTest {
 		assertTrue(((BooleanLiteral) lookup(condition, "ps::boolean_for_outgoing_propagation_condition")).getValue());
 	}
 
+	@Test
+	public void testPropertiesOnDetection() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_detection.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var detection = annexInstance.getDetections().get(0);
+
+		assertEquals(2, detection.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(detection, "ps::boolean_for_all")).getValue());
+		assertTrue(((BooleanLiteral) lookup(detection, "ps::boolean_for_error_detection")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);
