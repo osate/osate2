@@ -13,6 +13,7 @@ property set ps is
 	boolean_for_error_behavior_transition: aadlboolean applies to ({emv2}**error behavior transition);
 	boolean_for_outgoing_propagation_condition: aadlboolean applies to ({emv2}**outgoing propagation condition);
 	boolean_for_error_detection: aadlboolean applies to ({emv2}**error detection);
+	boolean_for_composite_state: aadlboolean applies to ({emv2}**composite state);
 	boolean_for_propagation_path: aadlboolean applies to ({emv2}**propagation path);
 	
 	string1: aadlstring applies to (all);

@@ -400,6 +400,18 @@ public class PropertiesTest {
 		assertTrue(((BooleanLiteral) lookup(detection, "ps::boolean_for_error_detection")).getValue());
 	}
 
+	@Test
+	public void testPropertiesOnCompositeState() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_composite_state.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var composite = annexInstance.getComposites().get(0);
+
+		assertEquals(2, composite.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(composite, "ps::boolean_for_all")).getValue());
+		assertTrue(((BooleanLiteral) lookup(composite, "ps::boolean_for_composite_state")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

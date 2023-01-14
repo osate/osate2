@@ -1,0 +1,36 @@
+package properties_on_composite_state
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: system sub1;
+		annex EMV2 {**
+			use behavior properties_on_composite_state::machine1;
+			
+			composite error behavior
+				states
+					composite1: [sub1.state1]-> state2;
+			end composite;
+			
+			properties
+				ps::boolean_for_all => true applies to composite1;
+				ps::boolean_for_composite_state => true applies to composite1;
+		**};
+	end s.i;
+	
+	system sub1
+		annex EMV2 {**
+			use behavior properties_on_composite_state::machine1;
+		**};
+	end sub1;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end properties_on_composite_state;
