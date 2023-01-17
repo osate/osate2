@@ -25,6 +25,7 @@ package org.osate.aadl2.errormodel.instance;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.AnnexInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,6 +36,7 @@ import org.osate.aadl2.instance.AnnexInstance;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getSubclauses <em>Subclauses</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getErrorFlows <em>Error Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagationPaths <em>Propagation Paths</em>}</li>
@@ -54,6 +56,18 @@ import org.osate.aadl2.instance.AnnexInstance;
  * @generated
  */
 public interface EMV2AnnexInstance extends AnnexInstance {
+	/**
+	 * Returns the value of the '<em><b>Subclauses</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Subclauses</em>' reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getEMV2AnnexInstance_Subclauses()
+	 * @model
+	 * @generated
+	 */
+	EList<ErrorModelSubclause> getSubclauses();
+
 	/**
 	 * Returns the value of the '<em><b>Transitions</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.TransitionInstance}.

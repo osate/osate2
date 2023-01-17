@@ -32,8 +32,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.DetectionInstance;
@@ -48,9 +48,8 @@ import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
 /**
  * <!-- begin-user-doc -->
@@ -60,6 +59,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getSubclauses <em>Subclauses</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getErrorFlows <em>Error Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPaths <em>Propagation Paths</em>}</li>
@@ -77,6 +77,16 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
  * @generated
  */
 public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2AnnexInstance {
+	/**
+	 * The cached value of the '{@link #getSubclauses() <em>Subclauses</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSubclauses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ErrorModelSubclause> subclauses;
+
 	/**
 	 * The cached value of the '{@link #getPropagations() <em>Propagations</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -214,6 +224,20 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	protected EClass eStaticClass() {
 		return EMV2InstancePackage.Literals.EMV2_ANNEX_INSTANCE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ErrorModelSubclause> getSubclauses() {
+		if (subclauses == null) {
+			subclauses = new EObjectResolvingEList<>(ErrorModelSubclause.class, this,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__SUBCLAUSES);
+		}
+		return subclauses;
 	}
 
 	/**
@@ -457,6 +481,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__SUBCLAUSES:
+			return getSubclauses();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			return getPropagations();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
@@ -497,6 +523,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__SUBCLAUSES:
+			getSubclauses().clear();
+			getSubclauses().addAll((Collection<? extends ErrorModelSubclause>) newValue);
+			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			getPropagations().clear();
 			getPropagations().addAll((Collection<? extends ErrorPropagationInstance>) newValue);
@@ -556,6 +586,9 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__SUBCLAUSES:
+			getSubclauses().clear();
+			return;
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			getPropagations().clear();
 			return;
@@ -604,6 +637,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__SUBCLAUSES:
+			return subclauses != null && !subclauses.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATIONS:
 			return propagations != null && !propagations.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
@@ -634,12 +669,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 
 	@Override
 	public boolean acceptsProperty(Property property) {
-		var subclauses = EMV2Util
-				.getAllContainingClassifierEMV2Subclauses(EcoreUtil2.getContainerOfType(this, ComponentInstance.class));
-		if (subclauses.isEmpty()) {
+		if (getSubclauses().isEmpty()) {
 			return false;
 		} else {
-			return subclauses.get(0).acceptsProperty(property);
+			return getSubclauses().get(0).acceptsProperty(property);
 		}
 	}
 } // EMV2AnnexInstanceImpl

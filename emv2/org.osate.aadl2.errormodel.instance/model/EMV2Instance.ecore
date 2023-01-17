@@ -2,6 +2,8 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instance" nsURI="http://www.osate.org/EMV2Instance" nsPrefix="EMV2Instance">
   <eClassifiers xsi:type="ecore:EClass" name="EMV2AnnexInstance" eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//AnnexInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subclauses" upperBound="-1"
+        eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorModelSubclause"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagations" upperBound="-1"
         eType="#//ErrorPropagationInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorFlows" upperBound="-1"
