@@ -33,6 +33,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
@@ -46,7 +48,9 @@ import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -628,4 +632,14 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public boolean acceptsProperty(Property property) {
+		var subclauses = EMV2Util
+				.getAllContainingClassifierEMV2Subclauses(EcoreUtil2.getContainerOfType(this, ComponentInstance.class));
+		if (subclauses.isEmpty()) {
+			return false;
+		} else {
+			return subclauses.get(0).acceptsProperty(property);
+		}
+	}
 } // EMV2AnnexInstanceImpl

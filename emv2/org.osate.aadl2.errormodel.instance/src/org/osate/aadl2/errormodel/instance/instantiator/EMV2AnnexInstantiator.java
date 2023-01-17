@@ -224,6 +224,28 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (PropagationPath ppath : ppaths) {
 			instantiateUserDefinedPath(ppath, emv2AI, instance);
 		}
+
+		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+
+		for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(instance))) {
+			for (var association : subclause.getProperties()) {
+				if (association.getOwnedValues().size() == 1
+						&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+					if (association.getEmv2Path().isEmpty()) {
+						associations.put(association.getProperty(), association);
+					}
+				}
+			}
+		}
+
+		associations.forEach((property, association) -> {
+			var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+			propertyInstance.setPropertyAssociation(association);
+			propertyInstance.setProperty(property);
+			var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+			propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+			emv2AI.getOwnedPropertyAssociations().add(propertyInstance);
+		});
 	}
 
 	@Override

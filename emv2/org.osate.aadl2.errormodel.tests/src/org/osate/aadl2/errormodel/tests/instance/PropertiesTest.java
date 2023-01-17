@@ -412,6 +412,27 @@ public class PropertiesTest {
 		assertTrue(((BooleanLiteral) lookup(composite, "ps::boolean_for_composite_state")).getValue());
 	}
 
+	@Test
+	public void testPropertiesOnSubclause() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_subclause.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(3);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(9, annexInstance.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(annexInstance, "ps::boolean_for_all")).getValue());
+		assertTrue(((BooleanLiteral) lookup(annexInstance, "ps::boolean_for_error_model_subclause")).getValue());
+		assertEquals("Value in s1", ((StringLiteral) lookup(annexInstance, "ps::string1")).getValue());
+		assertEquals("Value in s2", ((StringLiteral) lookup(annexInstance, "ps::string2")).getValue());
+		assertEquals("Value in s1.i", ((StringLiteral) lookup(annexInstance, "ps::string3")).getValue());
+		assertEquals("Value in s2.i", ((StringLiteral) lookup(annexInstance, "ps::string4")).getValue());
+		assertEquals("Value in s2 overrides value in s1",
+				((StringLiteral) lookup(annexInstance, "ps::string5")).getValue());
+		assertEquals("Value in s2.i overrides value in s1.i",
+				((StringLiteral) lookup(annexInstance, "ps::string6")).getValue());
+		assertEquals("Value in s1.i overrides value in s2",
+				((StringLiteral) lookup(annexInstance, "ps::string7")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

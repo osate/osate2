@@ -15,6 +15,7 @@ property set ps is
 	boolean_for_error_detection: aadlboolean applies to ({emv2}**error detection);
 	boolean_for_composite_state: aadlboolean applies to ({emv2}**composite state);
 	boolean_for_propagation_path: aadlboolean applies to ({emv2}**propagation path);
+	boolean_for_error_model_subclause: aadlboolean applies to ({emv2}**error model subclause);
 	
 	string1: aadlstring applies to (all);
 	string2: aadlstring applies to (all);
@@ -23,4 +24,5 @@ property set ps is
 	string5: aadlstring applies to (all);
 	string6: aadlstring applies to (all);
 	string7: aadlstring applies to (all);
+	string8: aadlstring applies to (all);
 end ps;
