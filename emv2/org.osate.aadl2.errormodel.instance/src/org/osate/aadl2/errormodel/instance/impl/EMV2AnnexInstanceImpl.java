@@ -47,6 +47,7 @@ import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateMachineProperties;
 import org.osate.aadl2.errormodel.instance.TransitionInstance;
 import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
@@ -72,6 +73,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getModeMappings <em>Mode Mappings</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getPropagationPoints <em>Propagation Points</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.EMV2AnnexInstanceImpl#getStateMachineProperties <em>State Machine Properties</em>}</li>
  * </ul>
  *
  * @generated
@@ -208,6 +210,16 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	protected EList<PropagationPointInstance> propagationPoints;
 
 	/**
+	 * The cached value of the '{@link #getStateMachineProperties() <em>State Machine Properties</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStateMachineProperties()
+	 * @generated
+	 * @ordered
+	 */
+	protected StateMachineProperties stateMachineProperties;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -281,6 +293,68 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 					this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS);
 		}
 		return propagationPoints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public StateMachineProperties getStateMachineProperties() {
+		return stateMachineProperties;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetStateMachineProperties(StateMachineProperties newStateMachineProperties,
+			NotificationChain msgs) {
+		StateMachineProperties oldStateMachineProperties = stateMachineProperties;
+		stateMachineProperties = newStateMachineProperties;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES, oldStateMachineProperties,
+					newStateMachineProperties);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setStateMachineProperties(StateMachineProperties newStateMachineProperties) {
+		if (newStateMachineProperties != stateMachineProperties) {
+			NotificationChain msgs = null;
+			if (stateMachineProperties != null) {
+				msgs = ((InternalEObject) stateMachineProperties).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES,
+						null, msgs);
+			}
+			if (newStateMachineProperties != null) {
+				msgs = ((InternalEObject) newStateMachineProperties).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES,
+						null, msgs);
+			}
+			msgs = basicSetStateMachineProperties(newStateMachineProperties, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES, newStateMachineProperties,
+					newStateMachineProperties));
+		}
 	}
 
 	/**
@@ -469,6 +543,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return ((InternalEList<?>) getComposites()).basicRemove(otherEnd, msgs);
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			return ((InternalEList<?>) getPropagationPoints()).basicRemove(otherEnd, msgs);
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES:
+			return basicSetStateMachineProperties(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -510,6 +586,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return getComposites();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			return getPropagationPoints();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES:
+			return getStateMachineProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -574,6 +652,9 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			getPropagationPoints().clear();
 			getPropagationPoints().addAll((Collection<? extends PropagationPointInstance>) newValue);
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES:
+			setStateMachineProperties((StateMachineProperties) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -625,6 +706,9 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			getPropagationPoints().clear();
 			return;
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES:
+			setStateMachineProperties((StateMachineProperties) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -663,6 +747,8 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			return composites != null && !composites.isEmpty();
 		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS:
 			return propagationPoints != null && !propagationPoints.isEmpty();
+		case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES:
+			return stateMachineProperties != null;
 		}
 		return super.eIsSet(featureID);
 	}

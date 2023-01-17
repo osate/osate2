@@ -27,9 +27,14 @@
         eType="#//CompositeStateInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPoints" upperBound="-1"
         eType="#//PropagationPointInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachineProperties"
+        eType="#//StateMachineProperties" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
       eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StateMachineProperties" eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorBehaviorStateMachine"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationInstance" abstract="true"
       eSuperTypes="#//EMV2InstanceObject">
     <eOperations name="getDirection" eType="ecore:EEnum ../../org.osate.aadl2/model/aadl2.ecore#//DirectionType"/>

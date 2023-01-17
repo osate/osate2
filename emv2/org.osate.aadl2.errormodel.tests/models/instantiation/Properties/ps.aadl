@@ -16,6 +16,7 @@ property set ps is
 	boolean_for_composite_state: aadlboolean applies to ({emv2}**composite state);
 	boolean_for_propagation_path: aadlboolean applies to ({emv2}**propagation path);
 	boolean_for_error_model_subclause: aadlboolean applies to ({emv2}**error model subclause);
+	boolean_for_error_behavior_state_machine: aadlboolean applies to ({emv2}** error behavior state machine);
 	
 	string1: aadlstring applies to (all);
 	string2: aadlstring applies to (all);

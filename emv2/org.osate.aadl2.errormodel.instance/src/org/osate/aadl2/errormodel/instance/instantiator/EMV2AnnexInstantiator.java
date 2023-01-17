@@ -160,9 +160,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// Don't instantiate EMV2 elements unless explicitly enabled.
 			return;
 		}
+
+		var subclauses = EMV2Util.getAllContainingClassifierEMV2Subclauses(instance);
+		var stateMachine = EMV2Util.getAllErrorBehaviorStateMachine(instance);
+
 		EMV2AnnexInstance emv2AI = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
 		emv2AI.setName("EMV2");
-		emv2AI.getSubclauses().addAll(EMV2Util.getAllContainingClassifierEMV2Subclauses(instance));
+		emv2AI.getSubclauses().addAll(subclauses);
 		instance.getAnnexInstances().add(emv2AI);
 
 		Collection<PropagationPoint> pps = EMV2Util.getAllPropagationPoints(instance.getComponentClassifier());
@@ -190,10 +194,33 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiateErrorPath(path, instance, emv2AI);
 		}
 
-		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
-		if (ebsm != null) {
-			for (var state : ebsm.getStates()) {
+		if (stateMachine != null) {
+			for (var state : stateMachine.getStates()) {
 				instantiateState(state, instance, emv2AI);
+			}
+
+			var associations = new ArrayList<EMV2PropertyAssociation>();
+			for (var association : stateMachine.getProperties()) {
+				if (association.getOwnedValues().size() == 1
+						&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
+					if (association.getEmv2Path().isEmpty()) {
+						associations.add(association);
+					}
+				}
+			}
+			if (!associations.isEmpty()) {
+				var stateMachineProperties = EMV2InstanceFactory.eINSTANCE.createStateMachineProperties();
+				stateMachineProperties.setName(stateMachine.getName());
+				stateMachineProperties.setStateMachine(stateMachine);
+				for (var association : associations) {
+					var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+					propertyInstance.setPropertyAssociation(association);
+					propertyInstance.setProperty(association.getProperty());
+					var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+					propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+					stateMachineProperties.getOwnedPropertyAssociations().add(propertyInstance);
+				}
+				emv2AI.setStateMachineProperties(stateMachineProperties);
 			}
 		}
 
@@ -228,7 +255,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
 
-		for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(instance))) {
+		for (var subclause : Lists.reverse(subclauses)) {
 			for (var association : subclause.getProperties()) {
 				if (association.getOwnedValues().size() == 1
 						&& association.getOwnedValues().get(0).getInModes().isEmpty()) {

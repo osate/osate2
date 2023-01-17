@@ -1,0 +1,23 @@
+package properties_on_state_machine
+public
+	system s
+		annex EMV2 {**
+			use behavior properties_on_state_machine::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+			properties
+				ps::boolean_for_all => true;
+				ps::boolean_for_error_behavior_state_machine => true;
+				
+				ps::string1 => "Not on state machine, but on state" applies to state1;
+		end behavior;
+	**};
+end properties_on_state_machine;

@@ -433,6 +433,21 @@ public class PropertiesTest {
 				((StringLiteral) lookup(annexInstance, "ps::string7")).getValue());
 	}
 
+	@Test
+	public void testPropertiesOnStateMachine() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_state_machine.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var stateMachineProperties = annexInstance.getStateMachineProperties();
+
+		assertEquals("machine1", stateMachineProperties.getName());
+
+		assertEquals(2, stateMachineProperties.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(stateMachineProperties, "ps::boolean_for_all")).getValue());
+		assertTrue(((BooleanLiteral) lookup(stateMachineProperties, "ps::boolean_for_error_behavior_state_machine"))
+				.getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

@@ -182,6 +182,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getStateMachineProperties()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getStates()"/>
             </message_arguments>
         </filter>
@@ -193,6 +198,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="setInitialState(StateInstance)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setStateMachineProperties(StateMachineProperties)"/>
             </message_arguments>
         </filter>
     </resource>
@@ -310,6 +320,11 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="createSourceStateReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="createStateMachineProperties()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -1086,6 +1101,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__SUBCLAUSES"/>
             </message_arguments>
         </filter>
@@ -1716,6 +1736,51 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES__ANNEX_INSTANCE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES__OWNED_PROPERTY_ASSOCIATION"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES__QUALIFIED_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES__STATE_MACHINE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="STATE_REFERENCE"/>
             </message_arguments>
         </filter>
@@ -2166,6 +2231,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="getEMV2AnnexInstance_StateMachineProperties()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="getEMV2AnnexInstance_States()"/>
             </message_arguments>
         </filter>
@@ -2342,6 +2412,16 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="getStateInstance_TypeSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getStateMachineProperties()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getStateMachineProperties_StateMachine()"/>
             </message_arguments>
         </filter>
         <filter id="1211105284">
@@ -2628,6 +2708,11 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="EMV2_ANNEX_INSTANCE__STATE_MACHINE_PROPERTIES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="EMV2_ANNEX_INSTANCE__SUBCLAUSES"/>
             </message_arguments>
         </filter>
@@ -2803,6 +2888,16 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="STATE_MACHINE_PROPERTIES__STATE_MACHINE"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
                 <message_argument value="STATE_REFERENCE"/>
             </message_arguments>
         </filter>
@@ -2962,6 +3057,13 @@
         <filter id="1211105284">
             <message_arguments>
                 <message_argument value="setTypeSet(AnonymousTypeSet)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/StateMachineProperties.java" type="org.osate.aadl2.errormodel.instance.StateMachineProperties">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.StateMachineProperties"/>
             </message_arguments>
         </filter>
     </resource>
@@ -3136,6 +3238,16 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="basicGetStateMachineProperties()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="basicSetStateMachineProperties(StateMachineProperties, NotificationChain)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="conditions"/>
             </message_arguments>
         </filter>
@@ -3152,6 +3264,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="modeMappings"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="stateMachineProperties"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -3263,6 +3380,13 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="typeSet"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/errormodel/instance/impl/StateMachinePropertiesImpl.java" type="org.osate.aadl2.errormodel.instance.impl.StateMachinePropertiesImpl">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.errormodel.instance.impl.StateMachinePropertiesImpl"/>
             </message_arguments>
         </filter>
     </resource>
@@ -3430,6 +3554,11 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
+                <message_argument value="createStateMachinePropertiesAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
                 <message_argument value="createStateReferenceAdapter()"/>
             </message_arguments>
         </filter>
@@ -3593,6 +3722,11 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="caseSourceStateReference(SourceStateReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="caseStateMachineProperties(StateMachineProperties)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

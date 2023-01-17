@@ -52,6 +52,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	EMV2AnnexInstance createEMV2AnnexInstance();
 
 	/**
+	 * Returns a new object of class '<em>State Machine Properties</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>State Machine Properties</em>'.
+	 * @generated
+	 */
+	StateMachineProperties createStateMachineProperties();
+
+	/**
 	 * Returns a new object of class '<em>State Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
