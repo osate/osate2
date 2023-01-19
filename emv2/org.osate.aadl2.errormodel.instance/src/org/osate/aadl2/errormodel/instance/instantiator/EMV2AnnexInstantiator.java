@@ -1154,6 +1154,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		sourceInstance.setTypeSet(createAnonymousTypeSet(typeSet));
 		instantiateProperties(sourceInstance, source, component);
+		instantiateProperties(sourceInstance.getTypeSet(), source);
 		annex.getErrorFlows().add(sourceInstance);
 	}
 
