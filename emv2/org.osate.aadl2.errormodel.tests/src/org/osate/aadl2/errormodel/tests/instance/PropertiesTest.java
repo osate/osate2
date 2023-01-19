@@ -1,5 +1,6 @@
 package org.osate.aadl2.errormodel.tests.instance;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.osate.pluginsupport.ScopeFunctions.with;
@@ -471,6 +472,97 @@ public class PropertiesTest {
 			assertEquals("ItemValueError", type.getName());
 			assertEquals(1, type.getOwnedPropertyAssociations().size());
 			assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_all")).getValue());
+		});
+	}
+
+	@Test
+	public void testPropertiesOnTypeInPropagation() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_type_in_propagation.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(8, annexInstance.getPropagations().size());
+		with(annexInstance.getPropagations().get(0), propagation -> {
+			assertEquals("f1", propagation.getName());
+
+			var inType = propagation.getInTypeSet().flatten().get(0);
+			assertEquals(1, inType.getOwnedPropertyAssociations().size());
+			assertEquals("Value on type in in propagation", ((StringLiteral) lookup(inType, "ps::string1")).getValue());
+
+			assertNull(propagation.getOutTypeSet());
+		});
+		with(annexInstance.getPropagations().get(1), propagation -> {
+			assertEquals("f2", propagation.getName());
+
+			assertNull(propagation.getInTypeSet());
+
+			var outType = propagation.getOutTypeSet().flatten().get(0);
+			assertEquals(1, outType.getOwnedPropertyAssociations().size());
+			assertEquals("Value on out type in out propagation",
+					((StringLiteral) lookup(outType, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(2), propagation -> {
+			assertEquals("f3", propagation.getName());
+
+			var inType = propagation.getInTypeSet().flatten().get(0);
+			assertEquals(1, inType.getOwnedPropertyAssociations().size());
+			assertEquals("Value on type in in and out propagation",
+					((StringLiteral) lookup(inType, "ps::string1")).getValue());
+
+			var outType = propagation.getOutTypeSet().flatten().get(0);
+			assertEquals(1, outType.getOwnedPropertyAssociations().size());
+			assertEquals("Value on type in in and out propagation",
+					((StringLiteral) lookup(outType, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(3), propagation -> {
+			assertEquals("fg1.f4", propagation.getName());
+
+			var inType = propagation.getInTypeSet().flatten().get(0);
+			assertEquals(1, inType.getOwnedPropertyAssociations().size());
+			assertEquals("Value on type in propagation in feature group",
+					((StringLiteral) lookup(inType, "ps::string1")).getValue());
+
+			assertNull(propagation.getOutTypeSet());
+		});
+		with(annexInstance.getPropagations().get(4), propagation -> {
+			assertEquals("fg1.fg2.fg3.f5", propagation.getName());
+
+			var inType = propagation.getInTypeSet().flatten().get(0);
+			assertEquals(1, inType.getOwnedPropertyAssociations().size());
+			assertEquals("Value on type in propagation nested in feature group",
+					((StringLiteral) lookup(inType, "ps::string1")).getValue());
+
+			assertNull(propagation.getOutTypeSet());
+		});
+		with(annexInstance.getPropagations().get(5), propagation -> {
+			assertEquals("point1", propagation.getName());
+
+			assertNull(propagation.getInTypeSet());
+
+			var outType = propagation.getOutTypeSet().flatten().get(0);
+			assertEquals(1, outType.getOwnedPropertyAssociations().size());
+			assertEquals("Value on type in point propagation",
+					((StringLiteral) lookup(outType, "ps::string1")).getValue());
+		});
+		with(annexInstance.getPropagations().get(6), propagation -> {
+			assertEquals("access", propagation.getName());
+
+			var inType = propagation.getInTypeSet().flatten().get(0);
+			assertEquals(1, inType.getOwnedPropertyAssociations().size());
+			assertEquals("Value on type in access propagation",
+					((StringLiteral) lookup(inType, "ps::string1")).getValue());
+
+			assertNull(propagation.getOutTypeSet());
+		});
+		with(annexInstance.getPropagations().get(7), propagation -> {
+			assertEquals("memory", propagation.getName());
+
+			var inType = propagation.getInTypeSet().flatten().get(0);
+			assertEquals(1, inType.getOwnedPropertyAssociations().size());
+			assertEquals("Value on type in binding propagation",
+					((StringLiteral) lookup(inType, "ps::string1")).getValue());
+
+			assertNull(propagation.getOutTypeSet());
 		});
 	}
 

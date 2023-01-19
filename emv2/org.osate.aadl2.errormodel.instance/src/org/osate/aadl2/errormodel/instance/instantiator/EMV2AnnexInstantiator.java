@@ -996,12 +996,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				assert epi.getInErrorPropagation() == null && epi.getInTypeSet() == null : "In fields are already set.";
 				epi.setInErrorPropagation(ep);
 				epi.setInTypeSet(createAnonymousTypeSet(ep.getTypeSet()));
+				instantiateProperties(epi.getInTypeSet(), ep);
 				break;
 			case OUT:
 				assert epi.getOutErrorPropagation() == null && epi.getOutTypeSet() == null
 						: "Out fields are already set.";
 				epi.setOutErrorPropagation(ep);
 				epi.setOutTypeSet(createAnonymousTypeSet(ep.getTypeSet()));
+				instantiateProperties(epi.getOutTypeSet(), ep);
 				break;
 			case IN_OUT:
 				throw new RuntimeException(
@@ -1176,19 +1178,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		sinkInstance.setTypeSet(createAnonymousTypeSet(typeSet));
 		instantiateProperties(sinkInstance, sink, component);
-
-		for (var token : sinkInstance.getTypeSet().flatten()) {
-			if (token instanceof TypeInstance type) {
-				var name = sink.getName() + '.' + type.resolveAlias().getName();
-				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
-				var subclause = EcoreUtil2.getContainerOfType(sink, ErrorModelSubclause.class);
-				collectAssociations(associations, subclause.getProperties(), Collections.emptyList(), name);
-				for (var association : associations.values()) {
-					type.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
-				}
-			}
-		}
-
+		instantiateProperties(sinkInstance.getTypeSet(), sink);
 		annex.getErrorFlows().add(sinkInstance);
 	}
 
@@ -1622,6 +1612,26 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
+	private void instantiateProperties(AnonymousTypeSet anonymousTypeSet, NamedElement declarativeHolder) {
+		String holderName;
+		if (declarativeHolder instanceof ErrorPropagation errorPropagation) {
+			holderName = EMV2Util.getPropagationName(errorPropagation);
+		} else {
+			holderName = declarativeHolder.getName();
+		}
+		for (var token : anonymousTypeSet.flatten()) {
+			if (token instanceof TypeInstance type) {
+				var name = holderName + '.' + type.resolveAlias().getName();
+				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+				var subclause = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorModelSubclause.class);
+				collectAssociations(associations, subclause.getProperties(), Collections.emptyList(), name);
+				for (var association : associations.values()) {
+					type.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+				}
+			}
+		}
+	}
+
 	private void instantiateProperties(List<ErrorModelSubclause> subclauses, EMV2AnnexInstance annex) {
 		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
 		for (var subclause : Lists.reverse(subclauses)) {
@@ -1688,6 +1698,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				targetName.append(namedElement.getName());
 			} else {
 				targetName.append(target.getEmv2PropagationKind());
+				if (target.getErrorType() != null) {
+					targetName.append('.');
+					targetName.append(target.getErrorType().getName());
+				}
 			}
 			if (target.getPath() != null) {
 				targetName.append('.');
