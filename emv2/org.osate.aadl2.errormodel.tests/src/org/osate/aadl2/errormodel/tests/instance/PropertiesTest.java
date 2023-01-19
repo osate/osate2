@@ -578,6 +578,21 @@ public class PropertiesTest {
 		assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_all")).getValue());
 	}
 
+	@Test
+	public void testPropertiesOnTypeInState() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_type_in_state.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var state = annexInstance.getStates().get(0);
+		var type = (TypeInstance) state.getTypeSet().flatten().get(0);
+
+		assertEquals(3, type.getOwnedPropertyAssociations().size());
+		assertEquals("Value in machine1", ((StringLiteral) lookup(type, "ps::string1")).getValue());
+		assertEquals("Value in s", ((StringLiteral) lookup(type, "ps::string2")).getValue());
+		assertEquals("Value in s overrides value in machine1",
+				((StringLiteral) lookup(type, "ps::string3")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

@@ -536,6 +536,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		stateInstance.setState(state);
 		if (state.getTypeSet() != null) {
 			stateInstance.setTypeSet(createAnonymousTypeSet(state.getTypeSet()));
+			instantiateProperties(stateInstance.getTypeSet(), state, component);
 		}
 		instantiateProperties(stateInstance, state, component);
 		annex.getStates().add(stateInstance);
@@ -996,14 +997,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				assert epi.getInErrorPropagation() == null && epi.getInTypeSet() == null : "In fields are already set.";
 				epi.setInErrorPropagation(ep);
 				epi.setInTypeSet(createAnonymousTypeSet(ep.getTypeSet()));
-				instantiateProperties(epi.getInTypeSet(), ep);
+				instantiateProperties(epi.getInTypeSet(), ep, component);
 				break;
 			case OUT:
 				assert epi.getOutErrorPropagation() == null && epi.getOutTypeSet() == null
 						: "Out fields are already set.";
 				epi.setOutErrorPropagation(ep);
 				epi.setOutTypeSet(createAnonymousTypeSet(ep.getTypeSet()));
-				instantiateProperties(epi.getOutTypeSet(), ep);
+				instantiateProperties(epi.getOutTypeSet(), ep, component);
 				break;
 			case IN_OUT:
 				throw new RuntimeException(
@@ -1154,7 +1155,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		sourceInstance.setTypeSet(createAnonymousTypeSet(typeSet));
 		instantiateProperties(sourceInstance, source, component);
-		instantiateProperties(sourceInstance.getTypeSet(), source);
+		instantiateProperties(sourceInstance.getTypeSet(), source, component);
 		annex.getErrorFlows().add(sourceInstance);
 	}
 
@@ -1179,7 +1180,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		sinkInstance.setTypeSet(createAnonymousTypeSet(typeSet));
 		instantiateProperties(sinkInstance, sink, component);
-		instantiateProperties(sinkInstance.getTypeSet(), sink);
+		instantiateProperties(sinkInstance.getTypeSet(), sink, component);
 		annex.getErrorFlows().add(sinkInstance);
 	}
 
@@ -1613,7 +1614,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private void instantiateProperties(AnonymousTypeSet anonymousTypeSet, NamedElement declarativeHolder) {
+	private void instantiateProperties(AnonymousTypeSet anonymousTypeSet, NamedElement declarativeHolder,
+			ComponentInstance component) {
 		String holderName;
 		if (declarativeHolder instanceof ErrorPropagation errorPropagation) {
 			holderName = EMV2Util.getPropagationName(errorPropagation);
@@ -1624,7 +1626,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			if (token instanceof TypeInstance type) {
 				var name = holderName + '.' + type.resolveAlias().getName();
 				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
-				var subclause = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorModelSubclause.class);
+				var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
+				if (stateMachine != null) {
+					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name);
+				}
+				var subclause = EMV2Util.getAllContainingClassifierEMV2Subclauses(component).get(0);
 				collectAssociations(associations, subclause.getProperties(), Collections.emptyList(), name);
 				for (var association : associations.values()) {
 					type.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
