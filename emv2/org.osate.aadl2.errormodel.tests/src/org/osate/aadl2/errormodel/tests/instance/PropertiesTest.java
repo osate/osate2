@@ -456,16 +456,21 @@ public class PropertiesTest {
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
 
-		with((TypeInstance) sink.getTypeSet().getElements().get(0), type -> {
+		with((TypeInstance) sink.getTypeSet().flatten().get(0), type -> {
 			assertEquals("ServiceError", type.getName());
 			assertEquals(0, type.getOwnedPropertyAssociations().size());
 		});
-		with((TypeInstance) sink.getTypeSet().getElements().get(1), type -> {
+		with((TypeInstance) sink.getTypeSet().flatten().get(1), type -> {
 			assertEquals("ItemTimingError", type.getName());
 			assertEquals(3, type.getOwnedPropertyAssociations().size());
 			assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_all")).getValue());
 			assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_error_types")).getValue());
 			assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_error_type")).getValue());
+		});
+		with((TypeInstance) sink.getTypeSet().flatten().get(2), type -> {
+			assertEquals("ItemValueError", type.getName());
+			assertEquals(1, type.getOwnedPropertyAssociations().size());
+			assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_all")).getValue());
 		});
 	}
 
