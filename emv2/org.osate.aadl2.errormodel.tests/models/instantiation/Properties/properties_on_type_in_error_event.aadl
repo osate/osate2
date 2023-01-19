@@ -1,0 +1,19 @@
+package properties_on_type_in_error_event
+public
+	system s
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			component error behavior
+				events
+					error1: error event {ServiceError};
+			end component;
+			
+			properties
+				ps::boolean_for_all => true applies to error1.ServiceError;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end properties_on_type_in_error_event;

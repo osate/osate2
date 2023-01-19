@@ -493,6 +493,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		eventInstance.setErrorEvent(event);
 		if (event.getTypeSet() != null) {
 			eventInstance.setTypeSet(createAnonymousTypeSet(event.getTypeSet()));
+			instantiateProperties(eventInstance.getTypeSet(), event, component);
 		}
 		instantiateProperties(eventInstance, event, component);
 		return eventInstance;

@@ -593,6 +593,18 @@ public class PropertiesTest {
 				((StringLiteral) lookup(type, "ps::string3")).getValue());
 	}
 
+	@Test
+	public void testPropertiesOnTypeInErrorEvent() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "properties_on_type_in_error_event.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var event = (ErrorEventInstance) annexInstance.getEvents().get(0);
+		var type = (TypeInstance) event.getTypeSet().flatten().get(0);
+
+		assertEquals(1, type.getOwnedPropertyAssociations().size());
+		assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_all")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);
