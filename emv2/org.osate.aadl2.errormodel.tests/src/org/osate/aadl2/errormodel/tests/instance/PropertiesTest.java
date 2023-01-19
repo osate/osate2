@@ -24,6 +24,7 @@ import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
+import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -446,6 +447,26 @@ public class PropertiesTest {
 		assertTrue(((BooleanLiteral) lookup(stateMachineProperties, "ps::boolean_for_all")).getValue());
 		assertTrue(((BooleanLiteral) lookup(stateMachineProperties, "ps::boolean_for_error_behavior_state_machine"))
 				.getValue());
+	}
+
+	@Test
+	public void testSimpleBooleanOnTypeInSink() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "simple_boolean_on_type_in_sink.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+
+		with((TypeInstance) sink.getTypeSet().getElements().get(0), type -> {
+			assertEquals("ServiceError", type.getName());
+			assertEquals(0, type.getOwnedPropertyAssociations().size());
+		});
+		with((TypeInstance) sink.getTypeSet().getElements().get(1), type -> {
+			assertEquals("ItemTimingError", type.getName());
+			assertEquals(3, type.getOwnedPropertyAssociations().size());
+			assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_all")).getValue());
+			assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_error_types")).getValue());
+			assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_error_type")).getValue());
+		});
 	}
 
 	private static PropertyExpression lookup(NamedElement holder, String name) {

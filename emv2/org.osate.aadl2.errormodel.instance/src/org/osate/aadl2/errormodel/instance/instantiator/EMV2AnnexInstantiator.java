@@ -1176,6 +1176,19 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		sinkInstance.setTypeSet(createAnonymousTypeSet(typeSet));
 		instantiateProperties(sinkInstance, sink, component);
+
+		for (var typeSetElement : sinkInstance.getTypeSet().getElements()) {
+			if (typeSetElement instanceof TypeInstance type) {
+				var name = sink.getName() + '.' + type.resolveAlias().getName();
+				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+				var subclause = EcoreUtil2.getContainerOfType(sink, ErrorModelSubclause.class);
+				collectAssociations(associations, subclause.getProperties(), Collections.emptyList(), name);
+				for (var association : associations.values()) {
+					type.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+				}
+			}
+		}
+
 		annex.getErrorFlows().add(sinkInstance);
 	}
 
