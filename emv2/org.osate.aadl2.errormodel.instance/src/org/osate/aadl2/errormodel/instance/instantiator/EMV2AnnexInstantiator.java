@@ -1629,9 +1629,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				var resolvedType = type.resolveAlias();
 				var name = holderName + '.' + resolvedType.getName();
 				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
-				var library = EcoreUtil2.getContainerOfType(resolvedType, ErrorModelLibrary.class);
-				collectAssociations(associations, library.getProperties(), Collections.emptyList(),
-						resolvedType.getName());
+				var types = new ArrayDeque<ErrorType>();
+				types.addFirst(resolvedType);
+				for (var superType = EMV2Util
+						.resolveAlias(resolvedType.getSuperType()); superType != null; superType = EMV2Util
+								.resolveAlias(superType.getSuperType())) {
+					types.addFirst(superType);
+				}
+				for (var lookupType : types) {
+					var library = EcoreUtil2.getContainerOfType(lookupType, ErrorModelLibrary.class);
+					collectAssociations(associations, library.getProperties(), Collections.emptyList(),
+							lookupType.getName());
+				}
 				var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
 				if (stateMachine != null) {
 					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name);
