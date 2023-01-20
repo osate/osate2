@@ -48,6 +48,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.EdgeReversedGraph;
 import org.jgrapht.graph.GraphWalk;
+import org.jgrapht.graph.MaskSubgraph;
 import org.jgrapht.nio.dot.DOTExporter;
 import org.jgrapht.traverse.BreadthFirstIterator;
 import org.osate.aadl2.DirectionType;
@@ -173,7 +174,7 @@ public class SlicerRepresentation {
 
 		// Run checks on the generated graph to see if there are any obvious problems / assumption violations
 		checkAssumptions();
-//		System.out.println(this.toDot(g));
+		System.out.println(this.toDot(g));
 //		reachThrough(g, "WBS_inst_Instance.ctrl_sys.bscu.channel1.elec_pedal_pos_R",
 //				"WBS_inst_Instance.ctrl_sys.bscu.channel1.monitor_sys.bscu_validity",
 //				"WBS_inst_Instance.ctrl_sys.bscu.channel1.monitor_sys.elec_pedal_pos_R", true);
@@ -625,13 +626,20 @@ public class SlicerRepresentation {
 
 		// TODO: This... should be inspected to make sure it's correct.
 
-		var g1 = reach(graph, sourceName);
-		var g2 = reach(new EdgeReversedGraph<>(g1), targetName);
-		if (!new BiconnectivityInspector<>(g2).getCutpoints().contains(vertexMap.get(midName))) {
+		var gForward = reach(graph, sourceName);
+		if (!gForward.vertexSet().contains(vertexMap.get(targetName))) {
+			// Short circuit, we can't get to the target from the source so there's no point in continuing.
+			return Optional.of(GraphWalk.emptyWalk(graph));
+		}
+		var gBackward = reach(new EdgeReversedGraph<>(gForward), targetName);
+		if (!new BiconnectivityInspector<>(gBackward).getCutpoints().contains(vertexMap.get(midName))) {
 			// midpoint not required for path construction
 			if (counterexample) {
+				// Remove mid vertex and edges, can't use g2 because its reversed
+				var gMasked = new MaskSubgraph<>(new EdgeReversedGraph<>(gBackward), (v -> v.getName().equals(midName)),
+						(e -> false));
 				return Optional.of(
-						BFSShortestPath.findPathBetween(graph, vertexMap.get(sourceName), vertexMap.get(targetName)));
+						BFSShortestPath.findPathBetween(gMasked, vertexMap.get(sourceName), vertexMap.get(targetName)));
 			} else {
 				return Optional.of(GraphWalk.emptyWalk(graph));
 			}
