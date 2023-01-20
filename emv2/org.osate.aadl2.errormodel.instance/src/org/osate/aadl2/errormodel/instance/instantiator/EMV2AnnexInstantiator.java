@@ -1601,13 +1601,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
 		var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
 		if (stateMachine != null) {
-			collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name);
+			collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name,
+					instanceHolder);
 		}
 		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
 		for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
 				.getContainingComponentInstance()) {
 			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
-				collectAssociations(associations, subclause.getProperties(), expectedContainmentPath, name);
+				collectAssociations(associations, subclause.getProperties(), expectedContainmentPath, name,
+						instanceHolder);
 			}
 			expectedContainmentPath.addFirst(currentComponent);
 		}
@@ -1629,6 +1631,17 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				var resolvedType = type.resolveAlias();
 				var name = holderName + '.' + resolvedType.getName();
 				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+				var sets = new ArrayDeque<TypeSet>();
+				for (var typeSetInstance = EcoreUtil2.getContainerOfType(type,
+						TypeSetInstance.class); typeSetInstance != null; typeSetInstance = EcoreUtil2
+								.getContainerOfType(typeSetInstance.eContainer(), TypeSetInstance.class)) {
+					sets.addFirst(typeSetInstance.resolveAlias());
+				}
+				for (var set : sets) {
+					var library = EcoreUtil2.getContainerOfType(set, ErrorModelLibrary.class);
+					collectAssociations(associations, library.getProperties(), Collections.emptyList(), set.getName(),
+							type);
+				}
 				var types = new ArrayDeque<ErrorType>();
 				types.addFirst(resolvedType);
 				for (var superType = EMV2Util
@@ -1639,18 +1652,20 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				for (var lookupType : types) {
 					var library = EcoreUtil2.getContainerOfType(lookupType, ErrorModelLibrary.class);
 					collectAssociations(associations, library.getProperties(), Collections.emptyList(),
-							lookupType.getName());
+							lookupType.getName(), type);
 				}
 				var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
 				if (stateMachine != null) {
-					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name);
+					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name,
+							type);
 				}
 				var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
 				for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
 						.getContainingComponentInstance()) {
 					for (var subclause : Lists
 							.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
-						collectAssociations(associations, subclause.getProperties(), expectedContainmentPath, name);
+						collectAssociations(associations, subclause.getProperties(), expectedContainmentPath, name,
+								type);
 					}
 					expectedContainmentPath.addFirst(currentComponent);
 				}
@@ -1700,13 +1715,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private void collectAssociations(Map<Property, EMV2PropertyAssociation> associations,
 			List<EMV2PropertyAssociation> declarativeAssociations, Iterable<ComponentInstance> expectedContainmentPath,
-			String name) {
+			String name, EMV2InstanceObject instanceHolder) {
 		for (var association : declarativeAssociations) {
-			if (!association.isModal()) {
+			var property = association.getProperty();
+			if (!association.isModal() && instanceHolder.acceptsProperty(property)) {
 				for (var path : association.getEmv2Path()) {
 					if (matchesContainmentPath(expectedContainmentPath, path)
 							&& buildTargetName(path).equalsIgnoreCase(name)) {
-						associations.put(association.getProperty(), association);
+						associations.put(property, association);
 					}
 				}
 			}
