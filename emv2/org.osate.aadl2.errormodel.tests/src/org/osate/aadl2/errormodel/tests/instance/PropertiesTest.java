@@ -697,6 +697,20 @@ public class PropertiesTest {
 				((StringLiteral) lookup(type, "ps::string3")).getValue());
 	}
 
+	@Test
+	public void testLookupOnTypeFromLibrary() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_type_from_library.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+		var type = sink.getTypeSet().flatten().get(0);
+
+		assertEquals(3, type.getOwnedPropertyAssociations().size());
+		assertEquals("Value in library", ((StringLiteral) lookup(type, "ps::string1")).getValue());
+		assertEquals("Value in s", ((StringLiteral) lookup(type, "ps::string2")).getValue());
+		assertEquals("Value in s overrides value in library", ((StringLiteral) lookup(type, "ps::string3")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

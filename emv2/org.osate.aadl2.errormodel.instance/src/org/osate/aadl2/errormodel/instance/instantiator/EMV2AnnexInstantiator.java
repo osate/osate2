@@ -127,6 +127,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -1625,8 +1626,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		for (var token : anonymousTypeSet.flatten()) {
 			if (token instanceof TypeInstance type) {
-				var name = holderName + '.' + type.resolveAlias().getName();
+				var resolvedType = type.resolveAlias();
+				var name = holderName + '.' + resolvedType.getName();
 				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+				var library = EcoreUtil2.getContainerOfType(resolvedType, ErrorModelLibrary.class);
+				collectAssociations(associations, library.getProperties(), Collections.emptyList(),
+						resolvedType.getName());
 				var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
 				if (stateMachine != null) {
 					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name);
