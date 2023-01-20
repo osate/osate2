@@ -605,6 +605,60 @@ public class PropertiesTest {
 		assertTrue(((BooleanLiteral) lookup(type, "ps::boolean_for_all")).getValue());
 	}
 
+	@Test
+	public void testLookupOnTypeFromTypeExtension() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_type_from_type_extension.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(3);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+		var type = sink.getTypeSet().flatten().get(0);
+
+		assertEquals(6, type.getOwnedPropertyAssociations().size());
+		assertEquals("Value in s1", ((StringLiteral) lookup(type, "ps::string1")).getValue());
+		assertEquals("Value in s2", ((StringLiteral) lookup(type, "ps::string2")).getValue());
+		assertEquals("Value in s3", ((StringLiteral) lookup(type, "ps::string3")).getValue());
+		assertEquals("Value in s2 overrides value in s1", ((StringLiteral) lookup(type, "ps::string4")).getValue());
+		assertEquals("Value in s3 overrides value in s2", ((StringLiteral) lookup(type, "ps::string5")).getValue());
+		assertEquals("Value in s3 overrides value in s2 and s1",
+				((StringLiteral) lookup(type, "ps::string6")).getValue());
+	}
+
+	@Test
+	public void testLookupOnTypeFromImplExtension() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_type_from_impl_extension.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(3);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+		var type = sink.getTypeSet().flatten().get(0);
+
+		assertEquals(6, type.getOwnedPropertyAssociations().size());
+		assertEquals("Value in s.i1", ((StringLiteral) lookup(type, "ps::string1")).getValue());
+		assertEquals("Value in s.i2", ((StringLiteral) lookup(type, "ps::string2")).getValue());
+		assertEquals("Value in s.i3", ((StringLiteral) lookup(type, "ps::string3")).getValue());
+		assertEquals("Value in s.i2 overrides value in s.i1", ((StringLiteral) lookup(type, "ps::string4")).getValue());
+		assertEquals("Value in s.i3 overrides value in s.i2", ((StringLiteral) lookup(type, "ps::string5")).getValue());
+		assertEquals("Value in s.i3 overrides value in s.i2 and s.i1",
+				((StringLiteral) lookup(type, "ps::string6")).getValue());
+	}
+
+	@Test
+	public void testLookupOnTypeFromTypeAndImpl() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_type_from_type_and_impl.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(3);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+		var type = sink.getTypeSet().flatten().get(0);
+
+		assertEquals(7, type.getOwnedPropertyAssociations().size());
+		assertEquals("Value in s1", ((StringLiteral) lookup(type, "ps::string1")).getValue());
+		assertEquals("Value in s2", ((StringLiteral) lookup(type, "ps::string2")).getValue());
+		assertEquals("Value in s1.i", ((StringLiteral) lookup(type, "ps::string3")).getValue());
+		assertEquals("Value in s2.i", ((StringLiteral) lookup(type, "ps::string4")).getValue());
+		assertEquals("Value in s1.i overrides value in s1", ((StringLiteral) lookup(type, "ps::string5")).getValue());
+		assertEquals("Value in s2.i overrides value in s2", ((StringLiteral) lookup(type, "ps::string6")).getValue());
+		assertEquals("Value in s1.i overrides value in s2", ((StringLiteral) lookup(type, "ps::string7")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);
