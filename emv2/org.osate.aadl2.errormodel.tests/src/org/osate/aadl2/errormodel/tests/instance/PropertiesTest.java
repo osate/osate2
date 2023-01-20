@@ -659,6 +659,44 @@ public class PropertiesTest {
 		assertEquals("Value in s1.i overrides value in s2", ((StringLiteral) lookup(type, "ps::string7")).getValue());
 	}
 
+	@Test
+	public void testLookupOnTypeFromContainer() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_type_from_container.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var middle = InstantiateModel.instantiate(system).getComponentInstances().get(0);
+		var inner = middle.getComponentInstances().get(0);
+		var annexInstance = (EMV2AnnexInstance) inner.getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+		var type = sink.getTypeSet().flatten().get(0);
+
+		assertEquals(6, type.getOwnedPropertyAssociations().size());
+		assertEquals("Value in inner", ((StringLiteral) lookup(type, "ps::string1")).getValue());
+		assertEquals("Value in middle.i", ((StringLiteral) lookup(type, "ps::string2")).getValue());
+		assertEquals("Value in outer.i", ((StringLiteral) lookup(type, "ps::string3")).getValue());
+		assertEquals("Value in middle.i overrides value in inner",
+				((StringLiteral) lookup(type, "ps::string4")).getValue());
+		assertEquals("Value in outer.i overrides value in middle.i",
+				((StringLiteral) lookup(type, "ps::string5")).getValue());
+		assertEquals("Value in outer.i overrides value in middle.i and inner",
+				((StringLiteral) lookup(type, "ps::string6")).getValue());
+	}
+
+	@Test
+	public void testLookupOnTypeFromContainerWithExtension() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "lookup_on_type_from_container_with_extension.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(2);
+		var inner = InstantiateModel.instantiate(system).getComponentInstances().get(0);
+		var annexInstance = (EMV2AnnexInstance) inner.getAnnexInstances().get(0);
+		var sink = (ErrorSinkInstance) annexInstance.getErrorFlows().get(0);
+		var type = sink.getTypeSet().flatten().get(0);
+
+		assertEquals(3, type.getOwnedPropertyAssociations().size());
+		assertEquals("Value in outer.i1", ((StringLiteral) lookup(type, "ps::string1")).getValue());
+		assertEquals("Value in outer.i2", ((StringLiteral) lookup(type, "ps::string2")).getValue());
+		assertEquals("Value in outer.i2 overrides value in outer.i1",
+				((StringLiteral) lookup(type, "ps::string3")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

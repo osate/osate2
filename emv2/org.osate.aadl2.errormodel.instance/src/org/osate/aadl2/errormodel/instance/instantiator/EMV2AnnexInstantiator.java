@@ -1631,8 +1631,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				if (stateMachine != null) {
 					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name);
 				}
-				for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(component))) {
-					collectAssociations(associations, subclause.getProperties(), Collections.emptyList(), name);
+				var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+				for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
+						.getContainingComponentInstance()) {
+					for (var subclause : Lists
+							.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+						collectAssociations(associations, subclause.getProperties(), expectedContainmentPath, name);
+					}
+					expectedContainmentPath.addFirst(currentComponent);
 				}
 				for (var association : associations.values()) {
 					type.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
