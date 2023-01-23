@@ -1599,20 +1599,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			name = declarativeHolder.getName();
 		}
 		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
-		var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
-		if (stateMachine != null) {
-			collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name,
-					instanceHolder);
-		}
-		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
-		for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
-				.getContainingComponentInstance()) {
-			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
-				collectAssociations(associations, subclause.getProperties(), expectedContainmentPath, name,
-						instanceHolder);
-			}
-			expectedContainmentPath.addFirst(currentComponent);
-		}
+		collectAssociations(associations, declarativeHolder, component, name, instanceHolder);
 		for (var association : associations.values()) {
 			instanceHolder.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
 		}
@@ -1628,37 +1615,30 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		for (var token : anonymousTypeSet.flatten()) {
 			if (token instanceof TypeInstance type) {
-				var resolvedType = type.resolveAlias();
-				var name = holderName + '.' + resolvedType.getName();
 				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
 
-				var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
-				if (stateMachine != null) {
-					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), holderName,
-							type);
-				}
-				var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
-				for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
-						.getContainingComponentInstance()) {
-					for (var subclause : Lists
-							.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
-						collectAssociations(associations, subclause.getProperties(), expectedContainmentPath,
-								holderName, type);
-					}
-					expectedContainmentPath.addFirst(currentComponent);
-				}
-
+				/*
+				 * Find properties which are defined on the EMV2 element (propagation, state, event, etc) and can be
+				 * inhertied by the error type.
+				 */
+				collectAssociations(associations, declarativeHolder, component, holderName, type);
 				var sets = new ArrayDeque<TypeSet>();
 				for (var typeSetInstance = EcoreUtil2.getContainerOfType(type,
 						TypeSetInstance.class); typeSetInstance != null; typeSetInstance = EcoreUtil2
 								.getContainerOfType(typeSetInstance.eContainer(), TypeSetInstance.class)) {
 					sets.addFirst(typeSetInstance.resolveAlias());
 				}
+
+				// Find properties which are defined on a containing type set and can be inherited by the error type.
 				for (var set : sets) {
 					var library = EcoreUtil2.getContainerOfType(set, ErrorModelLibrary.class);
 					collectAssociations(associations, library.getProperties(), Collections.emptyList(), set.getName(),
 							type);
 				}
+
+				var resolvedType = type.resolveAlias();
+
+				// Find properties which are defined on a super type which this error type extends from.
 				var types = new ArrayDeque<ErrorType>();
 				types.addFirst(resolvedType);
 				for (var superType = EMV2Util
@@ -1671,20 +1651,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					collectAssociations(associations, library.getProperties(), Collections.emptyList(),
 							lookupType.getName(), type);
 				}
-				if (stateMachine != null) {
-					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name,
-							type);
-				}
-				expectedContainmentPath.clear();
-				for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
-						.getContainingComponentInstance()) {
-					for (var subclause : Lists
-							.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
-						collectAssociations(associations, subclause.getProperties(), expectedContainmentPath, name,
-								type);
-					}
-					expectedContainmentPath.addFirst(currentComponent);
-				}
+
+				// Find properties which are defined on the actual error type in a state machine or a subclause.
+				var name = holderName + '.' + resolvedType.getName();
+				collectAssociations(associations, declarativeHolder, component, name, type);
+
 				for (var association : associations.values()) {
 					type.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
 				}
@@ -1727,6 +1698,36 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			stateMachineProperties.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
 		}
 		return stateMachineProperties;
+	}
+
+	private void collectAssociations(Map<Property, EMV2PropertyAssociation> associations,
+			NamedElement declarativeHolder, ComponentInstance component, String name,
+			EMV2InstanceObject instanceHolder) {
+		// Find properties which are defined in the containing state machine.
+		var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
+		if (stateMachine != null) {
+			collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name,
+					instanceHolder);
+		}
+
+		/*
+		 * This outer loop finds properties which are defined in the local component as well as contained properties.
+		 * The loop starts at the local component and moves up the the containment hierarchy so that the top level
+		 * component, which has the highest precedence for property lookup, is processed last.
+		 */
+		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+		for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
+				.getContainingComponentInstance()) {
+			/*
+			 * This inner loop finds properties which are defined in the local subclause as well as subclauses inherited
+			 * via component extension and realization.
+			 */
+			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+				collectAssociations(associations, subclause.getProperties(), expectedContainmentPath, name,
+						instanceHolder);
+			}
+			expectedContainmentPath.addFirst(currentComponent);
+		}
 	}
 
 	private void collectAssociations(Map<Property, EMV2PropertyAssociation> associations,
