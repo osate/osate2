@@ -1,0 +1,34 @@
+package lookup_on_type_from_containing_element
+public
+	system s
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types lookup_on_type_from_containing_element;
+			
+			error propagations
+				f: in propagation {set1};
+				flows
+					sink1: error sink f;
+			end propagations;
+			
+			properties
+				ps::string1 => "Value on sink" applies to sink1;
+				ps::string3 => "Value on type" applies to sink1.type1;
+				ps::string4 => "Should be overridden by value on set" applies to sink1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error types
+			type1: type;
+			set1: type set {type1};
+			properties
+				ps::string2 => "Value on set" applies to set1;
+				ps::string4 => "Value on set overrides value on sink" applies to set1;
+		end types;
+	**};
+end lookup_on_type_from_containing_element;

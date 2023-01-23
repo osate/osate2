@@ -1631,6 +1631,23 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				var resolvedType = type.resolveAlias();
 				var name = holderName + '.' + resolvedType.getName();
 				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+
+				var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
+				if (stateMachine != null) {
+					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), holderName,
+							type);
+				}
+				var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+				for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
+						.getContainingComponentInstance()) {
+					for (var subclause : Lists
+							.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+						collectAssociations(associations, subclause.getProperties(), expectedContainmentPath,
+								holderName, type);
+					}
+					expectedContainmentPath.addFirst(currentComponent);
+				}
+
 				var sets = new ArrayDeque<TypeSet>();
 				for (var typeSetInstance = EcoreUtil2.getContainerOfType(type,
 						TypeSetInstance.class); typeSetInstance != null; typeSetInstance = EcoreUtil2
@@ -1654,12 +1671,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					collectAssociations(associations, library.getProperties(), Collections.emptyList(),
 							lookupType.getName(), type);
 				}
-				var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
 				if (stateMachine != null) {
 					collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name,
 							type);
 				}
-				var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+				expectedContainmentPath.clear();
 				for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
 						.getContainingComponentInstance()) {
 					for (var subclause : Lists

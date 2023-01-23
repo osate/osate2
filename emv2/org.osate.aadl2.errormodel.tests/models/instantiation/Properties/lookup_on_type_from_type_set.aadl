@@ -27,7 +27,7 @@ public
 				ps::string2 => "Value on inner" applies to inner;
 				ps::string3 => "Value on type1" applies to type1;
 				
-				ps::string4 => "Should be overrideen by value on inner" applies to outer;
+				ps::string4 => "Should be overridden by value on inner" applies to outer;
 				ps::string4 => "Value on inner overrides value on outer" applies to inner;
 				
 				ps::string5 => "Should be overridden by value on type1" applies to inner;
