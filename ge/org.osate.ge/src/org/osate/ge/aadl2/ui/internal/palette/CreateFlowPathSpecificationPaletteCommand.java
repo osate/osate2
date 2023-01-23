@@ -23,6 +23,7 @@
  */
 package org.osate.ge.aadl2.ui.internal.palette;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,8 +116,8 @@ implements CreateConnectionPaletteCommand {
 
 	private List<ComponentType> getPotentialOwners(final BusinessObjectContext srcBoc,
 			final BusinessObjectContext dstBoc, final QueryService queryService) {
-		final List<ComponentType> potentialOwners = FlowSpecificationCreationUtil.getPotentialOwnersByFeature(srcBoc,
-				queryService);
+		final List<ComponentType> potentialOwners = new ArrayList<>(
+				FlowSpecificationCreationUtil.getPotentialOwnersByFeature(srcBoc, queryService));
 		potentialOwners.retainAll(FlowSpecificationCreationUtil.getPotentialOwnersByFeature(dstBoc, queryService));
 		return potentialOwners;
 	}
