@@ -23,11 +23,14 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.List;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
 import org.osate.aadl2.errormodel.instance.CompositeConditionExpression;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
@@ -440,4 +443,8 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public List<? extends NamedElement> getInstantiatedObjects() {
+		return List.of(getComposite());
+	}
 } // CompositeStateInstanceImpl

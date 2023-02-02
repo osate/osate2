@@ -1,0 +1,19 @@
+package properties_on_recover_event
+public
+	system s
+		annex EMV2 {**
+			component error behavior
+				events
+					recover1: recover event;
+			end component;
+			
+			properties
+				ps::boolean_for_all => true applies to recover1;
+				ps::boolean_for_error_behavior_event => true applies to recover1;
+				ps::boolean_for_recover_event => true applies to recover1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end properties_on_recover_event;

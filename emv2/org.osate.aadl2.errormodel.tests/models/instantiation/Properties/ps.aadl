@@ -1,0 +1,33 @@
+property set ps is
+	boolean_for_all: aadlboolean applies to (all);
+	boolean_for_propagation: aadlboolean applies to ({emv2}**error propagation);
+	boolean_for_error_flow: aadlboolean applies to ({emv2}**error flow);
+	boolean_for_error_source: aadlboolean applies to ({emv2}**error source);
+	boolean_for_error_sink: aadlboolean applies to ({emv2}**error sink);
+	boolean_for_error_path: aadlboolean applies to ({emv2}**error path);
+	boolean_for_error_behavior_state: aadlboolean applies to ({emv2}**error behavior state);
+	boolean_for_error_behavior_event: aadlboolean applies to ({emv2}**error behavior event);
+	boolean_for_error_event: aadlboolean applies to ({emv2}**error event);
+	boolean_for_recover_event: aadlboolean applies to ({emv2}**recover event);
+	boolean_for_repair_event: aadlboolean applies to ({emv2}**repair event);
+	boolean_for_error_behavior_transition: aadlboolean applies to ({emv2}**error behavior transition);
+	boolean_for_outgoing_propagation_condition: aadlboolean applies to ({emv2}**outgoing propagation condition);
+	boolean_for_error_detection: aadlboolean applies to ({emv2}**error detection);
+	boolean_for_composite_state: aadlboolean applies to ({emv2}**composite state);
+	boolean_for_propagation_path: aadlboolean applies to ({emv2}**propagation path);
+	boolean_for_error_model_subclause: aadlboolean applies to ({emv2}**error model subclause);
+	boolean_for_error_behavior_state_machine: aadlboolean applies to ({emv2}** error behavior state machine);
+	boolean_for_error_types: aadlboolean applies to ({emv2}** error types);
+	boolean_for_error_type: aadlboolean applies to ({emv2}**error types);
+	
+	string1: aadlstring applies to (all);
+	string2: aadlstring applies to (all);
+	string3: aadlstring applies to (all);
+	string4: aadlstring applies to (all);
+	string5: aadlstring applies to (all);
+	string6: aadlstring applies to (all);
+	string7: aadlstring applies to (all);
+	string8: aadlstring applies to (all);
+	
+	string_for_type_set: aadlstring applies to ({emv2}**type set);
+end ps;

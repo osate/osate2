@@ -78,6 +78,7 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateMachineProperties;
 import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.StringCode;
@@ -177,6 +178,26 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(emv2InstanceObject);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case EMV2InstancePackage.STATE_MACHINE_PROPERTIES: {
+			StateMachineProperties stateMachineProperties = (StateMachineProperties) theEObject;
+			T result = caseStateMachineProperties(stateMachineProperties);
+			if (result == null) {
+				result = caseEMV2InstanceObject(stateMachineProperties);
+			}
+			if (result == null) {
+				result = caseInstanceObject(stateMachineProperties);
+			}
+			if (result == null) {
+				result = caseNamedElement(stateMachineProperties);
+			}
+			if (result == null) {
+				result = caseElement(stateMachineProperties);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1525,6 +1546,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEMV2InstanceObject(EMV2InstanceObject object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>State Machine Properties</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>State Machine Properties</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStateMachineProperties(StateMachineProperties object) {
 		return null;
 	}
 

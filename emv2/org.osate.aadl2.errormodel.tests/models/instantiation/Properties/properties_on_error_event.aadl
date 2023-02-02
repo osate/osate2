@@ -1,0 +1,35 @@
+package properties_on_error_event
+public
+	system s
+		annex EMV2 {**
+			use behavior properties_on_error_event::machine1;
+			
+			component error behavior
+				events
+					error2: error event;
+			end component;
+			
+			properties
+				ps::string2 => "Value in s" applies to error1;
+				ps::string3 => "Value in s overrides value in machine1" applies to error1;
+				
+				ps::string1 => "Don't search in state machine for value" applies to error2;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			events
+				error1: error event;
+			properties
+				ps::boolean_for_all => true applies to error1;
+				ps::boolean_for_error_behavior_event => true applies to error1;
+				ps::boolean_for_error_event => true applies to error1;
+				ps::string1 => "Value in machine1" applies to error1;
+				ps::string3 => "Should be overridden by value in s" applies to error1;
+		end behavior;
+	**};
+end properties_on_error_event;

@@ -1,5 +1,4 @@
 /**
- * *
  * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -38,6 +37,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import org.osate.aadl2.Aadl2Package;
 
 import org.osate.aadl2.provider.AnnexLibraryItemProvider;
 
@@ -235,6 +236,11 @@ public class ErrorModelLibraryItemProvider extends AnnexLibraryItemProvider
 
     newChildDescriptors.add
       (createChildParameter
+        (Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation(),
+         ErrorModelFactory.eINSTANCE.createEMV2PropertyAssociation()));
+
+    newChildDescriptors.add
+      (createChildParameter
         (ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY__TYPES,
          ErrorModelFactory.eINSTANCE.createErrorType()));
 
@@ -262,6 +268,31 @@ public class ErrorModelLibraryItemProvider extends AnnexLibraryItemProvider
       (createChildParameter
         (ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY__TRANSFORMATIONS,
          ErrorModelFactory.eINSTANCE.createTypeTransformationSet()));
+  }
+
+  /**
+   * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection)
+  {
+    Object childFeature = feature;
+    Object childObject = child;
+
+    boolean qualify =
+      childFeature == Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation() ||
+      childFeature == ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY__PROPERTIES;
+
+    if (qualify)
+    {
+      return getString
+        ("_UI_CreateChild_text2",
+         new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+    }
+    return super.getCreateChildText(owner, feature, child, selection);
   }
 
   /**

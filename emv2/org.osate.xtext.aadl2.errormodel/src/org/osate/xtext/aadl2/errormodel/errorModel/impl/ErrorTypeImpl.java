@@ -36,6 +36,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
  * <!-- begin-user-doc -->
+ *
+ * Lutz moved ErrorTypeImpl from src-gen to src. This was necessary to override the getQualifiedName method. After
+ * regeneration from the Xtext grammar the ErrorTypeImpl in src-gen must be deleted.
+ *
  * An implementation of the model object '<em><b>Error Type</b></em>'.
  * <!-- end-user-doc -->
  * <p>
