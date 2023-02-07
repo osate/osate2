@@ -67,16 +67,6 @@
 								<id>org.osate.alisa.contribution</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
-							<requirement>
-								<type>eclipse-plugin</type>
-								<id>com.rockwellcollins.atc.resolute</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
-							<requirement>
-								<type>eclipse-plugin</type>
-								<id>com.rockwellcollins.atc.resolute.analysis</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
 						</extraRequirements>
 					</dependency-resolution>
 				</configuration>

@@ -31,7 +31,6 @@ import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.verify.VerifyStandaloneSetup;
 
 import com.google.inject.Injector;
-import com.rockwellcollins.atc.resolute.ResoluteStandaloneSetup;
 
 public class FullAlisaInjectorProvider extends Aadl2InjectorProvider {
 	@Override
@@ -42,7 +41,6 @@ public class FullAlisaInjectorProvider extends Aadl2InjectorProvider {
 		ReqSpecStandaloneSetup.doSetup();
 		VerifyStandaloneSetup.doSetup();
 		AlisaStandaloneSetup.doSetup();
-		ResoluteStandaloneSetup.doSetup();
 
 		return super.internalCreateInjector();
 	}
