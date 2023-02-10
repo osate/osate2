@@ -29,7 +29,7 @@ import org.osgi.framework.Bundle;
 public class ResoluteUtil {
 
 	private final static String BUNDLE_ID = "com.rockwellcollins.atc.resolute.analysis";
-	private final static String CLASS_ID = "com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterface";
+	private final static String CLASS_ID = "com.rockwellcollins.atc.resolute.analysis.access.ResoluteInterface";
 
 	private static ResoluteAccess RESOLUTE = null;
 
