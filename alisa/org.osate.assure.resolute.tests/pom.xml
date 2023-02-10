@@ -23,7 +23,7 @@
 		</repository>
 		<repository>
 			<id>resolute</id>
-			<url>http://osate-build.sei.cmu.edu/download/osate/stable/2.3.7/updates</url>
+			<url>https://raw.githubusercontent.com/loonwerks/Resolute-Updates/master</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>
@@ -65,6 +65,16 @@
 							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.osate.alisa.contribution</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>com.rockwellcollins.atc.resolute</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>com.rockwellcollins.atc.resolute.analysis</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 						</extraRequirements>
