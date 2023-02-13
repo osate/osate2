@@ -28,7 +28,7 @@ pipeline {
                   -Dsonar.pullrequest.branch=$CHANGE_BRANCH \
                   -Dsonar.pullrequest.base=$CHANGE_TARGET \
                   -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                  -Dcodecoverage=true -Dspotbugs=true -Djavadoc=false -Dpr.build=true'
+                  -Dcodecoverage=false -Dspotbugs=true -Djavadoc=false -Dpr.build=true'
             }
           }
         }
@@ -45,7 +45,7 @@ pipeline {
               sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
                   -Pfull -Dsonar.login=$SONARTOKEN \
                   -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                  -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'
+                  -Dcodecoverage=false -Dspotbugs=true -Djavadoc=true'
             }
           }
         }
