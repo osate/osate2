@@ -11,5 +11,7 @@ Require-Bundle: org.eclipse.osgi,
  org.jgrapht,
  org.osate.aadl2.errormodel.instance,
  org.apache.commons.lang,
- org.eclipse.xtend.typesystem.emf
+ org.eclipse.xtend.typesystem.emf,
+ org.osate.aadl2.modelsupport,
+ org.osate.pluginsupport
 Export-Package: org.osate.slicer

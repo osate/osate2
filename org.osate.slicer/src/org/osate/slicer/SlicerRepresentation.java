@@ -147,6 +147,14 @@ public class SlicerRepresentation {
 	public record IObjErrorPair(InstanceObject iobj, Optional<TypeTokenInstance> token) {
 	};
 
+	public Graph<OsateSlicerVertex, DefaultEdge> getG() {
+		return this.g;
+	}
+
+	public Graph<OsateSlicerVertex, DefaultEdge> getRG() {
+		return this.rg;
+	}
+
 	public void buildGraph(SystemInstance si) {
 		// Add vertices and explicit edges from core AADL
 		SlicerSwitch coreSwitch = new SlicerSwitch();
