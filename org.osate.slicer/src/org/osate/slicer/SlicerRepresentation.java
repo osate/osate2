@@ -96,7 +96,6 @@ import com.google.common.collect.Sets;
  *
  */
 public class SlicerRepresentation {
-
 	/**
 	 * The primary graph. All other graphs are subgraphs of this one.
 	 */
@@ -150,7 +149,7 @@ public class SlicerRepresentation {
 	public void buildGraph(SystemInstance si) {
 		// Add vertices and explicit edges from core AADL
 		SlicerSwitch coreSwitch = new SlicerSwitch();
-		EcoreUtil.getAllContents(si.eResource(), true).forEachRemaining(elem -> {
+		EcoreUtil.getAllContents(si, true).forEachRemaining(elem -> {
 			coreSwitch.doSwitch((Element) elem);
 		});
 
@@ -158,7 +157,7 @@ public class SlicerRepresentation {
 		// Add vertices and edges from EMV2 instance
 		Emv2SlicerSwitch emv2Switch = new Emv2SlicerSwitch();
 		var visitedElems = new HashSet<Element>();
-		EcoreUtil.getAllContents(si.eResource(), true).forEachRemaining(elem -> {
+		EcoreUtil.getAllContents(si, true).forEachRemaining(elem -> {
 			visitedElems.add((Element) elem);
 			emv2Switch.doSwitch((Element) elem);
 		});
@@ -174,7 +173,7 @@ public class SlicerRepresentation {
 
 		// Run checks on the generated graph to see if there are any obvious problems / assumption violations
 		checkAssumptions();
-		System.out.println(this.toDot(g));
+//		System.out.println(this.toDot(g));
 //		reachThrough(g, "WBS_inst_Instance.ctrl_sys.bscu.channel1.elec_pedal_pos_R",
 //				"WBS_inst_Instance.ctrl_sys.bscu.channel1.monitor_sys.bscu_validity",
 //				"WBS_inst_Instance.ctrl_sys.bscu.channel1.monitor_sys.elec_pedal_pos_R", true);
@@ -563,7 +562,7 @@ public class SlicerRepresentation {
 	 * @param origin The vertex to begin slicing from
 	 * @return The subgraph reachable from the origin
 	 */
-	private AsSubgraph<OsateSlicerVertex, DefaultEdge> reach(Graph<OsateSlicerVertex, DefaultEdge> graph,
+	public AsSubgraph<OsateSlicerVertex, DefaultEdge> reach(Graph<OsateSlicerVertex, DefaultEdge> graph,
 			String origin) {
 
 		// You might reasonably wonder why this is handwritten, instead of using some JGraphT built-in method.
@@ -632,6 +631,7 @@ public class SlicerRepresentation {
 			return Optional.of(GraphWalk.emptyWalk(graph));
 		}
 		var gBackward = reach(new EdgeReversedGraph<>(gForward), targetName);
+		// TODO: Instead of getting cutpoints, consider building masked subgraph and then just re-running reachability from src to tgt
 		if (!new BiconnectivityInspector<>(gBackward).getCutpoints().contains(vertexMap.get(midName))) {
 			// midpoint not required for path construction
 			if (counterexample) {
@@ -705,11 +705,19 @@ public class SlicerRepresentation {
 	 * Debug function which dumps the internal graph to dot so it can be fed into graphviz
 	 * @return A string which can be input to graphviz
 	 */
-	private String toDot(Graph<OsateSlicerVertex, DefaultEdge> g) {
+	public String toDot(Graph<OsateSlicerVertex, DefaultEdge> g) {
 		DOTExporter<OsateSlicerVertex, DefaultEdge> exporter = new DOTExporter<>(v -> "\"" + v.getName() + "\"");
 		Writer writer = new StringWriter();
 		exporter.exportGraph(g, writer);
 		return writer.toString();
+	}
+
+	public Graph<OsateSlicerVertex, DefaultEdge> getGraph() {
+		return g;
+	}
+
+	public Graph<OsateSlicerVertex, DefaultEdge> getReversedGraph() {
+		return rg;
 	}
 
 	@Override
@@ -805,7 +813,6 @@ public class SlicerRepresentation {
 			srcTypes.stream().filter(tse -> tse instanceof TypeTokenInstance).forEach(tse -> {
 				TypeTokenInstance srcTTI = (TypeTokenInstance) tse;
 				String srcVertexName = getVertex(srcProp, srcTTI);
-				System.out.println("Error Path: " + srcVertexName + " -> " + tgtVertexNameFinal);
 				addEdge(srcVertexName, tgtVertexNameFinal);
 			});
 			return null;
@@ -871,6 +878,7 @@ public class SlicerRepresentation {
 			}
 
 			// If the component has a decomposition specified, we need to record that
+			// TODO: Chat with Lutz about how to make this more robust, it may not always work
 			if (ci.getConnectionReferences().size() > 1) {
 				addExplicitDecomp(ci.getConnectionReferences().get(0).getDestination());
 			}
@@ -879,6 +887,8 @@ public class SlicerRepresentation {
 
 		@Override
 		public Void caseEndToEndFlowInstance(EndToEndFlowInstance fi) {
+			// TODO: Switch to caseFlowSpecificationInstance so that flow fragments get handled
+			// and, if two flows share a piece of a flow, it will get double-added
 			for (FlowElementInstance fei : fi.getFlowElements()) {
 				if (fei instanceof FlowSpecificationInstance) {
 					FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
