@@ -1,0 +1,44 @@
+package properties_on_subclause
+public
+	system s1
+		annex EMV2 {**
+			properties
+				ps::string1 => "Value in s1";
+				ps::string5 => "Should be overridden by value in s2";
+		**};
+	end s1;
+	
+	system s2 extends s1
+		annex EMV2 {**
+			properties
+				ps::string2 => "Value in s2";
+				ps::string5 => "Value in s2 overrides value in s1";
+				ps::string7 => "Should be overridden by value in s2.i";
+		**};
+	end s2;
+	
+	system implementation s1.i
+		annex EMV2 {**
+			properties
+				ps::string3 => "Value in s1.i";
+				ps::string6 => "Should be overridden by value in s2.i";
+				ps::string7 => "Value in s1.i overrides value in s2";
+		**};
+	end s1.i;
+	
+	system implementation s2.i extends s1.i
+		annex EMV2 {**
+			component error behavior
+				events
+					error1: error event;
+			end component;
+			
+			properties
+				ps::boolean_for_all => true;
+				ps::boolean_for_error_model_subclause => true;
+				ps::string4 => "Value in s2.i";
+				ps::string6 => "Value in s2.i overrides value in s1.i";
+				ps::string8 => "This property should not be placed on the subclause" applies to error1;
+		**};
+	end s2.i;
+end properties_on_subclause;

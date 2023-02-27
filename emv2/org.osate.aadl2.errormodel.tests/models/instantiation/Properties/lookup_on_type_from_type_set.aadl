@@ -1,0 +1,39 @@
+package lookup_on_type_from_type_set
+public
+	system s
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types lookup_on_type_from_type_set;
+			
+			error propagations
+				f: in propagation {outer};
+				flows
+					sink1: error sink f;
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error types
+			outer: type set {inner};
+			inner: type set {type1};
+			type1: type;
+			properties
+				ps::string1 => "Value on outer" applies to outer;
+				ps::string2 => "Value on inner" applies to inner;
+				ps::string3 => "Value on type1" applies to type1;
+				
+				ps::string4 => "Should be overridden by value on inner" applies to outer;
+				ps::string4 => "Value on inner overrides value on outer" applies to inner;
+				
+				ps::string5 => "Should be overridden by value on type1" applies to inner;
+				ps::string5 => "Value on type1 overrides value on inner" applies to type1;
+				
+				ps::string_for_type_set => "Property does not apply to error type" applies to outer;
+		end types;
+	**};
+end lookup_on_type_from_type_set;

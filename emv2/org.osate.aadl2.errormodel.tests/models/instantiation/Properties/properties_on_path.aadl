@@ -1,0 +1,26 @@
+package properties_on_path
+public
+	system s
+		features
+			f1: in feature;
+			f2: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f1: in propagation {ServiceError};
+				f2: out propagation {ServiceError};
+				flows
+					path1: error path f1 -> f2 {ServiceError};
+			end propagations;
+			
+			properties
+				ps::boolean_for_all => true applies to path1;
+				ps::boolean_for_error_flow => true applies to path1;
+				ps::boolean_for_error_path => true applies to path1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end properties_on_path;

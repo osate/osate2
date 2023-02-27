@@ -1,0 +1,69 @@
+package properties_on_type_in_propagation
+public
+	system s
+		features
+			f1: in feature;
+			f2: out feature;
+			f3: feature;
+			fg1: feature group fgt1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f1: in propagation {ServiceError};
+				f2: out propagation {ServiceError};
+				f3: in propagation {ServiceError};
+				f3: out propagation {ServiceError};
+				fg1.f4: in propagation {ServiceError};
+				fg1.fg2.fg3.f5: in propagation {ServiceError};
+				point1: out propagation {ServiceError};
+				access: in propagation {ServiceError};
+				memory: in propagation {ServiceError};
+			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+			end paths;
+			
+			properties
+				ps::string1 => "Value on type in in propagation" applies to f1.ServiceError;
+				ps::string1 => "Value on propagation, but not on type" applies to f1;
+				
+				ps::string1 => "Value on out type in out propagation" applies to f2.ServiceError;
+				
+				ps::string1 => "Value on type in in and out propagation" applies to f3.ServiceError;
+				
+				ps::string1 => "Value on type in propagation in feature group" applies to fg1.f4.ServiceError;
+				ps::string1 => "Value on propagation, but not on type" applies to fg1.f4;
+				
+				ps::string1 =>
+					"Value on type in propagation nested in feature group" applies to fg1.fg2.fg3.f5.ServiceError;
+				ps::string1 => "Value on propagation, but not on type" applies to fg1.fg2.fg3.f5;
+				
+				ps::string1 => "Value on type in point propagation" applies to point1.ServiceError;
+				
+				ps::string1 => "Value on type in access propagation" applies to access.ServiceError;
+				
+				ps::string1 => "Value on type in binding propagation" applies to memory.ServiceError;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	feature group fgt1
+		features
+			f4: feature;
+			fg2: feature group fgt2;
+	end fgt1;
+	
+	feature group fgt2
+		features
+			fg3: feature group fgt3;
+	end fgt2;
+	
+	feature group fgt3
+		features
+			f5: feature;
+	end fgt3;
+end properties_on_type_in_propagation;

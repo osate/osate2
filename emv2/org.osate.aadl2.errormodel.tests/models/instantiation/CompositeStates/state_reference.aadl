@@ -1,0 +1,63 @@
+package state_reference
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: system sub1.i;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior state_reference::machine1;
+			
+			composite error behavior
+				states
+					composite1: [sub1.state1]-> destinationState;
+					composite2: [sub1.state2 {ServiceError}]-> destinationState;
+					composite3: [sub1.state3]-> destinationState;
+					composite4: [sub1.sub2.sub3.state4]-> destinationState;
+					composite5: [sub1.sub2.sub3.state5 {ServiceError, ItemTimingError}]-> destinationState;
+					composite6: [sub1.sub2.sub3.state6]-> destinationState;
+			end composite;
+		**};
+	end s.i;
+	
+	system sub1
+	end sub1;
+	
+	system implementation sub1.i
+		subcomponents
+			sub2: system sub2.i;
+		annex EMV2 {**
+			use behavior state_reference::machine1;
+		**};
+	end sub1.i;
+	
+	system sub2
+	end sub2;
+	
+	system implementation sub2.i
+		subcomponents
+			sub3: system sub3;
+	end sub2.i;
+	
+	system sub3
+		annex EMV2 {**
+			use behavior state_reference::machine1;
+		**};
+	end sub3;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				destinationState: initial state;
+				state1: state;
+				state2: state {CommonErrors};
+				state3: state {CommonErrors};
+				state4: state;
+				state5: state {CommonErrors};
+				state6: state {CommonErrors};
+		end behavior;
+	**};
+end state_reference;

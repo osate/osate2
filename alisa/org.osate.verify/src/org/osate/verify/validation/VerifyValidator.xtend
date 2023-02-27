@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,11 +28,8 @@
 package org.osate.verify.validation
 
 import com.google.inject.Inject
-import com.rockwellcollins.atc.resolute.resolute.BaseType
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
 import java.util.ArrayList
 import java.util.List
-import org.eclipse.core.runtime.Platform
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
@@ -77,6 +74,8 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
+import org.osate.resolute.ResoluteUtil
+import org.osate.aadl2.NamedElement
 
 /**
  * Custom validation rules. 
@@ -100,17 +99,6 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	public static val MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS = "org.osate.verify.multipleClaimsWithDuplicateRequirements"
 	public static val METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION = "org.osate.verify.METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION"
 	public static val MISMATCHED_TARGET = "org.osate.verify.MISMATCHED_TARGET"
-
-	var static boolean RESOLUTE_INSTALLED = false;
-	var static boolean INSTALL_INITIALIZED = false;
-
-	def ResoluteInstalled() {
-		if (!INSTALL_INITIALIZED) {
-			RESOLUTE_INSTALLED = Platform.getBundle("com.rockwellcollins.atc.resolute") !== null;
-			INSTALL_INITIALIZED = true;
-		}
-		return RESOLUTE_INSTALLED;
-	}
 
 	override protected List<EPackage> getEPackages() {
 		val List<EPackage> result = new ArrayList<EPackage>(super.getEPackages())
@@ -357,16 +345,16 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	def void checkVerificationMethodSignature(VerificationMethod vm) {
 		switch methodKind : vm.methodKind {
 			ResoluteMethod: {
-				if (!ResoluteInstalled) {
+				if (!ResoluteUtil.isResoluteInstalled) {
 					return
 				}
 				val fparams = vm.formals
 				val mreforproxy = methodKind.methodReference
-				if (mreforproxy === null || !(mreforproxy instanceof FunctionDefinition)) {
+				if (mreforproxy === null || !ResoluteUtil.getResolute().isFunctionDefinition(mreforproxy)) {
 					return
 				}
-				val mref = mreforproxy as FunctionDefinition
-				val aparams = mref.args
+				val mref = mreforproxy as NamedElement
+				val aparams = ResoluteUtil.getResolute.getArgs(mref)
 				val methodRefName = mref.name
 				val hasComponentType = vm.targetType !== null
 				val fcount = if (hasComponentType) {
@@ -389,7 +377,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 					}
 				fparams.forEach [ vmParm, j |
 					val aparam = aparams.get(j + i)
-					val baseType = aparam.type as BaseType
+					val baseType = ResoluteUtil.getResolute.getType(aparam)
 					if (!matchResoluteType(vmParm.type, baseType)) {
 						warning(
 							"method " + vm.name + "'s parameter " + vmParm.name + " does not match the type of " +
@@ -403,17 +391,20 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		}
 	}
 
-	def boolean matchResoluteType(PropertyType formalType, Object resoluteType) {
-		if (resoluteType instanceof BaseType) {
+	/**
+	 * @since 5.0
+	 */
+	def boolean matchResoluteType(PropertyType formalType, EObject resoluteType) {
+		if (ResoluteUtil.getResolute.isBaseType(resoluteType)) {
 			switch (formalType) {
 				AadlBoolean:
-					return resoluteType.type.equalsIgnoreCase("bool")
+					return ResoluteUtil.getResolute.getTypeName(resoluteType).equalsIgnoreCase("bool")
 				AadlReal:
-					return resoluteType.type.equalsIgnoreCase("real")
+					return ResoluteUtil.getResolute.getTypeName(resoluteType).equalsIgnoreCase("real")
 				AadlInteger:
-					return resoluteType.type.equalsIgnoreCase("int")
+					return ResoluteUtil.getResolute.getTypeName(resoluteType).equalsIgnoreCase("int")
 				AadlString:
-					return resoluteType.type.equalsIgnoreCase("string")
+					return ResoluteUtil.getResolute.getTypeName(resoluteType).equalsIgnoreCase("string")
 				PropertyRef: {
 					val prop = formalType.ref
 					val propType = prop?.referencedPropertyType ?: prop.ownedPropertyType
@@ -426,7 +417,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 					}
 				}
 				ModelRef:
-					return resoluteType.type.equalsIgnoreCase("aadl")
+					return ResoluteUtil.getResolute.getTypeName(resoluteType).equalsIgnoreCase("aadl")
 				TypeRef: {
 					val propType = formalType.ref
 					switch (propType) {
@@ -442,13 +433,16 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		false
 	}
 
-	def boolean matchReferenceType(ReferenceType propType, Object resoluteType) {
-		if (resoluteType instanceof BaseType) {
-			if (resoluteType.type.equalsIgnoreCase("aadl")) {
+	/**
+	 * @since 5.0
+	 */
+	def boolean matchReferenceType(ReferenceType propType, EObject resoluteType) {
+		if (ResoluteUtil.getResolute.isBaseType(resoluteType)) {
+			if (ResoluteUtil.getResolute.getTypeName(resoluteType).equalsIgnoreCase("aadl")) {
 				return true
 			}
 			val metaclassreference = Aadl2Factory.eINSTANCE.createMetaclassReference
-			metaclassreference.metaclassNames.add(resoluteType.type)
+			metaclassreference.metaclassNames.add(ResoluteUtil.getResolute.getTypeName(resoluteType))
 			val refEclass = metaclassreference.metaclass
 			for (MetaclassReference mcri : propType.getNamedElementReferences()) {
 				if (refEclass.isSuperTypeOf(mcri.getMetaclass())) {

@@ -1,0 +1,30 @@
+package overridden_composite
+public
+	system s
+		annex EMV2 {**
+			use behavior overridden_composite::machine1;
+			
+			composite error behavior
+				states
+					composite1: [others]-> state1;
+			end composite;
+		**};
+	end s;
+	
+	system implementation s.i
+		annex EMV2 {**
+			composite error behavior
+				states
+					COMPOSITE1: [others]-> state2;
+			end composite;
+		**};
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end overridden_composite;

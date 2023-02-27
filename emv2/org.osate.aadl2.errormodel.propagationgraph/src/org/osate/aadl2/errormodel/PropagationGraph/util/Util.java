@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -55,6 +55,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.pluginsupport.ExecuteJavaUtil;
+import org.osate.resolute.ResoluteUtil;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -655,22 +656,6 @@ public class Util {
 		return true;
 	}
 
-	private static boolean RESOLUTE_INSTALLED;
-	static {
-		try {
-			if (ExecuteResoluteUtil.eInstance.tryLoad()) {
-				RESOLUTE_INSTALLED = true;
-			} else {
-				RESOLUTE_INSTALLED = false;
-			}
-		// For some reason
-		// } catch (NoClassDefFoundError e) {
-		// does not catch NoClassDefFoundError when running tests with tycho
-		} catch (Throwable e) {
-			RESOLUTE_INSTALLED = false;
-		}
-	}
-
 	public static boolean executeCondition(IfCondition ifCondition, InstanceObject target, EObject emv2target) {
 		ComponentInstance targetComponent = null;
 		InstanceObject targetElement = null;
@@ -689,13 +674,13 @@ public class Util {
 				return true;
 			}
 		} else if (!Aadl2Util.isNull(ifCondition.getResoluteFunction())) {
-			if (RESOLUTE_INSTALLED) {
-				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(
-						ifCondition.getResoluteFunction(),
+			if (ResoluteUtil.isResoluteInstalled()) {
+				Diagnostic res = ResoluteUtil.getResolute()
+						.executeResoluteFunctionOnce(ifCondition.getResoluteFunction(),
 						target.getSystemInstance(), targetComponent, targetElement, null);
 				return res != null && res.getDiagnosticType() != DiagnosticType.ERROR;
 			} else {
-			return true;
+				return true;
 			}
 		} else {
 			return true;

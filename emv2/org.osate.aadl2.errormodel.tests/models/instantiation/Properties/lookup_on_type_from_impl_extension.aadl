@@ -1,0 +1,45 @@
+package lookup_on_type_from_impl_extension
+public
+	system s
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: in propagation {ServiceError};
+				flows
+					sink1: error sink f;
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i1
+		annex EMV2 {**
+			properties
+				ps::string1 => "Value in s.i1" applies to sink1.ServiceError;
+				ps::string4 => "Should be overridden by value in s.i2" applies to sink1.ServiceError;
+				ps::string6 => "Should be overridden by value in s.i2 and then s.i3" applies to sink1.ServiceError;
+		**};
+	end s.i1;
+	
+	system implementation s.i2 extends s.i1
+		annex EMV2 {**
+			properties
+				ps::string2 => "Value in s.i2" applies to sink1.ServiceError;
+				ps::string4 => "Value in s.i2 overrides value in s.i1" applies to sink1.ServiceError;
+				ps::string5 => "Should be overridden by value in s.i3" applies to sink1.ServiceError;
+				ps::string6 => "Value in s.i2 overrides value in s.i1 and should be overridden by value in s.i3"
+					applies to sink1.ServiceError;
+		**};
+	end s.i2;
+	
+	system implementation s.i3 extends s.i2
+		annex EMV2 {**
+			properties
+				ps::string3 => "Value in s.i3" applies to sink1.ServiceError;
+				ps::string5 => "Value in s.i3 overrides value in s.i2" applies to sink1.ServiceError;
+				ps::string6 => "Value in s.i3 overrides value in s.i2 and s.i1" applies to sink1.ServiceError;
+		**};
+	end s.i3;
+end lookup_on_type_from_impl_extension;

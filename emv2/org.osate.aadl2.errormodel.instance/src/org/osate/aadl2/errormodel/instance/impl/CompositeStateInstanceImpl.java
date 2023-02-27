@@ -23,15 +23,20 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.List;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.errormodel.instance.AnonymousTypeSet;
+import org.osate.aadl2.errormodel.instance.CompositeConditionExpression;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
-import org.osate.aadl2.errormodel.instance.ConstraintElement;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 
 /**
@@ -42,23 +47,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getTargetState <em>Target State</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getComposite <em>Composite</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getCompositeState <em>Composite State</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getDestination <em>Destination</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.CompositeStateInstanceImpl#getDestinationTypeSet <em>Destination Type Set</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implements CompositeStateInstance {
 	/**
-	 * The cached value of the '{@link #getTargetState() <em>Target State</em>}' reference.
+	 * The cached value of the '{@link #getComposite() <em>Composite</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTargetState()
+	 * @see #getComposite()
 	 * @generated
 	 * @ordered
 	 */
-	protected StateInstance targetState;
+	protected CompositeState composite;
 
 	/**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
@@ -68,17 +74,27 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 * @ordered
 	 */
-	protected ConstraintElement condition;
+	protected CompositeConditionExpression condition;
 
 	/**
-	 * The cached value of the '{@link #getCompositeState() <em>Composite State</em>}' reference.
+	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCompositeState()
+	 * @see #getDestination()
 	 * @generated
 	 * @ordered
 	 */
-	protected CompositeState compositeState;
+	protected StateInstance destination;
+
+	/**
+	 * The cached value of the '{@link #getDestinationTypeSet() <em>Destination Type Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestinationTypeSet()
+	 * @generated
+	 * @ordered
+	 */
+	protected AnonymousTypeSet destinationTypeSet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -105,18 +121,18 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
-	public StateInstance getTargetState() {
-		if (targetState != null && targetState.eIsProxy()) {
-			InternalEObject oldTargetState = (InternalEObject) targetState;
-			targetState = (StateInstance) eResolveProxy(oldTargetState);
-			if (targetState != oldTargetState) {
+	public CompositeState getComposite() {
+		if (composite != null && composite.eIsProxy()) {
+			InternalEObject oldComposite = (InternalEObject) composite;
+			composite = (CompositeState) eResolveProxy(oldComposite);
+			if (composite != oldComposite) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE, oldTargetState, targetState));
+							EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE, oldComposite, composite));
 				}
 			}
 		}
-		return targetState;
+		return composite;
 	}
 
 	/**
@@ -124,8 +140,8 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StateInstance basicGetTargetState() {
-		return targetState;
+	public CompositeState basicGetComposite() {
+		return composite;
 	}
 
 	/**
@@ -134,12 +150,12 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
-	public void setTargetState(StateInstance newTargetState) {
-		StateInstance oldTargetState = targetState;
-		targetState = newTargetState;
+	public void setComposite(CompositeState newComposite) {
+		CompositeState oldComposite = composite;
+		composite = newComposite;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE, oldTargetState, targetState));
+					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE, oldComposite, composite));
 		}
 	}
 
@@ -149,7 +165,7 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
-	public ConstraintElement getCondition() {
+	public CompositeConditionExpression getCondition() {
 		return condition;
 	}
 
@@ -158,8 +174,8 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCondition(ConstraintElement newCondition, NotificationChain msgs) {
-		ConstraintElement oldCondition = condition;
+	public NotificationChain basicSetCondition(CompositeConditionExpression newCondition, NotificationChain msgs) {
+		CompositeConditionExpression oldCondition = condition;
 		condition = newCondition;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
@@ -179,7 +195,7 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
-	public void setCondition(ConstraintElement newCondition) {
+	public void setCondition(CompositeConditionExpression newCondition) {
 		if (newCondition != condition) {
 			NotificationChain msgs = null;
 			if (condition != null) {
@@ -206,19 +222,18 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
-	public CompositeState getCompositeState() {
-		if (compositeState != null && compositeState.eIsProxy()) {
-			InternalEObject oldCompositeState = (InternalEObject) compositeState;
-			compositeState = (CompositeState) eResolveProxy(oldCompositeState);
-			if (compositeState != oldCompositeState) {
+	public StateInstance getDestination() {
+		if (destination != null && destination.eIsProxy()) {
+			InternalEObject oldDestination = (InternalEObject) destination;
+			destination = (StateInstance) eResolveProxy(oldDestination);
+			if (destination != oldDestination) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE, oldCompositeState,
-							compositeState));
+							EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION, oldDestination, destination));
 				}
 			}
 		}
-		return compositeState;
+		return destination;
 	}
 
 	/**
@@ -226,8 +241,8 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CompositeState basicGetCompositeState() {
-		return compositeState;
+	public StateInstance basicGetDestination() {
+		return destination;
 	}
 
 	/**
@@ -236,13 +251,86 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	 * @generated
 	 */
 	@Override
-	public void setCompositeState(CompositeState newCompositeState) {
-		CompositeState oldCompositeState = compositeState;
-		compositeState = newCompositeState;
+	public void setDestination(StateInstance newDestination) {
+		StateInstance oldDestination = destination;
+		destination = newDestination;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE, oldCompositeState, compositeState));
+					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION, oldDestination, destination));
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AnonymousTypeSet getDestinationTypeSet() {
+		return destinationTypeSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDestinationTypeSet(AnonymousTypeSet newDestinationTypeSet,
+			NotificationChain msgs) {
+		AnonymousTypeSet oldDestinationTypeSet = destinationTypeSet;
+		destinationTypeSet = newDestinationTypeSet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET, oldDestinationTypeSet,
+					newDestinationTypeSet);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDestinationTypeSet(AnonymousTypeSet newDestinationTypeSet) {
+		if (newDestinationTypeSet != destinationTypeSet) {
+			NotificationChain msgs = null;
+			if (destinationTypeSet != null) {
+				msgs = ((InternalEObject) destinationTypeSet).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET,
+						null, msgs);
+			}
+			if (newDestinationTypeSet != null) {
+				msgs = ((InternalEObject) newDestinationTypeSet).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET,
+						null, msgs);
+			}
+			msgs = basicSetDestinationTypeSet(newDestinationTypeSet, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET, newDestinationTypeSet,
+					newDestinationTypeSet));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public TypeTokenInstance getDestinationTypeToken() {
+		var typeSet = getDestinationTypeSet();
+		return typeSet == null ? null : typeSet.flatten().get(0);
 	}
 
 	/**
@@ -255,6 +343,8 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 		switch (featureID) {
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 			return basicSetCondition(null, msgs);
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			return basicSetDestinationTypeSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -267,18 +357,20 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE:
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE:
 			if (resolve) {
-				return getTargetState();
+				return getComposite();
 			}
-			return basicGetTargetState();
+			return basicGetComposite();
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 			return getCondition();
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE:
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION:
 			if (resolve) {
-				return getCompositeState();
+				return getDestination();
 			}
-			return basicGetCompositeState();
+			return basicGetDestination();
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			return getDestinationTypeSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -291,14 +383,17 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE:
-			setTargetState((StateInstance) newValue);
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE:
+			setComposite((CompositeState) newValue);
 			return;
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
-			setCondition((ConstraintElement) newValue);
+			setCondition((CompositeConditionExpression) newValue);
 			return;
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE:
-			setCompositeState((CompositeState) newValue);
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION:
+			setDestination((StateInstance) newValue);
+			return;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			setDestinationTypeSet((AnonymousTypeSet) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -312,14 +407,17 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE:
-			setTargetState((StateInstance) null);
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE:
+			setComposite((CompositeState) null);
 			return;
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
-			setCondition((ConstraintElement) null);
+			setCondition((CompositeConditionExpression) null);
 			return;
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE:
-			setCompositeState((CompositeState) null);
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION:
+			setDestination((StateInstance) null);
+			return;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			setDestinationTypeSet((AnonymousTypeSet) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -333,14 +431,20 @@ public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE:
-			return targetState != null;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE:
+			return composite != null;
 		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 			return condition != null;
-		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE:
-			return compositeState != null;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION:
+			return destination != null;
+		case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__DESTINATION_TYPE_SET:
+			return destinationTypeSet != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public List<? extends NamedElement> getInstantiatedObjects() {
+		return List.of(getComposite());
+	}
 } // CompositeStateInstanceImpl

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -58,8 +58,8 @@ public class ThreadCheck extends AbstractCheck {
 		 */
 		allThreads.stream().filter(comp -> {
 			EnumerationLiteral protocol = GetProperties.getDispatchProtocol(comp);
-			return protocol == null || !(protocol.toString().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL)
-					|| protocol.toString().equalsIgnoreCase(AadlProject.SPORADIC_LITERAL));
+			return protocol == null || !(protocol.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL)
+					|| protocol.getName().equalsIgnoreCase(AadlProject.SPORADIC_LITERAL));
 		})
 				.forEach(thr -> addError(new ErrorReport(thr,
 						"Thread needs a Thread_Properties::Dispatch_Protocol property of 'Periodic' or 'Sporadic'")));

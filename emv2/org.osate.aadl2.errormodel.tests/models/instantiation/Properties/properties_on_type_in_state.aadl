@@ -1,0 +1,26 @@
+package properties_on_type_in_state
+public
+	system s
+		annex EMV2 {**
+			use behavior properties_on_type_in_state::machine1;
+			
+			properties
+				ps::string2 => "Value in s" applies to state1.ServiceError;
+				ps::string3 => "Value in s overrides value in machine1" applies to state1.ServiceError;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			use types ErrorLibrary;
+			states
+				state1: initial state {CommonErrors};
+			properties
+				ps::string1 => "Value in machine1" applies to state1.ServiceError;
+				ps::string3 => "Should be overridden by value in s" applies to state1.ServiceError;
+		end behavior;
+	**};
+end properties_on_type_in_state;

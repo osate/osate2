@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -42,7 +42,6 @@ import org.osate.alisa.workbench.alisa.AssuranceTask
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.evaluator.AssureProcessor
 import org.osate.assure.generator.IAssureConstructor
-import org.osate.assure.util.ResoluteUtil
 import org.osate.categories.categories.CategoriesDefinitions
 import org.osate.organization.organization.Organization
 import org.osate.reqspec.reqSpec.GlobalConstants
@@ -58,6 +57,7 @@ import org.osate.verify.verify.VerificationPlan
 import static extension org.junit.Assert.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.testsupport.AssertHelper.*
+import org.osate.resolute.ResoluteUtil
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)

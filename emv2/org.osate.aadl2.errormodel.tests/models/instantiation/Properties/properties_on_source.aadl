@@ -1,0 +1,24 @@
+package properties_on_source
+public
+	system s
+		features
+			f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: out propagation {ServiceError};
+				flows
+					source1: error source f;
+			end propagations;
+			
+			properties
+				ps::boolean_for_all => true applies to source1;
+				ps::boolean_for_error_flow => true applies to source1;
+				ps::boolean_for_error_source => true applies to source1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end properties_on_source;

@@ -2,18 +2,18 @@
 <feature
       id="org.osate.examples.feature"
       label="AADL Example Projects"
-      version="1.0.2.qualifier"
+      version="1.0.3.qualifier"
       provider-name="CMU SEI"
       image="icons/osateupdate_120.jpg"
       license-feature="org.osate.license"
-      license-feature-version="1.0.2.qualifier">
+      license-feature-version="1.0.3.qualifier">
 
    <description>
       This feature provides a number of example AADL projects.
    </description>
 
    <copyright>
-      Copyright (c) 2004-2022 by Carnegie Mellon University. All rights reserved.
+      Copyright (c) 2004-2023 by Carnegie Mellon University. All rights reserved.
    </copyright>
 
    <requires>
