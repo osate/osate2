@@ -252,6 +252,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private void instantiateConnectionPath(ConnectionInstance connection, ComponentInstance component) {
 		if (connection.isComplete()) {
+			// The connection is an across connection.
 			var sourcePropagations = new ArrayList<ConnectionEndPropagation>();
 			var destinationPropagations = new ArrayDeque<ConnectionEndPropagation>();
 			var encounteredAcross = false;
@@ -291,6 +292,53 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				connectionPath.setName(connection.getName());
 				connectionPath.setConnection(connection);
 				connectionPath.getSourcePropagations().addAll(sourcePropagations);
+				connectionPath.getDestinationPropagations().addAll(destinationPropagations);
+				getOrCreateEMV2AnnexInstance(component).getPropagationPaths().add(connectionPath);
+			}
+		} else if (EcoreUtil2.getContainerOfType(connection.getDestination(),
+				ComponentInstance.class) instanceof SystemInstance) {
+			// Check if the connection is an up connection that reaches out of the top-level SystemInstance.
+			var sourcePropagations = new ArrayList<ConnectionEndPropagation>();
+			for (var ref : connection.getConnectionReferences()) {
+				ConnectionEndPropagation propagation;
+				if (ref.getSource() instanceof FeatureInstance source) {
+					propagation = findFeaturePropagation(source);
+				} else if (ref.getSource() instanceof ComponentInstance source) {
+					propagation = findAccessPropagation(source);
+				} else {
+					throw new RuntimeException("Unexpected connection end: " + ref.getSource());
+				}
+				if (propagation != null && propagation.getDirection().outgoing()) {
+					sourcePropagations.add(propagation);
+				}
+			}
+			if (!sourcePropagations.isEmpty()) {
+				var connectionPath = EMV2InstanceFactory.eINSTANCE.createConnectionPath();
+				connectionPath.setName(connection.getName());
+				connectionPath.setConnection(connection);
+				connectionPath.getSourcePropagations().addAll(sourcePropagations);
+				getOrCreateEMV2AnnexInstance(component).getPropagationPaths().add(connectionPath);
+			}
+		} else {
+			// Check if the connection is a down connection that comes in from the top-level SystemInstance.
+			var destinationPropagations = new ArrayDeque<ConnectionEndPropagation>();
+			for (var ref : connection.getConnectionReferences()) {
+				ConnectionEndPropagation propagation;
+				if (ref.getDestination() instanceof FeatureInstance destination) {
+					propagation = findFeaturePropagation(destination);
+				} else if (ref.getDestination() instanceof ComponentInstance destination) {
+					propagation = findAccessPropagation(destination);
+				} else {
+					throw new RuntimeException("Unexpected connection end: " + ref.getDestination());
+				}
+				if (propagation != null && propagation.getDirection().incoming()) {
+					destinationPropagations.addFirst(propagation);
+				}
+			}
+			if (!destinationPropagations.isEmpty()) {
+				var connectionPath = EMV2InstanceFactory.eINSTANCE.createConnectionPath();
+				connectionPath.setName(connection.getName());
+				connectionPath.setConnection(connection);
 				connectionPath.getDestinationPropagations().addAll(destinationPropagations);
 				getOrCreateEMV2AnnexInstance(component).getPropagationPaths().add(connectionPath);
 			}

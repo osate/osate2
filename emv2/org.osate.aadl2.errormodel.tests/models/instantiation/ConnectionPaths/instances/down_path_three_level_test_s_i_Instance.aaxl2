@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:EMV2Instance="http://www.osate.org/EMV2Instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="s_i_Instance" category="system">
+  <annexInstance xsi:type="EMV2Instance:EMV2AnnexInstance" name="EMV2">
+    <subclauses href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAnnexSubclause.0/@parsedAnnexSubclause"/>
+    <propagations xsi:type="EMV2Instance:FeaturePropagation" name="system_out_f" feature="//@featureInstance.0">
+      <inErrorPropagation href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+      <inTypeSet name="{ServiceError}">
+        <elements xsi:type="EMV2Instance:TypeInstance" name="ServiceError">
+          <type href="platform:/plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceError"/>
+        </elements>
+      </inTypeSet>
+    </propagations>
+  </annexInstance>
+  <featureInstance name="system_out_f" category="abstractFeature">
+    <feature xsi:type="aadl2:AbstractFeature" href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.0"/>
+  </featureInstance>
+  <componentInstance name="ps" category="process">
+    <annexInstance xsi:type="EMV2Instance:EMV2AnnexInstance" name="EMV2">
+      <subclauses href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause"/>
+      <propagations xsi:type="EMV2Instance:FeaturePropagation" name="process_out_f" feature="//@componentInstance.0/@featureInstance.0">
+        <inErrorPropagation href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+        <inTypeSet name="{ServiceError}">
+          <elements xsi:type="EMV2Instance:TypeInstance" name="ServiceError">
+            <type href="platform:/plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceError"/>
+          </elements>
+        </inTypeSet>
+      </propagations>
+    </annexInstance>
+    <featureInstance name="process_out_f" category="abstractFeature">
+      <feature xsi:type="aadl2:AbstractFeature" href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedAbstractFeature.0"/>
+    </featureInstance>
+    <componentInstance name="t" category="thread">
+      <annexInstance xsi:type="EMV2Instance:EMV2AnnexInstance" name="EMV2">
+        <subclauses href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause"/>
+        <propagations xsi:type="EMV2Instance:FeaturePropagation" name="thread_out_f" feature="//@componentInstance.0/@componentInstance.0/@featureInstance.0">
+          <inErrorPropagation href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+          <inTypeSet name="{ServiceError}">
+            <elements xsi:type="EMV2Instance:TypeInstance" name="ServiceError">
+              <type href="platform:/plugin/org.osate.aadl2.errormodel.contrib/resources/packages/ErrorLibrary.aadl#emv2$ErrorLibrary.ServiceError"/>
+            </elements>
+          </inTypeSet>
+        </propagations>
+      </annexInstance>
+      <featureInstance name="thread_out_f" category="abstractFeature">
+        <feature xsi:type="aadl2:AbstractFeature" href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedAbstractFeature.0"/>
+      </featureInstance>
+      <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedThreadSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:ThreadType" href="../down_path_three_level_test.aadl#down_path_three_level_test.t"/>
+    </componentInstance>
+    <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedProcessSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:ProcessImplementation" href="../down_path_three_level_test.aadl#down_path_three_level_test.ps.i"/>
+  </componentInstance>
+  <connectionInstance name="system_out_f -> ps.t.thread_out_f" destination="//@componentInstance.0/@componentInstance.0/@featureInstance.0" source="//@featureInstance.0">
+    <connectionReference context="/" source="//@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureConnection" href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureConnection.0"/>
+    </connectionReference>
+    <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0" destination="//@componentInstance.0/@componentInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureConnection" href="../down_path_three_level_test.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <classifier xsi:type="aadl2:SystemImplementation" href="../down_path_three_level_test.aadl#down_path_three_level_test.s.i"/>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:SystemImplementation" href="../down_path_three_level_test.aadl#down_path_three_level_test.s.i"/>
+</instance:SystemInstance>
