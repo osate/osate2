@@ -541,13 +541,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
-			<artifactId>org.osate.smaccm.stubs</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
-			<optional>true</optional>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.osate</groupId>
 			<artifactId>org.osate.assure.resolute.tests</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<optional>true</optional>
