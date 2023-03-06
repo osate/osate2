@@ -39,6 +39,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>org.jgrapht</module>
 		<module>org.osate.aadl2</module>
 		<module>org.osate.aadl2.contrib</module>
 		<module>org.osate.aadl2.edit</module>
@@ -61,6 +62,7 @@
 		<module>org.osate.pluginsupport</module>
 		<module>org.osate.resolute</module>
 		<module>org.osate.results</module>
+        <module>org.osate.slicer</module>
 		<module>org.osate.testsupport</module>
 		<module>org.osate.ui</module>
 		<module>org.osate.workspace</module>
@@ -68,10 +70,9 @@
 		<module>org.osate.xtext.aadl2.properties</module>
 		<module>org.osate.xtext.aadl2.properties.ui</module>
 		<module>org.osate.xtext.aadl2.ui</module>
-
 		<module>org.osate.aadl2.instance.textual.tests</module>
 		<module>org.osate.core.tests</module>
 		<module>org.osate.core.tests.log4j</module>
+        <module>org.osate.slicer.tests</module>
 	</modules>
-
 </project>

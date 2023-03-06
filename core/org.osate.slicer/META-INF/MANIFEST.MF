@@ -4,7 +4,7 @@ Bundle-Name: AADL Model Slicer
 Bundle-SymbolicName: org.osate.slicer
 Bundle-Version: 0.1.0.qualifier
 Automatic-Module-Name: org.osate.slicer
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: CMU/SEI
 Require-Bundle: org.eclipse.osgi,
  org.osate.aadl2,

@@ -23,41 +23,44 @@
  *******************************************************************************/
 package org.osate.slicer.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.eclipse.xtext.testing.InjectWith;
-import org.eclipse.xtext.testing.XtextRunner;
+import org.eclipse.xtext.testing.extensions.InjectionExtension;
 import org.jgrapht.graph.AbstractGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.slicer.OsateSlicerVertex;
 import org.osate.slicer.SlicerRepresentation;
-import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.common.base.Functions;
 import com.google.inject.Inject;
 
-@RunWith(XtextRunner.class)
-@InjectWith(Aadl2InjectorProvider.class)
+//@RunWith(XtextRunner.class)
+//@InjectWith(Aadl2InjectorProvider.class)
+@ExtendWith(InjectionExtension.class)
+@InjectWith(ErrorModelInjectorProvider.class)
+
 public class BasicErrorTransformFlowTests {
 	@Inject
-	TestHelper<AadlPackage> myTestHelper;
+	private TestHelper<AadlPackage> myTestHelper;
 
 	private SlicerRepresentation tlg;
 	private SystemInstance si;
