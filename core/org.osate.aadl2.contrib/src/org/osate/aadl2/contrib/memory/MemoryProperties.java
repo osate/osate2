@@ -442,6 +442,150 @@ public final class MemoryProperties {
 		return lookupContext.getNonModalPropertyValue(getStackSize_Property(lookupContext));
 	}
 	
+	// Lookup methods for Memory_Properties::Memory_Size
+	
+	public static final String MEMORY_SIZE__NAME = "Memory_Size";
+	
+	public static boolean acceptsMemorySize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getMemorySize_Property(lookupContext));
+	}
+	
+	public static Optional<IntegerWithUnits<SizeUnits>> getMemorySize(NamedElement lookupContext) {
+		return getMemorySize(lookupContext, Optional.empty());
+	}
+	
+	public static Optional<IntegerWithUnits<SizeUnits>> getMemorySize(NamedElement lookupContext, Mode mode) {
+		return getMemorySize(lookupContext, Optional.of(mode));
+	}
+	
+	public static Optional<IntegerWithUnits<SizeUnits>> getMemorySize(NamedElement lookupContext, Optional<Mode> mode) {
+		Property property = getMemorySize_Property(lookupContext);
+		try {
+			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
+			return Optional.empty();
+		}
+	}
+	
+	public static Property getMemorySize_Property(EObject lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + MEMORY_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
+	public static PropertyExpression getMemorySize_EObject(NamedElement lookupContext) {
+		return lookupContext.getNonModalPropertyValue(getMemorySize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Word_Size
+	
+	public static final String WORD_SIZE__NAME = "Word_Size";
+	
+	public static boolean acceptsWordSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getWordSize_Property(lookupContext));
+	}
+	
+	public static Optional<IntegerWithUnits<SizeUnits>> getWordSize(NamedElement lookupContext) {
+		return getWordSize(lookupContext, Optional.empty());
+	}
+	
+	public static Optional<IntegerWithUnits<SizeUnits>> getWordSize(NamedElement lookupContext, Mode mode) {
+		return getWordSize(lookupContext, Optional.of(mode));
+	}
+	
+	public static Optional<IntegerWithUnits<SizeUnits>> getWordSize(NamedElement lookupContext, Optional<Mode> mode) {
+		Property property = getWordSize_Property(lookupContext);
+		try {
+			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
+			return Optional.empty();
+		}
+	}
+	
+	public static Property getWordSize_Property(EObject lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + WORD_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
+	public static PropertyExpression getWordSize_EObject(NamedElement lookupContext) {
+		return lookupContext.getNonModalPropertyValue(getWordSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Word_Space
+	
+	public static final String WORD_SPACE__NAME = "Word_Space";
+	
+	public static boolean acceptsWordSpace(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getWordSpace_Property(lookupContext));
+	}
+	
+	public static OptionalLong getWordSpace(NamedElement lookupContext) {
+		return getWordSpace(lookupContext, Optional.empty());
+	}
+	
+	public static OptionalLong getWordSpace(NamedElement lookupContext, Mode mode) {
+		return getWordSpace(lookupContext, Optional.of(mode));
+	}
+	
+	public static OptionalLong getWordSpace(NamedElement lookupContext, Optional<Mode> mode) {
+		Property property = getWordSpace_Property(lookupContext);
+		try {
+			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
+			return OptionalLong.empty();
+		}
+	}
+	
+	public static Property getWordSpace_Property(EObject lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + WORD_SPACE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
+	public static PropertyExpression getWordSpace_EObject(NamedElement lookupContext) {
+		return lookupContext.getNonModalPropertyValue(getWordSpace_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Write_Time
+	
+	public static final String WRITE_TIME__NAME = "Write_Time";
+	
+	public static boolean acceptsWriteTime(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getWriteTime_Property(lookupContext));
+	}
+	
+	public static Optional<WriteTime> getWriteTime(NamedElement lookupContext) {
+		return getWriteTime(lookupContext, Optional.empty());
+	}
+	
+	public static Optional<WriteTime> getWriteTime(NamedElement lookupContext, Mode mode) {
+		return getWriteTime(lookupContext, Optional.of(mode));
+	}
+	
+	public static Optional<WriteTime> getWriteTime(NamedElement lookupContext, Optional<Mode> mode) {
+		Property property = getWriteTime_Property(lookupContext);
+		try {
+			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			return Optional.of(new WriteTime(resolved, lookupContext, mode));
+		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
+			return Optional.empty();
+		}
+	}
+	
+	public static Property getWriteTime_Property(EObject lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + WRITE_TIME__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
+	public static PropertyExpression getWriteTime_EObject(NamedElement lookupContext) {
+		return lookupContext.getNonModalPropertyValue(getWriteTime_Property(lookupContext));
+	}
+	
 	// Lookup methods for Memory_Properties::Source_Code_Size
 	
 	public static final String SOURCE_CODE_SIZE__NAME = "Source_Code_Size";
@@ -620,149 +764,5 @@ public final class MemoryProperties {
 	
 	public static PropertyExpression getByteCount_EObject(NamedElement lookupContext) {
 		return lookupContext.getNonModalPropertyValue(getByteCount_Property(lookupContext));
-	}
-	
-	// Lookup methods for Memory_Properties::Memory_Size
-	
-	public static final String MEMORY_SIZE__NAME = "Memory_Size";
-	
-	public static boolean acceptsMemorySize(NamedElement lookupContext) {
-		return lookupContext.acceptsProperty(getMemorySize_Property(lookupContext));
-	}
-	
-	public static Optional<IntegerWithUnits<SizeUnits>> getMemorySize(NamedElement lookupContext) {
-		return getMemorySize(lookupContext, Optional.empty());
-	}
-	
-	public static Optional<IntegerWithUnits<SizeUnits>> getMemorySize(NamedElement lookupContext, Mode mode) {
-		return getMemorySize(lookupContext, Optional.of(mode));
-	}
-	
-	public static Optional<IntegerWithUnits<SizeUnits>> getMemorySize(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getMemorySize_Property(lookupContext);
-		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
-			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
-			return Optional.empty();
-		}
-	}
-	
-	public static Property getMemorySize_Property(EObject lookupContext) {
-		String name = MEMORY_PROPERTIES__NAME + "::" + MEMORY_SIZE__NAME;
-		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-	}
-	
-	public static PropertyExpression getMemorySize_EObject(NamedElement lookupContext) {
-		return lookupContext.getNonModalPropertyValue(getMemorySize_Property(lookupContext));
-	}
-	
-	// Lookup methods for Memory_Properties::Word_Size
-	
-	public static final String WORD_SIZE__NAME = "Word_Size";
-	
-	public static boolean acceptsWordSize(NamedElement lookupContext) {
-		return lookupContext.acceptsProperty(getWordSize_Property(lookupContext));
-	}
-	
-	public static Optional<IntegerWithUnits<SizeUnits>> getWordSize(NamedElement lookupContext) {
-		return getWordSize(lookupContext, Optional.empty());
-	}
-	
-	public static Optional<IntegerWithUnits<SizeUnits>> getWordSize(NamedElement lookupContext, Mode mode) {
-		return getWordSize(lookupContext, Optional.of(mode));
-	}
-	
-	public static Optional<IntegerWithUnits<SizeUnits>> getWordSize(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getWordSize_Property(lookupContext);
-		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
-			return Optional.of(new IntegerWithUnits<>(resolved, SizeUnits.class));
-		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
-			return Optional.empty();
-		}
-	}
-	
-	public static Property getWordSize_Property(EObject lookupContext) {
-		String name = MEMORY_PROPERTIES__NAME + "::" + WORD_SIZE__NAME;
-		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-	}
-	
-	public static PropertyExpression getWordSize_EObject(NamedElement lookupContext) {
-		return lookupContext.getNonModalPropertyValue(getWordSize_Property(lookupContext));
-	}
-	
-	// Lookup methods for Memory_Properties::Word_Space
-	
-	public static final String WORD_SPACE__NAME = "Word_Space";
-	
-	public static boolean acceptsWordSpace(NamedElement lookupContext) {
-		return lookupContext.acceptsProperty(getWordSpace_Property(lookupContext));
-	}
-	
-	public static OptionalLong getWordSpace(NamedElement lookupContext) {
-		return getWordSpace(lookupContext, Optional.empty());
-	}
-	
-	public static OptionalLong getWordSpace(NamedElement lookupContext, Mode mode) {
-		return getWordSpace(lookupContext, Optional.of(mode));
-	}
-	
-	public static OptionalLong getWordSpace(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getWordSpace_Property(lookupContext);
-		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
-			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
-		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
-			return OptionalLong.empty();
-		}
-	}
-	
-	public static Property getWordSpace_Property(EObject lookupContext) {
-		String name = MEMORY_PROPERTIES__NAME + "::" + WORD_SPACE__NAME;
-		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-	}
-	
-	public static PropertyExpression getWordSpace_EObject(NamedElement lookupContext) {
-		return lookupContext.getNonModalPropertyValue(getWordSpace_Property(lookupContext));
-	}
-	
-	// Lookup methods for Memory_Properties::Write_Time
-	
-	public static final String WRITE_TIME__NAME = "Write_Time";
-	
-	public static boolean acceptsWriteTime(NamedElement lookupContext) {
-		return lookupContext.acceptsProperty(getWriteTime_Property(lookupContext));
-	}
-	
-	public static Optional<WriteTime> getWriteTime(NamedElement lookupContext) {
-		return getWriteTime(lookupContext, Optional.empty());
-	}
-	
-	public static Optional<WriteTime> getWriteTime(NamedElement lookupContext, Mode mode) {
-		return getWriteTime(lookupContext, Optional.of(mode));
-	}
-	
-	public static Optional<WriteTime> getWriteTime(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getWriteTime_Property(lookupContext);
-		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
-			return Optional.of(new WriteTime(resolved, lookupContext, mode));
-		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
-			return Optional.empty();
-		}
-	}
-	
-	public static Property getWriteTime_Property(EObject lookupContext) {
-		String name = MEMORY_PROPERTIES__NAME + "::" + WRITE_TIME__NAME;
-		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-	}
-	
-	public static PropertyExpression getWriteTime_EObject(NamedElement lookupContext) {
-		return lookupContext.getNonModalPropertyValue(getWriteTime_Property(lookupContext));
 	}
 }
