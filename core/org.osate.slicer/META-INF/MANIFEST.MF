@@ -6,7 +6,7 @@ Bundle-Version: 0.1.0.qualifier
 Automatic-Module-Name: org.osate.slicer
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: CMU/SEI
-Require-Bundle: org.jgrapht,
- org.osate.aadl2.errormodel.instance,
- org.apache.commons.lang
+Require-Bundle: org.jgrapht;bundle-version="[1.5.0,2.0.0)",
+ org.osate.aadl2.errormodel.instance;bundle-version="[2.0.0,3.0.0)",
+ org.apache.commons.lang;bundle-version="[2.6.0,3.0.0)"
 Export-Package: org.osate.slicer
