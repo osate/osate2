@@ -44,18 +44,18 @@ import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.slicer.OsateSlicerVertex;
 import org.osate.slicer.SlicerRepresentation;
-import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.common.base.Functions;
 import com.google.inject.Inject;
 
 @RunWith(XtextRunner.class)
-@InjectWith(Aadl2InjectorProvider.class)
+@InjectWith(ErrorModelInjectorProvider.class)
 public class BasicBindingTests {
 	@Inject
 	TestHelper<AadlPackage> myTestHelper;

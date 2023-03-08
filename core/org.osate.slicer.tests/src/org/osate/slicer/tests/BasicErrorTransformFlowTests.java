@@ -23,20 +23,20 @@
  *******************************************************************************/
 package org.osate.slicer.tests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.eclipse.xtext.testing.InjectWith;
-import org.eclipse.xtext.testing.extensions.InjectionExtension;
+import org.eclipse.xtext.testing.XtextRunner;
 import org.jgrapht.graph.AbstractGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SystemImplementation;
@@ -55,7 +55,7 @@ import com.google.inject.Inject;
 
 //@RunWith(XtextRunner.class)
 //@InjectWith(Aadl2InjectorProvider.class)
-@ExtendWith(InjectionExtension.class)
+@RunWith(XtextRunner.class)
 @InjectWith(ErrorModelInjectorProvider.class)
 
 public class BasicErrorTransformFlowTests {

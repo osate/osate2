@@ -6,14 +6,10 @@ Bundle-Version: 0.1.0.qualifier
 Automatic-Module-Name: org.osate.slicer.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: CMU/SEI
-Require-Bundle: org.eclipse.xtext.testing,
- org.osate.aadl2,
- org.junit,
- org.osate.testsupport,
- org.osate.aadl2.instantiation,
- org.osate.slicer,
- org.jgrapht,
+Require-Bundle: org.osate.aadl2.instantiation,
  org.osate.aadl2.errormodel.instance,
- org.osate.xtext.aadl2.errormodel,
- org.osate.aadl2.errormodel.tests,
- org.junit.jupiter.api
+ org.osate.testsupport,
+ org.osate.aadl2.errormodel.tests;bundle-version="1.0.0",
+ org.jgrapht,
+ org.osate.slicer
+Export-Package: org.osate.slicer.tests

@@ -33,11 +33,11 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.slicer.SlicerRepresentation;
 import org.osate.slicer.SlicerRepresentation.ErrorStateValidity;
-import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
@@ -57,7 +57,7 @@ import com.google.inject.Inject;
  */
 
 @RunWith(XtextRunner.class)
-@InjectWith(Aadl2InjectorProvider.class)
+@InjectWith(ErrorModelInjectorProvider.class)
 public class UnusedElementTests {
 	@Inject
 	TestHelper<AadlPackage> myTestHelper;
