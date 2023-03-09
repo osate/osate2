@@ -45,7 +45,7 @@ pipeline {
               sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
                   -Pfull -Dsonar.login=$SONARTOKEN \
                   -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                  -Dcodecoverage=false -Dspotbugs=true -Djavadoc=true'
+                  -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'
             }
           }
         }
