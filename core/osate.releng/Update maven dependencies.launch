@@ -8,6 +8,7 @@
     <listAttribute key="M2_PROPERTIES">
         <listEntry value="generateBackupPoms=false"/>
         <listEntry value="tycho.mode=maven"/>
+        <listEntry value="codecoverage=true"/>
     </listAttribute>
     <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
     <booleanAttribute key="M2_SKIP_TESTS" value="false"/>
@@ -17,6 +18,7 @@
     <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
     <stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${working_set:&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;resources&gt;&#10;&lt;item path=&quot;/org.osate.build.coverage.report&quot; type=&quot;4&quot;/&gt;&#10;&lt;/resources&gt;}"/>
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_SHOW_CODEDETAILS_IN_EXCEPTION_MESSAGES" value="true"/>
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
     <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${project_loc:org.osate.build.coverage.report}/../.."/>
 </launchConfiguration>
