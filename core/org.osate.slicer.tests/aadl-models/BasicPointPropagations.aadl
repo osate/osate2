@@ -1,0 +1,71 @@
+package BasicPointProp
+public
+	system s
+
+	end s;
+
+	system implementation s.impl
+		subcomponents
+			sys1: system s1;
+			sys2: system s2;
+			sys3: system s3;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			propagation paths
+				P1toP2: sys1.point1 -> sys2.point2;
+				P3toP4: sys2.point3 -> sys3.point4;
+			end paths;
+		**};
+	end s.impl;
+
+	system s1
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				point1: out propagation {ServiceError};
+				flows
+					src: error source point1 {ServiceError};
+			end propagations;
+			
+			propagation paths
+				point1: propagation point;
+			end paths;
+		**};
+	end s1;
+
+	system s2
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				point2: in propagation {ServiceError};
+				point3: out propagation {ServiceError};
+				flows
+					P2toP3: error path point2 {ServiceError} -> point3 {ServiceError};
+			end propagations;
+			
+			propagation paths
+				point2: propagation point;
+				point3: propagation point;
+			end paths;
+		**};
+	end s2;
+
+	system s3
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				point4: in propagation {ServiceError};
+				flows
+					src: error sink point4 {ServiceError};
+			end propagations;
+			
+			propagation paths
+				point4: propagation point;
+			end paths;
+		**};
+	end s3;
+end BasicPointProp;

@@ -1,0 +1,91 @@
+-------------------------------------------------------------------------------
+-- Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+-- to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+-- only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-------------------------------------------------------------------------------
+
+package ErrorFlowWithExtraPropagations
+
+public
+	
+	system sys
+	end sys;
+	
+	system implementation sys.impl
+		subcomponents
+			a : abstract Thing.one;
+			b : abstract Thing.two;
+			c : abstract Thing.three;
+		connections
+			aToB1 : feature a.o1 -> b.i1;
+			aToB2 : feature a.o2 -> b.i2;
+			aToB3 : feature a.o3 -> b.i3;
+			bToC1 : feature b.o1 -> c.i1;
+			bToC2 : feature b.o2 -> c.i2;
+			bToC3 : feature b.o3 -> c.i3;
+		annex EMV2 {** **};
+	end sys.impl;
+	
+	abstract Thing
+		features
+			i1 : in feature;
+			i2 : in feature;
+			i3 : in feature;
+			o1 : out feature;
+			o2 : out feature;
+			o3 : out feature;
+	end Thing;
+	
+	abstract implementation Thing.one
+		annex EMV2 {**
+			use types ErrorLibrary;
+			error propagations
+				o1 : out propagation {ItemTimingError, ItemValueError};
+				flows
+					o1TimingSrc : error source o1 {ItemTimingError};
+			end propagations;
+		**};
+	end Thing.one;
+	
+	abstract implementation Thing.two
+		annex EMV2 {**
+			use types ErrorLibrary;
+			error propagations
+				i1 : in propagation {ItemTimingError, ItemValueError};
+				o3 : out propagation {ItemTimingError, ItemValueError};
+				flows
+					i1ToO3 : error path i1 {ItemTimingError} -> o3 {ItemTimingError};
+			end propagations;
+		**};
+	end Thing.two;
+	
+	abstract implementation Thing.three
+		annex EMV2 {**
+			use types ErrorLibrary;
+			error propagations
+				i3 : in propagation {ItemTimingError, ItemValueError};
+				flows
+					o3TimingSink : error sink i3 {ItemTimingError};
+			end propagations;
+		**};
+	end Thing.three;
+	
+end ErrorFlowWithExtraPropagations;
