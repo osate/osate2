@@ -31,9 +31,9 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.pluginsupport.properties.GeneratedUnits;
 
 public enum ProcessorSpeedUnits implements GeneratedUnits<ProcessorSpeedUnits> {
-	KIPS(1.0, "KIPS", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.20/@ownedLiteral.0"),
-	MIPS(1000.0, "MIPS", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.20/@ownedLiteral.1"),
-	GIPS(1000000.0, "GIPS", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.20/@ownedLiteral.2");
+	KIPS(1.0, "KIPS", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.18/@ownedLiteral.0"),
+	MIPS(1000.0, "MIPS", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.18/@ownedLiteral.1"),
+	GIPS(1000000.0, "GIPS", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.18/@ownedLiteral.2");
 	
 	private final double factorToBase;
 	private final String originalName;

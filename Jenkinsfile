@@ -8,7 +8,7 @@ pipeline {
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
             sh 'mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor \
-                -DgenerateBackupPoms=false -Dtycho.mode=maven'
+                -DgenerateBackupPoms=false -Dtycho.mode=maven -Dcodecoverage=true'
         }
       }
     }
@@ -45,7 +45,7 @@ pipeline {
               sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
                   -Pfull -Dsonar.login=$SONARTOKEN \
                   -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                  -Dcodecoverage=false -Dspotbugs=true -Djavadoc=true'
+                  -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'
             }
           }
         }

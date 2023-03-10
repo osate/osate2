@@ -1,0 +1,72 @@
+-------------------------------------------------------------------------------
+-- Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+-- to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+-- only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-------------------------------------------------------------------------------
+
+package ConnectionInstantiationExample
+public
+	system sys
+		
+	end sys;
+	
+	system implementation sys.impl
+		subcomponents
+			p1 : process proc.one;
+			p2 : process proc.two;
+			p3 : process proc.three;
+		connections
+			sc1 : port p1.pOut -> p2.pIn;
+			sc2 : port p2.pOut -> p3.pIn;
+	end sys.impl;
+	
+	process proc
+		features
+			pIn : in event port;
+			pOut : out event port;
+	end proc;
+	
+	process implementation proc.one
+		
+	end proc.one;
+	
+	process implementation proc.two
+		subcomponents
+			t1 : thread thd.one;
+		connections
+			pc1 : port pIn -> t1.tIn;
+			pc2 : port t1.tOut -> pOut;
+	end proc.two;
+	
+	process implementation proc.three
+		
+	end proc.three;
+	
+	thread thd
+		features
+			tIn : in event port;
+			tOut : out event port;
+	end thd;
+	
+	thread implementation thd.one
+		
+	end thd.one;
+end ConnectionInstantiationExample;

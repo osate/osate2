@@ -1254,7 +1254,7 @@ class OtherErrorModelScopeProviderTest extends XtextTest {
 							"field1".assertEquals(property.name)
 							// Tests scope_ContainmentPathElement_namedElement
 							ownedValue.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit,
-								#["bitsps", "Bytesps", "KBytesps", "MBytesps", "GBytesps"])
+								#["bitsps", "Bytesps", "KBytesps", "MBytesps", "GBytesps", "kbps", "Mbps", "Gbps"])
 						]
 						ownedFieldValues.get(1) => [
 							"field2".assertEquals(property.name)
@@ -1277,10 +1277,12 @@ class OtherErrorModelScopeProviderTest extends XtextTest {
 										ownedValue as RangeValue => [
 											// Tests scope_ContainmentPathElement_namedElement
 											minimum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit,
-												#["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
+												#["bits", "Bytes", "KByte", "MByte", "GByte", "TByte",
+													"KiByte", "MiByte", "GiByte", "TiByte"])
 											// Tests scope_ContainmentPathElement_namedElement
 											maximum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit,
-												#["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
+												#["bits", "Bytes", "KByte", "MByte", "GByte", "TByte",
+													"KiByte", "MiByte", "GiByte", "TiByte"])
 										]
 									]
 								]
