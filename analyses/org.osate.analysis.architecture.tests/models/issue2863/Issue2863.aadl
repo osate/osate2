@@ -1,0 +1,58 @@
+package Issue2863
+public
+
+	system S
+	end S;
+
+	system implementation S.i
+		subcomponents
+			b: bus B.i;
+			p: processor P.i;
+			d: data D;
+			m: memory M.i;
+			t: process PP;
+			dv: device DV;
+			vb: virtual bus VB;
+		properties
+			Allowed_Connection_Binding_Class => (classifier (B));
+			Actual_Connection_Binding => (reference (b));
+			Allowed_Memory_Binding_Class => (classifier (M));
+			Actual_Memory_Binding => (reference (m));
+			Allowed_Processor_Binding_Class => (classifier (P));
+			Actual_Processor_Binding => (reference (p));
+	end S.i;
+
+	bus B
+	end B;
+
+	bus B1
+	end B1;
+
+	bus implementation B.i
+	end B.i;
+
+	data D
+	end D;
+
+	device DV
+	end DV;
+
+	processor P
+	end P;
+
+	processor implementation P.i
+	end P.i;
+
+	memory M
+	end M;
+
+	memory implementation M.i
+	end M.i;
+
+	process PP
+	end PP;
+
+	virtual bus VB
+	end VB;
+
+end Issue2863;

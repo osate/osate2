@@ -54,13 +54,14 @@ For each **thread**, **virtual processor**, and **device**, checks that the valu
 *Deployment_Properties::Allowed_Dispatch_Protocol* will be checked against the dispatch protocol of the component.
 
 ## Memory binding is allowed
-For each **thread**, **device**, **data**, **subprogram**, **processor**, **virtual processor**, **data port**, and
-**event data port**, checks that the memory binding specified by *Deployment_Properties::Actual_Memory_Binding* is
+For each **thread**, **device**, **data**, **subprogram**, **process**, **processor**, **virtual processor**, 
+**data port**, and **event data port**, checks that the memory binding specified by
+*Deployment_Properties::Actual_Memory_Binding* is
 allowed by *Deployment_Properties::Allowed_Memory_Binding* if specified.
 
 ## Memory binding classifier is allowed
-For each **thread**, **device**, **data**, **subprogram**, **processor**, **virtual processor**, **data port**, and
-**event data port**, checks that the classifier of the memory binding specified by
+For each **thread**, **device**, **data**, **subprogram**, **process**, **processor**, **virtual processor**, 
+**data port**, and**event data port**, checks that the classifier of the memory binding specified by
 *Deployment_Properties::Actual_Memory_Binding* is allowed by *Deployment_Properties::Allowed_Memory_Binding_Class* if
 specified.
 
