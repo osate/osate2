@@ -45,5 +45,5 @@ Export-Package: org.jgrapht,
  org.jgrapht.nio.dot,
  org.jgrapht.traverse,
  org.jgrapht.util
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.jgrapht
