@@ -539,7 +539,6 @@
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
-<!--
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.assure.resolute.tests</artifactId>
@@ -547,7 +546,6 @@
 			<optional>true</optional>
 			<scope>test</scope>
 		</dependency>
--->
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.alisa.workbench.tests</artifactId>

@@ -23,7 +23,7 @@
 		</repository>
 		<repository>
 			<id>resolute</id>
-			<url>https://raw.githubusercontent.com/loonwerks/Resolute-Updates/master</url>
+			<url>https://raw.githubusercontent.com/iamundson/Resolute-Updates/master/resolute_3.1.1</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>
