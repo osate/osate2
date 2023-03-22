@@ -42,7 +42,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 		<repository>
 			<name>BestSolution.at e(fx)clipse releases</name>
 			<id>efxclipse-releases</id>
-			<url>http://maven.bestsolution.at/efxclipse-releases/</url>
+			<url>https://maven.bestsolution.at/efxclipse-releases/</url>
 		</repository>
 	</repositories>
 
@@ -56,6 +56,11 @@ censes only apply to the Third Party Software and not any other portion of this 
 					<configuration>
 						<encoding>UTF-8</encoding>
 						<extraClasspathElements>
+							<extraClasspathElement>
+								<groupId>at.bestsolution.openjfx</groupId>
+								<artifactId>javafx-swt</artifactId>
+								<version>${openjfx.version}</version>
+							</extraClasspathElement>
 							<extraClasspathElement>
 								<groupId>org.openjfx</groupId>
 								<artifactId>javafx-base</artifactId>
@@ -74,11 +79,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 							<extraClasspathElement>
 								<groupId>org.openjfx</groupId>
 								<artifactId>javafx-swing</artifactId>
-								<version>${openjfx.version}</version>
-							</extraClasspathElement>
-							<extraClasspathElement>
-								<groupId>at.bestsolution.openjfx</groupId>
-								<artifactId>javafx-swt</artifactId>
 								<version>${openjfx.version}</version>
 							</extraClasspathElement>
 						</extraClasspathElements>
