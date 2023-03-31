@@ -1,4 +1,4 @@
-package org.osate.aadl2.errormodel.analysis.handlers;
+package org.osate.aadl2.errormodel.analysis.fia;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
@@ -6,7 +6,6 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.slicer.Faultimpactanalysisproperties;
 import org.osate.slicer.SlicerRepresentation;
 import org.osate.slicer.SlicerRepresentation.ErrorStateValidity;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
@@ -54,7 +53,7 @@ public class FaultImpactHandler2 extends AaxlReadOnlyHandlerAsJob {
 
 			// TODO: Replace usiing Fault Impact Analysis generated methods
 
-			sinkAcceptability = Faultimpactanalysisproperties.getAcceptable_Property(esi);
+			sinkAcceptability = FaultImpactAnalysisProperties.getAcceptable_Property(esi);
 			if (!PropertyUtils.getBooleanValue(esi, sinkAcceptability)) {
 				System.err.println("An unacceptable error state is reachable!");
 				result = false;

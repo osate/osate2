@@ -1,4 +1,4 @@
-package org.osate.slicer;
+package org.osate.aadl2.errormodel.analysis.fia;
 
 import java.util.Optional;
 
@@ -14,10 +14,13 @@ import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 
-public final class Faultimpactanalysisproperties {
+/**
+ * @since 1.2
+ */
+public final class FaultImpactAnalysisProperties {
 	public static final String FAULTIMPACTANALYSISPROPERTIES__NAME = "FaultImpactAnalysisProperties";
 
-	private Faultimpactanalysisproperties() {}
+	private FaultImpactAnalysisProperties() {}
 
 	// Lookup methods for FaultImpactAnalysisProperties::Acceptable
 

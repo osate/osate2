@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,10 +29,8 @@ import java.util.stream.Collectors;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.traverse.DepthFirstIterator;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.errormodel.instance.ErrorSinkInstance;
 import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 /**
  * This class calculates elements in the graph that are not used, but possibly should be.
@@ -97,35 +95,6 @@ public class UnusedElementDetector {
 				}
 			} while (iterator.hasNext());
 		}
-	}
-
-	/**
-	 * Checks to make sure every error sink has a label saying it is acceptable using the fault impact property set.
-	 *
-	 * @return boolean Returns true if each error sink is labeled correctly, otherwise returns false.
-	 */
-	public boolean checkSinkLabel() {
-		Property sinkAcceptability;
-		var sinkVertices = g.vertexSet()
-				.stream()
-				.filter(v -> v.getIObj() instanceof ErrorSinkInstance)
-				.collect(Collectors.toSet());
-		for (var v : sinkVertices) {
-			ErrorSinkInstance esi = (ErrorSinkInstance) v.getIObj();
-			sinkAcceptability = Faultimpactanalysisproperties.getAcceptable_Property(esi);
-
-			if (!PropertyUtils.getBooleanValue(esi, sinkAcceptability)) {
-				return false;
-			}
-
-//			TODO: Once slicer is merged into master, change to the code below
-//			if (!Faultimpactanalysisproperties.getAcceptable(esi).orElse(false)) {
-//				return false;
-//			}
-
-		}
-
-		return true;
 	}
 
 	/**
