@@ -37,7 +37,6 @@
 		<module>org.osate.verify</module>
 		<module>org.osate.verify.ui</module>
 
-		<module>org.osate.smaccm.stubs</module>
 	</modules>
 
 </project>

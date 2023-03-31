@@ -29,6 +29,18 @@
 
 	<profiles>
 		<profile>
+			<id>codecoverage</id>
+			<activation>
+				<property>
+					<name>codecoverage</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<modules>
+				<module>core/org.osate.build.coverage.report</module>
+			</modules>
+		</profile>
+		<profile>
 			<id>pr-build</id>
 			<activation>
 				<property>

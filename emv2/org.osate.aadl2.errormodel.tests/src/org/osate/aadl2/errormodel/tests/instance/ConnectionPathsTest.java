@@ -1,5 +1,6 @@
 package org.osate.aadl2.errormodel.tests.instance;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -92,16 +93,80 @@ public class ConnectionPathsTest {
 	public void testDownPath() throws Exception {
 		var pkg = testHelper.parseFile(PATH + "down_path_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
-		// Tests that down connection paths are not instantiated.
-		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals("system_in_f -> ps.process_in_f", connectionPath.getName());
+			assertEquals("system_in_f -> ps.process_in_f", connectionPath.getConnection().getName());
+			assertEquals(0, connectionPath.getSourcePropagations().size());
+			assertNull(connectionPath.getSourcePropagation());
+			assertIterableEquals(List.of("process_in_f"),
+					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			connectionPath.getDestinationPropagations().forEach(propagation -> {
+				assertTrue(propagation.getDestinationConnectionPaths().contains(connectionPath));
+			});
+			assertEquals("process_in_f", connectionPath.getDestinationPropagation().getName());
+		});
+	}
+
+	@Test
+	public void testDownPathThreeLevel() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "down_path_three_level_test.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals("system_in_f -> ps.t.thread_in_f", connectionPath.getName());
+			assertEquals("system_in_f -> ps.t.thread_in_f", connectionPath.getConnection().getName());
+			assertEquals(0, connectionPath.getSourcePropagations().size());
+			assertNull(connectionPath.getSourcePropagation());
+			assertIterableEquals(List.of("thread_in_f", "process_in_f"),
+					connectionPath.getDestinationPropagations().stream().map(NamedElement::getName).toList());
+			connectionPath.getDestinationPropagations().forEach(propagation -> {
+				assertTrue(propagation.getDestinationConnectionPaths().contains(connectionPath));
+			});
+			assertEquals("thread_in_f", connectionPath.getDestinationPropagation().getName());
+		});
 	}
 
 	@Test
 	public void testUpPath() throws Exception {
 		var pkg = testHelper.parseFile(PATH + "up_path_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
-		// Tests that up connection paths are not instantiated.
-		assertEquals(0, InstantiateModel.instantiate(system).getAnnexInstances().size());
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals("ps.process_out_f -> system_out_f", connectionPath.getName());
+			assertEquals("ps.process_out_f -> system_out_f", connectionPath.getConnection().getName());
+			assertIterableEquals(List.of("process_out_f"),
+					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			connectionPath.getSourcePropagations().forEach(propagation -> {
+				assertTrue(propagation.getSourceConnectionPaths().contains(connectionPath));
+			});
+			assertEquals("process_out_f", connectionPath.getSourcePropagation().getName());
+			assertEquals(0, connectionPath.getDestinationPropagations().size());
+			assertNull(connectionPath.getDestinationPropagation());
+		});
+	}
+
+	@Test
+	public void testUpPathThreeLevel() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "up_path_three_level_test.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		assertEquals(1, annexInstance.getPropagationPaths().size());
+		with((ConnectionPath) annexInstance.getPropagationPaths().get(0), connectionPath -> {
+			assertEquals("ps.t.thread_out_f -> system_out_f", connectionPath.getName());
+			assertEquals("ps.t.thread_out_f -> system_out_f", connectionPath.getConnection().getName());
+			assertIterableEquals(List.of("thread_out_f", "process_out_f"),
+					connectionPath.getSourcePropagations().stream().map(NamedElement::getName).toList());
+			connectionPath.getSourcePropagations().forEach(propagation -> {
+				assertTrue(propagation.getSourceConnectionPaths().contains(connectionPath));
+			});
+			assertEquals("thread_out_f", connectionPath.getSourcePropagation().getName());
+			assertEquals(0, connectionPath.getDestinationPropagations().size());
+			assertNull(connectionPath.getDestinationPropagation());
+		});
 	}
 
 	@Test

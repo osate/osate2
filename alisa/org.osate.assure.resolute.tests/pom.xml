@@ -23,7 +23,7 @@
 		</repository>
 		<repository>
 			<id>resolute</id>
-			<url>http://osate-build.sei.cmu.edu/download/osate/stable/2.3.7/updates</url>
+			<url>https://raw.githubusercontent.com/iamundson/Resolute-Updates/master/resolute_3.1.1</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>

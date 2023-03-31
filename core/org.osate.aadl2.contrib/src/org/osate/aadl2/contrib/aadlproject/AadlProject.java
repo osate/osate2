@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -247,21 +247,6 @@ public final class AadlProject {
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
 	}
 	
-	// Lookup methods for AADL_Project::Max_Byte_Count
-	
-	public static final String MAX_BYTE_COUNT__NAME = "Max_Byte_Count";
-	
-	public static long getMaxByteCount(EObject lookupContext) {
-		PropertyConstant constant = getMaxByteCount_PropertyConstant(lookupContext);
-		PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
-		return ((IntegerLiteral) resolved).getValue();
-	}
-	
-	public static PropertyConstant getMaxByteCount_PropertyConstant(EObject lookupContext) {
-		String name = AADL_PROJECT__NAME + "::" + MAX_BYTE_COUNT__NAME;
-		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
-	}
-	
 	// Lookup methods for AADL_Project::Max_Word_Space
 	
 	public static final String MAX_WORD_SPACE__NAME = "Max_Word_Space";
@@ -274,6 +259,21 @@ public final class AadlProject {
 	
 	public static PropertyConstant getMaxWordSpace_PropertyConstant(EObject lookupContext) {
 		String name = AADL_PROJECT__NAME + "::" + MAX_WORD_SPACE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+	}
+	
+	// Lookup methods for AADL_Project::Max_Byte_Count
+	
+	public static final String MAX_BYTE_COUNT__NAME = "Max_Byte_Count";
+	
+	public static long getMaxByteCount(EObject lookupContext) {
+		PropertyConstant constant = getMaxByteCount_PropertyConstant(lookupContext);
+		PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+		return ((IntegerLiteral) resolved).getValue();
+	}
+	
+	public static PropertyConstant getMaxByteCount_PropertyConstant(EObject lookupContext) {
+		String name = AADL_PROJECT__NAME + "::" + MAX_BYTE_COUNT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
 	}
 	

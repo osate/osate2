@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -70,8 +70,6 @@ import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
-import org.osate.assure.util.ResoluteInterface
-import org.osate.assure.util.ResoluteUtil
 import org.osate.categories.categories.CategoryFilter
 import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.ValuePredicate
@@ -104,6 +102,7 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 import org.osate.aadl2.instance.EndToEndFlowInstance
+import org.osate.resolute.ResoluteUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -757,7 +756,7 @@ class AssureProcessor implements IAssureProcessor {
 		if (ResoluteUtil.isResoluteInstalled()) {
 			val methodtype = method.methodKind as ResoluteMethod
 			val fundef = methodtype.methodReference
-			val returned = (new ResoluteInterface).executeResoluteFunctionOnce(fundef, targetComponent, target,
+			val returned = ResoluteUtil.getResolute.executeResoluteFunctionOnce(fundef, targetComponent, target,
 				parameters)
 			processExecutionResult(verificationResult, method, target, returned)
 		} else {

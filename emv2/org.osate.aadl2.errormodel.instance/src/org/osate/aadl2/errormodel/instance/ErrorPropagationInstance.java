@@ -50,7 +50,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  * @model abstract="true"
  * @generated
  */
-public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
+public interface ErrorPropagationInstance extends EMV2InstanceObject {
 	/**
 	 * Returns the value of the '<em><b>In Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->

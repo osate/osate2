@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AADL Model Slicer
+Bundle-SymbolicName: org.osate.slicer
+Bundle-Version: 0.1.0.qualifier
+Automatic-Module-Name: org.osate.slicer
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-Vendor: CMU/SEI
+Require-Bundle: org.jgrapht;bundle-version="[1.5.0,2.0.0)",
+ org.osate.aadl2.errormodel.instance;bundle-version="[2.0.0,3.0.0)",
+ org.apache.commons.lang;bundle-version="[2.6.0,3.0.0)"
+Export-Package: org.osate.slicer

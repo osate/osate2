@@ -1,0 +1,40 @@
+package lookup_on_type_from_super_type
+public
+	system s
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types lookup_on_type_from_super_type;
+			
+			error propagations
+				f: in propagation {child};
+				flows
+					sink1: error sink f;
+			end propagations;
+			
+			properties
+				ps::string4 => "Value in s" applies to sink1.child;
+				ps::string6 => "Value in s overrides value on parent" applies to sink1.child;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error types
+			parent: type;
+			middle: type extends parent;
+			child: type extends middle;
+			properties
+				ps::string1 => "Value on parent" applies to parent;
+				ps::string2 => "Value on middle" applies to middle;
+				ps::string3 => "Value on child" applies to child;
+				
+				ps::string5 => "Should be overridden by value on middle" applies to parent;
+				ps::string5 => "Value on middle overrides value on parent" applies to middle;
+				
+				ps::string6 => "Should be overridden by value in s" applies to parent;
+		end types;
+	**};
+end lookup_on_type_from_super_type;

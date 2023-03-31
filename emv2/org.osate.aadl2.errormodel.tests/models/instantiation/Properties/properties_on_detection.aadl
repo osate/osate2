@@ -1,0 +1,29 @@
+package properties_on_detection
+public
+	system s
+		features
+			f1: feature;
+		annex EMV2 {**
+			use behavior properties_on_detection::machine1;
+			
+			component error behavior
+				detections
+					detection1: state1 -[]-> f1!;
+			end component;
+			
+			properties
+				ps::boolean_for_all => true applies to detection1;
+				ps::boolean_for_error_detection => true applies to detection1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+		end behavior;
+	**};
+end properties_on_detection;

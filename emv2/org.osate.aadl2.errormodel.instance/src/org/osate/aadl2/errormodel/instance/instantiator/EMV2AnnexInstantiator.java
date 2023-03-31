@@ -24,12 +24,12 @@
 package org.osate.aadl2.errormodel.instance.instantiator;
 
 import static org.eclipse.xtext.EcoreUtil2.getContainerOfType;
-import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.isNoError;
 
 import java.math.BigDecimal;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +46,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
@@ -62,14 +63,11 @@ import org.osate.aadl2.errormodel.instance.Branch;
 import org.osate.aadl2.errormodel.instance.BranchSameState;
 import org.osate.aadl2.errormodel.instance.BranchStateReference;
 import org.osate.aadl2.errormodel.instance.Branches;
-import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
+import org.osate.aadl2.errormodel.instance.CompositeConditionExpression;
 import org.osate.aadl2.errormodel.instance.ConditionExpressionInstance;
 import org.osate.aadl2.errormodel.instance.ConditionPropagationReference;
 import org.osate.aadl2.errormodel.instance.ConnectionEndPropagation;
 import org.osate.aadl2.errormodel.instance.ConstantCode;
-import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
-import org.osate.aadl2.errormodel.instance.ConstraintElement;
-import org.osate.aadl2.errormodel.instance.ConstraintExpression;
 import org.osate.aadl2.errormodel.instance.CountExpression;
 import org.osate.aadl2.errormodel.instance.CountExpressionOperation;
 import org.osate.aadl2.errormodel.instance.DestinationPropagationReference;
@@ -77,7 +75,7 @@ import org.osate.aadl2.errormodel.instance.DestinationStateReference;
 import org.osate.aadl2.errormodel.instance.DetectionInstance;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.EMV2InstanceFactory;
-import org.osate.aadl2.errormodel.instance.EOperation;
+import org.osate.aadl2.errormodel.instance.EMV2InstanceObject;
 import org.osate.aadl2.errormodel.instance.ErrorCodeInstance;
 import org.osate.aadl2.errormodel.instance.ErrorEventInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
@@ -86,6 +84,7 @@ import org.osate.aadl2.errormodel.instance.EventReference;
 import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.IntegerCode;
 import org.osate.aadl2.errormodel.instance.NoErrorPropagationReference;
+import org.osate.aadl2.errormodel.instance.OthersExpression;
 import org.osate.aadl2.errormodel.instance.OutgoingPropagationConditionDestination;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -94,6 +93,8 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
+import org.osate.aadl2.errormodel.instance.StateMachineProperties;
+import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.StringCode;
 import org.osate.aadl2.errormodel.instance.TransitionDestination;
@@ -118,6 +119,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -125,6 +127,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -150,6 +153,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
+import com.google.common.collect.Lists;
+
 public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	public static final String PROPERTY_NAME = "org.osate.emv2.instance";
 
@@ -160,8 +165,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// Don't instantiate EMV2 elements unless explicitly enabled.
 			return;
 		}
+
+		var subclauses = EMV2Util.getAllContainingClassifierEMV2Subclauses(instance);
+		var stateMachine = EMV2Util.getAllErrorBehaviorStateMachine(instance);
+
 		EMV2AnnexInstance emv2AI = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
 		emv2AI.setName("EMV2");
+		emv2AI.getSubclauses().addAll(subclauses);
 		instance.getAnnexInstances().add(emv2AI);
 
 		Collection<PropagationPoint> pps = EMV2Util.getAllPropagationPoints(instance.getComponentClassifier());
@@ -170,30 +180,30 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 
 		var eps = EMV2Util.getAllErrorPropagations(instance.getComponentClassifier());
-		instantiateErrorPropagations(eps, emv2AI);
+		instantiateErrorPropagations(eps, instance, emv2AI);
 
 		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
 		for (ErrorBehaviorEvent ev : events) {
-			instantiateEvent(ev, emv2AI);
+			instantiateEvent(ev, instance, emv2AI);
 		}
 
 		for (var source : EMV2Util.getAllErrorSources(instance)) {
-			instantiateErrorSource(source, emv2AI);
+			instantiateErrorSource(source, instance, emv2AI);
 		}
 
 		for (var sink : EMV2Util.getAllErrorSinks(instance)) {
-			instantiateErrorSink(sink, emv2AI);
+			instantiateErrorSink(sink, instance, emv2AI);
 		}
 
 		for (var path : EMV2Util.getAllErrorPaths(instance)) {
-			instantiateErrorPath(path, emv2AI);
+			instantiateErrorPath(path, instance, emv2AI);
 		}
 
-		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
-		if (ebsm != null) {
-			for (var state : ebsm.getStates()) {
-				instantiateState(state, emv2AI);
+		if (stateMachine != null) {
+			for (var state : stateMachine.getStates()) {
+				instantiateState(state, instance, emv2AI);
 			}
+			instantiateProperties(stateMachine, emv2AI);
 		}
 
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
@@ -203,7 +213,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
 		for (CompositeState cs : compstates) {
-			instantiateCompositeState(cs, emv2AI);
+			instantiateCompositeState(cs, instance, emv2AI);
 		}
 
 		Collection<OutgoingPropagationCondition> OPCs = EMV2Util.getAllOutgoingPropagationConditions(instance);
@@ -224,6 +234,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (PropagationPath ppath : ppaths) {
 			instantiateUserDefinedPath(ppath, emv2AI, instance);
 		}
+
+		instantiateProperties(subclauses, emv2AI);
 	}
 
 	@Override
@@ -240,6 +252,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private void instantiateConnectionPath(ConnectionInstance connection, ComponentInstance component) {
 		if (connection.isComplete()) {
+			// The connection is an across connection.
 			var sourcePropagations = new ArrayList<ConnectionEndPropagation>();
 			var destinationPropagations = new ArrayDeque<ConnectionEndPropagation>();
 			var encounteredAcross = false;
@@ -279,6 +292,53 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				connectionPath.setName(connection.getName());
 				connectionPath.setConnection(connection);
 				connectionPath.getSourcePropagations().addAll(sourcePropagations);
+				connectionPath.getDestinationPropagations().addAll(destinationPropagations);
+				getOrCreateEMV2AnnexInstance(component).getPropagationPaths().add(connectionPath);
+			}
+		} else if (EcoreUtil2.getContainerOfType(connection.getDestination(),
+				ComponentInstance.class) instanceof SystemInstance) {
+			// Check if the connection is an up connection that reaches out of the top-level SystemInstance.
+			var sourcePropagations = new ArrayList<ConnectionEndPropagation>();
+			for (var ref : connection.getConnectionReferences()) {
+				ConnectionEndPropagation propagation;
+				if (ref.getSource() instanceof FeatureInstance source) {
+					propagation = findFeaturePropagation(source);
+				} else if (ref.getSource() instanceof ComponentInstance source) {
+					propagation = findAccessPropagation(source);
+				} else {
+					throw new RuntimeException("Unexpected connection end: " + ref.getSource());
+				}
+				if (propagation != null && propagation.getDirection().outgoing()) {
+					sourcePropagations.add(propagation);
+				}
+			}
+			if (!sourcePropagations.isEmpty()) {
+				var connectionPath = EMV2InstanceFactory.eINSTANCE.createConnectionPath();
+				connectionPath.setName(connection.getName());
+				connectionPath.setConnection(connection);
+				connectionPath.getSourcePropagations().addAll(sourcePropagations);
+				getOrCreateEMV2AnnexInstance(component).getPropagationPaths().add(connectionPath);
+			}
+		} else {
+			// Check if the connection is a down connection that comes in from the top-level SystemInstance.
+			var destinationPropagations = new ArrayDeque<ConnectionEndPropagation>();
+			for (var ref : connection.getConnectionReferences()) {
+				ConnectionEndPropagation propagation;
+				if (ref.getDestination() instanceof FeatureInstance destination) {
+					propagation = findFeaturePropagation(destination);
+				} else if (ref.getDestination() instanceof ComponentInstance destination) {
+					propagation = findAccessPropagation(destination);
+				} else {
+					throw new RuntimeException("Unexpected connection end: " + ref.getDestination());
+				}
+				if (propagation != null && propagation.getDirection().incoming()) {
+					destinationPropagations.addFirst(propagation);
+				}
+			}
+			if (!destinationPropagations.isEmpty()) {
+				var connectionPath = EMV2InstanceFactory.eINSTANCE.createConnectionPath();
+				connectionPath.setName(connection.getName());
+				connectionPath.setConnection(connection);
 				connectionPath.getDestinationPropagations().addAll(destinationPropagations);
 				getOrCreateEMV2AnnexInstance(component).getPropagationPaths().add(connectionPath);
 			}
@@ -464,9 +524,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		annex.getPropagationPoints().add(gi);
 	}
 
-	private void instantiateEvent(ErrorBehaviorEvent event, EMV2AnnexInstance annex) {
+	private void instantiateEvent(ErrorBehaviorEvent event, ComponentInstance component, EMV2AnnexInstance annex) {
 		if (event instanceof ErrorEvent errorEvent) {
-			annex.getEvents().add(createErrorEventInstance(errorEvent));
+			annex.getEvents().add(createErrorEventInstance(errorEvent, component));
 		} else if (event instanceof RecoverEvent recoverEvent) {
 			annex.getEvents().add(createRecoverEventInstance(recoverEvent, annex));
 		} else if (event instanceof RepairEvent repairEvent) {
@@ -476,13 +536,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private ErrorEventInstance createErrorEventInstance(ErrorEvent event) {
+	private ErrorEventInstance createErrorEventInstance(ErrorEvent event, ComponentInstance component) {
 		var eventInstance = EMV2InstanceFactory.eINSTANCE.createErrorEventInstance();
 		eventInstance.setName(event.getName());
 		eventInstance.setErrorEvent(event);
 		if (event.getTypeSet() != null) {
 			eventInstance.setTypeSet(createAnonymousTypeSet(event.getTypeSet()));
+			instantiateProperties(eventInstance.getTypeSet(), event, component);
 		}
+		instantiateProperties(eventInstance, event, component);
 		return eventInstance;
 	}
 
@@ -498,6 +560,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				eventInstance.getEventInitiators().add(component.findModeTransitionInstance(transition));
 			}
 		}
+		instantiateProperties(eventInstance, event, component);
 		return eventInstance;
 	}
 
@@ -513,16 +576,19 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				eventInstance.getEventInitiators().add(component.findModeTransitionInstance(transition));
 			}
 		}
+		instantiateProperties(eventInstance, event, component);
 		return eventInstance;
 	}
 
-	private void instantiateState(ErrorBehaviorState state, EMV2AnnexInstance annex) {
+	private void instantiateState(ErrorBehaviorState state, ComponentInstance component, EMV2AnnexInstance annex) {
 		var stateInstance = EMV2InstanceFactory.eINSTANCE.createStateInstance();
 		stateInstance.setName(state.getName());
 		stateInstance.setState(state);
 		if (state.getTypeSet() != null) {
 			stateInstance.setTypeSet(createAnonymousTypeSet(state.getTypeSet()));
+			instantiateProperties(stateInstance.getTypeSet(), state, component);
 		}
+		instantiateProperties(stateInstance, state, component);
 		annex.getStates().add(stateInstance);
 		if (state.isIntial()) {
 			annex.setInitialState(stateInstance);
@@ -546,6 +612,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				transitionInstance.setName(sourceName + " -[" + conditionName + "]-> " + destinationName);
 			} else {
 				transitionInstance.setName(transition.getName());
+				instantiateProperties(transitionInstance, transition, component);
 			}
 			annex.getTransitions().add(transitionInstance);
 		} catch (InternalFeatureEncounteredException e) {
@@ -617,6 +684,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else if (condition instanceof OrlessExpression orLessExpression) {
 			return createCountExpression(orLessExpression.getOperands(), CountExpressionOperation.LESS_EQUAL,
 					orLessExpression.getCount(), component, annex);
+		} else if (condition instanceof SConditionElement conditionElement
+				&& conditionElement.getQualifiedState() != null) {
+			return createStateReference(component, conditionElement.getQualifiedState(),
+					conditionElement.getConstraint());
 		} else if (condition instanceof ConditionElement conditionElement) {
 			var path = conditionElement.getQualifiedErrorPropagationReference().getEmv2Target();
 			if (path.getNamedElement() instanceof ErrorBehaviorEvent event) {
@@ -627,6 +698,41 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else {
 			return null;
 		}
+	}
+
+	private StateReference createStateReference(ComponentInstance component, QualifiedErrorBehaviorState path,
+			TypeSet constraint) {
+		var name = new StringBuilder();
+		while (path.getNext() != null) {
+			component = component.findSubcomponentInstance(path.getSubcomponent().getSubcomponent());
+			name.append(component.getName());
+			name.append('.');
+			path = path.getNext();
+		}
+		component = component.findSubcomponentInstance(path.getSubcomponent().getSubcomponent());
+		name.append(component.getName());
+		name.append('.');
+		name.append(path.getState().getName());
+
+		var stateReference = EMV2InstanceFactory.eINSTANCE.createStateReference();
+		var state = path.getState();
+		var annex = findEMV2AnnexInstance(component);
+		if (annex == null) {
+			// Shouldn't happen if the declarative model is valid.
+			return null;
+		}
+		stateReference.setState(findStateInstance(annex, state));
+		if (constraint != null) {
+			stateReference.setTypeSet(createAnonymousTypeSet(constraint));
+		} else if (state.getTypeSet() != null) {
+			stateReference.setTypeSet(createAnonymousTypeSet(state.getTypeSet()));
+		}
+		if (stateReference.getTypeSet() != null) {
+			name.append(' ');
+			name.append(stateReference.getTypeSet().getName());
+		}
+		stateReference.setName(name.toString());
+		return stateReference;
 	}
 
 	private EventReference createEventReference(ErrorBehaviorEvent event, TypeSet constraint, EMV2AnnexInstance annex) {
@@ -878,24 +984,56 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return stateReference;
 	}
 
-	private void instantiateCompositeState(CompositeState st, EMV2AnnexInstance annex) {
-		CompositeStateInstance sti = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
-		sti.setName(st.getName());
-		sti.setCompositeState(st);
-		annex.getComposites().add(sti);
-		ConditionExpression behaviorCondition = st.getCondition();
-		ConstraintElement cio = instantiateCondition(behaviorCondition, annex);
-		sti.setCondition(cio);
-		// explicit target state
-		sti.setTargetState(findStateInstance(annex, st.getState()));
+	private void instantiateCompositeState(CompositeState composite, ComponentInstance component,
+			EMV2AnnexInstance annex) {
+		try {
+			var compositeInstance = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
+			compositeInstance.setComposite(composite);
+			compositeInstance.setCondition(createCompositeConditionExpression(composite, component, annex));
+			compositeInstance.setDestination(findStateInstance(annex, composite.getState()));
+			if (composite.getTypedToken() != null) {
+				compositeInstance.setDestinationTypeSet(createAnonymousTypeSet(composite.getTypedToken()));
+			}
+			if (composite.getName() == null) {
+				var conditionName = compositeInstance.getCondition().getName();
+				var destinationName = compositeInstance.getDestination().getName();
+				var destinationTypeSetName = "";
+				if (compositeInstance.getDestinationTypeSet() != null) {
+					destinationTypeSetName = ' ' + compositeInstance.getDestinationTypeSet().getName();
+				}
+				compositeInstance.setName('[' + conditionName + "]-> " + destinationName + destinationTypeSetName);
+			} else {
+				compositeInstance.setName(composite.getName());
+				instantiateProperties(compositeInstance, composite, component);
+			}
+			annex.getComposites().add(compositeInstance);
+		} catch (InternalFeatureEncounteredException e) {
+			// Abort instantiation of composite state.
+		}
 	}
 
-	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {
+	private CompositeConditionExpression createCompositeConditionExpression(CompositeState composite,
+			ComponentInstance component, EMV2AnnexInstance annex) throws InternalFeatureEncounteredException {
+		if (composite.isOthers()) {
+			return createOthersExpression();
+		} else {
+			return createConditionExpressionInstance(composite.getCondition(), component, annex);
+		}
+	}
+
+	private OthersExpression createOthersExpression() {
+		var othersExpression = EMV2InstanceFactory.eINSTANCE.createOthersExpression();
+		othersExpression.setName("others");
+		return othersExpression;
+	}
+
+	private void instantiateErrorPropagations(List<ErrorPropagation> eps, ComponentInstance component,
+			EMV2AnnexInstance annex) {
 		var propagationInstances = new TreeMap<String, ErrorPropagationInstance>(String.CASE_INSENSITIVE_ORDER);
 		for (var ep : eps) {
 			var epi = propagationInstances.computeIfAbsent(EMV2Util.getPropagationName(ep), name -> {
 				try {
-					return createErrorPropagationInstance(annex, name, ep);
+					return createErrorPropagationInstance(annex, name, ep, component);
 				} catch (InternalFeatureEncounteredException e) {
 					return null;
 				}
@@ -909,12 +1047,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				assert epi.getInErrorPropagation() == null && epi.getInTypeSet() == null : "In fields are already set.";
 				epi.setInErrorPropagation(ep);
 				epi.setInTypeSet(createAnonymousTypeSet(ep.getTypeSet()));
+				instantiateProperties(epi.getInTypeSet(), ep, component);
 				break;
 			case OUT:
 				assert epi.getOutErrorPropagation() == null && epi.getOutTypeSet() == null
 						: "Out fields are already set.";
 				epi.setOutErrorPropagation(ep);
 				epi.setOutTypeSet(createAnonymousTypeSet(ep.getTypeSet()));
+				instantiateProperties(epi.getOutTypeSet(), ep, component);
 				break;
 			case IN_OUT:
 				throw new RuntimeException(
@@ -924,7 +1064,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private ErrorPropagationInstance createErrorPropagationInstance(EMV2AnnexInstance annex, String name,
-			ErrorPropagation ep) throws InternalFeatureEncounteredException {
+			ErrorPropagation ep, ComponentInstance component) throws InternalFeatureEncounteredException {
 		ErrorPropagationInstance propagation;
 		if ("access".equalsIgnoreCase(ep.getKind())) {
 			propagation = createAccessPropagation(name);
@@ -948,6 +1088,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else {
 			throw new RuntimeException("Both kind and featureOrPPRef are null: " + ep);
 		}
+		instantiateProperties(propagation, ep, component);
 		annex.getPropagations().add(propagation);
 		return propagation;
 	}
@@ -1043,7 +1184,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return product;
 	}
 
-	private void instantiateErrorSource(ErrorSource source, EMV2AnnexInstance annex) {
+	private void instantiateErrorSource(ErrorSource source, ComponentInstance component, EMV2AnnexInstance annex) {
 		if (source.isAll()) {
 			// TODO Instantiate 'all' error sources after we figure out what 'all' means.
 			return;
@@ -1063,10 +1204,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			typeSet = propagation.getTypeSet();
 		}
 		sourceInstance.setTypeSet(createAnonymousTypeSet(typeSet));
+		instantiateProperties(sourceInstance, source, component);
+		instantiateProperties(sourceInstance.getTypeSet(), source, component);
 		annex.getErrorFlows().add(sourceInstance);
 	}
 
-	private void instantiateErrorSink(ErrorSink sink, EMV2AnnexInstance annex) {
+	private void instantiateErrorSink(ErrorSink sink, ComponentInstance component, EMV2AnnexInstance annex) {
 		if (sink.isAllIncoming()) {
 			// TODO Instantiate 'all' error sinks after we figure out what 'all' means.
 			return;
@@ -1086,28 +1229,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			typeSet = propagation.getTypeSet();
 		}
 		sinkInstance.setTypeSet(createAnonymousTypeSet(typeSet));
-
-		for (var association : EcoreUtil2.getContainerOfType(sink, ErrorModelSubclause.class).getProperties()) {
-			if (association.getOwnedValues().size() == 1
-					&& association.getOwnedValues().get(0).getInModes().isEmpty()) {
-				var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
-				for (var path : association.getEmv2Path()) {
-					var target = path.getEmv2Target();
-					if (target.getNamedElement() == sink && target.getPath() == null) {
-						var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
-						propertyInstance.setPropertyAssociation(association);
-						propertyInstance.setProperty(association.getProperty());
-						propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
-						sinkInstance.getOwnedPropertyAssociations().add(propertyInstance);
-					}
-				}
-			}
-		}
-
+		instantiateProperties(sinkInstance, sink, component);
+		instantiateProperties(sinkInstance.getTypeSet(), sink, component);
 		annex.getErrorFlows().add(sinkInstance);
 	}
 
-	private void instantiateErrorPath(ErrorPath path, EMV2AnnexInstance annex) {
+	private void instantiateErrorPath(ErrorPath path, ComponentInstance component, EMV2AnnexInstance annex) {
 		if (path.isAllIncoming() || path.isAllOutgoing()) {
 			// TODO Instantiate 'all' error paths after we figure out what 'all' means.
 			return;
@@ -1139,43 +1266,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		pathInstance.setSourceTypeSet(createAnonymousTypeSet(sourceTypeSet));
 		pathInstance.setDestinationTypeSet(createAnonymousTypeSet(path.getTargetToken()));
+		instantiateProperties(pathInstance, path, component);
 		annex.getErrorFlows().add(pathInstance);
-	}
-
-	/**
-	 *
-	 * @param ep
-	 * @param ts type constraint from flow. Can be null. If null then use type set from error propagation
-	 * @param eai
-	 * @return
-	 */
-	private ConstrainedInstanceObject createErrorPropagationCIO(ErrorPropagation ep, TypeSet ts,
-			EMV2AnnexInstance eai) {
-		ComponentInstance ci = (ComponentInstance) eai.eContainer();
-		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
-		FeatureorPPReference fppref = ep.getFeatureorPPRef();
-		if (fppref != null) {
-			NamedElement fpp = fppref.getFeatureorPP();
-			if (fpp instanceof Feature) {
-				FeatureInstance fi = findFeatureInstance(ci, fppref);
-				cio.setInstanceObject(fi);
-				cio.setName(fi.getName());
-			} else if (fpp instanceof PropagationPoint) {
-				PropagationPointInstance ppi = findPropagationPointInstance(eai, (PropagationPoint) fpp);
-				cio.setInstanceObject(ppi);
-				cio.setName(ppi.getName());
-			}
-		} else if (ep.getKind() != null) {
-			cio.setInstanceObject(ci);
-			cio.setPropagationKind(ep.getKind());
-		}
-		TypeSet outts = (ts == null) ? ep.getTypeSet() : ts;
-		if (outts != null) {
-			for (TypeToken tt : outts.getTypeTokens()) {
-				cio.getConstraint().add(EcoreUtil.copy(tt));
-			}
-		}
-		return cio;
 	}
 
 	private void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition condition,
@@ -1200,6 +1292,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				conditionInstance.setName(sourceName + " -[" + conditionExpressionName + "]-> " + destinationName);
 			} else {
 				conditionInstance.setName(condition.getName());
+				instantiateProperties(conditionInstance, condition, component);
 			}
 			annex.getConditions().add(conditionInstance);
 		} catch (InternalFeatureEncounteredException e) {
@@ -1305,6 +1398,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						.setName(sourceName + " -[" + conditionName + "]-> " + destinationName + " !" + codeName);
 			} else {
 				detectionInstance.setName(detection.getName());
+				instantiateProperties(detectionInstance, detection, component);
 			}
 			annex.getDetections().add(detectionInstance);
 		} catch (InternalFeatureEncounteredException e) {
@@ -1375,183 +1469,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		return null;
 	}
-
-	private ConstraintElement instantiateCondition(ConditionExpression condition, EMV2AnnexInstance annex) {
-
-		// Mapping of AND expression
-		if (condition instanceof AndExpression) {
-			AndExpression expression = (AndExpression) condition;
-			ConstraintExpression andExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-			andExpr.setOperator(EOperation.ALL);
-			for (ConditionExpression ce : expression.getOperands()) {
-				ConstraintElement res = instantiateCondition(ce, annex);
-				if (res != null) {
-					andExpr.getConstraintElements().add(res);
-				}
-			}
-
-			return andExpr;
-		}
-
-		// Mapping of All expression
-		if (condition instanceof AllExpression) {
-			AllExpression allCondition = (AllExpression) condition;
-			if (allCondition.getCount() == 0) {
-				ConstraintExpression allExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-				allExpr.setOperator(EOperation.ALL);
-				for (ConditionExpression ce : allCondition.getOperands()) {
-					ConstraintElement res = instantiateCondition(ce, annex);
-					if (res != null) {
-						allExpr.getConstraintElements().add(res);
-					}
-				}
-				return allExpr;
-			}
-			return null;
-		}
-
-		// Mapping of OR expression
-		if (condition instanceof OrExpression) {
-			OrExpression orExpression = (OrExpression) condition;
-			ConstraintExpression allExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-			allExpr.setOperator(EOperation.ONEOF);
-			for (ConditionExpression ce : orExpression.getOperands()) {
-				ConstraintElement res = instantiateCondition(ce, annex);
-				if (res != null) {
-					allExpr.getConstraintElements().add(res);
-				}
-			}
-			return allExpr;
-		}
-
-		// Mapping of ORMORE expression
-		if (condition instanceof OrmoreExpression) {
-			OrmoreExpression omCondition = (OrmoreExpression) condition;
-
-			if (omCondition.getCount() == 1) {
-				/* 1 ormore is mapped to a OR gate */
-				ConstraintExpression allExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-				allExpr.setOperator(EOperation.ANY);
-				for (ConditionExpression ce : omCondition.getOperands()) {
-					ConstraintElement res = instantiateCondition(ce, annex);
-					if (res != null) {
-						allExpr.getConstraintElements().add(res);
-					}
-				}
-				return allExpr;
-			} else {
-				/* x ormore with x > 1 is mapped to a ORMORE gate */
-				ConstraintExpression omExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
-				omExpr.setOperator(EOperation.KORMORE);
-				omExpr.setK(omCondition.getCount());
-				for (ConditionExpression ce : omCondition.getOperands()) {
-					ConstraintElement res = instantiateCondition(ce, annex);
-					if (res != null) {
-						omExpr.getConstraintElements().add(res);
-					}
-				}
-				return omExpr;
-			}
-		}
-
-		// Mapping of single condition element
-		if (condition instanceof ConditionElement) {
-			ConditionElement conditionElement = (ConditionElement) condition;
-
-			if (condition instanceof SConditionElement) {
-				SConditionElement sconditionElement = (SConditionElement) condition;
-				if (sconditionElement.getQualifiedState() != null) {
-					/**
-					 * In the following, it seems that we reference another
-					 * component. This is typically the case when the condition is
-					 * within an composite error behavior.
-					 *
-					 * So, we find the referenced component in the component
-					 * hierarchy and add all its contributors to the returned
-					 * events.
-					 */
-					QualifiedErrorBehaviorState qs = sconditionElement.getQualifiedState();
-					ComponentInstance component = (ComponentInstance) annex.eContainer();
-					ComponentInstance referencedComponent = EMV2Util.getLastComponentInstance(qs, component);
-					ErrorBehaviorState state = EMV2Util.getState(sconditionElement);
-					// either original type or mapped to constraint in condition or type set on state declaration
-					TypeSet referencedErrorType = (sconditionElement.getConstraint() != null)
-							? sconditionElement.getConstraint()
-							: state.getTypeSet();
-					EMV2AnnexInstance eai = findEMV2AnnexInstance(referencedComponent);
-					StateInstance si = findStateInstance(eai, state);
-					// state only
-					ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
-					cio.setInstanceObject(si);
-					cio.setName(si.getName());
-					if (referencedErrorType != null) {
-						cio.getConstraint().addAll(EcoreUtil.copyAll(referencedErrorType.getTypeTokens()));
-					}
-					return cio;
-				} else if (sconditionElement.getQualifiedErrorPropagationReference() != null) {
-					EMV2Path path = sconditionElement.getQualifiedErrorPropagationReference();
-					ComponentInstance component = (ComponentInstance) annex.eContainer();
-					ComponentInstance referencedComponent = EMV2Util.getLastComponentInstance(path, component);
-					ErrorPropagation ep = EMV2Util.getErrorPropagation(path);
-					// either original type or mapped to constraint in condition or type set on state declaration
-					TypeSet referencedErrorType = (sconditionElement.getConstraint() != null)
-							? sconditionElement.getConstraint()
-							: ep.getTypeSet();
-					ConstrainedInstanceObject cio = createErrorPropagationCIO(ep, EcoreUtil.copy(referencedErrorType),
-							findEMV2AnnexInstance(referencedComponent));
-					return cio;
-				}
-			} // end SConditionElement
-
-			if (conditionElement.getConstraint() != null) {
-				if (isNoError(conditionElement.getConstraint())) {
-					// this is a recovery transition since an incoming propagation constraint is NoError
-					return null;
-				}
-			}
-			if (conditionElement.getQualifiedErrorPropagationReference() != null) {
-				ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
-				EMV2Path path = conditionElement.getQualifiedErrorPropagationReference();
-
-				NamedElement errorModelElement = EMV2Util.getErrorModelElement(path);
-				ComponentInstance component = (ComponentInstance) annex.eContainer();
-				ComponentInstance referencedComponent = EMV2Util.getLastComponentInstance(path, component);
-				EMV2AnnexInstance referencedAnnex = findEMV2AnnexInstance(referencedComponent);
-				/**
-				 * Here, we have an error event. Likely, this is something we
-				 * can get when we are analyzing error component behavior.
-				 */
-				if (errorModelElement instanceof ErrorEvent) {
-					EventInstance evi = findEventInstance(referencedAnnex, (ErrorEvent) errorModelElement);
-					if (evi != null) {
-						cio.setInstanceObject(evi);
-						cio.setName(evi.getName());
-						TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
-								: ((ErrorEvent) errorModelElement).getTypeSet();
-						if (ts != null) {
-							cio.getConstraint().addAll(EcoreUtil.copyAll(ts.getTypeTokens()));
-						}
-						return cio;
-					}
-				}
-
-				/**
-				 * Here, we have an error propagation. This is notified with the
-				 * in propagation within a composite error model.
-				 */
-				if (errorModelElement instanceof ErrorPropagation) {
-					ErrorPropagation errorPropagation = (ErrorPropagation) errorModelElement;
-					TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
-							: errorPropagation.getTypeSet();
-					cio = createErrorPropagationCIO(errorPropagation, ts, referencedAnnex);
-					return cio;
-				}
-
-			}
-		}
-		return null;
-	}
-
 
 	private PropagationPointInstance findPropagationPointInstance(EMV2AnnexInstance annex, PropagationPoint pp) {
 		for (PropagationPointInstance ei : annex.getPropagationPoints()) {
@@ -1691,6 +1608,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				pathInstance.setName(sourcePath + " -> " + destinationPath);
 			} else {
 				pathInstance.setName(path.getName());
+				instantiateProperties(pathInstance, path, context);
 			}
 			var sourcePropagation = findPointPropagation(sourcePointInstance);
 			if (sourcePropagation != null && sourcePropagation.getDirection().outgoing()) {
@@ -1718,6 +1636,210 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			path = path.getNext();
 		}
 		return findPropagationPointInstance(findEMV2AnnexInstance(component), point);
+	}
+
+	private void instantiateProperties(EMV2InstanceObject instanceHolder, NamedElement declarativeHolder,
+			ComponentInstance component) {
+		String name;
+		if (declarativeHolder instanceof ErrorPropagation errorPropagation) {
+			name = EMV2Util.getPropagationName(errorPropagation);
+		} else {
+			name = declarativeHolder.getName();
+		}
+		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+		collectAssociations(associations, declarativeHolder, component, name, instanceHolder);
+		for (var association : associations.values()) {
+			instanceHolder.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+		}
+	}
+
+	private void instantiateProperties(AnonymousTypeSet anonymousTypeSet, NamedElement declarativeHolder,
+			ComponentInstance component) {
+		String holderName;
+		if (declarativeHolder instanceof ErrorPropagation errorPropagation) {
+			holderName = EMV2Util.getPropagationName(errorPropagation);
+		} else {
+			holderName = declarativeHolder.getName();
+		}
+		for (var token : anonymousTypeSet.flatten()) {
+			if (token instanceof TypeInstance type) {
+				var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+
+				/*
+				 * Find properties which are defined on the EMV2 element (propagation, state, event, etc) and can be
+				 * inhertied by the error type.
+				 */
+				collectAssociations(associations, declarativeHolder, component, holderName, type);
+				var sets = new ArrayDeque<TypeSet>();
+				for (var typeSetInstance = EcoreUtil2.getContainerOfType(type,
+						TypeSetInstance.class); typeSetInstance != null; typeSetInstance = EcoreUtil2
+								.getContainerOfType(typeSetInstance.eContainer(), TypeSetInstance.class)) {
+					sets.addFirst(typeSetInstance.resolveAlias());
+				}
+
+				// Find properties which are defined on a containing type set and can be inherited by the error type.
+				for (var set : sets) {
+					var library = EcoreUtil2.getContainerOfType(set, ErrorModelLibrary.class);
+					collectAssociations(associations, library.getProperties(), Collections.emptyList(), set.getName(),
+							type);
+				}
+
+				var resolvedType = type.resolveAlias();
+
+				// Find properties which are defined on a super type which this error type extends from.
+				var types = new ArrayDeque<ErrorType>();
+				types.addFirst(resolvedType);
+				for (var superType = EMV2Util
+						.resolveAlias(resolvedType.getSuperType()); superType != null; superType = EMV2Util
+								.resolveAlias(superType.getSuperType())) {
+					types.addFirst(superType);
+				}
+				for (var lookupType : types) {
+					var library = EcoreUtil2.getContainerOfType(lookupType, ErrorModelLibrary.class);
+					collectAssociations(associations, library.getProperties(), Collections.emptyList(),
+							lookupType.getName(), type);
+				}
+
+				// Find properties which are defined on the actual error type in a state machine or a subclause.
+				var name = holderName + '.' + resolvedType.getName();
+				collectAssociations(associations, declarativeHolder, component, name, type);
+
+				for (var association : associations.values()) {
+					type.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+				}
+			}
+		}
+	}
+
+	private void instantiateProperties(List<ErrorModelSubclause> subclauses, EMV2AnnexInstance annex) {
+		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
+		for (var subclause : Lists.reverse(subclauses)) {
+			for (var association : subclause.getProperties()) {
+				if (!association.isModal() && association.getEmv2Path().isEmpty()) {
+					associations.put(association.getProperty(), association);
+				}
+			}
+		}
+		for (var association : associations.values()) {
+			annex.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+		}
+	}
+
+	private void instantiateProperties(ErrorBehaviorStateMachine stateMachine, EMV2AnnexInstance annex) {
+		var associations = new ArrayList<EMV2PropertyAssociation>();
+		for (var association : stateMachine.getProperties()) {
+			if (!association.isModal() && association.getEmv2Path().isEmpty()) {
+				associations.add(association);
+			}
+		}
+		if (!associations.isEmpty()) {
+			annex.setStateMachineProperties(createStateMachineProperties(stateMachine, associations));
+		}
+	}
+
+	private StateMachineProperties createStateMachineProperties(ErrorBehaviorStateMachine stateMachine,
+			List<EMV2PropertyAssociation> associations) {
+		var stateMachineProperties = EMV2InstanceFactory.eINSTANCE.createStateMachineProperties();
+		stateMachineProperties.setName(stateMachine.getName());
+		stateMachineProperties.setStateMachine(stateMachine);
+		for (var association : associations) {
+			stateMachineProperties.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+		}
+		return stateMachineProperties;
+	}
+
+	private void collectAssociations(Map<Property, EMV2PropertyAssociation> associations,
+			NamedElement declarativeHolder, ComponentInstance component, String name,
+			EMV2InstanceObject instanceHolder) {
+		// Find properties which are defined in the containing state machine.
+		var stateMachine = EcoreUtil2.getContainerOfType(declarativeHolder, ErrorBehaviorStateMachine.class);
+		if (stateMachine != null) {
+			collectAssociations(associations, stateMachine.getProperties(), Collections.emptyList(), name,
+					instanceHolder);
+		}
+
+		/*
+		 * This outer loop finds properties which are defined in the local component as well as contained properties.
+		 * The loop starts at the local component and moves up the the containment hierarchy so that the top level
+		 * component, which has the highest precedence for property lookup, is processed last.
+		 */
+		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
+		for (var currentComponent = component; currentComponent != null; currentComponent = currentComponent
+				.getContainingComponentInstance()) {
+			/*
+			 * This inner loop finds properties which are defined in the local subclause as well as subclauses inherited
+			 * via component extension and realization.
+			 */
+			for (var subclause : Lists.reverse(EMV2Util.getAllContainingClassifierEMV2Subclauses(currentComponent))) {
+				collectAssociations(associations, subclause.getProperties(), expectedContainmentPath, name,
+						instanceHolder);
+			}
+			expectedContainmentPath.addFirst(currentComponent);
+		}
+	}
+
+	private void collectAssociations(Map<Property, EMV2PropertyAssociation> associations,
+			List<EMV2PropertyAssociation> declarativeAssociations, Iterable<ComponentInstance> expectedContainmentPath,
+			String name, EMV2InstanceObject instanceHolder) {
+		for (var association : declarativeAssociations) {
+			var property = association.getProperty();
+			if (!association.isModal() && instanceHolder.acceptsProperty(property)) {
+				for (var path : association.getEmv2Path()) {
+					if (matchesContainmentPath(expectedContainmentPath, path)
+							&& buildTargetName(path).equalsIgnoreCase(name)) {
+						associations.put(property, association);
+					}
+				}
+			}
+		}
+	}
+
+	private String buildTargetName(EMV2Path path) {
+		var targetName = new StringBuilder();
+		for (var target = path.getEmv2Target(); target != null; target = target.getPath()) {
+			var namedElement = target.getNamedElement();
+			if (namedElement instanceof ErrorPropagation errorPropagation) {
+				var featureOrPPRef = errorPropagation.getFeatureorPPRef();
+				while (featureOrPPRef.getNext() != null) {
+					featureOrPPRef = featureOrPPRef.getNext();
+				}
+				targetName.append(featureOrPPRef.getFeatureorPP().getName());
+			} else if (namedElement != null) {
+				targetName.append(namedElement.getName());
+			} else {
+				targetName.append(target.getEmv2PropagationKind());
+				if (target.getErrorType() != null) {
+					targetName.append('.');
+					targetName.append(target.getErrorType().getName());
+				}
+			}
+			if (target.getPath() != null) {
+				targetName.append('.');
+			}
+		}
+		return targetName.toString();
+	}
+
+	private static boolean matchesContainmentPath(Iterable<ComponentInstance> expectedContainmentPath, EMV2Path path) {
+		var expectedIter = expectedContainmentPath.iterator();
+		var currentCPE = path.getContainmentPath();
+		while (expectedIter.hasNext() && currentCPE != null) {
+			var expectedComponent = expectedIter.next();
+			if (expectedComponent.getSubcomponent() != currentCPE.getNamedElement()) {
+				return false;
+			}
+			currentCPE = currentCPE.getPath();
+		}
+		return !expectedIter.hasNext() && currentCPE == null;
+	}
+
+	private PropertyAssociationInstance createPropertyAssociationInstance(EMV2PropertyAssociation association) {
+		var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+		propertyInstance.setPropertyAssociation(association);
+		propertyInstance.setProperty(association.getProperty());
+		var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
+		propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
+		return propertyInstance;
 	}
 
 	/**

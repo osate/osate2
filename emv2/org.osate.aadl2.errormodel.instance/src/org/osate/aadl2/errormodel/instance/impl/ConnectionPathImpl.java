@@ -184,7 +184,11 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 */
 	@Override
 	public ConnectionEndPropagation getSourcePropagation() {
-		return getSourcePropagations().get(0);
+		if (getSourcePropagations().isEmpty()) {
+			return null;
+		} else {
+			return getSourcePropagations().get(0);
+		}
 	}
 
 	/**
@@ -194,7 +198,11 @@ public class ConnectionPathImpl extends EMV2InstanceObjectImpl implements Connec
 	 */
 	@Override
 	public ConnectionEndPropagation getDestinationPropagation() {
-		return getDestinationPropagations().get(0);
+		if (getDestinationPropagations().isEmpty()) {
+			return null;
+		} else {
+			return getDestinationPropagations().get(0);
+		}
 	}
 
 	/**

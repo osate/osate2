@@ -1,0 +1,42 @@
+package check_containment_path
+public
+	system outer
+	end outer;
+	
+	system implementation outer.i
+		subcomponents
+			middle1: system middle.i;
+			middle2: system middle.i;
+		annex EMV2 {**
+			properties
+				ps::string2 => "Value on middle2.inner1.sink1, but not others" applies to ^middle2.inner1@sink1;
+		**};
+	end outer.i;
+	
+	system middle
+	end middle;
+	
+	system implementation middle.i
+		subcomponents
+			inner1: system inner;
+			inner2: system inner;
+		annex EMV2 {**
+			properties
+				ps::string1 => "Value on inner1.sink1, but not inner2.sink1" applies to ^inner1@sink1;
+		**};
+	end middle.i;
+	
+	system inner
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: in propagation {ServiceError};
+				flows
+					sink1: error sink f;
+			end propagations;
+		**};
+	end inner;
+end check_containment_path;

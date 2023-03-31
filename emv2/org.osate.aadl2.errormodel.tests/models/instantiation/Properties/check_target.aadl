@@ -1,0 +1,24 @@
+package check_target
+public
+	system s
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: in propagation {ServiceError};
+				flows
+					sink1: error sink f;
+					sink2: error sink f;
+			end propagations;
+			
+			properties
+				ps::string1 => "Value on sink1, but not sink2" applies to sink1;
+				ps::string2 => "Value on sink1.ServiceError, but not sink1" applies to sink1.ServiceError;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end check_target;

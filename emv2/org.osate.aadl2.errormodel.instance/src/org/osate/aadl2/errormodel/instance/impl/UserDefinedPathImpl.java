@@ -23,11 +23,14 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
+import java.util.List;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
 import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
@@ -523,4 +526,8 @@ public class UserDefinedPathImpl extends EMV2InstanceObjectImpl implements UserD
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public List<? extends NamedElement> getInstantiatedObjects() {
+		return List.of(getPath());
+	}
 } // UserDefinedPathImpl

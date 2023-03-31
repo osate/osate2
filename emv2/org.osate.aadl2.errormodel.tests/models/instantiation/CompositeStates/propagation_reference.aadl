@@ -1,0 +1,59 @@
+package propagation_reference
+public
+	system s
+		features
+			f1: in feature;
+			f2: in feature;
+			f3: in feature;
+			fg1: feature group fgt1;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior propagation_reference::machine1;
+			
+			error propagations
+				f1: in propagation {CommonErrors};
+				f2: in propagation {CommonErrors};
+				f3: in propagation {CommonErrors};
+				memory: in propagation {CommonErrors};
+				fg1.f4: in propagation {CommonErrors};
+				fg1.fg2.fg3.f5: in propagation {CommonErrors};
+			end propagations;
+			
+			composite error behavior
+				states
+					composite1: [in f1]-> destinationState;
+					composite2: [in f2 {ServiceError}]-> destinationState;
+					composite3: [in f3 {noerror}]-> destinationState;
+					composite4: [in memory]-> destinationState;
+					composite5: [in fg1.f4 {ServiceError, ItemTimingError}]-> destinationState;
+					composite6: [in fg1.fg2.fg3.f5]-> destinationState;
+			end composite;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	feature group fgt1
+		features
+			f4: in feature;
+			fg2: feature group fgt2;
+	end fgt1;
+	
+	feature group fgt2
+		features
+			fg3: feature group fgt3;
+	end fgt2;
+	
+	feature group fgt3
+		features
+			f5: in feature;
+	end fgt3;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				destinationState: initial state;
+		end behavior;
+	**};
+end propagation_reference;

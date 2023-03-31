@@ -16,10 +16,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.12.0-SNAPSHOT</osate.version>
 
-		<jacoco.version>0.8.7</jacoco.version>
+		<jacoco.version>0.8.8</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
-		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
+		<test.logging>${test.logging.1} ${test.logging.2} -Dorg.osate.emv2.instance=true</test.logging>
 
 		<!-- for comparison with baseline -->
 		<skipBaselineComparison>false</skipBaselineComparison>
@@ -99,6 +99,11 @@
 									<os>linux</os>
 									<ws>gtk</ws>
 									<arch>x86_64</arch>
+								</environment>
+								<environment>
+									<os>linux</os>
+									<ws>gtk</ws>
+									<arch>aarch64</arch>
 								</environment>
 								<environment>
 									<os>win32</os>

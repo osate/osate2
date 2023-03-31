@@ -1,0 +1,26 @@
+package simple_boolean_on_type_in_sink
+public
+	system s
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: in propagation {CommonErrors};
+				flows
+					sink1: error sink f {ServiceError, ItemTimingError, ValueRelatedError};
+			end propagations;
+			
+			properties
+				ps::boolean_for_all => true applies to sink1.ItemTimingError;
+				ps::boolean_for_error_types => true applies to sink1.ItemTimingError;
+				ps::boolean_for_error_type => true applies to sink1.ItemTimingError;
+				
+				ps::boolean_for_all => true applies to sink1.ItemValueError;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end simple_boolean_on_type_in_sink;

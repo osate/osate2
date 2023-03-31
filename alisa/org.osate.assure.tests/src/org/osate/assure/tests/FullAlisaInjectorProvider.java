@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,7 +31,6 @@ import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.verify.VerifyStandaloneSetup;
 
 import com.google.inject.Injector;
-import com.rockwellcollins.atc.resolute.ResoluteStandaloneSetup;
 
 public class FullAlisaInjectorProvider extends Aadl2InjectorProvider {
 	@Override
@@ -42,7 +41,6 @@ public class FullAlisaInjectorProvider extends Aadl2InjectorProvider {
 		ReqSpecStandaloneSetup.doSetup();
 		VerifyStandaloneSetup.doSetup();
 		AlisaStandaloneSetup.doSetup();
-		ResoluteStandaloneSetup.doSetup();
 
 		return super.internalCreateInjector();
 	}

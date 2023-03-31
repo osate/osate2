@@ -1,0 +1,52 @@
+package up_path_three_level_test
+public
+	system s
+		features
+			system_out_f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				system_out_f: out propagation {ServiceError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			ps: process ps.i;
+		connections
+			conn_1: feature ps.process_out_f -> system_out_f;
+	end s.i;
+	
+	process ps
+		features
+			process_out_f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				process_out_f: out propagation {ServiceError};
+			end propagations;
+		**};
+	end ps;
+	
+	process implementation ps.i
+		subcomponents
+			t: thread t;
+		connections
+			conn_2: feature t.thread_out_f -> process_out_f;
+	end ps.i;
+	
+	thread t
+		features
+			thread_out_f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				thread_out_f: out propagation {ServiceError};
+			end propagations;
+		**};
+	end t;
+end up_path_three_level_test;

@@ -1,0 +1,31 @@
+package properties_on_transition
+public
+	system s
+		annex EMV2 {**
+			use behavior properties_on_transition::machine1;
+			
+			component error behavior
+				events
+					event1: error event;
+				transitions
+					transition1: state1 -[event1]-> state2;
+			end component;
+			
+			properties
+				ps::boolean_for_all => true applies to transition1;
+				ps::boolean_for_error_behavior_transition => true applies to transition1;
+				
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+end properties_on_transition;

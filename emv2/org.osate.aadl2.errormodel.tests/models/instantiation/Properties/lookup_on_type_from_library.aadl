@@ -1,0 +1,32 @@
+package lookup_on_type_from_library
+public
+	system s
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types lookup_on_type_from_library;
+			
+			error propagations
+				f: in propagation {type1};
+				flows
+					sink1: error sink f;
+			end propagations;
+			
+			properties
+				ps::string2 => "Value in s" applies to sink1.type1;
+				ps::string3 => "Value in s overrides value in library" applies to sink1.type1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error types
+			type1: type;
+			properties
+				ps::string1 => "Value in library" applies to type1;
+				ps::string3 => "Should be overridden by value in s" applies to type1;
+		end types;
+	**};
+end lookup_on_type_from_library;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -43,8 +43,8 @@ import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 public class WriteTime extends GeneratedRecord {
 	public static final String FIXED__NAME = "Fixed";
 	public static final String PERBYTE__NAME = "PerByte";
-	public static final URI FIXED__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#/0/@ownedProperty.19/@ownedPropertyType/@ownedField.0");
-	public static final URI PERBYTE__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#/0/@ownedProperty.19/@ownedPropertyType/@ownedField.1");
+	public static final URI FIXED__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedField.0");
+	public static final URI PERBYTE__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedField.1");
 	
 	private final Optional<IntegerRangeWithUnits<TimeUnits>> fixed;
 	private final Optional<IntegerRangeWithUnits<TimeUnits>> perbyte;

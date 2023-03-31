@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -34,40 +34,65 @@ public enum SizeUnits implements GeneratedUnits<SizeUnits> {
 	BITS(1.0, "bits", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.0"),
 	BYTES(8.0, "Bytes", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"),
 	KBYTE(8000.0, "KByte", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.2"),
+	/**
+	 * @since 2.1
+	 */
+	KIBYTE(8192.0, "KiByte", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.6"),
+	/**
+	 * @since 2.1
+	 */
 	MBYTE(8000000.0, "MByte", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.3"),
+	/**
+	 * @since 2.1
+	 */
+	MIBYTE(8388608.0, "MiByte", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.7"),
+	/**
+	 * @since 2.1
+	 */
 	GBYTE(8.0E9, "GByte", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.4"),
-	TBYTE(8.0E12, "TByte", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.5");
-	
+	/**
+	 * @since 2.1
+	 */
+	GIBYTE(8.589934592E9, "GiByte", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.8"),
+	/**
+	 * @since 2.1
+	 */
+	TBYTE(8.0E12, "TByte", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.5"),
+	/**
+	 * @since 2.1
+	 */
+	TIBYTE(8.796093022208E12, "TiByte", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.9");
+
 	private final double factorToBase;
 	private final String originalName;
 	private final URI uri;
-	
+
 	private SizeUnits(double factorToBase, String originalName, String uri) {
 		this.factorToBase = factorToBase;
 		this.originalName = originalName;
 		this.uri = URI.createURI(uri);
 	}
-	
+
 	public static SizeUnits valueOf(PropertyExpression propertyExpression) {
 		AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 		return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 	}
-	
+
 	@Override
 	public double getFactorToBase() {
 		return factorToBase;
 	}
-	
+
 	@Override
 	public double getFactorTo(SizeUnits target) {
 		return factorToBase / target.factorToBase;
 	}
-	
+
 	@Override
 	public URI getURI() {
 		return uri;
 	}
-	
+
 	@Override
 	public String toString() {
 		return originalName;

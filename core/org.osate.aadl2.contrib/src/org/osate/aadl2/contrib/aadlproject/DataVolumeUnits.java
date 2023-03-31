@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2022 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,11 +31,11 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.pluginsupport.properties.GeneratedUnits;
 
 public enum DataVolumeUnits implements GeneratedUnits<DataVolumeUnits> {
-	BITSPS(1.0, "bitsps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.18/@ownedLiteral.0"),
-	BYTESPS(8.0, "Bytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.18/@ownedLiteral.1"),
-	KBYTESPS(8000.0, "KBytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.18/@ownedLiteral.2"),
-	MBYTESPS(8000000.0, "MBytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.18/@ownedLiteral.3"),
-	GBYTESPS(8.0E9, "GBytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.18/@ownedLiteral.4");
+	BITSPS(1.0, "bitsps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.19/@ownedLiteral.0"),
+	BYTESPS(8.0, "Bytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.19/@ownedLiteral.1"),
+	KBYTESPS(8000.0, "KBytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.19/@ownedLiteral.2"),
+	MBYTESPS(8000000.0, "MBytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.19/@ownedLiteral.3"),
+	GBYTESPS(8.0E9, "GBytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.19/@ownedLiteral.4");
 	
 	private final double factorToBase;
 	private final String originalName;

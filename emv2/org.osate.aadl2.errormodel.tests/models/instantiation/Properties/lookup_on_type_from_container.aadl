@@ -1,0 +1,55 @@
+package lookup_on_type_from_container
+public
+	system outer
+	end outer;
+	
+	system implementation outer.i
+		subcomponents
+			middle: system middle.i;
+		annex EMV2 {**
+			properties
+				ps::string3 => "Value in outer.i" applies to ^middle.inner@sink1.ServiceError;
+				ps::string5 =>
+					"Value in outer.i overrides value in middle.i" applies to ^middle.inner@sink1.ServiceError;
+				ps::string6 => "Value in outer.i overrides value in middle.i and inner"
+					applies to ^middle.inner@sink1.ServiceError;
+		**};
+	end outer.i;
+	
+	system middle
+	end middle;
+	
+	system implementation middle.i
+		subcomponents
+			inner: system inner;
+		annex EMV2 {**
+			properties
+				ps::string2 => "Value in middle.i" applies to ^inner@sink1.ServiceError;
+				ps::string4 => "Value in middle.i overrides value in inner" applies to ^inner@sink1.ServiceError;
+				ps::string5 => "Should be overridden by value in outer.i" applies to ^inner@sink1.ServiceError;
+				ps::string6 =>
+					"Value in middle.i overrides value in inner and should be overridden by value in outer.i"
+					applies to ^inner@sink1.ServiceError;
+		**};
+	end middle.i;
+	
+	system inner
+		features
+			f: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: in propagation {ServiceError};
+				flows
+					sink1: error sink f;
+			end propagations;
+			
+			properties
+				ps::string1 => "Value in inner" applies to sink1.ServiceError;
+				ps::string4 => "Should be overridden by value in middle.i" applies to sink1.ServiceError;
+				ps::string6 =>
+					"Should be overridden by value in middle.i and then outer.i" applies to sink1.ServiceError;
+		**};
+	end inner;
+end lookup_on_type_from_container;
