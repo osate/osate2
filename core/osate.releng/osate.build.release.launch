@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.m2e.Maven2LaunchConfigurationType">
+    <booleanAttribute key="M2_DEBUG_OUTPUT" value="false"/>
+    <stringAttribute key="M2_GOALS" value="clean install -f ../.."/>
+    <booleanAttribute key="M2_NON_RECURSIVE" value="false"/>
+    <booleanAttribute key="M2_OFFLINE" value="false"/>
+    <stringAttribute key="M2_PROFILES" value="full"/>
+    <listAttribute key="M2_PROPERTIES">
+        <listEntry value="tycho.localArtifacts=ignore"/>
+        <listEntry value="jgit.dirtyWorkingTree=error"/>
+        <listEntry value="javadoc=true"/>
+        <listEntry value="sign=true"/>
+        <listEntry value="jarsigner.keystore=file:///home/lw/.pki/codesign.pkcs12"/>
+        <listEntry value="jarsigner.storepass=wis18{n824hiOUTfUHUZUWe0HAyDPG3P6ZoL4/FqdUvgnk+j8=}"/>
+        <listEntry value="jarsigner.keypass=sus{lZIkq0wYx48HZrHdsUI4mc7z9RB9NdoafG8UgdFAgU8=}"/>
+        <listEntry value="jarsigner.tsa=http://sha256timestamp.ws.symantec.com/sha256/timestamp"/>
+    </listAttribute>
+    <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
+    <booleanAttribute key="M2_SKIP_TESTS" value="false"/>
+    <intAttribute key="M2_THREADS" value="1"/>
+    <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="true"/>
+    <stringAttribute key="M2_USER_SETTINGS" value=""/>
+    <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
+    <stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${workspace}"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_SHOW_CODEDETAILS_IN_EXCEPTION_MESSAGES" value="true"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
+    <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-17-openjdk-amd64/"/>
+    <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:/osate.releng}"/>
+</launchConfiguration>
