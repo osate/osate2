@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <release>
 	<product name="osate2" id="org.osate.branding.osate2" version="2.12.90">
-		<feature name="org.osate.core.feature" version="11.0.0"/>
+		<feature name="org.osate.core.feature" version="11.1.0"/>
 		<feature name="org.osate.plugins.feature" version="6.1.4"/>
 		<feature name="org.osate.xtext.aadl2.errormodel.feature" version="10.0.0"/>
-		<feature name="org.osate.ge.feature" version="5.4.0"/>
+		<feature name="org.osate.ge.feature" version="5.5.0"/>
 		<feature name="org.osate.ge.errormodel.feature" version="5.1.1"/>
 		<feature name="org.osate.ba.feature" version="6.0.0"/>
 		<feature name="org.osate.ge.ba.feature" version="2.1.1"/>
@@ -451,7 +451,7 @@
 		<plugin name="org.osate.ba.edit" version="6.0.0"/>
 		<plugin name="org.osate.ba.contrib" version="1.0.7"/>
 	</feature>
-	<feature name="org.osate.core.feature" version="11.0.0">
+	<feature name="org.osate.core.feature" version="11.1.0">
 		<feature name="org.osate.license" version="1.0.3" license="true"/>
 		<plugin name="org.osate.aadl2" version="5.0.0"/>
 		<plugin name="org.osate.aadl2.edit" version="5.0.0"/>
@@ -459,7 +459,7 @@
 		<plugin name="org.osate.aadl2.model.editor" version="6.0.0"/>
 		<plugin name="org.osate.aadl2.modelsupport" version="7.0.0"/>
 		<plugin name="org.osate.annexsupport" version="4.0.1"/>
-		<plugin name="org.osate.branding" version="1.5.1"/>
+		<plugin name="org.osate.branding" version="1.6.0"/>
 		<plugin name="org.osate.core" version="5.0.0"/>
 		<plugin name="org.osate.pluginsupport" version="7.2.1"/>
 		<plugin name="org.osate.help" version="2.12.90"/>
@@ -491,12 +491,12 @@
 		<feature name="org.osate.license" version="1.0.3" license="true"/>
 		<plugin name="org.osate.ge.errormodel" version="2.2.1"/>
 	</feature>
-	<feature name="org.osate.ge.feature" version="5.4.0">
+	<feature name="org.osate.ge.feature" version="5.5.0">
 		<feature name="org.osate.license" version="1.0.3" license="true"/>
 		<plugin name="org.osate.ge" version="3.1.1"/>
 		<plugin name="org.osate.ge.doc" version="1.0.9"/>
 		<plugin name="org.osate.ge.diagram" version="2.1.1"/>
-		<plugin name="org.osate.ge.gef" version="1.4.1"/>
+		<plugin name="org.osate.ge.gef" version="1.5.0"/>
 		<plugin name="org.osate.ge.gef.ui" version="1.2.0"/>
 		<plugin name="org.osate.ge.swt" version="2.1.1"/>
 	</feature>
@@ -872,7 +872,7 @@
 	<plugin name="org.osate.ba" version="6.0.0"/>
 	<plugin name="org.osate.ba.contrib" version="1.0.7"/>
 	<plugin name="org.osate.ba.edit" version="6.0.0"/>
-	<plugin name="org.osate.branding" version="1.5.1"/>
+	<plugin name="org.osate.branding" version="1.6.0"/>
 	<plugin name="org.osate.categories" version="3.0.7"/>
 	<plugin name="org.osate.categories.ui" version="3.0.7"/>
 	<plugin name="org.osate.codegen.checker" version="1.0.9"/>
@@ -884,7 +884,7 @@
 	<plugin name="org.osate.ge.diagram" version="2.1.1"/>
 	<plugin name="org.osate.ge.doc" version="1.0.9"/>
 	<plugin name="org.osate.ge.errormodel" version="2.2.1"/>
-	<plugin name="org.osate.ge.gef" version="1.4.1"/>
+	<plugin name="org.osate.ge.gef" version="1.5.0"/>
 	<plugin name="org.osate.ge.gef.ui" version="1.2.0"/>
 	<plugin name="org.osate.ge.swt" version="2.1.1"/>
 	<plugin name="org.osate.help" version="2.12.90"/>
