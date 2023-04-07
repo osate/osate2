@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -264,13 +265,47 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public void setSource(ConnectionInstanceEnd newSource) {
+	public NotificationChain basicSetSource(ConnectionInstanceEnd newSource, NotificationChain msgs) {
 		ConnectionInstanceEnd oldSource = source;
 		source = newSource;
 		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					InstancePackage.CONNECTION_REFERENCE__SOURCE, oldSource, newSource);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSource(ConnectionInstanceEnd newSource) {
+		if (newSource != source) {
+			NotificationChain msgs = null;
+			if (source != null) {
+				msgs = ((InternalEObject) source).eInverseRemove(this,
+						InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE, ConnectionInstanceEnd.class,
+						msgs);
+			}
+			if (newSource != null) {
+				msgs = ((InternalEObject) newSource).eInverseAdd(this,
+						InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE, ConnectionInstanceEnd.class,
+						msgs);
+			}
+			msgs = basicSetSource(newSource, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__SOURCE,
-					oldSource, source));
+					newSource, newSource));
 		}
 	}
 
@@ -308,13 +343,47 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public void setDestination(ConnectionInstanceEnd newDestination) {
+	public NotificationChain basicSetDestination(ConnectionInstanceEnd newDestination, NotificationChain msgs) {
 		ConnectionInstanceEnd oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					InstancePackage.CONNECTION_REFERENCE__DESTINATION, oldDestination, newDestination);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDestination(ConnectionInstanceEnd newDestination) {
+		if (newDestination != destination) {
+			NotificationChain msgs = null;
+			if (destination != null) {
+				msgs = ((InternalEObject) destination).eInverseRemove(this,
+						InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE, ConnectionInstanceEnd.class,
+						msgs);
+			}
+			if (newDestination != null) {
+				msgs = ((InternalEObject) newDestination).eInverseAdd(this,
+						InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE, ConnectionInstanceEnd.class,
+						msgs);
+			}
+			msgs = basicSetDestination(newDestination, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__DESTINATION,
-					oldDestination, destination));
+					newDestination, newDestination));
 		}
 	}
 
@@ -341,6 +410,48 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__REVERSE,
 					oldReverse, reverse));
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case InstancePackage.CONNECTION_REFERENCE__SOURCE:
+			if (source != null) {
+				msgs = ((InternalEObject) source).eInverseRemove(this,
+						InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE, ConnectionInstanceEnd.class,
+						msgs);
+			}
+			return basicSetSource((ConnectionInstanceEnd) otherEnd, msgs);
+		case InstancePackage.CONNECTION_REFERENCE__DESTINATION:
+			if (destination != null) {
+				msgs = ((InternalEObject) destination).eInverseRemove(this,
+						InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE, ConnectionInstanceEnd.class,
+						msgs);
+			}
+			return basicSetDestination((ConnectionInstanceEnd) otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case InstancePackage.CONNECTION_REFERENCE__SOURCE:
+			return basicSetSource(null, msgs);
+		case InstancePackage.CONNECTION_REFERENCE__DESTINATION:
+			return basicSetDestination(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

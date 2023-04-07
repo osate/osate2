@@ -444,6 +444,26 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	@Override
+	public EReference getConnectionInstanceEnd_SrcConnectionReference() {
+		return (EReference) connectionInstanceEndEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConnectionInstanceEnd_DstConnectionReference() {
+		return (EReference) connectionInstanceEndEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getConnectionInstance() {
 		return connectionInstanceEClass;
 	}
@@ -1101,6 +1121,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		connectionInstanceEndEClass = createEClass(CONNECTION_INSTANCE_END);
 		createEReference(connectionInstanceEndEClass, CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE);
 		createEReference(connectionInstanceEndEClass, CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE);
+		createEReference(connectionInstanceEndEClass, CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE);
+		createEReference(connectionInstanceEndEClass, CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE);
 
 		connectionInstanceEClass = createEClass(CONNECTION_INSTANCE);
 		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE);
@@ -1288,6 +1310,14 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				getConnectionInstance_Destination(), "dstConnectionInstance", null, 0, -1, //$NON-NLS-1$
 				ConnectionInstanceEnd.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getConnectionInstanceEnd_SrcConnectionReference(), getConnectionReference(),
+				getConnectionReference_Source(), "srcConnectionReference", null, 0, -1, //$NON-NLS-1$
+				ConnectionInstanceEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getConnectionInstanceEnd_DstConnectionReference(), getConnectionReference(),
+				getConnectionReference_Destination(), "dstConnectionReference", null, 0, -1, //$NON-NLS-1$
+				ConnectionInstanceEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(connectionInstanceEClass, ConnectionInstance.class, "ConnectionInstance", !IS_ABSTRACT, //$NON-NLS-1$
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1374,11 +1404,13 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEReference(getConnectionReference_Connection(), theAadl2Package.getConnection(), null, "connection", null, //$NON-NLS-1$
 				1, 1, ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getConnectionReference_Source(), getConnectionInstanceEnd(), null, "source", null, 1, 1, //$NON-NLS-1$
+		initEReference(getConnectionReference_Source(), getConnectionInstanceEnd(),
+				getConnectionInstanceEnd_SrcConnectionReference(), "source", null, 1, 1, ConnectionReference.class, //$NON-NLS-1$
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getConnectionReference_Destination(), getConnectionInstanceEnd(),
+				getConnectionInstanceEnd_DstConnectionReference(), "destination", null, 1, 1, //$NON-NLS-1$
 				ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getConnectionReference_Destination(), getConnectionInstanceEnd(), null, "destination", null, //$NON-NLS-1$
-				1, 1, ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getConnectionReference_Reverse(), theAadl2Package.getBoolean(), "reverse", null, 1, 1, //$NON-NLS-1$
 				ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,

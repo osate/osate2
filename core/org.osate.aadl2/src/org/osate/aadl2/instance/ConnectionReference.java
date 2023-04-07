@@ -100,6 +100,7 @@ public interface ConnectionReference extends InstanceObject {
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getSrcConnectionReferences <em>Src Connection Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Source</em>' reference isn't clear,
@@ -109,7 +110,8 @@ public interface ConnectionReference extends InstanceObject {
 	 * @return the value of the '<em>Source</em>' reference.
 	 * @see #setSource(ConnectionInstanceEnd)
 	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionReference_Source()
-	 * @model required="true" ordered="false"
+	 * @see org.osate.aadl2.instance.ConnectionInstanceEnd#getSrcConnectionReferences
+	 * @model opposite="srcConnectionReference" required="true" ordered="false"
 	 * @generated
 	 */
 	ConnectionInstanceEnd getSource();
@@ -126,6 +128,7 @@ public interface ConnectionReference extends InstanceObject {
 
 	/**
 	 * Returns the value of the '<em><b>Destination</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getDstConnectionReferences <em>Dst Connection Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Destination</em>' reference isn't clear,
@@ -135,7 +138,8 @@ public interface ConnectionReference extends InstanceObject {
 	 * @return the value of the '<em>Destination</em>' reference.
 	 * @see #setDestination(ConnectionInstanceEnd)
 	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionReference_Destination()
-	 * @model required="true" ordered="false"
+	 * @see org.osate.aadl2.instance.ConnectionInstanceEnd#getDstConnectionReferences
+	 * @model opposite="dstConnectionReference" required="true" ordered="false"
 	 * @generated
 	 */
 	ConnectionInstanceEnd getDestination();

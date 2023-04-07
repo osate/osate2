@@ -36,6 +36,8 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getSrcConnectionInstances <em>Src Connection Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getDstConnectionInstances <em>Dst Connection Instance</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getSrcConnectionReferences <em>Src Connection Reference</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getDstConnectionReferences <em>Dst Connection Reference</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstanceEnd()
@@ -78,5 +80,41 @@ public interface ConnectionInstanceEnd extends InstanceObject {
 	 * @generated
 	 */
 	EList<ConnectionInstance> getDstConnectionInstances();
+
+	/**
+	 * Returns the value of the '<em><b>Src Connection Reference</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.instance.ConnectionReference}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.instance.ConnectionReference#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Src Connection Reference</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Src Connection Reference</em>' reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstanceEnd_SrcConnectionReference()
+	 * @see org.osate.aadl2.instance.ConnectionReference#getSource
+	 * @model opposite="source" ordered="false"
+	 * @generated
+	 */
+	EList<ConnectionReference> getSrcConnectionReferences();
+
+	/**
+	 * Returns the value of the '<em><b>Dst Connection Reference</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.instance.ConnectionReference}.
+	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.instance.ConnectionReference#getDestination <em>Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Dst Connection Reference</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dst Connection Reference</em>' reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstanceEnd_DstConnectionReference()
+	 * @see org.osate.aadl2.instance.ConnectionReference#getDestination
+	 * @model opposite="destination" ordered="false"
+	 * @generated
+	 */
+	EList<ConnectionReference> getDstConnectionReferences();
 
 } // ConnectionInstanceEnd

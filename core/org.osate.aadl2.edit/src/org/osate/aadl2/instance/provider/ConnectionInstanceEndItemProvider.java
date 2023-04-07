@@ -62,6 +62,8 @@ public class ConnectionInstanceEndItemProvider extends InstanceObjectItemProvide
 
 			addSrcConnectionInstancePropertyDescriptor(object);
 			addDstConnectionInstancePropertyDescriptor(object);
+			addSrcConnectionReferencePropertyDescriptor(object);
+			addDstConnectionReferencePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -95,6 +97,38 @@ public class ConnectionInstanceEndItemProvider extends InstanceObjectItemProvide
 				getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
 						"_UI_ConnectionInstanceEnd_dstConnectionInstance_feature", "_UI_ConnectionInstanceEnd_type"), //$NON-NLS-1$ //$NON-NLS-2$
 				InstancePackage.Literals.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE, true, false, true, null,
+				null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Src Connection Reference feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSrcConnectionReferencePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ConnectionInstanceEnd_srcConnectionReference_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+						"_UI_ConnectionInstanceEnd_srcConnectionReference_feature", "_UI_ConnectionInstanceEnd_type"), //$NON-NLS-1$ //$NON-NLS-2$
+				InstancePackage.Literals.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE, true, false, true, null,
+				null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Dst Connection Reference feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDstConnectionReferencePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ConnectionInstanceEnd_dstConnectionReference_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+						"_UI_ConnectionInstanceEnd_dstConnectionReference_feature", "_UI_ConnectionInstanceEnd_type"), //$NON-NLS-1$ //$NON-NLS-2$
+				InstancePackage.Literals.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE, true, false, true, null,
 				null, null));
 	}
 

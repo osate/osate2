@@ -49,6 +49,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dstConnectionInstance"
         ordered="false" upperBound="-1" eType="#//ConnectionInstance" transient="true"
         resolveProxies="false" eOpposite="#//ConnectionInstance/destination"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="srcConnectionReference"
+        ordered="false" upperBound="-1" eType="#//ConnectionReference" eOpposite="#//ConnectionReference/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dstConnectionReference"
+        ordered="false" upperBound="-1" eType="#//ConnectionReference" eOpposite="#//ConnectionReference/destination"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionInstance" eSuperTypes="#//FlowElementInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="inSystemOperationMode"
@@ -114,9 +118,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" ordered="false"
         unique="false" lowerBound="1" eType="ecore:EClass aadl2.ecore#//Connection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
-        lowerBound="1" eType="#//ConnectionInstanceEnd"/>
+        lowerBound="1" eType="#//ConnectionInstanceEnd" eOpposite="#//ConnectionInstanceEnd/srcConnectionReference"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
-        lowerBound="1" eType="#//ConnectionInstanceEnd"/>
+        lowerBound="1" eType="#//ConnectionInstanceEnd" eOpposite="#//ConnectionInstanceEnd/dstConnectionReference"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reverse" ordered="false"
         lowerBound="1" eType="ecore:EDataType aadl2.ecore#//Boolean"/>
   </eClassifiers>

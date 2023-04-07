@@ -30,9 +30,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstancePackage;
 
 /**
@@ -45,6 +47,8 @@ import org.osate.aadl2.instance.InstancePackage;
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceEndImpl#getSrcConnectionInstances <em>Src Connection Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceEndImpl#getDstConnectionInstances <em>Dst Connection Instance</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceEndImpl#getSrcConnectionReferences <em>Src Connection Reference</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceEndImpl#getDstConnectionReferences <em>Dst Connection Reference</em>}</li>
  * </ul>
  *
  * @generated
@@ -68,6 +72,25 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * @ordered
 	 */
 	protected EList<ConnectionInstance> dstConnectionInstances;
+
+	/**
+	 * The cached value of the '{@link #getSrcConnectionReferences() <em>Src Connection Reference</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSrcConnectionReferences()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionReference> srcConnectionReferences;
+	/**
+	 * The cached value of the '{@link #getDstConnectionReferences() <em>Dst Connection Reference</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDstConnectionReferences()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionReference> dstConnectionReferences;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,6 +146,36 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EList<ConnectionReference> getSrcConnectionReferences() {
+		if (srcConnectionReferences == null) {
+			srcConnectionReferences = new EObjectWithInverseResolvingEList<>(
+					ConnectionReference.class, this, InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE,
+					InstancePackage.CONNECTION_REFERENCE__SOURCE);
+		}
+		return srcConnectionReferences;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ConnectionReference> getDstConnectionReferences() {
+		if (dstConnectionReferences == null) {
+			dstConnectionReferences = new EObjectWithInverseResolvingEList<>(
+					ConnectionReference.class, this, InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE,
+					InstancePackage.CONNECTION_REFERENCE__DESTINATION);
+		}
+		return dstConnectionReferences;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -132,6 +185,12 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 					msgs);
 		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE:
 			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDstConnectionInstances()).basicAdd(otherEnd,
+					msgs);
+		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSrcConnectionReferences()).basicAdd(otherEnd,
+					msgs);
+		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDstConnectionReferences()).basicAdd(otherEnd,
 					msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -149,6 +208,10 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 			return ((InternalEList<?>) getSrcConnectionInstances()).basicRemove(otherEnd, msgs);
 		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE:
 			return ((InternalEList<?>) getDstConnectionInstances()).basicRemove(otherEnd, msgs);
+		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE:
+			return ((InternalEList<?>) getSrcConnectionReferences()).basicRemove(otherEnd, msgs);
+		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE:
+			return ((InternalEList<?>) getDstConnectionReferences()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -165,6 +228,10 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 			return getSrcConnectionInstances();
 		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE:
 			return getDstConnectionInstances();
+		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE:
+			return getSrcConnectionReferences();
+		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE:
+			return getDstConnectionReferences();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -186,6 +253,14 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 			getDstConnectionInstances().clear();
 			getDstConnectionInstances().addAll((Collection<? extends ConnectionInstance>) newValue);
 			return;
+		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE:
+			getSrcConnectionReferences().clear();
+			getSrcConnectionReferences().addAll((Collection<? extends ConnectionReference>) newValue);
+			return;
+		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE:
+			getDstConnectionReferences().clear();
+			getDstConnectionReferences().addAll((Collection<? extends ConnectionReference>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -204,6 +279,12 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE:
 			getDstConnectionInstances().clear();
 			return;
+		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE:
+			getSrcConnectionReferences().clear();
+			return;
+		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE:
+			getDstConnectionReferences().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -220,6 +301,10 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 			return srcConnectionInstances != null && !srcConnectionInstances.isEmpty();
 		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE:
 			return dstConnectionInstances != null && !dstConnectionInstances.isEmpty();
+		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE:
+			return srcConnectionReferences != null && !srcConnectionReferences.isEmpty();
+		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE:
+			return dstConnectionReferences != null && !dstConnectionReferences.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

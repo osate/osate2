@@ -67,6 +67,18 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/osate/aadl2/instance/ConnectionInstanceEnd.java" type="org.osate.aadl2.instance.ConnectionInstanceEnd">
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getDstConnectionReferences()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getSrcConnectionReferences()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/instance/FeatureInstance.java" type="org.osate.aadl2.instance.FeatureInstance">
         <filter comment="EMF generated code" id="1211105284">
             <message_arguments>
@@ -82,7 +94,67 @@
     <resource path="src/org/osate/aadl2/instance/InstancePackage.java" type="org.osate.aadl2.instance.InstancePackage">
         <filter comment="EMF generated code" id="1211105284">
             <message_arguments>
+                <message_argument value="COMPONENT_INSTANCE__DST_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPONENT_INSTANCE__SRC_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="FEATURE_INSTANCE__DST_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="FEATURE_INSTANCE__SRC_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
                 <message_argument value="FEATURE_INSTANCE__TYPE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_TRANSITION_INSTANCE__DST_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_TRANSITION_INSTANCE__SRC_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="SYSTEM_INSTANCE__DST_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="SYSTEM_INSTANCE__SRC_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getConnectionInstanceEnd_DstConnectionReference()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getConnectionInstanceEnd_SrcConnectionReference()"/>
             </message_arguments>
         </filter>
         <filter comment="EMF generated code" id="1211105284">
@@ -94,7 +166,51 @@
     <resource path="src/org/osate/aadl2/instance/InstancePackage.java" type="org.osate.aadl2.instance.InstancePackage$Literals">
         <filter comment="EMF generated code" id="1211105284">
             <message_arguments>
+                <message_argument value="CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
                 <message_argument value="FEATURE_INSTANCE__TYPE"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/impl/ConnectionInstanceEndImpl.java" type="org.osate.aadl2.instance.impl.ConnectionInstanceEndImpl">
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="dstConnectionReferences"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="srcConnectionReferences"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/impl/ConnectionReferenceImpl.java" type="org.osate.aadl2.instance.impl.ConnectionReferenceImpl">
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="basicSetDestination(ConnectionInstanceEnd, NotificationChain)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="basicSetSource(ConnectionInstanceEnd, NotificationChain)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="eInverseAdd(InternalEObject, int, NotificationChain)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="eInverseRemove(InternalEObject, int, NotificationChain)"/>
             </message_arguments>
         </filter>
     </resource>

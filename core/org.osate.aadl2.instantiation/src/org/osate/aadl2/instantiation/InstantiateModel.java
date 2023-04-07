@@ -1759,6 +1759,15 @@ public class InstantiateModel {
 		LinkedList<Integer> dims = new LinkedList<Integer>();
 		LinkedList<Integer> sizes = new LinkedList<Integer>();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
+
+		// need to copy source and destination separately because they are bidirectional references
+		for (int i = 0; i < conni.getConnectionReferences().size(); i++) {
+			var orig = conni.getConnectionReferences().get(i);
+			var copy = newConn.getConnectionReferences().get(i);
+			copy.setSource(orig.getSource());
+			copy.setDestination(orig.getDestination());
+		}
+
 		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);

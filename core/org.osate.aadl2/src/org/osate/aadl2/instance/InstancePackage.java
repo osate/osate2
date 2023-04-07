@@ -245,13 +245,31 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE = INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Src Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE = INSTANCE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Dst Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE = INSTANCE_OBJECT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Connection Instance End</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_INSTANCE_END_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 2;
+	int CONNECTION_INSTANCE_END_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -324,6 +342,24 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_INSTANCE__DST_CONNECTION_INSTANCE = CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Src Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_INSTANCE__SRC_CONNECTION_REFERENCE = CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Dst Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_INSTANCE__DST_CONNECTION_REFERENCE = CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE;
 
 	/**
 	 * The feature id for the '<em><b>Src Flow Spec</b></em>' reference list.
@@ -1107,6 +1143,24 @@ public interface InstancePackage extends EPackage {
 	int MODE_TRANSITION_INSTANCE__DST_CONNECTION_INSTANCE = CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE;
 
 	/**
+	 * The feature id for the '<em><b>Src Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION_INSTANCE__SRC_CONNECTION_REFERENCE = CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Dst Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION_INSTANCE__DST_CONNECTION_REFERENCE = CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE;
+
+	/**
 	 * The feature id for the '<em><b>Destination</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1350,6 +1404,24 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int COMPONENT_INSTANCE__DST_CONNECTION_INSTANCE = CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Src Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_INSTANCE__SRC_CONNECTION_REFERENCE = CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Dst Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_INSTANCE__DST_CONNECTION_REFERENCE = CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE;
 
 	/**
 	 * The feature id for the '<em><b>Feature Instance</b></em>' containment reference list.
@@ -1778,6 +1850,24 @@ public interface InstancePackage extends EPackage {
 	int SYSTEM_INSTANCE__DST_CONNECTION_INSTANCE = COMPONENT_INSTANCE__DST_CONNECTION_INSTANCE;
 
 	/**
+	 * The feature id for the '<em><b>Src Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_INSTANCE__SRC_CONNECTION_REFERENCE = COMPONENT_INSTANCE__SRC_CONNECTION_REFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Dst Connection Reference</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_INSTANCE__DST_CONNECTION_REFERENCE = COMPONENT_INSTANCE__DST_CONNECTION_REFERENCE;
+
+	/**
 	 * The feature id for the '<em><b>Feature Instance</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2170,6 +2260,28 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getConnectionInstanceEnd_DstConnectionInstance();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getSrcConnectionReferences <em>Src Connection Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Src Connection Reference</em>'.
+	 * @see org.osate.aadl2.instance.ConnectionInstanceEnd#getSrcConnectionReferences()
+	 * @see #getConnectionInstanceEnd()
+	 * @generated
+	 */
+	EReference getConnectionInstanceEnd_SrcConnectionReference();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getDstConnectionReferences <em>Dst Connection Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Dst Connection Reference</em>'.
+	 * @see org.osate.aadl2.instance.ConnectionInstanceEnd#getDstConnectionReferences()
+	 * @see #getConnectionInstanceEnd()
+	 * @generated
+	 */
+	EReference getConnectionInstanceEnd_DstConnectionReference();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.ConnectionInstance <em>Connection Instance</em>}'.
@@ -3007,6 +3119,24 @@ public interface InstancePackage extends EPackage {
 		 */
 		EReference CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE = eINSTANCE
 				.getConnectionInstanceEnd_DstConnectionInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Src Connection Reference</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTION_INSTANCE_END__SRC_CONNECTION_REFERENCE = eINSTANCE
+				.getConnectionInstanceEnd_SrcConnectionReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Dst Connection Reference</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTION_INSTANCE_END__DST_CONNECTION_REFERENCE = eINSTANCE
+				.getConnectionInstanceEnd_DstConnectionReference();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl <em>Connection Instance</em>}' class.
