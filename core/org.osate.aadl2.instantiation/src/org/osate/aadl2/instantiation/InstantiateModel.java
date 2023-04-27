@@ -1372,7 +1372,7 @@ public class InstantiateModel {
 			}
 		}
 		for (ConnectionInstance conni : toRemove) {
-			EcoreUtil.delete(conni);
+			EcoreUtil.delete(conni, true);
 		}
 		replicateConnections(replicateConns);
 	}
