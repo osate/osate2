@@ -1522,7 +1522,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (conni.getInSystemOperationModes().isEmpty()) {
 					warning(conni.getContainingComponentInstance(), "Connection " + conni.getName()
 							+ " was removed because it is not active in any system operation mode");
-					EcoreUtil.delete(conni);
+					EcoreUtil.delete(conni, true);
 				}
 				break;
 			}
