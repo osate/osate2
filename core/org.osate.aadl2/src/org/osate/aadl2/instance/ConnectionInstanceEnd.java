@@ -94,7 +94,7 @@ public interface ConnectionInstanceEnd extends InstanceObject {
 	 * @return the value of the '<em>Src Connection Reference</em>' reference list.
 	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstanceEnd_SrcConnectionReference()
 	 * @see org.osate.aadl2.instance.ConnectionReference#getSource
-	 * @model opposite="source" ordered="false"
+	 * @model opposite="source" resolveProxies="false" transient="true" ordered="false"
 	 * @generated
 	 */
 	EList<ConnectionReference> getSrcConnectionReferences();
@@ -112,7 +112,7 @@ public interface ConnectionInstanceEnd extends InstanceObject {
 	 * @return the value of the '<em>Dst Connection Reference</em>' reference list.
 	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstanceEnd_DstConnectionReference()
 	 * @see org.osate.aadl2.instance.ConnectionReference#getDestination
-	 * @model opposite="destination" ordered="false"
+	 * @model opposite="destination" resolveProxies="false" transient="true" ordered="false"
 	 * @generated
 	 */
 	EList<ConnectionReference> getDstConnectionReferences();

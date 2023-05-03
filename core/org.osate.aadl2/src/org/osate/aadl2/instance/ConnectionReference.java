@@ -111,7 +111,7 @@ public interface ConnectionReference extends InstanceObject {
 	 * @see #setSource(ConnectionInstanceEnd)
 	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionReference_Source()
 	 * @see org.osate.aadl2.instance.ConnectionInstanceEnd#getSrcConnectionReferences
-	 * @model opposite="srcConnectionReference" required="true" ordered="false"
+	 * @model opposite="srcConnectionReference" resolveProxies="false" required="true" ordered="false"
 	 * @generated
 	 */
 	ConnectionInstanceEnd getSource();
@@ -139,7 +139,7 @@ public interface ConnectionReference extends InstanceObject {
 	 * @see #setDestination(ConnectionInstanceEnd)
 	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionReference_Destination()
 	 * @see org.osate.aadl2.instance.ConnectionInstanceEnd#getDstConnectionReferences
-	 * @model opposite="dstConnectionReference" required="true" ordered="false"
+	 * @model opposite="dstConnectionReference" resolveProxies="false" required="true" ordered="false"
 	 * @generated
 	 */
 	ConnectionInstanceEnd getDestination();
