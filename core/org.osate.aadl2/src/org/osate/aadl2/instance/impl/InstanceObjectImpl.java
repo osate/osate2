@@ -260,10 +260,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * @return path as string
 	 */
 	public String getInstanceObjectPath() {
-		if (this instanceof SystemInstance) {
-			return getName();
+		if (eContainer() == null) {
+			return getFullName();
 		}
-		final String path = ((InstanceObject) eContainer).getInstanceObjectPath();
+		final String path = ((InstanceObject) eContainer()).getInstanceObjectPath();
 		final String localname = getFullName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
@@ -278,7 +278,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		if (this instanceof SystemInstance) {
 			return "";
 		}
-		final String path = ((InstanceObject) eContainer).getComponentInstancePath();
+		if (eContainer() == null) {
+			return getFullName();
+		}
+		final String path = ((InstanceObject) eContainer()).getComponentInstancePath();
 		final String localname = getFullName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
@@ -398,53 +401,48 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	public Iterable<ConnectionInstance> allEnclosingConnectionInstances() {
 		final InstanceObject target = this;
-		return new Iterable<>() {
+		return () -> new Iterator<>() {
+			ConnectionInstance next;
+			ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
+					: target.getContainingComponentInstance();
+			Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
 
-			public Iterator<ConnectionInstance> iterator() {
-				return new Iterator<>() {
-					ConnectionInstance next;
-					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
-							: target.getContainingComponentInstance();
-					Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
-
-					private boolean advance() {
-						next = null;
+			private boolean advance() {
+				next = null;
+				if (iter.hasNext()) {
+					next = iter.next();
+					return true;
+				}
+				while (head != null) {
+					head = head.getContainingComponentInstance();
+					if (head == null) {
+						return false;
+					} else {
+						iter = head.getConnectionInstances().iterator();
 						if (iter.hasNext()) {
 							next = iter.next();
 							return true;
 						}
-						while (head != null) {
-							head = head.getContainingComponentInstance();
-							if (head == null) {
-								return false;
-							} else {
-								iter = head.getConnectionInstances().iterator();
-								if (iter.hasNext()) {
-									next = iter.next();
-									return true;
-								}
-							}
-						}
-						return false;
 					}
+				}
+				return false;
+			}
 
-					public boolean hasNext() {
-						return next != null || advance();
-					}
+			public boolean hasNext() {
+				return next != null || advance();
+			}
 
-					public ConnectionInstance next() {
-						if (next == null && !advance()) {
-							throw new NoSuchElementException();
-						}
-						ConnectionInstance result = next;
-						next = null;
-						return result;
-					}
+			public ConnectionInstance next() {
+				if (next == null && !advance()) {
+					throw new NoSuchElementException();
+				}
+				ConnectionInstance result = next;
+				next = null;
+				return result;
+			}
 
-					public void remove() {
-						throw new UnsupportedOperationException();
-					}
-				};
+			public void remove() {
+				throw new UnsupportedOperationException();
 			}
 		};
 	}
