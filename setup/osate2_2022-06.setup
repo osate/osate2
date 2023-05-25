@@ -837,6 +837,8 @@
             url="https://updates.yakindu.com/statecharts/releases/3.5.9"/>
         <repository
             url="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.2/"/>
+        <repository
+            url="https://download.eclipse.org/justj/jres/17/updates/release/latest"/>
       </repositoryList>
     </targlet>
     <description></description>
