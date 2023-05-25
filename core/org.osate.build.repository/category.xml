@@ -89,14 +89,14 @@ censes only apply to the Third Party Software and not any other portion of this 
    <category-def name="alisa.source" label="ALISA Source Code">
       <category name="source"/>
    </category-def>
-   <repository-reference location="https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.27.0" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/modeling/emft/mwe/updates/releases/2.13.0" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/xsemantics/milestones/1.22" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.30.0" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/modeling/emft/mwe/updates/releases/2.14.0" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/xsemantics/milestones/1.23" enabled="true" />
    <repository-reference location="https://download.eclipse.org/elk/updates/releases/0.8.1" enabled="true" />
    <repository-reference location="https://eclipse.py4j.org" enabled="true" />
    <repository-reference location="https://updates.yakindu.com/statecharts/releases/3.5.9" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/2022-06" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/ease/release/0.8.0" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/2023-03" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/ease/release/0.9.0" enabled="true" />
    <repository-reference location="https://download.eclipse.org/justj/jres/17/updates/release/latest" enabled="true" />
    <repository-reference location="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.2" enabled="true" />
    <repository-reference location="https://download.eclipse.org/mylyn/releases/3.25" enabled="true" />
