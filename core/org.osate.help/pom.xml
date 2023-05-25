@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.core</artifactId>
-			<version>5.0.0-SNAPSHOT</version>
+			<version>5.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.testsupport</artifactId>
-			<version>3.1.0-SNAPSHOT</version>
+			<version>4.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
@@ -130,7 +130,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ge.feature</artifactId>
-			<version>5.5.0-SNAPSHOT</version>
+			<version>5.5.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
@@ -188,9 +188,9 @@
 										<mainLabel>OSATE API Reference</mainLabel>
 									</tocOptions>
 									<javadocOptions>
-										<!--enable in case you need a proxy for web access <jvmOptions> 
-											<jvmOption>-Dhttp.proxySet=true</jvmOption> <jvmOption>-Dhttp.proxyHost=proxy.example.com</jvmOption> 
-											<jvmOption>-Dhttp.proxyPort=81</jvmOption> <jvmOption>-DhttpnonProxyHosts=*.example.com</jvmOption> 
+										<!--enable in case you need a proxy for web access <jvmOptions>
+											<jvmOption>-Dhttp.proxySet=true</jvmOption> <jvmOption>-Dhttp.proxyHost=proxy.example.com</jvmOption>
+											<jvmOption>-Dhttp.proxyPort=81</jvmOption> <jvmOption>-DhttpnonProxyHosts=*.example.com</jvmOption>
 											</jvmOptions> -->
 										<excludes>
 											<exclude>alisa_consistency</exclude>

@@ -18,19 +18,9 @@ Require-Bundle: org.eclipse.ui,
  org.osate.aadl2.instantiation;bundle-version="1.0.0",
  org.osate.aadl2.errormodel.analysis;bundle-version="1.0.0",
  org.osate.aadl2.errormodel.instance;bundle-version="1.0.0",
- org.junit.jupiter.api,
+ org.junit.jupiter.api;bundle-version="5.8.1",
  org.osate.pluginsupport;bundle-version="7.2.0",
  org.osate.aadl2.modelsupport
-Import-Package: org.apache.commons.logging,
- org.apache.log4j;version="[1.2.19,2.0.0)",
- org.hamcrest.core,
- org.junit;version="4.5.0",
- org.junit.runner;version="4.5.0",
- org.junit.runner.manipulation;version="4.5.0",
- org.junit.runner.notification;version="4.5.0",
- org.junit.runners;version="4.5.0",
- org.junit.runners.model;version="4.5.0",
- org.osate.xtext.aadl2
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.aadl2.errormodel.tests
