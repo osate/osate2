@@ -44,7 +44,7 @@
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.apache.commons.io" version="2.8.0.v20210415-0900"/>
-      <repository location="https://download.eclipse.org/tools/orbit/downloads/2022-06"/>
+      <repository location="https://download.eclipse.org/tools/orbit/downloads/2023-03"/>
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.eclipse.elk.feature.feature.group" version="0.0.0"/>
