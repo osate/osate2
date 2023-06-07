@@ -7,12 +7,12 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>core.parent</artifactId>
-		<version>2.12.0-SNAPSHOT</version>
+		<version>2.13.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.help</artifactId>
-	<version>2.12.2-SNAPSHOT</version>
+	<version>2.12.91-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<!-- Generate javadoc for maven projects listed as dependencies -->
@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.core</artifactId>
-			<version>5.0.0-SNAPSHOT</version>
+			<version>5.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
@@ -90,12 +90,12 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.testsupport</artifactId>
-			<version>3.1.0-SNAPSHOT</version>
+			<version>4.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ui</artifactId>
-			<version>6.3.3-SNAPSHOT</version>
+			<version>6.3.4-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
@@ -110,7 +110,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.xtext.aadl2.errormodel.feature</artifactId>
-			<version>10.0.0-SNAPSHOT</version>
+			<version>10.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
@@ -125,12 +125,12 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.alisa.workbench.sdk</artifactId>
-			<version>8.0.0-SNAPSHOT</version>
+			<version>8.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ge.feature</artifactId>
-			<version>5.4.0-SNAPSHOT</version>
+			<version>5.5.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
@@ -188,9 +188,9 @@
 										<mainLabel>OSATE API Reference</mainLabel>
 									</tocOptions>
 									<javadocOptions>
-										<!--enable in case you need a proxy for web access <jvmOptions> 
-											<jvmOption>-Dhttp.proxySet=true</jvmOption> <jvmOption>-Dhttp.proxyHost=proxy.example.com</jvmOption> 
-											<jvmOption>-Dhttp.proxyPort=81</jvmOption> <jvmOption>-DhttpnonProxyHosts=*.example.com</jvmOption> 
+										<!--enable in case you need a proxy for web access <jvmOptions>
+											<jvmOption>-Dhttp.proxySet=true</jvmOption> <jvmOption>-Dhttp.proxyHost=proxy.example.com</jvmOption>
+											<jvmOption>-Dhttp.proxyPort=81</jvmOption> <jvmOption>-DhttpnonProxyHosts=*.example.com</jvmOption>
 											</jvmOptions> -->
 										<excludes>
 											<exclude>alisa_consistency</exclude>

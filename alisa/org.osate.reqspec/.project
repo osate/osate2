@@ -26,6 +26,11 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+			<name>org.eclipse.pde.api.tools.apiAnalysisBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.oomph.version.VersionBuilder</name>
 			<arguments>
 				<dictionary>
@@ -45,8 +50,8 @@
 					<value>true</value>
 				</dictionary>
 				<dictionary>
-					<key>ignore.lower.bound.dependency.ranges</key>
-					<value>false</value>
+					<key>ignore.missing.export.versions</key>
+					<value>true</value>
 				</dictionary>
 				<dictionary>
 					<key>ignore.schema.builder</key>
@@ -56,11 +61,6 @@
 					<key>release.path</key>
 					<value>/releng/version-management/release.xml</value>
 				</dictionary>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.eclipse.pde.api.tools.apiAnalysisBuilder</name>
-			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>

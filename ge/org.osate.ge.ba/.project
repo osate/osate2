@@ -45,6 +45,10 @@
 					<value>true</value>
 				</dictionary>
 				<dictionary>
+					<key>ignore.missing.export.versions</key>
+					<value>true</value>
+				</dictionary>
+				<dictionary>
 					<key>ignore.schema.builder</key>
 					<value>true</value>
 				</dictionary>

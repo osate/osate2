@@ -3,18 +3,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.osate</groupId>
 	<artifactId>osate2.main-pom</artifactId>
-	<version>2.12.0-SNAPSHOT</version>
+	<version>2.13.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>2.7.3</tycho.version>
-		<tycho-extras.version>2.7.3</tycho-extras.version>
-		<eclipse.version>2022-06</eclipse.version>
-		<xtext.version>2.27.0</xtext.version>
-		<xsemantics.version>1.22.0-SNAPSHOT</xsemantics.version>
+		<tycho.version>2.7.5</tycho.version>
+		<tycho-extras.version>2.7.5</tycho-extras.version>
+		<eclipse.version>2023-03</eclipse.version>
+		<xtext.version>2.30.0</xtext.version>
+		<xsemantics.version>1.23.0</xsemantics.version>
 		<openjfx.version>17.0.2</openjfx.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<osate.version>2.12.0-SNAPSHOT</osate.version>
+		<osate.version>2.13.0-SNAPSHOT</osate.version>
 
 		<jacoco.version>0.8.8</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
@@ -23,7 +23,7 @@
 
 		<!-- for comparison with baseline -->
 		<skipBaselineComparison>false</skipBaselineComparison>
-		<lastStableRepository>http://osate-build.sei.cmu.edu/download/osate/stable/latest/updates</lastStableRepository>
+		<lastStableRepository>https://osate-build.sei.cmu.edu/download/osate/stable/latest/updates</lastStableRepository>
 		<!-- "fail" or "warn" -->
 		<baselineCompareOnIllegalVersion>warn</baselineCompareOnIllegalVersion>
 
@@ -48,7 +48,7 @@
 		<sonar.java.source>17</sonar.java.source>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/${eclipse.version}</eclipse.repo.url>
+		<eclipse.repo.url>https://download.eclipse.org/releases/${eclipse.version}</eclipse.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
@@ -442,6 +442,7 @@
 						<configuration>
 							<xtendAsPrimaryDebugSource>true</xtendAsPrimaryDebugSource>
 							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
+							<showEmptyDirWarning>false</showEmptyDirWarning>
 						</configuration>
 					</execution>
 				</executions>
