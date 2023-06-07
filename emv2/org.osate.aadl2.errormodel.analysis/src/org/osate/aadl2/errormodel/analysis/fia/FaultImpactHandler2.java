@@ -49,9 +49,7 @@ public class FaultImpactHandler2 extends AaxlReadOnlyHandlerAsJob {
 		slicer.buildGraph(si);
 		Property sinkAcceptability;
 
-		for (ErrorSinkInstance esi : slicer.getErrorSinks(ErrorStateValidity.INVALID)) {
-
-			// TODO: Replace usiing Fault Impact Analysis generated methods
+		for (ErrorSinkInstance esi : slicer.getErrorSinks(ErrorStateValidity.VALID)) {
 
 			sinkAcceptability = FaultImpactAnalysisProperties.getAcceptable_Property(esi);
 			if (!PropertyUtils.getBooleanValue(esi, sinkAcceptability)) {
