@@ -1,0 +1,34 @@
+package resolve_named_value_on_state_machine
+public
+	system s
+		annex EMV2 {**
+			use behavior resolve_named_value_on_state_machine::machine1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+	
+	annex EMV2 {**
+		error behavior machine1
+			properties
+				--Reference to property
+				ps::string1 => ps::string2;
+				ps::string2 => ps::string3;
+				ps::string3 => "String Value";
+				
+				--Reference to constant
+				ps::string4 => ps::const1;
+				
+				--Reference to property with default value
+				ps::string5 => ps::default_string;
+				
+				--Reference to undefined property
+				ps::string6 => ps::string7;
+				
+				--Cyclic reference
+				ps::string8 => ps::string9;
+				ps::string9 => ps::string8;
+		end behavior;
+	**};
+end resolve_named_value_on_state_machine;

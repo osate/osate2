@@ -762,6 +762,66 @@ public class PropertiesTest {
 		assertEquals("Value on set overrides value on sink", ((StringLiteral) lookup(type, "ps::string4")).getValue());
 	}
 
+	@Test
+	public void testResolveNamedValueOnElement() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "resolve_named_value_on_element.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var event = annexInstance.getEvents().get(0);
+
+		assertEquals(5, event.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(event, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(event, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(event, "ps::string3")).getValue());
+		assertEquals("Constant Value", ((StringLiteral) lookup(event, "ps::string4")).getValue());
+		assertEquals("Default Value", ((StringLiteral) lookup(event, "ps::string5")).getValue());
+	}
+
+	@Test
+	public void testResolveNamedValueOnType() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "resolve_named_value_on_type.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var event = (ErrorEventInstance) annexInstance.getEvents().get(0);
+		var type = (TypeInstance) event.getTypeSet().flatten().get(0);
+
+		assertEquals(5, type.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(type, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(type, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(type, "ps::string3")).getValue());
+		assertEquals("Constant Value", ((StringLiteral) lookup(type, "ps::string4")).getValue());
+		assertEquals("Default Value", ((StringLiteral) lookup(type, "ps::string5")).getValue());
+	}
+
+	@Test
+	public void testResolveNamedValueOnStateMachine() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "resolve_named_value_on_state_machine.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var stateMachineProperties = annexInstance.getStateMachineProperties();
+
+		assertEquals(5, stateMachineProperties.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string3")).getValue());
+		assertEquals("Constant Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string4")).getValue());
+		assertEquals("Default Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string5")).getValue());
+	}
+
+	@Test
+	public void testResolveNamedValueOnSubclause() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "resolve_named_value_on_subclause.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(5, annexInstance.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string3")).getValue());
+		assertEquals("Constant Value", ((StringLiteral) lookup(annexInstance, "ps::string4")).getValue());
+		assertEquals("Default Value", ((StringLiteral) lookup(annexInstance, "ps::string5")).getValue());
+	}
+
 	private static PropertyExpression lookup(NamedElement holder, String name) {
 		Property property = Aadl2GlobalScopeUtil.get(holder, Aadl2Package.eINSTANCE.getProperty(), name);
 		return holder.getSimplePropertyValue(property);

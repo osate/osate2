@@ -30,11 +30,13 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -46,6 +48,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
@@ -93,7 +96,6 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
-import org.osate.aadl2.errormodel.instance.StateMachineProperties;
 import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.StringCode;
@@ -1649,7 +1651,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
 		collectAssociations(associations, declarativeHolder, component, name, instanceHolder);
 		for (var association : associations.values()) {
-			instanceHolder.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+			instantiatePropertyAssociation(association, instanceHolder.getOwnedPropertyAssociations(), associations);
 		}
 	}
 
@@ -1705,7 +1707,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				collectAssociations(associations, declarativeHolder, component, name, type);
 
 				for (var association : associations.values()) {
-					type.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+					instantiatePropertyAssociation(association, type.getOwnedPropertyAssociations(), associations);
 				}
 			}
 		}
@@ -1721,31 +1723,32 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 		}
 		for (var association : associations.values()) {
-			annex.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+			instantiatePropertyAssociation(association, annex.getOwnedPropertyAssociations(), associations);
 		}
 	}
 
 	private void instantiateProperties(ErrorBehaviorStateMachine stateMachine, EMV2AnnexInstance annex) {
-		var associations = new ArrayList<EMV2PropertyAssociation>();
+		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
 		for (var association : stateMachine.getProperties()) {
 			if (!association.isModal() && association.getEmv2Path().isEmpty()) {
-				associations.add(association);
+				associations.put(association.getProperty(), association);
 			}
 		}
-		if (!associations.isEmpty()) {
-			annex.setStateMachineProperties(createStateMachineProperties(stateMachine, associations));
-		}
+		instantiateStateMachineProperties(stateMachine, associations, annex);
 	}
 
-	private StateMachineProperties createStateMachineProperties(ErrorBehaviorStateMachine stateMachine,
-			List<EMV2PropertyAssociation> associations) {
+	private void instantiateStateMachineProperties(ErrorBehaviorStateMachine stateMachine,
+			Map<Property, EMV2PropertyAssociation> associations, EMV2AnnexInstance annex) {
 		var stateMachineProperties = EMV2InstanceFactory.eINSTANCE.createStateMachineProperties();
-		stateMachineProperties.setName(stateMachine.getName());
-		stateMachineProperties.setStateMachine(stateMachine);
-		for (var association : associations) {
-			stateMachineProperties.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+		for (var association : associations.values()) {
+			instantiatePropertyAssociation(association, stateMachineProperties.getOwnedPropertyAssociations(),
+					associations);
 		}
-		return stateMachineProperties;
+		if (!stateMachineProperties.getOwnedPropertyAssociations().isEmpty()) {
+			stateMachineProperties.setName(stateMachine.getName());
+			stateMachineProperties.setStateMachine(stateMachine);
+			annex.setStateMachineProperties(stateMachineProperties);
+		}
 	}
 
 	private void collectAssociations(Map<Property, EMV2PropertyAssociation> associations,
@@ -1833,13 +1836,43 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return !expectedIter.hasNext() && currentCPE == null;
 	}
 
-	private PropertyAssociationInstance createPropertyAssociationInstance(EMV2PropertyAssociation association) {
-		var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
-		propertyInstance.setPropertyAssociation(association);
-		propertyInstance.setProperty(association.getProperty());
-		var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
-		propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
-		return propertyInstance;
+	private void instantiatePropertyAssociation(EMV2PropertyAssociation declarativeAssociation,
+			List<PropertyAssociation> instanceAssociations,
+			Map<Property, EMV2PropertyAssociation> collectedAssociations) {
+		var declarativeValue = declarativeAssociation.getOwnedValues().get(0).getOwnedValue();
+		resolveNamedValue(declarativeValue, collectedAssociations, new HashSet<>()).ifPresent(resolvedValue -> {
+			var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+			propertyInstance.setPropertyAssociation(declarativeAssociation);
+			propertyInstance.setProperty(declarativeAssociation.getProperty());
+			propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(resolvedValue));
+			instanceAssociations.add(propertyInstance);
+		});
+	}
+
+	private Optional<PropertyExpression> resolveNamedValue(PropertyExpression propertyExpression,
+			Map<Property, EMV2PropertyAssociation> collectedAssociations, Set<PropertyExpression> visited) {
+		if (visited.contains(propertyExpression)) {
+			return Optional.empty();
+		}
+		visited.add(propertyExpression);
+		if (propertyExpression instanceof NamedValue namedValue) {
+			var abstractNamedValue = namedValue.getNamedValue();
+			if (abstractNamedValue instanceof Property property) {
+				var nextAssociation = collectedAssociations.get(property);
+				if (nextAssociation != null) {
+					var nextPropertyExpression = nextAssociation.getOwnedValues().get(0).getOwnedValue();
+					return resolveNamedValue(nextPropertyExpression, collectedAssociations, visited);
+				} else {
+					return Optional.ofNullable(property.getDefaultValue());
+				}
+			} else if (abstractNamedValue instanceof PropertyConstant constant) {
+				return resolveNamedValue(constant.getConstantValue(), collectedAssociations, visited);
+			} else {
+				return Optional.of(propertyExpression);
+			}
+		} else {
+			return Optional.of(propertyExpression);
+		}
 	}
 
 	/**

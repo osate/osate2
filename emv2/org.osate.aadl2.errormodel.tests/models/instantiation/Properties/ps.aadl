@@ -28,6 +28,11 @@ property set ps is
 	string6: aadlstring applies to (all);
 	string7: aadlstring applies to (all);
 	string8: aadlstring applies to (all);
+	string9: aadlstring applies to (all);
+	
+	default_string: aadlstring => "Default Value" applies to (all);
 	
 	string_for_type_set: aadlstring applies to ({emv2}**type set);
+	
+	const1: constant aadlstring => "Constant Value";
 end ps;
