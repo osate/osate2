@@ -30,13 +30,11 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -44,8 +42,10 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -53,6 +53,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
@@ -1840,38 +1841,64 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			List<PropertyAssociation> instanceAssociations,
 			Map<Property, EMV2PropertyAssociation> collectedAssociations) {
 		var declarativeValue = declarativeAssociation.getOwnedValues().get(0).getOwnedValue();
-		resolveNamedValue(declarativeValue, collectedAssociations, new HashSet<>()).ifPresent(resolvedValue -> {
+		instantiatePropertyExpression(declarativeValue, collectedAssociations, 0).ifPresent(expressionInstance -> {
 			var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
 			propertyInstance.setPropertyAssociation(declarativeAssociation);
 			propertyInstance.setProperty(declarativeAssociation.getProperty());
-			propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(resolvedValue));
+			propertyInstance.createOwnedValue().setOwnedValue(expressionInstance);
 			instanceAssociations.add(propertyInstance);
 		});
 	}
 
-	private Optional<PropertyExpression> resolveNamedValue(PropertyExpression propertyExpression,
-			Map<Property, EMV2PropertyAssociation> collectedAssociations, Set<PropertyExpression> visited) {
-		if (visited.contains(propertyExpression)) {
+	private Optional<PropertyExpression> instantiatePropertyExpression(PropertyExpression propertyExpression,
+			Map<Property, EMV2PropertyAssociation> collectedAssociations, int depth) {
+		if (depth > 50) {
 			return Optional.empty();
 		}
-		visited.add(propertyExpression);
 		if (propertyExpression instanceof NamedValue namedValue) {
 			var abstractNamedValue = namedValue.getNamedValue();
 			if (abstractNamedValue instanceof Property property) {
 				var nextAssociation = collectedAssociations.get(property);
 				if (nextAssociation != null) {
 					var nextPropertyExpression = nextAssociation.getOwnedValues().get(0).getOwnedValue();
-					return resolveNamedValue(nextPropertyExpression, collectedAssociations, visited);
+					return instantiatePropertyExpression(nextPropertyExpression, collectedAssociations, depth + 1);
 				} else {
-					return Optional.ofNullable(property.getDefaultValue());
+					return Optional.ofNullable(property.getDefaultValue())
+							.flatMap(defaultValue -> instantiatePropertyExpression(defaultValue, collectedAssociations,
+									depth + 1));
 				}
 			} else if (abstractNamedValue instanceof PropertyConstant constant) {
-				return resolveNamedValue(constant.getConstantValue(), collectedAssociations, visited);
+				return instantiatePropertyExpression(constant.getConstantValue(), collectedAssociations, depth + 1);
 			} else {
-				return Optional.of(propertyExpression);
+				return Optional.of(EcoreUtil.copy(propertyExpression));
 			}
+		} else if (propertyExpression instanceof ListValue listValue) {
+			var listInstance = Aadl2Factory.eINSTANCE.createListValue();
+			for (var element : listValue.getOwnedListElements()) {
+				var elementInstance = instantiatePropertyExpression(element, collectedAssociations, depth + 1);
+				if (elementInstance.isPresent()) {
+					listInstance.getOwnedListElements().add(elementInstance.get());
+				} else {
+					return Optional.empty();
+				}
+			}
+			return Optional.of(listInstance);
+		} else if (propertyExpression instanceof RecordValue recordValue) {
+			var recordInstance = Aadl2Factory.eINSTANCE.createRecordValue();
+			for (var field : recordValue.getOwnedFieldValues()) {
+				var valueInstance = instantiatePropertyExpression(field.getOwnedValue(), collectedAssociations,
+						depth + 1);
+				if (valueInstance.isPresent()) {
+					var fieldInstance = recordInstance.createOwnedFieldValue();
+					fieldInstance.setProperty(field.getProperty());
+					fieldInstance.setOwnedValue(valueInstance.get());
+				} else {
+					return Optional.empty();
+				}
+			}
+			return Optional.of(recordInstance);
 		} else {
-			return Optional.of(propertyExpression);
+			return Optional.of(EcoreUtil.copy(propertyExpression));
 		}
 	}
 

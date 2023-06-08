@@ -2,8 +2,11 @@ package org.osate.aadl2.errormodel.tests.instance;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.osate.pluginsupport.ScopeFunctions.with;
+
+import java.util.List;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
@@ -13,9 +16,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
@@ -820,6 +825,86 @@ public class PropertiesTest {
 		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string3")).getValue());
 		assertEquals("Constant Value", ((StringLiteral) lookup(annexInstance, "ps::string4")).getValue());
 		assertEquals("Default Value", ((StringLiteral) lookup(annexInstance, "ps::string5")).getValue());
+	}
+
+	@Test
+	public void testNestedNamedValues() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "nested_named_values.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(7, annexInstance.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string3")).getValue());
+		assertIterableEquals(List.of("Element", "String Value", "Constant Value"),
+				((ListValue) lookup(annexInstance, "ps::list1")).getOwnedListElements()
+						.stream()
+						.map(element -> ((StringLiteral) element).getValue())
+						.toList());
+		with((RecordValue) lookup(annexInstance, "ps::rec1"), recordValue -> {
+			assertEquals(2, recordValue.getOwnedFieldValues().size());
+			with(recordValue.getOwnedFieldValues().get(0), field1 -> {
+				assertEquals("field1", field1.getProperty().getName());
+				assertEquals("String Value", ((StringLiteral) field1.getOwnedValue()).getValue());
+			});
+			with(recordValue.getOwnedFieldValues().get(1), listField -> {
+				assertEquals("list_field", listField.getProperty().getName());
+				assertIterableEquals(List.of("Element", "String Value", "Constant Value"),
+						((ListValue) listField.getOwnedValue()).getOwnedListElements()
+								.stream()
+								.map(element -> ((StringLiteral) element).getValue())
+								.toList());
+			});
+		});
+		with((RecordValue) lookup(annexInstance, "ps::rec2"), recordValue -> {
+			assertEquals(1, recordValue.getOwnedFieldValues().size());
+			with(recordValue.getOwnedFieldValues().get(0), field2 -> {
+				assertEquals("field2", field2.getProperty().getName());
+				with((RecordValue) field2.getOwnedValue(), field2Value -> {
+					assertEquals(2, field2Value.getOwnedFieldValues().size());
+					with(field2Value.getOwnedFieldValues().get(0), field1 -> {
+						assertEquals("field1", field1.getProperty().getName());
+						assertEquals("String Value", ((StringLiteral) field1.getOwnedValue()).getValue());
+					});
+					with(field2Value.getOwnedFieldValues().get(1), listField -> {
+						assertEquals("list_field", listField.getProperty().getName());
+						assertIterableEquals(List.of("Element", "String Value", "Constant Value"),
+								((ListValue) listField.getOwnedValue()).getOwnedListElements()
+										.stream()
+										.map(element -> ((StringLiteral) element).getValue())
+										.toList());
+					});
+				});
+			});
+		});
+		with((RecordValue) lookup(annexInstance, "ps::rec3"), recordValue -> {
+			assertEquals(1, recordValue.getOwnedFieldValues().size());
+			with(recordValue.getOwnedFieldValues().get(0), field3 -> {
+				assertEquals("field3", field3.getProperty().getName());
+				with((RecordValue) field3.getOwnedValue(), field3Value -> {
+					assertEquals(1, field3Value.getOwnedFieldValues().size());
+					with(field3Value.getOwnedFieldValues().get(0), field2 -> {
+						assertEquals("field2", field2.getProperty().getName());
+						with((RecordValue) field2.getOwnedValue(), field2Value -> {
+							assertEquals(2, field2Value.getOwnedFieldValues().size());
+							with(field2Value.getOwnedFieldValues().get(0), field1 -> {
+								assertEquals("field1", field1.getProperty().getName());
+								assertEquals("String Value", ((StringLiteral) field1.getOwnedValue()).getValue());
+							});
+							with(field2Value.getOwnedFieldValues().get(1), listField -> {
+								assertEquals("list_field", listField.getProperty().getName());
+								assertIterableEquals(List.of("Element", "String Value", "Constant Value"),
+										((ListValue) listField.getOwnedValue()).getOwnedListElements()
+												.stream()
+												.map(element -> ((StringLiteral) element).getValue())
+												.toList());
+							});
+						});
+					});
+				});
+			});
+		});
 	}
 
 	private static PropertyExpression lookup(NamedElement holder, String name) {

@@ -35,4 +35,20 @@ property set ps is
 	string_for_type_set: aadlstring applies to ({emv2}**type set);
 	
 	const1: constant aadlstring => "Constant Value";
+	
+	list1: list of aadlstring applies to (all);
+	list2: list of aadlstring applies to (all);
+	list3: list of aadlstring applies to (all);
+	
+	rec1_type: type record (
+		field1: aadlstring;
+		list_field: list of aadlstring;
+	);
+	rec2_type: type record (field2: ps::rec1_type;);
+	
+	rec1: ps::rec1_type applies to (all);
+	rec2: ps::rec2_type applies to (all);
+	rec3: record (field3: ps::rec2_type;) applies to (all);
+	rec4: record (field4: aadlstring;) applies to (all);
+	rec5: record (field5: aadlstring;) applies to (all);
 end ps;
