@@ -33,6 +33,8 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
 import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.testsupport.TestHelper;
@@ -905,6 +907,21 @@ public class PropertiesTest {
 				});
 			});
 		});
+	}
+
+	@Test
+	public void testReferenceProperties() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "reference_properties.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(3, annexInstance.getOwnedPropertyAssociations().size());
+		assertEquals("sub1", ((ComponentInstance) ((InstanceReferenceValue) lookup(annexInstance, "ps::ref1"))
+				.getReferencedInstanceObject()).getName());
+		assertEquals("sub2", ((ComponentInstance) ((InstanceReferenceValue) lookup(annexInstance, "ps::ref2"))
+				.getReferencedInstanceObject()).getName());
+		assertEquals("sub3", ((ComponentInstance) ((InstanceReferenceValue) lookup(annexInstance, "ps::ref3"))
+				.getReferencedInstanceObject()).getName());
 	}
 
 	private static PropertyExpression lookup(NamedElement holder, String name) {

@@ -1,0 +1,38 @@
+package reference_properties
+public
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			sub1: system sub1.i;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			properties
+				--Reference to subcomponents are instantiated.
+				ps::ref1 => reference (sub1);
+				ps::ref2 => reference (sub1.sub2);
+				ps::ref3 => reference (sub1.sub2.sub3);
+				
+				--Reference to error types are not instantiated.
+				ps::ref4 => reference (ServiceError);
+		**};
+	end s.i;
+	
+	system sub1
+	end sub1;
+	
+	system implementation sub1.i
+		subcomponents
+			sub2: system sub2.i;
+	end sub1.i;
+	
+	system sub2
+	end sub2;
+	
+	system implementation sub2.i
+		subcomponents
+			sub3: system;
+	end sub2.i;
+end reference_properties;

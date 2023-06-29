@@ -51,4 +51,9 @@ property set ps is
 	rec3: record (field3: ps::rec2_type;) applies to (all);
 	rec4: record (field4: aadlstring;) applies to (all);
 	rec5: record (field5: aadlstring;) applies to (all);
+	
+	ref1: reference applies to (all);
+	ref2: reference applies to (all);
+	ref3: reference applies to (all);
+	ref4: reference applies to (all);
 end ps;
