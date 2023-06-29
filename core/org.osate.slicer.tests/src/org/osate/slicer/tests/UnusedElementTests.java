@@ -32,7 +32,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -68,8 +67,6 @@ public class UnusedElementTests {
 
 	@Before
 	public void setUp() throws Exception {
-		// Need to set this property to turn on emv2 instantiation
-		System.setProperty(EMV2AnnexInstantiator.PROPERTY_NAME, "true");
 		tlg1 = new SlicerRepresentation();
 		tlg2 = new SlicerRepresentation();
 		tlg3 = new SlicerRepresentation();

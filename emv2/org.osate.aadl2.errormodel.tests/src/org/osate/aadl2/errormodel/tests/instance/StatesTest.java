@@ -6,13 +6,11 @@ import static org.osate.pluginsupport.ScopeFunctions.with;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
-import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.TestHelper;
@@ -26,11 +24,6 @@ public class StatesTest {
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
-
-	@BeforeAll
-	public static void enableEMV2Instantiator() {
-		System.setProperty(EMV2AnnexInstantiator.PROPERTY_NAME, "true");
-	}
 
 	@Test
 	public void testErrorStates() throws Exception {

@@ -161,16 +161,9 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import com.google.common.collect.Lists;
 
 public class EMV2AnnexInstantiator implements AnnexInstantiator {
-	public static final String PROPERTY_NAME = "org.osate.emv2.instance";
-
 	@Override
 	public void instantiateAnnex(ComponentInstance instance, String annexName,
 			AnalysisErrorReporterManager errorManager) {
-		if (!"true".equalsIgnoreCase(System.getProperty(PROPERTY_NAME))) {
-			// Don't instantiate EMV2 elements unless explicitly enabled.
-			return;
-		}
-
 		var subclauses = EMV2Util.getAllContainingClassifierEMV2Subclauses(instance);
 		var stateMachine = EMV2Util.getAllErrorBehaviorStateMachine(instance);
 
@@ -245,10 +238,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	@Override
 	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
-		if (!"true".equalsIgnoreCase(System.getProperty(PROPERTY_NAME))) {
-			// Don't instantiate EMV2 elements unless explicitly enabled.
-			return;
-		}
 		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(component -> {
 			component.getConnectionInstances().forEach(connection -> instantiateConnectionPath(connection, component));
 		});
