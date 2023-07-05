@@ -1662,7 +1662,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 				/*
 				 * Find properties which are defined on the EMV2 element (propagation, state, event, etc) and can be
-				 * inhertied by the error type.
+				 * inherited by the error type.
 				 */
 				collectAssociations(associations, declarativeHolder, component, holderName, type);
 				var sets = new ArrayDeque<TypeSet>();
