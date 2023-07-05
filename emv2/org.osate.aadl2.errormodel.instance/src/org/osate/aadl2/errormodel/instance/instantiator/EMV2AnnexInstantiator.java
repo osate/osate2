@@ -1759,7 +1759,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		/*
 		 * This outer loop finds properties which are defined in the local component as well as contained properties.
-		 * The loop starts at the local component and moves up the the containment hierarchy so that the top level
+		 * The loop starts at the local component and moves up the containment hierarchy so that the top level
 		 * component, which has the highest precedence for property lookup, is processed last.
 		 */
 		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
