@@ -1665,14 +1665,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				 * inherited by the error type.
 				 */
 				collectAssociations(associations, declarativeHolder, component, holderName, type);
+
+				// Find properties which are defined on a containing type set and can be inherited by the error type.
 				var sets = new ArrayDeque<TypeSet>();
 				for (var typeSetInstance = EcoreUtil2.getContainerOfType(type,
 						TypeSetInstance.class); typeSetInstance != null; typeSetInstance = EcoreUtil2
 								.getContainerOfType(typeSetInstance.eContainer(), TypeSetInstance.class)) {
 					sets.addFirst(typeSetInstance.resolveAlias());
 				}
-
-				// Find properties which are defined on a containing type set and can be inherited by the error type.
 				for (var set : sets) {
 					var library = EcoreUtil2.getContainerOfType(set, ErrorModelLibrary.class);
 					collectAssociations(associations, library.getProperties(), Collections.emptyList(), set.getName(),
