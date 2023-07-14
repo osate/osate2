@@ -159,7 +159,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <mirror>
       <id>osate-build-jericho-http</id>
       <mirrorOf>http://osate-build.sei.cmu.edu/</mirrorOf>
-      <url>https://jericho.sei.cmu.edu/</url>
+      <url>http://jericho.sei.cmu.edu/</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
@@ -167,7 +167,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <mirror>
       <id>osate-build-jericho-https</id>
       <mirrorOf>https://osate-build.sei.cmu.edu/</mirrorOf>
-      <url>https://jericho.sei.cmu.edu/</url>
+      <url>http://jericho.sei.cmu.edu/</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
