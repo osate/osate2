@@ -53,6 +53,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
@@ -1896,6 +1897,28 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				}
 			}
 			return Optional.of(recordInstance);
+		} else if (propertyExpression instanceof RangeValue rangeValue) {
+			var rangeInstance = Aadl2Factory.eINSTANCE.createRangeValue();
+			var minimumInstance = instantiatePropertyExpression(rangeValue.getMinimum(), collectedAssociations,
+					component, depth + 1);
+			var maximumInstance = instantiatePropertyExpression(rangeValue.getMaximum(), collectedAssociations,
+					component, depth + 1);
+			if (minimumInstance.isPresent() && maximumInstance.isPresent()) {
+				rangeInstance.setMinimum(minimumInstance.get());
+				rangeInstance.setMaximum(maximumInstance.get());
+			} else {
+				return Optional.empty();
+			}
+			if (rangeValue.getDelta() != null) {
+				var deltaInstance = instantiatePropertyExpression(rangeValue.getDelta(), collectedAssociations,
+						component, depth + 1);
+				if (deltaInstance.isPresent()) {
+					rangeInstance.setDelta(deltaInstance.get());
+				} else {
+					return Optional.empty();
+				}
+			}
+			return Optional.of(rangeInstance);
 		} else if (propertyExpression instanceof ReferenceValue referenceValue) {
 			try {
 				return Optional.ofNullable(referenceValue.instantiate(component));

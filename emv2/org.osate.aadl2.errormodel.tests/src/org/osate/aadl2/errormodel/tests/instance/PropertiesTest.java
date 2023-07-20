@@ -15,10 +15,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SystemImplementation;
@@ -828,10 +830,13 @@ public class PropertiesTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 
-		assertEquals(7, annexInstance.getOwnedPropertyAssociations().size());
+		assertEquals(12, annexInstance.getOwnedPropertyAssociations().size());
 		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string1")).getValue());
 		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string2")).getValue());
 		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string3")).getValue());
+		assertEquals(1, ((IntegerLiteral) lookup(annexInstance, "ps::int1")).getValue());
+		assertEquals(2, ((IntegerLiteral) lookup(annexInstance, "ps::int2")).getValue());
+		assertEquals(10, ((IntegerLiteral) lookup(annexInstance, "ps::int10")).getValue());
 		assertIterableEquals(List.of("Element", "String Value", "Constant Value"),
 				((ListValue) lookup(annexInstance, "ps::list1")).getOwnedListElements()
 						.stream()
@@ -899,6 +904,16 @@ public class PropertiesTest {
 					});
 				});
 			});
+		});
+		with((RangeValue) lookup(annexInstance, "ps::range1"), rangeValue -> {
+			assertEquals(1, ((IntegerLiteral) rangeValue.getMinimum()).getValue());
+			assertEquals(2, ((IntegerLiteral) rangeValue.getMaximum()).getValue());
+			assertNull(rangeValue.getDelta());
+		});
+		with((RangeValue) lookup(annexInstance, "ps::range2"), rangeValue -> {
+			assertEquals(1, ((IntegerLiteral) rangeValue.getMinimum()).getValue());
+			assertEquals(10, ((IntegerLiteral) rangeValue.getMaximum()).getValue());
+			assertEquals(2, ((IntegerLiteral) rangeValue.getDelta()).getValue());
 		});
 	}
 

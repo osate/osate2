@@ -56,4 +56,20 @@ property set ps is
 	ref2: reference applies to (all);
 	ref3: reference applies to (all);
 	ref4: reference applies to (all);
+	
+	range1: range of aadlinteger applies to (all);
+	range2: range of aadlinteger applies to (all);
+	range3: range of aadlinteger applies to (all);
+	range4: range of aadlinteger applies to (all);
+	range5: range of aadlinteger applies to (all);
+	range6: range of aadlinteger applies to (all);
+	range7: range of aadlinteger applies to (all);
+	range8: range of aadlinteger applies to (all);
+	
+	int1: aadlinteger applies to (all);
+	int2: aadlinteger applies to (all);
+	int3: aadlinteger applies to (all);
+	int4: aadlinteger applies to (all);
+	int5: aadlinteger applies to (all);
+	int10: aadlinteger applies to (all);
 end ps;

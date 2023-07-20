@@ -10,6 +10,13 @@ public
 				ps::string5 => ps::string6;
 				ps::string6 => ps::string5;
 				
+				ps::int1 => 1;
+				ps::int2 => 2;
+				ps::int10 => 10;
+				
+				ps::int4 => ps::int5;
+				ps::int5 => ps::int4;
+				
 				--List values
 				
 				--Valid
@@ -32,6 +39,20 @@ public
 				ps::rec4 => [field4 => ps::string4;];
 				--Cycle
 				ps::rec5 => [field5 => ps::string5;];
+				
+				--Range values
+				
+				--Valid
+				ps::range1 => ps::int1 .. ps::int2;
+				ps::range2 => ps::int1 .. ps::int10 delta ps::int2;
+				--Reference to undefined
+				ps::range3 => ps::int3 .. ps::int10;
+				ps::range4 => ps::int1 .. ps::int3;
+				ps::range5 => ps::int1 .. ps::int10 delta ps::int3;
+				--Cycle
+				ps::range6 => ps::int4 .. 10;
+				ps::range7 => 1 .. ps::int4;
+				ps::range8 => 1 .. 10 delta ps::int4;
 		**};
 	end s;
 	
