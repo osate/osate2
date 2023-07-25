@@ -34,6 +34,7 @@ import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.LanguageSpecific;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHover;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider;
@@ -47,6 +48,7 @@ import org.osate.xtext.aadl2.ui.contentassist.AnnexAwareContentAssistProcessor;
 import org.osate.xtext.aadl2.ui.editor.Aadl2LanguageSpecificURIEditorOpener;
 import org.osate.xtext.aadl2.ui.editor.Aadl2WorkspaceEncodingProvider;
 import org.osate.xtext.aadl2.ui.editor.hover.Aadl2EObjectHoverProvider;
+import org.osate.xtext.aadl2.ui.editor.hover.Aadl2EObjectTextHover;
 import org.osate.xtext.aadl2.ui.editor.model.Aadl2DocumentProvider;
 import org.osate.xtext.aadl2.ui.editor.model.Aadl2ResourceForEditorInputFactory;
 import org.osate.xtext.aadl2.ui.editor.model.edit.FormattingTextEditComposer;
@@ -163,4 +165,10 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
 		return Aadl2EObjectHoverProvider.class;
 	}
+
+	@Override
+	public Class<? extends IEObjectHover> bindIEObjectHover() {
+		return Aadl2EObjectTextHover.class;
+	}
+
 }
