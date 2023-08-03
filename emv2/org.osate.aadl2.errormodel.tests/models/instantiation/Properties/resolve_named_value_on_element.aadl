@@ -1,0 +1,33 @@
+package resolve_named_value_on_element
+public
+	system s
+		annex EMV2 {**
+			component error behavior
+				events
+					error1: error event;
+			end component;
+			
+			properties
+				--Reference to property
+				ps::string1 => ps::string2 applies to error1;
+				ps::string2 => ps::string3 applies to error1;
+				ps::string3 => "String Value" applies to error1;
+				
+				--Reference to constant
+				ps::string4 => ps::const1 applies to error1;
+				
+				--Reference to property with default value
+				ps::string5 => ps::default_string applies to error1;
+				
+				--Reference to undefined property
+				ps::string6 => ps::string7 applies to error1;
+				
+				--Cyclic reference
+				ps::string8 => ps::string9 applies to error1;
+				ps::string9 => ps::string8 applies to error1;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end resolve_named_value_on_element;

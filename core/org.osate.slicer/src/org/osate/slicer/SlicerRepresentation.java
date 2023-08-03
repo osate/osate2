@@ -69,7 +69,6 @@ import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.TypeSetElement;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.errormodel.instance.UserDefinedPath;
-import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.instance.util.EMV2InstanceSwitch;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -153,7 +152,6 @@ public class SlicerRepresentation {
 			coreSwitch.doSwitch((Element) elem);
 		});
 
-		System.setProperty(EMV2AnnexInstantiator.PROPERTY_NAME, "true");
 		// Add vertices and edges from EMV2 instance
 		Emv2SlicerSwitch emv2Switch = new Emv2SlicerSwitch();
 		var visitedElems = new HashSet<Element>();

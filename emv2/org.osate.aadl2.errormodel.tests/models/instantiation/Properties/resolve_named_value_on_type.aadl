@@ -1,0 +1,35 @@
+package resolve_named_value_on_type
+public
+	system s
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			component error behavior
+				events
+					error1: error event {CommonErrors};
+			end component;
+			
+			properties
+				--Reference to property
+				ps::string1 => ps::string2 applies to error1.ServiceError;
+				ps::string2 => ps::string3 applies to error1.ServiceError;
+				ps::string3 => "String Value" applies to error1.ServiceError;
+				
+				--Reference to constant
+				ps::string4 => ps::const1 applies to error1.ServiceError;
+				
+				--Reference to property with default value
+				ps::string5 => ps::default_string applies to error1.ServiceError;
+				
+				--Reference to undefined property
+				ps::string6 => ps::string7 applies to error1.ServiceError;
+				
+				--Cyclic reference
+				ps::string8 => ps::string9 applies to error1.ServiceError;
+				ps::string9 => ps::string8 applies to error1.ServiceError;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end resolve_named_value_on_type;

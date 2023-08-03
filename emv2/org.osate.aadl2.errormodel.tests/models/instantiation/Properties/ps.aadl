@@ -28,6 +28,48 @@ property set ps is
 	string6: aadlstring applies to (all);
 	string7: aadlstring applies to (all);
 	string8: aadlstring applies to (all);
+	string9: aadlstring applies to (all);
+	
+	default_string: aadlstring => "Default Value" applies to (all);
 	
 	string_for_type_set: aadlstring applies to ({emv2}**type set);
+	
+	const1: constant aadlstring => "Constant Value";
+	
+	list1: list of aadlstring applies to (all);
+	list2: list of aadlstring applies to (all);
+	list3: list of aadlstring applies to (all);
+	
+	rec1_type: type record (
+		field1: aadlstring;
+		list_field: list of aadlstring;
+	);
+	rec2_type: type record (field2: ps::rec1_type;);
+	
+	rec1: ps::rec1_type applies to (all);
+	rec2: ps::rec2_type applies to (all);
+	rec3: record (field3: ps::rec2_type;) applies to (all);
+	rec4: record (field4: aadlstring;) applies to (all);
+	rec5: record (field5: aadlstring;) applies to (all);
+	
+	ref1: reference applies to (all);
+	ref2: reference applies to (all);
+	ref3: reference applies to (all);
+	ref4: reference applies to (all);
+	
+	range1: range of aadlinteger applies to (all);
+	range2: range of aadlinteger applies to (all);
+	range3: range of aadlinteger applies to (all);
+	range4: range of aadlinteger applies to (all);
+	range5: range of aadlinteger applies to (all);
+	range6: range of aadlinteger applies to (all);
+	range7: range of aadlinteger applies to (all);
+	range8: range of aadlinteger applies to (all);
+	
+	int1: aadlinteger applies to (all);
+	int2: aadlinteger applies to (all);
+	int3: aadlinteger applies to (all);
+	int4: aadlinteger applies to (all);
+	int5: aadlinteger applies to (all);
+	int10: aadlinteger applies to (all);
 end ps;

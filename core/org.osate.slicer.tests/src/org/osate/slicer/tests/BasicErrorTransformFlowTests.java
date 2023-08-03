@@ -42,7 +42,6 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
-import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -68,8 +67,6 @@ public class BasicErrorTransformFlowTests {
 
 	@Before
 	public void setUp() throws Exception {
-		// Need to set this property to turn on emv2 instantiation
-		System.setProperty(EMV2AnnexInstantiator.PROPERTY_NAME, "true");
 		tlg = new SlicerRepresentation();
 		var pkg = myTestHelper.parseFile("org.osate.slicer.tests/aadl-models/BasicErrorTransformFlow.aadl");
 		var impl = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);

@@ -53,8 +53,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationErrorPaths"
         upperBound="-1" eType="#//ErrorPathInstance" transient="true" eOpposite="#//ErrorPathInstance/destinationPropagation"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConnectionEndPropagation" abstract="true"
-      eSuperTypes="#//ErrorPropagationInstance">
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionEndPropagation" eSuperTypes="#//ErrorPropagationInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceConnectionPaths"
         upperBound="-1" eType="#//ConnectionPath" transient="true" eOpposite="#//ConnectionPath/sourcePropagations"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationConnectionPaths"

@@ -1,0 +1,61 @@
+package nested_named_values
+public
+	system s
+		annex EMV2 {**
+			properties
+				ps::string1 => ps::string2;
+				ps::string2 => ps::string3;
+				ps::string3 => "String Value";
+				
+				ps::string5 => ps::string6;
+				ps::string6 => ps::string5;
+				
+				ps::int1 => 1;
+				ps::int2 => 2;
+				ps::int10 => 10;
+				
+				ps::int4 => ps::int5;
+				ps::int5 => ps::int4;
+				
+				--List values
+				
+				--Valid
+				ps::list1 => ("Element", ps::string1, ps::const1);
+				--Reference to undefined
+				ps::list2 => ("Element", ps::string4, ps::const1);
+				--Cycle
+				ps::list3 => ("Element", ps::string5, ps::const1);
+				
+				--Record values
+				
+				--Valid
+				ps::rec1 => [
+					field1 => ps::string1;
+					list_field => ps::list1;
+				];
+				ps::rec2 => [field2 => ps::rec1;];
+				ps::rec3 => [field3 => ps::rec2;];
+				--Reference to undefined
+				ps::rec4 => [field4 => ps::string4;];
+				--Cycle
+				ps::rec5 => [field5 => ps::string5;];
+				
+				--Range values
+				
+				--Valid
+				ps::range1 => ps::int1 .. ps::int2;
+				ps::range2 => ps::int1 .. ps::int10 delta ps::int2;
+				--Reference to undefined
+				ps::range3 => ps::int3 .. ps::int10;
+				ps::range4 => ps::int1 .. ps::int3;
+				ps::range5 => ps::int1 .. ps::int10 delta ps::int3;
+				--Cycle
+				ps::range6 => ps::int4 .. 10;
+				ps::range7 => 1 .. ps::int4;
+				ps::range8 => 1 .. 10 delta ps::int4;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end nested_named_values;

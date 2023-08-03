@@ -42,14 +42,20 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
@@ -93,7 +99,6 @@ import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.SameState;
 import org.osate.aadl2.errormodel.instance.SourceStateReference;
 import org.osate.aadl2.errormodel.instance.StateInstance;
-import org.osate.aadl2.errormodel.instance.StateMachineProperties;
 import org.osate.aadl2.errormodel.instance.StateReference;
 import org.osate.aadl2.errormodel.instance.StateSource;
 import org.osate.aadl2.errormodel.instance.StringCode;
@@ -111,6 +116,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.annexsupport.AnnexInstantiator;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
@@ -156,16 +162,9 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import com.google.common.collect.Lists;
 
 public class EMV2AnnexInstantiator implements AnnexInstantiator {
-	public static final String PROPERTY_NAME = "org.osate.emv2.instance";
-
 	@Override
 	public void instantiateAnnex(ComponentInstance instance, String annexName,
 			AnalysisErrorReporterManager errorManager) {
-		if (!"true".equalsIgnoreCase(System.getProperty(PROPERTY_NAME))) {
-			// Don't instantiate EMV2 elements unless explicitly enabled.
-			return;
-		}
-
 		var subclauses = EMV2Util.getAllContainingClassifierEMV2Subclauses(instance);
 		var stateMachine = EMV2Util.getAllErrorBehaviorStateMachine(instance);
 
@@ -203,7 +202,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			for (var state : stateMachine.getStates()) {
 				instantiateState(state, instance, emv2AI);
 			}
-			instantiateProperties(stateMachine, emv2AI);
+			instantiateProperties(stateMachine, emv2AI, instance);
 		}
 
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
@@ -235,15 +234,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiateUserDefinedPath(ppath, emv2AI, instance);
 		}
 
-		instantiateProperties(subclauses, emv2AI);
+		instantiateProperties(subclauses, emv2AI, instance);
 	}
 
 	@Override
 	public void instantiateAnnex(SystemInstance instance, String annexName, AnalysisErrorReporterManager errorManager) {
-		if (!"true".equalsIgnoreCase(System.getProperty(PROPERTY_NAME))) {
-			// Don't instantiate EMV2 elements unless explicitly enabled.
-			return;
-		}
 		EcoreUtil2.eAllOfType(instance, ComponentInstance.class).forEach(component -> {
 			component.getConnectionInstances().forEach(connection -> instantiateConnectionPath(connection, component));
 		});
@@ -1649,7 +1644,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
 		collectAssociations(associations, declarativeHolder, component, name, instanceHolder);
 		for (var association : associations.values()) {
-			instanceHolder.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+			instantiatePropertyAssociation(association, instanceHolder.getOwnedPropertyAssociations(), associations,
+					component);
 		}
 	}
 
@@ -1667,17 +1663,17 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 				/*
 				 * Find properties which are defined on the EMV2 element (propagation, state, event, etc) and can be
-				 * inhertied by the error type.
+				 * inherited by the error type.
 				 */
 				collectAssociations(associations, declarativeHolder, component, holderName, type);
+
+				// Find properties which are defined on a containing type set and can be inherited by the error type.
 				var sets = new ArrayDeque<TypeSet>();
 				for (var typeSetInstance = EcoreUtil2.getContainerOfType(type,
 						TypeSetInstance.class); typeSetInstance != null; typeSetInstance = EcoreUtil2
 								.getContainerOfType(typeSetInstance.eContainer(), TypeSetInstance.class)) {
 					sets.addFirst(typeSetInstance.resolveAlias());
 				}
-
-				// Find properties which are defined on a containing type set and can be inherited by the error type.
 				for (var set : sets) {
 					var library = EcoreUtil2.getContainerOfType(set, ErrorModelLibrary.class);
 					collectAssociations(associations, library.getProperties(), Collections.emptyList(), set.getName(),
@@ -1705,13 +1701,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				collectAssociations(associations, declarativeHolder, component, name, type);
 
 				for (var association : associations.values()) {
-					type.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+					instantiatePropertyAssociation(association, type.getOwnedPropertyAssociations(), associations,
+							component);
 				}
 			}
 		}
 	}
 
-	private void instantiateProperties(List<ErrorModelSubclause> subclauses, EMV2AnnexInstance annex) {
+	private void instantiateProperties(List<ErrorModelSubclause> subclauses, EMV2AnnexInstance annex,
+			ComponentInstance component) {
 		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
 		for (var subclause : Lists.reverse(subclauses)) {
 			for (var association : subclause.getProperties()) {
@@ -1721,31 +1719,33 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 		}
 		for (var association : associations.values()) {
-			annex.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+			instantiatePropertyAssociation(association, annex.getOwnedPropertyAssociations(), associations, component);
 		}
 	}
 
-	private void instantiateProperties(ErrorBehaviorStateMachine stateMachine, EMV2AnnexInstance annex) {
-		var associations = new ArrayList<EMV2PropertyAssociation>();
+	private void instantiateProperties(ErrorBehaviorStateMachine stateMachine, EMV2AnnexInstance annex,
+			ComponentInstance component) {
+		var associations = new LinkedHashMap<Property, EMV2PropertyAssociation>();
 		for (var association : stateMachine.getProperties()) {
 			if (!association.isModal() && association.getEmv2Path().isEmpty()) {
-				associations.add(association);
+				associations.put(association.getProperty(), association);
 			}
 		}
-		if (!associations.isEmpty()) {
-			annex.setStateMachineProperties(createStateMachineProperties(stateMachine, associations));
-		}
+		instantiateStateMachineProperties(stateMachine, associations, annex, component);
 	}
 
-	private StateMachineProperties createStateMachineProperties(ErrorBehaviorStateMachine stateMachine,
-			List<EMV2PropertyAssociation> associations) {
+	private void instantiateStateMachineProperties(ErrorBehaviorStateMachine stateMachine,
+			Map<Property, EMV2PropertyAssociation> associations, EMV2AnnexInstance annex, ComponentInstance component) {
 		var stateMachineProperties = EMV2InstanceFactory.eINSTANCE.createStateMachineProperties();
-		stateMachineProperties.setName(stateMachine.getName());
-		stateMachineProperties.setStateMachine(stateMachine);
-		for (var association : associations) {
-			stateMachineProperties.getOwnedPropertyAssociations().add(createPropertyAssociationInstance(association));
+		for (var association : associations.values()) {
+			instantiatePropertyAssociation(association, stateMachineProperties.getOwnedPropertyAssociations(),
+					associations, component);
 		}
-		return stateMachineProperties;
+		if (!stateMachineProperties.getOwnedPropertyAssociations().isEmpty()) {
+			stateMachineProperties.setName(stateMachine.getName());
+			stateMachineProperties.setStateMachine(stateMachine);
+			annex.setStateMachineProperties(stateMachineProperties);
+		}
 	}
 
 	private void collectAssociations(Map<Property, EMV2PropertyAssociation> associations,
@@ -1760,7 +1760,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 		/*
 		 * This outer loop finds properties which are defined in the local component as well as contained properties.
-		 * The loop starts at the local component and moves up the the containment hierarchy so that the top level
+		 * The loop starts at the local component and moves up the containment hierarchy so that the top level
 		 * component, which has the highest precedence for property lookup, is processed last.
 		 */
 		var expectedContainmentPath = new ArrayDeque<ComponentInstance>();
@@ -1833,13 +1833,101 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return !expectedIter.hasNext() && currentCPE == null;
 	}
 
-	private PropertyAssociationInstance createPropertyAssociationInstance(EMV2PropertyAssociation association) {
-		var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
-		propertyInstance.setPropertyAssociation(association);
-		propertyInstance.setProperty(association.getProperty());
-		var declarativeValue = association.getOwnedValues().get(0).getOwnedValue();
-		propertyInstance.createOwnedValue().setOwnedValue(EcoreUtil.copy(declarativeValue));
-		return propertyInstance;
+	private void instantiatePropertyAssociation(EMV2PropertyAssociation declarativeAssociation,
+			List<PropertyAssociation> instanceAssociations,
+			Map<Property, EMV2PropertyAssociation> collectedAssociations, ComponentInstance component) {
+		var declarativeValue = declarativeAssociation.getOwnedValues().get(0).getOwnedValue();
+		instantiatePropertyExpression(declarativeValue, collectedAssociations, component, 0)
+				.ifPresent(expressionInstance -> {
+			var propertyInstance = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+			propertyInstance.setPropertyAssociation(declarativeAssociation);
+			propertyInstance.setProperty(declarativeAssociation.getProperty());
+			propertyInstance.createOwnedValue().setOwnedValue(expressionInstance);
+			instanceAssociations.add(propertyInstance);
+		});
+	}
+
+	private Optional<PropertyExpression> instantiatePropertyExpression(PropertyExpression propertyExpression,
+			Map<Property, EMV2PropertyAssociation> collectedAssociations, ComponentInstance component, int depth) {
+		if (depth > 50) {
+			return Optional.empty();
+		}
+		if (propertyExpression instanceof NamedValue namedValue) {
+			var abstractNamedValue = namedValue.getNamedValue();
+			if (abstractNamedValue instanceof Property property) {
+				var nextAssociation = collectedAssociations.get(property);
+				if (nextAssociation != null) {
+					var nextPropertyExpression = nextAssociation.getOwnedValues().get(0).getOwnedValue();
+					return instantiatePropertyExpression(nextPropertyExpression, collectedAssociations, component,
+							depth + 1);
+				} else {
+					return Optional.ofNullable(property.getDefaultValue())
+							.flatMap(defaultValue -> instantiatePropertyExpression(defaultValue, collectedAssociations,
+									component, depth + 1));
+				}
+			} else if (abstractNamedValue instanceof PropertyConstant constant) {
+				return instantiatePropertyExpression(constant.getConstantValue(), collectedAssociations, component,
+						depth + 1);
+			} else {
+				return Optional.of(EcoreUtil.copy(propertyExpression));
+			}
+		} else if (propertyExpression instanceof ListValue listValue) {
+			var listInstance = Aadl2Factory.eINSTANCE.createListValue();
+			for (var element : listValue.getOwnedListElements()) {
+				var elementInstance = instantiatePropertyExpression(element, collectedAssociations, component,
+						depth + 1);
+				if (elementInstance.isPresent()) {
+					listInstance.getOwnedListElements().add(elementInstance.get());
+				} else {
+					return Optional.empty();
+				}
+			}
+			return Optional.of(listInstance);
+		} else if (propertyExpression instanceof RecordValue recordValue) {
+			var recordInstance = Aadl2Factory.eINSTANCE.createRecordValue();
+			for (var field : recordValue.getOwnedFieldValues()) {
+				var valueInstance = instantiatePropertyExpression(field.getOwnedValue(), collectedAssociations,
+						component, depth + 1);
+				if (valueInstance.isPresent()) {
+					var fieldInstance = recordInstance.createOwnedFieldValue();
+					fieldInstance.setProperty(field.getProperty());
+					fieldInstance.setOwnedValue(valueInstance.get());
+				} else {
+					return Optional.empty();
+				}
+			}
+			return Optional.of(recordInstance);
+		} else if (propertyExpression instanceof RangeValue rangeValue) {
+			var rangeInstance = Aadl2Factory.eINSTANCE.createRangeValue();
+			var minimumInstance = instantiatePropertyExpression(rangeValue.getMinimum(), collectedAssociations,
+					component, depth + 1);
+			var maximumInstance = instantiatePropertyExpression(rangeValue.getMaximum(), collectedAssociations,
+					component, depth + 1);
+			if (minimumInstance.isPresent() && maximumInstance.isPresent()) {
+				rangeInstance.setMinimum(minimumInstance.get());
+				rangeInstance.setMaximum(maximumInstance.get());
+			} else {
+				return Optional.empty();
+			}
+			if (rangeValue.getDelta() != null) {
+				var deltaInstance = instantiatePropertyExpression(rangeValue.getDelta(), collectedAssociations,
+						component, depth + 1);
+				if (deltaInstance.isPresent()) {
+					rangeInstance.setDelta(deltaInstance.get());
+				} else {
+					return Optional.empty();
+				}
+			}
+			return Optional.of(rangeInstance);
+		} else if (propertyExpression instanceof ReferenceValue referenceValue) {
+			try {
+				return Optional.ofNullable(referenceValue.instantiate(component));
+			} catch (InvalidModelException e) {
+				return Optional.empty();
+			}
+		} else {
+			return Optional.of(EcoreUtil.copy(propertyExpression));
+		}
 	}
 
 	/**

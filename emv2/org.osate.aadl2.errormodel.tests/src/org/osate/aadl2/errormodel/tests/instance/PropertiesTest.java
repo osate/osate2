@@ -2,20 +2,26 @@ package org.osate.aadl2.errormodel.tests.instance;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.osate.pluginsupport.ScopeFunctions.with;
 
+import java.util.List;
+
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
@@ -26,8 +32,9 @@ import org.osate.aadl2.errormodel.instance.ErrorSourceInstance;
 import org.osate.aadl2.errormodel.instance.RecoverEventInstance;
 import org.osate.aadl2.errormodel.instance.RepairEventInstance;
 import org.osate.aadl2.errormodel.instance.TypeInstance;
-import org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.testsupport.TestHelper;
@@ -41,11 +48,6 @@ public class PropertiesTest {
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
-
-	@BeforeAll
-	public static void enableEMV2Instantiator() {
-		System.setProperty(EMV2AnnexInstantiator.PROPERTY_NAME, "true");
-	}
 
 	@Test
 	public void testSimpleBooleanOnSink() throws Exception {
@@ -760,6 +762,174 @@ public class PropertiesTest {
 		assertEquals("Value on set", ((StringLiteral) lookup(type, "ps::string2")).getValue());
 		assertEquals("Value on type", ((StringLiteral) lookup(type, "ps::string3")).getValue());
 		assertEquals("Value on set overrides value on sink", ((StringLiteral) lookup(type, "ps::string4")).getValue());
+	}
+
+	@Test
+	public void testResolveNamedValueOnElement() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "resolve_named_value_on_element.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var event = annexInstance.getEvents().get(0);
+
+		assertEquals(5, event.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(event, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(event, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(event, "ps::string3")).getValue());
+		assertEquals("Constant Value", ((StringLiteral) lookup(event, "ps::string4")).getValue());
+		assertEquals("Default Value", ((StringLiteral) lookup(event, "ps::string5")).getValue());
+	}
+
+	@Test
+	public void testResolveNamedValueOnType() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "resolve_named_value_on_type.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var event = (ErrorEventInstance) annexInstance.getEvents().get(0);
+		var type = (TypeInstance) event.getTypeSet().flatten().get(0);
+
+		assertEquals(5, type.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(type, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(type, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(type, "ps::string3")).getValue());
+		assertEquals("Constant Value", ((StringLiteral) lookup(type, "ps::string4")).getValue());
+		assertEquals("Default Value", ((StringLiteral) lookup(type, "ps::string5")).getValue());
+	}
+
+	@Test
+	public void testResolveNamedValueOnStateMachine() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "resolve_named_value_on_state_machine.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+		var stateMachineProperties = annexInstance.getStateMachineProperties();
+
+		assertEquals(5, stateMachineProperties.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string3")).getValue());
+		assertEquals("Constant Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string4")).getValue());
+		assertEquals("Default Value", ((StringLiteral) lookup(stateMachineProperties, "ps::string5")).getValue());
+	}
+
+	@Test
+	public void testResolveNamedValueOnSubclause() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "resolve_named_value_on_subclause.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(5, annexInstance.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string3")).getValue());
+		assertEquals("Constant Value", ((StringLiteral) lookup(annexInstance, "ps::string4")).getValue());
+		assertEquals("Default Value", ((StringLiteral) lookup(annexInstance, "ps::string5")).getValue());
+	}
+
+	@Test
+	public void testNestedNamedValues() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "nested_named_values.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(12, annexInstance.getOwnedPropertyAssociations().size());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string1")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string2")).getValue());
+		assertEquals("String Value", ((StringLiteral) lookup(annexInstance, "ps::string3")).getValue());
+		assertEquals(1, ((IntegerLiteral) lookup(annexInstance, "ps::int1")).getValue());
+		assertEquals(2, ((IntegerLiteral) lookup(annexInstance, "ps::int2")).getValue());
+		assertEquals(10, ((IntegerLiteral) lookup(annexInstance, "ps::int10")).getValue());
+		assertIterableEquals(List.of("Element", "String Value", "Constant Value"),
+				((ListValue) lookup(annexInstance, "ps::list1")).getOwnedListElements()
+						.stream()
+						.map(element -> ((StringLiteral) element).getValue())
+						.toList());
+		with((RecordValue) lookup(annexInstance, "ps::rec1"), recordValue -> {
+			assertEquals(2, recordValue.getOwnedFieldValues().size());
+			with(recordValue.getOwnedFieldValues().get(0), field1 -> {
+				assertEquals("field1", field1.getProperty().getName());
+				assertEquals("String Value", ((StringLiteral) field1.getOwnedValue()).getValue());
+			});
+			with(recordValue.getOwnedFieldValues().get(1), listField -> {
+				assertEquals("list_field", listField.getProperty().getName());
+				assertIterableEquals(List.of("Element", "String Value", "Constant Value"),
+						((ListValue) listField.getOwnedValue()).getOwnedListElements()
+								.stream()
+								.map(element -> ((StringLiteral) element).getValue())
+								.toList());
+			});
+		});
+		with((RecordValue) lookup(annexInstance, "ps::rec2"), recordValue -> {
+			assertEquals(1, recordValue.getOwnedFieldValues().size());
+			with(recordValue.getOwnedFieldValues().get(0), field2 -> {
+				assertEquals("field2", field2.getProperty().getName());
+				with((RecordValue) field2.getOwnedValue(), field2Value -> {
+					assertEquals(2, field2Value.getOwnedFieldValues().size());
+					with(field2Value.getOwnedFieldValues().get(0), field1 -> {
+						assertEquals("field1", field1.getProperty().getName());
+						assertEquals("String Value", ((StringLiteral) field1.getOwnedValue()).getValue());
+					});
+					with(field2Value.getOwnedFieldValues().get(1), listField -> {
+						assertEquals("list_field", listField.getProperty().getName());
+						assertIterableEquals(List.of("Element", "String Value", "Constant Value"),
+								((ListValue) listField.getOwnedValue()).getOwnedListElements()
+										.stream()
+										.map(element -> ((StringLiteral) element).getValue())
+										.toList());
+					});
+				});
+			});
+		});
+		with((RecordValue) lookup(annexInstance, "ps::rec3"), recordValue -> {
+			assertEquals(1, recordValue.getOwnedFieldValues().size());
+			with(recordValue.getOwnedFieldValues().get(0), field3 -> {
+				assertEquals("field3", field3.getProperty().getName());
+				with((RecordValue) field3.getOwnedValue(), field3Value -> {
+					assertEquals(1, field3Value.getOwnedFieldValues().size());
+					with(field3Value.getOwnedFieldValues().get(0), field2 -> {
+						assertEquals("field2", field2.getProperty().getName());
+						with((RecordValue) field2.getOwnedValue(), field2Value -> {
+							assertEquals(2, field2Value.getOwnedFieldValues().size());
+							with(field2Value.getOwnedFieldValues().get(0), field1 -> {
+								assertEquals("field1", field1.getProperty().getName());
+								assertEquals("String Value", ((StringLiteral) field1.getOwnedValue()).getValue());
+							});
+							with(field2Value.getOwnedFieldValues().get(1), listField -> {
+								assertEquals("list_field", listField.getProperty().getName());
+								assertIterableEquals(List.of("Element", "String Value", "Constant Value"),
+										((ListValue) listField.getOwnedValue()).getOwnedListElements()
+												.stream()
+												.map(element -> ((StringLiteral) element).getValue())
+												.toList());
+							});
+						});
+					});
+				});
+			});
+		});
+		with((RangeValue) lookup(annexInstance, "ps::range1"), rangeValue -> {
+			assertEquals(1, ((IntegerLiteral) rangeValue.getMinimum()).getValue());
+			assertEquals(2, ((IntegerLiteral) rangeValue.getMaximum()).getValue());
+			assertNull(rangeValue.getDelta());
+		});
+		with((RangeValue) lookup(annexInstance, "ps::range2"), rangeValue -> {
+			assertEquals(1, ((IntegerLiteral) rangeValue.getMinimum()).getValue());
+			assertEquals(10, ((IntegerLiteral) rangeValue.getMaximum()).getValue());
+			assertEquals(2, ((IntegerLiteral) rangeValue.getDelta()).getValue());
+		});
+	}
+
+	@Test
+	public void testReferenceProperties() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "reference_properties.aadl", PATH + "ps.aadl");
+		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
+
+		assertEquals(3, annexInstance.getOwnedPropertyAssociations().size());
+		assertEquals("sub1", ((ComponentInstance) ((InstanceReferenceValue) lookup(annexInstance, "ps::ref1"))
+				.getReferencedInstanceObject()).getName());
+		assertEquals("sub2", ((ComponentInstance) ((InstanceReferenceValue) lookup(annexInstance, "ps::ref2"))
+				.getReferencedInstanceObject()).getName());
+		assertEquals("sub3", ((ComponentInstance) ((InstanceReferenceValue) lookup(annexInstance, "ps::ref3"))
+				.getReferencedInstanceObject()).getName());
 	}
 
 	private static PropertyExpression lookup(NamedElement holder, String name) {
