@@ -7,8 +7,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>2.7.5</tycho.version>
-		<tycho-extras.version>2.7.5</tycho-extras.version>
+		<tycho.version>3.0.5</tycho.version>
+		<tycho-extras.version>3.0.5</tycho-extras.version>
 		<eclipse.version>2023-03</eclipse.version>
 		<xtext.version>2.30.0</xtext.version>
 		<xsemantics.version>1.23.0</xsemantics.version>
@@ -509,7 +509,7 @@
 					<version>${tycho.version}</version>
 					<dependencies>
 						<dependency>
-							<groupId>org.eclipse.tycho.extras</groupId>
+							<groupId>org.eclipse.tycho</groupId>
 							<artifactId>tycho-buildtimestamp-jgit</artifactId>
 							<version>${tycho-extras.version}</version>
 						</dependency>
