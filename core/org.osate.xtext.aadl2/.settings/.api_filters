@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2" version="2">
+    <resource path="META-INF/MANIFEST.MF">
+        <filter id="923795461">
+            <message_arguments>
+                <message_argument value="7.0.1"/>
+                <message_argument value="7.0.0"/>
+            </message_arguments>
+        </filter>
+        <filter id="924844039">
+            <message_arguments>
+                <message_argument value="7.0.1"/>
+                <message_argument value="7.0.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/parser/antlr/internal/InternalAadl2Parser.java" type="org.osate.xtext.aadl2.parser.antlr.internal.InternalAadl2Parser">
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
@@ -497,6 +511,479 @@
             <message_arguments>
                 <message_argument value="Serializer"/>
                 <message_argument value="InstanceEnabledSerializer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="xtend-gen/org/osate/xtext/aadl2/formatting2/Aadl2Formatter.java" type="org.osate.xtext.aadl2.formatting2.Aadl2Formatter">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="_format(Property, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="xtend-gen/org/osate/xtext/aadl2/scoping/Aadl2ScopeProvider.java" type="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="allConnectionEnds(Classifier)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_AbstractFeature_featurePrototype(Classifier, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_AbstractSubcomponent_abstractSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_AccessSpecification_classifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_BasicProperty_referencedPropertyType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_BusAccess_busFeatureClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_BusSubcomponent_busSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ComponentImplementation(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ComponentPrototypeActual_subcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ComponentPrototype_constrainingClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ConnectedElement_context(ComponentImplementation, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_Connection_refined(ComponentImplementation, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_DataAccess_dataFeatureClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_DataPort_dataFeatureClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_DataSubcomponent_dataSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_DeviceSubcomponent_deviceSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_EndToEndFlowSegment_context(ComponentImplementation, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_EndToEndFlow_refined(ComponentImplementation, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_EventDataPort_dataFeatureClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_EventDataSource_dataClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FeatureGroupPrototypeActual_featureType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FeatureGroupPrototype_constrainingFeatureGroupType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FeatureGroupType_inverse(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FeatureGroup_featureType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FeaturePrototypeReference_prototype(Classifier, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FeaturePrototype_constrainingClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_Feature_refined(Classifier, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FlowEnd_feature(Flow, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FlowEnd_feature(FlowEnd, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FlowImplementation_specification(ComponentImplementation, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FlowSegment_context(ComponentImplementation, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FlowSegment_flowElement(FlowImplementation, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FlowSegment_flowElement(FlowSegment, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_FlowSpecification_refined(ComponentType, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_GroupExtension_extended(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ListType_referencedElementType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_MemorySubcomponent_memorySubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ModalPath_inModeOrTransition(ComponentClassifier, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ModeBinding_derivedMode(Subcomponent, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ModeBinding_parentMode(ComponentImplementation, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ModeTransitionTrigger_context(ComponentClassifier, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ModeTransitionTrigger_triggerPort(ModeTransition, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ModeTransition_destination(ComponentClassifier, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ModeTransition_source(ComponentClassifier, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_NumberType_referencedUnitsType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_Parameter_dataFeatureClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_PortProxy_dataClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_PortSpecification_classifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ProcessSubcomponent_processSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ProcessorSubcomponent_processorSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_PropertyConstant_referencedPropertyType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_PrototypeBinding_formal(Classifier, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_PrototypeBinding_formal(ComponentImplementationReference, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_PrototypeBinding_formal(ComponentPrototypeActual, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_PrototypeBinding_formal(FeatureGroupPrototypeActual, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_PrototypeBinding_formal(Subcomponent, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_Prototype_refined(Classifier, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_RangeType_numberType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_Realization_implemented(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_Subcomponent_refined(ComponentImplementation, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_SubprogramAccess_subprogramFeatureClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_SubprogramCall_calledSubprogram(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_SubprogramCall_context(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_SubprogramProxy_subprogramClassifier(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_SubprogramSubcomponent_subprogramSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_SystemSubcomponent_systemSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ThreadGroupSubcomponent_threadGroupSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider"/>
+                <message_argument value="scope_ThreadSubcomponent_threadSubcomponentType(Element, EReference)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="xtend-gen/org/osate/xtext/aadl2/scoping/Aadl2SerializerScopeProvider.java" type="org.osate.xtext.aadl2.scoping.Aadl2SerializerScopeProvider">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2SerializerScopeProvider"/>
+                <message_argument value="scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2SerializerScopeProvider"/>
+                <message_argument value="scope_ContainmentPathElement_namedElement(ContainedNamedElement, EReference)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.Aadl2SerializerScopeProvider"/>
+                <message_argument value="scope_ContainmentPathElement_namedElement(ContainmentPathElement, EReference)"/>
             </message_arguments>
         </filter>
     </resource>
