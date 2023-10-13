@@ -1,0 +1,65 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
+package aadl_project;
+
+import org.osate.aadl2.AbstractNamedValue;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.UnitLiteral;
+
+public enum TimeUnits {
+	PS(1.0, "ps"),
+	NS(1000.0, "ns"),
+	US(1000000.0, "us"),
+	MS(1.0E9, "ms"),
+	SEC(1.0E12, "sec"),
+	MIN(6.0E13, "min"),
+	HR(3.6E15, "hr");
+	
+	private final double factorToBase;
+	private final String originalName;
+	
+	private TimeUnits(double factorToBase, String originalName) {
+		this.factorToBase = factorToBase;
+		this.originalName = originalName;
+	}
+	
+	public static TimeUnits valueOf(PropertyExpression propertyExpression) {
+		AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+		return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+	}
+	
+	public double getFactorToBase() {
+		return factorToBase;
+	}
+	
+	public double getFactorTo(TimeUnits target) {
+		return factorToBase / target.factorToBase;
+	}
+	
+	@Override
+	public String toString() {
+		return originalName;
+	}
+}
