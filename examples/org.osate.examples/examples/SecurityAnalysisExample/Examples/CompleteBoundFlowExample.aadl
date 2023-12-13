@@ -1,0 +1,293 @@
+package CompleteBoundFlowExample
+-- Producer - consumer example with confidentiality reducing middle-man (transformer)
+-- Both the producer and transformer are marked as private systems, which are therefore allowed to handle private data.
+-- The consumer system is declared as 'public'. The private data provided by the transformer translated into public data while preserving confidentiality.
+-- The flow of data is described using flows within the individual systems.
+-- This example does not consider implications of hardware security.
+public
+	with SecurityClassificationProperties;
+
+	data PrivateDataSet
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end PrivateDataSet;
+
+	data PublicDataSet
+		properties
+			SecurityClassificationProperties::Security_Level => No_Clearance;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+	end PublicDataSet;
+
+	bus InternalBus
+	end InternalBus;
+
+	bus implementation InternalBus.imp
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end InternalBus.imp;
+
+	bus ExternalBus
+		properties
+			SecurityClassificationProperties::Security_Level => No_Clearance;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+	end ExternalBus;
+
+	bus implementation ExternalBus.imp
+	end ExternalBus.imp;
+
+--- 
+	-- private provider system with flow source
+	memory ProviderStorage
+	end ProviderStorage;
+
+	memory implementation ProviderStorage.imp
+	end ProviderStorage.imp;
+
+	system Provider
+		features
+			dataOut: out data port PrivateDataSet;
+		flows
+			flowSource: flow source dataOut;
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end Provider;
+
+	process ProviderProcess
+		features
+			dataOut: out data port PrivateDataSet;
+		flows
+			flowSource: flow source dataOut;
+	end ProviderProcess;
+
+	thread ProviderThread
+		features
+			dataOut: out data port PrivateDataSet;
+		flows
+			flowSource: flow source dataOut;
+	end ProviderThread;
+
+	thread implementation ProviderThread.imp
+	end ProviderThread.imp;
+
+	process implementation ProviderProcess.imp
+		subcomponents
+			providerThread: thread ProviderThread.imp;
+		connections
+			conn: port providerThread.dataOut -> dataOut;
+		flows
+			flowSource: flow source providerThread.flowSource -> conn -> dataOut;
+	end ProviderProcess.imp;
+
+	processor ProviderProcessor
+
+	end ProviderProcessor;
+
+	processor implementation ProviderProcessor.imp
+	end ProviderProcessor.imp;
+
+	system implementation Provider.imp
+		subcomponents
+			providerProcessor: processor ProviderProcessor.imp;
+			providerProcess: process ProviderProcess.imp;
+			storage: memory ProviderStorage.imp;
+		connections
+			conn: port providerProcess.dataOut -> dataOut;
+		flows
+			flowSource: flow source providerProcess.flowSource -> conn -> dataOut;
+		properties
+			Actual_Memory_Binding => (reference (storage)) applies to dataOut;
+			Actual_Processor_Binding => (reference (providerProcessor)) applies to providerProcess;
+	end Provider.imp;
+
+---
+	-- public consumer system with flow sink
+	memory ConsumerStorage
+	end ConsumerStorage;
+
+	memory implementation ConsumerStorage.imp
+	end ConsumerStorage.imp;
+
+	system Consumer
+		features
+			dataIn: in data port PublicDataSet;
+		flows
+			flowSink: flow sink dataIn;
+		properties
+			SecurityClassificationProperties::Security_Level => No_Clearance;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+	end Consumer;
+
+	processor ConsumerProcessor
+	end ConsumerProcessor;
+
+	processor implementation ConsumerProcessor.imp
+	end ConsumerProcessor.imp;
+
+	process ConsumerProcess
+		features
+			dataIn: in data port PublicDataSet;
+		flows
+			flowSink: flow sink dataIn;
+	end ConsumerProcess;
+
+	thread ConsumerThread
+		features
+			dataIn: in data port PublicDataSet;
+		flows
+			flowSink: flow sink dataIn;
+	end ConsumerThread;
+
+	thread implementation ConsumerThread.imp
+	end ConsumerThread.imp;
+
+	process implementation ConsumerProcess.imp
+		subcomponents
+			consumerThread: thread ConsumerThread.imp;
+		connections
+			conn: port dataIn -> consumerThread.dataIn;
+		flows
+			flowSink: flow sink dataIn -> conn -> consumerThread.flowSink;
+	end ConsumerProcess.imp;
+
+	system implementation Consumer.imp
+		subcomponents
+			consumerProcessor: processor ConsumerProcessor.imp;
+			consumerProcess: process ConsumerProcess.imp;
+			storage: memory ConsumerStorage.imp;
+		connections
+			conn: port dataIn -> consumerProcess.dataIn;
+		flows
+			flowSink: flow sink dataIn -> conn -> consumerProcess.flowSink;
+		properties
+			Actual_Memory_Binding => (reference (storage)) applies to dataIn;
+			Actual_Processor_Binding => (reference (consumerProcessor)) applies to consumerProcess;
+	end Consumer.imp;
+
+---
+	-- private transformer system with flow path (private in, public out) - transforms data while retaining confidentiality
+	process TransformerProcess
+		features
+			dataIn: in data port PrivateDataSet;
+			dataOut: out data port PublicDataSet;
+		flows
+			transformerProcessFlowPath: flow path dataIn -> dataOut;
+
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+	end TransformerProcess;
+
+	thread TransformerThread
+		features
+			dataIn: in data port PrivateDataSet;
+			dataOut: out data port PublicDataSet;
+		flows
+			transformerThreadFlowPath: flow path dataIn -> dataOut;
+		properties
+			-- configure flow - which transforms the data type - to retain confidentiality (anonymization process)
+			SecurityClassificationProperties::Trusted => True applies to transformerThreadFlowPath;
+	end TransformerThread;
+
+	thread implementation TransformerThread.imp
+	end TransformerThread.imp;
+
+	processor TransformerProcessor
+	end TransformerProcessor;
+
+	processor implementation TransformerProcessor.imp
+	end TransformerProcessor.imp;
+
+	process implementation TransformerProcess.imp
+		subcomponents
+			transformerThread: thread TransformerThread.imp;
+		connections
+			connDataIn: port dataIn -> transformerThread.dataIn;
+			connDataOut: port transformerThread.dataOut -> dataOut;
+		flows
+			transformerProcessFlowPath: flow path dataIn -> connDataIn -> transformerThread.transformerThreadFlowPath -> connDataOut -> dataOut;
+		properties
+			SecurityClassificationProperties::Trusted => True applies to transformerProcessFlowPath;
+	end TransformerProcess.imp;
+
+	system Transformer
+		features
+			dataIn: in data port PrivateDataSet;
+			dataOut: out data port PublicDataSet;
+		flows
+			transformerSystemFlowPath: flow path dataIn -> dataOut;
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+			SecurityClassificationProperties::Trusted => True applies to transformerSystemFlowPath;
+	end Transformer;
+
+	system implementation Transformer.imp
+		subcomponents
+			transformerProcessor: processor TransformerProcessor.imp;
+			transformerProcess: process TransformerProcess.imp;
+		connections
+			connDataIn: port dataIn -> transformerProcess.dataIn;
+			connDataOut: port transformerProcess.dataOut -> dataOut;
+		flows
+			transformerSystemFlowPath: flow path dataIn -> connDataIn -> transformerProcess.transformerProcessFlowPath -> connDataOut -> dataOut;
+		properties
+			SecurityClassificationProperties::Trusted => True applies to transformerSystemFlowPath;
+			Actual_Processor_Binding => (reference (transformerProcessor)) applies to transformerProcess;
+	end Transformer.imp;
+
+---
+	system ExampleSystem
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+	end ExampleSystem;
+
+	-- system containing producer and consumer subsystems with a built in transformer for translating the data type
+	system implementation ExampleSystem.builtInTransformerImp
+		subcomponents
+			provider: system Provider.imp;
+			consumer: system Consumer.imp;
+			transformerProcessor: processor TransformerProcessor.imp;
+			transformerProcess: process TransformerProcess.imp;
+			internalBus: bus InternalBus.imp;
+			externalBus: bus ExternalBus.imp;
+		connections
+			connProviderTransformer: port provider.dataOut -> transformerProcess.dataIn;
+			connTransformerConsumer: port transformerProcess.dataOut -> consumer.dataIn;
+
+		flows
+			-- flow from producer thread to consumer thread via built in transformer
+			endToEndFlow: end to end flow provider.flowSource -> connProviderTransformer -> transformerProcess.transformerProcessFlowPath -> connTransformerConsumer -> consumer.flowSink;
+		properties
+			Actual_Connection_Binding => (
+				reference (internalBus)) applies to connProviderTransformer, provider.conn, provider.providerProcess.conn, transformerProcess.connDataIn;
+			Actual_Connection_Binding => (
+				reference (externalBus)) applies to connTransformerConsumer, consumer.conn, consumer.consumerProcess.conn, transformerProcess.connDataOut;
+			Actual_Processor_Binding => (reference (transformerProcessor)) applies to transformerProcess;
+	end ExampleSystem.builtInTransformerImp;
+
+	system implementation ExampleSystem.externalTransformerImp
+		subcomponents
+			provider: system Provider.imp;
+			consumer: system Consumer.imp;
+			transformer: system Transformer.imp;
+			internalBus: bus InternalBus.imp;
+			externalBus: bus ExternalBus.imp;
+		connections
+			connProviderTransformer: port provider.dataOut -> transformer.dataIn;
+			connTransformerConsumer: port transformer.dataOut -> consumer.dataIn;
+
+		flows
+			-- flow form producer thread to consumer thread via transformer system
+			endToEndFlow: end to end flow provider.flowSource -> connProviderTransformer -> transformer.transformerSystemFlowPath -> connTransformerConsumer -> consumer.flowSink;
+		properties
+			Actual_Connection_Binding => (
+				reference (internalBus)) applies to connProviderTransformer, provider.conn, provider.providerProcess.conn, transformer.connDataIn, transformer.transformerProcess.connDataIn;
+			Actual_Connection_Binding => (
+				reference (externalBus)) applies to connTransformerConsumer, consumer.conn, consumer.consumerProcess.conn, transformer.connDataOut, transformer.transformerProcess.connDataOut;
+	end ExampleSystem.externalTransformerImp;
+
+end CompleteBoundFlowExample;

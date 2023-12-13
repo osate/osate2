@@ -1,0 +1,50 @@
+package FlowSanitization
+-- Example Rule 7: Star-Property (flow destination must dominate source security label)
+--		   Rule 11: Trusted/Sanitized Flows - if a flow is marked as Trusted Rule 7 does not apply
+-- 		   Sanitization Metrics
+public
+	with Base_Types;
+	with SecurityClassificationProperties;
+
+	data TopSecretData extends Base_Types::Integer_64
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end TopSecretData;
+
+	data ConfidentialData extends Base_Types::Integer_64
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end ConfidentialData;
+
+	system TestSystem
+		features
+			CdataIn: in data port ConfidentialData;
+			TSdataIn: in data port TopSecretData;
+			CdataOut: out data port ConfidentialData;
+			TSdataOut: out data port TopSecretData;
+
+		flows
+			-- Valid 
+			validFlowPath: flow path CdataIn -> TSdataOut;
+
+			-- Invalid flow
+			invalidFlowPath: flow path TSdataIn -> CdataOut;
+
+			-- Invalid flow
+			trustedFlowPath: flow path TSdataIn -> CdataOut {SecurityClassificationProperties::Trusted => true;};
+
+			-- Suspicious flow (unnecessary trusted statement)
+			susFlowPath: flow path CdataIn -> TSdataOut {SecurityClassificationProperties::Trusted => true;};
+
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end TestSystem;
+
+	system implementation TestSystem.imp
+
+	end TestSystem.imp;
+
+end FlowSanitization;

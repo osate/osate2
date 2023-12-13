@@ -1,0 +1,84 @@
+package LeastPrivilegeExample
+-- Example: Rule 10 
+public
+	with SecurityClassificationProperties;
+
+--
+	data NoClearanceData
+		properties
+			SecurityClassificationProperties::Security_Level => No_Clearance;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end NoClearanceData;
+
+	data ConfidentialData
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end ConfidentialData;
+
+	data TopSecretData
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end TopSecretData;
+
+	data SecretData
+	end SecretData;
+
+	data implementation SecretData.imp
+		subcomponents
+			invalidSubData: data ConfidentialData;
+		properties
+			SecurityClassificationProperties::Security_Level => Secret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, B);
+	end SecretData.imp;
+
+--
+	feature group FeatureGroup
+		features
+			p1: in data port ConfidentialData;
+			p2: in data port SecretData.imp;
+	end FeatureGroup;
+
+--
+	thread NoClearanceThread
+		properties
+			SecurityClassificationProperties::Security_Level => No_Clearance;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end NoClearanceThread;
+
+	process ConfidentialProcess
+		features
+			port1: in data port NoClearanceData;
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, B);
+	end ConfidentialProcess;
+
+	process implementation ConfidentialProcess.imp
+		subcomponents
+			noClearanceThread: thread NoClearanceThread;
+	end ConfidentialProcess.imp;
+
+--
+	system TestSystem
+		features
+			cData: in data port ConfidentialData;
+			sData: in data port SecretData.imp;
+
+			featureGroup: in feature group FeatureGroup {
+				SecurityClassificationProperties::Security_Level => Secret;
+				SecurityClassificationProperties::Security_Level_Caveats => (A, B, C);};
+
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, B, C, D, E);
+	end TestSystem;
+
+	system implementation TestSystem.imp
+		subcomponents
+			cProcess1: process ConfidentialProcess;
+			cProcess2: process ConfidentialProcess.imp;
+	end TestSystem.imp;
+
+end LeastPrivilegeExample;

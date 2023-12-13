@@ -82,5 +82,12 @@ censes only apply to the Third Party Software and not any other portion of this 
             name="Safety Tutorial">
          <project path=""/>
       </example>
+	  <example
+            exampleURI="/examples/SecurityAnalysisExample"
+            readmeURI="doc/html/README.html"
+            category="Security Examples"
+            name="Security and Confidentiality Analysis Example">
+         <project path=""/>
+      </example>
    </extension>
 </plugin>

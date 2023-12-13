@@ -1,0 +1,19 @@
+-- Copyright (c) 2004-2023 Carnegie Mellon University. All right reserved.
+-- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+-- @codegen-package org.osate.security.contributions.securityclassificationproperties
+property set SecurityClassificationProperties is
+
+	-- Both the Security_Level and Security_Level_Caveats can be overridden by custom definitions.
+	Security_Level: inherit enumeration (TopSecret, Secret, Confidential, No_Clearance) applies to (system, processor,
+		virtual processor, thread,
+		thread group, subprogram, subprogram group, data, port,
+		feature group, process, device, memory, bus, abstract, flow,
+		parameter, access);
+	Security_Level_Caveats: inherit list of enumeration (FOUO, NOFORN, NOCONTRACTOR, PROPIN, IMCON, ORCON) applies to (
+		system, processor, virtual processor, thread,
+		thread group, subprogram, subprogram group, data, port,
+		feature group, process, device, memory, bus, abstract, flow,
+		parameter, access);
+
+	Trusted: aadlboolean => false applies to (flow);
+end SecurityClassificationProperties;

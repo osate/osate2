@@ -1,0 +1,32 @@
+package FeatureGroupDomination
+-- Example: Rule 2 - All features in a feature group must be dominated by the security label of the feature group
+public
+	with Base_Types;
+	with SecurityClassificationProperties;
+
+	feature group FeatureGroup
+		features
+			p1: in data port Base_Types::Integer_64 {SecurityClassificationProperties::Security_Level => TopSecret;
+				SecurityClassificationProperties::Security_Level_Caveats => (A);};
+			p2: out data port Base_Types::Integer_64 {SecurityClassificationProperties::Security_Level => TopSecret;
+				SecurityClassificationProperties::Security_Level_Caveats => (B);};
+	end FeatureGroup;
+
+	system FeatureGroupTestSystem
+		features
+			-- inherited labels, least privilege violation
+			group0: feature group FeatureGroup;
+			-- modified, valid labels
+			group1: feature group FeatureGroup {SecurityClassificationProperties::Security_Level_Caveats => (A, B);};
+			-- invalid security label (does not dominate all element in feature group)
+			group2: feature group FeatureGroup {SecurityClassificationProperties::Security_Level_Caveats => (A, C);};
+
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, B, C);
+	end FeatureGroupTestSystem;
+
+	system implementation FeatureGroupTestSystem.imp
+	end FeatureGroupTestSystem.imp;
+
+end FeatureGroupDomination;

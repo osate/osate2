@@ -1,0 +1,28 @@
+package FeatureClassifierEquality
+-- Example: Rule 8 enforcement. Features and their classifiers must have the same security label.
+public
+	with SecurityClassificationProperties;
+
+	data CustomData
+		properties
+			SecurityClassificationProperties::Security_Level => Secret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end CustomData;
+
+	system TestSystem
+		features
+			port0: in data port CustomData;
+			port1: in data port CustomData {SecurityClassificationProperties::Security_Level => Secret;};
+
+			-- Invalid feature label assignment (not equal to label used in classifier)
+			port2: in data port CustomData {SecurityClassificationProperties::Security_Level => TopSecret;};
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end TestSystem;
+
+	system implementation TestSystem.imp
+
+	end TestSystem.imp;
+
+end FeatureClassifierEquality;
