@@ -1,0 +1,96 @@
+-- Copyright (c) 2004-2023 Carnegie Mellon University. All right reserved.
+package CompleteSystemExample
+public
+	with SecurityClassificationProperties;
+
+	data X
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end X;
+
+	data Y
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (B);
+	end Y;
+
+	data Z
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, B);
+	end Z;
+
+	system Producer1
+		features
+			output: out data port X;
+		flows
+			src: flow source output;
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end Producer1;
+
+	system Producer2
+		features
+			output: out data port Y;
+		flows
+			src: flow source output;
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (B);
+	end Producer2;
+
+	system Computer
+		features
+			in1: in data port X;
+			in2: in data port Y;
+			result: out data port Z;
+			interrupt: out event port {
+				SecurityClassificationProperties::Security_Level => Confidential;
+				SecurityClassificationProperties::Security_Level_Caveats => (C);
+			};
+		flows
+			through1: flow path in1 -> result;
+			through2: flow path in2 -> result;
+			src: flow source interrupt;
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, B, C);
+	end Computer;
+
+	system Consumer
+		features
+			input: in data port Z;
+			interrupt: in event port {
+				SecurityClassificationProperties::Security_Level => Confidential;
+				SecurityClassificationProperties::Security_Level_Caveats => (C);
+			};
+		flows
+			snk1: flow sink input;
+			snk2: flow sink interrupt;
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, B, C);
+	end Consumer;
+
+	system CompleteSystem
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, B, C);
+	end CompleteSystem;
+
+	system implementation CompleteSystem.Impl
+		subcomponents
+			src1: system Producer1;
+			src2: system Producer2;
+			comp: system Computer;
+			dest: system Consumer;
+		connections
+			c1: port src1.output -> comp.in1;
+			c2: port src2.output -> comp.in2;
+			c3: port comp.result -> dest.input;
+			c4: port comp.interrupt -> dest.interrupt;
+	end CompleteSystem.Impl;
+
+end CompleteSystemExample;

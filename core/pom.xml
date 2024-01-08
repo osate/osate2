@@ -74,5 +74,6 @@
 		<module>org.osate.core.tests</module>
 		<module>org.osate.core.tests.log4j</module>
         <module>org.osate.slicer.tests</module>
+        <module>org.osate.security.contributions</module>
 	</modules>
 </project>

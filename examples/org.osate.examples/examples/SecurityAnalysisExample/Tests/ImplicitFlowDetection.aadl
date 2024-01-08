@@ -1,0 +1,103 @@
+package ImplicitFlowDetection
+-- Example: Missing implicit flows which are required for analysis
+public
+	with SecurityClassificationProperties;
+
+--- 
+	data CustomData
+		properties
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end CustomData;
+
+	data ConfidentialData extends CustomData
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+	end ConfidentialData;
+
+	data TopSecretData extends CustomData
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+	end TopSecretData;
+
+---
+	system SubSystem
+		--- Basic subsystem with various flows
+		features
+			inPortTS: in data port TopSecretData;
+			inPortC: in data port ConfidentialData;
+			outPortTS: out data port TopSecretData;
+			outPortC: out data port ConfidentialData;
+			snkPort: in data port TopSecretData;
+			srcPort: out data port TopSecretData;
+		flows
+			fwdTS: flow path inPortTS -> outPortTS;
+			fwdC: flow path inPortC -> outPortC;
+			trustedFlow: flow path inPortTS -> outPortC {SecurityClassificationProperties::Trusted => true;};
+			flowsnk: flow sink snkPort;
+			flowsrc: flow source srcPort;
+	end SubSystem;
+
+	system TestSystem
+		features
+			inPortTS: in data port TopSecretData;
+			outPortTS: out data port TopSecretData;
+			outPortTS2: out data port TopSecretData;
+			outPortC: out data port ConfidentialData;
+		flows
+			flow1: flow path inPortTS -> outPortTs;
+		--  missingFlow: flow path inPortTS -> outPortC;
+		--  missingSink: flow sink inPortTS;
+		--  missingSource: flow source outPortTS2;
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end TestSystem;
+
+	system implementation TestSystem.imp
+		-- System which contains implicit flows, commented out above
+		subcomponents
+			subSystem: system SubSystem;
+		connections
+			-- from the flow contained in the subsystem we derive it's out-ports as the starting point for further analysis (in this case conn2 and conn3)
+			-- this output can be reached based on flows defined in this component
+			conn1: port inPortTS -> subSystem.inPortTS;
+			conn2: port subSystem.outPortTS -> outPortTS;
+
+			-- the destination of this feature reachable via a flow defined in the subcomponent, but it is not reachable via flows from this component
+			conn3: port subSystem.outPortC -> outPortC;
+
+			-- connection sinks in subsystem. No sink specified in this system
+			conn4: port inPortTS -> subSystem.snkPort;
+
+			-- connection has a source in SubSystem. No source specified in this system.
+			conn5: port subSystem.srcPort -> outPortTS2;
+	end TestSystem.imp;
+
+	system SnakeSystem
+		-- System does not specify a flow
+		features
+			inPortTS: in data port TopSecretData;
+			outPortC: out data port ConfidentialData;
+		--flows
+		--	missingFlow: flow path inPortTS -> outPortC;
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end SnakeSystem;
+
+	system implementation SnakeSystem.imp
+		subcomponents
+			subSystem1: system SubSystem;
+			subSystem2: system SubSystem;
+			subSystem3: system SubSystem;
+			subSystem4: system SubSystem;
+		connections
+			-- Implicit flow through multiple connection and subcomponent flows
+			conn1: port inPortTS -> subSystem1.inPortTS;
+			conn2: port subSystem1.outPortC -> subSystem2.inPortC;
+			conn3: port subSystem2.outPortC -> subSystem3.inPortC;
+			conn4: port subSystem3.outPortC -> subSystem4.inPortC;
+			conn5: port subSystem4.outPortC -> outPortC;
+	end SnakeSystem.imp;
+
+end ImplicitFlowDetection;

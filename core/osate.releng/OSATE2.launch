@@ -699,6 +699,9 @@
         <setEntry value="org.osate.analysis.resource.budgets.tests@default:default"/>
         <setEntry value="org.osate.analysis.resource.budgets@default:default"/>
         <setEntry value="org.osate.analysis.resource.management@default:default"/>
+        <setEntry value="org.osate.analysis.security@default:default"/>
+		<setEntry value="org.osate.analysis.security.ui@default:default"/>
+		<setEntry value="org.osate.contributions.security@default:default"/>
         <setEntry value="org.osate.annexsupport@default:default"/>
         <setEntry value="org.osate.assure.resolute.tests@default:default"/>
         <setEntry value="org.osate.assure.tests@default:default"/>

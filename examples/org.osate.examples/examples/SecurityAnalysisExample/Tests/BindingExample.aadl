@@ -1,0 +1,140 @@
+package BindingExample
+-- Example: Rule 5 - The security label of a bound component/feature must be dominated by the component they are bound to.
+-- 		  : Rule 6 - The labels of the data used in a connection must dominate the bus to which the connection is bound.
+public
+	with SecurityClassificationProperties;
+	with Base_Types;
+
+	data customData extends Base_Types::Integer_64
+		properties
+			SecurityClassificationProperties::Security_Level => Secret;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end customData;
+
+	thread ExampleThread
+		features
+			port1: in data port customData;
+			port2: out data port customData;
+	end ExampleThread;
+
+--
+	process ExampleProcess
+		features
+			port1: in data port customData;
+			port2: out data port customData;
+	end ExampleProcess;
+
+	process implementation ExampleProcess.imp
+		subcomponents
+			t1: thread ExampleThread;
+		connections
+			fwd: port port1 -> t1.port1;
+			fwd2: port t1.port2 -> port2;
+	end ExampleProcess.imp;
+
+	process implementation ExampleProcess.Secret extends ExampleProcess.imp
+		properties
+			SecurityClassificationProperties::Security_Level => Secret;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end ExampleProcess.Secret;
+
+	process implementation ExampleProcess.Confidential extends ExampleProcess.imp
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end ExampleProcess.Confidential;
+
+--
+	processor ExampleProcessor
+	end ExampleProcessor;
+
+	processor implementation ExampleProcessor.Confidential
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end ExampleProcessor.Confidential;
+
+	processor implementation ExampleProcessor.Secret
+		properties
+			SecurityClassificationProperties::Security_Level => Secret;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end ExampleProcessor.Secret;
+
+--
+	bus ExampleBus
+	end ExampleBus;
+
+	bus implementation ExampleBus.Secret
+		properties
+			SecurityClassificationProperties::Security_Level => Secret; --Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end ExampleBus.Secret;
+
+	bus implementation ExampleBus.Confidential
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end ExampleBus.Confidential;
+
+--
+	memory ExampleMemory
+	end ExampleMemory;
+
+	memory implementation ExampleMemory.Secret
+		properties
+			SecurityClassificationProperties::Security_Level => Secret;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end ExampleMemory.Secret;
+
+	memory implementation ExampleMemory.Confidential
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end ExampleMemory.Confidential;
+
+--
+	system TestSystem
+		properties
+			SecurityClassificationProperties::Security_Level => Secret;
+			SecurityClassificationProperties::Security_Level_Caveats => (C);
+	end TestSystem;
+
+	system implementation TestSystem.valid
+		subcomponents
+			processorS: processor ExampleProcessor.Secret;
+			processS: process ExampleProcess.Secret;
+			memS: memory ExampleMemory.Secret;
+			busS: bus ExampleBus.Secret;
+		connections
+			loop: port processS.port2 -> processS.port1;
+
+		properties
+
+			Actual_Processor_Binding => (reference (processorS)) applies to processS;
+			Actual_Memory_Binding => (reference (memS)) applies to processS.t1.port1;
+			Actual_Connection_Binding => (reference (busS)) applies to loop;
+
+	end TestSystem.valid;
+
+	system implementation TestSystem.invalid
+		subcomponents
+			processorC: processor ExampleProcessor.Confidential;
+			processS: process ExampleProcess.Secret;
+			memC: memory ExampleMemory.Confidential;
+			busC: bus ExampleBus.Confidential;
+		connections
+			loop: port processS.port2 -> processS.port1;
+
+		properties
+			-- Bind Secret Process to Secret Processor
+			Actual_Processor_Binding => (reference (processorC)) applies to processS;
+
+			-- Secret Data stored on Confidential memory
+			Actual_Memory_Binding => (reference (memC)) applies to processS.t1.port1;
+
+			-- Secret Data on connection end bound to confidential bus
+			Actual_Connection_Binding => (reference (busC)) applies to loop;
+
+	end TestSystem.invalid;
+
+end BindingExample;

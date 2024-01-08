@@ -1,0 +1,53 @@
+package SubcomponentDomination
+-- Example: Rule 1 - features inside of a component must be dominated by the label of the component
+--			Rule 3 - Security labels of components must dominate the Security labels of their subcomponents 
+public
+	with SecurityClassificationProperties;
+	with Base_Types;
+
+	data CustomData
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end CustomData;
+
+	data implementation CustomData.imp
+		subcomponents
+			-- valid data subcomponent
+			otherData0: data Base_Types::Integer_64 {SecurityClassificationProperties::Security_Level => Confidential;
+				SecurityClassificationProperties::Security_Level_Caveats => (A);};
+			-- invalid subcomponent (not dominated by parent)
+			otherData1: data Base_Types::Integer_64 {SecurityClassificationProperties::Security_Level => TopSecret;
+				SecurityClassificationProperties::Security_Level_Caveats => (A);};
+	end CustomData.imp;
+
+	processor ExampleProcessor
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+	end ExampleProcessor;
+
+	processor implementation ExampleProcessor.imp
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+	end ExampleProcessor.imp;
+
+	system TestSystem
+		features
+			port1: in data port CustomData;
+			port2: in data port CustomData.imp;
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end TestSystem;
+
+	system implementation TestSystem.imp
+
+		subcomponents
+			-- valid - dominated
+			processor0: processor ExampleProcessor;
+			-- invalid - not dominated
+			processor1: processor ExampleProcessor.imp;
+
+	end TestSystem.imp;
+
+end SubcomponentDomination;

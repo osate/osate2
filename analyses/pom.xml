@@ -61,6 +61,9 @@
 		<module>org.osate.modelstats</module>
 		<module>org.osate.modelstats.ui</module>
 		<module>org.osate.modelstats.tests</module>
+		
+		<module>org.osate.analysis.security</module>
+		<module>org.osate.analysis.security.ui</module>
 	</modules>
 
 </project>

@@ -1,0 +1,82 @@
+package OperationMode
+-- This file contains various invalid configurations given that the operation mode is not valid on all components
+public
+	with SecurityClassificationProperties;
+	with Base_Types;
+
+	data ConfidentialData
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end ConfidentialData;
+
+	data SecretData
+		properties
+			SecurityClassificationProperties::Security_Level => Secret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end SecretData;
+
+	processor TestProcessor
+		features
+			sPortIn: in data port SecretData;
+			notSoSecretPortOut: out data port SecretData {
+				SecurityClassificationProperties::Security_Level => TopSecret in modes (invalid), Secret;};
+			cPortIn: in data port ConfidentialData {
+				SecurityClassificationProperties::Security_Level => Confidential in modes (valid), TopSecret;};
+			cPortOut: out data port ConfidentialData;
+		flows
+			flow1: flow path sPortIn -> cPortOut {SecurityClassificationProperties::Trusted => true;};
+		modes
+			valid: initial mode;
+			invalid: mode;
+	end TestProcessor;
+
+	bus goodBus
+		properties
+			SecurityClassificationProperties::Security_Level => Secret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end goodBus;
+
+	bus evilBus
+		properties
+			SecurityClassificationProperties::Security_Level => No_Clearance;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end evilBus;
+
+	system TestSystem
+		features
+			sPortIn: in data port SecretData;
+			cPortOut: out data port ConfidentialData;
+			tsPortOut: out data port Base_Types::Integer_64 {
+				SecurityClassificationProperties::Security_Level_Caveats => (A);
+				SecurityClassificationProperties::Security_Level => TopSecret in modes (invalid), Confidential;};
+		flows
+			flow1: flow path sPortIn -> cPortOut {SecurityClassificationProperties::Trusted => true in modes (
+					valid), false;};
+		modes
+			valid: initial mode;
+			invalid: mode;
+		properties
+			SecurityClassificationProperties::Security_Level => Secret in modes (valid), Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+
+	end TestSystem;
+
+	system implementation TestSystem.imp
+		subcomponents
+			p1: processor TestProcessor;
+			p2: processor TestProcessor;
+			evilBus: bus evilBus;
+			goodBus: bus goodBus;
+			evilBus2: bus evilBus {SecurityClassificationProperties::Security_Level => No_Clearance;
+				SecurityClassificationProperties::Security_Level_Caveats => (A, B, C);} in modes (invalid);
+		connections
+			conn1: port p1.cPortOut -> p2.cPortIn in modes (valid);
+			conn2: port p1.notSoSecretPortOut -> p2.sPortIn in modes (invalid);
+		properties
+			Actual_Connection_Binding => (reference (evilBus)) in modes (invalid), (
+				reference (goodBus)) applies to conn2;
+
+	end TestSystem.imp;
+
+end OperationMode;

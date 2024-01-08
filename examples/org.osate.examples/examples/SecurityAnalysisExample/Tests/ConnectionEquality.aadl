@@ -1,0 +1,44 @@
+package ConnectionEquality
+-- Example: Rule 9 - Both labels at the end of a connection must be identical
+public
+	with SecurityClassificationProperties;
+	with Base_Types;
+
+	data CustomData extends Base_Types::Integer_64
+		properties
+			SecurityClassificationProperties::Security_Level => Confidential;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end CustomData;
+
+	system SubSystem
+		features
+			TSPortIn: in data port CustomData {SecurityClassificationProperties::Security_Level => TopSecret;};
+			TSPortIn2: in data port CustomData {SecurityClassificationProperties::Security_Level => TopSecret;};
+			CPortIn: in data port CustomData;
+			TSPortOut: out data port CustomData {SecurityClassificationProperties::Security_Level => TopSecret;};
+			CPortOut: out data port CustomData;
+	end SubSystem;
+
+	system TestSystem
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end TestSystem;
+
+	system implementation TestSystem.imp
+		subcomponents
+			subSystem1: system SubSystem;
+			subSystem2: system SubSystem;
+		connections
+			-- Connection with same security label on both ends
+			validConn: port subSystem1.TSPortOut -> subSystem2.TSPortIn;
+
+			-- Connection with high security label on destination
+			invalidConn: port subSystem1.CPortOut -> subSystem2.TSPortIn2;
+
+			-- Connection with lower security label on destination
+			invalidConn2: port subSystem1.TSPortOut -> subSystem2.CPortIn;
+
+	end TestSystem.imp;
+
+end ConnectionEquality;

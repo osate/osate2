@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Contributions
+Bundle-SymbolicName: org.osate.security.contributions;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.security.contributions.Activator
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: org.osate.security.contributions
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",
+ org.osate.aadl2;bundle-version="[5.0.0,6.0.0)",
+ org.osate.aadl2.modelsupport;bundle-version="[7.0.0,8.0.0)",
+ org.osate.pluginsupport;bundle-version="[7.2.0,8.0.0)",
+ org.osate.aadl2.contrib;bundle-version="[2.1.0,3.0.0)"
+Export-Package: org.osate.security.contributions;version="1.0.0"

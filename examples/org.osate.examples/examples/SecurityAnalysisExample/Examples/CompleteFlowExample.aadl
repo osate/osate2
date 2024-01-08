@@ -1,0 +1,233 @@
+package CompleteFlowExample
+-- Producer - consumer example with confidentiality reducing middle-man (transformer)
+-- Both the producer and transformer are marked as private systems, which are therefore allowed to handle private data.
+-- The consumer system is declared as 'public'. The private data provided by the transformer translated into public data while preserving confidentiality.
+-- The flow of data is described using flows within the individual systems.
+-- This example does not consider implications of hardware security.
+public
+	with SecurityClassificationProperties;
+
+	data PrivateDataSet
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end PrivateDataSet;
+
+	data PublicDataSet
+		properties
+			SecurityClassificationProperties::Security_Level => No_Clearance;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+	end PublicDataSet;
+
+--- 
+	-- private provider system with flow source
+	system Provider
+		features
+			dataOut: out data port PrivateDataSet;
+		flows
+			flowSource: flow source dataOut;
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A);
+	end Provider;
+
+	process ProviderProcess
+		features
+			dataOut: out data port PrivateDataSet;
+		flows
+			flowSource: flow source dataOut;
+	end ProviderProcess;
+
+	thread ProviderThread
+		features
+			dataOut: out data port PrivateDataSet;
+		flows
+			flowSource: flow source dataOut;
+	end ProviderThread;
+
+	thread implementation ProviderThread.imp
+	end ProviderThread.imp;
+
+	process implementation ProviderProcess.imp
+		subcomponents
+			providerThread: thread ProviderThread.imp;
+		connections
+			conn: port providerThread.dataOut -> dataOut;
+		flows
+			flowSource: flow source providerThread.flowSource -> conn -> dataOut;
+	end ProviderProcess.imp;
+
+	system implementation Provider.imp
+		subcomponents
+			providerProcess: process ProviderProcess.imp;
+		connections
+			conn: port providerProcess.dataOut -> dataOut;
+		flows
+			flowSource: flow source providerProcess.flowSource -> conn -> dataOut;
+	end Provider.imp;
+
+---
+	-- public consumer system with flow sink
+	system Consumer
+		features
+			dataIn: in data port PublicDataSet;
+		flows
+			flowSink: flow sink dataIn;
+		properties
+			SecurityClassificationProperties::Security_Level => No_Clearance;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+	end Consumer;
+
+	process ConsumerProcess
+		features
+			dataIn: in data port PublicDataSet;
+		flows
+			flowSink: flow sink dataIn;
+	end ConsumerProcess;
+
+	thread ConsumerThread
+		features
+			dataIn: in data port PublicDataSet;
+		flows
+			flowSink: flow sink dataIn;
+	end ConsumerThread;
+
+	thread implementation ConsumerThread.imp
+
+	end ConsumerThread.imp;
+
+	process implementation ConsumerProcess.imp
+		subcomponents
+			consumerThread: thread ConsumerThread.imp;
+		connections
+			conn: port dataIn -> consumerThread.dataIn;
+		flows
+			flowSink: flow sink dataIn -> conn -> consumerThread.flowSink;
+	end ConsumerProcess.imp;
+
+	system implementation Consumer.imp
+		subcomponents
+			consumerProcess: process ConsumerProcess.imp;
+		connections
+			conn: port dataIn -> consumerProcess.dataIn;
+		flows
+			flowSink: flow sink dataIn -> conn -> consumerProcess.flowSink;
+	end Consumer.imp;
+
+---
+	-- private transformer system with flow path (private in, public out) - transforms data while retaining confidentiality
+	process TransformerProcess
+		features
+			dataIn: in data port PrivateDataSet;
+			dataOut: out data port PublicDataSet;
+		flows
+			transformerProcessFlowPath: flow path dataIn -> dataOut;
+
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+	end TransformerProcess;
+
+	thread TransformerThread
+		features
+			dataIn: in data port PrivateDataSet;
+			dataOut: out data port PublicDataSet;
+		flows
+			transformerThreadFlowPath: flow path dataIn -> dataOut;
+		properties
+			-- configure flow - which transforms the data type - to retain confidentiality (anonymization process)
+			SecurityClassificationProperties::Trusted => True applies to transformerThreadFlowPath;
+	end TransformerThread;
+
+	thread implementation TransformerThread.imp
+
+	end TransformerThread.imp;
+
+	process implementation TransformerProcess.imp
+		subcomponents
+			transformerThread: thread TransformerThread.imp;
+		connections
+			connDataIn: port dataIn -> transformerThread.dataIn;
+			connDataOut: port transformerThread.dataOut -> dataOut;
+		flows
+			transformerProcessFlowPath: flow path dataIn -> connDataIn -> transformerThread.transformerThreadFlowPath -> connDataOut -> dataOut;
+		properties
+			SecurityClassificationProperties::Trusted => True applies to transformerProcessFlowPath;
+	end TransformerProcess.imp;
+
+	system Transformer
+		features
+			dataIn: in data port PrivateDataSet;
+			dataOut: out data port PublicDataSet;
+		flows
+			transformerSystemFlowPath: flow path dataIn -> dataOut;
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+			SecurityClassificationProperties::Trusted => True applies to transformerSystemFlowPath;
+	end Transformer;
+
+	system implementation Transformer.imp
+		subcomponents
+			transformerProcess: process TransformerProcess.imp;
+		connections
+			connDataIn: port dataIn -> transformerProcess.dataIn;
+			connDataOut: port transformerProcess.dataOut -> dataOut;
+		flows
+			transformerSystemFlowPath: flow path dataIn -> connDataIn -> transformerProcess.transformerProcessFlowPath -> connDataOut -> dataOut;
+		properties
+			SecurityClassificationProperties::Trusted => True applies to transformerSystemFlowPath;
+	end Transformer.imp;
+
+---
+	system ExampleSystem
+		properties
+			SecurityClassificationProperties::Security_Level => TopSecret;
+			SecurityClassificationProperties::Security_Level_Caveats => (A, E);
+	end ExampleSystem;
+
+	-- incomplete system specification which moves data from the producer System to the consumer system via the transformer
+	system implementation ExampleSystem.incomplete
+		subcomponents
+			provider: system Provider;
+			consumer: system Consumer;
+			transformer: system Transformer;
+		connections
+			connProviderTransformer: port provider.dataOut -> transformer.dataIn;
+			connTransformerConsumer: port transformer.dataOut -> consumer.dataIn;
+		flows
+			endToEndFlow: end to end flow provider -> connProviderTransformer -> Transformer.transformerSystemFlowPath -> connTransformerConsumer -> consumer;
+	end ExampleSystem.incomplete;
+
+	-- system containing producer and consumer subsystems with a built in transformer for translating the data type
+	system implementation ExampleSystem.builtInTransformerImp
+		subcomponents
+			provider: system Provider.imp;
+			consumer: system Consumer.imp;
+			transformerProcess: process TransformerProcess.imp;
+		connections
+			connProviderTransformer: port provider.dataOut -> transformerProcess.dataIn;
+			connTransformerConsumer: port transformerProcess.dataOut -> consumer.dataIn;
+
+		flows
+			-- flow from producer thread to consumer thread via built in transformer
+			endToEndFlow: end to end flow provider.flowSource -> connProviderTransformer -> transformerProcess.transformerProcessFlowPath -> connTransformerConsumer -> consumer.flowSink;
+
+	end ExampleSystem.builtInTransformerImp;
+
+	system implementation ExampleSystem.externalTransformerImp
+		subcomponents
+			provider: system Provider.imp;
+			consumer: system Consumer.imp;
+			transformer: system Transformer.imp;
+		connections
+			connProviderTransformer: port provider.dataOut -> transformer.dataIn;
+			connTransformerConsumer: port transformer.dataOut -> consumer.dataIn;
+
+		flows
+			-- flow form producer thread to consumer thread via transformer system
+			endToEndFlow: end to end flow provider.flowSource -> connProviderTransformer -> transformer.transformerSystemFlowPath -> connTransformerConsumer -> consumer.flowSink;
+
+	end ExampleSystem.externalTransformerImp;
+
+end CompleteFlowExample;
