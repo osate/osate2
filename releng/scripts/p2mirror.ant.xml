@@ -27,18 +27,18 @@ Run with
 ~/local/eclipse/java-2022-03/eclipse/eclipse \
     -application org.eclipse.ant.core.antRunner \
     -buildfile p2mirror.ant.xml \
-    -Dtarget.dir=$HOME/projects/osate/p2mirror-2023-03
+    -Dtarget.dir=$HOME/projects/osate/p2mirror-2023-12
 
 -->
 <project name="Create Mirror" default="create-mirror" basedir=".">
 
     <target name="create-mirror">
-<!--
+
     	<p2.mirror>
             <source>
-                <repository location="http://download.eclipse.org/releases/2023-03"/>
+                <repository location="http://download.eclipse.org/releases/2023-12"/>
             </source>
-            <destination location="${target.dir}/releases/2023-03"/>
+            <destination location="${target.dir}/releases/2023-12"/>
             <iu id="org.eclipse.e4.rcp.feature.group"/>
             <iu id="org.eclipse.egit.feature.group"/>
             <iu id="org.eclipse.emf.sdk.feature.group"/>
@@ -60,25 +60,15 @@ Run with
             <iu id="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
             <iu id="org.eclipse.uml2.feature.group"/>
             <iu id="org.eclipse.zest.feature.group"/>
-            <iu id="org.eclipse.xpand"/>
-            <iu id="org.eclipse.xtend"/>
-            <iu id="org.eclipse.xtend.typesystem.emf"/>
             <iu id="org.eclipse.fx.runtime.min.feature.feature.group"/>
             <iu id="org.eclipse.gef.common.feature.group"/>
             <iu id="org.eclipse.gef.geometry.feature.group"/>
             <iu id="org.eclipse.gef.geometry.convert.fx.feature.group"/>
             <iu id="org.eclipse.gef.fx.feature.group"/>
     		<iu id="org.hamcrest.library"/>
+            <iu id="org.eclipse.mylyn.context.feature.feature.group"/>
         </p2.mirror>
 
-    	<p2.mirror>
-            <source>
-                <repository location="https://download.eclipse.org/mylyn/releases/3.25"/>
-            </source>
-            <destination location="${target.dir}/mylyn/releases/3.25"/>
-            <iu id="org.eclipse.mylyn.context_feature.feature.group"/>
-        </p2.mirror>
--->
         <!--p2.mirror source="http://download.eclipse.org/birt/update-site/4.9.0">
             <destination location="${target.dir}/birt/update-site/4.9.0"/>
             <iu id="org.eclipse.birt.chart.engine.extension"/>
@@ -125,23 +115,23 @@ Run with
 
         <p2.mirror>
             <source>
-                <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.30.0"/>
+                <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.33.0"/>
             </source>
-            <destination location="${target.dir}/modeling/tmf/xtext/updates/releases/2.30.0"/>
-            <iu id="org.eclipse.xtext.generator"/>
+            <destination location="${target.dir}/modeling/tmf/xtext/updates/releases/2.33.0"/>
+            <iu id="org.eclipse.xtext.xtext.generator"/>
             <iu id="org.eclipse.xtext.redist.feature.group"/>
             <iu id="org.eclipse.xtext.junit4"/>
             <iu id="org.eclipse.xtext.testing"/>
             <iu id="org.eclipse.xtext.xbase.junit"/>
         </p2.mirror>
 
-        <p2.mirror source="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.14.0">
-            <destination location="${target.dir}/modeling/emft/mwe/updates/releases/2.14.0"/>
+        <p2.mirror source="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.16.0">
+            <destination location="${target.dir}/modeling/emft/mwe/updates/releases/2.16.0"/>
             <iu id="org.eclipse.emf.mwe2.launcher.feature.group"/>
         </p2.mirror>
 
-        <p2.mirror source="http://download.eclipse.org/xsemantics/milestones/1.23">
-            <destination location="${target.dir}/xsemantics/milestones/1.23"/>
+        <p2.mirror source="http://download.eclipse.org/xsemantics/milestones/1.24">
+            <destination location="${target.dir}/xsemantics/milestones/1.24"/>
             <iu id="org.eclipse.xsemantics.runtime.feature.feature.group"/>
         </p2.mirror>
 
@@ -161,10 +151,10 @@ Run with
             <iu id="org.eclipse.ease.ui.feature.feature.group"/>
         </p2.mirror>
 
-        <p2.mirror source="https://eclipse.py4j.org">
+        <!--p2.mirror source="https://eclipse.py4j.org">
             <destination location="${target.dir}/py4j"/>
             <iu id="org.py4j.feature.feature.group"/>
-        </p2.mirror>
+        </p2.mirror-->
 
         <!--p2.mirror source="http://osate-build.sei.cmu.edu/p2/ocarina">
             <destination location="${target.dir}/ocarina"/>
