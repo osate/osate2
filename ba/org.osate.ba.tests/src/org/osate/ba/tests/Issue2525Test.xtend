@@ -1,6 +1,6 @@
 package org.osate.ba.tests
 
-import javax.inject.Inject
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -11,7 +11,6 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.junit.Assert.assertTrue
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
