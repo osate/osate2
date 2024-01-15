@@ -34,6 +34,6 @@
 	</parent>
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.ge.gef.ui</artifactId>
-	<version>1.2.1-SNAPSHOT</version>
+	<version>1.2.2-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 </project>

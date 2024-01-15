@@ -30,7 +30,6 @@ import java.util.HashMap
 import java.util.List
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.internal.xtend.expression.ast.NullLiteral
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
@@ -104,7 +103,7 @@ class CommonUtilExtension {
 									getFailedMsg(result.ruleFailedException)
 							}
 							var x = result.value
-							if (x === null || x instanceof NullLiteral)
+							if (x === null)
 								"TBD"
 							else
 								x.toString
