@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.13.90.qualifier" useFeatures="true" includeLaunchers="true" autoIncludeRequirements="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.13.91.qualifier" useFeatures="true" includeLaunchers="true" autoIncludeRequirements="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -53,7 +53,7 @@
       <feature id="org.eclipse.equinox.executable"/>
       <feature id="org.eclipse.equinox.p2.discovery.feature"/>
       <feature id="org.eclipse.platform"/>
-      <feature id="org.eclipse.mylyn.context_feature"/>
+      <feature id="org.eclipse.mylyn.context.feature"/>
       <feature id="org.eclipse.sirius.runtime.ide.ui"/>
       <feature id="org.eclipse.elk.feature"/>
       <feature id="org.eclipse.elk.algorithms.feature"/>
@@ -84,8 +84,8 @@
 
    <repositories>
       <repository location="https://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
-      <repository location="https://download.eclipse.org/eclipse/updates/4.27" enabled="true" />
-      <repository location="https://download.eclipse.org/releases/2023-03" enabled="true" />
+      <repository location="https://download.eclipse.org/eclipse/updates/4.30" enabled="true" />
+      <repository location="https://download.eclipse.org/releases/2023-12" enabled="true" />
       <repository location="https://download.eclipse.org/justj/jres/17/updates/release/latest" enabled="true" />
    </repositories>
 

@@ -2,11 +2,11 @@
 <feature
       id="org.osate.examples.feature"
       label="AADL Example Projects"
-      version="1.0.3.qualifier"
+      version="1.0.4.qualifier"
       provider-name="CMU SEI"
       image="icons/osateupdate_120.jpg"
       license-feature="org.osate.license"
-      license-feature-version="1.0.3.qualifier">
+      license-feature-version="1.0.4.qualifier">
 
    <description>
       This feature provides a number of example AADL projects.
