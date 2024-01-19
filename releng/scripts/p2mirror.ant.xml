@@ -108,12 +108,13 @@ Run with
 
         <p2.mirror source="http://download.eclipse.org/tools/orbit/downloads/2023-03">
             <destination location="${target.dir}/tools/orbit/downloads/2023-03"/>
+	        <iu id="javax.inject"/>
 	        <iu id="org.apache.commons.io"/>
 	        <iu id="org.objectweb.asm"/>
 	        <iu id="org.junit.jupiter.api"/>
         </p2.mirror>
 
-        <p2.mirror>
+    	<p2.mirror>
             <source>
                 <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.33.0"/>
             </source>
