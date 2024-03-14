@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -55,7 +55,7 @@ public class AnnexAwareDeclarativeLabelProvider extends DeclarativeLabelProvider
 		Object text = textDispatcher.invoke(element);
 		if (text != null) {
 			if (element instanceof ComponentImplementation) {
-				return text.toString().replaceAll("Implementation", "").replaceAll("Impl", "").replaceAll("  ", " ");
+				return text.toString().replaceFirst(" Impl", "");
 			}
 			return text;
 		}
