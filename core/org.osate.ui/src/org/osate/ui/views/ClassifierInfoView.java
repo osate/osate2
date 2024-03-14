@@ -845,7 +845,7 @@ public final class ClassifierInfoView extends ViewPart {
 							 * Must be an ".aadlbin" file in one the projects we care about to be interesting.
 							 */
 							final IResource resource = delta.getResource();
-							if (resource instanceof IFile && resource.getFileExtension().equalsIgnoreCase("aadlbin")
+							if (resource instanceof IFile && "aadlbin".equalsIgnoreCase(resource.getFileExtension())
 									&& projectDependancies.contains(resource.getProject())) {
 								changed.set(true);
 							}
