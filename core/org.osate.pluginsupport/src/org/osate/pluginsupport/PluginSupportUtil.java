@@ -68,13 +68,15 @@ public final class PluginSupportUtil {
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(PluginSupportPlugin.PLUGIN_ID,
 				PluginSupportPlugin.AADL_CONTRIBUTION_EXTENSION_ID);
-		IExtension[] exts = extensionPoint.getExtensions();
+		if (extensionPoint != null) {
+			IExtension[] exts = extensionPoint.getExtensions();
 
-		for (int i = 0; i < exts.length; i++) {
-			IConfigurationElement[] configElems = exts[i].getConfigurationElements();
+			for (int i = 0; i < exts.length; i++) {
+				IConfigurationElement[] configElems = exts[i].getConfigurationElements();
 
-			for (int j = 0; j < configElems.length; j++) {
-				result.add(makeUri.apply(configElems[j]));
+				for (int j = 0; j < configElems.length; j++) {
+					result.add(makeUri.apply(configElems[j]));
+				}
 			}
 		}
 		return result;
