@@ -136,24 +136,29 @@ censes only apply to the Third Party Software and not any other portion of this 
             </or>
          </enabledWhen>
       </handler>
-     </extension>  
+    </extension>  
  
     <extension
-         point="org.eclipse.ui.commandImages">
+        point="org.eclipse.ui.commandImages">
       <image
-            commandId="org.osate.aadl2.errormodel.analysis.FTTable"
-            icon="icons/ftTV.png">
-      </image>
-     </extension> 
-      
-    <extension
-         point="org.eclipse.ui.commandImages">
-      <image
-            commandId="org.osate.aadl2.errormodel.view.FTGraph"
-            icon="icons/ftGV.png">
+          commandId="org.osate.aadl2.errormodel.analysis.fta"
+          icon="icons/fta.png">
       </image>
     </extension>  
-     
+    <extension
+        point="org.eclipse.ui.commandImages">
+      <image
+          commandId="org.osate.aadl2.errormodel.view.FTTable"
+          icon="icons/ftTV.png">
+      </image>
+    </extension> 
+    <extension
+        point="org.eclipse.ui.commandImages">
+      <image
+          commandId="org.osate.aadl2.errormodel.view.FTGraph"
+          icon="icons/ftGV.png">
+      </image>
+    </extension>  
          
     <extension point="org.eclipse.ui.menus">
        <menuContribution
