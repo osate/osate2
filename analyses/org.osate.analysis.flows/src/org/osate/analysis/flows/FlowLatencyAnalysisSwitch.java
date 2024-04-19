@@ -539,8 +539,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				report.isMajorFrameDelay());
 
 		processActualConnectionBindingsSampling(connectionInstance, latencyContributor);
-		ComponentClassifier relatedConnectionData = (ComponentClassifier) FlowLatencyUtil
-				.getConnectionData(connectionInstance);
+		ComponentClassifier relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
 		processActualConnectionBindingsTransmission(connectionInstance,
 				relatedConnectionData == null ? 0.0
 						: AadlContribUtils.getDataSize(relatedConnectionData, SizeUnits.BYTES),

@@ -35,7 +35,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.statushandlers.StatusManager;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
@@ -50,6 +49,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -236,14 +236,17 @@ public class FlowLatencyUtil {
 		return result;
 	}
 
-	public static Classifier getConnectionData(ConnectionInstance connectionInstance) {
+	public static ComponentClassifier getConnectionData(ConnectionInstance connectionInstance) {
 		ConnectionInstanceEnd cei;
 		FeatureInstance fi;
 		cei = connectionInstance.getSource();
 
 		if (cei instanceof FeatureInstance) {
 			fi = (FeatureInstance) cei;
-			return fi.getFeature().getAllClassifier();
+			if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
+				return null;
+			}
+			return (ComponentClassifier) fi.getFeature().getAllClassifier();
 		}
 
 		return null;
