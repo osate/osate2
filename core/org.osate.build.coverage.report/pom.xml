@@ -143,7 +143,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.analysis.flows</artifactId>
-			<version>5.0.5-SNAPSHOT</version>
+			<version>5.0.6-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
