@@ -1,0 +1,55 @@
+package Issue2885
+public
+	feature group FG
+	end FG;
+
+	system A
+	end A;
+
+	system implementation A.impl
+		subcomponents
+			c: abstract C;
+			m: system M;
+			s: system S;
+		connections
+			m_to_c: feature group  m.p1 -> c.p1;
+			s_to_m: feature group  s.p2 -> m.p2;
+		flows
+			Sensor_Flow: end to end flow
+				s.flowSource ->
+				s_to_m ->
+				m.flowPath ->
+				m_to_c ->
+				c.flowSink;
+		properties
+			Latency => 100 ms .. 200 ms applies to Sensor_Flow;
+	end A.impl;
+
+	abstract C
+		features
+			p1: feature group  inverse of FG;
+		flows
+			flowSink: flow sink p1;
+		properties
+			Latency => 0 ms .. 25 ms applies to flowSink;
+	end C;
+
+	system M
+		features
+			p1: feature group FG;
+			p2: feature group  inverse of FG;
+		flows
+			flowPath: flow path p2 -> p1;
+		properties
+			Latency => 100 ms .. 100 ms applies to flowPath;
+	end M;
+
+	system S
+		features
+			p2: feature group FG;
+		flows
+			flowSource: flow source p2;
+		properties
+			Latency => 0 ms .. 25 ms applies to flowSource;
+	end S;
+end Issue2885;
