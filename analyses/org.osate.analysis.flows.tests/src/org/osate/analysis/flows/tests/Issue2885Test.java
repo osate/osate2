@@ -47,7 +47,7 @@ import com.itemis.xtext.testing.XtextTest;
 @InjectWith(Aadl2InjectorProvider.class)
 public class Issue2885Test extends XtextTest {
 
-	private static final String FILE = "org.osate.core.tests/models/issue2885/Issue2885.aadl";
+	private static final String FILE = "org.osate.analysis.flows.tests/models/issue2885/Issue2885.aadl";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
@@ -56,7 +56,7 @@ public class Issue2885Test extends XtextTest {
 	private ValidationTestHelper validationHelper;
 
 	@Test
-	public void testInstantiation() throws Exception {
+	public void testAnalysis() throws Exception {
 		AadlPackage pkg = testHelper.parseFile(FILE);
 
 		validationHelper.assertNoIssues(pkg);
