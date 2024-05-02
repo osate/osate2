@@ -6,14 +6,14 @@
       provider-name="CMU-SEI"
       plugin="org.osate.branding"
       license-feature="org.osate.license"
-      license-feature-version="1.0.4">
+      license-feature-version="1.0.5">
 
    <description>
       Provide support for Error-Model Annex version 2
    </description>
 
    <copyright>
-      Copyright (c) 2004-2023 Carnegie Mellon University. All rights reserved.
+      Copyright (c) 2004-2024 Carnegie Mellon University. All rights reserved.
    </copyright>
 
    <url>

@@ -5,7 +5,7 @@
     <stringAttribute key="M2_GOALS" value="-T0.5C clean install -f ../.."/>
     <booleanAttribute key="M2_NON_RECURSIVE" value="false"/>
     <booleanAttribute key="M2_OFFLINE" value="false"/>
-    <stringAttribute key="M2_PROFILES" value="local,with-ge-tests"/>
+    <stringAttribute key="M2_PROFILES" value="local"/>
     <listAttribute key="M2_PROPERTIES">
         <listEntry value="codecoverage=true"/>
         <listEntry value="spotbugs=false"/>

@@ -3,7 +3,7 @@ Automatic-Module-Name: org.osate.ge.gef
 Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Graphical Editor GEF
 Bundle-SymbolicName: org.osate.ge.gef
-Bundle-Version: 1.6.0.qualifier
+Bundle-Version: 1.7.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.gef.common;bundle-version="[5.0.1,6.0.0)",
  org.eclipse.gef.geometry;bundle-version="[5.0.0,6.0.0)",

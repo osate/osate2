@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -32,7 +32,7 @@ censes only apply to the Third Party Software and not any other portion of this 
   </parent>
   <groupId>org.osate</groupId>
   <artifactId>org.osate.ge.errormodel.feature</artifactId>
-  <version>5.1.2-SNAPSHOT</version>
+  <version>5.1.3-SNAPSHOT</version>
   <packaging>eclipse-feature</packaging>
 
 	<build>
