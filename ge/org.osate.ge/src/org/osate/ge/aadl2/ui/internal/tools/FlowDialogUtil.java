@@ -115,7 +115,7 @@ public class FlowDialogUtil {
 	private static TableColumnLayout getColumnLayout(final Table errorTable) {
 		// Create column
 		final TableColumn tableColumn = new TableColumn(errorTable, SWT.NONE);
-		tableColumn.setText("Model Errors");
+		tableColumn.setText("List of errors in the model:");
 
 		// Create column layout
 		final TableColumnLayout layout = new TableColumnLayout();
