@@ -23,11 +23,7 @@
  */
 package org.osate.aadl2.instance;
 
-import java.util.List;
-
 import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Context;
 
 /**
  * <!-- begin-user-doc -->
@@ -247,29 +243,5 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 * @generated
 	 */
 	void setSource(ConnectionInstanceEnd value);
-
-	/**
-	 * Get the feature instances that this semantic connection passes through
-	 * including the ultimate start and end points.  The features are returned in
-	 * the order in which they are passed through.
-	 *
-	 * @return A list of <code>InstanceObject</code>s.  The first item in the
-	 * 		   list will be a {@link ComponentInstance} if the connection is an
-	 * 		   access connection.  In this case, the component is the data or bus
-	 * 		   component that is being accessed through the connection.  In all
-	 * 		   other cases the first element will be a {@link FeatureInstance}.
-	 * 		   All subsequent elements in the list are always {@link FeatureInstance}
-	 * 		   objects.
-	 * @deprecated will be removed in 2.12.0
-	 */
-	@Deprecated(since = "2.11.0", forRemoval = true)
-	List<InstanceObject> getThroughFeatureInstances();
-
-	/**
-	 * @deprecated will be removed in 2.12.0
-	 */
-	@Deprecated(since = "2.11.0", forRemoval = true)
-	ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
-			final Context connCtxt);
 
 } // ConnectionInstance
