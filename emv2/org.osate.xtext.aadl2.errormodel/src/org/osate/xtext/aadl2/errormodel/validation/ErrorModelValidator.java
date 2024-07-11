@@ -27,8 +27,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -736,7 +736,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	}
 
 	private void checkMultipleErrorTypesInUsesTypes(Element useTypesContext) {
-		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10, 10);
+		HashMap<String, EObject> etlset = new HashMap<String, EObject>(10, 10);
 		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(useTypesContext)) {
 			EList<ErrorType> typeslist = etl.getTypes();
 			for (ErrorType errorTypes : typeslist) {
@@ -767,7 +767,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	}
 
 	private void checkUniqueEBSMElements(ErrorBehaviorStateMachine ebsm) {
-		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10, 10);
+		HashMap<String, EObject> etlset = new HashMap<String, EObject>(10, 10);
 		for (ErrorBehaviorEvent oep : ebsm.getEvents()) {
 			if (etlset.containsKey(oep.getName())) {
 				error(oep, "error behavior event " + oep.getName() + " defined more than once");
@@ -821,7 +821,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	}
 
 	private void checkUniqueDefiningIdentifiers(ErrorModelLibrary etl, boolean cyclicextends) {
-		Hashtable<String, EObject> types = new Hashtable<String, EObject>(10, 10);
+		HashMap<String, EObject> types = new HashMap<String, EObject>(10, 10);
 		checkUniqueDefiningEBSMMappingsTransformations(etl, types);
 		if (cyclicextends) {
 			return;
@@ -832,7 +832,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	}
 
 	private void checkUniqueDefiningEBSMMappingsTransformations(ErrorModelLibrary etl,
-			Hashtable<String, EObject> types) {
+			HashMap<String, EObject> types) {
 		for (ErrorBehaviorStateMachine ebsm : etl.getBehaviors()) {
 			if (types.containsKey(ebsm.getName())) {
 				error(ebsm, "Error behavior state machine identifier " + ebsm.getName()
@@ -863,7 +863,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	}
 
 	private void checkUniqueInheritedDefiningErrorTypes(ErrorModelLibrary lib, ErrorModelLibrary etl,
-			Hashtable<String, EObject> types) {
+			HashMap<String, EObject> types) {
 		for (ErrorTypes et : etl.getTypes()) {
 			if (types.containsKey(et.getName())) {
 				EObject source = types.get(et.getName());
