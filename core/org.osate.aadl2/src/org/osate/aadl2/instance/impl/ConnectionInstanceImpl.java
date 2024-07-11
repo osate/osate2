@@ -44,7 +44,6 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -763,52 +762,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		}
 		return Collections.unmodifiableList(conns);
 	}
-
-	public List<ModalPropertyValue> getConnectionPropertyValues(Property property) throws InvalidModelException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	// public List<AadlModalPropertyValue> getConnectionPropertyValues(final Property property)
-	// throws InvalidModelException {
-	// final List<Connection> connections = getConnections();
-	// final List<ComponentInstance> contexts = getConnectionContexts();
-	// final List<AadlModalPropertyValue> values = new ArrayList<AadlModalPropertyValue>(connections.size());
-	//
-	// final Iterator<Connection> connIter = connections.iterator();
-	// final Iterator<ComponentInstance> ctxtIter = contexts.iterator();
-	// while (connIter.hasNext()) {
-	// final Connection conn = connIter.next();
-	// final ComponentInstance ctxt = ctxtIter.next();
-	// if (conn.acceptsProperty(property)) {
-	// final AadlPropertyValue impva = new AadlPropertyValue(property);
-	// // impva.pushCurrentComponent(ctxt);
-	// /*
-	// * Don't have lookup interpret the inherit flag in the
-	// * declarative model because we need to interpret it in the
-	// * instance model (below).
-	// */
-	// conn.getPropertyValueInternal(property, impva, true);
-	// // impva.popCurrentComponent();
-	// /*
-	// * Must manually interpret the inherit flag here. We inherit
-	// * along the subcomponent ancestors of the connection's context
-	// * object.
-	// */
-	// if (property.isInherit()) {
-	// ctxt.getPropertyValueInternal(property, impva, false);
-	// }
-	// // Must manually add the default property value
-	// // impva.addDefaultValue(property.getDefaultAadlValue());
-	// values.add(impva);
-	// } else {
-	// throw new IllegalArgumentException("Not accepted by connection \"" + conn.getName()
-	// + "\" in classifier \"" + conn.getContainingClassifier().getName() + "\"");
-	// }
-	// }
-	// return values;
-	// }
 
 	/*
 	 * (non-Javadoc)
