@@ -1,0 +1,6 @@
+property set PS is
+	good_value: aadlstring applies to (all);
+	undefined: aadlstring applies to (all);
+	ref_to_undefined: aadlstring applies to (all);
+	another_good_value: aadlstring applies to (all);
+end PS;
