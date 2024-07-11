@@ -827,7 +827,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 			return;
 		}
 		for (ErrorModelLibrary xetl : etl.getExtends()) {
-			checkUniqueInheritedDefiningErrorTypes(xetl, types);
+			checkUniqueInheritedDefiningErrorTypes(etl, xetl, types);
 		}
 	}
 
@@ -862,20 +862,22 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		}
 	}
 
-	private void checkUniqueInheritedDefiningErrorTypes(ErrorModelLibrary etl, Hashtable<String, EObject> types) {
+	private void checkUniqueInheritedDefiningErrorTypes(ErrorModelLibrary lib, ErrorModelLibrary etl,
+			Hashtable<String, EObject> types) {
 		for (ErrorTypes et : etl.getTypes()) {
 			if (types.containsKey(et.getName())) {
 				EObject source = types.get(et.getName());
 				ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(et);
-				error(source,
+				EObject errObj = EMV2Util.getContainingErrorModelLibrary((Element) source) == lib ? source : lib;
+				error(errObj,
 						"Error type or type set (alias) " + et.getName() + " inherited from "
 								+ EMV2Util.getPrintName(eml)
-								+ " conflicts with another defining identifier in error type library");
+								+ " conflicts with another identifier in error type library");
 			}
 			types.put(et.getName(), et);
 		}
 		for (ErrorModelLibrary xetl : etl.getExtends()) {
-			checkUniqueInheritedDefiningErrorTypes(xetl, types);
+			checkUniqueInheritedDefiningErrorTypes(lib, xetl, types);
 		}
 	}
 
