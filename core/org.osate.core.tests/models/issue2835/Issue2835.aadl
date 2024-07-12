@@ -1,0 +1,60 @@
+package Issue2835
+public
+
+	abstract A
+		features
+			fi: in feature;
+			fo: out feature;
+			f: feature;
+		flows
+			fsrc: flow source fo;
+			fsnk: flow sink fi;
+			fpth: flow path fi -> fo;
+	end A;
+
+	abstract implementation A.i1
+		subcomponents
+			b: abstract A;
+		connections
+			ci: feature fi -> b.fi;
+			ci1: feature f -> b.fi;
+			co: feature b.fo -> fo;
+			co1: feature b.fo -> f;
+		flows 
+			-- correct 
+			-- and no error reported
+			fsrc: flow source b.fsrc -> co -> fo;
+			-- bug: flow source impl starts with flow sink
+			-- but no error reported 
+			fsrc: flow source b.fsnk -> co -> fo;
+			-- bug:  flow source impl starts with flow path
+			-- but no error reported
+			fsrc: flow source b.fpth -> co -> fo;
+
+			-- correct 
+			-- and no error reported
+			fsnk: flow sink fi -> ci -> b.fsnk;
+			-- bug: flow sink impl ends with flow sink
+			-- but no error reported 
+			fsnk: flow sink fi -> ci -> b.fsrc;
+			-- bug:  flow sink impl ends with flow path
+			-- but no error reported
+			fsnk: flow sink fi -> ci -> b.fpth;
+	end A.i1;
+
+	system S
+	end S;
+
+	system implementation S.i1
+		subcomponents
+			a1: abstract A.i1;
+			a2: abstract A.i1;
+			a3: abstract A.i1;
+		connections
+			d1: feature a1.fo -> a2.fi;
+			d2: feature a2.fo -> a3.fi;
+		flows
+			e1: end to end flow a1.fsrc -> d1 -> a2.fpth -> d2 -> a3.fsnk;
+	end S.i1;
+
+end Issue2835;
