@@ -1,0 +1,8 @@
+package library2
+public
+	annex EMV2 {**
+		error types
+			et: type;
+		end types;
+	**};
+end library2;

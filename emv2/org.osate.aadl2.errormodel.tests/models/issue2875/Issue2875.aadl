@@ -1,0 +1,8 @@
+package Issue2875
+public
+	annex EMV2 {**
+		error types extends library1, library2 with
+			et1: type;
+		end types;
+	**};
+end Issue2875;
