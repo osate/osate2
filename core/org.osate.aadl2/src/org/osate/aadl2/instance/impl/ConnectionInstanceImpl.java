@@ -23,7 +23,6 @@
  */
 package org.osate.aadl2.instance.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -38,25 +37,16 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -778,74 +768,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * return list of Feature instances involved in a connection instance
-	 * In case of a fan-in/fan-out it includes both the feature group and the feature
-	 * For an end point in teh connection it may be a component instance
-	 * @deprecated will be removed in 2.12.0
-	 */
-	@Deprecated(since = "2.11.0", forRemoval = true)
-	public List<InstanceObject> getThroughFeatureInstances() {
-		final List<InstanceObject> featureList = new ArrayList<>();
-
-		InstanceObject lastDest = null;
-		for (ConnectionReference connRef : getConnectionReferences()) {
-			Connection conn = connRef.getConnection();
-			ComponentInstance ctxt = connRef.getContext();
-			final ConnectionEnd srcF = conn.getAllSource();
-			final Context srcCtxt = conn.getAllSourceContext();
-			final InstanceObject srcInstance = getInstantiatedEndPoint(ctxt, srcF, srcCtxt);
-			if (srcInstance != lastDest) {
-				featureList.add(srcInstance);
-			}
-
-			final ConnectionEnd destF = conn.getAllDestination();
-			final Context destCtxt = conn.getAllDestinationContext();
-			final InstanceObject destInstance = getInstantiatedEndPoint(ctxt, destF, destCtxt);
-			featureList.add(destInstance);
-			lastDest = destInstance;
-		}
-		return featureList;
-	}
-
-	/**
-	 * find the connection endpoint within the component instance
-	 * @param ctxt component instance
-	 * @param connEndPoint ConnectionEnd
-	 * @param connCtxt Context of th eendpoint
-	 * @deprecated will be removed in 2.12.0
-	 */
-	@Deprecated(since = "2.11.0", forRemoval = true)
-	public ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
-			final Context connCtxt) {
-		ConnectionInstanceEnd instance = null;
-		if (connCtxt == null) {
-			// lookup subcomponent using the connection src
-			if (connEndPoint instanceof Subcomponent) {
-				instance = ctxt.findSubcomponentInstance((Subcomponent) connEndPoint);
-			}
-			if (connEndPoint instanceof Feature) {
-				instance = ctxt.findFeatureInstance((Feature) connEndPoint);
-			}
-
-			if (instance == null) {
-				OsateDebug.osateDebug("[ConnectionInstanceImpl] Error while evaluating object");
-			}
-
-		} else if (connCtxt instanceof ComponentImplementation) {
-			// lookup feature in the context using the connection src
-			instance = ctxt.findFeatureInstance((Feature) connEndPoint);
-		} else if (connCtxt instanceof Subcomponent) {
-			// lookup feature in the subcomponent
-			instance = ctxt.findSubcomponentInstance((Subcomponent) connCtxt)
-					.findFeatureInstance((Feature) connEndPoint);
-		} else if (connCtxt instanceof FeatureGroup) {
-			// feature in a feature group...
-			instance = ctxt.findFeatureInstance((FeatureGroup) connCtxt).findFeatureInstance((Feature) connEndPoint);
-		}
-		return instance;
 	}
 
 	public boolean isActive(SystemOperationMode som) {

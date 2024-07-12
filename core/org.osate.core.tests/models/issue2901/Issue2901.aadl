@@ -1,0 +1,20 @@
+package Issue2901
+public
+
+	system S
+		features
+			p: in data port D.i;
+	end S;
+	
+	system implementation S.i
+	end S.i;
+
+	data D	
+	end D;
+	
+	data implementation D.i
+		subcomponents
+			dd: data;
+	end D.i;
+	
+end Issue2901;

@@ -1,0 +1,15 @@
+package Issue2874
+public
+	with PS;
+
+	system S
+		properties
+			ps::good_value => "Good Value";
+			ps::ref_to_undefined => ps::undefined;
+			ps::another_good_value => "Another good value";
+	end S;
+
+	system implementation S.i
+	end S.i;
+
+end Issue2874;
