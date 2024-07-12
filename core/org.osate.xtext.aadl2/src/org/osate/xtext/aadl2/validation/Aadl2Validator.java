@@ -2056,7 +2056,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		return result;
 	}
 
-	@SuppressWarnings("incomplete-switch")
 	private void checkFlowPathElements(FlowImplementation flowImpl) {
 		FlowKind kind = flowImpl.getKind();
 
@@ -2064,18 +2063,20 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			FlowSegment segment = flowImpl.getOwnedFlowSegments().get(i);
 			if (segment.getContext() instanceof Subcomponent && !segment.getContext().eIsProxy()
 					&& segment.getFlowElement() instanceof FlowSpecification && !segment.getFlowElement().eIsProxy()) {
+				var segKind = ((FlowSpecification) segment.getFlowElement()).getKind();
 				if (kind == FlowKind.PATH) {
-					switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
+					switch (segKind) {
 					case SOURCE:
 						error(segment, "Flow sources are not allowed in a flow path implementation");
 						break;
 					case SINK:
 						error(segment, "Flow sinks are not allowed in a flow path implementation");
 						break;
+					default:
 					}
 				} else {
 					if (i != 0 && i != flowImpl.getOwnedFlowSegments().size() - 1) {
-						switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
+						switch (segKind) {
 						case SOURCE:
 							error(segment,
 									"Flow source is only allowed as the first element of a flow source implementation");
@@ -2084,6 +2085,29 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							error(segment,
 									"Flow sink is only allowed as the last element of a flow sink implementation");
 							break;
+						default:
+						}
+					} else {
+						if (kind == FlowKind.SOURCE && i == 0) {
+							switch (segKind) {
+							case SINK:
+								error(segment, "A flow source implementation may not start with a flow sink");
+								break;
+							case PATH:
+								error(segment, "A flow source implementation may not start with a flow path");
+								break;
+							default:
+							}
+						} else if (kind == FlowKind.SINK  && i == flowImpl.getOwnedFlowSegments().size() - 1) {
+							switch (segKind) {
+							case SOURCE:
+								error(segment, "A flow sink implementation may not end in a flow source");
+								break;
+							case PATH:
+								error(segment, "A flow sink implementation may not end in a flow path");
+								break;
+							default:
+							}
 						}
 					}
 				}
