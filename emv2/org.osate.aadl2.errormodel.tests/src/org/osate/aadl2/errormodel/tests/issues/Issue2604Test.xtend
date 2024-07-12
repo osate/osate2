@@ -20,7 +20,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelInjectorProvider)
-class Issue2604 extends XtextTest{
+class Issue2604Test extends XtextTest{
 	val static folderPath = "org.osate.aadl2.errormodel.tests/models/Issue2604/"
 	
 	@Inject
