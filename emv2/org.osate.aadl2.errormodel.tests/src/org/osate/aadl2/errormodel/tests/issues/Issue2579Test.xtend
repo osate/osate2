@@ -19,7 +19,7 @@ import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelInjectorProvider)
-class Issue2579 extends XtextTest {
+class Issue2579Test extends XtextTest {
 	val static PROJECT_LOCATION = "org.osate.aadl2.errormodel.tests/models/Issue2579/"
 	val static FILE = "emv-transition.aadl"
 	

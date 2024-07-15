@@ -32,20 +32,20 @@ public
             fpth: flow path i -> cml -> mm2.fpth -> cmr -> o; 
             
             -- ok 
-            fsrc: flow source mm1.fpth -> cmm -> mm2.fpth -> cmr -> o;
+            fsrc: flow source mm1.fsrc -> cmm -> mm2.fpth -> cmr -> o;
             -- error as expected on cml
-            fsrc: flow source mm1.fpth -> cml -> mm2.fpth -> cmr -> o; 
+            fsrc: flow source mm1.fsrc -> cml -> mm2.fpth -> cmr -> o; 
             -- there should e an error on cmr
-            fsrc: flow source mm1.fpth -> cmr -> o;
+            fsrc: flow source mm1.fsrc -> cmr -> o;
                         
             -- ok
-            fsnk: flow sink i -> cml -> mm1.fpth -> cmm -> mm2.fpth;   
+            fsnk: flow sink i -> cml -> mm1.fpth -> cmm -> mm2.fsnk;   
             -- error as expected on cml
-            fsnk: flow sink i -> cml -> mm1.fpth -> cml -> mm2.fpth;  
+            fsnk: flow sink i -> cml -> mm1.fpth -> cml -> mm2.fsnk;  
             -- there should be an error on cml
-            fsnk: flow sink i -> cml -> mm2.fpth;     
+            fsnk: flow sink i -> cml -> mm2.fsnk;     
             -- there should be an error on cmm
-            fsnk: flow sink i -> cmm -> mm2.fpth;
+            fsnk: flow sink i -> cmm -> mm2.fsnk;
             
     end A.i;
 

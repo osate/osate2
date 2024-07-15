@@ -61,8 +61,9 @@ class Issue699Test extends XtextTest {
 		val messages = reporter.errors
 		assertEquals('S_i_Instance', instance.name)
 
-		assertEquals(messages.size, 1)
+		assertEquals(messages.size, 2)
 		assertEquals(messages.head.message, "Property ps699::p has cyclic value")
+		assertEquals(messages.last.message, "Property ps699::q has cyclic value")
 	}
 
 	val aadlText = '''

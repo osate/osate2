@@ -18,7 +18,7 @@ import org.osate.aadl2.FlowSpecification
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue1563 extends XtextTest {
+class Issue1563Test extends XtextTest {
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue1563/"
 	val static FILE = "subprogram_flows.aadl"
 	
