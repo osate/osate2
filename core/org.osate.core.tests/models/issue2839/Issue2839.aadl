@@ -1,0 +1,51 @@
+package Issue2839
+public
+
+	data DT
+	end DT;
+
+	data implementation DT.i
+		subcomponents
+			dd: data;
+	end DT.i;
+	
+	feature group FG
+	end FG;
+	
+	feature group FG1 extends FG
+		prototypes
+			p: data DT;
+		features
+			d: in data port p;
+	end FG1;
+
+	feature group FG2 extends FG1
+		prototypes
+			p: refined to data DT.i;
+	end FG2;
+
+	abstract A
+		prototypes
+			fg: feature group FG;
+		features
+			f: feature group fg;
+	end A;
+
+	abstract implementation A.i
+		prototypes
+			p: data DT;
+		subcomponents
+			d: data p;
+	end A.i;
+	
+	abstract A1 extends A
+		prototypes
+			fg: refined to feature group FG2;
+	end A1;
+
+	abstract implementation A1.ix extends A.i
+		prototypes
+			p: refined to data DT.i;
+	end A1.ix;
+
+end Issue2839;

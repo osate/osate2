@@ -23,7 +23,9 @@
  */
 package org.osate.aadl2.instance.util;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -302,28 +304,31 @@ public class InstanceUtil {
 			if (ic == null) {
 				if (prototype != null) {
 					// resolve prototype
-					if (prototype instanceof ComponentPrototype) {
-						ComponentPrototypeActual cpa = resolveComponentPrototype(prototype, iobj, classifierCache);
+					if (prototype instanceof ComponentPrototype cproto) {
+						ComponentPrototypeActual cpa = resolveComponentPrototype(cproto, iobj, classifierCache);
 
 						if (cpa != null) {
 							ic = new InstantiatedClassifier((ComponentClassifier) cpa.getSubcomponentType(),
 									cpa.getBindings());
 						} else {
 							// ISSUE 986: If the constraining classifier is missing (null), then don't create an InstantiatedClassifier object
-							final ComponentClassifier cc = ((ComponentPrototype) prototype).getConstrainingClassifier();
+							var cc = findConstrainingClassifier(iobj, cproto, classifierCache);
+
 							if (cc != null) {
 								ic = new InstantiatedClassifier(cc, noBindings);
 							}
 						}
-					} else if (prototype instanceof FeatureGroupPrototype) {
-						FeatureGroupPrototypeActual fpa = resolveFeatureGroupPrototype(prototype, iobj,
-								classifierCache);
+					} else if (prototype instanceof FeatureGroupPrototype fgproto) {
+						FeatureGroupPrototypeActual fpa = resolveFeatureGroupPrototype(fgproto, iobj, classifierCache);
 
 						if (fpa != null) {
 							ic = new InstantiatedClassifier((FeatureGroupType) fpa.getFeatureType(), fpa.getBindings());
 						} else {
-							ic = new InstantiatedClassifier(
-									((FeatureGroupPrototype) prototype).getConstrainingFeatureGroupType(), noBindings);
+							var cfgt = findConstrainingFeatureGroupType(iobj, fgproto, classifierCache);
+
+							if (cfgt != null) {
+								ic = new InstantiatedClassifier(cfgt, noBindings);
+							}
 						}
 					}
 				}
@@ -335,6 +340,57 @@ public class InstanceUtil {
 		}
 
 		return ic;
+	}
+
+	private static ComponentClassifier findConstrainingClassifier(InstanceObject iobj, ComponentPrototype cproto,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		if (classifierCache == null) {
+			return null;
+		}
+		for (Prototype p : getPrototypes(iobj, classifierCache)) {
+			if (p.getName().equalsIgnoreCase(cproto.getName())) {
+				for (var pp = p; pp != null; pp = pp.getRefined()) {
+					if (pp instanceof ComponentPrototype fgp) {
+						var cfg = fgp.getConstrainingClassifier();
+						if (cfg != null) {
+							return cfg;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private static FeatureGroupType findConstrainingFeatureGroupType(InstanceObject iobj, FeatureGroupPrototype fgproto,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		if (classifierCache == null) {
+			return null;
+		}
+		for (Prototype p : getPrototypes(iobj, classifierCache)) {
+			if (p.getName().equalsIgnoreCase(fgproto.getName())) {
+				for (var pp = p; pp != null; pp = pp.getRefined()) {
+					if (pp instanceof FeatureGroupPrototype fgp) {
+						var cfg = fgp.getConstrainingFeatureGroupType();
+						if (cfg != null) {
+							return cfg;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private static List<Prototype> getPrototypes(InstanceObject iobj,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		Classifier ownerCl = classifierCache.get(iobj.getOwner()).getClassifier();
+		if (ownerCl instanceof ComponentClassifier ccl) {
+			return ccl.getAllPrototypes();
+		} else if (ownerCl instanceof FeatureGroupType fgt) {
+			return fgt.getAllPrototypes();
+		}
+		return Collections.emptyList();
 	}
 
 	/**
