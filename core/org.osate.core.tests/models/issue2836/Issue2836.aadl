@@ -24,6 +24,9 @@ public
 			f: feature group;
 	end FGT3;
 	
-	
+	feature group FGT4
+		features
+			f: feature group FGT;
+	end FGT4;
 	
  end Issue2836;
