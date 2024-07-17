@@ -48,7 +48,7 @@ class CoveringSyntaxTest {
 	@Test
 	def void aadlBaTest005() {
 		val result = testHelper.testFile(PATH+"aadlBaTest005.aadl", PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH)
-		9.assertEquals(result.issues.size)
+		11.assertEquals(result.issues.size)
 	}
 	
 	@Test
