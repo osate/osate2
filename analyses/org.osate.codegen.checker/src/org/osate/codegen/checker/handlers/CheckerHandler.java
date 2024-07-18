@@ -42,6 +42,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -49,6 +50,7 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.codegen.checker.Activator;
 import org.osate.codegen.checker.checks.AbstractCheck;
 import org.osate.codegen.checker.checks.DataCheck;
@@ -171,7 +173,7 @@ public class CheckerHandler extends AbstractHandler {
 				IMarker marker = getIResource(e.getComponent().eResource()).createMarker(MARKER_TYPE);
 				marker.setAttribute(IMarker.MESSAGE, e.getComponent().getName() + " - " + e.getMessage());
 				marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
-//				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
+				marker.setAttribute(AadlConstants.AADLURI, EcoreUtil.getURI(e.getComponent()).toString());
 			} catch (CoreException exception) {
 				msg += exception.getMessage() + System.lineSeparator();
 				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, exception.getMessage(), exception);
