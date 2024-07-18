@@ -347,8 +347,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		checkForFeatureArrays(feature);
 		checkForArraysInRefinedFeature(feature);
 		checkForArrayDimensionSizeInRefinedFeature(feature);
-		if (feature instanceof FeatureGroup) {
-			checkClassifierReferenceInWith(((FeatureGroup) feature).getFeatureGroupType(), feature);
+		if (feature instanceof FeatureGroup fg) {
+			checkClassifierReferenceInWith(fg.getFeatureGroupType(), feature);
+			checkForCyclicDeclarations(fg);
 		} else {
 			checkClassifierReferenceInWith(feature.getClassifier(), feature);
 		}
@@ -951,6 +952,33 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
 					importedUnitURI);
 		}
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public void checkForCyclicDeclarations(FeatureGroup fg) {
+		if (fg.getContainingClassifier() instanceof FeatureGroupType fgt) {
+			if (isFeatureGroupCircularContainment(fg, fgt, new HashSet<FeatureGroupType>())) {
+				error(fg, "Feature group directly or indirectly contains itself");
+			}
+		}
+	}
+
+	private boolean isFeatureGroupCircularContainment(Feature f, FeatureGroupType toCheck, Set<FeatureGroupType> seen) {
+		if (f.getClassifier() instanceof FeatureGroupType fgt && !seen.contains(fgt)) {
+			if (fgt == toCheck) {
+				return true;
+			}
+			seen.add(fgt);
+			for (Feature subf : fgt.getAllFeatures()) {
+				if (isFeatureGroupCircularContainment(subf, toCheck, seen)) {
+					return true;
+				}
+			}
+			seen.remove(fgt);
+		}
+		return false;
 	}
 
 	public void checkForCyclicDeclarations(Subcomponent subcomponent) {
@@ -2098,7 +2126,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								break;
 							default:
 							}
-						} else if (kind == FlowKind.SINK  && i == flowImpl.getOwnedFlowSegments().size() - 1) {
+						} else if (kind == FlowKind.SINK && i == flowImpl.getOwnedFlowSegments().size() - 1) {
 							switch (segKind) {
 							case SOURCE:
 								error(segment, "A flow sink implementation may not end in a flow source");
