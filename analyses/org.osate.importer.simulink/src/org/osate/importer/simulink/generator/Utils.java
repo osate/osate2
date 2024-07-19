@@ -28,7 +28,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.List;
 
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.sm.State;
 import org.osate.importer.model.sm.StateMachine;

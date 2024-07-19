@@ -23,10 +23,8 @@
  */
 package org.osate.verify.formatting2
 
-import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.osate.alisa.common.formatting2.CommonFormatter
-import org.osate.verify.services.VerifyGrammarAccess
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationPlan
 
@@ -35,8 +33,6 @@ import org.osate.verify.verify.VerificationPlan
  */
 class VerifyFormatter extends CommonFormatter {
 	
-	@Inject extension VerifyGrammarAccess
-
 	def dispatch void format(Verification verification, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
 		for (eObject : verification.contents) {

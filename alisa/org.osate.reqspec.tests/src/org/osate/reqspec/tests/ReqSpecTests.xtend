@@ -25,6 +25,7 @@
 package org.osate.reqspec.tests
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -32,19 +33,16 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.reqspec.reqSpec.ReqSpec
+import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.ReqValDeclaration
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
-import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.reqspec.util.ReqSpecUtilExtension
-import org.osate.alisa.common.common.ValDeclaration
-import org.osate.reqspec.reqSpec.ReqSpecPackage
-import com.itemis.xtext.testing.FluentIssueCollection
+
 import static extension org.osate.testsupport.AssertHelper.*
- 
+
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ReqSpecAadl2InjectorProvider))
 class ReqSpecTests extends XtextTest {

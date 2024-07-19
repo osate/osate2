@@ -39,6 +39,7 @@ import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution
 import org.eclipse.xtext.builder.impl.ToBeBuilt
 import org.eclipse.xtext.ui.resource.IStorage2UriMapper
 
+@SuppressWarnings("restriction")
 class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 
 	@Inject

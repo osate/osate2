@@ -102,7 +102,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                      </count>
                      <iterate>
                         <instanceof
-                              value="org.osate.aadl2.errormodel.FaultTree">
+                              value="org.osate.aadl2.errormodel.FaultTree.FaultTree">
                         </instanceof>
                      </iterate>
                   </and>
@@ -128,7 +128,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                      </count>
                      <iterate>
                         <instanceof
-                              value="org.osate.aadl2.errormodel.FaultTree">
+                              value="org.osate.aadl2.errormodel.FaultTree.FaultTree">
                         </instanceof>
                      </iterate>
                   </and>

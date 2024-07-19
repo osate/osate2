@@ -23,19 +23,15 @@
  */
 package org.osate.organization.formatting2
 
-import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.osate.organization.organization.Organization
-import org.osate.organization.services.OrganizationGrammarAccess
 
 /**
  * @since 3.0
  */
 class OrganizationFormatter extends AbstractFormatter2 {
 	
-	@Inject extension OrganizationGrammarAccess
-
 	def dispatch void format(Organization organization, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
 		for (stakeholder : organization.stakeholder) {

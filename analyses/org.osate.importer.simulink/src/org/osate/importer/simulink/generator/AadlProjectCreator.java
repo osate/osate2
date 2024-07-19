@@ -478,7 +478,6 @@ public class AadlProjectCreator {
 		String outputPathRuntime;
 		String outputFileFunctional;
 		String outputFileRuntime;
-		String outputFileGenericRuntime;
 
 		outputPathFunctional = outputPath + File.separatorChar + "functional";
 		outputPathRuntime = outputPath + File.separatorChar + "runtime";

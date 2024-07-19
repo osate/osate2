@@ -23,8 +23,6 @@
  */
 package org.osate.importer.simulink;
 
-import java.util.HashMap;
-
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Component.ComponentType;
 import org.osate.importer.model.Connection;

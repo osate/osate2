@@ -36,7 +36,6 @@ import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.faulttree.util.SiriusUtil;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.dialogs.Dialog;
 
@@ -47,7 +46,6 @@ public final class FTTableViewHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		ComponentInstance target;
 		FaultTree ftmodel = getTarget(HandlerUtil.getCurrentSelection(event));
 		if (ftmodel == null) {
 			Dialog.showInfo("Fault Tree Viewer", "Please choose a fault tree");

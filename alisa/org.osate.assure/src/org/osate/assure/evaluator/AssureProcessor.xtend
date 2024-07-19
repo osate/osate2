@@ -35,7 +35,6 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xsemantics.runtime.RuleEnvironment
-import org.eclipse.xsemantics.runtime.RuleFailedException
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore

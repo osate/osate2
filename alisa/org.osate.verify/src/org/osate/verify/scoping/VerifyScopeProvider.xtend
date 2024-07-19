@@ -42,9 +42,7 @@ import org.osate.verify.verify.VerificationActivity
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static org.osate.verify.internal.util.VerifyUtilExtension.*
 import org.eclipse.xtext.resource.EObjectDescription
-import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
-import org.osate.reqspec.reqSpec.ContractualElement
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 

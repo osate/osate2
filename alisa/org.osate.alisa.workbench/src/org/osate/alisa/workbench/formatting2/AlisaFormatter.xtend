@@ -23,19 +23,17 @@
  */
 package org.osate.alisa.workbench.formatting2
 
-import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.osate.alisa.common.formatting2.CommonFormatter
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.alisa.workbench.services.AlisaGrammarAccess
 
 /**
  * @since 3.0
  */
 class AlisaFormatter extends CommonFormatter {
 	
-	@Inject extension AlisaGrammarAccess
+	
 
 	def dispatch void format(AssuranceCase assuranceCase, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 

@@ -43,7 +43,6 @@ import org.osate.aadl2.NamedElement;
 public class Report {
 	private List<Section> sections;
 	private StringBuffer textContent;
-	private ReportType type;
 	private NamedElement relatedObject;
 	private String reportFolder;
 	private String reportPostfix;
@@ -53,7 +52,6 @@ public class Report {
 	}
 
 	public Report(NamedElement ne, String reportFolder, String reportPostfix, ReportType rt) {
-		this.type = rt;
 		this.relatedObject = ne;
 		this.textContent = new StringBuffer();
 		this.sections = new ArrayList<Section>();

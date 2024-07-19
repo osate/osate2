@@ -23,20 +23,16 @@
  */
 package org.osate.categories.formatting2
 
-import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.osate.categories.categories.Categories
 import org.osate.categories.categories.CategoriesDefinitions
-import org.osate.categories.services.CategoriesGrammarAccess
 
 /**
  * @since 3.0
  */
 class CategoriesFormatter extends AbstractFormatter2 {
 	
-	@Inject extension CategoriesGrammarAccess
-
 	def dispatch void format(CategoriesDefinitions categoriesDefinitions, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
 		for (categories : categoriesDefinitions.categories) {

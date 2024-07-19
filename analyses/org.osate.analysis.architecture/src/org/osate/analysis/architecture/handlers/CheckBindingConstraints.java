@@ -125,7 +125,6 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 
 			// Dispatch Protocol
 			subMonitor.setTaskName("Checking Dispatch Protocols");
-			SubMonitor dispatchChild = iterationMonitor.split(1);
 			issuesList.addAll(checkDispatchProtocol(processorBindingComponents.stream(), som));
 
 
@@ -149,7 +148,6 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 
 			// Connection binding (only handles connection and virtual bus)
 			subMonitor.setTaskName("Checking Connection Bindings");
-			SubMonitor connectionChild = iterationMonitor.split(1);
 			Stream<ComponentInstance> connectionBindingComponents = getComponents(monitor, si,
 					ComponentCategory.VIRTUAL_BUS);
 			Stream<ConnectionInstance> connectionBindingConnections = getConnections(monitor, si);
@@ -162,7 +160,6 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 
 			// Connection Quality of Service
 			subMonitor.setTaskName("Checking Connection Quality of Services");
-			SubMonitor qualityChild = iterationMonitor.split(1);
 			issuesList.addAll(checkRequiredAndProvided(connectionBindingElements.stream(),
 					GetProperties::getRequiredConnectionQualityOfService, "Required_Connection_Quality_Of_Service",
 					GetProperties::getProvidedConnectionQualityOfService, qos -> qos.getName(), som));

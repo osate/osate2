@@ -31,17 +31,15 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.DefaultAnnexSubclause
+import org.osate.aadl2.DeviceImplementation
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
 import org.osate.testsupport.TestHelper
-import org.eclipse.xtext.resource.IResourceServiceProvider
-import org.eclipse.emf.common.util.URI
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
+
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.*
-import org.osate.testsupport.AssertHelper
-import org.osate.aadl2.DeviceImplementation
-import org.osate.aadl2.DefaultAnnexSubclause
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelInjectorProvider)
@@ -51,9 +49,6 @@ class Issue2125Test extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 
-	
-	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
-		URI.createFileURI("dummy.emv2")).get(AssertHelper)
 	
 	@Test
 	def void testPkg1() {

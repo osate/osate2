@@ -23,20 +23,14 @@
  */
 package org.osate.organization.tests
 
-import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.organization.organization.Organization
 
 @RunWith(XtextRunner)
 @InjectWith(OrganizationInjectorProvider)
 class OrganizationParsingTest {
-	@Inject
-	ParseHelper<Organization> parseHelper
 	
 	@Test
 	def void loadModel() {
