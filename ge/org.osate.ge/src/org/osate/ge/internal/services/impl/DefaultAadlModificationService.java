@@ -105,7 +105,6 @@ import com.google.inject.Injector;
  * {@link AadlModificationService} implementation
  *
  */
-@SuppressWarnings("restriction")
 public class DefaultAadlModificationService implements AadlModificationService {
 	/**
 	 * Context function which instantiates this service
