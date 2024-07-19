@@ -101,7 +101,6 @@ class AssureRequirementsCoverageView extends ViewPart {
 	val IResourceSetProvider resourceSetProvider
 	val ResourceSet resourceSetForUI
 	val IResourceDescriptions rds
-	val GlobalURIEditorOpener editorOpener
 	val IAssureConstructor assureConstructor
 	val String settingsFileName
 	val IDialogSettings dialogSettings
@@ -124,7 +123,6 @@ class AssureRequirementsCoverageView extends ViewPart {
 		this.resourceSetProvider = resourceSetProvider
 		resourceSetForUI = resourceSetProvider.get(null)
 		this.rds = rds
-		this.editorOpener = editorOpener
 		this.assureConstructor = assureConstructor
 		val pluginsDir = Activator.^default.stateLocation.removeLastSegments(1)
 		settingsFileName = pluginsDir.append("org.osate.assure").append("assure_view_settings.xml").toOSString
@@ -226,7 +224,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 					}
 
 					override getChildren(Object parentElement) {
-						switch parentEObject : resourceSetForUI.getEObject(parentElement as URI, true) {
+						switch resourceSetForUI.getEObject(parentElement as URI, true) {
 							default: #[]
 						}
 					}
@@ -243,7 +241,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 					}
 
 					override hasChildren(Object element) {
-						switch elementEObject : resourceSetForUI.getEObject(element as URI, true) {
+						switch resourceSetForUI.getEObject(element as URI, true) {
 							default: false
 						}
 					}

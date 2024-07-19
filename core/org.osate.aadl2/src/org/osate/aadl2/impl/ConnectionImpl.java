@@ -746,7 +746,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	public ConnectionEnd getAllSource() {
 		ConnectedElement end = getRootConnection().getSource();
-		return (end instanceof ConnectedElement) ? end.getConnectionEnd() : null;
+		return (end != null) ? end.getConnectionEnd() : null;
 	}
 
 	public ConnectionEnd getAllLastSource() {

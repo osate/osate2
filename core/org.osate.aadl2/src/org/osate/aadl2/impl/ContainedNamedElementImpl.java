@@ -204,7 +204,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * @generated
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:

@@ -25,7 +25,6 @@
 package org.osate.alisa.common.ui.util;
 
 
-@SuppressWarnings("restriction")
 public class AlisaHyperLinkHelper {
 //extends HyperLinkHelper {
 //	@Override

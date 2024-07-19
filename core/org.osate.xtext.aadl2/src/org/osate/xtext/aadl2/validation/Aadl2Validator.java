@@ -5290,7 +5290,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	private List<Feature> getFeatures(FeatureGroupType fgt) {
-		List<Feature> result = new ArrayList<>();
 		final List<Classifier> ancestors = fgt.getSelfPlusAllExtended();
 		final BasicEList<Feature> returnlist = new BasicEList<Feature>();
 		// Process from farthest ancestor to self

@@ -29,7 +29,6 @@ import java.util.Collections
 import java.util.List
 import java.util.Optional
 import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicReference
 import org.eclipse.core.resources.IResourceChangeEvent
 import org.eclipse.core.resources.IResourceChangeListener
 import org.eclipse.core.resources.ResourcesPlugin
@@ -43,8 +42,6 @@ import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.emf.transaction.RecordingCommand
-import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.jface.action.Action
 import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.dialogs.DialogSettings
@@ -72,6 +69,7 @@ import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener
 import org.eclipse.xtext.ui.resource.IResourceSetProvider
+import org.osate.aadl2.NamedElement
 import org.osate.aadl2.util.Activator
 import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssuranceCase
@@ -112,7 +110,6 @@ import org.osate.verify.internal.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.aadl2.NamedElement
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -123,7 +120,7 @@ class AlisaView extends ViewPart {
 	val IResourceSetProvider resourceSetProvider
 	val ResourceSet resourceSetForUI
 	val IResourceDescriptions rds
-	val GlobalURIEditorOpener editorOpener
+	
 	val IAssureConstructor assureConstructor
 	val IAssureProcessor assureProcessor
 	val String settingsFileName
@@ -132,8 +129,6 @@ class AlisaView extends ViewPart {
 	// Map is from AssuranceCase to CategoryFilter
 	val selectedFilters = <URI, URI>newHashMap
 	Pair<URI, URI> displayedCaseAndFilter = null -> null
-
-	val CategoryFilter selectedFilter = null
 
 	TreeViewer alisaViewer
 	TreeViewer assureViewer
@@ -154,7 +149,7 @@ class AlisaView extends ViewPart {
 		this.resourceSetProvider = resourceSetProvider
 		resourceSetForUI = resourceSetProvider.get(null)
 		this.rds = rds
-		this.editorOpener = editorOpener
+		
 		this.assureConstructor = assureConstructor
 		this.assureProcessor = assureProcessor
 		val pluginsDir = Activator.^default.stateLocation.removeLastSegments(1)
@@ -269,7 +264,7 @@ class AlisaView extends ViewPart {
 					}
 
 					override getChildren(Object parentElement) {
-						switch parentEObject : resourceSetForUI.getEObject(parentElement as URI, true) {
+						switch resourceSetForUI.getEObject(parentElement as URI, true) {
 							default: #[]
 						}
 					}
@@ -286,7 +281,7 @@ class AlisaView extends ViewPart {
 					}
 
 					override hasChildren(Object element) {
-						switch elementEObject : resourceSetForUI.getEObject(element as URI, true) {
+						switch resourceSetForUI.getEObject(element as URI, true) {
 							default: false
 						}
 					}

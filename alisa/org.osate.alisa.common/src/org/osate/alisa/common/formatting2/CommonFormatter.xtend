@@ -23,20 +23,16 @@
  */
 package org.osate.alisa.common.formatting2
 
-import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
-import org.osate.alisa.common.services.CommonGrammarAccess
 
 /**
  * @since 3.0
  */
 class CommonFormatter extends AbstractFormatter2 {
 	
-	@Inject extension CommonGrammarAccess
-
 	def dispatch void format(Description description, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
 		for (descriptionElement : description.description) {

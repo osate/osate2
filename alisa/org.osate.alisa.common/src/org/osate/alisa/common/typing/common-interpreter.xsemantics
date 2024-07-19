@@ -41,7 +41,6 @@ import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.InstanceFactory
-import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.alisa.common.common.ABinaryOperation
 import org.osate.alisa.common.common.AConditional
