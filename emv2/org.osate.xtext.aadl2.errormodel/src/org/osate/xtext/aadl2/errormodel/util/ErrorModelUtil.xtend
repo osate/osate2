@@ -33,11 +33,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
  */
 class ErrorModelUtil{
 	
-	def public static Iterable<ErrorType> getAllErrorTypes(ErrorModelLibrary library) {
+	def static Iterable<ErrorType> getAllErrorTypes(ErrorModelLibrary library) {
 		library.allErrorLibraries.map[types].flatten
 	}
 	
-	def public static Iterable<TypeSet> getAllTypesets(ErrorModelLibrary library) {
+	def static Iterable<TypeSet> getAllTypesets(ErrorModelLibrary library) {
 		library.allErrorLibraries.map[typesets].flatten
 	}
 	

@@ -57,13 +57,13 @@ class Issue1222Test extends XtextTest {
 		testFileResult.resource.contents.head as AadlPackage => [
 			"testing".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
-				typesets.get(3) as TypeSet => [
+				typesets.get(3) => [
 					"s4".assertEquals(name)
 					assertError(testFileResult.issues, issueCollection, "Typeset elements {fred*barney} and {fred*barney} are not disjoint.")
 				]
-				typesets.get(4) as TypeSet => [
+				typesets.get(4) => [
 					"s5".assertEquals(name)
-					typeTokens.get(0) as TypeToken => [
+					typeTokens.get(0) => [
 						assertError(testFileResult.issues, issueCollection, "Element type fred and wilma have same root type")
 					]
 				]

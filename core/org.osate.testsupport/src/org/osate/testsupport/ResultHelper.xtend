@@ -38,7 +38,6 @@ import org.osate.result.StringValue
 import org.osate.result.Value
 
 import static extension org.junit.Assert.assertEquals
-import org.eclipse.emf.ecore.resource.Resource
 
 class ResultHelper {
 	def static AnalysisResult loadResult(ResourceSet resourceSet, String path) {

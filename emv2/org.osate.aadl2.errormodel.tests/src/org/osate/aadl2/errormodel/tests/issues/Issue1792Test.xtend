@@ -58,10 +58,10 @@ class Issue1792Test extends XtextTest {
 			publicSection.ownedClassifiers.head as SystemType => [
 				"s".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					properties.get(0) as EMV2PropertyAssociation => [
+					properties.get(0) => [
 						0.567.assertEquals(getOccurrenceValue(),0.01)
 					]
-					properties.get(1) as EMV2PropertyAssociation => [
+					properties.get(1) => [
 						0.123.assertEquals(getOccurrenceValue(),0.01)
 					]
 				]

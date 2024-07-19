@@ -60,7 +60,7 @@ class Issue1975Test extends XtextTest {
 			publicSection.ownedClassifiers.head as BusType => [
 				"PCI".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					properties.get(0) as EMV2PropertyAssociation => [
+					properties.get(0) => [
 						emv2Path.get(0) => [
 							val et = getErrorType()
 							assertTrue(et !== null)

@@ -23,12 +23,10 @@
  */
 package org.osate.reqspec.formatting2
 
-import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.osate.alisa.common.formatting2.CommonFormatter
 import org.osate.reqspec.reqSpec.GlobalConstants
 import org.osate.reqspec.reqSpec.ReqSpec
-import org.osate.reqspec.services.ReqSpecGrammarAccess
 
 /** 
  * @since 3.0
@@ -36,8 +34,6 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess
 
 class ReqSpecFormatter extends CommonFormatter {
 	
-	@Inject extension ReqSpecGrammarAccess
-
 	def dispatch void format(ReqSpec reqSpec, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
 		for (eObject : reqSpec.parts) {

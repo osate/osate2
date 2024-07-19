@@ -453,7 +453,7 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			if (context.context === null) {
 				classifier.allConnectionEnds.filterRefined.scopeFor
 			} else {
-				if (context.context instanceof Context) {
+				if (context.context !== null) {
 					context.context
 						.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
 				} else {
@@ -742,14 +742,6 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			triggerPorts.addAll(classifier.allPortProxies)
 		}
 		triggerPorts
-	}
-
-	def private static allFeatureClassifier(Feature feature) {
-		var refinedFeature = feature
-		while (refinedFeature.featureClassifier === null && refinedFeature.refined !== null) {
-			refinedFeature = refinedFeature.refined
-		}
-		refinedFeature.featureClassifier
 	}
 
 	def private static findFeatureGroupTypeForFeatureGroupPrototype(FeatureGroupPrototype prototype,

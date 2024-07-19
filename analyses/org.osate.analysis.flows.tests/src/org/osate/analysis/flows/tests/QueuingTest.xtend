@@ -85,8 +85,8 @@ class QueuingTest extends XtextTest {
 		assertTrue(subpart1 instanceof ComponentInstance)
 		assertEquals(subpart1.name,"sub2")
 		val fea = (subpart1 as ComponentInstance).featureInstances.get(0)
-		assertTrue((fea as FeatureInstance).ownedPropertyAssociations.size == 1)
-		val pas1 = (fea as FeatureInstance).ownedPropertyAssociations
+		assertTrue(fea.ownedPropertyAssociations.size == 1)
+		val pas1 = fea.ownedPropertyAssociations
 		assertTrue('', pas1.exists[pa|pa.property.name == 'Queue_Size'])
 		
 		assertTrue(subres.diagnostics.size == 1)

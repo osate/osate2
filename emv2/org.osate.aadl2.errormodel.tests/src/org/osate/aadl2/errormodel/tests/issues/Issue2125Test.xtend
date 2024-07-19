@@ -60,7 +60,7 @@ class Issue2125Test extends XtextTest {
 			publicSection.ownedClassifiers.get(3) as DeviceImplementation => [
 				"iPCA_Error_Detector.i".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					transitions.get(1) as ErrorBehaviorTransition => [
+					transitions.get(1) => [
 						assertError(testFileResult.issues, issueCollection, "Target state failed_undetected requires type but the triggering error event post_not_detect_failure or source state working does not have a type")
 					]
 				]

@@ -16,7 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.15.0-SNAPSHOT</osate.version>
 
-		<jacoco.version>0.8.8</jacoco.version>
+		<jacoco.version>0.8.12</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2} -Dorg.osate.emv2.instance=true</test.logging>
