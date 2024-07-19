@@ -723,49 +723,6 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		}
 	}
 
-	private void checkMultipleUses(Element useTypesContext) {
-		HashSet<ErrorModelLibrary> etlset = new HashSet<ErrorModelLibrary>();
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(useTypesContext)) {
-			if (etlset.contains(etl)) {
-				error(useTypesContext, "Error type library " + EMV2Util.getPrintName(etl)
-						+ " exists more than once in 'uses types' clause");
-			} else {
-				etlset.add(etl);
-			}
-		}
-	}
-
-	private void checkMultipleErrorTypesInUsesTypes(Element useTypesContext) {
-		HashMap<String, EObject> etlset = new HashMap<String, EObject>(10, 10);
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(useTypesContext)) {
-			EList<ErrorType> typeslist = etl.getTypes();
-			for (ErrorType errorTypes : typeslist) {
-				if (etlset.containsKey(errorTypes.getName())) {
-					ErrorModelLibrary eml = EMV2Util
-							.getContainingErrorModelLibrary((Element) etlset.get(errorTypes.getName()));
-					error(useTypesContext,
-							"Error type or type set " + errorTypes.getName() + " in library "
-									+ EMV2Util.getPrintName(etl) + " already exists in error type library "
-									+ EMV2Util.getPrintName(eml));
-				} else {
-					etlset.put(errorTypes.getName(), errorTypes);
-				}
-			}
-			EList<TypeSet> typesetlist = etl.getTypesets();
-			for (TypeSet typeset : typesetlist) {
-				if (etlset.containsKey(typeset.getName())) {
-					ErrorModelLibrary eml = EMV2Util
-							.getContainingErrorModelLibrary((Element) etlset.get(typeset.getName()));
-					error(useTypesContext,
-							"Error type or type set " + typeset.getName() + " in library " + EMV2Util.getPrintName(etl)
-									+ " already exists in error type library " + EMV2Util.getPrintName(eml));
-				} else {
-					etlset.put(typeset.getName(), typeset);
-				}
-			}
-		}
-	}
-
 	private void checkUniqueEBSMElements(ErrorBehaviorStateMachine ebsm) {
 		HashMap<String, EObject> etlset = new HashMap<String, EObject>(10, 10);
 		for (ErrorBehaviorEvent oep : ebsm.getEvents()) {

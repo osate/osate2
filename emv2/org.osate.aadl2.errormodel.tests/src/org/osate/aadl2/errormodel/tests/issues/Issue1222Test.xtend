@@ -35,8 +35,6 @@ import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
 import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.*

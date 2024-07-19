@@ -33,7 +33,6 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 import org.osate.result.RealValue

@@ -35,7 +35,6 @@ import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.DeviceImplementation
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
 import org.osate.testsupport.TestHelper
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 
 import static extension org.junit.Assert.assertEquals

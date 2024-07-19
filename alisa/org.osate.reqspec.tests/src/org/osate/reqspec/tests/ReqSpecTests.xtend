@@ -35,7 +35,6 @@ import org.junit.runner.RunWith
 import org.osate.reqspec.reqSpec.ReqSpec
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.ReqValDeclaration
-import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.testsupport.TestHelper
 
@@ -62,7 +61,7 @@ class ReqSpecTests extends XtextTest {
 			assertEquals(reqspec.parts.size, 1)
 			val srs = reqspec.parts.get(0) as SystemRequirementSet 
 			assertEquals(srs.name, "csunittest")
-			val req = srs.requirements.get(0) as Requirement 
+			val req = srs.requirements.get(0)
 			assertEquals(req.name,"R1")
 			assertTrue(req.constants.size > 0)
 			val vd = req.constants.get(0) as ReqValDeclaration
@@ -80,7 +79,7 @@ class ReqSpecTests extends XtextTest {
 			assertTrue(reqspec.parts.size > 0)
 			val srs = reqspec.parts.get(0) as SystemRequirementSet 
 			assertEquals(srs.name, "dcsreqs")
-			val req = srs.requirements.get(0) as Requirement 
+			val req = srs.requirements.get(0)
 			assertEquals(req.name,"R1")
 			assertEquals(req.constants.size ,1)
 			val vd = req.constants.get(0) as ReqValDeclaration
@@ -99,7 +98,7 @@ class ReqSpecTests extends XtextTest {
 			assertTrue(reqspec.parts.size > 0)
 			val srs = reqspec.parts.get(0) as SystemRequirementSet 
 			assertEquals(srs.name, "dcsreqs")
-			val req = srs.requirements.get(0) as Requirement 
+			val req = srs.requirements.get(0)
 			assertEquals(req.name,"R1")
 			assertEquals(req.constants.size ,1)
 			val vd = req.constants.get(0) as ReqValDeclaration

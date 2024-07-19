@@ -28,6 +28,7 @@ import java.util.Collections
 import java.util.List
 import org.eclipse.core.resources.IMarker
 import org.eclipse.core.resources.IResource
+import org.eclipse.core.runtime.CoreException
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
@@ -67,13 +68,14 @@ import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.categories.categories.CategoryFilter
-import org.osate.reqspec.reqSpec.InformalPredicate
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.ValuePredicate
+import org.osate.result.AnalysisResult
 import org.osate.result.Diagnostic
 import org.osate.result.DiagnosticType
 import org.osate.result.Result
 import org.osate.result.ResultFactory
+import org.osate.result.ResultType
 import org.osate.result.util.ResultUtil
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.VerificationActivity
@@ -83,9 +85,6 @@ import org.osate.verify.verify.VerificationPlan
 import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
-import org.osate.result.ResultType
-import org.eclipse.core.runtime.CoreException
-import org.osate.result.AnalysisResult
 
 class AssureUtilExtension {
 
@@ -1205,13 +1204,11 @@ class AssureUtilExtension {
 
 	def static String constructMessage(PredicateResult pr) {
 		val pred = AssureUtilExtension.getPredicate(pr)
-		if (pred instanceof ValuePredicate) {
+		if (pred !== null) {
 			val predstring = try {(pred.eResource as XtextResource).getSerializer().serialize(pred.xpression)} catch (NullPointerException e){
 				"<none>"
 			}
 			return predstring
-		} else if (pred instanceof InformalPredicate) {
-			return pred.description
 		}
 		return ""
 	}

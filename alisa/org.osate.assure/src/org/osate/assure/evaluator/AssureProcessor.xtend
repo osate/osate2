@@ -399,7 +399,7 @@ class AssureProcessor implements IAssureProcessor {
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
-						val result = res as String
+						val result = res
 						if (target instanceof ConnectionInstance) {
 							val conns = findConnectionInstances(targetComponent.connectionInstances, target)
 							for (conni : conns) {

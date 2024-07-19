@@ -541,7 +541,6 @@ public class AnalysisModel {
 			String resourcebindingKind) {
 		// source prop kind determined by destination and vice versa (BR = bound
 		// resource, BC bound component
-		boolean added = false;
 		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
 				"bindings");
 		ErrorPropagation BCdstprop = EMV2Util.findIncomingErrorPropagation(comp.getComponentClassifier(),

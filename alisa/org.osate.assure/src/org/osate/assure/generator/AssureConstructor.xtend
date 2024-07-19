@@ -36,6 +36,7 @@ import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.common.util.UniqueEList
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentType
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
@@ -59,9 +60,9 @@ import org.osate.assure.assure.VerificationResult
 import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.RequirementSet
-import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
+import org.osate.result.ResultType
 import org.osate.verify.internal.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -75,12 +76,11 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
 
+import static org.osate.assure.util.AssureUtilExtension.*
+
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
-import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.result.ResultType
-import org.osate.aadl2.ComponentType
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -179,43 +179,39 @@ class AssureConstructor implements IAssureConstructor {
 		// next handle included requirements
 		// handle 'self' or target specific ones and add global ones to globalPlans and globalClaims
 		for (reqs : sysreqs) {
-			if (reqs instanceof SystemRequirementSet) {
-				val includes = reqs.include
-				for (incl : includes) {
-					if (incl.include instanceof RequirementSet) {
-//						if (incl.componentCategory.matchingCategory(cc.category)) {
-						val plans = vReferenceFinder.
-							getAllVerificationPlansForRequirements(incl.include as RequirementSet, reqs)
-						if (incl.local) {
-							for (vplan : plans) {
-								for (claim : vplan.claim.filter [ cl |
-									cl.requirement?.componentCategory.matchingCategory(cc.category)
-								]) {
-									claim.generateAllClaimResult(cc, claimResultList)
-								}
+			val includes = reqs.include
+			for (incl : includes) {
+				if (incl.include instanceof RequirementSet) {
+					val plans = vReferenceFinder.
+						getAllVerificationPlansForRequirements(incl.include as RequirementSet, reqs)
+					if (incl.local) {
+						for (vplan : plans) {
+							for (claim : vplan.claim.filter [ cl |
+								cl.requirement?.componentCategory.matchingCategory(cc.category)
+							]) {
+								claim.generateAllClaimResult(cc, claimResultList)
 							}
-						} else {
-							globalPlans.addAll(plans)
 						}
-//						}
-					} else if (incl.include instanceof Requirement) {
-						val greq = incl.include as Requirement
-						val greqs = greq.containingRequirementSet
-						val plans = vReferenceFinder.getAllVerificationPlansForRequirements(greqs, reqs)
-						// find claim for requirement and handle it
-						for (vp : plans) {
-							for (claim : vp.claim) {
-								if (claim.requirement.name.equals(greq.name)) {
-									if (claim.requirement?.componentCategory.matchingCategory(cc.category)) {
-										if (incl.local) {
-											claim.generateAllClaimResult(cc, claimResultList)
-										} else if (incl.targetElement !== null) {
-											if (whenHolds(claim, cc)) {
-												claim.generateClaimResult(claimResultList, incl.targetElement)
-											}
-										} else {
-											globalClaims.add(claim)
+					} else {
+						globalPlans.addAll(plans)
+					}
+				} else if (incl.include instanceof Requirement) {
+					val greq = incl.include as Requirement
+					val greqs = greq.containingRequirementSet
+					val plans = vReferenceFinder.getAllVerificationPlansForRequirements(greqs, reqs)
+					// find claim for requirement and handle it
+					for (vp : plans) {
+						for (claim : vp.claim) {
+							if (claim.requirement.name.equals(greq.name)) {
+								if (claim.requirement?.componentCategory.matchingCategory(cc.category)) {
+									if (incl.local) {
+										claim.generateAllClaimResult(cc, claimResultList)
+									} else if (incl.targetElement !== null) {
+										if (whenHolds(claim, cc)) {
+											claim.generateClaimResult(claimResultList, incl.targetElement)
 										}
+									} else {
+										globalClaims.add(claim)
 									}
 								}
 							}
@@ -275,14 +271,14 @@ class AssureConstructor implements IAssureConstructor {
 		}
 		if (claim.requirement.targetType === TargetType.CONNECTION) {
 			if (cc instanceof ComponentImplementation) {
-				for (conn : (cc as ComponentImplementation).crossConnections) {
+				for (conn : cc.crossConnections) {
 					claim.generateClaimResult(claimResultlist, conn)
 				}
 			}
 			return
 		} else if (claim.requirement.targetType === TargetType.FLOW) {
 			if (cc instanceof ComponentImplementation) {
-				for (etef : (cc as ComponentImplementation).allEndToEndFlows) {
+				for (etef : cc.allEndToEndFlows) {
 					claim.generateClaimResult(claimResultlist, etef)
 				}
 			}

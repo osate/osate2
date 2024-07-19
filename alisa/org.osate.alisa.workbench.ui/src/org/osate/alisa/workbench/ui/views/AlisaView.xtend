@@ -417,7 +417,7 @@ class AlisaView extends ViewPart {
 				override hasChildren(Object element) {
 					val eo = resourceSetForUI.getEObject(element as URI, true)
 					if (eo instanceof VerificationResult ){
-						!(eo as VerificationResult).analysisresult.empty
+						!eo.analysisresult.empty
 					}
 					!(eo?.eContents ?: Collections.EMPTY_LIST as EList<EObject>).empty
 				}
