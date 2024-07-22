@@ -409,7 +409,7 @@
   <setupTask
       xsi:type="setup:VariableTask"
       name="osate.target.location"
-      value="${git.clone.osate2.location/core/org.osate.build.target/osate2-development.target}"/>
+      value="${git.clone.osate2.location/releng/org.osate.build.target/osate2-development.target}"/>
   <setupTask
       xsi:type="setup.p2:P2Task"
       label="Modeling">
@@ -936,6 +936,27 @@
         <operand
             xsi:type="predicates:LocationPredicate"
             pattern="${git.clone.osate2.location|path}/tools/.*"/>
+      </predicate>
+    </workingSet>
+    <workingSet
+        name="releng">
+      <predicate
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:LocationPredicate"
+            pattern="${git.clone.osate2.location|path}/releng/.*"/>
+        <operand
+            xsi:type="predicates:NotPredicate">
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern="org.osate.reqtrace.*"/>
+        </operand>
+        <operand
+            xsi:type="predicates:NotPredicate">
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern="org.osate.measures"/>
+        </operand>
       </predicate>
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>

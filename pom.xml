@@ -9,7 +9,7 @@
 		<groupId>org.osate</groupId>
 		<artifactId>osate2.main-pom</artifactId>
 		<version>2.15.0-SNAPSHOT</version>
-		<relativePath>core/org.osate.build.main/pom.xml</relativePath>
+		<relativePath>releng/org.osate.build.main/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.osate</groupId>
@@ -18,6 +18,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>releng</module>
 		<module>core</module>
 		<module>analyses</module>
 		<module>emv2</module>
@@ -37,7 +38,7 @@
 				</property>
 			</activation>
 			<modules>
-				<module>core/org.osate.build.coverage.report</module>
+				<module>releng/org.osate.build.coverage.report</module>
 			</modules>
 		</profile>
 		<profile>
@@ -49,8 +50,8 @@
 				</property>
 			</activation>
 			<modules>
-				<module>core/org.osate.build.repository</module>
-				<module>core/org.osate.build.product</module>
+				<module>releng/org.osate.build.repository</module>
+				<module>releng/org.osate.build.product</module>
 			</modules>
 		</profile>
 	</profiles>

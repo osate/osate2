@@ -35,42 +35,11 @@
 	</parent>
 
 	<groupId>org.osate</groupId>
-	<artifactId>core.parent</artifactId>
+	<artifactId>releng.parent</artifactId>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>org.jgrapht</module>
-		<module>org.osate.aadl2</module>
-		<module>org.osate.aadl2.contrib</module>
-		<module>org.osate.aadl2.edit</module>
-		<module>org.osate.aadl2.instance.textual</module>
-		<module>org.osate.aadl2.instance.textual.ui</module>
-		<module>org.osate.aadl2.instance.ui</module>
-		<module>org.osate.aadl2.instantiation</module>
-		<module>org.osate.aadl2.model.editor</module>
-		<module>org.osate.aadl2.modelsupport</module>
-		<module>org.osate.annexsupport</module>
-		<module>org.osate.branding</module>
-		<module>org.osate.contribution.sei</module>
-		<module>org.osate.core</module>
-		<module>org.osate.core.feature</module>
-		<module>org.osate.help</module>
-		<module>org.osate.license</module>
-		<module>org.osate.mylyn.aadl.ui</module>
-		<module>org.osate.pluginsupport</module>
-		<module>org.osate.resolute</module>
-		<module>org.osate.results</module>
-        <module>org.osate.slicer</module>
-		<module>org.osate.testsupport</module>
-		<module>org.osate.ui</module>
-		<module>org.osate.workspace</module>
-		<module>org.osate.xtext.aadl2</module>
-		<module>org.osate.xtext.aadl2.properties</module>
-		<module>org.osate.xtext.aadl2.properties.ui</module>
-		<module>org.osate.xtext.aadl2.ui</module>
-		<module>org.osate.aadl2.instance.textual.tests</module>
-		<module>org.osate.core.tests</module>
-		<module>org.osate.core.tests.log4j</module>
-        <module>org.osate.slicer.tests</module>
+		<module>org.osate.build.main</module>
+		<module>org.osate.build.target</module>
 	</modules>
 </project>
