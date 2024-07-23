@@ -40,7 +40,7 @@
 		<sonar.test.inclusions>**/*Test.java</sonar.test.inclusions>
 		<!-- MUST use aggregate report for multi-module project -->
 		<sonar.coverage.jacoco.xmlReportPaths>
-			../../core/org.osate.build.coverage.report/target/site/jacoco-aggregate/jacoco.xml
+			../../releng/org.osate.build.coverage.report/target/site/jacoco-aggregate/jacoco.xml
 		</sonar.coverage.jacoco.xmlReportPaths>
 		<!-- Include xtend-gen -->
 		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
@@ -50,7 +50,7 @@
 		<!-- The following are for use in poms for test plugins -->
 		<eclipse.repo.url>https://download.eclipse.org/releases/${eclipse.version}</eclipse.repo.url>
 
-		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
+		<spotbugs.configdir>${project.parent.parent.basedir}/releng/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
 	</properties>
 
