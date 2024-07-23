@@ -949,13 +949,13 @@
             xsi:type="predicates:NotPredicate">
           <operand
               xsi:type="predicates:NamePredicate"
-              pattern="org.osate.reqtrace.*"/>
+              pattern="org.osate.build.*"/>
         </operand>
         <operand
             xsi:type="predicates:NotPredicate">
           <operand
               xsi:type="predicates:NamePredicate"
-              pattern="org.osate.measures"/>
+              pattern="releng.releng"/>
         </operand>
       </predicate>
     </workingSet>
