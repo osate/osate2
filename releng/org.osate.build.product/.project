@@ -18,7 +18,7 @@
 				</dictionary>
 				<dictionary>
 					<key>release.path</key>
-					<value>/releng/version-management/release.xml</value>
+					<value>/releng.releng/version-management/release.xml</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
