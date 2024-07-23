@@ -945,18 +945,6 @@
         <operand
             xsi:type="predicates:LocationPredicate"
             pattern="${git.clone.osate2.location|path}/releng/.*"/>
-        <operand
-            xsi:type="predicates:NotPredicate">
-          <operand
-              xsi:type="predicates:NamePredicate"
-              pattern="org.osate.build.*"/>
-        </operand>
-        <operand
-            xsi:type="predicates:NotPredicate">
-          <operand
-              xsi:type="predicates:NamePredicate"
-              pattern="releng.releng"/>
-        </operand>
       </predicate>
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
