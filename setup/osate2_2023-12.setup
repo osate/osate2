@@ -548,6 +548,7 @@
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
+      disabled="true"
       label="Mylyn">
     <requirement
         name="org.eclipse.mylyn.github.feature.feature.group"/>
@@ -736,8 +737,6 @@
       </annotation>
       <requirement
           name="org.eclipse.sdk"/>
-      <requirement
-          name="org.eclipse.mylyn.context.feature.feature.group"/>
       <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
       <requirement
