@@ -1,0 +1,27 @@
+package Issue2915
+public
+
+	system S	
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			d: data D.i;
+			a: system A (dp => data D.i);
+		connections
+			da: data access d <-> a.da;
+	end S.i;
+	
+	data D
+	end D;
+	
+	data implementation D.i
+	end D.i;
+	
+	system A
+		prototypes
+			dp: data D;
+		features
+			da: requires data access dp;
+	end A;
+end Issue2915;
