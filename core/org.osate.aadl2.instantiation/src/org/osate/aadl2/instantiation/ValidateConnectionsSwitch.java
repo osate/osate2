@@ -506,8 +506,14 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private static Classifier getConnectionEndClassifier(final ConnectionInstanceEnd end) {
-		return end instanceof ComponentInstance ? ((ComponentInstance) end).getClassifier()
-				: ((FeatureInstance) end).getFeature().getClassifier();
+		if (end instanceof ComponentInstance ci) {
+			return ci.getClassifier();
+		}
+		if (end instanceof FeatureInstance fi) {
+			var ci = fi.getType();
+			return ci == null ? null : ci.getClassifier();
+		}
+		return null;
 	}
 
 	// XXX How can I avoid duplicating this method for the instance and the declarative models?
