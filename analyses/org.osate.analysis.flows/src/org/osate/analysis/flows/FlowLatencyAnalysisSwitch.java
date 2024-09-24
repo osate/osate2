@@ -1448,28 +1448,31 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						// Finally we can stick this into the latency contributor
 						final LatencyContributor latencyContributor = connectionsToContributors
 								.get(new Pair<>(bus, ci));
-						final LatencyContributor queuingLatencyContributor = new LatencyContributorComponent(bus,
-								report.isMajorFrameDelay());
-						queuingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.QUEUED);
-						queuingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.QUEUED);
-						queuingLatencyContributor.setMinimum(0.0);
-						if (report.isDisableQueuingLatency()) {
-							// Hide the queuing time
-							queuingLatencyContributor.setMaximum(0.0);
-							queuingLatencyContributor.reportInfo("Ignoring queuing time of " + maxWaitingTime + "ms");
-						} else {
-							// Report the queuing time
-							queuingLatencyContributor.setMaximum(maxWaitingTime);
-						}
-						latencyContributor.addSubContributor(queuingLatencyContributor);
+						if (latencyContributor != null) {
+							final LatencyContributor queuingLatencyContributor = new LatencyContributorComponent(bus,
+									report.isMajorFrameDelay());
+							queuingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.QUEUED);
+							queuingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.QUEUED);
+							queuingLatencyContributor.setMinimum(0.0);
+							if (report.isDisableQueuingLatency()) {
+								// Hide the queuing time
+								queuingLatencyContributor.setMaximum(0.0);
+								queuingLatencyContributor
+										.reportInfo("Ignoring queuing time of " + maxWaitingTime + "ms");
+							} else {
+								// Report the queuing time
+								queuingLatencyContributor.setMaximum(maxWaitingTime);
+							}
+							latencyContributor.addSubContributor(queuingLatencyContributor);
 
-						// add the sampling latency
-						LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(
-								bus, report.isMajorFrameDelay());
-						samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
-						samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
-						samplingLatencyContributor.setSamplingPeriod(0.0);
-						latencyContributor.addSubContributor(samplingLatencyContributor);
+							// add the sampling latency
+							LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(bus,
+									report.isMajorFrameDelay());
+							samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
+							samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
+							samplingLatencyContributor.setSamplingPeriod(0.0);
+							latencyContributor.addSubContributor(samplingLatencyContributor);
+						}
 					}
 				}
 			}

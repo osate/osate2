@@ -177,7 +177,7 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 				while (i.hasNext()) {
 					final ModeInstance mi = i.next();
 					final Mode m = mi.getMode();
-					if (!m.isInitial()) {
+					if (!m.isInitial() && !m.isDerived()) {
 						value = Boolean.FALSE;
 						break;
 					}
