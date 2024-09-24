@@ -477,7 +477,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 			NamedElement ne = cpe.getNamedElement();
 
 			for (EObject eo : eContents()) {
-				if (eo instanceof InstanceObjectImpl) {
+				if (eo instanceof InstanceObjectImpl && !(eo instanceof ConnectionInstance)) {
 					InstanceObjectImpl next = (InstanceObjectImpl) eo;
 					List<? extends NamedElement> decls = next.getInstantiatedObjects();
 

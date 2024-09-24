@@ -1,0 +1,38 @@
+package Issue2913
+public
+	
+	system S
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			d: data D;
+			p: process P.i;
+			b: bus;
+		connections
+			c2: data access p.da <-> d;
+		properties
+			Actual_Connection_Binding => (reference(b)) applies to c2;
+	end S.i;
+	
+	data D
+	end D;
+	
+	process P
+		features
+			da: requires data access D;
+	end P;
+	
+	process implementation P.i
+		subcomponents
+			t: thread T;
+		connections
+			c1: data access t.da <-> da;
+	end P.i;
+	
+	thread T
+		features
+			da: requires data access D;
+	end T;
+	
+end Issue2913;
