@@ -952,7 +952,7 @@
       xsi:type="pde:APIBaselineTask"
       id="api.baseline"
       name="OSATE-API"
-      version="2.14.0"
+      version="2.15.0"
       remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/${api.baseline.version}-vfinal/osate.repository-${api.baseline.version}.vfinal.zip">
     <description></description>
   </setupTask>
