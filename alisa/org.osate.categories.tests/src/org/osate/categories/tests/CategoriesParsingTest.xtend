@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,20 +23,14 @@
  */
 package org.osate.categories.tests
 
-import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.categories.categories.CategoriesDefinitions
 
 @RunWith(XtextRunner)
 @InjectWith(CategoriesInjectorProvider)
 class CategoriesParsingTest {
-	@Inject
-	ParseHelper<CategoriesDefinitions> parseHelper
 	
 	@Test
 	def void loadModel() {

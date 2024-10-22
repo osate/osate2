@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,9 +25,6 @@ package org.osate.ge.internal.ui;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
@@ -60,7 +57,9 @@ import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osgi.framework.FrameworkUtil;
 
+import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.name.Named;
 
 /**
  * Action which renames a model element using a Language Toolkit (LTK) rename refactoring.

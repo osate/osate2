@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -33,7 +33,6 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 import org.osate.result.RealValue
@@ -85,8 +84,8 @@ class QueuingTest extends XtextTest {
 		assertTrue(subpart1 instanceof ComponentInstance)
 		assertEquals(subpart1.name,"sub2")
 		val fea = (subpart1 as ComponentInstance).featureInstances.get(0)
-		assertTrue((fea as FeatureInstance).ownedPropertyAssociations.size == 1)
-		val pas1 = (fea as FeatureInstance).ownedPropertyAssociations
+		assertTrue(fea.ownedPropertyAssociations.size == 1)
+		val pas1 = fea.ownedPropertyAssociations
 		assertTrue('', pas1.exists[pa|pa.property.name == 'Queue_Size'])
 		
 		assertTrue(subres.diagnostics.size == 1)

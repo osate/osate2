@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -64,7 +64,7 @@ class AlisaQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[Odd]: The URI of the missing verification plan named prior
 	 */
 	@Fix(AlisaValidator.ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS)
-	def public void fixMissingOwnVerificationPlans(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixMissingOwnVerificationPlans(Issue issue, IssueResolutionAcceptor acceptor) {
 		val names = "'" + issue.getData.indexed().filter([key % 2 == 0]).join("', '", [value]) + "'"
 		acceptor.accept(issue, "Add verification plans " + names + " to 'assure'", null, null,
 				new ISemanticModification() {
@@ -86,7 +86,7 @@ class AlisaQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[Odd]: The URI of the invlaid verification plan named prior
 	 */
 	@Fix(AlisaValidator.ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS)
-	def public void fixInvalidOwnVerificationPlans(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixInvalidOwnVerificationPlans(Issue issue, IssueResolutionAcceptor acceptor) {
 		val name = issue.getData.head
 		val vpUri = issue.getData.get(1)
 		acceptor.accept(issue, "Remove verification plan '" + name + "' from 'assure'", null, null,

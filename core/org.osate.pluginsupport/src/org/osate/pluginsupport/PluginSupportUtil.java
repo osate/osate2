@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -68,13 +68,15 @@ public final class PluginSupportUtil {
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(PluginSupportPlugin.PLUGIN_ID,
 				PluginSupportPlugin.AADL_CONTRIBUTION_EXTENSION_ID);
-		IExtension[] exts = extensionPoint.getExtensions();
+		if (extensionPoint != null) {
+			IExtension[] exts = extensionPoint.getExtensions();
 
-		for (int i = 0; i < exts.length; i++) {
-			IConfigurationElement[] configElems = exts[i].getConfigurationElements();
+			for (int i = 0; i < exts.length; i++) {
+				IConfigurationElement[] configElems = exts[i].getConfigurationElements();
 
-			for (int j = 0; j < configElems.length; j++) {
-				result.add(makeUri.apply(configElems[j]));
+				for (int j = 0; j < configElems.length; j++) {
+					result.add(makeUri.apply(configElems[j]));
+				}
 			}
 		}
 		return result;

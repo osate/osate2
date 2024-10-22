@@ -1,20 +1,20 @@
 package org.osate.ba.tests
 
-import javax.inject.Inject
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexSubclause
+import org.osate.ba.aadlba.BehaviorActionCollection
+import org.osate.ba.aadlba.BehaviorAnnex
+import org.osate.ba.aadlba.SharedDataAction
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertTrue
-import org.osate.ba.aadlba.BehaviorAnnex
-import org.osate.ba.aadlba.BehaviorActionCollection
-import org.osate.ba.aadlba.SharedDataAction
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)

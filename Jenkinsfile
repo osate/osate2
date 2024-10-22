@@ -7,7 +7,7 @@ pipeline {
     stage('Update dependencies') {
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
-            sh 'mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor \
+            sh 'mvn -s releng/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor \
                 -DgenerateBackupPoms=false -Dtycho.mode=maven -Dcodecoverage=true'
         }
       }
@@ -20,7 +20,7 @@ pipeline {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-              sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
+              sh 'mvn -s releng/osate.releng/seisettings.xml clean verify sonar:sonar \
                   -Plocal -Dsonar.login=$SONARTOKEN \
                   -Dsonar.pullrequest.provider=GitHub \
                   -Dsonar.pullrequest.github.repository=$(echo $CHANGE_URL | cut -d/ -f4,5) \
@@ -42,7 +42,7 @@ pipeline {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-              sh 'mvn -s core/osate.releng/seisettings.xml clean verify sonar:sonar \
+              sh 'mvn -s releng/osate.releng/seisettings.xml clean verify sonar:sonar \
                   -Pfull -Dsonar.login=$SONARTOKEN \
                   -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
                   -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'

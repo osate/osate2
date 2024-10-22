@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -95,7 +95,7 @@ package class PropertyColumnLabelProvider extends ColumnLabelProvider {
 	def private static getClassifierThatDeclaresModes(EObject propertySrc) {
 		if (propertySrc instanceof Subcomponent) {
 			// Subcomponent: use the classifier of the subcomponent
-			(propertySrc as Subcomponent).classifier
+			propertySrc.classifier
 		} else { // TODO: Check for instance model
 			/* Find the nearest enclosing classifier.  The below method could return a FeatureGroup in theory, 
 			 * but feature groups cannot have modes, so they wouldn't be encountered in this situation.
@@ -106,7 +106,7 @@ package class PropertyColumnLabelProvider extends ColumnLabelProvider {
 	
 	def private static getModesFromClassifierThatDeclaresModes(EObject propertySrc) {
 		if (propertySrc instanceof InstanceObject) {
-			(propertySrc as InstanceObject).systemInstance.systemOperationModes
+			propertySrc.systemInstance.systemOperationModes
 		} else {
 			getClassifierThatDeclaresModes(propertySrc).allModes
 		}

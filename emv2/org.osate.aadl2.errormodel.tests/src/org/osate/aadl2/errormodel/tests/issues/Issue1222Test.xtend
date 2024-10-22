@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,8 +26,6 @@ package org.osate.aadl2.errormodel.tests.issues
 import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
-import org.eclipse.emf.common.util.URI
-import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -35,14 +33,11 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
-import org.osate.testsupport.AssertHelper
 import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.*
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelInjectorProvider)
@@ -52,9 +47,6 @@ class Issue1222Test extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
-	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
-		URI.createFileURI("dummy.emv2")).get(AssertHelper)
-
 	@Test
 	def void testPkg1() {
 		val pkg1FileName = "Issue1222.aadl"
@@ -63,13 +55,13 @@ class Issue1222Test extends XtextTest {
 		testFileResult.resource.contents.head as AadlPackage => [
 			"testing".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
-				typesets.get(3) as TypeSet => [
+				typesets.get(3) => [
 					"s4".assertEquals(name)
 					assertError(testFileResult.issues, issueCollection, "Typeset elements {fred*barney} and {fred*barney} are not disjoint.")
 				]
-				typesets.get(4) as TypeSet => [
+				typesets.get(4) => [
 					"s5".assertEquals(name)
-					typeTokens.get(0) as TypeToken => [
+					typeTokens.get(0) => [
 						assertError(testFileResult.issues, issueCollection, "Element type fred and wilma have same root type")
 					]
 				]

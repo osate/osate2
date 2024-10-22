@@ -2,12 +2,12 @@
 <feature
       id="org.osate.plugins.feature"
       label="Open Source AADL Tool Environment Analysis Plug-ins"
-      version="6.1.5.qualifier"
+      version="7.0.0.qualifier"
       provider-name="CMU-SEI"
       plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
       license-feature="org.osate.license"
-      license-feature-version="1.0.3"
+      license-feature-version="1.0.5"
       application="org.eclipse.ui.ide.workbench">
    <install-handler/>
 

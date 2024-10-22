@@ -2,18 +2,18 @@
 <feature
       id="org.osate.xtext.aadl2.errormodel.feature"
       label="Error Model Annex V2 for OSATE2"
-      version="11.0.1.qualifier"
+      version="12.0.1.qualifier"
       provider-name="CMU-SEI"
       plugin="org.osate.branding"
       license-feature="org.osate.license"
-      license-feature-version="1.0.3">
+      license-feature-version="1.0.5">
 
    <description>
       Provide support for Error-Model Annex version 2
    </description>
 
    <copyright>
-      Copyright (c) 2004-2023 Carnegie Mellon University. All rights reserved.
+      Copyright (c) 2004-2024 Carnegie Mellon University. All rights reserved.
    </copyright>
 
    <url>

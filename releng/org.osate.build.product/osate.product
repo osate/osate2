@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.15.90.qualifier" useFeatures="true" includeLaunchers="true" autoIncludeRequirements="true">
+
+   <aboutInfo>
+      <image path="icons/osateAbout_hc90.jpg"/>
+      <text>
+         %aboutText
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgs>-Dosgi.requiredJavaVersion=1.17 -Dosgi.framework.extensions=org.eclipse.fx.osgi -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
+      </vmArgs>
+   </launcherArgs>
+
+   <windowImages i16="icons/16aadl.jpg" i32="icons/32aadl.jpg"/>
+
+   <splash
+      location="org.osate.branding"
+      startupProgressRect="5,275,445,15"
+      startupMessageRect="7,252,445,20"
+      startupForegroundColor="000000" />
+   <launcher name="osate">
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.osate.core.feature"/>
+      <feature id="org.osate.plugins.feature"/>
+      <feature id="org.osate.xtext.aadl2.errormodel.feature" installMode="root"/>
+      <feature id="org.osate.ge.feature" installMode="root"/>
+      <feature id="org.osate.ge.errormodel.feature" installMode="root"/>
+      <feature id="org.osate.ba.feature" installMode="root"/>
+      <feature id="org.osate.ge.ba.feature" installMode="root"/>
+      <feature id="org.osate.utils.feature" installMode="root"/>
+      <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
+      <feature id="org.osate.examples.feature" installMode="root"/>
+      <feature id="org.eclipse.xsemantics.runtime.feature"/>
+      <feature id="org.eclipse.egit"/>
+      <feature id="org.eclipse.equinox.executable"/>
+      <feature id="org.eclipse.equinox.p2.discovery.feature"/>
+      <feature id="org.eclipse.platform"/>
+      <feature id="org.eclipse.mylyn.context.feature"/>
+      <feature id="org.eclipse.sirius.runtime.ide.ui"/>
+      <feature id="org.eclipse.elk.feature"/>
+      <feature id="org.eclipse.elk.algorithms.feature"/>
+      <feature id="org.eclipse.ease.feature"/>
+      <feature id="org.eclipse.ease.lang.python.py4j.feature"/>
+      <feature id="org.eclipse.ease.lang.scriptarchive.feature"/>
+      <feature id="org.eclipse.ease.lang.unittest.feature"/>
+      <feature id="org.eclipse.ease.modules.feature"/>
+      <feature id="org.eclipse.ease.ui.feature"/>
+      <feature id="org.py4j.feature"/>
+      <feature id="org.eclipse.fx.runtime.min.feature"/>
+      <feature id="openjfx.standard.feature"/>
+      <feature id="openjfx.swing.feature"/>
+      <feature id="openjfx.swt.feature"/>
+      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full.stripped" installMode="root"/>
+   </features>
+
+   <configurations>
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <property name="org.eclipse.update.reconcile" value="false" />
+      <property name="preferenceCustomization" value="plugin_customization.ini" />
+   </configurations>
+
+   <repositories>
+      <repository location="https://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
+      <repository location="https://download.eclipse.org/eclipse/updates/4.30" enabled="true" />
+      <repository location="https://download.eclipse.org/releases/2023-12" enabled="true" />
+      <repository location="https://download.eclipse.org/justj/jres/17/updates/release/latest" enabled="true" />
+   </repositories>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
+
+</product>

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -506,8 +506,14 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private static Classifier getConnectionEndClassifier(final ConnectionInstanceEnd end) {
-		return end instanceof ComponentInstance ? ((ComponentInstance) end).getClassifier()
-				: ((FeatureInstance) end).getFeature().getClassifier();
+		if (end instanceof ComponentInstance ci) {
+			return ci.getClassifier();
+		}
+		if (end instanceof FeatureInstance fi) {
+			var ci = fi.getType();
+			return ci == null ? null : ci.getClassifier();
+		}
+		return null;
 	}
 
 	// XXX How can I avoid duplicating this method for the instance and the declarative models?

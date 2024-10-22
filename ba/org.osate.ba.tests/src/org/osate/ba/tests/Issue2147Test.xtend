@@ -1,6 +1,6 @@
 package org.osate.ba.tests
 
-import javax.inject.Inject
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test

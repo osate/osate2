@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -198,7 +198,7 @@ public final class ClassifierInfoView extends ViewPart {
 	 * Synchronized because it is used by the display thread and whatever thread executes
 	 * the resource change listener.
 	 */
-	private final Set<IResource> projectDependancies = Collections.synchronizedSet(new HashSet<>());
+	private final Set<IResource> projectDependencies = Collections.synchronizedSet(new HashSet<>());
 	private IResourceChangeListener rsrcListener = null;
 
 	// ======================================================================
@@ -646,7 +646,7 @@ public final class ClassifierInfoView extends ViewPart {
 	private void clearHierarchy(final boolean resetURI) {
 		if (resetURI) {
 			hierarchyClassifierURI = null;
-			projectDependancies.clear();
+			projectDependencies.clear();
 		}
 		getViewSite().getShell().getDisplay().asyncExec(() -> {
 			ancestorTreeViewer.setInput(AncestorTree.EMTPY_TREE);
@@ -696,7 +696,7 @@ public final class ClassifierInfoView extends ViewPart {
 				if (inputHierarchy != null) {
 					subMonitor.subTask("Buidling classifier hiearchy");
 					final Set<IProject> projects = getDependantProjects(inputHierarchy);
-					projectDependancies.addAll(projects);
+					projectDependencies.addAll(projects);
 
 					try {
 						final AncestorTree ancestorTreeModel = createAncestorTree(inputHierarchy, subMonitor);
@@ -719,7 +719,7 @@ public final class ClassifierInfoView extends ViewPart {
 						/*
 						 * Hierarchy build cancelled-- clear both panes. Originally we just cleared the
 						 * hierarchy pane, but then it is confusing what is being shown in the member pane.
-						 * Set the 'skip' flag so we don't readd the member pane below.
+						 * Set the 'skip' flag so we don't read the member pane below.
 						 */
 						clearDisplay(false);
 						// Update incomplete, so we still need to refresh later
@@ -845,8 +845,8 @@ public final class ClassifierInfoView extends ViewPart {
 							 * Must be an ".aadlbin" file in one the projects we care about to be interesting.
 							 */
 							final IResource resource = delta.getResource();
-							if (resource instanceof IFile && resource.getFileExtension().equalsIgnoreCase("aadlbin")
-									&& projectDependancies.contains(resource.getProject())) {
+							if (resource instanceof IFile && "aadlbin".equalsIgnoreCase(resource.getFileExtension())
+									&& projectDependencies.contains(resource.getProject())) {
 								changed.set(true);
 							}
 							return true;

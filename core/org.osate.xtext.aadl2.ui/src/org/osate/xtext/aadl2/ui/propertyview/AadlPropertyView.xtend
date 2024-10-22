@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -604,7 +604,7 @@ class AadlPropertyView extends ViewPart {
 						modify(
 							new IUnitOfWork.Void<XtextResource> {
 								override process(XtextResource state) throws Exception {
-									((state.resourceSet.getEObject((treeElement as RangeElement).expressionURI, true) as PropertyExpression).
+									((state.resourceSet.getEObject(treeElement.expressionURI, true) as PropertyExpression).
 										owner as RangeValue).delta = null
 								}
 							})
@@ -614,9 +614,9 @@ class AadlPropertyView extends ViewPart {
 						modify(
 							new IUnitOfWork.Void<XtextResource> {
 								override process(XtextResource state) throws Exception {
-									((state.resourceSet.getEObject((treeElement as ListElement).expressionURI, true) as PropertyExpression).
+									((state.resourceSet.getEObject(treeElement.expressionURI, true) as PropertyExpression).
 										owner as ListValue).ownedListElements.remove(
-										(treeElement as ListElement).index
+										treeElement.index
 									)
 								}
 							})
@@ -808,7 +808,7 @@ class AadlPropertyView extends ViewPart {
 		if (xtextDocument !== null) {
 			xtextDocument.modify(work);
 		} else if(resourceFromSelection instanceof XtextResource) {
-			val resource = resourceFromSelection as XtextResource;
+			val resource = resourceFromSelection;
 			var cmd = new RecordingCommand(editingDomain as TransactionalEditingDomain) {
 				T result;
 				

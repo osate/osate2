@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -453,7 +453,7 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			if (context.context === null) {
 				classifier.allConnectionEnds.filterRefined.scopeFor
 			} else {
-				if (context.context instanceof Context) {
+				if (context.context !== null) {
 					context.context
 						.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
 				} else {
@@ -742,14 +742,6 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			triggerPorts.addAll(classifier.allPortProxies)
 		}
 		triggerPorts
-	}
-
-	def private static allFeatureClassifier(Feature feature) {
-		var refinedFeature = feature
-		while (refinedFeature.featureClassifier === null && refinedFeature.refined !== null) {
-			refinedFeature = refinedFeature.refined
-		}
-		refinedFeature.featureClassifier
 	}
 
 	def private static findFeatureGroupTypeForFeatureGroupPrototype(FeatureGroupPrototype prototype,

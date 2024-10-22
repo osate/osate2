@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -478,7 +478,6 @@ public class AadlProjectCreator {
 		String outputPathRuntime;
 		String outputFileFunctional;
 		String outputFileRuntime;
-		String outputFileGenericRuntime;
 
 		outputPathFunctional = outputPath + File.separatorChar + "functional";
 		outputPathRuntime = outputPath + File.separatorChar + "runtime";

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -115,7 +115,7 @@ public class FlowDialogUtil {
 	private static TableColumnLayout getColumnLayout(final Table errorTable) {
 		// Create column
 		final TableColumn tableColumn = new TableColumn(errorTable, SWT.NONE);
-		tableColumn.setText("Model Errors");
+		tableColumn.setText("List of errors in the model:");
 
 		// Create column layout
 		final TableColumnLayout layout = new TableColumnLayout();

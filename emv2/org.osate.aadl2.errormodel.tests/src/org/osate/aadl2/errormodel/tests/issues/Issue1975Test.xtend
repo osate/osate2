@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,26 +25,22 @@ package org.osate.aadl2.errormodel.tests.issues
 
 import com.google.inject.Inject
 import com.itemis.xtext.testing.XtextTest
-import org.eclipse.emf.common.util.URI
-import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.BusType
 import org.osate.aadl2.DefaultAnnexSubclause
-import org.osate.aadl2.SystemType
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
-import org.osate.testsupport.AssertHelper
 import org.osate.testsupport.TestHelper
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
-import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Properties.*
-import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
+
+import static org.junit.Assert.assertTrue
 
 import static extension org.junit.Assert.assertEquals
-import org.osate.aadl2.BusType
-import static org.junit.Assert.assertTrue
+import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Properties.*
+import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelInjectorProvider)
@@ -63,7 +59,7 @@ class Issue1975Test extends XtextTest {
 			publicSection.ownedClassifiers.head as BusType => [
 				"PCI".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					properties.get(0) as EMV2PropertyAssociation => [
+					properties.get(0) => [
 						emv2Path.get(0) => [
 							val et = getErrorType()
 							assertTrue(et !== null)

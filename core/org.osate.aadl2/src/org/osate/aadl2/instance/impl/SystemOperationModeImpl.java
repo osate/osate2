@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -177,7 +177,7 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 				while (i.hasNext()) {
 					final ModeInstance mi = i.next();
 					final Mode m = mi.getMode();
-					if (!m.isInitial()) {
+					if (!m.isInitial() && !m.isDerived()) {
 						value = Boolean.FALSE;
 						break;
 					}

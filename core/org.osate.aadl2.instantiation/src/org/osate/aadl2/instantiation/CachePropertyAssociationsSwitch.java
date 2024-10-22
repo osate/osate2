@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -151,9 +151,9 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 	protected void cachePropertyAssociations(InstanceObject io) {
 		// OsateDebug.osateDebug ("[CachePropertyAssociation] io=" + io);
 
-		try {
-			for (Property property : propertyFilter) {
-				if (io.acceptsProperty(property)) {
+		for (Property property : propertyFilter) {
+			if (io.acceptsProperty(property)) {
+				try {
 
 					/*
 					 * Just look up the property. The property doesn't yet have a
@@ -177,22 +177,20 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 							io.getOwnedPropertyAssociations().add(newPA);
 						}
 					}
-				}
-				checkIfCancelled();
-				if (cancelled()) {
-					break;
+				} catch (IllegalStateException e) {
+					// circular dependency
+					// xxx: this is a misleading place to put the marker
+					OsateDebug.osateDebug("IllegalStateException raised in cachePropertyAssociations");
+					error(io, e.getMessage());
+				} catch (InvalidModelException e) {
+					OsateDebug.osateDebug("InvalidModelException raised in cachePropertyAssociations");
+					error(e.getElement(), e.getMessage());
 				}
 			}
-		} catch (IllegalStateException e) {
-			// circular dependency
-			// xxx: this is a misleading place to put the marker
-			OsateDebug.osateDebug("IllegalStateException raised in cachePropertyAssociations");
-			error(io, e.getMessage());
-			return;
-		} catch (InvalidModelException e) {
-			OsateDebug.osateDebug("InvalidModelException raised in cachePropertyAssociations");
-			error(e.getElement(), e.getMessage());
-			return;
+			checkIfCancelled();
+			if (cancelled()) {
+				break;
+			}
 		}
 	}
 

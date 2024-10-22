@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,8 +27,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -723,51 +723,8 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		}
 	}
 
-	private void checkMultipleUses(Element useTypesContext) {
-		HashSet<ErrorModelLibrary> etlset = new HashSet<ErrorModelLibrary>();
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(useTypesContext)) {
-			if (etlset.contains(etl)) {
-				error(useTypesContext, "Error type library " + EMV2Util.getPrintName(etl)
-						+ " exists more than once in 'uses types' clause");
-			} else {
-				etlset.add(etl);
-			}
-		}
-	}
-
-	private void checkMultipleErrorTypesInUsesTypes(Element useTypesContext) {
-		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10, 10);
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(useTypesContext)) {
-			EList<ErrorType> typeslist = etl.getTypes();
-			for (ErrorType errorTypes : typeslist) {
-				if (etlset.containsKey(errorTypes.getName())) {
-					ErrorModelLibrary eml = EMV2Util
-							.getContainingErrorModelLibrary((Element) etlset.get(errorTypes.getName()));
-					error(useTypesContext,
-							"Error type or type set " + errorTypes.getName() + " in library "
-									+ EMV2Util.getPrintName(etl) + " already exists in error type library "
-									+ EMV2Util.getPrintName(eml));
-				} else {
-					etlset.put(errorTypes.getName(), errorTypes);
-				}
-			}
-			EList<TypeSet> typesetlist = etl.getTypesets();
-			for (TypeSet typeset : typesetlist) {
-				if (etlset.containsKey(typeset.getName())) {
-					ErrorModelLibrary eml = EMV2Util
-							.getContainingErrorModelLibrary((Element) etlset.get(typeset.getName()));
-					error(useTypesContext,
-							"Error type or type set " + typeset.getName() + " in library " + EMV2Util.getPrintName(etl)
-									+ " already exists in error type library " + EMV2Util.getPrintName(eml));
-				} else {
-					etlset.put(typeset.getName(), typeset);
-				}
-			}
-		}
-	}
-
 	private void checkUniqueEBSMElements(ErrorBehaviorStateMachine ebsm) {
-		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10, 10);
+		HashMap<String, EObject> etlset = new HashMap<String, EObject>(10, 10);
 		for (ErrorBehaviorEvent oep : ebsm.getEvents()) {
 			if (etlset.containsKey(oep.getName())) {
 				error(oep, "error behavior event " + oep.getName() + " defined more than once");
@@ -821,18 +778,18 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	}
 
 	private void checkUniqueDefiningIdentifiers(ErrorModelLibrary etl, boolean cyclicextends) {
-		Hashtable<String, EObject> types = new Hashtable<String, EObject>(10, 10);
+		HashMap<String, EObject> types = new HashMap<String, EObject>(10, 10);
 		checkUniqueDefiningEBSMMappingsTransformations(etl, types);
 		if (cyclicextends) {
 			return;
 		}
 		for (ErrorModelLibrary xetl : etl.getExtends()) {
-			checkUniqueInheritedDefiningErrorTypes(xetl, types);
+			checkUniqueInheritedDefiningErrorTypes(etl, xetl, types);
 		}
 	}
 
 	private void checkUniqueDefiningEBSMMappingsTransformations(ErrorModelLibrary etl,
-			Hashtable<String, EObject> types) {
+			HashMap<String, EObject> types) {
 		for (ErrorBehaviorStateMachine ebsm : etl.getBehaviors()) {
 			if (types.containsKey(ebsm.getName())) {
 				error(ebsm, "Error behavior state machine identifier " + ebsm.getName()
@@ -862,20 +819,22 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		}
 	}
 
-	private void checkUniqueInheritedDefiningErrorTypes(ErrorModelLibrary etl, Hashtable<String, EObject> types) {
+	private void checkUniqueInheritedDefiningErrorTypes(ErrorModelLibrary lib, ErrorModelLibrary etl,
+			HashMap<String, EObject> types) {
 		for (ErrorTypes et : etl.getTypes()) {
 			if (types.containsKey(et.getName())) {
 				EObject source = types.get(et.getName());
 				ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(et);
-				error(source,
+				EObject errObj = EMV2Util.getContainingErrorModelLibrary((Element) source) == lib ? source : lib;
+				error(errObj,
 						"Error type or type set (alias) " + et.getName() + " inherited from "
 								+ EMV2Util.getPrintName(eml)
-								+ " conflicts with another defining identifier in error type library");
+								+ " conflicts with another identifier in error type library");
 			}
 			types.put(et.getName(), et);
 		}
 		for (ErrorModelLibrary xetl : etl.getExtends()) {
-			checkUniqueInheritedDefiningErrorTypes(xetl, types);
+			checkUniqueInheritedDefiningErrorTypes(lib, xetl, types);
 		}
 	}
 

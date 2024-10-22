@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -43,7 +43,6 @@ import org.osate.aadl2.NamedElement;
 public class Report {
 	private List<Section> sections;
 	private StringBuffer textContent;
-	private ReportType type;
 	private NamedElement relatedObject;
 	private String reportFolder;
 	private String reportPostfix;
@@ -53,7 +52,6 @@ public class Report {
 	}
 
 	public Report(NamedElement ne, String reportFolder, String reportPostfix, ReportType rt) {
-		this.type = rt;
 		this.relatedObject = ne;
 		this.textContent = new StringBuffer();
 		this.sections = new ArrayList<Section>();

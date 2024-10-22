@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,6 +25,7 @@
 package org.osate.reqspec.tests
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -32,19 +33,15 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.reqspec.reqSpec.ReqSpec
+import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.ReqValDeclaration
-import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
-import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.reqspec.util.ReqSpecUtilExtension
-import org.osate.alisa.common.common.ValDeclaration
-import org.osate.reqspec.reqSpec.ReqSpecPackage
-import com.itemis.xtext.testing.FluentIssueCollection
+
 import static extension org.osate.testsupport.AssertHelper.*
- 
+
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ReqSpecAadl2InjectorProvider))
 class ReqSpecTests extends XtextTest {
@@ -64,7 +61,7 @@ class ReqSpecTests extends XtextTest {
 			assertEquals(reqspec.parts.size, 1)
 			val srs = reqspec.parts.get(0) as SystemRequirementSet 
 			assertEquals(srs.name, "csunittest")
-			val req = srs.requirements.get(0) as Requirement 
+			val req = srs.requirements.get(0)
 			assertEquals(req.name,"R1")
 			assertTrue(req.constants.size > 0)
 			val vd = req.constants.get(0) as ReqValDeclaration
@@ -82,7 +79,7 @@ class ReqSpecTests extends XtextTest {
 			assertTrue(reqspec.parts.size > 0)
 			val srs = reqspec.parts.get(0) as SystemRequirementSet 
 			assertEquals(srs.name, "dcsreqs")
-			val req = srs.requirements.get(0) as Requirement 
+			val req = srs.requirements.get(0)
 			assertEquals(req.name,"R1")
 			assertEquals(req.constants.size ,1)
 			val vd = req.constants.get(0) as ReqValDeclaration
@@ -101,7 +98,7 @@ class ReqSpecTests extends XtextTest {
 			assertTrue(reqspec.parts.size > 0)
 			val srs = reqspec.parts.get(0) as SystemRequirementSet 
 			assertEquals(srs.name, "dcsreqs")
-			val req = srs.requirements.get(0) as Requirement 
+			val req = srs.requirements.get(0)
 			assertEquals(req.name,"R1")
 			assertEquals(req.constants.size ,1)
 			val vd = req.constants.get(0) as ReqValDeclaration

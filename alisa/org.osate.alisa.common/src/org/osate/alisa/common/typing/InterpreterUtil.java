@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -217,7 +217,7 @@ public class InterpreterUtil {
 
 	public static IntegerLiteral floor(NumberValue nv) {
 		if (nv instanceof RealLiteral) {
-			long iv = new Double(Math.floor(((RealLiteral) nv).getValue())).longValue(); // (new Double(d)).longValue()
+			long iv = Double.valueOf(Math.floor(((RealLiteral) nv).getValue())).longValue();
 			IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 			result.setValue(iv);
 			result.setUnit(nv.getUnit());
@@ -229,7 +229,7 @@ public class InterpreterUtil {
 
 	public static IntegerLiteral ceil(NumberValue nv) {
 		if (nv instanceof RealLiteral) {
-			long iv = new Double(Math.ceil(((RealLiteral) nv).getValue())).longValue();
+			long iv = Double.valueOf(Math.ceil(((RealLiteral) nv).getValue())).longValue();
 			IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 			result.setValue(iv);
 			result.setUnit(nv.getUnit());

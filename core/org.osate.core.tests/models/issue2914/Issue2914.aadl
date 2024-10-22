@@ -1,0 +1,19 @@
+package Issue2914
+public
+	system S
+		modes
+			m1: initial mode;
+			m2: mode;
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			a: system A;
+	end S.i;
+	
+	system A
+		requires modes
+			m1: mode;
+			m2: mode;
+	end A;
+end Issue2914;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -33,11 +33,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
  */
 class ErrorModelUtil{
 	
-	def public static Iterable<ErrorType> getAllErrorTypes(ErrorModelLibrary library) {
+	def static Iterable<ErrorType> getAllErrorTypes(ErrorModelLibrary library) {
 		library.allErrorLibraries.map[types].flatten
 	}
 	
-	def public static Iterable<TypeSet> getAllTypesets(ErrorModelLibrary library) {
+	def static Iterable<TypeSet> getAllTypesets(ErrorModelLibrary library) {
 		library.allErrorLibraries.map[typesets].flatten
 	}
 	

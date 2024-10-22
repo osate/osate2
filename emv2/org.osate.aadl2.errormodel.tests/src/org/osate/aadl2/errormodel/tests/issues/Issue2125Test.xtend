@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,17 +31,14 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.DefaultAnnexSubclause
+import org.osate.aadl2.DeviceImplementation
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
 import org.osate.testsupport.TestHelper
-import org.eclipse.xtext.resource.IResourceServiceProvider
-import org.eclipse.emf.common.util.URI
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
+
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.*
-import org.osate.testsupport.AssertHelper
-import org.osate.aadl2.DeviceImplementation
-import org.osate.aadl2.DefaultAnnexSubclause
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
 
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelInjectorProvider)
@@ -51,9 +48,6 @@ class Issue2125Test extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 
-	
-	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
-		URI.createFileURI("dummy.emv2")).get(AssertHelper)
 	
 	@Test
 	def void testPkg1() {
@@ -65,7 +59,7 @@ class Issue2125Test extends XtextTest {
 			publicSection.ownedClassifiers.get(3) as DeviceImplementation => [
 				"iPCA_Error_Detector.i".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					transitions.get(1) as ErrorBehaviorTransition => [
+					transitions.get(1) => [
 						assertError(testFileResult.issues, issueCollection, "Target state failed_undetected requires type but the triggering error event post_not_detect_failure or source state working does not have a type")
 					]
 				]

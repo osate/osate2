@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>releng.releng</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>pom.xml</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/pom.xml</locationURI>
+		</link>
+		<link>
+			<name>version-management</name>
+			<type>2</type>
+			<location>$%7BPARENT-1-PROJECT_LOC%7D/version-management</location>
+		</link>
+		<link>
+			<name>scripts</name>
+			<type>2</type>
+			<location>$%7BPARENT-1-PROJECT_LOC%7D/scripts</location>
+		</link>
+	</linkedResources>
+</projectDescription>

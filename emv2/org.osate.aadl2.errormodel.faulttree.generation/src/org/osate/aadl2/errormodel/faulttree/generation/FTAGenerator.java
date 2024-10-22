@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -234,25 +234,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		combined = FaultTreeUtils.createIntermediateEvent(ftaModel, component, ne, type);
 		combined.setSubEventLogic(LogicOperation.AND);
 
-		for (Object seobj : subEvents) {
-			Event se = (Event) seobj;
-			combined.getSubEvents().add(se);
-		}
-		return combined;
-	}
-
-	private Event finalizeAsPriorityAndEvents(ComponentInstance component, Element ne, TypeToken type,
-			List<EObject> subEvents, String eventname) {
-		if (subEvents.size() == 0) {
-			return null;
-		}
-		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.PRIORITY_AND, component,
-				ne, type);
-		if (combined != null) {
-			return combined;
-		}
-		combined = FaultTreeUtils.createIntermediateEvent(ftaModel, component, ne, type);
-		combined.setSubEventLogic(LogicOperation.PRIORITY_AND);
 		for (Object seobj : subEvents) {
 			Event se = (Event) seobj;
 			combined.getSubEvents().add(se);
@@ -537,27 +518,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	/**
-	 * recursively remove common events from subgates of XOR gates
-	 * @param rootevent
-	 * @return Event original or new root event
-	 */
-	private void xformXORtoOR(Event rootevent) {
-		if (rootevent.getSubEvents().isEmpty()) {
-			return;
-		}
-		List<Event> subEvents = rootevent.getSubEvents();
-		for (Event event : subEvents) {
-			if (!event.getSubEvents().isEmpty()) {
-				cleanupXORGates(event);
-			}
-		}
-		if (rootevent.getSubEventLogic() == LogicOperation.XOR) {
-			doXformXORtoOR(rootevent);
-		}
-		return;
-	}
-
-	/**
 	 * recursively apply optimizations on subgates.
 	 * At the end optimize gate of rootevent.
 	 * This may result in a new rootevent
@@ -804,40 +764,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				removeZeroOneEventSubGates(topevent);
 				return;
 			}
-		}
-	}
-
-	/**
-	 * remove shared OR from AND if also as subevent of XOR
-	 * @param topevent
-	 * @param gt
-	 * @return Event
-	 */
-	private void doXformXORtoOR(Event topevent) {
-		List<Event> subEvents = topevent.getSubEvents();
-		if (subEvents.isEmpty()) {
-			return;
-		}
-		if (subEvents.size() == 1) {
-			return;
-		}
-		List<Event> todo = new LinkedList<Event>();
-		todo.clear();
-		for (Event se : subEvents) {
-			if (!se.getSubEvents().isEmpty() && (se.getSubEventLogic() == LogicOperation.OR)) {
-				for (Event andevent : subEvents) {
-					if (!andevent.getSubEvents().isEmpty() && (andevent.getSubEventLogic() == LogicOperation.AND)) {
-						if (andevent.getSubEvents().contains(se)) {
-							andevent.getSubEvents().remove(se);
-							todo.add(se);
-						}
-					}
-				}
-			}
-		}
-		if (todo.size() > 0) {
-			topevent.setSubEventLogic(LogicOperation.OR);
-			topevent.getSubEvents().removeAll(todo);
 		}
 	}
 

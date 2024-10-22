@@ -1,0 +1,32 @@
+package Issue2836
+public
+
+	feature group FGT
+		features
+			f: feature group FGT;
+			f1: feature group FGT1;
+			f2: feature group FGT2;
+	end FGT;
+
+	feature group FGT1
+		features
+			f: feature group FGT;
+			f1: feature group FGT2;
+	end FGT1;
+	
+	feature group FGT2
+		features
+			f: feature group FGT3;
+	end FGT2;
+	
+	feature group FGT3
+		features
+			f: feature group;
+	end FGT3;
+	
+	feature group FGT4
+		features
+			f: feature group FGT;
+	end FGT4;
+	
+ end Issue2836;

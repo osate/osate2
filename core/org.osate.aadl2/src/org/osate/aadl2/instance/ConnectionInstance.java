@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,14 +23,7 @@
  */
 package org.osate.aadl2.instance;
 
-import java.util.List;
-
 import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.properties.InvalidModelException;
 
 /**
  * <!-- begin-user-doc -->
@@ -250,51 +243,5 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 * @generated
 	 */
 	void setSource(ConnectionInstanceEnd value);
-
-	/**
-	 * Get the values associated with the given property for each connection
-	 * declaration that defines this semantic connection.
-	 *
-	 * @param property
-	 * 			  The property to look up
-	 * @return A list of
-	 * 		   {@link AadlModalPropertyValue}
-	 * 		   objects, one for each connection declaration. The objects are in
-	 * 		   the same order as the connection declaration objects returned by
-	 * 		   {@link #getConnections()}. Furthermore, the values are in terms
-	 * 		   of the connection instance object, that is, modal dependencies
-	 * 		   are given in terms of system operation modes, and reference
-	 * 		   values have been resolved to point to instance objects.
-	 * @throws InvalidModelException Thrown if the property values cannot be
-	 * retrieved because the model is incomplete.
-	 * @exception IllegalArgumentException
-	 * 				  Thrown if one of the underlying connection declarations
-	 * 				  does not accept the property.
-	 */
-	List<ModalPropertyValue> getConnectionPropertyValues(Property property) throws InvalidModelException;
-
-	/**
-	 * Get the feature instances that this semantic connection passes through
-	 * including the ultimate start and end points.  The features are returned in
-	 * the order in which they are passed through.
-	 *
-	 * @return A list of <code>InstanceObject</code>s.  The first item in the
-	 * 		   list will be a {@link ComponentInstance} if the connection is an
-	 * 		   access connection.  In this case, the component is the data or bus
-	 * 		   component that is being accessed through the connection.  In all
-	 * 		   other cases the first element will be a {@link FeatureInstance}.
-	 * 		   All subsequent elements in the list are always {@link FeatureInstance}
-	 * 		   objects.
-	 * @deprecated will be removed in 2.12.0
-	 */
-	@Deprecated(since = "2.11.0", forRemoval = true)
-	List<InstanceObject> getThroughFeatureInstances();
-
-	/**
-	 * @deprecated will be removed in 2.12.0
-	 */
-	@Deprecated(since = "2.11.0", forRemoval = true)
-	ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
-			final Context connCtxt);
 
 } // ConnectionInstance

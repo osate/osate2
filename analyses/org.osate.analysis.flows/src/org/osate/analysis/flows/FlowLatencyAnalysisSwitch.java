@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -539,8 +539,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				report.isMajorFrameDelay());
 
 		processActualConnectionBindingsSampling(connectionInstance, latencyContributor);
-		ComponentClassifier relatedConnectionData = (ComponentClassifier) FlowLatencyUtil
-				.getConnectionData(connectionInstance);
+		ComponentClassifier relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
 		processActualConnectionBindingsTransmission(connectionInstance,
 				relatedConnectionData == null ? 0.0
 						: AadlContribUtils.getDataSize(relatedConnectionData, SizeUnits.BYTES),
@@ -1449,28 +1448,31 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						// Finally we can stick this into the latency contributor
 						final LatencyContributor latencyContributor = connectionsToContributors
 								.get(new Pair<>(bus, ci));
-						final LatencyContributor queuingLatencyContributor = new LatencyContributorComponent(bus,
-								report.isMajorFrameDelay());
-						queuingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.QUEUED);
-						queuingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.QUEUED);
-						queuingLatencyContributor.setMinimum(0.0);
-						if (report.isDisableQueuingLatency()) {
-							// Hide the queuing time
-							queuingLatencyContributor.setMaximum(0.0);
-							queuingLatencyContributor.reportInfo("Ignoring queuing time of " + maxWaitingTime + "ms");
-						} else {
-							// Report the queuing time
-							queuingLatencyContributor.setMaximum(maxWaitingTime);
-						}
-						latencyContributor.addSubContributor(queuingLatencyContributor);
+						if (latencyContributor != null) {
+							final LatencyContributor queuingLatencyContributor = new LatencyContributorComponent(bus,
+									report.isMajorFrameDelay());
+							queuingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.QUEUED);
+							queuingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.QUEUED);
+							queuingLatencyContributor.setMinimum(0.0);
+							if (report.isDisableQueuingLatency()) {
+								// Hide the queuing time
+								queuingLatencyContributor.setMaximum(0.0);
+								queuingLatencyContributor
+										.reportInfo("Ignoring queuing time of " + maxWaitingTime + "ms");
+							} else {
+								// Report the queuing time
+								queuingLatencyContributor.setMaximum(maxWaitingTime);
+							}
+							latencyContributor.addSubContributor(queuingLatencyContributor);
 
-						// add the sampling latency
-						LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(
-								bus, report.isMajorFrameDelay());
-						samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
-						samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
-						samplingLatencyContributor.setSamplingPeriod(0.0);
-						latencyContributor.addSubContributor(samplingLatencyContributor);
+							// add the sampling latency
+							LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(bus,
+									report.isMajorFrameDelay());
+							samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
+							samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
+							samplingLatencyContributor.setSamplingPeriod(0.0);
+							latencyContributor.addSubContributor(samplingLatencyContributor);
+						}
 					}
 				}
 			}

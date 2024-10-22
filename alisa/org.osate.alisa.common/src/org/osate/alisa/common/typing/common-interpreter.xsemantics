@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -41,7 +41,6 @@ import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.InstanceFactory
-import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.alisa.common.common.ABinaryOperation
 import org.osate.alisa.common.common.AConditional

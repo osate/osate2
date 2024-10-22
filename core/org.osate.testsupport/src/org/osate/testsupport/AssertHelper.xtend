@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2023 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2024 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -49,12 +49,12 @@ class AssertHelper {
 	@SerializerScopeProviderBinding
 	IScopeProvider serializerScopeProvider
 
-	def public static assertError(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
+	def static assertError(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
 		String... expectedMessages) {
 		assertIssue(eObject, allIssues, issueCollection, Severity.ERROR, expectedMessages)
 	}
 
-	def public static assertWarning(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
+	def static assertWarning(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
 		String... expectedMessages) {
 		assertIssue(eObject, allIssues, issueCollection, Severity.WARNING, expectedMessages)
 	}
@@ -69,11 +69,11 @@ class AssertHelper {
 		issuesForEObject.forEach[issueCollection.addIssue(it)]
 	}
 
-	def public assertScope(EObject context, EReference reference, Iterable<String> expected) {
+	def assertScope(EObject context, EReference reference, Iterable<String> expected) {
 		assertScope(scopeProvider, context, reference, expected)
 	}
 
-	def public assertSerializerScope(EObject context, EReference reference, Iterable<String> expected) {
+	def assertSerializerScope(EObject context, EReference reference, Iterable<String> expected) {
 		assertScope(serializerScopeProvider, context, reference, expected)
 	}
 
