@@ -30,7 +30,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.resource.budgets.logic.BusLoadAnalysis;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @since 2.0
@@ -68,7 +67,6 @@ public class BusLoadAnalysisHandler extends AaxlReadOnlyHandlerAsJob {
 
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element root) {
-		InstanceModelUtil.clearCache();
 		new BusLoadAnalysis(getActionName(), this).analysisBody(monitor, root);
 	}
 

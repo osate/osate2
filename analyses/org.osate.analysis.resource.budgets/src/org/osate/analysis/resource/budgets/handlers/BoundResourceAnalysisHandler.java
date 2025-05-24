@@ -30,7 +30,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.resource.budgets.logic.BoundResourceAnalysis;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @author lwrage
@@ -68,7 +67,6 @@ public class BoundResourceAnalysisHandler extends AaxlReadOnlyHandlerAsJob {
 
 	@Override
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-		InstanceModelUtil.clearCache();
 		new BoundResourceAnalysis(getActionName(), this).analysisBody(monitor, obj);
 	}
 
