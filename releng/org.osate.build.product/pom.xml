@@ -35,7 +35,7 @@
 
 	<groupId>org.osate.build.product</groupId>
 	<artifactId>org.osate.branding.osate2</artifactId>
-	<version>2.15.90-SNAPSHOT</version>
+	<version>2.15.91-SNAPSHOT</version>
 	<packaging>eclipse-repository</packaging>
 	<name>OSATE2 RCP Product</name>
 
