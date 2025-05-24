@@ -635,8 +635,12 @@ public class InstanceModelUtil {
 		}
 	}
 
-	@Deprecated
+	/**
+	 * @deprecated
+	 */
+	@Deprecated(since = "3.2.1")
 	public static void clearCache() {
+		// cache has been removed
 	}
 
 	/**
@@ -669,7 +673,7 @@ public class InstanceModelUtil {
 				@Override
 				protected boolean suchThat(Element obj) {
 					return DeploymentProperties.getActualMemoryBinding((ComponentInstance) obj)
-							.map(boundMemoryList -> boundMemoryList.isEmpty() ? false
+							.map(boundMemoryList -> !boundMemoryList.isEmpty() ? false
 									: boundMemoryList.get(0) == associatedObject)
 							.orElse(false);
 				}
