@@ -673,8 +673,8 @@ public class InstanceModelUtil {
 				@Override
 				protected boolean suchThat(Element obj) {
 					return DeploymentProperties.getActualMemoryBinding((ComponentInstance) obj)
-							.map(boundMemoryList -> !boundMemoryList.isEmpty() ? false
-									: boundMemoryList.get(0) == associatedObject)
+							.map(boundMemoryList -> !boundMemoryList.isEmpty()
+									&& boundMemoryList.get(0) == associatedObject)
 							.orElse(false);
 				}
 				// process bottom up so we can check whether children had budgets
