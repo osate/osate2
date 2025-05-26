@@ -172,9 +172,16 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 						io.removePropertyAssociations(property);
 						newPA.setProperty(property);
 						newPA.setPropertyAssociation(getDeclarativePA(result.getPa()));
-						fillPropertyValue(io, newPA, evaluated);
+						var issues = fillPropertyValue(io, newPA, evaluated);
 						if (!newPA.getOwnedValues().isEmpty()) {
 							io.getOwnedPropertyAssociations().add(newPA);
+							for (var issue : issues) {
+								if (issue.isError) {
+									error(issue.e, issue.msg);
+								} else {
+									warning(issue.e, issue.msg);
+								}
+							}
 						}
 					}
 				} catch (IllegalStateException e) {
@@ -318,8 +325,12 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 
 	}
 
-	private void fillPropertyValue(InstanceObject io, PropertyAssociation pa, List<EvaluatedProperty> values) {
+	private record Issue(boolean isError, Element e, String msg) {
+	}
 
+	private List<Issue> fillPropertyValue(InstanceObject io, PropertyAssociation pa, List<EvaluatedProperty> values) {
+
+		var result = new ArrayList<Issue>();
 		PropertyExpression lexp;
 		List<PropertyExpression> elems;
 		final Iterator<EvaluatedProperty> valueIter = values.iterator();
@@ -412,14 +423,19 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 							PropertyExpression irv = ((ReferenceValue) elem).instantiate(io);
 							if (irv != null) {
 								EcoreUtil.replace(elem, irv);
+							} else {
+								result.add(
+										new Issue(true, elem,
+												"Referenced element does not exist in the instance model"));
 							}
 						} catch (InvalidModelException e) {
-							error(io, e.getMessage());
+							result.add(new Issue(true, io, e.getMessage()));
 						}
 					}
 				}
 			}
 		}
+		return result;
 	}
 
 }
