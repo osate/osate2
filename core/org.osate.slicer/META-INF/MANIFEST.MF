@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: AADL Model Slicer
 Bundle-SymbolicName: org.osate.slicer
-Bundle-Version: 0.1.2.qualifier
+Bundle-Version: 0.1.3.qualifier
 Automatic-Module-Name: org.osate.slicer
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: CMU/SEI

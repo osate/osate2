@@ -4,10 +4,10 @@
       label="ALISA Requirement Specification and Verification"
       version="8.1.1.qualifier"
       license-feature="org.osate.license"
-      license-feature-version="1.0.5">
+      license-feature-version="1.0.6">
 
    <copyright>
-      Copyright (c) 2004-2024 Carnegie Mellon University. All rights reserved.
+      Copyright (c) 2004-2025 Carnegie Mellon University. All rights reserved.
    </copyright>
 
    <plugin
