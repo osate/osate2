@@ -45,7 +45,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.instance.ui</artifactId>
-			<version>1.1.4-SNAPSHOT</version>
+			<version>1.1.5-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
@@ -100,7 +100,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.workspace</artifactId>
-			<version>4.1.0-SNAPSHOT</version>
+			<version>4.1.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>

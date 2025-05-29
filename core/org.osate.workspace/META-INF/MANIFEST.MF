@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Workspace Plug-in
 Bundle-SymbolicName: org.osate.workspace;singleton:=true
-Bundle-Version: 4.1.0.qualifier
+Bundle-Version: 4.1.1.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.workspace.WorkspacePlugin
 Bundle-Vendor: CMU/SEI
@@ -19,5 +19,5 @@ Export-Package: org.osate.workspace;
    org.eclipse.ui.plugin,
    org.osgi.framework"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Import-Package: org.eclipse.xtext.ui.containers
+Import-Package: org.eclipse.xtext.ui.containers;version="[2.30.0,3.0.0)"
 Automatic-Module-Name: org.osate.workspace
