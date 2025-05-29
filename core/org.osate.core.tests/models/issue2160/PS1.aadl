@@ -1,0 +1,3 @@
+property set PS1 is
+	def1: reference(feature) applies to (all);
+end PS1;

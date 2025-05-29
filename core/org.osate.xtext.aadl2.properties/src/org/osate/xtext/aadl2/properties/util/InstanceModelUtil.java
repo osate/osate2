@@ -26,7 +26,6 @@ package org.osate.xtext.aadl2.properties.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -64,7 +63,6 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.OsateDebug;
 
 public class InstanceModelUtil {
 
@@ -637,13 +635,12 @@ public class InstanceModelUtil {
 		}
 	}
 
-	private static HashMap<ComponentInstance, EList<ComponentInstance>> boundSWCache = new HashMap<ComponentInstance, EList<ComponentInstance>>();
-	private static HashMap<ComponentInstance, EList<ConnectionInstance>> boundBusConnections = new HashMap<ComponentInstance, EList<ConnectionInstance>>();
-
+	/**
+	 * @deprecated
+	 */
+	@Deprecated(since = "3.2.1")
 	public static void clearCache() {
-		OsateDebug.osateDebug("[InstanceModelUtil] clearing cache");
-		boundSWCache.clear();
-		boundBusConnections.clear();
+		// cache has been removed
 	}
 
 	/**
@@ -655,10 +652,6 @@ public class InstanceModelUtil {
 	 */
 	public static EList<ComponentInstance> getBoundSWComponents(final ComponentInstance associatedObject) {
 		EList<Element> boundComponents = null;
-
-		if (boundSWCache.containsKey(associatedObject)) {
-			return boundSWCache.get(associatedObject);
-		}
 		SystemInstance root = associatedObject.getSystemInstance();
 
 		if ((associatedObject.getCategory() == ComponentCategory.PROCESSOR)
@@ -679,9 +672,9 @@ public class InstanceModelUtil {
 			boundComponents = new ForAllElement() {
 				@Override
 				protected boolean suchThat(Element obj) {
-					return DeploymentProperties.getActualMemoryBinding((ComponentInstance) obj).map(
-							boundMemoryList -> boundMemoryList.isEmpty() ? false
-									: boundMemoryList.get(0) == associatedObject)
+					return DeploymentProperties.getActualMemoryBinding((ComponentInstance) obj)
+							.map(boundMemoryList -> !boundMemoryList.isEmpty()
+									&& boundMemoryList.get(0) == associatedObject)
 							.orElse(false);
 				}
 				// process bottom up so we can check whether children had budgets
@@ -692,7 +685,6 @@ public class InstanceModelUtil {
 		for (Object componentInstance : boundComponents) {
 			addAsRoot(topobjects, (ComponentInstance) componentInstance);
 		}
-		boundSWCache.put(associatedObject, topobjects);
 		return topobjects;
 	}
 
@@ -903,26 +895,20 @@ public class InstanceModelUtil {
 		EList<ConnectionInstance> connections;
 		SystemInstance root;
 
-		if (!boundBusConnections.containsKey(busorVB)) {
+		result = new BasicEList<ConnectionInstance>();
+		root = busorVB.getSystemInstance();
+		connections = root.getAllConnectionInstances();
+		for (ConnectionInstance connectionInstance : connections) {
 
-			result = new BasicEList<ConnectionInstance>();
-			root = busorVB.getSystemInstance();
-			connections = root.getAllConnectionInstances();
-			for (ConnectionInstance connectionInstance : connections) {
-
-				if (InstanceModelUtil.isBoundToBus(connectionInstance, busorVB) ||
-				// we derived a bus connection from the connection end bindings
-						(!InstanceModelUtil.hasBusBinding(connectionInstance)
-								&& InstanceModelUtil.connectedByBus(connectionInstance, busorVB))) {
-					result.add(connectionInstance);
-				}
-
+			if (InstanceModelUtil.isBoundToBus(connectionInstance, busorVB) ||
+			// we derived a bus connection from the connection end bindings
+					(!InstanceModelUtil.hasBusBinding(connectionInstance)
+							&& InstanceModelUtil.connectedByBus(connectionInstance, busorVB))) {
+				result.add(connectionInstance);
 			}
 
-			boundBusConnections.put(busorVB, result);
 		}
-
-		return boundBusConnections.get(busorVB);
+		return result;
 	}
 
 	/**

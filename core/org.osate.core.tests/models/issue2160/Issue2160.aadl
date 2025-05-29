@@ -1,0 +1,15 @@
+package Issue2160
+public
+  with PS1;
+
+  system s1
+    features
+      f1: feature[];
+    properties
+      PS1::def1 => reference (f1[3]);
+  end s1;
+
+  system implementation s1.i
+  end s1.i;
+
+end Issue2160;

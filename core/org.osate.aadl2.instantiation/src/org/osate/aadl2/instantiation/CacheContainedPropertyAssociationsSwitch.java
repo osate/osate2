@@ -235,19 +235,6 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 							newPA.setPropertyAssociation(pa);
 							newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
 
-							// replace reference values in the context of the contained PA's owner
-							for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
-									.hasNext();) {
-								Element elem = content.next();
-
-								if (elem instanceof ReferenceValue) {
-									PropertyExpression irv = ((ReferenceValue) elem).instantiate(fi);
-									if (irv != null) {
-										EcoreUtil.replace(elem, irv);
-									}
-								}
-							}
-
 							final PropertyAssociation existingPA = io.getPropertyValue(prop, false).first();
 							if (existingPA != null && isConstant(existingPA)) {
 								/*
@@ -266,6 +253,20 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 							} else {
 								io.removePropertyAssociations(prop);
 								io.getOwnedPropertyAssociations().add(newPA);
+								// replace reference values in the context of the contained PA's owner
+								for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
+										.hasNext();) {
+									Element elem = content.next();
+
+									if (elem instanceof ReferenceValue) {
+										PropertyExpression irv = ((ReferenceValue) elem).instantiate(fi);
+										if (irv != null) {
+											EcoreUtil.replace(elem, irv);
+										} else {
+											error(elem, "Referenced element does not exest in the instance model");
+										}
+									}
+								}
 							}
 						}
 					}
@@ -328,6 +329,8 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 									PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
 									if (irv != null) {
 										EcoreUtil.replace(elem, irv);
+									} else {
+										error(elem, "Referenced element does not exest in the instance model");
 									}
 								} catch (InvalidModelException e) {
 									error(io, e.getMessage());
