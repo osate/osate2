@@ -263,7 +263,7 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 										if (irv != null) {
 											EcoreUtil.replace(elem, irv);
 										} else {
-											error(elem, "Referenced element does not exest in the instance model");
+											error(elem, "Referenced element does not exist in the instance model");
 										}
 									}
 								}
@@ -330,7 +330,7 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 									if (irv != null) {
 										EcoreUtil.replace(elem, irv);
 									} else {
-										error(elem, "Referenced element does not exest in the instance model");
+										error(elem, "Referenced element does not exist in the instance model");
 									}
 								} catch (InvalidModelException e) {
 									error(io, e.getMessage());
