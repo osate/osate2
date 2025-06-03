@@ -382,7 +382,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		 * connection within the instance model. See bug #220
 		 */
 		if ((toEnd instanceof ParameterImpl)
-				&& ((fromEnd instanceof DataSubcomponent) || (fromEnd instanceof DataAccess))) {
+				&& (fromEnd instanceof DataSubcomponent || fromEnd instanceof DataAccess
+						|| ci instanceof SystemInstance)) {
 			return;
 		}
 
