@@ -1,0 +1,24 @@
+package Issue2918
+public
+
+  thread receiver
+    features
+      p: in event data port Integer;
+  end receiver;
+
+  thread implementation receiver.impl
+    calls
+      call : { c : subprogram receiver_spg;};
+    connections
+      cnx: parameter p -> c.input;
+  end receiver.impl;
+
+  subprogram receiver_spg
+    features
+      input : in parameter Integer;
+  end receiver_spg;
+
+  data Integer
+  end Integer;
+
+end Issue2918;
