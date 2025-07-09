@@ -119,6 +119,7 @@ import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -144,7 +145,7 @@ public class InstantiateModel {
 
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
-	protected final AnalysisErrorReporterManager errManager;
+	protected AnalysisErrorReporterManager errManager;
 	protected final IProgressMonitor monitor;
 
 	/**
@@ -421,7 +422,30 @@ public class InstantiateModel {
 			if (save) {
 				aadlResource.save(null);
 			}
+			// collect errors in list and transfer to original error manager later
+			// property associations can be added with an error but could then be removed
+			// see issue #2929
+			var origErrManager = errManager;
+			errManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);
 			fillSystemInstance(root);
+			var errors = ((QueuingAnalysisErrorReporter) errManager.getReporter(aadlResource)).getErrors();
+			errManager = origErrManager;
+			for (var msg : errors) {
+				if (msg.where.eResource() != null) {
+					// keep only errors referring to elements that are still in the instance model
+					switch (msg.kind) {
+					case QueuingAnalysisErrorReporter.ERROR:
+						errManager.error(msg.where, msg.message, msg.attributes, msg.values);
+						break;
+					case QueuingAnalysisErrorReporter.WARNING:
+						errManager.warning(msg.where, msg.message, msg.attributes, msg.values);
+						break;
+					case QueuingAnalysisErrorReporter.INFO:
+						errManager.info(msg.where, msg.message, msg.attributes, msg.values);
+						break;
+					}
+				}
+			}
 		} catch (InterruptedException e) {
 			throw e;
 		} catch (Exception e) {
