@@ -1,0 +1,24 @@
+package T02
+public
+	
+	system S
+		features
+			e0: in event port;
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			s0: system S.i1[3];
+		connections
+			c0: port e0 -> s0.e0;
+	end S.i;
+	
+	system implementation S.i1
+		modes
+			m0: initial mode;
+			m1: mode;
+			m0 -[e0]-> m1;
+			m1 -[e0]-> m0;
+	end S.i1;
+	
+end T02;

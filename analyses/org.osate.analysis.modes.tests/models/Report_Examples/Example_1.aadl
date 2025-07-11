@@ -1,0 +1,47 @@
+package Example_1
+public
+	system S
+		features
+			e0: in event port;
+	end S;
+	
+	system implementation S.i0
+		subcomponents
+			a: system A;
+			b: system B;
+		connections
+			c: port a.e1 -> b.e1;
+		modes
+			m0: initial mode; m1: mode;
+			m0 -[e0]-> m1; m1 -[e0]-> m0;
+	end S.i0;
+	
+	system implementation S.i1 extends S.i0
+		subcomponents
+			a: refined to system A in modes (m0);
+	end S.i1;
+	
+	system implementation S.i2 extends S.i0
+		subcomponents
+			b: refined to system B in modes (m0);
+	end S.i2;
+	
+	system implementation S.i3 extends S.i0
+		subcomponents
+			a: refined to system A in modes (m0);
+			b: refined to system B in modes (m1);
+	end S.i3;
+	
+	system A
+		features
+			e1: out event port;
+	end A;
+	
+	system B
+		features
+			e1: in event port;
+		modes
+			m10: initial mode; m11: mode;
+			m10 -[e1]-> m11; m11 -[e1]-> m10;
+	end B;
+end Example_1;

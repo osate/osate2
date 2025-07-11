@@ -1,0 +1,61 @@
+package T20
+public
+
+	system S
+		features
+			e0: in event port;
+	end S;
+	
+	
+	system implementation S.i
+		subcomponents
+			u: system U;
+			t: system T.i;
+		connections
+			c0: port e0 -> t.e1;
+			c1: port u.e1 -> t.e0 in modes (m1);
+		modes
+			m0: initial mode;
+			m1: mode;
+			mt: m0 -[e0]-> m1;
+	end S.i;
+	
+	system U
+		features
+			e1: out event port;	
+	end U;
+	
+	system T
+		features
+			e0: in event port;
+			e1: in event port;
+	end T;
+	
+	system implementation T.i
+		subcomponents
+			a: system S.a;
+			b: system S.b;
+		connections
+			c2: port e0 -> a.e0 in modes (m10);
+			c3: port e0 -> b.e0 in modes (m11);
+		modes
+			m10: initial mode;
+			m11: mode;
+			mt: m10 -[e1]-> m11;
+	end T.i;
+	
+	system implementation S.a
+		modes
+			m20: initial mode;
+			m21: mode;
+			mt: m20 -[e0]-> m21;
+	end S.a;
+	
+	system implementation S.b
+		modes
+			m30: initial mode;
+			m31: mode;
+			mt: m30 -[e0]-> m31;
+	end S.b;
+	
+end T20;
