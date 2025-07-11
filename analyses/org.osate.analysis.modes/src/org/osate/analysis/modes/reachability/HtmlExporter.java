@@ -156,12 +156,19 @@ public class HtmlExporter extends FileExporter {
 			b.append("    </tr>\n");
 			i++;
 		}
+		b.append("    <tr>\n");
+		b.append("      <td>SMV:</td>\n");
+		for (var c = 0; c < Layout.cols; c++) {
+			b.append("      <td style=\"" + w + "\">c" + c + "</td>\n");
+		}
+		b.append("    </tr>\n");
 		b.append("  </table>\n");
 		b.append("""
 				  <p>
 				    The table cells show the mode of components (column) in an SOM (row). Derived component modes are shown in italic font, an empty cell means that the component is not active in the SOM.<br/>
 				    Only modal components are included in the table, always active components are not shown.<br/>
 				    A gray background indicates the initial mode.<br/>
+				    The last row contains the component names used in the SMV file.<br/>
 				    <i>Note that the SOM names in this table are not related to SOM names in the instance model.</i>
 				  </p>
 				""");
