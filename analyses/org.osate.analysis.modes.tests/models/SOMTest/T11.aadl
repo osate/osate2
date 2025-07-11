@@ -1,0 +1,48 @@
+package T11
+public
+	
+	system S
+		features
+			e: in event port;
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			p1: process P.i;
+			p2: process P.i;
+		connections
+			c: port p1.s <-> p2.s in modes (m1);
+		modes
+			m0: initial mode;
+			m1: mode;
+			m2: mode;
+			tn0: m0 -[e]-> m1;
+	end S.i;
+	
+	process P
+		features
+			s: in out event port;
+	end P;
+	
+	process implementation P.i
+		subcomponents
+			t: thread T.i;
+		connections
+			cp: port s <-> t.s;
+	end P.i;
+	
+	thread T
+		features
+			s: in out event port;
+	end T;
+	
+	thread implementation T.i
+		modes
+			m0: initial mode;
+			m1: mode;
+			m2: mode;
+			tn0: m0 -[s]-> m1;		
+			tn1: m1 -[s]-> m2;		
+	end T.i;
+	
+end T11;

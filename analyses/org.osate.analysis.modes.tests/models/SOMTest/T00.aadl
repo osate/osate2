@@ -1,0 +1,44 @@
+package T00
+public
+	
+	system S
+		features
+			e1: in event port;
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			s1: system S1.i;
+			s2: system S2.i in modes (m2);
+			s3: system S3;
+		modes
+			m0: initial mode;
+			m1: mode;
+			m2: mode;
+			m0 -[e1]-> m1;
+	end S.i;
+	
+	system S1
+	end S1;
+	
+	system implementation S1.i
+		modes
+			m10: initial mode;
+			m11: mode;
+			m12: mode;
+	end S1.i;
+	
+	system S2
+	end S2;
+	
+	system implementation S2.i
+		modes
+			m20: initial mode;
+			m21: mode;
+			m22: mode;
+	end S2.i;
+
+	system S3
+	end S3;
+	
+end T00;

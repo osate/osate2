@@ -1,0 +1,37 @@
+package T03
+public
+	
+	system S
+		features
+			e0: in event port;
+			e1: in event port;
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			s0: system S.i1 in modes (m0);
+		connections
+			c0: port e1 -> s0.e1;
+		modes
+			m0: initial mode;
+			m1: mode;
+			m0 -[e0]-> m1;
+			m1 -[e0]-> m0;
+--		properties
+--			Resumption_Policy => resume in modes (m1), restart; 
+	end S.i;
+	
+	system implementation S.i1
+		modes
+			m10: initial mode;
+			m11: mode;
+			m12: mode;
+			m10 -[e1]-> m11;
+			m11 -[e1]-> m12;
+		properties
+			Resumption_Policy => resume in modes (m10, m11), restart; 
+--		properties
+--			Resumption_Policy => resume; 
+	end S.i1;
+	
+end T03;

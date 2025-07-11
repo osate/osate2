@@ -1,0 +1,72 @@
+package Merge
+public
+	
+	system S0
+		features
+			e0: in event port;
+			e1: in event port;
+	end S0;
+	
+	system implementation S0.i0
+		modes
+			A: initial mode;
+			B: mode;
+			A -[e0]-> B;
+	end S0.i0;
+	
+	system S1
+		features
+			e0: in out event port;
+			e1: in out event port;
+			e2: in out event port;
+		modes
+			C: initial mode;
+			D: mode;
+			C -[e0]-> D;
+	end S1;
+
+	system implementation S1.i0
+	end S1.i0;
+	
+	system T
+		features
+			trg: out event port;
+	end T;
+	
+	system implementation S0.mi1 extends S0.i0
+		subcomponents
+			s1: system S1.i0;
+		connections
+			c11: port e0 -> s1.e0;
+	end S0.mi1;
+	
+	system implementation S0.mi2 extends S0.i0
+		subcomponents
+			s1: system S1.i0;
+		connections
+			c12: port e1 -> s1.e0;
+	end S0.mi2;
+	
+	system M
+	end M;
+	
+	system implementation M.i0
+		subcomponents
+			t: system T;
+			s0: system S0;
+		connections
+			c0: port t.trg -> s0.e0;
+			c1: port t.trg -> s0.e1;
+	end M.i0;
+	
+	system implementation M.i1 extends M.i0
+		subcomponents
+			s0: refined to system S0.mi1;
+	end M.i1;
+	
+	system implementation M.i2 extends M.i0
+		subcomponents
+			s0: refined to system S0.mi2;
+	end M.i2;
+	
+end Merge;
