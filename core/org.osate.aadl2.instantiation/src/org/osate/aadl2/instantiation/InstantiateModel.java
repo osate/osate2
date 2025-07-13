@@ -128,6 +128,8 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.core.OsateCorePlugin;
 import org.osgi.service.prefs.Preferences;
 
+import com.google.common.base.Strings;
+
 /**
  * This class implements the instantiation of models from a root system impl.
  * The class also contains a switch for performing checks on semantic
@@ -707,21 +709,27 @@ public class InstantiateModel {
 			mti.setDestination(dstI);
 			mti.setModeTransition(mt);
 			List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
-			String eventName = "";
 
-			if (!triggers.isEmpty()) {
-				TriggerPort tp = triggers.get(0).getTriggerPort();
+			if (!Strings.isNullOrEmpty(mt.getName())) {
+				mti.setName(mt.getName());
+			} else {
+				String eventName = "";
 
-				if (tp instanceof Port) {
-					Context ctx = triggers.get(0).getContext();
+				if (!triggers.isEmpty()) {
+					TriggerPort tp = triggers.get(0).getTriggerPort();
 
-					if (ctx instanceof Subcomponent) {
-						eventName = ((Subcomponent) ctx).getName() + "_";
+					if (tp instanceof Port) {
+						Context ctx = triggers.get(0).getContext();
+
+						if (ctx instanceof Subcomponent) {
+							eventName = ((Subcomponent) ctx).getName() + "_";
+						}
 					}
+					eventName += tp.getName();
 				}
-				eventName += tp.getName();
+				mti.setName(
+						srcmode.getName() + "_" + (!eventName.equals("") ? eventName + "_" : "") + dstmode.getName());
 			}
-			mti.setName(srcmode.getName() + "_" + (!eventName.equals("") ? eventName + "_" : "") + dstmode.getName());
 
 			// add only triggers that are ports
 			for (ModeTransitionTrigger t : triggers) {
