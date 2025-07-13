@@ -44,6 +44,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
@@ -418,7 +419,7 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 				for (Iterator<Element> content = EcoreUtil.getAllProperContents(newVal, false); content.hasNext();) {
 					Element elem = content.next();
 
-					if (elem instanceof ReferenceValue) {
+					if (elem instanceof ReferenceValue && !(elem instanceof InstanceReferenceValue)) {
 						try {
 							PropertyExpression irv = ((ReferenceValue) elem).instantiate(io);
 							if (irv != null) {

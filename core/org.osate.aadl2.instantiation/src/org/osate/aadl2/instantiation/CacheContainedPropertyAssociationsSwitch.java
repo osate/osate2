@@ -23,6 +23,7 @@
  */
 package org.osate.aadl2.instantiation;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -290,9 +291,14 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 	 */
 	protected void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
 			final EList<PropertyAssociation> propertyAssociations) {
+
+		record Issue(boolean isError, Element e, String msg) {
+		}
+
 		for (PropertyAssociation pa : propertyAssociations) {
 			// OsateDebug.osateDebug ("[CacheContainedProperty] Process contained property association: " + pa.getProperty().getName());
 			Property prop = pa.getProperty();
+
 			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
 				// PA is missing the prop def, skip to the next one
 				// OsateDebug.osateDebug (" skip");
@@ -309,8 +315,6 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
 					for (InstanceObject io : ios) {
-						// OsateDebug.osateDebug (" io=" + io);
-
 						PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
 								.createPropertyAssociationInstance();
 
@@ -319,6 +323,8 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 						newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
 
 						// replace reference values in the context of the contained PA's owner
+						var issues = new ArrayList<Issue>();
+
 						for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
 								.hasNext();) {
 							Element elem = content.next();
@@ -330,7 +336,8 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 									if (irv != null) {
 										EcoreUtil.replace(elem, irv);
 									} else {
-										error(elem, "Referenced element does not exist in the instance model");
+										issues.add(new Issue(true, elem,
+												"Referenced element does not exist in the instance model"));
 									}
 								} catch (InvalidModelException e) {
 									error(io, e.getMessage());
@@ -367,7 +374,16 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 												+ "\" tries to replace it.");
 							} else {
 								io.removePropertyAssociations(prop);
-								io.getOwnedPropertyAssociations().add(newPA);
+								if (!newPA.getOwnedValues().isEmpty()) {
+									io.getOwnedPropertyAssociations().add(newPA);
+									for (var issue : issues) {
+										if (issue.isError) {
+											error(issue.e, issue.msg);
+										} else {
+											warning(issue.e, issue.msg);
+										}
+									}
+								}
 							}
 						}
 					}
