@@ -126,7 +126,7 @@ public class EventsTest {
 		with((RecoverEventInstance) annexInstance.getEvents().get(2), event -> {
 			assertEquals("recover3", event.getName());
 			assertEquals("recover3", event.getRecoverEvent().getName());
-			assertIterableEquals(List.of("m1_ep1_m2"),
+			assertIterableEquals(List.of("mt1"),
 					event.getEventInitiators().stream().map(NamedElement::getName).toList());
 		});
 		with((RecoverEventInstance) annexInstance.getEvents().get(3), event -> {
@@ -137,7 +137,7 @@ public class EventsTest {
 		with((RecoverEventInstance) annexInstance.getEvents().get(4), event -> {
 			assertEquals("recover5", event.getName());
 			assertEquals("recover5", event.getRecoverEvent().getName());
-			assertIterableEquals(List.of("ep1", "m1_ep1_m2"),
+			assertIterableEquals(List.of("ep1", "mt1"),
 					event.getEventInitiators().stream().map(NamedElement::getName).toList());
 		});
 		with((RecoverEventInstance) annexInstance.getEvents().get(5), event -> {
@@ -148,7 +148,7 @@ public class EventsTest {
 		with((RecoverEventInstance) annexInstance.getEvents().get(6), event -> {
 			assertEquals("recover7", event.getName());
 			assertEquals("recover7", event.getRecoverEvent().getName());
-			assertIterableEquals(List.of("ep1", "m1_ep1_m2"),
+			assertIterableEquals(List.of("ep1", "mt1"),
 					event.getEventInitiators().stream().map(NamedElement::getName).toList());
 		});
 	}
@@ -186,7 +186,7 @@ public class EventsTest {
 		with((RepairEventInstance) annexInstance.getEvents().get(2), event -> {
 			assertEquals("repair3", event.getName());
 			assertEquals("repair3", event.getRepairEvent().getName());
-			assertIterableEquals(List.of("m1_ep1_m2"),
+			assertIterableEquals(List.of("mt1"),
 					event.getEventInitiators().stream().map(NamedElement::getName).toList());
 		});
 		with((RepairEventInstance) annexInstance.getEvents().get(3), event -> {
@@ -197,7 +197,7 @@ public class EventsTest {
 		with((RepairEventInstance) annexInstance.getEvents().get(4), event -> {
 			assertEquals("repair5", event.getName());
 			assertEquals("repair5", event.getRepairEvent().getName());
-			assertIterableEquals(List.of("ep1", "m1_ep1_m2"),
+			assertIterableEquals(List.of("ep1", "mt1"),
 					event.getEventInitiators().stream().map(NamedElement::getName).toList());
 		});
 	}

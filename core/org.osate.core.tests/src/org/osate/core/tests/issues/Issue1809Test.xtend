@@ -69,19 +69,12 @@ class Issue1809Test {
 		// There should be no End To End Flow Instance
 		assertEquals(instance.endToEndFlows.size, 0)
 
-		// Should be 1 error and 1 warning
+		// Should be 1 error
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertEquals(2, messages.size)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
 			assertEquals(ERROR_MSG, message)
-		]
-		messages.get(1) => [
-			/* Warning is reported on an actual ETEI object, but we don't have a way to get a reference to it because the 
-			 * system instance doesn't refer to it, and it isn't supposed to.
-			 */
-			assertEquals(QueuingAnalysisErrorReporter.WARNING, kind)
-			assertEquals(WARNING_MSG, message)
 		]
 	}
 	
@@ -98,19 +91,12 @@ class Issue1809Test {
 		// There should be no End To End Flow Instance
 		assertEquals(instance.endToEndFlows.size, 0)
 
-		// Should be 1 error and 1 warning
+		// Should be 1 error
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertEquals(2, messages.size)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
 			assertEquals(ERROR_MSG, message)
-		]
-		messages.get(1) => [
-			/* Warning is reported on an actual ETEI object, but we don't have a way to get a reference to it because the 
-			 * system instance doesn't refer to it, and it isn't supposed to.
-			 */
-			assertEquals(QueuingAnalysisErrorReporter.WARNING, kind)
-			assertEquals(WARNING_MSG, message)
 		]
 	}
 }

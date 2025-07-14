@@ -140,10 +140,10 @@ class Issue2009Test extends XtextTest {
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
-		// There should be 2 errors and 2 warnings
-		assertTrue(messages.size == 4)
+		// There should be 2 errors
+		assertEquals(2, messages.size)
 		
-		// There should be one end to end flow instance
+		// There should be no end to end flow instance
 		assertEquals(0, instance.endToEndFlows.size)
 	}	
 	
