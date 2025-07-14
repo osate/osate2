@@ -94,9 +94,6 @@ public class DotExporter extends FileExporter {
 		b.append("  compound=true\n");
 		b.append("  labeljust=l\n");
 		b.append("  nodesep=0.5 ranksep=0.5\n");
-//		b.append("  subgraph {\n");
-//		b.append("    0 [label=\"/\"]\n");
-//		b.append("  }\n");
 
 		var n = 1;
 		final int lastLevel = graph.getLevels().size() - 1;
@@ -144,9 +141,7 @@ public class DotExporter extends FileExporter {
 				if (SKIP_DEAD_NODES && deadNodes.contains(node)) {
 					continue;
 				}
-				if (l == 0) {
-//					b.append("  0 -> " + n);
-				} else {
+				if (l != 0) {
 					b.append("  " + node2n.get(node.getParent()) + " -> " + n);
 				}
 				b.append(" [color=red arrowhead=none");
@@ -158,20 +153,6 @@ public class DotExporter extends FileExporter {
 			}
 		}
 
-//		for (int k = 0; k < lastLevel; k++) {
-//			var level = somGraph.getLevels().get(k);
-//			for (var tn : level.getTransitions()) {
-//				var s = node2n.get(tn.getSrc());
-//				var d = node2n.get(tn.getDst());
-//				var label = "";
-//				if (tn.getTrigger() instanceof FeatureTrigger ftg) {
-//					label = ftg.getFeature().getFullName();
-//				}
-//				b.append("  " + s + " -> " + d + " [label=\"" + label
-//						+ "\" style=dotted color=\"#aaaaaa\" constraint=true]\n");
-//			}
-//		}
-
 		var level = graph.getLevels().get(lastLevel);
 		for (var tn : level.getTransitions()) {
 			var s = node2n.get(tn.getSrc());
@@ -182,21 +163,6 @@ public class DotExporter extends FileExporter {
 			}
 			b.append("  " + s + " -> " + d + " [label=\"" + label + "\" color=\"#aaaaaa\"]\n");
 		}
-
-		// add invisible edges to stack layers
-//		for (var dn : somGraph.getLevels().get(0).getNodes()) {
-//			var d = node2n.get(dn);
-//			b.append("  0 -> " + d + " [style=invis]\n");
-//		}
-//		for (int k = 1; k <= lastLevel; k++) {
-//			for (var sn : somGraph.getLevels().get(k - 1).getNodes()) {
-//				for (var dn : somGraph.getLevels().get(k).getNodes()) {
-//					var s = node2n.get(sn);
-//					var d = node2n.get(dn);
-//					b.append("  " + s + " -> " + d + " [style=invis]\n");
-//				}
-//			}
-//		}
 
 		b.append("}\n");
 		return b;
