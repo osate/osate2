@@ -23,7 +23,6 @@
  */
 package org.osate.analysis.modes.ui;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Element;
@@ -46,7 +45,7 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 		return "Analyze SOM reachability";
 	}
 
-	public void invoke(IProgressMonitor monitor, SystemInstance root) throws CoreException {
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		invoke(monitor, null, root);
 	}
 
@@ -54,17 +53,15 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 			final SystemInstance root) {
 		this.errManager = errManager != null ? errManager
 				: new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
-		analyzeInstanceModel(monitor, this.errManager, root);
+		analyzeInstanceModel(monitor, root);
 	}
 
 	@Override
 	protected void doAaxlAction(IProgressMonitor monitor, Element root) {
-		// TODO Auto-generated method stub
-		analyzeInstanceModel(monitor, this.errManager, root);
-		return;
+		analyzeInstanceModel(monitor, root);
 	}
 
-	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+	protected void analyzeInstanceModel(IProgressMonitor monitor,
 			Element root) {
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 		var cfg = new ReachabilityConfiguration().withDot().withHTML().withSMV();

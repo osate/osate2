@@ -36,6 +36,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 public class CrossReferenceUtil {
 
+	private CrossReferenceUtil() {
+		// utility class
+	}
+
 	public static <T> Iterator<T> getInverse(EReference reference, EObject object, Notifier context) {
 		if (context == null) {
 			context = getContext(object);
