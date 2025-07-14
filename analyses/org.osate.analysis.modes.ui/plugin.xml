@@ -66,13 +66,13 @@ censes only apply to the Third Party Software and not any other portion of this 
          </enabledWhen>
       </handler>
    </extension>
-<!--
+<!-- need icon for SOM reachability
    <extension
          point="org.eclipse.ui.commandImages">
       <image
-            commandId="org.osate.analysis.security.checkSecurityRules"
-            disabledIcon="icons/noCheckSecurity.gif"
-            icon="icons/checkSecurity.gif">
+            commandId="org.osate.analysis.modes.reachability"
+            disabledIcon="icons/nocheckSOMReachability.gif"
+            icon="icons/checkSOMReachability.gif">
       </image>
    </extension>
 -->
@@ -84,6 +84,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                commandId="org.osate.analysis.modes.reachability">
          </command>
       </menuContribution>
+<!-- need icon for SON reachability
       <menuContribution
             locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
          <command
@@ -99,6 +100,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             </visibleWhen>
          </command>
       </menuContribution>
+-->
       <menuContribution
             locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=core">
          <command
