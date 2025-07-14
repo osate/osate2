@@ -35,7 +35,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             categoryId="org.osate.analysis.architecture.category"
             description="Analyze reachability of system operation modes"
             id="org.osate.analysis.modes.reachability"
-            name="Analyze SOM Reachability">
+            name="Check SOM Reachability">
       </command>
    </extension>
 
