@@ -47,6 +47,9 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -150,7 +153,7 @@ public class SOMChooserDialog extends Dialog {
 
 	/**
 	 * Open the dialog.  Forces the open call to occur in the SWT thread.
-	 * Otherwise, it is indentical to {@link #open()}.
+	 * Otherwise, it is identical to {@link #open()}.
 	 */
 	public int openThreadSafe() {
 		abstract class IntAnswer implements Runnable {
@@ -395,7 +398,12 @@ public class SOMChooserDialog extends Dialog {
 							if (selectedModes.get(component) == null) {
 								return "Mode Not Set";
 							} else {
-								return selectedModes.get(component).getName();
+								var mode = selectedModes.get(component);
+								var name = mode.getName();
+								if (mode.isDerived()) {
+									name += " (derived)";
+								}
+								return name;
 							}
 						} else {
 							return null;
@@ -421,28 +429,53 @@ public class SOMChooserDialog extends Dialog {
 				return false;
 			}
 		});
-		viewer.setCellEditors(new CellEditor[] { null, new ComboBoxCellEditor(tree, new String[0], SWT.READ_ONLY) });
+		viewer.setCellEditors(new CellEditor[] { null, createCellEditor(tree) });
 		viewer.setCellModifier(new ICellModifier() {
 			@Override
 			public void modify(Object element, String property, Object value) {
 				int selection = ((Integer) value).intValue();
 				if (selection != -1) {
-					selectedModes.put((ComponentInstance) ((TreeItem) element).getData(),
-							((ComponentInstance) ((TreeItem) element).getData()).getModeInstances().get(selection));
+					var ci = (ComponentInstance) ((TreeItem) element).getData();
+					var mi = ((ComponentInstance) ((TreeItem) element).getData()).getModeInstances().get(selection);
+					// set mode for edited component
+					selectedModes.put(ci, mi);
+					// set derived modes for subcomponents
+					setDerivedModes(ci, mi);
 					updateOkEnabled();
 					viewer.refresh();
 					viewer.getTree().redraw();
 				}
 			}
 
+			/**
+			 * Set derived modes given that component ci's mode is set to mi
+			 * @param ci component instance
+			 * @param mi mode of ci
+			 */
+			private void setDerivedModes(ComponentInstance ci, ModeInstance mi) {
+				for (var subci : ci.getComponentInstances()) {
+					for (var submi : subci.getModeInstances()) {
+						if (!submi.isDerived()) {
+							// subcomponent's modes are not derived
+							break;
+						}
+						if (submi.getParents().contains(mi)) {
+							selectedModes.put(subci, submi);
+							setDerivedModes(subci, submi);
+							// there is at most one mode for the subcomponent
+							break;
+						}
+					}
+				}
+			}
+
 			@Override
-			public Object getValue(Object element, String property) {
+			public Integer getValue(Object element, String property) {
 				final ModeInstance mode = selectedModes.get(element);
 				if (mode != null) {
-					return new Integer(((ComponentInstance) element).getModeInstances().indexOf(mode));
-				} else {
-					return new Integer(-1);
+					return ((ComponentInstance) element).getModeInstances().indexOf(mode);
 				}
+				return -1;
 			}
 
 			@Override
@@ -458,12 +491,42 @@ public class SOMChooserDialog extends Dialog {
 					((ComboBoxCellEditor) viewer.getCellEditors()[1]).setItems(modeNames.toArray(new String[0]));
 				}
 				final ComponentInstance component = (ComponentInstance) element;
-				return property.equals(COLUMN_MODE_INSTANCE) && (selectedModes.containsKey(component)
-						&& (component instanceof SystemInstance || componentExistsInCurrentMode(component)));
+				var componentExists = component instanceof SystemInstance || componentExistsInCurrentMode(component);
+				var modes = component.getModeInstances();
+				var nonDerivedModes = !(modes.isEmpty()) && !modes.get(0).isDerived();
+				return property.equals(COLUMN_MODE_INSTANCE) && selectedModes.containsKey(component) && componentExists
+						&& nonDerivedModes;
 			}
 		});
 		viewer.setInput(systemInstance.eResource());
 		viewer.expandAll();
+	}
+
+	private CellEditor createCellEditor(Composite parent) {
+		var cellEditor = new ComboBoxCellEditor(parent, new String[0], SWT.READ_ONLY);
+		var combo = (CCombo) cellEditor.getControl();
+
+		combo.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if ((e.stateMask & SWT.SHIFT) != 0) {
+					try {
+						var method = cellEditor.getClass().getDeclaredMethod("applyEditorValueAndDeactivate");
+						method.setAccessible(true);
+						method.invoke(cellEditor);
+					} catch (Exception exc) {
+					}
+				}
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+
+		});
+
+		return cellEditor;
 	}
 
 	private void updateOkEnabled() {
