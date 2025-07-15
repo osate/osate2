@@ -33,8 +33,9 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -81,7 +82,7 @@ import org.osate.ui.OsateUiPlugin;
  * @author jseibel
  *
  */
-public class SOMChooserDialog extends Dialog {
+public class SOMChooserDialog extends TitleAreaDialog {
 	private static final String MODE_SET_ICON = "icons/mode_set.gif";
 	private static final String MODE_NOT_SET_ICON = "icons/mode_not_set.gif";
 	private static final String NONEXISTENT_ICON = "icons/nonexistent.gif";
@@ -248,6 +249,13 @@ public class SOMChooserDialog extends Dialog {
 		} else {
 			return newSOMName;
 		}
+	}
+
+	@Override
+	public void create() {
+		super.create();
+		setTitle("This is my first custom dialog");
+		setMessage("This is a TitleAreaDialog", IMessageProvider.INFORMATION);
 	}
 
 	/**
