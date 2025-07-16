@@ -123,6 +123,7 @@ public class SOMChooserDialog extends TitleAreaDialog {
 		int flags = getShellStyle();
 		flags |= SWT.RESIZE;
 		setShellStyle(flags);
+		setHelpAvailable(false);
 		if (systemInstance.getSystemOperationModes().size() == 1
 				&& systemInstance.getSystemOperationModes().get(0).getName().equals("No Modes")) {
 			throw new IllegalArgumentException("Cannot create a SOMChooserDialog for the SystemInstance "
@@ -229,7 +230,7 @@ public class SOMChooserDialog extends TitleAreaDialog {
 	public SystemOperationMode getSOM() throws IllegalStateException {
 		if (newSOM == null) {
 			throw new IllegalStateException(
-					"Method called out of order.  Only call getSOM() when open() has returned Dialog.OK");
+					"Method called out of order. Only call getSOM() when open() has returned Dialog.OK");
 		} else {
 			return newSOM;
 		}
@@ -244,7 +245,7 @@ public class SOMChooserDialog extends TitleAreaDialog {
 	public String getSOMName() throws IllegalStateException {
 		if (newSOM == null) {
 			throw new IllegalStateException(
-					"Method called out of order.  Only call getSOMName() when open() has returned Dialog.OK");
+					"Method called out of order. Only call getSOMName() when open() has returned Dialog.OK");
 		} else {
 			return newSOMName;
 		}
@@ -253,8 +254,9 @@ public class SOMChooserDialog extends TitleAreaDialog {
 	@Override
 	public void create() {
 		super.create();
-		setTitle("Select a mode for each modal component in the system instance");
-		setMessage("When using the mouse, shift click immediately sets the selected mode",
+		setTitle("Select a System Operation Mode");
+		setMessage(
+				"Select a mode for each model component in the system instance. \nWhen using the mouse, shift click immediately sets the selected mode",
 				IMessageProvider.INFORMATION);
 	}
 
@@ -265,7 +267,7 @@ public class SOMChooserDialog extends TitleAreaDialog {
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		composite = (Composite) super.createDialogArea(parent);
-		composite.getShell().setText("Select a System Operation Mode");
+		composite.getShell().setText("System Operation Mode Selection");
 
 		viewer = new TreeViewer(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		configureViewer();
@@ -286,7 +288,7 @@ public class SOMChooserDialog extends TitleAreaDialog {
 	@Override
 	protected void okPressed() {
 		generateSOM();
-		newSOMName = nameInput.getText();
+		newSOMName = nameInput != null ? nameInput.getText() : "";
 		super.okPressed();
 	}
 
@@ -313,6 +315,12 @@ public class SOMChooserDialog extends TitleAreaDialog {
 			throw new IllegalStateException("Couldn't find exact system operation mode.");
 		}
 		newSOM = soms.get(0);
+	}
+
+	private boolean somExists() {
+		final List<ModeInstance> modeInstances = new ArrayList<ModeInstance>(selectedModes.values());
+		final List<SystemOperationMode> soms = systemInstance.getSystemOperationModesFor(modeInstances);
+		return !soms.isEmpty();
 	}
 
 	private boolean componentExistsInCurrentMode(ComponentInstance component) {
@@ -378,7 +386,7 @@ public class SOMChooserDialog extends TitleAreaDialog {
 					if (componentExistsInCurrentMode(component)) {
 						if (selectedModes.containsKey(component)) {
 							if (selectedModes.get(component) == null) {
-								return "Mode Not Set";
+								return "Mode not set";
 							} else {
 								var mode = selectedModes.get(component);
 								var name = mode.getName();
@@ -391,7 +399,7 @@ public class SOMChooserDialog extends TitleAreaDialog {
 							return null;
 						}
 					} else {
-						return "Component Does Not Exist In Current Mode";
+						return "Not present in current mode";
 					}
 				}
 				return null;
@@ -423,6 +431,11 @@ public class SOMChooserDialog extends TitleAreaDialog {
 					selectedModes.put(ci, mi);
 					// set derived modes for subcomponents
 					setDerivedModes(ci, mi);
+					if (somExists()) {
+						setErrorMessage(null);
+					} else {
+						setErrorMessage("No matching SOM exists in the instance model");
+					}
 					updateOkEnabled();
 					viewer.refresh();
 					viewer.getTree().redraw();
@@ -516,13 +529,15 @@ public class SOMChooserDialog extends TitleAreaDialog {
 			getButton(IDialogConstants.OK_ID).setEnabled(false);
 			return;
 		}
+		// all component modes selected?
 		for (final ComponentInstance component : selectedModes.keySet()) {
 			if (selectedModes.get(component) == null && componentExistsInCurrentMode(component)) {
 				getButton(IDialogConstants.OK_ID).setEnabled(false);
 				return;
 			}
 		}
-		getButton(IDialogConstants.OK_ID).setEnabled(true);
+		// SOM in instance model?
+		getButton(IDialogConstants.OK_ID).setEnabled(somExists());
 	}
 
 	private void addListeners() {
