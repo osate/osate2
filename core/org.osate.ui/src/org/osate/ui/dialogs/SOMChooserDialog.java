@@ -56,7 +56,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
@@ -88,7 +87,7 @@ public class SOMChooserDialog extends TitleAreaDialog {
 	private static final String NONEXISTENT_ICON = "icons/nonexistent.gif";
 	private static final String COLUMN_COMPONENT_INSTANCE = "Component Instance";
 	private static final String COLUMN_MODE_INSTANCE = "Mode Instance";
-	private static final int NAME_INPUT_WIDTH = 300;
+	//private static final int NAME_INPUT_WIDTH = 300;
 	private static final int VIEWER_WIDTH = 800;
 	private static final int VIEWER_HEIGHT = 300;
 	private static final ComposedAdapterFactory adapterFactory;
@@ -254,8 +253,9 @@ public class SOMChooserDialog extends TitleAreaDialog {
 	@Override
 	public void create() {
 		super.create();
-		setTitle("This is my first custom dialog");
-		setMessage("This is a TitleAreaDialog", IMessageProvider.INFORMATION);
+		setTitle("Select a mode for each modal component in the system instance");
+		setMessage("When using the mouse, shift click immediately sets the selected mode",
+				IMessageProvider.INFORMATION);
 	}
 
 	/**
@@ -265,37 +265,11 @@ public class SOMChooserDialog extends TitleAreaDialog {
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		composite = (Composite) super.createDialogArea(parent);
-		composite.getShell().setText("Create a System Operation Mode");
-
-		Label message = new Label(composite, SWT.NONE);
-		message.setText(
-				"Enter a &name for the new SOM.  A name can consist of letters (A-Z, a-z), numbers(0-9), the dash (-),"
-						+ " or the underscore character(_):");
-		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, false, false);
-		message.setLayoutData(layoutData);
-
-		nameInput = new Text(composite, SWT.BORDER | SWT.SINGLE);
-		if (newSOMName != null) {
-			nameInput.setText(newSOMName);
-		}
-		layoutData = new GridData(SWT.LEFT, SWT.FILL, false, false);
-		layoutData.widthHint = NAME_INPUT_WIDTH;
-		nameInput.setLayoutData(layoutData);
-		nameInput.setEnabled(requireName);
-
-		message = new Label(composite, SWT.NONE);
-		layoutData = new GridData(SWT.FILL, SWT.FILL, true, false);
-		layoutData.heightHint = 20;
-		message.setLayoutData(layoutData);
-
-		message = new Label(composite, SWT.NONE);
-		message.setText("Select a &mode for each component:");
-		layoutData = new GridData(SWT.FILL, SWT.FILL, true, false);
-		message.setLayoutData(layoutData);
+		composite.getShell().setText("Select a System Operation Mode");
 
 		viewer = new TreeViewer(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		configureViewer();
-		layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		var layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		layoutData.widthHint = VIEWER_WIDTH;
 		layoutData.heightHint = VIEWER_HEIGHT;
 		viewer.getControl().setLayoutData(layoutData);
@@ -552,17 +526,19 @@ public class SOMChooserDialog extends TitleAreaDialog {
 	}
 
 	private void addListeners() {
-		nameInput.addModifyListener(e -> updateOkEnabled());
-		nameInput.addVerifyListener(e -> {
-			for (int i = 0; i < e.text.length(); i++) {
-				char ch = e.text.charAt(i);
-				if ((ch < 'A' || ch > 'Z') && (ch < 'a' || ch > 'z') && (ch < '0' || ch > '9') && ch != '_'
-						&& ch != '-') {
-					e.doit = false;
-					return;
+		if (nameInput != null) {
+			nameInput.addModifyListener(e -> updateOkEnabled());
+			nameInput.addVerifyListener(e -> {
+				for (int i = 0; i < e.text.length(); i++) {
+					char ch = e.text.charAt(i);
+					if ((ch < 'A' || ch > 'Z') && (ch < 'a' || ch > 'z') && (ch < '0' || ch > '9') && ch != '_'
+							&& ch != '-') {
+						e.doit = false;
+						return;
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	static {
