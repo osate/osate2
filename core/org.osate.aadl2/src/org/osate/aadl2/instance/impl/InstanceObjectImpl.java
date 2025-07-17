@@ -47,6 +47,7 @@ import org.osate.aadl2.impl.NamedElementImpl;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeTransitionInstance;
@@ -477,21 +478,18 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 			NamedElement ne = cpe.getNamedElement();
 
 			for (EObject eo : eContents()) {
-				if (eo instanceof InstanceObjectImpl && !(eo instanceof ConnectionInstance)) {
-					InstanceObjectImpl next = (InstanceObjectImpl) eo;
-					List<? extends NamedElement> decls = next.getInstantiatedObjects();
+				if (!(eo instanceof ConnectionInstance) && eo instanceof InstanceObjectImpl io) {
+					// one end to end flow can have many instances with generated names
+					String name = io instanceof EndToEndFlowInstance ? io.getInstantiatedObjects().get(0).getName()
+							: io.getName();
+					// need to compare by name because of possible refinement
+					if (ne.getName() != null && ne.getName().equalsIgnoreCase(name)) {
+						EList<ArrayRange> ranges = cpe.getArrayRanges();
 
-					if (decls != null && !decls.isEmpty()) {
-						NamedElement decl = decls.get(0);
-
-						if (decl.getName() != null && decl.getName().equalsIgnoreCase(ne.getName())) {
-							EList<ArrayRange> ranges = cpe.getArrayRanges();
-
-							if (next.matchesIndex(ranges)) {
-								next.findInstanceObjectsHelper(pathIter, ios);
-							}
-							result = true;
+						if (io.matchesIndex(ranges)) {
+							io.findInstanceObjectsHelper(pathIter, ios);
 						}
+						result = true;
 					}
 				}
 			}
