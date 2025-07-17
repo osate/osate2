@@ -1,0 +1,30 @@
+package T04a
+public
+	
+	system S
+		features
+			e0: in event port;
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			s1: system S.i1;
+		connections
+			c01: port e0 -> s1.e0;
+		modes
+			m0: initial mode;
+			m1: mode;
+			m0 -[e0]-> m1;
+			m1 -[e0]-> m0;
+	end S.i;
+	
+	system implementation S.i1
+		modes
+			m10: initial mode;
+			m11: mode;
+			m12: mode;
+			m10 -[e0]-> m11;
+			m11 -[e0]-> m12;			
+	end S.i1;
+	
+end T04a;

@@ -17,13 +17,13 @@
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/analysis/package-summary.html" label="org.osate.aadl2.errormodel.analysis"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/analysis/fha/package-summary.html" label="org.osate.aadl2.errormodel.analysis.fha"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/analysis/handlers/package-summary.html" label="org.osate.aadl2.errormodel.analysis.handlers"/>
-            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/FaultTree/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/faulttree/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/faulttree/generation/package-summary.html" label="org.osate.aadl2.errormodel.faulttree.generation"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/faulttree/handler/package-summary.html" label="org.osate.aadl2.errormodel.faulttree.handler"/>
-            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/FaultTree/impl/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree.impl"/>
-            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/FaultTree/provider/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree.provider"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/faulttree/impl/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree.impl"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/faulttree/provider/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree.provider"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/faulttree/util/package-summary.html" label="org.osate.aadl2.errormodel.faulttree.util"/>
-            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/FaultTree/util/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree.util"/>
+            <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/faulttree/util/package-summary.html" label="org.osate.aadl2.errormodel.FaultTree.util"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/instance/package-summary.html" label="org.osate.aadl2.errormodel.instance"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/instance/impl/package-summary.html" label="org.osate.aadl2.errormodel.instance.impl"/>
             <topic href="api-docs/javadoc/org/osate/aadl2/errormodel/instance/instantiator/package-summary.html" label="org.osate.aadl2.errormodel.instance.instantiator"/>

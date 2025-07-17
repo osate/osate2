@@ -1,0 +1,50 @@
+package T05
+public
+	
+	system S
+		features
+			e0: in event port;
+			e1: in event port;
+	end S;
+	
+	system implementation S.i
+		subcomponents
+--			s0: system R.i1 in modes (m0 => m11, m1 => m12);
+			s0: system R.i1 in modes (m1 => m12);
+			s1: system S.i2;
+		connections
+			c00: port e1 -> s0.e1;
+			c01: port e0 -> s1.e1;
+		modes
+			m0: initial mode;
+			m1: mode;
+			m0 -[e0]-> m1;
+			m1 -[e0]-> m0;
+	end S.i;
+	
+	system R extends S
+		requires modes
+			m10: mode;
+			m11: mode;
+			m12: mode;
+	end R;
+	
+	system implementation R.i1
+		subcomponents
+			a: system S.i2 in modes (m11);
+			b: system S.i2 in modes (m12);
+		connections
+			c11: port e1 -> a.e1;
+			c12: port e1 -> b.e1;
+	end R.i1;
+
+	system implementation S.i2
+		modes
+			m20: initial mode;
+			m21: mode;
+			m22: mode;
+			m20 -[e1]-> m21;
+			m21 -[e1]-> m22;			
+	end S.i2;
+	
+end T05;

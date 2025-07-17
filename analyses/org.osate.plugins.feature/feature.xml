@@ -2,7 +2,7 @@
 <feature
       id="org.osate.plugins.feature"
       label="Open Source AADL Tool Environment Analysis Plug-ins"
-      version="7.0.1.qualifier"
+      version="7.1.0.qualifier"
       provider-name="CMU-SEI"
       plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
@@ -21,79 +21,54 @@
 
    <plugin
          id="org.osate.analysis.architecture"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.analysis.binpacking"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.analysis.flows"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.analysis.resource.budgets"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.analysis.resource.management"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.importer"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.importer.simulink"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.codegen.checker"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.modelstats"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.modelstats.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.osate.analysis.model"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
+
+   <plugin
+         id="org.osate.analysis.modes"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.osate.analysis.modes.ui"
+         version="0.0.0"/>
 
 </feature>

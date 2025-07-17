@@ -1,0 +1,31 @@
+package Example_3
+public
+	system S
+	end S;
+	
+	system implementation S.i0
+		subcomponents
+			a: system A;
+			b: system B.i[4];
+		connections
+			c: port a.e1 -> b.e1 {
+				Connection_Pattern => ((One_To_All));
+			};
+	end S.i0;
+	
+	system A
+		features
+			e1: out event port;
+	end A;
+	
+	system B
+		features
+			e1: in event port;
+	end B;
+	
+	system implementation B.i
+		modes
+			m10: initial mode; m11: mode;
+			m10 -[e1]-> m11; m11 -[e1]-> m10;
+	end B.i;
+end Example_3;

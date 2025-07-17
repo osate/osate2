@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mode Analysis Tests
+Bundle-SymbolicName: org.osate.analysis.modes.tests;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CMU/SEI
+Automatic-Module-Name: org.osate.analysis.modes.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.opentest4j;bundle-version="1.2.0",
+ org.junit.jupiter.api;bundle-version="5.8.1",
+ org.osate.aadl2;bundle-version="5.0.0",
+ org.osate.aadl2.contrib;bundle-version="2.1.0",
+ org.osate.aadl2.instantiation;bundle-version="3.0.0",
+ org.osate.pluginsupport;bundle-version="7.2.1",
+ org.osate.testsupport;bundle-version="3.1.0",
+ org.osate.analysis.modes;bundle-version="1.0.0",
+ org.eclipse.core.runtime;bundle-version="3.25.0"
