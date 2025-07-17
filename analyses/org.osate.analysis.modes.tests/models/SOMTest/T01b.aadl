@@ -1,0 +1,33 @@
+package T01b
+public
+	
+	system S
+		features
+			e0: out event port;
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			s1: system S1.i in modes (m1);
+		connections
+			c: port s1.e0 -> e0; 
+		modes
+			m0: initial mode;
+			m1: mode;
+			m0 -[s1.e0]-> m1;
+	end S.i;
+	
+	system S1
+		features
+			e0: out event port;
+	end S1;
+	
+	system implementation S1.i
+		subcomponents
+			s2: system S1;
+		connections
+			c0: port s2.e0 -> e0;
+	end S1.i;
+	
+end T01b
+;

@@ -119,6 +119,7 @@ import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -126,6 +127,8 @@ import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.core.OsateCorePlugin;
 import org.osgi.service.prefs.Preferences;
+
+import com.google.common.base.Strings;
 
 /**
  * This class implements the instantiation of models from a root system impl.
@@ -144,7 +147,7 @@ public class InstantiateModel {
 
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
-	protected final AnalysisErrorReporterManager errManager;
+	protected AnalysisErrorReporterManager errManager;
 	protected final IProgressMonitor monitor;
 
 	/**
@@ -421,7 +424,30 @@ public class InstantiateModel {
 			if (save) {
 				aadlResource.save(null);
 			}
+			// collect errors in list and transfer to original error manager later
+			// property associations can be added with an error but could then be removed
+			// see issue #2929
+			var origErrManager = errManager;
+			errManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);
 			fillSystemInstance(root);
+			var errors = ((QueuingAnalysisErrorReporter) errManager.getReporter(aadlResource)).getErrors();
+			errManager = origErrManager;
+			for (var msg : errors) {
+				if (msg.where.eResource() != null) {
+					// keep only errors referring to elements that are still in the instance model
+					switch (msg.kind) {
+					case QueuingAnalysisErrorReporter.ERROR:
+						errManager.error(msg.where, msg.message, msg.attributes, msg.values);
+						break;
+					case QueuingAnalysisErrorReporter.WARNING:
+						errManager.warning(msg.where, msg.message, msg.attributes, msg.values);
+						break;
+					case QueuingAnalysisErrorReporter.INFO:
+						errManager.info(msg.where, msg.message, msg.attributes, msg.values);
+						break;
+					}
+				}
+			}
 		} catch (InterruptedException e) {
 			throw e;
 		} catch (Exception e) {
@@ -683,21 +709,27 @@ public class InstantiateModel {
 			mti.setDestination(dstI);
 			mti.setModeTransition(mt);
 			List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
-			String eventName = "";
 
-			if (!triggers.isEmpty()) {
-				TriggerPort tp = triggers.get(0).getTriggerPort();
+			if (!Strings.isNullOrEmpty(mt.getName())) {
+				mti.setName(mt.getName());
+			} else {
+				String eventName = "";
 
-				if (tp instanceof Port) {
-					Context ctx = triggers.get(0).getContext();
+				if (!triggers.isEmpty()) {
+					TriggerPort tp = triggers.get(0).getTriggerPort();
 
-					if (ctx instanceof Subcomponent) {
-						eventName = ((Subcomponent) ctx).getName() + "_";
+					if (tp instanceof Port) {
+						Context ctx = triggers.get(0).getContext();
+
+						if (ctx instanceof Subcomponent) {
+							eventName = ((Subcomponent) ctx).getName() + "_";
+						}
 					}
+					eventName += tp.getName();
 				}
-				eventName += tp.getName();
+				mti.setName(
+						srcmode.getName() + "_" + (!eventName.equals("") ? eventName + "_" : "") + dstmode.getName());
 			}
-			mti.setName(srcmode.getName() + "_" + (!eventName.equals("") ? eventName + "_" : "") + dstmode.getName());
 
 			// add only triggers that are ports
 			for (ModeTransitionTrigger t : triggers) {

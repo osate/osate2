@@ -1,0 +1,55 @@
+package Issue2929
+public
+	
+	process Proc
+	end Proc;
+	
+	process implementation Proc.impl
+	end Proc.impl;
+	
+	processor Core
+	end Core;
+	
+	processor implementation Core.impl
+	end Core.impl;
+
+	system Platform
+	end Platform;
+
+	system implementation Platform.impl
+	subcomponents
+		core: processor Core.impl;
+	end Platform.impl;
+
+	system ExtendedPlatform extends Platform
+	end ExtendedPlatform;
+
+	system implementation ExtendedPlatform.impl
+	subcomponents
+		original: system Platform.impl;
+	end ExtendedPlatform.impl;
+
+	system top
+	end top;
+	
+	system implementation top.impl
+		subcomponents
+			platform: system Platform.impl;
+			proc: process Proc.impl;
+		properties
+			Actual_Processor_Binding => (reference (platform.core)) applies to proc;
+	end top.impl;
+	
+	system implementation top.refined_platform_error extends top.impl
+		subcomponents
+			platform: refined to system ExtendedPlatform.impl;
+	end top.refined_platform_error;
+	
+	system implementation top.refined_platform_ok extends top.impl
+		subcomponents
+			platform: refined to system ExtendedPlatform.impl;
+		properties
+			Actual_Processor_Binding => (reference (platform.original.core)) applies to proc;
+	end top.refined_platform_ok;
+	
+end Issue2929;
