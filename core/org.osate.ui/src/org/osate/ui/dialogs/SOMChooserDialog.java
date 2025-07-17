@@ -33,8 +33,9 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -47,12 +48,14 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
@@ -78,13 +81,13 @@ import org.osate.ui.OsateUiPlugin;
  * @author jseibel
  *
  */
-public class SOMChooserDialog extends Dialog {
+public class SOMChooserDialog extends TitleAreaDialog {
 	private static final String MODE_SET_ICON = "icons/mode_set.gif";
 	private static final String MODE_NOT_SET_ICON = "icons/mode_not_set.gif";
 	private static final String NONEXISTENT_ICON = "icons/nonexistent.gif";
 	private static final String COLUMN_COMPONENT_INSTANCE = "Component Instance";
 	private static final String COLUMN_MODE_INSTANCE = "Mode Instance";
-	private static final int NAME_INPUT_WIDTH = 300;
+	//private static final int NAME_INPUT_WIDTH = 300;
 	private static final int VIEWER_WIDTH = 800;
 	private static final int VIEWER_HEIGHT = 300;
 	private static final ComposedAdapterFactory adapterFactory;
@@ -120,6 +123,7 @@ public class SOMChooserDialog extends Dialog {
 		int flags = getShellStyle();
 		flags |= SWT.RESIZE;
 		setShellStyle(flags);
+		setHelpAvailable(false);
 		if (systemInstance.getSystemOperationModes().size() == 1
 				&& systemInstance.getSystemOperationModes().get(0).getName().equals("No Modes")) {
 			throw new IllegalArgumentException("Cannot create a SOMChooserDialog for the SystemInstance "
@@ -150,7 +154,7 @@ public class SOMChooserDialog extends Dialog {
 
 	/**
 	 * Open the dialog.  Forces the open call to occur in the SWT thread.
-	 * Otherwise, it is indentical to {@link #open()}.
+	 * Otherwise, it is identical to {@link #open()}.
 	 */
 	public int openThreadSafe() {
 		abstract class IntAnswer implements Runnable {
@@ -226,7 +230,7 @@ public class SOMChooserDialog extends Dialog {
 	public SystemOperationMode getSOM() throws IllegalStateException {
 		if (newSOM == null) {
 			throw new IllegalStateException(
-					"Method called out of order.  Only call getSOM() when open() has returned Dialog.OK");
+					"Method called out of order. Only call getSOM() when open() has returned Dialog.OK");
 		} else {
 			return newSOM;
 		}
@@ -241,10 +245,19 @@ public class SOMChooserDialog extends Dialog {
 	public String getSOMName() throws IllegalStateException {
 		if (newSOM == null) {
 			throw new IllegalStateException(
-					"Method called out of order.  Only call getSOMName() when open() has returned Dialog.OK");
+					"Method called out of order. Only call getSOMName() when open() has returned Dialog.OK");
 		} else {
 			return newSOMName;
 		}
+	}
+
+	@Override
+	public void create() {
+		super.create();
+		setTitle("Select a System Operation Mode");
+		setMessage(
+				"Select a mode for each model component in the system instance. \nWhen using the mouse, shift click immediately sets the selected mode",
+				IMessageProvider.INFORMATION);
 	}
 
 	/**
@@ -254,37 +267,11 @@ public class SOMChooserDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		composite = (Composite) super.createDialogArea(parent);
-		composite.getShell().setText("Create a System Operation Mode");
-
-		Label message = new Label(composite, SWT.NONE);
-		message.setText(
-				"Enter a &name for the new SOM.  A name can consist of letters (A-Z, a-z), numbers(0-9), the dash (-),"
-						+ " or the underscore character(_):");
-		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, false, false);
-		message.setLayoutData(layoutData);
-
-		nameInput = new Text(composite, SWT.BORDER | SWT.SINGLE);
-		if (newSOMName != null) {
-			nameInput.setText(newSOMName);
-		}
-		layoutData = new GridData(SWT.LEFT, SWT.FILL, false, false);
-		layoutData.widthHint = NAME_INPUT_WIDTH;
-		nameInput.setLayoutData(layoutData);
-		nameInput.setEnabled(requireName);
-
-		message = new Label(composite, SWT.NONE);
-		layoutData = new GridData(SWT.FILL, SWT.FILL, true, false);
-		layoutData.heightHint = 20;
-		message.setLayoutData(layoutData);
-
-		message = new Label(composite, SWT.NONE);
-		message.setText("Select a &mode for each component:");
-		layoutData = new GridData(SWT.FILL, SWT.FILL, true, false);
-		message.setLayoutData(layoutData);
+		composite.getShell().setText("System Operation Mode Selection");
 
 		viewer = new TreeViewer(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		configureViewer();
-		layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		var layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		layoutData.widthHint = VIEWER_WIDTH;
 		layoutData.heightHint = VIEWER_HEIGHT;
 		viewer.getControl().setLayoutData(layoutData);
@@ -301,7 +288,7 @@ public class SOMChooserDialog extends Dialog {
 	@Override
 	protected void okPressed() {
 		generateSOM();
-		newSOMName = nameInput.getText();
+		newSOMName = nameInput != null ? nameInput.getText() : "";
 		super.okPressed();
 	}
 
@@ -328,6 +315,12 @@ public class SOMChooserDialog extends Dialog {
 			throw new IllegalStateException("Couldn't find exact system operation mode.");
 		}
 		newSOM = soms.get(0);
+	}
+
+	private boolean somExists() {
+		final List<ModeInstance> modeInstances = new ArrayList<ModeInstance>(selectedModes.values());
+		final List<SystemOperationMode> soms = systemInstance.getSystemOperationModesFor(modeInstances);
+		return !soms.isEmpty();
 	}
 
 	private boolean componentExistsInCurrentMode(ComponentInstance component) {
@@ -393,15 +386,20 @@ public class SOMChooserDialog extends Dialog {
 					if (componentExistsInCurrentMode(component)) {
 						if (selectedModes.containsKey(component)) {
 							if (selectedModes.get(component) == null) {
-								return "Mode Not Set";
+								return "Mode not set";
 							} else {
-								return selectedModes.get(component).getName();
+								var mode = selectedModes.get(component);
+								var name = mode.getName();
+								if (mode.isDerived()) {
+									name += " (derived)";
+								}
+								return name;
 							}
 						} else {
 							return null;
 						}
 					} else {
-						return "Component Does Not Exist In Current Mode";
+						return "Not present in current mode";
 					}
 				}
 				return null;
@@ -421,28 +419,58 @@ public class SOMChooserDialog extends Dialog {
 				return false;
 			}
 		});
-		viewer.setCellEditors(new CellEditor[] { null, new ComboBoxCellEditor(tree, new String[0], SWT.READ_ONLY) });
+		viewer.setCellEditors(new CellEditor[] { null, createCellEditor(tree) });
 		viewer.setCellModifier(new ICellModifier() {
 			@Override
 			public void modify(Object element, String property, Object value) {
 				int selection = ((Integer) value).intValue();
 				if (selection != -1) {
-					selectedModes.put((ComponentInstance) ((TreeItem) element).getData(),
-							((ComponentInstance) ((TreeItem) element).getData()).getModeInstances().get(selection));
+					var ci = (ComponentInstance) ((TreeItem) element).getData();
+					var mi = ((ComponentInstance) ((TreeItem) element).getData()).getModeInstances().get(selection);
+					// set mode for edited component
+					selectedModes.put(ci, mi);
+					// set derived modes for subcomponents
+					setDerivedModes(ci, mi);
+					if (somExists()) {
+						setErrorMessage(null);
+					} else {
+						setErrorMessage("No matching SOM exists in the instance model");
+					}
 					updateOkEnabled();
 					viewer.refresh();
 					viewer.getTree().redraw();
 				}
 			}
 
+			/**
+			 * Set derived modes given that component ci's mode is set to mi
+			 * @param ci component instance
+			 * @param mi mode of ci
+			 */
+			private void setDerivedModes(ComponentInstance ci, ModeInstance mi) {
+				for (var subci : ci.getComponentInstances()) {
+					for (var submi : subci.getModeInstances()) {
+						if (!submi.isDerived()) {
+							// subcomponent's modes are not derived
+							break;
+						}
+						if (submi.getParents().contains(mi)) {
+							selectedModes.put(subci, submi);
+							setDerivedModes(subci, submi);
+							// there is at most one mode for the subcomponent
+							break;
+						}
+					}
+				}
+			}
+
 			@Override
-			public Object getValue(Object element, String property) {
+			public Integer getValue(Object element, String property) {
 				final ModeInstance mode = selectedModes.get(element);
 				if (mode != null) {
-					return new Integer(((ComponentInstance) element).getModeInstances().indexOf(mode));
-				} else {
-					return new Integer(-1);
+					return ((ComponentInstance) element).getModeInstances().indexOf(mode);
 				}
+				return -1;
 			}
 
 			@Override
@@ -458,12 +486,42 @@ public class SOMChooserDialog extends Dialog {
 					((ComboBoxCellEditor) viewer.getCellEditors()[1]).setItems(modeNames.toArray(new String[0]));
 				}
 				final ComponentInstance component = (ComponentInstance) element;
-				return property.equals(COLUMN_MODE_INSTANCE) && (selectedModes.containsKey(component)
-						&& (component instanceof SystemInstance || componentExistsInCurrentMode(component)));
+				var componentExists = component instanceof SystemInstance || componentExistsInCurrentMode(component);
+				var modes = component.getModeInstances();
+				var nonDerivedModes = !(modes.isEmpty()) && !modes.get(0).isDerived();
+				return property.equals(COLUMN_MODE_INSTANCE) && selectedModes.containsKey(component) && componentExists
+						&& nonDerivedModes;
 			}
 		});
 		viewer.setInput(systemInstance.eResource());
 		viewer.expandAll();
+	}
+
+	private CellEditor createCellEditor(Composite parent) {
+		var cellEditor = new ComboBoxCellEditor(parent, new String[0], SWT.READ_ONLY);
+		var combo = (CCombo) cellEditor.getControl();
+
+		combo.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if ((e.stateMask & SWT.SHIFT) != 0) {
+					try {
+						var method = cellEditor.getClass().getDeclaredMethod("applyEditorValueAndDeactivate");
+						method.setAccessible(true);
+						method.invoke(cellEditor);
+					} catch (Exception exc) {
+					}
+				}
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+
+		});
+
+		return cellEditor;
 	}
 
 	private void updateOkEnabled() {
@@ -471,27 +529,31 @@ public class SOMChooserDialog extends Dialog {
 			getButton(IDialogConstants.OK_ID).setEnabled(false);
 			return;
 		}
+		// all component modes selected?
 		for (final ComponentInstance component : selectedModes.keySet()) {
 			if (selectedModes.get(component) == null && componentExistsInCurrentMode(component)) {
 				getButton(IDialogConstants.OK_ID).setEnabled(false);
 				return;
 			}
 		}
-		getButton(IDialogConstants.OK_ID).setEnabled(true);
+		// SOM in instance model?
+		getButton(IDialogConstants.OK_ID).setEnabled(somExists());
 	}
 
 	private void addListeners() {
-		nameInput.addModifyListener(e -> updateOkEnabled());
-		nameInput.addVerifyListener(e -> {
-			for (int i = 0; i < e.text.length(); i++) {
-				char ch = e.text.charAt(i);
-				if ((ch < 'A' || ch > 'Z') && (ch < 'a' || ch > 'z') && (ch < '0' || ch > '9') && ch != '_'
-						&& ch != '-') {
-					e.doit = false;
-					return;
+		if (nameInput != null) {
+			nameInput.addModifyListener(e -> updateOkEnabled());
+			nameInput.addVerifyListener(e -> {
+				for (int i = 0; i < e.text.length(); i++) {
+					char ch = e.text.charAt(i);
+					if ((ch < 'A' || ch > 'Z') && (ch < 'a' || ch > 'z') && (ch < '0' || ch > '9') && ch != '_'
+							&& ch != '-') {
+						e.doit = false;
+						return;
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	static {
