@@ -24,16 +24,28 @@
 package org.osate.analysis.modes.ui;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.modes.reachability.ReachabilityAnalyzer;
 import org.osate.analysis.modes.reachability.ReachabilityConfiguration;
+import org.osate.analysis.modes.ui.internal.ModeAnalysisPlugin;
+import org.osate.analysis.modes.ui.preferences.Constants;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
 public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
+
+	private final IDialogSettings settings = ModeAnalysisPlugin.getDefault().getDialogSettings();
+	private final IPreferenceStore prefStore = ModeAnalysisPlugin.getDefault().getPreferenceStore();
+
+	private ReachabilityConfiguration cfg;
 
 	@Override
 	public String getMarkerType() {
@@ -46,6 +58,7 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		cfg = new ReachabilityConfiguration().withDot().withHTML().withSMV();
 		invoke(monitor, null, root);
 	}
 
@@ -57,6 +70,35 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 	}
 
 	@Override
+	protected boolean initializeAction(NamedElement object) {
+		final var dlg = new ModeReachabilitySettings(getShell(), settings, prefStore);
+		final boolean doIt;
+
+		if (dlg.hideDialog()) {
+			// Don't show the dialog, just run the analysis
+			doIt = true;
+		} else {
+			Display.getDefault().syncExec(() -> dlg.open());
+			doIt = dlg.getReturnCode() == Window.OK;
+		}
+
+		if (doIt) {
+			cfg = new ReachabilityConfiguration();
+			if (dlg.getBoolean(Constants.GENERATE_HTML)) {
+				cfg = cfg.withHTML();
+			}
+			if (dlg.getBoolean(Constants.GENERATE_DOT)) {
+				cfg = cfg.withDot();
+			}
+			if (dlg.getBoolean(Constants.GENERATE_SMV)) {
+				cfg = cfg.withSMV();
+			}
+		}
+
+		return doIt;
+	}
+
+	@Override
 	protected void doAaxlAction(IProgressMonitor monitor, Element root) {
 		analyzeInstanceModel(monitor, root);
 	}
@@ -64,7 +106,6 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 	protected void analyzeInstanceModel(IProgressMonitor monitor,
 			Element root) {
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-		var cfg = new ReachabilityConfiguration().withDot().withHTML().withSMV();
 		var ra = new ReachabilityAnalyzer(cfg);
 		var status = ra.analyze((ComponentInstance) root);
 		if (!status.isOK() || status.isMultiStatus()) {
