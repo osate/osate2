@@ -41,6 +41,10 @@ abstract class FileExporter {
 		saveReport(getContent(), getFileExtension());
 	}
 
+	void delete() throws IOException {
+		deleteReport(getFileExtension());
+	}
+
 	void saveReport(CharSequence content, String extension) throws IOException {
 		var res = getGraph().eResource();
 		var uri = res.getURI().trimFileExtension().appendFileExtension(extension);
@@ -48,6 +52,13 @@ abstract class FileExporter {
 		try (OutputStream output = converter.createOutputStream(uri); var writer = new OutputStreamWriter(output)) {
 			writer.append(content);
 		}
+	}
+
+	void deleteReport(String extension) throws IOException {
+		var res = getGraph().eResource();
+		var uri = res.getURI().trimFileExtension().appendFileExtension(extension);
+		var converter = res.getResourceSet().getURIConverter();
+		converter.delete(uri, null);
 	}
 
 }
