@@ -135,10 +135,7 @@ public class SmvExporter extends FileExporter {
 	private void fillNodeIndices(List<SOMNode> nodes) {
 		var i = 0;
 		for (var n : nodes) {
-			var comp = n.getLevel().getComponent();
-			if (!comp.getModeInstances().isEmpty()) {
-				n2i.put(n, i++);
-			}
+			n2i.put(n, i++);
 		}
 	}
 

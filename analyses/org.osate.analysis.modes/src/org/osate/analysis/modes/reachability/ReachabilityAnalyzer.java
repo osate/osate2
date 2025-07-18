@@ -126,7 +126,14 @@ public final class ReachabilityAnalyzer {
 				new DotExporter(graph).writeFile();
 			} catch (IOException e) {
 				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not write dot file: " + e.getMessage(), e));
+						"Could not write DOT file: " + e.getMessage(), e));
+			}
+		} else {
+			try {
+				new DotExporter(graph).delete();
+			} catch (IOException e) {
+				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+						"Could not delete existing DOT file: " + e.getMessage(), e));
 			}
 		}
 		if (config.generateHTML()) {
@@ -134,7 +141,14 @@ public final class ReachabilityAnalyzer {
 				new HtmlExporter(graph).writeFile();
 			} catch (IOException e) {
 				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not write html file: " + e.getMessage(), e));
+						"Could not write HTML file: " + e.getMessage(), e));
+			}
+		} else {
+			try {
+				new HtmlExporter(graph).delete();
+			} catch (IOException e) {
+				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+						"Could not delete existing HTML file: " + e.getMessage(), e));
 			}
 		}
 		if (config.generateSMV()) {
@@ -142,7 +156,14 @@ public final class ReachabilityAnalyzer {
 				new SmvExporter(graph).writeFile();
 			} catch (IOException e) {
 				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not write smv file: " + e.getMessage(), e));
+						"Could not write SMV file: " + e.getMessage(), e));
+			}
+		} else {
+			try {
+				new SmvExporter(graph).delete();
+			} catch (IOException e) {
+				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+						"Could not delete existing SMV file: " + e.getMessage(), e));
 			}
 		}
 		if (sts.isEmpty()) {

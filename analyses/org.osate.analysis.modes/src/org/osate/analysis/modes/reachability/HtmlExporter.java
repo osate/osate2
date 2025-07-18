@@ -211,6 +211,7 @@ public class HtmlExporter extends FileExporter {
 		Layout.cols = 0;
 		Layout.rows = 0;
 		// mark components to skip (no owned modes and no modes in subcomponents)
+		layoutData.clear();
 		var skip = initMap(root);
 		if (!skip) {
 			// generate layout data
@@ -225,14 +226,11 @@ public class HtmlExporter extends FileExporter {
 		layoutData.put(ci, l);
 		var ownModes = ci.getModeInstances();
 		l.width = ownModes.isEmpty() ? 0 : 1;
-		var children = ci.getComponentInstances();
-		if (children.isEmpty()) {
-			l.skip = ownModes.isEmpty();
-		} else {
-			for (var c : ci.getComponentInstances()) {
-				l.skip &= initMap(c);
-			}
+		l.skip = ownModes.isEmpty();
+		for (var c : ci.getComponentInstances()) {
+			l.skip &= initMap(c);
 		}
+		// skip components that have no modes and none of their children has modes
 		return l.skip;
 	}
 
