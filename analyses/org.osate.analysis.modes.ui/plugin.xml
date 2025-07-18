@@ -66,6 +66,7 @@ censes only apply to the Third Party Software and not any other portion of this 
          </enabledWhen>
       </handler>
    </extension>
+
 <!-- need icon for SOM reachability
    <extension
          point="org.eclipse.ui.commandImages">
@@ -76,6 +77,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       </image>
    </extension>
 -->
+
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
@@ -111,6 +113,7 @@ censes only apply to the Third Party Software and not any other portion of this 
          </command>
       </menuContribution>
    </extension>
+
    <extension
          id="ModeReachabilityMarker"
          name="Unreachable SOM"
@@ -123,6 +126,21 @@ censes only apply to the Third Party Software and not any other portion of this 
       </persistent>
    </extension>
 
+   <extension point="org.eclipse.ui.preferencePages">
+      <page id="org.osate.analysis.modes.ui.prefs"
+            category="org.osate.ui.preferences.OsateAnalysisPage"
+            name="SOM Reachability"
+            class="org.osate.analysis.modes.ui.preferences.Page">
+      </page>
+   </extension>
+   
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.osate.analysis.modes.ui.preferences.Initializer">
+      </initializer>
+   </extension>
+ 
    <extension
          point="org.eclipse.help.toc"
          id="toc_som_reachability"
