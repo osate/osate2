@@ -105,13 +105,11 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 
 	protected void analyzeInstanceModel(IProgressMonitor monitor,
 			Element root) {
-		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 		var ra = new ReachabilityAnalyzer(cfg);
-		var status = ra.analyze((ComponentInstance) root);
+		var status = ra.analyze((ComponentInstance) root, monitor);
 		if (!status.isOK() || status.isMultiStatus()) {
 			StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 		}
-		monitor.done();
 	}
 
 }
