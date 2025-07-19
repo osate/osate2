@@ -36,9 +36,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -94,6 +98,8 @@ public final class ReachabilityAnalyzer {
 	/** Map component instances to the corresponding level in the SOM graph */
 	private Map<ComponentInstance, SOMLevel> ci2sl = new HashMap<>();
 
+	private SubMonitor progress;
+
 	/**
 	 * Create a reachability analyzer with default configuration
 	 */
@@ -109,69 +115,92 @@ public final class ReachabilityAnalyzer {
 	}
 
 	public IStatus analyze(ComponentInstance root) {
+		return analyze(root, new NullProgressMonitor());
+	}
+
+	public IStatus analyze(ComponentInstance root, IProgressMonitor monitor) {
 		List<IStatus> sts = new ArrayList<>();
+		int[] ciCount = { 0 };
 
-		createSOMGraph(root);
+		if (!(IProgressMonitor.nullSafe(monitor) instanceof NullProgressMonitor)) {
+			root.eAllContents().forEachRemaining((eo) -> {
+				if (eo instanceof ComponentInstance) {
+					ciCount[0]++;
+				}
+			});
+		}
 
-		if (config.saveModel()) {
-			try {
-				graph.eResource().save(null);
-			} catch (IOException e) {
-				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not write model file: " + e.getMessage(), e));
+		this.progress = SubMonitor.convert(monitor, ciCount[0] + 2);
+
+		try {
+			createSOMGraph(root);
+
+			if (config.saveModel()) {
+				try {
+					graph.eResource().save(null);
+				} catch (IOException e) {
+					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+							"Could not write model file: " + e.getMessage(), e));
+				}
 			}
-		}
-		if (config.generateDot()) {
-			try {
-				new DotExporter(graph).writeFile();
-			} catch (IOException e) {
-				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not write DOT file: " + e.getMessage(), e));
+			if (config.generateDot()) {
+				try {
+					new DotExporter(graph).writeFile();
+				} catch (IOException e) {
+					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+							"Could not write DOT file: " + e.getMessage(), e));
+				}
+			} else {
+				try {
+					new DotExporter(graph).delete();
+				} catch (IOException e) {
+					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+							"Could not delete existing DOT file: " + e.getMessage(), e));
+				}
 			}
-		} else {
-			try {
-				new DotExporter(graph).delete();
-			} catch (IOException e) {
-				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not delete existing DOT file: " + e.getMessage(), e));
+			if (config.generateHTML()) {
+				try {
+					new HtmlExporter(graph).writeFile();
+				} catch (IOException e) {
+					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+							"Could not write HTML file: " + e.getMessage(), e));
+				}
+			} else {
+				try {
+					new HtmlExporter(graph).delete();
+				} catch (IOException e) {
+					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+							"Could not delete existing HTML file: " + e.getMessage(), e));
+				}
 			}
-		}
-		if (config.generateHTML()) {
-			try {
-				new HtmlExporter(graph).writeFile();
-			} catch (IOException e) {
-				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not write HTML file: " + e.getMessage(), e));
+			if (config.generateSMV()) {
+				try {
+					new SmvExporter(graph).writeFile();
+				} catch (IOException e) {
+					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+							"Could not write SMV file: " + e.getMessage(), e));
+				}
+			} else {
+				try {
+					new SmvExporter(graph).delete();
+				} catch (IOException e) {
+					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+							"Could not delete existing SMV file: " + e.getMessage(), e));
+				}
 			}
-		} else {
-			try {
-				new HtmlExporter(graph).delete();
-			} catch (IOException e) {
-				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not delete existing HTML file: " + e.getMessage(), e));
+
+			progress.split(1);
+
+			if (sts.isEmpty()) {
+				return new Status(IStatus.OK, ModeAnalysisPlugin.ID, "");
+			} else {
+				var status = new MultiStatus(ModeAnalysisPlugin.ID, IStatus.ERROR, sts.toArray(new IStatus[] {}), null,
+						null);
+				return status;
 			}
-		}
-		if (config.generateSMV()) {
-			try {
-				new SmvExporter(graph).writeFile();
-			} catch (IOException e) {
-				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not write SMV file: " + e.getMessage(), e));
-			}
-		} else {
-			try {
-				new SmvExporter(graph).delete();
-			} catch (IOException e) {
-				sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-						"Could not delete existing SMV file: " + e.getMessage(), e));
-			}
-		}
-		if (sts.isEmpty()) {
-			return new Status(IStatus.OK, ModeAnalysisPlugin.ID, "");
-		} else {
-			var status = new MultiStatus(ModeAnalysisPlugin.ID, IStatus.ERROR, sts.toArray(new IStatus[] {}), null,
-					null);
-			return status;
+		} catch (OperationCanceledException oce) {
+			return new Status(IStatus.CANCEL, ModeAnalysisPlugin.ID,
+					"The SOM reachability analysis was cancelled by the user");
 		}
 	}
 
@@ -198,9 +227,11 @@ public final class ReachabilityAnalyzer {
 
 		// populate triggers and create trigger connections
 		populateTriggers(root);
+		progress.split(1);
 
 		// fill first level
 		populateRootLevel(root);
+
 		// process remaining components
 		root.getComponentInstances().stream().forEach(this::processComponent);
 
@@ -213,6 +244,8 @@ public final class ReachabilityAnalyzer {
 	 */
 	private void processComponent(ComponentInstance c) {
 		populateNextLevel(c);
+		progress.split(1);
+
 		c.getComponentInstances().stream().forEach(this::processComponent);
 	}
 
