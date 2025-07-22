@@ -120,4 +120,8 @@ property set SEI is
   -- Response time, meant to account delays in response not attributable to computation
   Response_Time: Time_Range
         applies to (thread, device, subprogram, event port, event data port);
+        
+  --- Mark a component as a mode domain for system operation mode reachability analysis
+  Mode_Domain: aadlboolean applies to (system);
+  
 end SEI;
