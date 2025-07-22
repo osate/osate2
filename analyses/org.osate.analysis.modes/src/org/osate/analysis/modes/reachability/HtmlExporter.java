@@ -117,7 +117,7 @@ public class HtmlExporter extends FileExporter {
 
 		// table header - component names
 		var level = List.of(root);
-		while (!level.isEmpty()) {
+		while (!level.isEmpty() && level.stream().anyMatch(ci -> !layoutData.get(ci).skip)) {
 			b.append("    <tr>\n");
 			b.append("      <th class=\"drop\"></th>\n");
 			var first = true;
