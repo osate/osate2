@@ -520,7 +520,7 @@
     <repository
         url="https://download.eclipse.org/releases/${eclipse.target.platform}"/>
     <repository
-        url="https://download.eclipse.org/sirius/updates/releases/7.0.7/2021-06"/>
+        url="https://download.eclipse.org/sirius/updates/releases/7.4.10/2023-03"/>
     <repository
         url="https://download.eclipse.org/emfstore/releases_19/190"/>
   </setupTask>
