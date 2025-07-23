@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
+import org.eclipse.emf.common.util.URI;
 import org.osate.analysis.modes.modemodel.SOMGraph;
 
 abstract class FileExporter {
@@ -37,21 +38,22 @@ abstract class FileExporter {
 
 	abstract String getFileExtension();
 
-	void writeFile() throws IOException {
-		saveReport(getContent(), getFileExtension());
+	URI writeFile() throws IOException {
+		return saveReport(getContent(), getFileExtension());
 	}
 
 	void delete() throws IOException {
 		deleteReport(getFileExtension());
 	}
 
-	void saveReport(CharSequence content, String extension) throws IOException {
+	URI saveReport(CharSequence content, String extension) throws IOException {
 		var res = getGraph().eResource();
 		var uri = res.getURI().trimFileExtension().appendFileExtension(extension);
 		var converter = res.getResourceSet().getURIConverter();
 		try (OutputStream output = converter.createOutputStream(uri); var writer = new OutputStreamWriter(output)) {
 			writer.append(content);
 		}
+		return uri;
 	}
 
 	void deleteReport(String extension) throws IOException {

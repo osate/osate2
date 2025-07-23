@@ -23,6 +23,8 @@
  */
 package org.osate.analysis.modes.reachability;
 
+import static java.util.Objects.isNull;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,6 +76,9 @@ import org.osate.analysis.modes.modemodel.Transition;
 import org.osate.analysis.modes.modemodel.Trigger;
 import org.osate.analysis.modes.modemodel.TriggerKey;
 import org.osate.pluginsupport.properties.CodeGenUtil;
+import org.osate.result.AnalysisResult;
+import org.osate.result.ResultType;
+import org.osate.result.util.ResultUtil;
 
 //TODO: internal feature as trigger
 //TODO: processor feature as trigger
@@ -98,6 +103,8 @@ public final class ReachabilityAnalyzer {
 	/** Map component instances to the corresponding level in the SOM graph */
 	private Map<ComponentInstance, SOMLevel> ci2sl = new HashMap<>();
 
+	private AnalysisResult result;
+
 	private SubMonitor progress;
 
 	/**
@@ -114,12 +121,11 @@ public final class ReachabilityAnalyzer {
 		this.config = config;
 	}
 
-	public IStatus analyze(ComponentInstance root) {
+	public AnalysisResult analyze(ComponentInstance root) {
 		return analyze(root, new NullProgressMonitor());
 	}
 
-	public IStatus analyze(ComponentInstance root, IProgressMonitor monitor) {
-		List<IStatus> sts = new ArrayList<>();
+	public AnalysisResult analyze(ComponentInstance root, IProgressMonitor monitor) {
 		int[] ciCount = { 0 };
 
 		if (!(IProgressMonitor.nullSafe(monitor) instanceof NullProgressMonitor)) {
@@ -130,11 +136,30 @@ public final class ReachabilityAnalyzer {
 			});
 		}
 
-		this.progress = SubMonitor.convert(monitor, ciCount[0] + 2);
+		this.progress = SubMonitor.convert(monitor, ciCount[0] + 1);
 
 		try {
+			result = ResultUtil.createAnalysisResult("SOM Reachability Analysis", root);
 			createSOMGraph(root);
+			result.setResultType(ResultType.SUCCESS);
+		} catch (OperationCanceledException oce) {
+			var r = ResultUtil.createInfoDiagnostic("cancelled", root);
+			result.getDiagnostics().add(r);
+			result.setResultType(ResultType.TBD);
+		} catch (Exception e) {
+			result.setResultType(ResultType.FAILURE);
+			throw e;
+		}
 
+		return result;
+	}
+
+	public IStatus writeReports(ComponentInstance root) {
+		List<IStatus> sts = new ArrayList<>();
+
+		Assert.isNotNull(graph, "SOM graph is null");
+
+		try {
 			if (config.saveModel()) {
 				try {
 					graph.eResource().save(null);
@@ -145,8 +170,13 @@ public final class ReachabilityAnalyzer {
 			}
 			if (config.generateDot()) {
 				try {
-					new DotExporter(graph).writeFile();
+					var uri = new DotExporter(graph).writeFile();
+					var r = ResultUtil.createSuccessResult("DOT file URI", root);
+					ResultUtil.addStringValue(r, uri.toString());
+					result.getResults().add(r);
 				} catch (IOException e) {
+					var r = ResultUtil.createErrorDiagnostic("Could not write DOT file: " + e.getMessage(), root);
+					result.getDiagnostics().add(r);
 					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
 							"Could not write DOT file: " + e.getMessage(), e));
 				}
@@ -154,14 +184,22 @@ public final class ReachabilityAnalyzer {
 				try {
 					new DotExporter(graph).delete();
 				} catch (IOException e) {
+					var r = ResultUtil.createWarningDiagnostic("Could not delete existing DOT file: " + e.getMessage(),
+							root);
+					result.getDiagnostics().add(r);
 					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
 							"Could not delete existing DOT file: " + e.getMessage(), e));
 				}
 			}
 			if (config.generateHTML()) {
 				try {
-					new HtmlExporter(graph).writeFile();
+					var uri = new HtmlExporter(graph).writeFile();
+					var r = ResultUtil.createSuccessResult("HTML file URI", root);
+					ResultUtil.addStringValue(r, uri.toString());
+					result.getResults().add(r);
 				} catch (IOException e) {
+					var r = ResultUtil.createErrorDiagnostic("Could not write HTML file: " + e.getMessage(), root);
+					result.getDiagnostics().add(r);
 					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
 							"Could not write HTML file: " + e.getMessage(), e));
 				}
@@ -169,14 +207,22 @@ public final class ReachabilityAnalyzer {
 				try {
 					new HtmlExporter(graph).delete();
 				} catch (IOException e) {
+					var r = ResultUtil.createWarningDiagnostic("Could not delete existing HTML file: " + e.getMessage(),
+							root);
+					result.getDiagnostics().add(r);
 					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
 							"Could not delete existing HTML file: " + e.getMessage(), e));
 				}
 			}
 			if (config.generateSMV()) {
 				try {
-					new SmvExporter(graph).writeFile();
+					var uri = new SmvExporter(graph).writeFile();
+					var r = ResultUtil.createSuccessResult("SMV file URI", root);
+					ResultUtil.addStringValue(r, uri.toString());
+					result.getResults().add(r);
 				} catch (IOException e) {
+					var r = ResultUtil.createErrorDiagnostic("Could not write SMV file: " + e.getMessage(), root);
+					result.getDiagnostics().add(r);
 					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
 							"Could not write SMV file: " + e.getMessage(), e));
 				}
@@ -184,12 +230,13 @@ public final class ReachabilityAnalyzer {
 				try {
 					new SmvExporter(graph).delete();
 				} catch (IOException e) {
+					var r = ResultUtil.createWarningDiagnostic("Could not delete existing SMV file: " + e.getMessage(),
+							root);
+					result.getDiagnostics().add(r);
 					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
 							"Could not delete existing SMV file: " + e.getMessage(), e));
 				}
 			}
-
-			progress.split(1);
 
 			if (sts.isEmpty()) {
 				return new Status(IStatus.OK, ModeAnalysisPlugin.ID, "");
@@ -199,6 +246,8 @@ public final class ReachabilityAnalyzer {
 				return status;
 			}
 		} catch (OperationCanceledException oce) {
+			var r = ResultUtil.createInfoDiagnostic("Cancelled by user", root);
+			result.getDiagnostics().add(r);
 			return new Status(IStatus.CANCEL, ModeAnalysisPlugin.ID,
 					"The SOM reachability analysis was cancelled by the user");
 		}
@@ -213,7 +262,7 @@ public final class ReachabilityAnalyzer {
 		var uri = makeURI(root);
 		var res = rs.getResource(uri, false);
 
-		if (res == null) {
+		if (isNull(res)) {
 			res = rs.createResource(uri);
 		} else {
 			res.unload();
@@ -409,7 +458,7 @@ public final class ReachabilityAnalyzer {
 				var n = createActiveNode(m);
 				nodes.add(n);
 				if (m.isInitial()) {
-					Assert.isTrue(initial == null, "initial already set");
+					Assert.isTrue(isNull(initial), "initial already set");
 					initial = n;
 				}
 				somNodes.put(m, n);
@@ -478,7 +527,7 @@ public final class ReachabilityAnalyzer {
 				var n = active ? createActiveNode(pn) : createInactiveNode(c, pn);
 				nodes.add(n);
 				if (pn == lastLevel.getInitialNode()) {
-					Assert.isTrue(initial == null, "initial already set");
+					Assert.isTrue(isNull(initial), "initial already set");
 					initial = n;
 				}
 			} else if (modes.get(0).isDerived()) {
@@ -494,7 +543,7 @@ public final class ReachabilityAnalyzer {
 							n.setDerived(true);
 							level.getNodes().add(n);
 							if (pn == lastLevel.getInitialNode() && pm.isInitial()) {
-								Assert.isTrue(initial == null, "initial already set");
+								Assert.isTrue(isNull(initial), "initial already set");
 								initial = n;
 							}
 							break;
@@ -507,7 +556,7 @@ public final class ReachabilityAnalyzer {
 					nodes.add(n);
 					var pm = getContainerMode(c, pn);
 					if (pn == lastLevel.getInitialNode() && pm.isInitial()) {
-						Assert.isTrue(initial == null, "initial already set");
+						Assert.isTrue(isNull(initial), "initial already set");
 						initial = n;
 					}
 				}
@@ -518,7 +567,7 @@ public final class ReachabilityAnalyzer {
 					var n = active ? createActiveNode(m, pn) : createInactiveNode(m, pn);
 					nodes.add(n);
 					if (pn == lastLevel.getInitialNode() && m.isInitial()) {
-						Assert.isTrue(initial == null, "initial already set");
+						Assert.isTrue(isNull(initial), "initial already set");
 						initial = n;
 					}
 				}
@@ -730,7 +779,7 @@ public final class ReachabilityAnalyzer {
 		if (n.getInactiveComponents().contains(tg.getComponent())) {
 			return false;
 		}
-		return tc == null || !n.getInactiveConnections().contains(tc);
+		return isNull(tc) || !n.getInactiveConnections().contains(tc);
 	}
 
 	/**
@@ -789,7 +838,7 @@ public final class ReachabilityAnalyzer {
 //				for (var t : tns) {
 //					// FIXME:
 //					var cr = tg2cr.putIfAbsent(t.getTrigger(), t.getConnRef());
-//					Assert.isTrue(cr == null);
+//					Assert.isTrue(isNull(cr));
 //				}
 //			}
 		}
