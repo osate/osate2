@@ -24,6 +24,8 @@
 package org.osate.analysis.modes.ui;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
@@ -38,6 +40,7 @@ import org.osate.analysis.modes.reachability.ReachabilityAnalyzer;
 import org.osate.analysis.modes.reachability.ReachabilityConfiguration;
 import org.osate.analysis.modes.ui.internal.ModeAnalysisPlugin;
 import org.osate.analysis.modes.ui.preferences.Constants;
+import org.osate.result.ResultType;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
 public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
@@ -103,12 +106,29 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 		analyzeInstanceModel(monitor, root);
 	}
 
-	protected void analyzeInstanceModel(IProgressMonitor monitor,
-			Element root) {
+	protected void analyzeInstanceModel(IProgressMonitor monitor, Element root) {
 		var ra = new ReachabilityAnalyzer(cfg);
-		var status = ra.analyze((ComponentInstance) root, monitor);
-		if (!status.isOK() || status.isMultiStatus()) {
+		var report = ra.analyze((ComponentInstance) root, monitor);
+		if (report.getResultType() != ResultType.SUCCESS) {
+			IStatus status = null;
+			switch (report.getResultType().getValue()) {
+			case ResultType.TBD_VALUE:
+				status = new Status(IStatus.CANCEL, ModeAnalysisPlugin.PLUGIN_ID, "Cancelled by user");
+				break;
+			case ResultType.ERROR_VALUE:
+			case ResultType.FAILURE_VALUE:
+				status = new Status(IStatus.ERROR, ModeAnalysisPlugin.PLUGIN_ID, "Error during analysis");
+				break;
+			case ResultType.SUCCESS_VALUE:
+				status = new Status(IStatus.OK, ModeAnalysisPlugin.PLUGIN_ID, "SOM reachability analysis finished");
+				break;
+			}
 			StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
+		} else {
+			var status = ra.writeReports((ComponentInstance) root);
+			if (!status.isOK() || status.isMultiStatus()) {
+				StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
+			}
 		}
 	}
 
