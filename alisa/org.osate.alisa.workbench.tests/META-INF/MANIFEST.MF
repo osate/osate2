@@ -8,7 +8,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.osate.alisa.workbench,
  org.osate.alisa.workbench.ui,
  org.eclipse.core.runtime,
- org.eclipse.xtext.junit4,
+ org.eclipse.xtext.testing,
  org.eclipse.ui.workbench;resolution:=optional,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
