@@ -86,7 +86,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                commandId="org.osate.analysis.modes.reachability">
          </command>
       </menuContribution>
-<!-- need icon for SON reachability
+<!-- need icon for SOM reachability
       <menuContribution
             locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
          <command
@@ -115,8 +115,8 @@ censes only apply to the Third Party Software and not any other portion of this 
    </extension>
 
    <extension
-         id="ModeReachabilityMarker"
-         name="Unreachable SOM"
+         id="SOMReachabilityMarker"
+         name="SOM Marker"
          point="org.eclipse.core.resources.markers">
       <super
             type="org.osate.aadl2.modelsupport.AadlObjectMarker">

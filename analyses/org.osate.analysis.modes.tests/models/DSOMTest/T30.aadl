@@ -1,0 +1,50 @@
+package T30
+public
+  with SEI;
+
+  system S
+    features
+      e0: in event port;
+  end S;
+
+  system implementation S.i0
+    subcomponents
+      a: abstract A;
+      ss: system SS.i {
+        SEI::Mode_Domain => true;
+      };
+  	connections
+  		--- external to mode domain, outside system
+      c0: port e0 -> ss.ess0;
+      --- external to mode domain, trigger in non-modal component not in any mode domain
+      c1: port a.e1 -> ss.ess1;
+  end S.i0;
+
+  --- port of mode domain is trigger for other domain
+  system implementation S.i1 extends S.i0
+    subcomponents
+      a: refined to abstract A {
+        SEI::Mode_Domain => true;
+      };
+  end S.i1;
+
+  system SS
+    features
+      ess0: in event port;
+      ess1: in event port;
+  end SS;
+
+  system implementation SS.i
+    modes
+      m0: initial mode;
+      m1: mode;
+      mt0: m0 -[ess0]-> m1;
+      mt1: m1 -[ess1]-> m0;
+  end SS.i;
+
+  abstract A
+    features
+      e1: out event port;
+  end A;
+
+end T30;

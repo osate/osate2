@@ -1,0 +1,59 @@
+package T32b
+public
+  with SEI;
+
+  system S
+    features
+      e0: in event port;
+  end S;
+
+  --- segment md1.c never active, so no som transition in md2
+  system implementation S.i
+  	subcomponents
+      md1: system MD1.i;
+      md2: system MD2.i;
+    connections
+      c0: port e0 -> md1.ess0;
+      c1: port md1.ess1 -> md2.ess0;
+  end S.i;
+
+  system MD1
+    features
+      ess0: in event port;
+      ess1: out event port;
+    properties
+      SEI::Mode_Domain => true;
+  end MD1;
+
+  system implementation MD1.i
+  	subcomponents
+  		a: abstract A;
+  	connections
+  		c: port a.ea -> ess1 in modes (m2);
+    modes
+      m0: initial mode;
+      m1: mode;
+      m2: mode;
+      mt0: m0 -[ess0]-> m1;
+  end MD1.i;
+  
+  system MD2
+    features
+      ess0: in event port;
+    properties
+      SEI::Mode_Domain => true;
+  end MD2;
+
+  system implementation MD2.i
+    modes
+      m0: initial mode;
+      m1: mode;
+      mt0: m0 -[ess0]-> m1;
+  end MD2.i;
+  
+  abstract A
+  	features
+  		ea: out event port;
+  end A;
+  
+end T32b;

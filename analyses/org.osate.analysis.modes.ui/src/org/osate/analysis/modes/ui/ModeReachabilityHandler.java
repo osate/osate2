@@ -26,6 +26,7 @@ package org.osate.analysis.modes.ui;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
@@ -40,6 +41,8 @@ import org.osate.analysis.modes.reachability.ReachabilityAnalyzer;
 import org.osate.analysis.modes.reachability.ReachabilityConfiguration;
 import org.osate.analysis.modes.ui.internal.ModeAnalysisPlugin;
 import org.osate.analysis.modes.ui.preferences.Constants;
+import org.osate.result.AnalysisResult;
+import org.osate.result.DiagnosticType;
 import org.osate.result.ResultType;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
@@ -107,11 +110,13 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 	}
 
 	protected void analyzeInstanceModel(IProgressMonitor monitor, Element root) {
-		var ra = new ReachabilityAnalyzer(cfg);
-		var report = ra.analyze((ComponentInstance) root, monitor);
-		if (report.getResultType() != ResultType.SUCCESS) {
+		ComponentInstance ci = (ComponentInstance) root;
+		var ra = new ReachabilityAnalyzer(cfg, ci);
+		var result = ra.analyzeModel(monitor);
+		createMarkers(result, root.eResource());
+		if (result.getResultType() != ResultType.SUCCESS) {
 			IStatus status = null;
-			switch (report.getResultType().getValue()) {
+			switch (result.getResultType().getValue()) {
 			case ResultType.TBD_VALUE:
 				status = new Status(IStatus.CANCEL, ModeAnalysisPlugin.PLUGIN_ID, "Cancelled by user");
 				break;
@@ -125,11 +130,25 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 			}
 			StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 		} else {
-			var status = ra.writeReports((ComponentInstance) root);
+			var status = ra.writeReports();
 			if (!status.isOK() || status.isMultiStatus()) {
 				StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 			}
 		}
+	}
+
+	private void createMarkers(AnalysisResult result, Resource resource) {
+		result.getDiagnostics().stream().forEach(diag -> {
+			if (diag.getModelElement() instanceof Element e && e.eResource() == resource) {
+				if (diag.getDiagnosticType() == DiagnosticType.ERROR) {
+					errManager.error(e, diag.getMessage());
+				} else if (diag.getDiagnosticType() == DiagnosticType.WARNING) {
+					errManager.warning(e, diag.getMessage());
+				} else if (diag.getDiagnosticType() == DiagnosticType.INFO) {
+					errManager.info(e, diag.getMessage());
+				}
+			}
+		});
 	}
 
 }
