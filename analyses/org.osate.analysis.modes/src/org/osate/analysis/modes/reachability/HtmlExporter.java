@@ -23,10 +23,12 @@
  */
 package org.osate.analysis.modes.reachability;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.analysis.modes.modemodel.ActiveNode;
 import org.osate.analysis.modes.modemodel.FeatureTrigger;
@@ -40,17 +42,16 @@ public class HtmlExporter extends FileExporter {
 
 	private SOMGraph graph;
 
-	private HashMap<SOMNode, Integer> somNo = new HashMap<>();
+	private ArrayList<HashMap<SOMNode, Integer>> domSomNo = new ArrayList<>();
 
-	private HashMap<Trigger, Integer> triggerNo = new HashMap<>();
+	private ArrayList<HashMap<Trigger, Integer>> domTriggerNo = new ArrayList<>();
 
-	HtmlExporter(SOMGraph graph) {
-		this.graph = graph;
+	HtmlExporter() {
 	}
 
 	@Override
-	SOMGraph getGraph() {
-		return graph;
+	Resource getGraphs() {
+		return graph.eResource();
 	}
 
 	@Override
@@ -64,8 +65,6 @@ public class HtmlExporter extends FileExporter {
 	}
 
 	StringBuilder generateHTML() {
-		ComponentInstance root = graph.getLevels().get(0).getComponent();
-		var skip = generateLayout(root);
 		StringBuilder b = new StringBuilder();
 		b.append("""
 				<html>
@@ -91,14 +90,7 @@ public class HtmlExporter extends FileExporter {
 				</head>
 				<body>
 				""");
-		b.append("  <h1>System Operation Modes and Transitions for " + root.getName() + "</h1>");
-		if (skip) {
-			b.append("  <p>The model has no modal components</p>");
-		} else {
-			generateSomTable(b, root);
-			generateTriggerTable(b);
-			generateTransitionTable(b);
-		}
+		generateHTML(b);
 		b.append("""
 				</body>
 				</html>
@@ -106,11 +98,39 @@ public class HtmlExporter extends FileExporter {
 		return b;
 	}
 
-	private void generateSomTable(StringBuilder b, ComponentInstance root) {
+	StringBuilder generateHTML(StringBuilder b) {
+		ComponentInstance root = ModeDomain.domains.get(0).root.getSystemInstance();
+		var skip = generateLayout(root);
+		b.append("  <h1>System Operation Modes and Transitions for " + root.getName() + "</h1>");
+		if (skip) {
+			b.append("  <p>The model has no modal components.</p>");
+		} else {
+			int domainNo = 0;
+			for (var d : ModeDomain.domains) {
+				graph = d.graph;
+				root = d.root;
+				skip = generateLayout(root);
+				b.append("""
+						  <h2>Mode domain D%d: %s</h2>
+						""".formatted(domainNo, root.getInstanceObjectPath()));
+				if (skip) {
+					b.append("  <p>This mode domain has no modal components.</p>");
+				} else {
+					generateSomTable(b, root, domainNo);
+					generateTriggerTable(b, domainNo);
+					generateTransitionTable(b, domainNo);
+				}
+				domainNo += 1;
+			}
+		}
+		return b;
+	}
+
+	private void generateSomTable(StringBuilder b, ComponentInstance root, int domainNo) {
 		b.append("""
-				  <h2>SOMs</h2>
+				  <h3>SOMs</h3>
 				  <p>
-				    This table shows the individual component modes for each system operation mode.
+				    This table shows the individual component modes for each system operation mode in this domain.
 				  </p>
 				""");
 		b.append("  <table>\n");
@@ -145,6 +165,8 @@ public class HtmlExporter extends FileExporter {
 		var w = "width:" + Math.round(100.0 / (Layout.cols + 1)) + "%;";
 
 		var i = 0;
+		var somNo = new HashMap<SOMNode, Integer>();
+		domSomNo.add(somNo);
 		for (var n : lastLevel.getNodes()) {
 			somNo.put(n, i);
 			var ul = n == initial ? "background-color:#dddddd;" : "";
@@ -165,11 +187,14 @@ public class HtmlExporter extends FileExporter {
 		b.append("  </table>\n");
 		b.append("""
 				  <p>
-				    The table cells show the mode of components (column) in an SOM (row). Derived component modes are shown in italic font, an empty cell means that the component is not active in the SOM.<br/>
+				    The table cells show the mode of components (column) in an SOM (row).
+				    Derived component modes are shown in italic font,
+				    an empty cell means that the component is not active in the SOM.<br/>
 				    Only modal components are included in the table, always active components are not shown.<br/>
 				    A gray background indicates the initial mode.<br/>
 				    The last row contains the component names used in the SMV file.<br/>
-				    <i>Note that the SOM names in this table are not related to SOM names in the instance model.</i>
+				    <i>Note that the SOM names in this table are not related to SOM names in the
+				    instance model.</i>
 				  </p>
 				""");
 	}
@@ -253,13 +278,14 @@ public class HtmlExporter extends FileExporter {
 		return l;
 	}
 
-	private void generateTriggerTable(StringBuilder b) {
-		b.append("""
-				  <h2>SOM Transition Triggers</h2>
-				  <p>
-				    This table shows all triggers that can cause a transition between system operation modes.<br/>
-				  </p>
-				""");
+	private void generateTriggerTable(StringBuilder b, int domainNo) {
+		b.append(
+				"""
+						  <h3>SOM Transition Triggers</h3>
+						  <p>
+						    This table shows all triggers that can cause a transition between system operation modes in this domain.<br/>
+						  </p>
+						""");
 		b.append("  <table>\n");
 
 		b.append("    <tr>\n");
@@ -267,11 +293,12 @@ public class HtmlExporter extends FileExporter {
 		b.append("    </tr>\n");
 
 		// table content - mode names
+		var triggerNo = new HashMap<Trigger, Integer>();
+		domTriggerNo.add(triggerNo);
 		var i = 0;
 		for (var tg : graph.getTriggers().values()) {
 			triggerNo.put(tg, i);
-			if (tg.getTransitions().isEmpty()) {
-			} else {
+			if (!tg.getTransitions().isEmpty()) {
 				b.append("    <tr>\n");
 				b.append("      <td>tg" + i + "</td><td>" + qualifiedName(tg) + "</td>\n");
 				b.append("    </tr>\n");
@@ -281,12 +308,11 @@ public class HtmlExporter extends FileExporter {
 		b.append("  </table>\n");
 	}
 
-	private void generateTransitionTable(StringBuilder b) {
-		b.append("  <h2>Transitions between System Operation Modes</h2>\n");
+	private void generateTransitionTable(StringBuilder b, int domainNo) {
 		b.append("""
-				  <h2>SOM Transitions</h2>
+				  <h3>SOM Transitions</h3>
 				  <p>
-				    This table shows the possible transitions between system operation modes.<br/>
+				    This table shows the possible transitions between system operation modes in this domain.<br/>
 				  </p>
 				""");
 		b.append("  <table>\n");
@@ -305,9 +331,9 @@ public class HtmlExporter extends FileExporter {
 
 			for (var tn : n.getOutTransitions()) {
 				b.append("    <tr>\n");
-				b.append("      <td" + style + ">som" + somNo.get(n) + "</td>\n");
-				b.append("      <td>tg" + triggerNo.get(tn.getTrigger()) + "</td>\n");
-				b.append("      <td>som" + somNo.get(tn.getDst()) + "</td>\n");
+				b.append("      <td" + style + ">som" + domSomNo.get(domainNo).get(n) + "</td>\n");
+				b.append("      <td>tg" + domTriggerNo.get(domainNo).get(tn.getTrigger()) + "</td>\n");
+				b.append("      <td>som" + domSomNo.get(domainNo).get(tn.getDst()) + "</td>\n");
 				b.append("    </tr>\n");
 			}
 		}

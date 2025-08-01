@@ -23,12 +23,11 @@
  */
 package org.osate.analysis.modes.reachability;
 
-import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
 import java.util.Optional;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
 import org.junit.jupiter.api.Test;
@@ -37,6 +36,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.result.ResultType;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -45,107 +45,67 @@ import com.itemis.xtext.testing.XtextTest;
 
 @ExtendWith(InjectionExtension.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class SOMTest extends XtextTest {
+public class DSOMTest extends XtextTest {
 
-	private static final String PATH = "org.osate.analysis.modes.tests/models/SOMTest/";
+	private static final String PATH = "org.osate.analysis.modes.tests/models/DSOMTest/";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void testT00() throws Exception {
-		testCounts("T00.aadl", 2, 1);
+	public void testT30() throws Exception {
+		testCounts("T30.aadl", "S.i0", List.of(2), List.of(2), List.of(2));
+		testCounts("T30.aadl", "S.i1", List.of(2, 1), List.of(2, 0), List.of(2, 0));
 	}
 
 	@Test
-	public void testT00a() throws Exception {
-		testCounts("T00a.aadl", 4, 3);
+	public void testT31() throws Exception {
+		testCounts("T31.aadl", "S.i", List.of(2, 2), List.of(1, 1), List.of(1, 1));
 	}
 
 	@Test
-	public void testT01a() throws Exception {
-		testCounts("T01a.aadl", 2, 1);
+	public void testT32() throws Exception {
+		testCounts("T32.aadl", "S.i", List.of(2, 2), List.of(1, 1), List.of(1, 1));
 	}
 
 	@Test
-	public void testT01b() throws Exception {
-		testCounts("T01b.aadl", 1, 0);
+	public void testT32a() throws Exception {
+		testCounts("T32a.aadl", "S.i", List.of(2, 1), List.of(1, 0), List.of(1, 0));
 	}
 
 	@Test
-	public void testT02() throws Exception {
-		testCounts("T02.aadl", 2, 2);
+	public void testT32b() throws Exception {
+		testCounts("T32b.aadl", "S.i", List.of(2, 1), List.of(1, 0), List.of(1, 0));
 	}
 
 	@Test
-	public void testT03() throws Exception {
-		testCounts("T03.aadl", 5, 7);
+	public void testT32c() throws Exception {
+		testCounts("T32c.aadl", "S.i", List.of(2, 1), List.of(1, 0), List.of(1, 0));
 	}
 
 	@Test
-	public void testT04() throws Exception {
-		testCounts("T04.aadl", 20, 36);
+	public void testT32d() throws Exception {
+		testCounts("T32d.aadl", "S.i", List.of(2, 2), List.of(1, 1), List.of(1, 1));
 	}
 
-	@Test
-	public void testT04a() throws Exception {
-		testCounts("T04a.aadl", 4, 4);
-	}
-
-	@Test
-	public void testT04b() throws Exception {
-		testCounts("T04b.aadl", 20, 36);
-	}
-
-	@Test
-	public void testT05() throws Exception {
-		testCounts("T05.aadl", 8, 12);
-	}
-
-	@Test
-	public void testT06() throws Exception {
-		testCounts("T06.aadl", 8, 12);
-	}
-
-	@Test
-	public void testT10() throws Exception {
-		testCounts("T10.aadl", 4, 3);
-	}
-
-	@Test
-	public void testT11() throws Exception {
-		testCounts("T11.aadl", 10, 13);
-	}
-
-	@Test
-	public void testT20() throws Exception {
-		testCounts("T20.aadl", 3, 2);
-	}
-
-	private void testCounts(String file, int somCount, int transitionCount) throws Exception {
+	private void testCounts(String file, String rootName, List<Integer> somCounts, List<Integer> triggerCounts,
+			List<Integer> transitionCounts)
+			throws Exception {
 		AadlPackage pkg = testHelper.parseFile(PATH + file);
 		Optional<Classifier> impl = pkg.getOwnedPublicSection()
 				.getOwnedClassifiers()
 				.stream()
-				.filter(c -> c.getName().equals("S.i"))
+				.filter(c -> c.getName().equals(rootName))
 				.findFirst();
 
 		var root = InstantiateModel.instantiate((ComponentImplementation) impl.get());
-		assertEquals("S_i_Instance", root.getName());
+		var instanceName = rootName.replace('.', '_') + "_Instance";
+		assertEquals(instanceName, root.getName());
 
-		var rs = root.eResource().getResourceSet();
-		var uri = URI.createFileURI("dummy");
-		var res = rs.getResource(uri, false);
+		var ra = new ReachabilityAnalyzer(root);
+		var result = ra.analyzeModel();
+		assertEquals(ResultType.SUCCESS, result.getResultType(), "Analysis result wasn't SUCCESS");
 
-		if (isNull(res)) {
-			res = rs.createResource(uri);
-		} else {
-			res.unload();
-		}
-
-		var md = new ModeDomain(root, res);
-		md.analyze(null, null);
-		var level = md.getAnalyzer().getLastLevel();
-		Util.assertCounts(level, somCount, transitionCount);
+		Util.assertCounts(ra, somCounts, triggerCounts, transitionCounts);
 	}
 }
