@@ -8,7 +8,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.osate.verify,
  org.osate.verify.ui,
  org.eclipse.core.runtime,
- org.eclipse.xtext.junit4,
+ org.eclipse.xtext.testing,
  org.eclipse.ui.workbench;resolution:=optional,
  org.objectweb.asm;resolution:=optional,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
