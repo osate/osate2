@@ -26,7 +26,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -96,8 +95,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	@Override
 	public NumberType getNumberType() {
 		NumberType numberType = basicGetNumberType();
-		return numberType != null && ((EObject) numberType).eIsProxy()
-				? (NumberType) eResolveProxy((InternalEObject) numberType)
+		return numberType != null && numberType.eIsProxy() ? (NumberType) eResolveProxy((InternalEObject) numberType)
 				: numberType;
 	}
 
@@ -121,7 +119,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 */
 	@Override
 	public NumberType getReferencedNumberType() {
-		if (referencedNumberType != null && ((EObject) referencedNumberType).eIsProxy()) {
+		if (referencedNumberType != null && referencedNumberType.eIsProxy()) {
 			InternalEObject oldReferencedNumberType = (InternalEObject) referencedNumberType;
 			referencedNumberType = (NumberType) eResolveProxy(oldReferencedNumberType);
 			if (referencedNumberType != oldReferencedNumberType) {

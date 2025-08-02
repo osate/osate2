@@ -28,7 +28,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -91,7 +90,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 */
 	@Override
 	public AbstractNamedValue getNamedValue() {
-		if (namedValue != null && ((EObject) namedValue).eIsProxy()) {
+		if (namedValue != null && namedValue.eIsProxy()) {
 			InternalEObject oldNamedValue = (InternalEObject) namedValue;
 			namedValue = (AbstractNamedValue) eResolveProxy(oldNamedValue);
 			if (namedValue != oldNamedValue) {

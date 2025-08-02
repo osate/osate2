@@ -24,7 +24,6 @@
 package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -73,7 +72,7 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	@Override
 	public PublicPackageSection getPublicSection() {
 		PublicPackageSection publicSection = basicGetPublicSection();
-		return publicSection != null && ((EObject) publicSection).eIsProxy()
+		return publicSection != null && publicSection.eIsProxy()
 				? (PublicPackageSection) eResolveProxy((InternalEObject) publicSection)
 				: publicSection;
 	}

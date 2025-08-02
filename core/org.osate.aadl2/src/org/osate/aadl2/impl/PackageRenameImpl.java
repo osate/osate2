@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -103,7 +102,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 */
 	@Override
 	public AadlPackage getRenamedPackage() {
-		if (renamedPackage != null && ((EObject) renamedPackage).eIsProxy()) {
+		if (renamedPackage != null && renamedPackage.eIsProxy()) {
 			InternalEObject oldRenamedPackage = (InternalEObject) renamedPackage;
 			renamedPackage = (AadlPackage) eResolveProxy(oldRenamedPackage);
 			if (renamedPackage != oldRenamedPackage) {

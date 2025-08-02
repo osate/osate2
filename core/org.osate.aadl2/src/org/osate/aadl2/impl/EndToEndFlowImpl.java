@@ -29,7 +29,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -171,7 +170,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+		return refinedElement != null && refinedElement.eIsProxy()
 				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
 				: refinedElement;
 	}
@@ -206,7 +205,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 */
 	@Override
 	public EndToEndFlow getRefined() {
-		if (refined != null && ((EObject) refined).eIsProxy()) {
+		if (refined != null && refined.eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (EndToEndFlow) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {

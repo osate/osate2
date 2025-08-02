@@ -26,7 +26,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -91,7 +90,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 */
 	@Override
 	public UnitLiteral getBaseUnit() {
-		if (baseUnit != null && ((EObject) baseUnit).eIsProxy()) {
+		if (baseUnit != null && baseUnit.eIsProxy()) {
 			InternalEObject oldBaseUnit = (InternalEObject) baseUnit;
 			baseUnit = (UnitLiteral) eResolveProxy(oldBaseUnit);
 			if (baseUnit != oldBaseUnit) {

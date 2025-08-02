@@ -36,7 +36,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeEList;
@@ -319,7 +318,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	@Override
 	public Subcomponent getSubcomponent() {
-		if (subcomponent != null && ((EObject) subcomponent).eIsProxy()) {
+		if (subcomponent != null && subcomponent.eIsProxy()) {
 			InternalEObject oldSubcomponent = (InternalEObject) subcomponent;
 			subcomponent = (Subcomponent) eResolveProxy(oldSubcomponent);
 			if (subcomponent != oldSubcomponent) {
@@ -376,7 +375,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	@Override
 	public ComponentClassifier getClassifier() {
-		if (classifier != null && ((EObject) classifier).eIsProxy()) {
+		if (classifier != null && classifier.eIsProxy()) {
 			InternalEObject oldClassifier = (InternalEObject) classifier;
 			classifier = (ComponentClassifier) eResolveProxy(oldClassifier);
 			if (classifier != oldClassifier) {

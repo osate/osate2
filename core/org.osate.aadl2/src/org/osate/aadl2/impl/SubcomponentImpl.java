@@ -243,7 +243,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		subcomponentType = subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
+		subcomponentType = subcomponentType != null && subcomponentType.eIsProxy()
 				? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 		return subcomponentType == null || subcomponentType.eIsProxy() ? null : subcomponentType;
@@ -413,7 +413,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	@Override
 	public Subcomponent getRefined() {
-		if (refined != null && ((EObject) refined).eIsProxy()) {
+		if (refined != null && refined.eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Subcomponent) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
@@ -758,7 +758,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+		return refinedElement != null && refinedElement.eIsProxy()
 				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
 				: refinedElement;
 	}

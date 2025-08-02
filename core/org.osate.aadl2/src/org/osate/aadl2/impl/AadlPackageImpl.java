@@ -27,7 +27,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -143,7 +142,7 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * @generated
 	 */
 	public PublicPackageSection getPublicSectionGen() {
-		if (publicSection != null && ((EObject) publicSection).eIsProxy()) {
+		if (publicSection != null && publicSection.eIsProxy()) {
 			InternalEObject oldPublicSection = (InternalEObject) publicSection;
 			publicSection = (PublicPackageSection) eResolveProxy(oldPublicSection);
 			if (publicSection != oldPublicSection) {
@@ -209,7 +208,7 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * @generated
 	 */
 	public PrivatePackageSection getPrivateSectionGen() {
-		if (privateSection != null && ((EObject) privateSection).eIsProxy()) {
+		if (privateSection != null && privateSection.eIsProxy()) {
 			InternalEObject oldPrivateSection = (InternalEObject) privateSection;
 			privateSection = (PrivatePackageSection) eResolveProxy(oldPrivateSection);
 			if (privateSection != oldPrivateSection) {

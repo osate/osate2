@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -125,7 +124,7 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 */
 	@Override
 	public ArraySizeProperty getSizeProperty() {
-		if (sizeProperty != null && ((EObject) sizeProperty).eIsProxy()) {
+		if (sizeProperty != null && sizeProperty.eIsProxy()) {
 			InternalEObject oldSizeProperty = (InternalEObject) sizeProperty;
 			sizeProperty = (ArraySizeProperty) eResolveProxy(oldSizeProperty);
 			if (sizeProperty != oldSizeProperty) {

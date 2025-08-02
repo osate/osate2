@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -82,7 +81,7 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 	 */
 	@Override
 	public FeatureGroupType getConstrainingFeatureGroupType() {
-		if (constrainingFeatureGroupType != null && ((EObject) constrainingFeatureGroupType).eIsProxy()) {
+		if (constrainingFeatureGroupType != null && constrainingFeatureGroupType.eIsProxy()) {
 			InternalEObject oldConstrainingFeatureGroupType = (InternalEObject) constrainingFeatureGroupType;
 			constrainingFeatureGroupType = (FeatureGroupType) eResolveProxy(oldConstrainingFeatureGroupType);
 			if (constrainingFeatureGroupType != oldConstrainingFeatureGroupType) {

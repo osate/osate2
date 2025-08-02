@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -87,7 +86,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 */
 	@Override
 	public Classifier getClassifier() {
-		if (classifier != null && ((EObject) classifier).eIsProxy()) {
+		if (classifier != null && classifier.eIsProxy()) {
 			InternalEObject oldClassifier = (InternalEObject) classifier;
 			classifier = (Classifier) eResolveProxy(oldClassifier);
 			if (classifier != oldClassifier) {

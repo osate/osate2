@@ -4,8 +4,8 @@
     modelDirectory="/org.osate.xtext.aadl2.errormodel/src-gen" editDirectory="/org.osate.xtext.aadl2.errormodel.edit/src"
     modelPluginID="org.osate.xtext.aadl2.errormodel" forceOverwrite="true" modelName="ErrorModel"
     updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="8.0" copyrightFields="false" editPluginID="org.osate.xtext.aadl2.errormodel.edit"
-    runtimeVersion="2.20" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
+    complianceLevel="17.0" copyrightFields="false" editPluginID="org.osate.xtext.aadl2.errormodel.edit"
+    runtimeVersion="2.36" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="ErrorModel" basePackage="org.osate.xtext.aadl2.errormodel"
       disposableProviderFactory="true" fileExtensions="emv2,emv2lib" ecorePackage="ErrorModel.ecore#/">
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelSubclause">

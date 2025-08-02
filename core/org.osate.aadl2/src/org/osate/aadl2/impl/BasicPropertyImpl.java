@@ -26,7 +26,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -96,7 +95,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	@Override
 	public PropertyType getReferencedPropertyType() {
-		if (referencedPropertyType != null && ((EObject) referencedPropertyType).eIsProxy()) {
+		if (referencedPropertyType != null && referencedPropertyType.eIsProxy()) {
 			InternalEObject oldReferencedPropertyType = (InternalEObject) referencedPropertyType;
 			referencedPropertyType = (PropertyType) eResolveProxy(oldReferencedPropertyType);
 			if (referencedPropertyType != oldReferencedPropertyType) {
@@ -142,7 +141,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public PropertyType getPropertyType() {
 		PropertyType propertyType = basicGetPropertyType();
-		return propertyType != null && ((EObject) propertyType).eIsProxy()
+		return propertyType != null && propertyType.eIsProxy()
 				? (PropertyType) eResolveProxy((InternalEObject) propertyType)
 				: propertyType;
 	}

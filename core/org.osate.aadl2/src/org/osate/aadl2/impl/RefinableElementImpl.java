@@ -24,7 +24,6 @@
 package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
@@ -73,7 +72,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	@Override
 	public Classifier getRefinementContext() {
 		Classifier refinementContext = basicGetRefinementContext();
-		return refinementContext != null && ((EObject) refinementContext).eIsProxy()
+		return refinementContext != null && refinementContext.eIsProxy()
 				? (Classifier) eResolveProxy((InternalEObject) refinementContext)
 				: refinementContext;
 	}
@@ -97,7 +96,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+		return refinedElement != null && refinedElement.eIsProxy()
 				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
 				: refinedElement;
 	}

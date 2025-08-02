@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -84,7 +83,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 */
 	@Override
 	public UnitLiteral getUnit() {
-		if (unit != null && ((EObject) unit).eIsProxy()) {
+		if (unit != null && unit.eIsProxy()) {
 			InternalEObject oldUnit = (InternalEObject) unit;
 			unit = (UnitLiteral) eResolveProxy(oldUnit);
 			if (unit != oldUnit) {

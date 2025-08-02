@@ -25,7 +25,6 @@ package org.osate.aadl2.instance.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.AnnexSubclause;
@@ -83,7 +82,7 @@ public abstract class AnnexInstanceImpl extends NamedElementImpl implements Anne
 	 */
 	@Override
 	public AnnexSubclause getAnnexSubclause() {
-		if (annexSubclause != null && ((EObject) annexSubclause).eIsProxy()) {
+		if (annexSubclause != null && annexSubclause.eIsProxy()) {
 			InternalEObject oldAnnexSubclause = (InternalEObject) annexSubclause;
 			annexSubclause = (AnnexSubclause) eResolveProxy(oldAnnexSubclause);
 			if (annexSubclause != oldAnnexSubclause) {

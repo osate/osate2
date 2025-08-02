@@ -140,7 +140,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
+		return featureClassifier != null && featureClassifier.eIsProxy()
 				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
@@ -207,7 +207,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	@Override
 	public Feature getRefined() {
-		if (refined != null && ((EObject) refined).eIsProxy()) {
+		if (refined != null && refined.eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Feature) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
@@ -430,7 +430,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+		return refinedElement != null && refinedElement.eIsProxy()
 				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
 				: refinedElement;
 	}

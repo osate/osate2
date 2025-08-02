@@ -36,7 +36,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -632,10 +631,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	public ComponentImplementation getExtended() {
 		ComponentImplementation extended = basicGetExtended();
-		extended = extended != null && ((EObject) extended).eIsProxy()
+		extended = extended != null && extended.eIsProxy()
 				? (ComponentImplementation) eResolveProxy((InternalEObject) extended)
 				: extended;
-		return extended != null && ((EObject) extended).eIsProxy() ? null // unresolved
+		return extended != null && extended.eIsProxy() ? null // unresolved
 				// proxy
 				: extended;
 	}
@@ -796,9 +795,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	public ComponentType getType() {
 		ComponentType type = basicGetType();
-		type = type != null && ((EObject) type).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) type)
-				: type;
-		return type != null && ((EObject) type).eIsProxy() ? null // unresolved
+		type = type != null && type.eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) type) : type;
+		return type != null && type.eIsProxy() ? null // unresolved
 				// proxy
 				: type;
 	}

@@ -7,16 +7,16 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>3.0.5</tycho.version>
-		<tycho-extras.version>3.0.5</tycho-extras.version>
-		<eclipse.version>2024-03</eclipse.version>
-		<xtext.version>2.34.0</xtext.version>
+		<tycho.version>4.0.13</tycho.version>
+		<tycho-extras.version>4.0.13</tycho-extras.version>
+		<eclipse.version>2025-03</eclipse.version>
+		<xtext.version>2.38.0</xtext.version>
 		<xsemantics.version>1.24.0</xsemantics.version>
 		<openjfx.version>17.0.2</openjfx.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.17.0-SNAPSHOT</osate.version>
 
-		<jacoco.version>0.8.12</jacoco.version>
+		<jacoco.version>0.8.13</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2} -Dorg.osate.emv2.instance=true</test.logging>
@@ -45,7 +45,7 @@
 		<!-- Include xtend-gen -->
 		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
 		<sonar.language>java</sonar.language>
-		<sonar.java.source>17</sonar.java.source>
+		<sonar.java.source>21</sonar.java.source>
 
 		<!-- The following are for use in poms for test plugins -->
 		<eclipse.repo.url>https://download.eclipse.org/releases/${eclipse.version}</eclipse.repo.url>
@@ -151,7 +151,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-resources-plugin</artifactId>
-						<version>2.4.3</version>
+						<version>3.3.1</version>
 						<executions>
 							<execution>
 								<id>process-about.mappings</id>
@@ -285,7 +285,7 @@
 					<plugin>
 						<groupId>com.github.spotbugs</groupId>
 						<artifactId>spotbugs-maven-plugin</artifactId>
-						<version>4.7.1.1</version>
+						<version>4.9.3.2</version>
 						<configuration>
 							<effort>Default</effort>
 							<threshold>Medium</threshold>
@@ -327,7 +327,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-jarsigner-plugin</artifactId>
-						<version>3.0.0</version>
+						<version>3.1.0</version>
 						<configuration>
 							<alias>osate code signing certificate</alias>
 						</configuration>
@@ -362,7 +362,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.6.1</version>
 				<executions>
 					<execution>
 						<id>enforce-maven</id>
@@ -372,7 +372,7 @@
 						<configuration>
 							<rules>
 								<requireMavenVersion>
-									<version>3.6.3</version>
+									<version>3.9.0</version>
 								</requireMavenVersion>
 							</rules>
 						</configuration>
@@ -408,7 +408,7 @@
 			<!-- compile xtend -->
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>2.5</version>
+				<version>3.5.0</version>
 				<configuration>
 					<filesets>
 						<fileset>
@@ -452,9 +452,7 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<executionEnvironment>JavaSE-17</executionEnvironment>
 					<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
-					<resolver>p2</resolver>
 					<target>
 						<artifact>
 							<groupId>org.osate</groupId>
@@ -462,7 +460,6 @@
 							<version>${osate.version}</version>
 						</artifact>
 					</target>
-					<ignoreTychoRepositories>true</ignoreTychoRepositories>
 				</configuration>
 			</plugin>
 
@@ -497,7 +494,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.9.0</version>
 			</plugin>
 		</plugins>
 
@@ -540,6 +537,7 @@
 				<plugin>
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-p2-plugin</artifactId>
+					<version>${tycho.version}</version>
 					<executions>
 						<execution>
 							<id>attach-p2-metadata</id>
@@ -563,8 +561,9 @@
 						</execution>
 					</executions>
 					<configuration>
-						<compilerSourceLevel>11</compilerSourceLevel>
-						<compilerTargetLevel>11</compilerTargetLevel>
+						<failOnValidationError>true</failOnValidationError>
+						<compilerSourceLevel>21</compilerSourceLevel>
+						<compilerTargetLevel>21</compilerTargetLevel>
 						<sourceRoots>
 							<sourceRoot>${basedir}/src</sourceRoot>
 						</sourceRoots>
@@ -581,6 +580,12 @@
 					</configuration>
 					<dependencies>
 						<dependency>
+							<!-- prevent xsemantics from using 2.33.0 with Java 21 -->
+							<groupId>org.eclipse.xtext</groupId>
+							<artifactId>org.eclipse.xtext.xbase.lib</artifactId>
+							<version>${xtext.version}</version>
+						</dependency>
+						<dependency>
 							<groupId>org.eclipse.xsemantics</groupId>
 							<artifactId>org.eclipse.xsemantics.dsl</artifactId>
 							<version>${xsemantics.version}</version>
@@ -590,7 +595,7 @@
 				<plugin>
 					<groupId>com.ruleoftech</groupId>
 					<artifactId>markdown-page-generator-plugin</artifactId>
-					<version>2.4.0</version>
+					<version>2.4.2</version>
 					<executions>
 						<execution>
 							<phase>process-resources</phase>
@@ -620,7 +625,7 @@
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
-				<version>4.5.3.0</version>
+				<version>4.9.3.2</version>
 				<configuration>
 					<effort>Default</effort>
 					<threshold>Low</threshold>

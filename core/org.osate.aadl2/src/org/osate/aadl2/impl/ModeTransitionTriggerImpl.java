@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -93,7 +92,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 */
 	@Override
 	public Context getContext() {
-		if (context != null && ((EObject) context).eIsProxy()) {
+		if (context != null && context.eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
@@ -137,7 +136,7 @@ public class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransi
 	 */
 	@Override
 	public TriggerPort getTriggerPort() {
-		if (triggerPort != null && ((EObject) triggerPort).eIsProxy()) {
+		if (triggerPort != null && triggerPort.eIsProxy()) {
 			InternalEObject oldTriggerPort = (InternalEObject) triggerPort;
 			triggerPort = (TriggerPort) eResolveProxy(oldTriggerPort);
 			if (triggerPort != oldTriggerPort) {

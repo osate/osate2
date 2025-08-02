@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -129,7 +128,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 */
 	@Override
 	public ComponentType getRenamedComponentType() {
-		if (renamedComponentType != null && ((EObject) renamedComponentType).eIsProxy()) {
+		if (renamedComponentType != null && renamedComponentType.eIsProxy()) {
 			InternalEObject oldRenamedComponentType = (InternalEObject) renamedComponentType;
 			renamedComponentType = (ComponentType) eResolveProxy(oldRenamedComponentType);
 			if (renamedComponentType != oldRenamedComponentType) {

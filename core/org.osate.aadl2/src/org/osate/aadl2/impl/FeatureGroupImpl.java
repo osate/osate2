@@ -212,7 +212,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 */
 	@Override
 	public FeatureType getFeatureType() {
-		if (featureType != null && ((EObject) featureType).eIsProxy()) {
+		if (featureType != null && featureType.eIsProxy()) {
 			InternalEObject oldFeatureType = (InternalEObject) featureType;
 			featureType = (FeatureType) eResolveProxy(oldFeatureType);
 			if (featureType != oldFeatureType) {

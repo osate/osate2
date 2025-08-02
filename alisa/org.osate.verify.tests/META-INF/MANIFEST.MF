@@ -21,6 +21,6 @@ Import-Package: org.apache.log4j,
  org.junit.runners;version="4.5.0",
  org.junit.runners.model;version="4.5.0",
  org.hamcrest.core
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.osate.verify.tests;x-internal=true
 Automatic-Module-Name: org.osate.verify.tests

@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -86,7 +85,7 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
+		return subcomponentType != null && subcomponentType.eIsProxy()
 				? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 	}
@@ -111,7 +110,7 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 */
 	@Override
 	public ProcessSubcomponentType getProcessSubcomponentType() {
-		if (processSubcomponentType != null && ((EObject) processSubcomponentType).eIsProxy()) {
+		if (processSubcomponentType != null && processSubcomponentType.eIsProxy()) {
 			InternalEObject oldProcessSubcomponentType = (InternalEObject) processSubcomponentType;
 			processSubcomponentType = (ProcessSubcomponentType) eResolveProxy(oldProcessSubcomponentType);
 			if (processSubcomponentType != oldProcessSubcomponentType) {

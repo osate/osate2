@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -158,7 +157,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 */
 	@Override
 	public ComponentClassifier getConstrainingClassifier() {
-		if (constrainingClassifier != null && ((EObject) constrainingClassifier).eIsProxy()) {
+		if (constrainingClassifier != null && constrainingClassifier.eIsProxy()) {
 			InternalEObject oldConstrainingClassifier = (InternalEObject) constrainingClassifier;
 			constrainingClassifier = (ComponentClassifier) eResolveProxy(oldConstrainingClassifier);
 			if (constrainingClassifier != oldConstrainingClassifier) {

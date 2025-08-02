@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -119,8 +118,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	@Override
 	public Classifier getGeneral() {
 		Classifier general = basicGetGeneral();
-		return general != null && ((EObject) general).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) general)
-				: general;
+		return general != null && general.eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) general) : general;
 	}
 
 	/**

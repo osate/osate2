@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -154,7 +153,7 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 */
 	@Override
 	public DataClassifier getDataClassifier() {
-		if (dataClassifier != null && ((EObject) dataClassifier).eIsProxy()) {
+		if (dataClassifier != null && dataClassifier.eIsProxy()) {
 			InternalEObject oldDataClassifier = (InternalEObject) dataClassifier;
 			dataClassifier = (DataClassifier) eResolveProxy(oldDataClassifier);
 			if (dataClassifier != oldDataClassifier) {

@@ -35,7 +35,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -359,8 +358,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	@Override
 	public FeatureGroupType getExtended() {
 		FeatureGroupType extended = basicGetExtended();
-		return extended != null && ((EObject) extended).eIsProxy()
-				? (FeatureGroupType) eResolveProxy((InternalEObject) extended)
+		return extended != null && extended.eIsProxy() ? (FeatureGroupType) eResolveProxy((InternalEObject) extended)
 				: extended;
 	}
 
@@ -394,7 +392,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 */
 	@Override
 	public FeatureGroupType getInverse() {
-		if (inverse != null && ((EObject) inverse).eIsProxy()) {
+		if (inverse != null && inverse.eIsProxy()) {
 			InternalEObject oldInverse = (InternalEObject) inverse;
 			inverse = (FeatureGroupType) eResolveProxy(oldInverse);
 			if (inverse != oldInverse) {

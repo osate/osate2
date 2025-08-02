@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -85,7 +84,7 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
+		return featureClassifier != null && featureClassifier.eIsProxy()
 				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
@@ -110,7 +109,7 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 	 */
 	@Override
 	public DataSubcomponentType getDataFeatureClassifier() {
-		if (dataFeatureClassifier != null && ((EObject) dataFeatureClassifier).eIsProxy()) {
+		if (dataFeatureClassifier != null && dataFeatureClassifier.eIsProxy()) {
 			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
 			dataFeatureClassifier = (DataSubcomponentType) eResolveProxy(oldDataFeatureClassifier);
 			if (dataFeatureClassifier != oldDataFeatureClassifier) {

@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -82,7 +81,7 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 	 */
 	@Override
 	public SubprogramClassifier getSubprogramClassifier() {
-		if (subprogramClassifier != null && ((EObject) subprogramClassifier).eIsProxy()) {
+		if (subprogramClassifier != null && subprogramClassifier.eIsProxy()) {
 			InternalEObject oldSubprogramClassifier = (InternalEObject) subprogramClassifier;
 			subprogramClassifier = (SubprogramClassifier) eResolveProxy(oldSubprogramClassifier);
 			if (subprogramClassifier != oldSubprogramClassifier) {

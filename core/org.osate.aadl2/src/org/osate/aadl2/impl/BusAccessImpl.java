@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -105,7 +104,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
+		return featureClassifier != null && featureClassifier.eIsProxy()
 				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
@@ -130,7 +129,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 */
 	@Override
 	public BusFeatureClassifier getBusFeatureClassifier() {
-		if (busFeatureClassifier != null && ((EObject) busFeatureClassifier).eIsProxy()) {
+		if (busFeatureClassifier != null && busFeatureClassifier.eIsProxy()) {
 			InternalEObject oldBusFeatureClassifier = (InternalEObject) busFeatureClassifier;
 			busFeatureClassifier = (BusFeatureClassifier) eResolveProxy(oldBusFeatureClassifier);
 			if (busFeatureClassifier != oldBusFeatureClassifier) {

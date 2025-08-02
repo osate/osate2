@@ -18,10 +18,11 @@ Require-Bundle: org.eclipse.ui,
  org.osate.aadl2.instantiation;bundle-version="1.0.0",
  org.osate.aadl2.errormodel.analysis;bundle-version="1.0.0",
  org.osate.aadl2.errormodel.instance;bundle-version="1.0.0",
- org.junit.jupiter.api;bundle-version="5.8.1",
  org.osate.pluginsupport;bundle-version="7.2.0",
- org.osate.aadl2.modelsupport
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+ org.osate.aadl2.modelsupport,
+ org.junit,
+ junit-jupiter-api
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.aadl2.errormodel.tests
 Automatic-Module-Name: org.osate.aadl2.errormodel.tests

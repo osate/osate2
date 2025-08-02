@@ -26,7 +26,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -96,7 +95,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	@Override
 	public PropertyType getElementType() {
 		PropertyType elementType = basicGetElementType();
-		return elementType != null && ((EObject) elementType).eIsProxy()
+		return elementType != null && elementType.eIsProxy()
 				? (PropertyType) eResolveProxy((InternalEObject) elementType)
 				: elementType;
 	}
@@ -189,7 +188,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 */
 	@Override
 	public PropertyType getReferencedElementType() {
-		if (referencedElementType != null && ((EObject) referencedElementType).eIsProxy()) {
+		if (referencedElementType != null && referencedElementType.eIsProxy()) {
 			InternalEObject oldReferencedElementType = (InternalEObject) referencedElementType;
 			referencedElementType = (PropertyType) eResolveProxy(oldReferencedElementType);
 			if (referencedElementType != oldReferencedElementType) {

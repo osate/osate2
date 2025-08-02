@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -158,7 +157,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 */
 	@Override
 	public FeaturePrototype getPrototype() {
-		if (prototype != null && ((EObject) prototype).eIsProxy()) {
+		if (prototype != null && prototype.eIsProxy()) {
 			InternalEObject oldPrototype = (InternalEObject) prototype;
 			prototype = (FeaturePrototype) eResolveProxy(oldPrototype);
 			if (prototype != oldPrototype) {

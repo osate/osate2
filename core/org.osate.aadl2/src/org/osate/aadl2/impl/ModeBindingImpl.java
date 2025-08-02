@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -93,7 +92,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 */
 	@Override
 	public Mode getParentMode() {
-		if (parentMode != null && ((EObject) parentMode).eIsProxy()) {
+		if (parentMode != null && parentMode.eIsProxy()) {
 			InternalEObject oldParentMode = (InternalEObject) parentMode;
 			parentMode = (Mode) eResolveProxy(oldParentMode);
 			if (parentMode != oldParentMode) {
@@ -137,7 +136,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 */
 	@Override
 	public Mode getDerivedMode() {
-		if (derivedMode != null && ((EObject) derivedMode).eIsProxy()) {
+		if (derivedMode != null && derivedMode.eIsProxy()) {
 			InternalEObject oldDerivedMode = (InternalEObject) derivedMode;
 			derivedMode = (Mode) eResolveProxy(oldDerivedMode);
 			if (derivedMode != oldDerivedMode) {

@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -97,7 +96,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
+		return featureClassifier != null && featureClassifier.eIsProxy()
 				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
@@ -122,7 +121,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 */
 	@Override
 	public FeaturePrototype getFeaturePrototype() {
-		if (featurePrototype != null && ((EObject) featurePrototype).eIsProxy()) {
+		if (featurePrototype != null && featurePrototype.eIsProxy()) {
 			InternalEObject oldFeaturePrototype = (InternalEObject) featurePrototype;
 			featurePrototype = (FeaturePrototype) eResolveProxy(oldFeaturePrototype);
 			if (featurePrototype != oldFeaturePrototype) {
@@ -166,7 +165,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 */
 	@Override
 	public AbstractFeatureClassifier getAbstractFeatureClassifier() {
-		if (abstractFeatureClassifier != null && ((EObject) abstractFeatureClassifier).eIsProxy()) {
+		if (abstractFeatureClassifier != null && abstractFeatureClassifier.eIsProxy()) {
 			InternalEObject oldAbstractFeatureClassifier = (InternalEObject) abstractFeatureClassifier;
 			abstractFeatureClassifier = (AbstractFeatureClassifier) eResolveProxy(oldAbstractFeatureClassifier);
 			if (abstractFeatureClassifier != oldAbstractFeatureClassifier) {

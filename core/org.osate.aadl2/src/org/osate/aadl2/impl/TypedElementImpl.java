@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -82,7 +81,7 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 	 */
 	@Override
 	public Type getType() {
-		if (type != null && ((EObject) type).eIsProxy()) {
+		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject) type;
 			type = (Type) eResolveProxy(oldType);
 			if (type != oldType) {

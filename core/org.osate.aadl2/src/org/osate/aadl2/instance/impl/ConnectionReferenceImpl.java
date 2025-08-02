@@ -28,7 +28,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Connection;
@@ -193,7 +192,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 */
 	@Override
 	public Connection getConnection() {
-		if (connection != null && ((EObject) connection).eIsProxy()) {
+		if (connection != null && connection.eIsProxy()) {
 			InternalEObject oldConnection = (InternalEObject) connection;
 			connection = (Connection) eResolveProxy(oldConnection);
 			if (connection != oldConnection) {

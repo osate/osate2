@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -94,7 +93,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 */
 	@Override
 	public FlowElement getFlowElement() {
-		if (flowElement != null && ((EObject) flowElement).eIsProxy()) {
+		if (flowElement != null && flowElement.eIsProxy()) {
 			InternalEObject oldFlowElement = (InternalEObject) flowElement;
 			flowElement = (FlowElement) eResolveProxy(oldFlowElement);
 			if (flowElement != oldFlowElement) {
@@ -138,7 +137,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 */
 	@Override
 	public Context getContext() {
-		if (context != null && ((EObject) context).eIsProxy()) {
+		if (context != null && context.eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {

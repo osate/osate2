@@ -26,7 +26,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -155,7 +154,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 */
 	@Override
 	public Prototype getFormal() {
-		if (formal != null && ((EObject) formal).eIsProxy()) {
+		if (formal != null && formal.eIsProxy()) {
 			InternalEObject oldFormal = (InternalEObject) formal;
 			formal = (Prototype) eResolveProxy(oldFormal);
 			if (formal != oldFormal) {
@@ -184,7 +183,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * @generated NOT
 	 */
 	public void setFormal(Prototype newFormal) {
-		if (newFormal != null && !((EObject) newFormal).eIsProxy() && !(newFormal instanceof FeatureGroupPrototype)) {
+		if (newFormal != null && !newFormal.eIsProxy() && !(newFormal instanceof FeatureGroupPrototype)) {
 			throw new IllegalArgumentException("newFormal must be an instance of FeatureGroupPrototype");
 		}
 		Prototype oldFormal = formal;

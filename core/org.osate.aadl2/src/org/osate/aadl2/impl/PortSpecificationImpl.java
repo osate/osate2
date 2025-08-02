@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -217,7 +216,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 */
 	@Override
 	public ComponentClassifier getClassifier() {
-		if (classifier != null && ((EObject) classifier).eIsProxy()) {
+		if (classifier != null && classifier.eIsProxy()) {
 			InternalEObject oldClassifier = (InternalEObject) classifier;
 			classifier = (ComponentClassifier) eResolveProxy(oldClassifier);
 			if (classifier != oldClassifier) {
@@ -261,7 +260,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 */
 	@Override
 	public ComponentPrototype getComponentPrototype() {
-		if (componentPrototype != null && ((EObject) componentPrototype).eIsProxy()) {
+		if (componentPrototype != null && componentPrototype.eIsProxy()) {
 			InternalEObject oldComponentPrototype = (InternalEObject) componentPrototype;
 			componentPrototype = (ComponentPrototype) eResolveProxy(oldComponentPrototype);
 			if (componentPrototype != oldComponentPrototype) {

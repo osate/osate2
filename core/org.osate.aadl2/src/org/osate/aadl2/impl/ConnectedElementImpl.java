@@ -26,7 +26,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -106,7 +105,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 */
 	@Override
 	public Context getContext() {
-		if (context != null && ((EObject) context).eIsProxy()) {
+		if (context != null && context.eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
@@ -150,7 +149,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 */
 	@Override
 	public ConnectionEnd getConnectionEnd() {
-		if (connectionEnd != null && ((EObject) connectionEnd).eIsProxy()) {
+		if (connectionEnd != null && connectionEnd.eIsProxy()) {
 			InternalEObject oldConnectionEnd = (InternalEObject) connectionEnd;
 			connectionEnd = (ConnectionEnd) eResolveProxy(oldConnectionEnd);
 			if (connectionEnd != oldConnectionEnd) {

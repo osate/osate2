@@ -26,7 +26,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -162,7 +161,7 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 */
 	@Override
 	public Feature getFeature() {
-		if (feature != null && ((EObject) feature).eIsProxy()) {
+		if (feature != null && feature.eIsProxy()) {
 			InternalEObject oldFeature = (InternalEObject) feature;
 			feature = (Feature) eResolveProxy(oldFeature);
 			if (feature != oldFeature) {

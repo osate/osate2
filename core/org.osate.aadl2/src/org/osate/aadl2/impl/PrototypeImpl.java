@@ -25,7 +25,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -84,7 +83,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 */
 	@Override
 	public Prototype getRefined() {
-		if (refined != null && ((EObject) refined).eIsProxy()) {
+		if (refined != null && refined.eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Prototype) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
@@ -192,7 +191,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+		return refinedElement != null && refinedElement.eIsProxy()
 				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
 				: refinedElement;
 	}

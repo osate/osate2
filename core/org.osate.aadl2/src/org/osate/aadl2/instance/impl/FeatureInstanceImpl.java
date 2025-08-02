@@ -32,7 +32,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -218,7 +217,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 */
 	@Override
 	public Feature getFeature() {
-		if (feature != null && ((EObject) feature).eIsProxy()) {
+		if (feature != null && feature.eIsProxy()) {
 			InternalEObject oldFeature = (InternalEObject) feature;
 			feature = (Feature) eResolveProxy(oldFeature);
 			if (feature != oldFeature) {

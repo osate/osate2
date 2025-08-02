@@ -26,7 +26,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
@@ -174,7 +173,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 */
 	@Override
 	public UnitsType getReferencedUnitsType() {
-		if (referencedUnitsType != null && ((EObject) referencedUnitsType).eIsProxy()) {
+		if (referencedUnitsType != null && referencedUnitsType.eIsProxy()) {
 			InternalEObject oldReferencedUnitsType = (InternalEObject) referencedUnitsType;
 			referencedUnitsType = (UnitsType) eResolveProxy(oldReferencedUnitsType);
 			if (referencedUnitsType != oldReferencedUnitsType) {
@@ -220,8 +219,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	@Override
 	public UnitsType getUnitsType() {
 		UnitsType unitsType = basicGetUnitsType();
-		return unitsType != null && ((EObject) unitsType).eIsProxy()
-				? (UnitsType) eResolveProxy((InternalEObject) unitsType)
+		return unitsType != null && unitsType.eIsProxy() ? (UnitsType) eResolveProxy((InternalEObject) unitsType)
 				: unitsType;
 	}
 

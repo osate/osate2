@@ -31,7 +31,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -155,7 +154,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 */
 	@Override
 	public EndToEndFlow getEndToEndFlow() {
-		if (endToEndFlow != null && ((EObject) endToEndFlow).eIsProxy()) {
+		if (endToEndFlow != null && endToEndFlow.eIsProxy()) {
 			InternalEObject oldEndToEndFlow = (InternalEObject) endToEndFlow;
 			endToEndFlow = (EndToEndFlow) eResolveProxy(oldEndToEndFlow);
 			if (endToEndFlow != oldEndToEndFlow) {
