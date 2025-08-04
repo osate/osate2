@@ -3,6 +3,11 @@ pipeline {
   tools {
      jdk "OpenJDK21"
   }
+  environment {
+	https_proxy = 'http://cloudproxy.seui.cmu.edu:80'
+	no_proxy = 'localhost,junilla.sei.cmu.edu'
+	NO_PROXY = 'localhost,junilla.sei.cmu.edu'
+  }
   stages {
     stage('Update dependencies') {
       steps {
