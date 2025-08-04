@@ -3,11 +3,6 @@ pipeline {
   tools {
      jdk "OpenJDK21"
   }
-  environment {
-	https_proxy = 'http://cloudproxy.seui.cmu.edu:80'
-	no_proxy = 'localhost,junilla.sei.cmu.edu'
-	NO_PROXY = 'localhost,junilla.sei.cmu.edu'
-  }
   stages {
     stage('Update dependencies') {
       steps {
@@ -25,7 +20,7 @@ pipeline {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-              sh 'mvn -s releng/osate.releng/seisettings.xml clean verify sonar:sonar \
+              sh 'mvn -s releng/osate.releng/seisettings.xml clean verify \
                   -Plocal -Dsonar.token=$SONARTOKEN \
                   -Dsonar.pullrequest.provider=GitHub \
                   -Dsonar.pullrequest.github.repository=$(echo $CHANGE_URL | cut -d/ -f4,5) \
@@ -47,7 +42,7 @@ pipeline {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-              sh 'mvn -s releng/osate.releng/seisettings.xml clean verify sonar:sonar \
+              sh 'mvn -s releng/osate.releng/seisettings.xml clean verify \
                   -Pfull -Dsonar.token=$SONARTOKEN \
                   -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
                   -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'
