@@ -123,10 +123,52 @@ public final class ReachabilityAnalyzer {
 
 	public IStatus writeReports() {
 
-		try {
-			new HtmlExporter().writeFile();
-		} catch (IOException e) {
-			return Status.error("An exception occurred while writing the HTML report", e);
+		if (config.generateHTML()) {
+			try {
+				var uri = new HtmlExporter().writeFile();
+				var r = ResultUtil.createSuccessResult("HTML file URI", root);
+				ResultUtil.addStringValue(r, uri.toString());
+				result.getResults().add(r);
+			} catch (IOException e) {
+				var r = ResultUtil.createErrorDiagnostic("Could not write HTML file: " + e.getMessage(), root);
+				result.getDiagnostics().add(r);
+				return new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+						"Could not write HTML file: " + e.getMessage(), e);
+			}
+		} else {
+			try {
+				new HtmlExporter().delete();
+			} catch (IOException e) {
+				var r = ResultUtil.createWarningDiagnostic("Could not delete existing HTML file: " + e.getMessage(),
+						root);
+				result.getDiagnostics().add(r);
+				return new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+						"Could not delete existing HTML file: " + e.getMessage(), e);
+			}
+		}
+
+		if (config.generateDot()) {
+			try {
+				var uri = new DotExporter().writeFile();
+				var r = ResultUtil.createSuccessResult("DOT file URI", root);
+				ResultUtil.addStringValue(r, uri.toString());
+				result.getResults().add(r);
+			} catch (IOException e) {
+				var r = ResultUtil.createErrorDiagnostic("Could not write DOT file: " + e.getMessage(), root);
+				result.getDiagnostics().add(r);
+				return new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+						"Could not write DOT file: " + e.getMessage(), e);
+			}
+		} else {
+			try {
+				new DotExporter().delete();
+			} catch (IOException e) {
+				var r = ResultUtil.createWarningDiagnostic("Could not delete existing DOT file: " + e.getMessage(),
+						root);
+				result.getDiagnostics().add(r);
+				return new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+						"Could not delete existing DOT file: " + e.getMessage(), e);
+			}
 		}
 
 		return new Status(IStatus.OK, ModeAnalysisPlugin.ID, "");
@@ -140,29 +182,6 @@ public final class ReachabilityAnalyzer {
 //				} catch (IOException e) {
 //					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
 //							"Could not write model file: " + e.getMessage(), e));
-//				}
-//			}
-//			if (config.generateDot()) {
-//				try {
-//					var uri = new DotExporter(graph).writeFile();
-//					var r = ResultUtil.createSuccessResult("DOT file URI", root);
-//					ResultUtil.addStringValue(r, uri.toString());
-//					result.getSubResults().add(r);
-//				} catch (IOException e) {
-//					var r = ResultUtil.createErrorDiagnostic("Could not write DOT file: " + e.getMessage(), root);
-//					result.getDiagnostics().add(r);
-//					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-//							"Could not write DOT file: " + e.getMessage(), e));
-//				}
-//			} else {
-//				try {
-//					new DotExporter(graph).delete();
-//				} catch (IOException e) {
-//					var r = ResultUtil.createWarningDiagnostic("Could not delete existing DOT file: " + e.getMessage(),
-//							root);
-//					result.getDiagnostics().add(r);
-//					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-//							"Could not delete existing DOT file: " + e.getMessage(), e));
 //				}
 //			}
 //			if (config.generateHTML()) {
