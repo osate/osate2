@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.analysis.modes.modemodel.ActiveNode;
 import org.osate.analysis.modes.modemodel.FeatureTrigger;
 import org.osate.analysis.modes.modemodel.InactiveNode;
@@ -44,26 +45,21 @@ public class DotExporter extends FileExporter {
 
 	private Set<SOMNode> deadNodes = new HashSet<>();
 
-	DotExporter(SOMGraph graph) {
-		this.graph = graph;
+	DotExporter() {
 	}
 
 	@Override
-	SOMGraph getGraph() {
-		return graph;
+	Resource getGraphs() {
+		return graph.eResource();
 	}
 
 	@Override
 	CharSequence getContent() {
-		if (SKIP_DEAD_NODES) {
-			deadNodes.clear();
-			collectDeadNodes();
-		}
 		return generateDOT();
 	}
 
 	private void collectDeadNodes() {
-		var levels = getGraph().getLevels();
+		var levels = graph.getLevels();
 		int levelCount = levels.size();
 		for (int i = levelCount - 2; i >= 0; i--) {
 			for (var pn : levels.get(i).getNodes()) {
@@ -87,13 +83,37 @@ public class DotExporter extends FileExporter {
 	}
 
 	StringBuilder generateDOT() {
-		var node2n = new HashMap<SOMNode, Integer>();
 		var b = new StringBuilder();
-		b.append("digraph {\n");
-		b.append("  newrank=true\n");
-		b.append("  compound=true\n");
-		b.append("  labeljust=l\n");
-		b.append("  nodesep=0.5 ranksep=0.5\n");
+		b.append("""
+				digraph {
+				  rankdir=LR
+				""");
+		var domainNo = ModeDomain.domains.size() - 1;
+		for (var d : ModeDomain.domains.reversed()) {
+			graph = d.graph;
+			deadNodes.clear();
+			if (SKIP_DEAD_NODES) {
+				collectDeadNodes();
+			}
+			var label = "Mode domain D%d: %s".formatted(domainNo, d.root.getInstanceObjectPath());
+			generateDOT(b, label, domainNo);
+			domainNo -= 1;
+		}
+		b.append("}\n");
+		return b;
+	}
+
+	StringBuilder generateDOT(StringBuilder b, String name, int domainNo) {
+		var node2n = new HashMap<SOMNode, Integer>();
+		b.append("""
+				  subgraph {
+				    cluster=true
+				    newrank=true
+				    compound=true
+				    labeljust=l
+				    nodesep=0.5 ranksep=0.5
+				    label="%s"
+				""".formatted(name));
 
 		var n = 1;
 		final int lastLevel = graph.getLevels().size() - 1;
@@ -101,9 +121,9 @@ public class DotExporter extends FileExporter {
 			var level = graph.getLevels().get(l);
 			var n0 = n;
 			var label = level.getComponent().getFullName();
-			b.append("  subgraph l" + l + " {\n");
-			b.append("    cluster=true\n");
-			b.append("    label=\"" + label + "\"\n");
+			b.append("    subgraph l" + l + " {\n");
+			b.append("      cluster=true\n");
+			b.append("      label=\"" + label + "\"\n");
 			for (var node : level.getNodes()) {
 				if (deadNodes.contains(node)) {
 					continue;
@@ -128,27 +148,27 @@ public class DotExporter extends FileExporter {
 					styles.add("dashed");
 				}
 				String style = styles.isEmpty() ? "" : " style=\"" + String.join(",", styles) + "\"";
-				b.append("    " + n + " [label=\"" + label + "\"" + style + "]\n");
+				b.append("      " + nodeName(domainNo, n) + " [label=\"" + label + "\"" + style + "]\n");
 				node2n.put(node, n);
 				n += 1;
 			}
 			if (l != lastLevel || level.getNodes().size() == 2) {
-				b.append("    rank=same\n");
+				b.append("      rank=same\n");
 			}
-			b.append("  }\n");
+			b.append("    }\n");
 			n = n0;
 			for (var node : level.getNodes()) {
 				if (SKIP_DEAD_NODES && deadNodes.contains(node)) {
 					continue;
 				}
 				if (l != 0) {
-					b.append("  " + node2n.get(node.getParent()) + " -> " + n);
+					b.append("    " + nodeName(domainNo, node2n.get(node.getParent())) + " -> ");
+					b.append(nodeName(domainNo, n) + " [color=red arrowhead=none");
+					if (!node.isReachable()) {
+						b.append(" style=dashed");
+					}
+					b.append("]\n");
 				}
-				b.append(" [color=red arrowhead=none");
-				if (!node.isReachable()) {
-					b.append(" style=dashed");
-				}
-				b.append("]\n");
 				n += 1;
 			}
 		}
@@ -161,11 +181,16 @@ public class DotExporter extends FileExporter {
 			if (tn.getTrigger() instanceof FeatureTrigger ftg) {
 				label = ftg.getFeature().getComponentInstancePath();
 			}
-			b.append("  " + s + " -> " + d + " [label=\"" + label + "\" color=\"#aaaaaa\"]\n");
+			b.append("    " + nodeName(domainNo, s) + " -> " + nodeName(domainNo, d) + " [label=\"" + label
+					+ "\" color=\"#aaaaaa\"]\n");
 		}
 
-		b.append("}\n");
+		b.append("  }\n");
 		return b;
+	}
+
+	String nodeName(int domainNo, int n) {
+		return "D%d_%d".formatted(domainNo, n);
 	}
 
 }
