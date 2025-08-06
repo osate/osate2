@@ -94,7 +94,7 @@ public final class ReachabilityAnalyzer {
 		ModeDomain.clearData();
 		initializeResult();
 		if (!fillAndValidateModeDomains(root)) {
-			result.setResultType(ResultType.FAILURE);
+			result.setResultType(ResultType.ERROR);
 			return result;
 		}
 
@@ -126,7 +126,7 @@ public final class ReachabilityAnalyzer {
 		try {
 			new HtmlExporter().writeFile();
 		} catch (IOException e) {
-			System.out.println(e.getStackTrace());
+			return Status.error("An exception occurred while writing the HTML report", e);
 		}
 
 		return new Status(IStatus.OK, ModeAnalysisPlugin.ID, "");

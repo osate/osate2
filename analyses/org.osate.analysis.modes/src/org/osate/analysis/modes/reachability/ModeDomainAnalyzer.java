@@ -130,7 +130,7 @@ public final class ModeDomainAnalyzer {
 			createSOMGraph(root);
 			result.setResultType(ResultType.SUCCESS);
 		} catch (OperationCanceledException oce) {
-			var r = ResultUtil.createInfoDiagnostic("cancelled", root);
+			var r = ResultUtil.createInfoDiagnostic("canceled", root);
 			result.getDiagnostics().add(r);
 			result.setResultType(ResultType.TBD);
 		} catch (Exception e) {

@@ -105,6 +105,7 @@ public class HtmlExporter extends FileExporter {
 		if (skip) {
 			b.append("  <p>The model has no modal components.</p>");
 		} else {
+			b.append("  <p>The SOMs of the whole system are all combinations of mode domain SOMs.</p>");
 			int domainNo = 0;
 			for (var d : ModeDomain.domains) {
 				graph = d.graph;
@@ -117,6 +118,9 @@ public class HtmlExporter extends FileExporter {
 					b.append("  <p>This mode domain has no modal components.</p>");
 				} else {
 					generateSomTable(b, root, domainNo);
+					if (domainNo == 0) {
+						generateTableExplanation(b);
+					}
 					generateTriggerTable(b, domainNo);
 					generateTransitionTable(b, domainNo);
 				}
@@ -185,6 +189,9 @@ public class HtmlExporter extends FileExporter {
 		}
 		b.append("    </tr>\n");
 		b.append("  </table>\n");
+	}
+
+	private void generateTableExplanation(StringBuilder b) {
 		b.append("""
 				  <p>
 				    The table cells show the mode of components (column) in an SOM (row).

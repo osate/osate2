@@ -10,7 +10,7 @@ Require-Bundle: org.osate.aadl2;bundle-version="[6.1.0,7.0.0)",
  org.osate.ui;bundle-version="[6.5.0,7.0.0)",
  org.osate.analysis.modes;bundle-version="[1.0.0,2.0.0)",
  org.osate.results;bundle-version="[3.1.0,4.0.0)"
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.osate.analysis.modes.ui
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.analysis.modes.ui

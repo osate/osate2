@@ -18,6 +18,6 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.31.0,4.0.0)",
  org.osate.contribution.sei;bundle-version="[2.2.0,3.0.0)"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.analysis.modes
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Activator: org.osate.analysis.modes.internal.ModeAnalysisPlugin
 

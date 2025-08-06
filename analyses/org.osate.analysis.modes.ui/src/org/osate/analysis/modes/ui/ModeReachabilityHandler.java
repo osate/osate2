@@ -118,20 +118,22 @@ public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
 			IStatus status = null;
 			switch (result.getResultType().getValue()) {
 			case ResultType.TBD_VALUE:
-				status = new Status(IStatus.CANCEL, ModeAnalysisPlugin.PLUGIN_ID, "Cancelled by user");
+				status = new Status(IStatus.CANCEL, ModeAnalysisPlugin.PLUGIN_ID, "Canceled by user");
 				break;
 			case ResultType.ERROR_VALUE:
-			case ResultType.FAILURE_VALUE:
-				status = new Status(IStatus.ERROR, ModeAnalysisPlugin.PLUGIN_ID, "Error during analysis");
+				status = new Status(IStatus.ERROR, ModeAnalysisPlugin.PLUGIN_ID,
+						"An error occurred during the analysis");
 				break;
-			case ResultType.SUCCESS_VALUE:
-				status = new Status(IStatus.OK, ModeAnalysisPlugin.PLUGIN_ID, "SOM reachability analysis finished");
+			case ResultType.FAILURE_VALUE:
+				status = new Status(IStatus.ERROR, ModeAnalysisPlugin.PLUGIN_ID, "Analysis could not be finished");
+				break;
+			default:
 				break;
 			}
 			StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 		} else {
 			var status = ra.writeReports();
-			if (!status.isOK() || status.isMultiStatus()) {
+			if (!status.isOK()) {
 				StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 			}
 		}
