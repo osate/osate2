@@ -90,7 +90,7 @@ public class HtmlExporter extends FileExporter {
 				</head>
 				<body>
 				""");
-		generateHTML(b);
+		generateBody(b);
 		b.append("""
 				</body>
 				</html>
@@ -98,7 +98,7 @@ public class HtmlExporter extends FileExporter {
 		return b;
 	}
 
-	StringBuilder generateHTML(StringBuilder b) {
+	private void generateBody(StringBuilder b) {
 		ComponentInstance root = ModeDomain.domains.get(0).root.getSystemInstance();
 		var skip = generateLayout(root);
 		b.append("  <h1>System Operation Modes and Transitions for " + root.getName() + "</h1>");
@@ -127,7 +127,6 @@ public class HtmlExporter extends FileExporter {
 				domainNo += 1;
 			}
 		}
-		return b;
 	}
 
 	private void generateSomTable(StringBuilder b, ComponentInstance root, int domainNo) {
