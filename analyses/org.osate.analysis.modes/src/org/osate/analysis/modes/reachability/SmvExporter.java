@@ -145,7 +145,7 @@ public class SmvExporter extends FileExporter {
 	}
 
 	private void generateMain(StringBuilder b, int count) {
-		b.append("MODULE Main\n");
+		b.append("MODULE main\n");
 		b.append("  VAR\n");
 		for (int i = 0; i < count; i++) {
 			b.append("    d" + i + ": D" + i + ";\n");
