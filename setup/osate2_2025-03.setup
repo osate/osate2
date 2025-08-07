@@ -470,7 +470,7 @@
     <requirement
         name="org.py4j.feature.feature.group"/>
     <repository
-        url="https://download.eclipse.org/ease/release/0.9.0"/>
+        url="https://download.eclipse.org/ease/integration/nightly"/>
     <repository
         url="https://osate-build.sei.cmu.edu/p2/py4j"/>
   </setupTask>
@@ -583,6 +583,14 @@
         url="https://download.eclipse.org/eclipse/updates/4.19"/>
   </setupTask>
   <setupTask
+      xsi:type="setup.p2:P2Task"
+      label="Papyrus">
+    <requirement
+        name="org.eclipse.papyrus.sdk.feature.feature.group"/>
+    <repository
+        url="https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2024-06"/>
+  </setupTask>
+  <setupTask
       xsi:type="setup:CompoundTask"
       id="osate2"
       name="OSATE2">
@@ -613,8 +621,6 @@
         xsi:type="setup.p2:P2Task"
         label="Core Dependencies">
       <requirement
-          name="org.eclipse.papyrus.sdk.feature.feature.group"/>
-      <requirement
           name="org.eclipse.emf.compare.ide.ui.feature.group"/>
       <requirement
           name="org.eclipse.emf.compare.egit.feature.group"/>
@@ -626,8 +632,6 @@
           name="org.eclipse.wst.xml_ui.feature.feature.group"/>
       <repository
           url="https://download.eclipse.org/releases/${eclipse.target.platform}"/>
-      <repository
-          url="https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2024-06"/>
       <repository
           url="https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.38.0"/>
       <description>Additional features for core OSATE</description>
@@ -824,7 +828,7 @@
         <repository
             url="https://download.eclipse.org/sirius/updates/releases/7.4.10/2023-03"/>
         <repository
-            url="https://download.eclipse.org/ease/release/0.9.0"/>
+            url="https://download.eclipse.org/ease/integration/nightly"/>
         <repository
             url="https://download.eclipse.org/elk/updates/releases/0.9.1"/>
         <repository
