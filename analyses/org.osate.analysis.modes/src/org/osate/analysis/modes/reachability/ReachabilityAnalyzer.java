@@ -171,79 +171,31 @@ public final class ReachabilityAnalyzer {
 			}
 		}
 
+		if (config.generateSMV()) {
+			try {
+				var uri = new SmvExporter().writeFile();
+				var r = ResultUtil.createSuccessResult("SMV file URI", root);
+				ResultUtil.addStringValue(r, uri.toString());
+				result.getResults().add(r);
+			} catch (IOException e) {
+				var r = ResultUtil.createErrorDiagnostic("Could not write SMV file: " + e.getMessage(), root);
+				result.getDiagnostics().add(r);
+				return new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+						"Could not write SMV file: " + e.getMessage(), e);
+			}
+		} else {
+			try {
+				new SmvExporter().delete();
+			} catch (IOException e) {
+				var r = ResultUtil.createWarningDiagnostic("Could not delete existing SMV file: " + e.getMessage(),
+						root);
+				result.getDiagnostics().add(r);
+				return new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
+						"Could not delete existing SMV file: " + e.getMessage(), e);
+			}
+		}
+
 		return new Status(IStatus.OK, ModeAnalysisPlugin.ID, "");
-//
-//		Assert.isNotNull(graph, "SOM graph is null");
-//
-//		try {
-//			if (config.saveModel()) {
-//				try {
-//					graph.eResource().save(null);
-//				} catch (IOException e) {
-//					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-//							"Could not write model file: " + e.getMessage(), e));
-//				}
-//			}
-//			if (config.generateHTML()) {
-//				try {
-//					var uri = new HtmlExporter().writeFile();
-//					var r = ResultUtil.createSuccessResult("HTML file URI", root);
-//					ResultUtil.addStringValue(r, uri.toString());
-//					result.getResults().add(r);
-//				} catch (IOException e) {
-//					var r = ResultUtil.createErrorDiagnostic("Could not write HTML file: " + e.getMessage(), root);
-//					result.getDiagnostics().add(r);
-//					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-//							"Could not write HTML file: " + e.getMessage(), e));
-//				}
-//			} else {
-//				try {
-//					new HtmlExporter().delete();
-//				} catch (IOException e) {
-//					var r = ResultUtil.createWarningDiagnostic("Could not delete existing HTML file: " + e.getMessage(),
-//							root);
-//					result.getDiagnostics().add(r);
-//					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-//							"Could not delete existing HTML file: " + e.getMessage(), e));
-//				}
-//			}
-//			if (config.generateSMV()) {
-//				try {
-//					var uri = new SmvExporter(graph).writeFile();
-//					var r = ResultUtil.createSuccessResult("SMV file URI", root);
-//					ResultUtil.addStringValue(r, uri.toString());
-//					result.getSubResults().add(r);
-//				} catch (IOException e) {
-//					var r = ResultUtil.createErrorDiagnostic("Could not write SMV file: " + e.getMessage(), root);
-//					result.getDiagnostics().add(r);
-//					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-//							"Could not write SMV file: " + e.getMessage(), e));
-//				}
-//			} else {
-//				try {
-//					new SmvExporter(graph).delete();
-//				} catch (IOException e) {
-//					var r = ResultUtil.createWarningDiagnostic("Could not delete existing SMV file: " + e.getMessage(),
-//							root);
-//					result.getDiagnostics().add(r);
-//					sts.add(new Status(IStatus.ERROR, ModeAnalysisPlugin.ID, IStatus.ERROR,
-//							"Could not delete existing SMV file: " + e.getMessage(), e));
-//				}
-//			}
-//
-//			if (sts.isEmpty()) {
-//				return new Status(IStatus.OK, ModeAnalysisPlugin.ID, "");
-//			} else {
-//				var status = new MultiStatus(ModeAnalysisPlugin.ID, IStatus.ERROR, sts.toArray(new IStatus[] {}), null,
-//						null);
-//				return status;
-//			}
-//		} catch (OperationCanceledException oce) {
-//			var r = ResultUtil.createInfoDiagnostic("Cancelled by user", root);
-//			result.getDiagnostics().add(r);
-//			return new Status(IStatus.CANCEL, ModeAnalysisPlugin.ID,
-//					"The SOM reachability analysis was cancelled by the user");
-//		}
 	}
 
 	private boolean fillAndValidateModeDomains(ComponentInstance ci) {
