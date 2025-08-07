@@ -122,7 +122,6 @@ public class ModeDomain {
 		if (Objects.nonNull(graph)) {
 			EcoreUtil.remove(graph);
 		}
-		System.out.println("analyzing " + root.getFullName());
 		graph = new SOMGraph();
 		graph.getTriggers().putAll(triggers);
 		graphs.getContents().add(graph);
