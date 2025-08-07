@@ -52,7 +52,8 @@ import org.osate.ui.dialogs.Dialog;
 
 public final class ModeReachabilitySettings extends TitleAreaDialog {
 
-	private static final String[] LABELS = { "Generate HTML report", "Generate DOT graph", "Generate SMV file" };
+	private static final String[] LABELS = { "Generate HTML report", "Generate DOT graph",
+			"Generate SMV file (experimental)" };
 	private static final String[] KEYS = { Constants.GENERATE_HTML, Constants.GENERATE_DOT,
 			Constants.GENERATE_SMV };
 

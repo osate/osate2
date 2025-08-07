@@ -56,7 +56,8 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 				getFieldEditorParent()));
 		addField(new BooleanFieldEditor(Constants.GENERATE_DOT, "Generate DOT graph", BooleanFieldEditor.DEFAULT,
 				getFieldEditorParent()));
-		addField(new BooleanFieldEditor(Constants.GENERATE_SMV, "Generate SMV file", BooleanFieldEditor.DEFAULT,
+		addField(new BooleanFieldEditor(Constants.GENERATE_SMV, "Generate SMV file (experimental)",
+				BooleanFieldEditor.DEFAULT,
 				getFieldEditorParent()));
 		addField(new BooleanFieldEditor(Constants.HIDE_DIALOG,
 				"Don't show the settings dialog before executing the analysis", getFieldEditorParent()));
