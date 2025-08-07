@@ -51,7 +51,7 @@ public class HtmlExporter extends FileExporter {
 
 	@Override
 	Resource getGraphs() {
-		return graph.eResource();
+		return ModeDomain.domains.getFirst().graph.eResource();
 	}
 
 	@Override

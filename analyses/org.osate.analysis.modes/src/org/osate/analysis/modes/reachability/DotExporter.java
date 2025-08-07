@@ -50,7 +50,7 @@ public class DotExporter extends FileExporter {
 
 	@Override
 	Resource getGraphs() {
-		return graph.eResource();
+		return ModeDomain.domains.getFirst().graph.eResource();
 	}
 
 	@Override
