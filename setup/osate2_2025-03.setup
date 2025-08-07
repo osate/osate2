@@ -584,6 +584,7 @@
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
+      disabled="true"
       label="Papyrus">
     <requirement
         name="org.eclipse.papyrus.sdk.feature.feature.group"/>
