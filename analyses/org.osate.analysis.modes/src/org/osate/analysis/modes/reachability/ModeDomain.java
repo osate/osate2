@@ -96,6 +96,14 @@ public class ModeDomain {
 		tc2d.clear();
 	}
 
+	static void cleanResource() {
+		for (var d : domains) {
+			if (d.tcHolder != null) {
+				d.root.eResource().getContents().remove(d.tcHolder);
+			}
+		}
+	}
+
 	public ModeDomain(ComponentInstance root, Resource graphs) {
 		this.root = root;
 		this.graphs = graphs;

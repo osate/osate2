@@ -93,32 +93,36 @@ public final class ReachabilityAnalyzer {
 	public AnalysisResult analyzeModel(IProgressMonitor monitor) {
 		ModeDomain.clearData();
 		initializeResult();
-		if (!fillAndValidateModeDomains(root)) {
-			result.setResultType(ResultType.ERROR);
+		try {
+			if (!fillAndValidateModeDomains(root)) {
+				result.setResultType(ResultType.ERROR);
+				return result;
+			}
+
+			progress = SubMonitor.convert(monitor, 100);
+
+			while (!ModeDomain.toAnalyze.isEmpty()) {
+				var d = ModeDomain.toAnalyze.iterator().next();
+				ModeDomain.toAnalyze.remove(d);
+				var r = d.analyze(config, progress.split(1));
+				result.getResults().add(r);
+			}
+
+			monitor.done();
+
+			if (ResultUtil.hasResultFailures(result)) {
+				result.setResultType(ResultType.FAILURE);
+			} else if (ResultUtil.hasResultErrors(result)) {
+				result.setResultType(ResultType.ERROR);
+			} else if (ResultUtil.hasResultTBDs(result)) {
+				result.setResultType(ResultType.TBD);
+			} else {
+				result.setResultType(ResultType.SUCCESS);
+			}
 			return result;
+		} finally {
+			ModeDomain.cleanResource();
 		}
-
-		progress = SubMonitor.convert(monitor, 100);
-
-		while (!ModeDomain.toAnalyze.isEmpty()) {
-			var d = ModeDomain.toAnalyze.iterator().next();
-			ModeDomain.toAnalyze.remove(d);
-			var r = d.analyze(config, progress.split(1));
-			result.getResults().add(r);
-		}
-
-		monitor.done();
-
-		if (ResultUtil.hasResultFailures(result)) {
-			result.setResultType(ResultType.FAILURE);
-		} else if (ResultUtil.hasResultErrors(result)) {
-			result.setResultType(ResultType.ERROR);
-		} else if (ResultUtil.hasResultTBDs(result)) {
-			result.setResultType(ResultType.TBD);
-		} else {
-			result.setResultType(ResultType.SUCCESS);
-		}
-		return result;
 	}
 
 	public IStatus writeReports() {

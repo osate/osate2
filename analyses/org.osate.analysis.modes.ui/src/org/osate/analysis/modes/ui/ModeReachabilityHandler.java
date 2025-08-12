@@ -44,9 +44,9 @@ import org.osate.analysis.modes.ui.preferences.Constants;
 import org.osate.result.AnalysisResult;
 import org.osate.result.DiagnosticType;
 import org.osate.result.ResultType;
-import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
+import org.osate.ui.handlers.AaxlModifyHandlerAsJob;
 
-public final class ModeReachabilityHandler extends AaxlReadOnlyHandlerAsJob {
+public final class ModeReachabilityHandler extends AaxlModifyHandlerAsJob {
 
 	private final IDialogSettings settings = ModeAnalysisPlugin.getDefault().getDialogSettings();
 	private final IPreferenceStore prefStore = ModeAnalysisPlugin.getDefault().getPreferenceStore();
