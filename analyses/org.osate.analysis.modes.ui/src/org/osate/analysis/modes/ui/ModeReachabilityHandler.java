@@ -118,23 +118,25 @@ public final class ModeReachabilityHandler extends AaxlModifyHandlerAsJob {
 			IStatus status = null;
 			switch (result.getResultType().getValue()) {
 			case ResultType.TBD_VALUE:
-				status = new Status(IStatus.CANCEL, ModeAnalysisPlugin.PLUGIN_ID, "Canceled by user");
+				status = new Status(IStatus.CANCEL, ModeAnalysisPlugin.PLUGIN_ID, result.getMessage());
+				StatusManager.getManager().handle(status, StatusManager.SHOW);
 				break;
 			case ResultType.ERROR_VALUE:
 				status = new Status(IStatus.ERROR, ModeAnalysisPlugin.PLUGIN_ID,
-						"An error occurred during the analysis");
+						result.getMessage());
+				StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 				break;
 			case ResultType.FAILURE_VALUE:
-				status = new Status(IStatus.ERROR, ModeAnalysisPlugin.PLUGIN_ID, "Analysis could not be finished");
+				status = new Status(IStatus.ERROR, ModeAnalysisPlugin.PLUGIN_ID, result.getMessage());
+				StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 				break;
 			default:
 				break;
 			}
-			StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 		} else {
 			var status = ra.writeReports();
 			if (!status.isOK()) {
-				StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
+				StatusManager.getManager().handle(status, StatusManager.SHOW);
 			}
 		}
 	}

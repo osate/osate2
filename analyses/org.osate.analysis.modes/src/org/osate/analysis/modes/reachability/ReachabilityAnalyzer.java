@@ -95,6 +95,7 @@ public final class ReachabilityAnalyzer {
 		initializeResult();
 		try {
 			if (!fillAndValidateModeDomains(root)) {
+				result.setMessage("Mode domains are not set up correctly, check instance model for problems");
 				result.setResultType(ResultType.ERROR);
 				return result;
 			}
@@ -111,10 +112,13 @@ public final class ReachabilityAnalyzer {
 			monitor.done();
 
 			if (ResultUtil.hasResultFailures(result)) {
+				result.setMessage("The analysis could not be executed successfully");
 				result.setResultType(ResultType.FAILURE);
 			} else if (ResultUtil.hasResultErrors(result)) {
+				result.setMessage("An error occurred during analysis, check instance model for problems");
 				result.setResultType(ResultType.ERROR);
 			} else if (ResultUtil.hasResultTBDs(result)) {
+				result.setMessage("Analysis was cancelled");
 				result.setResultType(ResultType.TBD);
 			} else {
 				result.setResultType(ResultType.SUCCESS);
