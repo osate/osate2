@@ -1,0 +1,40 @@
+package ModeDomains
+public
+	with SEI;
+
+	system S
+	end S;
+
+	-- a is modal but not in mode domain
+	system implementation S.i0
+		subcomponents
+			a: abstract A;
+			s1: system S1.i {SEI::Mode_Domain => true;};
+	end S.i0;
+
+	-- nested mode domain
+	system implementation S.i1 extends S.i0
+		subcomponents
+			a: refined to abstract A.i {SEI::Mode_Domain => true;};
+	end S.i1;
+
+	system S1
+	end S1;
+
+	system implementation S1.i
+		modes
+			m0: initial mode;
+			m1: mode;
+	end S1.i;
+
+	abstract A
+		modes
+			m0: initial mode;
+	end A;
+
+	abstract implementation A.i
+		subcomponents
+			aa: abstract A {SEI::Mode_Domain => true;};
+	end A.i;
+
+end ModeDomains;

@@ -23,10 +23,12 @@
  */
 package org.osate.analysis.modes.reachability;
 
+import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
 import org.junit.jupiter.api.Test;
@@ -88,9 +90,19 @@ public class TRExamplesTest extends XtextTest {
 		var root = InstantiateModel.instantiate((ComponentImplementation) impl.get());
 		assertEquals(rootName.replace('.', '_') + "_Instance", root.getName());
 
-		var ra = new ReachabilityAnalyzer();
-		ra.analyze(root);
-		var level = ra.getLastLevel();
+		var rs = root.eResource().getResourceSet();
+		var uri = URI.createFileURI("dummy");
+		var res = rs.getResource(uri, false);
+
+		if (isNull(res)) {
+			res = rs.createResource(uri);
+		} else {
+			res.unload();
+		}
+
+		var md = new ModeDomain(root, res);
+		md.analyze(null, null);
+		var level = md.getAnalyzer().getLastLevel();
 		Util.assertCounts(level, somCount, transitionCount);
 	}
 }

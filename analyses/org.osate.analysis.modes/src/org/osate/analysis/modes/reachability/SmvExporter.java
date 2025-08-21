@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.analysis.modes.modemodel.SOMGraph;
 import org.osate.analysis.modes.modemodel.SOMNode;
@@ -39,13 +40,12 @@ public class SmvExporter extends FileExporter {
 
 	private SOMGraph graph;
 
-	SmvExporter(SOMGraph graph) {
-		this.graph = graph;
+	SmvExporter() {
 	}
 
 	@Override
-	SOMGraph getGraph() {
-		return graph;
+	Resource getGraphs() {
+		return ModeDomain.domains.getFirst().graph.eResource();
 	}
 
 	@Override
@@ -68,19 +68,33 @@ public class SmvExporter extends FileExporter {
 
 	StringBuilder generateSMV() {
 		StringBuilder b = new StringBuilder();
+		int domainNo = 0;
+		for (var d : ModeDomain.domains) {
+			graph = d.graph;
+			modalComponents.clear();
+			n2i.clear();
+			tg2i.clear();
+			generateModule(b, domainNo);
+			domainNo += 1;
+		}
+		generateMain(b, domainNo);
+		return b;
+	}
+
+	private void generateModule(StringBuilder b, int domainNo) {
 		ComponentInstance root = graph.getLevels().get(0).getComponent();
 
 		fillComponentList(root);
 		if (modalComponents.isEmpty()) {
 			b.append("The model has no modal components");
-			return b;
+			return;
 		}
 
 		var lc = graph.getLevels().size();
 		var lastLevel = graph.getLevels().get(lc - 1);
 		if (lastLevel.getTransitions().isEmpty()) {
 			b.append("The model has no SOM transitions");
-			return b;
+			return;
 		}
 
 		var somCount = lastLevel.getNodes().size();
@@ -92,9 +106,9 @@ public class SmvExporter extends FileExporter {
 		fillSomTable(somCount, compCount, lastLevel.getNodes());
 		var triggerCount = fillTriggerMap();
 
-		b.append("MODULE main\n");
+		b.append("MODULE D" + domainNo + "\n");
 		b.append("  IVAR\n");
-		b.append("    trg: 0.." + (triggerCount - 1) + ";\n");
+		b.append("    trg: -1.." + (triggerCount - 1) + ";\n");
 		b.append("  VAR\n");
 		b.append("    som: 0.." + (somCount - 1) + ";\n");
 		b.append("  ASSIGN\n");
@@ -126,10 +140,16 @@ public class SmvExporter extends FileExporter {
 				name = dn.isActive() ? dn.getMode().getName() : "_inactive_";
 				b.append("            som = " + j + " : " + name + ";\n");
 			}
-			b.append("          esac;\n");
+			b.append("          esac;\n\n");
 		}
+	}
 
-		return b;
+	private void generateMain(StringBuilder b, int count) {
+		b.append("MODULE main\n");
+		b.append("  VAR\n");
+		for (int i = 0; i < count; i++) {
+			b.append("    d" + i + ": D" + i + ";\n");
+		}
 	}
 
 	private void fillNodeIndices(List<SOMNode> nodes) {

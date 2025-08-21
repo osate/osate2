@@ -1,0 +1,34 @@
+package T31
+public
+  with SEI;
+
+  system S
+    features
+      e0: in event port;
+  end S;
+
+  --- same external trigger for two mode domains
+  system implementation S.i
+  	subcomponents
+      md1: system MD.i;
+      md2: system MD.i;
+    connections
+      c0: port e0 -> md1.ess0;
+      c1: port e0 -> md2.ess0;
+  end S.i;
+
+  system MD
+    features
+      ess0: in event port;
+  	properties
+  		SEI::Mode_Domain => true;
+  end MD;
+
+  system implementation MD.i
+    modes
+      m0: initial mode;
+      m1: mode;
+      mt0: m0 -[ess0]-> m1;
+  end MD.i;
+  
+end T31;

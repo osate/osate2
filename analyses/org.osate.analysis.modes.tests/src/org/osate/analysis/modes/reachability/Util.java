@@ -26,6 +26,10 @@ package org.osate.analysis.modes.reachability;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
+import org.osate.analysis.modes.modemodel.SOMGraph;
 import org.osate.analysis.modes.modemodel.SOMLevel;
 
 public final class Util {
@@ -37,12 +41,55 @@ public final class Util {
 		assertAll(() -> assertSomCount(level, nodes), () -> assertTransitionCount(level, transitions));
 	}
 
-	public static void assertSomCount(SOMLevel level, int expected) {
+	@SuppressWarnings("unchecked")
+	public static void assertCounts(ReachabilityAnalyzer ra, List<Integer> somCounts, List<Integer> triggerCounts,
+			List<Integer> transitionCounts) throws Exception {
+		var scIter = somCounts.iterator();
+		var tgcIter = triggerCounts.iterator();
+		var tncIter = transitionCounts.iterator();
+
+		// domain list is protected
+		Field domains = ModeDomain.class.getDeclaredField("domains");
+		domains.setAccessible(true);
+
+		for (var md : (List<ModeDomain>) domains.get(null)) {
+			assertAll(() -> assertSomCount(md, scIter.next()), () -> assertTriggerCount(md, tgcIter.next()),
+					() -> assertTransitionCount(md, tncIter.next()));
+		}
+	}
+
+	private static void assertSomCount(SOMLevel level, int expected) {
 		var actual = level.getNodes().size();
 		assertEquals(expected, actual, "number of soms");
 	}
 
-	public static void assertTransitionCount(SOMLevel level, int expected) {
+	private static void assertTransitionCount(SOMLevel level, int expected) {
+		var actual = level.getTransitions().size();
+		assertEquals(expected, actual, "number of transitions");
+	}
+
+	private static void assertSomCount(ModeDomain md, int expected) {
+		var level = md.getAnalyzer().getLastLevel();
+		var actual = level.getNodes().size();
+		assertEquals(expected, actual, "number of soms");
+	}
+
+	private static void assertTriggerCount(ModeDomain md, int expected) throws Exception {
+		// graph is protected
+		Field graph = ModeDomain.class.getDeclaredField("graph");
+		graph.setAccessible(true);
+
+		int actual = 0;
+		for (var tg : ((SOMGraph) graph.get(md)).getTriggers().values()) {
+			if (!tg.getTransitions().isEmpty()) {
+				actual++;
+			}
+		}
+		assertEquals(expected, actual, "number of triggers");
+	}
+
+	private static void assertTransitionCount(ModeDomain md, int expected) {
+		var level = md.getAnalyzer().getLastLevel();
 		var actual = level.getTransitions().size();
 		assertEquals(expected, actual, "number of transitions");
 	}

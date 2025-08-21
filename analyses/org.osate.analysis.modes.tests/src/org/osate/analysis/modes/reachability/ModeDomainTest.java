@@ -23,12 +23,10 @@
  */
 package org.osate.analysis.modes.reachability;
 
-import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
 import org.junit.jupiter.api.Test;
@@ -45,107 +43,50 @@ import com.itemis.xtext.testing.XtextTest;
 
 @ExtendWith(InjectionExtension.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class SOMTest extends XtextTest {
+public class ModeDomainTest extends XtextTest {
 
-	private static final String PATH = "org.osate.analysis.modes.tests/models/SOMTest/";
+	private static final String PATH = "org.osate.analysis.modes.tests/models/DSOMTest/ModeDomains.aadl";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void testT00() throws Exception {
-		testCounts("T00.aadl", 2, 1);
-	}
-
-	@Test
-	public void testT00a() throws Exception {
-		testCounts("T00a.aadl", 4, 3);
-	}
-
-	@Test
-	public void testT01a() throws Exception {
-		testCounts("T01a.aadl", 2, 1);
-	}
-
-	@Test
-	public void testT01b() throws Exception {
-		testCounts("T01b.aadl", 1, 0);
-	}
-
-	@Test
-	public void testT02() throws Exception {
-		testCounts("T02.aadl", 2, 2);
-	}
-
-	@Test
-	public void testT03() throws Exception {
-		testCounts("T03.aadl", 5, 7);
-	}
-
-	@Test
-	public void testT04() throws Exception {
-		testCounts("T04.aadl", 20, 36);
-	}
-
-	@Test
-	public void testT04a() throws Exception {
-		testCounts("T04a.aadl", 4, 4);
-	}
-
-	@Test
-	public void testT04b() throws Exception {
-		testCounts("T04b.aadl", 20, 36);
-	}
-
-	@Test
-	public void testT05() throws Exception {
-		testCounts("T05.aadl", 8, 12);
-	}
-
-	@Test
-	public void testT06() throws Exception {
-		testCounts("T06.aadl", 8, 12);
-	}
-
-	@Test
-	public void testT10() throws Exception {
-		testCounts("T10.aadl", 4, 3);
-	}
-
-	@Test
-	public void testT11() throws Exception {
-		testCounts("T11.aadl", 10, 13);
-	}
-
-	@Test
-	public void testT20() throws Exception {
-		testCounts("T20.aadl", 3, 2);
-	}
-
-	private void testCounts(String file, int somCount, int transitionCount) throws Exception {
-		AadlPackage pkg = testHelper.parseFile(PATH + file);
+	public void testModeDomainValidation1() throws Exception {
+		AadlPackage pkg = testHelper.parseFile(PATH);
 		Optional<Classifier> impl = pkg.getOwnedPublicSection()
 				.getOwnedClassifiers()
 				.stream()
-				.filter(c -> c.getName().equals("S.i"))
+				.filter(c -> c.getName().equals("S.i0"))
 				.findFirst();
 
 		var root = InstantiateModel.instantiate((ComponentImplementation) impl.get());
-		assertEquals("S_i_Instance", root.getName());
+		var instanceName = "S_i0_Instance";
+		assertEquals(instanceName, root.getName());
 
-		var rs = root.eResource().getResourceSet();
-		var uri = URI.createFileURI("dummy");
-		var res = rs.getResource(uri, false);
+		var ra = new ReachabilityAnalyzer(root);
+		var result = ra.analyzeModel();
+		var diag = result.getDiagnostics();
+		assertEquals(1, diag.size());
+		assertEquals("Modal component not in a mode domain", diag.get(0).getMessage());
+	}
 
-		if (isNull(res)) {
-			res = rs.createResource(uri);
-		} else {
-			res.unload();
-		}
+	@Test
+	public void testModeDomainValidation2() throws Exception {
+		AadlPackage pkg = testHelper.parseFile(PATH);
+		Optional<Classifier> impl = pkg.getOwnedPublicSection()
+				.getOwnedClassifiers()
+				.stream()
+				.filter(c -> c.getName().equals("S.i1"))
+				.findFirst();
 
-		var md = new ModeDomain(root, res);
-		md.analyze(null, null);
-		var level = md.getAnalyzer().getLastLevel();
-		Util.assertCounts(level, somCount, transitionCount);
+		var root = InstantiateModel.instantiate((ComponentImplementation) impl.get());
+		var instanceName = "S_i1_Instance";
+		assertEquals(instanceName, root.getName());
+
+		var ra = new ReachabilityAnalyzer(root);
+		var result = ra.analyzeModel();
+		var diag = result.getDiagnostics();
+		assertEquals(1, diag.size());
+		assertEquals("Mode domain contained in another: a", diag.get(0).getMessage());
 	}
 }

@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.osate.analysis.modes.tests;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: CMU/SEI
 Automatic-Module-Name: org.osate.analysis.modes.tests
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.opentest4j;bundle-version="1.2.0",
  org.osate.aadl2;bundle-version="5.0.0",
