@@ -53,7 +53,7 @@
       <unit id="org.eclipse.ease.lang.unittest.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.ease.modules.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.ease.ui.feature.feature.group" version="0.0.0"/>
-      <repository location="https://download.eclipse.org/ease/integration/nightly/"/>
+      <repository location="https://download.eclipse.org/ease/integration/nightly"/>
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.py4j.feature.feature.group" version="0.0.0"/>
