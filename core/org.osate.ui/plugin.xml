@@ -1763,7 +1763,28 @@ censes only apply to the Third Party Software and not any other portion of this 
             commandId="org.osate.ui.instantiate"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            platform="win32"
             sequence="M1+I">
+      </key>
+      <key
+            commandId="org.osate.ui.instantiate"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            platform="gtk"
+            sequence="M1+I">
+      </key>
+      <key
+            commandId="org.osate.ui.instantiate"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            platform="cocoa"
+            sequence="M1+M2+I">
+      </key>
+      <key
+            commandId="org.osate.ui.reinstantiate"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+R">
       </key>
    </extension>   
 </plugin>
