@@ -24,6 +24,7 @@
 package org.osate.aadl2.instance.provider;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -34,6 +35,8 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl;
+
+import com.google.common.base.Strings;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.instance.FlowSpecificationInstance} object.
@@ -187,11 +190,43 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 			result.append(' ');
 			result.append(StringExtensions.toFirstUpper(declarativeFlow.getKind().getName()));
 		}
+		result.append(' ');
 
+		String componentName = flowInstance.getContainingComponentInstance().getName();
+		if (!Strings.isNullOrEmpty(componentName)) {
+			result.append(componentName);
+			result.append('.');
+
+		}
 		String flowName = flowInstance.getName();
-		if (flowName != null && !flowName.isEmpty()) {
-			result.append(' ');
+		if (!Strings.isNullOrEmpty(flowName)) {
 			result.append(flowName);
+			result.append(':');
+
+		}
+
+		if (Objects.nonNull(flowInstance.getSource())) {
+			String srcName = flowInstance.getSource().getFullName();
+			if (!Strings.isNullOrEmpty(srcName)) {
+				result.append(' ');
+				result.append(srcName);
+			}
+		}
+		if (Objects.nonNull(flowInstance.getSource()) && Objects.nonNull(flowInstance.getDestination())) {
+			result.append(" ->");
+		}
+		if (Objects.isNull(flowInstance.getSource()) && Objects.nonNull(flowInstance.getDestination())) {
+			result.append(" |-");
+		}
+		if (Objects.nonNull(flowInstance.getSource()) && Objects.isNull(flowInstance.getDestination())) {
+			result.append(" -|");
+		}
+		if (Objects.nonNull(flowInstance.getDestination())) {
+			String dstName = flowInstance.getDestination().getFullName();
+			if (!Strings.isNullOrEmpty(dstName)) {
+				result.append(' ');
+				result.append(dstName);
+			}
 		}
 
 		return result.toString();
