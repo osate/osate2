@@ -26,6 +26,9 @@ package org.osate.analysis.modes.reachability;
 import static java.util.Objects.isNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -35,7 +38,11 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.analysis.modes.internal.ModeAnalysisPlugin;
+import org.osate.analysis.modes.modemodel.SOMNode;
 import org.osate.contribution.sei.sei.Sei;
 import org.osate.result.AnalysisResult;
 import org.osate.result.ResultType;
@@ -45,14 +52,11 @@ import org.osate.result.util.ResultUtil;
 //TODO: processor feature as trigger
 //TODO: ??? subprogram as trigger
 
-//TODO: progress monitor
-//TODO: cancel
-
 public final class ReachabilityAnalyzer {
 
 	private ReachabilityConfiguration config = ReachabilityConfiguration.DEFAULT;
 
-	private ComponentInstance root;
+	private SystemInstance root;
 
 	private Resource graphs;
 
@@ -63,7 +67,7 @@ public final class ReachabilityAnalyzer {
 	/**
 	 * Create a reachability analyzer with default configuration
 	 */
-	public ReachabilityAnalyzer(ComponentInstance root) {
+	public ReachabilityAnalyzer(SystemInstance root) {
 		this.root = root;
 		var rs = root.eResource().getResourceSet();
 		var uri = makeURI(root);
@@ -81,7 +85,7 @@ public final class ReachabilityAnalyzer {
 	 * Create a reachability analyzer.
 	 * @param config - the reporting configuration
 	 */
-	public ReachabilityAnalyzer(ReachabilityConfiguration config, ComponentInstance root) {
+	public ReachabilityAnalyzer(ReachabilityConfiguration config, SystemInstance root) {
 		this(root);
 		this.config = config;
 	}
@@ -110,6 +114,8 @@ public final class ReachabilityAnalyzer {
 			}
 
 			monitor.done();
+
+			markUnreachableSOMs();
 
 			if (ResultUtil.hasResultFailures(result)) {
 				result.setMessage("The analysis could not be executed successfully");
@@ -204,6 +210,85 @@ public final class ReachabilityAnalyzer {
 		}
 
 		return new Status(IStatus.OK, ModeAnalysisPlugin.ID, "");
+	}
+
+	private Iterator<SystemOperationMode> instanceSOMs;
+
+	private List<SOMNode> nodes;
+
+	private void markUnreachableSOMs() {
+		instanceSOMs = root.getSystemOperationModes().iterator();
+		nodes = new ArrayList<>();
+		generateNodes(0);
+		instanceSOMs.forEachRemaining(som -> {
+			System.out.println("UNREACHABLE\n");
+			result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(som.getName() + " is not reachable", som));
+		});
+	}
+
+	private void generateNodes(int i) {
+		if (i == ModeDomain.domains.size()) {
+			findMatchingSOM();
+		} else {
+			var d = ModeDomain.domains.get(i);
+			var level = d.graph.getLevels().getLast();
+			for (var n : level.getNodes()) {
+				nodes.addLast(n);
+				generateNodes(i + 1);
+				nodes.removeLast();
+			}
+		}
+	}
+
+	private void findMatchingSOM() {
+		while (instanceSOMs.hasNext()) {
+			var som = instanceSOMs.next();
+			if (!matchesNodes(som)) {
+				System.out.println("UNREACHABLE\n");
+				result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(som.getName() + " is not reachable", som));
+			} else {
+				break;
+			}
+		}
+	}
+
+	@SuppressWarnings("unlikely-arg-type")
+	private boolean matchesNodes(SystemOperationMode som) {
+		printSOM(som);
+		printNodes();
+		var modes = new ArrayList<ModeInstance>();
+		for (var node : nodes) {
+			var ms = new ArrayList<ModeInstance>();
+			for (var n = node; !isNull(n); n = n.getParent()) {
+				if (n.isActive() && n.hasMode()) {
+					ms.addLast(n.getMode());
+				}
+			}
+			for (var m : ms.reversed()) {
+				modes.addLast(m);
+			}
+		}
+		return modes.equals(som.getCurrentModes());
+	}
+
+	void printSOM(SystemOperationMode som) {
+		System.out.println(som.getName());
+		for (var m : som.getCurrentModes()) {
+			System.out.println(m.getComponentInstancePath());
+		}
+		System.out.println();
+	}
+
+	void printNodes() {
+		System.out.println("Nodes:");
+		for (var n : nodes) {
+			for (var n1 = n; !isNull(n1); n1 = n1.getParent()) {
+				if (n1.isActive() && n1.hasMode()) {
+					System.out.println(n1.getMode().getComponentInstancePath());
+				}
+			}
+		}
+		System.out.println();
 	}
 
 	private boolean fillAndValidateModeDomains(ComponentInstance ci) {
