@@ -54,6 +54,8 @@ import org.osate.result.util.ResultUtil;
 
 public final class ReachabilityAnalyzer {
 
+	private static final boolean DEBUG = false;
+
 	private ReachabilityConfiguration config = ReachabilityConfiguration.DEFAULT;
 
 	private SystemInstance root;
@@ -221,7 +223,9 @@ public final class ReachabilityAnalyzer {
 		nodes = new ArrayList<>();
 		generateNodes(0);
 		instanceSOMs.forEachRemaining(som -> {
-			System.out.println("UNREACHABLE\n");
+			if (DEBUG) {
+				System.out.println("UNREACHABLE\n");
+			}
 			result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(som.getName() + " is not reachable", som));
 		});
 	}
@@ -244,7 +248,9 @@ public final class ReachabilityAnalyzer {
 		while (instanceSOMs.hasNext()) {
 			var som = instanceSOMs.next();
 			if (!matchesNodes(som)) {
-				System.out.println("UNREACHABLE\n");
+				if (DEBUG) {
+					System.out.println("UNREACHABLE\n");
+				}
 				result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(som.getName() + " is not reachable", som));
 			} else {
 				break;
@@ -254,8 +260,22 @@ public final class ReachabilityAnalyzer {
 
 	@SuppressWarnings("unlikely-arg-type")
 	private boolean matchesNodes(SystemOperationMode som) {
-		printSOM(som);
-		printNodes();
+		if (DEBUG) {
+			System.out.println(som.getName());
+			for (var m1 : som.getCurrentModes()) {
+				System.out.println(m1.getComponentInstancePath());
+			}
+			System.out.println();
+			System.out.println("Nodes:");
+			for (var n1 : nodes) {
+				for (var n11 = n1; !isNull(n11); n11 = n11.getParent()) {
+					if (n11.isActive() && n11.hasMode()) {
+						System.out.println(n11.getMode().getComponentInstancePath());
+					}
+				}
+			}
+			System.out.println();
+		}
 		var modes = new ArrayList<ModeInstance>();
 		for (var node : nodes) {
 			var ms = new ArrayList<ModeInstance>();
@@ -269,26 +289,6 @@ public final class ReachabilityAnalyzer {
 			}
 		}
 		return modes.equals(som.getCurrentModes());
-	}
-
-	void printSOM(SystemOperationMode som) {
-		System.out.println(som.getName());
-		for (var m : som.getCurrentModes()) {
-			System.out.println(m.getComponentInstancePath());
-		}
-		System.out.println();
-	}
-
-	void printNodes() {
-		System.out.println("Nodes:");
-		for (var n : nodes) {
-			for (var n1 = n; !isNull(n1); n1 = n1.getParent()) {
-				if (n1.isActive() && n1.hasMode()) {
-					System.out.println(n1.getMode().getComponentInstancePath());
-				}
-			}
-		}
-		System.out.println();
 	}
 
 	private boolean fillAndValidateModeDomains(ComponentInstance ci) {
