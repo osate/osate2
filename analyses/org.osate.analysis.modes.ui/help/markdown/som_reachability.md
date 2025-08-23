@@ -39,7 +39,7 @@ As a special case, if no component is marked as a mode domain, the analysis assu
 
 ## Running the Analysis
 
-The analysis can be invoked by selecting an instance mode file in the AADL navigator. Right click, and select *Analyses* > *Semantic Checks* > *Analyze SOM Reachability*. 
+The analysis can be invoked by selecting an instance mode file in the AADL navigator. Right click, and select *Analyses* > *Semantic Checks* > *Analyze SOM Reachability*. The analysis adds info markers to SOMs in the instance model that are not reachable.
 
 The result of the analysis is a set of reachable SOMs and transitions between them for each mode domain. The SOMs of the overall system is, then, the parallel composition of these transition systems. The result is used to create (up to) three output files in directory *reports/som-reachability* in the instance model's directory. The report files for a system instance named `Package_System_i_Instance` are as follows:
 
