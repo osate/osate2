@@ -31,7 +31,6 @@ import java.util.Optional;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
-import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,9 +56,6 @@ public class Issue2160Test extends XtextTest {
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
-
-	@Inject
-	private ValidationTestHelper validationHelper;
 
 	@Test
 	public void testInstantiation() throws Exception {

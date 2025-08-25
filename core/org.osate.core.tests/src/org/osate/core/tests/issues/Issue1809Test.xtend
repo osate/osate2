@@ -51,7 +51,6 @@ class Issue1809Test {
 	val static INSTANCE_NAME = "Top_impl_Instance"
 
 	val static ERROR_MSG = "Cannot create end to end flow 'ETE' because there are no semantic connections that connect to the start of the flow 'Thing_new_flow_spec3' at feature 'input'"
-	val static WARNING_MSG = "End-to-end flow ETE contains component three with subcomponents, but no flow implementation Thing_new_flow_spec3 to them"
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper

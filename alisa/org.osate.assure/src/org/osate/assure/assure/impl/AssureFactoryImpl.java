@@ -24,15 +24,30 @@
 package org.osate.assure.assure.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.osate.assure.assure.*;
+import org.osate.assure.assure.AssuranceCaseResult;
+import org.osate.assure.assure.AssureFactory;
+import org.osate.assure.assure.AssurePackage;
+import org.osate.assure.assure.AssureResult;
+import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.ElseResult;
+import org.osate.assure.assure.Metrics;
+import org.osate.assure.assure.ModelResult;
+import org.osate.assure.assure.NestedClaimReference;
+import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.PredicateResult;
+import org.osate.assure.assure.QualifiedClaimReference;
+import org.osate.assure.assure.QualifiedVAReference;
+import org.osate.assure.assure.QualifiedVerificationPlanElementReference;
+import org.osate.assure.assure.SubsystemResult;
+import org.osate.assure.assure.ThenResult;
+import org.osate.assure.assure.ValidationResult;
+import org.osate.assure.assure.VerificationActivityResult;
+import org.osate.assure.assure.VerificationExpr;
+import org.osate.assure.assure.VerificationResult;
 
 /**
  * <!-- begin-user-doc -->
