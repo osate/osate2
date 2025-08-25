@@ -15,12 +15,18 @@
     <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 2.000 kg (no limit specified)">
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#/"/>
     </diagnostics>
+    <diagnostics diagnosticType="INFO" message="[A] Net Weight is 0.000 kg">
+      <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#/"/>
+    </diagnostics>
     <subResults>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+        <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      </diagnostics>
+      <diagnostics diagnosticType="INFO" message="[A] Net Weight is 0.000 kg">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
@@ -43,6 +49,9 @@
       <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
       </diagnostics>
+      <diagnostics diagnosticType="INFO" message="[A] Net Weight is 0.000 kg">
+        <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
+      </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
     </subResults>
     <subResults>
@@ -51,6 +60,9 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+        <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
+      </diagnostics>
+      <diagnostics diagnosticType="INFO" message="[A] Net Weight is 0.000 kg">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
@@ -63,6 +75,9 @@
       <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.6"/>
       </diagnostics>
+      <diagnostics diagnosticType="INFO" message="[A] Net Weight is 0.000 kg">
+        <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.6"/>
+      </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.6"/>
     </subResults>
     <subResults>
@@ -71,6 +86,9 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+        <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.7"/>
+      </diagnostics>
+      <diagnostics diagnosticType="INFO" message="[A] Net Weight is 0.000 kg">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.7"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.7"/>
