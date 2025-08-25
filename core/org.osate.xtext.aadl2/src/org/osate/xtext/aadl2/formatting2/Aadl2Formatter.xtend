@@ -842,7 +842,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			componentType.ownedExtension.format(document)
 			if (componentType.ownedPrototypeBindings.empty) {
 				componentType.ownedExtension.append[setNewLines(1, 1, 2)]
-				interior(componentType.ownedExtension.allSemanticRegions.last, endKeyword, [indent])
+				interior(componentType.ownedExtension.allSemanticRegions.lastOrNull, endKeyword, [indent])
 			} else {
 				val leftParenthesis = componentType.regionFor.keyword("(")
 				val rightParenthesis = componentType.regionFor.keyword(")")
@@ -1542,7 +1542,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			featureGroupType.ownedExtension.format(document)
 			if (featureGroupType.ownedPrototypeBindings.empty) {
 				featureGroupType.ownedExtension.append[setNewLines(1, 1, 2)]
-				interior(featureGroupType.ownedExtension.allSemanticRegions.last, endKeyword, [indent])
+				interior(featureGroupType.ownedExtension.allSemanticRegions.lastOrNull, endKeyword, [indent])
 			} else {
 				val leftParenthesis = featureGroupType.regionFor.keyword(featureGroupTypeAccess.leftParenthesisKeyword_2_1_0)
 				val rightParenthesis = featureGroupType.regionFor.keyword(featureGroupTypeAccess.rightParenthesisKeyword_2_1_3)
@@ -1647,7 +1647,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			componentImplementation.ownedExtension.format(document)
 			if (componentImplementation.ownedPrototypeBindings.empty) {
 				componentImplementation.ownedExtension.append[setNewLines(1, 1, 2)]
-				interior(componentImplementation.ownedExtension.allSemanticRegions.last, endKeyword, [indent])
+				interior(componentImplementation.ownedExtension.allSemanticRegions.lastOrNull, endKeyword, [indent])
 			} else {
 				componentImplementation.ownedExtension.append[oneSpace]
 				val leftParenthesis = componentImplementation.regionFor.keyword("(")

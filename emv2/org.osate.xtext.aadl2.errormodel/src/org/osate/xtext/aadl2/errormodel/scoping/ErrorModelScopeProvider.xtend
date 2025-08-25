@@ -299,7 +299,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	def scope_EMV2PathElement_namedElement(EMV2PathElement context, EReference reference) {
 		switch parent : context.eContainer {
 			QualifiedErrorEventOrPropagation: {
-				val topConditionExpression = parent.allContainers.filter(ConditionExpression).last
+				val topConditionExpression = parent.allContainers.filter(ConditionExpression).lastOrNull
 				switch parentOfCondition : topConditionExpression.eContainer {
 					ErrorBehaviorTransition:
 						switch parentOfTransition : parentOfCondition.eContainer {

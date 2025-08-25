@@ -495,8 +495,6 @@ class AssureProcessor implements IAssureProcessor {
 			} // end switch on method
 		} catch (AssertionError e) {
 			setToFail(verificationResult, e);
-		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-			throw e;
 		} catch (Throwable e) {
 			setToError(verificationResult, e);
 		}
@@ -652,8 +650,6 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		} catch (AssertionError e) {
 			setToFail(vResult, e);
-		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-			throw e;
 		} catch (Throwable e) {
 			setToError(vResult, e);
 		}
@@ -680,8 +676,6 @@ class AssureProcessor implements IAssureProcessor {
 				pResult.diagnostics.add(createErrorDiagnostic(
 					e.message, null))
 			}
-		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-			throw e;
 		} catch (Throwable e) {
 			setToError(pResult,e.message)
 		}

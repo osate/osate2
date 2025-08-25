@@ -21,65 +21,56 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues;
+package org.osate.analysis.modes.reachability;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.eclipse.xtext.testing.InjectWith;
-import org.eclipse.xtext.testing.XtextRunner;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.eclipse.xtext.testing.extensions.InjectionExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
-import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter.Message;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
-@RunWith(XtextRunner.class)
+@ExtendWith(InjectionExtension.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue2160Test extends XtextTest {
+public class UnreachableDiagnosticTest extends XtextTest {
 
-	private static final String PATH = "org.osate.core.tests/models/issue2160/";
+	private static final String PATH = "org.osate.analysis.modes.tests/models/SOMTest/T05.aadl";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void testInstantiation() throws Exception {
-		AadlPackage pkg = testHelper.parseFile(PATH + "Issue2160.aadl", PATH + "PS1.aadl");
+	public void testDiagnostics() throws Exception {
+		AadlPackage pkg = testHelper.parseFile(PATH);
 		Optional<Classifier> impl = pkg.getOwnedPublicSection()
 				.getOwnedClassifiers()
 				.stream()
-				.filter(c -> c.getName().equals("s1.i"))
+				.filter(c -> c.getName().equals("S.i"))
 				.findFirst();
 
-		AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
-				QueuingAnalysisErrorReporter.factory);
-		SystemInstance instance = InstantiateModel.instantiate((ComponentImplementation) impl.get(), errorManager);
-		Assert.assertEquals("s1_i_Instance", instance.getName());
-		var pas = instance.getOwnedPropertyAssociations();
-		Assert.assertEquals("Found " + pas.size() + " property associations, expected 1", 1, pas.size());
+		var root = InstantiateModel.instantiate((ComponentImplementation) impl.get());
+		var instanceName = "S_i_Instance";
+		assertEquals(instanceName, root.getName());
 
-		List<Message> messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource()))
-				.getErrors();
-		assertTrue(messages.size() == 1);
-		Message msg = messages.get(0);
-		assertEquals(pas.get(0).getOwnedValues().get(0).getOwnedValue(), msg.where);
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, msg.kind);
-		assertEquals("Referenced element does not exist in the instance model", msg.message);
+		var ra = new ReachabilityAnalyzer(root);
+		var result = ra.analyzeModel();
+		var diag = result.getDiagnostics();
+		assertEquals(4, diag.size());
+		assertEquals("som_2 is not reachable", diag.get(0).getMessage());
+		assertEquals("som_4 is not reachable", diag.get(1).getMessage());
+		assertEquals("som_7 is not reachable", diag.get(2).getMessage());
+		assertEquals("som_10 is not reachable", diag.get(3).getMessage());
 	}
 
 }

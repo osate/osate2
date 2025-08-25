@@ -110,7 +110,7 @@ public final class ModeReachabilityHandler extends AaxlModifyHandlerAsJob {
 	}
 
 	protected void analyzeInstanceModel(IProgressMonitor monitor, Element root) {
-		ComponentInstance ci = (ComponentInstance) root;
+		SystemInstance ci = ((ComponentInstance) root).getSystemInstance();
 		var ra = new ReachabilityAnalyzer(cfg, ci);
 		var result = ra.analyzeModel(monitor);
 		createMarkers(result, root.eResource());
