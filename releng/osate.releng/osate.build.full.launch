@@ -9,6 +9,7 @@
     <listAttribute key="M2_PROPERTIES">
         <listEntry value="jgit.dirtyWorkingTree=warning"/>
         <listEntry value="tycho.localArtifacts=ignore"/>
+        <listEntry value="javadoc=true"/>
     </listAttribute>
     <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
     <booleanAttribute key="M2_SKIP_TESTS" value="true"/>
