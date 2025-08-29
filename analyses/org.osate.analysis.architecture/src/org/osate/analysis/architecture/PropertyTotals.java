@@ -147,6 +147,10 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			ComponentCategory.PROCESSOR, ComponentCategory.MEMORY, ComponentCategory.BUS, ComponentCategory.DEVICE,
 			ComponentCategory.ABSTRACT);
 
+	private static final EnumSet<ComponentCategory> ignore = EnumSet.of(ComponentCategory.PROCESS,
+			ComponentCategory.VIRTUAL_BUS, ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.THREAD,
+			ComponentCategory.THREAD_GROUP);
+
 	private static Result calcWeight(ComponentInstance ci, boolean needWeight) {
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setModelElement(ci);
@@ -160,8 +164,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		EList<ComponentInstance> cil = ci.getComponentInstances();
 		for (ComponentInstance subi : cil) {
 			ComponentCategory subcat = subi.getCategory();
-			if (!(subcat.equals(ComponentCategory.PROCESS) || subcat.equals(ComponentCategory.VIRTUAL_BUS)
-					|| subcat.equals(ComponentCategory.VIRTUAL_PROCESSOR))) {
+			if (!ignore.contains(subcat)) {
 				Result subresult = calcWeight(subi, (needWeight && (gross == 0.0 || net > 0.0)));
 				result.getSubResults().add(subresult);
 				double subweight = ResultUtil.getReal(subresult, 0);

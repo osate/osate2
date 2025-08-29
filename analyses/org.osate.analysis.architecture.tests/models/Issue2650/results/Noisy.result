@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Weight totals">
+  <modelElement href="org.osate.analysis.architecture.tests/models/Issue2650/instances/Noisy_s1_i1_Instance.aaxl2#/"/>
+  <results>
+    <values xsi:type="result:RealValue" value="5.0" unit="kg"/>
+    <values xsi:type="result:RealValue" unit="kg"/>
+    <values xsi:type="result:RealValue" value="5.0" unit="kg"/>
+    <values xsi:type="result:RealValue" unit="kg"/>
+    <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 5.000 kg (no limit specified)">
+      <modelElement href="org.osate.analysis.architecture.tests/models/Issue2650/instances/Noisy_s1_i1_Instance.aaxl2#/"/>
+    </diagnostics>
+    <diagnostics diagnosticType="INFO" message="[A] Net Weight is 5.000 kg">
+      <modelElement href="org.osate.analysis.architecture.tests/models/Issue2650/instances/Noisy_s1_i1_Instance.aaxl2#/"/>
+    </diagnostics>
+    <modelElement href="org.osate.analysis.architecture.tests/models/Issue2650/instances/Noisy_s1_i1_Instance.aaxl2#/"/>
+  </results>
+</result:AnalysisResult>

@@ -1,0 +1,39 @@
+package Noisy
+public
+	with SEI;
+
+	abstract s1		
+	end s1;
+	
+	abstract implementation s1.i1
+		subcomponents
+			p: process P.i;
+			tg: thread group TG.i;
+		properties
+			SEI::NetWeight => 5.0 kg;		
+	end s1.i1
+
+	thread T
+	end T;
+	
+	thread implementation T.i
+	end T.i;
+	
+	thread group TG
+	end TG;
+	
+	thread group implementation TG.i
+		subcomponents
+			a1: thread;
+			a2: thread;
+	end TG.i;
+
+	process P
+	end P;
+	
+	process implementation P.i
+		subcomponents
+			t1: thread T.i;
+			tg1: thread group TG.i;
+	end P.i;
+end Noisy;
