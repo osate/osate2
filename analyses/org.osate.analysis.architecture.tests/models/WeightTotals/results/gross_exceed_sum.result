@@ -12,12 +12,18 @@
     <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 2.000 kg (no limit specified)">
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/gross_exceed_sum_s1_i1_Instance.aaxl2#/"/>
     </diagnostics>
+    <diagnostics diagnosticType="INFO" message="[A] Net Weight is 0.000 kg">
+      <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/gross_exceed_sum_s1_i1_Instance.aaxl2#/"/>
+    </diagnostics>
     <subResults>
       <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
       <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 1.000 kg (no limit specified)">
+        <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/gross_exceed_sum_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      </diagnostics>
+      <diagnostics diagnosticType="INFO" message="[A] Net Weight is 0.000 kg">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/gross_exceed_sum_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/gross_exceed_sum_s1_i1_Instance.aaxl2#//@componentInstance.0"/>

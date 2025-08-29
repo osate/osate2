@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,33 +23,66 @@
  */
 package org.osate.xtext.aadl2.ui.highlighting;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
+import org.eclipse.xtext.ide.editor.syntaxcoloring.DefaultSemanticHighlightingCalculator;
+import org.eclipse.xtext.ide.editor.syntaxcoloring.HighlightingStyles;
+import org.eclipse.xtext.ide.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.eclipse.xtext.util.CancelIndicator;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.annexsupport.AnnexHighlighter;
 import org.osate.annexsupport.AnnexHighlighterPositionAcceptor;
 import org.osate.annexsupport.AnnexHighlighterRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUtil;
 
-public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightingCalculator {
+public class Aadl2SemanticHighlightingCalculator extends DefaultSemanticHighlightingCalculator { // ISemanticHighlightingCalculator {
 	private final String ANNEXTEXTKEYWORD = "annex";
 	private final String SEMICOLONKEYWORD = ";";
 
 	@Override
-	public void provideHighlightingFor(XtextResource resource, final IHighlightedPositionAcceptor acceptor) {
+	protected boolean highlightElement(EObject object,
+			org.eclipse.xtext.ide.editor.syntaxcoloring.IHighlightedPositionAcceptor acceptor,
+			CancelIndicator cancelIndicator) {
+		if (object instanceof MetaclassReference) {
+			/*
+			 * XXX: Want to call highlightFeature() directly, but for some reason it only affects the first child of the given node! This doesn't work if we
+			 * have something like "event port", because then the style isn't applied to "port". Crazy.
+			 */
+//			highlightFeature(acceptor, object, Aadl2Package.eINSTANCE.getMetaclassReference_MetaclassName(),
+//					HighlightingStyles.DEFAULT_ID);
+			// BEGIN SUBSTITUTION
+			final List<INode> children = NodeModelUtils.findNodesForFeature(object,
+					Aadl2Package.eINSTANCE.getMetaclassReference_MetaclassName());
+			for (final INode child : children) {
+				highlightNode(acceptor, child, HighlightingStyles.DEFAULT_ID);
+			}
+			// END SUBSTITUTION
+			return true;
+		}
+		return super.highlightElement(object, acceptor, cancelIndicator);
+	}
+
+	@Override
+	public void provideHighlightingFor(XtextResource resource, IHighlightedPositionAcceptor acceptor,
+			CancelIndicator cancelIndicator) {
 		if (resource == null) {
 			return;
 		}
+
+		super.provideHighlightingFor(resource, acceptor, cancelIndicator);
+
 		final AnnexHighlighterRegistry registry = (AnnexHighlighterRegistry) AnnexRegistry
 				.getRegistry(AnnexRegistry.ANNEX_HIGHLIGHTER_EXT_ID);
 
@@ -93,21 +126,18 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 		final int annexTextLength = AnnexUtil.getSourceText(semanticObj).length();
 		final int annexTextOffset = AnnexUtil.getAnnexOffset(semanticObj);
 
-		return new AnnexHighlighterPositionAcceptor() {
-			@Override
-			public void addPosition(int offset, int length, String... id) {
-				if (offset < 0) {
-					return;// throw new RuntimeException("Offset is less than 0");
-				}
-
-				if (offset > annexTextLength) {
-					return;// throw new RuntimeException("Offset is greater than source text length");
-				}
-
-				// Calculate the absolute offset
-				int absOffset = annexTextOffset + offset;
-				acceptor.addPosition(absOffset, length, id);
+		return (offset, length, id) -> {
+			if (offset < 0) {
+				return;// throw new RuntimeException("Offset is less than 0");
 			}
+
+			if (offset > annexTextLength) {
+				return;// throw new RuntimeException("Offset is greater than source text length");
+			}
+
+			// Calculate the absolute offset
+			int absOffset = annexTextOffset + offset;
+			acceptor.addPosition(absOffset, length, id);
 		};
 	}
 
