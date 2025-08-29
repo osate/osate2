@@ -30,6 +30,8 @@ package org.osate.aadl2.properties;
  * @author aarong
  */
 public abstract class PropertyLookupException extends RuntimeException {
+	private static final long serialVersionUID = -4487978213964125494L;
+
 	public PropertyLookupException(final String msg) {
 		super(msg);
 	}

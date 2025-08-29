@@ -33,6 +33,7 @@ import org.osate.aadl2.Property;
  *
  */
 public class PropertyDoesNotApplyToHolderException extends PropertyLookupException {
+	private static final long serialVersionUID = -3109256047423595337L;
 	private NamedElement holder = null;
 	private Property definition = null;
 

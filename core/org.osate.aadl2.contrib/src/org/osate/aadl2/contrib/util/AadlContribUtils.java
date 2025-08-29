@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -102,23 +102,23 @@ public final class AadlContribUtils {
 	private static double sumElementsDataSize(final NamedElement ne, final SizeUnits unit, final int nesting) {
 		double res = 0.0;
 		Classifier cl = null;
-		if (ne instanceof Classifier) {
-			cl = (Classifier) ne;
-		} else if (ne instanceof FeatureInstance) {
-			cl = ((FeatureInstance) ne).getFeature().getAllClassifier();
-		} else if (ne instanceof Feature) {
-			cl = ((Feature) ne).getClassifier();
-		} else if (ne instanceof DataSubcomponent) {
-			cl = ((DataSubcomponent) ne).getClassifier();
+		if (ne instanceof Classifier c) {
+			cl = c;
+		} else if (ne instanceof FeatureInstance fi) {
+			cl = fi.getFeature().getAllClassifier();
+		} else if (ne instanceof Feature f) {
+			cl = f.getClassifier();
+		} else if (ne instanceof DataSubcomponent ds) {
+			cl = ds.getClassifier();
 		}
 		if (cl != null) {
-			if (cl instanceof FeatureGroupType) {
-				EList<Feature> fl = ((FeatureGroupType) cl).getAllFeatures();
+			if (cl instanceof FeatureGroupType fgt) {
+				EList<Feature> fl = fgt.getAllFeatures();
 				for (Feature f : fl) {
 					res = res + getDataSize(f, unit, nesting);
 				}
-			} else if (cl instanceof DataImplementation) {
-				for (Subcomponent ds : ((DataImplementation) cl).getAllSubcomponents()) {
+			} else if (cl instanceof DataImplementation di) {
+				for (Subcomponent ds : di.getAllSubcomponents()) {
 					if (!AadlUtil.isSameOrExtends(cl, ds.getAllClassifier())) {
 						res = res + getDataSize(ds, unit, nesting);
 					}
