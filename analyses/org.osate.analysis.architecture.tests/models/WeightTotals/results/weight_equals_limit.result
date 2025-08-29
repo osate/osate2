@@ -6,6 +6,9 @@
     <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
     <values xsi:type="result:RealValue" unit="kg"/>
     <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
+    <diagnostics diagnosticType="INFO" message="[A] Net Weight is 0.000 kg">
+      <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/weight_equals_limit_s1_i1_Instance.aaxl2#/"/>
+    </diagnostics>
     <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/weight_equals_limit_s1_i1_Instance.aaxl2#/"/>
   </results>
 </result:AnalysisResult>

@@ -256,6 +256,10 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 				result.getDiagnostics().add(ResultUtil.createWarningDiagnostic(ResultMsg, ci));
 			}
 		}
+		if (getWeight) {
+			String ResultMsg = String.format("[A] Net Weight is %.3f kg", net);
+			result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(ResultMsg, ci));
+		}
 
 		ResultUtil.addRealValue(result, weight, "kg");
 		ResultUtil.addRealValue(result, gross, "kg");
