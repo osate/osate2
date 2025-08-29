@@ -54,7 +54,7 @@ public abstract class AObjectImpl extends EObjectImpl implements AObject {
 		super();
 	}
 
-	public final Object getAdapter(final Class adapter) {
+	public final <T> T getAdapter(final Class<T> adapter) {
 		// defer to the platform
 		return Platform.getAdapterManager().getAdapter(this, adapter);
 	}
