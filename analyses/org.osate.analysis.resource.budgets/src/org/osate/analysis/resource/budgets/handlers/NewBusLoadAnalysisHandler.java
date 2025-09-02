@@ -23,12 +23,18 @@
  */
 package org.osate.analysis.resource.budgets.handlers;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -43,6 +49,7 @@ import org.osate.analysis.resource.budgets.busload.NewBusLoadAnalysis;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
+import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.handlers.AbstractAnalysisHandler;
 
 /**
@@ -98,7 +105,18 @@ public final class NewBusLoadAnalysisHandler extends AbstractAnalysisHandler {
 				}
 				generateMarkers(analysisResult, errManager);
 				subMonitor.worked(1);
-				new ResutWriter(outputFile).writeAnalysisResults(analysisResult, subMonitor.split(1));
+
+				IPath rawLocation = outputFile.getRawLocation();
+				IPath fullPath = rawLocation.makeAbsolute();
+				File file = fullPath.toFile();
+				try (OutputStream output = new FileOutputStream(file);
+						OutputStreamWriter writer = new OutputStreamWriter(output);
+						PrintWriter pw = new PrintWriter(writer)) {
+					new ResultWriter(pw).writeAnalysisResults(analysisResult, subMonitor.split(1));
+				} catch (IOException ioe) {
+					OsateUiPlugin.getDefault().getLog().error(ioe.getMessage(), ioe);
+				}
+
 			} catch (final OperationCanceledException e) {
 				cancelled = true;
 			}
@@ -110,9 +128,9 @@ public final class NewBusLoadAnalysisHandler extends AbstractAnalysisHandler {
 
 	// === CSV Output methods ===
 
-	private final class ResutWriter extends CSVAnalysisResultWriter {
-		protected ResutWriter(final IFile outputFile) {
-			super(outputFile);
+	private final class ResultWriter extends CSVAnalysisResultWriter {
+		protected ResultWriter(final PrintWriter printWriter) {
+			super(printWriter);
 		}
 
 		@Override
