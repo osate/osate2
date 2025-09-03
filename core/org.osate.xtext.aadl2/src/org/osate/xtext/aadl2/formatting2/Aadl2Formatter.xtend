@@ -226,7 +226,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			} else {
 				2
 			}
-			withSemicolons.last.prepend[noSpace].append[newLines = newLineCount]
+			withSemicolons.lastOrNull.prepend[noSpace].append[newLines = newLineCount]
 		}
 		
 		//Contents
@@ -925,7 +925,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		
 		//End line
 		endKeyword.append[oneSpace]
-		semicolons.last.prepend[noSpace]
+		semicolons.lastOrNull.prepend[noSpace]
 	}
 	
 	def dispatch void format(TypeExtension typeExtension, extension IFormattableDocument document) {
@@ -1616,7 +1616,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		
 		//End line
 		endKeyword.append[oneSpace]
-		semicolons.last.prepend[noSpace]
+		semicolons.lastOrNull.prepend[noSpace]
 	}
 	
 	def dispatch void format(GroupExtension groupExtension, extension IFormattableDocument document) {
@@ -1766,7 +1766,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		
 		//End line
 		endKeyword.append[oneSpace]
-		semicolons.last.prepend[noSpace]
+		semicolons.lastOrNull.prepend[noSpace]
 	}
 	
 	def private formatBehavioredImplementationCommon(BehavioredImplementation behavioredImplementation, extension IFormattableDocument document,
