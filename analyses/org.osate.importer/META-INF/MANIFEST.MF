@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Architecture importer generic package
 Bundle-SymbolicName: org.osate.importer;singleton:=true
-Bundle-Version: 2.0.6.qualifier
+Bundle-Version: 3.0.0.qualifier
 Bundle-Activator: org.osate.importer.Activator
 Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
@@ -39,7 +39,6 @@ Import-Package: org.eclipse.core.resources,
 Bundle-ClassPath: .
 Export-Package: org.osate.importer,
  org.osate.importer.model,
- org.osate.importer.model.sm,
- org.osate.importer.properties
+ org.osate.importer.model.sm
 Automatic-Module-Name: org.osate.importer
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-21

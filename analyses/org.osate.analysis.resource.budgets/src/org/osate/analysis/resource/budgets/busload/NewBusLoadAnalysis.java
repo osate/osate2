@@ -445,7 +445,7 @@ public final class NewBusLoadAnalysis {
 						final double maxDataRate = rateSpec.getValueRange().map(rr -> rr.getMaximum()).orElse(0.0);
 						return rateSpec.getRateUnit().filter(x -> x == RateUnit_FieldType.PERDISPATCH).map(ignore -> {
 							final double period = getPeriodInSeconds(
-									((InstanceObject) fi).getContainingComponentInstance());
+									fi.getContainingComponentInstance());
 							return period == 0.0 ? 0.0 : maxDataRate / period;
 						}).orElseGet(() -> {
 							if (maxDataRate > 0.0) {

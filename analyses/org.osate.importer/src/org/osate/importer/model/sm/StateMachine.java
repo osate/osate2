@@ -26,9 +26,7 @@ package org.osate.importer.model.sm;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Utils;
 import org.osate.importer.model.Component;
 
@@ -189,6 +187,7 @@ public class StateMachine {
 		return this.name;
 	}
 
+	@Override
 	public String toString() {
 		String res;
 		res = "";

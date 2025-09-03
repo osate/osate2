@@ -47,7 +47,7 @@ abstract class AbstractLoggingAnalysis {
 			String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";
 			String actualmsg = actual + " " + AadlProject.KBYTESPS_LITERAL + ",";
 			String objname = (obj instanceof ConnectionInstance) ? obj.getFullName()
-					: ((ComponentInstance) obj).getComponentInstancePath();
+					: obj.getComponentInstancePath();
 			errManager.logInfo(objname + ", " + budgetmsg + actualmsg + msg);
 		}
 	}

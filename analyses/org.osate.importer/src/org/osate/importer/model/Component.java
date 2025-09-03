@@ -30,7 +30,7 @@ import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Utils;
 import org.osate.importer.model.sm.StateMachine;
 
-public class Component implements Comparable {
+public class Component implements Comparable<Object> {
 
 	public enum ComponentType {
 		EXTERNAL_INPORT, EXTERNAL_OUTPORT, BLOCK, REFERENCE, UNKNOWN
