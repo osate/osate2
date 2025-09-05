@@ -23,8 +23,11 @@
  */
 package org.osate.ui.handlers;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -47,6 +50,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.MultiRule;
@@ -56,10 +60,12 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.core.AadlNature;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
@@ -393,5 +399,107 @@ public abstract class AbstractAnalysisHandler extends AbstractHandler {
 				// Do nothing.
 			}
 		});
+	}
+
+	// ============================================================
+	// == Output the results
+	// ============================================================
+
+	/*
+	 * XXX: SHould this be moved somewhere else? Maybe org.osate.result.util?? I kept
+	 * the methods names more generic, that is, "content" instead of "CSV" in case they
+	 * are later moved to a superclass.
+	 */
+
+	//
+	// Use org.osate.result.util.AbstractCSVResultWriter
+	@Deprecated
+	protected static abstract class CSVAnalysisResultWriter {
+		private final IFile outputFile;
+
+		protected CSVAnalysisResultWriter(final IFile outputFile) {
+			this.outputFile = outputFile;
+		}
+
+		/**
+		 * Write the results from given Analysis Results object.
+		 *
+		 * @param analysisResult The analysis results to write.
+		 * @param monitor The progress monitor to use; may be {@code null}.
+		 */
+		public void writeAnalysisResults(final AnalysisResult analysisResult, final IProgressMonitor monitor) {
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, 3);
+			final String csvContent = getContentAsString(analysisResult, subMonitor.split(1));
+			final InputStream inputStream = new ByteArrayInputStream(csvContent.getBytes());
+
+			try {
+				if (outputFile.exists()) {
+					outputFile.setContents(inputStream, true, true, subMonitor.split(1));
+				} else {
+					outputFile.create(inputStream, true, subMonitor.split(1));
+				}
+			} catch (final CoreException e) {
+				Activator.logThrowable(e);
+			}
+		}
+
+		private String getContentAsString(final AnalysisResult analysisResult, final IProgressMonitor monitor) {
+			final StringWriter writer = new StringWriter();
+			final PrintWriter pw = new PrintWriter(writer);
+			generateContentforAnalysis(pw, analysisResult, monitor);
+			pw.close();
+			return writer.toString();
+		}
+
+		private void generateContentforAnalysis(final PrintWriter pw, final AnalysisResult analysisResult,
+				final IProgressMonitor monitor) {
+			pw.println(analysisResult.getMessage());
+			pw.println();
+			pw.println();
+
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, analysisResult.getResults().size());
+			analysisResult.getResults().forEach(somResult -> {
+				if (Aadl2Util.isPrintableSOMName((SystemOperationMode) somResult.getModelElement())) {
+					printItem(pw, "Analysis results in modes " + somResult.getMessage());
+					pw.println();
+				}
+				generateContentforSOM(pw, somResult, subMonitor.split(1));
+			});
+		}
+
+		protected abstract void generateContentforSOM(final PrintWriter pw, final Result somResult,
+				final IProgressMonitor monitor);
+
+		// ==== Low-level CSV format
+
+		protected final void generateContentforDiagnostics(final PrintWriter pw, final List<Diagnostic> diagnostics,
+				final IProgressMonitor monitor) {
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, diagnostics.size());
+			for (final Diagnostic issue : diagnostics) {
+				printItem(pw, issue.getDiagnosticType().getName() + ": " + issue.getMessage());
+				pw.println();
+				subMonitor.split(1);
+			}
+		}
+
+		protected final void printItems(final PrintWriter pw, final String item1, final String... items) {
+			printItem(pw, item1);
+			for (final String nextItem : items) {
+				printSeparator(pw);
+				printItem(pw, nextItem);
+			}
+			pw.println();
+		}
+
+		protected final void printItem(final PrintWriter pw, final String item) {
+			// TODO: Doesn't handle quotes in the item!
+			pw.print('"');
+			pw.print(item);
+			pw.print('"');
+		}
+
+		protected final void printSeparator(final PrintWriter pw) {
+			pw.print(',');
+		}
 	}
 }

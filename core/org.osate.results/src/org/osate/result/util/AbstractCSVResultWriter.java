@@ -8,9 +8,6 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 
-/**
- * @since 3.2
- */
 public abstract class AbstractCSVResultWriter {
 	protected final PrintWriter printWriter;
 
