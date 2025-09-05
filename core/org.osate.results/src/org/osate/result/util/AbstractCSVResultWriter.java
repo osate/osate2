@@ -9,7 +9,7 @@ import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 
 /**
- * @since 3.1
+ * @since 3.2
  */
 public abstract class AbstractCSVResultWriter {
 	protected final PrintWriter printWriter;
