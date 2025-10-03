@@ -411,7 +411,9 @@ public abstract class AbstractAnalysisHandler extends AbstractHandler {
 	 * are later moved to a superclass.
 	 */
 
-	// Should this have a superclass? Are there other output types we want to deal with?
+	//
+	// Use org.osate.result.util.AbstractCSVResultWriter
+	@Deprecated
 	protected static abstract class CSVAnalysisResultWriter {
 		private final IFile outputFile;
 

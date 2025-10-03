@@ -23,13 +23,21 @@
  */
 package org.osate.analysis.resource.budgets.busload;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
@@ -66,7 +74,9 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
+import org.osate.result.util.AbstractCSVResultWriter;
 import org.osate.result.util.ResultUtil;
+import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.Dialog;
 
 /**
@@ -139,6 +149,10 @@ import org.osate.ui.dialogs.Dialog;
  * @since 4.0
  */
 public final class NewBusLoadAnalysis {
+	private static final String REPORTS_DIR = "reports";
+	private static final String ANALYSIS_DIR = "BusLoad";
+	private static final String REPORT_NAME_TAIL = "__BusLoad.csv";
+
 	public NewBusLoadAnalysis() {
 		super();
 	}
@@ -180,12 +194,37 @@ public final class NewBusLoadAnalysis {
 				final BusLoadModel busLoadModel = BusLoadModelBuilder.buildModel(root, som);
 				analyzeBusLoadModel(busLoadModel, somResult, monitor);
 			}
+
+			saveResults(root, analysisResult, monitor);
+
 			monitor.done();
 
 			return analysisResult;
 		} else {
 			Dialog.showError("Bound Bus Bandwidth Analysis Error", "Can only check system instances");
 			return null;
+		}
+	}
+
+	private void saveResults(final SystemInstance root, final AnalysisResult analysisResult,
+			final IProgressMonitor monitor) {
+		if (!monitor.isCanceled()) {
+			final Resource aaxlResource = root.eResource();
+			final URI aaxlURI = aaxlResource.getURI();
+			final String baseName = aaxlURI.trimFileExtension().lastSegment();
+			final URI csvURI = aaxlURI.trimSegments(1)
+					.appendSegment(REPORTS_DIR)
+					.appendSegment(ANALYSIS_DIR)
+					.appendSegment(baseName + REPORT_NAME_TAIL);
+
+			final URIConverter converter = aaxlResource.getResourceSet().getURIConverter();
+			try (OutputStream output = converter.createOutputStream(csvURI);
+					OutputStreamWriter writer = new OutputStreamWriter(output);
+					PrintWriter pw = new PrintWriter(writer)) {
+				new ResultWriter(pw).writeAnalysisResults(analysisResult, monitor);
+			} catch (IOException ioe) {
+				OsateUiPlugin.getDefault().getLog().error(ioe.getMessage(), ioe);
+			}
 		}
 	}
 
@@ -531,5 +570,153 @@ public final class NewBusLoadAnalysis {
 			}
 		}, null);
 		pw.flush();
+	}
+
+	private final class ResultWriter extends AbstractCSVResultWriter {
+		protected ResultWriter(final PrintWriter printWriter) {
+			super(printWriter);
+		}
+
+		@Override
+		protected final void writeContentAsCSV(final AnalysisResult analysisResult, final IProgressMonitor monitor) {
+			printWriter.println(analysisResult.getMessage());
+			printWriter.println();
+			printWriter.println();
+
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, analysisResult.getResults().size());
+			analysisResult.getResults().forEach(somResult -> {
+				if (Aadl2Util.isPrintableSOMName((SystemOperationMode) somResult.getModelElement())) {
+					printItem(printWriter, "Analysis results in modes " + somResult.getMessage());
+					printWriter.println();
+				}
+				generateContentforSOM(printWriter, somResult, subMonitor.split(1));
+			});
+		}
+
+		private void generateContentforSOM(final PrintWriter pw, final Result somResult,
+				final IProgressMonitor monitor) {
+			/*
+			 * Go through the children twice: First to print summary information and then to recursively
+			 * print the sub information.
+			 */
+
+			printItems(pw, "Physical Bus", "Capacity (KB/s)", "Budget (KB/s)", "Required Budget (KB/s)",
+					"Actual (KB/s)");
+
+			for (final Result subResult : somResult.getSubResults()) {
+				// Label, Capacity, Budget, Required Capacity, Actual
+				printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
+						Double.toString(ResultUtil.getReal(subResult, 1)),
+						Double.toString(ResultUtil.getReal(subResult, 2)),
+						Double.toString(ResultUtil.getReal(subResult, 3)));
+			}
+			pw.println();
+
+			// NO DIAGNOSTICS AT THE SOM LEVEL
+
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, somResult.getSubResults().size());
+			somResult.getSubResults()
+					.forEach(busResult -> generateContentforBus(pw, busResult, null, subMonitor.split(1)));
+			pw.println(); // add a second newline, the first is from the end of generateContentForBus()
+		}
+
+		private void generateContentforBus(final PrintWriter pw, final Result busResult, final Result boundTo,
+				final IProgressMonitor monitor) {
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, 2);
+
+			final long dataOverhead = ResultUtil.getInteger(busResult, 7);
+			if (boundTo == null) {
+				printItem(pw, "Bus " + busResult.getMessage() + " has data overhead of " + dataOverhead + " bytes");
+			} else {
+				printItem(pw, "Virtual bus " + busResult.getMessage() + " bound to " + boundTo.getMessage()
+						+ " has data overhead of " + dataOverhead + " bytes");
+			}
+			pw.println();
+
+			/*
+			 * Go through the children twice: First to print summary information and then to recursively
+			 * print the sub information.
+			 */
+
+			printItems(pw, "Bound Virtual Bus/Connection", "Capacity (KB/s)", "Budget (KB/s)", "Required Budget (KB/s)",
+					"Actual (KB/s)");
+
+			final int numBus = (int) ResultUtil.getInteger(busResult, 4);
+			final int numConnections = (int) ResultUtil.getInteger(busResult, 5);
+			final List<Result> subResults = busResult.getSubResults();
+			for (final Result subResult : subResults.subList(0, numBus)) {
+				// Label, Capacity, Budget, Required Capacity, Actual
+				printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
+						Double.toString(ResultUtil.getReal(subResult, 1)),
+						Double.toString(ResultUtil.getReal(subResult, 2)),
+						Double.toString(ResultUtil.getReal(subResult, 3)));
+			}
+			for (final Result subResult : subResults.subList(numBus, subResults.size())) {
+				// Label, NO CAPACITY, Budget, NO REQUIRED CAPACITY, Actual
+				// Capacity, NO BUDGET, Required
+				printItems(pw, subResult.getMessage(), "", Double.toString(ResultUtil.getReal(subResult, 0)), "",
+						Double.toString(ResultUtil.getReal(subResult, 1)));
+			}
+			pw.println();
+
+			generateContentforDiagnostics(pw, busResult.getDiagnostics(), subMonitor.split(1));
+			if (!busResult.getDiagnostics().isEmpty()) {
+				pw.println();
+			}
+
+			final SubMonitor loopMonitor = subMonitor.split(1).setWorkRemaining(subResults.size());
+			subResults.subList(0, numBus).forEach(br -> generateContentforBus(pw, br, busResult, loopMonitor.split(1)));
+			subResults.subList(numBus, numBus + numConnections)
+					.forEach(br -> generateContentforConnection(pw, br, busResult, loopMonitor.split(1)));
+			subResults.subList(numBus + numConnections, subResults.size())
+					.forEach(br -> generateContentforBroadcast(pw, br, busResult, loopMonitor.split(1)));
+		}
+
+		private void generateContentforBroadcast(final PrintWriter pw, final Result broadcastResult,
+				final Result boundTo, final IProgressMonitor monitor) {
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, 2);
+
+			printItem(pw, broadcastResult.getMessage() + " over bus " + boundTo.getMessage());
+			pw.println();
+
+			/*
+			 * Go through the children twice: First to print summary information and then to recursively
+			 * print the sub information.
+			 */
+
+			printItems(pw, "Included Connection", "Budget (KB/s)", "Actual (KB/s)");
+
+			final List<Result> subResults = broadcastResult.getSubResults();
+			for (final Result subResult : subResults) {
+				printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
+						Double.toString(ResultUtil.getReal(subResult, 1)));
+			}
+			pw.println();
+
+			generateContentforDiagnostics(pw, broadcastResult.getDiagnostics(), subMonitor.split(1));
+			if (!broadcastResult.getDiagnostics().isEmpty()) {
+				pw.println();
+			}
+
+			final SubMonitor loopMonitor = subMonitor.split(1).setWorkRemaining(subResults.size());
+			subResults.forEach(br -> generateContentforConnection(pw, br, broadcastResult, loopMonitor.split(1)));
+		}
+
+		private void generateContentforConnection(final PrintWriter pw, final Result connectionResult,
+				final Result boundTo, final IProgressMonitor monitor) {
+			// only do something if there are diagnostics
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
+
+			if (!connectionResult.getDiagnostics().isEmpty()) {
+				printItem(pw, "Connection " + connectionResult.getMessage() + " bound to " + boundTo.getMessage());
+				pw.println();
+				final SubMonitor loopMonitor = subMonitor.split(1)
+						.setWorkRemaining(connectionResult.getDiagnostics().size());
+				generateContentforDiagnostics(pw, connectionResult.getDiagnostics(), loopMonitor);
+				pw.println();
+			} else {
+				subMonitor.setWorkRemaining(0);
+			}
+		}
 	}
 }
