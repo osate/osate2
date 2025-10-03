@@ -27,7 +27,7 @@ pipeline {
                   -Dsonar.pullrequest.key=$CHANGE_ID \
                   -Dsonar.pullrequest.branch=$CHANGE_BRANCH \
                   -Dsonar.pullrequest.base=$CHANGE_TARGET \
-                  -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                  -Declipse.p2.mirrors=false -DfailIfNoTests=false \
                   -Dcodecoverage=true -Dspotbugs=true -Djavadoc=false -Dpr.build=true'
             }
           }
@@ -44,7 +44,7 @@ pipeline {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
               sh 'mvn -s releng/osate.releng/seisettings.xml clean verify \
                   -Pfull -Dsonar.token=$SONARTOKEN \
-                  -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                  -Declipse.p2.mirrors=false -DfailIfNoTests=false \
                   -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'
             }
           }
@@ -65,6 +65,7 @@ pipeline {
     always {
       recordCoverage(tools: [[parser: 'JACOCO']], id: 'jacoco', name: 'JaCoCo Coverage')
       recordIssues tool: spotBugs(pattern: '**/spotbugsXml.xml', reportEncoding: 'UTF-8'), sourceCodeEncoding: 'UTF-8'
+      junit '**/target/surefire-reports/*.xml'
     }
     success {
       emailext (

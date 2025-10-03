@@ -177,7 +177,7 @@ class ErrorModelFormatter extends PropertiesFormatter {
 			errorModelSubclauseAccess.propertiesKeyword_10_0) ?:
 			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.propertiesKeyword_12_0)
 		propertiesKeyword.append[setNewLines(1, 1, 2)]
-		interior(propertiesKeyword, errorModelSubclause.properties.last.semanticRegions.lastOrNull, [indent])
+		interior(propertiesKeyword, errorModelSubclause.properties.lastOrNull.semanticRegions.lastOrNull, [indent])
 		errorModelSubclause.properties.forEach [
 			conditionalAppend(document, [setNewLines(1, 1, 2)])
 			it.format(document)

@@ -66,13 +66,11 @@ public class SimplexTiming {
 	/** the flat of Exact or Tractable is that Exact = false , Tractable = true;
 	*/
 	private boolean exactOrTractable;
-	private Vector ARCList;
-	private Vector ProcessList;
+	private Vector<ARC> ARCList;
 
 	// trivial constructor
 	public SimplexTiming() {
-		ARCList = new Vector();
-		ProcessList = new Vector();
+		ARCList = new Vector<ARC>();
 	}
 
 	public void setExactOrTractable(boolean flag) {
@@ -113,11 +111,11 @@ public class SimplexTiming {
 	}
 
 	public void addProcessToList(RuntimeProcess process, int ARCID) {
-		Vector processList;
+		Vector<RuntimeProcess> processList;
 		boolean matched = false;
 
 		for (int i = 0; i < ARCList.size(); i++) {
-			ARC curARC = (ARC) ARCList.elementAt(i);
+			ARC curARC = ARCList.elementAt(i);
 			if (curARC.getARCID() == ARCID) {
 				matched = true;
 				processList = curARC.getProcessList();
@@ -134,22 +132,21 @@ public class SimplexTiming {
 	}
 
 	public void processStatusValidate() {
-		ARC arcInstance = null;
 		RuntimeProcess processInstance = null;
-		Vector processList = null;
+		Vector<RuntimeProcess> processList = null;
 		int counter;
 		int period;
 		double utilization = 0;
 
 		System.out.println("period----deadline---execution time--phase--priority--ARC id");
 		for (int i = 0; i < ARCList.size(); i++) {
-			ARC curARC = (ARC) ARCList.elementAt(i);
+			ARC curARC = ARCList.elementAt(i);
 			processList = curARC.getProcessList();
 			counter = 0;
 			period = -1;
 
 			for (int j = 0; j < processList.size(); j++) {
-				processInstance = (RuntimeProcess) processList.elementAt(j);
+				processInstance = processList.elementAt(j);
 				utilization += (double) processInstance.getExecutionTime() / processInstance.getPeriod();
 				counter++;
 
@@ -182,8 +179,8 @@ public class SimplexTiming {
 		int numberOfARCs;
 		int numberOfProcesses, i, j, k, m, n;
 		ARC arcInstance = null;
-		Vector arrayInstance = null;
-		Vector processList = null;
+		Vector<ARCForArray> arrayInstance = null;
+		Vector<RuntimeProcess> processList = null;
 		RuntimeProcess processInstance = null;
 
 		double w1, w2;
@@ -195,27 +192,26 @@ public class SimplexTiming {
 		double response, ARCResponse;
 		double maxResponseTime;
 		int label = 1;
-		double phaseMe, phaseOther;
 
 		numberOfARCs = ARCList.size();
 		System.out.println("number of ARCs is: " + numberOfARCs);
 
-		arrayInstance = new Vector(numberOfARCs);
+		arrayInstance = new Vector<ARCForArray>(numberOfARCs);
 
 		for (i = 0; i < ARCList.size(); i++) {
-			arcInstance = (ARC) ARCList.elementAt(i);
+			arcInstance = ARCList.elementAt(i);
 			processList = arcInstance.getProcessList();
 			numberOfProcesses = processList.size();
 			System.out.println("number of processes is:  " + numberOfProcesses);
 			ARCElement = new ARCForArray(numberOfProcesses);
 			for (j = 0; j < processList.size(); j++) {
-				ARCElement.addProcess(j, (RuntimeProcess) processList.elementAt(j));
+				ARCElement.addProcess(j, processList.elementAt(j));
 			}
 			arrayInstance.addElement(ARCElement);
 		}
 
 		for (i = 0; i < arrayInstance.size(); i++) {
-			ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+			ARCElement = arrayInstance.elementAt(i);
 			for (j = 0; j < ARCElement.getNumberOfProcesses(); j++) {
 				processInstance = ARCElement.getProcess(j);
 				System.out.println("process: " + j + " in ARC: " + processInstance.getARCID() + " has priority of : "
@@ -227,7 +223,7 @@ public class SimplexTiming {
 
 		if (getExactOrTractable()) {
 			for (i = 0; i < numberOfARCs; i++) {
-				ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+				ARCElement = arrayInstance.elementAt(i);
 				for (j = 0; j < ARCElement.getNumberOfProcesses(); j++) {
 					processInstance = ARCElement.getProcess(j);
 					ARCResponseArray = new DoubleArray();
@@ -239,7 +235,7 @@ public class SimplexTiming {
 						while (w1 < Global.TERMINATION_TIME) {
 							w2 = processInstance.getExecutionTime();
 							for (k = 0; k < numberOfARCs; k++) {
-								ARCEG = (ARCForArray) arrayInstance.elementAt(k);
+								ARCEG = arrayInstance.elementAt(k);
 								phaseListNotInMySelfArray = phaseConstructionInARC(ARCEG, processInstance);
 								if (phaseListNotInMySelfArray.getNumberOfItemsInArray() > 0) {
 									responseArray = new DoubleArray();
@@ -249,7 +245,7 @@ public class SimplexTiming {
 												+ windowOffsetRelativeToMySelf);
 										response = Auxillary.processOtherThanMySelfContribution(w1,
 												windowOffsetWithinMySelf, windowOffsetRelativeToMySelf, processInstance,
-												(ARCForArray) arrayInstance.elementAt(k));
+												arrayInstance.elementAt(k));
 										System.out.println("\t\t\t\t....response is: " + response);
 										responseArray.addItemInArray(response);
 									}
@@ -284,7 +280,7 @@ public class SimplexTiming {
 						processInstance.setSchedulability(false);
 					}
 
-					((ARCForArray) arrayInstance.elementAt(i)).setProcess(j, processInstance);
+					arrayInstance.elementAt(i).setProcess(j, processInstance);
 
 					phaseListInMySelfArray.removeItems();
 				}
@@ -292,11 +288,11 @@ public class SimplexTiming {
 
 			// put back to the list...
 			for (i = 0; i < ARCList.size(); i++) {
-				arcInstance = (ARC) ARCList.elementAt(i);
+				arcInstance = ARCList.elementAt(i);
 				processList = arcInstance.getProcessList();
 				// I can not purget completely down to the detailed objects.
 				processList.removeAllElements();
-				ARCForArray t = (ARCForArray) arrayInstance.elementAt(i);
+				ARCForArray t = arrayInstance.elementAt(i);
 				for (j = 0; j < t.getNumberOfProcesses(); j++) {
 					RuntimeProcess tp = t.getProcess(j);
 					processList.addElement(tp);
@@ -326,30 +322,30 @@ public class SimplexTiming {
 		RuntimeProcess process;
 		DoubleArray phaseArray = new DoubleArray();
 
-		Vector tempPhase = new Vector(numberOfProcesses);
+		Vector<Double> tempPhase = new Vector<Double>(numberOfProcesses);
 
 		for (i = 0; i < numberOfProcesses; i++) {
 			process = element.getProcess(i);
 			if ((Auxillary.compareNotMySelf(process, processInstance) == false)
 					|| (process.getPriority() > processInstance.getPriority())) {
-				tempPhase.addElement(new Double(Auxillary.phaseConversion(process, processInstance)));
+				tempPhase.addElement(Double.valueOf(Auxillary.phaseConversion(process, processInstance)));
 			} else {
-				tempPhase.addElement(new Double(Global.NEGATIVE_MAX));
+				tempPhase.addElement(Global.NEGATIVE_MAX);
 			}
 		}
 
 		for (i = 0; i < numberOfProcesses; i++) {
 			for (j = i + 1; j < numberOfProcesses; j++) {
-				double t1 = ((Double) tempPhase.elementAt(i)).doubleValue();
-				double t2 = ((Double) tempPhase.elementAt(j)).doubleValue();
+				double t1 = tempPhase.elementAt(i).doubleValue();
+				double t2 = tempPhase.elementAt(j).doubleValue();
 				if ((java.lang.Math.abs(t1 - t2) < 0.5) && (!(t1 < Global.NEGATIVE_MAX / 2))) {
-					tempPhase.setElementAt(new Double(Global.NEGATIVE_MAX), j);
+					tempPhase.setElementAt(Global.NEGATIVE_MAX, j);
 				}
 			}
 		}
 
 		for (i = 0; i < numberOfProcesses; i++) {
-			phase = ((Double) tempPhase.elementAt(i)).doubleValue();
+			phase = tempPhase.elementAt(i).doubleValue();
 			if (!(phase < Global.NEGATIVE_MAX / 2)) {
 				phaseArray.addItemInArray(phase);
 			}
@@ -387,7 +383,7 @@ public class SimplexTiming {
 		return (maxOrMin);
 	}
 
-	public DoubleArray giveMeSList(Vector arrayInstance, int numberOfARCs, RuntimeProcess process,
+	public DoubleArray giveMeSList(Vector<ARCForArray> arrayInstance, int numberOfARCs, RuntimeProcess process,
 			double windowOffsetWithinMySelf) {
 		ARCForArray ARCElement = null;
 		RuntimeProcess processInstance = null;
@@ -405,7 +401,7 @@ public class SimplexTiming {
 
 		returnArray.addItemInArray(highRange);
 		for (i = 0; i < numberOfARCs; i++) {
-			ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+			ARCElement = arrayInstance.elementAt(i);
 			for (j = 0; j < ARCElement.getNumberOfProcesses(); j++) {
 				processInstance = ARCElement.getProcess(j);
 				if (processInstance.getPriority() > process.getPriority()) {
@@ -449,35 +445,35 @@ public class SimplexTiming {
 	public void sensitivityAnalysis() {
 		ARC arcInstance = null;
 		RuntimeProcess processInstance = null;
-		Vector processList = null;
+		Vector<RuntimeProcess> processList = null;
 		int numberOfARCs;
 		int numberOfProcesses;
-		Vector arrayInstance = null;
+		Vector<ARCForArray> arrayInstance = null;
 		ARCForArray ARCElement = null;
-		int i, j, k, l, m, counter, iz;
+		int i, j, l, m, counter;
 
-		Vector firstLevelArray = null, secondLevelArray = null, thirdLevelArray = null;
+		Vector<DoubleArray> firstLevelArray = null, secondLevelArray = null, thirdLevelArray = null;
 		DoubleArray phaseArray = null;
 		double instancePhase, delta;
 		double sensitivity;
 
 		numberOfARCs = ARCList.size();
-		arrayInstance = new Vector(numberOfARCs);
+		arrayInstance = new Vector<ARCForArray>(numberOfARCs);
 
 		for (i = 0; i < numberOfARCs; i++) {
-			arcInstance = (ARC) ARCList.elementAt(i);
+			arcInstance = ARCList.elementAt(i);
 			processList = arcInstance.getProcessList();
 			numberOfProcesses = processList.size();
 			ARCElement = new ARCForArray(numberOfProcesses);
 
 			for (j = 0; j < processList.size(); j++) {
-				ARCElement.addProcess(j, (RuntimeProcess) processList.elementAt(j));
+				ARCElement.addProcess(j, processList.elementAt(j));
 			}
 			arrayInstance.addElement(ARCElement);
 		}
 
 		for (i = 0; i < numberOfARCs; i++) {
-			ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+			ARCElement = arrayInstance.elementAt(i);
 			for (j = 0; j < ARCElement.getNumberOfProcesses(); j++) {
 				processInstance = ARCElement.getProcess(j);
 				System.out.println("process: " + j + " in ARC: " + i + " has priority of : "
@@ -488,7 +484,7 @@ public class SimplexTiming {
 		counter = 0;
 
 		for (i = 0; i < numberOfARCs; i++) {
-			ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+			ARCElement = arrayInstance.elementAt(i);
 			for (j = 0; j < ARCElement.getNumberOfProcesses(); j++) {
 				processInstance = ARCElement.getProcess(j);
 				processInstance.setCoordinate(counter);
@@ -497,9 +493,9 @@ public class SimplexTiming {
 			}
 		}
 
-		firstLevelArray = new Vector(counter);
-		secondLevelArray = new Vector(counter);
-		thirdLevelArray = new Vector(counter);
+		firstLevelArray = new Vector<DoubleArray>(counter);
+		secondLevelArray = new Vector<DoubleArray>(counter);
+		thirdLevelArray = new Vector<DoubleArray>(counter);
 		// creation
 		for (i = 0; i < counter; i++) {
 			firstLevelArray.addElement(new DoubleArray());
@@ -508,7 +504,7 @@ public class SimplexTiming {
 		}
 
 		for (i = 0; i < numberOfARCs; i++) {
-			ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+			ARCElement = arrayInstance.elementAt(i);
 			for (j = 0; j < ARCElement.getNumberOfProcesses(); j++) {
 				processInstance = ARCElement.getProcess(j);
 				phaseArray = phaseConstructionInARC(ARCElement, processInstance);
@@ -518,11 +514,11 @@ public class SimplexTiming {
 					constructFirstLevelArray(arrayInstance, numberOfARCs, processInstance, instancePhase, counter,
 							firstLevelArray);
 					for (m = 0; m < counter; m++) {
-						if (((DoubleArray) firstLevelArray.elementAt(m)).getNumberOfItemsInArray() > 0) {
-							delta = findMaxOrMinInList((DoubleArray) firstLevelArray.elementAt(m), true); // max
+						if (firstLevelArray.elementAt(m).getNumberOfItemsInArray() > 0) {
+							delta = findMaxOrMinInList(firstLevelArray.elementAt(m), true); // max
 							System.out.println("..........." + m + " .................." + delta);
-							((DoubleArray) firstLevelArray.elementAt(m)).removeItems();
-							((DoubleArray) secondLevelArray.elementAt(m)).addItemInArray(delta);
+							firstLevelArray.elementAt(m).removeItems();
+							secondLevelArray.elementAt(m).addItemInArray(delta);
 						}
 					}
 				} // end of the phase loop.
@@ -531,12 +527,12 @@ public class SimplexTiming {
 
 				// now the phase issue
 				for (m = 0; m < counter; m++) {
-					DoubleArray t = (DoubleArray) secondLevelArray.elementAt(m);
+					DoubleArray t = secondLevelArray.elementAt(m);
 					if (t.getNumberOfItemsInArray() > 0) {
 						delta = findMaxOrMinInList(t, false); // min
 						System.out.println("-----------" + m + "-------------------" + delta);
 						t.removeItems();
-						((DoubleArray) thirdLevelArray.elementAt(m)).addItemInArray(delta);
+						thirdLevelArray.elementAt(m).addItemInArray(delta);
 					}
 				}
 			} // end of the looping of all the processes....
@@ -545,28 +541,28 @@ public class SimplexTiming {
 		// now the sensitivity is described by the MiniMum of thirdLevelArray.
 		counter = 0;
 		for (i = 0; i < numberOfARCs; i++) {
-			ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+			ARCElement = arrayInstance.elementAt(i);
 			for (j = 0; j < ARCElement.getNumberOfProcesses(); j++) {
 				processInstance = ARCElement.getProcess(j);
-				DoubleArray t = (DoubleArray) thirdLevelArray.elementAt(counter);
+				DoubleArray t = thirdLevelArray.elementAt(counter);
 				if (t.getNumberOfItemsInArray() == 0) {
 					System.err.println("hwe can the sensitivity analysis with zero or less candidates...");
 				} else {
 					sensitivity = findMaxOrMinInList(t, false);
 					t.removeItems();
 					processInstance.setSensitivity(sensitivity);
-					((ARCForArray) arrayInstance.elementAt(i)).setProcess(j, processInstance);
+					arrayInstance.elementAt(i).setProcess(j, processInstance);
 				}
 				counter++;
 			}
 		} // end of processing of the whole set of processes....
 
 		for (i = 0; i < ARCList.size(); i++) {
-			arcInstance = (ARC) ARCList.elementAt(i);
+			arcInstance = ARCList.elementAt(i);
 			processList = arcInstance.getProcessList();
 			processList.removeAllElements();
 
-			ARCForArray t = (ARCForArray) arrayInstance.elementAt(i);
+			ARCForArray t = arrayInstance.elementAt(i);
 			for (j = 0; j < t.getNumberOfProcesses(); j++) {
 				RuntimeProcess temp = t.getProcess(j);
 				processList.addElement(temp);
@@ -585,21 +581,21 @@ public class SimplexTiming {
 
 	/**@param firstLevelArray has been initilized and create memory space already in the caller side
 	*/
-	public void constructFirstLevelArray(Vector arrayInstance, int numberOfARCs, RuntimeProcess process, double phase,
-			int totalProcess, Vector firstLevelArray) {
+	public void constructFirstLevelArray(Vector<ARCForArray> arrayInstance, int numberOfARCs, RuntimeProcess process, double phase,
+			int totalProcess, Vector<DoubleArray> firstLevelArray) {
 
-		Vector phasePossibleArray = null;
+		Vector<DoubleArray> phasePossibleArray = null;
 		DoubleArray timePoints = null;
-		int i, j, k, l, m, n, ARCPos, processPos, iz;
+		int i, j, k, l, m, n, ARCPos, processPos;
 		double xz;
-		int desired, counter;
+		int desired;
 		ARCForArray ARCElement = null;
 		RuntimeProcess processInstance = null;
-		Vector phaseDesiredArray = null;
+		Vector<DoubleArray> phaseDesiredArray = null;
 		double timePoint, summation;
 		DoubleArray responseArray;
 
-		double difference, newDifference, localDelta, gDiff;
+		double difference, newDifference, localDelta;
 		double zeroPrevent;
 		double response, recoverPhase, recoverResponse, variedPhase, renewResponse;
 		DoubleArray newDifferenceArray = null;
@@ -614,11 +610,11 @@ public class SimplexTiming {
 			System.out.print("++++" + timePoints.getItemInArray(i) + "++");
 			System.out.print("\n");
 
-			phasePossibleArray = new Vector(numberOfARCs);
-			phaseDesiredArray = new Vector(numberOfARCs);
+			phasePossibleArray = new Vector<DoubleArray>(numberOfARCs);
+			phaseDesiredArray = new Vector<DoubleArray>(numberOfARCs);
 
 			for (i = 0; i < numberOfARCs; i++) {
-				ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+				ARCElement = arrayInstance.elementAt(i);
 				processInstance = ARCElement.getProcess(0);
 				phaseDesiredArray.addElement(new DoubleArray());
 				if (processInstance.getARCID() == process.getARCID()) {
@@ -632,8 +628,8 @@ public class SimplexTiming {
 			}
 
 			for (i = 0; i < numberOfARCs; i++) {
-				ARCElement = (ARCForArray) arrayInstance.elementAt(i);
-				DoubleArray t = (DoubleArray) phasePossibleArray.elementAt(i);
+				ARCElement = arrayInstance.elementAt(i);
+				DoubleArray t = phasePossibleArray.elementAt(i);
 				if (t.getNumberOfItemsInArray() > 0) {
 					for (j = 0; j < t.getNumberOfItemsInArray(); j++) {
 						System.out.print(t.getItemInArray(j));
@@ -651,15 +647,15 @@ public class SimplexTiming {
 				timePoint = timePoints.getItemInArray(l);
 				summation = process.getExecutionTime();
 				for (i = 0; i < numberOfARCs; i++) {
-					ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+					ARCElement = arrayInstance.elementAt(i);
 					processInstance = ARCElement.getProcess(0);
 					ARCPos = ARCElement.getCoordinate();
 					if (processInstance.getARCID() == process.getARCID()) {
 						summation += Auxillary.processOtherThanMySelfContribution(timePoint, phase, 0, process,
 								ARCElement);
-						((DoubleArray) phaseDesiredArray.elementAt(ARCPos)).addItemInArray(phase);
+						phaseDesiredArray.elementAt(ARCPos).addItemInArray(phase);
 					} else {
-						DoubleArray t = (DoubleArray) phasePossibleArray.elementAt(ARCPos);
+						DoubleArray t = phasePossibleArray.elementAt(ARCPos);
 						for (m = 0; m < t.getNumberOfItemsInArray(); m++) {
 							variedPhase = t.getItemInArray(m);
 							response = Auxillary.processOtherThanMySelfContribution(timePoint, phase, variedPhase,
@@ -679,30 +675,30 @@ public class SimplexTiming {
 							responseArray.removeItems();
 							summation += response;
 
-							xz = ((DoubleArray) phasePossibleArray.elementAt(ARCPos)).getItemInArray(desired);
-							((DoubleArray) phaseDesiredArray.elementAt(ARCPos)).addItemInArray(xz);
+							xz = phasePossibleArray.elementAt(ARCPos).getItemInArray(desired);
+							phaseDesiredArray.elementAt(ARCPos).addItemInArray(xz);
 						}
 					}
 				}
 
 				difference = timePoint - summation;
 				for (i = 0; i < numberOfARCs; i++) {
-					ARCElement = (ARCForArray) arrayInstance.elementAt(i);
+					ARCElement = arrayInstance.elementAt(i);
 					for (j = 0; j < ARCElement.getNumberOfProcesses(); j++) {
 						processInstance = ARCElement.getProcess(j);
 						if (Auxillary.compareNotMySelf(process, processInstance) == false) {
 							processPos = process.getCoordinate();
-							((DoubleArray) firstLevelArray.elementAt(processPos)).addItemInArray(difference);
+							firstLevelArray.elementAt(processPos).addItemInArray(difference);
 						} else {
 							ARCPos = ARCElement.getCoordinate();
 							processPos = processInstance.getCoordinate();
 							if (processInstance.getPriority() > process.getPriority()) {
-								recoverPhase = ((DoubleArray) phaseDesiredArray.elementAt(ARCPos)).getItemInArray(0);
+								recoverPhase = phaseDesiredArray.elementAt(ARCPos).getItemInArray(0);
 								recoverResponse = Auxillary.processOtherThanMySelfContribution(timePoint, phase,
 										recoverPhase, process, ARCElement);
-								for (n = 0; n < ((DoubleArray) phasePossibleArray.elementAt(ARCPos))
+								for (n = 0; n < phasePossibleArray.elementAt(ARCPos)
 										.getNumberOfItemsInArray(); n++) {
-									variedPhase = ((DoubleArray) phasePossibleArray.elementAt(ARCPos))
+									variedPhase = phasePossibleArray.elementAt(ARCPos)
 											.getItemInArray(n);
 									renewResponse = Auxillary.processOtherThanMySelfContribution(timePoint, phase,
 											variedPhase, process, ARCElement);
@@ -717,7 +713,7 @@ public class SimplexTiming {
 								if (newDifferenceArray.getNumberOfItemsInArray() > 0) {
 									newDifference = findMaxOrMinInList(newDifferenceArray, false);
 									newDifferenceArray.removeItems();
-									((DoubleArray) firstLevelArray.elementAt(processPos)).addItemInArray(newDifference);
+									firstLevelArray.elementAt(processPos).addItemInArray(newDifference);
 								}
 							}
 						} // end of else
@@ -725,8 +721,8 @@ public class SimplexTiming {
 				} // end of for (i=0;i< numberOfARCs; i++)...
 
 				for (i = 0; i < numberOfARCs; i++) {
-					if (((DoubleArray) phaseDesiredArray.elementAt(i)).getNumberOfItemsInArray() > 0) {
-						((DoubleArray) phaseDesiredArray.elementAt(i)).removeItems();
+					if (phaseDesiredArray.elementAt(i).getNumberOfItemsInArray() > 0) {
+						phaseDesiredArray.elementAt(i).removeItems();
 					}
 				}
 			} // end of all the time points....

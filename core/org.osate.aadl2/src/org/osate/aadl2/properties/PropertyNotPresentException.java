@@ -34,6 +34,7 @@ import org.osate.aadl2.Property;
  *
  */
 public class PropertyNotPresentException extends PropertyLookupException {
+	private static final long serialVersionUID = -3673107013462421577L;
 	private NamedElement holder = null;
 	private Property definition = null;
 

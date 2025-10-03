@@ -1451,7 +1451,7 @@ public final class AadlUtil {
 		if (Aadl2Util.isNull(ft)) {
 			return "";
 		}
-		return ((NamedElement) ft).getName();
+		return ft.getName();
 	}
 
 	/*
@@ -2108,7 +2108,7 @@ public final class AadlUtil {
 		}
 		for (ModelUnit imported : imports) {
 			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
-				String n = ((AadlPackage) imported).getName();
+				String n = imported.getName();
 				if (name.equalsIgnoreCase(n)) {
 					return (AadlPackage) imported;
 				}
@@ -2118,7 +2118,7 @@ public final class AadlUtil {
 				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null) {
 			for (ModelUnit imported : ((AadlPackage) context.eContainer()).getOwnedPublicSection().getImportedUnits()) {
 				if (imported instanceof AadlPackage && !imported.eIsProxy()
-						&& name.equalsIgnoreCase(((AadlPackage) imported).getName())) {
+						&& name.equalsIgnoreCase(imported.getName())) {
 					return (AadlPackage) imported;
 				}
 			}
@@ -2184,7 +2184,7 @@ public final class AadlUtil {
 		}
 		for (ModelUnit importedPropertySet : importedPropertySets) {
 			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
-					&& name.equalsIgnoreCase(((PropertySet) importedPropertySet).getName())) {
+					&& name.equalsIgnoreCase(importedPropertySet.getName())) {
 				return (PropertySet) importedPropertySet;
 			}
 		}

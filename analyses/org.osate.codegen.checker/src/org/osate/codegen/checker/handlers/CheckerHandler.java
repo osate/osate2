@@ -24,6 +24,7 @@
 
 package org.osate.codegen.checker.handlers;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -86,11 +87,12 @@ public class CheckerHandler extends AbstractHandler {
 	public static List<ErrorReport> executeCheck(SystemInstance si, Class<? extends AbstractCheck> myCheck, int kind) {
 
 		try {
-			AbstractCheck checkInstance = myCheck.newInstance();
+			AbstractCheck checkInstance = myCheck.getDeclaredConstructor().newInstance();
 			checkInstance.setKind(kind);
 			checkInstance.perform(si);
 			return (checkInstance.getErrors());
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException
+				| InvocationTargetException e) {
 			IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);
 			StatusManager manager = StatusManager.getManager();
 			manager.handle(status, StatusManager.LOG);
