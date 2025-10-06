@@ -36,9 +36,9 @@ Run with
 
     	<p2.mirror>
             <source>
-                <repository location="http://download.eclipse.org/releases/2025-03"/>
+                <repository location="http://download.eclipse.org/releases/2025-06"/>
             </source>
-            <destination location="${target.dir}/releases/2025-03"/>
+            <destination location="${target.dir}/releases/2025-06"/>
             <iu id="org.eclipse.e4.rcp.feature.group"/>
             <iu id="org.eclipse.egit.feature.group"/>
             <iu id="org.eclipse.emf.sdk.feature.group"/>
@@ -111,17 +111,17 @@ Run with
 
     	<p2.mirror>
             <source>
-                <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.38.0"/>
+                <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.39.0"/>
             </source>
-            <destination location="${target.dir}/modeling/tmf/xtext/updates/releases/2.38.0"/>
+            <destination location="${target.dir}/modeling/tmf/xtext/updates/releases/2.39.0"/>
             <iu id="org.eclipse.xtext.xtext.generator"/>
             <iu id="org.eclipse.xtext.redist.feature.group"/>
             <iu id="org.eclipse.xtext.testing"/>
             <iu id="org.objectweb.asm"/>
         </p2.mirror>
 
-        <p2.mirror source="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.20.0">
-            <destination location="${target.dir}/modeling/emft/mwe/updates/releases/2.20.0"/>
+        <p2.mirror source="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.23.0">
+            <destination location="${target.dir}/modeling/emft/mwe/updates/releases/2.23.0"/>
             <iu id="org.eclipse.emf.mwe2.launcher.feature.group"/>
         </p2.mirror>
 
