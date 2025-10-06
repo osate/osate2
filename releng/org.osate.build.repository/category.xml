@@ -89,15 +89,15 @@ censes only apply to the Third Party Software and not any other portion of this 
    <category-def name="alisa.source" label="ALISA Source Code">
       <category name="source"/>
    </category-def>
-   <repository-reference location="https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.38.0" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/modeling/emft/mwe/updates/releases/2.20.0" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/xsemantics/milestones/1.24" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/elk/updates/releases/0.9.1" enabled="true" />
-   <repository-reference location="https://osate-build.sei.cmu.edu/p2/py4j" enabled="true" />
-   <repository-reference location="https://updates.yakindu.com/statecharts/releases/3.5.9" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/2025-03" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/ease/integration/nightly/" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/justj/jres/21/updates/release/latest" enabled="true" />
-   <repository-reference location="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.2" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/mylyn/releases/3.25" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/xsemantics/milestones/1.24" name="" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/elk/updates/releases/0.9.1" name="" enabled="true" />
+   <repository-reference location="https://osate-build.sei.cmu.edu/p2/py4j" name="" enabled="true" />
+   <repository-reference location="https://updates.yakindu.com/statecharts/releases/3.5.9" name="" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/ease/integration/nightly/" name="" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/justj/jres/21/updates/release/latest" name="" enabled="true" />
+   <repository-reference location="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.2" name="" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/mylyn/releases/3.25" name="" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/modeling/emft/mwe/updates/releases/2.23.0" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.39.0" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/2025-06" enabled="true" />
 </site>

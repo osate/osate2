@@ -9,8 +9,8 @@
 	<properties>
 		<tycho.version>4.0.13</tycho.version>
 		<tycho-extras.version>4.0.13</tycho-extras.version>
-		<eclipse.version>2025-03</eclipse.version>
-		<xtext.version>2.38.0</xtext.version>
+		<eclipse.version>2025-06</eclipse.version>
+		<xtext.version>2.39.0</xtext.version>
 		<xsemantics.version>1.24.0</xsemantics.version>
 		<openjfx.version>17.0.2</openjfx.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
