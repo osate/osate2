@@ -172,11 +172,19 @@ public final class NewBusLoadAnalysis {
 	 * @return The results in a {@code AnalysisResult} object.
 	 */
 	public AnalysisResult invoke(final IProgressMonitor monitor, final SystemInstance systemInstance) {
-		final IProgressMonitor pm = monitor == null ? new NullProgressMonitor() : monitor;
-		return analyzeBody(pm, systemInstance);
+		return invoke(monitor, systemInstance, true);
 	}
 
-	private AnalysisResult analyzeBody(final IProgressMonitor monitor, final Element obj) {
+	/**
+	 * @since 4.2
+	 */
+	public AnalysisResult invoke(final IProgressMonitor monitor, final SystemInstance systemInstance,
+			final boolean createCSV) {
+		final IProgressMonitor pm = monitor == null ? new NullProgressMonitor() : monitor;
+		return analyzeBody(pm, systemInstance, createCSV);
+	}
+
+	private AnalysisResult analyzeBody(final IProgressMonitor monitor, final Element obj, final boolean createCSV) {
 		if (obj instanceof InstanceObject) {
 			final SystemInstance root = ((InstanceObject) obj).getSystemInstance();
 			final AnalysisResult analysisResult = ResultUtil.createAnalysisResult("Bus  Load", root);
@@ -195,7 +203,9 @@ public final class NewBusLoadAnalysis {
 				analyzeBusLoadModel(busLoadModel, somResult, monitor);
 			}
 
-			saveResults(root, analysisResult, monitor);
+			if (createCSV) {
+				saveResults(root, analysisResult, monitor);
+			}
 
 			monitor.done();
 
