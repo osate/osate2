@@ -60,18 +60,21 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 		composite.setLayout(new GridLayout(2, true));
 
 		org.eclipse.swt.widgets.Label lbl_Warning = new org.eclipse.swt.widgets.Label(composite, SWT.NONE);
-		lbl_Warning.setText("Check property sets that should be ignored");
+		lbl_Warning.setText(
+				"Name binding errors for a property set that is not installed can be surpressed by listing the property set here."
+						+ System.lineSeparator()
+						+ "The checkbox below can be used to convert the errors to warnings instead.");
 		lbl_Warning.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 2));
 
 		// create a preference checkbox to track if warnings for ignored property sets need to be shown
 		checkBox = new Button(composite, SWT.CHECK);
-		checkBox.setText("Show warnings");
+		checkBox.setText("Show warnings for named property sets (instead of surpressing the errors)");
 		checkBox.setEnabled(true);
 		checkBox.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 1));
 		checkBox.setSelection(PropertySetModel.getShowWarning());
 
 		org.eclipse.swt.widgets.Label lbl = new org.eclipse.swt.widgets.Label(composite, SWT.NONE);
-		lbl.setText("Currently Ignored Property Sets");
+		lbl.setText("Property sets whose errors should be surpressed:");
 		lbl.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 2));
 
 		SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
