@@ -1,0 +1,21 @@
+Bus load analysis of top_noCapacity_Instance
+
+
+"Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"theBus","0.0","48.0","32.0","8.0"
+
+"Bus theBus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"VB1","0.0","32.0","16.0","8.0"
+
+"WARNING: Bus theBus has no capacity"
+"ERROR: Bus theBus -- budget > capacity: 48.0 KB/s > 0.0 KB/s"
+
+"Virtual bus VB1 bound to theBus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"sub1.out1 -> sub2.in1","","16.0","","8.0"
+
+"WARNING: Virtual bus VB1 has no capacity"
+"ERROR: Virtual bus VB1 -- budget > capacity: 32.0 KB/s > 0.0 KB/s"
+
+

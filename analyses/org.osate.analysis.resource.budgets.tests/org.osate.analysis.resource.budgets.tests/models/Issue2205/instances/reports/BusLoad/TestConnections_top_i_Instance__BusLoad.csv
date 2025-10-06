@@ -1,0 +1,19 @@
+Bus load analysis of top_i_Instance
+
+
+"Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"theBus","96.0","64.0","40.0","48.0"
+
+"Bus theBus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"sub1.out1 -> sub2.in1","","0.0","","8.0"
+"sub1.out2 -> sub2.in2","","8.0","","16.0"
+"sub1.out3 -> sub2.in3","","32.0","","24.0"
+
+"Connection sub1.out1 -> sub2.in1 bound to theBus"
+"WARNING: Connection sub1.out1 -> sub2.in1 has no bandwidth budget"
+
+"Connection sub1.out2 -> sub2.in2 bound to theBus"
+"ERROR: Connection sub1.out2 -> sub2.in2 -- Actual bandwidth > budget: 16.0 KB/s > 8.0 KB/s"
+
+

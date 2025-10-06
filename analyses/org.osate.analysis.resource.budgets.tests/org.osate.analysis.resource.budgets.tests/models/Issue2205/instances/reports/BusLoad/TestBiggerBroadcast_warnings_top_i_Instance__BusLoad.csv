@@ -1,0 +1,42 @@
+Bus load analysis of top_i_Instance
+
+
+"Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"noBroadcastBus","96.0","64.0","24.0","24.0"
+"broadcastBus","96.0","64.0","40.0","24.0"
+
+"Bus noBroadcastBus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"sub1.out1 -> sub2.in1","","8.0","","8.0"
+"sub1.out1 -> sub2.in2","","8.0","","8.0"
+"sub1.out1 -> sub2.in3","","8.0","","8.0"
+
+"Bus broadcastBus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"Broadcast from top_i_Instance.sub3a.out1","","8.0","","8.0"
+"Broadcast from top_i_Instance.sub3b.out1","","8.0","","8.0"
+"Broadcast from top_i_Instance.sub3c.out1","","24.0","","8.0"
+
+"Broadcast from top_i_Instance.sub3a.out1 over bus broadcastBus"
+"Included Connection","Budget (KB/s)","Actual (KB/s)"
+"sub3a.out1 -> sub4a.in1","8.0","8.0"
+"sub3a.out1 -> sub4b.in1","8.0","8.0"
+"sub3a.out1 -> sub4c.in1","8.0","8.0"
+
+"Broadcast from top_i_Instance.sub3b.out1 over bus broadcastBus"
+"Included Connection","Budget (KB/s)","Actual (KB/s)"
+"sub3b.out1 -> sub4a.in2","8.0","8.0"
+"sub3b.out1 -> sub4b.in2","8.0","8.0"
+"sub3b.out1 -> sub4c.in2","8.0","8.0"
+
+"Broadcast from top_i_Instance.sub3c.out1 over bus broadcastBus"
+"Included Connection","Budget (KB/s)","Actual (KB/s)"
+"sub3c.out1 -> sub4a.in3","8.0","8.0"
+"sub3c.out1 -> sub4b.in3","16.0","8.0"
+"sub3c.out1 -> sub4c.in3","24.0","8.0"
+
+"WARNING: Connection sub3c.out1 -> sub4a.in3 sharing broadcast source top_i_Instance.sub3c.out1 has budget 8.0 KB/s; using maximum"
+"WARNING: Connection sub3c.out1 -> sub4b.in3 sharing broadcast source top_i_Instance.sub3c.out1 has budget 16.0 KB/s; using maximum"
+"WARNING: Connection sub3c.out1 -> sub4c.in3 sharing broadcast source top_i_Instance.sub3c.out1 has budget 24.0 KB/s; using maximum"
+
+

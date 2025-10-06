@@ -1,0 +1,23 @@
+Bus load analysis of top_actualGreaterThanCapacity_Instance
+
+
+"Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"theBus","16.0","16.0","24.0","24.0"
+
+"Bus theBus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"vb1","12.0","12.0","24.0","16.0"
+"sub1.out3 -> sub2.in3","","12.0","","8.0"
+
+"ERROR: Bus theBus -- Actual bandwidth > capacity: 24.0 KB/s > 16.0 KB/s"
+"ERROR: Bus theBus -- Required budget > budget: 24.0 KB/s > 16.0 KB/s"
+
+"Virtual bus vb1 bound to theBus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"sub1.out1 -> sub2.in1","","12.0","","8.0"
+"sub1.out2 -> sub2.in2","","12.0","","8.0"
+
+"ERROR: Virtual bus vb1 -- Actual bandwidth > capacity: 16.0 KB/s > 12.0 KB/s"
+"ERROR: Virtual bus vb1 -- Required budget > budget: 24.0 KB/s > 12.0 KB/s"
+
+
