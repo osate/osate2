@@ -66,7 +66,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -102,7 +102,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		// SOM 1
 		{
@@ -216,7 +216,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -240,7 +240,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -262,7 +262,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -284,7 +284,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -306,7 +306,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -328,7 +328,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -350,7 +350,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -376,7 +376,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -402,7 +402,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
@@ -428,7 +428,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		{
@@ -470,7 +470,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		{
@@ -530,7 +530,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		{
@@ -590,7 +590,7 @@ class Issue2205Test extends XtextTest {
 
 		// check bus load
 		val checker = new NewBusLoadAnalysis()
-		val analysisResult = checker.invoke(null, instance)
+		val analysisResult = checker.invoke(null, instance, false)
 
 		val somResult = analysisResult.results.get(0)
 		val busResult = somResult.subResults.get(0)
