@@ -176,7 +176,7 @@ public final class NewBusLoadAnalysis {
 	}
 
 	/**
-	 * @since 4.2
+	 * @since 4.3
 	 */
 	public AnalysisResult invoke(final IProgressMonitor monitor, final SystemInstance systemInstance,
 			final boolean createCSV) {
