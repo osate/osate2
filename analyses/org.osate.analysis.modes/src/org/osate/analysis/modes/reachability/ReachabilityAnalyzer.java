@@ -258,7 +258,6 @@ public final class ReachabilityAnalyzer {
 		}
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	private boolean matchesNodes(SystemOperationMode som) {
 		if (DEBUG) {
 			System.out.println(som.getName());

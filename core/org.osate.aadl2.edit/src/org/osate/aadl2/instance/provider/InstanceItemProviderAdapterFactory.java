@@ -368,6 +368,29 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.instance.InstanceClassifierValue} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InstanceClassifierValueItemProvider instanceClassifierValueItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.instance.InstanceClassifierValue}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInstanceClassifierValueAdapter() {
+		if (instanceClassifierValueItemProvider == null) {
+			instanceClassifierValueItemProvider = new InstanceClassifierValueItemProvider(this);
+		}
+
+		return instanceClassifierValueItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -507,6 +530,9 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 		}
 		if (instanceReferenceValueItemProvider != null) {
 			instanceReferenceValueItemProvider.dispose();
+		}
+		if (instanceClassifierValueItemProvider != null) {
+			instanceClassifierValueItemProvider.dispose();
 		}
 	}
 

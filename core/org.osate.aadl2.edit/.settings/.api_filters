@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.aadl2.edit" version="2">
+    <resource path="src/org/osate/aadl2/instance/provider/InstanceClassifierValueItemProvider.java" type="org.osate.aadl2.instance.provider.InstanceClassifierValueItemProvider">
+        <filter comment="EMF generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.instance.provider.InstanceClassifierValueItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/provider/InstanceItemProviderAdapterFactory.java" type="org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory">
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="instanceClassifierValueItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

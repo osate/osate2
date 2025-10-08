@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.slicer.tests
 Bundle-Version: 0.1.0.qualifier
 Automatic-Module-Name: org.osate.slicer.tests
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Vendor: CMU/SEI
 Require-Bundle: org.osate.aadl2.instantiation,
  org.osate.aadl2.errormodel.instance,
