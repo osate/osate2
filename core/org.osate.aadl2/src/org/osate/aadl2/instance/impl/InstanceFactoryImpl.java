@@ -37,6 +37,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.InstanceClassifierValue;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.InstanceReferenceValue;
@@ -114,6 +115,8 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 			return createSystemInstance();
 		case InstancePackage.INSTANCE_REFERENCE_VALUE:
 			return createInstanceReferenceValue();
+		case InstancePackage.INSTANCE_CLASSIFIER_VALUE:
+			return createInstanceClassifierValue();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -283,6 +286,17 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	public InstanceReferenceValue createInstanceReferenceValue() {
 		InstanceReferenceValueImpl instanceReferenceValue = new InstanceReferenceValueImpl();
 		return instanceReferenceValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public InstanceClassifierValue createInstanceClassifierValue() {
+		InstanceClassifierValueImpl instanceClassifierValue = new InstanceClassifierValueImpl();
+		return instanceClassifierValue;
 	}
 
 	/**

@@ -190,4 +190,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedInstanceObject"
         ordered="false" lowerBound="1" eType="#//InstanceObject"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstanceClassifierValue" eSuperTypes="aadl2.ecore#//ClassifierValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instantiatedClassifier"
+        ordered="false" lowerBound="1" eType="#//ComponentInstance"/>
+  </eClassifiers>
 </ecore:EPackage>

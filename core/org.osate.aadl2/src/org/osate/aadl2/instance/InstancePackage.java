@@ -1959,6 +1959,61 @@ public interface InstancePackage extends EPackage {
 	int INSTANCE_REFERENCE_VALUE_FEATURE_COUNT = Aadl2Package.PROPERTY_VALUE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.InstanceClassifierValueImpl <em>Classifier Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.instance.impl.InstanceClassifierValueImpl
+	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getInstanceClassifierValue()
+	 * @generated
+	 */
+	int INSTANCE_CLASSIFIER_VALUE = 16;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_CLASSIFIER_VALUE__OWNED_ELEMENT = Aadl2Package.CLASSIFIER_VALUE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_CLASSIFIER_VALUE__OWNED_COMMENT = Aadl2Package.CLASSIFIER_VALUE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_CLASSIFIER_VALUE__CLASSIFIER = Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Instantiated Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_CLASSIFIER_VALUE__INSTANTIATED_CLASSIFIER = Aadl2Package.CLASSIFIER_VALUE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Classifier Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_CLASSIFIER_VALUE_FEATURE_COUNT = Aadl2Package.CLASSIFIER_VALUE_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.ConnectionKind <em>Connection Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1966,7 +2021,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getConnectionKind()
 	 * @generated
 	 */
-	int CONNECTION_KIND = 16;
+	int CONNECTION_KIND = 17;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.FeatureCategory <em>Feature Category</em>}' enum.
@@ -1976,7 +2031,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getFeatureCategory()
 	 * @generated
 	 */
-	int FEATURE_CATEGORY = 17;
+	int FEATURE_CATEGORY = 18;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.FeatureInstance <em>Feature Instance</em>}'.
@@ -2810,6 +2865,27 @@ public interface InstancePackage extends EPackage {
 	EReference getInstanceReferenceValue_ReferencedInstanceObject();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.instance.InstanceClassifierValue <em>Classifier Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Classifier Value</em>'.
+	 * @see org.osate.aadl2.instance.InstanceClassifierValue
+	 * @generated
+	 */
+	EClass getInstanceClassifierValue();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.InstanceClassifierValue#getInstantiatedClassifier <em>Instantiated Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Instantiated Classifier</em>'.
+	 * @see org.osate.aadl2.instance.InstanceClassifierValue#getInstantiatedClassifier()
+	 * @see #getInstanceClassifierValue()
+	 * @generated
+	 */
+	EReference getInstanceClassifierValue_InstantiatedClassifier();
+
+	/**
 	 * Returns the meta object for enum '{@link org.osate.aadl2.instance.ConnectionKind <em>Connection Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3507,6 +3583,25 @@ public interface InstancePackage extends EPackage {
 		 */
 		EReference INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT = eINSTANCE
 				.getInstanceReferenceValue_ReferencedInstanceObject();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.InstanceClassifierValueImpl <em>Classifier Value</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.instance.impl.InstanceClassifierValueImpl
+		 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getInstanceClassifierValue()
+		 * @generated
+		 */
+		EClass INSTANCE_CLASSIFIER_VALUE = eINSTANCE.getInstanceClassifierValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Instantiated Classifier</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INSTANCE_CLASSIFIER_VALUE__INSTANTIATED_CLASSIFIER = eINSTANCE
+				.getInstanceClassifierValue_InstantiatedClassifier();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.ConnectionKind <em>Connection Kind</em>}' enum.

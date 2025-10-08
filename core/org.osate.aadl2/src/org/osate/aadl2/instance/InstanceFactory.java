@@ -151,6 +151,15 @@ public interface InstanceFactory extends EFactory {
 	InstanceReferenceValue createInstanceReferenceValue();
 
 	/**
+	 * Returns a new object of class '<em>Classifier Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Classifier Value</em>'.
+	 * @generated
+	 */
+	InstanceClassifierValue createInstanceClassifierValue();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

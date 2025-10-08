@@ -715,6 +715,24 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tPDG0CodEe2BQOUcRdWoeg" value="*"/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_PompcKRVEfCYhKGmll8oJQ" name="InstanceClassifierValue">
+      <generalization xmi:type="uml:Generalization" xmi:id="_VqW7EKRWEfCYhKGmll8oJQ">
+        <general xmi:type="uml:Class" href="AADL2.EMF.merged.uml#ClassifierValue"/>
+      </generalization>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Vvh5gKRXEfCYhKGmll8oJQ" name="instantiatedClassifier" type="ComponentInstance" association="_VvePIKRXEfCYhKGmll8oJQ">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TsnKEKRYEfCYhKGmll8oJQ" name="LiteralInteger1" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TsnKEaRYEfCYhKGmll8oJQ" name="LiteralUnlimitedNatural1" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_VvePIKRXEfCYhKGmll8oJQ" visibility="private" memberEnd="_Vvh5gKRXEfCYhKGmll8oJQ _Vvh5g6RXEfCYhKGmll8oJQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_VvhScKRXEfCYhKGmll8oJQ" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VvhScaRXEfCYhKGmll8oJQ" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_Vvh5g6RXEfCYhKGmll8oJQ" name="classifierValue" type="_PompcKRVEfCYhKGmll8oJQ" association="_VvePIKRXEfCYhKGmll8oJQ">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pv6eoKRXEfCYhKGmll8oJQ" name="LiteralInteger1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pv864KRXEfCYhKGmll8oJQ" name="LiteralUnlimitedNatural1" value="*"/>
+      </ownedEnd>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_profileApplication.0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
@@ -758,4 +776,5 @@ These are those SOMs in which all of this flow's elements  are active.</body>
   <Ecore:EReference xmi:id="_IdJN4OxpEeWhPuR9X355ew" base_Property="FlowSpecInstance-dst" isResolveProxies="false"/>
   <Ecore:EReference xmi:id="_RC6J0OxpEeWhPuR9X355ew" isTransient="true" base_Property="FeatureInstance-srcFlowSpec" isResolveProxies="false"/>
   <Ecore:EReference xmi:id="_SF3boOxpEeWhPuR9X355ew" isTransient="true" base_Property="FeatureInstance-dstFlowSpec" isResolveProxies="false"/>
+  <standard:Metaclass xmi:id="_cvJo8KRVEfCYhKGmll8oJQ" base_Class="_PompcKRVEfCYhKGmll8oJQ"/>
 </xmi:XMI>

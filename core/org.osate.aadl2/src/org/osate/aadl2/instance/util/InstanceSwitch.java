@@ -27,12 +27,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -43,6 +45,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.InstanceClassifierValue;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.InstanceReferenceValue;
@@ -408,6 +411,29 @@ public class InstanceSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case InstancePackage.INSTANCE_CLASSIFIER_VALUE: {
+			InstanceClassifierValue instanceClassifierValue = (InstanceClassifierValue) theEObject;
+			T result = caseInstanceClassifierValue(instanceClassifierValue);
+			if (result == null) {
+				result = caseClassifierValue(instanceClassifierValue);
+			}
+			if (result == null) {
+				result = casePropertyOwner(instanceClassifierValue);
+			}
+			if (result == null) {
+				result = casePropertyValue(instanceClassifierValue);
+			}
+			if (result == null) {
+				result = casePropertyExpression(instanceClassifierValue);
+			}
+			if (result == null) {
+				result = caseElement(instanceClassifierValue);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -654,6 +680,21 @@ public class InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Classifier Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Classifier Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInstanceClassifierValue(InstanceClassifierValue object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -770,6 +811,36 @@ public class InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePropertyValue(PropertyValue object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Property Owner</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Property Owner</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePropertyOwner(PropertyOwner object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Classifier Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Classifier Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseClassifierValue(ClassifierValue object) {
 		return null;
 	}
 

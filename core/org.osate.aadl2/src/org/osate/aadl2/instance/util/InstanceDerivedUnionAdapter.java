@@ -35,6 +35,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.InstanceClassifierValue;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.ModeInstance;
@@ -133,6 +134,9 @@ public class InstanceDerivedUnionAdapter extends AdapterImpl {
 			break;
 		case InstancePackage.INSTANCE_REFERENCE_VALUE:
 			notifyInstanceReferenceValueChanged(notification, eClass);
+			break;
+		case InstancePackage.INSTANCE_CLASSIFIER_VALUE:
+			notifyInstanceClassifierValueChanged(notification, eClass);
 			break;
 		}
 	}
@@ -337,6 +341,22 @@ public class InstanceDerivedUnionAdapter extends AdapterImpl {
 	protected void notifyInstanceReferenceValueChanged(Notification notification, EClass eClass) {
 		switch (notification.getFeatureID(InstanceReferenceValue.class)) {
 		case InstancePackage.INSTANCE_REFERENCE_VALUE__OWNED_COMMENT:
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
+			break;
+		}
+	}
+
+	/**
+	 * Calls <code>notifyChanged</code> for each affected derived union.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param notification a description of the change.
+	 * @param eClass the Ecore class of the notifier.
+	 * @generated
+	 */
+	protected void notifyInstanceClassifierValueChanged(Notification notification, EClass eClass) {
+		switch (notification.getFeatureID(InstanceClassifierValue.class)) {
+		case InstancePackage.INSTANCE_CLASSIFIER_VALUE__OWNED_COMMENT:
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			break;
 		}

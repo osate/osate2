@@ -44,6 +44,7 @@ import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.InstanceClassifierValue;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
@@ -172,6 +173,13 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	private EClass instanceReferenceValueEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass instanceClassifierValueEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1034,6 +1042,26 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	@Override
+	public EClass getInstanceClassifierValue() {
+		return instanceClassifierValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getInstanceClassifierValue_InstantiatedClassifier() {
+		return (EReference) instanceClassifierValueEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getConnectionKind() {
 		return connectionKindEEnum;
 	}
@@ -1172,6 +1200,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		instanceReferenceValueEClass = createEClass(INSTANCE_REFERENCE_VALUE);
 		createEReference(instanceReferenceValueEClass, INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT);
 
+		instanceClassifierValueEClass = createEClass(INSTANCE_CLASSIFIER_VALUE);
+		createEReference(instanceClassifierValueEClass, INSTANCE_CLASSIFIER_VALUE__INSTANTIATED_CLASSIFIER);
+
 		// Create enums
 		connectionKindEEnum = createEEnum(CONNECTION_KIND);
 		featureCategoryEEnum = createEEnum(FEATURE_CATEGORY);
@@ -1229,6 +1260,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		endToEndFlowInstanceEClass.getESuperTypes().add(getFlowElementInstance());
 		systemInstanceEClass.getESuperTypes().add(getComponentInstance());
 		instanceReferenceValueEClass.getESuperTypes().add(theAadl2Package.getPropertyValue());
+		instanceClassifierValueEClass.getESuperTypes().add(theAadl2Package.getClassifierValue());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(featureInstanceEClass, FeatureInstance.class, "FeatureInstance", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
@@ -1469,6 +1501,12 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInstanceReferenceValue_ReferencedInstanceObject(), getInstanceObject(), null,
 				"referencedInstanceObject", null, 1, 1, InstanceReferenceValue.class, !IS_TRANSIENT, !IS_VOLATILE, //$NON-NLS-1$
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(instanceClassifierValueEClass, InstanceClassifierValue.class, "InstanceClassifierValue", //$NON-NLS-1$
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getInstanceClassifierValue_InstantiatedClassifier(), getComponentInstance(), null,
+				"instantiatedClassifier", null, 1, 1, InstanceClassifierValue.class, !IS_TRANSIENT, !IS_VOLATILE, //$NON-NLS-1$
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		// Initialize enums and add enum literals

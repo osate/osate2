@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.aadl2" version="2">
+    <resource path="src/org/osate/aadl2/instance/InstanceClassifierValue.java" type="org.osate.aadl2.instance.InstanceClassifierValue">
+        <filter comment="EMF generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.instance.InstanceClassifierValue"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/InstanceFactory.java" type="org.osate.aadl2.instance.InstanceFactory">
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="createInstanceClassifierValue()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/InstancePackage.java" type="org.osate.aadl2.instance.InstancePackage">
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="INSTANCE_CLASSIFIER_VALUE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="INSTANCE_CLASSIFIER_VALUE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="INSTANCE_CLASSIFIER_VALUE__CLASSIFIER"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="INSTANCE_CLASSIFIER_VALUE__INSTANTIATED_CLASSIFIER"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="INSTANCE_CLASSIFIER_VALUE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="INSTANCE_CLASSIFIER_VALUE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getInstanceClassifierValue()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="getInstanceClassifierValue_InstantiatedClassifier()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/InstancePackage.java" type="org.osate.aadl2.instance.InstancePackage$Literals">
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="INSTANCE_CLASSIFIER_VALUE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1211105284">
+            <message_arguments>
+                <message_argument value="INSTANCE_CLASSIFIER_VALUE__INSTANTIATED_CLASSIFIER"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/impl/InstanceClassifierValueImpl.java" type="org.osate.aadl2.instance.impl.InstanceClassifierValueImpl">
+        <filter comment="EMF generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.aadl2.instance.impl.InstanceClassifierValueImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/util/InstanceAdapterFactory.java" type="org.osate.aadl2.instance.util.InstanceAdapterFactory">
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="createClassifierValueAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="createInstanceClassifierValueAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="createPropertyOwnerAdapter()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/util/InstanceDerivedUnionAdapter.java" type="org.osate.aadl2.instance.util.InstanceDerivedUnionAdapter">
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="notifyInstanceClassifierValueChanged(Notification, EClass)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/instance/util/InstanceSwitch.java" type="org.osate.aadl2.instance.util.InstanceSwitch">
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseClassifierValue(ClassifierValue)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseInstanceClassifierValue(InstanceClassifierValue)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="casePropertyOwner(PropertyOwner)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

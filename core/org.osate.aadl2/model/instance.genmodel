@@ -202,5 +202,9 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//InstanceReferenceValue/referencedInstanceObject"/>
     </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="instance.ecore#//InstanceClassifierValue">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//InstanceClassifierValue/instantiatedClassifier"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

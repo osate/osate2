@@ -28,12 +28,14 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -44,6 +46,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.InstanceClassifierValue;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.InstanceReferenceValue;
@@ -107,7 +110,7 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected InstanceSwitch<Adapter> modelSwitch = new InstanceSwitch<Adapter>() {
+	protected InstanceSwitch<Adapter> modelSwitch = new InstanceSwitch<>() {
 		@Override
 		public Adapter caseFeatureInstance(FeatureInstance object) {
 			return createFeatureInstanceAdapter();
@@ -189,6 +192,11 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseInstanceClassifierValue(InstanceClassifierValue object) {
+			return createInstanceClassifierValueAdapter();
+		}
+
+		@Override
 		public Adapter caseElement(Element object) {
 			return createElementAdapter();
 		}
@@ -226,6 +234,16 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter casePropertyValue(PropertyValue object) {
 			return createPropertyValueAdapter();
+		}
+
+		@Override
+		public Adapter casePropertyOwner(PropertyOwner object) {
+			return createPropertyOwnerAdapter();
+		}
+
+		@Override
+		public Adapter caseClassifierValue(ClassifierValue object) {
+			return createClassifierValueAdapter();
 		}
 
 		@Override
@@ -472,6 +490,20 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.instance.InstanceClassifierValue <em>Classifier Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.instance.InstanceClassifierValue
+	 * @generated
+	 */
+	public Adapter createInstanceClassifierValueAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -580,6 +612,34 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPropertyValueAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyOwner <em>Property Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.PropertyOwner
+	 * @generated
+	 */
+	public Adapter createPropertyOwnerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.ClassifierValue <em>Classifier Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.ClassifierValue
+	 * @generated
+	 */
+	public Adapter createClassifierValueAdapter() {
 		return null;
 	}
 
