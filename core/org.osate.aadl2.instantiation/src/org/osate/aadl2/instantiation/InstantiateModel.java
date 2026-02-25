@@ -107,6 +107,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.InstanceClassifierValue;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeInstance;
@@ -722,7 +723,7 @@ public class InstantiateModel {
 						Context ctx = triggers.get(0).getContext();
 
 						if (ctx instanceof Subcomponent) {
-							eventName = ((Subcomponent) ctx).getName() + "_";
+							eventName = ctx.getName() + "_";
 						}
 					}
 					eventName += tp.getName();
@@ -1243,7 +1244,6 @@ public class InstantiateModel {
 	 * @since 3.0
 	 */
 	protected void instantiateFeatureClassifier(FeatureInstance fi, FeatureClassifier fc) throws InterruptedException {
-		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
 
@@ -1258,53 +1258,103 @@ public class InstantiateModel {
 			errManager.warning(fi, "No classifier for prototype '" + ((Prototype) fc).getName() + "'");
 		} else {
 			var contents = fi.eResource().getContents();
-			boolean duplicate = false;
+			boolean found = false;
 			if (!ic.hasBindings()) {
 				for (var obj : contents) {
 					if (obj instanceof ComponentInstance ci) {
 						if (ci.getName().equalsIgnoreCase(cc.getQualifiedName())) {
-							duplicate = true;
+							found = true;
 							fi.setType(ci);
 							break;
 						}
 					}
 				}
 			}
-			if (!duplicate) {
-				newInstance.setClassifier(cc);
-				newInstance.setName(cc.getQualifiedName() + (ic.hasBindings() ? "*" : ""));
-				newInstance.setCategory(cc.getCategory());
-				classifierCache.put(newInstance, ic);
-				contents.add(newInstance);
-				// root.getReferencedComponents().add(newInstance);
-				fi.setType(newInstance);
-				populateComponentInstance(newInstance, 0);
+			if (!found) {
+				final ComponentInstance ci = InstanceFactory.eINSTANCE.createComponentInstance();
+				classifierCache.put(ci, ic);
+				contents.add(ci);
 
-				new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(newInstance);
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
+				ci.setClassifier(cc);
+				ci.setName(cc.getQualifiedName() + (ic.hasBindings() ? "*" : ""));
+				ci.setCategory(cc.getCategory());
+				instantiateComponentContents(ci);
 
-				final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager,
-						classifierCache);
-				vcs.processPreOrderAll(newInstance);
-				vcs.postProcess();
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
-
-				new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(newInstance);
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
-
-				AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
-				aic.instantiateAllAnnexes(newInstance);
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
+				fi.setType(ci);
 			}
 		}
+	}
+
+	protected void instantiateClassifierProperty(InstanceClassifierValue cv) throws InterruptedException {
+		final ComponentClassifier cc;
+		final InstantiatedClassifier ic;
+
+		ic = getInstantiatedClassifier(fi);
+
+		if (ic == null) {
+			cc = null;
+		} else {
+			cc = (ComponentClassifier) ic.getClassifier();
+		}
+		if (cc == null) {
+			errManager.warning(fi, "No classifier for prototype '" + ((Prototype) fc).getName() + "'");
+		} else {
+			var contents = fi.eResource().getContents();
+			boolean found = false;
+			if (!ic.hasBindings()) {
+				for (var obj : contents) {
+					if (obj instanceof ComponentInstance ci) {
+						if (ci.getName().equalsIgnoreCase(cc.getQualifiedName())) {
+							found = true;
+							fi.setType(ci);
+							break;
+						}
+					}
+				}
+			}
+			if (!found) {
+				final ComponentInstance ci = InstanceFactory.eINSTANCE.createComponentInstance();
+				classifierCache.put(ci, ic);
+				contents.add(ci);
+
+				ci.setClassifier(cc);
+				ci.setName(cc.getQualifiedName() + (ic.hasBindings() ? "*" : ""));
+				ci.setCategory(cc.getCategory());
+				instantiateComponentContents(ci);
+
+				fi.setType(ci);
+			}
+		}
+	}
+
+	private ComponentInstance instantiateComponentContents(ComponentInstance ci) throws InterruptedException {
+
+		populateComponentInstance(ci, 0);
+
+		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(ci);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
+		final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager, classifierCache);
+		vcs.processPreOrderAll(ci);
+		vcs.postProcess();
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
+		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(ci);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
+		AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
+		aic.instantiateAllAnnexes(ci);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+		return ci;
+
 	}
 
 	// --------------------------------------------------------------------------------------------
