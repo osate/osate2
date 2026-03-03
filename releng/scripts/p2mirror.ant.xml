@@ -27,7 +27,7 @@ Run with
 ~/local/eclipse/java-2022-03/eclipse/eclipse \
     -application org.eclipse.ant.core.antRunner \
     -buildfile p2mirror.ant.xml \
-    -Dtarget.dir=$HOME/projects/osate/p2mirror-2025-03
+    -Dtarget.dir=$HOME/projects/osate/p2mirror-2026-12
 
 -->
 <project name="Create Mirror" default="create-mirror" basedir=".">
@@ -36,9 +36,9 @@ Run with
 
     	<p2.mirror>
             <source>
-                <repository location="http://download.eclipse.org/releases/2025-06"/>
+                <repository location="http://download.eclipse.org/releases/2025-12"/>
             </source>
-            <destination location="${target.dir}/releases/2025-06"/>
+            <destination location="${target.dir}/releases/2025-12"/>
             <iu id="org.eclipse.e4.rcp.feature.group"/>
             <iu id="org.eclipse.egit.feature.group"/>
             <iu id="org.eclipse.emf.sdk.feature.group"/>
@@ -60,19 +60,40 @@ Run with
             <iu id="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
             <iu id="org.eclipse.uml2.feature.group"/>
             <iu id="org.eclipse.zest.feature.group"/>
-            <iu id="org.eclipse.fx.runtime.min.feature.feature.group"/>
+    		<iu id="org.hamcrest.library"/>
+            <iu id="org.eclipse.mylyn.context.feature.feature.group"/>
+    		<iu id="junit-jupiter-api"/>
+        </p2.mirror>
+
+    	<p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/releases/2025-06"/>
+            </source>
+            <destination location="${target.dir}/releases/2025-06"/>
+    	    <iu id="org.apache.commons.io"/>
+    	    <iu id="org.apache.commons.logging"/>
+        </p2.mirror>
+
+    	<p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/efxclipse/updates-released/3.9.0/site"/>
+            </source>
+            <destination location="${target.dir}/efxclipse/updates-released/3.9.0/site"/>
+    	    <iu id="org.eclipse.fx.runtime.min.feature.feature.group"/>
+        </p2.mirror>
+
+    	<p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/tools/gef/fx/release/5.5.1"/>
+            </source>
+            <destination location="${target.dir}/tools/gef/fx/release/5.5.1"/>
             <iu id="org.eclipse.gef.common.feature.group"/>
             <iu id="org.eclipse.gef.geometry.feature.group"/>
             <iu id="org.eclipse.gef.geometry.convert.fx.feature.group"/>
             <iu id="org.eclipse.gef.fx.feature.group"/>
-    		<iu id="org.hamcrest.library"/>
-            <iu id="org.eclipse.mylyn.context.feature.feature.group"/>
-    	    <iu id="org.apache.commons.io"/>
-    	    <iu id="org.apache.commons.logging"/>
-    		<iu id="junit-jupiter-api"/>
         </p2.mirror>
 
-        <!--p2.mirror source="http://download.eclipse.org/birt/update-site/4.9.0">
+    	<!--p2.mirror source="http://download.eclipse.org/birt/update-site/4.9.0">
             <destination location="${target.dir}/birt/update-site/4.9.0"/>
             <iu id="org.eclipse.birt.chart.engine.extension"/>
             <iu id="org.eclipse.birt.chart.engine"/>

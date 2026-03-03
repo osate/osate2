@@ -99,5 +99,5 @@ censes only apply to the Third Party Software and not any other portion of this 
    <repository-reference location="https://download.eclipse.org/mylyn/releases/3.25" name="" enabled="true" />
    <repository-reference location="https://download.eclipse.org/modeling/emft/mwe/updates/releases/2.23.0" enabled="true" />
    <repository-reference location="https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.39.0" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/2025-06" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/2025-12" enabled="true" />
 </site>
