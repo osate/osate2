@@ -49,7 +49,7 @@
       <import plugin="org.eclipse.core.commands" version="3.9.0" match="compatible"/>
       <import plugin="org.eclipse.help" version="3.8.0" match="compatible"/>
       <import plugin="org.eclipse.emf.edit.ui" version="2.7.0" match="compatible"/>
-      <import plugin="org.apache.commons.lang" version="2.6.0" match="compatible"/>
+      <import plugin="org.apache.commons.lang3" version="3.20.0" match="compatible"/>
       <import plugin="org.eclipse.ui.navigator.resources" version="3.7.0" match="compatible"/>
       <import plugin="org.eclipse.jface" version="3.18.0" match="compatible"/>
       <import plugin="org.eclipse.search" version="3.11.100" match="compatible"/>

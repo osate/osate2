@@ -44,7 +44,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       <import plugin="org.osate.xtext.aadl2.errormodel"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.osate.ge"/>
-      <import plugin="org.apache.commons.lang"/>
+      <import plugin="org.apache.commons.lang3"/>
       <import plugin="org.eclipse.ui.views.properties.tabbed"/>
       <import plugin="org.osate.ge.swt"/>
    </requires>
