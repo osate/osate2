@@ -65,7 +65,7 @@ import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.osate.ui.OsateUiPlugin
 import org.osate.xtext.aadl2.properties.parser.antlr.lexer.InternalPropertiesLexer
 
-import static extension org.apache.commons.lang.StringUtils.ordinalIndexOf
+import static extension org.apache.commons.lang3.StringUtils.ordinalIndexOf
 import org.eclipse.core.resources.IProject
 
 /**
