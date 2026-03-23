@@ -181,7 +181,7 @@ Run with
             <iu id="com.rockwellcollins.atc.resolute.feature.feature.group"/>
         </p2.mirror-->
 
-        <p2.mirror source="http://updates.yakindu.com/statecharts/releases/3.5.9">
+        <p2.mirror source="http://updates.yakindu.com/statecharts/releases/3.5.13">
             <destination location="${target.dir}/yakindu"/>
             <iu id="org.yakindu.base.xtext.utils.jface"/>
         </p2.mirror>
