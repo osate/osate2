@@ -23,10 +23,15 @@
  */
 package org.osate.xtext.aadl2.ide;
 
+import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 
 /**
  * Use this class to register ide components.
- * @since 6.1
  */
 public class Aadl2IdeModule extends AbstractAadl2IdeModule {
+
+	public Class<? extends ISemanticHighlightingCalculator> bindSemanticHighlightingCalculator() {
+		return org.osate.xtext.aadl2.ide.highlighting.Aadl2SemanticHighlightingCalculator.class;
+	}
+
 }

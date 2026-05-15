@@ -32,7 +32,6 @@ import com.google.inject.Injector;
 
 /**
  * Initialization support for running Xtext languages as language servers.
- * @since 6.1
  */
 public class Aadl2IdeSetup extends Aadl2StandaloneSetup {
 
