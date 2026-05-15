@@ -177,6 +177,13 @@
          unpack="false"/>
 
    <plugin
+         id="org.osate.xtext.aadl2.properties.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.osate.xtext.aadl2.properties.ui"
          download-size="0"
          install-size="0"
