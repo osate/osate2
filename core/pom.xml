@@ -44,6 +44,7 @@
 		<module>org.osate.aadl2.contrib</module>
 		<module>org.osate.aadl2.edit</module>
 		<module>org.osate.aadl2.instance.textual</module>
+		<module>org.osate.aadl2.instance.textual.ide</module>
 		<module>org.osate.aadl2.instance.textual.ui</module>
 		<module>org.osate.aadl2.instance.ui</module>
 		<module>org.osate.aadl2.instantiation</module>
