@@ -32,11 +32,4 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>parent/pom.xml</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/pom.xml</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
