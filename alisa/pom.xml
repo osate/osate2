@@ -40,6 +40,7 @@
 		<module>org.osate.reqspec.ide</module>
 		<module>org.osate.reqspec.ui</module>
 		<module>org.osate.verify</module>
+		<module>org.osate.verify.ide</module>
 		<module>org.osate.verify.ui</module>
 
 	</modules>
