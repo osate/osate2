@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.xtext.util;bundle-version="[2.20.0,3.0.0)",
  org.antlr.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
- org.osate.verify;bundle-version="[5.2.0,6.0.0)";visibility:=reexport
+ org.osate.verify;bundle-version="[5.2.0,6.0.0)";visibility:=reexport,
+ org.osate.alisa.common;bundle-version="[3.2.0,4.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.osate.verify.ide,
  org.osate.verify.ide.contentassist.antlr,
