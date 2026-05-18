@@ -35,6 +35,13 @@
          unpack="false"/>
 
    <plugin
+         id="org.osate.xtext.aadl2.errormodel.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.osate.xtext.aadl2.errormodel.ui"
          download-size="0"
          install-size="0"
