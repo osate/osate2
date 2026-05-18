@@ -34,6 +34,7 @@
 		<module>org.osate.categories.ide</module>
 		<module>org.osate.categories.ui</module>
 		<module>org.osate.organization</module>
+		<module>org.osate.organization.ide</module>
 		<module>org.osate.organization.ui</module>
 		<module>org.osate.reqspec</module>
 		<module>org.osate.reqspec.ui</module>
