@@ -31,6 +31,7 @@
 		<module>org.osate.assure.tests</module>
 <!--		<module>org.osate.assure.resolute.tests</module>-->
 		<module>org.osate.categories</module>
+		<module>org.osate.categories.ide</module>
 		<module>org.osate.categories.ui</module>
 		<module>org.osate.organization</module>
 		<module>org.osate.organization.ui</module>
