@@ -16,6 +16,5 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.osate.alisa.workbench.ide,
  org.osate.alisa.workbench.ide.contentassist.antlr,
- org.osate.alisa.workbench.ide.contentassist.antlr.internal,
- org.osate.alisa.workbench.ide.contentassist.antlr.lexer
+ org.osate.alisa.workbench.ide.contentassist.antlr.internal
 Automatic-Module-Name: org.osate.alisa.workbench.ide

@@ -16,6 +16,5 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.osate.verify.ide,
  org.osate.verify.ide.contentassist.antlr,
- org.osate.verify.ide.contentassist.antlr.internal,
- org.osate.verify.ide.contentassist.antlr.lexer
+ org.osate.verify.ide.contentassist.antlr.internal
 Automatic-Module-Name: org.osate.verify.ide

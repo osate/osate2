@@ -16,6 +16,5 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.osate.aadl2.instance.textual.ide,
  org.osate.aadl2.instance.textual.ide.contentassist.antlr,
- org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal,
- org.osate.aadl2.instance.textual.ide.contentassist.antlr.lexer
+ org.osate.aadl2.instance.textual.ide.contentassist.antlr.internal
 Automatic-Module-Name: org.osate.aadl2.instance.textual.ide
