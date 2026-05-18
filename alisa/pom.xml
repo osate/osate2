@@ -37,6 +37,7 @@
 		<module>org.osate.organization.ide</module>
 		<module>org.osate.organization.ui</module>
 		<module>org.osate.reqspec</module>
+		<module>org.osate.reqspec.ide</module>
 		<module>org.osate.reqspec.ui</module>
 		<module>org.osate.verify</module>
 		<module>org.osate.verify.ui</module>
