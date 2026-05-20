@@ -2,7 +2,7 @@
 <feature
       id="org.osate.core.feature"
       label="Open Source AADL Tool Environment"
-      version="12.1.2.qualifier"
+      version="13.0.0.qualifier"
       provider-name="CMU SEI"
       plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
@@ -177,7 +177,21 @@
          unpack="false"/>
 
    <plugin
+         id="org.osate.xtext.aadl2.properties.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.osate.xtext.aadl2.properties.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.ide"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -199,6 +213,13 @@
 
    <plugin
          id="org.osate.aadl2.instance.textual"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.aadl2.instance.textual.ide"
          download-size="0"
          install-size="0"
          version="0.0.0"

@@ -19,17 +19,14 @@ Require-Bundle: org.osate.xtext.aadl2.errormodel;bundle-version="[7.2.0,8.0.0)";
  org.osate.annexsupport;bundle-version="[4.2.0,5.0.0)",
  org.eclipse.emf.transaction;bundle-version="[1.9.0,2.0.0)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
- org.osate.xtext.aadl2.ui;bundle-version="[8.1.0,9.0.0)",
- org.eclipse.xtend.lib;bundle-version="[2.20.0,3.0.0)";resolution:=optional
+ org.osate.xtext.aadl2.ui;bundle-version="[9.0.0,10.0.0)",
+ org.eclipse.xtend.lib;bundle-version="[2.20.0,3.0.0)";resolution:=optional,
+ org.osate.xtext.aadl2.errormodel.ide;bundle-version="[1.0.0,2.0.0)";visibility:=reexport
 Import-Package: org.apache.commons.logging;version="[1.2.0,2.0.0)",
  org.apache.log4j;version="[1.2.19,2.0.0)",
  org.osate.aadl2.modelsupport.util,
  org.osate.core
-Export-Package: org.osate.xtext.aadl2.errormodel.ide,
- org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr,
- org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr.internal,
- org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr.lexer,
- org.osate.xtext.aadl2.errormodel.ui,
+Export-Package: org.osate.xtext.aadl2.errormodel.ui,
  org.osate.xtext.aadl2.errormodel.ui.contentassist,
  org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr,
  org.osate.xtext.aadl2.errormodel.ui.internal,

@@ -2,7 +2,7 @@
 <feature
       id="org.osate.alisa.workbench.sdk"
       label="ALISA Requirement Specification and Verification"
-      version="8.3.1.qualifier"
+      version="8.4.0.qualifier"
       license-feature="org.osate.license"
       license-feature-version="1.0.6">
 
@@ -18,6 +18,13 @@
          unpack="false"/>
 
    <plugin
+         id="org.osate.alisa.workbench.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.osate.alisa.workbench.ui"
          download-size="0"
          install-size="0"
@@ -26,6 +33,13 @@
 
    <plugin
          id="org.osate.verify"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.verify.ide"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -60,6 +74,13 @@
          unpack="false"/>
 
    <plugin
+         id="org.osate.reqspec.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.osate.reqspec.ui"
          download-size="0"
          install-size="0"
@@ -68,6 +89,13 @@
 
    <plugin
          id="org.osate.alisa.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.alisa.common.ide"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -88,6 +116,13 @@
          unpack="false"/>
 
    <plugin
+         id="org.osate.categories.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.osate.categories.ui"
          download-size="0"
          install-size="0"
@@ -96,6 +131,13 @@
 
    <plugin
          id="org.osate.organization"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.organization.ide"
          download-size="0"
          install-size="0"
          version="0.0.0"

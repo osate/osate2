@@ -169,11 +169,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	}
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ArrayRange returns ArrayRange
 	 *
 	 * Constraint:
 	 *     (lowerBound=INTVALUE upperBound=INTVALUE?)
+	 * </pre>
 	 */
 	protected void sequence_ArrayRange(ISerializationContext context, ArrayRange semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -181,11 +183,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     BasicPropertyAssociation returns PropertyAssociation
 	 *
 	 * Constraint:
 	 *     (property=[Property|QPREF] ownedValue+=PropertyValue)
+	 * </pre>
 	 */
 	protected void sequence_BasicPropertyAssociation(ISerializationContext context, PropertyAssociation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -193,12 +197,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns BooleanLiteral
 	 *     BooleanLiteral returns BooleanLiteral
 	 *
 	 * Constraint:
 	 *     value?='true'?
+	 * </pre>
 	 */
 	protected void sequence_BooleanLiteral(ISerializationContext context, BooleanLiteral semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -206,12 +212,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns ClassifierValue
 	 *     ComponentClassifierTerm returns ClassifierValue
 	 *
 	 * Constraint:
 	 *     classifier=[ComponentClassifier|QCREF]
+	 * </pre>
 	 */
 	protected void sequence_ComponentClassifierTerm(ISerializationContext context, ClassifierValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -225,12 +233,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns ComputedValue
 	 *     ComputedTerm returns ComputedValue
 	 *
 	 * Constraint:
 	 *     function=ID
+	 * </pre>
 	 */
 	protected void sequence_ComputedTerm(ISerializationContext context, ComputedValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -244,12 +254,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ConstantValue returns NamedValue
 	 *     NumAlt returns NamedValue
 	 *
 	 * Constraint:
 	 *     namedValue=[PropertyConstant|QPREF]
+	 * </pre>
 	 */
 	protected void sequence_ConstantValue(ISerializationContext context, NamedValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -263,6 +275,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PModel returns PropertyAssociation
 	 *     ContainedPropertyAssociation returns PropertyAssociation
@@ -270,13 +283,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	 * Constraint:
 	 *     (
 	 *         property=[Property|QPREF] 
-	 *         append?='+=>'? 
+	 *         append?='+=&gt;'? 
 	 *         constant?='constant'? 
 	 *         ownedValue+=OptionalModalPropertyValue 
 	 *         ownedValue+=OptionalModalPropertyValue* 
 	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)? 
 	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ContainedPropertyAssociation(ISerializationContext context, PropertyAssociation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -284,11 +298,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ContainmentPathElement returns ContainmentPathElement
 	 *
 	 * Constraint:
 	 *     (namedElement=[NamedElement|ID] arrayRange+=ArrayRange* path=ContainmentPathElement?)
+	 * </pre>
 	 */
 	protected void sequence_ContainmentPathElement(ISerializationContext context, ContainmentPathElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -296,11 +312,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ContainmentPath returns ContainedNamedElement
 	 *
 	 * Constraint:
 	 *     path=ContainmentPathElement
+	 * </pre>
 	 */
 	protected void sequence_ContainmentPath(ISerializationContext context, ContainedNamedElement semanticObject) {
 		if (errorAcceptor != null) {
@@ -314,11 +332,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     FieldPropertyAssociation returns BasicPropertyAssociation
 	 *
 	 * Constraint:
 	 *     (property=[BasicProperty|ID] ownedValue=PropertyExpression)
+	 * </pre>
 	 */
 	protected void sequence_FieldPropertyAssociation(ISerializationContext context, BasicPropertyAssociation semanticObject) {
 		if (errorAcceptor != null) {
@@ -335,6 +355,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns IntegerLiteral
 	 *     IntegerTerm returns IntegerLiteral
@@ -342,6 +363,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	 *
 	 * Constraint:
 	 *     (value=SignedInt unit=[UnitLiteral|ID]?)
+	 * </pre>
 	 */
 	protected void sequence_IntegerTerm(ISerializationContext context, IntegerLiteral semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -349,12 +371,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns ListValue
 	 *     ListTerm returns ListValue
 	 *
 	 * Constraint:
 	 *     (ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)?
+	 * </pre>
 	 */
 	protected void sequence_ListTerm(ISerializationContext context, ListValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -362,12 +386,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns NamedValue
 	 *     LiteralorReferenceTerm returns NamedValue
 	 *
 	 * Constraint:
 	 *     namedValue=[AbstractNamedValue|QPREF]
+	 * </pre>
 	 */
 	protected void sequence_LiteralorReferenceTerm(ISerializationContext context, NamedValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -381,11 +407,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ModalPropertyValue returns ModalPropertyValue
 	 *
 	 * Constraint:
 	 *     (ownedValue=PropertyExpression inMode+=[Mode|ID] inMode+=[Mode|ID]*)
+	 * </pre>
 	 */
 	protected void sequence_ModalPropertyValue(ISerializationContext context, ModalPropertyValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -393,12 +421,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns RangeValue
 	 *     NumericRangeTerm returns RangeValue
 	 *
 	 * Constraint:
 	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
+	 * </pre>
 	 */
 	protected void sequence_NumericRangeTerm(ISerializationContext context, RangeValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -406,11 +436,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     OldRecordTerm returns RecordValue
 	 *
 	 * Constraint:
 	 *     ownedFieldValue+=FieldPropertyAssociation+
+	 * </pre>
 	 */
 	protected void sequence_OldRecordTerm(ISerializationContext context, RecordValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -418,11 +450,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     OptionalModalPropertyValue returns ModalPropertyValue
 	 *
 	 * Constraint:
 	 *     (ownedValue=PropertyExpression (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
+	 * </pre>
 	 */
 	protected void sequence_OptionalModalPropertyValue(ISerializationContext context, ModalPropertyValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -430,18 +464,20 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyAssociation returns PropertyAssociation
 	 *
 	 * Constraint:
 	 *     (
 	 *         property=[Property|QPREF] 
-	 *         append?='+=>'? 
+	 *         append?='+=&gt;'? 
 	 *         constant?='constant'? 
 	 *         ownedValue+=OptionalModalPropertyValue 
 	 *         ownedValue+=OptionalModalPropertyValue* 
 	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_PropertyAssociation(ISerializationContext context, PropertyAssociation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -449,11 +485,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyValue returns ModalPropertyValue
 	 *
 	 * Constraint:
 	 *     ownedValue=PropertyExpression
+	 * </pre>
 	 */
 	protected void sequence_PropertyValue(ISerializationContext context, ModalPropertyValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -467,6 +505,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns RealLiteral
 	 *     RealTerm returns RealLiteral
@@ -474,6 +513,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	 *
 	 * Constraint:
 	 *     (value=SignedReal unit=[UnitLiteral|ID]?)
+	 * </pre>
 	 */
 	protected void sequence_RealTerm(ISerializationContext context, RealLiteral semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -481,12 +521,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns RecordValue
 	 *     RecordTerm returns RecordValue
 	 *
 	 * Constraint:
 	 *     ownedFieldValue+=FieldPropertyAssociation+
+	 * </pre>
 	 */
 	protected void sequence_RecordTerm(ISerializationContext context, RecordValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -494,12 +536,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns ReferenceValue
 	 *     ReferenceTerm returns ReferenceValue
 	 *
 	 * Constraint:
 	 *     path=ContainmentPathElement
+	 * </pre>
 	 */
 	protected void sequence_ReferenceTerm(ISerializationContext context, ReferenceValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -513,12 +557,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SignedConstant returns Operation
 	 *     NumAlt returns Operation
 	 *
 	 * Constraint:
 	 *     (op=PlusMinus ownedPropertyExpression+=ConstantValue)
+	 * </pre>
 	 */
 	protected void sequence_SignedConstant(ISerializationContext context, Operation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -526,12 +572,14 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PropertyExpression returns StringLiteral
 	 *     StringTerm returns StringLiteral
 	 *
 	 * Constraint:
 	 *     value=NoQuoteString
+	 * </pre>
 	 */
 	protected void sequence_StringTerm(ISerializationContext context, StringLiteral semanticObject) {
 		if (errorAcceptor != null) {

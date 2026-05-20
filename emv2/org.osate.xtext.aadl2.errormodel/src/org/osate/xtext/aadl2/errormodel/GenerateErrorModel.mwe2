@@ -97,6 +97,10 @@ Workflow {
 	}
 
 	component = DirectoryCleaner {
+		directory = "${runtimeProject}.ide/src-gen"
+	}
+
+	component = DirectoryCleaner {
 		directory = "${runtimeProject}.ui/src-gen"
 	}
 
@@ -109,7 +113,7 @@ Workflow {
 					enabled = false
 				}
 				genericIde = {
-					name = "${projectName}.ui"
+					name = "${projectName}.ide"
 				}
 				eclipsePlugin = {
 					enabled = true

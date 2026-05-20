@@ -34,4 +34,15 @@
 			</pluginRepositories>
 		</profile>
 	</profiles>
+	
+	<mirrors>
+		<mirror>
+			<id>yakindu-mirror1</id>
+			<mirrorOf>https://updates.yakindu.com/statecharts/releases/3.5.9</mirrorOf>
+			<url>file:/Users/lwrage/Projects/OSATE/p2mirror-2025-12/yakindu</url>
+			<layout>p2</layout>
+			<mirrorOfLayouts>p2</mirrorOfLayouts>
+		</mirror>
+	</mirrors>
+	
 </settings>

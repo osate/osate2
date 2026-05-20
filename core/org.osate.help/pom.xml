@@ -12,7 +12,7 @@
 
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.help</artifactId>
-	<version>2.18.90-SNAPSHOT</version>
+	<version>2.18.91-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<!-- Generate javadoc for maven projects listed as dependencies -->
@@ -36,6 +36,11 @@
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.instance.textual</artifactId>
 			<version>3.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
+			<artifactId>org.osate.aadl2.instance.textual.ide</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
@@ -198,6 +203,15 @@
 											<exclude>org.antlr*</exclude>
 											<exclude>com.*</exclude>
 											<exclude>org.osate.xtext.aadl2.ide.contentassist.antlr*</exclude>
+											<exclude>org.osate.xtext.aadl2.properties.ide.contentassist.antlr*</exclude>
+											<exclude>org.osate.aadl2.instance.textual.ide.contentassist.antlr*</exclude>
+											<exclude>org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr*</exclude>
+											<exclude>org.osate.alisa.common.ide.contentassist.antlr*</exclude>
+											<exclude>org.osate.alisa.workbench.ide.contentassist.antlr*</exclude>
+											<exclude>org.osate.categories.ide.contentassist.antlr*</exclude>
+											<exclude>org.osate.organization.ide.contentassist.antlr*</exclude>
+											<exclude>org.osate.reqspec.ide.contentassist.antlr*</exclude>
+											<exclude>org.osate.verify.ide.contentassist.antlr*</exclude>
 										</excludes>
 										<additionalArguments>
 											<additionalArgument>

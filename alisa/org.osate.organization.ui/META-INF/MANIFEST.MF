@@ -17,13 +17,12 @@ Require-Bundle: org.osate.organization;bundle-version="[3.2.0,4.0.0)";visibility
  org.eclipse.compare;bundle-version="[3.7.0,4.0.0)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
  org.osate.ui;bundle-version="[6.5.0,7.0.0)",
- org.eclipse.xtend.lib;bundle-version="[2.20.0,3.0.0)";resolution:=optional
+ org.eclipse.xtend.lib;bundle-version="[2.20.0,3.0.0)";resolution:=optional,
+ org.osate.organization.ide;bundle-version="[1.0.0,2.0.0)";visibility:=reexport
 Import-Package: org.apache.log4j;version="[1.2.19,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.osate.organization.ui.contentassist,
  org.osate.organization.ui.internal,
- org.osate.organization.ui.quickfix,
- org.osate.organization.ide.contentassist.antlr.internal,
- org.osate.organization.ide.contentassist.antlr
+ org.osate.organization.ui.quickfix
 Bundle-Activator: org.osate.organization.ui.internal.OrganizationActivator
 Automatic-Module-Name: org.osate.organization.ui
