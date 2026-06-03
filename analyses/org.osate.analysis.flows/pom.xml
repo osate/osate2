@@ -15,22 +15,4 @@
 	<version>5.2.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.ruleoftech</groupId>
-				<artifactId>markdown-page-generator-plugin</artifactId>
-				<configuration>
-					<inputDirectory>${project.basedir}/help/markdown/</inputDirectory>
-					<outputDirectory>${project.basedir}/help/html/</outputDirectory>
-					<copyDirectories>images,css</copyDirectories>
-					<attributes>
-						<attribute>BlockQuote|style="font-size:90%"</attribute>
-					</attributes>
-					<pegdownExtensions>EXTANCHORLINKS,TOC</pegdownExtensions>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>

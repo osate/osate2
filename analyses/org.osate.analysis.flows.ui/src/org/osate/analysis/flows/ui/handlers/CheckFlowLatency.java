@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows.handlers;
+package org.osate.analysis.flows.ui.handlers;
 
 import java.util.List;
 
@@ -37,13 +37,13 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.analysis.flows.FlowLatencyAnalysis;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
-import org.osate.analysis.flows.FlowanalysisPlugin;
-import org.osate.analysis.flows.dialogs.FlowLatencyDialog;
-import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyCSVReport;
 import org.osate.analysis.flows.model.LatencyExcelReport;
-import org.osate.analysis.flows.preferences.Constants;
+import org.osate.analysis.flows.ui.FlowanalysisPlugin;
+import org.osate.analysis.flows.ui.dialogs.FlowLatencyDialog;
+import org.osate.analysis.flows.ui.preferences.Constants;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
@@ -104,7 +104,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
 			isDisableQueuingLatency = d.localValues.get(Constants.DISABLE_QUEUING_LATENCY_LAST_USED)
 					.equals(Constants.DISABLE_QUEUING_LATENCY_YES);
-			latResult = FlowLatencyUtil.createLatencyAnalysisResult(object, isAsynchronousSystem, isMajorFrameDelay,
+			latResult = FlowLatencyAnalysis.createLatencyAnalysisResult(object, isAsynchronousSystem, isMajorFrameDelay,
 					isWorstCaseDeadline, isBestCaseEmptyQueue, isDisableQueuingLatency);
 		}
 
@@ -113,7 +113,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 
 	@Override
 	protected boolean finalizeAnalysis() {
-		FlowLatencyUtil.saveAnalysisResult(latResult);
+		FlowLatencyAnalysis.saveAnalysisResult(latResult);
 		LatencyCSVReport.generateCSVReport(latResult);
 		LatencyExcelReport.generateExcelReport(latResult);
 		generateMarkers(latResult, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));

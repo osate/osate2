@@ -21,11 +21,14 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows;
+package org.osate.analysis.flows.ui;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -33,10 +36,13 @@ import org.osgi.framework.BundleContext;
  * The main plugin class to be used in the desktop.
  */
 public class FlowanalysisPlugin extends AbstractUIPlugin {
+	public static final String PLUGIN_ID = "org.osate.analysis.flows.ui";
+
 	// The shared instance.
 	private static FlowanalysisPlugin plugin;
 	// Resource bundle.
 	private ResourceBundle resourceBundle;
+	private IPreferenceStore preferenceStore;
 
 	/**
 	 * The constructor.
@@ -45,7 +51,7 @@ public class FlowanalysisPlugin extends AbstractUIPlugin {
 		super();
 		plugin = this;
 		try {
-			resourceBundle = ResourceBundle.getBundle("org.osate.analysis.flows.FlowanalysisPluginResources");
+			resourceBundle = ResourceBundle.getBundle("org.osate.analysis.flows.ui.FlowanalysisPluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
@@ -70,6 +76,14 @@ public class FlowanalysisPlugin extends AbstractUIPlugin {
 	 */
 	public static FlowanalysisPlugin getDefault() {
 		return plugin;
+	}
+
+	@Override
+	public IPreferenceStore getPreferenceStore() {
+		if (preferenceStore == null) {
+			preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.osate.analysis.flows");
+		}
+		return preferenceStore;
 	}
 
 	/**

@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows.dialogs;
+package org.osate.analysis.flows.ui.dialogs;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -49,7 +49,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
-import org.osate.analysis.flows.preferences.Constants;
+import org.osate.analysis.flows.ui.preferences.Constants;
 import org.osate.ui.dialogs.Dialog;
 
 public final class FlowLatencyDialog extends TitleAreaDialog {

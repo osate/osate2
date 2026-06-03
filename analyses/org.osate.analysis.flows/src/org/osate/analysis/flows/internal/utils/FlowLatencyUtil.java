@@ -29,12 +29,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
@@ -501,7 +501,8 @@ public class FlowLatencyUtil {
 		try {
 			res.save(null);
 		} catch (IOException e) {
-			StatusManager.getManager().handle(new Status(IStatus.ERROR, "org.osate.analysis.flows", e.getMessage(), e));
+			Platform.getLog(FlowLatencyUtil.class)
+					.log(new Status(IStatus.ERROR, "org.osate.analysis.flows", e.getMessage(), e));
 		}
 	}
 

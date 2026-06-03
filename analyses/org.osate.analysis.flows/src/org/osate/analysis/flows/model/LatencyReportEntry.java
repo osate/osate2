@@ -25,7 +25,6 @@ package org.osate.analysis.flows.model;
 
 import static org.osate.result.util.ResultUtil.addRealValue;
 import static org.osate.result.util.ResultUtil.addStringValue;
-import static org.osate.ui.UiUtil.BestDecPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -543,58 +542,58 @@ public class LatencyReportEntry {
 		 */
 		if (expectedMaxLatency > 0) {
 			if (minSpecifiedValue > expectedMaxLatency) {
-				reportSummaryError("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-				+ "ms exceeds expected maximum latency " + BestDecPoint(expectedMaxLatency) + "ms");
+				reportSummaryError("Minimum specified flow latency total " + bestDecPoint(minSpecifiedValue)
+				+ "ms exceeds expected maximum latency " + bestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minSpecifiedValue < expectedMinLatency) {
-				reportSummaryWarning("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+				reportSummaryWarning("Minimum specified flow latency total " + bestDecPoint(minSpecifiedValue)
+				+ "ms less than expected minimum end to end latency " + bestDecPoint(expectedMinLatency)
 				+ "ms (better response time)");
 			}
 
 			if (minValue > expectedMaxLatency) {
-				reportSummaryError("Minimum actual latency total " + BestDecPoint(minValue)
-				+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency) + "ms");
+				reportSummaryError("Minimum actual latency total " + bestDecPoint(minValue)
+				+ "ms exceeds expected maximum end to end latency " + bestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minValue < expectedMinLatency) {
-				reportSummaryWarning("Minimum actual latency total " + BestDecPoint(minValue)
-				+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+				reportSummaryWarning("Minimum actual latency total " + bestDecPoint(minValue)
+				+ "ms less than expected minimum end to end latency " + bestDecPoint(expectedMinLatency)
 				+ "ms (faster actual minimum response time)");
 			} else {
-				reportSummaryInfo("Minimum actual latency total " + BestDecPoint(minValue)
+				reportSummaryInfo("Minimum actual latency total " + bestDecPoint(minValue)
 				+ "ms is greater or equal to expected minimum end to end latency "
-				+ BestDecPoint(expectedMinLatency) + "ms");
+				+ bestDecPoint(expectedMinLatency) + "ms");
 			}
 
 			if (maxValue > 0) {
 				if (expectedMaxLatency < maxSpecifiedValue) {
-					reportSummaryError("Maximum specified flow latency total " + BestDecPoint(maxSpecifiedValue)
-					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
+					reportSummaryError("Maximum specified flow latency total " + bestDecPoint(maxSpecifiedValue)
+					+ "ms exceeds expected maximum end to end latency " + bestDecPoint(expectedMaxLatency)
 					+ "ms");
 				}
 
 				if (expectedMaxLatency < maxValue) {
-					reportSummaryError("Maximum actual latency total " + BestDecPoint(maxValue)
-					+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
+					reportSummaryError("Maximum actual latency total " + bestDecPoint(maxValue)
+					+ "ms exceeds expected maximum end to end latency " + bestDecPoint(expectedMaxLatency)
 					+ "ms");
 				} else {
-					reportSummaryInfo("Maximum actual latency total " + BestDecPoint(maxValue)
+					reportSummaryInfo("Maximum actual latency total " + bestDecPoint(maxValue)
 					+ "ms is less or equal to expected maximum end to end latency "
-					+ BestDecPoint(expectedMaxLatency) + "ms");
+					+ bestDecPoint(expectedMaxLatency) + "ms");
 				}
 				// do jitter analysis
 				if (maxSpecifiedValue - minSpecifiedValue > expectedMaxLatency - expectedMinLatency) {
-					reportSummaryWarning("Jitter of specified latency total " + BestDecPoint(minSpecifiedValue) + ".."
-							+ BestDecPoint(maxSpecifiedValue) + "ms exceeds expected end to end latency jitter "
-							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
+					reportSummaryWarning("Jitter of specified latency total " + bestDecPoint(minSpecifiedValue) + ".."
+							+ bestDecPoint(maxSpecifiedValue) + "ms exceeds expected end to end latency jitter "
+							+ bestDecPoint(expectedMinLatency) + ".." + bestDecPoint(expectedMaxLatency) + "ms");
 				}
 				if (maxValue - minValue > expectedMaxLatency - expectedMinLatency) {
-					reportSummaryWarning("Jitter of actual latency total " + BestDecPoint(minValue) + ".."
-							+ BestDecPoint(maxValue) + "ms exceeds expected end to end latency jitter "
-							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
+					reportSummaryWarning("Jitter of actual latency total " + bestDecPoint(minValue) + ".."
+							+ bestDecPoint(maxValue) + "ms exceeds expected end to end latency jitter "
+							+ bestDecPoint(expectedMinLatency) + ".." + bestDecPoint(expectedMaxLatency) + "ms");
 				}
 				if ((minValue > expectedMinLatency) && (expectedMaxLatency > maxValue)) {
-					reportSummaryInfo("Jitter of actual flow latency " + BestDecPoint(minValue) + ".."
-							+ BestDecPoint(maxValue) + "ms is within expected end to end latency jitter "
-							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
+					reportSummaryInfo("Jitter of actual flow latency " + bestDecPoint(minValue) + ".."
+							+ bestDecPoint(maxValue) + "ms is within expected end to end latency jitter "
+							+ bestDecPoint(expectedMinLatency) + ".." + bestDecPoint(expectedMaxLatency) + "ms");
 				}
 			}
 		} else {
@@ -687,58 +686,58 @@ public class LatencyReportEntry {
 		 */
 		if (expectedMaxLatency > 0) {
 			if (minSpecifiedValue > expectedMaxLatency) {
-				reportSummaryError("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-						+ "ms exceeds expected maximum latency " + BestDecPoint(expectedMaxLatency) + "ms");
+				reportSummaryError("Minimum specified flow latency total " + bestDecPoint(minSpecifiedValue)
+						+ "ms exceeds expected maximum latency " + bestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minSpecifiedValue < expectedMinLatency) {
-				reportSummaryWarning("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-						+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+				reportSummaryWarning("Minimum specified flow latency total " + bestDecPoint(minSpecifiedValue)
+						+ "ms less than expected minimum end to end latency " + bestDecPoint(expectedMinLatency)
 						+ "ms (better response time)");
 			}
 
 			if (minValue > expectedMaxLatency) {
-				reportSummaryError("Minimum actual latency total " + BestDecPoint(minValue)
-						+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency) + "ms");
+				reportSummaryError("Minimum actual latency total " + bestDecPoint(minValue)
+						+ "ms exceeds expected maximum end to end latency " + bestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minValue < expectedMinLatency) {
-				reportSummaryWarning("Minimum actual latency total " + BestDecPoint(minValue)
-						+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+				reportSummaryWarning("Minimum actual latency total " + bestDecPoint(minValue)
+						+ "ms less than expected minimum end to end latency " + bestDecPoint(expectedMinLatency)
 						+ "ms (faster actual minimum response time)");
 			} else {
-				reportSummaryInfo("Minimum actual latency total " + BestDecPoint(minValue)
+				reportSummaryInfo("Minimum actual latency total " + bestDecPoint(minValue)
 						+ "ms is greater or equal to expected minimum end to end latency "
-						+ BestDecPoint(expectedMinLatency) + "ms");
+						+ bestDecPoint(expectedMinLatency) + "ms");
 			}
 
 			if (maxValue > 0) {
 				if (expectedMaxLatency < maxSpecifiedValue) {
-					reportSummaryError("Maximum specified flow latency total " + BestDecPoint(maxSpecifiedValue)
-							+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
+					reportSummaryError("Maximum specified flow latency total " + bestDecPoint(maxSpecifiedValue)
+							+ "ms exceeds expected maximum end to end latency " + bestDecPoint(expectedMaxLatency)
 							+ "ms");
 				}
 
 				if (expectedMaxLatency < maxValue) {
-					reportSummaryError("Maximum actual latency total " + BestDecPoint(maxValue)
-							+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency)
+					reportSummaryError("Maximum actual latency total " + bestDecPoint(maxValue)
+							+ "ms exceeds expected maximum end to end latency " + bestDecPoint(expectedMaxLatency)
 							+ "ms");
 				} else {
-					reportSummaryInfo("Maximum actual latency total " + BestDecPoint(maxValue)
+					reportSummaryInfo("Maximum actual latency total " + bestDecPoint(maxValue)
 							+ "ms is less or equal to expected maximum end to end latency "
-							+ BestDecPoint(expectedMaxLatency) + "ms");
+							+ bestDecPoint(expectedMaxLatency) + "ms");
 				}
 				// do jitter analysis
 				if (maxSpecifiedValue - minSpecifiedValue > expectedMaxLatency - expectedMinLatency) {
-					reportSummaryWarning("Jitter of specified latency total " + BestDecPoint(minSpecifiedValue) + ".."
-							+ BestDecPoint(maxSpecifiedValue) + "ms exceeds expected end to end latency jitter "
-							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
+					reportSummaryWarning("Jitter of specified latency total " + bestDecPoint(minSpecifiedValue) + ".."
+							+ bestDecPoint(maxSpecifiedValue) + "ms exceeds expected end to end latency jitter "
+							+ bestDecPoint(expectedMinLatency) + ".." + bestDecPoint(expectedMaxLatency) + "ms");
 				}
 				if (maxValue - minValue > expectedMaxLatency - expectedMinLatency) {
-					reportSummaryWarning("Jitter of actual latency total " + BestDecPoint(minValue) + ".."
-							+ BestDecPoint(maxValue) + "ms exceeds expected end to end latency jitter "
-							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
+					reportSummaryWarning("Jitter of actual latency total " + bestDecPoint(minValue) + ".."
+							+ bestDecPoint(maxValue) + "ms exceeds expected end to end latency jitter "
+							+ bestDecPoint(expectedMinLatency) + ".." + bestDecPoint(expectedMaxLatency) + "ms");
 				}
 				if ((minValue > expectedMinLatency) && (expectedMaxLatency > maxValue)) {
-					reportSummaryInfo("Jitter of actual flow latency " + BestDecPoint(minValue) + ".."
-							+ BestDecPoint(maxValue) + "ms is within expected end to end latency jitter "
-							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
+					reportSummaryInfo("Jitter of actual flow latency " + bestDecPoint(minValue) + ".."
+							+ bestDecPoint(maxValue) + "ms is within expected end to end latency jitter "
+							+ bestDecPoint(expectedMinLatency) + ".." + bestDecPoint(expectedMaxLatency) + "ms");
 				}
 			}
 		} else {
@@ -763,6 +762,16 @@ public class LatencyReportEntry {
 		}
 
 		return section;
+	}
+
+	private static String bestDecPoint(double value) {
+		if (value < 1) {
+			return String.format("%.3f", value);
+		} else if (value < 10) {
+			return String.format("%.2f", value);
+		} else {
+			return String.format("%.1f", value);
+		}
 	}
 
 }

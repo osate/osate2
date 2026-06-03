@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="org.osate.analysis.flows.FlowLatencyObjectMarker"
+         name="Flow Latency Analysis Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+ 	<extension
+         id="org.osate.analysis.flows.partitioning_policy"
+         name="Partioning Policy"
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.osate.analysis.flows.ui.preferences.Initializer">
+      </initializer>
+   </extension>
+      <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.osate.ui.preferences.OsateAnalysisPage"
+            class="org.osate.analysis.flows.ui.preferences.Page"
+            id="org.osate.analysis.flows.PreferencePage"
+            name="Flow Latency">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.analysis.category"
+            name="%actionSet.label">
+      </category>
+      <command
+            categoryId="org.osate.analysis.category"
+            id="org.osate.analysis.flows.checkFlowLatency"
+            name="%CheckFlowLatency.label">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.analysis.flows.ui.handlers.CheckFlowLatency"
+            commandId="org.osate.analysis.flows.checkFlowLatency">
+         <enabledWhen>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.analysis.flows.checkFlowLatency"
+            icon="icons/checkFlowLatency.gif">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.osate.ui.timingMenu?after=core">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.timingToolbar?after=core">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency"
+               tooltip="%CheckFlowLatency.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.timingNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         id="toc_latency"
+         name="Flow Latency Analysis Help Table of Contents"
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_latency.xml"
+            primary="true">
+      </toc>
+   </extension>
+   <extension point="org.eclipse.help.contexts">
+      <contexts file="help/latency_contexts.xml"  />
+   </extension>   
+</plugin>
