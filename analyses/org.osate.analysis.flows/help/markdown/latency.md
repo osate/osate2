@@ -691,8 +691,8 @@ The AnalysisResult object contains the following information:
 
  - **ModelElement**: reference to the root of the instance model (SystemInstance) 
  - **Analysis**: "latency"
- - **Parameter**: list of 4 boolean parameters to latency analysis stored in XMI as Objects
- - **Message**: 4 parameters to latency analysis as single string. Each parameter is a 2 character label separated by "-", e.g., "SS-DL-WC-EQ". The labels are explained in the preference documentation (SS/AS, DL)
+ - **Parameter**: list of 5 boolean parameters to latency analysis stored in XMI as Objects
+ - **Message**: 5 parameters to latency analysis as single string. Each parameter is a 2 or 3 character label separated by "-", e.g., "AS-MF-DL-EQ-EQL". The labels are explained in the preference documentation (AS/SS, MF/PE, DL/ET, EQ/FQ, EQL/DQL)
 
 The AnalysisResult object contains a collection of Result objects, one for each end to end flow and system operation mode combination.
 

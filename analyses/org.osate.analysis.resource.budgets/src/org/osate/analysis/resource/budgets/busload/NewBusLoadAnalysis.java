@@ -187,7 +187,7 @@ public final class NewBusLoadAnalysis {
 	private AnalysisResult analyzeBody(final IProgressMonitor monitor, final Element obj, final boolean createCSV) {
 		if (obj instanceof InstanceObject) {
 			final SystemInstance root = ((InstanceObject) obj).getSystemInstance();
-			final AnalysisResult analysisResult = ResultUtil.createAnalysisResult("Bus  Load", root);
+			final AnalysisResult analysisResult = ResultUtil.createAnalysisResult("Bus Load", root);
 			analysisResult.setResultType(ResultType.SUCCESS);
 			analysisResult.setMessage("Bus load analysis of " + root.getFullName());
 
