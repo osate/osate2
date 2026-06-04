@@ -490,7 +490,6 @@
 		<plugin name="org.osate.analysis.architecture" version="3.1.1"/>
 		<plugin name="org.osate.analysis.binpacking" version="3.1.1"/>
 		<plugin name="org.osate.analysis.flows" version="5.2.0"/>
-		<plugin name="org.osate.analysis.flows.ui" version="5.2.0"/>
 		<plugin name="org.osate.analysis.resource.budgets" version="4.3.0"/>
 		<plugin name="org.osate.analysis.resource.management" version="4.2.0"/>
 		<plugin name="org.osate.importer" version="3.0.0"/>
@@ -828,7 +827,6 @@
 	<plugin name="org.osate.analysis.architecture" version="3.1.1"/>
 	<plugin name="org.osate.analysis.binpacking" version="3.1.1"/>
 	<plugin name="org.osate.analysis.flows" version="5.2.0"/>
-	<plugin name="org.osate.analysis.flows.ui" version="5.2.0"/>
 	<plugin name="org.osate.analysis.model" version="1.2.0"/>
 	<plugin name="org.osate.analysis.modes" version="1.0.1"/>
 	<plugin name="org.osate.analysis.modes.ui" version="1.0.1"/>

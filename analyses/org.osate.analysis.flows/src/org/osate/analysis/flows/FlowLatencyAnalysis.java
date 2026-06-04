@@ -27,6 +27,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.result.AnalysisResult;
 
+/**
+ * @since 6.0
+ */
 public final class FlowLatencyAnalysis {
 	private FlowLatencyAnalysis() {
 	}
