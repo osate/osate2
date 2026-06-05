@@ -1125,6 +1125,7 @@
         <setEntry value="org.osate.analysis.architecture@default:default"/>
         <setEntry value="org.osate.analysis.binpacking@default:default"/>
         <setEntry value="org.osate.analysis.flows.tests@default:default"/>
+        <setEntry value="org.osate.analysis.flows.ui@default:default"/>
         <setEntry value="org.osate.analysis.flows@default:default"/>
         <setEntry value="org.osate.analysis.resource.budgets@default:default"/>
         <setEntry value="org.osate.analysis.resource.management@default:default"/>

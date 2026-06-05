@@ -51,6 +51,8 @@ Cross-cutting concerns:
 
 Version is `2.19.0-SNAPSHOT` across the reactor. Bumps are done by the scripts in `releng/version-management/`, not by hand-editing POMs and MANIFESTs — mismatches between a bundle's `Bundle-Version`, its feature inclusion, and its pom `<version>` will break the Tycho build.
 
+**Never modify `releng/version-management/release.xml`.** It is the Oomph version-management release baseline (referenced by every bundle's `.project` via `release.path`); the Oomph tooling maintains it, and hand-editing it will corrupt version-change detection.
+
 ## CI
 
 `Jenkinsfile` runs on `OpenJDK21` + Maven `M3`. PR builds use `-Plocal -Dpr.build=true` with Sonar PR decoration; master builds use `-Pfull` and then `./deploy.sh`. JaCoCo, SpotBugs, and JUnit results are always collected from `**/target/...`.

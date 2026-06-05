@@ -31,14 +31,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
-import org.osate.ui.OsateUiPlugin;
-import org.osate.ui.dialogs.Dialog;
 
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -106,9 +105,7 @@ public class ExcelExport extends GenericExport {
 			success.setBackground(Colour.GREEN);
 			successBold.setBackground(Colour.GREEN);
 		} catch (WriteException e) {
-			OsateUiPlugin.log(new Status(IStatus.ERROR, PLUGIN_ID, 0,
-					"Error has occurred: " + e.getMessage(), e));
-			Dialog.showError("Error", e.getMessage());
+			log(e);
 		}
 	}
 
@@ -189,18 +186,18 @@ public class ExcelExport extends GenericExport {
 			file.refreshLocal(IResource.DEPTH_INFINITE, null);
 
 		} catch (WriteException we) {
-			Dialog.showError("Error", we.getMessage());
-			OsateUiPlugin.log(new Status(IStatus.ERROR, PLUGIN_ID, 0, "Error has occurred: " + we.getMessage(), we));
+			log(we);
 		} catch (IOException e) {
-			Dialog.showError("Error", e.getMessage());
-			OsateUiPlugin.log(new Status(IStatus.ERROR, PLUGIN_ID, 0, "Error has occurred: " + e.getMessage(), e));
+			log(e);
 		} catch (CoreException e) {
-			Dialog.showError("Error", e.getMessage());
-			OsateUiPlugin.log(new Status(IStatus.ERROR, PLUGIN_ID, 0, "Error has occurred: " + e.getMessage(), e));
+			log(e);
 		} catch (ArrayIndexOutOfBoundsException bounds) {
-			Dialog.showError("Error", bounds.getMessage());
-			OsateUiPlugin
-					.log(new Status(IStatus.ERROR, PLUGIN_ID, 0, "Error has occurred: " + bounds.getMessage(), bounds));
+			log(bounds);
 		}
+	}
+
+	private void log(Exception e) {
+		Platform.getLog(ExcelExport.class).log(new Status(IStatus.ERROR, PLUGIN_ID, 0,
+				"Error has occurred: " + e.getMessage(), e));
 	}
 }

@@ -41,6 +41,7 @@
 		
 		<module>org.osate.analysis.architecture</module>
 		<module>org.osate.analysis.flows</module>
+		<module>org.osate.analysis.flows.ui</module>
 		<module>org.osate.analysis.resource.budgets</module>
 		<module>org.osate.analysis.resource.management</module>
 

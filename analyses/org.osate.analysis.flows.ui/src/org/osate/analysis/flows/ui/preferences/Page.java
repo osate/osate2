@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows.preferences;
+package org.osate.analysis.flows.ui.preferences;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.osate.analysis.flows.FlowanalysisPlugin;
+import org.osate.analysis.flows.ui.FlowanalysisPlugin;
 
 public class Page extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 

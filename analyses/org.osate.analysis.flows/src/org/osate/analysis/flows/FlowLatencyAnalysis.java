@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,72 +23,25 @@
  */
 package org.osate.analysis.flows;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.BundleContext;
+import org.eclipse.emf.ecore.EObject;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
+import org.osate.result.AnalysisResult;
 
 /**
- * The main plugin class to be used in the desktop.
+ * @since 6.0
  */
-public class FlowanalysisPlugin extends AbstractUIPlugin {
-	// The shared instance.
-	private static FlowanalysisPlugin plugin;
-	// Resource bundle.
-	private ResourceBundle resourceBundle;
-
-	/**
-	 * The constructor.
-	 */
-	public FlowanalysisPlugin() {
-		super();
-		plugin = this;
-		try {
-			resourceBundle = ResourceBundle.getBundle("org.osate.analysis.flows.FlowanalysisPluginResources");
-		} catch (MissingResourceException x) {
-			resourceBundle = null;
-		}
+public final class FlowLatencyAnalysis {
+	private FlowLatencyAnalysis() {
 	}
 
-	/**
-	 * This method is called upon plug-in activation
-	 */
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
+	public static AnalysisResult createLatencyAnalysisResult(EObject root, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
+		return FlowLatencyUtil.createLatencyAnalysisResult(root, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue, disableQueuingLatency);
 	}
 
-	/**
-	 * This method is called when the plug-in is stopped
-	 */
-	public void stop(BundleContext context) throws Exception {
-		super.stop(context);
-	}
-
-	/**
-	 * Returns the shared instance.
-	 */
-	public static FlowanalysisPlugin getDefault() {
-		return plugin;
-	}
-
-	/**
-	 * Returns the string from the plugin's resource bundle,
-	 * or 'key' if not found.
-	 */
-	public static String getResourceString(String key) {
-		ResourceBundle bundle = FlowanalysisPlugin.getDefault().getResourceBundle();
-		try {
-			return (bundle != null) ? bundle.getString(key) : key;
-		} catch (MissingResourceException e) {
-			return key;
-		}
-	}
-
-	/**
-	 * Returns the plugin's resource bundle,
-	 */
-	public ResourceBundle getResourceBundle() {
-		return resourceBundle;
+	public static void saveAnalysisResult(AnalysisResult results) {
+		FlowLatencyUtil.saveAnalysisResult(results);
 	}
 }

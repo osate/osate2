@@ -30,13 +30,12 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
@@ -70,9 +69,7 @@ public class LatencyExcelReport {
 			ERROR_FORMAT.setBackground(Colour.RED);
 			WARNING_FORMAT.setBackground(Colour.LIGHT_ORANGE);
 		} catch (WriteException e) {
-			String pluginId = FlowanalysisPlugin.getDefault().getBundle().getSymbolicName();
-			IStatus status = new Status(IStatus.ERROR, pluginId, e.getMessage(), e);
-			StatusManager.getManager().handle(status);
+			log(e);
 		}
 	}
 
@@ -162,12 +159,15 @@ public class LatencyExcelReport {
 				file.refreshLocal(IResource.DEPTH_INFINITE, null);
 			}
 		} catch (CoreException e) {
-			StatusManager.getManager().handle(e, FlowanalysisPlugin.getDefault().getBundle().getSymbolicName());
+			log(e);
 		} catch (IOException | WriteException e) {
-			String pluginId = FlowanalysisPlugin.getDefault().getBundle().getSymbolicName();
-			IStatus status = new Status(IStatus.ERROR, pluginId, e.getMessage(), e);
-			StatusManager.getManager().handle(status);
+			log(e);
 		}
+	}
+
+	private static void log(Exception e) {
+		Platform.getLog(LatencyExcelReport.class)
+				.log(new Status(IStatus.ERROR, "org.osate.analysis.flows", e.getMessage(), e));
 	}
 
 	private static void addContributor(WritableSheet sheet, int row, Result contributor, boolean subcontributor)
