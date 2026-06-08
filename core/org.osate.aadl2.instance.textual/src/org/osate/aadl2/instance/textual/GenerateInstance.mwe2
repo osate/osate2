@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -29,22 +29,22 @@ import org.eclipse.xtext.xtext.generator.model.project.*
 
 var projectName = "org.osate.aadl2.instance.textual"
 var runtimeProject = "../${projectName}"
-var fileHeader = 
+var fileHeader =
 "/**
- * Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN \"AS-IS\" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files (\"Third Party Software\"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -115,15 +115,15 @@ Workflow {
 		registerGeneratedEPackage = "org.osate.aadl2.instance.InstancePackage"
 		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/instance.genmodel"
     }
-    
+
     component = DirectoryCleaner {
     	directory = "${runtimeProject}/src-gen"
     }
-    
+
     component = DirectoryCleaner {
     	directory = "${runtimeProject}/model/generated"
     }
-    
+
     component = DirectoryCleaner {
 		directory = "${runtimeProject}.ide/src-gen"
 	}
@@ -131,11 +131,11 @@ Workflow {
 	component = DirectoryCleaner {
     	directory = "${runtimeProject}.ui/src-gen"
     }
-    
+
     component = DirectoryCleaner {
     	directory = "${runtimeProject}.tests/src-gen"
     }
-    
+
     component = XtextGenerator {
     	configuration = {
     		project = StandardProjectConfig {
@@ -165,54 +165,54 @@ Workflow {
     	language = XtextGeneratorLanguage {
 			name = "org.osate.aadl2.instance.textual.Instance"
 			fileExtensions = "instance"
-    
+
     		// Java API to access grammar elements (required by several other fragments)
 			fragment = grammarAccess.GrammarAccessFragment2 {}
-    
+
     		// generates Java API for the generated EPackages
 			fragment = ecore.EMFGeneratorFragment2 {}
-    
+
     		// the old serialization component
-    		// fragment = parseTreeConstructor.ParseTreeConstructorFragment auto-inject {}    
-    
+    		// fragment = parseTreeConstructor.ParseTreeConstructorFragment auto-inject {}
+
     		// serializer 2.0
 			fragment = serializer.SerializerFragment2 {}
-    
+
     		// a custom ResourceFactory for use with EMF
 			fragment = resourceFactory.ResourceFactoryFragment2 {}
-    
+
     		// The antlr parser generator fragment.
     		fragment = parser.antlr.XtextAntlrGeneratorFragment2 {
     		//  options = {
     		//      backtrack = true
     		//  }
     		}
-    		
+
     		// old scoping and exporting API
     		// fragment = scoping.ImportURIScopingFragment auto-inject {}
     		// fragment = exporting.SimpleNamesFragment auto-inject {}
-    
+
     		// scoping and exporting API
 			fragment = exporting.QualifiedNamesFragment2 {}
 			fragment = builder.BuilderIntegrationFragment2 {}
-    
+
 //    		// generator API
 //    		fragment = generator.GeneratorFragment auto-inject {}
-    
+
     		// labeling API
 			fragment = ui.labeling.LabelProviderFragment2 {}
-    
+
     		// outline API
 			fragment = ui.outline.OutlineTreeProviderFragment2 {}
 			fragment = ui.outline.QuickOutlineFragment2 {}
-    
+
     		// rename refactoring
 			fragment = ui.refactoring.RefactorElementNameFragment2 {}
-    
-     
+
+
     		// provides a preference page for template proposals
 			fragment = ui.templates.CodetemplatesGeneratorFragment2 {}
-    
+
     		// provides a compare view
 			fragment = ui.compare.CompareFragment2 {}
     	}

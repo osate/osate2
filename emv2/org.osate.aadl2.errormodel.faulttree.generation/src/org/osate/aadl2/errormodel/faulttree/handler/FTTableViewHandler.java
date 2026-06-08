@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015 Carnegie Mellon University.
+ * Copyright (c) 2004-2026 Carnegie Mellon University.
  * All Rights Reserved.
  *
  * THIS SOFTWARE IS PROVIDED "AS IS," WITH NO WARRANTIES WHATSOEVER.

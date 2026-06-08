@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2004-2025 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,7 +25,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 [TOC levels=2-4 bullet hierarchy]
 
-* Copyright 2016 Carnegie Mellon University. See Notice.txt
+* Copyright (c) 2004-2026 Carnegie Mellon University. See Notice.txt
 * Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
 
 This note provides some guidance on how to specify and develop verification methods for use in verification plans in the Architecture-Led Incremental System Assurance (ALISA) capability of OSATE. A paper describes the capabilities of ALISA

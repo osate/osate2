@@ -128,7 +128,7 @@ The AADL Parser calls an annex resolver after parsing, name resolution, and sema
          <meta.section type="copyright"/>
       </appInfo>
       <documentation>
-         Copyright  2005 by Carnegie Mellon University, all rights reserved.
+         Copyright (c) 2004-2026 Carnegie Mellon University, all rights reserved.
       </documentation>
    </annotation>
 

@@ -1,4 +1,4 @@
-Copyright 2022 Carnegie Mellon University.
+Copyright (c) 2004-2026 Carnegie Mellon University.
 This material is based upon work funded and supported by the US Army
 Development Command Aviation and Missile Center under Contract No. 
 FA8702-15-D-0002 with Carnegie Mellon University for the operation of the 
