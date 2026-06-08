@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows.reporting.exporters;
+package org.osate.analysis.reporting.exporters;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -30,10 +30,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.analysis.flows.reporting.model.Line;
-import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.analysis.flows.reporting.model.ReportedCell;
-import org.osate.analysis.flows.reporting.model.Section;
+import org.osate.analysis.reporting.model.Line;
+import org.osate.analysis.reporting.model.Report;
+import org.osate.analysis.reporting.model.ReportedCell;
+import org.osate.analysis.reporting.model.Section;
 
 public class CsvExport extends GenericExport {
 

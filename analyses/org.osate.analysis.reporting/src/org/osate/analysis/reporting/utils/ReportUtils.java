@@ -21,74 +21,42 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows.reporting.model;
+package org.osate.analysis.reporting.utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
-import org.osate.aadl2.NamedElement;
+public class ReportUtils {
 
-/**
- * The Report class represent a generic Report. It
- * can be a text report or a table report.
- * A table report contains several sections
- * with several lines, each one representing
- * a section of the table.
- * A text report contains raw text, such as a text
- * file.
- * 
- * @author julien
- *
- */
-public class Report {
-	private List<Section> sections;
-	private StringBuffer textContent;
-	private NamedElement relatedObject;
-	private String reportFolder;
-	private String reportPostfix;
+	/**
+	 * @param root - the root object related to the report
+	 * @param subDirectory - the directory where we store the report, relative to the root object
+	 * @param reportType - the type of the report (latency, etc.)
+	 * @param fileSuffix - any suffix for the file
+	 * @param fileExtension - the file extension (.csv, .xls, etc.)
+	 * @return the path for the file.
+	 */
+	public static IPath getReportPath(EObject root, String subDirectory, String reportPostfix, String fileExtension) {
+		String filename = null;
+		subDirectory = subDirectory.replaceAll(" ", "");
+		Resource res = root.eResource();
+		URI uri = res.getURI();
+		IPath path = OsateResourceUtil.toIFile(uri).getFullPath();
+		if (root instanceof InstanceObject) {
+			path = path.removeFileExtension();
+			filename = path.lastSegment() + "__" + reportPostfix;
+			path = path.removeLastSegments(1).append("/reports/" + subDirectory + "/" + filename);
+		} else {
+			filename = path.lastSegment() + reportPostfix;
+			path = path.removeLastSegments(1).append("/reports/" + subDirectory + "/" + filename);
+		}
 
-	public enum ReportType {
-		TABLE, TEXT
-	}
-
-	public Report(NamedElement ne, String reportFolder, String reportPostfix, ReportType rt) {
-		this.relatedObject = ne;
-		this.textContent = new StringBuffer();
-		this.sections = new ArrayList<Section>();
-		this.reportFolder = reportFolder;
-		this.reportPostfix = reportPostfix;
-	}
-
-	public void addSection(Section s) {
-		this.sections.add(s);
-	}
-
-	public List<Section> getSections() {
-		return this.sections;
-	}
-
-	public void setTextContent(String s) {
-		this.textContent = new StringBuffer(s);
-	}
-
-	public void appendTextContent(String s) {
-		this.textContent.append(s);
-	}
-
-	public String getTextContent() {
-		return this.textContent.toString();
-	}
-
-	public NamedElement getRelatedObject() {
-		return this.relatedObject;
-	}
-
-	public String getReportFolder() {
-		return this.reportFolder;
-	}
-
-	public String getReportPostfix() {
-		return this.reportPostfix;
+		path = path.addFileExtension(fileExtension);
+		return path;
 	}
 
 }

@@ -29,10 +29,10 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.analysis.flows.reporting.exporters.CsvExport;
-import org.osate.analysis.flows.reporting.exporters.ExcelExport;
-import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.analysis.flows.reporting.model.Report.ReportType;
+import org.osate.analysis.reporting.exporters.CsvExport;
+import org.osate.analysis.reporting.exporters.ExcelExport;
+import org.osate.analysis.reporting.model.Report;
+import org.osate.analysis.reporting.model.Report.ReportType;
 import org.osate.analysis.resource.budgets.logic.PowerAnalysis;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
@@ -107,6 +107,9 @@ public class PowerAnalysisHandler extends AbstractInstanceOrDeclarativeModelRead
 		actionBody(monitor, root);
 	}
 
+	/**
+	 * @since 5.0
+	 */
 	public Report invokeAndGetReport(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
 		return powerReport;

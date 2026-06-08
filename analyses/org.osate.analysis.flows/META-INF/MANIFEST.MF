@@ -5,11 +5,9 @@ Bundle-SymbolicName: org.osate.analysis.flows;singleton:=true
 Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
-Bundle-ClassPath: ., lib/jxl.jar
+Bundle-ClassPath: .
 Export-Package: org.osate.analysis.flows,
- org.osate.analysis.flows.model,
- org.osate.analysis.flows.reporting.exporters,
- org.osate.analysis.flows.reporting.model
+ org.osate.analysis.flows.model
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
  org.eclipse.core.resources;bundle-version="[3.7.0,4.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.36.0,3.0.0)",
@@ -20,7 +18,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
  org.osate.contribution.sei;bundle-version="[2.2.0,3.0.0)",
  org.osate.pluginsupport;bundle-version="[7.2.0,8.0.0)",
  org.osate.aadl2.contrib;bundle-version="[2.2.0,3.0.0)",
- org.osate.results;bundle-version="[3.2.0,4.0.0)"
+ org.osate.results;bundle-version="[3.2.0,4.0.0)",
+ org.osate.analysis.reporting;bundle-version="[1.0.0,2.0.0)"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.analysis.flows
 Bundle-RequiredExecutionEnvironment: JavaSE-21

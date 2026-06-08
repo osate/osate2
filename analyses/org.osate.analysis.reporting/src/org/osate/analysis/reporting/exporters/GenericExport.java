@@ -21,11 +21,11 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows.reporting.exporters;
+package org.osate.analysis.reporting.exporters;
 
 import org.eclipse.core.runtime.IPath;
-import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.analysis.flows.reporting.utils.ReportUtils;
+import org.osate.analysis.reporting.model.Report;
+import org.osate.analysis.reporting.utils.ReportUtils;
 
 public abstract class GenericExport {
 	protected Report report;

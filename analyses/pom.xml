@@ -38,7 +38,8 @@
 
 	<modules>
 		<module>org.osate.analysis.model</module>
-		
+		<module>org.osate.analysis.reporting</module>
+
 		<module>org.osate.analysis.architecture</module>
 		<module>org.osate.analysis.flows</module>
 		<module>org.osate.analysis.flows.ui</module>

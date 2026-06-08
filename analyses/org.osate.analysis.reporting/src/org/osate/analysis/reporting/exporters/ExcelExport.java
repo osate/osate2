@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows.reporting.exporters;
+package org.osate.analysis.reporting.exporters;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -34,10 +34,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.analysis.flows.reporting.model.Line;
-import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.analysis.flows.reporting.model.ReportedCell;
-import org.osate.analysis.flows.reporting.model.Section;
+import org.osate.analysis.reporting.model.Line;
+import org.osate.analysis.reporting.model.Report;
+import org.osate.analysis.reporting.model.ReportedCell;
+import org.osate.analysis.reporting.model.Section;
 
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -69,7 +69,7 @@ public class ExcelExport extends GenericExport {
 	private WritableFont warningFontBold;
 	private WritableFont errorFont;
 	private WritableFont errorFontBold;
-	private final String PLUGIN_ID = "org.osate.analysis.flows";
+	private final String PLUGIN_ID = "org.osate.analysis.reporting";
 
 	public ExcelExport(Report r) {
 		super(r);

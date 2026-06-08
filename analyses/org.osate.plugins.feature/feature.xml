@@ -28,6 +28,10 @@
          version="0.0.0"/>
 
    <plugin
+         id="org.osate.analysis.reporting"
+         version="0.0.0"/>
+
+   <plugin
          id="org.osate.analysis.flows"
          version="0.0.0"/>
 
