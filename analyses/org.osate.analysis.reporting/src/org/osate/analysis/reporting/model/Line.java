@@ -21,42 +21,63 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows.reporting.utils;
+package org.osate.analysis.reporting.model;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ReportUtils {
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
 
-	/**
-	 * @param root - the root object related to the report
-	 * @param subDirectory - the directory where we store the report, relative to the root object
-	 * @param reportType - the type of the report (latency, etc.)
-	 * @param fileSuffix - any suffix for the file
-	 * @param fileExtension - the file extension (.csv, .xls, etc.)
-	 * @return the path for the file.
-	 */
-	public static IPath getReportPath(EObject root, String subDirectory, String reportPostfix, String fileExtension) {
-		String filename = null;
-		subDirectory = subDirectory.replaceAll(" ", "");
-		Resource res = root.eResource();
-		URI uri = res.getURI();
-		IPath path = OsateResourceUtil.toIFile(uri).getFullPath();
-		if (root instanceof InstanceObject) {
-			path = path.removeFileExtension();
-			filename = path.lastSegment() + "__" + reportPostfix;
-			path = path.removeLastSegments(1).append("/reports/" + subDirectory + "/" + filename);
-		} else {
-			filename = path.lastSegment() + reportPostfix;
-			path = path.removeLastSegments(1).append("/reports/" + subDirectory + "/" + filename);
+public class Line {
+	private List<ReportedCell> content;
+	private ReportSeverity type;
+
+	public Line() {
+		this.content = new ArrayList<ReportedCell>();
+		this.type = ReportSeverity.INFO;
+	}
+
+	public void setSeverity(ReportSeverity t) {
+		this.type = t;
+	}
+
+	public ReportSeverity getSeverity() {
+		return this.type;
+	}
+
+	public void addContent(String s) {
+		this.content.add(new ReportedCell(s));
+	}
+
+	public void addInfo(String s) {
+		this.content.add(new ReportedCell(DiagnosticType.INFO, s));
+	}
+
+	public void addWarning(String s) {
+		this.content.add(new ReportedCell(DiagnosticType.WARNING, s));
+	}
+
+	public void addError(String s) {
+		this.content.add(new ReportedCell(DiagnosticType.ERROR, s));
+	}
+
+	public void addHeaderContent(String s) {
+		this.content.add(new ReportedCell(DiagnosticType.TBD, s));
+	}
+
+	public void addCell(ReportedCell cell) {
+		this.content.add(cell);
+	}
+
+	public void addCells(List<Diagnostic> cells) {
+		for (Diagnostic resultIssue : cells) {
+			this.content.add(new ReportedCell(resultIssue.getDiagnosticType(), resultIssue.getMessage()));
 		}
+	}
 
-		path = path.addFileExtension(fileExtension);
-		return path;
+	public List<ReportedCell> getContent() {
+		return this.content;
 	}
 
 }

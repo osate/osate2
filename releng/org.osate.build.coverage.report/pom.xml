@@ -142,6 +142,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
+			<artifactId>org.osate.analysis.reporting</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
 			<artifactId>org.osate.analysis.flows</artifactId>
 			<version>5.2.0-SNAPSHOT</version>
 			<optional>true</optional>

@@ -21,63 +21,74 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows.reporting.model;
+package org.osate.analysis.reporting.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osate.result.Diagnostic;
-import org.osate.result.DiagnosticType;
+import org.osate.aadl2.NamedElement;
 
-public class Line {
-	private List<ReportedCell> content;
-	private ReportSeverity type;
+/**
+ * The Report class represent a generic Report. It
+ * can be a text report or a table report.
+ * A table report contains several sections
+ * with several lines, each one representing
+ * a section of the table.
+ * A text report contains raw text, such as a text
+ * file.
+ * 
+ * @author julien
+ *
+ */
+public class Report {
+	private List<Section> sections;
+	private StringBuffer textContent;
+	private NamedElement relatedObject;
+	private String reportFolder;
+	private String reportPostfix;
 
-	public Line() {
-		this.content = new ArrayList<ReportedCell>();
-		this.type = ReportSeverity.INFO;
+	public enum ReportType {
+		TABLE, TEXT
 	}
 
-	public void setSeverity(ReportSeverity t) {
-		this.type = t;
+	public Report(NamedElement ne, String reportFolder, String reportPostfix, ReportType rt) {
+		this.relatedObject = ne;
+		this.textContent = new StringBuffer();
+		this.sections = new ArrayList<Section>();
+		this.reportFolder = reportFolder;
+		this.reportPostfix = reportPostfix;
 	}
 
-	public ReportSeverity getSeverity() {
-		return this.type;
+	public void addSection(Section s) {
+		this.sections.add(s);
 	}
 
-	public void addContent(String s) {
-		this.content.add(new ReportedCell(s));
+	public List<Section> getSections() {
+		return this.sections;
 	}
 
-	public void addInfo(String s) {
-		this.content.add(new ReportedCell(DiagnosticType.INFO, s));
+	public void setTextContent(String s) {
+		this.textContent = new StringBuffer(s);
 	}
 
-	public void addWarning(String s) {
-		this.content.add(new ReportedCell(DiagnosticType.WARNING, s));
+	public void appendTextContent(String s) {
+		this.textContent.append(s);
 	}
 
-	public void addError(String s) {
-		this.content.add(new ReportedCell(DiagnosticType.ERROR, s));
+	public String getTextContent() {
+		return this.textContent.toString();
 	}
 
-	public void addHeaderContent(String s) {
-		this.content.add(new ReportedCell(DiagnosticType.TBD, s));
+	public NamedElement getRelatedObject() {
+		return this.relatedObject;
 	}
 
-	public void addCell(ReportedCell cell) {
-		this.content.add(cell);
+	public String getReportFolder() {
+		return this.reportFolder;
 	}
 
-	public void addCells(List<Diagnostic> cells) {
-		for (Diagnostic resultIssue : cells) {
-			this.content.add(new ReportedCell(resultIssue.getDiagnosticType(), resultIssue.getMessage()));
-		}
-	}
-
-	public List<ReportedCell> getContent() {
-		return this.content;
+	public String getReportPostfix() {
+		return this.reportPostfix;
 	}
 
 }

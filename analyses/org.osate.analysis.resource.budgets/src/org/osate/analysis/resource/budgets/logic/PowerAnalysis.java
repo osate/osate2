@@ -33,9 +33,9 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.analysis.flows.reporting.model.Line;
-import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.analysis.flows.reporting.model.Section;
+import org.osate.analysis.reporting.model.Line;
+import org.osate.analysis.reporting.model.Report;
+import org.osate.analysis.reporting.model.Section;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
@@ -53,6 +53,9 @@ public class PowerAnalysis {
 		this.errManager = errManager;
 	}
 
+	/**
+	 * @since 5.0
+	 */
 	public void analyzePowerBudget(SystemInstance si, Report powerReport, SystemOperationMode som) {
 		final String somName = Aadl2Util.getPrintableSOMName(som);
 		String systemName = si.getComponentClassifier().getName();

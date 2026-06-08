@@ -30,8 +30,8 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
-import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.analysis.flows.reporting.model.Report.ReportType;
+import org.osate.analysis.reporting.model.Report;
+import org.osate.analysis.reporting.model.Report.ReportType;
 import org.osate.result.Result;
 
 /**
@@ -148,6 +148,9 @@ public class LatencyReport {
 		return latencyResults;
 	}
 
+	/**
+	 * @since 6.0
+	 */
 	public Report export() {
 		Report genericReport;
 

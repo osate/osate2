@@ -38,10 +38,10 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
-import org.osate.analysis.flows.reporting.model.Line;
-import org.osate.analysis.flows.reporting.model.ReportSeverity;
-import org.osate.analysis.flows.reporting.model.ReportedCell;
-import org.osate.analysis.flows.reporting.model.Section;
+import org.osate.analysis.reporting.model.Line;
+import org.osate.analysis.reporting.model.ReportSeverity;
+import org.osate.analysis.reporting.model.ReportedCell;
+import org.osate.analysis.reporting.model.Section;
 import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.Diagnostic;
@@ -613,6 +613,9 @@ public class LatencyReportEntry {
 		return result;
 	}
 
+	/**
+	 * @since 6.0
+	 */
 	public Section export() {
 
 		Section section;
