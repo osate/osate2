@@ -51,10 +51,9 @@ import org.eclipse.zest.core.viewers.IEntityStyleProvider;
 import org.eclipse.zest.core.viewers.IGraphEntityContentProvider;
 import org.eclipse.zest.core.widgets.ZestStyles;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
-import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.CompositeLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.HorizontalShift;
+import org.eclipse.zest.layouts.algorithms.HorizontalShiftAlgorithm;
 import org.osate.ui.OsateUiPlugin;
 
 /**
@@ -62,14 +61,14 @@ import org.osate.ui.OsateUiPlugin;
  * {@link ModelUnitDependencyVisualizationView}. Each view has a graph, control group, context menu, and refresh
  * button. The input object for the graph is an {@link IVisualizationInput}. This is the model object which handles all
  * the non-UI information necessary to build a directed graph.
- * 
+ *
  * The graph has a concept of which elements are in the scope and which are out of scope. The scope is specified when
  * setting the input to the graph. For example, a scope could be all projects in a working set. When building the
  * graph, the elements in the scope serve as the starting point and all dependencies are calculated from the scope.
  * This means that the final graph may contain elements that are outside of the scope. The elements in the scope have a
  * light blue background while the elements outside of the scope have a white and gray background. This is handled by
  * the graph's label provider which queries {@link IVisualizationInput#isInScope(Object)}.
- * 
+ *
  * If the user selects a node, that node will be highlighted yellow and all directly connected nodes will be
  * highlighted orange. The direct connection lines will also be highlighted red and become dashed. This is handled by
  * the graph's label provider which queries the graph selection and
@@ -99,8 +98,7 @@ abstract class AbstractDependencyVisualizationView extends ViewPart {
 		});
 		graph.setLabelProvider(new VisualizationLabelProvider());
 		graph.setLayoutAlgorithm(new CompositeLayoutAlgorithm(
-				new LayoutAlgorithm[] { new DirectedGraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING),
-						new HorizontalShift(LayoutStyles.NO_LAYOUT_NODE_RESIZING) }));
+				new LayoutAlgorithm[] { new DirectedGraphLayoutAlgorithm(), new HorizontalShiftAlgorithm() }));
 
 		MenuManager menuManager = new MenuManager();
 		menuManager.setRemoveAllWhenShown(true);
