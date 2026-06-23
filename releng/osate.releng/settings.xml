@@ -37,9 +37,23 @@
 	
 	<mirrors>
 		<mirror>
-			<id>yakindu-mirror1</id>
-			<mirrorOf>https://updates.yakindu.com/statecharts/releases/3.5.9</mirrorOf>
-			<url>file:/Users/lwrage/Projects/OSATE/p2mirror-2025-12/yakindu</url>
+			<id>eclipse-mirror2</id>
+			<mirrorOf>https://download.eclipse.org/ease/</mirrorOf>
+			<url>https://download.eclipse.org/ease/</url>
+			<layout>p2</layout>
+			<mirrorOfLayouts>p2</mirrorOfLayouts>
+		</mirror>
+		<mirror>
+			<id>eclipse-mirror1</id>
+			<mirrorOf>https://download.eclipse.org/xsemantics/</mirrorOf>
+			<url>https://download.eclipse.org/xsemantics/</url>
+			<layout>p2</layout>
+			<mirrorOfLayouts>p2</mirrorOfLayouts>
+		</mirror>
+		<mirror>
+			<id>eclipse-mirror</id>
+			<mirrorOf>https://download.eclipse.org/</mirrorOf>
+			<url>https://ftp2.osuosl.org/pub/eclipse/</url>
 			<layout>p2</layout>
 			<mirrorOfLayouts>p2</mirrorOfLayouts>
 		</mirror>

@@ -729,6 +729,7 @@
         <setEntry value="org.osate.analysis.model@default:default"/>
         <setEntry value="org.osate.analysis.modes.ui@default:default"/>
         <setEntry value="org.osate.analysis.modes@default:default"/>
+        <setEntry value="org.osate.analysis.reporting@default:default"/>
         <setEntry value="org.osate.analysis.resource.budgets@default:default"/>
         <setEntry value="org.osate.analysis.resource.management@default:default"/>
         <setEntry value="org.osate.annexsupport@default:default"/>
