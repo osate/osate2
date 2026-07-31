@@ -60,6 +60,7 @@ import org.osate.contribution.sei.arinc653.ScheduleWindow;
 import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
+import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -450,8 +451,11 @@ public class FlowLatencyUtil {
 		if (!results.isEmpty()) {
 			latencyResults.getResults().addAll(results);
 		} else {
-			Result err = ResultUtil.createErrorResult("No latency analysis result", root);
+			var message = "No end-to-end flow instances were found";
+			Result err = ResultUtil.createErrorResult(message, root);
 			latencyResults.getResults().add(err);
+			latencyResults.setMessage(message);
+			latencyResults.setResultType(ResultType.ERROR);
 		}
 		return latencyResults;
 	}
@@ -508,7 +512,7 @@ public class FlowLatencyUtil {
 
 	public static String getParametersAsLabels(AnalysisResult results) {
 		String labels = results.getMessage();
-		if (results.getParameters().size() == 4) {
+		if (results.getParameters().size() == 5) {
 			labels = FlowLatencyUtil.getParametersAsLabels((boolean) results.getParameters().get(0).getValue(),
 					(boolean) results.getParameters().get(1).getValue(),
 					(boolean) results.getParameters().get(2).getValue(),

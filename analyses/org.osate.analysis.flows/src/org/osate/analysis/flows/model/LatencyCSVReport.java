@@ -26,12 +26,13 @@ package org.osate.analysis.flows.model;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UncheckedIOException;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
@@ -50,8 +51,11 @@ public class LatencyCSVReport {
 
 		report.append(reportheader + System.lineSeparator() + System.lineSeparator());
 		for (Result result : ar.getResults()) {
-			String flowname = ((InstanceObject) result.getModelElement()).getComponentInstancePath();
-			SystemInstance si = ((InstanceObject) result.getModelElement()).getSystemInstance();
+			if (!(result.getModelElement() instanceof EndToEndFlowInstance flow)) {
+				continue;
+			}
+			String flowname = flow.getComponentInstancePath();
+			SystemInstance si = flow.getSystemInstance();
 			String systemName = si.getComponentClassifier().getName();
 			String inMode = ResultUtil.getString(result, 0);
 			String analysisheader = "\"Latency results for end-to-end flow '" + flowname + "' of system '" + systemName
@@ -102,14 +106,26 @@ public class LatencyCSVReport {
 	}
 
 	public static void generateCSVReport(AnalysisResult latres) {
-		StringBuffer reportContent = getReportContent(latres);
 		Resource res = latres.eResource();
 		URI csvuri = res.getURI().trimFileExtension().appendFileExtension("csv");
 		URIConverter converter = res.getResourceSet().getURIConverter();
+		if (latres.getResults().stream().noneMatch(r -> r.getModelElement() instanceof EndToEndFlowInstance)) {
+			try {
+				if (converter.exists(csvuri, null)) {
+					converter.delete(csvuri, null);
+				}
+			} catch (IOException ioe) {
+				throw new UncheckedIOException("Could not remove stale latency CSV " + csvuri, ioe);
+			}
+			return;
+		}
+
+		StringBuffer reportContent = getReportContent(latres);
 		try (OutputStream output = converter.createOutputStream(csvuri);
 				OutputStreamWriter writer = new OutputStreamWriter(output)) {
 			writer.write(reportContent.toString());
 		} catch (IOException ioe) {
+			throw new UncheckedIOException("Could not write latency CSV " + csvuri, ioe);
 		}
 	}
 

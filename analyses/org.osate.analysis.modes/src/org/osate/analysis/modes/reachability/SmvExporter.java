@@ -68,38 +68,38 @@ public class SmvExporter extends FileExporter {
 
 	StringBuilder generateSMV() {
 		StringBuilder b = new StringBuilder();
-		int domainNo = 0;
+		int emittedDomains = 0;
 		for (var d : ModeDomain.domains) {
 			graph = d.graph;
 			modalComponents.clear();
 			n2i.clear();
 			tg2i.clear();
-			generateModule(b, domainNo);
-			domainNo += 1;
+			if (generateModule(b, emittedDomains)) {
+				emittedDomains += 1;
+			}
 		}
-		generateMain(b, domainNo);
+		generateMain(b, emittedDomains);
 		return b;
 	}
 
-	private void generateModule(StringBuilder b, int domainNo) {
+	private boolean generateModule(StringBuilder b, int domainNo) {
 		ComponentInstance root = graph.getLevels().get(0).getComponent();
 
 		fillComponentList(root);
 		if (modalComponents.isEmpty()) {
-			b.append("The model has no modal components");
-			return;
+			b.append("-- This mode domain has no modal components.\n");
+			return false;
 		}
 
 		var lc = graph.getLevels().size();
 		var lastLevel = graph.getLevels().get(lc - 1);
 		if (lastLevel.getTransitions().isEmpty()) {
-			b.append("The model has no SOM transitions");
-			return;
+			b.append("-- This mode domain has no SOM transitions.\n");
+			return false;
 		}
 
 		var somCount = lastLevel.getNodes().size();
 		var compCount = modalComponents.size();
-		somTable = new SOMNode[somCount][compCount];
 
 		fillNodeIndices(lastLevel.getNodes());
 		somTable = new SOMNode[somCount][compCount];
@@ -142,10 +142,16 @@ public class SmvExporter extends FileExporter {
 			}
 			b.append("          esac;\n\n");
 		}
+		return true;
 	}
 
 	private void generateMain(StringBuilder b, int count) {
 		b.append("MODULE main\n");
+		if (count == 0) {
+			b.append("  DEFINE\n");
+			b.append("    no_modal_domains := TRUE;\n");
+			return;
+		}
 		b.append("  VAR\n");
 		for (int i = 0; i < count; i++) {
 			b.append("    d" + i + ": D" + i + ";\n");
