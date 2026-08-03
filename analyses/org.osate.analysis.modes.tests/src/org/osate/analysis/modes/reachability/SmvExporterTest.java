@@ -27,15 +27,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.io.TempDir;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -52,8 +57,33 @@ public class SmvExporterTest extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
-	@TempDir
 	Path temporaryFolder;
+
+	@BeforeEach
+	void setUp() throws IOException {
+		// Creates a uniquely named temporary directory on your OS filesystem
+		this.temporaryFolder = Files.createTempDirectory("aadl_test_workspace");
+	}
+
+	@AfterEach
+	void tearDown() throws IOException {
+		if (this.temporaryFolder != null && Files.exists(this.temporaryFolder)) {
+			// Recursively deletes all files and subfolders inside the directory
+			Files.walkFileTree(this.temporaryFolder, new SimpleFileVisitor<Path>() {
+				@Override
+				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+					Files.delete(file);
+					return FileVisitResult.CONTINUE;
+				}
+
+				@Override
+				public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+					Files.delete(dir);
+					return FileVisitResult.CONTINUE;
+				}
+			});
+		}
+	}
 
 	@Test
 	public void noModalComponentsProducesValidEmptyMain() throws Exception {

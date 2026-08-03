@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="latency" message="AS-MF-DL-EQ-EQL">
-  <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#/"/>
+  <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#/0"/>
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
@@ -15,10 +15,10 @@
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <diagnostics diagnosticType="INFO" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
-      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#/0/@endToEndFlow.0"/>
     </diagnostics>
     <diagnostics diagnosticType="INFO" message="Maximum actual latency total 4.00ms is less or equal to expected maximum end to end latency 4.00ms">
-      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#/0/@endToEndFlow.0"/>
     </diagnostics>
     <subResults>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -28,7 +28,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="source fsource1"/>
-      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#/0/@componentInstance.0"/>
     </subResults>
     <subResults>
       <values xsi:type="result:RealValue"/>
@@ -38,7 +38,7 @@
       <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
       <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
       <values xsi:type="result:StringValue" value=""/>
-      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#/0/@connectionInstance.0"/>
     </subResults>
     <subResults>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -48,8 +48,8 @@
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="sink fsink1"/>
-      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#/0/@componentInstance.1"/>
     </subResults>
-    <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/data_port_connection_s1_i1_Instance.aaxl2#/0/@endToEndFlow.0"/>
   </results>
 </result:AnalysisResult>
