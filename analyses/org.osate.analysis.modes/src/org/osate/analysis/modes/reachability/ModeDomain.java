@@ -343,11 +343,12 @@ public class ModeDomain {
 							var cr0 = tc.getConnectionReferences().get(i);
 							var cr1 = crs.get(i);
 
-							if (cr0.getContext() == cr1.getContext() && cr0.getConnection() == cr1.getConnection()) {
-								i++;
+							if (cr0.getContext() != cr1.getContext() || cr0.getConnection() != cr1.getConnection()) {
+								break;
 							}
+							i++;
 						}
-						if (i >= tcLen) {
+						if (i == tcLen) {
 							// duplicate, don't create again
 							updateMapping(conn, tc);
 							return;
