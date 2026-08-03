@@ -1,0 +1,29 @@
+package Issue2980
+public
+	system S
+		features
+			trigger_source: in event port;
+	end S;
+
+	system implementation S.i
+		subcomponents
+			child: system C.i;
+		connections
+			to_first: port trigger_source -> child.first;
+			to_second: port trigger_source -> child.second;
+	end S.i;
+
+	system C
+		features
+			first: in event port;
+			second: in event port;
+	end C;
+
+	system implementation C.i
+		modes
+			initial_mode: initial mode;
+			next_mode: mode;
+			initial_mode -[first, second]-> next_mode;
+	end C.i;
+
+end Issue2980;
