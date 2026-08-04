@@ -488,7 +488,7 @@ public class FlowLatencyUtil {
 
 	public static final String LatencyAnalysisName = "latency";
 
-	public static URI getLantencyAnalysisResultURI(AnalysisResult results) {
+	public static URI getLatencyAnalysisResultURI(AnalysisResult results) {
 		EObject root = results.getModelElement();
 		URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
 		String rootname = rootURI.lastSegment();
@@ -499,7 +499,7 @@ public class FlowLatencyUtil {
 	}
 
 	public static void saveAnalysisResult(AnalysisResult results) {
-		URI latencyURI = getLantencyAnalysisResultURI(results);
+		URI latencyURI = getLatencyAnalysisResultURI(results);
 		Resource res = results.getModelElement().eResource().getResourceSet().createResource(latencyURI);
 		res.getContents().add(results);
 		try {
