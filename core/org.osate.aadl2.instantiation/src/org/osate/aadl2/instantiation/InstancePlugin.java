@@ -27,14 +27,14 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
- * The main plugin class to be used in the desktop.
+ * The instantiation bundle activator.
  */
-public class InstancePlugin extends AbstractUIPlugin {
+public class InstancePlugin extends Plugin {
 	// The shared instance.
 	private static InstancePlugin plugin;
 	// Resource bundle.
