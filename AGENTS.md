@@ -47,6 +47,38 @@ Cross-cutting concerns:
 - **Baseline / API tooling**: API baseline is currently 2.18.0 (recent commit `Set API baseline 2.18.0`); changes that break API should be weighed against that baseline. The (currently commented-out) `tycho-p2-extras-plugin` compares against `lastStableRepository`.
 - **SpotBugs + FindSecBugs**: activated with `-Dspotbugs=true`; config lives under `releng/org.osate.build.main/src/main/resources/spotbugs/`.
 
+## Issue-driven regression workflow
+
+Use these rules when a review or investigation produces defects that need GitHub issues and isolated regression-test branches.
+
+### GitHub issues
+
+- Create one issue in `osate/osate2` for each independently fixable defect. Search open and closed issues first to avoid duplicates.
+- Authenticate the GitHub CLI before creating issues. If authentication is missing or expired, stop and ask the user to authenticate; do not work around authentication or silently omit issue creation.
+- Create the issue before finalizing test names so the real issue number is available. Replace all temporary identifiers such as `XXX1` with that number; do not commit placeholders.
+- Use a concise, behavior-oriented title. Structure the body with `Summary`, `Reproduction`, `Expected behavior`, and `Relevant code` sections.
+- In `Summary`, describe the observable failure and the implementation mechanism that causes it. In `Reproduction`, give the smallest model shape or execution path that triggers it and include the exception text when relevant. In `Expected behavior`, state a testable result. In `Relevant code`, name the files, classes, and methods implicated by the investigation.
+- Distinguish confirmed behavior from inferred causes. For headless failures, preserve the intended headless dependency boundary; do not propose adding UI bundles merely to satisfy an error path.
+
+### Regression tests and AADL models
+
+- Name an issue regression test `Issue<number>Test.java` and place core tests under `core/org.osate.core.tests/src/org/osate/core/tests/issues/`.
+- Store AADL fixtures as a separate OSATE project under `core/org.osate.core.tests/models/issue<number>/`; never embed the AADL model as a Java string.
+- Each model project must include a `.project` whose project name is `issue<number>` and a `.gitignore` containing `/.aadlbin-gen/`. Name the primary fixture `Issue<number>.aadl` unless an established nearby test requires multiple descriptive fixture files.
+- Follow the surrounding Xtext test pattern: use `XtextRunner`, `Aadl2InjectorProvider`, `XtextTest`, injected `TestHelper`, and `ValidationTestHelper.assertNoIssues` before exercising the behavior.
+- Make the assertion specific to the reported defect. The regression must fail for the defect, pass after its fix, and avoid depending on another unresolved issue. For error-path tests, inject a deterministic failure at the narrowest overridable boundary when a realistic model would first trigger a different known defect.
+- Validate the standalone AADL project when practical, then run tests from the repository root with the Tycho reactor. Use `-Dtest=Issue<number>Test -DfailIfNoTests=false` to select the test; use a lifecycle phase that actually executes Tycho tests, and report separately whether a command only compiled the test.
+- Add only the new issue test and its model-project files to the issue branch. Do not include the production fix unless the user explicitly requests it.
+
+### Issue branches and commits
+
+- Create one sibling branch per issue from the same requested base commit; do not stack one issue's test branch on another.
+- Name the branch `<issue-number>_<3-to-5-word-description>`, using a lowercase `snake_case` description, for example `2988_connection_context_matching`.
+- Unless the user requests a different history, put the issue's regression test and external model project in one commit. Use the subject `Add regression test for issue #<number>`, followed by a blank line and a body that explains what the test models, what it asserts, and why.
+- Before committing, run `git diff --cached --check` and confirm that only files for that issue are staged. Preserve unrelated user changes.
+- After committing, verify that the branch has exactly one commit relative to its base, its parent is the intended base, and its diff contains only that issue's test assets. Return the shared checkout to the branch it was on before the issue branch was created, normally `master`, and confirm the worktree is clean.
+- Do not push branches or open pull requests unless the user asks.
+
 ## Versioning
 
 Version is `2.19.0-SNAPSHOT` across the reactor. Bumps are done by the scripts in `releng/version-management/`, not by hand-editing POMs and MANIFESTs — mismatches between a bundle's `Bundle-Version`, its feature inclusion, and its pom `<version>` will break the Tycho build.

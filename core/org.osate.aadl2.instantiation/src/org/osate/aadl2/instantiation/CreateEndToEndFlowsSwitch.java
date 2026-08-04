@@ -794,7 +794,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param iter
 	 */
 	// TODO-LW: Detect cyclic dependencies between ETEs
-	// restore iterator after each nested
 	// add preConn before addNested
 	private void processEndToEndFlow(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlow ete,
 			FlowIterator iter) {
@@ -829,32 +828,21 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					etei.setName(etei.getEndToEndFlow().getName());
 					eteiClone.getModesList().addAll(etei.getModesList());
 				}
+				FlowIterator continuation = state.pop();
 
 				addNestedETE(etei, nested);
 
 				// prepare next connection filter
 				connections.clear();
 				connections.addAll(nested.postConns);
-				if (iter.hasNext()) {
-					Element obj = iter.next();
-					Connection conn = null;
-					if (obj instanceof FlowSegment) {
-						FlowElement fe = ((FlowSegment) obj).getFlowElement();
-						if (fe instanceof Connection) {
-							conn = (Connection) fe;
-						}
-					} else if (obj instanceof EndToEndFlowSegment) {
-						EndToEndFlowElement fe = ((EndToEndFlowSegment) obj).getFlowElement();
-						if (fe instanceof Connection) {
-							conn = (Connection) fe;
-						}
-					}
+				if (continuation.hasNext()) {
+					Connection conn = getConnection(continuation.next());
 					if (conn != null) {
 						connections.add(conn);
 					}
 				}
 
-				continueFlow(ci, etei, state.pop(), ci);
+				continueFlow(ci, etei, continuation, ci);
 
 				if (prepareNext) {
 					// add clone
@@ -896,6 +884,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							etei.setName(etei.getEndToEndFlow().getName());
 							eteiClone.getModesList().addAll(etei.getModesList());
 						}
+						FlowIterator continuation = state.pop();
 
 						etei.getFlowElements().add(conni);
 						addNestedETE(etei, nested);
@@ -903,11 +892,14 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						// prepare next connection filter
 						connections.clear();
 						connections.addAll(nested.postConns);
-						if (iter.hasNext()) {
-							connections.add((Connection) iter.next());
+						if (continuation.hasNext()) {
+							Connection nextConnection = getConnection(continuation.next());
+							if (nextConnection != null) {
+								connections.add(nextConnection);
+							}
 						}
 
-						continueFlow(ci, etei, state.pop(), ci);
+						continueFlow(ci, etei, continuation, ci);
 
 						if (prepareNext) {
 							// add clone
@@ -1009,6 +1001,16 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	// -------------------------------------------------------------------------
 	// Helper methods
 	// -------------------------------------------------------------------------
+
+	private static Connection getConnection(Element segment) {
+		if (segment instanceof FlowSegment fs) {
+			return fs.getFlowElement() instanceof Connection connection ? connection : null;
+		}
+		if (segment instanceof EndToEndFlowSegment eefs) {
+			return eefs.getFlowElement() instanceof Connection connection ? connection : null;
+		}
+		return null;
+	}
 
 	/**
 	 * Get all connection instances that pass through the sequence of

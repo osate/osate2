@@ -1,0 +1,49 @@
+package Issue2991
+public
+
+	system Endpoint
+		features
+			i: in data port;
+			o: out data port;
+		flows
+			fsrc: flow source o;
+			fsnk: flow sink i;
+			fpath: flow path i -> o;
+	end Endpoint;
+
+	system Middle extends Endpoint
+	end Middle;
+
+	system implementation Middle.i
+		subcomponents
+			one: system Endpoint;
+			two: system Endpoint;
+		connections
+			in1: port i -> one.i;
+			out1: port one.o -> o;
+			in2: port i -> two.i;
+			out2: port two.o -> o;
+		flows
+			fpath: flow path i -> in1 -> one.fpath -> out1 -> o;
+			fpath: flow path i -> in2 -> two.fpath -> out2 -> o;
+	end Middle.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			src: system Endpoint;
+			middle: system Middle.i;
+			right: system Endpoint;
+			snk: system Endpoint;
+		connections
+			cin: port src.o -> middle.i;
+			cmid: port middle.o -> right.i;
+			cout: port right.o -> snk.i;
+		flows
+			nested: end to end flow middle.fpath -> cmid -> right.fpath;
+			parent: end to end flow src.fsrc -> cin -> nested -> cout -> snk.fsnk;
+	end Top.i;
+
+end Issue2991;
