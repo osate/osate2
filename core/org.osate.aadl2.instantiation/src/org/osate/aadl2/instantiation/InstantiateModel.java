@@ -26,6 +26,7 @@ package org.osate.aadl2.instantiation;
 import static org.osate.aadl2.modelsupport.util.AadlUtil.getElementCount;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,9 +41,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -383,17 +382,10 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		try {
-			// We're done: Save the model.
-			// We don't respond to a cancel at this point
-			monitor.subTask("Saving instance model");
-			aadlResource.save(null);
-		} catch (IOException e) {
-			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
-					"Exception during instantiation", e));
-			setErrorMessage("Exception during instantiation, see error log");
-			return null;
-		}
+		// We're done: Save the model.
+		// We don't respond to a cancel at this point
+		monitor.subTask("Saving instance model");
+		aadlResource.save(null);
 
 		return result;
 	}
@@ -406,6 +398,8 @@ public class InstantiateModel {
 	 * @param aadlResource the Resource to store the instance model in
 	 *
 	 * @return SystemInstance or <code>null</code> if canceled.
+	 * @throws InterruptedException if instantiation is canceled
+	 * @throws RuntimeException if instantiation fails
 	 */
 	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource, boolean save)
 			throws InterruptedException {
@@ -420,6 +414,7 @@ public class InstantiateModel {
 		aadlResource.getContents().add(root);
 		// Needed to save the root object because we may attach warnings to the
 		// IResource as we build it.
+		var origErrManager = errManager;
 		try {
 			if (save) {
 				aadlResource.save(null);
@@ -427,7 +422,6 @@ public class InstantiateModel {
 			// collect errors in list and transfer to original error manager later
 			// property associations can be added with an error but could then be removed
 			// see issue #2929
-			var origErrManager = errManager;
 			errManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);
 			fillSystemInstance(root);
 			var errors = ((QueuingAnalysisErrorReporter) errManager.getReporter(aadlResource)).getErrors();
@@ -448,13 +442,10 @@ public class InstantiateModel {
 					}
 				}
 			}
-		} catch (InterruptedException e) {
-			throw e;
-		} catch (Exception e) {
-			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
-					"Exception during instantiation", e));
-			setErrorMessage("Exception during instantiation, see error log");
-			return null;
+		} catch (IOException e) {
+			throw new UncheckedIOException("Exception while saving the initial instance model", e);
+		} finally {
+			errManager = origErrManager;
 		}
 		return root;
 	}
