@@ -1,0 +1,10 @@
+package Issue2989
+public
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+	end Top.i;
+
+end Issue2989;
