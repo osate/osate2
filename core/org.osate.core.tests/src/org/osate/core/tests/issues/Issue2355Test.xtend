@@ -63,7 +63,8 @@ class Issue2355Test extends XtextTest {
 					assertError(testFileResult.issues, issueCollection, "'ap' and 'br' have incompatible classifiers.")
 				]
 				ownedFeatureConnections.get(5) => [
-					assertError(testFileResult.issues, issueCollection, "'ap' must be a requires access feature for a connection to an accessed subcomponent.")
+					source.assertError(testFileResult.issues, issueCollection,
+						"'ap' must be a requires access feature for a connection to an accessed subcomponent.")
 				]
 				ownedFeatureConnections.get(6) => [
 					assertError(testFileResult.issues, issueCollection, "'d1' and 'br' have incompatible classifiers.")

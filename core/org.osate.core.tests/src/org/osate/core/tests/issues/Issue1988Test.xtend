@@ -53,7 +53,7 @@ class Issue1988Test extends XtextTest {
 		val pkg = testFileResult.resource.contents.head as AadlPackage;
 		val p_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "p.i"] as ProcessImplementation
 			
-		p_i.ownedConnections.get(0) => [
+		p_i.ownedConnections.get(0).source => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'p1' to have classifier 'PortSrc::D'")
 		]	
 		issueCollection.sizeIs(testFileResult.issues.size)
@@ -67,7 +67,7 @@ class Issue1988Test extends XtextTest {
 		val pkg = testFileResult.resource.contents.head as AadlPackage;
 		val p_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "p.i"] as ProcessImplementation
 			
-		p_i.ownedConnections.get(0) => [
+		p_i.ownedConnections.get(0).destination => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'ip2' to have classifier 'PortDst::D'")
 		]	
 		issueCollection.sizeIs(testFileResult.issues.size)
@@ -161,10 +161,10 @@ class Issue1988Test extends XtextTest {
 		val pkg = testFileResult.resource.contents.head as AadlPackage;
 		val th2_bad = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "th2.bad"] as ThreadImplementation
 			
-		th2_bad.ownedConnections.get(0) => [
+		th2_bad.ownedConnections.get(0).source => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'ip2' to have classifier 'ParameterSrc::D'")
 		]	
-		th2_bad.ownedConnections.get(1) => [
+		th2_bad.ownedConnections.get(1).source => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'p2' to have classifier 'ParameterSrc::D'")
 		]	
 		issueCollection.sizeIs(testFileResult.issues.size)
@@ -178,10 +178,10 @@ class Issue1988Test extends XtextTest {
 		val pkg = testFileResult.resource.contents.head as AadlPackage;
 		val th2_bad = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "th2.bad"] as ThreadImplementation
 			
-		th2_bad.ownedConnections.get(0) => [
+		th2_bad.ownedConnections.get(0).destination => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'p1' to have classifier 'ParameterDst::D'")
 		]	
-		th2_bad.ownedConnections.get(1) => [
+		th2_bad.ownedConnections.get(1).destination => [
 			assertWarning(testFileResult.issues, issueCollection, "Expected subcomponent 'myData' to have classifier 'ParameterDst::D'")
 		]	
 		issueCollection.sizeIs(testFileResult.issues.size)
@@ -208,4 +208,3 @@ class Issue1988Test extends XtextTest {
 		assertConstraints(issueCollection)
 	}
 }
-

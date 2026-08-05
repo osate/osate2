@@ -1199,9 +1199,10 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 				"sys2.i".assertEquals(name)
 				ownedConnections.get(1) => [
 					"c2".assertEquals(name)
-						assertError(testFileResult.issues, issueCollection, 
-										"Feature inner.fg1.o1 must not be in due to the direction of the connection"
-										, "Feature i.fg1.o1 must not be in due to the direction of the connection")
+					source.assertError(testFileResult.issues, issueCollection,
+						"Feature inner.fg1.o1 must not be in due to the direction of the connection")
+					destination.assertError(testFileResult.issues, issueCollection,
+						"Feature i.fg1.o1 must not be in due to the direction of the connection")
 				]
 			]
 		]

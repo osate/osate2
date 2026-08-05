@@ -47,7 +47,6 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -5579,13 +5578,13 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				destinationClassifier = getClassifier(destination);
 			}
 			if (sourceClassifier == null && destinationClassifier != null) {
-				warning("Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
-						+ "' to have classifier '" + destinationClassifier.getQualifiedName() + '\'', connection,
-						Aadl2Package.eINSTANCE.getConnection_Source());
+				warning(connection.getSource(),
+						"Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
+								+ "' to have classifier '" + destinationClassifier.getQualifiedName() + '\'');
 			} else if (sourceClassifier != null && destinationClassifier == null) {
-				warning("Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'" + destination.getName()
-						+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
-						Aadl2Package.eINSTANCE.getConnection_Destination());
+				warning(connection.getDestination(),
+						"Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'"
+								+ destination.getName() + "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'');
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				try {
 					final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
@@ -5668,13 +5667,13 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			destinationClassifier = getClassifier(destination);
 		}
 		if (sourceClassifier == null && destinationClassifier != null) {
-			warning("Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
-					+ "' to have classifier '" + destinationClassifier.getQualifiedName() + '\'', connection,
-					Aadl2Package.eINSTANCE.getConnection_Source());
+			warning(connection.getSource(),
+					"Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
+							+ "' to have classifier '" + destinationClassifier.getQualifiedName() + '\'');
 		} else if (sourceClassifier != null && destinationClassifier == null) {
-			warning("Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'" + destination.getName()
-					+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
-					Aadl2Package.eINSTANCE.getConnection_Destination());
+			warning(connection.getDestination(),
+					"Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'" + destination.getName()
+							+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'');
 		} else if (sourceClassifier != null && destinationClassifier != null) {
 			try {
 				final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
@@ -6005,23 +6004,22 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			}
 			if ((srcContext instanceof Subcomponent) || (srcContext instanceof SubprogramCall)) {
 				if (!(srcDirection.outgoing())) {
-					error("Outgoing connection requires outgoing feature '" + srcContext.getName() + "."
-							+ source.getName() + "'.", connection, Aadl2Package.eINSTANCE.getConnection_Source());
+					error(connection.getSource(), "Outgoing connection requires outgoing feature '" + srcContext.getName()
+							+ "." + source.getName() + "'.");
 				}
 				if (!(dstDirection.outgoing())) {
-					error("Outgoing connection requires outgoing feature '" + destination.getName() + "'.", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+					error(connection.getDestination(),
+							"Outgoing connection requires outgoing feature '" + destination.getName() + "'.");
 				}
 			}
 			if ((dstContext instanceof Subcomponent) || (dstContext instanceof SubprogramCall)) {
 				if (!(dstDirection.incoming())) {
-					error("Incoming connection requires incoming feature '" + dstContext.getName() + "."
-							+ destination.getName() + "'.", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+					error(connection.getDestination(), "Incoming connection requires incoming feature '" + dstContext.getName()
+							+ "." + destination.getName() + "'.");
 				}
 				if (!(srcDirection.incoming())) {
-					error("Incoming connection requires incoming feature '" + source.getName() + "'.", connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+					error(connection.getSource(),
+							"Incoming connection requires incoming feature '" + source.getName() + "'.");
 				}
 			}
 		} else if (source instanceof InternalFeature || destination instanceof InternalFeature) {
@@ -6272,13 +6270,13 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				destinationClassifier = ((Feature) destination).getAllClassifier();
 			}
 			if (sourceClassifier == null && destinationClassifier != null) {
-				warning("Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
-						+ "' to have classifier '" + destinationClassifier.getQualifiedName() + '\'', connection,
-						Aadl2Package.eINSTANCE.getConnection_Source());
+				warning(connection.getSource(),
+						"Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
+								+ "' to have classifier '" + destinationClassifier.getQualifiedName() + '\'');
 			} else if (sourceClassifier != null && destinationClassifier == null) {
-				warning("Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'" + destination.getName()
-						+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
-						Aadl2Package.eINSTANCE.getConnection_Destination());
+				warning(connection.getDestination(),
+						"Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'"
+								+ destination.getName() + "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'');
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
 						.getClassifierMatchingRule(connection)
@@ -6594,15 +6592,15 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 
 		if (sourceCategory != null && !connectionCategory.equals(sourceCategory)) {
-			error("The source of a " + connectionCategory.getName() + " access connection must be a "
+			error(connection.getSource(), "The source of a " + connectionCategory.getName() + " access connection must be a "
 					+ connectionCategory.getName() + " access feature or a " + connectionCategory.getName()
-					+ " subcomponent.", connection, Aadl2Package.eINSTANCE.getConnection_Source());
+					+ " subcomponent.");
 		}
 
 		if (destinationCategory != null && !connectionCategory.equals(destinationCategory)) {
-			error("The destination of a " + connectionCategory.getName() + " access connection must be a "
-					+ connectionCategory.getName() + " access feature or a " + connectionCategory.getName()
-					+ " subcomponent.", connection, Aadl2Package.eINSTANCE.getConnection_Destination());
+			error(connection.getDestination(), "The destination of a " + connectionCategory.getName()
+					+ " access connection must be a " + connectionCategory.getName() + " access feature or a "
+					+ connectionCategory.getName() + " subcomponent.");
 		}
 	}
 
@@ -6678,18 +6676,16 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		else if (source instanceof Subcomponent && destination instanceof Access
 				&& (dstContext == null || dstContext instanceof FeatureGroup)) {
 			if (destinationType != AccessType.PROVIDES) {
-				error('\'' + destination.getName()
-						+ "' must be a provides access feature for a connection from an accessed subcomponent.",
-						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
+				error(connection.getDestination(), '\'' + destination.getName()
+						+ "' must be a provides access feature for a connection from an accessed subcomponent.");
 			}
 		}
 		// Test for L6: connection between access feature and subcomponent
 		else if (destination instanceof Subcomponent && source instanceof Access
 				&& (srcContext == null || srcContext instanceof FeatureGroup)) {
 			if (!sourceType.equals(AccessType.PROVIDES)) {
-				error('\'' + source.getName()
-						+ "' must be a provides access feature for a connection to a accessed subcomponent.",
-						connection, Aadl2Package.eINSTANCE.getConnection_Source());
+				error(connection.getSource(), '\'' + source.getName()
+						+ "' must be a provides access feature for a connection to a accessed subcomponent.");
 			}
 		}
 		// Test for L7: connection between subcomponent and access feature of
@@ -6697,9 +6693,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		else if (source instanceof Subcomponent && destination instanceof Access
 				&& dstContext instanceof Subcomponent) {
 			if (destinationType != AccessType.REQUIRES) {
-				error('\'' + destination.getName()
-						+ "' must be a requires access feature for a connection from an accessed subcomponent.",
-						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
+				error(connection.getDestination(), '\'' + destination.getName()
+						+ "' must be a requires access feature for a connection from an accessed subcomponent.");
 			}
 		}
 		// Test for L7: connection between access feature of subcomponent and
@@ -6707,9 +6702,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		else if (destination instanceof Subcomponent && source instanceof Access
 				&& srcContext instanceof Subcomponent) {
 			if (!sourceType.equals(AccessType.REQUIRES)) {
-				error('\'' + source.getName()
-						+ "' must be a requires access feature for a connection to an accessed subcomponent.",
-						connection, Aadl2Package.eINSTANCE.getConnection_Source());
+				error(connection.getSource(), '\'' + source.getName()
+						+ "' must be a requires access feature for a connection to an accessed subcomponent.");
 			}
 		}
 	}
@@ -8129,56 +8123,53 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				// sibling to sibling
 				if (sourceDirection.equals(DirectionType.IN)) {
 					error("The direction of the source " + source.getName()
-							+ " of a directional feature group connection must not be in", connection,
-							Aadl2Package.eINSTANCE.getConnection_Source(), MAKE_CONNECTION_BIDIRECTIONAL);
+							+ " of a directional feature group connection must not be in", connection.getSource(), null,
+							MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (sourceDirection.equals(DirectionType.IN_OUT)) {
-					checkDirectionOfFeatureGroupMembers(sourceChain, DirectionType.IN, connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+					checkDirectionOfFeatureGroupMembers(sourceChain, DirectionType.IN, connection.getSource());
 				}
 				if (destinationDirection.equals(DirectionType.OUT)) {
 					error("The direction of the destination " + destination.getName()
-							+ " of a directional feature group connection must not be out", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
+							+ " of a directional feature group connection must not be out", connection.getDestination(),
+							null, MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (destinationDirection.equals(DirectionType.IN_OUT)) {
-					checkDirectionOfFeatureGroupMembers(destinationChain, DirectionType.OUT, connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+					checkDirectionOfFeatureGroupMembers(destinationChain, DirectionType.OUT,
+							connection.getDestination());
 				}
 			} else if (!(srccxt instanceof Subcomponent)) {
 				// going down
 				if (sourceDirection.equals(DirectionType.OUT)) {
 					error("The direction of the source " + source.getName()
-							+ " of this incoming directional feature group connection must not be out", connection,
-							Aadl2Package.eINSTANCE.getConnection_Source(), MAKE_CONNECTION_BIDIRECTIONAL);
+							+ " of this incoming directional feature group connection must not be out",
+							connection.getSource(), null, MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (sourceDirection.equals(DirectionType.IN_OUT)) {
-					checkDirectionOfFeatureGroupMembers(sourceChain, DirectionType.OUT, connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+					checkDirectionOfFeatureGroupMembers(sourceChain, DirectionType.OUT, connection.getSource());
 				}
 
 				if (destinationDirection.equals(DirectionType.OUT)) {
 					error("The direction of the destination " + destination.getName()
-							+ " of this incoming directional feature group connection must not be out", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
+							+ " of this incoming directional feature group connection must not be out",
+							connection.getDestination(), null, MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (destinationDirection.equals(DirectionType.IN_OUT)) {
-					checkDirectionOfFeatureGroupMembers(destinationChain, DirectionType.OUT, connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+					checkDirectionOfFeatureGroupMembers(destinationChain, DirectionType.OUT,
+							connection.getDestination());
 				}
 			} else if (!(dstcxt instanceof Subcomponent)) {
 				// going up
 				if (sourceDirection.equals(DirectionType.IN)) {
 					error("The direction of the source " + source.getName()
-							+ " of this outgoing directional feature group connection must not be in", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
+							+ " of this outgoing directional feature group connection must not be in",
+							connection.getSource(), null, MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (sourceDirection.equals(DirectionType.IN_OUT)) {
-					checkDirectionOfFeatureGroupMembers(sourceChain, DirectionType.IN, connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+					checkDirectionOfFeatureGroupMembers(sourceChain, DirectionType.IN, connection.getSource());
 				}
 				if (destinationDirection.equals(DirectionType.IN)) {
 					error("The direction of the destination " + destination.getName()
-							+ " of this outgoing directional feature group connection must not be in", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
+							+ " of this outgoing directional feature group connection must not be in",
+							connection.getDestination(), null, MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (destinationDirection.equals(DirectionType.IN_OUT)) {
-					checkDirectionOfFeatureGroupMembers(destinationChain, DirectionType.IN, connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+					checkDirectionOfFeatureGroupMembers(destinationChain, DirectionType.IN,
+							connection.getDestination());
 				}
 			}
 		}
@@ -8203,8 +8194,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 * Checks legality rule 8 in section 9.5 the endpoints of a directional
 	 * feature group must be consistent with the direction.
 	 */
-	private void checkDirectionOfFeatureGroupMembers(List<NamedElement> chain, DirectionType notDir, Connection conn,
-			EStructuralFeature structuralFeature) {
+	private void checkDirectionOfFeatureGroupMembers(List<NamedElement> chain, DirectionType notDir,
+			ConnectedElement connectedElement) {
 		NamedElement lastElement = chain.get(chain.size() - 1);
 		if (!(lastElement instanceof FeatureGroup)) {
 			return;
@@ -8230,7 +8221,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								.map(chainElement -> chainElement.getName())
 								.collect(Collectors.joining("."));
 						error("Feature " + chainName + " must not be " + notDir.getName()
-								+ " due to the direction of the connection", conn, structuralFeature,
+								+ " due to the direction of the connection", connectedElement, null,
 								MAKE_CONNECTION_BIDIRECTIONAL);
 					}
 				});
