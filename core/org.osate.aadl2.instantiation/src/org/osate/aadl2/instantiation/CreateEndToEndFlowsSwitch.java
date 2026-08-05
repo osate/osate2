@@ -188,6 +188,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	private List<ETEInfo> created;
 
 	private HashMap<EndToEndFlow, List<ETEInfo>> ete2info;
+	private final List<EndToEndFlow> activeEndToEndFlows;
+	private final Set<EndToEndFlow> failedEndToEndFlows;
 
 	/**
 	 * The last flow implementation to match connection start
@@ -206,8 +208,16 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	public CreateEndToEndFlowsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		this(pm, errMgr, classifierCache, new ArrayList<>(), new HashSet<>());
+	}
+
+	private CreateEndToEndFlowsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
+			List<EndToEndFlow> activeEndToEndFlows, Set<EndToEndFlow> failedEndToEndFlows) {
 		super(pm, PROCESS_PRE_ORDER_ALL, errMgr);
 		this.classifierCache = classifierCache;
+		this.activeEndToEndFlows = activeEndToEndFlows;
+		this.failedEndToEndFlows = failedEndToEndFlows;
 	}
 
 	@Override
@@ -249,6 +259,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					}
 				} finally {
 					ete2info.clear();
+					activeEndToEndFlows.clear();
+					failedEndToEndFlows.clear();
 				}
 				return DONE;
 			}
@@ -281,8 +293,22 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		EList<EList<ModeInstance>> ml = etei.getModesList();
 		ml.clear();
 		ml.add(getModeInstances(ci, ete));
-		processETE(ci, etei, ete);
-		ml.clear();
+		activeEndToEndFlows.add(ete);
+		try {
+			processETE(ci, etei, ete);
+		} finally {
+			activeEndToEndFlows.remove(activeEndToEndFlows.size() - 1);
+			ml.clear();
+			if (failedEndToEndFlows.contains(ete)) {
+				for (ETEInfo info : created) {
+					ci.getEndToEndFlows().remove(info.etei);
+					addETEI.remove(info.etei);
+					removeETEI.remove(info.etei);
+					completedETEI.remove(info.etei);
+				}
+				created.clear();
+			}
+		}
 	}
 
 	protected void processETE(final ComponentInstance ci, final EndToEndFlowInstance etei, final EndToEndFlow ete) {
@@ -793,16 +819,28 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param ete
 	 * @param iter
 	 */
-	// TODO-LW: Detect cyclic dependencies between ETEs
 	// add preConn before addNested
 	private void processEndToEndFlow(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlow ete,
 			FlowIterator iter) {
 		List<ETEInfo> nestedETEs;
 
+		int cycleStart = activeEndToEndFlows.indexOf(ete);
+		if (cycleStart >= 0) {
+			failedEndToEndFlows.addAll(activeEndToEndFlows.subList(cycleStart, activeEndToEndFlows.size()));
+			error(etei, "Cyclic dependency between end to end flows involving " + ete.getQualifiedName());
+			connections.clear();
+			return;
+		}
+
 		// instantiate the nested ete if that hasn't been done already
 		if (!ete2info.containsKey(ete)) {
-			new CreateEndToEndFlowsSwitch(monitor, getErrorManager(), classifierCache).instantiateEndToEndFlow(ci, ete,
-					ete2info);
+			new CreateEndToEndFlowsSwitch(monitor, getErrorManager(), classifierCache, activeEndToEndFlows,
+					failedEndToEndFlows).instantiateEndToEndFlow(ci, ete, ete2info);
+		}
+		if (failedEndToEndFlows.contains(ete)) {
+			failedEndToEndFlows.add(etei.getEndToEndFlow());
+			connections.clear();
+			return;
 		}
 		nestedETEs = ete2info.get(ete);
 
