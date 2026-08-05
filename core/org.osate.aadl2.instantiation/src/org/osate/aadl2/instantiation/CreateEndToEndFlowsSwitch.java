@@ -181,6 +181,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	private List<Connection> connections = new ArrayList<Connection>();
 	private List<EndToEndFlowInstance> removeETEI = new ArrayList<EndToEndFlowInstance>();
 	private List<EndToEndFlowInstance> addETEI = new ArrayList<EndToEndFlowInstance>();
+	private final Set<EndToEndFlowInstance> abortedETEI = new HashSet<>();
 
 	/**
 	 * All end to end flow instances created for an end to end flow.
@@ -244,6 +245,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 								}
 								removeETEI.clear();
 								addETEI.clear();
+								abortedETEI.clear();
 							}
 						}
 					}
@@ -475,7 +477,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			FlowImplementation nextFlowImpl, FlowIterator iter) {
 		// add connection(s), will be empty when starting the ETE
 		if (connections.isEmpty()) {
-			addLeafElement(ci, etei, leaf);
+			if (!addLeafElement(ci, etei, leaf)) {
+				removeETEI.add(etei);
+				abortedETEI.add(etei);
+				return;
+			}
 			lastFlowImpl.push(nextFlowImpl);
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 			lastFlowImpl.pop();
@@ -561,30 +567,34 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						}
 
 						etei.getFlowElements().add(conni);
-						addLeafElement(ci, etei, leaf);
+						if (addLeafElement(ci, etei, leaf)) {
+							// prepare next connection filter
+							connections.clear();
+							if (iter.hasNext()) {
+								Element obj = iter.next();
+								Connection conn = null;
+								if (obj instanceof FlowSegment) {
+									FlowElement fe = ((FlowSegment) obj).getFlowElement();
+									if (fe instanceof Connection) {
+										conn = (Connection) fe;
+									}
+								} else if (obj instanceof EndToEndFlowSegment) {
+									EndToEndFlowElement fe = ((EndToEndFlowSegment) obj).getFlowElement();
+									if (fe instanceof Connection) {
+										conn = (Connection) fe;
+									}
+								}
+								if (conn != null) {
+									connections.add(conn);
+								}
+							}
 
-						// prepare next connection filter
-						connections.clear();
-						if (iter.hasNext()) {
-							Element obj = iter.next();
-							Connection conn = null;
-							if (obj instanceof FlowSegment) {
-								FlowElement fe = ((FlowSegment) obj).getFlowElement();
-								if (fe instanceof Connection) {
-									conn = (Connection) fe;
-								}
-							} else if (obj instanceof EndToEndFlowSegment) {
-								EndToEndFlowElement fe = ((EndToEndFlowSegment) obj).getFlowElement();
-								if (fe instanceof Connection) {
-									conn = (Connection) fe;
-								}
-							}
-							if (conn != null) {
-								connections.add(conn);
-							}
+							continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
+						} else {
+							connections.clear();
+							removeETEI.add(etei);
+							abortedETEI.add(etei);
 						}
-
-						continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 
 						lastFlowImpl.pop();
 
@@ -927,8 +937,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param ci
 	 * @param etei
 	 * @param leaf
+	 * @return whether the leaf was added successfully
 	 */
-	private void addLeafElement(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf) {
+	private boolean addLeafElement(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf) {
 		FlowSpecification fs;
 		FlowSpecificationInstance fsi;
 		if (leaf instanceof FlowSpecification || leaf instanceof FlowImplementation) {
@@ -943,8 +954,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			if (fsi != null) {
 				etei.getFlowElements().add(fsi);
 			} else if (fs != null) {
-				error(etei, "Incomplete end-to-end flow instance " + etei.getName() + ": Could not find flow spec "
-						+ fs.getName() + " of component " + ci.getName());
+				error(etei.getContainingComponentInstance(), "Incomplete end-to-end flow instance " + etei.getName()
+						+ ": Could not find flow spec " + fs.getName() + " of component " + ci.getName());
+				return false;
 			}
 		} else if (leaf instanceof Subcomponent) {
 			if (etei.getFlowElements().size() == 0) {
@@ -959,16 +971,15 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					// append a subcomponent instance
 					etei.getFlowElements().add(ci);
 				} else {
-					error(etei,
+					error(etei.getContainingComponentInstance(),
 							"Invalid end-to-end flow instance " + etei.getName() + ": Connection "
 									+ preConn.getComponentInstancePath() + " continues into component "
 									+ ci.getInstanceObjectPath());
-					// append a subcomponent instance
-					// FIXME: should abort
-					etei.getFlowElements().add(ci);
+					return false;
 				}
 			}
 		}
+		return true;
 	}
 
 	private void continueFlow(ComponentInstance ci, EndToEndFlowInstance etei, FlowIterator iter,
@@ -982,6 +993,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			while (iter.hasNext()) {
 				Element e = iter.next();
 				processETESegment(ci, etei, e, iter, errorElement);
+				if (abortedETEI.contains(etei)) {
+					return;
+				}
 			}
 			if (state.size() == 0) {
 				if (!completedETEI.contains(etei)) {

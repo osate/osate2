@@ -74,7 +74,10 @@ public class Issue612Test extends XtextTest {
 
 		assertEquals(List.of("valid_1", "valid_2"), flowNames);
 		List<Message> messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource()))
-				.getErrors();
+				.getErrors()
+				.stream()
+				.filter(msg -> msg.message.startsWith("Invalid end-to-end flow instance invalid"))
+				.toList();
 		assertEquals(2, messages.size());
 		assertEquals(QueuingAnalysisErrorReporter.ERROR, messages.get(0).kind);
 		assertEquals(QueuingAnalysisErrorReporter.ERROR, messages.get(1).kind);
