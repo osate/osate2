@@ -95,7 +95,10 @@ public class Issue2780Test extends XtextTest {
 				QueuingAnalysisErrorReporter.factory);
 		SystemInstance instance = InstantiateModel.instantiate(s_i, errorManager);
 		assertEquals("S1_i_Instance", instance.getName());
-		assertEquals(6, instance.getEndToEndFlows().size());
+		assertEquals(List.of("e2e3", "e2e4", "e2e5"), instance.getEndToEndFlows()
+				.stream()
+				.map(etei -> etei.getName())
+				.toList());
 
 		List<Message> messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource()))
 				.getErrors();
