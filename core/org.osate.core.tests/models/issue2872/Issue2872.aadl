@@ -1,0 +1,45 @@
+package flowdemo
+public
+	system integration
+	end integration;
+
+	system implementation integration.impl
+		subcomponents
+			a : system example.impl;
+			b : system example.impl;
+		connections
+			ab : feature a.outy -> b.inny;
+		flows
+			fab : end to end flow a.fouty -> ab -> b.finny;
+	end integration.impl;
+
+	system example
+		features
+			outy: feature group;
+			inny: feature group;
+		flows
+			fouty: flow source outy;
+			finny: flow sink inny;
+	end example;
+
+	system implementation example.impl
+		subcomponents
+			a : process ex_proc.impl;
+			b : process ex_proc.impl;
+		connections
+			couty: feature a.outy <-> outy;
+			cinny: feature inny -> b.inny;
+	end example.impl;
+
+	process ex_proc
+		features
+			outy: feature group;
+			inny: feature group;
+		flows
+			fouty: flow source outy;
+			finny: flow sink inny;
+	end ex_proc;
+
+	process implementation ex_proc.impl
+	end ex_proc.impl;
+end flowdemo;
