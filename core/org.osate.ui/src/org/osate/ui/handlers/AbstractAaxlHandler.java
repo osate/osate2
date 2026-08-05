@@ -175,7 +175,9 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 		// Init the properties
 		notFound.clear();
 		initPropertyReferences();
-		initializeAction((NamedElement) root);
+		if (!initializeAction((NamedElement) root)) {
+			return;
+		}
 		if (suppressErrorMessages() || !reportPropertyLookupErrors()) {
 			// Run the command (indirectly)
 			processAaxlAction(monitor, resource, root);
