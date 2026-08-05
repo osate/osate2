@@ -368,10 +368,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 		if (flowImpls.isEmpty()) {
 			// we are at a leaf
+			int errorsBefore = getErrorManager().getNumErrors();
 			processFlowStep(ci, etei, fs, iter);
-			if (subImpl != null && AadlUtil.hasPortComponents(subImpl)) {
-				warning(etei, "End-to-end flow " + etei.getName() + " contains component " + ci.getName()
-						+ " with subcomponents, but no flow implementation " + fs.getName() + " to them");
+			if (subImpl != null && AadlUtil.hasPortComponents(subImpl)
+					&& getErrorManager().getNumErrors() == errorsBefore) {
+				error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
+						+ "' because component '" + ci.getName()
+						+ "' has subcomponents but no flow implementation for flow '" + fs.getName() + "'");
 			}
 		} else {
 			Iterator<FlowImplementation> itt = flowImpls.iterator();
