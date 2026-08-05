@@ -33,6 +33,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
@@ -99,6 +100,7 @@ public final class ReachabilityAnalyzer {
 	public AnalysisResult analyzeModel(IProgressMonitor monitor) {
 		ModeDomain.clearData();
 		initializeResult();
+		var safeMonitor = IProgressMonitor.nullSafe(monitor);
 		try {
 			if (!fillAndValidateModeDomains(root)) {
 				result.setMessage("Mode domains are not set up correctly, check instance model for problems");
@@ -106,16 +108,21 @@ public final class ReachabilityAnalyzer {
 				return result;
 			}
 
-			progress = SubMonitor.convert(monitor, 100);
+			progress = SubMonitor.convert(safeMonitor, 100);
 
-			while (!ModeDomain.toAnalyze.isEmpty()) {
-				var d = ModeDomain.toAnalyze.iterator().next();
-				ModeDomain.toAnalyze.remove(d);
-				var r = d.analyze(config, progress.split(1));
-				result.getResults().add(r);
+			try {
+				while (!ModeDomain.toAnalyze.isEmpty()) {
+					var d = ModeDomain.toAnalyze.iterator().next();
+					ModeDomain.toAnalyze.remove(d);
+					var r = d.analyze(config, progress.split(1));
+					result.getResults().add(r);
+					if (r.getResultType() == ResultType.TBD) {
+						return cancelAnalysis();
+					}
+				}
+			} catch (OperationCanceledException e) {
+				return cancelAnalysis();
 			}
-
-			monitor.done();
 
 			markUnreachableSOMs();
 
@@ -133,8 +140,18 @@ public final class ReachabilityAnalyzer {
 			}
 			return result;
 		} finally {
-			ModeDomain.cleanResource();
+			try {
+				safeMonitor.done();
+			} finally {
+				ModeDomain.cleanResource();
+			}
 		}
+	}
+
+	private AnalysisResult cancelAnalysis() {
+		result.setMessage("Analysis was cancelled");
+		result.setResultType(ResultType.TBD);
+		return result;
 	}
 
 	public IStatus writeReports() {
