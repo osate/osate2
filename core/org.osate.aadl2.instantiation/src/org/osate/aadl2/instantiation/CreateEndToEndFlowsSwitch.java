@@ -189,6 +189,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	private List<ETEInfo> created;
 
 	private HashMap<EndToEndFlow, List<ETEInfo>> ete2info;
+	private final List<EndToEndFlow> activeEndToEndFlows;
+	private final Set<EndToEndFlow> failedEndToEndFlows;
 
 	/**
 	 * The last flow implementation to match connection start
@@ -207,8 +209,16 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	public CreateEndToEndFlowsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		this(pm, errMgr, classifierCache, new ArrayList<>(), new HashSet<>());
+	}
+
+	private CreateEndToEndFlowsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
+			List<EndToEndFlow> activeEndToEndFlows, Set<EndToEndFlow> failedEndToEndFlows) {
 		super(pm, PROCESS_PRE_ORDER_ALL, errMgr);
 		this.classifierCache = classifierCache;
+		this.activeEndToEndFlows = activeEndToEndFlows;
+		this.failedEndToEndFlows = failedEndToEndFlows;
 	}
 
 	@Override
@@ -232,7 +242,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					if (impl != null) {
 						for (EndToEndFlow ete : impl.getAllEndToEndFlows()) {
 							if (!ete2info.containsKey(ete)) {
-								instantiateEndToEndFlow(ci, ete, ete2info);
+								instantiateAndCleanUpEndToEndFlow(ci, ete, ete2info);
 								for (EndToEndFlowInstance etei : removeETEI) {
 									ci.getEndToEndFlows().remove(etei);
 									addETEI.remove(etei);
@@ -251,6 +261,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					}
 				} finally {
 					ete2info.clear();
+					activeEndToEndFlows.clear();
+					failedEndToEndFlows.clear();
 				}
 				return DONE;
 			}
@@ -265,6 +277,23 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 	protected void resetETECloneCount() {
 		ETEInstanceCloneCount = 1;
+	}
+
+	private void instantiateAndCleanUpEndToEndFlow(ComponentInstance ci, EndToEndFlow ete,
+			HashMap<EndToEndFlow, List<ETEInfo>> ete2info) {
+		instantiateEndToEndFlow(ci, ete, ete2info);
+		for (EndToEndFlowInstance etei : removeETEI) {
+			ci.getEndToEndFlows().remove(etei);
+			addETEI.remove(etei);
+		}
+		if (addETEI.size() > 1) {
+			resetETECloneCount();
+			for (EndToEndFlowInstance etei : addETEI) {
+				setCloneName(etei);
+			}
+		}
+		removeETEI.clear();
+		addETEI.clear();
 	}
 
 	protected void instantiateEndToEndFlow(ComponentInstance ci, EndToEndFlow ete,
@@ -283,8 +312,22 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		EList<EList<ModeInstance>> ml = etei.getModesList();
 		ml.clear();
 		ml.add(getModeInstances(ci, ete));
-		processETE(ci, etei, ete);
-		ml.clear();
+		activeEndToEndFlows.add(ete);
+		try {
+			processETE(ci, etei, ete);
+		} finally {
+			activeEndToEndFlows.remove(activeEndToEndFlows.size() - 1);
+			ml.clear();
+			if (failedEndToEndFlows.contains(ete)) {
+				for (ETEInfo info : created) {
+					ci.getEndToEndFlows().remove(info.etei);
+					addETEI.remove(info.etei);
+					removeETEI.remove(info.etei);
+					completedETEI.remove(info.etei);
+				}
+				created.clear();
+			}
+		}
 	}
 
 	protected void processETE(final ComponentInstance ci, final EndToEndFlowInstance etei, final EndToEndFlow ete) {
@@ -517,7 +560,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					if ((flowFilter == null || isValidContinuation(etei, flowFilter, ciToCheck))
 							&& (nextFlowImpl == null
 									? (leaf instanceof FlowSpecification
-											? isValidContinuation(etei, ciToCheck, (FlowSpecification) leaf)
+											? isValidContinuation(ci, ciToCheck, (FlowSpecification) leaf)
 											: true)
 									: isValidContinuation(etei, ciToCheck, nextFlowImpl))) {
 						connectionsToUse.add(ciToCheck);
@@ -640,18 +683,17 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * There are three cases
 	 * - same feature instance
 	 * - connection end is a feature instance contained in the flow spec src feature instance
-	 * - sonnection end is a feature in an array and the flow spec src is the array without index
+	 * - connection end is a feature in an array and the flow spec src is the array without index
 	 *
-	 * @param etei
+	 * @param flowComponent
 	 * @param conni
 	 * @param fspec
 	 * @return
 	 */
-	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowSpecification fspec) {
+	boolean isValidContinuation(ComponentInstance flowComponent, ConnectionInstance conni, FlowSpecification fspec) {
 		ConnectionInstanceEnd cie = conni.getDestination();
 		if (cie instanceof FeatureInstance conniFi) {
-			ComponentInstance ci = conniFi.getContainingComponentInstance();
-			FlowSpecificationInstance fsi = ci.findFlowSpecInstance(fspec);
+			FlowSpecificationInstance fsi = flowComponent.findFlowSpecInstance(fspec);
 			if (fsi != null) {
 				FeatureInstance fsSrcFi = fsi.getSource();
 				EObject e = conniFi;
@@ -713,6 +755,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				while (connIter.hasNext()) {
 					EndToEndFlowInstance eteiClone = null;
 					Stack<FlowIterator> stateClone = null;
+					List<Connection> connectionsClone = new ArrayList<Connection>();
 					ConnectionInstance conni = connIter.next();
 					boolean prepareNext = connIter.hasNext();
 					EndToEndFlowElement leaf = null;
@@ -737,6 +780,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						if (prepareNext) {
 							stateClone = clone(state);
 							eteiClone = EcoreUtil.copy(etei);
+							connectionsClone = new ArrayList<Connection>(connections);
 							etei.setName(etei.getEndToEndFlow().getName());
 							eteiClone.getModesList().addAll(etei.getModesList());
 						}
@@ -783,6 +827,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
 							etei = eteiClone;
 							state = stateClone;
+							connections = connectionsClone;
 							addETEI.add(etei);
 							if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 								created.add(myInfo = new ETEInfo(etei));
@@ -803,16 +848,28 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param ete
 	 * @param iter
 	 */
-	// TODO-LW: Detect cyclic dependencies between ETEs
 	// add preConn before addNested
 	private void processEndToEndFlow(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlow ete,
 			FlowIterator iter) {
 		List<ETEInfo> nestedETEs;
 
+		int cycleStart = activeEndToEndFlows.indexOf(ete);
+		if (cycleStart >= 0) {
+			failedEndToEndFlows.addAll(activeEndToEndFlows.subList(cycleStart, activeEndToEndFlows.size()));
+			error(etei, "Cyclic dependency between end to end flows involving " + ete.getQualifiedName());
+			connections.clear();
+			return;
+		}
+
 		// instantiate the nested ete if that hasn't been done already
 		if (!ete2info.containsKey(ete)) {
-			new CreateEndToEndFlowsSwitch(monitor, getErrorManager(), classifierCache).instantiateEndToEndFlow(ci, ete,
-					ete2info);
+			new CreateEndToEndFlowsSwitch(monitor, getErrorManager(), classifierCache, activeEndToEndFlows,
+					failedEndToEndFlows).instantiateAndCleanUpEndToEndFlow(ci, ete, ete2info);
+		}
+		if (failedEndToEndFlows.contains(ete)) {
+			failedEndToEndFlows.add(etei.getEndToEndFlow());
+			connections.clear();
+			return;
 		}
 		nestedETEs = ete2info.get(ete);
 
@@ -875,8 +932,22 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						+ ": Missing connection instance to " + ((NamedElement) ete).getName());
 				connections.clear();
 			} else {
-				Iterator<ConnectionInstance> connIter = connis.iterator();
+				int compatibleCount = 0;
+				for (ConnectionInstance conni : connis) {
+					for (ETEInfo nested : nestedETEs) {
+						if (containsConnectionPath(conni, nested.preConns)) {
+							compatibleCount++;
+						}
+					}
+				}
+				if (compatibleCount == 0) {
+					error(etei, "Incomplete end-to-end flow instance " + etei.getName()
+							+ ": No compatible nested end to end flow instance for " + ete.getName());
+					connections.clear();
+					return;
+				}
 
+				Iterator<ConnectionInstance> connIter = connis.iterator();
 				state.push(iter);
 				while (connIter.hasNext()) {
 					EndToEndFlowInstance eteiClone = null;
@@ -886,7 +957,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 					while (nestedIter.hasNext()) {
 						ETEInfo nested = nestedIter.next();
-						boolean prepareNext = nestedIter.hasNext() || connIter.hasNext();
+						if (!containsConnectionPath(conni, nested.preConns)) {
+							continue;
+						}
+						boolean prepareNext = --compatibleCount > 0;
 
 						if (prepareNext) {
 							stateClone = clone(state);
@@ -927,6 +1001,25 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 		}
+	}
+
+	private static boolean containsConnectionPath(ConnectionInstance connectionInstance,
+			List<Connection> connectionPath) {
+		if (connectionPath.isEmpty()) {
+			return true;
+		}
+
+		EList<ConnectionReference> references = connectionInstance.getConnectionReferences();
+		for (int start = 0; start <= references.size() - connectionPath.size(); start++) {
+			boolean match = true;
+			for (int offset = 0; match && offset < connectionPath.size(); offset++) {
+				match = references.get(start + offset).getConnection() == connectionPath.get(offset);
+			}
+			if (match) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void addNestedETE(EndToEndFlowInstance etei, ETEInfo nested) {
@@ -1051,15 +1144,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		boolean match = false;
 
 		while (refIter.hasNext()) {
-			String name1 = refIter.next().getConnection().getName();
-			String name2 = connections.get(0).getName();
-			if (name1.equalsIgnoreCase(name2)) {
+			if (isSameOrRefinedConnection(refIter.next().getConnection(), connections.get(0))) {
 				Iterator<Connection> connIter = connections.iterator();
 
 				connIter.next();
 				match = true;
 				while (match && refIter.hasNext() && connIter.hasNext()) {
-					match &= refIter.next().getConnection().getName().equalsIgnoreCase(connIter.next().getName());
+					match &= isSameOrRefinedConnection(refIter.next().getConnection(), connIter.next());
 				}
 				if (!refIter.hasNext() && connIter.hasNext()) {
 					match = false;
@@ -1105,6 +1196,20 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			}
 		}
 		return match;
+	}
+
+	private boolean isSameOrRefinedConnection(Connection first, Connection second) {
+		for (Connection connection = first; connection != null; connection = connection.getRefined()) {
+			if (connection == second) {
+				return true;
+			}
+		}
+		for (Connection connection = second; connection != null; connection = connection.getRefined()) {
+			if (connection == first) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isSameorContains(FeatureInstance flowFeature, FeatureInstance connFeature) {
