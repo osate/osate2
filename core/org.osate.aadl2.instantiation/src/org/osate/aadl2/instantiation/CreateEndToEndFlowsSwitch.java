@@ -1045,15 +1045,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		boolean match = false;
 
 		while (refIter.hasNext()) {
-			String name1 = refIter.next().getConnection().getName();
-			String name2 = connections.get(0).getName();
-			if (name1.equalsIgnoreCase(name2)) {
+			if (isSameOrRefinedConnection(refIter.next().getConnection(), connections.get(0))) {
 				Iterator<Connection> connIter = connections.iterator();
 
 				connIter.next();
 				match = true;
 				while (match && refIter.hasNext() && connIter.hasNext()) {
-					match &= refIter.next().getConnection().getName().equalsIgnoreCase(connIter.next().getName());
+					match &= isSameOrRefinedConnection(refIter.next().getConnection(), connIter.next());
 				}
 				if (!refIter.hasNext() && connIter.hasNext()) {
 					match = false;
@@ -1099,6 +1097,20 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			}
 		}
 		return match;
+	}
+
+	private boolean isSameOrRefinedConnection(Connection first, Connection second) {
+		for (Connection connection = first; connection != null; connection = connection.getRefined()) {
+			if (connection == second) {
+				return true;
+			}
+		}
+		for (Connection connection = second; connection != null; connection = connection.getRefined()) {
+			if (connection == first) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isSameorContains(FeatureInstance flowFeature, FeatureInstance connFeature) {
