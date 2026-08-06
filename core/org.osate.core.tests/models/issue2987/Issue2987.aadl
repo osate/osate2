@@ -1,0 +1,26 @@
+package Issue2987
+public
+
+	system Node
+		features
+			i: in data port;
+			o: out data port;
+		flows
+			fpath: flow path i -> o;
+	end Node;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			n: system Node;
+		connections
+			loop: port n.o -> n.i;
+		flows
+			a: end to end flow n.fpath -> loop -> b;
+			b: end to end flow n.fpath -> loop -> a;
+			outer: end to end flow a -> loop -> n.fpath;
+	end Top.i;
+
+end Issue2987;
