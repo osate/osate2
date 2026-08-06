@@ -1,0 +1,28 @@
+package Issue2982
+public
+	system S
+	end S;
+
+	system implementation S.i
+		modes
+			initial_mode: initial mode;
+	end S.i;
+
+	system Child
+	end Child;
+
+	system implementation Child.i
+		modes
+			initial_mode: initial mode;
+			other_mode: mode;
+	end Child.i;
+
+	system Nested
+	end Nested;
+
+	system implementation Nested.i
+		subcomponents
+			first: system Child.i;
+			second: system Child.i;
+	end Nested.i;
+end Issue2982;
