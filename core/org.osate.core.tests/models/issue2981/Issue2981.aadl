@@ -1,0 +1,10 @@
+package Issue2981
+public
+	system S
+	end S;
+
+	system implementation S.i
+		modes
+			initial_mode: initial mode;
+	end S.i;
+end Issue2981;
