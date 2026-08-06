@@ -1,0 +1,48 @@
+package Issue2606
+public
+
+	system S
+	end S;
+
+	system implementation S.i
+		subcomponents
+			l: system L;
+			m: system M.i;
+			r: system R;
+		connections
+			lm: feature l.o -> m.i;
+			mr: feature m.o -> r.i;
+		flows
+			ee: end to end flow l.src -> lm -> m.pth -> mr -> r.snk;
+	end S.i;
+
+	system L
+		features
+			o: out feature;
+		flows
+			src: flow source o;
+	end L;
+
+	system M
+		features
+			i: in feature;
+			o: out feature;
+		flows
+			pth: flow path i -> o;
+	end M;
+
+	system implementation M.i
+		subcomponents
+			mm: system M;
+		connections
+			imm: feature i -> mm.i;
+	end M.i;
+
+	system R
+		features
+			i: in feature;
+		flows
+			snk: flow sink i;
+	end R;
+
+end Issue2606;

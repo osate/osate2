@@ -542,7 +542,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					if ((flowFilter == null || isValidContinuation(etei, flowFilter, ciToCheck))
 							&& (nextFlowImpl == null
 									? (leaf instanceof FlowSpecification
-											? isValidContinuation(etei, ciToCheck, (FlowSpecification) leaf)
+											? isValidContinuation(ci, ciToCheck, (FlowSpecification) leaf)
 											: true)
 									: isValidContinuation(etei, ciToCheck, nextFlowImpl))) {
 						connectionsToUse.add(ciToCheck);
@@ -661,18 +661,17 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * There are three cases
 	 * - same feature instance
 	 * - connection end is a feature instance contained in the flow spec src feature instance
-	 * - sonnection end is a feature in an array and the flow spec src is the array without index
+	 * - connection end is a feature in an array and the flow spec src is the array without index
 	 *
-	 * @param etei
+	 * @param flowComponent
 	 * @param conni
 	 * @param fspec
 	 * @return
 	 */
-	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowSpecification fspec) {
+	boolean isValidContinuation(ComponentInstance flowComponent, ConnectionInstance conni, FlowSpecification fspec) {
 		ConnectionInstanceEnd cie = conni.getDestination();
 		if (cie instanceof FeatureInstance conniFi) {
-			ComponentInstance ci = conniFi.getContainingComponentInstance();
-			FlowSpecificationInstance fsi = ci.findFlowSpecInstance(fspec);
+			FlowSpecificationInstance fsi = flowComponent.findFlowSpecInstance(fspec);
 			if (fsi != null) {
 				FeatureInstance fsSrcFi = fsi.getSource();
 				EObject e = conniFi;
