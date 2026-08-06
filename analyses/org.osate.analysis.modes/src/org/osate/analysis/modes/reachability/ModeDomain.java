@@ -56,6 +56,7 @@ import org.osate.analysis.modes.modemodel.SOMNode;
 import org.osate.analysis.modes.modemodel.Trigger;
 import org.osate.analysis.modes.modemodel.TriggerKey;
 import org.osate.result.Result;
+import org.osate.result.ResultType;
 
 public class ModeDomain {
 
@@ -135,7 +136,9 @@ public class ModeDomain {
 		graphs.getContents().add(graph);
 		analyzer = new ModeDomainAnalyzer(this, config);
 		var result = analyzer.analyze(split);
-		updateEnabled();
+		if (result.getResultType() == ResultType.SUCCESS) {
+			updateEnabled();
+		}
 		return result;
 	}
 
