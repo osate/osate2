@@ -1,0 +1,50 @@
+package Issue2985
+public
+
+	feature group OutputGroup
+		features
+			a: out data port;
+			b: out data port;
+	end OutputGroup;
+
+	system Producer
+		features
+			o: feature group OutputGroup;
+		flows
+			fsrc: flow source o;
+	end Producer;
+
+	system PathComp
+		features
+			i: feature group inverse of OutputGroup;
+			o: feature group OutputGroup;
+		flows
+			fpath: flow path i -> o;
+	end PathComp;
+
+	system Consumer
+		features
+			i: feature group inverse of OutputGroup;
+		flows
+			fsnk: flow sink i;
+	end Consumer;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			src: system Producer;
+			left: system PathComp;
+			right: system PathComp;
+			snk: system Consumer;
+		connections
+			cin: feature group src.o -> left.i;
+			cmid: feature group left.o -> right.i;
+			cout: feature group right.o -> snk.i;
+		flows
+			parent: end to end flow src.fsrc -> cin -> nested -> cout -> snk.fsnk;
+			nested: end to end flow left.fpath -> cmid -> right.fpath;
+	end Top.i;
+
+end Issue2985;

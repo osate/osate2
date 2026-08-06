@@ -1,0 +1,41 @@
+package Issue2988
+public
+
+	system Producer
+		features
+			o: out feature;
+	end Producer;
+
+	system Consumer
+		features
+			i: in feature;
+	end Consumer;
+
+	system Container
+		features
+			i: in feature;
+	end Container;
+
+	system implementation Container.i
+		subcomponents
+			inner: system Consumer;
+		connections
+			c: feature i -> inner.i;
+	end Container.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			src: system Producer;
+			wanted: system Consumer;
+			container: system Container.i;
+		connections
+			c: feature src.o -> wanted.i;
+			d: feature src.o -> container.i;
+		flows
+			e2e: end to end flow src -> c -> wanted;
+	end Top.i;
+
+end Issue2988;
