@@ -306,8 +306,9 @@ class FeatureGroupChainingTest extends XtextTest {
 				ownedFeatureGroupConnections.get(4) => [
 					"conn5".assertEquals(name)
 					assertError(testFileResult.issues, issueCollection,
-							"The feature groups 'fg18' and 'fg20' are not inverses of each other.",
-							"Feature sub2.fg19.fg20.p5 must not be out due to the direction of the connection")
+						"The feature groups 'fg18' and 'fg20' are not inverses of each other.")
+					destination.assertError(testFileResult.issues, issueCollection,
+						"Feature sub2.fg19.fg20.p5 must not be out due to the direction of the connection")
 				]
 				ownedFeatureGroupConnections.get(9) => [
 					"conn10".assertEquals(name)

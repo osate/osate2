@@ -56,13 +56,13 @@ class Issue2344Test extends XtextTest {
 			"Test".assertEquals(name)
 			publicSection.ownedClassifiers.findFirst[name == "top.i"] as SystemImplementation => [
 				ownedPortConnections.findFirst[name == "none_to_d"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'Test::D'")
+					source.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'Test::D'")
 				]
 				ownedPortConnections.findFirst[name == "none_to_di"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'Test::D.i'")
+					source.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'Test::D.i'")
 				]
 				ownedPortConnections.findFirst[name == "d_to_none"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'Test::D'")
+					destination.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'Test::D'")
 				]
 				ownedPortConnections.findFirst[name == "d_to_di"] => [
 					it.assertError(testFileResult.issues, issueCollection, "'f_d' and 'f_di' have incompatible classifiers.")
@@ -71,7 +71,7 @@ class Issue2344Test extends XtextTest {
 					it.assertError(testFileResult.issues, issueCollection, "'f_d' and 'f_x' have incompatible classifiers.")
 				]
 				ownedPortConnections.findFirst[name == "di_to_none"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'Test::D.i'")
+					destination.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'Test::D.i'")
 				]
 				ownedPortConnections.findFirst[name == "di_to_x"] => [
 					it.assertError(testFileResult.issues, issueCollection, "The types of 'f_di' and 'f_x' do not match.")
@@ -97,16 +97,16 @@ class Issue2344Test extends XtextTest {
 			"TestBidirectional".assertEquals(name)
 			publicSection.ownedClassifiers.findFirst[name == "top.i"] as SystemImplementation => [
 				ownedPortConnections.findFirst[name == "none_to_d"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'TestBidirectional::D'")
+					source.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'TestBidirectional::D'")
 				]
 				ownedPortConnections.findFirst[name == "none_to_di"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'TestBidirectional::D.i'")
+					source.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'TestBidirectional::D.i'")
 				]
 				ownedPortConnections.findFirst[name == "d_to_none"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'TestBidirectional::D'")
+					destination.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'TestBidirectional::D'")
 				]
 				ownedPortConnections.findFirst[name == "di_to_none"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'TestBidirectional::D.i'")
+					destination.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'f_none' to have classifier 'TestBidirectional::D.i'")
 				]
 				
 				ownedPortConnections.findFirst[name == "d_to_di"] => [
