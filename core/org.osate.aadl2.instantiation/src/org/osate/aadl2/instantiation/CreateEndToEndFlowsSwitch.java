@@ -703,6 +703,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				while (connIter.hasNext()) {
 					EndToEndFlowInstance eteiClone = null;
 					Stack<FlowIterator> stateClone = null;
+					List<Connection> connectionsClone = new ArrayList<Connection>();
 					ConnectionInstance conni = connIter.next();
 					boolean prepareNext = connIter.hasNext();
 					EndToEndFlowElement leaf = null;
@@ -727,6 +728,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						if (prepareNext) {
 							stateClone = clone(state);
 							eteiClone = EcoreUtil.copy(etei);
+							connectionsClone = new ArrayList<Connection>(connections);
 							etei.setName(etei.getEndToEndFlow().getName());
 							eteiClone.getModesList().addAll(etei.getModesList());
 						}
@@ -773,6 +775,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
 							etei = eteiClone;
 							state = stateClone;
+							connections = connectionsClone;
 							addETEI.add(etei);
 							if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 								created.add(myInfo = new ETEInfo(etei));
