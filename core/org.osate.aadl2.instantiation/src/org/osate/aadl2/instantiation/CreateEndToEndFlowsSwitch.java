@@ -911,8 +911,22 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						+ ": Missing connection instance to " + ((NamedElement) ete).getName());
 				connections.clear();
 			} else {
-				Iterator<ConnectionInstance> connIter = connis.iterator();
+				int compatibleCount = 0;
+				for (ConnectionInstance conni : connis) {
+					for (ETEInfo nested : nestedETEs) {
+						if (containsConnectionPath(conni, nested.preConns)) {
+							compatibleCount++;
+						}
+					}
+				}
+				if (compatibleCount == 0) {
+					error(etei, "Incomplete end-to-end flow instance " + etei.getName()
+							+ ": No compatible nested end to end flow instance for " + ete.getName());
+					connections.clear();
+					return;
+				}
 
+				Iterator<ConnectionInstance> connIter = connis.iterator();
 				state.push(iter);
 				while (connIter.hasNext()) {
 					EndToEndFlowInstance eteiClone = null;
@@ -922,7 +936,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 					while (nestedIter.hasNext()) {
 						ETEInfo nested = nestedIter.next();
-						boolean prepareNext = nestedIter.hasNext() || connIter.hasNext();
+						if (!containsConnectionPath(conni, nested.preConns)) {
+							continue;
+						}
+						boolean prepareNext = --compatibleCount > 0;
 
 						if (prepareNext) {
 							stateClone = clone(state);
@@ -963,6 +980,25 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 		}
+	}
+
+	private static boolean containsConnectionPath(ConnectionInstance connectionInstance,
+			List<Connection> connectionPath) {
+		if (connectionPath.isEmpty()) {
+			return true;
+		}
+
+		EList<ConnectionReference> references = connectionInstance.getConnectionReferences();
+		for (int start = 0; start <= references.size() - connectionPath.size(); start++) {
+			boolean match = true;
+			for (int offset = 0; match && offset < connectionPath.size(); offset++) {
+				match = references.get(start + offset).getConnection() == connectionPath.get(offset);
+			}
+			if (match) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void addNestedETE(EndToEndFlowInstance etei, ETEInfo nested) {
