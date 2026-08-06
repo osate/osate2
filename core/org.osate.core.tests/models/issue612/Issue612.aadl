@@ -1,0 +1,67 @@
+package Issue612
+public
+
+	data D
+	end D;
+
+	system Producer
+		features
+			output: out data port D;
+		flows
+			flow_source: flow source output;
+	end Producer;
+
+	system Consumer
+		features
+			input: in data port D;
+		flows
+			flow_sink: flow sink input;
+	end Consumer;
+
+	system Outer
+	end Outer;
+
+	system implementation Outer.i
+		subcomponents
+			src: system Producer;
+			inner: system Inner.i;
+			snk: system Consumer;
+		connections
+			c1: port src.output -> inner.input;
+			c2: port inner.output -> snk.input;
+		flows
+			invalid: end to end flow src.flow_source -> c1 -> inner -> c2 -> snk.flow_sink;
+			valid: end to end flow src.flow_source -> c1 -> inner.fpath -> c2 -> snk.flow_sink;
+	end Outer.i;
+
+	system Inner
+		features
+			input: in data port D;
+			output: out data port D;
+		flows
+			fpath: flow path input -> output;
+	end Inner;
+
+	system implementation Inner.i
+		subcomponents
+			left: system Leaf;
+			right: system Leaf;
+		connections
+			in_left: port input -> left.input;
+			out_left: port left.output -> output;
+			in_right: port input -> right.input;
+			out_right: port right.output -> output;
+		flows
+			fpath: flow path input -> in_left -> left.fpath -> out_left -> output;
+			fpath: flow path input -> in_right -> right.fpath -> out_right -> output;
+	end Inner.i;
+
+	system Leaf
+		features
+			input: in data port D;
+			output: out data port D;
+		flows
+			fpath: flow path input -> output;
+	end Leaf;
+
+end Issue612;

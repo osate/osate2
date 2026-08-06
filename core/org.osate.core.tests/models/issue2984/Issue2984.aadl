@@ -1,0 +1,50 @@
+package Issue2984
+public
+
+	data D
+	end D;
+
+	system Producer
+		features
+			a: requires data access D;
+		flows
+			fsrc: flow source a;
+	end Producer;
+
+	system Consumer
+		features
+			a: requires data access D;
+		flows
+			fsnk: flow sink a;
+	end Consumer;
+
+	system Middle
+		features
+			a: requires data access D;
+	end Middle;
+
+	system implementation Middle.i
+		subcomponents
+			src: system Producer;
+			snk: system Consumer;
+		connections
+			c1: data access src.a -> a;
+			c2: data access a -> snk.a;
+		flows
+			e2e: end to end flow src.fsrc -> c1 -> a -> c2 -> snk.fsnk;
+	end Middle.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			d1: data D;
+			d2: data D;
+			m: system Middle.i;
+		connections
+			c1: data access d1 <-> m.a;
+			c2: data access d2 <-> m.a;
+	end Top.i;
+
+end Issue2984;
