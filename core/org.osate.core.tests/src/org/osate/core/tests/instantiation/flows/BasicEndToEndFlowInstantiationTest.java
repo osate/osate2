@@ -25,6 +25,7 @@ package org.osate.core.tests.instantiation.flows;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class BasicEndToEndFlowInstantiationTest extends AbstractEndToEndFlowInst
 		assertEquals(List.of("explicit", "implicit"), flowNames(instance));
 		assertEquals(List.of("explicit", "implicit"),
 				instance.getEndToEndFlows().stream().map(flow -> flow.getEndToEndFlow().getName()).toList());
+		assertTrue(instance.getEndToEndFlows().stream().allMatch(flow -> flow.getModesList().isEmpty()));
 	}
 
 	@Test

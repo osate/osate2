@@ -23,13 +23,20 @@
  */
 package org.osate.core.tests.instantiation.flows;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.CreateEndToEndFlowsSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -49,5 +56,44 @@ public class CancellationEndToEndFlowInstantiationTest extends AbstractEndToEndF
 				.processPreOrderAll(instance);
 
 		assertTrue(instance.getEndToEndFlows().isEmpty());
+	}
+
+	@Test
+	public void testCancellationAfterExpansionDoesNotAttachFlows() throws Exception {
+		SystemInstance instance = instantiate("BasicAndBranching.aadl", "BasicTop.i");
+		instance.getEndToEndFlows().clear();
+		NullProgressMonitor monitor = new NullProgressMonitor();
+
+		new CreateEndToEndFlowsSwitch(monitor, AnalysisErrorReporterManager.NULL_ERROR_MANANGER, null) {
+			@Override
+			protected void processETE(ComponentInstance component, EndToEndFlowInstance flowInstance,
+					EndToEndFlow flow) {
+				super.processETE(component, flowInstance, flow);
+				monitor.setCanceled(true);
+			}
+		}.processPreOrderAll(instance);
+
+		assertTrue(instance.getEndToEndFlows().isEmpty());
+	}
+
+	@Test
+	public void testModeFinalizationFailureRollsBackComponentCommit() throws Exception {
+		SystemInstance instance = instantiate("BasicAndBranching.aadl", "BasicTop.i");
+		List<EndToEndFlowInstance> initialFlows = List.copyOf(instance.getEndToEndFlows());
+
+		assertThrows(ModeFinalizationException.class,
+				() -> new CreateEndToEndFlowsSwitch(new NullProgressMonitor(),
+						AnalysisErrorReporterManager.NULL_ERROR_MANANGER, null) {
+					@Override
+					protected void fillinModes(EndToEndFlowInstance flowInstance) {
+						throw new ModeFinalizationException();
+					}
+				}.processPreOrderAll(instance));
+
+		assertEquals(initialFlows, instance.getEndToEndFlows());
+	}
+
+	private static final class ModeFinalizationException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
 	}
 }
