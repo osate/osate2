@@ -27,3 +27,5 @@ censes only apply to the Third Party Software and not any other portion of this 
 # OSATE2
 
 This is the source code repository for the Open Source AADL Tool Environment (OSATE) project. Documentation, installation, and setup instructions are maintained on [OSATE.org](https://osate.org). You can also post questions and subscribe for announcements on the [mailing list](https://groups.google.com/g/osate).
+
+**Note: Issues and PRs marked with 🤖 have been created with the help of an AI coding agent.**
