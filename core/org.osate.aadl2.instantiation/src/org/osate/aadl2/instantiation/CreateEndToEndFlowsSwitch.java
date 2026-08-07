@@ -1150,62 +1150,56 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						+ ": Missing connection instance to " + ((NamedElement) ete).getName());
 				traversal.connections.clear();
 			} else {
-				int compatibleCount = 0;
+				record NestedMatch(ConnectionInstance connection, FlowCandidate nested) {
+				}
+				List<NestedMatch> matches = new ArrayList<>();
 				for (ConnectionInstance conni : connis) {
 					for (FlowCandidate nested : nestedETEs) {
 						if (containsConnectionPath(conni, nested.preConnections)) {
-							compatibleCount++;
+							matches.add(new NestedMatch(conni, nested));
 						}
 					}
 				}
-				if (compatibleCount == 0) {
+				if (matches.isEmpty()) {
 					reportCandidateError(candidate, "Incomplete end-to-end flow instance " + etei.getName()
 							+ ": No compatible nested end to end flow instance for " + ete.getName());
 					traversal.connections.clear();
 					return;
 				}
 
-				Iterator<ConnectionInstance> connIter = connis.iterator();
+				Iterator<NestedMatch> matchIter = matches.iterator();
 				traversal.continuations.push(iter);
-				while (connIter.hasNext()) {
+				while (matchIter.hasNext()) {
 					TraversalState stateClone = null;
-					ConnectionInstance conni = connIter.next();
-					Iterator<FlowCandidate> nestedIter = nestedETEs.iterator();
+					NestedMatch match = matchIter.next();
+					boolean prepareNext = matchIter.hasNext();
 
-					while (nestedIter.hasNext()) {
-						FlowCandidate nested = nestedIter.next();
-						if (!containsConnectionPath(conni, nested.preConnections)) {
-							continue;
+					if (prepareNext) {
+						stateClone = forkState(getState(etei));
+						etei.setName(etei.getEndToEndFlow().getName());
+					}
+					TraversalState branchState = getState(etei);
+					FlowIterator continuation = branchState.continuations.pop();
+
+					// Preserve path order: the incoming connection precedes the nested flow.
+					etei.getFlowElements().add(match.connection());
+					addNestedETE(etei, match.nested());
+
+					// prepare next connection filter
+					branchState.connections.clear();
+					branchState.connections.addAll(match.nested().postConnections);
+					if (continuation.hasNext()) {
+						Connection nextConnection = getConnection(continuation.next());
+						if (nextConnection != null) {
+							branchState.connections.add(nextConnection);
 						}
-						boolean prepareNext = --compatibleCount > 0;
+					}
 
-						if (prepareNext) {
-							stateClone = forkState(getState(etei));
-							etei.setName(etei.getEndToEndFlow().getName());
-						}
-						TraversalState branchState = getState(etei);
-						FlowIterator continuation = branchState.continuations.pop();
+					continueFlow(ci, etei, continuation, ci);
 
-						// Preserve path order: the incoming connection precedes the nested flow.
-						etei.getFlowElements().add(conni);
-						addNestedETE(etei, nested);
-
-						// prepare next connection filter
-						branchState.connections.clear();
-						branchState.connections.addAll(nested.postConnections);
-						if (continuation.hasNext()) {
-							Connection nextConnection = getConnection(continuation.next());
-							if (nextConnection != null) {
-								branchState.connections.add(nextConnection);
-							}
-						}
-
-						continueFlow(ci, etei, continuation, ci);
-
-						if (prepareNext) {
-							activeState = stateClone;
-							etei = stateClone.candidate.instance;
-						}
+					if (prepareNext) {
+						activeState = stateClone;
+						etei = stateClone.candidate.instance;
 					}
 				}
 			}
@@ -1520,51 +1514,24 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		List<SystemOperationMode> soms = new ArrayList<>(etei.getSystemInstance().getSystemOperationModes());
 
 		for (FlowElementInstance fei : feis) {
-			List<SystemOperationMode> newSoms = new ArrayList<>();
-
 			if (fei instanceof ConnectionInstance conni) {
-				if (conni.getInSystemOperationModes().isEmpty()) {
-					continue;
-				}
-				for (SystemOperationMode som : soms) {
-					if (conni.getInSystemOperationModes().contains(som)) {
-						newSoms.add(som);
-					}
+				if (!conni.getInSystemOperationModes().isEmpty()) {
+					soms.removeIf(som -> !conni.getInSystemOperationModes().contains(som));
 				}
 			} else if (fei instanceof EndToEndFlowInstance efi) {
-				if (efi.getInSystemOperationModes().isEmpty()) {
-					continue;
+				if (!efi.getInSystemOperationModes().isEmpty()) {
+					soms.removeIf(som -> !efi.getInSystemOperationModes().contains(som));
 				}
-				for (SystemOperationMode som : soms) {
-					if (efi.getInSystemOperationModes().contains(som)) {
-						newSoms.add(som);
-					}
-				}
-			} else {
-				continue;
 			}
-			soms = newSoms;
 		}
 
 		// then, keep those SOMs where all other flow elements are active
 		for (FlowElementInstance fei : feis) {
-			List<SystemOperationMode> newSoms = new ArrayList<>();
 			if (fei instanceof FlowSpecificationInstance fsi) {
-				for (SystemOperationMode som : soms) {
-					if (fsi.isActive(som)) {
-						newSoms.add(som);
-					}
-				}
+				soms.removeIf(som -> !fsi.isActive(som));
 			} else if (fei instanceof ComponentInstance ci) {
-				for (SystemOperationMode som : soms) {
-					if (ci.isActive(som)) {
-						newSoms.add(som);
-					}
-				}
-			} else {
-				continue;
+				soms.removeIf(som -> !ci.isActive(som));
 			}
-			soms = newSoms;
 		}
 
 		// finally, keep those SOMs where the ete and used flow implementations are active
