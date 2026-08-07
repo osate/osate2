@@ -49,7 +49,6 @@ import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
@@ -989,7 +988,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 			if (connis.isEmpty()) {
 				reportCandidateError(candidate, "Incomplete end-to-end flow instance " + etei.getName()
-						+ ": Missing connection instance to " + ((NamedElement) a).getName());
+						+ ": Missing connection instance to " + a.getName());
 				traversal.connections.clear();
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
@@ -1147,7 +1146,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 			if (connis.isEmpty()) {
 				reportCandidateError(candidate, "Incomplete end-to-end flow instance " + etei.getName()
-						+ ": Missing connection instance to " + ((NamedElement) ete).getName());
+						+ ": Missing connection instance to " + ete.getName());
 				traversal.connections.clear();
 			} else {
 				record NestedMatch(ConnectionInstance connection, FlowCandidate nested) {
