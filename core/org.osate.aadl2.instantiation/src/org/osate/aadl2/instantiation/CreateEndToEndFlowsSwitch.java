@@ -80,6 +80,16 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgr
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 /**
+ * Instantiates declarative end-to-end flows for each component instance.
+ * <p>
+ * Flow discovery builds detached candidates with branch-local traversal state. A declaration may produce multiple
+ * candidates when several flow implementations, connection instances, access targets, or nested end-to-end flow
+ * variants match. Only completed candidates are attached to the component, in one commit after discovery finishes.
+ * Cancellation therefore leaves the component's existing end-to-end flows unchanged.
+ * <p>
+ * Nested end-to-end flows are expanded once per component context. Their leading and trailing declarative connection
+ * paths are retained so parent candidates can select compatible nested variants and continue after them.
+ *
  * @author lwrage
  */
 public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress {
@@ -131,11 +141,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			throw new UnsupportedOperationException();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see java.lang.Object#clone()
-		 */
 		@Override
 		protected FlowIterator clone() {
 			return new FlowIterator(eteSegments, flowSegments, index);
@@ -147,9 +152,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		EndToEndFlowInstance etei;
 		List<Connection> postConns = new ArrayList<Connection>();
 
-		/**
-		 * @param etei
-		 */
 		public ETEInfo(EndToEndFlowInstance etei) {
 			preConns = new ArrayList<Connection>();
 			this.etei = etei;
@@ -161,6 +163,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	/**
+	 * Candidate discovery states. A failed candidate has no valid semantic continuation or belongs to a failed
+	 * declaration expansion. An aborted candidate could not append a resolved flow element because the instance model
+	 * did not satisfy the declaration.
+	 */
 	private enum CandidateStatus {
 		ACTIVE, COMPLETE, FAILED, ABORTED
 	}
@@ -190,6 +197,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	/**
+	 * Expansion of one declarative end-to-end flow and all candidate paths derived from it.
+	 */
 	private static final class FlowExpansion {
 		private final EndToEndFlow declaration;
 		private final List<FlowCandidate> candidates = new ArrayList<>();
@@ -200,10 +210,17 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	/**
+	 * A detached end-to-end flow instance under construction.
+	 */
 	private static final class FlowCandidate {
 		private final ComponentInstance owner;
 		private final FlowExpansion expansion;
 		private final EndToEndFlowInstance instance;
+		/*
+		 * Declarative connection paths before the first and after the last concrete flow element. Parent flows use these
+		 * paths to select compatible nested candidates and continue beyond them.
+		 */
 		private final List<Connection> preConnections;
 		private final List<Connection> postConnections = new ArrayList<>();
 		private final long sequence;
@@ -219,6 +236,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	/**
+	 * Branch-local traversal data. Continuations resume enclosing declarations after descending into a flow
+	 * implementation or another nested construct; connections are the declarative path awaiting resolution to a
+	 * connection instance; flowImplementations constrain the source and destination features accepted for that
+	 * connection instance.
+	 */
 	private static final class TraversalState {
 		private final FlowCandidate candidate;
 		private final Deque<FlowIterator> continuations = new ArrayDeque<>();
@@ -240,6 +263,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	/**
+	 * All discovery and commit state for one component instance.
+	 */
 	private static final class FlowInstantiationContext {
 		private final ComponentInstance owner;
 		private final List<EndToEndFlowInstance> initialFlows;
@@ -274,7 +300,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	private TraversalState activeState;
 
 	/**
-	 * Create a new instance.
+	 * Create an end-to-end flow instantiation pass.
 	 *
 	 * @param pm the progress monitor
 	 * @param errMgr the error manager
@@ -421,8 +447,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		return candidate;
 	}
 
+	/**
+	 * Fork the active path before processing another alternative. Both the detached instance and every mutable traversal
+	 * structure must be copied so subsequent alternatives cannot modify one another.
+	 */
 	private TraversalState forkState(TraversalState source) {
 		EndToEndFlowInstance instance = EcoreUtil.copy(source.candidate.instance);
+		// Preserve accumulated mode constraints, which are not part of the copied flow-element containment tree.
 		instance.getModesList().addAll(source.candidate.instance.getModesList());
 		List<Connection> preConnections = source.candidate.instance.getFlowElements().isEmpty()
 				? new ArrayList<>()
@@ -492,6 +523,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		candidate.status = CandidateStatus.ABORTED;
 	}
 
+	/**
+	 * Publish all completed candidates for a component. Candidate names are assigned deterministically, nested
+	 * references are checked before attachment, and modes are finalized with nested flows before their parents. If mode
+	 * finalization fails, attachment and transient mode state are rolled back before the exception is propagated.
+	 * Diagnostics are emitted only after a successful commit so diagnostics targeting discarded candidates can be
+	 * suppressed.
+	 */
 	private void commit(FlowInstantiationContext context) {
 		if (context.canceled || monitor.isCanceled()) {
 			return;
@@ -577,6 +615,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	/**
+	 * Finalize a candidate's system operation modes after finalizing any nested candidates it references.
+	 */
 	private void finalizeModes(FlowInstantiationContext context, FlowCandidate candidate,
 			Map<FlowCandidate, Boolean> finalized, Map<FlowCandidate, Boolean> finalizing) {
 		if (finalized.containsKey(candidate)) {
@@ -607,11 +648,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * Add all flow instances that continue through the next flow element.
+	 * Consume one declarative flow segment. Connection declarations are accumulated until a concrete flow element
+	 * resolves them; other segment kinds delegate to their specialized traversal methods and may fork the candidate.
 	 *
 	 * @param ci the component instance we're in
 	 * @param etei the current flow instance
-	 * @param fe the next flow element
+	 * @param fs the next flow segment
 	 * @param iter the position in the current ETE declaration
 	 * @param errorElement the model element that we attach errors to
 	 */
@@ -660,13 +702,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * Instantiate a flow specification by recursively following its
-	 * implementation until a leaf element is reached In case of a leaf element
-	 * add it as a flow step
+	 * Instantiate a component flow specification. Each matching flow implementation creates an alternative path and is
+	 * followed recursively. If no implementation exists, the flow specification itself is added as a leaf step.
 	 *
 	 * @param ci the component whose flow specification is to be processed
 	 * @param etei the end to end flow instance
 	 * @param fs the flow specification to be processed
+	 * @param iter the continuation in the enclosing flow declaration
 	 */
 	protected void processSubcomponentFlow(final ComponentInstance ci, EndToEndFlowInstance etei,
 			final FlowSpecification fs, FlowIterator iter) {
@@ -708,24 +750,18 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					iterClone = iter.clone();
 				}
 
-				// add all ete instances that continue through flow impl
-
 				/*
-				 * Special case for Issue 1953: If flowImpl is a flow in a Thread, and has a non-trivial implementation
-				 * (i.e, it doesn't just pass through), then we ignore the flow implementation details and just use the
-				 * flow specification. Specifically, we are trying NOT to ignore the case where the flow specification
-				 * uses a feature group and the flow implementation refines the feature group to a specific feature
-				 * of that feature group. THese cases are necessary to reduce the combinatorics of the instance model.
+				 * Issue 1953: Treat a thread flow implementation with owned segments as an atomic flow specification
+				 * instead of expanding its internal path, which prevents unnecessary instance-model combinations. An
+				 * empty implementation still follows the normal path because it may refine a feature-group endpoint to
+				 * one of its features.
 				 *
-				 * CAVEAT: Make sure we don't discard the mode information from the flow implementation, even if we are
-				 * ignoring the flow segments.
+				 * The flow implementation still contributes mode constraints even though its segments are ignored.
 				 */
 				if (subImpl instanceof ThreadClassifier && flowImpl.getOwnedFlowSegments().size() != 0) {
-					// Do use the modes from the flow implementation
 					etei.getModesList().add(getModeInstances(ci, flowImpl));
 					getState(etei).continuations.pop();
 
-					// Revert to using the flow specification
 					processFlowStep(ci, etei, fs, iter);
 				} else {
 					if (!processFlowImpl(ci, etei, flowImpl)) {
@@ -749,7 +785,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 *            processed
 	 * @param etei the end to end flow instance
 	 * @param flowImpl the flow implementation to be processed
-	 * @return if elements were added to the end to end flow instance
+	 * @return whether traversal entered the flow implementation; false if it has fewer than two segments
 	 */
 	protected boolean processFlowImpl(ComponentInstance ci, EndToEndFlowInstance etei, FlowImplementation flowImpl) {
 		etei.getModesList().add(getModeInstances(ci, flowImpl));
@@ -765,10 +801,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * Add all ETE instances that continue through a given leaf flow element.
-	 * One instance per matching connection.
+	 * Continue through a leaf flow element, forking the candidate once for each matching connection instance.
 	 *
-	 * @param ci
+	 * @param ci the component instance containing the leaf
 	 * @param etei the current end to end flow instance
 	 * @param leaf the next ETE element
 	 * @param iter the position in the current end to end flow declaration
@@ -777,6 +812,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		processFlowStep(ci, etei, leaf, null, iter);
 	}
 
+	/**
+	 * Continue through a leaf flow element and constrain the incoming connection to the start of the next flow
+	 * implementation when one is known.
+	 */
 	protected void processFlowStep(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf,
 			FlowImplementation nextFlowImpl, FlowIterator iter) {
 		TraversalState traversal = getState(etei);
@@ -801,7 +840,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					FlowImplementation flowFilter = traversal.flowImplementations
 							.get(traversal.flowImplementations.size() - 1);
 					if (flowFilter != null) {
-						/* [**] See note below. */
+						// A semantic connection was expected after the preceding flow implementation.
 						reportOwnerError(candidate,
 								"Cannot create end to end flow '" + etei.getName()
 										+ "' because there are no semantic connections that continue the flow '"
@@ -815,10 +854,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						: traversal.flowImplementations.get(traversal.flowImplementations.size() - 1);
 
 				/*
-				 * Issue 1984: isValidContinuation() should be used purely as a filter, and not as an error
-				 * reporter. We need to make a first pass through the connection instances and determine which
-				 * ones are applicable to the current flow. Only if NONE of them are, do we report an error.
-				 * Otherwise, we use the subset of applicable connection instances and continue on normally.
+				 * Issue 1984: isValidContinuation() is a filter, not an error reporter. Determine the applicable
+				 * connections first and report an error only when none of the candidates can continue this flow.
 				 */
 				final List<ConnectionInstance> connectionsToUse = new ArrayList<>();
 				for (final ConnectionInstance ciToCheck : connis) {
@@ -834,11 +871,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 				if (connectionsToUse.isEmpty()) {
 					/*
-					 * I originally thought that this case couldn't happen, but I've been proven wrong. This happens when the
-					 * connections inside a component implementation completely bypass the flow implementation. That is, the
-					 * flow implies one path, but the actual connections in the implementation make a different one.
-					 *
-					 * This error is the opposite of the case above [**].
+					 * Connections may bypass the start of the selected flow implementation: the declarative flow and the
+					 * actual component connections then describe different paths.
 					 */
 					if (flowFilter == null && nextFlowImpl == null) {
 						final FlowSpecification flowSpec = (FlowSpecification) leaf;
@@ -907,10 +941,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * Check if a connection destination is the start of a flow implementation
-	 * @param conn
-	 * @param flow
-	 * @return
+	 * Check whether a connection instance ends at the input feature of a flow implementation.
+	 *
+	 * @param etei the candidate being filtered
+	 * @param conni the connection instance
+	 * @param fimpl the flow implementation that must follow the connection
+	 * @return whether the connection destination is the flow input
 	 */
 	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowImplementation fimpl) {
 		boolean result = false;
@@ -924,17 +960,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * Check if connection ends at flow specification.
+	 * Check whether a connection instance ends at a flow specification's source feature. A connection to the source
+	 * feature itself or to a feature nested within it is accepted by walking up the feature-instance containment chain.
 	 *
-	 * There are three cases
-	 * - same feature instance
-	 * - connection end is a feature instance contained in the flow spec src feature instance
-	 * - connection end is a feature in an array and the flow spec src is the array without index
-	 *
-	 * @param flowComponent
-	 * @param conni
-	 * @param fspec
-	 * @return
+	 * @param flowComponent the component that owns the flow specification instance
+	 * @param conni the connection instance
+	 * @param fspec the flow specification that must follow the connection
+	 * @return whether the connection destination reaches the flow source
 	 */
 	boolean isValidContinuation(ComponentInstance flowComponent, ConnectionInstance conni, FlowSpecification fspec) {
 		ConnectionInstanceEnd cie = conni.getDestination();
@@ -955,10 +987,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * Check if a connection source is the end of a flow implementation
-	 * @param conn
-	 * @param flow
-	 * @return
+	 * Check whether a connection instance starts at the output feature of a flow implementation.
+	 *
+	 * @param etei the candidate being filtered
+	 * @param fimpl the flow implementation that must precede the connection
+	 * @param conni the connection instance
+	 * @return whether the connection source is the flow output
 	 */
 	boolean isValidContinuation(EndToEndFlowInstance etei, FlowImplementation fimpl, ConnectionInstance conni) {
 		boolean result = false;
@@ -972,14 +1006,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * Add the ETE instance that goes through a data access feature. Instead of
-	 * the data access feature, add the accessed object to the ETE instance. The
-	 * access feature uniquely determines the accessed object.
+	 * Continue through a data or subprogram access. The accessed component instance, rather than the access feature, is
+	 * added as the flow element. Multiple matching access connections create independent candidates.
 	 *
-	 * @param ci
-	 * @param etei
-	 * @param fe
-	 * @param iter
+	 * @param ci the component containing the access
+	 * @param etei the current end-to-end flow candidate
+	 * @param a the data or subprogram access
+	 * @param iter the continuation in the enclosing flow declaration
 	 */
 	private void processAccess(ComponentInstance ci, EndToEndFlowInstance etei, Access a, FlowIterator iter) {
 		TraversalState traversal = getState(etei);
@@ -1065,13 +1098,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 *
-	 * @param ci
-	 * @param etei
-	 * @param ete
-	 * @param iter
+	 * Continue through a nested end-to-end flow. The nested declaration is expanded once per component context, and the
+	 * parent candidate is forked for every nested candidate whose leading connection path is compatible.
 	 */
-	// add preConn before addNested
 	private void processEndToEndFlow(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlow ete,
 			FlowIterator iter) {
 		TraversalState traversal = getState(etei);
@@ -1194,6 +1223,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						TraversalState branchState = getState(etei);
 						FlowIterator continuation = branchState.continuations.pop();
 
+						// Preserve path order: the incoming connection precedes the nested flow.
 						etei.getFlowElements().add(conni);
 						addNestedETE(etei, nested);
 
@@ -1219,6 +1249,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	/**
+	 * Check whether a connection instance contains a declarative connection path as a contiguous sequence.
+	 */
 	private static boolean containsConnectionPath(ConnectionInstance connectionInstance,
 			List<Connection> connectionPath) {
 		if (connectionPath.isEmpty()) {
@@ -1243,9 +1276,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * @param ci
-	 * @param etei
-	 * @param leaf
+	 * Add the concrete instance object represented by a declarative leaf.
+	 *
+	 * @param ci the component instance containing the leaf
+	 * @param etei the candidate receiving the leaf
+	 * @param leaf a flow specification, flow implementation, or subcomponent
 	 * @return whether the leaf was added successfully
 	 */
 	private boolean addLeafElement(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf) {
@@ -1292,6 +1327,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		return true;
 	}
 
+	/**
+	 * Resume traversal until the active candidate completes, aborts, switches to another branch, or reaches the system
+	 * boundary. Exhausted nested continuations move traversal back to the containing component.
+	 */
 	private void continueFlow(ComponentInstance ci, EndToEndFlowInstance etei, FlowIterator iter,
 			NamedElement errorElement) {
 		FlowCandidate candidate = getCandidate(etei);
@@ -1349,8 +1388,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * Get all connection instances that pass through the sequence of
-	 * declarative connections.
+	 * Get all enclosing connection instances that pass through the given declarative connection sequence and continue
+	 * from the candidate's current endpoint.
 	 */
 	private List<ConnectionInstance> collectConnectionInstances(ComponentInstance ci, EndToEndFlowInstance etei,
 			List<Connection> connections) {
@@ -1365,9 +1404,14 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
-	 * @param conni
-	 * @param etei
-	 * @param result
+	 * Match a connection instance against a contiguous sequence of declarative connections. Refined connections are
+	 * considered equivalent; single-connection paths are also checked for flow direction; feature-group expansion is
+	 * checked against the candidate's last feature.
+	 *
+	 * @param conni the connection instance to test
+	 * @param etei the candidate whose current endpoint constrains the match
+	 * @param connections the declarative connection sequence
+	 * @return whether the connection instance continues the candidate along the requested sequence
 	 */
 	private boolean testConnection(ConnectionInstance conni, EndToEndFlowInstance etei,
 			List<Connection> connections) {
@@ -1480,11 +1524,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	// -------------------------------------------------------------------------
 
 	/**
-	 * build mode instance list from mode list relative to the component
-	 * instance ci
+	 * Resolve an element's mode constraints relative to a component instance. If the element has no explicit modes, use
+	 * the nearest containing component instance with inherited mode constraints.
 	 *
-	 * @param ci Component Instance
-	 * @param mlist mode list
+	 * @param ci the component instance used to resolve modes
+	 * @param e the modal declarative element
 	 * @return list of mode instances
 	 */
 	protected EList<ModeInstance> getModeInstances(ComponentInstance ci, ModalElement e) {
@@ -1500,7 +1544,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 		} else {
-			// get modes form containment hierarchy
+			// Get modes from the containment hierarchy.
 			while (!(ci instanceof SystemInstance)) {
 				if (ci.getInModes().isEmpty()) {
 					ci = ci.getContainingComponentInstance();
