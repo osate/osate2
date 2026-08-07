@@ -17,12 +17,50 @@ Common Maven invocations (run from the repo root; the parent POM wires in `relen
 - Local build + tests: drop `-DskipTests` and use `osate.build.local.tests.launch` as reference.
 - Full PR-style build (what Jenkins runs for PRs): `mvn -s releng/osate.releng/seisettings.xml clean verify -Plocal -Declipse.p2.mirrors=false -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true -Dpr.build=true`
 - Product build: omit `-Dpr.build=true` so the `pr-build` profile (negated) activates `releng/org.osate.build.repository` and `releng/org.osate.build.product`.
-- Do not build individual modules or bundles with `-pl`; this repository must be built from the root reactor so Tycho sees the full target platform and plug-in graph.
+- For release, CI, and final validation builds, do not select individual modules with `-pl`; build from the root reactor with `-Dtycho.localArtifacts=ignore` so Tycho resolves a clean, complete plug-in graph. The local iteration exception is described below.
 - To narrow a test run, keep the root reactor command and add `-Dtest=ClassName` or `-Dtest=ClassName#method` with `-DfailIfNoTests=false` (the `tycho-surefire-plugin` configuration is inherited from `releng/org.osate.build.main/pom.xml`).
 
 Most developers build via the Eclipse launch configurations in `releng/osate.releng/*.launch` (imported as the `osate.releng` project). `settings.xml` is the public settings file; `seisettings.xml` is SEI-internal (used by CI) and will not work outside that network.
 
 The `maven-enforcer-plugin` requires Maven 3.9.0+. `jgit.dirtyWorkingTree=warning` locally, `error` in the `full` profile — the CI build fails on uncommitted changes.
+
+### Fast local Tycho iteration
+
+For local development, build the changed production bundle, its test bundle, and the feature that contains the production bundle. Select all three explicitly because Maven `-am` does not infer Tycho `Require-Bundle`, `Import-Package`, or `Fragment-Host` relationships.
+
+For example:
+
+```bash
+mvn -o -s releng/osate.releng/settings.xml -Plocal \
+  -pl :org.osate.analysis.modes,:org.osate.analysis.modes.tests,:org.osate.plugins.feature \
+  -Dtycho.localArtifacts=default \
+  -Dpr.build=true -Dsign=false \
+  -Dspotbugs=false -Dcodecoverage=false -Djavadoc=false \
+  clean install
+```
+
+- Use `-o` only after the target platform and Maven dependencies are cached locally.
+- Use `install`, not only `verify`, when another Tycho build must consume the result. `install` publishes the bundle and its local p2 metadata under `~/.m2/repository`.
+- Rebuild and install the owning feature whenever a contained bundle changes. Generated feature metadata requires the bundle's exact qualified version.
+- To run selected tests, add `-Dtest=ClassName` or `-Dtest=ClassName#method` and `-DfailIfNoTests=false`.
+- Treat this workflow as an iteration aid. Run a clean root-reactor build with `-Dtycho.localArtifacts=ignore` before release or CI handoff.
+
+After installing the selected OSATE artifacts, the sibling language-server repository can be packaged from local Tycho artifacts:
+
+```bash
+mvn -o -f ../aadl-language-server/osate2-server/pom.xml \
+  -DskipTests \
+  -Dtycho.localArtifacts=default \
+  verify
+```
+
+Do not distribute that raw repository without normalization. Tycho's local p2 catalog at `~/.m2/repository/.meta/p2-local-metadata.properties` accumulates artifacts from previous builds. Repository assembly from that catalog does not automatically select only the latest version: unversioned roots or `includeAllDependencies=true` can include multiple versions of the same bundle or feature.
+
+### OSATE p2 repository
+
+Do not assemble the OSATE update-site repository from accumulated local Tycho artifacts. Build it through the complete root reactor with `-Dtycho.localArtifacts=ignore`; this is the only supported path for the update-site repository.
+
+Verify the generated repository before distribution. It must contain only the latest intended version of each OSATE bundle and feature. Treat duplicate versions of an IU as a packaging failure.
 
 ## Architecture
 
