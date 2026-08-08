@@ -1,0 +1,57 @@
+package Issue3013
+public
+	data D
+		properties
+			Data_Size => 100 Bytes;
+	end D;
+
+	virtual bus Inner
+		properties
+			Data_Size => 20 Bytes;
+	end Inner;
+
+	virtual bus Outer
+		properties
+			Data_Size => 10 Bytes;
+			Required_Virtual_Bus_Class => (classifier (Inner));
+	end Outer;
+
+	bus PhysicalBus
+		properties
+			Communication_Properties::Transmission_Time =>
+				[Fixed => 0 ms .. 0 ms; PerByte => 1 ms .. 1 ms;];
+	end PhysicalBus;
+
+	abstract Producer
+		features
+			outgoing: out data port D;
+		flows
+			source1: flow source outgoing;
+	end Producer;
+
+	abstract Consumer
+		features
+			incoming: in data port D;
+		flows
+			sink1: flow sink incoming;
+	end Consumer;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			producer: abstract Producer;
+			consumer: abstract Consumer;
+			bus1: bus PhysicalBus;
+		connections
+			c1: port producer.outgoing -> consumer.incoming {
+				Required_Virtual_Bus_Class => (classifier (Outer));
+				Actual_Connection_Binding => (reference (bus1));
+			};
+		flows
+			f1: end to end flow producer.source1 -> c1 -> consumer.sink1 {
+				Communication_Properties::Latency => 130 ms .. 130 ms;
+			};
+	end Top.i;
+end Issue3013;
