@@ -1,0 +1,43 @@
+package Issue3014
+public
+	virtual bus Inner
+		properties
+			Period => 10 ms;
+	end Inner;
+
+	virtual bus Outer
+		properties
+			Required_Virtual_Bus_Class => (classifier (Inner));
+	end Outer;
+
+	abstract Producer
+		features
+			outgoing: out feature;
+		flows
+			source1: flow source outgoing;
+	end Producer;
+
+	abstract Consumer
+		features
+			incoming: in feature;
+		flows
+			sink1: flow sink incoming;
+	end Consumer;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			producer: abstract Producer;
+			consumer: abstract Consumer;
+		connections
+			c1: feature producer.outgoing -> consumer.incoming {
+				Required_Virtual_Bus_Class => (classifier (Outer));
+			};
+		flows
+			f1: end to end flow producer.source1 -> c1 -> consumer.sink1 {
+				Communication_Properties::Latency => 10 ms .. 10 ms;
+			};
+	end Top.i;
+end Issue3014;
