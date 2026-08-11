@@ -929,6 +929,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected ConnectionInstance addConnectionInstance(final SystemInstance systemInstance,
 			final ConnectionInfo connInfo, final ConnectionInstanceEnd dstI) {
+		Element diagnosticTarget = connInfo.container != null ? connInfo.container : systemInstance;
+		boolean unresolvedEndpoint = false;
+		if (connInfo.src == null) {
+			error(diagnosticTarget, "Connection source not found");
+			unresolvedEndpoint = true;
+		}
+		if (dstI == null) {
+			error(diagnosticTarget, "Connection destination not found");
+			unresolvedEndpoint = true;
+		}
+		if (unresolvedEndpoint) {
+			return null;
+		}
+
 		// with aggregate data ports will be sources/destinations missing
 		int numConns = connInfo.connections.size();
 		if (connInfo.sources.size() != numConns || connInfo.destinations.size() != numConns) {

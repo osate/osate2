@@ -1778,41 +1778,48 @@ public class InstantiateModel {
 	 * @param dstIndices
 	 */
 	private void createNewConnection(ConnectionInstance conni, List<Long> srcIndices, List<Long> dstIndices) {
+		ComponentInstance container = conni.getContainingComponentInstance();
 		LinkedList<String> names = new LinkedList<String>();
 		LinkedList<Integer> dims = new LinkedList<Integer>();
 		LinkedList<Integer> sizes = new LinkedList<Integer>();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
-		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
+		newConn.setSource(null);
+		newConn.setDestination(null);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
-		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
+		analyzePath(container, conni.getSource(), names, dims, sizes);
 		if (srcIndices.size() != sizes.size() &&
 		// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
-			errManager.error(newConn,
+			errManager.error(container,
 					"Source indices " + srcIndices + " do not match source dimension " + sizes.size());
 		}
-		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, srcIndices, true);
+		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, container, container, names, dims, sizes,
+				srcIndices, true);
 		names.clear();
 		dims.clear();
 		sizes.clear();
-		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
+		analyzePath(container, conni.getDestination(), names, dims, sizes);
 		if (dstIndices.size() != sizes.size() &&
 		// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
-			errManager.error(newConn,
+			errManager.error(container,
 					"For " + newConn.getConnectionReferences().get(0).getFullName() + " : " + newConn.getFullName()
 							+ ", destination indices " + dstIndices + " do not match destination dimension "
 							+ sizes.size());
 		}
-		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, dstIndices, false);
+		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, container, container, names, dims, sizes,
+				dstIndices, false);
 		if (src == null) {
-			errManager.error(newConn, "Connection source not found");
+			errManager.error(container, "Connection source not found");
 		}
 		if (dst == null) {
-			errManager.error(newConn, "Connection destination not found");
+			errManager.error(container, "Connection destination not found");
+		}
+		if (src == null || dst == null) {
+			return;
 		}
 
-		String containerPath = conni.getContainingComponentInstance().getInstanceObjectPath();
+		String containerPath = container.getInstanceObjectPath();
 		int len = containerPath.length() + 1;
 		String srcPath = (src != null) ? src.getInstanceObjectPath() : "Source end not found";
 		StringBuffer sb = new StringBuffer();
@@ -1824,13 +1831,14 @@ public class InstantiateModel {
 		sb.append(dstPath.substring(i));
 
 		ConnectionInstance duplicate = (ConnectionInstance) AadlUtil
-				.findNamedElementInList(conni.getContainingComponentInstance().getConnectionInstances(), sb.toString());
+				.findNamedElementInList(container.getConnectionInstances(), sb.toString());
 		if (duplicate != null && duplicate != conni) { // conni will be removed later
-			errManager.warning(newConn, "There is already another connection between the same endpoints");
+			errManager.warning(container, "There is already another connection between the same endpoints");
 		}
 		newConn.setSource((ConnectionInstanceEnd) src);
 		newConn.setDestination((ConnectionInstanceEnd) dst);
 		newConn.setName(sb.toString());
+		container.getConnectionInstances().add(newConn);
 
 	}
 
@@ -1847,21 +1855,27 @@ public class InstantiateModel {
 		LinkedList<Integer> dims = new LinkedList<Integer>();
 		LinkedList<Integer> sizes = new LinkedList<Integer>();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
-		targetComponent.getConnectionInstances().add(newConn);
+		newConn.setSource(null);
+		newConn.setDestination(null);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes, indices);
-		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, indices, true);
+		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, targetComponent, targetComponent, names,
+				dims, sizes, indices, true);
 		names.clear();
 		dims.clear();
 		sizes.clear();
 		indices.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes, indices);
-		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, indices, false);
+		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, targetComponent, targetComponent, names,
+				dims, sizes, indices, false);
 		if (src == null) {
-			errManager.error(newConn, "Connection source not found");
+			errManager.error(targetComponent, "Connection source not found");
 		}
 		if (dst == null) {
-			errManager.error(newConn, "Connection destination not found");
+			errManager.error(targetComponent, "Connection destination not found");
+		}
+		if (src == null || dst == null) {
+			return;
 		}
 
 		String containerPath = targetComponent.getInstanceObjectPath();
@@ -1878,6 +1892,7 @@ public class InstantiateModel {
 		newConn.setSource((ConnectionInstanceEnd) src);
 		newConn.setDestination((ConnectionInstanceEnd) dst);
 		newConn.setName(sb.toString());
+		targetComponent.getConnectionInstances().add(newConn);
 
 	}
 
@@ -1992,6 +2007,8 @@ public class InstantiateModel {
 	 * this method resolves the connection instance from the top connection reference down the source or the destination
 	 * @param newconn Connection Instance whose paths need to be resolved
 	 * @param topref Connection Reference going across components
+	 * @param resolutionRoot component instance from which the path is resolved
+	 * @param diagnosticTarget resource-backed object used for diagnostics
 	 * @param names sequence of names of the path bottom up
 	 * @param dims Dimensions (bottom up) along the path
 	 * @param sizes Sizes of each dimension bottom up
@@ -2000,11 +2017,12 @@ public class InstantiateModel {
 	 * @return ConnectionInstanceEnd the ultimate source/destination object (feature instance or component instance)
 	 */
 	private ConnectionInstanceEnd resolveConnectionInstancePath(ConnectionInstance newconn, ConnectionReference topref,
-			List<String> names, List<Integer> dims, List<Integer> sizes, List<Long> indices, boolean doSource) {
+			ComponentInstance resolutionRoot, Element diagnosticTarget, List<String> names, List<Integer> dims,
+			List<Integer> sizes, List<Long> indices, boolean doSource) {
 		// the connection reference to be resolved
 		ConnectionReference targetConnRef = topref;
 		ConnectionReference outerConnRef = topref;
-		ConnectionInstanceEnd resolutionContext = newconn.getContainingComponentInstance();
+		ConnectionInstanceEnd resolutionContext = resolutionRoot;
 		// we have to process the indices backwards since we go top down
 		// offset starts with the last element of the indices array
 		int offset = indices.size() - 1;
@@ -2052,7 +2070,8 @@ public class InstantiateModel {
 								}
 							}
 						} catch (IndexOutOfBoundsException e) {
-							errManager.warning(newconn, "Too few indices for connection end, using fist array element");
+							errManager.warning(diagnosticTarget,
+									"Too few indices for connection end, using fist array element");
 						}
 						resolutionContext = (ConnectionInstanceEnd) io;
 						break;
