@@ -469,7 +469,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		 * have to check that the end feature is a port because AADL semantics guarantee that it will be.
 		 */
 		if (fromFi instanceof FeatureInstance && ((FeatureInstance) fromFi).getFeature() instanceof Port
-				&& toFi.eContainer().equals(ci) && isConnectionEndingCategory(ci.getCategory())) {
+				&& toFi != null && toFi.eContainer().equals(ci) && isConnectionEndingCategory(ci.getCategory())) {
 			return;
 		}
 
