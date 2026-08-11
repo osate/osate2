@@ -620,23 +620,23 @@ commit(context):
   if owner.getEndToEndFlows() != initialFlows → IllegalStateException
        "End-to-end flow list changed during candidate discovery"                ②
 
-  ┌ NAMING — per expansion, in declaration order ────────────────────────────┐
+  ┌ NAMING — per expansion, in declaration order ─────────────────────────────┐
   │ successful = that expansion's COMPLETE candidates, sorted by sequence     │
   │   exactly 1 → name = the declaration's name          ("branched")         │
   │   more than 1 → resetETECloneCount(); setCloneName each ("branched_1", …) │
-  └──────────────────────────────────────────────────────────────────────────┘
+  └───────────────────────────────────────────────────────────────────────────┘
 
-  ┌ VALIDATE ────────────────────────────────────────────────────────────────┐
+  ┌ VALIDATE ─────────────────────────────────────────────────────────────────┐
   │ every nested EndToEndFlowInstance referenced by a survivor must itself be │
   │ a COMPLETE candidate of this context, else IllegalStateException          │
   │   "Candidate references an unavailable end-to-end flow"                   │
-  └──────────────────────────────────────────────────────────────────────────┘
+  └───────────────────────────────────────────────────────────────────────────┘
 
   snapshot each survivor's modesList and inSystemOperationModes               ③
 
   owner.getEndToEndFlows().addAll(instances)   ← THE ONLY MUTATION (sequence order)
 
-  ┌ MODE FINALIZATION — post-order over the nesting graph ───────────────────┐
+  ┌ MODE FINALIZATION — post-order over the nesting graph ────────────────────┐
   │ finalizeModes(context, candidate, finalized, finalizing):                 │
   │   recurse into nested COMPLETE candidates FIRST, so a parent reads        │
   │   already-computed nested inSystemOperationModes                          │
@@ -644,14 +644,16 @@ commit(context):
   │       "Cyclic committed end-to-end flow graph"                            │
   │   fillinModes(instance)   ← now attached, so getSystemInstance() works    │
   │   instance.getModesList().clear()                                         │
-  └──────────────────────────────────────────────────────────────────────────┘
+  └───────────────────────────────────────────────────────────────────────────┘
       on RuntimeException/Error → removeAll the attached instances,
                                   restore snapshot ③, rethrow
 
   ┌ DIAGNOSTICS — replayed sorted by sequence ───────────────────────────────┐
   │ OWNER            → error(candidate.owner, msg)             always        │
-  │ CANDIDATE        → error(candidate.instance, msg)          only if the   │
-  │                                            candidate is COMPLETE         │
+  │ CANDIDATE        → COMPLETE: error(candidate.instance, msg)              │
+  │                    otherwise: error(candidate.owner,                     │
+  │                        candidate.name + " could not be instantiated: "   │
+  │                        + msg)                                            │
   │ EXISTING_ELEMENT → error(existingElement, msg)             always        │
   └──────────────────────────────────────────────────────────────────────────┘
 ```
@@ -714,14 +716,14 @@ the parent, distinct flow-implementation modes yield distinct clones each active
 | `findFlowSpecInstance` returned nothing | owner component | always |
 | Connection continues into the wrong component | owner component | always |
 | Flow instance leaves the system instance | the offending declarative element | always |
-| Missing connection instance to an access or nested ETE | the flow instance | only if that candidate commits |
-| Access feature is not a data/subprogram proxy | the flow instance | only if that candidate commits |
-| No nested ETE instantiated / no compatible nested instance (#2986) | the flow instance | only if that candidate commits |
-| Cyclic ETE dependency (#2987) | the flow instance | never — the candidate is FAILED, so it is suppressed |
+| Missing connection instance to an access or nested ETE | completed flow instance, otherwise owner component with a `<name> could not be instantiated:` prefix | always |
+| Access feature is not a data/subprogram proxy | completed flow instance, otherwise owner component with a `<name> could not be instantiated:` prefix | always |
+| No nested ETE instantiated / no compatible nested instance (#2986) | completed flow instance, otherwise owner component with a `<name> could not be instantiated:` prefix | always |
+| Cyclic ETE dependency (#2987) | owner component with a `<name> could not be instantiated:` prefix | always |
 
 `InvalidEndToEndFlowInstantiationTest` asserts exactly this split: discarded-branch diagnostics land
-on the containing instance, a completed flow keeps its elements while its failed siblings report,
-and the cyclic case terminates with no flows *and* no messages.
+on the containing instance, completed candidates retain diagnostics on their flow instances, and
+cyclic declarations terminate without flows while reporting the cycle on the containing instance.
 
 ---
 

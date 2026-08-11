@@ -30,7 +30,6 @@
         <setEntry value="org.osate.ba.tests"/>
         <setEntry value="org.osate.categories.tests"/>
         <setEntry value="org.osate.core.tests"/>
-        <setEntry value="org.osate.core.tests.log4j"/>
         <setEntry value="org.osate.ge.tests"/>
         <setEntry value="org.osate.modelstats.tests"/>
         <setEntry value="org.osate.organization.tests"/>
@@ -124,7 +123,6 @@
         <setEntry value="com.google.inject@default:default"/>
         <setEntry value="com.google.javascript@default:default"/>
         <setEntry value="com.google.protobuf@default:default"/>
-        <setEntry value="com.googlecode.javaewah.JavaEWAH@default:default"/>
         <setEntry value="com.ibm.icu@default:default"/>
         <setEntry value="com.jcraft.jsch@default:default"/>
         <setEntry value="com.sun.jna.platform@default:default"/>
@@ -135,11 +133,11 @@
         <setEntry value="de.libutzki.xtext.semanticmodeloutline.ui@default:default"/>
         <setEntry value="io.github.classgraph.classgraph@default:default"/>
         <setEntry value="jakarta.activation-api@default:default"/>
-        <setEntry value="jakarta.activation@default:default"/>
         <setEntry value="jakarta.annotation-api@default:default"/>
         <setEntry value="jakarta.inject.jakarta.inject-api@default:default"/>
         <setEntry value="jakarta.xml.bind-api@default:default"/>
         <setEntry value="jakarta.xml.bind@default:default"/>
+        <setEntry value="javaewah@default:default"/>
         <setEntry value="javax.activation@default:default"/>
         <setEntry value="javax.annotation@default:default"/>
         <setEntry value="javax.inject@default:default"/>
@@ -378,7 +376,6 @@
         <setEntry value="org.eclipse.equinox.security@default:default"/>
         <setEntry value="org.eclipse.equinox.simpleconfigurator.manipulator@default:default"/>
         <setEntry value="org.eclipse.equinox.simpleconfigurator@1:true"/>
-        <setEntry value="org.eclipse.equinox.slf4j@default:default"/>
         <setEntry value="org.eclipse.fx.osgi@default:false"/>
         <setEntry value="org.eclipse.gef.common@default:default"/>
         <setEntry value="org.eclipse.gef.fx@default:default"/>
@@ -461,8 +458,6 @@
         <setEntry value="org.eclipse.jgit@default:default"/>
         <setEntry value="org.eclipse.jsch.core@default:default"/>
         <setEntry value="org.eclipse.jsch.ui@default:default"/>
-        <setEntry value="org.eclipse.lsp4j.jsonrpc@default:default"/>
-        <setEntry value="org.eclipse.lsp4j@default:default"/>
         <setEntry value="org.eclipse.ltk.core.refactoring@default:default"/>
         <setEntry value="org.eclipse.ltk.ui.refactoring@default:default"/>
         <setEntry value="org.eclipse.mylyn.commons.core@default:default"/>
@@ -691,6 +686,7 @@
         <setEntry value="py4j-java@default:default"/>
         <setEntry value="py4j-python@default:default"/>
         <setEntry value="slf4j.api@default:default"/>
+        <setEntry value="slf4j.simple@default:default"/>
     </setAttribute>
     <setAttribute key="selected_workspace_bundles">
         <setEntry value="alisa.releng@default:default"/>
@@ -743,6 +739,7 @@
         <setEntry value="org.osate.categories@default:default"/>
         <setEntry value="org.osate.codegen.checker@default:default"/>
         <setEntry value="org.osate.contribution.sei@default:default"/>
+        <setEntry value="org.osate.core.tests.log4j@default:default"/>
         <setEntry value="org.osate.core@default:default"/>
         <setEntry value="org.osate.examples@default:default"/>
         <setEntry value="org.osate.ge.ba@default:default"/>

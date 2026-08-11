@@ -122,11 +122,13 @@ public class AccessEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIns
 
 		assertEquals(List.of("starts_at_access"), flowNames(result.instance()));
 		assertEquals(List.of(), flow(result.instance(), "starts_at_access").getFlowElements());
-		assertEquals(2, result.messages().size());
-		assertEquals("Flow instance leaves system instance for flow AccessContainer_i_Instance.access_path",
-				result.messages().get(0).message);
-		assertEquals("Flow instance leaves system instance for flow AccessContainer_i_Instance.starts_at_access",
-				result.messages().get(1).message);
+		assertEquals(List.of(
+				"access_path could not be instantiated: Access feature "
+						+ "E2E_Access_Flows::AccessContainer.data_access is not a proxy for a data or subprogram component.",
+				"Flow instance leaves system instance for flow AccessContainer_i_Instance.access_path",
+				"Flow instance leaves system instance for flow AccessContainer_i_Instance.starts_at_access"),
+				result.messages().stream().map(message -> message.message).toList());
+		assertEquals(result.instance(), result.messages().get(0).where);
 		for (var message : result.messages()) {
 			assertEquals(QueuingAnalysisErrorReporter.ERROR, message.kind);
 		}

@@ -497,8 +497,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * Publish all completed candidates for a component. Candidate names are assigned deterministically, nested
 	 * references are checked before attachment, and modes are finalized with nested flows before their parents. If mode
 	 * finalization fails, attachment and transient mode state are rolled back before the exception is propagated.
-	 * Diagnostics are emitted only after a successful commit so diagnostics targeting discarded candidates can be
-	 * suppressed.
+	 * Diagnostics are emitted only after a successful commit. Diagnostics for completed candidates target the attached
+	 * flow instance; diagnostics for discarded candidates target the owning component instance.
 	 */
 	private void commit(FlowInstantiationContext context) {
 		if (context.canceled || monitor.isCanceled()) {
@@ -572,6 +572,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			case CANDIDATE -> {
 				if (diagnostic.candidate().status == CandidateStatus.COMPLETE) {
 					error(diagnostic.candidate().instance, diagnostic.message());
+				} else {
+					error(diagnostic.candidate().owner,
+							diagnostic.candidate().instance.getName() + " could not be instantiated: "
+									+ diagnostic.message());
 				}
 			}
 			case EXISTING_ELEMENT -> error(diagnostic.existingElement(), diagnostic.message());
@@ -1154,7 +1158,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				List<NestedMatch> matches = new ArrayList<>();
 				for (ConnectionInstance conni : connis) {
 					for (FlowCandidate nested : nestedETEs) {
-						if (containsConnectionPath(conni, nested.preConnections)) {
+						if (isCompatibleNestedConnection(conni, nested)) {
 							matches.add(new NestedMatch(conni, nested));
 						}
 					}
@@ -1206,6 +1210,26 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
+	 * Check whether an incoming connection reaches the start of a nested end-to-end flow candidate.
+	 */
+	private boolean isCompatibleNestedConnection(ConnectionInstance connection, FlowCandidate nested) {
+		if (!containsConnectionPath(connection, nested.preConnections)) {
+			return false;
+		}
+
+		ConnectionInstanceEnd destination = connection.getDestination();
+		ConnectionInstanceEnd nestedStart = getFirstConnectionEnd(nested.instance);
+		if (destination instanceof FeatureInstance destinationFeature
+				&& nestedStart instanceof FeatureInstance nestedFeature) {
+			return isSameorContains(nestedFeature, destinationFeature);
+		}
+		if (nestedStart instanceof ComponentInstance nestedComponent) {
+			return destination == nestedComponent || destination.getComponentInstance() == nestedComponent;
+		}
+		return destination == nestedStart;
+	}
+
+	/**
 	 * Check whether a connection instance contains a declarative connection path as a contiguous sequence.
 	 */
 	private static boolean containsConnectionPath(ConnectionInstance connectionInstance,
@@ -1225,6 +1249,21 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			}
 		}
 		return false;
+	}
+
+	private ConnectionInstanceEnd getFirstConnectionEnd(EndToEndFlowInstance etei) {
+		EList<FlowElementInstance> elements = etei.getFlowElements();
+		if (elements.isEmpty()) {
+			return null;
+		}
+
+		return switch (elements.getFirst()) {
+		case EndToEndFlowInstance nested -> getFirstConnectionEnd(nested);
+		case FlowSpecificationInstance flowSpecification -> flowSpecification.getSource();
+		case ConnectionInstance connection -> connection.getSource();
+		case ComponentInstance component -> component;
+		case null, default -> null;
+		};
 	}
 
 	private void addNestedETE(EndToEndFlowInstance etei, FlowCandidate nested) {

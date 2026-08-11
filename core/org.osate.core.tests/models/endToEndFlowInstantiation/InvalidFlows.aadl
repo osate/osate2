@@ -113,7 +113,7 @@ public
 			cross: port middle.output -> right.input;
 			leave: port right.output -> consumer.input;
 		flows
-			nested: end to end flow nested_enter -> middle.nested_path -> cross -> right.fpath;
+			nested: end to end flow middle.nested_path -> cross -> right.fpath;
 			parent: end to end flow parent_producer.fsrc -> parent_enter ->
 				nested -> leave -> consumer.fsnk;
 	end NestedCompatibilityTop.i;

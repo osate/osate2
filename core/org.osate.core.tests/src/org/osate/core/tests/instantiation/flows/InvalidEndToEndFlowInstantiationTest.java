@@ -82,12 +82,17 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 		InstantiationResult result = instantiateWithErrors(FILE, "CycleTop.i");
 
 		assertTrue(result.instance().getEndToEndFlows().isEmpty());
-		assertTrue(result.messages().isEmpty());
+		assertEquals(1, result.messages().size());
+		assertTrue(result.messages().get(0).message.startsWith(
+				"second could not be instantiated: Cyclic dependency between end to end flows involving "));
+		assertEquals(QueuingAnalysisErrorReporter.ERROR, result.messages().get(0).kind);
+		assertEquals(result.instance(), result.messages().get(0).where);
 	}
 
 	@Test
 	public void testAllInstantiationDiagnosticsAreErrors() throws Exception {
-		for (String implementation : List.of("BranchFailureTop.i", "MissingImplementationTop.i", "CycleTop.i")) {
+		for (String implementation : List.of("BranchFailureTop.i", "MissingImplementationTop.i", "CycleTop.i",
+				"NestedCompatibilityTop.i")) {
 			InstantiationResult result = instantiateWithErrors(FILE, implementation);
 			List<Message> flowMessages = result.messages()
 					.stream()
@@ -104,7 +109,11 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 		InstantiationResult result = instantiateWithErrors(FILE, "NestedCompatibilityTop.i");
 
 		assertEquals(List.of("nested"), flowNames(result.instance()));
-		assertTrue(result.messages().isEmpty());
+		assertEquals(List.of("parent could not be instantiated: Incomplete end-to-end flow instance parent: "
+				+ "No compatible nested end to end flow instance for nested"),
+				result.messages().stream().map(message -> message.message).toList());
+		assertEquals(QueuingAnalysisErrorReporter.ERROR, result.messages().get(0).kind);
+		assertEquals(result.instance(), result.messages().get(0).where);
 	}
 
 	@Test
