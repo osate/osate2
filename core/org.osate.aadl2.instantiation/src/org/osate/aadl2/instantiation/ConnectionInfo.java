@@ -26,7 +26,6 @@ package org.osate.aadl2.instantiation;
 import static org.osate.aadl2.instance.ConnectionKind.ACCESS_CONNECTION;
 import static org.osate.aadl2.instance.ConnectionKind.FEATURE_CONNECTION;
 import static org.osate.aadl2.instance.ConnectionKind.FEATURE_GROUP_CONNECTION;
-import static org.osate.aadl2.instance.ConnectionKind.MODE_TRANSITION_CONNECTION;
 import static org.osate.aadl2.instance.ConnectionKind.PARAMETER_CONNECTION;
 import static org.osate.aadl2.instance.ConnectionKind.PORT_CONNECTION;
 import static org.osate.aadl2.instance.FeatureCategory.ABSTRACT_FEATURE;
@@ -68,7 +67,6 @@ import org.osate.aadl2.util.Aadl2InstanceUtil;
  * connection instance.
  */
 class ConnectionInfo {
-	private ConnectionKind kind;
 	final List<Connection> connections;
 	final List<Boolean> opposites;
 	final List<ComponentInstance> contexts;
@@ -84,7 +82,6 @@ class ConnectionInfo {
 	ComponentInstance container;
 
 	private ConnectionInfo(final ConnectionInfo info) {
-		kind = info.kind;
 		src = info.src;
 		connections = new ArrayList<Connection>(info.connections);
 		opposites = new ArrayList<Boolean>(info.opposites);
@@ -100,11 +97,6 @@ class ConnectionInfo {
 		container = info.container;
 	}
 
-	private ConnectionInfo(final ConnectionKind k, final ConnectionInstanceEnd s) {
-		this(s);
-		kind = k;
-	}
-
 	private ConnectionInfo(final ConnectionInstanceEnd s) {
 		src = s;
 		connections = new ArrayList<Connection>();
@@ -116,10 +108,6 @@ class ConnectionInfo {
 
 	public static ConnectionInfo newConnectionInfo(final ConnectionInstanceEnd s) {
 		return new ConnectionInfo(s);
-	}
-
-	public static ConnectionInfo newModeTransition(final ConnectionInstanceEnd s) {
-		return new ConnectionInfo(MODE_TRANSITION_CONNECTION, s);
 	}
 
 	/**
@@ -252,15 +240,6 @@ class ConnectionInfo {
 		return false;
 	}
 
-	/*
-	 * Specialized clone operation that changes the prototype connection
-	 * instance to be a mode transition connection instance.
-	 */
-	public ConnectionInfo convertToModeTransition() {
-		kind = MODE_TRANSITION_CONNECTION;
-		return this;
-	}
-
 	public ConnectionInfo cloneInfo() {
 		return new ConnectionInfo(this);
 	}
@@ -291,8 +270,7 @@ class ConnectionInfo {
 		conni.setSource(src);
 		conni.setDestination(dst);
 		conni.setComplete(across);
-		kind = getKind(dst);
-		conni.setKind(kind);
+		conni.setKind(getKind(dst));
 		return conni;
 	}
 

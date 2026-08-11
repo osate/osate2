@@ -67,17 +67,13 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Port;
-import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.contrib.modeling.ClassifierMatchingRule;
 import org.osate.aadl2.contrib.modeling.ModelingProperties;
 import org.osate.aadl2.impl.ParameterImpl;
@@ -276,9 +272,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					final boolean connectedInside = lookInside && isConnectionEnd(insideSubConns, feature);
 					final boolean destinationFromInside = lookInside && isDestination(insideSubConns, feature);
 
-					// first see if mode transitions are triggered by a
-					// doModeTransitionConnections(ci, featurei);
-
 					for (final Connection conn : outgoingConns) {
 						// conn is first segment if it can't continue inside
 						// the subcomponent
@@ -360,7 +353,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	// TODO-LW: set 'complete' in conn info
 	private void appendSegment(ConnectionInfo connInfo, final Connection newSegment, final ComponentInstance ci,
 			final boolean goOpposite) {
-		final boolean didModeTransitionConnection = doModeTransitionConnections(ci, connInfo, newSegment);
 		final ConnectionEnd fromEnd = goOpposite ? newSegment.getAllDestination() : newSegment.getAllSource();
 		final Context fromCtx = goOpposite ? newSegment.getAllDestinationContext() : newSegment.getAllSourceContext();
 		ConnectionEnd toEnd = goOpposite ? newSegment.getAllSource() : newSegment.getAllDestination();
@@ -570,15 +562,16 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 								ci.getSubcomponent());
 
 						if (conns.isEmpty()) {
-							if (!didModeTransitionConnection) {
-								if (ci instanceof SystemInstance) {
-									finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
-								} else {
-									warning(toFi,
-											"Could not continue connection from " + connInfo.src.getInstanceObjectPath()
-													+ "  through " + toFi.getInstanceObjectPath()
-													+ ". No connection instance created.");
-								}
+							if (isModeTransitionTrigger(nextCi, toFi)) {
+								connInfo.complete = true;
+								finalizeConnectionInstance(ci, connInfo, toFi);
+							} else if (ci instanceof SystemInstance) {
+								finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
+							} else {
+								warning(toFi,
+										"Could not continue connection from " + connInfo.src.getInstanceObjectPath()
+												+ "  through " + toFi.getInstanceObjectPath()
+												+ ". No connection instance created.");
 							}
 						} else {
 							for (Connection nextConn : conns) {
@@ -1368,114 +1361,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	}
 
-	// ------------------------------------------------------------------------
-	// Methods related to mode transition connections
-	// ------------------------------------------------------------------------
-
-	/**
-	 * handles the situation that a mode transition may name an event port in a
-	 * thread (or other leaf component instance) and that port is not the
-	 * destination of a connection instance - it is the start of a connection
-	 * instance
-	 *
-	 * @param ci
-	 *            ComponentInstance
-	 * @param fi
-	 *            FeatureInstance
-	 * @return true if we created a ModetransitionInstance
-	 */
-	private boolean doModeTransitionConnections(ComponentInstance ci, FeatureInstance fi) {
-		boolean didTransition = false;
-		if (fi.getCategory() == FeatureCategory.EVENT_PORT) {
-			Subcomponent sub = ci.getSubcomponent();
-			Feature f = fi.getFeature();
-
-			for (ModeTransitionInstance mti : ci.getContainingComponentInstance().getModeTransitionInstances()) {
-				for (ModeTransitionTrigger trigger : mti.getModeTransition().getOwnedTriggers()) {
-					TriggerPort tp = trigger.getTriggerPort();
-					if (tp instanceof Port) {
-						Port p = (Port) tp;
-						Context c = trigger.getContext();
-
-						if (f == p && c == sub) {
-							addConnectionInstance(ci.getSystemInstance(), ConnectionInfo.newModeTransition(fi), mti);
-							didTransition = true;
-						}
-					} else {
-						// TODO-LW: what if it's a processor port or internal
-						// event?
-					}
-				}
-			}
-		}
-		return didTransition;
-	}
-
-	/**
-	 * As we are following connection declarations we need to check whether the
-	 * destination of the connection is named in one of the mode transitions of
-	 * the component instance that is the destination of the connection being
-	 * added
-	 *
-	 * @param parentci
-	 *            The component that is the context in which the connections are
-	 *            declared
-	 * @param pci
-	 *            PortConnectionInstance that is being created
-	 * @param conn
-	 *            connection being added to the ConnectionInstance
-	 * @return true if we created a ModetransitionInstance
-	 */
-	private boolean doModeTransitionConnections(final ComponentInstance parentci, ConnectionInfo connInfo,
-			Connection conn) {
-		boolean didTransition = false;
-		if (!(conn instanceof PortConnection || conn instanceof FeatureGroupConnection)) {
-			return false;
-		}
-		ComponentInstance parent = null;
-		Context fc = conn.getAllDestinationContext();
-		Element connContext = null;
-		if (fc instanceof ComponentImplementation || fc instanceof FeatureGroup) { // we
-			// have
-			// an
-			// outgoing
-			// connection
-			parent = (ComponentInstance) parentci.eContainer();
-			connContext = parentci.getSubcomponent();
-		} else if (fc instanceof Subcomponent) {
-			parent = parentci.findSubcomponentInstance((Subcomponent) fc);
-			connContext = ((Subcomponent) fc).getAllClassifier();
-		}
-		if (parent == null) {
-			return false;
-		}
-		EList<ModeTransitionInstance> mtl = parent.getModeTransitionInstances();
-		Feature f = (Feature) conn.getAllDestination();
-		for (ModeTransitionInstance mti : mtl) {
-			ModeTransition mt = mti.getModeTransition();
-			Context co = null;
-			for (ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
-				TriggerPort tp = trigger.getTriggerPort();
-				if (tp instanceof Port) {
-					Port o = (Port) tp;
-					co = trigger.getContext();
-					NamedElement context = co;
-					if (context instanceof FeatureGroup) {
-						context = parent.getSubcomponent().getAllClassifier();
-					}
-					if (f == o && context == connContext) {
-						final ConnectionInstance mtci = addConnectionInstance(parentci.getSystemInstance(),
-								connInfo.convertToModeTransition(), mti);
-						fillInModes(mtci);
-						fillInModeTransitions(mtci);
-						didTransition = true;
-					}
-				} else {
-					// TODO-LW: what if it's a processor port or internal event?
-				}
-			}
-		}
-		return didTransition;
+	private static boolean isModeTransitionTrigger(ComponentInstance component, ConnectionInstanceEnd end) {
+		return end instanceof FeatureInstance feature && feature.getCategory() == FeatureCategory.EVENT_PORT
+				&& component.getModeTransitionInstances()
+						.stream()
+						.anyMatch(transition -> transition.getTriggers().contains(feature));
 	}
 
 	// ------------------------------------------------------------------------
