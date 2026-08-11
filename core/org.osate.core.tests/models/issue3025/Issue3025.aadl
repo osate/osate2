@@ -1,0 +1,45 @@
+package Issue3025
+public
+	device Generator
+		features
+			to_trigger: out event port;
+			to_unresolved: out event port;
+			to_ordinary: out event port;
+	end Generator;
+
+	device Receiver
+		features
+			incoming: in event port;
+	end Receiver;
+
+	system Bridge
+		features
+			trigger_terminal: in out event port;
+			unresolved_terminal: in out event port;
+			ordinary_terminal: in out event port;
+	end Bridge;
+
+	system implementation Bridge.i
+		subcomponents
+			producer: device Generator;
+		connections
+			trigger_path: port producer.to_trigger -> trigger_terminal;
+			unresolved_path: port producer.to_unresolved -> unresolved_terminal;
+			ordinary_path: port producer.to_ordinary -> ordinary_terminal;
+	end Bridge.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			bridge: system Bridge.i;
+			consumer: device Receiver;
+		connections
+			ordinary_continuation: port bridge.ordinary_terminal -> consumer.incoming;
+		modes
+			idle: initial mode;
+			active: mode;
+			activate: idle -[bridge.trigger_terminal]-> active;
+	end Top.i;
+end Issue3025;
