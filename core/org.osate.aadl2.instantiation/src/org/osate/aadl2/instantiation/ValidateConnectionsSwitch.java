@@ -159,7 +159,11 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				toRemove.add(conni);
 			}
 		});
-		connis.removeAll(toRemove);
+		for (ConnectionInstance conni : toRemove) {
+			conni.setSource(null);
+			conni.setDestination(null);
+			connis.remove(conni);
+		}
 	}
 
 	private boolean shouldCompare(ConnectionInstance test, ConnectionInstance conni) {
