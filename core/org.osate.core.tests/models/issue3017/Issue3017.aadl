@@ -1,0 +1,38 @@
+package Issue3017
+public
+	thread SrcThread
+	features
+		outp: out event port;
+	end SrcThread;
+
+	thread DstThread
+	features
+		inp: in event port;
+	end DstThread;
+
+	process Container
+	end Container;
+
+	process implementation Container.i
+	subcomponents
+		destination_srcs: thread SrcThread[2];
+		destination_dsts: thread DstThread[2];
+		source_srcs: thread SrcThread[2];
+		source_dsts: thread DstThread[2];
+	connections
+		missing_destination: port destination_srcs.outp -> destination_dsts.inp {
+			Communication_Properties::Connection_Set => ([src => (1); dst => (3);]);
+		};
+		missing_source: port source_srcs.outp -> source_dsts.inp {
+			Communication_Properties::Connection_Set => ([src => (3); dst => (1);]);
+		};
+	end Container.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+	subcomponents
+		container: process Container.i;
+	end Top.i;
+end Issue3017;
