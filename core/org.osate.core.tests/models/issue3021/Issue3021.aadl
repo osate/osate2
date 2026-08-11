@@ -1,0 +1,48 @@
+package Issue3021
+public
+	feature group ServiceGroup
+	features
+		shared_call: provides subprogram access;
+		signal_line: out data port;
+	end ServiceGroup;
+
+	thread ProviderSide
+	features
+		service_bundle: feature group ServiceGroup;
+	end ProviderSide;
+
+	thread implementation ProviderSide.impl
+	subcomponents
+		worker_unit: subprogram;
+	connections
+		internal_supply: subprogram access worker_unit -> service_bundle.shared_call;
+	end ProviderSide.impl;
+
+	subprogram ServiceClient
+	features
+		requested_call: requires subprogram access;
+	end ServiceClient;
+
+	thread RequesterSide
+	features
+		service_bundle: feature group inverse of ServiceGroup;
+	end RequesterSide;
+
+	thread implementation RequesterSide.impl
+	subcomponents
+		worker_unit: subprogram ServiceClient;
+	connections
+		internal_demand: subprogram access worker_unit.requested_call <-> service_bundle.shared_call;
+	end RequesterSide.impl;
+
+	process DemoTop
+	end DemoTop;
+
+	process implementation DemoTop.impl
+	subcomponents
+		provider_side: thread ProviderSide.impl;
+		requester_side: thread RequesterSide.impl;
+	connections
+		across_link: feature group provider_side.service_bundle <-> requester_side.service_bundle;
+	end DemoTop.impl;
+end Issue3021;
