@@ -115,11 +115,26 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	private void removeShortAccessConnections(ComponentInstance ci) {
 		List<ConnectionInstance> connis = ci.getConnectionInstances();
+		boolean hasUnresolvedEndpoint = false;
+		for (ConnectionInstance conni : connis) {
+			if (conni.getSource() == null) {
+				error(conni, "Connection instance has no source endpoint");
+				hasUnresolvedEndpoint = true;
+			}
+			if (conni.getDestination() == null) {
+				error(conni, "Connection instance has no destination endpoint");
+				hasUnresolvedEndpoint = true;
+			}
+		}
+		if (hasUnresolvedEndpoint) {
+			return;
+		}
+
 		List<ConnectionInstance> toRemove = new ArrayList<>();
 		Map<ConnectionInstanceEnd, List<ConnectionInstance>> bySrc = connis.stream()
 				.collect(Collectors.groupingBy(ConnectionInstance::getSource));
 		Map<ConnectionInstanceEnd, List<ConnectionInstance>> byDst = connis.stream()
-				.collect(Collectors.groupingBy(ConnectionInstance::getSource));
+				.collect(Collectors.groupingBy(ConnectionInstance::getDestination));
 
 		connis.stream().forEach(conni -> {
 			if (conni.getKind() != ConnectionKind.ACCESS_CONNECTION) {
