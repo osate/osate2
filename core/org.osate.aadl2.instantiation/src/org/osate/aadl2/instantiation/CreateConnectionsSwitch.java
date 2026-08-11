@@ -1066,7 +1066,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						dstEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					} else {
 						String name = upFi.getName();
-						srcEnd = (FeatureInstance) AadlUtil.findNamedElementInList(flist, name);
+						dstEnd = (FeatureInstance) AadlUtil.findNamedElementInList(flist, name);
 					}
 				}
 			}
@@ -1312,7 +1312,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					if (targetFI == null) {
 						// name does not match. We may have an inverse of feature group type with its own set of feature names
 						// In this case it is an index based match
-						int idx = dst.eContents().indexOf(target);
+						int idx = ((FeatureInstance) dst).getFeatureInstances().indexOf(target);
 						if (idx >= 0) {
 							targetFI = fgi.getFeatureInstances().get(idx);
 						}
@@ -1351,7 +1351,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					if (targetFI == null) {
 						// name does not match. We may have an inverse of feature group type with its own set of feature names
 						// In this case it is an index based match
-						int idx = dst.eContents().indexOf(target);
+						int idx = ((FeatureInstance) src).getFeatureInstances().indexOf(target);
 						if (idx >= 0) {
 							targetFI = fgi.getFeatureInstances().get(idx);
 						}

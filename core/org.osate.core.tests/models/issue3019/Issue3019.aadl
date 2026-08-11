@@ -1,0 +1,104 @@
+package Issue3019
+public
+	feature group SourceLeafGroup
+	features
+		alpha: in out event port;
+		beta: in out event port;
+	end SourceLeafGroup;
+
+	feature group SourceGroup
+	features
+		source_inner: feature group SourceLeafGroup;
+	end SourceGroup;
+
+	feature group DestinationLeafGroup
+	features
+		alpha: in out event port;
+		beta: in out event port;
+	end DestinationLeafGroup;
+
+	feature group DestinationGroup
+	features
+		destination_inner: feature group DestinationLeafGroup;
+	inverse of SourceGroup
+	end DestinationGroup;
+
+	feature group SubsetSourceGroup
+	features
+		common: out event port;
+		extra: out event port;
+	end SubsetSourceGroup;
+
+	feature group SubsetDestinationGroup
+	features
+		common: in event port;
+	end SubsetDestinationGroup;
+
+	thread Leaf
+	features
+		io: in out event port;
+	end Leaf;
+
+	process ProducerLeafSide
+	features
+		boundary: feature group SourceLeafGroup;
+	end ProducerLeafSide;
+
+	process implementation ProducerLeafSide.i
+	subcomponents
+		leaf: thread Leaf;
+	connections
+		up: port leaf.io <-> boundary.alpha;
+	end ProducerLeafSide.i;
+
+	system ProducerSide
+	features
+		boundary: feature group SourceGroup;
+	end ProducerSide;
+
+	system implementation ProducerSide.i
+	subcomponents
+		leaf_side: process ProducerLeafSide.i;
+	connections
+		nested_up: feature group leaf_side.boundary <-> boundary.source_inner;
+	end ProducerSide.i;
+
+	system ConsumerSide
+	features
+		boundary: feature group DestinationGroup;
+	end ConsumerSide;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+	subcomponents
+		producer_side: system ProducerSide.i;
+		consumer_side: system ConsumerSide;
+	connections
+		across: feature group producer_side.boundary <-> consumer_side.boundary;
+	end Top.i;
+
+	system SubsetProducer
+	features
+		boundary: feature group SubsetSourceGroup;
+	end SubsetProducer;
+
+	system SubsetConsumer
+	features
+		boundary: feature group SubsetDestinationGroup;
+	end SubsetConsumer;
+
+	system SubsetTop
+	end SubsetTop;
+
+	system implementation SubsetTop.i
+	subcomponents
+		producer: system SubsetProducer;
+		consumer: system SubsetConsumer;
+	connections
+		across_subset: feature group producer.boundary -> consumer.boundary {
+			Classifier_Matching_Rule => Subset;
+		};
+	end SubsetTop.i;
+end Issue3019;
