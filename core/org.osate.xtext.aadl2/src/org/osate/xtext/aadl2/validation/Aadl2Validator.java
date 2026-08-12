@@ -389,6 +389,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		if (connection.getRefined() == null) {
 			typeCheckPortConnectionEnd(connection.getSource());
 			typeCheckPortConnectionEnd(connection.getDestination());
+			checkInternalFeatureConnectionEnd(connection);
 			checkConnectionDirection(connection);
 			checkPortConnectionEnds(connection);
 			checkAggregateDataPort(connection);
@@ -420,6 +421,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureConnection(FeatureConnection connection) {
+		if (connection.getRefined() == null) {
+			checkInternalFeatureConnectionEnd(connection);
+		}
 		checkFeatureGroupChaining(connection);
 		ConnectionEnd src = connection.getAllLastSource();
 		ConnectionEnd dst = connection.getAllLastDestination();
@@ -8173,6 +8177,37 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				}
 			}
 		}
+	}
+
+	/**
+	 * An internal feature is a source of events or event data inside the containing component. It is therefore allowed
+	 * only at the source end of a connection. A bidirectional connection uses its source end as a destination as well,
+	 * so an internal feature there is reported too.
+	 *
+	 * An internal feature belongs to the containing component implementation, so it is only ever referenced without a
+	 * context. A contextual reference to an internal feature is already reported by the connection end type checks.
+	 */
+	private void checkInternalFeatureConnectionEnd(Connection connection) {
+		ConnectedElement destination = connection.getDestination();
+		if (isInternalFeatureOfContainingComponent(destination)) {
+			error("Internal feature '" + destination.getLastConnectionEnd().getName()
+					+ "' is allowed only at the source end of a connection.", destination,
+					Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+		}
+		ConnectedElement source = connection.getSource();
+		if (connection.isAllBidirectional() && isInternalFeatureOfContainingComponent(source)) {
+			warning("Bidirectional connection makes internal feature '" + source.getLastConnectionEnd().getName()
+					+ "' a connection destination.", source,
+					Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+		}
+	}
+
+	private static boolean isInternalFeatureOfContainingComponent(ConnectedElement connectedElement) {
+		if (connectedElement == null || connectedElement.getContext() != null) {
+			return false;
+		}
+		ConnectionEnd connectionEnd = connectedElement.getLastConnectionEnd();
+		return connectionEnd instanceof InternalFeature && !connectionEnd.eIsProxy();
 	}
 
 	private void checkThroughConnection(Connection connection) {

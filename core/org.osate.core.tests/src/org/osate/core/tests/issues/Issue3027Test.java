@@ -47,7 +47,14 @@ public class Issue3027Test extends XtextTest {
 	@Test
 	public void connectionToInternalFeatureIsReportedNotDereferenced() throws Exception {
 		var pkg = testHelper.parseFile(MODEL);
-		validationHelper.assertNoIssues(pkg);
+		/*
+		 * The connection into the internal feature is rejected by the declarative validator since issue #3028. The
+		 * instantiator must still handle it without dereferencing the missing destination feature instance.
+		 */
+		var validationIssues = validationHelper.validate(pkg);
+		assertEquals(1, validationIssues.size());
+		assertEquals("Internal feature 'raised_event' is allowed only at the source end of a connection.",
+				validationIssues.get(0).getMessage());
 		var top = (ComponentImplementation) pkg.getOwnedPublicSection().getOwnedClassifiers().stream()
 				.filter(classifier -> classifier.getName().equals("Top.i"))
 				.findFirst()
