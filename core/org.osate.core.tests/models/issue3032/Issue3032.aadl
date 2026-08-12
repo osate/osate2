@@ -1,0 +1,39 @@
+package Issue3032
+public
+	thread Producer
+	features
+		outp: out data port;
+	flows
+		fsrc: flow source outp;
+	end Producer;
+
+	thread Consumer
+	features
+		inp: in data port;
+	flows
+		fsnk: flow sink inp;
+	end Consumer;
+
+	process Container
+	end Container;
+
+	-- The connection is expanded into one connection instance per array element. The end to end flow
+	-- must be built over those final connection instances.
+	process implementation Container.i
+	subcomponents
+		producers: thread Producer[2];
+		consumers: thread Consumer[2];
+	connections
+		c: port producers.outp -> consumers.inp;
+	flows
+		etef: end to end flow producers.fsrc -> c -> consumers.fsnk;
+	end Container.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+	subcomponents
+		container: process Container.i;
+	end Top.i;
+end Issue3032;

@@ -1,0 +1,64 @@
+package Issue3032Set
+public
+	thread Producer
+	features
+		outp: out data port;
+	flows
+		fsrc: flow source outp;
+	end Producer;
+
+	thread Consumer
+	features
+		inp: in data port;
+	flows
+		fsnk: flow sink inp;
+	end Consumer;
+
+	-- Connection_Set replaces the connection instance with one instance per listed index pair. These
+	-- pairs keep the element index, so the end to end flow can be built over the resulting connection
+	-- instances.
+	process Matched
+	end Matched;
+
+	process implementation Matched.i
+	subcomponents
+		producers: thread Producer[2];
+		consumers: thread Consumer[2];
+	connections
+		c: port producers.outp -> consumers.inp {
+			Communication_Properties::Connection_Set => ([src => (1); dst => (1);], [src => (2); dst => (2);]);
+		};
+	flows
+		etef: end to end flow producers.fsrc -> c -> consumers.fsnk;
+	end Matched.i;
+
+	-- These pairs cross the element indices. No connection instance connects the first producer to the
+	-- first consumer, so the declared end to end flow cannot be built and instantiation has to say so.
+	process Crossed
+	end Crossed;
+
+	process implementation Crossed.i
+	subcomponents
+		producers: thread Producer[2];
+		consumers: thread Consumer[2];
+	connections
+		c: port producers.outp -> consumers.inp {
+			Communication_Properties::Connection_Set => ([src => (1); dst => (2);], [src => (2); dst => (1);]);
+		};
+	flows
+		etef: end to end flow producers.fsrc -> c -> consumers.fsnk;
+	end Crossed.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.matched
+	subcomponents
+		container: process Matched.i;
+	end Top.matched;
+
+	system implementation Top.crossed
+	subcomponents
+		container: process Crossed.i;
+	end Top.crossed;
+end Issue3032Set;

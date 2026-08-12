@@ -1,0 +1,35 @@
+package Issue3032Validation
+public
+	thread Producer
+	features
+		outp: out data port;
+	end Producer;
+
+	thread Consumer
+	features
+		inp: in data port;
+	end Consumer;
+
+	process Container
+	end Container;
+
+	-- All_To_One expands the connection into two connection instances that both end at the same in data
+	-- port. Connection validation must see the expanded connections and report the conflict.
+	process implementation Container.i
+	subcomponents
+		producers: thread Producer[2];
+		consumer: thread Consumer;
+	connections
+		c: port producers.outp -> consumer.inp {
+			Communication_Properties::Connection_Pattern => ((All_To_One));
+		};
+	end Container.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+	subcomponents
+		container: process Container.i;
+	end Top.i;
+end Issue3032Validation;

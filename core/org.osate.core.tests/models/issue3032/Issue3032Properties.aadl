@@ -1,0 +1,115 @@
+package Issue3032Properties
+public
+	thread Producer
+	features
+		outp: out data port;
+	end Producer;
+
+	thread Consumer
+	features
+		inp: in data port;
+	end Consumer;
+
+	-- (a) Connection_Pattern declared directly on the connection
+	process Direct
+	end Direct;
+
+	process implementation Direct.i
+	subcomponents
+		producers: thread Producer[2];
+		consumers: thread Consumer[2];
+	connections
+		c: port producers.outp -> consumers.inp {
+			Communication_Properties::Connection_Pattern => ((All_To_All));
+		};
+	end Direct.i;
+
+	-- (b) Connection_Pattern supplied contextually by the enclosing implementation
+	process Plain
+	end Plain;
+
+	process implementation Plain.i
+	subcomponents
+		producers: thread Producer[2];
+		consumers: thread Consumer[2];
+	connections
+		c: port producers.outp -> consumers.inp;
+	end Plain.i;
+
+	system Contextual
+	end Contextual;
+
+	system implementation Contextual.i
+	subcomponents
+		nested: process Plain.i;
+	properties
+		Communication_Properties::Connection_Pattern => ((All_To_All)) applies to nested.c;
+	end Contextual.i;
+
+	-- (c) the connection is refined in an extending implementation, the property is on the refined
+	-- connection
+	process Inheriting extends Direct
+	end Inheriting;
+
+	process implementation Inheriting.i extends Direct.i
+	connections
+		c: refined to port;
+	end Inheriting.i;
+
+	-- (d) Connection_Pattern with a different value per mode
+	process Modal
+	end Modal;
+
+	process implementation Modal.i
+	subcomponents
+		producers: thread Producer[2];
+		consumers: thread Consumer[2];
+	connections
+		c: port producers.outp -> consumers.inp;
+	modes
+		m1: initial mode;
+		m2: mode;
+	properties
+		Communication_Properties::Connection_Pattern => ((All_To_All)) in modes (m1),
+			((One_To_One)) in modes (m2) applies to c;
+	end Modal.i;
+
+	-- (e) Connection_Set supplied contextually by the enclosing implementation
+	system ContextualSet
+	end ContextualSet;
+
+	system implementation ContextualSet.i
+	subcomponents
+		nested: process Plain.i;
+	properties
+		Communication_Properties::Connection_Set => ([src => (1); dst => (2);]) applies to nested.c;
+	end ContextualSet.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.direct
+	subcomponents
+		sub: process Direct.i;
+	end Top.direct;
+
+	system implementation Top.contextual
+	subcomponents
+		sub: system Contextual.i;
+	end Top.contextual;
+
+	system implementation Top.inheriting
+	subcomponents
+		sub: process Inheriting.i;
+	end Top.inheriting;
+
+	system implementation Top.modal
+	subcomponents
+		sub: process Modal.i;
+	end Top.modal;
+
+	system implementation Top.contextualSet
+	subcomponents
+		sub: system ContextualSet.i;
+	end Top.contextualSet;
+end Issue3032Properties;
