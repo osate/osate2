@@ -1,0 +1,33 @@
+package Issue3028
+public
+	device Sensor
+		features
+			alarm: out event port;
+	end Sensor;
+
+	device Monitor
+		features
+			incoming: in event port;
+			also_incoming: in event port;
+	end Monitor;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			sensor: device Sensor;
+			monitor: device Monitor;
+		internal features
+			raised_event: event;
+			logged_event: event;
+			shared_event: event;
+		connections
+			--  Illegal: an internal feature is allowed only at the source end.
+			to_internal: port sensor.alarm -> self.raised_event;
+			--  Legal: an internal feature at the source end.
+			from_internal: port self.logged_event -> monitor.incoming;
+			--  Questionable: bidirectional, so the internal feature also acts as a destination.
+			bidirectional_internal: port self.shared_event <-> monitor.also_incoming;
+	end Top.i;
+end Issue3028;
