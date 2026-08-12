@@ -189,9 +189,10 @@ public class Issue3032Test extends XtextTest {
 	 * Property caching runs on the final connection instances now instead of on the provisional ones, so
 	 * what the expanded connections carry must not change.
 	 * <p>
-	 * {@code Top.perElement} records that a containment path which indexes the component that owns the
-	 * connection reaches no connection instance at all. That is pre-existing behavior, it is the same
-	 * before and after the reordering.
+	 * {@code Top.perElement} indexes the component that owns the connection. The value reaches the
+	 * connection instances of that element, which the replication produced as copies. Issue #3034
+	 * corrected the connection reference contexts of those copies; before that fix the value reached no
+	 * connection instance at all.
 	 */
 	@Test
 	public void containedPropertiesOnExpandedConnectionsAreUnchanged() throws Exception {
@@ -207,8 +208,8 @@ public class Issue3032Test extends XtextTest {
 		assertEquals(
 				List.of("Top_perElement_Instance.nested[1].producers[1].outp --> consumers[1].inp = <none>",
 						"Top_perElement_Instance.nested[1].producers[2].outp --> consumers[2].inp = <none>",
-						"Top_perElement_Instance.nested[2].producers[1].outp --> consumers[1].inp = <none>",
-						"Top_perElement_Instance.nested[2].producers[2].outp --> consumers[2].inp = <none>"),
+						"Top_perElement_Instance.nested[2].producers[1].outp --> consumers[1].inp = delayed",
+						"Top_perElement_Instance.nested[2].producers[2].outp --> consumers[2].inp = delayed"),
 				cachedTimings(perElement));
 		assertEquals(List.of(), diagnostics(perElement));
 	}
