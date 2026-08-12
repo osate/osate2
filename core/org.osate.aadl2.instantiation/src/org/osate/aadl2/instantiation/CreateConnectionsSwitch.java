@@ -361,7 +361,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				? ci.findSubcomponentInstance((Subcomponent) toCtx)
 				: null;
 		final boolean finalComponent = isConnectionEndingComponent(toCtx);
-		final boolean dstEmpty = toCtx instanceof Subcomponent && toCi.getComponentInstances().isEmpty();
 		ConnectionInstanceEnd fromFi = null;
 		ConnectionInstanceEnd toFi = null;
 		FeatureInstance pushedFeature = null;
@@ -394,6 +393,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 			return;
 		}
+
+		// 'toCi' is known to exist if the destination context is a subcomponent
+		final boolean dstEmpty = toCtx instanceof Subcomponent && toCi.getComponentInstances().isEmpty();
 
 		if (!(fromEnd instanceof Subcomponent)) {
 			// fromEnd is a feature

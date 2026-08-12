@@ -277,14 +277,15 @@ class ConnectionInfo {
 	/**
 	 * If the destination is a feature group we must find the contained feature that matches
 	 * the contained feature on the source side.
-	 * 
+	 *
 	 * @param origCIE
 	 * @param rootCIE
 	 * @return
 	 */
 	protected ConnectionInstanceEnd resolveFeatureInstance(ConnectionInstanceEnd origCIE,
 			ConnectionInstanceEnd rootCIE) {
-		if (origCIE instanceof ComponentInstance || rootCIE instanceof ComponentInstance) {
+		if (rootCIE == null || origCIE instanceof ComponentInstance || rootCIE instanceof ComponentInstance) {
+			// an unresolved end resolves to itself
 			return rootCIE;
 		}
 		FeatureInstance rootFI = (FeatureInstance) rootCIE;
