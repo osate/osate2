@@ -1,0 +1,63 @@
+package Issue3034
+public
+	thread Producer
+	features
+		outp: out data port;
+	end Producer;
+
+	thread Consumer
+	features
+		inp: in data port;
+	end Consumer;
+
+	process Inner
+	end Inner;
+
+	-- The connection expands into one connection instance per array element.
+	process implementation Inner.i
+	subcomponents
+		producers: thread Producer[2];
+		consumers: thread Consumer[2];
+	connections
+		c: port producers.outp -> consumers.inp;
+	end Inner.i;
+
+	system Top
+	end Top;
+
+	-- The containment path names the first element of the array that owns the connection. Only the
+	-- connection instances of that element may carry the value.
+	system implementation Top.first
+	subcomponents
+		nested: process Inner.i[2];
+	properties
+		Communication_Properties::Timing => delayed applies to nested[1].c;
+	end Top.first;
+
+	-- The containment path names the second element of the array that owns the connection. Only the
+	-- connection instances of that element may carry the value. The connection instances of that
+	-- element are replicated copies of the ones created for the first element.
+	system implementation Top.second
+	subcomponents
+		nested: process Inner.i[2];
+	properties
+		Communication_Properties::Timing => delayed applies to nested[2].c;
+	end Top.second;
+
+	-- Control: without an index the containment path names every element, so every connection
+	-- instance carries the value.
+	system implementation Top.noIndex
+	subcomponents
+		nested: process Inner.i[2];
+	properties
+		Communication_Properties::Timing => delayed applies to nested.c;
+	end Top.noIndex;
+
+	-- Control: an indexed containment path whose last element is a component, not a connection.
+	system implementation Top.componentTarget
+	subcomponents
+		nested: process Inner.i[2];
+	properties
+		Timing_Properties::Period => 10 ms applies to nested[2].producers[1];
+	end Top.componentTarget;
+end Issue3034;

@@ -1,0 +1,63 @@
+package Issue3034Nested
+public
+	thread Producer
+	features
+		outp: out data port;
+	end Producer;
+
+	thread Consumer
+	features
+		inp: in data port;
+	end Consumer;
+
+	process Upstream
+	features
+		outp: out data port;
+	end Upstream;
+
+	process implementation Upstream.i
+	subcomponents
+		p: thread Producer;
+	connections
+		up: port p.outp -> outp;
+	end Upstream.i;
+
+	process Downstream
+	features
+		inp: in data port;
+	end Downstream;
+
+	process implementation Downstream.i
+	subcomponents
+		cs: thread Consumer;
+	connections
+		down: port inp -> cs.inp;
+	end Downstream.i;
+
+	system Middle
+	end Middle;
+
+	-- A connection instance in an element of the array below is a chain of three connection
+	-- references: up, across, down. Each reference has to name the component instance in which its
+	-- connection is declared as its context.
+	system implementation Middle.i
+	subcomponents
+		producer_side: process Upstream.i;
+		consumer_side: process Downstream.i;
+	connections
+		across: port producer_side.outp -> consumer_side.inp;
+	end Middle.i;
+
+	system Top
+	end Top;
+
+	-- The containment path names the second element of the array. Only the connection instance of
+	-- that element, which is a replicated copy of the one created for the first element, may carry
+	-- the value.
+	system implementation Top.i
+	subcomponents
+		nested: system Middle.i[2];
+	properties
+		Communication_Properties::Timing => delayed applies to nested[2].across;
+	end Top.i;
+end Issue3034Nested;

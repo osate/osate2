@@ -2005,11 +2005,65 @@ public class InstantiateModel {
 		i = (dstPath.startsWith(containerPath)) ? len : 0;
 		sb.append(dstPath.substring(i));
 
+		relocateConnectionReferenceContexts(newConn, conni.getContainingComponentInstance(), targetComponent);
 		newConn.setSource((ConnectionInstanceEnd) src);
 		newConn.setDestination((ConnectionInstanceEnd) dst);
 		newConn.setName(sb.toString());
 		targetComponent.getConnectionInstances().add(newConn);
 
+	}
+
+	/**
+	 * Point the connection references of a replicated connection instance at the array element that now
+	 * contains them. The copy keeps the contexts of the element it was copied from. Resolving the
+	 * endpoints gives every enclosed connection reference a context in the target element, but nothing
+	 * updates the context of the reference that goes across in the copied element.
+	 *
+	 * @param newConn the copy of the connection instance
+	 * @param origComponent the component instance that contains the original connection instance
+	 * @param targetComponent the component instance that will contain the copy
+	 */
+	private void relocateConnectionReferenceContexts(ConnectionInstance newConn, ComponentInstance origComponent,
+			ComponentInstance targetComponent) {
+		for (ConnectionReference connRef : newConn.getConnectionReferences()) {
+			ComponentInstance relocated = relocateComponentInstance(connRef.getContext(), origComponent,
+					targetComponent);
+			if (relocated != null) {
+				connRef.setContext(relocated);
+			}
+		}
+	}
+
+	/**
+	 * Find the component instance in the target element that corresponds to a component instance in the
+	 * element the connection instance was copied from.
+	 *
+	 * @param original the component instance to relocate
+	 * @param origComponent the root of the subtree the original belongs to
+	 * @param targetComponent the root of the subtree to relocate into
+	 * @return the corresponding component instance, or null if the original is neither
+	 *         <code>origComponent</code> nor contained in it, or if it has no counterpart
+	 */
+	private ComponentInstance relocateComponentInstance(ComponentInstance original, ComponentInstance origComponent,
+			ComponentInstance targetComponent) {
+		if (original == null) {
+			return null;
+		}
+		if (original == origComponent) {
+			return targetComponent;
+		}
+		ComponentInstance parent = relocateComponentInstance(original.getContainingComponentInstance(), origComponent,
+				targetComponent);
+		if (parent == null) {
+			return null;
+		}
+		for (ComponentInstance candidate : parent.getComponentInstances()) {
+			if (candidate.getName().equalsIgnoreCase(original.getName())
+					&& candidate.getIndices().equals(original.getIndices())) {
+				return candidate;
+			}
+		}
+		return null;
 	}
 
 	/**
