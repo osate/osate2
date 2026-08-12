@@ -1,0 +1,23 @@
+package Issue3030
+public
+	device Sensor
+		features
+			alarm: out event port;
+	end Sensor;
+
+	device Monitor
+		features
+			incoming: in event port;
+	end Monitor;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			sensor: device Sensor;
+			monitors: device Monitor [0];
+		connections
+			to_monitors: port sensor.alarm -> monitors.incoming;
+	end Top.i;
+end Issue3030;
