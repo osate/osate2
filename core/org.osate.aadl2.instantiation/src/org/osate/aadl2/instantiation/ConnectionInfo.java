@@ -277,6 +277,7 @@ class ConnectionInfo {
 	/**
 	 * If the destination is a feature group we must find the contained feature that matches
 	 * the contained feature on the source side.
+	 * 
 	 * @param origCIE
 	 * @param rootCIE
 	 * @return

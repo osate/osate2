@@ -1,0 +1,26 @@
+package Issue3027
+public
+	device Sensor
+		features
+			alarm: out event port;
+	end Sensor;
+
+	device Monitor
+		features
+			incoming: in event port;
+	end Monitor;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			sensor: device Sensor;
+			monitor: device Monitor;
+		internal features
+			raised_event: event;
+		connections
+			to_internal: port sensor.alarm -> self.raised_event;
+			to_monitor: port sensor.alarm -> monitor.incoming;
+	end Top.i;
+end Issue3027;
