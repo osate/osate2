@@ -75,12 +75,33 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 	 */
 	private SCProperties scProps;
 
+	/*
+	 * The property definitions to cache, or null to cache all of them.
+	 */
+	private final List<Property> propertyFilter;
+
 	protected CacheContainedPropertyAssociationsSwitch(
 			final HashMap<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
 			final IProgressMonitor pm, final AnalysisErrorReporterManager errManager) {
+		this(classifierCache, scProps, pm, errManager, null);
+	}
+
+	/**
+	 * @param propertyFilter cache only these property definitions, or <code>null</code> to cache all of
+	 *            them
+	 */
+	protected CacheContainedPropertyAssociationsSwitch(
+			final HashMap<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
+			final IProgressMonitor pm, final AnalysisErrorReporterManager errManager,
+			final List<Property> propertyFilter) {
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);
 		this.classifierCache = classifierCache;
 		this.scProps = scProps;
+		this.propertyFilter = propertyFilter;
+	}
+
+	private boolean isFiltered(Property prop) {
+		return propertyFilter != null && !propertyFilter.contains(prop);
 	}
 
 	@Override
@@ -218,8 +239,8 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 			final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
 			Property prop = pa.getProperty();
-			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
-				// PA is missing the prop def, skip to the next one
+			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType()) || isFiltered(prop)) {
+				// PA is missing the prop def or is not being cached, skip to the next one
 				continue;
 			}
 			for (ContainedNamedElement cne : pa.getAppliesTos()) {
@@ -299,8 +320,8 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 			// OsateDebug.osateDebug ("[CacheContainedProperty] Process contained property association: " + pa.getProperty().getName());
 			Property prop = pa.getProperty();
 
-			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
-				// PA is missing the prop def, skip to the next one
+			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType()) || isFiltered(prop)) {
+				// PA is missing the prop def or is not being cached, skip to the next one
 				// OsateDebug.osateDebug (" skip");
 
 				continue;

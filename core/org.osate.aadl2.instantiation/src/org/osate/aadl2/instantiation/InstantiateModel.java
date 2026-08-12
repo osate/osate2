@@ -146,6 +146,12 @@ public class InstantiateModel {
 
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
+
+	/* The properties that determine how a connection is expanded into connection instances */
+	private static final String COMMUNICATION_PROPERTIES = "Communication_Properties";
+	private static final String CONNECTION_PATTERN = "Connection_Pattern";
+	private static final String CONNECTION_SET = "Connection_Set";
+
 	protected AnalysisErrorReporterManager errManager;
 	protected final IProgressMonitor monitor;
 
@@ -164,6 +170,35 @@ public class InstantiateModel {
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
 	protected HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
+
+	/**
+	 * The roots of the instance model in the order they were discovered. The first one is the system
+	 * instance, the others are the instances of referenced classifiers created by
+	 * {@link #instantiateFeatureClassifier(FeatureInstance, FeatureClassifier)}, which is the only place
+	 * that adds a root to the instance resource. All of them go through the same phases, see
+	 * {@link #fillSystemInstance(SystemInstance)}.
+	 */
+	private final List<InstantiationRoot> roots = new ArrayList<>();
+
+	/**
+	 * A root of the instance model together with the next phase it has to go through. A root is
+	 * populated as soon as it is discovered, because that is what discovers further roots, but the
+	 * remaining phases run from the queue. Tracking the phase per root keeps a root that is discovered
+	 * late from being processed twice.
+	 */
+	private static final class InstantiationRoot {
+		private enum Phase {
+			FINALIZE_CONNECTIONS, INSTANTIATE_ANNEXES, DONE
+		}
+
+		private final ComponentInstance root;
+		private Phase phase;
+
+		private InstantiationRoot(ComponentInstance root) {
+			this.root = root;
+			phase = Phase.FINALIZE_CONNECTIONS;
+		}
+	}
 
 	/*
 	 * An error message that is filled by potential methods that
@@ -455,6 +490,9 @@ public class InstantiateModel {
 	 * @param root
 	 */
 	public void fillSystemInstance(SystemInstance root) throws InterruptedException {
+		roots.clear();
+		// enqueue before populating, so that referenced classifier roots are discovered behind this one
+		roots.add(new InstantiationRoot(root));
 		populateComponentInstance(root, 0);
 
 		monitor.subTask("Creating system operation modes");
@@ -467,7 +505,86 @@ public class InstantiateModel {
 		}
 		createSystemOperationModes(root, somLimit);
 
+		/*
+		 * Bring every root to its final connections and cached properties before any annex is
+		 * instantiated. Otherwise an annex on one root could observe another root whose connections are
+		 * still the provisional ones created before expansion. The queue can grow while we work on it, so
+		 * use indexed access and re-establish the barrier if annex instantiation discovers another root.
+		 */
+		AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
+		int annexed = 0;
+		while (annexed < roots.size()) {
+			for (int i = 0; i < roots.size(); i++) {
+				finalizeConnections(roots.get(i));
+			}
+			final int fixedPoint = roots.size();
+			monitor.subTask("Instantiating annexes");
+			while (annexed < fixedPoint) {
+				InstantiationRoot pending = roots.get(annexed++);
+				aic.instantiateAllAnnexes(pending.root);
+				pending.phase = InstantiationRoot.Phase.DONE;
+				if (monitor.isCanceled()) {
+					throw new InterruptedException();
+				}
+			}
+		}
+
+//		OsateResourceManager.save(aadlResource);
+//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
+		// Run some checks over the model.
+//		final SOMIterator soms = new SOMIterator(root);
+//		while (soms.hasNext()) {
+//			final SystemOperationMode som = soms.nextSOM();
+//			monitor.subTask("Checking model semantics for mode " + som.getName());
+//			final CheckInstanceSemanticsSwitch semanticsSwitch = new CheckInstanceSemanticsSwitch(som, soms
+//					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
+//			semanticsSwitch.processPostOrderAll(root);
+//		}
+	}
+
+	/**
+	 * Create the connection instances of a root, expand them into the final connection set, then
+	 * validate the result, build the end to end flows over it, and cache the properties on it.
+	 * <p>
+	 * The expansion of arrays, {@code Connection_Pattern} and {@code Connection_Set} replaces the
+	 * provisional connection instances and deletes them. It has to happen before validation and before
+	 * end to end flow creation, because a flow refers to connection instances without containing them
+	 * and would silently lose a deleted one.
+	 * <p>
+	 * Does nothing if the root already went through this phase.
+	 */
+	private void finalizeConnections(InstantiationRoot pending) throws InterruptedException {
+		if (pending.phase != InstantiationRoot.Phase.FINALIZE_CONNECTIONS) {
+			return;
+		}
+		pending.phase = InstantiationRoot.Phase.INSTANTIATE_ANNEXES;
+		final ComponentInstance root = pending.root;
+
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
+		/*
+		 * The expansion needs Connection_Pattern and Connection_Set on the provisional connections, but
+		 * the remaining properties have to be cached on the final connections. Split the used property
+		 * definitions and run the same caching mechanism twice, so that the values the expansion sees are
+		 * the ones full property caching would have produced for them.
+		 */
+		final EList<Property> usedProperties = getAllUsedPropertyDefinitions(root);
+		final List<Property> structuralProperties = new ArrayList<>();
+		final List<Property> remainingProperties = new ArrayList<>();
+		for (Property property : usedProperties) {
+			if (isStructuralConnectionProperty(property)) {
+				structuralProperties.add(property);
+			} else {
+				remainingProperties.add(property);
+			}
+		}
+
+		cacheStructuralConnectionProperties(root, structuralProperties);
+		// handle arrays, connection patterns, and connection sets
+		processConnections(root);
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
@@ -484,36 +601,7 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		// Note that caching properties may create new top level component instances for
-		// referenced classifiers, so we need to use indexed access
-		var contents = root.eResource().getContents();
-		for (int i = 0; i < contents.size(); i++) {
-			if (contents.get(i) instanceof ComponentInstance ci) {
-				cacheProperties(ci);
-				// handle connection patterns
-				processConnections(ci);
-			}
-		}
-
-		// instantiation of annexes
-		monitor.subTask("Instantiating annexes");
-		AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
-		aic.instantiateAllAnnexes(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
-
-//		OsateResourceManager.save(aadlResource);
-//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
-		// Run some checks over the model.
-//		final SOMIterator soms = new SOMIterator(root);
-//		while (soms.hasNext()) {
-//			final SystemOperationMode som = soms.nextSOM();
-//			monitor.subTask("Checking model semantics for mode " + som.getName());
-//			final CheckInstanceSemanticsSwitch semanticsSwitch = new CheckInstanceSemanticsSwitch(som, soms
-//					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
-//			semanticsSwitch.processPostOrderAll(root);
-//		}
+		cacheProperties(root, remainingProperties);
 	}
 
 	/*
@@ -540,15 +628,19 @@ public class InstantiateModel {
 	 * @since 3.0
 	 */
 	protected void cacheProperties(ComponentInstance root) throws InterruptedException {
+		// we could also use getAllPropertyDefinition(as), which returns all declared property definitions
+		// retrieving that set is faster, but it may contain property definitions that are not used;
+		// this in that case the caching of those properties would be slower
+		cacheProperties(root, getAllUsedPropertyDefinitions(root));
+	}
+
+	private void cacheProperties(ComponentInstance root, List<Property> propertyDefinitionList)
+			throws InterruptedException {
 		/*
 		 * We now cache the property associations. First we cache the contained
 		 * property associations. In a second pass we cache regular property
 		 * associations and evaluate all properties.
 		 */
-		// we could also use getAllPropertyDefinition(as), which returns all declared property definitions
-		// retrieving that set is faster, but it may contain property definitions that are not used;
-		// this in that case the caching of those properties would be slower
-		EList<Property> propertyDefinitionList = getAllUsedPropertyDefinitions(root);
 		CacheContainedPropertyAssociationsSwitch ccpas = new CacheContainedPropertyAssociationsSwitch(classifierCache,
 				scProps, monitor, errManager);
 		ccpas.processPostOrderAll(root);
@@ -562,6 +654,47 @@ public class InstantiateModel {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
+	}
+
+	/**
+	 * Cache {@code Connection_Pattern} and {@code Connection_Set} on the provisional connection
+	 * instances of a root. {@link #processConnections(ComponentInstance)} reads them from there to
+	 * expand the connections into the final connection set.
+	 * <p>
+	 * This uses the same two switches and the same lookup contexts as full property caching, restricted
+	 * to those two property definitions, so the resolved values are the ones full property caching would
+	 * have produced. The contained associations go into a separate cache because the one used by full
+	 * caching must not hold associations recorded for connection instances that the expansion deletes.
+	 */
+	private void cacheStructuralConnectionProperties(ComponentInstance root, List<Property> structuralProperties)
+			throws InterruptedException {
+		if (structuralProperties.isEmpty()) {
+			return;
+		}
+		SCProperties structuralScProps = new SCProperties();
+		new CacheContainedPropertyAssociationsSwitch(classifierCache, structuralScProps, monitor, errManager,
+				structuralProperties).processPostOrderAll(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
+		new CachePropertyAssociationsSwitch(monitor, errManager, structuralProperties, classifierCache,
+				structuralScProps, mode2som).processPreOrderAll(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+	}
+
+	/**
+	 * Is this one of the properties that determine how many connection instances a connection expands
+	 * into? Uses the same test as {@link #getPA(ConnectionInstance, String)}, which is what reads the
+	 * cached values.
+	 */
+	private static boolean isStructuralConnectionProperty(Property property) {
+		return (CONNECTION_PATTERN.equalsIgnoreCase(property.getName())
+				|| CONNECTION_SET.equalsIgnoreCase(property.getName()))
+				&& property.getOwner() instanceof PropertySet ps
+				&& COMMUNICATION_PROPERTIES.equalsIgnoreCase(ps.getName());
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -1269,31 +1402,14 @@ public class InstantiateModel {
 				contents.add(newInstance);
 				// root.getReferencedComponents().add(newInstance);
 				fi.setType(newInstance);
+				/*
+				 * Only establish the hierarchy, which is what discovers further referenced classifiers, and
+				 * hand the new root to the common pipeline. Creating its connections, validating them,
+				 * building its flows, or instantiating its annexes here would run those phases for this root
+				 * before any root has its final connections.
+				 */
 				populateComponentInstance(newInstance, 0);
-
-				new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(newInstance);
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
-
-				final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager,
-						classifierCache);
-				vcs.processPreOrderAll(newInstance);
-				vcs.postProcess();
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
-
-				new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(newInstance);
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
-
-				AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
-				aic.instantiateAllAnnexes(newInstance);
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
+				roots.add(new InstantiationRoot(newInstance));
 			}
 		}
 	}
@@ -1313,8 +1429,8 @@ public class InstantiateModel {
 			// track all component instances that contain connection instances
 			replicateConns.add(conni.getComponentInstance());
 
-			PropertyAssociation setPA = getPA(conni, "Connection_Set");
-			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
+			PropertyAssociation setPA = getPA(conni, CONNECTION_SET);
+			PropertyAssociation patternPA = getPA(conni, CONNECTION_PATTERN);
 
 			if (setPA == null && patternPA == null) {
 				// OsateDebug.osateDebug("[InstantiateModel] processConnections");
@@ -1676,7 +1792,7 @@ public class InstantiateModel {
 		for (PropertyAssociation pa : conni.getOwnedPropertyAssociations()) {
 			if (pa.getProperty().getName().equalsIgnoreCase(name)
 					&& ((PropertySet) pa.getProperty().getOwner()).getName()
-							.equalsIgnoreCase("Communication_Properties")) {
+							.equalsIgnoreCase(COMMUNICATION_PROPERTIES)) {
 				return pa;
 			}
 		}
