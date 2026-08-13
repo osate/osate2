@@ -34,10 +34,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -101,16 +107,31 @@ public final class LegResolver {
 		}
 
 		ComponentInstance owner = feature.getContainingComponentInstance();
+		if (owner == null) {
+			results.add(new LegResult(role, current, segments, featurePath, modes, allBidirectional,
+					"no owning component"));
+			return;
+		}
 
 		/*
 		 * Terminal policy: a connection-ending component. A thread, device, processor, or
-		 * virtual processor ends a semantic connection, so its internals are not descended
-		 * into even when it has some.
+		 * virtual processor ends a semantic connection at a port or feature group, so the
+		 * leg stops there. It does not stop for an access feature: shared access reaches
+		 * through such a component into what it contains.
+		 *
+		 * When a feature group holds both, the leg both stops here and continues for the
+		 * access part, which is why this adds a result and carries on rather than
+		 * returning. Source-first reaches the same two outcomes by separate means: its
+		 * start rule creates the path that stops at the component, and enumeration from
+		 * the inner subcomponent creates the one that continues.
 		 */
-		if (owner == null || isConnectionEndingCategory(owner.getCategory())) {
+		boolean endingCategory = isConnectionEndingCategory(owner.getCategory());
+		if (endingCategory && (includesPort(feature) || includesNestedFeatureGroup(feature))) {
 			results.add(new LegResult(role, current, segments, featurePath, modes, allBidirectional,
-					owner == null ? "no owning component" : "connection ending component"));
-			return;
+					"connection ending component"));
+			if (!includesAccess(feature)) {
+				return;
+			}
 		}
 
 		/*
@@ -124,7 +145,7 @@ public final class LegResolver {
 			return;
 		}
 
-		List<ResolvedSegment> continuations = continuations(owner, feature, role, visited);
+		List<ResolvedSegment> continuations = continuations(owner, feature, role, visited, endingCategory);
 		if (continuations.isEmpty()) {
 			results.add(new LegResult(role, current, segments, featurePath, modes, allBidirectional,
 					"no continuing declaration"));
@@ -154,10 +175,18 @@ public final class LegResolver {
 	 * </p>
 	 */
 	private List<ResolvedSegment> continuations(ComponentInstance owner, FeatureInstance feature, LegRole role,
-			Set<String> visited) {
+			Set<String> visited, boolean endingCategory) {
 		List<ResolvedSegment> continuations = new ArrayList<>();
 		ComponentImplementation implementation = InstanceUtil.getComponentImplementation(owner, 0, classifierCache);
 		for (Connection declaration : implementation.getAllConnections()) {
+			/*
+			 * Inside a connection-ending component only an access connection continues a
+			 * semantic connection: shared access reaches through such a component, while a
+			 * port or feature group connection ends at it.
+			 */
+			if (endingCategory && !(declaration instanceof AccessConnection)) {
+				continue;
+			}
 			for (boolean declaredOrientation : new boolean[] { false, true }) {
 				if (declaredOrientation && !declaration.isAllBidirectional()) {
 					continue;
@@ -227,6 +256,43 @@ public final class LegResolver {
 	private static String orientedKey(ResolvedSegment segment) {
 		return PathKeys.declarative(segment.declaration()) + '@' + PathKeys.instance(segment.context())
 				+ (segment.reverse() ? "|r" : "|f");
+	}
+
+	/** Whether the feature is a port, or is a feature group with a port member. */
+	private static boolean includesPort(FeatureInstance feature) {
+		return includes(feature, member -> member instanceof Port);
+	}
+
+	/**
+	 * Whether the feature is a feature group with a feature group member. A feature group
+	 * that is not nested does not count, which matches
+	 * {@code CreateConnectionsSwitch.FeatureInfo.hasFeatureGroup()}: that flag is only
+	 * ever set while scanning the members of a group.
+	 */
+	private static boolean includesNestedFeatureGroup(FeatureInstance feature) {
+		return feature.getFeature() instanceof FeatureGroup && includes(feature, member -> member instanceof FeatureGroup);
+	}
+
+	/** Whether the feature is an access feature, or is a feature group with one. */
+	private static boolean includesAccess(FeatureInstance feature) {
+		return includes(feature, member -> member instanceof Access);
+	}
+
+	/**
+	 * Test the immediate members of a feature group, or the feature itself when it is not
+	 * one. These are the two cases {@code FeatureInfo} distinguishes, so the answers match
+	 * the source-first rule they feed.
+	 */
+	private static boolean includes(FeatureInstance feature, Predicate<Feature> test) {
+		if (!(feature.getFeature() instanceof FeatureGroup)) {
+			return test.test(feature.getFeature());
+		}
+		for (FeatureInstance member : feature.getFeatureInstances()) {
+			if (test.test(member.getFeature())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
