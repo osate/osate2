@@ -1046,6 +1046,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			// we need to match from latest to the oldest in stack going down into the FG nesting hierarchy
 			for (int count = upFeature.size() - 1; count >= 0; count--) {
 				FeatureInstance upFi = upFeature.get(count);
+				if (upFi == dstEnd) {
+					// this entry names the level dstEnd already stands at, see the down case
+					continue;
+				}
 				EList<FeatureInstance> flist = ((FeatureInstance) dstEnd).getFeatureInstances();
 				if (connInfo.dstToMatch != null) {
 					String name = connInfo.dstToMatch.getConnectionEnd().getName();
@@ -1075,6 +1079,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			// This is a down stack, i.e., the highest element got pushed first and is the oldest.
 			for (int count = 0; count < downFeature.size(); count++) {
 				FeatureInstance downFi = downFeature.get(count);
+				if (downFi == srcEnd) {
+					/*
+					 * Issue 3040: This entry names the level the end already stands at, so there is
+					 * nothing to narrow for it.
+					 *
+					 * The stack counts feature group levels from the outermost boundary feature, but
+					 * instantiateExternalConnections() seeds a traversal from a boundary feature and
+					 * from each feature contained in one. A traversal seeded at a contained member
+					 * therefore starts one or more levels below where the stack starts counting.
+					 * Narrowing such an entry would look for a feature among its own children and
+					 * find nothing, abandoning a path that should produce a connection instance.
+					 */
+					continue;
+				}
 				EList<FeatureInstance> flist = ((FeatureInstance) srcEnd).getFeatureInstances();
 				if (connInfo.srcToMatch != null) {
 					String name = connInfo.srcToMatch.getConnectionEnd().getName();
@@ -1095,16 +1113,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 				if (srcEnd == null) {
 					/*
-					 * Issue 3038: The stack describes the feature group levels the traversal
-					 * descended through, counted from the outermost boundary feature group. This
-					 * traversal was seeded at a feature contained in that boundary feature group,
-					 * because instantiateExternalConnections() seeds both a boundary feature group
-					 * and its members, so the first stack entries describe levels at or above the
-					 * seed and narrowing runs off the end of the seed's own nesting.
+					 * Issue 3038: narrowing found no matching feature, so the path cannot be
+					 * continued and must not be dereferenced.
 					 *
-					 * There is nothing to create and nothing to report: the seed at the enclosing
-					 * feature group enumerates the same semantic connection and reaches the same
-					 * leaf. Continuing would dereference null.
+					 * The common cause, a stack entry naming the level the end already stands at, is
+					 * handled by the skip above since issue 3040; do not assume that some other seed
+					 * covers whatever reaches here, because for the nested boundary shape that
+					 * assumption was wrong and a connection instance went missing.
 					 */
 					return;
 				}

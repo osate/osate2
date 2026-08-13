@@ -1,0 +1,59 @@
+-- Flat.i and Nested.i differ only in whether the boundary feature group nests the
+-- feature group the subcomponent connects to. Nesting a feature group must not
+-- change which semantic connections exist, only how deep their endpoints sit, so
+-- both implementations must produce the same two connections one level apart.
+package Issue3040
+public
+
+	feature group LeafGroup
+		features
+			alpha: in out event port;
+	end LeafGroup;
+
+	feature group OuterGroup
+		features
+			inner: feature group LeafGroup;
+	end OuterGroup;
+
+	thread Leaf
+		features
+			io: in out event port;
+	end Leaf;
+
+	process LeafSide
+		features
+			boundary: feature group LeafGroup;
+	end LeafSide;
+
+	process implementation LeafSide.i
+		subcomponents
+			leaf: thread Leaf;
+		connections
+			up: port leaf.io <-> boundary.alpha;
+	end LeafSide.i;
+
+	system Flat
+		features
+			boundary: feature group LeafGroup;
+	end Flat;
+
+	system implementation Flat.i
+		subcomponents
+			leaf_side: process LeafSide.i;
+		connections
+			flat_up: feature group leaf_side.boundary <-> boundary;
+	end Flat.i;
+
+	system Nested
+		features
+			boundary: feature group OuterGroup;
+	end Nested;
+
+	system implementation Nested.i
+		subcomponents
+			leaf_side: process LeafSide.i;
+		connections
+			nested_up: feature group leaf_side.boundary <-> boundary.inner;
+	end Nested.i;
+
+end Issue3040;
