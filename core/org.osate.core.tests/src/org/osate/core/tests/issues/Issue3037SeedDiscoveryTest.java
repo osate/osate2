@@ -56,6 +56,7 @@ import com.itemis.xtext.testing.XtextTest;
 public class Issue3037SeedDiscoveryTest extends XtextTest {
 	private static final String DUPLICATE = "org.osate.core.tests/models/issue3037/Issue565DuplicateTraversal.aadl";
 	private static final String BOUNDARY = "org.osate.core.tests/models/issue3038/Issue3038.aadl";
+	private static final String INTERNAL = "org.osate.core.tests/models/issue3027/Issue3027.aadl";
 
 	@Inject
 	private IsolatedInstantiation isolated;
@@ -111,6 +112,30 @@ public class Issue3037SeedDiscoveryTest extends XtextTest {
 				compact(run));
 		assertTrue("no seed may be created for a feature contained in a boundary feature group",
 				run.seedKeys().stream().noneMatch(key -> key.contains("boundary.inner")));
+	}
+
+	/**
+	 * A connection into an internal feature is ignored, and it is not a pivot either.
+	 *
+	 * <p>
+	 * An internal feature is never instantiated: the instance metamodel has no feature
+	 * category for one, so it can never be the endpoint of a connection instance, and
+	 * since issue #3028 the declarative validator rejects it at a destination outright.
+	 * {@code to_internal} therefore yields no seed of any kind, while the ordinary
+	 * peer-to-peer connection beside it does. That places the terminal policy in leg
+	 * resolution rather than in seeding: the connection is not an across declaration, so
+	 * seeding never considers it.
+	 * </p>
+	 */
+	@Test
+	public void connectionIntoAnInternalFeatureIsNotSeeded() throws Exception {
+		CharacterizationRun run = isolated.run(INTERNAL, "Top.i", "SOURCE_FIRST", false);
+
+		assertEquals(List.of("across|decl3.1@Top_i_Instance|forward"
+				+ "|Top_i_Instance.sensor.alarm->Top_i_Instance.monitor.incoming"
+				+ "|decl0.0@Top_i_Instance.sensor.alarm/|decl1.0@Top_i_Instance.monitor.incoming/"), compact(run));
+		assertTrue("no seed may refer to an internal feature",
+				run.seedKeys().stream().noneMatch(key -> key.contains("raised_event")));
 	}
 
 	private static List<String> compact(CharacterizationRun run) {

@@ -29,6 +29,7 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -97,7 +98,29 @@ public final class EndpointResolver {
 							"No component instance for subcomponent " + subcomponent.getName())
 					: Resolution.resolved(new ResolvedEnd(instance, FeaturePath.EMPTY));
 		}
+		/*
+		 * Terminal policy: a segment whose end is an internal feature is ignored, and the
+		 * path is not continued through it.
+		 *
+		 * An internal feature is an event or event data source inside a component
+		 * implementation. It is never instantiated: the instance metamodel has no feature
+		 * category for one, and nothing in this bundle creates an instance object for one,
+		 * so it can never be the endpoint of a connection instance. Since issue #3028 the
+		 * declarative validator also rejects it at a destination outright, so a model that
+		 * validates cannot ask for such a connection in the first place.
+		 *
+		 * This is deliberately "not applicable" rather than "failed". There is nothing
+		 * wrong to report here: either the model is valid and this end cannot occur, or it
+		 * is invalid and the validator has already said so with a better message.
+		 */
+		if (end instanceof InternalFeature) {
+			return Resolution.notApplicable("an internal feature is never instantiated, so the segment is ignored");
+		}
 		if (!(end instanceof Feature)) {
+			/*
+			 * A processor feature reaches the same outcome by the same reasoning: it is not a
+			 * Feature and is never instantiated either.
+			 */
 			return Resolution.notApplicable(
 					"connection end " + end.getClass().getSimpleName() + " is neither a feature nor a subcomponent");
 		}
