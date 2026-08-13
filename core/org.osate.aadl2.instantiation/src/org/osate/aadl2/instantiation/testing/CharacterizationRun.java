@@ -55,11 +55,13 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
  *            the same reason
  * @param pathKeys the whole paths assembled from those legs. Temporary for the same
  *            reason
+ * @param expandedKeys the leaf endpoint pairs those paths expand to, which is what
+ *            becomes one connection instance each. Temporary for the same reason
  */
 public record CharacterizationRun(SystemInstance instance, AnalysisErrorReporterManager errorManager, String strategy,
 		Map<String, Long> counters, long connectionPhaseNanos, long traversalNanos,
 		List<DuplicateCandidateObservation> duplicateCandidates, List<String> seedKeys, List<String> legKeys,
-		List<String> pathKeys) {
+		List<String> pathKeys, List<String> expandedKeys) {
 
 	public CharacterizationRun {
 		counters = Map.copyOf(counters);
@@ -67,6 +69,7 @@ public record CharacterizationRun(SystemInstance instance, AnalysisErrorReporter
 		seedKeys = List.copyOf(seedKeys);
 		legKeys = List.copyOf(legKeys);
 		pathKeys = List.copyOf(pathKeys);
+		expandedKeys = List.copyOf(expandedKeys);
 	}
 
 	/** The candidates the duplicate check let through. */

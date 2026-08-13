@@ -77,7 +77,10 @@ public final class TraversalObservations {
 		LEGS_RESOLVED,
 
 		/** Whole paths assembled by joining legs, after identity deduplication. */
-		PATHS_ASSEMBLED
+		PATHS_ASSEMBLED,
+
+		/** Leaf endpoint pairs the assembled paths expand to. */
+		ENDPOINTS_EXPANDED
 	}
 
 	private static final TraversalObservations DISABLED = new TraversalObservations(false, false);
@@ -89,6 +92,7 @@ public final class TraversalObservations {
 	private final List<String> seedKeys = new ArrayList<>();
 	private final List<String> legKeys = new ArrayList<>();
 	private final List<String> pathKeys = new ArrayList<>();
+	private final List<String> expandedKeys = new ArrayList<>();
 
 	private long connectionPhaseNanos;
 	private long connectionPhaseStart = -1;
@@ -207,6 +211,22 @@ public final class TraversalObservations {
 	/** The assembled path keys, in assembly order. */
 	public List<String> pathKeys() {
 		return List.copyOf(pathKeys);
+	}
+
+	/**
+	 * Record a leaf endpoint pair an assembled path expanded to. Temporary, for the same
+	 * reason as {@link #addSeed(String)}.
+	 */
+	public void addExpanded(String key) {
+		increment(Counter.ENDPOINTS_EXPANDED);
+		if (recording) {
+			expandedKeys.add(key);
+		}
+	}
+
+	/** The expanded leaf endpoint pairs, in expansion order. */
+	public List<String> expandedKeys() {
+		return List.copyOf(expandedKeys);
 	}
 
 	/** The observed candidates, in the order the traversal offered them. */

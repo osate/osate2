@@ -115,11 +115,13 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.instantiation.internal.ConnectionTraversalStrategy;
+import org.osate.aadl2.instantiation.internal.LeafExpansion;
 import org.osate.aadl2.instantiation.internal.LegResult;
 import org.osate.aadl2.instantiation.internal.LegResolver;
 import org.osate.aadl2.instantiation.internal.PathAssembler;
 import org.osate.aadl2.instantiation.internal.LegRole;
 import org.osate.aadl2.instantiation.internal.SeedDiscovery;
+import org.osate.aadl2.instantiation.internal.SemanticConnectionPath;
 import org.osate.aadl2.instantiation.internal.TraversalSeed;
 import org.osate.aadl2.instantiation.internal.TraversalObservations;
 import org.osate.aadl2.modelsupport.AadlConstants;
@@ -646,9 +648,10 @@ public class InstantiateModel {
 				}
 				sourceLegs.forEach(leg -> observations.addLeg(leg.key()));
 				destinationLegs.forEach(leg -> observations.addLeg(leg.key()));
-				PathAssembler.join(seed, sourceLegs, destinationLegs)
-						.forEach(path -> observations.addPath(
-								(path.complete() ? "complete|" : "incomplete|") + path.key().render()));
+				for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs)) {
+					observations.addPath((path.complete() ? "complete|" : "incomplete|") + path.key().render());
+					LeafExpansion.expand(path).forEach(endpoints -> observations.addExpanded(endpoints.key()));
+				}
 			}
 		}
 
