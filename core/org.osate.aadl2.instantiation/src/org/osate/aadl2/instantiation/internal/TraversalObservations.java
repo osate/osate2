@@ -71,7 +71,10 @@ public final class TraversalObservations {
 		DUPLICATE_CANDIDATES,
 
 		/** Traversal seeds discovered: across declarations and boundary features. */
-		SEEDS_DISCOVERED
+		SEEDS_DISCOVERED,
+
+		/** Legs resolved from a seed endpoint, counting every branch separately. */
+		LEGS_RESOLVED
 	}
 
 	private static final TraversalObservations DISABLED = new TraversalObservations(false, false);
@@ -81,6 +84,7 @@ public final class TraversalObservations {
 	private final Map<Counter, Long> counters = new EnumMap<>(Counter.class);
 	private final List<DuplicateCandidateObservation> duplicateCandidates = new ArrayList<>();
 	private final List<String> seedKeys = new ArrayList<>();
+	private final List<String> legKeys = new ArrayList<>();
 
 	private long connectionPhaseNanos;
 	private long connectionPhaseStart = -1;
@@ -166,6 +170,23 @@ public final class TraversalObservations {
 	/** The discovered seed keys, in discovery order. */
 	public List<String> seedKeys() {
 		return List.copyOf(seedKeys);
+	}
+
+	/**
+	 * Record a resolved leg by its stable key. Temporary, for the same reason as
+	 * {@link #addSeed(String)}: legs can be checked against real models before joining
+	 * exists.
+	 */
+	public void addLeg(String key) {
+		increment(Counter.LEGS_RESOLVED);
+		if (recording) {
+			legKeys.add(key);
+		}
+	}
+
+	/** The resolved leg keys, in resolution order. */
+	public List<String> legKeys() {
+		return List.copyOf(legKeys);
 	}
 
 	/** The observed candidates, in the order the traversal offered them. */

@@ -124,7 +124,7 @@ public final class InstantiationCharacterization {
 
 		return new CharacterizationRun(instance, errorManager, strategy.name(), counters(observations),
 				observations.connectionPhaseNanos(), observations.traversalNanos(),
-				observations.duplicateCandidates(), observations.seedKeys());
+				observations.duplicateCandidates(), observations.seedKeys(), observations.legKeys());
 	}
 
 	private static ConnectionTraversalStrategy parse(String strategyName) {

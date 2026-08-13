@@ -51,15 +51,18 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
  * @param seedKeys the across-first traversal seeds discovered for this model, by
  *            stable key. Temporary: seed discovery is exercised under either
  *            strategy while the across-first builder is incomplete
+ * @param legKeys the legs resolved from those seeds, by stable key. Temporary for
+ *            the same reason
  */
 public record CharacterizationRun(SystemInstance instance, AnalysisErrorReporterManager errorManager, String strategy,
 		Map<String, Long> counters, long connectionPhaseNanos, long traversalNanos,
-		List<DuplicateCandidateObservation> duplicateCandidates, List<String> seedKeys) {
+		List<DuplicateCandidateObservation> duplicateCandidates, List<String> seedKeys, List<String> legKeys) {
 
 	public CharacterizationRun {
 		counters = Map.copyOf(counters);
 		duplicateCandidates = List.copyOf(duplicateCandidates);
 		seedKeys = List.copyOf(seedKeys);
+		legKeys = List.copyOf(legKeys);
 	}
 
 	/** The candidates the duplicate check let through. */

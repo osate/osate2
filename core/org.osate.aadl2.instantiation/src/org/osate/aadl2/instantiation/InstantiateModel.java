@@ -115,7 +115,10 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.instantiation.internal.ConnectionTraversalStrategy;
+import org.osate.aadl2.instantiation.internal.LegResolver;
+import org.osate.aadl2.instantiation.internal.LegRole;
 import org.osate.aadl2.instantiation.internal.SeedDiscovery;
+import org.osate.aadl2.instantiation.internal.TraversalSeed;
 import org.osate.aadl2.instantiation.internal.TraversalObservations;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.FileNameConstants;
@@ -619,7 +622,26 @@ public class InstantiateModel {
 		 * measurements. Temporary, like the rest of the instrumentation.
 		 */
 		if (observations.isRecording()) {
-			SeedDiscovery.discover(root, classifierCache).forEach(seed -> observations.addSeed(seed.key()));
+			final LegResolver legResolver = new LegResolver(classifierCache);
+			for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache)) {
+				observations.addSeed(seed.key());
+				if (seed instanceof TraversalSeed.Across across) {
+					legResolver.resolve(across.segment().source(), LegRole.SOURCE_LEG)
+							.forEach(leg -> observations.addLeg(leg.key()));
+					legResolver.resolve(across.segment().destination(), LegRole.DESTINATION_LEG)
+							.forEach(leg -> observations.addLeg(leg.key()));
+				} else if (seed instanceof TraversalSeed.Boundary boundary) {
+					/*
+					 * A boundary seed has one leg. An incoming boundary feature leads inwards, so the
+					 * model supplies the destination; an outgoing one leads towards the ultimate
+					 * source inside the model.
+					 */
+					legResolver
+							.resolve(boundary.feature(),
+									boundary.incoming() ? LegRole.DESTINATION_LEG : LegRole.SOURCE_LEG)
+							.forEach(leg -> observations.addLeg(leg.key()));
+				}
+			}
 		}
 
 		observations.startConnectionPhase();

@@ -106,7 +106,7 @@ public class Issue3037CandidateCaptureTest extends XtextTest {
 		CharacterizationRun run = InstantiationCharacterization.run(implementation(), "SOURCE_FIRST");
 
 		assertEquals(Map.of("DECLARATIONS_EXAMINED", 3L, "TRAVERSAL_STATES", 4L, "JOIN_CANDIDATES", 0L, "FINAL_PATHS",
-				2L, "DUPLICATE_CANDIDATES", 2L, "SEEDS_DISCOVERED", 2L), run.counters());
+				2L, "DUPLICATE_CANDIDATES", 2L, "SEEDS_DISCOVERED", 2L, "LEGS_RESOLVED", 4L), run.counters());
 	}
 
 	/**
