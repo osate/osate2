@@ -115,6 +115,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.instantiation.internal.ConnectionTraversalStrategy;
+import org.osate.aadl2.instantiation.internal.SeedDiscovery;
 import org.osate.aadl2.instantiation.internal.TraversalObservations;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.FileNameConstants;
@@ -610,6 +611,17 @@ public class InstantiateModel {
 		 * is shared by every traversal strategy and would mask a traversal regression
 		 * inside a passing phase-level ratio.
 		 */
+		/*
+		 * Across-first seed discovery is exercised here under either strategy while the
+		 * across-first builder is incomplete, so that it can be checked against real
+		 * models before legs and joining exist. It has no effect on what is instantiated,
+		 * and it does nothing at all unless a characterization run asked for
+		 * measurements. Temporary, like the rest of the instrumentation.
+		 */
+		if (observations.isRecording()) {
+			SeedDiscovery.discover(root, classifierCache).forEach(seed -> observations.addSeed(seed.key()));
+		}
+
 		observations.startConnectionPhase();
 		observations.startTraversal();
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache, strategy, observations)

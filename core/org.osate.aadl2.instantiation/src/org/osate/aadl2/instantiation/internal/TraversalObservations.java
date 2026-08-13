@@ -68,7 +68,10 @@ public final class TraversalObservations {
 		FINAL_PATHS,
 
 		/** Candidates offered to the duplicate check, whether accepted or suppressed. */
-		DUPLICATE_CANDIDATES
+		DUPLICATE_CANDIDATES,
+
+		/** Traversal seeds discovered: across declarations and boundary features. */
+		SEEDS_DISCOVERED
 	}
 
 	private static final TraversalObservations DISABLED = new TraversalObservations(false, false);
@@ -77,6 +80,7 @@ public final class TraversalObservations {
 	private final boolean collectingCandidates;
 	private final Map<Counter, Long> counters = new EnumMap<>(Counter.class);
 	private final List<DuplicateCandidateObservation> duplicateCandidates = new ArrayList<>();
+	private final List<String> seedKeys = new ArrayList<>();
 
 	private long connectionPhaseNanos;
 	private long connectionPhaseStart = -1;
@@ -140,6 +144,28 @@ public final class TraversalObservations {
 		if (collectingCandidates) {
 			duplicateCandidates.add(candidate);
 		}
+	}
+
+	/**
+	 * Record a discovered traversal seed by its stable key.
+	 *
+	 * <p>
+	 * Across-first seed discovery is run under either strategy while it is being
+	 * developed, so that it can be checked against real models before legs and joining
+	 * exist. Only the keys are kept, never the seeds themselves, so no internal type
+	 * escapes and nothing observes EMF state after its resource set is gone.
+	 * </p>
+	 */
+	public void addSeed(String key) {
+		increment(Counter.SEEDS_DISCOVERED);
+		if (recording) {
+			seedKeys.add(key);
+		}
+	}
+
+	/** The discovered seed keys, in discovery order. */
+	public List<String> seedKeys() {
+		return List.copyOf(seedKeys);
 	}
 
 	/** The observed candidates, in the order the traversal offered them. */

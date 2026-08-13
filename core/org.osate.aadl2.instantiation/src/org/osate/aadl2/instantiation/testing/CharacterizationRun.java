@@ -48,14 +48,18 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
  * @param duplicateCandidates candidates seen by the duplicate check, in the order
  *            the traversal offered them; empty unless candidate observation was
  *            requested
+ * @param seedKeys the across-first traversal seeds discovered for this model, by
+ *            stable key. Temporary: seed discovery is exercised under either
+ *            strategy while the across-first builder is incomplete
  */
 public record CharacterizationRun(SystemInstance instance, AnalysisErrorReporterManager errorManager, String strategy,
 		Map<String, Long> counters, long connectionPhaseNanos, long traversalNanos,
-		List<DuplicateCandidateObservation> duplicateCandidates) {
+		List<DuplicateCandidateObservation> duplicateCandidates, List<String> seedKeys) {
 
 	public CharacterizationRun {
 		counters = Map.copyOf(counters);
 		duplicateCandidates = List.copyOf(duplicateCandidates);
+		seedKeys = List.copyOf(seedKeys);
 	}
 
 	/** The candidates the duplicate check let through. */
