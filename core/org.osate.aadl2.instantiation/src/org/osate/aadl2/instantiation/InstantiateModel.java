@@ -114,6 +114,8 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
+import org.osate.aadl2.instantiation.internal.ConnectionTraversalStrategy;
+import org.osate.aadl2.instantiation.internal.TraversalObservations;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -164,6 +166,19 @@ public class InstantiateModel {
 	 * bindings are included also.
 	 */
 	protected HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+
+	/**
+	 * The connection enumeration strategy this run uses. Instance state rather than
+	 * static state: the language server instantiates models concurrently, so a global
+	 * switch would let one run change another run's behavior.
+	 */
+	private ConnectionTraversalStrategy strategy = ConnectionTraversalStrategy.productionDefault();
+
+	/**
+	 * Connection-phase measurements for this run, disabled unless a characterization
+	 * run asked for them.
+	 */
+	private TraversalObservations observations = TraversalObservations.disabled();
 
 	protected SCProperties scProps = new SCProperties();
 	/**
@@ -245,6 +260,34 @@ public class InstantiateModel {
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
 		errManager = errMgr;
 		monitor = pm;
+	}
+
+	/**
+	 * Create an instantiator that uses a specific connection traversal strategy and
+	 * records connection-phase measurements.
+	 *
+	 * <p>
+	 * Both parameter types come from the unexported package
+	 * {@code org.osate.aadl2.instantiation.internal}, so no other bundle can resolve
+	 * this signature or call this method. It exists only so that the characterization
+	 * facade, which lives in a different package of this bundle, can select a
+	 * strategy without strategy selection becoming supported API. It is removed
+	 * together with the rest of the migration support.
+	 * </p>
+	 *
+	 * @param pm the progress monitor
+	 * @param errMgr the error manager
+	 * @param strategy the connection traversal strategy to use
+	 * @param observations where to record measurements and candidate observations
+	 * @return an instantiator configured for one characterization run
+	 */
+	public static InstantiateModel forCharacterization(final IProgressMonitor pm,
+			final AnalysisErrorReporterManager errMgr, final ConnectionTraversalStrategy strategy,
+			final TraversalObservations observations) {
+		final InstantiateModel instantiateModel = new InstantiateModel(pm, errMgr);
+		instantiateModel.strategy = strategy;
+		instantiateModel.observations = observations;
+		return instantiateModel;
 	}
 
 	// Methods
@@ -560,8 +603,20 @@ public class InstantiateModel {
 		pending.phase = InstantiationRoot.Phase.INSTANTIATE_ANNEXES;
 		final ComponentInstance root = pending.root;
 
-		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
+		/*
+		 * The connection phase covers enumeration, structural expansion, materialization,
+		 * mode and SOM assignment, and connection validation, and stops before
+		 * end-to-end flow creation. Enumeration is measured separately, because the rest
+		 * is shared by every traversal strategy and would mask a traversal regression
+		 * inside a passing phase-level ratio.
+		 */
+		observations.startConnectionPhase();
+		observations.startTraversal();
+		new CreateConnectionsSwitch(monitor, errManager, classifierCache, strategy, observations)
+				.processPreOrderAll(root);
+		observations.stopTraversal();
 		if (monitor.isCanceled()) {
+			observations.stopConnectionPhase();
 			throw new InterruptedException();
 		}
 
@@ -586,12 +641,14 @@ public class InstantiateModel {
 		// handle arrays, connection patterns, and connection sets
 		processConnections(root);
 		if (monitor.isCanceled()) {
+			observations.stopConnectionPhase();
 			throw new InterruptedException();
 		}
 
 		final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager, classifierCache);
 		vcs.processPreOrderAll(root);
 		vcs.postProcess();
+		observations.stopConnectionPhase();
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}

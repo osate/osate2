@@ -94,6 +94,10 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
+import org.osate.aadl2.instantiation.internal.ConnectionTraversalStrategy;
+import org.osate.aadl2.instantiation.internal.TraversalObservations;
+import org.osate.aadl2.instantiation.internal.TraversalObservations.Counter;
+import org.osate.aadl2.instantiation.testing.DuplicateCandidateObservation;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -129,7 +133,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache = null;
 
 	/**
-	 * Create a new instance.
+	 * Which enumeration strategy this run uses. Per-instance state, because
+	 * instantiation runs happen concurrently.
+	 */
+	private final ConnectionTraversalStrategy strategy;
+
+	/**
+	 * Measurements and pre-materialization observations for this run. Disabled, and
+	 * therefore free, unless a characterization run asked for them.
+	 */
+	private final TraversalObservations observations;
+
+	/**
+	 * Create a new instance that uses the production traversal strategy and collects
+	 * no measurements.
 	 *
 	 * @param pm
 	 *            the progress monitor
@@ -140,7 +157,41 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	public CreateConnectionsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		this(pm, errMgr, classifierCache, ConnectionTraversalStrategy.productionDefault(),
+				TraversalObservations.disabled());
+	}
+
+	/**
+	 * Create a new instance with an explicit traversal strategy and measurement
+	 * collector.
+	 *
+	 * <p>
+	 * Package-private on purpose: strategy selection is migration support for the
+	 * across-first traversal work, and making it public would add API to an exported
+	 * package.
+	 * </p>
+	 *
+	 * @param pm
+	 *            the progress monitor
+	 * @param errMgr
+	 *            the error manager
+	 * @param classifierCache
+	 *            cache of known instantiated classifiers, may be null
+	 * @param strategy
+	 *            the enumeration strategy to use
+	 * @param observations
+	 *            where to record measurements and candidate observations
+	 */
+	CreateConnectionsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
+			final ConnectionTraversalStrategy strategy, final TraversalObservations observations) {
 		super(pm, PROCESS_PRE_ORDER_ALL, errMgr);
+		this.strategy = strategy;
+		this.observations = observations;
+		if (strategy != ConnectionTraversalStrategy.SOURCE_FIRST) {
+			throw new UnsupportedOperationException(
+					"Connection traversal strategy " + strategy + " is not implemented yet");
+		}
 		this.classifierCache = classifierCache;
 	}
 
@@ -240,6 +291,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (cat == DATA || cat == BUS || cat == VIRTUAL_BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
 			// connection instance may start at a shared component
 			for (Connection conn : filterStartingConnections(parentConns, sub)) {
+				observations.increment(Counter.DECLARATIONS_EXAMINED);
 				boolean opposite = sub.getAllSubcomponentRefinements().contains(conn.getAllDestination());
 
 				appendSegment(ConnectionInfo.newConnectionInfo(ci), conn, parentci, opposite);
@@ -276,6 +328,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					final boolean destinationFromInside = lookInside && isDestination(insideSubConns, feature);
 
 					for (final Connection conn : outgoingConns) {
+						observations.increment(Counter.DECLARATIONS_EXAMINED);
 						// conn is first segment if it can't continue inside
 						// the subcomponent
 
@@ -328,6 +381,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			if (featurei.getIndex() <= 1) {
 				List<Connection> inConns = filterIngoingConnections(si, sysConns, featurei);
 				for (Connection conn : inConns) {
+					observations.increment(Counter.DECLARATIONS_EXAMINED);
 					boolean opposite = isOpposite(featurei.getFeature(), conn);
 
 					appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, si, opposite);
@@ -356,6 +410,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	// TODO-LW: set 'complete' in conn info
 	private void appendSegment(ConnectionInfo connInfo, final Connection newSegment, final ComponentInstance ci,
 			final boolean goOpposite) {
+		/*
+		 * One comparable traversal state: an attempt to extend a partial semantic
+		 * connection by one oriented declarative segment. Across-first traversal counts
+		 * the same unit when it extends a leg, so the two strategies' state counts mean
+		 * the same thing.
+		 */
+		observations.increment(Counter.TRAVERSAL_STATES);
 		final ConnectionEnd fromEnd = goOpposite ? newSegment.getAllDestination() : newSegment.getAllSource();
 		final Context fromCtx = goOpposite ? newSegment.getAllDestinationContext() : newSegment.getAllSourceContext();
 		ConnectionEnd toEnd = goOpposite ? newSegment.getAllSource() : newSegment.getAllDestination();
@@ -1143,6 +1204,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (container == null) {
 			container = systemInstance;
 		}
+		boolean suppressedAsDuplicate = false;
 		for (ConnectionInstance test : container.getConnectionInstances()) {
 			// check for duplicates and do not create
 			if (connInfo.src == test.getSource() && dstI == test.getDestination()
@@ -1167,9 +1229,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					}
 				}
 				if (isDuplicate) {
-					return null;
+					suppressedAsDuplicate = true;
+					break;
 				}
 			}
+		}
+		/*
+		 * A suppressed candidate is never attached, so this is the only point at which it
+		 * can be observed at all. Across-first traversal must know whether the
+		 * candidates this check removes differ from the ones it keeps in any way that
+		 * could reach a materialized descriptor.
+		 */
+		observeDuplicateCandidate(connInfo, dstI, container, !suppressedAsDuplicate);
+		if (suppressedAsDuplicate) {
+			return null;
 		}
 		boolean duplicate = false;
 
@@ -1201,12 +1274,49 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				return null;
 			} else {
 				container.getConnectionInstances().add(conni);
+				observations.increment(Counter.FINAL_PATHS);
 			}
 
 			fillInModes(conni);
 			fillInModeTransitions(conni);
 		}
 		return conni;
+	}
+
+	/**
+	 * Record a candidate connection and the duplicate check's verdict on it.
+	 *
+	 * <p>
+	 * Nothing is attached to the model here. A suppressed candidate stays a value
+	 * observation, so that inspecting it cannot change what the traversal produces.
+	 * </p>
+	 *
+	 * <p>
+	 * Temporary migration support for the across-first traversal work; removed with
+	 * the rest of the instrumentation.
+	 * </p>
+	 */
+	private void observeDuplicateCandidate(final ConnectionInfo connInfo, final ConnectionInstanceEnd dstI,
+			final ComponentInstance container, final boolean accepted) {
+		if (!observations.isCollectingCandidates()) {
+			observations.increment(Counter.DUPLICATE_CANDIDATES);
+			return;
+		}
+		List<String> declarations = connInfo.connections.stream()
+				.map(connection -> String.valueOf(EcoreUtil.getURI(connection)))
+				.toList();
+		List<String> contexts = connInfo.contexts.stream().map(CreateConnectionsSwitch::pathOf).toList();
+		List<String> segmentSources = connInfo.sources.stream().map(CreateConnectionsSwitch::pathOf).toList();
+		List<String> segmentDestinations = connInfo.destinations.stream()
+				.map(CreateConnectionsSwitch::pathOf)
+				.toList();
+		observations.addDuplicateCandidate(new DuplicateCandidateObservation(pathOf(container), pathOf(connInfo.src),
+				pathOf(dstI), declarations, contexts, List.copyOf(connInfo.opposites), segmentSources,
+				segmentDestinations, connInfo.complete, accepted));
+	}
+
+	private static String pathOf(InstanceObject object) {
+		return object == null ? null : object.getInstanceObjectPath();
 	}
 
 	private FeatureInstance getTopFeatureInstance(FeatureInstance fi) {
