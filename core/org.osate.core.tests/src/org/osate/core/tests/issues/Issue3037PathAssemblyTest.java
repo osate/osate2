@@ -108,13 +108,10 @@ public class Issue3037PathAssemblyTest extends XtextTest {
 	 * feature supports.
 	 *
 	 * <p>
-	 * This model is where across-first and the baseline diverge, and the divergence is
-	 * recorded here. The baseline materializes only the outgoing connection. A variant
-	 * of this model whose boundary feature group is not nested shows the baseline
-	 * producing both directions, so the missing inward connection is an artifact of
-	 * source-first feature-group narrowing rather than a semantic rule. It is tracked
-	 * as issue #3040, which repairs the baseline; this assertion changes once that
-	 * lands.
+	 * The count is checked against the baseline, which materializes both directions for
+	 * this model since issue #3040. Before that fix it materialized only the outgoing
+	 * one, and comparing across-first against it here is what exposed the missing
+	 * inward connection.
 	 * </p>
 	 */
 	@Test
@@ -125,7 +122,7 @@ public class Issue3037PathAssemblyTest extends XtextTest {
 				"incomplete|Producer_i_Instance.leaf_side.leaf.io -> Producer_i_Instance.boundary"
 						+ " | decl4.0(f)@Producer_i_Instance.leaf_side,decl6.0(f)@Producer_i_Instance,"),
 				paths(BOUNDARY, "Producer.i"));
-		assertEquals("the baseline materializes only the outgoing direction for a nested boundary feature group", 1,
+		assertEquals("across-first assembles one path per connection instance the baseline materializes", 2,
 				isolated.run(BOUNDARY, "Producer.i", "SOURCE_FIRST", false).instance()
 						.getAllConnectionInstances()
 						.size());
