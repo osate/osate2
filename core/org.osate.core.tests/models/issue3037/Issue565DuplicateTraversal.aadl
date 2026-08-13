@@ -1,0 +1,57 @@
+-- Historical reproducer for issue #565, used as a characterization fixture for
+-- the across-first connection traversal enhancement (issue #3037).
+--
+-- Source-first traversal enumerates the semantic connection through the two
+-- inverse feature groups more than once, with the declaration reference lists in
+-- opposite order, and the reverse-order duplicate check in
+-- CreateConnectionsSwitch suppresses the redundant candidates. This fixture
+-- exists to capture what those pre-suppression candidates actually contain, and
+-- to pin the final materialized connection set.
+--
+-- Do not add arrays, Connection_Pattern, or Connection_Set to this fixture.
+-- Separate fixtures cover structural expansion.
+package issue565
+public
+
+	data MsgType
+	end MsgType;
+
+	feature group FGType
+		features
+			inPort: in out data port MsgType;
+	end FGType;
+
+	process Proc
+		features
+			fgPorts: feature group FGType;
+	end Proc;
+
+	process InverseProc
+		features
+			fgPorts: feature group inverse of FGType;
+	end InverseProc;
+
+	system sub
+		features
+			fgPorts: feature group inverse of FGType;
+	end sub;
+
+	system implementation sub.i
+		subcomponents
+			iproc: process InverseProc;
+		connections
+			c2: feature group fgPorts <-> iproc.fgPorts;
+	end sub.i;
+
+	system Sys
+	end Sys;
+
+	system implementation Sys.Imp
+		subcomponents
+			proc: process Proc;
+			sub: system sub.i;
+		connections
+			c1: feature group proc.fgPorts <-> sub.fgPorts;
+	end Sys.Imp;
+
+end issue565;
