@@ -104,19 +104,26 @@ public class Issue3038Test extends XtextTest {
 				!connections.isEmpty() || !messages.isEmpty());
 
 		/*
-		 * The semantic connection leaves the system, so it is incomplete and traverses
-		 * both declarations: up inside LeafSide.i and nested_up inside Producer.i. It is
-		 * enumerated once, from the boundary feature group; the seed at the contained
-		 * member boundary.inner reaches the same leaf and must not add a second instance.
+		 * The path crosses the system boundary in both directions, so both connections are
+		 * incomplete and each traverses both declarations: up inside LeafSide.i and
+		 * nested_up inside Producer.i.
+		 *
+		 * Only the outward connection was created when this test was first written. That
+		 * was the defect reported as issue #3040: the traversal seeded at the contained
+		 * boundary member was abandoned during feature group narrowing, so nesting a
+		 * feature group silently changed which semantic connections existed. The guard
+		 * added here for issue #3038 stopped the crash but kept the connection missing.
 		 */
-		assertEquals(List.of("Producer_i_Instance.leaf_side.leaf.io -> Producer_i_Instance.boundary.inner.alpha|2"),
+		assertEquals(List.of("Producer_i_Instance.boundary.inner.alpha -> Producer_i_Instance.leaf_side.leaf.io|2",
+				"Producer_i_Instance.leaf_side.leaf.io -> Producer_i_Instance.boundary.inner.alpha|2"),
 				connections.stream()
 						.map(connection -> connection.getSource().getInstanceObjectPath() + " -> "
 								+ connection.getDestination().getInstanceObjectPath() + "|"
 								+ connection.getConnectionReferences().size())
+						.sorted()
 						.toList());
-		assertFalse("the connection leaves the system, so it is not complete",
-				connections.get(0).isComplete());
+		assertFalse("both connections leave the system, so neither is complete",
+				connections.stream().anyMatch(ConnectionInstance::isComplete));
 		assertEquals(List.of(), messages);
 	}
 }
