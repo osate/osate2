@@ -1708,6 +1708,11 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' is not a valid feature connection end.")
 					destination.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'af3' to have classifier 'legalTypeTest::subpcontainer'")
 				]
+				ownedFeatureConnections.get(6) => [
+					"fconn7".assertEquals(name)
+					//Tests checkInternalFeatureConnectionEnd
+					source.assertWarning(testFileResult.issues, issueCollection, "Bidirectional connection makes internal feature 'eds1' a connection destination.")
+				]
 				ownedFeatureConnections.get(8) => [
 					"fconn9".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
