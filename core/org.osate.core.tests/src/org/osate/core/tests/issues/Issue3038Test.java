@@ -23,8 +23,12 @@
  */
 package org.osate.core.tests.issues;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -98,5 +102,21 @@ public class Issue3038Test extends XtextTest {
 		var messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors();
 		assertTrue("the boundary connection must either be instantiated or be explained by a diagnostic",
 				!connections.isEmpty() || !messages.isEmpty());
+
+		/*
+		 * The semantic connection leaves the system, so it is incomplete and traverses
+		 * both declarations: up inside LeafSide.i and nested_up inside Producer.i. It is
+		 * enumerated once, from the boundary feature group; the seed at the contained
+		 * member boundary.inner reaches the same leaf and must not add a second instance.
+		 */
+		assertEquals(List.of("Producer_i_Instance.leaf_side.leaf.io -> Producer_i_Instance.boundary.inner.alpha|2"),
+				connections.stream()
+						.map(connection -> connection.getSource().getInstanceObjectPath() + " -> "
+								+ connection.getDestination().getInstanceObjectPath() + "|"
+								+ connection.getConnectionReferences().size())
+						.toList());
+		assertFalse("the connection leaves the system, so it is not complete",
+				connections.get(0).isComplete());
+		assertEquals(List.of(), messages);
 	}
 }

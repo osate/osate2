@@ -1064,6 +1064,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						dstEnd = (FeatureInstance) AadlUtil.findNamedElementInList(flist, name);
 					}
 				}
+				if (dstEnd == null) {
+					// this level does not exist below dstEnd, see the comment in the down case
+					return;
+				}
 			}
 		} else if (!downFeature.isEmpty()) {
 			// dstEnd is further down in the hierarchy than srcEnd: find feature corresponding to dstEnd
@@ -1088,6 +1092,21 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						String name = downFi.getName();
 						srcEnd = (FeatureInstance) AadlUtil.findNamedElementInList(flist, name);
 					}
+				}
+				if (srcEnd == null) {
+					/*
+					 * Issue 3038: The stack describes the feature group levels the traversal
+					 * descended through, counted from the outermost boundary feature group. This
+					 * traversal was seeded at a feature contained in that boundary feature group,
+					 * because instantiateExternalConnections() seeds both a boundary feature group
+					 * and its members, so the first stack entries describe levels at or above the
+					 * seed and narrowing runs off the end of the seed's own nesting.
+					 *
+					 * There is nothing to create and nothing to report: the seed at the enclosing
+					 * feature group enumerates the same semantic connection and reaches the same
+					 * leaf. Continuing would dereference null.
+					 */
+					return;
 				}
 			}
 			connInfo.src = srcEnd;
