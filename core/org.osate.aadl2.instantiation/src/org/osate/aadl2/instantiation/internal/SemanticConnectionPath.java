@@ -112,4 +112,12 @@ public record SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionIns
 	public int length() {
 		return segments.size();
 	}
+
+	/**
+	 * Structured identity of this path, for suppressing redundant enumeration. Built
+	 * from stable keys, never from object identity or display names.
+	 */
+	public SemanticConnectionKey key() {
+		return SemanticConnectionKey.of(this);
+	}
 }
