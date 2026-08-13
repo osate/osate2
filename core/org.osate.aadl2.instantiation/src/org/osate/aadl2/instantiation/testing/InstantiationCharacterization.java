@@ -51,12 +51,11 @@ import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
  *
  * <p>
  * The run instantiates into the resource set that already owns the given
- * implementation, and the <em>caller</em> owns isolation. That split is
- * deliberate: loading an AADL model needs the Xtext resource machinery and the
- * plug-in contributed packages, which belong to the test bundle, not here. When
- * two strategies are compared, each must be given an implementation from its own
- * freshly loaded resource set, so that no EMF object identity is shared and
- * comparison has to rely on stable keys.
+ * implementation, and the <em>caller</em> owns isolation, because loading an AADL
+ * model needs the Xtext resource machinery and the plug-in contributed packages,
+ * which belong to the test bundle. When two strategies are compared, each must be
+ * given an implementation from its own freshly loaded resource set, so no EMF object
+ * identity is shared and comparison relies on stable keys.
  * </p>
  *
  * <p>

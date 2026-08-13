@@ -32,11 +32,11 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
  * one traversal orientation.
  *
  * <p>
- * A segment is only built once both of its endpoints resolve, so a segment never
- * carries a null endpoint. That is the invariant issue #3017 established for
- * materialized connections, applied one stage earlier: a step that cannot resolve
- * produces a {@link Resolution.Failed} or {@link Resolution.NotApplicable} instead
- * of a segment with holes.
+ * A segment is built only once both endpoints resolve, so it never carries a null
+ * endpoint. This applies the invariant issue #3017 established for materialized
+ * connections one stage earlier: a step that cannot resolve produces a
+ * {@link Resolution.Failed} or {@link Resolution.NotApplicable} rather than a
+ * segment with holes.
  * </p>
  *
  * @param declaration the traversed connection declaration

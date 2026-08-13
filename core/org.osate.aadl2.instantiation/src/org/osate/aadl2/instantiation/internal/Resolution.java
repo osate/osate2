@@ -31,11 +31,11 @@ import org.osate.aadl2.Element;
  * The outcome of resolving one step of a semantic connection path.
  *
  * <p>
- * Source-first traversal signals every outcome with {@code null}, which is why a
- * missing endpoint, a step that simply does not apply, and a genuine model error
- * are indistinguishable at the call site, and why several of them ended as
- * {@code NullPointerException} rather than as diagnostics. The three outcomes are
- * distinct here and the compiler enforces that a caller handles them.
+ * Source-first traversal signals every outcome with {@code null}, so a missing
+ * endpoint, a step that does not apply, and a model error are indistinguishable at
+ * the call site; several of them surfaced as {@code NullPointerException} instead of
+ * diagnostics. The three outcomes are distinct here and the compiler enforces that a
+ * caller handles them.
  * </p>
  *
  * @param <T> what a successful resolution produced
@@ -62,8 +62,8 @@ public sealed interface Resolution<T> {
 	}
 
 	/**
-	 * The step should have resolved and did not, which is a model or implementation
-	 * error worth reporting.
+	 * The step should have resolved and did not. This is a model or implementation
+	 * error, and it is reported.
 	 *
 	 * @param target the element to attach the diagnostic to; it must belong to a
 	 *            resource, otherwise the diagnostic cannot be reported anywhere

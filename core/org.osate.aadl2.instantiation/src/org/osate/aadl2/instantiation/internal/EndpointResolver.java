@@ -44,15 +44,15 @@ import org.osate.aadl2.instance.FeatureInstance;
  * subcomponent as its context, the feature group as its first connection end, and
  * the port as the next link. Reaching into a feature group of the enclosing
  * component instead puts the feature group itself in the context position. Both
- * shapes are resolved here, in one place, so that a leg resolver never has to
- * rediscover how a side is encoded.
+ * shapes are resolved here, so a leg resolver does not have to rediscover how a side
+ * is encoded.
  * </p>
  *
  * <p>
- * Source-first traversal spreads this over {@code appendSegment()}, where the
- * outcome is signalled by {@code null} and the feature chain accumulates in two
- * stacks shared by every path under enumeration. Here the outcome is an explicit
- * {@link Resolution} and the chain belongs to the returned value.
+ * Source-first traversal spreads this over {@code appendSegment()}, signalling the
+ * outcome with {@code null} and accumulating the feature chain in two stacks shared
+ * by every path under enumeration. Here the outcome is a {@link Resolution} and the
+ * chain belongs to the returned value.
  * </p>
  */
 public final class EndpointResolver {
@@ -109,9 +109,9 @@ public final class EndpointResolver {
 		 * declarative validator also rejects it at a destination outright, so a model that
 		 * validates cannot ask for such a connection in the first place.
 		 *
-		 * This is deliberately "not applicable" rather than "failed". There is nothing
-		 * wrong to report here: either the model is valid and this end cannot occur, or it
-		 * is invalid and the validator has already said so with a better message.
+		 * The outcome is "not applicable" rather than "failed". There is nothing to report:
+		 * either the model is valid and this end cannot occur, or it is invalid and the
+		 * validator has already reported it.
 		 */
 		if (end instanceof InternalFeature) {
 			return Resolution.notApplicable("an internal feature is never instantiated, so the segment is ignored");

@@ -33,9 +33,8 @@ package org.osate.aadl2.instantiation.internal;
  * </p>
  *
  * <p>
- * This type lives in an unexported package on purpose. Strategy selection is a
- * migration aid for the across-first traversal work and must not become public
- * API.
+ * Strategy selection is a migration aid for the across-first traversal work, so
+ * this type lives in an unexported package rather than becoming public API.
  * </p>
  */
 public enum ConnectionTraversalStrategy {

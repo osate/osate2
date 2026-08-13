@@ -33,9 +33,9 @@ import java.util.List;
  * <p>
  * Source-first traversal keeps this state in the two shared {@code upFeature} and
  * {@code downFeature} stacks, which belong to the switch rather than to a path.
- * Two paths being enumerated therefore share one stack, and a path that is seeded
- * partway down a feature group nesting still sees the levels above it, which is
- * how issue #3038 crashed. A path here owns its own feature state, and the state
+ * Two paths being enumerated share one stack, and a path seeded partway down a
+ * feature group nesting still sees the levels above it, which is the mechanism
+ * behind issues #3038 and #3040. A path here owns its feature state, and the state
  * is immutable, so extending one path cannot disturb another.
  * </p>
  *

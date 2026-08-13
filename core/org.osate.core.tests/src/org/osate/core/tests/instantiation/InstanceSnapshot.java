@@ -40,9 +40,9 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
  *
  * <p>
  * This is the unit of comparison for connection-traversal characterization. It
- * deliberately describes only the materialized, publicly reachable instance
- * model plus diagnostics — never internal traversal state — so that the same
- * comparison applies to any traversal strategy.
+ * describes only the materialized, publicly reachable instance model plus
+ * diagnostics, never internal traversal state, so the same comparison applies to
+ * any traversal strategy.
  * </p>
  *
  * <p>

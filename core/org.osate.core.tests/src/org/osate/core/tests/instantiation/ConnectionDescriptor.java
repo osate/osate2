@@ -35,19 +35,17 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * Normalized description of one materialized {@link ConnectionInstance}.
  *
  * <p>
- * Identity is carried by {@link Key} and is deliberately built from structure
- * rather than from the display name: connection names are derived only from the
- * container-relative source and destination paths, so two distinct semantic
- * paths with the same endpoint pair share a name. The name is therefore a
- * compared <em>value</em>, never a lookup key.
+ * Identity is carried by {@link Key} and is built from structure rather than from
+ * the display name. Connection names are derived only from the container-relative
+ * source and destination paths, so two distinct semantic paths with the same
+ * endpoint pair share a name. The name is a compared value, not a lookup key.
  * </p>
  *
  * <p>
- * Position within the containing component's connection list is deliberately
- * <em>not</em> a field here. Collection order is an approved intended difference
- * for the across-first traversal, so it is recorded separately by
- * {@link InstanceSnapshot}, which keeps its per-container lists in collection
- * order.
+ * Position within the containing component's connection list is not a field here.
+ * Collection order is an approved intended difference for across-first traversal,
+ * so it is recorded separately by {@link InstanceSnapshot}, which keeps its
+ * per-container lists in collection order.
  * </p>
  */
 public record ConnectionDescriptor(Key key, String name, String kind, boolean complete, boolean bidirectional,

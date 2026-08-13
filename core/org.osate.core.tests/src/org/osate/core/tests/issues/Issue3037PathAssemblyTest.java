@@ -109,12 +109,12 @@ public class Issue3037PathAssemblyTest extends XtextTest {
 	 *
 	 * <p>
 	 * This model is where across-first and the baseline diverge, and the divergence is
-	 * recorded here on purpose. The baseline materializes only the outgoing connection.
-	 * A variant of this model whose boundary feature group is <em>not</em> nested shows
-	 * the baseline producing both directions, so the missing incoming connection is an
-	 * artifact of source-first feature-group narrowing rather than a semantic rule.
-	 * Whether across-first should keep the extra path, and whether the baseline should
-	 * be repaired instead, is a reviewer decision that is not yet taken.
+	 * recorded here. The baseline materializes only the outgoing connection. A variant
+	 * of this model whose boundary feature group is not nested shows the baseline
+	 * producing both directions, so the missing inward connection is an artifact of
+	 * source-first feature-group narrowing rather than a semantic rule. It is tracked
+	 * as issue #3040, which repairs the baseline; this assertion changes once that
+	 * lands.
 	 * </p>
 	 */
 	@Test

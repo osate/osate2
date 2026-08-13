@@ -70,8 +70,8 @@ public class Issue3037SeedDiscoveryTest extends XtextTest {
 	 *
 	 * <p>
 	 * {@code c2}, which descends from the enclosing feature group into {@code iproc},
-	 * is deliberately absent: it does not cross between peers, so it is a leg segment
-	 * rather than a pivot.
+	 * is absent because it does not cross between peers, making it a leg segment rather
+	 * than a pivot.
 	 * </p>
 	 */
 	@Test
@@ -95,13 +95,12 @@ public class Issue3037SeedDiscoveryTest extends XtextTest {
 	 * directions.
 	 *
 	 * <p>
-	 * The point of this test is the seed that is <em>not</em> here. Source-first
-	 * traversal seeds a boundary feature group and, separately, every feature contained
-	 * in it, so the contained-member seed re-enumerates a path the enclosing seed
-	 * already covers; that redundant seed is what crashed in issue #3038, and its
-	 * correct outcome turned out to be to produce nothing. Across-first does not
-	 * generate it at all. Reaching into the feature group is the job of the
-	 * declaration's own connected-element chain.
+	 * This test is about the seed that is not here. Source-first traversal seeds a
+	 * boundary feature group and, separately, every feature contained in it, so the
+	 * contained-member seed re-enumerates a path the enclosing seed already covers;
+	 * that redundant seed is the one that crashed in issue #3038. Across-first does not
+	 * generate it. Reaching into the feature group is the job of the declaration's own
+	 * connected-element chain.
 	 * </p>
 	 */
 	@Test

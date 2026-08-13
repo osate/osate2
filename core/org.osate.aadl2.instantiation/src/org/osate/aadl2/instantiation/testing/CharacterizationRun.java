@@ -34,9 +34,9 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
  *
  * <p>
  * The run returns the normal materialized instance model and its diagnostics.
- * Internal traversal types are deliberately not exposed: source-first traversal
- * never builds a path list, so there is nothing equivalent to compare, and
- * comparing complete materialized models is both possible and stronger.
+ * Internal traversal types are not exposed: source-first traversal never builds a
+ * path list, so there is nothing equivalent to compare, and comparing complete
+ * materialized models is possible instead.
  * </p>
  *
  * @param instance the instantiated model, in its own resource set

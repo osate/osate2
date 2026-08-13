@@ -34,15 +34,14 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
  * <p>
  * Nothing here is an EMF instance object of the connection itself: enumeration
  * produces values, and only materialization attaches a {@code ConnectionInstance}.
- * A rejected path therefore costs nothing and leaves nothing behind, which is what
- * makes exploring a partial path safe.
+ * A rejected path leaves nothing behind, so exploring a partial path is safe.
  * </p>
  *
  * <p>
  * The endpoints are the <em>ultimate</em> source and destination, which for a
  * connection reaching into a feature group sit below the endpoints of the first and
- * last segments. That relationship is established when the path is materialized, so
- * it is deliberately not asserted here.
+ * last segments. That relationship is established when the path is materialized and
+ * is not asserted here.
  * </p>
  *
  * @param source the ultimate source
@@ -74,12 +73,11 @@ public record SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionIns
 		}
 
 		/*
-		 * A semantic connection has exactly one containment turning point: it travels up
-		 * zero or more levels, crosses between peers once, and travels down zero or more
-		 * levels. More than one across segment is therefore not a legal semantic path but
-		 * an implementation defect, and it must fail here rather than be absorbed.
-		 * Source-first traversal silently overwrote its record of the across segment and
-		 * its container when it met a second one.
+		 * A semantic connection has one containment turning point: it travels up zero or
+		 * more levels, crosses between peers once, and travels down zero or more levels.
+		 * More than one across segment is an implementation defect rather than a legal
+		 * path, so it fails here. Source-first traversal overwrote its record of the
+		 * across segment and its container when it met a second one.
 		 */
 		long across = segments.stream().filter(ResolvedSegment::isAcross).count();
 		if (across > 1) {

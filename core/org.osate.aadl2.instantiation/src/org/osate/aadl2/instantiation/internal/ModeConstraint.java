@@ -35,13 +35,12 @@ import org.osate.aadl2.instance.ComponentInstance;
  * order.
  *
  * <p>
- * This is descriptive state for identity, diagnostics, and tests. It is
- * deliberately <em>not</em> an early replacement for the mode and system operation
- * mode pipeline: a topologically valid path is never discarded here because its
- * modes have no compatible system operation mode. The existing pipeline
- * materializes such a path, {@code fillInModes()} computes its system operation
- * modes, emits the existing warning when none are active, and deletes it. Deciding
- * earlier would change which diagnostics a model produces.
+ * This is descriptive state for identity, diagnostics, and tests. It does not
+ * replace the mode and system operation mode pipeline: a topologically valid path is
+ * not discarded here because its modes have no compatible system operation mode. The
+ * existing pipeline materializes such a path, {@code fillInModes()} computes its
+ * system operation modes, emits the existing warning when none are active, and
+ * deletes it. Deciding earlier would change which diagnostics a model produces.
  * </p>
  *
  * @param requirements one entry per traversed declaration that carries an in-modes

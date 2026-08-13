@@ -33,18 +33,18 @@ import java.util.Map;
  * Joins legs into whole semantic connection paths.
  *
  * <p>
- * A path reads from ultimate source to ultimate destination, so the source leg has
- * to be reversed and each of its segments re-oriented: the leg walked outwards from
- * the pivot, entering each declaration from the side the finished path leaves it by.
- * The baseline confirms both halves of that rule. For the issue #3019 model it
- * reports declarations in order {@code up, nested_up, across} with every reverse flag
- * false, while the legs that produced them were resolved reversed.
+ * A path reads from ultimate source to ultimate destination, so the source leg is
+ * reversed and each of its segments re-oriented: the leg walked outwards from the
+ * pivot, entering each declaration from the side the finished path leaves it by. The
+ * baseline agrees on both points. For the issue #3019 model it reports declarations in
+ * the order {@code up, nested_up, across} with every reverse flag false, while the
+ * legs that produced them were resolved reversed.
  * </p>
  *
  * <p>
- * Structural properties are deliberately not consulted here. {@code Connection_Pattern}
- * and {@code Connection_Set} are cached on materialized connection instances and
- * expansion also branches on materialized orientation, so they constrain the final
+ * Structural properties are not consulted here. {@code Connection_Pattern} and
+ * {@code Connection_Set} are cached on materialized connection instances, and
+ * expansion branches on materialized orientation, so they constrain the final
  * expansion stage rather than this join.
  * </p>
  *
@@ -152,9 +152,8 @@ public final class PathAssembler {
 
 	/**
 	 * Keep one path per structured identity. Two routes through the seed index can reach
-	 * the same path, and enumerating it twice is wasted work; this is bookkeeping, not a
-	 * semantic decision, so it must never collapse two paths that differ in any
-	 * identity field.
+	 * the same path, and enumerating it twice is wasted work. This is bookkeeping, so it
+	 * must not collapse two paths that differ in any identity field.
 	 */
 	private static void add(Map<SemanticConnectionKey, SemanticConnectionPath> unique, SemanticConnectionPath path) {
 		unique.putIfAbsent(SemanticConnectionKey.of(path), path);

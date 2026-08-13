@@ -31,16 +31,15 @@ import org.osate.aadl2.instance.SystemInstance;
  * Where an across-first traversal starts.
  *
  * <p>
- * A complete internal semantic connection is seeded at its across declaration,
- * which is the one point where it crosses between peers. That declaration
- * identifies the containing component instance immediately and supplies both
- * endpoint feature chains up front, instead of leaving them to be reconstructed
- * once a destination happens to be reached.
+ * A complete internal semantic connection is seeded at its across declaration, the
+ * one point where it crosses between peers. That declaration identifies the
+ * containing component instance and supplies both endpoint feature chains up front,
+ * rather than leaving them to be reconstructed once a destination is reached.
  * </p>
  *
  * <p>
- * A connection with no across declaration gets an explicit degenerate seed rather
- * than a special case in the traversal: a system input is a boundary seed plus a
+ * A connection with no across declaration gets an explicit degenerate seed instead
+ * of a special case in the traversal: a system input is a boundary seed plus a
  * destination leg, a system output is a source leg plus a boundary seed, and any
  * other incomplete connection is a one-leg seed.
  * </p>
@@ -89,10 +88,10 @@ public sealed interface TraversalSeed {
 	 * <p>
 	 * Only a top-level feature of the system instance is seeded, never a feature
 	 * contained in one. Source-first traversal seeds both, so the contained-member seed
-	 * re-enumerates a path the enclosing seed already covers; that redundant seed is
-	 * what crashed in issue #3038, and its correct outcome turned out to be to produce
-	 * nothing at all. Reaching into the feature group is the job of the declaration's
-	 * own connected-element chain, which resolves the deeper endpoint directly.
+	 * re-enumerates a path the enclosing seed already covers; that redundant seed is the
+	 * one that crashed in issue #3038. Reaching into the feature group is the job of the
+	 * declaration's own connected-element chain, which resolves the deeper endpoint
+	 * directly.
 	 * </p>
 	 *
 	 * @param container the system instance

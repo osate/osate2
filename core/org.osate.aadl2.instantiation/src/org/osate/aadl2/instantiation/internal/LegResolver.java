@@ -50,13 +50,11 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
  * the walk.
  *
  * <p>
- * One operation resolves both legs. A leg always moves in the same direction
- * physically — downwards, into the component that owns the current feature and then
- * into its subcomponents — and the {@link LegRole} decides only which declared side
- * of a candidate declaration the leg arrives from. Source-first traversal instead
- * grows a path forwards while tracking whether it is currently allowed to go up,
- * across, or down, which is the state that made its direction handling hard to
- * follow.
+ * One operation resolves both legs. A leg always moves the same way, into the
+ * component that owns the current feature and then into its subcomponents, and the
+ * {@link LegRole} decides only which declared side of a candidate declaration the leg
+ * arrives from. Source-first traversal grows a path forwards while tracking whether
+ * it may currently go up, across, or down.
  * </p>
  *
  * <p>
@@ -150,9 +148,9 @@ public final class LegResolver {
 	 *
 	 * <p>
 	 * A candidate must arrive at {@code feature} on the side the role dictates and
-	 * continue into a subcomponent, which is what makes this a descent rather than a
-	 * general graph walk. A candidate already traversed in this orientation on this
-	 * branch is skipped, so a cyclic model terminates.
+	 * continue into a subcomponent, which keeps this a descent rather than a general
+	 * graph walk. A candidate already traversed in this orientation on this branch is
+	 * skipped, so a cyclic model terminates.
 	 * </p>
 	 */
 	private List<ResolvedSegment> continuations(ComponentInstance owner, FeatureInstance feature, LegRole role,
@@ -197,17 +195,16 @@ public final class LegResolver {
 	 *
 	 * <p>
 	 * An exact match is not enough. A declaration may reach <em>into</em> a feature
-	 * group the leg stands at, connecting only one member of it, and it may equally
-	 * connect a whole feature group while the leg stands at a member of it. Both
-	 * continue the same semantic connection; they differ only in how much of the group
-	 * the connection covers, which the feature chain records.
+	 * group the leg stands at, connecting one member of it, and it may connect a whole
+	 * feature group while the leg stands at a member of it. Both continue the same
+	 * semantic connection and differ only in how much of the group the connection
+	 * covers, which the feature chain records.
 	 * </p>
 	 *
 	 * <p>
-	 * Requiring an exact match instead loses every connection that reaches into a
-	 * feature group, which is most of them in practice. This is the narrowing that
-	 * source-first traversal performs with its two shared stacks, and it is the reason
-	 * two distinct semantic paths can share an endpoint pair.
+	 * Requiring an exact match loses every connection that reaches into a feature
+	 * group. This is the narrowing source-first traversal performs with its two shared
+	 * stacks, and the reason two distinct semantic paths can share an endpoint pair.
 	 * </p>
 	 */
 	private static boolean touches(ConnectionInstanceEnd near, FeatureInstance position) {
@@ -234,7 +231,7 @@ public final class LegResolver {
 
 	/**
 	 * Whether a component of this category ends a semantic connection. Mirrors the
-	 * source-first rule exactly, so that maximal paths stay the same length.
+	 * source-first rule, so maximal paths stay the same length.
 	 */
 	private static boolean isConnectionEndingCategory(ComponentCategory category) {
 		return category == THREAD || category == DEVICE || category == PROCESSOR || category == VIRTUAL_PROCESSOR;
