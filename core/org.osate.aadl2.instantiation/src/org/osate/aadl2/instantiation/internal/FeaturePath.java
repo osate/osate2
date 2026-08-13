@@ -73,22 +73,6 @@ public record FeaturePath(List<FeaturePathElement> elements) {
 		return new FeaturePath(extended);
 	}
 
-	/**
-	 * Whether this path and {@code other} agree as far as both are defined. A shorter
-	 * path is compatible with a longer one that starts the same way, which is what
-	 * lets a leg that stopped at a feature group join a leg that reached further into
-	 * it.
-	 */
-	public boolean isCompatibleWith(FeaturePath other) {
-		int shared = Math.min(depth(), other.depth());
-		for (int i = 0; i < shared; i++) {
-			if (!elements.get(i).key().equals(other.elements().get(i).key())) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	/** Stable identity of the whole chain. Never uses object identity. */
 	public String key() {
 		StringBuilder key = new StringBuilder();

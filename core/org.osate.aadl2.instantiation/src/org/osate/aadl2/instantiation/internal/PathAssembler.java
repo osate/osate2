@@ -49,6 +49,16 @@ import java.util.Map;
  * </p>
  *
  * <p>
+ * Every source leg is joined with every destination leg. Comparing the two legs'
+ * feature chains to filter pairs does not work, because those chains describe
+ * features of different components and so never match; a predicate built on them
+ * rejected every pair where both legs had descended, which lost the connection
+ * entirely. What pairs correctly is decided instead by the pivot, whose two endpoints
+ * are already resolved against each other, and by leaf expansion, which pairs feature
+ * group members and filters on direction.
+ * </p>
+ *
+ * <p>
  * Mode constraints are carried, not enforced. A topologically valid path whose modes
  * have no compatible system operation mode is still assembled, so that the existing
  * pipeline can materialize it, compute its system operation modes, emit the existing
@@ -76,30 +86,24 @@ public final class PathAssembler {
 		if (seed instanceof TraversalSeed.Across across) {
 			for (LegResult sourceLeg : sourceLegs) {
 				for (LegResult destinationLeg : destinationLegs) {
-					if (!compatible(sourceLeg, destinationLeg)) {
-						continue;
-					}
 					add(unique, assembleComplete(across, sourceLeg, destinationLeg));
 				}
 			}
 		} else if (seed instanceof TraversalSeed.Boundary boundary) {
 			for (LegResult leg : boundary.incoming() ? destinationLegs : sourceLegs) {
-				add(unique, assembleBoundary(boundary, leg));
+				/*
+				 * A boundary feature with nothing connected inside it yields a leg that stopped
+				 * where it started. There is no semantic connection, so there is no path: a
+				 * boundary seed contributes no pivot of its own.
+				 */
+				if (!leg.isTrivial()) {
+					add(unique, assembleBoundary(boundary, leg));
+				}
 			}
 		}
 		List<SemanticConnectionPath> paths = new ArrayList<>(unique.values());
 		paths.sort(Comparator.comparing(path -> SemanticConnectionKey.of(path).toString()));
 		return List.copyOf(paths);
-	}
-
-	/**
-	 * Whether two legs may be joined. The feature chains must agree as far as both are
-	 * defined, so that a leg which stopped at a feature group can still join one that
-	 * reached further into the matching group, while two legs that went into unrelated
-	 * members cannot.
-	 */
-	private static boolean compatible(LegResult sourceLeg, LegResult destinationLeg) {
-		return sourceLeg.featurePath().isCompatibleWith(destinationLeg.featurePath());
 	}
 
 	/** A complete path: source leg reversed, then the pivot, then the destination leg. */
