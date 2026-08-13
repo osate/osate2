@@ -30,7 +30,13 @@ import java.util.List;
 
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -136,8 +142,100 @@ public final class SeedDiscovery {
 		if (!(to instanceof Resolution.Resolved<ResolvedEnd> resolvedTo)) {
 			return carryOver(to);
 		}
-		return Resolution.resolved(new ResolvedSegment(declaration, container, resolvedFrom.value().endpoint(),
-				resolvedTo.value().endpoint(), reverse, resolvedFrom.value().path(), resolvedTo.value().path()));
+		ConnectionInstanceEnd source = resolvedFrom.value().endpoint();
+		ConnectionInstanceEnd destination = resolvedTo.value().endpoint();
+		if (!accessDirectionsAgree(root, reverse, source, destination)) {
+			return Resolution.notApplicable("data access directions do not agree");
+		}
+		return Resolution.resolved(new ResolvedSegment(declaration, container, source, destination, reverse,
+				resolvedFrom.value().path(), resolvedTo.value().path()));
+	}
+
+	/**
+	 * Whether a segment's flow directions permit it, with the segment read in path order.
+	 *
+	 * <p>
+	 * A segment travelling up leaves an outgoing feature and arrives at an outgoing one,
+	 * because the outer feature carries the flow further out. Travelling down, both are
+	 * incoming. Crossing between peers, the source is outgoing and the destination is
+	 * incoming. Source-first applies the same three cases in
+	 * {@code ConnectionInfo.addSegment()}.
+	 * </p>
+	 *
+	 * <p>
+	 * This must not be applied while a leg is being resolved. A leg walks outwards from
+	 * the pivot and enters each declaration from the side the finished path leaves it by,
+	 * so its segments are in leg order and the rule would be applied backwards. The
+	 * assembler flips them into path order first.
+	 * </p>
+	 */
+	public static boolean directionsValidInPathOrder(ResolvedSegment segment) {
+		Connection root = segment.declaration().getRootConnection();
+		boolean reverse = segment.reverse();
+		Context sourceContext = reverse ? root.getAllDestinationContext() : root.getAllSourceContext();
+		Context destinationContext = reverse ? root.getAllSourceContext() : root.getAllDestinationContext();
+		ConnectionEnd sourceEnd = reverse ? root.getAllDestination() : root.getAllSource();
+		ConnectionEnd destinationEnd = reverse ? root.getAllSource() : root.getAllDestination();
+		boolean goingUp = !(destinationContext instanceof Subcomponent)
+				&& (sourceEnd instanceof Subcomponent || sourceContext instanceof Subcomponent);
+		boolean goingDown = !(sourceContext instanceof Subcomponent)
+				&& (destinationEnd instanceof Subcomponent || destinationContext instanceof Subcomponent);
+
+		if (segment.source() instanceof FeatureInstance sourceFeature) {
+			DirectionType direction = sourceFeature.getFlowDirection();
+			if (!(goingDown ? direction.incoming() : direction.outgoing())) {
+				return false;
+			}
+		}
+		if (segment.destination() instanceof FeatureInstance destinationFeature) {
+			DirectionType direction = destinationFeature.getFlowDirection();
+			if (!(goingUp ? direction.outgoing() : direction.incoming())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Whether a data access to data access segment is allowed in this orientation.
+	 *
+	 * <p>
+	 * Two accesses connected between peers must face opposite ways, one providing and one
+	 * requiring. Two connected up or down the hierarchy must face the same way, because
+	 * the outer feature passes the inner one along rather than consuming it. Access
+	 * features all report {@code in out} as their flow direction, so the provides and
+	 * requires distinction is only visible in the declared direction.
+	 * </p>
+	 *
+	 * <p>
+	 * Source-first applies this at {@code ConnectionInfo.addSegment()} and reports
+	 * "has no valid direction" when it fails. Here the segment simply does not resolve,
+	 * so the path is never enumerated; the diagnostic is not reproduced yet.
+	 * </p>
+	 */
+	private static boolean accessDirectionsAgree(Connection root, boolean reverse, ConnectionInstanceEnd source,
+			ConnectionInstanceEnd destination) {
+		if (!(source instanceof FeatureInstance sourceFeature)
+				|| !(destination instanceof FeatureInstance destinationFeature)) {
+			return true;
+		}
+		if (sourceFeature.getCategory() != FeatureCategory.DATA_ACCESS
+				|| destinationFeature.getCategory() != FeatureCategory.DATA_ACCESS) {
+			return true;
+		}
+		Context sourceContext = reverse ? root.getAllDestinationContext() : root.getAllSourceContext();
+		Context destinationContext = reverse ? root.getAllSourceContext() : root.getAllDestinationContext();
+		ConnectionEnd sourceEnd = reverse ? root.getAllDestination() : root.getAllSource();
+		ConnectionEnd destinationEnd = reverse ? root.getAllSource() : root.getAllDestination();
+		boolean goingUp = !(destinationContext instanceof Subcomponent)
+				&& (sourceEnd instanceof Subcomponent || sourceContext instanceof Subcomponent);
+		boolean goingDown = !(sourceContext instanceof Subcomponent)
+				&& (destinationEnd instanceof Subcomponent || destinationContext instanceof Subcomponent);
+
+		DirectionType sourceDirection = sourceFeature.getDirection();
+		DirectionType destinationDirection = destinationFeature.getDirection();
+		return goingUp || goingDown ? sourceDirection == destinationDirection
+				: sourceDirection.getInverseDirection() == destinationDirection;
 	}
 
 	/** Re-type a non-resolved endpoint outcome as a segment outcome. */

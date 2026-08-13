@@ -160,6 +160,11 @@ public final class PathAssembler {
 	 * must not collapse two paths that differ in any identity field.
 	 */
 	private static void add(Map<SemanticConnectionKey, SemanticConnectionPath> unique, SemanticConnectionPath path) {
+		for (ResolvedSegment segment : path.segments()) {
+			if (!SeedDiscovery.directionsValidInPathOrder(segment)) {
+				return;
+			}
+		}
 		unique.putIfAbsent(SemanticConnectionKey.of(path), path);
 	}
 }
