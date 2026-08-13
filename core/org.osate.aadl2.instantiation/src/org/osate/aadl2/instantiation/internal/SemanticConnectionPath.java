@@ -1,0 +1,115 @@
+/**
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
+package org.osate.aadl2.instantiation.internal;
+
+import java.util.List;
+
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+
+/**
+ * A complete enumerated semantic connection, before anything is materialized.
+ *
+ * <p>
+ * Nothing here is an EMF instance object of the connection itself: enumeration
+ * produces values, and only materialization attaches a {@code ConnectionInstance}.
+ * A rejected path therefore costs nothing and leaves nothing behind, which is what
+ * makes exploring a partial path safe.
+ * </p>
+ *
+ * <p>
+ * The endpoints are the <em>ultimate</em> source and destination, which for a
+ * connection reaching into a feature group sit below the endpoints of the first and
+ * last segments. That relationship is established when the path is materialized, so
+ * it is deliberately not asserted here.
+ * </p>
+ *
+ * @param source the ultimate source
+ * @param destination the ultimate destination
+ * @param segments the traversed segments, from the ultimate source towards the
+ *            ultimate destination
+ * @param complete whether the path crosses between peers, which is exactly whether
+ *            it has an across segment
+ * @param allSegmentsBidirectional whether every segment could also be followed the
+ *            other way. Internal traversal state only: the materializer must not
+ *            copy it to {@code ConnectionInstance.bidirectional}, which normal
+ *            instantiation leaves {@code false}
+ * @param modes the modal declarations the path passes through
+ */
+public record SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionInstanceEnd destination,
+		List<ResolvedSegment> segments, boolean complete, boolean allSegmentsBidirectional, ModeConstraint modes) {
+
+	public SemanticConnectionPath {
+		if (source == null || destination == null) {
+			throw new IllegalArgumentException("A semantic connection path needs both ultimate endpoints, but got "
+					+ PathKeys.instance(source) + " -> " + PathKeys.instance(destination));
+		}
+		if (modes == null) {
+			throw new IllegalArgumentException("A semantic connection path needs a mode constraint");
+		}
+		segments = List.copyOf(segments);
+		if (segments.isEmpty()) {
+			throw new IllegalArgumentException("A semantic connection path needs at least one segment");
+		}
+
+		/*
+		 * A semantic connection has exactly one containment turning point: it travels up
+		 * zero or more levels, crosses between peers once, and travels down zero or more
+		 * levels. More than one across segment is therefore not a legal semantic path but
+		 * an implementation defect, and it must fail here rather than be absorbed.
+		 * Source-first traversal silently overwrote its record of the across segment and
+		 * its container when it met a second one.
+		 */
+		long across = segments.stream().filter(ResolvedSegment::isAcross).count();
+		if (across > 1) {
+			throw new IllegalStateException("A semantic connection path may cross between peers at most once, but "
+					+ PathKeys.instance(source) + " -> " + PathKeys.instance(destination) + " has " + across
+					+ " across segments");
+		}
+		if (complete != (across == 1)) {
+			throw new IllegalStateException("A semantic connection path is complete exactly when it crosses between "
+					+ "peers, but " + PathKeys.instance(source) + " -> " + PathKeys.instance(destination)
+					+ " has complete=" + complete + " with " + across + " across segments");
+		}
+	}
+
+	/** The across segment, or {@code null} for a one-leg boundary or incomplete path. */
+	public ResolvedSegment acrossSegment() {
+		return segments.stream().filter(ResolvedSegment::isAcross).findFirst().orElse(null);
+	}
+
+	/**
+	 * The component instance that will contain the connection instance: the context of
+	 * the across segment for a complete path, and otherwise the context of the last
+	 * segment, which is where a boundary path ends up.
+	 */
+	public ComponentInstance container() {
+		ResolvedSegment across = acrossSegment();
+		return across != null ? across.context() : segments.get(segments.size() - 1).context();
+	}
+
+	public int length() {
+		return segments.size();
+	}
+}
