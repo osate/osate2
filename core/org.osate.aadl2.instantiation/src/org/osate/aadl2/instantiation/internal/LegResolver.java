@@ -73,9 +73,16 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 public final class LegResolver {
 
 	private final HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	private final ComponentInstance root;
 
-	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+	/**
+	 * @param classifierCache resolved classifiers for prototypes, may be null
+	 * @param root the instantiation root, which is always descended into whatever its
+	 *            category
+	 */
+	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root) {
 		this.classifierCache = classifierCache;
+		this.root = root;
 	}
 
 	/**
@@ -125,7 +132,13 @@ public final class LegResolver {
 		 * start rule creates the path that stops at the component, and enumeration from
 		 * the inner subcomponent creates the one that continues.
 		 */
-		boolean endingCategory = isConnectionEndingCategory(owner.getCategory());
+		/*
+		 * The connection-ending rule applies to components the traversal descends into, not
+		 * to the root. A thread implementation instantiated on its own is the whole model,
+		 * and its internals are still reached; source-first likewise applies the rule while
+		 * examining subcomponents and never to the root it walks the features of.
+		 */
+		boolean endingCategory = owner != root && isConnectionEndingCategory(owner.getCategory());
 		if (endingCategory && (includesPort(feature) || includesNestedFeatureGroup(feature))) {
 			results.add(new LegResult(role, current, segments, featurePath, modes, allBidirectional,
 					"connection ending component"));

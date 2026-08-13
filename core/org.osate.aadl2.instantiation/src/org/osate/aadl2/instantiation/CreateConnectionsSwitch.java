@@ -290,7 +290,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	private void instantiateAcrossFirst(final ComponentInstance root) {
 		final SystemInstance systemInstance = root.getSystemInstance();
-		final LegResolver legResolver = new LegResolver(classifierCache);
+		final LegResolver legResolver = new LegResolver(classifierCache, root);
 
 		for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache)) {
 			observations.addSeed(seed.key());

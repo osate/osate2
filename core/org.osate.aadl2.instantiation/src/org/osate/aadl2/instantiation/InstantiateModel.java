@@ -619,14 +619,15 @@ public class InstantiateModel {
 		 * inside a passing phase-level ratio.
 		 */
 		/*
-		 * Across-first seed discovery is exercised here under either strategy while the
-		 * across-first builder is incomplete, so that it can be checked against real
-		 * models before legs and joining exist. It has no effect on what is instantiated,
-		 * and it does nothing at all unless a characterization run asked for
-		 * measurements. Temporary, like the rest of the instrumentation.
+		 * Under source-first, the across-first pipeline is run alongside it purely to
+		 * record what it would have produced, which is how seeds, legs, paths, and expanded
+		 * endpoints are checked against source-first results. It has no effect on what is
+		 * instantiated. Under across-first the traversal itself records the same
+		 * observations, so running them here as well would count everything twice.
+		 * Temporary, like the rest of the instrumentation.
 		 */
-		if (observations.isRecording()) {
-			final LegResolver legResolver = new LegResolver(classifierCache);
+		if (observations.isRecording() && strategy == ConnectionTraversalStrategy.SOURCE_FIRST) {
+			final LegResolver legResolver = new LegResolver(classifierCache, root);
 			for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache)) {
 				observations.addSeed(seed.key());
 				List<LegResult> sourceLegs = List.of();
