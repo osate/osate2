@@ -98,13 +98,20 @@ public record SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionIns
 	}
 
 	/**
-	 * The component instance that will contain the connection instance: the context of
-	 * the across segment for a complete path, and otherwise the context of the last
-	 * segment, which is where a boundary path ends up.
+	 * The component instance that will contain the connection instance, or {@code null}
+	 * for an incomplete path.
+	 *
+	 * <p>
+	 * A complete path is contained by the component where it crosses between peers. An
+	 * incomplete path has no such component and belongs to the instantiation root; the
+	 * root is not reachable from a path, so the materializer substitutes it. Returning
+	 * the last segment's context instead would put an inward boundary connection inside
+	 * the subcomponent it descends into, and connection names are relative to the
+	 * container, so the name would change too.
+	 * </p>
 	 */
 	public ComponentInstance container() {
-		ResolvedSegment across = acrossSegment();
-		return across != null ? across.context() : segments.get(segments.size() - 1).context();
+		return acrossSegment() != null ? acrossSegment().context() : null;
 	}
 
 	public int length() {

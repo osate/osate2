@@ -95,6 +95,15 @@ import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.instantiation.internal.ConnectionTraversalStrategy;
+import org.osate.aadl2.instantiation.internal.LeafExpansion;
+import org.osate.aadl2.instantiation.internal.LegResolver;
+import org.osate.aadl2.instantiation.internal.LegResult;
+import org.osate.aadl2.instantiation.internal.LegRole;
+import org.osate.aadl2.instantiation.internal.PathAssembler;
+import org.osate.aadl2.instantiation.internal.PathMaterializer;
+import org.osate.aadl2.instantiation.internal.SeedDiscovery;
+import org.osate.aadl2.instantiation.internal.SemanticConnectionPath;
+import org.osate.aadl2.instantiation.internal.TraversalSeed;
 import org.osate.aadl2.instantiation.internal.TraversalObservations;
 import org.osate.aadl2.instantiation.internal.TraversalObservations.Counter;
 import org.osate.aadl2.instantiation.testing.DuplicateCandidateObservation;
@@ -145,6 +154,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private final TraversalObservations observations;
 
 	/**
+	 * The component the across-first traversal was rooted at, so that its seed-driven
+	 * enumeration runs once rather than once per visited component.
+	 */
+	private ComponentInstance traversalRoot = null;
+
+	/**
 	 * Create a new instance that uses the production traversal strategy and collects
 	 * no measurements.
 	 *
@@ -188,10 +203,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		super(pm, PROCESS_PRE_ORDER_ALL, errMgr);
 		this.strategy = strategy;
 		this.observations = observations;
-		if (strategy != ConnectionTraversalStrategy.SOURCE_FIRST) {
-			throw new UnsupportedOperationException(
-					"Connection traversal strategy " + strategy + " is not implemented yet");
-		}
 		this.classifierCache = classifierCache;
 	}
 
@@ -240,6 +251,18 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					cancelTraversal();
 					return DONE;
 				}
+				if (strategy == ConnectionTraversalStrategy.ACROSS_FIRST) {
+					/*
+					 * Across-first enumeration is driven by seeds over the whole root rather than by
+					 * visiting one component at a time, so it runs once, at the first component the
+					 * traversal reaches, which is the root.
+					 */
+					if (traversalRoot == null) {
+						traversalRoot = ci;
+						instantiateAcrossFirst(ci);
+					}
+					return DONE;
+				}
 				if (!(ci instanceof SystemInstance)) {
 					if (ci.getSubcomponent() != null && isFirstArrayElement(ci)) {
 						// don't process instantiated referenced classifiers
@@ -252,6 +275,90 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				return DONE;
 			}
 		};
+	}
+
+	/**
+	 * Enumerate and materialize every semantic connection under {@code root} with
+	 * across-first traversal.
+	 *
+	 * <p>
+	 * Seeds are found once for the whole root, each seed's legs are resolved, compatible
+	 * legs are joined into paths, each path is expanded to the leaf pairs that become
+	 * connection instances, and each pair is materialized and attached. Modes and system
+	 * operation modes are then filled in by the same code source-first uses.
+	 * </p>
+	 */
+	private void instantiateAcrossFirst(final ComponentInstance root) {
+		final SystemInstance systemInstance = root.getSystemInstance();
+		final LegResolver legResolver = new LegResolver(classifierCache);
+
+		for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache)) {
+			observations.addSeed(seed.key());
+			List<LegResult> sourceLegs = List.of();
+			List<LegResult> destinationLegs = List.of();
+			if (seed instanceof TraversalSeed.Across across) {
+				sourceLegs = legResolver.resolve(across.segment().source(), LegRole.SOURCE_LEG);
+				destinationLegs = legResolver.resolve(across.segment().destination(), LegRole.DESTINATION_LEG);
+			} else if (seed instanceof TraversalSeed.Boundary boundary) {
+				if (boundary.incoming()) {
+					destinationLegs = legResolver.resolve(boundary.feature(), LegRole.DESTINATION_LEG);
+				} else {
+					sourceLegs = legResolver.resolve(boundary.feature(), LegRole.SOURCE_LEG);
+				}
+			}
+			sourceLegs.forEach(leg -> observations.addLeg(leg.key()));
+			destinationLegs.forEach(leg -> observations.addLeg(leg.key()));
+
+			for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs)) {
+				observations.addPath((path.complete() ? "complete|" : "incomplete|") + path.key().render());
+				for (LeafExpansion.Endpoints endpoints : LeafExpansion.expand(path)) {
+					observations.addExpanded(endpoints.key());
+					attachAcrossFirst(systemInstance, path, endpoints);
+				}
+			}
+			if (monitor.isCanceled()) {
+				return;
+			}
+		}
+	}
+
+	/**
+	 * Materialize one expanded endpoint pair, attach it, and fill in its modes. The
+	 * duplicate check source-first needs is not repeated here: paths are already
+	 * deduplicated by structured identity before expansion, so a duplicate would mean
+	 * two identities produced the same connection, which is an enumeration defect rather
+	 * than something to absorb silently.
+	 */
+	private void attachAcrossFirst(final SystemInstance systemInstance, final SemanticConnectionPath path,
+			final LeafExpansion.Endpoints endpoints) {
+		ComponentInstance container = PathMaterializer.container(systemInstance, path);
+		ConnectionInstance conni = PathMaterializer.materialize(systemInstance, path, endpoints);
+		for (ConnectionInstance existing : container.getConnectionInstances()) {
+			if (existing.getSource() == conni.getSource() && existing.getDestination() == conni.getDestination()
+					&& sameReferences(existing, conni)) {
+				throw new IllegalStateException("Across-first traversal enumerated " + conni.getName() + " in "
+						+ container.getInstanceObjectPath() + " twice");
+			}
+		}
+		container.getConnectionInstances().add(conni);
+		observations.increment(Counter.FINAL_PATHS);
+		fillInModes(conni);
+		fillInModeTransitions(conni);
+	}
+
+	private static boolean sameReferences(ConnectionInstance one, ConnectionInstance other) {
+		if (one.getConnectionReferences().size() != other.getConnectionReferences().size()) {
+			return false;
+		}
+		for (int i = 0; i < one.getConnectionReferences().size(); i++) {
+			ConnectionReference a = one.getConnectionReferences().get(i);
+			ConnectionReference b = other.getConnectionReferences().get(i);
+			if (a.getConnection() != b.getConnection() || a.getContext() != b.getContext()
+					|| a.isReverse() != b.isReverse()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private boolean isFirstArrayElement(ComponentInstance ci) {

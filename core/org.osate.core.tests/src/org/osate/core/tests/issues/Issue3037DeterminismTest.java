@@ -89,17 +89,22 @@ public class Issue3037DeterminismTest extends XtextTest {
 	}
 
 	/**
-	 * Selecting a strategy that does not exist yet must fail loudly rather than
-	 * silently running the production one, so that a differential test cannot pass by
-	 * comparing source-first with itself.
+	 * Across-first traversal must be deterministic in its own right, including its
+	 * collection order, before the two strategies can be compared meaningfully.
 	 */
 	@Test
-	public void acrossFirstIsNotSilentlyIgnored() throws Exception {
-		try {
-			isolated.run(MODEL, "Sys.Imp", "ACROSS_FIRST", false);
-			throw new AssertionError("expected across-first traversal to be rejected until it is implemented");
-		} catch (UnsupportedOperationException expected) {
-			assertEquals("Connection traversal strategy ACROSS_FIRST is not implemented yet", expected.getMessage());
-		}
+	public void repeatedAcrossFirstRunsAreIdentical() throws Exception {
+		CharacterizationRun first = isolated.run(MODEL, "Sys.Imp", "ACROSS_FIRST", false);
+		CharacterizationRun second = isolated.run(MODEL, "Sys.Imp", "ACROSS_FIRST", false);
+
+		assertNotSame(first.instance(), second.instance());
+		InstanceSnapshot firstSnapshot = InstanceSnapshot.of(first.instance(), first.errorManager());
+		InstanceSnapshot secondSnapshot = InstanceSnapshot.of(second.instance(), second.errorManager());
+
+		assertEquals(InstanceReport.full(firstSnapshot), InstanceReport.full(secondSnapshot));
+		assertEquals(InstanceReport.connectionOrderLines(firstSnapshot),
+				InstanceReport.connectionOrderLines(secondSnapshot));
+		assertEquals(first.counters(), second.counters());
+		assertEquals(List.of(), InstanceIntegrity.check(first.instance()));
 	}
 }
