@@ -53,16 +53,20 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
  *            strategy while the across-first builder is incomplete
  * @param legKeys the legs resolved from those seeds, by stable key. Temporary for
  *            the same reason
+ * @param pathKeys the whole paths assembled from those legs. Temporary for the same
+ *            reason
  */
 public record CharacterizationRun(SystemInstance instance, AnalysisErrorReporterManager errorManager, String strategy,
 		Map<String, Long> counters, long connectionPhaseNanos, long traversalNanos,
-		List<DuplicateCandidateObservation> duplicateCandidates, List<String> seedKeys, List<String> legKeys) {
+		List<DuplicateCandidateObservation> duplicateCandidates, List<String> seedKeys, List<String> legKeys,
+		List<String> pathKeys) {
 
 	public CharacterizationRun {
 		counters = Map.copyOf(counters);
 		duplicateCandidates = List.copyOf(duplicateCandidates);
 		seedKeys = List.copyOf(seedKeys);
 		legKeys = List.copyOf(legKeys);
+		pathKeys = List.copyOf(pathKeys);
 	}
 
 	/** The candidates the duplicate check let through. */

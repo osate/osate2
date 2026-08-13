@@ -74,7 +74,10 @@ public final class TraversalObservations {
 		SEEDS_DISCOVERED,
 
 		/** Legs resolved from a seed endpoint, counting every branch separately. */
-		LEGS_RESOLVED
+		LEGS_RESOLVED,
+
+		/** Whole paths assembled by joining legs, after identity deduplication. */
+		PATHS_ASSEMBLED
 	}
 
 	private static final TraversalObservations DISABLED = new TraversalObservations(false, false);
@@ -85,6 +88,7 @@ public final class TraversalObservations {
 	private final List<DuplicateCandidateObservation> duplicateCandidates = new ArrayList<>();
 	private final List<String> seedKeys = new ArrayList<>();
 	private final List<String> legKeys = new ArrayList<>();
+	private final List<String> pathKeys = new ArrayList<>();
 
 	private long connectionPhaseNanos;
 	private long connectionPhaseStart = -1;
@@ -187,6 +191,22 @@ public final class TraversalObservations {
 	/** The resolved leg keys, in resolution order. */
 	public List<String> legKeys() {
 		return List.copyOf(legKeys);
+	}
+
+	/**
+	 * Record an assembled path by its rendered identity. Temporary, for the same reason
+	 * as {@link #addSeed(String)}.
+	 */
+	public void addPath(String key) {
+		increment(Counter.PATHS_ASSEMBLED);
+		if (recording) {
+			pathKeys.add(key);
+		}
+	}
+
+	/** The assembled path keys, in assembly order. */
+	public List<String> pathKeys() {
+		return List.copyOf(pathKeys);
 	}
 
 	/** The observed candidates, in the order the traversal offered them. */

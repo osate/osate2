@@ -115,7 +115,9 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.instantiation.internal.ConnectionTraversalStrategy;
+import org.osate.aadl2.instantiation.internal.LegResult;
 import org.osate.aadl2.instantiation.internal.LegResolver;
+import org.osate.aadl2.instantiation.internal.PathAssembler;
 import org.osate.aadl2.instantiation.internal.LegRole;
 import org.osate.aadl2.instantiation.internal.SeedDiscovery;
 import org.osate.aadl2.instantiation.internal.TraversalSeed;
@@ -625,22 +627,28 @@ public class InstantiateModel {
 			final LegResolver legResolver = new LegResolver(classifierCache);
 			for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache)) {
 				observations.addSeed(seed.key());
+				List<LegResult> sourceLegs = List.of();
+				List<LegResult> destinationLegs = List.of();
 				if (seed instanceof TraversalSeed.Across across) {
-					legResolver.resolve(across.segment().source(), LegRole.SOURCE_LEG)
-							.forEach(leg -> observations.addLeg(leg.key()));
-					legResolver.resolve(across.segment().destination(), LegRole.DESTINATION_LEG)
-							.forEach(leg -> observations.addLeg(leg.key()));
+					sourceLegs = legResolver.resolve(across.segment().source(), LegRole.SOURCE_LEG);
+					destinationLegs = legResolver.resolve(across.segment().destination(), LegRole.DESTINATION_LEG);
 				} else if (seed instanceof TraversalSeed.Boundary boundary) {
 					/*
 					 * A boundary seed has one leg. An incoming boundary feature leads inwards, so the
 					 * model supplies the destination; an outgoing one leads towards the ultimate
 					 * source inside the model.
 					 */
-					legResolver
-							.resolve(boundary.feature(),
-									boundary.incoming() ? LegRole.DESTINATION_LEG : LegRole.SOURCE_LEG)
-							.forEach(leg -> observations.addLeg(leg.key()));
+					if (boundary.incoming()) {
+						destinationLegs = legResolver.resolve(boundary.feature(), LegRole.DESTINATION_LEG);
+					} else {
+						sourceLegs = legResolver.resolve(boundary.feature(), LegRole.SOURCE_LEG);
+					}
 				}
+				sourceLegs.forEach(leg -> observations.addLeg(leg.key()));
+				destinationLegs.forEach(leg -> observations.addLeg(leg.key()));
+				PathAssembler.join(seed, sourceLegs, destinationLegs)
+						.forEach(path -> observations.addPath(
+								(path.complete() ? "complete|" : "incomplete|") + path.key().render()));
 			}
 		}
 

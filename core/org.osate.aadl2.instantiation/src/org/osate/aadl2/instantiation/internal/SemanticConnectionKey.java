@@ -75,6 +75,20 @@ public record SemanticConnectionKey(String containerKey, String sourceKey, Strin
 		featurePathKeys = List.copyOf(featurePathKeys);
 	}
 
+	/**
+	 * A compact rendering of this identity, for the temporary instrumentation and for
+	 * tests. This is not a connection name: names are built only from container-relative
+	 * endpoint paths, by the materializer, and are unchanged by this work.
+	 */
+	public String render() {
+		StringBuilder rendered = new StringBuilder(sourceKey).append(" -> ").append(destinationKey).append(" | ");
+		for (int i = 0; i < declarationKeys.size(); i++) {
+			rendered.append(declarationKeys.get(i)).append(reverseFlags.get(i) ? "(r)" : "(f)").append('@')
+					.append(contextKeys.get(i)).append(',');
+		}
+		return rendered.toString();
+	}
+
 	/** The identity of {@code path}. */
 	public static SemanticConnectionKey of(SemanticConnectionPath path) {
 		List<String> declarations = new ArrayList<>();
