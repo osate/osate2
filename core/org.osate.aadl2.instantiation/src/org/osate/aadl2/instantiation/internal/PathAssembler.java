@@ -29,9 +29,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.SystemInstance;
 
 /**
  * Joins legs into whole semantic connection paths.
@@ -215,8 +220,43 @@ public final class PathAssembler {
 	 * </p>
 	 */
 	private static boolean traversable(ResolvedSegment segment) {
-		return !(segment.source() instanceof FeatureInstance source && source.getFeature() instanceof Port
+		if (segment.source() instanceof FeatureInstance source && source.getFeature() instanceof Port
 				&& segment.destination() != null && segment.destination().eContainer() == segment.context()
-				&& LegResolver.isConnectionEndingCategory(segment.context().getCategory()));
+				&& LegResolver.isConnectionEndingCategory(segment.context().getCategory())) {
+			return false;
+		}
+		return !arrivesAtUnreachableParameter(segment);
+	}
+
+	/**
+	 * Whether a segment arrives at a parameter the baseline refuses to reach.
+	 *
+	 * <p>
+	 * A parameter belongs to a subprogram or a subprogram call, and the instance model has
+	 * never carried a connection that arrives at one from a data component or from the
+	 * top-level instance. Source-first refuses those at
+	 * {@code CreateConnectionsSwitch.java:543}, recorded there as bug #220. Its third
+	 * condition tests the component the declaration sits in for being the instantiation
+	 * root, which is why the same model produces different connections depending on
+	 * whether it is instantiated on its own or as a subcomponent.
+	 * </p>
+	 *
+	 * <p>
+	 * Nothing refuses a segment that <em>leaves</em> a parameter, so a connection out of
+	 * one is still built.
+	 * </p>
+	 */
+	private static boolean arrivesAtUnreachableParameter(ResolvedSegment segment) {
+		if (!(segment.destination() instanceof FeatureInstance destination)
+				|| !(destination.getFeature() instanceof Parameter)) {
+			return false;
+		}
+		if (segment.context() instanceof SystemInstance) {
+			return true;
+		}
+		if (segment.source() instanceof ComponentInstance source) {
+			return source.getSubcomponent() instanceof DataSubcomponent;
+		}
+		return ((FeatureInstance) segment.source()).getFeature() instanceof DataAccess;
 	}
 }
