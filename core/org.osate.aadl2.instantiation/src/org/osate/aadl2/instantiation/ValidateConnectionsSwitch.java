@@ -103,7 +103,41 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		removeShortAccessConnections(ci);
 		recordInDataPortConnections(ci);
 		checkEndPointClassifiers(ci);
+		checkSegmentDirections(ci);
 		// more
+	}
+
+	/**
+	 * Report a connection whose direction does not work out.
+	 *
+	 * <p>
+	 * Every segment of a semantic connection has to be traversable in the direction the
+	 * connection runs: travelling up it leaves an outgoing feature and arrives at an
+	 * outgoing one, travelling down both are incoming, and crossing between peers the
+	 * source is outgoing and the destination incoming. Two connected data accesses must
+	 * additionally face opposite ways between peers and the same way up or down, which is
+	 * only visible in their declared direction because access features all report
+	 * {@code in out} as their flow direction.
+	 * </p>
+	 *
+	 * <p>
+	 * The traversal used to apply these rules while extending a partial path, so it
+	 * rejected the path and reported against the component it was working in. The
+	 * connection instance is created now and the error is attached to it, which names the
+	 * connection the reader can see in the instance model and reports it once instead of
+	 * once per rejected candidate.
+	 * </p>
+	 */
+	private void checkSegmentDirections(ComponentInstance ci) {
+		for (ConnectionInstance conni : ci.getConnectionInstances()) {
+			for (ConnectionReference reference : conni.getConnectionReferences()) {
+				if (!SegmentDirections.isValid(reference.getConnection(), reference.isReverse(), reference.getSource(),
+						reference.getDestination())) {
+					error(conni, "Connection has no valid direction");
+					break;
+				}
+			}
+		}
 	}
 
 	/**

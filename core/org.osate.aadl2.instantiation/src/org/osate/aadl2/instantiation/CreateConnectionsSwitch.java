@@ -477,25 +477,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		try {
 			boolean[] keep = { false };
-			boolean valid = connInfo.addSegment(newSegment, fromFi, toFi, ci, goOpposite, keep);
+			connInfo.addSegment(newSegment, fromFi, toFi, ci, goOpposite, keep);
 			if (!keep[0]) {
 				return;
 			}
-			if (!valid) {
-				if (toFi == null) {
-					error(ci,
-							"Connection from " + connInfo.src.getInstanceObjectPath() + " via "
-									+ newSegment.getQualifiedName()
-									+ " has no valid direction. Connection instance not created.");
-				} else {
-					error(ci,
-							"Connection from " + connInfo.src.getInstanceObjectPath() + " to "
-									+ toFi.getInstanceObjectPath()
-									+ " has no valid direction. Connection instance not created.");
-				}
-				return;
-			}
-
 			// first check if the connection must end with the new segment
 			if (toEnd instanceof Subcomponent) {
 				ComponentInstance toInstance = ci.findSubcomponentInstance((Subcomponent) toEnd);

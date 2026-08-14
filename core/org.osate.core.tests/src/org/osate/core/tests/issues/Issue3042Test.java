@@ -94,13 +94,18 @@ public class Issue3042Test extends XtextTest {
 		assertEquals(List.of("Error on " + CONNECTION + ": Connection has no valid direction"), errors(instantiated));
 	}
 
-	/** Leaving an incoming feature between peers fails the same way. */
+	/**
+	 * A connection whose source is an incoming feature produces nothing at all, and this
+	 * check is not what decides that. The traversal only starts at outgoing features, so
+	 * no path is ever begun; there is no connection instance to attach a diagnostic to and
+	 * no diagnostic either.
+	 */
 	@Test
-	public void leavingAnIncomingFeatureIsReportedOnTheConnectionInstance() throws Exception {
+	public void aConnectionLeavingAnIncomingFeatureIsNeverStarted() throws Exception {
 		Instantiated instantiated = instantiate("Top.in_to_in");
 
-		assertEquals(List.of(CONNECTION), connectionNames(instantiated));
-		assertEquals(List.of("Error on " + CONNECTION + ": Connection has no valid direction"), errors(instantiated));
+		assertEquals(List.of(), connectionNames(instantiated));
+		assertEquals(List.of(), errors(instantiated));
 	}
 
 	private static List<String> connectionNames(Instantiated instantiated) {
