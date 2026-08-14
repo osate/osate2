@@ -113,13 +113,21 @@ public class Issue3037PathAssemblyTest extends XtextTest {
 	 * one, and comparing across-first against it here is what exposed the missing
 	 * inward connection.
 	 * </p>
+	 *
+	 * <p>
+	 * The path ends at {@code boundary.inner}, the feature group member the boundary
+	 * declaration reaches into, not at {@code boundary} itself. The seed names where the
+	 * traversal started looking; the declaration says how far the connection reaches. Leaf
+	 * expansion then narrows that member to {@code alpha}, which is the endpoint the
+	 * baseline materializes.
+	 * </p>
 	 */
 	@Test
 	public void boundarySeedsProduceIncompletePathsInBothDirections() throws Exception {
 		assertEquals(List.of(
-				"incomplete|Producer_i_Instance.boundary -> Producer_i_Instance.leaf_side.leaf.io"
+				"incomplete|Producer_i_Instance.boundary.inner -> Producer_i_Instance.leaf_side.leaf.io"
 						+ " | decl6.0(r)@Producer_i_Instance,decl4.0(r)@Producer_i_Instance.leaf_side,",
-				"incomplete|Producer_i_Instance.leaf_side.leaf.io -> Producer_i_Instance.boundary"
+				"incomplete|Producer_i_Instance.leaf_side.leaf.io -> Producer_i_Instance.boundary.inner"
 						+ " | decl4.0(f)@Producer_i_Instance.leaf_side,decl6.0(f)@Producer_i_Instance,"),
 				paths(BOUNDARY, "Producer.i"));
 		assertEquals("across-first assembles one path per connection instance the baseline materializes", 2,
