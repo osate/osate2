@@ -29,6 +29,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+
 /**
  * Joins legs into whole semantic connection paths.
  *
@@ -130,13 +132,23 @@ public final class PathAssembler {
 	 * the destination of a path that starts inside the model, so its leg is reversed; an
 	 * incoming one is the source of a path that continues inwards, so its leg is used as
 	 * it stands.
+	 *
+	 * <p>
+	 * The endpoint at the boundary is where the leg's own first declaration meets it, not
+	 * the seed feature. A declaration may reach <em>into</em> the boundary feature group
+	 * and connect one member of it, and then that member is the endpoint: the seed feature
+	 * names where the traversal started looking, not how far the connection reaches.
+	 * Source-first arrives at the same feature by narrowing the group end afterwards with
+	 * its {@code upFeature} and {@code downFeature} stacks.
+	 * </p>
 	 */
 	private static SemanticConnectionPath assembleBoundary(TraversalSeed.Boundary boundary, LegResult leg) {
+		ConnectionInstanceEnd boundaryEnd = leg.segments().get(0).source();
 		if (boundary.incoming()) {
-			return new SemanticConnectionPath(boundary.feature(), leg.terminal(), leg.segments(), false,
+			return new SemanticConnectionPath(boundaryEnd, leg.terminal(), leg.segments(), false,
 					leg.allSegmentsBidirectional(), leg.modes());
 		}
-		return new SemanticConnectionPath(leg.terminal(), boundary.feature(), reversed(leg), false,
+		return new SemanticConnectionPath(leg.terminal(), boundaryEnd, reversed(leg), false,
 				leg.allSegmentsBidirectional(), leg.modes());
 	}
 
