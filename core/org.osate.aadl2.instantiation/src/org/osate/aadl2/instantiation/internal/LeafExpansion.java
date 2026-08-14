@@ -107,18 +107,40 @@ public final class LeafExpansion {
 	}
 
 	/**
-	 * Whether two leaves may be connected. A complete path leaves an outgoing feature
-	 * and arrives at an incoming one. An incomplete path either travels up, where both
-	 * ends are outgoing, or down, where both are incoming.
+	 * Whether two leaves may be connected.
+	 *
+	 * <p>
+	 * A path leaves its ultimate source travelling away from it: outgoing for a complete
+	 * path and for one that only travels up, incoming for one that only travels down.
+	 * That much always holds, because it is what makes the feature a source at all.
+	 * Source-first enforces it as its start rule, by beginning enumeration only at a
+	 * feature {@code AadlUtil.hasOutgoingFeatures()} accepts and only at a boundary
+	 * feature that is incoming.
+	 * </p>
+	 *
+	 * <p>
+	 * The arriving direction is only decided here inside a feature group. Pairing the
+	 * members of two connected feature groups is a choice between candidates, and
+	 * direction is what makes it, so a member that faces the wrong way is not the member
+	 * this path connects. Two features named directly by declarations are not a choice:
+	 * the connection exists whatever they face, and
+	 * {@code ValidateConnectionsSwitch.checkSegmentDirections()} reports it since issue
+	 * #3042. Source-first draws the same line, reaching its member-by-member direction
+	 * filtering only from {@code balanceFeatureGroupEnds()} and materializing two
+	 * directly named leaves without consulting direction at all.
+	 * </p>
 	 */
 	private static boolean directionsAllow(SemanticConnectionPath path, FeatureInstance source,
 			FeatureInstance destination) {
-		if (path.complete()) {
-			return source.getFlowDirection().outgoing() && destination.getFlowDirection().incoming();
+		boolean downOnly = !path.complete() && !isUpOnly(path, source, destination);
+		if (!(downOnly ? source.getFlowDirection().incoming() : source.getFlowDirection().outgoing())) {
+			return false;
 		}
-		return isUpOnly(path, source, destination)
-				? source.getFlowDirection().outgoing() && destination.getFlowDirection().outgoing()
-				: source.getFlowDirection().incoming() && destination.getFlowDirection().incoming();
+		if (!(source.getOwner() instanceof FeatureInstance || destination.getOwner() instanceof FeatureInstance)) {
+			return true;
+		}
+		return path.complete() || downOnly ? destination.getFlowDirection().incoming()
+				: destination.getFlowDirection().outgoing();
 	}
 
 	/** Whether an incomplete path only travels up, that is, the source sits inside the destination. */
