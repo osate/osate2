@@ -1,0 +1,166 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), covering modes, system operation modes, and end-to-end flows at the
+-- positions a semantic connection can carry them: the leg that travels up, the
+-- declaration that crosses between peers, and the leg that travels down.
+--
+-- Mode constraints are carried by traversal but enforced by the pipeline that materializes
+-- connections: a topologically valid path is created, its system operation modes are
+-- computed, and a path active in none of them is reported and deleted. Top.noSom is the
+-- case that has to survive that route unchanged.
+package ModesAndFlows
+public
+	data D
+	end D;
+
+	thread Worker
+		features
+			inp: in data port D;
+			outp: out data port D;
+		flows
+			fpath: flow path inp -> outp;
+	end Worker;
+
+	thread Emitter
+		features
+			outp: out data port D;
+		flows
+			fsrc: flow source outp;
+	end Emitter;
+
+	thread Receiver
+		features
+			inp: in data port D;
+		flows
+			fsnk: flow sink inp;
+	end Receiver;
+
+	-- The producing and consuming ends wrapped in processes, because a thread cannot sit
+	-- directly in a system implementation. They cannot be called Source and Sink: AADL
+	-- keywords are case insensitive, so both names are reserved by flow declarations.
+	process Feeder
+		features
+			outp: out data port D;
+		flows
+			fsrc: flow source outp;
+	end Feeder;
+
+	process implementation Feeder.i
+		subcomponents
+			emitter: thread Emitter;
+		connections
+			up: port emitter.outp -> outp;
+		flows
+			fsrc: flow source emitter.fsrc -> up -> outp;
+	end Feeder.i;
+
+	process Drain
+		features
+			inp: in data port D;
+		flows
+			fsnk: flow sink inp;
+	end Drain;
+
+	process implementation Drain.i
+		subcomponents
+			receiver: thread Receiver;
+		connections
+			down: port inp -> receiver.inp;
+		flows
+			fsnk: flow sink inp -> down -> receiver.fsnk;
+	end Drain.i;
+
+	-- A component with modes of its own, whose internal legs are modal
+	process Middle
+		features
+			inp: in data port D;
+			outp: out data port D;
+		flows
+			fpath: flow path inp -> outp;
+		modes
+			run: initial mode;
+			hold: mode;
+	end Middle;
+
+	process implementation Middle.i
+		subcomponents
+			worker: thread Worker;
+		connections
+			down: port inp -> worker.inp in modes (run);
+			up: port worker.outp -> outp in modes (run);
+		flows
+			fpath: flow path inp -> down -> worker.fpath -> up -> outp;
+	end Middle.i;
+
+	system Top
+	end Top;
+
+	-- (a) modes on the pivot and on both legs inside the middle component, with a system
+	-- operation mode for every combination of the two mode machines
+	system implementation Top.modalLegs
+		subcomponents
+			feeder: process Feeder.i;
+			middle: process Middle.i;
+			drain: process Drain.i;
+		connections
+			toMiddle: port feeder.outp -> middle.inp in modes (active);
+			fromMiddle: port middle.outp -> drain.inp;
+		flows
+			-- The flow can only exist where the connection it uses exists
+			e2e: end to end flow feeder.fsrc -> toMiddle -> middle.fpath -> fromMiddle -> drain.fsnk
+				in modes (active);
+		modes
+			active: initial mode;
+			idle: mode;
+	end Top.modalLegs;
+
+	-- (b) a connection whose mode cannot coexist with the mode its destination exists in, so
+	-- no system operation mode contains the path. The baseline materializes it, computes no
+	-- system operation mode for it, reports that, and deletes it.
+	system implementation Top.noSom
+		subcomponents
+			feeder: process Feeder.i;
+			drain: process Drain.i in modes (active);
+		connections
+			blocked: port feeder.outp -> drain.inp in modes (idle);
+		modes
+			active: initial mode;
+			idle: mode;
+	end Top.noSom;
+
+	-- (c) a modal component array with a structural pattern, so mode assignment and
+	-- expansion both apply to the same connection
+	system implementation Top.modalArray
+		subcomponents
+			feeders: process Feeder.i[2] in modes (active);
+			drains: process Drain.i[2] in modes (active);
+		connections
+			spread: port feeders.outp -> drains.inp {
+				Communication_Properties::Connection_Pattern => ((All_To_All));
+			} in modes (active);
+		modes
+			active: initial mode;
+			idle: mode;
+	end Top.modalArray;
+
+	-- (d) several sibling end-to-end flows over the same connections, each in its own modes.
+	-- Their collection order is not asserted anywhere; the ordered element sequence inside
+	-- each one is.
+	system implementation Top.siblingFlows
+		subcomponents
+			feeder: process Feeder.i;
+			middle: process Middle.i;
+			drain: process Drain.i;
+		connections
+			toMiddle: port feeder.outp -> middle.inp;
+			fromMiddle: port middle.outp -> drain.inp;
+		flows
+			always: end to end flow feeder.fsrc -> toMiddle -> middle.fpath -> fromMiddle -> drain.fsnk;
+			whenActive: end to end flow feeder.fsrc -> toMiddle -> middle.fpath -> fromMiddle -> drain.fsnk
+				in modes (active);
+			whenIdle: end to end flow feeder.fsrc -> toMiddle -> middle.fpath -> fromMiddle -> drain.fsnk
+				in modes (idle);
+		modes
+			active: initial mode;
+			idle: mode;
+	end Top.siblingFlows;
+end ModesAndFlows;
