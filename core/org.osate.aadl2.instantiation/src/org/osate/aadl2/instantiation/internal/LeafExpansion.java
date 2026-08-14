@@ -86,10 +86,12 @@ public final class LeafExpansion {
 
 	private static void expand(SemanticConnectionPath path, ConnectionInstanceEnd source,
 			ConnectionInstanceEnd destination, List<Endpoints> expanded) {
-		if (!(source instanceof FeatureInstance sourceFeature)
-				|| !(destination instanceof FeatureInstance destinationFeature)) {
-			// An access connection ending at a component has nothing to expand.
-			expanded.add(new Endpoints(source, destination));
+		if (!(source instanceof FeatureInstance sourceFeature)) {
+			expanded.add(new Endpoints(source, reached(path, destination, true)));
+			return;
+		}
+		if (!(destination instanceof FeatureInstance destinationFeature)) {
+			expanded.add(new Endpoints(reached(path, source, false), destination));
 			return;
 		}
 
@@ -104,6 +106,34 @@ public final class LeafExpansion {
 		} else {
 			expandGroupToGroup(path, sourceFeature, destinationFeature, expanded);
 		}
+	}
+
+	/**
+	 * The feature a path reaches at one end when the other end is a component.
+	 *
+	 * <p>
+	 * An access connection ends at the component itself, so there is no opposite feature
+	 * to pair a group against member by member. The group still has to be narrowed,
+	 * because the connection reaches one member of it: the one the path stepped through
+	 * on its way, mapped across as it would be for any other pair. Source-first narrows
+	 * the same end with its feature stacks and only then notices that the other end is a
+	 * component ({@code balanceFeatureGroupEnds()}), which is why leaving the group whole
+	 * here produced a feature group connection where the baseline has an access
+	 * connection.
+	 * </p>
+	 *
+	 * <p>
+	 * A group the path never stepped into is returned as it stands, matching the
+	 * source-first case where neither feature stack has an entry to narrow with.
+	 * </p>
+	 */
+	private static ConnectionInstanceEnd reached(SemanticConnectionPath path, ConnectionInstanceEnd end,
+			boolean destinationSide) {
+		if (!(end instanceof FeatureInstance group) || isLeaf(group)) {
+			return end;
+		}
+		FeatureInstance member = destinationSide ? findDestinationFeature(path, group) : findSourceFeature(path, group);
+		return member == null ? end : member;
 	}
 
 	/**
