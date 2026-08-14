@@ -76,21 +76,32 @@ public final class SeedDiscovery {
 	}
 
 	/**
-	 * One seed per direction each top-level feature of the system instance supports. A
-	 * bidirectional feature is seeded both ways, because a connection through it may be
-	 * traversed either way.
+	 * Two seeds per top-level feature of the system instance: one for a connection that
+	 * arrives from outside and continues inwards, one for a connection that starts inside
+	 * and ends here.
+	 *
+	 * <p>
+	 * The feature's own direction does not decide which of the two exists. Source-first
+	 * only starts at an incoming boundary feature
+	 * ({@code CreateConnectionsSwitch.processIncomingFeature()}), but it reaches an
+	 * outgoing path's end from the other side, walking up from the feature inside that
+	 * starts it and stopping at whatever boundary feature it arrives at, whichever way that
+	 * feature faces. An {@code in} boundary feature therefore still ends an upward
+	 * connection, which the baseline creates and connection validation then reports.
+	 * </p>
+	 *
+	 * <p>
+	 * The direction each end must face is decided per expanded leaf pair, so a seed that
+	 * cannot produce a path produces none.
+	 * </p>
 	 */
 	private static void boundarySeeds(SystemInstance system, List<TraversalSeed> seeds) {
 		for (FeatureInstance feature : system.getFeatureInstances()) {
 			if (feature.getFlowDirection() == null) {
 				continue;
 			}
-			if (feature.getFlowDirection().incoming()) {
-				seeds.add(new TraversalSeed.Boundary(system, feature, true));
-			}
-			if (feature.getFlowDirection().outgoing()) {
-				seeds.add(new TraversalSeed.Boundary(system, feature, false));
-			}
+			seeds.add(new TraversalSeed.Boundary(system, feature, true));
+			seeds.add(new TraversalSeed.Boundary(system, feature, false));
 		}
 	}
 
