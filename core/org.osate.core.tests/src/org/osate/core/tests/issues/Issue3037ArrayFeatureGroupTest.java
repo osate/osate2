@@ -106,18 +106,22 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	 * expansion error, and source-first produces one additional warning.
 	 *
 	 * <p>
-	 * That warning is a difference outside the approved allowlist, so it is captured rather
-	 * than asserted away, and it blocks nothing before the reviewer rules on it. It
-	 * describes the traversal's own difficulty rather than the model: source-first emits it
-	 * while descending into a component whose boundary feature group has no downward
-	 * declaration, and then creates the connection anyway, from the other direction. The
-	 * error above it is shared, because it comes from structural expansion, which both
+	 * That warning disappearing is allowlist entry 5, approved on 2026-08-14, and both
+	 * sides are recorded here exactly rather than asserted equal. It describes the
+	 * traversal's own difficulty rather than the model: source-first emits it while
+	 * descending into a component whose boundary feature group has no downward declaration,
+	 * and then creates the connection anyway, from the other direction. Nothing is missing
+	 * from the model, which is why the warning may be dropped rather than reproduced.
+	 * </p>
+	 *
+	 * <p>
+	 * The error above it is shared, because it comes from structural expansion, which both
 	 * strategies feed: the source is an array element and the destination has no array
 	 * dimension to index.
 	 * </p>
 	 */
 	@Test
-	public void aPivotOntoAReachedIntoMemberDiffersOnlyInSourceFirstDiagnostics() throws Exception {
+	public void aPivotOntoAReachedIntoMemberDropsOnlyTheSourceFirstWarning() throws Exception {
 		CharacterizationRun sourceFirst = isolated.run(MODEL, "Top.reachedInto", "SOURCE_FIRST", false);
 		CharacterizationRun acrossFirst = isolated.run(MODEL, "Top.reachedInto", "ACROSS_FIRST", false);
 		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
@@ -137,7 +141,7 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 						+ " | at Top_reachedInto_Instance|SystemInstance"
 						+ " | in ArraysAndFeatureGroups_Top_reachedInto_Instance.aaxl2"),
 				InstanceReport.diagnosticSet(expected));
-		assertEquals("the shared expansion error, without the source-first traversal warning",
+		assertEquals("allowlist entry 5: the shared expansion error, without the traversal warning",
 				List.of(expansionError), InstanceReport.diagnosticSet(actual));
 	}
 
