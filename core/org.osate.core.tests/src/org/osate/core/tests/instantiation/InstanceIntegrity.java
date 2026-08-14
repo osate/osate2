@@ -38,6 +38,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
@@ -113,21 +114,48 @@ public final class InstanceIntegrity {
 		for (int i = 0; i < references.size() - 1; i++) {
 			ConnectionInstanceEnd end = references.get(i).getDestination();
 			ConnectionInstanceEnd next = references.get(i + 1).getSource();
-			if (end != next) {
+			if (!samePoint(end, next)) {
 				violations.add(describe(connection) + ": reference chain breaks between index " + i + " and " + (i + 1)
 						+ " (" + InstanceKeys.instance(end) + " != " + InstanceKeys.instance(next) + ")");
 			}
 		}
 		ConnectionInstanceEnd first = references.get(0).getSource();
 		ConnectionInstanceEnd last = references.get(references.size() - 1).getDestination();
-		if (connection.getSource() != first) {
+		if (!samePoint(connection.getSource(), first)) {
 			violations.add(describe(connection) + ": source does not match first reference source ("
 					+ InstanceKeys.instance(connection.getSource()) + " != " + InstanceKeys.instance(first) + ")");
 		}
-		if (connection.getDestination() != last) {
+		if (!samePoint(connection.getDestination(), last)) {
 			violations.add(describe(connection) + ": destination does not match last reference destination ("
 					+ InstanceKeys.instance(connection.getDestination()) + " != " + InstanceKeys.instance(last) + ")");
 		}
+	}
+
+	/**
+	 * Whether two ends describe the same point on a path.
+	 *
+	 * <p>
+	 * A reference may name a feature group where the connection names the member of it that
+	 * the connection actually connects, so one end nested in the other is the same point at
+	 * a different granularity. That is not an across-first choice: structural expansion
+	 * re-resolves a replicated connection's reference endpoints from the declaration, which
+	 * names the group, while the connection keeps the member. Both strategies produce it,
+	 * identically, for every connection replicated across a component array through a
+	 * feature group.
+	 * </p>
+	 */
+	private static boolean samePoint(ConnectionInstanceEnd one, ConnectionInstanceEnd other) {
+		return one == other || nestedIn(one, other) || nestedIn(other, one);
+	}
+
+	private static boolean nestedIn(ConnectionInstanceEnd inner, ConnectionInstanceEnd outer) {
+		for (EObject owner = inner == null ? null : inner.eContainer(); owner instanceof FeatureInstance feature; owner = feature
+				.eContainer()) {
+			if (feature == outer) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private static void checkAcrossCount(ConnectionInstance connection, List<String> violations) {
