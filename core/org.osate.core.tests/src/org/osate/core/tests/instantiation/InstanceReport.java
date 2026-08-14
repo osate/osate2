@@ -73,6 +73,22 @@ public final class InstanceReport {
 	}
 
 	/**
+	 * The same diagnostics, sorted, for comparing one strategy against the other.
+	 *
+	 * <p>
+	 * A diagnostic reported against a connection instance is reported when that connection
+	 * is reached, so the report order of such diagnostics follows the connection collection
+	 * order. Allowlist entry 1 releases that order, and comparing diagnostics as a sequence
+	 * would put it back: on an {@code All_To_All} pattern over two-element arrays both
+	 * strategies report the same six errors, differing only in which array element they
+	 * reach first. What must not differ is the set, which is what this compares.
+	 * </p>
+	 */
+	public static List<String> diagnosticSet(InstanceSnapshot snapshot) {
+		return InstanceKeys.sorted(diagnosticLines(snapshot));
+	}
+
+	/**
 	 * Per-container collection order of connections, rendered for the approved
 	 * ordering allowlist and for determinism checks. This is the only place where
 	 * collection position is intentionally observable.

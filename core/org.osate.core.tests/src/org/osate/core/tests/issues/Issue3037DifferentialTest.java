@@ -36,6 +36,7 @@ import org.osate.core.tests.instantiation.InstanceIntegrity;
 import org.osate.core.tests.instantiation.InstanceReport;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
+import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 
 import com.google.inject.Inject;
@@ -119,22 +120,7 @@ public class Issue3037DifferentialTest extends XtextTest {
 		assertSameModel(FLAT_AND_NESTED, "Nested.i");
 	}
 
-	/**
-	 * Both strategies produce the same connections, names, and diagnostics for one
-	 * implementation, and the across-first model satisfies the structural invariants.
-	 */
 	private void assertSameModel(String model, String implementation) throws Exception {
-		CharacterizationRun sourceFirst = isolated.run(model, implementation, "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(model, implementation, "ACROSS_FIRST", false);
-
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
-
-		assertEquals(implementation + " connections", InstanceReport.connectionLines(expected),
-				InstanceReport.connectionLines(actual));
-		assertEquals(implementation + " flows", InstanceReport.flowLines(expected), InstanceReport.flowLines(actual));
-		assertEquals(implementation + " diagnostics", InstanceReport.diagnosticLines(expected),
-				InstanceReport.diagnosticLines(actual));
-		assertEquals(implementation + " integrity", List.of(), InstanceIntegrity.check(acrossFirst.instance()));
+		StrategyDifference.assertSameModel(isolated, model, implementation);
 	}
 }
