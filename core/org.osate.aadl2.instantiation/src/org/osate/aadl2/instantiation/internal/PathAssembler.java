@@ -29,7 +29,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.osate.aadl2.Port;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.FeatureInstance;
 
 /**
  * Joins legs into whole semantic connection paths.
@@ -179,6 +181,42 @@ public final class PathAssembler {
 	 * must not collapse two paths that differ in any identity field.
 	 */
 	private static void add(Map<SemanticConnectionKey, SemanticConnectionPath> unique, SemanticConnectionPath path) {
+		for (ResolvedSegment segment : path.segments()) {
+			if (!traversable(segment)) {
+				return;
+			}
+		}
 		unique.putIfAbsent(SemanticConnectionKey.of(path), path);
+	}
+
+	/**
+	 * Whether a segment may be traversed, read in path order.
+	 *
+	 * <p>
+	 * A connection ending component ends a semantic connection, so a path that leaves a
+	 * port and arrives at something the component itself contains is not a path: it would
+	 * connect a component to its own insides. Source-first refuses the same segment at
+	 * {@code CreateConnectionsSwitch.java:641}, added for issue #2032 to stop a connection
+	 * from an abstract subcomponent's port to a port of its containing thread.
+	 * </p>
+	 *
+	 * <p>
+	 * As written there the rule reaches further than its comment describes, because a
+	 * subcomponent instance is also contained in the component: a port connection into a
+	 * data subcomponent of a thread is refused too, which is why {@code DataTest.aadl}
+	 * produces no connection instance for {@code port input -> myData}. That is baseline
+	 * behavior and is reproduced here rather than corrected.
+	 * </p>
+	 *
+	 * <p>
+	 * Only path order can decide this, since it names which end the path leaves and which
+	 * it arrives at. A leg resolves its segments in the opposite orientation, so the check
+	 * belongs here, after {@link #reversed} has flipped them.
+	 * </p>
+	 */
+	private static boolean traversable(ResolvedSegment segment) {
+		return !(segment.source() instanceof FeatureInstance source && source.getFeature() instanceof Port
+				&& segment.destination() != null && segment.destination().eContainer() == segment.context()
+				&& LegResolver.isConnectionEndingCategory(segment.context().getCategory()));
 	}
 }

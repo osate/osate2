@@ -312,7 +312,7 @@ public final class LegResolver {
 	 * Whether a component of this category ends a semantic connection. Mirrors the
 	 * source-first rule, so maximal paths stay the same length.
 	 */
-	private static boolean isConnectionEndingCategory(ComponentCategory category) {
+	static boolean isConnectionEndingCategory(ComponentCategory category) {
 		return category == THREAD || category == DEVICE || category == PROCESSOR || category == VIRTUAL_PROCESSOR;
 	}
 }
