@@ -249,7 +249,7 @@ public final class LegResolver {
 	 * stacks, and the reason two distinct semantic paths can share an endpoint pair.
 	 * </p>
 	 */
-	private static boolean touches(ConnectionInstanceEnd near, FeatureInstance position) {
+	static boolean touches(ConnectionInstanceEnd near, FeatureInstance position) {
 		if (near == position || isNestedIn(near, position)) {
 			return true;
 		}

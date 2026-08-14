@@ -305,6 +305,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				} else {
 					sourceLegs = legResolver.resolve(boundary.feature(), LegRole.SOURCE_LEG);
 				}
+			} else if (seed instanceof TraversalSeed.Trigger trigger) {
+				sourceLegs = legResolver.resolve(trigger.feature(), LegRole.SOURCE_LEG);
 			}
 			sourceLegs.forEach(leg -> observations.addLeg(leg.key()));
 			destinationLegs.forEach(leg -> observations.addLeg(leg.key()));

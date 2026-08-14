@@ -71,6 +71,7 @@ public final class SeedDiscovery {
 			boundarySeeds(system, seeds);
 		}
 		acrossSeeds(root, classifierCache, seeds);
+		triggerSeeds(root, classifierCache, seeds);
 		seeds.sort(Comparator.comparing(TraversalSeed::key));
 		return List.copyOf(seeds);
 	}
@@ -159,6 +160,61 @@ public final class SeedDiscovery {
 			segment(container, declaration, true).asOptional()
 					.ifPresent(segment -> seeds.add(new TraversalSeed.Across(segment)));
 		}
+	}
+
+	/**
+	 * One seed per event port of a subcomponent that triggers a mode transition in the
+	 * component containing it and that no declaration continues from.
+	 *
+	 * <p>
+	 * A trigger consumes the connection, so an upward path may end there. Where the
+	 * containing component does continue from the port, only the longer path exists, which
+	 * is why the continuation test decides whether the seed is created at all rather than
+	 * leaving both to be enumerated.
+	 * </p>
+	 */
+	private static void triggerSeeds(ComponentInstance container,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, List<TraversalSeed> seeds) {
+		for (ComponentInstance child : container.getComponentInstances()) {
+			for (FeatureInstance feature : child.getFeatureInstances()) {
+				if (triggersModeTransition(container, feature)
+						&& !continuesOutward(container, feature, classifierCache)) {
+					seeds.add(new TraversalSeed.Trigger(child, feature));
+				}
+			}
+			triggerSeeds(child, classifierCache, seeds);
+		}
+	}
+
+	/** Whether {@code feature} triggers one of {@code container}'s mode transitions. */
+	private static boolean triggersModeTransition(ComponentInstance container, FeatureInstance feature) {
+		return feature.getCategory() == FeatureCategory.EVENT_PORT && container.getModeTransitionInstances()
+				.stream()
+				.anyMatch(transition -> transition.getTriggers().contains(feature));
+	}
+
+	/**
+	 * Whether a declaration of {@code container} carries a connection further from
+	 * {@code feature}, which belongs to one of its subcomponents.
+	 */
+	private static boolean continuesOutward(ComponentInstance container, FeatureInstance feature,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		ComponentImplementation implementation = InstanceUtil.getComponentImplementation(container, 0, classifierCache);
+		if (implementation == null) {
+			return false;
+		}
+		for (Connection declaration : implementation.getAllConnections()) {
+			for (boolean reverse : new boolean[] { false, true }) {
+				if (reverse && !declaration.isAllBidirectional()) {
+					continue;
+				}
+				if (segment(container, declaration, reverse) instanceof Resolution.Resolved<ResolvedSegment> resolved
+						&& LegResolver.touches(resolved.value().source(), feature)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**

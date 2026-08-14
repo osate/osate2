@@ -117,4 +117,39 @@ public sealed interface TraversalSeed {
 			return "boundary|" + PathKeys.instance(feature) + (incoming ? "|in" : "|out");
 		}
 	}
+
+	/**
+	 * A seed at an event port of a subcomponent that triggers a mode transition in the
+	 * component containing it.
+	 *
+	 * <p>
+	 * Such a port ends a semantic connection even though the connection reaches no peer
+	 * and leaves no boundary: the trigger is the connection's consumer. Source-first
+	 * creates it in {@code appendSegment()} when an upward path can go no further and
+	 * {@code isModeTransitionTrigger()} holds; where that test fails it warns instead and
+	 * creates nothing, which is why this seed exists only for a port that really is a
+	 * trigger.
+	 * </p>
+	 *
+	 * <p>
+	 * The seed is outward only. A connection arrives at the trigger from inside the
+	 * subcomponent; nothing starts at a trigger and travels down.
+	 * </p>
+	 *
+	 * @param container the subcomponent whose feature this is
+	 * @param feature the triggering event port
+	 */
+	record Trigger(ComponentInstance container, FeatureInstance feature) implements TraversalSeed {
+
+		public Trigger {
+			if (container == null || feature == null) {
+				throw new IllegalArgumentException("A trigger seed needs a component instance and a feature");
+			}
+		}
+
+		@Override
+		public String key() {
+			return "trigger|" + PathKeys.instance(feature);
+		}
+	}
 }
