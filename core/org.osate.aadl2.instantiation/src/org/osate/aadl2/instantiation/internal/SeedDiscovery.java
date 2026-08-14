@@ -97,7 +97,7 @@ public final class SeedDiscovery {
 	private static void acrossSeeds(ComponentInstance container,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, List<TraversalSeed> seeds) {
 		ComponentImplementation implementation = InstanceUtil.getComponentImplementation(container, 0, classifierCache);
-		if (implementation != null) {
+		if (implementation != null && isFirstArrayElement(container)) {
 			for (Connection declaration : implementation.getAllConnections()) {
 				if (declaration.isAcross()) {
 					addOrientations(container, declaration, seeds);
@@ -107,6 +107,31 @@ public final class SeedDiscovery {
 		for (ComponentInstance child : container.getComponentInstances()) {
 			acrossSeeds(child, classifierCache, seeds);
 		}
+	}
+
+	/**
+	 * Whether {@code container} is the innermost first element of every array it lies in.
+	 *
+	 * <p>
+	 * A declaration inside an array of components is enumerated once, for the first
+	 * element, and the connection instance it produces is replicated to the other elements
+	 * by {@code InstantiateModel.finalizeConnections()}. Seeding every element instead
+	 * would look equivalent but is not: a replica is named with {@code " --> "} and has its
+	 * reference contexts relocated, so enumerating it directly changes an externally
+	 * visible name. Source-first applies the same rule before calling
+	 * {@code instantiateConnections()}.
+	 * </p>
+	 */
+	private static boolean isFirstArrayElement(ComponentInstance container) {
+		for (ComponentInstance level = container; level != null
+				&& !(level instanceof SystemInstance); level = level.getContainingComponentInstance()) {
+			for (Long index : level.getIndices()) {
+				if (index > 1) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
