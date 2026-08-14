@@ -121,9 +121,8 @@ class ConnectionInfo {
 	 * @return if the new segment is a valid continuation of the connection
 	 *         instance
 	 */
-	public boolean addSegment(final Connection newSeg, final ConnectionInstanceEnd srcFi,
+	public void addSegment(final Connection newSeg, final ConnectionInstanceEnd srcFi,
 			final ConnectionInstanceEnd dstFi, final ComponentInstance ci, boolean opposite, boolean[] keep) {
-		boolean valid = true;
 		final Context srcCtx = opposite ? newSeg.getAllDestinationContext() : newSeg.getAllSourceContext();
 		final Context dstCtx = opposite ? newSeg.getAllSourceContext() : newSeg.getAllDestinationContext();
 		final ConnectionEnd source = opposite ? newSeg.getAllDestination() : newSeg.getAllSource();
@@ -138,97 +137,58 @@ class ConnectionInfo {
 		if (srcFi != null) {
 			sources.add(srcFi);
 			if (srcFi instanceof FeatureInstance) {
-				DirectionType dir = ((FeatureInstance) srcFi).getFlowDirection();
-
-				bidirectional &= (dir == DirectionType.IN_OUT);
-				if (goingUp) {
-					valid &= dir.outgoing();
-				} else if (goingDown) {
-					valid &= dir.incoming();
-				} else {
-					valid &= dir.outgoing();
-				}
+				bidirectional &= ((FeatureInstance) srcFi).getFlowDirection() == DirectionType.IN_OUT;
 			}
 		}
 		bidirectional &= newSeg.isAllBidirectional();
 		if (dstFi != null) {
 			destinations.add(dstFi);
 			if (dstFi instanceof FeatureInstance) {
-				DirectionType dir = ((FeatureInstance) dstFi).getFlowDirection();
-
-				bidirectional &= (dir == DirectionType.IN_OUT);
-				if (goingUp) {
-					valid &= dir.outgoing();
-				} else if (goingDown) {
-					valid &= dir.incoming();
-				} else {
-					valid &= dir.incoming();
-				}
+				bidirectional &= ((FeatureInstance) dstFi).getFlowDirection() == DirectionType.IN_OUT;
 			}
 		}
 
 		/*
-		 * Issue 582 -- This does not catch all the bad things that can happen. NOT testing for
-		 * subcomponents being connected to requires (goingup) or provides (goingdon).
+		 * The direction rules used to be applied here, rejecting the segment and with it the
+		 * whole partial path. They now run over materialized connection instances in
+		 * ValidateConnectionsSwitch, so that the connection exists and the diagnostic can be
+		 * attached to it.
 		 */
-		// XXX: the argument below, "this.src", may not be correct, but I'm not really sure what is the correct thing
-		final ConnectionInstanceEnd resolvedSrc = resolveFeatureInstance(this.src, srcFi);
-		// XXX: the argument below, "this.src", may not be correct, but I'm not really sure what is the correct thing
-		final ConnectionInstanceEnd resolvedDst = resolveFeatureInstance(this.src, dstFi);
-		if (resolvedSrc instanceof FeatureInstance) {
-			if (resolvedDst instanceof FeatureInstance) {
-				final FeatureInstance resolvedSrcFI = (FeatureInstance) resolvedSrc;
-				final FeatureInstance resolvedDstFI = (FeatureInstance) resolvedDst;
-				if (resolvedSrcFI.getCategory() == FeatureCategory.DATA_ACCESS
-						&& resolvedDstFI.getCategory() == FeatureCategory.DATA_ACCESS) {
-					if (goingUp || goingDown) {
-						valid &= resolvedSrcFI.getDirection() == resolvedDstFI.getDirection();
-					} else {
-						valid &= resolvedSrcFI.getDirection().getInverseDirection() == resolvedDstFI.getDirection();
-					}
-				}
-			}
-		} else {
-			// TODO ComponentInstance -- Should check connections between components and access features here
-		}
 
-		if (valid) {
-			// handle reaching into feature groups in across connection
-			if (newSeg.isAcross()) {
-				// segment goes across
-				int i = connections.size();
-				Connection root = newSeg.getRootConnection();
-				srcToMatch = opposite ? root.getDestination() : root.getSource();
-				srcToMatch = srcToMatch.getNext();
-				while (keep[0] && i > 0 && srcToMatch != null) {
-					i -= 1;
-					Connection c = connections.get(i);
-					// skip connections that don't go into a feature group
-					if (!connectsSameFeatureGroup(c)) {
-						ConnectionEnd e = opposites.get(i) ? c.getAllSource() : c.getAllDestination();
-						ConnectionEnd cce = srcToMatch.getConnectionEnd();
-						srcToMatch = srcToMatch.getNext();
-						keep[0] = cce == e;
-					}
-				}
-				across = true;
-				acrossConnection = newSeg;
-				dstToMatch = opposite ? root.getSource() : root.getDestination();
-				dstToMatch = dstToMatch.getNext();
-				container = ci;
-			} else if (across && dstToMatch != null) {
-				if (!connectsSameFeatureGroup(newSeg)) {
-					ConnectionEnd e = opposite ? newSeg.getAllDestination() : newSeg.getAllSource();
-					ConnectionEnd cce = dstToMatch.getConnectionEnd();
-					dstToMatch = dstToMatch.getNext();
+		// handle reaching into feature groups in across connection
+		if (newSeg.isAcross()) {
+			// segment goes across
+			int i = connections.size();
+			Connection root = newSeg.getRootConnection();
+			srcToMatch = opposite ? root.getDestination() : root.getSource();
+			srcToMatch = srcToMatch.getNext();
+			while (keep[0] && i > 0 && srcToMatch != null) {
+				i -= 1;
+				Connection c = connections.get(i);
+				// skip connections that don't go into a feature group
+				if (!connectsSameFeatureGroup(c)) {
+					ConnectionEnd e = opposites.get(i) ? c.getAllSource() : c.getAllDestination();
+					ConnectionEnd cce = srcToMatch.getConnectionEnd();
+					srcToMatch = srcToMatch.getNext();
 					keep[0] = cce == e;
 				}
+			}
+			across = true;
+			acrossConnection = newSeg;
+			dstToMatch = opposite ? root.getSource() : root.getDestination();
+			dstToMatch = dstToMatch.getNext();
+			container = ci;
+		} else if (across && dstToMatch != null) {
+			if (!connectsSameFeatureGroup(newSeg)) {
+				ConnectionEnd e = opposite ? newSeg.getAllDestination() : newSeg.getAllSource();
+				ConnectionEnd cce = dstToMatch.getConnectionEnd();
+				dstToMatch = dstToMatch.getNext();
+				keep[0] = cce == e;
 			}
 		}
 		connections.add(newSeg);
 		opposites.add(opposite);
 		contexts.add(ci);
-		return valid;
 	}
 
 	protected boolean connectsSameFeatureGroup(Connection c) {

@@ -39,6 +39,7 @@ import static extension org.osate.testsupport.AssertHelper.*
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 
 @RunWith(XtextRunner)
@@ -109,34 +110,37 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.p_type -> destSys.p_type"])
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.p_type -> destSys.p_notype"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.p_type -> destSys.p_type"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.p_type -> destSys.p_notype"])
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.p_type -> destSys.r_type"])
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.p_type -> destSys.r_notype"])
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.p_notype -> destSys.p_type"])
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.p_notype -> destSys.p_notype"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.p_notype -> destSys.p_type"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.p_notype -> destSys.p_notype"])
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.p_notype -> destSys.r_type"])
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.p_notype -> destSys.r_notype"])
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.r_notype -> destSys.p_type"])
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.r_type -> destSys.p_notype"])
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.r_type -> destSys.r_type"])
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.r_type -> destSys.r_notype"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.r_type -> destSys.r_type"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.r_type -> destSys.r_notype"])
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.r_notype -> destSys.p_type"])
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.r_notype -> destSys.p_notype"])
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.r_notype -> destSys.r_type"])
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.r_notype -> destSys.r_notype"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.r_notype -> destSys.r_type"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.r_notype -> destSys.r_notype"])
 		
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 12)
-
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.p_type to Top_allExplicit_Instance.destSys.p_type has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.p_type to Top_allExplicit_Instance.destSys.p_notype has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.p_notype to Top_allExplicit_Instance.destSys.p_type has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.p_notype to Top_allExplicit_Instance.destSys.p_notype has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.r_type to Top_allExplicit_Instance.destSys.r_type has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.r_type to Top_allExplicit_Instance.destSys.r_notype has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.r_notype to Top_allExplicit_Instance.destSys.r_type has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.r_notype to Top_allExplicit_Instance.destSys.r_notype has no valid direction. Connection instance not created."])
+		assertEquals(16, messages.size)
+		assertEquals(#[
+			"srcSys.p_notype -> destSys.p_notype",
+			"srcSys.p_notype -> destSys.p_type",
+			"srcSys.p_type -> destSys.p_notype",
+			"srcSys.p_type -> destSys.p_type",
+			"srcSys.r_notype -> destSys.r_notype",
+			"srcSys.r_notype -> destSys.r_type",
+			"srcSys.r_type -> destSys.r_notype",
+			"srcSys.r_type -> destSys.r_type"
+		].sort,
+			messages.filter[message == "Connection has no valid direction"]
+				.map[(where as ConnectionInstance).name].sort)
 
 
 		assertNotNull(messages.findFirst[where == instance.connectionInstances.findFirst[name == "srcSys.p_type -> destSys.r_notype"] && kind == QueuingAnalysisErrorReporter.WARNING && message == "Expected feature 'destSys.r_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'"])
@@ -155,7 +159,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 0)
+		assertEquals(0, messages.size)
 	}
 
 	@Test
@@ -165,14 +169,13 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals(message, "Connection from Top_provides_nt_to_provides_nt_Instance.srcSys.f0 to Top_provides_nt_to_provides_nt_Instance.destSys.f0 has no valid direction. Connection instance not created.")
-		]
+		assertEquals(1, messages.size)
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+			&& message == "Connection has no valid direction"
+			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
 
 	@Test
@@ -182,14 +185,13 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals(message, "Connection from Top_provides_nt_to_provides_t_Instance.srcSys.f0 to Top_provides_nt_to_provides_t_Instance.destSys.f0 has no valid direction. Connection instance not created.")
-		]
+		assertEquals(2, messages.size)
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+			&& message == "Connection has no valid direction"
+			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
 
 	@Test
@@ -202,7 +204,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 0)
+		assertEquals(0, messages.size)
 	}
 
 	@Test
@@ -215,7 +217,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
 			assertEquals(message, "Expected feature 'srcSys.f0' to have classifier 'TestAbstractToDataAccessClassifier::D'")
@@ -229,14 +231,13 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals(message, "Connection from Top_provides_t_to_provides_nt_Instance.srcSys.f0 to Top_provides_t_to_provides_nt_Instance.destSys.f0 has no valid direction. Connection instance not created.")
-		]
+		assertEquals(2, messages.size)
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+			&& message == "Connection has no valid direction"
+			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
 
 	@Test
@@ -246,14 +247,13 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals(message, "Connection from Top_provides_t_to_provides_t_Instance.srcSys.f0 to Top_provides_t_to_provides_t_Instance.destSys.f0 has no valid direction. Connection instance not created.")
-		]
+		assertEquals(1, messages.size)
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+			&& message == "Connection has no valid direction"
+			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
 
 	@Test
@@ -266,7 +266,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
 			assertEquals(message, "Expected feature 'destSys.f0' to have classifier 'TestAbstractToDataAccessClassifier::D'")
@@ -283,7 +283,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 0)
+		assertEquals(0, messages.size)
 	}
 
 	@Test
@@ -296,7 +296,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 0)
+		assertEquals(0, messages.size)
 	}
 
 	@Test
@@ -309,7 +309,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
 			assertEquals(message, "Expected feature 'srcSys.f0' to have classifier 'TestAbstractToDataAccessClassifier::D'")
@@ -323,14 +323,13 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals(message, "Connection from Top_requires_nt_to_requires_nt_Instance.srcSys.f0 to Top_requires_nt_to_requires_nt_Instance.destSys.f0 has no valid direction. Connection instance not created.")
-		]
+		assertEquals(1, messages.size)
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+			&& message == "Connection has no valid direction"
+			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
 
 	@Test
@@ -340,14 +339,13 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals(message, "Connection from Top_requires_nt_to_requires_t_Instance.srcSys.f0 to Top_requires_nt_to_requires_t_Instance.destSys.f0 has no valid direction. Connection instance not created.")
-		]
+		assertEquals(2, messages.size)
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+			&& message == "Connection has no valid direction"
+			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
 
 
@@ -365,7 +363,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
 			assertEquals(message, "Expected feature 'destSys.f0' to have classifier 'TestAbstractToDataAccessClassifier::D'")
@@ -382,7 +380,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 0)
+		assertEquals(0, messages.size)
 	}
 
 	@Test
@@ -392,14 +390,13 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals(message, "Connection from Top_requires_t_to_requires_nt_Instance.srcSys.f0 to Top_requires_t_to_requires_nt_Instance.destSys.f0 has no valid direction. Connection instance not created.")
-		]
+		assertEquals(2, messages.size)
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+			&& message == "Connection has no valid direction"
+			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
 
 	@Test
@@ -409,12 +406,11 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals(message, "Connection from Top_requires_t_to_requires_t_Instance.srcSys.f0 to Top_requires_t_to_requires_t_Instance.destSys.f0 has no valid direction. Connection instance not created.")
-		]
+		assertEquals(1, messages.size)
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+			&& message == "Connection has no valid direction"
+			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}}

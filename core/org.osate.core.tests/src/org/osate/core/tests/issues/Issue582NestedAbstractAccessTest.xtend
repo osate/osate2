@@ -39,6 +39,7 @@ import static extension org.osate.testsupport.AssertHelper.*
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 
 @RunWith(XtextRunner)
@@ -147,18 +148,23 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 6)
+		assertEquals(10, messages.size)
+		assertEquals(#[
+			"srcSys.s.blank_feature -> destSys.provides_feature",
+			"srcSys.s.blank_feature -> destSys.requires_feature",
+			"srcSys.s.provides_feature -> destSys.blank_feature",
+			"srcSys.s.provides_feature -> destSys.provides_feature",
+			"srcSys.s.provides_feature -> destSys.provides_feature",
+			"srcSys.s.provides_feature -> destSys.requires_feature",
+			"srcSys.s.requires_feature -> destSys.blank_feature",
+			"srcSys.s.requires_feature -> destSys.provides_feature",
+			"srcSys.s.requires_feature -> destSys.requires_feature",
+			"srcSys.s.requires_feature -> destSys.requires_feature"
+		].sort,
+			messages.filter[message == "Connection has no valid direction"]
+				.map[(where as ConnectionInstance).name].sort)
 
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.blank_feature to Top_allExplicit_Instance.destSys.provides_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.blank_feature to Top_allExplicit_Instance.destSys.requires_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.provides_feature to Top_allExplicit_Instance.destSys.provides_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.requires_feature to Top_allExplicit_Instance.destSys.requires_feature has no valid direction. Connection instance not created."])
-		
-		val srcSys = instance.componentInstances.findFirst[name == "srcSys"]
-		assertNotNull(messages.findFirst[where == srcSys && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.provides_feature to Top_allExplicit_Instance.srcSys.provides_to_requires_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == srcSys && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.requires_feature to Top_allExplicit_Instance.srcSys.requires_to_provides_feature has no valid direction. Connection instance not created."])
-
-		assertEquals(17, instance.connectionInstances.size)
+		assertEquals(27, instance.connectionInstances.size)
 	}
 
 	@Test
@@ -220,13 +226,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_blank_to_provides_to_provides_Instance.srcSys.s.f0 to Top_blank_to_provides_to_provides_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 
@@ -276,13 +283,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_blank_to_requires_to_requires_Instance.srcSys.s.f0 to Top_blank_to_requires_to_requires_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 
@@ -345,13 +353,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_provides_to_provides_to_provides_Instance.srcSys.s.f0 to Top_provides_to_provides_to_provides_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 
@@ -375,13 +384,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_provides_to_requires_to_blank_Instance.srcSys.s.f0 to Top_provides_to_requires_to_blank_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 
@@ -392,13 +402,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_provides_to_requires_to_provides_Instance.srcSys.s.f0 to Top_provides_to_requires_to_provides_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 
@@ -409,13 +420,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_provides_to_requires_to_requires_Instance.srcSys.s.f0 to Top_provides_to_requires_to_requires_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 
@@ -465,13 +477,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_requires_to_provides_to_blank_Instance.srcSys.s.f0 to Top_requires_to_provides_to_blank_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 
@@ -482,13 +495,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_requires_to_provides_to_provides_Instance.srcSys.s.f0 to Top_requires_to_provides_to_provides_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 
@@ -499,13 +513,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_requires_to_provides_to_requires_Instance.srcSys.s.f0 to Top_requires_to_provides_to_requires_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 
@@ -542,13 +557,14 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
+		assertEquals(1, messages.size)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_requires_to_requires_to_requires_Instance.srcSys.s.f0 to Top_requires_to_requires_to_requires_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection has no valid direction", message)
+			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
 	}
 }
