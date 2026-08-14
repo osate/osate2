@@ -59,6 +59,13 @@ import java.util.Map;
  * </p>
  *
  * <p>
+ * Directions are not checked here. Since issue #3042 a connection whose direction does
+ * not work out is materialized and reported by connection validation, so filtering such
+ * a path out during enumeration would suppress the diagnostic that both strategies are
+ * expected to produce.
+ * </p>
+ *
+ * <p>
  * Mode constraints are carried, not enforced. A topologically valid path whose modes
  * have no compatible system operation mode is still assembled, so that the existing
  * pipeline can materialize it, compute its system operation modes, emit the existing
@@ -160,11 +167,6 @@ public final class PathAssembler {
 	 * must not collapse two paths that differ in any identity field.
 	 */
 	private static void add(Map<SemanticConnectionKey, SemanticConnectionPath> unique, SemanticConnectionPath path) {
-		for (ResolvedSegment segment : path.segments()) {
-			if (!SeedDiscovery.directionsValidInPathOrder(segment)) {
-				return;
-			}
-		}
 		unique.putIfAbsent(SemanticConnectionKey.of(path), path);
 	}
 }
