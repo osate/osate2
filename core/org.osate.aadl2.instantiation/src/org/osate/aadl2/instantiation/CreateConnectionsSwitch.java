@@ -37,8 +37,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
@@ -67,6 +69,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Port;
@@ -719,6 +722,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 								final ConnectionInfo clone = connInfo.cloneInfo();
 								clone.complete = true;
 								finalizeConnectionInstance(ci, clone, toFi);
+							} else {
+								/*
+								 * Issue 3044: The flag above answers the question for the destination feature as
+								 * a whole, but a feature group answers it member by member. The connections we
+								 * keep may continue only some of its members, an access member reaching a
+								 * subprogram for instance, and leave the rest with nowhere to go.
+								 */
+								stopAtUncontinuedMembers(ci, connInfo, toFeature, toFi, toCi, conns, finalComponent);
 							}
 
 							// we have ingoing connections that start with toFeature
@@ -760,6 +771,180 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					// should be the same
 					warning(ci, "Did not match popped downIndex");
 				}
+			}
+		}
+	}
+
+	/**
+	 * Issue 3044: Stop the path at the destination component for the members of the destination
+	 * feature that the internal connections of that component do not continue.
+	 *
+	 * <p>
+	 * Nothing happens when every part of the feature continues inside, and nothing happens when the
+	 * connections cannot be related to the feature at all, which leaves the traversal as it was for
+	 * a shape we did not recognize. Otherwise the path is finalized with the members it may not end
+	 * at recorded on it, because which member it ends at is only decided while it is finalized: the
+	 * feature group stack narrows the end for a path that already identifies a member, and
+	 * expansion pairs up the members for a path that does not.
+	 * </p>
+	 *
+	 * <p>
+	 * A connection ending component ends the connection for every member with nowhere to go.
+	 * Anywhere else, only a member that triggers a mode transition of the component ends one, since
+	 * a mode transition is an end in itself. The other members can reach no component that ends a
+	 * connection, so stopping at them would materialize an incomplete connection; they are recorded
+	 * as dead ends and reported when the path resolves to one of them.
+	 * </p>
+	 *
+	 * @param ci the component that contains the segment that arrives at the destination component
+	 * @param connInfo the path that arrives at the destination component
+	 * @param toFeature the feature of the destination component the path arrives at
+	 * @param toFi the instance of that feature
+	 * @param toCi the destination component
+	 * @param conns the internal connections of the destination component the traversal continues with
+	 * @param finalComponent whether the destination component is connection ending
+	 */
+	private void stopAtUncontinuedMembers(final ComponentInstance ci, final ConnectionInfo connInfo,
+			final Feature toFeature, final ConnectionInstanceEnd toFi, final ComponentInstance toCi,
+			final List<Connection> conns, final boolean finalComponent) {
+		if (!(toFi instanceof FeatureInstance dstFi) || dstFi.getFeatureInstances().isEmpty()) {
+			return;
+		}
+
+		final Set<FeatureInstance> continued = continuedFeatures(dstFi, toFeature, conns);
+
+		if (continued.isEmpty()) {
+			return;
+		}
+
+		final List<FeatureInstance> uncontinued = new ArrayList<>();
+		collectUncontinuedLeaves(dstFi, continued, uncontinued);
+		if (uncontinued.isEmpty()) {
+			return;
+		}
+
+		final Set<FeatureInstance> deadEnds = new LinkedHashSet<>();
+		if (!finalComponent) {
+			collectDeadEnds(dstFi, continued, toCi, deadEnds);
+		}
+
+		final ConnectionInfo clone = connInfo.cloneInfo();
+		clone.complete = true;
+		clone.setContinuedEnds(continued);
+		clone.setDeadEnds(deadEnds);
+		finalizeConnectionInstance(ci, clone, dstFi);
+	}
+
+	/**
+	 * The feature instances under the feature a path arrives at that the internal connections of
+	 * the destination component continue.
+	 *
+	 * <p>
+	 * A connection names a path below the feature it reaches the component through, {@code fg.inner.p}
+	 * for instance, so what continues is the feature itself or a feature nested below it at any
+	 * depth.
+	 * </p>
+	 */
+	private static Set<FeatureInstance> continuedFeatures(final FeatureInstance dstFi, final Feature toFeature,
+			final List<Connection> conns) {
+		final Set<FeatureInstance> continued = new LinkedHashSet<>();
+
+		for (final Connection conn : conns) {
+			final Connection root = conn.getRootConnection();
+			addContinuedFeature(dstFi, toFeature, root.getSource(), continued);
+			addContinuedFeature(dstFi, toFeature, root.getDestination(), continued);
+		}
+		return continued;
+	}
+
+	/**
+	 * Add the feature instance that one end of an internal connection continues, if that end names
+	 * the feature the path arrives at or something below it.
+	 */
+	private static void addContinuedFeature(final FeatureInstance dstFi, final Feature toFeature,
+			final ConnectedElement end, final Set<FeatureInstance> continued) {
+		if (end == null) {
+			return;
+		}
+
+		final Context context = end.getContext();
+
+		if (context == null) {
+			// the end is the feature itself, so the whole feature continues inside
+			if (namesFeature(end.getConnectionEnd(), toFeature)) {
+				continued.add(dstFi);
+			}
+			return;
+		}
+		if (!namesFeature(context, toFeature)) {
+			// the end is inside the component, or in another feature of it
+			return;
+		}
+
+		// walk the named path down the feature instance hierarchy
+		FeatureInstance current = dstFi;
+		for (ConnectedElement step = end; step != null && current != null; step = step.getNext()) {
+			current = (FeatureInstance) AadlUtil.findNamedElementInList(current.getFeatureInstances(),
+					step.getConnectionEnd().getName());
+		}
+		if (current != null) {
+			continued.add(current);
+		}
+	}
+
+	private static boolean namesFeature(final NamedElement element, final Feature feature) {
+		// a refinement keeps the name of the feature it refines
+		return element instanceof Feature named && feature.getName().equalsIgnoreCase(named.getName());
+	}
+
+	/**
+	 * Collect the features under the feature a path stops at that can neither be continued nor end
+	 * a connection there, including a feature whose every part is one of those.
+	 *
+	 * <p>
+	 * A feature the traversal continues into is not dead: it ends a connection instance created
+	 * further in, which the continued ends take care of. A feature that triggers a mode transition
+	 * of the component is not dead either, because the mode transition ends the connection. Neither
+	 * makes the feature group containing it dead.
+	 * </p>
+	 *
+	 * @return whether this feature is dead
+	 */
+	private static boolean collectDeadEnds(final FeatureInstance fi, final Set<FeatureInstance> continued,
+			final ComponentInstance toCi, final Set<FeatureInstance> dead) {
+		if (continued.contains(fi) || isModeTransitionTrigger(toCi, fi)) {
+			return false;
+		}
+		if (fi.getFeatureInstances().isEmpty()) {
+			dead.add(fi);
+			return true;
+		}
+
+		boolean allDead = true;
+
+		for (final FeatureInstance member : fi.getFeatureInstances()) {
+			allDead &= collectDeadEnds(member, continued, toCi, dead);
+		}
+		if (allDead) {
+			dead.add(fi);
+		}
+		return allDead;
+	}
+
+	/**
+	 * Collect the leaves under a feature that the traversal does not continue. A leaf is continued
+	 * when the traversal continues into it or into a feature that contains it.
+	 */
+	private static void collectUncontinuedLeaves(final FeatureInstance fi, final Set<FeatureInstance> continued,
+			final List<FeatureInstance> result) {
+		if (continued.contains(fi)) {
+			return;
+		}
+		if (fi.getFeatureInstances().isEmpty()) {
+			result.add(fi);
+		} else {
+			for (final FeatureInstance member : fi.getFeatureInstances()) {
+				collectUncontinuedLeaves(member, continued, result);
 			}
 		}
 	}
@@ -921,6 +1106,24 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		}
 		if (unresolvedEndpoint) {
 			return null;
+		}
+
+		/*
+		 * Issue 3044: This path stops at a component that the traversal continues into for some of
+		 * the members of the feature it stops at. A member the traversal continues into ends a
+		 * connection instance created further in, so this path must not end at it. A member that
+		 * the traversal can neither continue into nor stop at ends no connection instance at all,
+		 * and that is reported here because this is where the end of the path is known.
+		 */
+		if (dstI instanceof FeatureInstance dstFi) {
+			if (connInfo.isContinuedEnd(dstFi)) {
+				return null;
+			}
+			if (connInfo.isDeadEnd(dstFi)) {
+				warning(dstFi, "Could not continue connection from " + connInfo.src.getInstanceObjectPath() + " through "
+						+ dstFi.getInstanceObjectPath() + ". No connection instance created.");
+				return null;
+			}
 		}
 
 		// with aggregate data ports will be sources/destinations missing

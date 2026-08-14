@@ -35,7 +35,10 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -66,6 +69,7 @@ import com.itemis.xtext.testing.XtextTest;
 @InjectWith(Aadl2InjectorProvider.class)
 public class Issue3044Test extends XtextTest {
 	private static final String MODEL = "org.osate.core.tests/models/issue3044/Issue3044.aadl";
+	private static final String UNCONTINUED_MODEL = "org.osate.core.tests/models/issue3044/UncontinuedMembers.aadl";
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
@@ -85,6 +89,42 @@ public class Issue3044Test extends XtextTest {
 				"DemoTop_impl_Instance.provider_side.worker_unit"
 						+ " -> DemoTop_impl_Instance.requester_side.worker_unit.requested_call"),
 				instance.getAllConnectionInstances().stream().map(Issue3044Test::describe).sorted().toList());
+	}
+
+	/**
+	 * A member with nowhere to go inside a component that does not end connections gets a
+	 * connection instance only when it triggers a mode transition of that component.
+	 *
+	 * <p>
+	 * {@code SensorGroup} carries three ports and connects two processes. Inside the receiving
+	 * process, {@code data_line} continues to a thread, {@code alarm_line} continues nowhere but
+	 * triggers a mode transition, and {@code spare_line} continues nowhere at all. The mode
+	 * transition ends a connection, so {@code alarm_line} gets one; {@code spare_line} can reach no
+	 * component that ends a connection, so it gets a diagnostic instead of an incomplete connection.
+	 * </p>
+	 */
+	@Test
+	public void aModeTransitionTriggerEndsAConnectionAndADeadMemberIsReported() throws Exception {
+		var pkg = testHelper.parseFile(UNCONTINUED_MODEL);
+		validationHelper.assertNoIssues(pkg);
+		var errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);
+		var instance = InstantiateModel.instantiate(findImplementation(pkg, "TriggerTop.impl"), errorManager);
+
+		assertEquals(List.of(
+				"TriggerTop_impl_Instance.sender.emitter.alarm_out"
+						+ " -> TriggerTop_impl_Instance.receiver.sensor_bundle.alarm_line",
+				"TriggerTop_impl_Instance.sender.emitter.data_out -> TriggerTop_impl_Instance.receiver.consumer.data_in"),
+				instance.getAllConnectionInstances().stream().map(Issue3044Test::describe).sorted().toList());
+
+		var messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors();
+		assertEquals(List.of("Warning|TriggerTop_impl_Instance.receiver.sensor_bundle.spare_line"
+				+ "|Could not continue connection from TriggerTop_impl_Instance.sender.emitter.spare_out"
+				+ " through TriggerTop_impl_Instance.receiver.sensor_bundle.spare_line."
+				+ " No connection instance created."),
+				messages.stream()
+						.map(message -> message.kind + "|" + ((InstanceObject) message.where).getInstanceObjectPath()
+								+ "|" + message.message)
+						.toList());
 	}
 
 	private static ComponentImplementation findImplementation(AadlPackage pkg, String name) {

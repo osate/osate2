@@ -37,8 +37,10 @@ import static org.osate.aadl2.instance.FeatureCategory.SUBPROGRAM_ACCESS;
 import static org.osate.aadl2.instance.FeatureCategory.SUBPROGRAM_GROUP_ACCESS;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ConnectedElement;
@@ -81,6 +83,19 @@ class ConnectionInfo {
 	ConnectedElement dstToMatch;
 	ComponentInstance container;
 
+	/**
+	 * Issue 3044: the feature instances that the traversal continues into beyond the component
+	 * where this path stops. Connection instances for them are created further in, so ending this
+	 * path at them would add a second, shorter connection instance for the same features.
+	 */
+	private Set<FeatureInstance> continuedEnds = Collections.emptySet();
+
+	/**
+	 * Issue 3044: the feature instances that this path can neither continue into nor end at. They
+	 * are reported instead of becoming a connection instance.
+	 */
+	private Set<FeatureInstance> deadEnds = Collections.emptySet();
+
 	private ConnectionInfo(final ConnectionInfo info) {
 		src = info.src;
 		connections = new ArrayList<Connection>(info.connections);
@@ -95,6 +110,8 @@ class ConnectionInfo {
 		srcToMatch = info.srcToMatch;
 		dstToMatch = info.dstToMatch;
 		container = info.container;
+		continuedEnds = info.continuedEnds;
+		deadEnds = info.deadEnds;
 	}
 
 	private ConnectionInfo(final ConnectionInstanceEnd s) {
@@ -202,6 +219,53 @@ class ConnectionInfo {
 
 	public ConnectionInfo cloneInfo() {
 		return new ConnectionInfo(this);
+	}
+
+	/**
+	 * Record the feature instances that this path must not end at because the traversal continues
+	 * into them.
+	 */
+	public void setContinuedEnds(final Set<FeatureInstance> fis) {
+		continuedEnds = fis;
+	}
+
+	/**
+	 * Does the traversal continue into this feature instance, or into a feature group that contains
+	 * it, beyond the component where this path stops?
+	 */
+	public boolean isContinuedEnd(final FeatureInstance fi) {
+		return containsSelfOrContainer(continuedEnds, fi);
+	}
+
+	/**
+	 * Record the feature instances that this path can neither continue into nor end at.
+	 */
+	public void setDeadEnds(final Set<FeatureInstance> fis) {
+		deadEnds = fis;
+	}
+
+	/**
+	 * Is this feature instance, or a feature group that contains it, one that the path can neither
+	 * continue into nor end at?
+	 */
+	public boolean isDeadEnd(final FeatureInstance fi) {
+		return containsSelfOrContainer(deadEnds, fi);
+	}
+
+	/**
+	 * The end of a path is only known once it has been narrowed and expanded, and both of those can
+	 * reach below the member the decision was made for, so a member stands for everything under it.
+	 */
+	private static boolean containsSelfOrContainer(final Set<FeatureInstance> fis, final FeatureInstance fi) {
+		if (fis.isEmpty()) {
+			return false;
+		}
+		for (Element current = fi; current instanceof FeatureInstance feature; current = feature.getOwner()) {
+			if (fis.contains(feature)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public ConnectionInstance createConnectionInstance(final String name, final ConnectionInstanceEnd dst) {

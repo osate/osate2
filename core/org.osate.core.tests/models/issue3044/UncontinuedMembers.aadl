@@ -1,0 +1,62 @@
+package UncontinuedMembers
+public
+	feature group SensorGroup
+	features
+		data_line: out data port;
+		alarm_line: out event port;
+		spare_line: out data port;
+	end SensorGroup;
+
+	thread Emitter
+	features
+		data_out: out data port;
+		alarm_out: out event port;
+		spare_out: out data port;
+	end Emitter;
+
+	process Sender
+	features
+		sensor_bundle: feature group SensorGroup;
+	end Sender;
+
+	process implementation Sender.impl
+	subcomponents
+		emitter: thread Emitter;
+	connections
+		from_data: port emitter.data_out -> sensor_bundle.data_line;
+		from_alarm: port emitter.alarm_out -> sensor_bundle.alarm_line;
+		from_spare: port emitter.spare_out -> sensor_bundle.spare_line;
+	end Sender.impl;
+
+	thread Consumer
+	features
+		data_in: in data port;
+	end Consumer;
+
+	process Receiver
+	features
+		sensor_bundle: feature group inverse of SensorGroup;
+	end Receiver;
+
+	process implementation Receiver.impl
+	subcomponents
+		consumer: thread Consumer;
+	connections
+		to_consumer: port sensor_bundle.data_line -> consumer.data_in;
+	modes
+		quiet: initial mode;
+		alerted: mode;
+		raise_alert: quiet -[ sensor_bundle.alarm_line ]-> alerted;
+	end Receiver.impl;
+
+	system TriggerTop
+	end TriggerTop;
+
+	system implementation TriggerTop.impl
+	subcomponents
+		sender: process Sender.impl;
+		receiver: process Receiver.impl;
+	connections
+		bundle_link: feature group sender.sensor_bundle -> receiver.sensor_bundle;
+	end TriggerTop.impl;
+end UncontinuedMembers;
