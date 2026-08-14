@@ -94,11 +94,16 @@ public
 			c: feature group producers.nest <-> consumers.nest;
 	end NestedGroupArrays.i;
 
-	-- (e) an array connected to a port that a boundary feature group only carries as a
-	-- member, so the endpoint the connection reaches is below the feature group the
-	-- enclosing declaration connects. Only the enclosing component can name a member that
-	-- way: a connection end has one context, so a subcomponent's group member is out of
-	-- reach syntactically.
+	-- (e) a connection whose endpoint is a port that a boundary feature group only carries as
+	-- a member, so what the connection reaches is below the feature group the enclosing
+	-- declaration connects. Only the enclosing component can name a member that way: a
+	-- connection end has one context, so a subcomponent's group member is out of reach
+	-- syntactically.
+	--
+	-- Two variants, because the array multiplies the shape rather than varying it. Reacher.i
+	-- feeds the member from an array, which is legal and means two writers reach one port;
+	-- SoloReacher.i feeds it from one thread. Top.soloReachedInto is the clean pivot case and
+	-- Top.reachedInto is the array one, where expansion does not survive the pivot.
 	thread PlainProducer
 		features
 			outp: out data port D;
@@ -115,6 +120,18 @@ public
 		connections
 			c: port producers.outp -> bundle.signal;
 	end Reacher.i;
+
+	process SoloReacher
+		features
+			bundle: feature group Bundle;
+	end SoloReacher;
+
+	process implementation SoloReacher.i
+		subcomponents
+			producer: thread PlainProducer;
+		connections
+			c: port producer.outp -> bundle.signal;
+	end SoloReacher.i;
 
 	-- (f) arrays, nested inverse feature groups, and a structural pattern at once. The
 	-- reached-into member cannot be combined with this: a connection end carries one
@@ -172,9 +189,23 @@ public
 			sub: process NestedGroupArrays.i;
 	end Top.nestedGroupArrays;
 
-	-- The reached-into member, an array, an inverse feature group, and a pivot at once: the
-	-- path runs up from an array element, out through a member of the boundary group, and
-	-- across into the sink.
+	-- The reached-into member, an inverse feature group, and a pivot: the path runs up from
+	-- the producer, out through a member of the boundary group, across, and down to the
+	-- consumer.
+	system implementation Top.soloReachedInto
+		subcomponents
+			reacher: process SoloReacher.i;
+			collector: process Collector.i;
+		connections
+			link: feature group reacher.bundle <-> collector.bundle;
+	end Top.soloReachedInto;
+
+	-- The same with the array. Semantically there are two connections, one per producer, and
+	-- the baseline produces one: expansion rejects the replication with "Too few indices for
+	-- connection destination" and leaves the un-replicated provisional attached. Reacher.i on
+	-- its own replicates the very same declaration correctly, so what the pivot changes is
+	-- worth finding out. Across-first reproduces the baseline exactly, so this is pinned
+	-- rather than fixed here.
 	system implementation Top.reachedInto
 		subcomponents
 			reacher: process Reacher.i;
