@@ -100,10 +100,21 @@ public final class PathAssembler {
 	 */
 	public static List<SemanticConnectionPath> join(TraversalSeed seed, List<LegResult> sourceLegs,
 			List<LegResult> destinationLegs) {
+		return join(seed, sourceLegs, destinationLegs, TraversalObservations.disabled());
+	}
+
+	/**
+	 * Every path that can be built from {@code seed} and the given legs, counting the join
+	 * attempts in {@code observations} so that the work can be compared with what source-first
+	 * spends on the same model.
+	 */
+	public static List<SemanticConnectionPath> join(TraversalSeed seed, List<LegResult> sourceLegs,
+			List<LegResult> destinationLegs, TraversalObservations observations) {
 		Map<SemanticConnectionKey, SemanticConnectionPath> unique = new LinkedHashMap<>();
 		if (seed instanceof TraversalSeed.Across across) {
 			for (LegResult sourceLeg : sourceLegs) {
 				for (LegResult destinationLeg : destinationLegs) {
+					observations.increment(TraversalObservations.Counter.JOIN_CANDIDATES);
 					if (attachedMembersCorrespond(across, sourceLeg, destinationLeg)) {
 						add(unique, assembleComplete(across, sourceLeg, destinationLeg));
 					}

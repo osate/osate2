@@ -75,6 +75,7 @@ public final class LegResolver {
 	private final HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 	private final ComponentInstance root;
 	private final ResolutionFailures failures;
+	private final TraversalObservations observations;
 
 	/**
 	 * A resolver that discards whatever a failed endpoint resolution reports.
@@ -84,7 +85,7 @@ public final class LegResolver {
 	 *            category
 	 */
 	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root) {
-		this(classifierCache, root, new ResolutionFailures());
+		this(classifierCache, root, new ResolutionFailures(), TraversalObservations.disabled());
 	}
 
 	/**
@@ -96,9 +97,24 @@ public final class LegResolver {
 	 */
 	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root,
 			ResolutionFailures failures) {
+		this(classifierCache, root, failures, TraversalObservations.disabled());
+	}
+
+	/**
+	 * @param classifierCache resolved classifiers for prototypes, may be null
+	 * @param root the instantiation root, which is always descended into whatever its
+	 *            category
+	 * @param failures collects the endpoint resolutions that should have succeeded, so
+	 *            that the caller can report them
+	 * @param observations where to count the work this resolver does, so that it can be
+	 *            compared with what source-first spends on the same model
+	 */
+	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root,
+			ResolutionFailures failures, TraversalObservations observations) {
 		this.classifierCache = classifierCache;
 		this.root = root;
 		this.failures = failures;
+		this.observations = observations;
 	}
 
 	/**
@@ -111,6 +127,7 @@ public final class LegResolver {
 		List<LegResult> results = new ArrayList<>();
 		descend(start, role, List.of(), FeaturePath.EMPTY, ModeConstraint.UNCONSTRAINED, true, new HashSet<>(), results);
 		results.sort(Comparator.comparing(LegResult::key));
+		results.forEach(leg -> observations.increment(TraversalObservations.Counter.LEGS_RESOLVED));
 		return List.copyOf(results);
 	}
 
@@ -187,6 +204,7 @@ public final class LegResolver {
 		}
 
 		for (ResolvedSegment segment : continuations) {
+			observations.increment(TraversalObservations.Counter.TRAVERSAL_STATES);
 			List<ResolvedSegment> extended = new ArrayList<>(segments);
 			extended.add(segment);
 			Set<String> branchVisited = new HashSet<>(visited);
@@ -292,6 +310,7 @@ public final class LegResolver {
 		List<ResolvedSegment> continuations = new ArrayList<>();
 		ComponentImplementation implementation = InstanceUtil.getComponentImplementation(owner, 0, classifierCache);
 		for (Connection declaration : implementation.getAllConnections()) {
+			observations.increment(TraversalObservations.Counter.DECLARATIONS_EXAMINED);
 			/*
 			 * Inside a connection-ending component only an access connection continues a
 			 * semantic connection: shared access reaches through such a component, while a

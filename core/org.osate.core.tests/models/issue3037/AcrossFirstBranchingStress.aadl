@@ -1,0 +1,245 @@
+-- Performance fixture for the across-first connection traversal enhancement (issue #3037).
+--
+-- One pivot, and a branch fan on each side of it: every leaf thread inside the source side
+-- reaches the boundary by a declaration of its own, and every drain thread inside the
+-- destination side is reached from the boundary by one of its own, so the join is a
+-- Cartesian product of width * width paths. Three containment levels below the root on each
+-- side, which is what makes the legs descend rather than stop at the pivot.
+--
+-- The widths are 2, 4, and 8 so that the same shape gives the calibration curve the plan
+-- asks for: source-first traversal state counts at three widths, from which the frozen
+-- state-count budget is derived. Event ports are used throughout because fan-in to an event
+-- port is legal, so the fixture measures traversal rather than producing validation errors.
+--
+-- Generated shape, kept explicit so that what is measured is what is in the file.
+package AcrossFirstBranchingStress
+public
+	thread Leaf
+		features
+			sig: out event port;
+	end Leaf;
+
+	thread Absorber
+		features
+			sig: in event port;
+	end Absorber;
+
+	-- width 2: 2 source legs, 2 destination legs, 4 joined paths
+	process Producer2
+		features
+			out_sig: out event port;
+	end Producer2;
+
+	process implementation Producer2.i
+		subcomponents
+			leaf1: thread Leaf;
+			leaf2: thread Leaf;
+		connections
+			up1: port leaf1.sig -> out_sig;
+			up2: port leaf2.sig -> out_sig;
+	end Producer2.i;
+
+	process Consumer2
+		features
+			in_sig: in event port;
+	end Consumer2;
+
+	process implementation Consumer2.i
+		subcomponents
+			drain1: thread Absorber;
+			drain2: thread Absorber;
+		connections
+			down1: port in_sig -> drain1.sig;
+			down2: port in_sig -> drain2.sig;
+	end Consumer2.i;
+
+	system SourceSide2
+		features
+			out_sig: out event port;
+	end SourceSide2;
+
+	system implementation SourceSide2.i
+		subcomponents
+			inner: process Producer2.i;
+		connections
+			up: port inner.out_sig -> out_sig;
+	end SourceSide2.i;
+
+	system DestinationSide2
+		features
+			in_sig: in event port;
+	end DestinationSide2;
+
+	system implementation DestinationSide2.i
+		subcomponents
+			inner: process Consumer2.i;
+		connections
+			down: port in_sig -> inner.in_sig;
+	end DestinationSide2.i;
+
+	-- width 4: 4 source legs, 4 destination legs, 16 joined paths
+	process Producer4
+		features
+			out_sig: out event port;
+	end Producer4;
+
+	process implementation Producer4.i
+		subcomponents
+			leaf1: thread Leaf;
+			leaf2: thread Leaf;
+			leaf3: thread Leaf;
+			leaf4: thread Leaf;
+		connections
+			up1: port leaf1.sig -> out_sig;
+			up2: port leaf2.sig -> out_sig;
+			up3: port leaf3.sig -> out_sig;
+			up4: port leaf4.sig -> out_sig;
+	end Producer4.i;
+
+	process Consumer4
+		features
+			in_sig: in event port;
+	end Consumer4;
+
+	process implementation Consumer4.i
+		subcomponents
+			drain1: thread Absorber;
+			drain2: thread Absorber;
+			drain3: thread Absorber;
+			drain4: thread Absorber;
+		connections
+			down1: port in_sig -> drain1.sig;
+			down2: port in_sig -> drain2.sig;
+			down3: port in_sig -> drain3.sig;
+			down4: port in_sig -> drain4.sig;
+	end Consumer4.i;
+
+	system SourceSide4
+		features
+			out_sig: out event port;
+	end SourceSide4;
+
+	system implementation SourceSide4.i
+		subcomponents
+			inner: process Producer4.i;
+		connections
+			up: port inner.out_sig -> out_sig;
+	end SourceSide4.i;
+
+	system DestinationSide4
+		features
+			in_sig: in event port;
+	end DestinationSide4;
+
+	system implementation DestinationSide4.i
+		subcomponents
+			inner: process Consumer4.i;
+		connections
+			down: port in_sig -> inner.in_sig;
+	end DestinationSide4.i;
+
+	-- width 8: 8 source legs, 8 destination legs, 64 joined paths
+	process Producer8
+		features
+			out_sig: out event port;
+	end Producer8;
+
+	process implementation Producer8.i
+		subcomponents
+			leaf1: thread Leaf;
+			leaf2: thread Leaf;
+			leaf3: thread Leaf;
+			leaf4: thread Leaf;
+			leaf5: thread Leaf;
+			leaf6: thread Leaf;
+			leaf7: thread Leaf;
+			leaf8: thread Leaf;
+		connections
+			up1: port leaf1.sig -> out_sig;
+			up2: port leaf2.sig -> out_sig;
+			up3: port leaf3.sig -> out_sig;
+			up4: port leaf4.sig -> out_sig;
+			up5: port leaf5.sig -> out_sig;
+			up6: port leaf6.sig -> out_sig;
+			up7: port leaf7.sig -> out_sig;
+			up8: port leaf8.sig -> out_sig;
+	end Producer8.i;
+
+	process Consumer8
+		features
+			in_sig: in event port;
+	end Consumer8;
+
+	process implementation Consumer8.i
+		subcomponents
+			drain1: thread Absorber;
+			drain2: thread Absorber;
+			drain3: thread Absorber;
+			drain4: thread Absorber;
+			drain5: thread Absorber;
+			drain6: thread Absorber;
+			drain7: thread Absorber;
+			drain8: thread Absorber;
+		connections
+			down1: port in_sig -> drain1.sig;
+			down2: port in_sig -> drain2.sig;
+			down3: port in_sig -> drain3.sig;
+			down4: port in_sig -> drain4.sig;
+			down5: port in_sig -> drain5.sig;
+			down6: port in_sig -> drain6.sig;
+			down7: port in_sig -> drain7.sig;
+			down8: port in_sig -> drain8.sig;
+	end Consumer8.i;
+
+	system SourceSide8
+		features
+			out_sig: out event port;
+	end SourceSide8;
+
+	system implementation SourceSide8.i
+		subcomponents
+			inner: process Producer8.i;
+		connections
+			up: port inner.out_sig -> out_sig;
+	end SourceSide8.i;
+
+	system DestinationSide8
+		features
+			in_sig: in event port;
+	end DestinationSide8;
+
+	system implementation DestinationSide8.i
+		subcomponents
+			inner: process Consumer8.i;
+		connections
+			down: port in_sig -> inner.in_sig;
+	end DestinationSide8.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.width2
+		subcomponents
+			src: system SourceSide2.i;
+			dst: system DestinationSide2.i;
+		connections
+			across: port src.out_sig -> dst.in_sig;
+	end Top.width2;
+
+	system implementation Top.width4
+		subcomponents
+			src: system SourceSide4.i;
+			dst: system DestinationSide4.i;
+		connections
+			across: port src.out_sig -> dst.in_sig;
+	end Top.width4;
+
+	system implementation Top.width8
+		subcomponents
+			src: system SourceSide8.i;
+			dst: system DestinationSide8.i;
+		connections
+			across: port src.out_sig -> dst.in_sig;
+	end Top.width8;
+
+end AcrossFirstBranchingStress;

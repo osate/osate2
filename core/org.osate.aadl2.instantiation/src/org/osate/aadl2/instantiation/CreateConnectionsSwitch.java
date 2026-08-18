@@ -293,7 +293,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private void instantiateAcrossFirst(final ComponentInstance root) {
 		final SystemInstance systemInstance = root.getSystemInstance();
 		final ResolutionFailures failures = new ResolutionFailures();
-		final LegResolver legResolver = new LegResolver(classifierCache, root, failures);
+		final LegResolver legResolver = new LegResolver(classifierCache, root, failures, observations);
 
 		for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache, failures)) {
 			observations.addSeed(seed.key());
@@ -314,7 +314,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			sourceLegs.forEach(leg -> observations.addLeg(leg.key()));
 			destinationLegs.forEach(leg -> observations.addLeg(leg.key()));
 
-			for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs)) {
+			for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs, observations)) {
 				observations.addPath((path.complete() ? "complete|" : "incomplete|") + path.key().render());
 				if (path.deadEnd()) {
 					reportDeadEnd(path);
