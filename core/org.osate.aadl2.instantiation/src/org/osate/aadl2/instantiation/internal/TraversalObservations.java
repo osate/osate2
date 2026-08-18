@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.osate.aadl2.instantiation.testing.DuplicateCandidateObservation;
 
@@ -87,6 +88,14 @@ public final class TraversalObservations {
 
 	private final boolean recording;
 	private final boolean collectingCandidates;
+
+	/**
+	 * Whether the phase timers run. Separate from {@code recording}, because measuring what
+	 * production pays means timing a run that keeps no keys and no counters: building a key is
+	 * work production does not do, and a benchmark that timed it would be measuring the
+	 * instrumentation.
+	 */
+	private final boolean timing;
 	private final Map<Counter, Long> counters = new EnumMap<>(Counter.class);
 	private final List<DuplicateCandidateObservation> duplicateCandidates = new ArrayList<>();
 	private final List<String> seedKeys = new ArrayList<>();
@@ -100,8 +109,13 @@ public final class TraversalObservations {
 	private long traversalStart = -1;
 
 	private TraversalObservations(boolean recording, boolean collectingCandidates) {
+		this(recording, collectingCandidates, recording);
+	}
+
+	private TraversalObservations(boolean recording, boolean collectingCandidates, boolean timing) {
 		this.recording = recording;
 		this.collectingCandidates = collectingCandidates;
+		this.timing = timing;
 	}
 
 	/**
@@ -116,6 +130,15 @@ public final class TraversalObservations {
 	/** A fresh instance recording counters and timings for one instantiation run. */
 	public static TraversalObservations recording() {
 		return new TraversalObservations(true, false);
+	}
+
+	/**
+	 * A fresh instance that times the connection phase and the traversal and records nothing
+	 * else, so that a benchmark measures what production instantiation costs rather than what
+	 * observing it costs.
+	 */
+	public static TraversalObservations timingOnly() {
+		return new TraversalObservations(false, false, true);
 	}
 
 	/**
@@ -137,8 +160,13 @@ public final class TraversalObservations {
 	}
 
 	public void increment(Counter counter) {
-		if (recording) {
-			counters.merge(counter, 1L, Long::sum);
+		increment(counter, 1);
+	}
+
+	/** Count {@code times} occurrences at once, for a caller that already has them in hand. */
+	public void increment(Counter counter, int times) {
+		if (recording && times > 0) {
+			counters.merge(counter, (long) times, Long::sum);
 		}
 	}
 
@@ -167,11 +195,17 @@ public final class TraversalObservations {
 	 * exist. Only the keys are kept, never the seeds themselves, so no internal type
 	 * escapes and nothing observes EMF state after its resource set is gone.
 	 * </p>
+	 *
+	 * <p>
+	 * The key is supplied rather than passed, because building one means walking a path and
+	 * concatenating its identity, and a disabled observation must cost nothing: production
+	 * instantiation calls this for every seed, leg, path, and endpoint pair.
+	 * </p>
 	 */
-	public void addSeed(String key) {
+	public void addSeed(Supplier<String> key) {
 		increment(Counter.SEEDS_DISCOVERED);
 		if (recording) {
-			seedKeys.add(key);
+			seedKeys.add(key.get());
 		}
 	}
 
@@ -185,10 +219,10 @@ public final class TraversalObservations {
 	 * {@link #addSeed(String)}: legs can be checked against real models before joining
 	 * exists.
 	 */
-	public void addLeg(String key) {
+	public void addLeg(Supplier<String> key) {
 		increment(Counter.LEGS_RESOLVED);
 		if (recording) {
-			legKeys.add(key);
+			legKeys.add(key.get());
 		}
 	}
 
@@ -201,10 +235,10 @@ public final class TraversalObservations {
 	 * Record an assembled path by its rendered identity. Temporary, for the same reason
 	 * as {@link #addSeed(String)}.
 	 */
-	public void addPath(String key) {
+	public void addPath(Supplier<String> key) {
 		increment(Counter.PATHS_ASSEMBLED);
 		if (recording) {
-			pathKeys.add(key);
+			pathKeys.add(key.get());
 		}
 	}
 
@@ -217,10 +251,10 @@ public final class TraversalObservations {
 	 * Record a leaf endpoint pair an assembled path expanded to. Temporary, for the same
 	 * reason as {@link #addSeed(String)}.
 	 */
-	public void addExpanded(String key) {
+	public void addExpanded(Supplier<String> key) {
 		increment(Counter.ENDPOINTS_EXPANDED);
 		if (recording) {
-			expandedKeys.add(key);
+			expandedKeys.add(key.get());
 		}
 	}
 
@@ -241,13 +275,13 @@ public final class TraversalObservations {
 	 * end-to-end flow creation.
 	 */
 	public void startConnectionPhase() {
-		if (recording) {
+		if (timing) {
 			connectionPhaseStart = System.nanoTime();
 		}
 	}
 
 	public void stopConnectionPhase() {
-		if (recording && connectionPhaseStart >= 0) {
+		if (timing && connectionPhaseStart >= 0) {
 			connectionPhaseNanos += System.nanoTime() - connectionPhaseStart;
 			connectionPhaseStart = -1;
 		}
@@ -259,13 +293,13 @@ public final class TraversalObservations {
 	 * a traversal regression inside a passing phase-level ratio.
 	 */
 	public void startTraversal() {
-		if (recording) {
+		if (timing) {
 			traversalStart = System.nanoTime();
 		}
 	}
 
 	public void stopTraversal() {
-		if (recording && traversalStart >= 0) {
+		if (timing && traversalStart >= 0) {
 			traversalNanos += System.nanoTime() - traversalStart;
 			traversalStart = -1;
 		}

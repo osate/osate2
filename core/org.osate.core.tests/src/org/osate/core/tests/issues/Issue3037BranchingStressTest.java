@@ -66,6 +66,7 @@ import com.itemis.xtext.testing.XtextTest;
 @InjectWith(Aadl2InjectorProvider.class)
 public class Issue3037BranchingStressTest extends XtextTest {
 	private static final String MODEL = "org.osate.core.tests/models/issue3037/AcrossFirstBranchingStress.aadl";
+	private static final String DEPTH = "org.osate.core.tests/models/issue3037/AcrossFirstDepthWidthStress.aadl";
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
@@ -77,8 +78,39 @@ public class Issue3037BranchingStressTest extends XtextTest {
 	private IsolatedInstantiation isolated;
 
 	@Test
-	public void theFixtureIsValid() throws Exception {
+	public void theFixturesAreValid() throws Exception {
 		validationHelper.assertNoIssues(testHelper.parseFile(MODEL));
+		validationHelper.assertNoIssues(testHelper.parseFile(DEPTH));
+	}
+
+	/**
+	 * Depth, feature group width, and branching at once, which is where the three could
+	 * multiply. Four source legs and four destination legs join into 16 paths, each expanding
+	 * to the 64 leaves of a group nested three levels deep with a width of four, so 1024
+	 * connection instances. The expected numbers are computed from the shape.
+	 */
+	@Test
+	public void depthWidthAndBranchingDoNotMultiplyTheTraversal() throws Exception {
+		StrategyDifference.assertSameModel(isolated, DEPTH, "Top.depthAndWidth");
+
+		CharacterizationRun sourceFirst = isolated.run(DEPTH, "Top.depthAndWidth", "SOURCE_FIRST", false);
+		CharacterizationRun acrossFirst = isolated.run(DEPTH, "Top.depthAndWidth", "ACROSS_FIRST", false);
+		int leaves = 4 * 4 * 4;
+		int paths = 4 * 4;
+		assertEquals(paths * leaves, acrossFirst.instance().getAllConnectionInstances().size());
+		assertEquals(paths, count(acrossFirst, "PATHS_ASSEMBLED"));
+		assertEquals(paths, count(acrossFirst, "JOIN_CANDIDATES"));
+		assertEquals(paths * leaves, count(acrossFirst, "ENDPOINTS_EXPANDED"));
+		/*
+		 * Eight states per side, four for the pass-through levels and four for the branches,
+		 * and nothing for the depth being re-walked: the four levels above the branches are
+		 * traversed once, not once per path, and the 64 leaves cost no traversal at all because
+		 * expansion happens after the join.
+		 */
+		assertEquals("depth is walked once per branch, not once per path", 16L,
+				count(acrossFirst, "TRAVERSAL_STATES"));
+		assertTrue("across-first states must not exceed source-first",
+				count(acrossFirst, "TRAVERSAL_STATES") <= count(sourceFirst, "TRAVERSAL_STATES"));
 	}
 
 	/**

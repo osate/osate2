@@ -138,9 +138,15 @@ public final class PathAssembler {
 				}
 			}
 		}
-		List<SemanticConnectionPath> paths = new ArrayList<>(unique.values());
-		paths.sort(Comparator.comparing(path -> SemanticConnectionKey.of(path).toString()));
-		return List.copyOf(paths);
+		/*
+		 * Sorted by structured identity, with the key computed once per path rather than once per
+		 * comparison: building one walks the whole path.
+		 */
+		return unique.entrySet()
+				.stream()
+				.sorted(Comparator.comparing(entry -> entry.getKey().toString()))
+				.map(Map.Entry::getValue)
+				.toList();
 	}
 
 	/** A complete path: source leg reversed, then the pivot, then the destination leg. */

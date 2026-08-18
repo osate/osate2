@@ -32,7 +32,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -76,6 +78,15 @@ public final class LegResolver {
 	private final ComponentInstance root;
 	private final ResolutionFailures failures;
 	private final TraversalObservations observations;
+
+	/**
+	 * Resolved segments per component, so that a declaration is resolved once per
+	 * instantiation rather than once per leg step. Enumeration asks the same question many
+	 * times over: every branch of every leg of every seed that passes through a component
+	 * examines all of its declarations, and endpoint resolution is the expensive part of the
+	 * answer. Identity keyed, because it caches instance objects of one run.
+	 */
+	private final Map<ComponentInstance, List<ResolvedSegment>> resolvedByContainer = new IdentityHashMap<>();
 
 	/**
 	 * A resolver that discards whatever a failed endpoint resolution reports.
@@ -126,9 +137,17 @@ public final class LegResolver {
 	public List<LegResult> resolve(ConnectionInstanceEnd start, LegRole role) {
 		List<LegResult> results = new ArrayList<>();
 		descend(start, role, List.of(), FeaturePath.EMPTY, ModeConstraint.UNCONSTRAINED, true, new HashSet<>(), results);
-		results.sort(Comparator.comparing(LegResult::key));
-		results.forEach(leg -> observations.increment(TraversalObservations.Counter.LEGS_RESOLVED));
-		return List.copyOf(results);
+		/*
+		 * Sorted by stable key, computed once per leg rather than once per comparison: building
+		 * one walks the leg's segments.
+		 */
+		List<Map.Entry<String, LegResult>> keyed = new ArrayList<>();
+		for (LegResult leg : results) {
+			keyed.add(Map.entry(leg.key(), leg));
+		}
+		keyed.sort(Map.Entry.comparingByKey());
+		observations.increment(TraversalObservations.Counter.LEGS_RESOLVED, results.size());
+		return keyed.stream().map(Map.Entry::getValue).toList();
 	}
 
 	private void descend(ConnectionInstanceEnd current, LegRole role, List<ResolvedSegment> segments,
@@ -308,48 +327,76 @@ public final class LegResolver {
 	private List<ResolvedSegment> continuations(ComponentInstance owner, FeatureInstance feature, LegRole role,
 			Set<String> visited, boolean endingCategory) {
 		List<ResolvedSegment> continuations = new ArrayList<>();
-		ComponentImplementation implementation = InstanceUtil.getComponentImplementation(owner, 0, classifierCache);
-		for (Connection declaration : implementation.getAllConnections()) {
+		for (ResolvedSegment segment : resolved(owner)) {
 			observations.increment(TraversalObservations.Counter.DECLARATIONS_EXAMINED);
 			/*
 			 * Inside a connection-ending component only an access connection continues a
 			 * semantic connection: shared access reaches through such a component, while a
 			 * port or feature group connection ends at it.
 			 */
-			if (endingCategory && !(declaration instanceof AccessConnection)) {
+			if (endingCategory && !(segment.declaration() instanceof AccessConnection)) {
 				continue;
 			}
-			for (boolean declaredOrientation : new boolean[] { false, true }) {
-				if (declaredOrientation && !declaration.isAllBidirectional()) {
-					continue;
-				}
-				/*
-				 * The leg arrives from one declared side and leaves by the other. A source leg
-				 * arrives at the destination side, so it is resolved reversed, which makes the
-				 * segment's own source the deeper endpoint it continues to.
-				 */
-				boolean reverse = role.arrivesAtDeclaredDestination() != declaredOrientation;
-				Resolution<ResolvedSegment> resolution = SeedDiscovery.segment(owner, declaration, reverse);
-				failures.add(resolution);
-				if (!(resolution instanceof Resolution.Resolved<ResolvedSegment> resolved)) {
-					continue;
-				}
-				ResolvedSegment segment = resolved.value();
-				if (!touches(segment.source(), feature) || visited.contains(orientedKey(segment))) {
-					continue;
-				}
-				// Only a descent continues a leg: the far end must be inside a subcomponent.
-				ComponentInstance destinationOwner = segment.destination() instanceof FeatureInstance destination
-						? destination.getContainingComponentInstance()
-						: (ComponentInstance) segment.destination();
-				if (destinationOwner == null || destinationOwner == owner) {
-					continue;
-				}
-				continuations.add(segment);
+			/*
+			 * The leg arrives from one declared side and leaves by the other. A source leg
+			 * arrives at the declared destination, so the resolution it needs is the one whose
+			 * reverse flag says so, and that makes the segment's own source the deeper endpoint
+			 * it continues to. The opposite orientation is only available where the declaration
+			 * is bidirectional.
+			 */
+			if (segment.reverse() != role.arrivesAtDeclaredDestination()
+					&& !segment.declaration().isAllBidirectional()) {
+				continue;
 			}
+			if (!touches(segment.source(), feature) || visited.contains(orientedKey(segment))) {
+				continue;
+			}
+			// Only a descent continues a leg: the far end must be inside a subcomponent.
+			ComponentInstance destinationOwner = segment.destination() instanceof FeatureInstance destination
+					? destination.getContainingComponentInstance()
+					: (ComponentInstance) segment.destination();
+			if (destinationOwner == null || destinationOwner == owner) {
+				continue;
+			}
+			continuations.add(segment);
 		}
-		continuations.sort(Comparator.comparing(ResolvedSegment::key));
-		return continuations;
+		List<Map.Entry<String, ResolvedSegment>> keyed = new ArrayList<>();
+		for (ResolvedSegment segment : continuations) {
+			keyed.add(Map.entry(segment.key(), segment));
+		}
+		keyed.sort(Map.Entry.comparingByKey());
+		return keyed.stream().map(Map.Entry::getValue).toList();
+	}
+
+	/**
+	 * Every declaration of {@code owner}, resolved in both orientations, computed once per
+	 * component. Which orientations a leg may use is the caller's question: the resolution
+	 * itself only says which declared side is the near end.
+	 *
+	 * <p>
+	 * A resolution that failed is reported once, here, rather than once per leg step that met
+	 * it: the failure belongs to the declaration and not to the walk that noticed it.
+	 * </p>
+	 */
+	private List<ResolvedSegment> resolved(ComponentInstance owner) {
+		return resolvedByContainer.computeIfAbsent(owner, container -> {
+			List<ResolvedSegment> segments = new ArrayList<>();
+			ComponentImplementation implementation = InstanceUtil.getComponentImplementation(container, 0,
+					classifierCache);
+			if (implementation == null) {
+				return List.of();
+			}
+			for (Connection declaration : implementation.getAllConnections()) {
+				for (boolean reverse : new boolean[] { false, true }) {
+					Resolution<ResolvedSegment> resolution = SeedDiscovery.segment(container, declaration, reverse);
+					failures.add(resolution);
+					if (resolution instanceof Resolution.Resolved<ResolvedSegment> value) {
+						segments.add(value.value());
+					}
+				}
+			}
+			return List.copyOf(segments);
+		});
 	}
 
 	/**

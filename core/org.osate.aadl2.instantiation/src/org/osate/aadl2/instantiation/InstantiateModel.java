@@ -629,7 +629,7 @@ public class InstantiateModel {
 		if (observations.isRecording() && strategy == ConnectionTraversalStrategy.SOURCE_FIRST) {
 			final LegResolver legResolver = new LegResolver(classifierCache, root);
 			for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache)) {
-				observations.addSeed(seed.key());
+				observations.addSeed(seed::key);
 				List<LegResult> sourceLegs = List.of();
 				List<LegResult> destinationLegs = List.of();
 				if (seed instanceof TraversalSeed.Across across) {
@@ -647,13 +647,13 @@ public class InstantiateModel {
 						sourceLegs = legResolver.resolve(boundary.feature(), LegRole.SOURCE_LEG);
 					}
 				}
-				sourceLegs.forEach(leg -> observations.addLeg(leg.key()));
-				destinationLegs.forEach(leg -> observations.addLeg(leg.key()));
+				sourceLegs.forEach(leg -> observations.addLeg(leg::key));
+				destinationLegs.forEach(leg -> observations.addLeg(leg::key));
 				for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs)) {
-					observations.addPath((path.complete() ? "complete|" : "incomplete|") + path.key().render());
+					observations.addPath(() -> (path.complete() ? "complete|" : "incomplete|") + path.key().render());
 					// A path that ends at a dead end is reported, not expanded into endpoint pairs.
 					if (!path.deadEnd()) {
-						LeafExpansion.expand(path).forEach(endpoints -> observations.addExpanded(endpoints.key()));
+						LeafExpansion.expand(path).forEach(endpoints -> observations.addExpanded(endpoints::key));
 					}
 				}
 			}

@@ -85,6 +85,15 @@ public class IsolatedInstantiation {
 	}
 
 	/**
+	 * The same run, recording only the phase timings. For a benchmark, which must not measure
+	 * the cost of observing.
+	 */
+	public CharacterizationRun runTimed(String modelPath, String implementationName, String strategyName)
+			throws Exception {
+		return InstantiationCharacterization.run(load(modelPath, implementationName), strategyName, false, false);
+	}
+
+	/**
 	 * Load {@code modelPath} into a fresh resource set and return the named
 	 * implementation from it.
 	 */

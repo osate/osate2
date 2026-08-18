@@ -296,7 +296,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		final LegResolver legResolver = new LegResolver(classifierCache, root, failures, observations);
 
 		for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache, failures)) {
-			observations.addSeed(seed.key());
+			observations.addSeed(seed::key);
 			List<LegResult> sourceLegs = List.of();
 			List<LegResult> destinationLegs = List.of();
 			if (seed instanceof TraversalSeed.Across across) {
@@ -311,17 +311,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			} else if (seed instanceof TraversalSeed.Trigger trigger) {
 				sourceLegs = legResolver.resolve(trigger.feature(), LegRole.SOURCE_LEG);
 			}
-			sourceLegs.forEach(leg -> observations.addLeg(leg.key()));
-			destinationLegs.forEach(leg -> observations.addLeg(leg.key()));
+			sourceLegs.forEach(leg -> observations.addLeg(leg::key));
+			destinationLegs.forEach(leg -> observations.addLeg(leg::key));
 
 			for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs, observations)) {
-				observations.addPath((path.complete() ? "complete|" : "incomplete|") + path.key().render());
+				observations.addPath(() -> (path.complete() ? "complete|" : "incomplete|") + path.key().render());
 				if (path.deadEnd()) {
 					reportDeadEnd(path);
 					continue;
 				}
 				for (LeafExpansion.Endpoints endpoints : LeafExpansion.expand(path)) {
-					observations.addExpanded(endpoints.key());
+					observations.addExpanded(endpoints::key);
 					attachAcrossFirst(systemInstance, path, endpoints);
 				}
 			}

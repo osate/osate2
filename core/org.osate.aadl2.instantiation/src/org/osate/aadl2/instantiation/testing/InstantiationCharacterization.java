@@ -102,9 +102,27 @@ public final class InstantiationCharacterization {
 	 */
 	public static CharacterizationRun run(ComponentImplementation implementation, String strategyName,
 			boolean observeDuplicateCandidates) throws Exception {
+		return run(implementation, strategyName, observeDuplicateCandidates, true);
+	}
+
+	/**
+	 * Instantiate {@code implementation} with the given strategy, optionally recording nothing
+	 * but the phase timings.
+	 *
+	 * <p>
+	 * A benchmark wants the second: keys and counters are work production does not do, so a run
+	 * that records them measures the instrumentation as well as the traversal. Everything else
+	 * about the run is the same, and the returned instance model is the same.
+	 * </p>
+	 *
+	 * @param recordObservations whether to record seeds, legs, paths, endpoint pairs, and
+	 *            counters, or only to time the connection phase and the traversal
+	 */
+	public static CharacterizationRun run(ComponentImplementation implementation, String strategyName,
+			boolean observeDuplicateCandidates, boolean recordObservations) throws Exception {
 		ConnectionTraversalStrategy strategy = parse(strategyName);
 		TraversalObservations observations = observeDuplicateCandidates ? TraversalObservations.recordingWithCandidates()
-				: TraversalObservations.recording();
+				: recordObservations ? TraversalObservations.recording() : TraversalObservations.timingOnly();
 
 		ResourceSet resourceSet = implementation.eResource().getResourceSet();
 		URI instanceURI = InstantiateModel.getInstanceModelURI(implementation);
