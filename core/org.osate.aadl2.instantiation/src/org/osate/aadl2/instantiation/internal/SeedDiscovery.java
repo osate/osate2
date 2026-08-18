@@ -59,18 +59,32 @@ public final class SeedDiscovery {
 	}
 
 	/**
-	 * Every seed in the tree under {@code root}, in deterministic key order.
+	 * Every seed in the tree under {@code root}, in deterministic key order, discarding
+	 * whatever a failed endpoint resolution reports.
 	 *
 	 * @param root the instantiation root
 	 * @param classifierCache resolved classifiers for prototypes, may be null
 	 */
 	public static List<TraversalSeed> discover(ComponentInstance root,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		return discover(root, classifierCache, new ResolutionFailures());
+	}
+
+	/**
+	 * Every seed in the tree under {@code root}, in deterministic key order.
+	 *
+	 * @param root the instantiation root
+	 * @param classifierCache resolved classifiers for prototypes, may be null
+	 * @param failures collects the endpoint resolutions that should have succeeded, so
+	 *            that the caller can report them
+	 */
+	public static List<TraversalSeed> discover(ComponentInstance root,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ResolutionFailures failures) {
 		List<TraversalSeed> seeds = new ArrayList<>();
 		if (root instanceof SystemInstance system) {
 			boundarySeeds(system, seeds);
 		}
-		acrossSeeds(root, classifierCache, seeds);
+		acrossSeeds(root, classifierCache, failures, seeds);
 		triggerSeeds(root, classifierCache, seeds);
 		seeds.sort(Comparator.comparing(TraversalSeed::key));
 		return List.copyOf(seeds);
@@ -107,17 +121,20 @@ public final class SeedDiscovery {
 	}
 
 	private static void acrossSeeds(ComponentInstance container,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, List<TraversalSeed> seeds) {
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ResolutionFailures failures,
+			List<TraversalSeed> seeds) {
 		ComponentImplementation implementation = InstanceUtil.getComponentImplementation(container, 0, classifierCache);
 		if (implementation != null && isFirstArrayElement(container)) {
 			for (Connection declaration : implementation.getAllConnections()) {
 				if (declaration.isAcross()) {
-					addOrientations(container, declaration, seeds);
+					addOrientations(container, declaration, failures, seeds);
+				} else {
+					checkComponentEnds(container, declaration, failures);
 				}
 			}
 		}
 		for (ComponentInstance child : container.getComponentInstances()) {
-			acrossSeeds(child, classifierCache, seeds);
+			acrossSeeds(child, classifierCache, failures, seeds);
 		}
 	}
 
@@ -153,13 +170,55 @@ public final class SeedDiscovery {
 	 * orientation, so both must be enumerated.
 	 */
 	private static void addOrientations(ComponentInstance container, Connection declaration,
-			List<TraversalSeed> seeds) {
-		segment(container, declaration, false).asOptional()
-				.ifPresent(segment -> seeds.add(new TraversalSeed.Across(segment)));
+			ResolutionFailures failures, List<TraversalSeed> seeds) {
+		addOrientation(container, declaration, false, failures, seeds);
 		if (declaration.isAllBidirectional()) {
-			segment(container, declaration, true).asOptional()
-					.ifPresent(segment -> seeds.add(new TraversalSeed.Across(segment)));
+			addOrientation(container, declaration, true, failures, seeds);
 		}
+	}
+
+	private static void addOrientation(ComponentInstance container, Connection declaration, boolean reverse,
+			ResolutionFailures failures, List<TraversalSeed> seeds) {
+		Resolution<ResolvedSegment> resolution = segment(container, declaration, reverse);
+		failures.add(resolution);
+		resolution.asOptional().ifPresent(segment -> seeds.add(new TraversalSeed.Across(segment)));
+	}
+
+	/**
+	 * Report a declaration that names a subcomponent at both ends.
+	 *
+	 * <p>
+	 * Such a declaration connects a component to a component, which no connection instance
+	 * can express: an access connection reaches a shared component from a feature, never
+	 * from another component. AS5506B disallows it, and source-first reports it from
+	 * {@code addConnectionInstance()} when a path arrives with components at both ends.
+	 * </p>
+	 *
+	 * <p>
+	 * Across-first never enumerates the declaration at all, because
+	 * {@code Connection.isAcross()} is false when neither end has a context, so nothing
+	 * seeds it and no leg continues through it. The check therefore stands on its own,
+	 * where every declaration is examined once, and it is a declarative test: only the two
+	 * ends need resolving, and only to name them in the report.
+	 * </p>
+	 */
+	private static void checkComponentEnds(ComponentInstance container, Connection declaration,
+			ResolutionFailures failures) {
+		Connection root = declaration.getRootConnection();
+		if (root.getAllSourceContext() != null || root.getAllDestinationContext() != null
+				|| !(root.getAllSource() instanceof Subcomponent source)
+				|| !(root.getAllDestination() instanceof Subcomponent destination)) {
+			return;
+		}
+		ComponentInstance sourceInstance = container.findSubcomponentInstance(source);
+		ComponentInstance destinationInstance = container.findSubcomponentInstance(destination);
+		if (sourceInstance == null || destinationInstance == null) {
+			// A subcomponent the instance model does not have is reported where it is resolved.
+			return;
+		}
+		failures.add(Resolution.failed(container.getSystemInstance(),
+				"Connection source and destination are components: " + sourceInstance.getInstanceObjectPath() + " => "
+						+ destinationInstance.getInstanceObjectPath()));
 	}
 
 	/**

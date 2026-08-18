@@ -74,15 +74,31 @@ public final class LegResolver {
 
 	private final HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 	private final ComponentInstance root;
+	private final ResolutionFailures failures;
 
 	/**
+	 * A resolver that discards whatever a failed endpoint resolution reports.
+	 *
 	 * @param classifierCache resolved classifiers for prototypes, may be null
 	 * @param root the instantiation root, which is always descended into whatever its
 	 *            category
 	 */
 	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root) {
+		this(classifierCache, root, new ResolutionFailures());
+	}
+
+	/**
+	 * @param classifierCache resolved classifiers for prototypes, may be null
+	 * @param root the instantiation root, which is always descended into whatever its
+	 *            category
+	 * @param failures collects the endpoint resolutions that should have succeeded, so
+	 *            that the caller can report them
+	 */
+	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root,
+			ResolutionFailures failures) {
 		this.classifierCache = classifierCache;
 		this.root = root;
+		this.failures = failures;
 	}
 
 	/**
@@ -295,6 +311,7 @@ public final class LegResolver {
 				 */
 				boolean reverse = role.arrivesAtDeclaredDestination() != declaredOrientation;
 				Resolution<ResolvedSegment> resolution = SeedDiscovery.segment(owner, declaration, reverse);
+				failures.add(resolution);
 				if (!(resolution instanceof Resolution.Resolved<ResolvedSegment> resolved)) {
 					continue;
 				}

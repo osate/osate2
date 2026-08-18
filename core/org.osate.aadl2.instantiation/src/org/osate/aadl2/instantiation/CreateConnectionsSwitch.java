@@ -101,6 +101,8 @@ import org.osate.aadl2.instantiation.internal.LegResult;
 import org.osate.aadl2.instantiation.internal.LegRole;
 import org.osate.aadl2.instantiation.internal.PathAssembler;
 import org.osate.aadl2.instantiation.internal.PathMaterializer;
+import org.osate.aadl2.instantiation.internal.Resolution;
+import org.osate.aadl2.instantiation.internal.ResolutionFailures;
 import org.osate.aadl2.instantiation.internal.SeedDiscovery;
 import org.osate.aadl2.instantiation.internal.SemanticConnectionPath;
 import org.osate.aadl2.instantiation.internal.TraversalSeed;
@@ -290,9 +292,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	private void instantiateAcrossFirst(final ComponentInstance root) {
 		final SystemInstance systemInstance = root.getSystemInstance();
-		final LegResolver legResolver = new LegResolver(classifierCache, root);
+		final ResolutionFailures failures = new ResolutionFailures();
+		final LegResolver legResolver = new LegResolver(classifierCache, root, failures);
 
-		for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache)) {
+		for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache, failures)) {
 			observations.addSeed(seed.key());
 			List<LegResult> sourceLegs = List.of();
 			List<LegResult> destinationLegs = List.of();
@@ -325,6 +328,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			if (monitor.isCanceled()) {
 				return;
 			}
+		}
+
+		/*
+		 * An endpoint a declaration names and the instance model does not have is a model or
+		 * implementation error, and it is the reason the connection it belonged to is absent.
+		 * Enumeration itself reports nothing, so that a path can be explored and discarded
+		 * without leaving anything behind; the failures it gathered are reported here, once
+		 * each, after every seed has been examined.
+		 */
+		for (Resolution.Failed<?> failure : failures.collected()) {
+			error(failure.target(), failure.message());
 		}
 	}
 
