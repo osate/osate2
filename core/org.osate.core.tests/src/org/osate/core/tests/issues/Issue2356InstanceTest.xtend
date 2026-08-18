@@ -37,6 +37,7 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
+import static extension org.osate.core.tests.instantiation.InstanceLookup.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -74,14 +75,13 @@ class Issue2356InstanceTest {
 			assertEquals("More than one connection instance ends at data port", message)
 		]
 		
-		messages.findFirst[where == instance.connectionInstances.get(0)] => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
-			assertEquals("More than one connection instance ends at data port S_no_modes_bad_Instance.b.bin", message)
-		]
-		
-		messages.findFirst[where == instance.connectionInstances.get(1)] => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
-			assertEquals("More than one connection instance ends at data port S_no_modes_bad_Instance.b.bin", message)
+		// Both connection instances are reported, whichever order they were created in
+		assertEquals(2, instance.connectionInstances.size)
+		instance.connectionInstances.forEach [ conni |
+			messages.findFirst[where == conni] => [
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals("More than one connection instance ends at data port S_no_modes_bad_Instance.b.bin", message)
+			]
 		]
 	}		
 	
@@ -104,14 +104,13 @@ class Issue2356InstanceTest {
 			assertEquals("More than one connection instance ends at data port in system operation mode som_2", message)
 		]
 		
-		messages.findFirst[where == instance.connectionInstances.get(0)] => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
-			assertEquals("More than one connection instance ends at data port SS_simple_modes_bad_Instance.b.bin in system operation mode som_2", message)
-		]
-		
-		messages.findFirst[where == instance.connectionInstances.get(1)] => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
-			assertEquals("More than one connection instance ends at data port SS_simple_modes_bad_Instance.b.bin in system operation mode som_2", message)
+		// Both connection instances are reported, whichever order they were created in
+		assertEquals(2, instance.connectionInstances.size)
+		instance.connectionInstances.forEach [ conni |
+			messages.findFirst[where == conni] => [
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals("More than one connection instance ends at data port SS_simple_modes_bad_Instance.b.bin in system operation mode som_2", message)
+			]
 		]
 	}		
 
@@ -135,14 +134,13 @@ class Issue2356InstanceTest {
 			assertEquals("More than one connection instance ends at data port in system operation mode som_2", message)
 		]
 		
-		messages.findFirst[where == instance.connectionInstances.get(0)] => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
-			assertEquals("More than one connection instance ends at data port S_i_Instance.b.bin in system operation mode som_2", message)
-		]
-		
-		messages.findFirst[where == instance.connectionInstances.get(1)] => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
-			assertEquals("More than one connection instance ends at data port S_i_Instance.b.bin in system operation mode som_2", message)
+		// Both connection instances are reported, whichever order they were created in
+		assertEquals(2, instance.connectionInstances.size)
+		instance.connectionInstances.forEach [ conni |
+			messages.findFirst[where == conni] => [
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals("More than one connection instance ends at data port S_i_Instance.b.bin in system operation mode som_2", message)
+			]
 		]
 	}	
 	
@@ -164,12 +162,12 @@ class Issue2356InstanceTest {
 			assertEquals("More than one connection instance ends at data port", message)
 		]
 		
-		messages.findFirst[where == instance.connectionInstances.get(0)] => [
+		messages.findFirst[where == instance.onlyConnection] => [
 			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
 			assertEquals("More than one connection instance ends at data port S_i_Instance.m.b.bin", message)
 		]
 		
-		messages.findFirst[where == instance.componentInstances.get(1).connectionInstances.get(0)] => [
+		messages.findFirst[where == instance.componentInstances.get(1).onlyConnection] => [
 			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
 			assertEquals("More than one connection instance ends at data port S_i_Instance.m.b.bin", message)
 		]

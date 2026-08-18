@@ -34,6 +34,7 @@ import org.osate.testsupport.TestHelper
 
 import org.osate.aadl2.instantiation.InstantiateModel
 import static extension org.junit.Assert.*
+import static extension org.osate.core.tests.instantiation.InstanceLookup.*
 import com.itemis.xtext.testing.XtextTest
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instance.SystemOperationMode
@@ -60,22 +61,22 @@ class Issue2005Test extends XtextTest {
 		assertEquals(12, soms.size)
 		
 		// SHould be 12 end to end flows
-		assertEquals(12, instance.endToEndFlows.size)
-		testETEF(soms, instance.endToEndFlows.get(0), #[3, 7])
-		testETEF(soms, instance.endToEndFlows.get(1), #[3])
-		testETEF(soms, instance.endToEndFlows.get(2), #[7])
+		assertEquals(#["etef1a", "etef1b", "etef1c", "etef2a", "etef2b", "etef2c", "etef3a", "etef3b", "etef3c", "etef4a", "etef4b", "etef4c"], instance.flowNames)
+		testETEF(soms, instance.flow("etef1a"), #[3, 7])
+		testETEF(soms, instance.flow("etef1b"), #[3])
+		testETEF(soms, instance.flow("etef1c"), #[7])
 
-		testETEF(soms, instance.endToEndFlows.get(3), #[8, 8])
-		testETEF(soms, instance.endToEndFlows.get(4), #[4])
-		testETEF(soms, instance.endToEndFlows.get(5), #[8])
+		testETEF(soms, instance.flow("etef2a"), #[8, 8])
+		testETEF(soms, instance.flow("etef2b"), #[4])
+		testETEF(soms, instance.flow("etef2c"), #[8])
 
-		testETEF(soms, instance.endToEndFlows.get(6), #[5, 9])
-		testETEF(soms, instance.endToEndFlows.get(7), #[5])
-		testETEF(soms, instance.endToEndFlows.get(8), #[9])
+		testETEF(soms, instance.flow("etef3a"), #[5, 9])
+		testETEF(soms, instance.flow("etef3b"), #[5])
+		testETEF(soms, instance.flow("etef3c"), #[9])
 
-		testETEF(soms, instance.endToEndFlows.get(9), #[6, 10])
-		testETEF(soms, instance.endToEndFlows.get(10), #[6])
-		testETEF(soms, instance.endToEndFlows.get(11), #[10])
+		testETEF(soms, instance.flow("etef4a"), #[6, 10])
+		testETEF(soms, instance.flow("etef4b"), #[6])
+		testETEF(soms, instance.flow("etef4c"), #[10])
 	}
 
 	def private static void testETEF(List<SystemOperationMode> soms, EndToEndFlowInstance etef, List<Integer> somIdxs) {
@@ -99,7 +100,7 @@ class Issue2005Test extends XtextTest {
 		
 		// Check the modes of the 1 end to end flow
 		assertEquals(1, instance.endToEndFlows.size)
-		val etef10 = instance.endToEndFlows.get(0)
+		val etef10 = instance.onlyFlow
 		
 		// Should be { som4, som8, som12, som16 }
 		val inSOMs = etef10.inSystemOperationModes

@@ -35,6 +35,7 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
+import static extension org.osate.core.tests.instantiation.InstanceLookup.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -74,7 +75,7 @@ class Issue2032Test {
 		assertEquals("ca", portConn.connectionReferences.get(0).connection.name)
 
 		// Each access connection instance should have 3 connection references
-		val accessConns = myP.connectionInstances.filter[it !== portConn].toList
+		val accessConns = myP.connectionsInStableOrder.filter[it !== portConn].toList
 		val connRefs1 = accessConns.get(0).connectionReferences
 		val connRefs2 = accessConns.get(1).connectionReferences
 		assertEquals(3, connRefs1.size)
@@ -357,17 +358,8 @@ class Issue2032Test {
 		val myP = instance.componentInstances.get(0)
 		assertEquals(3, myP.connectionInstances.size)
 		
-		val ci1 = myP.connectionInstances.get(0)
-		val ci2 = myP.connectionInstances.get(1)
-		val ci3 = myP.connectionInstances.get(2)
-		
 		// Each connection instance should have 1 connection reference
-		val connRefs1 = ci1.connectionReferences
-		val connRefs2 = ci2.connectionReferences
-		val connRefs3 = ci3.connectionReferences
-		assertEquals(1, connRefs1.size)
-		assertEquals(1, connRefs2.size)
-		assertEquals(1, connRefs3.size)
+		assertTrue(myP.connectionInstances.forall[connectionReferences.size == 1])
 		
 		
 		// None of the threads or subprograms should have connection instances
@@ -397,34 +389,30 @@ class Issue2032Test {
 		val myP = instance.componentInstances.get(0)
 		assertEquals(3, myP.connectionInstances.size)
 		
-		val ci1 = myP.connectionInstances.get(0)
-		val ci2 = myP.connectionInstances.get(1)
-		val ci3 = myP.connectionInstances.get(2)
-
-		// The first connection should just 'cc'
-		val connRefs1 = ci1.connectionReferences
-		assertEquals(1, connRefs1.size)
-		assertEquals("cc", connRefs1.get(0).connection.name)
+		// One connection is the declaration 'cc' on its own
+		val single = myP.connectionInstances.filter[connectionReferences.size == 1].toList
+		assertEquals(1, single.size)
+		assertEquals("cc", single.get(0).connectionReferences.get(0).connection.name)
 		
-		// The second and third connections should be inverses.
-		val connRefs2 = ci2.connectionReferences
-		val connRefs3 = ci3.connectionReferences
-		assertEquals(2, connRefs2.size)
-		assertEquals(2, connRefs3.size)
+		// The other two are inverses of each other, whichever order they were created in
+		val pair = myP.connectionsInStableOrder.filter[connectionReferences.size == 2].toList
+		assertEquals(2, pair.size)
+		val connRefs2 = pair.get(0).connectionReferences
+		val connRefs3 = pair.get(1).connectionReferences
 		assertEquals(connRefs2.get(0).connection, connRefs3.get(1).connection)
-		assertEquals(connRefs3.get(1).connection, connRefs2.get(0).connection)
+		assertEquals(connRefs3.get(0).connection, connRefs2.get(1).connection)
 		
 		/* Thread t1 should have one connection */
 		val t1 = myP.componentInstances.get(0)
 		assertEquals(1, t1.connectionInstances.size)
-		val qqRefs = t1.connectionInstances.get(0).connectionReferences
+		val qqRefs = t1.onlyConnection.connectionReferences
 		assertEquals(1, qqRefs.size)
 		assertEquals("qq", qqRefs.get(0).connection.name)
 		
 		/* Thread t2 should have one connection */
 		val t2 = myP.componentInstances.get(1)
 		assertEquals(1, t2.connectionInstances.size)
-		val aaRefs = t2.connectionInstances.get(0).connectionReferences
+		val aaRefs = t2.onlyConnection.connectionReferences
 		assertEquals(1, aaRefs.size)
 		assertEquals("aa", aaRefs.get(0).connection.name)
 	}
@@ -445,21 +433,16 @@ class Issue2032Test {
 		val myP = instance.componentInstances.get(0)
 		assertEquals(3, myP.connectionInstances.size)
 		
-		val ci1 = myP.connectionInstances.get(0)
-		val ci2 = myP.connectionInstances.get(1)
-		val ci3 = myP.connectionInstances.get(2)
-
-		// The first two should have 1 connection and be the same
-		val connRefs1 = ci1.connectionReferences
-		assertEquals(1, connRefs1.size)
+		// One connection has a single reference
+		assertEquals(1, myP.connectionInstances.filter[connectionReferences.size == 1].size)
 		
-		// The third and fourth connections should be inverses.
-		val connRefs2 = ci2.connectionReferences
-		val connRefs3 = ci3.connectionReferences
-		assertEquals(2, connRefs2.size)
-		assertEquals(2, connRefs3.size)
+		// The other two are inverses of each other, whichever order they were created in
+		val pair = myP.connectionsInStableOrder.filter[connectionReferences.size == 2].toList
+		assertEquals(2, pair.size)
+		val connRefs2 = pair.get(0).connectionReferences
+		val connRefs3 = pair.get(1).connectionReferences
 		assertEquals(connRefs2.get(0).connection, connRefs3.get(1).connection)
-		assertEquals(connRefs3.get(1).connection, connRefs2.get(0).connection)
+		assertEquals(connRefs3.get(0).connection, connRefs2.get(1).connection)
 	}
 		
 	private def void test1(String aadlFile) {
@@ -477,8 +460,10 @@ class Issue2032Test {
 		val myP = instance.componentInstances.get(0)
 		assertEquals(2, myP.connectionInstances.size)
 		
-		val ci1 = myP.connectionInstances.get(0)
-		val ci2 = myP.connectionInstances.get(1)
+		// The two of them, in an order derived from the model rather than from creation
+		val pair = myP.connectionsInStableOrder
+		val ci1 = pair.get(0)
+		val ci2 = pair.get(1)
 
 		// Each connection instance should have 1 connection reference
 		val connRefs1 = ci1.connectionReferences
@@ -505,8 +490,10 @@ class Issue2032Test {
 		val myP = instance.componentInstances.get(0)
 		assertEquals(2, myP.connectionInstances.size)
 		
-		val ci1 = myP.connectionInstances.get(0)
-		val ci2 = myP.connectionInstances.get(1)
+		// The two of them, in an order derived from the model rather than from creation
+		val pair = myP.connectionsInStableOrder
+		val ci1 = pair.get(0)
+		val ci2 = pair.get(1)
 
 		// Each connection instance should have 2 connection references
 		val connRefs1 = ci1.connectionReferences
@@ -534,8 +521,10 @@ class Issue2032Test {
 		val myP = instance.componentInstances.get(0)
 		assertEquals(2, myP.connectionInstances.size)
 		
-		val ci1 = myP.connectionInstances.get(0)
-		val ci2 = myP.connectionInstances.get(1)
+		// The two of them, in an order derived from the model rather than from creation
+		val pair = myP.connectionsInStableOrder
+		val ci1 = pair.get(0)
+		val ci2 = pair.get(1)
 
 		// Each connection instance should have 3 connection references
 		val connRefs1 = ci1.connectionReferences

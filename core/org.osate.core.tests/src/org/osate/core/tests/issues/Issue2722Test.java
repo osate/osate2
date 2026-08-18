@@ -38,6 +38,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.core.tests.instantiation.InstanceLookup;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -68,8 +69,7 @@ public class Issue2722Test extends XtextTest {
 		SystemInstance instance = InstantiateModel.instantiate((ComponentImplementation) impl.get());
 		Assert.assertEquals("S_i_Instance", instance.getName());
 
-		ConnectionInstance conni = instance.getConnectionInstances().get(0);
-		Assert.assertEquals("l.ll.o -> r.rr.i", conni.getName());
+		ConnectionInstance conni = InstanceLookup.connection(instance, "l.ll.o -> r.rr.i");
 		EList<SystemOperationMode> soms = conni.getInSystemOperationModes();
 		Assert.assertEquals(1,  soms.size());
 		Assert.assertEquals(soms.get(0), instance.getSystemOperationModes().get(0));
@@ -87,8 +87,7 @@ public class Issue2722Test extends XtextTest {
 		SystemInstance instance = InstantiateModel.instantiate((ComponentImplementation) impl.get());
 		Assert.assertEquals("S_i_Instance", instance.getName());
 
-		ConnectionInstance conni = instance.getConnectionInstances().get(0);
-		Assert.assertEquals("l.ll.o -> r.rr.i", conni.getName());
+		ConnectionInstance conni = InstanceLookup.connection(instance, "l.ll.o -> r.rr.i");
 		EList<SystemOperationMode> soms = conni.getInSystemOperationModes();
 		Assert.assertEquals(1, soms.size());
 		Assert.assertEquals(soms.get(0), instance.getSystemOperationModes().get(1));
@@ -106,20 +105,17 @@ public class Issue2722Test extends XtextTest {
 		SystemInstance instance = InstantiateModel.instantiate((ComponentImplementation) impl.get());
 		Assert.assertEquals("C_with_modes_Instance", instance.getName());
 
-		ConnectionInstance conni = instance.getConnectionInstances().get(0);
-		Assert.assertEquals("f_in -> snk1.f_in", conni.getName());
+		ConnectionInstance conni = InstanceLookup.connection(instance, "f_in -> snk1.f_in");
 		EList<SystemOperationMode> soms = conni.getInSystemOperationModes();
 		Assert.assertEquals(1, soms.size());
 		Assert.assertEquals(soms.get(0), instance.getSystemOperationModes().get(1));
 
-		conni = instance.getConnectionInstances().get(1);
-		Assert.assertEquals("src1.f_out -> f_out", conni.getName());
+		conni = InstanceLookup.connection(instance, "src1.f_out -> f_out");
 		soms = conni.getInSystemOperationModes();
 		Assert.assertEquals(1, soms.size());
 		Assert.assertEquals(soms.get(0), instance.getSystemOperationModes().get(0));
 
-		conni = instance.getConnectionInstances().get(2);
-		Assert.assertEquals("src2.f_out -> snk2.f_in", conni.getName());
+		conni = InstanceLookup.connection(instance, "src2.f_out -> snk2.f_in");
 		soms = conni.getInSystemOperationModes();
 		Assert.assertEquals(1, soms.size());
 		Assert.assertEquals(soms.get(0), instance.getSystemOperationModes().get(0));
@@ -137,8 +133,7 @@ public class Issue2722Test extends XtextTest {
 		SystemInstance instance = InstantiateModel.instantiate((ComponentImplementation) impl.get());
 		Assert.assertEquals("C_modal_wrappers_Instance", instance.getName());
 
-		ConnectionInstance conni = instance.getConnectionInstances().get(0);
-		Assert.assertEquals("f_in -> snk1.y.f_in", conni.getName());
+		ConnectionInstance conni = InstanceLookup.connection(instance, "f_in -> snk1.y.f_in");
 		EList<SystemOperationMode> soms = conni.getInSystemOperationModes();
 		Assert.assertEquals(8, soms.size());
 		Assert.assertEquals(soms.get(0), instance.getSystemOperationModes().get(4));
@@ -150,8 +145,7 @@ public class Issue2722Test extends XtextTest {
 		Assert.assertEquals(soms.get(6), instance.getSystemOperationModes().get(14));
 		Assert.assertEquals(soms.get(7), instance.getSystemOperationModes().get(15));
 
-		conni = instance.getConnectionInstances().get(1);
-		Assert.assertEquals("src1.x.f_out -> f_out", conni.getName());
+		conni = InstanceLookup.connection(instance, "src1.x.f_out -> f_out");
 		soms = conni.getInSystemOperationModes();
 		Assert.assertEquals(8, soms.size());
 		Assert.assertEquals(soms.get(0), instance.getSystemOperationModes().get(0));
@@ -163,8 +157,7 @@ public class Issue2722Test extends XtextTest {
 		Assert.assertEquals(soms.get(6), instance.getSystemOperationModes().get(6));
 		Assert.assertEquals(soms.get(7), instance.getSystemOperationModes().get(7));
 
-		conni = instance.getConnectionInstances().get(2);
-		Assert.assertEquals("src2.x.f_out -> snk2.y.f_in", conni.getName());
+		conni = InstanceLookup.connection(instance, "src2.x.f_out -> snk2.y.f_in");
 		soms = conni.getInSystemOperationModes();
 		Assert.assertEquals(4, soms.size());
 		Assert.assertEquals(soms.get(0), instance.getSystemOperationModes().get(1));

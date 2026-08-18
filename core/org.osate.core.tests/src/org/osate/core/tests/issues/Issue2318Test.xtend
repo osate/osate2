@@ -43,6 +43,7 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
+import static extension org.osate.core.tests.instantiation.InstanceLookup.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -106,7 +107,7 @@ class Issue2318Test {
 		val instance = InstantiateModel.instantiate(toplevel, errorManager)
 
 		assertEquals(1, instance.connectionInstances.size())
-		val ci = instance.connectionInstances.get(0)
+		val ci = instance.onlyConnection
 		assertEquals(false, ci.bidirectional)
 		assertEquals(2, ci.connectionReferences.size())
 		val cr0 = ci.connectionReferences.get(0)
@@ -135,7 +136,7 @@ class Issue2318Test {
 
 		assertEquals(2, instance.connectionInstances.size())
 		{
-			val ci0 = instance.connectionInstances.get(0)
+			val ci0 = instance.connectionWithReferenceCount(1)
 			assertEquals(1, ci0.connectionReferences.size())
 			val cr0 = ci0.connectionReferences.get(0)
 			assertEquals(conn, cr0.connection)
@@ -143,7 +144,7 @@ class Issue2318Test {
 		}		
 		
 		{
-			val ci1 = instance.connectionInstances.get(1)
+			val ci1 = instance.connectionWithReferenceCount(2)
 			assertEquals(false, ci1.bidirectional)
 			assertEquals(2, ci1.connectionReferences.size())
 			val cr0 = ci1.connectionReferences.get(0)
@@ -173,7 +174,7 @@ class Issue2318Test {
 
 		assertEquals(2, instance.connectionInstances.size())
 		{
-			val ci0 = instance.connectionInstances.get(0)
+			val ci0 = instance.connectionWithReferenceCount(1)
 			assertEquals(1, ci0.connectionReferences.size())
 			val cr0 = ci0.connectionReferences.get(0)
 			assertEquals(conn, cr0.connection)
@@ -181,7 +182,7 @@ class Issue2318Test {
 		}		
 		
 		{
-			val ci1 = instance.connectionInstances.get(1)
+			val ci1 = instance.connectionWithReferenceCount(2)
 			assertEquals(false, ci1.bidirectional)
 			assertEquals(2, ci1.connectionReferences.size())
 			val cr0 = ci1.connectionReferences.get(0)
@@ -210,7 +211,7 @@ class Issue2318Test {
 		val instance = InstantiateModel.instantiate(toplevel, errorManager)
 
 		assertEquals(1, instance.connectionInstances.size())
-		val ci = instance.connectionInstances.get(0)
+		val ci = instance.onlyConnection
 		assertEquals(false, ci.bidirectional)
 		assertEquals(2, ci.connectionReferences.size())
 		val cr0 = ci.connectionReferences.get(0)
@@ -239,7 +240,7 @@ class Issue2318Test {
 
 		assertEquals(2, instance.connectionInstances.size())
 		{
-			val ci0 = instance.connectionInstances.get(0)
+			val ci0 = instance.connectionWithReferenceCount(1)
 			assertEquals(1, ci0.connectionReferences.size())
 			val cr0 = ci0.connectionReferences.get(0)
 			assertEquals(conn, cr0.connection)
@@ -247,7 +248,7 @@ class Issue2318Test {
 		}		
 		
 		{
-			val ci1 = instance.connectionInstances.get(1)
+			val ci1 = instance.connectionWithReferenceCount(2)
 			assertEquals(false, ci1.bidirectional)
 			assertEquals(2, ci1.connectionReferences.size())
 			val cr0 = ci1.connectionReferences.get(0)
@@ -277,7 +278,7 @@ class Issue2318Test {
 
 		assertEquals(2, instance.connectionInstances.size())
 		{
-			val ci0 = instance.connectionInstances.get(0)
+			val ci0 = instance.connectionWithReferenceCount(1)
 			assertEquals(1, ci0.connectionReferences.size())
 			val cr0 = ci0.connectionReferences.get(0)
 			assertEquals(conn, cr0.connection)
@@ -285,7 +286,7 @@ class Issue2318Test {
 		}		
 		
 		{
-			val ci1 = instance.connectionInstances.get(1)
+			val ci1 = instance.connectionWithReferenceCount(2)
 			assertEquals(false, ci1.bidirectional)
 			assertEquals(2, ci1.connectionReferences.size())
 			val cr0 = ci1.connectionReferences.get(0)
@@ -315,7 +316,7 @@ class Issue2318Test {
 		val instance = InstantiateModel.instantiate(toplevel, errorManager)
 
 		assertEquals(1, instance.connectionInstances.size())
-		val ci = instance.connectionInstances.get(0)
+		val ci = instance.onlyConnection
 		assertEquals(false, ci.bidirectional)
 		assertEquals(2, ci.connectionReferences.size())
 		val cr0 = ci.connectionReferences.get(0)
@@ -344,7 +345,7 @@ class Issue2318Test {
 
 		assertEquals(2, instance.connectionInstances.size())
 		{
-			val ci0 = instance.connectionInstances.get(0)
+			val ci0 = instance.connectionWithReferenceCount(1)
 			assertEquals(1, ci0.connectionReferences.size())
 			val cr0 = ci0.connectionReferences.get(0)
 			assertEquals(conn, cr0.connection)
@@ -352,7 +353,7 @@ class Issue2318Test {
 		}		
 		
 		{
-			val ci1 = instance.connectionInstances.get(1)
+			val ci1 = instance.connectionWithReferenceCount(2)
 			assertEquals(false, ci1.bidirectional)
 			assertEquals(2, ci1.connectionReferences.size())
 			val cr0 = ci1.connectionReferences.get(0)
@@ -382,7 +383,7 @@ class Issue2318Test {
 
 		assertEquals(2, instance.connectionInstances.size())
 		{
-			val ci0 = instance.connectionInstances.get(0)
+			val ci0 = instance.connectionWithReferenceCount(1)
 			assertEquals(1, ci0.connectionReferences.size())
 			val cr0 = ci0.connectionReferences.get(0)
 			assertEquals(conn, cr0.connection)
@@ -390,7 +391,7 @@ class Issue2318Test {
 		}		
 		
 		{
-			val ci1 = instance.connectionInstances.get(1)
+			val ci1 = instance.connectionWithReferenceCount(2)
 			assertEquals(false, ci1.bidirectional)
 			assertEquals(2, ci1.connectionReferences.size())
 			val cr0 = ci1.connectionReferences.get(0)
@@ -419,7 +420,7 @@ class Issue2318Test {
 		val instance = InstantiateModel.instantiate(toplevel, errorManager)
 
 		assertEquals(1, instance.connectionInstances.size())
-		val ci = instance.connectionInstances.get(0)
+		val ci = instance.onlyConnection
 		assertEquals(false, ci.bidirectional)
 		assertEquals(2, ci.connectionReferences.size())
 		val cr0 = ci.connectionReferences.get(0)
@@ -448,7 +449,7 @@ class Issue2318Test {
 
 		assertEquals(2, instance.connectionInstances.size())
 		{
-			val ci0 = instance.connectionInstances.get(0)
+			val ci0 = instance.connectionWithReferenceCount(1)
 			assertEquals(1, ci0.connectionReferences.size())
 			val cr0 = ci0.connectionReferences.get(0)
 			assertEquals(conn, cr0.connection)
@@ -456,7 +457,7 @@ class Issue2318Test {
 		}		
 		
 		{
-			val ci1 = instance.connectionInstances.get(1)
+			val ci1 = instance.connectionWithReferenceCount(2)
 			assertEquals(false, ci1.bidirectional)
 			assertEquals(2, ci1.connectionReferences.size())
 			val cr0 = ci1.connectionReferences.get(0)
@@ -486,7 +487,7 @@ class Issue2318Test {
 
 		assertEquals(2, instance.connectionInstances.size())
 		{
-			val ci0 = instance.connectionInstances.get(0)
+			val ci0 = instance.connectionWithReferenceCount(1)
 			assertEquals(1, ci0.connectionReferences.size())
 			val cr0 = ci0.connectionReferences.get(0)
 			assertEquals(conn, cr0.connection)
@@ -494,7 +495,7 @@ class Issue2318Test {
 		}		
 		
 		{
-			val ci1 = instance.connectionInstances.get(1)
+			val ci1 = instance.connectionWithReferenceCount(2)
 			assertEquals(false, ci1.bidirectional)
 			assertEquals(2, ci1.connectionReferences.size())
 			val cr0 = ci1.connectionReferences.get(0)
@@ -652,13 +653,13 @@ class Issue2318Test {
 		val instance = InstantiateModel.instantiate(toplevel, errorManager)
 
 		val original_ci = instance.componentInstances.get(0)
-		val e2e_original_ci = original_ci.endToEndFlows.get(0)
+		val e2e_original_ci = original_ci.onlyFlow
 		
 		val refined_ci = instance.componentInstances.get(1)
-		val e2e_refined_ci = refined_ci.endToEndFlows.get(0)
+		val e2e_refined_ci = refined_ci.onlyFlow
 		
 		val unrelated_ci = instance.componentInstances.get(2)
-		val e2e_unrelated_ci = unrelated_ci.endToEndFlows.get(0)
+		val e2e_unrelated_ci = unrelated_ci.onlyFlow
 
 		assertEquals(e2e_original_ci, original_ci.findEndToEndFlowInstance(e2e_original))
 		assertEquals(e2e_original_ci, original_ci.findEndToEndFlowInstance(e2e_refined))
@@ -704,14 +705,12 @@ class Issue2318Test {
 		val refined_ci = instance.componentInstances.get(1)
 		val unrelated_ci = instance.componentInstances.get(2)
 
-		val ci_original_ci = instance.connectionInstances.get(0)
-		val ci_refined_ci = instance.connectionInstances.get(1)
-		val ci_unrelated_ci = instance.connectionInstances.get(2)
-
-		// Check that the connection instances are built correctly
-		testConnectionReferences(ci_original_ci, conn2, conn_original, co)
-		testConnectionReferences(ci_refined_ci, conn2, conn_refined, cr)
-		testConnectionReferences(ci_unrelated_ci, conn2, conn_unrelated, cu)
+		// Check that the connection instances are built correctly. Each is found by the
+		// declarations it traverses, which is what told them apart before their position did.
+		assertEquals(3, instance.connectionInstances.size)
+		val ci_original_ci = instance.connectionThrough(conn2, conn_original, co)
+		val ci_refined_ci = instance.connectionThrough(conn2, conn_refined, cr)
+		val ci_unrelated_ci = instance.connectionThrough(conn2, conn_unrelated, cu)
 
 		checkFound(original_ci, conn_original, ci_original_ci);
 		checkFound(original_ci, conn_refined, ci_original_ci);
@@ -762,8 +761,10 @@ class Issue2318Test {
 
 
 		// Check that the connection instances are built correctly
-		testConnectionReferences(instance.connectionInstances.get(0), conn, conn2)
-		testConnectionReferences(instance.connectionInstances.get(1), conn2, conn)		
+		// Both orientations exist, whichever order they were created in
+		assertEquals(2, instance.connectionInstances.size)
+		assertEquals(#{#[conn, conn2], #[conn2, conn]},
+			instance.connectionInstances.map[connectionReferences.map[connection].toList].toSet)
 	}
 	
 	@Test
@@ -783,8 +784,10 @@ class Issue2318Test {
 
 
 		// Check that the connection instances are built correctly
-		testConnectionReferences(instance.connectionInstances.get(0), conn, conn2)
-		testConnectionReferences(instance.connectionInstances.get(1), conn2, conn)		
+		// Both orientations exist, whichever order they were created in
+		assertEquals(2, instance.connectionInstances.size)
+		assertEquals(#{#[conn, conn2], #[conn2, conn]},
+			instance.connectionInstances.map[connectionReferences.map[connection].toList].toSet)
 	}
 	
 	@Test
@@ -804,8 +807,10 @@ class Issue2318Test {
 
 
 		// Check that the connection instances are built correctly
-		testConnectionReferences(instance.connectionInstances.get(0), conn, conn2)
-		testConnectionReferences(instance.connectionInstances.get(1), conn2, conn)		
+		// Both orientations exist, whichever order they were created in
+		assertEquals(2, instance.connectionInstances.size)
+		assertEquals(#{#[conn, conn2], #[conn2, conn]},
+			instance.connectionInstances.map[connectionReferences.map[connection].toList].toSet)
 	}
 	
 }

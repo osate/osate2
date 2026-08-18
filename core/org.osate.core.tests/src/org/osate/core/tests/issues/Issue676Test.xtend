@@ -29,9 +29,7 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.Connection
 import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
@@ -93,14 +91,9 @@ class Issue676Test {
 		val connections = instance.connectionInstances
 		assertEquals(2, connections.size) 
 		
-		testConnectionInstance(connections.get(0), conn2)
-		testConnectionInstance(connections.get(1), conn1)
-	}
-	
-	private def void testConnectionInstance(ConnectionInstance ci, Connection c) {
-		assertEquals(false, ci.isBidirectional)
-		val refs = ci.connectionReferences
-		assertEquals(1, refs.size)
-		assertEquals(c, refs.get(0).connection)
+		// One connection instance per declaration, neither of them bidirectional, whichever
+		// order they were created in
+		assertEquals(#{#[conn1], #[conn2]}, connections.map[connectionReferences.map[connection].toList].toSet)
+		assertTrue(connections.forall[!bidirectional])
 	}
 }

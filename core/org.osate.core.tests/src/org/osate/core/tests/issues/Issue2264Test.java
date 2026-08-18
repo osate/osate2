@@ -40,6 +40,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.core.tests.instantiation.InstanceLookup;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -68,8 +69,7 @@ public class Issue2264Test extends XtextTest {
 		SystemInstance instance = InstantiateModel.instantiate((ComponentImplementation) impl.get());
 		Assert.assertEquals("S_i_Instance", instance.getName());
 
-		ConnectionInstance conni = instance.getConnectionInstances().get(0);
-		Assert.assertEquals("a1.o -> a2.i", conni.getName());
+		ConnectionInstance conni = InstanceLookup.connection(instance, "a1.o -> a2.i");
 		PropertyExpression pe = conni.getOwnedPropertyAssociations().get(0).getOwnedValues().get(0).getOwnedValue();
 		Assert.assertEquals(1, ((ListValue) pe).getOwnedListElements().size());
 		pe = ((ListValue) pe).getOwnedListElements().get(0);
