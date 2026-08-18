@@ -65,6 +65,9 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	private static final String BAD_ACCESS = "org.osate.core.tests/models/issue911/BadAccessConnections.aadl";
 	private static final String MISSING_FEATURE = "org.osate.core.tests/models/issue2533/flow_order_test.aadl";
 	private static final String MISSING_SUBCOMPONENT = "org.osate.core.tests/models/issue3030/Issue3030.aadl";
+	private static final String UNCONTINUED_UPWARD = "org.osate.core.tests/models/Issue2318/findTests/findConnectionInstance.aadl";
+	private static final String NESTED_UPWARD = "org.osate.core.tests/models/issue2872/Issue2872.aadl";
+	private static final String UNRESOLVED_UPWARD = "org.osate.core.tests/models/issue3025/Issue3025.aadl";
 
 	@Inject
 	private IsolatedInstantiation isolated;
@@ -148,6 +151,60 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 				List.of("Error | No component instance for subcomponent monitors"
 						+ " | at Top_i_Instance|SystemInstance | in Issue3030_Top_i_Instance.aaxl2"),
 				errors(actual));
+	}
+
+	/**
+	 * Allowlist entry 8. A path that travels up out of a subcomponent to a feature the level
+	 * above routes nowhere.
+	 *
+	 * <p>
+	 * The connection instances are the same, and neither strategy creates one for the path
+	 * in question. Source-first is extending that path when it finds the level above has
+	 * nothing to continue it with, so it has a candidate to report; across-first never
+	 * enumerates it, because the declaration carrying it up is not across, nothing seeds it,
+	 * and no leg reaches it.
+	 * </p>
+	 *
+	 * <p>
+	 * All three implementations the corpus has of this shape are here: a port, a nested
+	 * feature group, and a port whose name resolves to nothing above.
+	 * </p>
+	 */
+	@Test
+	public void anUpwardPathTheLevelAboveDoesNotContinueLosesOnlyTheSourceFirstWarning() throws Exception {
+		assertOnlySourceFirstWarns(UNCONTINUED_UPWARD, "X.root",
+				"Warning | Could not continue connection from X_root_Instance.sub.th.th_p"
+						+ "  through X_root_Instance.sub.ss_p. No connection instance created."
+						+ " | at X_root_Instance.sub.ss_p|FeatureInstance|eventPort|0"
+						+ " | in findConnectionInstance_X_root_Instance.aaxl2");
+		assertOnlySourceFirstWarns(NESTED_UPWARD, "integration.impl",
+				"Warning | Could not continue connection from integration_impl_Instance.b.a.outy"
+						+ "  through integration_impl_Instance.b.outy. No connection instance created."
+						+ " | at integration_impl_Instance.b.outy|FeatureInstance|featureGroup|0"
+						+ " | in Issue2872_integration_impl_Instance.aaxl2");
+		assertOnlySourceFirstWarns(UNRESOLVED_UPWARD, "Top.i",
+				"Warning | Could not continue connection from Top_i_Instance.bridge.producer.to_unresolved"
+						+ "  through Top_i_Instance.bridge.unresolved_terminal. No connection instance created."
+						+ " | at Top_i_Instance.bridge.unresolved_terminal|FeatureInstance|eventPort|0"
+						+ " | in Issue3025_Top_i_Instance.aaxl2");
+	}
+
+	/**
+	 * The two runs agree on their connection instances and on every diagnostic except
+	 * {@code warning}, which source-first reports and across-first does not.
+	 */
+	private void assertOnlySourceFirstWarns(String model, String implementation, String warning) throws Exception {
+		CharacterizationRun sourceFirst = isolated.run(model, implementation, "SOURCE_FIRST", false);
+		CharacterizationRun acrossFirst = isolated.run(model, implementation, "ACROSS_FIRST", false);
+		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
+		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
+
+		assertEquals(implementation, InstanceReport.connectionLines(expected),
+				InstanceReport.connectionLines(actual));
+		assertEquals(implementation, true, InstanceReport.diagnosticSet(expected).contains(warning));
+		assertEquals("allowlist entry 8: the warning disappears",
+				InstanceReport.diagnosticSet(expected).stream().filter(line -> !line.equals(warning)).toList(),
+				InstanceReport.diagnosticSet(actual));
 	}
 
 	private void assertSameDiagnostics(String model, String implementation) throws Exception {
