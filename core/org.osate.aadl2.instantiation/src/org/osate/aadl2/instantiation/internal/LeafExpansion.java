@@ -139,6 +139,31 @@ public final class LeafExpansion {
 	}
 
 	/**
+	 * The endpoint a leg standing at {@code position} continues to when it leaves through a
+	 * declaration that connects {@code from} to {@code to}.
+	 *
+	 * <p>
+	 * A declaration may connect a whole feature group while the leg stands at a member of
+	 * it. The connection then covers that member only, so it continues at the member of the
+	 * far end that pairs with it rather than at the whole far end. Leaving the far end whole
+	 * pairs a group against a group one level too high, which is only visible where the two
+	 * have different numbers of members.
+	 * </p>
+	 *
+	 * <p>
+	 * {@code to} is returned unchanged when the leg stands at {@code from} itself or at a
+	 * group containing it, which is the declaration reaching <em>into</em> a group, and when
+	 * no member of the far end corresponds. Source-first narrows the same end afterwards,
+	 * from the member chain it keeps in its {@code upFeature} and {@code downFeature} stacks.
+	 * </p>
+	 */
+	static ConnectionInstanceEnd continuation(ConnectionInstanceEnd from, ConnectionInstanceEnd to,
+			ConnectionInstanceEnd position) {
+		ConnectionInstanceEnd mapped = mapAcrossSegment(from, to, position);
+		return mapped == null ? to : mapped;
+	}
+
+	/**
 	 * Map {@code end}, which sits at or below {@code from}, to the feature at or below
 	 * {@code to} that it corresponds to, or {@code null} when it has none.
 	 */

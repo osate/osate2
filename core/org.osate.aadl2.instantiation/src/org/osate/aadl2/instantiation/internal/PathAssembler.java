@@ -165,26 +165,27 @@ public final class PathAssembler {
 	 * Whether the two legs leave members of the pivot that pair with each other.
 	 *
 	 * <p>
-	 * A leg leaves the pivot at the feature its first declaration names, or at its terminal
-	 * when it has no declaration to name one. Below a connected feature group that is the
-	 * member the connection covers, and only the leg leaving the member that pairs with it
-	 * continues the same semantic connection. Without this, a feature group connecting two
-	 * components that each route several members onwards produces a path for every
-	 * combination of them.
+	 * The member a leg covers is its footprint on the pivot endpoint, not merely the feature
+	 * its first declaration names: a leg that descends several levels narrows the connection
+	 * at each of them, and only the leg whose whole chain pairs with this one's continues the
+	 * same semantic connection. Without this, a feature group connecting two components that
+	 * each route several members onwards produces a path for every combination of them, and
+	 * comparing only the first level lets the combinations below it through.
 	 * </p>
 	 *
 	 * <p>
-	 * A leg that leaves the pivot endpoint itself, or a feature group containing it,
+	 * A leg that covers the pivot endpoint itself, or a feature group containing it,
 	 * constrains nothing: the connection then covers the whole endpoint and which members
-	 * it pairs is leaf expansion's decision.
+	 * it pairs is leaf expansion's decision. The same holds level by level, which is why
+	 * only the levels both footprints reach are compared.
 	 * </p>
 	 */
 	private static boolean attachedMembersCorrespond(TraversalSeed.Across across, LegResult sourceLeg,
 			LegResult destinationLeg) {
 		List<FeatureInstance> sourceMembers = LeafExpansion.membersBelow(across.segment().source(),
-				attachment(sourceLeg));
+				footprint(sourceLeg));
 		List<FeatureInstance> destinationMembers = LeafExpansion.membersBelow(across.segment().destination(),
-				attachment(destinationLeg));
+				footprint(destinationLeg));
 		ConnectionInstanceEnd destinationParent = across.segment().destination();
 		for (int level = 0; level < Math.min(sourceMembers.size(), destinationMembers.size()); level++) {
 			FeatureInstance destination = destinationMembers.get(level);
@@ -196,9 +197,20 @@ public final class PathAssembler {
 		return true;
 	}
 
-	/** Where a leg leaves the pivot: the feature its first declaration names, or its terminal. */
-	private static ConnectionInstanceEnd attachment(LegResult leg) {
-		return leg.isTrivial() ? leg.terminal() : leg.segments().get(0).source();
+	/**
+	 * The feature at or below the pivot endpoint that a leg covers: its terminal mapped back
+	 * up through every segment it traversed, so that what a declaration deep inside the leg
+	 * narrowed is still visible at the pivot. A leg that traversed nothing covers its own
+	 * terminal, which is the pivot endpoint.
+	 */
+	private static ConnectionInstanceEnd footprint(LegResult leg) {
+		ConnectionInstanceEnd covered = leg.terminal();
+		List<ResolvedSegment> segments = leg.segments();
+		for (int i = segments.size() - 1; i >= 0; i--) {
+			ResolvedSegment segment = segments.get(i);
+			covered = LeafExpansion.continuation(segment.destination(), segment.source(), covered);
+		}
+		return covered;
 	}
 
 	/**

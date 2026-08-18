@@ -633,7 +633,8 @@ public class InstantiateModel {
 				List<LegResult> sourceLegs = List.of();
 				List<LegResult> destinationLegs = List.of();
 				if (seed instanceof TraversalSeed.Across across) {
-					sourceLegs = legResolver.resolve(across.segment().source(), LegRole.SOURCE_LEG);
+					sourceLegs = legResolver.resolve(across.segment().source(), LegRole.SOURCE_LEG,
+							across.segment().declaration());
 					destinationLegs = legResolver.resolve(across.segment().destination(), LegRole.DESTINATION_LEG);
 				} else if (seed instanceof TraversalSeed.Boundary boundary) {
 					/*

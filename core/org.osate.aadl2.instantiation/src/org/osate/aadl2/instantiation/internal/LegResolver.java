@@ -45,6 +45,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -52,6 +53,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 /**
  * Descends component containment from a seed endpoint until a terminal policy stops
@@ -105,18 +107,6 @@ public final class LegResolver {
 	 *            category
 	 * @param failures collects the endpoint resolutions that should have succeeded, so
 	 *            that the caller can report them
-	 */
-	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root,
-			ResolutionFailures failures) {
-		this(classifierCache, root, failures, TraversalObservations.disabled());
-	}
-
-	/**
-	 * @param classifierCache resolved classifiers for prototypes, may be null
-	 * @param root the instantiation root, which is always descended into whatever its
-	 *            category
-	 * @param failures collects the endpoint resolutions that should have succeeded, so
-	 *            that the caller can report them
 	 * @param observations where to count the work this resolver does, so that it can be
 	 *            compared with what source-first spends on the same model
 	 */
@@ -135,8 +125,23 @@ public final class LegResolver {
 	 * @param role which side of the pivot this leg descends towards
 	 */
 	public List<LegResult> resolve(ConnectionInstanceEnd start, LegRole role) {
+		return resolve(start, role, null);
+	}
+
+	/**
+	 * Every leg that descends from {@code start}, in deterministic key order.
+	 *
+	 * @param start the endpoint the pivot resolved to on this side
+	 * @param role which side of the pivot this leg descends towards
+	 * @param seedDeclaration the declaration the finished path leaves the seed endpoint by,
+	 *            which a source leg that stops where it started needs in order to decide
+	 *            whether the ultimate source may be there; null for a seed that has no outer
+	 *            declaration, which is every boundary and trigger seed
+	 */
+	public List<LegResult> resolve(ConnectionInstanceEnd start, LegRole role, Connection seedDeclaration) {
 		List<LegResult> results = new ArrayList<>();
-		descend(start, role, List.of(), FeaturePath.EMPTY, ModeConstraint.UNCONSTRAINED, true, new HashSet<>(), results);
+		descend(start, role, List.of(), FeaturePath.EMPTY, ModeConstraint.UNCONSTRAINED, true, new HashSet<>(),
+				seedDeclaration, results);
 		/*
 		 * Sorted by stable key, computed once per leg rather than once per comparison: building
 		 * one walks the leg's segments.
@@ -152,7 +157,7 @@ public final class LegResolver {
 
 	private void descend(ConnectionInstanceEnd current, LegRole role, List<ResolvedSegment> segments,
 			FeaturePath featurePath, ModeConstraint modes, boolean allBidirectional, Set<String> visited,
-			List<LegResult> results) {
+			Connection seedDeclaration, List<LegResult> results) {
 
 		/*
 		 * Terminal policy: a shared data, bus, virtual bus, subprogram, or subprogram group
@@ -212,6 +217,12 @@ public final class LegResolver {
 
 		List<ResolvedSegment> continuations = continuations(owner, feature, role, visited, endingCategory);
 		if (continuations.isEmpty()) {
+			Connection leaving = segments.isEmpty() ? seedDeclaration
+					: segments.get(segments.size() - 1).declaration();
+			if (role == LegRole.SOURCE_LEG
+					&& !mayBeUltimateSource(owner, feature, implementation, leaving, endingCategory)) {
+				return;
+			}
 			results.add(new LegResult(role, current, segments, featurePath, modes, allBidirectional,
 					"no continuing declaration"));
 			return;
@@ -228,10 +239,117 @@ public final class LegResolver {
 			extended.add(segment);
 			Set<String> branchVisited = new HashSet<>(visited);
 			branchVisited.add(orientedKey(segment));
-			descend(segment.destination(), role, extended, segment.destinationPath(),
+			descend(LeafExpansion.continuation(segment.source(), segment.destination(), feature), role, extended,
+					segment.destinationPath(),
 					modes.and(segment.declaration(), owner),
-					allBidirectional && segment.declaration().isAllBidirectional(), branchVisited, results);
+					allBidirectional && segment.declaration().isAllBidirectional(), branchVisited, seedDeclaration,
+					results);
 		}
+	}
+
+	/**
+	 * Whether a source leg that found nothing to descend into may take the feature it stopped
+	 * at as the ultimate source.
+	 *
+	 * <p>
+	 * It may not when the component routes that feature internally: the connection then starts
+	 * deeper, and a path starting at the component's own feature would not be maximal. The
+	 * question is only worth asking when there is something inside that could be the source,
+	 * which is a subcomponent with outgoing features.
+	 * </p>
+	 *
+	 * <p>
+	 * Two internal routings refuse the start. A declaration that delivers <em>to</em> the
+	 * feature refuses it outright. A declaration that merely names the feature refuses it when
+	 * the declaration the path leaves by is bidirectional, because that path could equally be
+	 * followed from inside. Where the internal declaration cannot in fact be followed the
+	 * other way, no connection exists at all, and that is the baseline's answer as much as
+	 * this one's.
+	 * </p>
+	 *
+	 * <p>
+	 * A connection ending component is the exception: a semantic connection ends at its port
+	 * or feature group whatever it does internally, so it starts there too. Its access
+	 * features are not exempt, which is what {@code lookInside} says in
+	 * {@code CreateConnectionsSwitch.instantiateConnections()}, the rule this mirrors.
+	 * </p>
+	 */
+	private boolean mayBeUltimateSource(ComponentInstance owner, FeatureInstance feature,
+			ComponentImplementation implementation, Connection leaving, boolean endingCategory) {
+		/*
+		 * The root is not descended into by the baseline's per-component enumeration at all;
+		 * its own features are seeded as boundaries, with no maximality question to ask.
+		 */
+		if (owner == root) {
+			return true;
+		}
+		/*
+		 * The baseline asks about the component's own feature, not about the member a leg
+		 * happens to stand at, so the whole feature is what is examined here as well.
+		 */
+		FeatureInstance outermost = outermost(feature);
+		if (endingCategory && (includesNestedFeatureGroup(outermost) || includesPort(outermost))) {
+			return true;
+		}
+		if (!AadlUtil.hasOutgoingFeatureSubcomponents(owner.getComponentInstances())
+				|| (endingCategory && !includesAccess(outermost))) {
+			return true;
+		}
+		List<Connection> inside = implementation.getAllConnections();
+		Feature declared = outermost.getFeature();
+		if (isDestinationInside(inside, declared)) {
+			return false;
+		}
+		return leaving == null || !leaving.isAllBidirectional() || !isEndInside(inside, declared);
+	}
+
+	/** The feature of the component that {@code feature} is, or is a member of. */
+	private static FeatureInstance outermost(FeatureInstance feature) {
+		FeatureInstance outermost = feature;
+		while (outermost.getOwner() instanceof FeatureInstance parent) {
+			outermost = parent;
+		}
+		return outermost;
+	}
+
+	/**
+	 * Whether one of a component's own declarations delivers to {@code feature}, counting a
+	 * bidirectional declaration whichever end names it, and a declaration that names a member
+	 * of it. Mirrors {@code CreateConnectionsSwitch.isDestination()}.
+	 */
+	private static boolean isDestinationInside(List<Connection> inside, Feature feature) {
+		List<Feature> refinements = feature.getAllFeatureRefinements();
+		for (Connection declaration : inside) {
+			if (declaration instanceof ParameterConnection) {
+				continue;
+			}
+			if (refinements.contains(declaration.getAllDestination())
+					|| refinements.contains(declaration.getAllDestinationContext())
+					|| declaration.isAllBidirectional() && (refinements.contains(declaration.getAllSource())
+							|| refinements.contains(declaration.getAllSourceContext()))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Whether one of a component's own declarations has {@code feature}, or a member of it, as
+	 * either end. Mirrors {@code CreateConnectionsSwitch.isConnectionEnd()}.
+	 */
+	private static boolean isEndInside(List<Connection> inside, Feature feature) {
+		List<Feature> refinements = feature.getAllFeatureRefinements();
+		for (Connection declaration : inside) {
+			if (declaration instanceof ParameterConnection) {
+				continue;
+			}
+			if (refinements.contains(declaration.getAllSource()) || refinements.contains(declaration.getAllDestination())
+					|| refinements.contains(declaration.getAllSourceContext())
+					|| refinements.contains(declaration.getAllDestinationContext())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

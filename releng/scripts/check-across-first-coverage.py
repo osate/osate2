@@ -36,14 +36,15 @@ from pathlib import Path
 REPORT = Path("core/org.osate.aadl2.instantiation/target/site/jacoco/jacoco.xml")
 SOURCES = Path("core/org.osate.aadl2.instantiation/src")
 PACKAGE = "org.osate.aadl2.instantiation.internal"
-# The plan asked for 90% line and 85% branch. The floors here are the measured coverage of the
-# reachable code, rounded down, and they are lower because of what remains: not-applicable and
-# failure outcomes in endpoint resolution, and mapping fallbacks in leaf expansion, which need
-# either invalid models the corpus does not have or unit access to a package that is deliberately
-# unexported. The reviewer settled that on 2026-08-18, with the gap list below as the record.
+# The plan's own asks, 90% line and 85% branch, and they are met. They were lowered to 89 and 77
+# on 2026-08-18 by reviewer decision, when what remained was concentrated in endpoint resolution
+# outcomes and leaf expansion fallbacks that need invalid models the corpus does not have. The
+# switch to across-first as the production strategy later the same day raised the measurement to
+# 92.5% line and 86.4% branch of the reachable code, because the rules it needed to add brought
+# their own tests and reached those fallbacks, so the floors were restored to what the plan asks.
 # Treat them as a ratchet: they may rise, and a fall means a test was lost.
-LINE_FLOOR = 89.0
-BRANCH_FLOOR = 77.0
+LINE_FLOOR = 90.0
+BRANCH_FLOOR = 85.0
 
 THROWS = re.compile(r"throw new (IllegalArgumentException|IllegalStateException)")
 
