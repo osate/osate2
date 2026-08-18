@@ -135,6 +135,13 @@ public class Issue3037DuplicateTraversalTest extends XtextTest {
 	 * separately from the semantic comparison above because collection order is an
 	 * approved intended difference for across-first traversal, so this is the one
 	 * assertion that is expected to be revisited when the strategy changes.
+	 *
+	 * <p>
+	 * The last container is not part of the system instance at all: the data classifier the
+	 * ports are typed with is instantiated as a root of its own beside it, and it carries no
+	 * connections. Every model whose ports have a data classifier has such a root, and they
+	 * are part of the comparison because their connections come from the same pipeline.
+	 * </p>
 	 */
 	@Test
 	public void baselineCollectionOrderIsRecorded() throws Exception {
@@ -153,7 +160,8 @@ public class Issue3037DuplicateTraversalTest extends XtextTest {
 		assertEquals(List.of("Sys_Imp_Instance.proc|ComponentInstance => ",
 				"Sys_Imp_Instance.sub.iproc|ComponentInstance => ", "Sys_Imp_Instance.sub|ComponentInstance => ",
 				"Sys_Imp_Instance|SystemInstance => proc.fgPorts.inPort -> sub.iproc.fgPorts.inPort,"
-						+ " sub.iproc.fgPorts.inPort -> proc.fgPorts.inPort"),
+						+ " sub.iproc.fgPorts.inPort -> proc.fgPorts.inPort",
+				"issue565::MsgType|ComponentInstance => "),
 				InstanceReport.connectionOrderLines(snapshot));
 	}
 }

@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -61,11 +62,27 @@ public record InstanceSnapshot(Map<String, List<ConnectionDescriptor>> connectio
 		diagnostics = List.copyOf(diagnostics);
 	}
 
-	/** Snapshot an instantiated model together with the diagnostics it produced. */
+	/**
+	 * Snapshot an instantiated model together with the diagnostics it produced.
+	 *
+	 * <p>
+	 * Every root in the instance resource is included, not only the system instance. A
+	 * feature whose classifier resolves to a component classifier gets that classifier
+	 * instantiated as a further root beside the system instance, and since the Plan 1
+	 * pipeline change those roots have their connections, flows, and properties created by
+	 * the same pipeline. Snapshotting the system instance alone left everything inside them
+	 * out of the comparison.
+	 * </p>
+	 */
 	public static InstanceSnapshot of(SystemInstance instance, AnalysisErrorReporterManager manager) {
 		Map<String, List<ConnectionDescriptor>> connections = new LinkedHashMap<>();
 		Map<String, List<FlowDescriptor>> flows = new LinkedHashMap<>();
 		collect(instance, connections, flows);
+		for (EObject root : instance.eResource().getContents()) {
+			if (root instanceof ComponentInstance referenced && referenced != instance) {
+				collect(referenced, connections, flows);
+			}
+		}
 		return new InstanceSnapshot(connections, flows,
 				DiagnosticDescriptor.of(manager, instance.eResource()));
 	}

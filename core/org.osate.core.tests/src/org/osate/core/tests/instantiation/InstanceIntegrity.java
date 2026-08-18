@@ -61,10 +61,28 @@ public final class InstanceIntegrity {
 	/**
 	 * Check every invariant and return one message per violation. An empty list
 	 * means the model is structurally sound.
+	 *
+	 * <p>
+	 * Every root in the instance resource is checked. A feature whose classifier resolves to
+	 * a component classifier gets that classifier instantiated as a further root beside the
+	 * system instance, and its connections come from the same pipeline, so the same
+	 * invariants hold for it.
+	 * </p>
 	 */
 	public static List<String> check(SystemInstance instance) {
 		List<String> violations = new ArrayList<>();
-		Set<ConnectionInstance> contained = containedConnections(instance);
+		checkRoot(instance, violations);
+		for (EObject root : instance.eResource().getContents()) {
+			if (root instanceof ComponentInstance referenced && referenced != instance) {
+				checkRoot(referenced, violations);
+			}
+		}
+		Collections.sort(violations);
+		return List.copyOf(violations);
+	}
+
+	private static void checkRoot(ComponentInstance root, List<String> violations) {
+		Set<ConnectionInstance> contained = containedConnections(root);
 
 		for (ConnectionInstance connection : contained) {
 			checkEndpoints(connection, violations);
@@ -72,18 +90,15 @@ public final class InstanceIntegrity {
 			checkAcrossCount(connection, violations);
 			checkKindAndFlags(connection, violations);
 		}
-		checkInverseLists(instance, contained, violations);
-		checkFlowMembership(instance, contained, violations);
-
-		Collections.sort(violations);
-		return List.copyOf(violations);
+		checkInverseLists(root, contained, violations);
+		checkFlowMembership(root, contained, violations);
 	}
 
 	/**
 	 * Every connection instance actually attached to the model. Provisional
 	 * connections deleted by structural expansion are, by construction, not here.
 	 */
-	public static Set<ConnectionInstance> containedConnections(SystemInstance instance) {
+	public static Set<ConnectionInstance> containedConnections(ComponentInstance instance) {
 		Set<ConnectionInstance> contained = Collections.newSetFromMap(new IdentityHashMap<>());
 		collectContained(instance, contained);
 		return contained;
@@ -183,7 +198,7 @@ public final class InstanceIntegrity {
 		}
 	}
 
-	private static void checkInverseLists(SystemInstance instance, Set<ConnectionInstance> contained,
+	private static void checkInverseLists(ComponentInstance instance, Set<ConnectionInstance> contained,
 			List<String> violations) {
 		for (ConnectionInstance connection : contained) {
 			ConnectionInstanceEnd source = connection.getSource();
@@ -217,7 +232,7 @@ public final class InstanceIntegrity {
 		}
 	}
 
-	private static void checkFlowMembership(SystemInstance instance, Set<ConnectionInstance> contained,
+	private static void checkFlowMembership(ComponentInstance instance, Set<ConnectionInstance> contained,
 			List<String> violations) {
 		for (TreeIterator<EObject> all = instance.eAllContents(); all.hasNext();) {
 			EObject next = all.next();
