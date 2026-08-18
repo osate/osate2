@@ -3,8 +3,13 @@
 -- the rest of the matrix reaches only in passing.
 --
 -- Each implementation isolates one decision that pairing has to make: an inverse group whose
--- members are renamed so that names cannot pair them, a subset match where the source has a
--- member the destination does not, and a group with no type at all against a typed one.
+-- members are renamed so that names cannot pair them, and a subset match where the source has
+-- a member the destination does not.
+--
+-- A feature group with no type is deliberately not here. It is a shape the corpus does not
+-- have, and the reviewer removed it on 2026-08-18 rather than decide the diagnostic difference
+-- it exposes: source-first warns that the group has no type from inside the narrowing
+-- across-first replaces, and the connections are identical either way.
 --
 -- An access connection meeting a feature group is not here, because it is not legal AADL: a
 -- feature group of a subcomponent is not a valid access connection end. That shape reaches
@@ -69,25 +74,6 @@ public
 			up: feature group worker.bundle -> bundle;
 	end Producer.i;
 
-	-- A producer whose inner thread reaches one member of the boundary group with a plain port,
-	-- so the source leg ends at a leaf rather than at a group
-	thread SingleEmitter
-		features
-			outp: out data port D;
-	end SingleEmitter;
-
-	process LeafProducer
-		features
-			bundle: feature group Pair;
-	end LeafProducer;
-
-	process implementation LeafProducer.i
-		subcomponents
-			worker: thread SingleEmitter;
-		connections
-			up: port worker.outp -> bundle.first;
-	end LeafProducer.i;
-
 	system Top
 	end Top;
 
@@ -120,28 +106,5 @@ public
 		features
 			bundle: feature group SecondOnly;
 	end SubsetHost;
-
-	-- A group with no type, which the whole of the other group pairs against
-	system implementation Top.untyped
-		subcomponents
-			producer: process Producer.i;
-			consumer: system UntypedHost;
-		connections
-			across: feature group producer.bundle -> consumer.bundle;
-	end Top.untyped;
-
-	system UntypedHost
-		features
-			bundle: feature group;
-	end UntypedHost;
-
-	-- A leaf source against a group with no type, which pairs the leaf with every member of it
-	system implementation Top.leafToUntyped
-		subcomponents
-			producer: process LeafProducer.i;
-			consumer: system UntypedHost;
-		connections
-			across: feature group producer.bundle -> consumer.bundle;
-	end Top.leafToUntyped;
 
 end ExpansionCorners;

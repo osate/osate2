@@ -24,6 +24,8 @@ throw itself. Such a line is unreachable from any test, because the package is n
 and production never passes what it rejects; reaching it would mean an implementation defect.
 Defensive lines and branches are reported and then excluded from the floors. Everything else
 counts, and a floor miss fails.
+
+The floors are lower than the plan's 90 and 85 by reviewer decision; see the comment on them.
 """
 
 import re
@@ -34,8 +36,14 @@ from pathlib import Path
 REPORT = Path("core/org.osate.aadl2.instantiation/target/site/jacoco/jacoco.xml")
 SOURCES = Path("core/org.osate.aadl2.instantiation/src")
 PACKAGE = "org.osate.aadl2.instantiation.internal"
-LINE_FLOOR = 90.0
-BRANCH_FLOOR = 85.0
+# The plan asked for 90% line and 85% branch. The floors here are the measured coverage of the
+# reachable code, rounded down, and they are lower because of what remains: not-applicable and
+# failure outcomes in endpoint resolution, and mapping fallbacks in leaf expansion, which need
+# either invalid models the corpus does not have or unit access to a package that is deliberately
+# unexported. The reviewer settled that on 2026-08-18, with the gap list below as the record.
+# Treat them as a ratchet: they may rise, and a fall means a test was lost.
+LINE_FLOOR = 89.0
+BRANCH_FLOOR = 77.0
 
 THROWS = re.compile(r"throw new (IllegalArgumentException|IllegalStateException)")
 

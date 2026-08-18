@@ -34,9 +34,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
-import org.osate.core.tests.instantiation.InstanceReport;
-import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
 import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
@@ -52,7 +49,8 @@ import com.itemis.xtext.testing.XtextTest;
  * <p>
  * Each case isolates one decision pairing has to make and that the rest of the matrix reaches
  * only in passing: renamed members that names cannot pair, a subset destination missing one of
- * the source's members, and a group with no type at all.
+ * the source's members, direction deciding which members pair, and short access, where a
+ * connection's destination is a component rather than a feature.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -60,7 +58,6 @@ import com.itemis.xtext.testing.XtextTest;
 public class Issue3037ExpansionCornerTest extends XtextTest {
 	private static final String MODEL = "org.osate.core.tests/models/issue3037/ExpansionCorners.aadl";
 	private static final String DIRECTIONS = "org.osate.core.tests/models/issue3037/DirectionCombinations.aadl";
-	private static final String DIRECTIONS_UNTYPED = MODEL;
 	private static final String SHORT_ACCESS = "org.osate.core.tests/models/Issue2032/ShortAccessConnections.aadl";
 
 	@Inject
@@ -119,56 +116,6 @@ public class Issue3037ExpansionCornerTest extends XtextTest {
 
 		assertEquals("only the member the destination has", List.of("producer.worker.bundle.second -> consumer.bundle.second"),
 				connectionNames("Top.subset"));
-	}
-
-	/** A feature group with no type, which the other group pairs against as a whole. */
-	@Test
-	public void anUntypedGroupPairsAgainstEveryMember() throws Exception {
-		assertSameModel("Top.untyped");
-
-		assertEquals("each member against the untyped group itself",
-				List.of("producer.worker.bundle.first -> consumer.bundle",
-						"producer.worker.bundle.second -> consumer.bundle"),
-				connectionNames("Top.untyped"));
-	}
-
-	/**
-	 * A leaf source against a group with no type, which pairs the leaf with the group as a whole.
-	 *
-	 * <p>
-	 * The connections agree. The diagnostics do not, and the difference is <em>not</em> an
-	 * approved allowlist entry: source-first warns that the destination feature group has no
-	 * type, from inside the {@code upFeature} narrowing that across-first replaces, and
-	 * across-first has no such moment to report from. Both sides are recorded here so that the
-	 * reviewer can decide, and so that neither side changes unnoticed while they do.
-	 * </p>
-	 */
-	@Test
-	public void aLeafAgainstAnUntypedGroupAgreesExceptForOneWarning() throws Exception {
-		assertSameModel("LeafProducer.i");
-
-		CharacterizationRun sourceFirst = isolated.run(DIRECTIONS_UNTYPED, "Top.leafToUntyped", "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(DIRECTIONS_UNTYPED, "Top.leafToUntyped", "ACROSS_FIRST", false);
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
-
-		assertEquals(InstanceReport.connectionLines(expected), InstanceReport.connectionLines(actual));
-		assertEquals(List.of("producer.worker.outp -> consumer.bundle"), connectionNames("Top.leafToUntyped"));
-		assertEquals("source-first warns about the untyped group while narrowing",
-				List.of("Warning | Expected feature 'consumer.bundle' to have classifier"
-						+ " 'ExpansionCorners::D' | at Top_leafToUntyped_Instance.producer.worker.outp ->"
-						+ " consumer.bundle|ConnectionInstance"
-						+ " | in ExpansionCorners_Top_leafToUntyped_Instance.aaxl2",
-						"Warning | In consumer (classifier UntypedHost) feature group bundle has no type"
-								+ " | at Top_leafToUntyped_Instance.consumer|ComponentInstance"
-								+ " | in ExpansionCorners_Top_leafToUntyped_Instance.aaxl2"),
-				InstanceReport.diagnosticSet(expected));
-		assertEquals("proposed allowlist entry 9, not yet approved: the untyped-group warning disappears",
-				List.of("Warning | Expected feature 'consumer.bundle' to have classifier"
-						+ " 'ExpansionCorners::D' | at Top_leafToUntyped_Instance.producer.worker.outp ->"
-						+ " consumer.bundle|ConnectionInstance"
-						+ " | in ExpansionCorners_Top_leafToUntyped_Instance.aaxl2"),
-				InstanceReport.diagnosticSet(actual));
 	}
 
 	/**
