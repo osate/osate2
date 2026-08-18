@@ -61,13 +61,15 @@ public class Issue3025Test extends XtextTest {
 
 		SystemInstance instance = InstantiateModel.instantiate(top, errorManager);
 		var connections = instance.getAllConnectionInstances();
+		// Sorted, because collection order is allowlist entry 1 of issue #3037 and says nothing here.
 		assertEquals(List.of(
-				"Top_i_Instance.bridge.producer.to_trigger|Top_i_Instance.bridge.trigger_terminal|1",
-				"Top_i_Instance.bridge.producer.to_ordinary|Top_i_Instance.consumer.incoming|2"),
+				"Top_i_Instance.bridge.producer.to_ordinary|Top_i_Instance.consumer.incoming|2",
+				"Top_i_Instance.bridge.producer.to_trigger|Top_i_Instance.bridge.trigger_terminal|1"),
 				connections.stream()
 						.map(connection -> connection.getSource().getInstanceObjectPath() + "|"
 								+ connection.getDestination().getInstanceObjectPath() + "|"
 								+ connection.getConnectionReferences().size())
+						.sorted()
 						.toList());
 		assertFalse(connections.stream().anyMatch(connection -> connection.getKind() == MODE_TRANSITION_CONNECTION
 				|| connection.getSource() instanceof ModeTransitionInstance
@@ -85,10 +87,16 @@ public class Issue3025Test extends XtextTest {
 				.orElseThrow();
 		assertSame(trigger, transition.getTriggers().get(0));
 
+		/*
+		 * Allowlist entry 8 of issue #3037. Source-first warned "Could not continue connection from
+		 * Top_i_Instance.bridge.producer.to_unresolved  through Top_i_Instance.bridge.unresolved_terminal.
+		 * No connection instance created." because it was extending that path when it found the level
+		 * above routes the feature nowhere. Across-first never enumerates the path: the declaration
+		 * carrying it up out of the subcomponent is not across, so nothing seeds it and no leg reaches
+		 * it. Neither strategy creates a connection instance for it, which is what the assertion on the
+		 * two connections above pins.
+		 */
 		var messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors();
-		assertEquals(1, messages.size());
-		assertEquals(QueuingAnalysisErrorReporter.WARNING, messages.get(0).kind);
-		assertEquals("Could not continue connection from Top_i_Instance.bridge.producer.to_unresolved  through "
-				+ "Top_i_Instance.bridge.unresolved_terminal. No connection instance created.", messages.get(0).message);
+		assertEquals(List.of(), messages);
 	}
 }

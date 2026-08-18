@@ -39,19 +39,20 @@ package org.osate.aadl2.instantiation.internal;
  */
 public enum ConnectionTraversalStrategy {
 	/**
-	 * Grow partial paths forward from each candidate source feature. The
-	 * production strategy until across-first traversal replaces it.
+	 * Grow partial paths forward from each candidate source feature. Retained only
+	 * so that the differential tests can compare against it; across-first is the
+	 * production strategy.
 	 */
 	SOURCE_FIRST,
 
 	/**
 	 * Seed enumeration at each across declaration and resolve a source leg and a
-	 * destination leg downward from that pivot.
+	 * destination leg downward from that pivot. The production strategy.
 	 */
 	ACROSS_FIRST;
 
 	/** The strategy used when a caller does not select one. */
 	public static ConnectionTraversalStrategy productionDefault() {
-		return SOURCE_FIRST;
+		return ACROSS_FIRST;
 	}
 }

@@ -71,10 +71,14 @@ public class Issue3027Test extends XtextTest {
 								+ connection.getDestination().getInstanceObjectPath())
 						.toList());
 
+		/*
+		 * Allowlist entry 3 of issue #3037. Source-first warned "Connection to
+		 * Issue3027::Top.i.raised_event could not be instantiated." while extending a path towards the
+		 * internal feature. Across-first ignores a segment whose end is an internal feature, because
+		 * such an end can never have an instance object, so it has no candidate to attach a report to.
+		 * The declarative error asserted above is the report that matters, and it is unchanged.
+		 */
 		var messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors();
-		assertEquals(1, messages.size());
-		assertEquals(QueuingAnalysisErrorReporter.WARNING, messages.get(0).kind);
-		assertEquals("Connection to Issue3027::Top.i.raised_event could not be instantiated.",
-				messages.get(0).message);
+		assertEquals(List.of(), messages);
 	}
 }
