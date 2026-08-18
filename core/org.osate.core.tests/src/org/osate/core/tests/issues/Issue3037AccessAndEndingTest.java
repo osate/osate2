@@ -33,9 +33,9 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -77,28 +77,25 @@ public class Issue3037AccessAndEndingTest extends XtextTest {
 	/** Shared data, reached from an access feature two containment levels down. */
 	@Test
 	public void dataAccessAgrees() throws Exception {
-		assertSameModel("DataHolder.i");
-		assertSameModel("Top.sharedData");
+		assertConnections("DataHolder.i", "store -> user.store");
+		assertConnections("Top.sharedData", "shared -> holder.user.store");
 
-		assertEquals(List.of("shared -> holder.user.store"), connectionNames("Top.sharedData"));
 	}
 
 	/** Shared bus, reached by a device, which does not end a connection at an access feature. */
 	@Test
 	public void busAccessAgrees() throws Exception {
-		assertSameModel("BusHolder.i");
-		assertSameModel("Top.sharedBus");
+		assertConnections("BusHolder.i", "net -> user.net");
+		assertConnections("Top.sharedBus", "backbone -> holder.user.net");
 
-		assertEquals(List.of("backbone -> holder.user.net"), connectionNames("Top.sharedBus"));
 	}
 
 	/** Shared virtual bus, reached by a processor. */
 	@Test
 	public void virtualBusAccessAgrees() throws Exception {
-		assertSameModel("VirtualBusHolder.i");
-		assertSameModel("Top.sharedVirtualBus");
+		assertConnections("VirtualBusHolder.i", "channel -> user.channel");
+		assertConnections("Top.sharedVirtualBus", "transport -> holder.user.channel");
 
-		assertEquals(List.of("transport -> holder.user.channel"), connectionNames("Top.sharedVirtualBus"));
 	}
 
 	/**
@@ -108,22 +105,19 @@ public class Issue3037AccessAndEndingTest extends XtextTest {
 	 */
 	@Test
 	public void subprogramAccessAgrees() throws Exception {
-		assertSameModel("ServiceProvider.i");
-		assertSameModel("ProviderHolder.i");
-		assertSameModel("ClientHolder.i");
-		assertSameModel("Top.sharedSubprogram");
+		assertConnections("ServiceProvider.i", "body -> call");
+		assertConnections("ProviderHolder.i", "provider.body -> call");
+		assertConnections("ClientHolder.i", "call -> client.call");
+		assertConnections("Top.sharedSubprogram", "provider.provider.body -> consumer.client.call");
 
-		assertEquals(List.of("provider.provider.body -> consumer.client.call"),
-				connectionNames("Top.sharedSubprogram"));
 	}
 
 	/** Shared subprogram group. */
 	@Test
 	public void subprogramGroupAccessAgrees() throws Exception {
-		assertSameModel("GroupHolder.i");
-		assertSameModel("Top.sharedSubprogramGroup");
+		assertConnections("GroupHolder.i", "lib -> user.lib");
+		assertConnections("Top.sharedSubprogramGroup", "library -> holder.user.lib");
 
-		assertEquals(List.of("library -> holder.user.lib"), connectionNames("Top.sharedSubprogramGroup"));
 	}
 
 	/**
@@ -149,26 +143,23 @@ public class Issue3037AccessAndEndingTest extends XtextTest {
 	 */
 	@Test
 	public void connectionEndingCategoriesAgree() throws Exception {
-		assertSameModel("EndingThread.i");
-		assertSameModel("ThreadHost.i");
-		assertSameModel("EndingDevice.i");
-		assertSameModel("EndingProcessor.i");
-		assertSameModel("EndingVirtualProcessor.i");
-		assertSameModel("Top.endings");
+		assertConnections("EndingThread.i", "inp -> inner.inp");
+		assertConnections("ThreadHost.i", "inp -> th.inp");
+		assertConnections("EndingDevice.i", "inp -> inner.inp");
+		assertConnections("EndingProcessor.i", "inp -> inner.inp");
+		assertConnections("EndingVirtualProcessor.i", "inp -> inner.inp");
+		assertConnections("Top.endings", "feeder.outp -> cpu.inp", "feeder.outp -> dev.inp",
+				"feeder.outp -> host.th.inp", "feeder.outp -> vcpu.inp");
 
-		assertEquals(List.of("feeder.outp -> cpu.inp", "feeder.outp -> dev.inp", "feeder.outp -> host.th.inp",
-				"feeder.outp -> vcpu.inp"), connectionNames("Top.endings"));
-		assertEquals("the rule applies to a component descended into, not to the root",
-				List.of("inp -> inner.inp"), connectionNames("EndingThread.i"));
 	}
 
-	private void assertSameModel(String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, MODEL, implementation);
+	private void assertConnections(String implementation, String... expected) throws Exception {
+		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
 	}
 
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
-		CharacterizationRun run = isolated.run(MODEL, implementation, "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, implementation);
 		return run.instance()
 				.getAllConnectionInstances()
 				.stream()

@@ -33,11 +33,11 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceReport;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -85,8 +85,9 @@ public class Issue3037ModeAndFlowTest extends XtextTest {
 	/** Modes on the pivot and on both legs inside a component with a mode machine of its own. */
 	@Test
 	public void modesAtEveryPathPositionAgree() throws Exception {
-		assertSameModel("Middle.i");
-		assertSameModel("Top.modalLegs");
+		assertConnections("Middle.i", "inp -> worker.inp", "worker.outp -> outp");
+		assertConnections("Top.modalLegs", "feeder.emitter.outp -> middle.worker.inp",
+				"middle.worker.outp -> drain.receiver.inp");
 	}
 
 	/**
@@ -96,9 +97,9 @@ public class Issue3037ModeAndFlowTest extends XtextTest {
 	 */
 	@Test
 	public void aPathActiveInNoSystemOperationModeAgrees() throws Exception {
-		assertSameModel("Top.noSom");
+		assertConnections("Top.noSom");
 
-		CharacterizationRun run = isolated.run(MODEL, "Top.noSom", "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, "Top.noSom");
 		InstanceSnapshot snapshot = InstanceSnapshot.of(run.instance(), run.errorManager());
 		assertEquals(List.of(), InstanceReport.connectionLines(snapshot));
 		assertEquals(List.of("Warning | Connection feeder.emitter.outp -> drain.receiver.inp was removed because it is"
@@ -109,7 +110,10 @@ public class Issue3037ModeAndFlowTest extends XtextTest {
 	/** A modal component array with a pattern, so mode assignment and expansion both apply. */
 	@Test
 	public void modalArrayExpansionAgrees() throws Exception {
-		assertSameModel("Top.modalArray");
+		assertConnections("Top.modalArray", "feeders[1].emitter.outp --> drains[1].receiver.inp",
+				"feeders[1].emitter.outp --> drains[2].receiver.inp",
+				"feeders[2].emitter.outp --> drains[1].receiver.inp",
+				"feeders[2].emitter.outp --> drains[2].receiver.inp");
 	}
 
 	/**
@@ -119,14 +123,15 @@ public class Issue3037ModeAndFlowTest extends XtextTest {
 	 */
 	@Test
 	public void siblingEndToEndFlowsAgree() throws Exception {
-		assertSameModel("Top.siblingFlows");
+		assertConnections("Top.siblingFlows", "feeder.emitter.outp -> middle.worker.inp",
+				"middle.worker.outp -> drain.receiver.inp");
 
-		CharacterizationRun run = isolated.run(MODEL, "Top.siblingFlows", "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, "Top.siblingFlows");
 		InstanceSnapshot snapshot = InstanceSnapshot.of(run.instance(), run.errorManager());
 		assertEquals(3, InstanceReport.flowLines(snapshot).size());
 	}
 
-	private void assertSameModel(String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, MODEL, implementation);
+	private void assertConnections(String implementation, String... expected) throws Exception {
+		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
 	}
 }

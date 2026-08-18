@@ -31,12 +31,12 @@ import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceIntegrity;
 import org.osate.core.tests.instantiation.InstanceReport;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 
 import com.google.inject.Inject;
@@ -71,7 +71,8 @@ public class Issue3037DifferentialTest extends XtextTest {
 
 	@Test
 	public void inverseFeatureGroupsAgree() throws Exception {
-		assertSameModel(DUPLICATE, "Sys.Imp");
+		InstanceCharacterization.assertConnections(isolated, DUPLICATE, "Sys.Imp",
+				"proc.fgPorts.inPort -> sub.iproc.fgPorts.inPort", "sub.iproc.fgPorts.inPort -> proc.fgPorts.inPort");
 	}
 
 	/**
@@ -83,44 +84,44 @@ public class Issue3037DifferentialTest extends XtextTest {
 	 */
 	@Test
 	public void aConnectionIntoAnInternalFeatureAgreesApartFromTheApprovedWarning() throws Exception {
-		CharacterizationRun sourceFirst = isolated.run(INTERNAL, "Top.i", "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(INTERNAL, "Top.i", "ACROSS_FIRST", false);
+		InstanceRun run = InstanceCharacterization.assertConnections(isolated, INTERNAL, "Top.i",
+				"sensor.alarm -> monitor.incoming");
 
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
-
-		assertEquals(InstanceReport.connectionLines(expected), InstanceReport.connectionLines(actual));
-		assertEquals(List.of(), InstanceIntegrity.check(acrossFirst.instance()));
-
-		assertEquals(List.of("Warning | Connection to Issue3027::Top.i.raised_event could not be instantiated."
-				+ " | at Top_i_Instance|SystemInstance | in Issue3027_Top_i_Instance.aaxl2"),
-				InstanceReport.diagnosticLines(expected));
-		assertEquals("allowlist entry 3: the warning disappears", List.of(),
-				InstanceReport.diagnosticLines(actual));
+		/*
+		 * Allowlist entry 3. The baseline warned "Connection to Issue3027::Top.i.raised_event could
+		 * not be instantiated." against the system instance. An internal feature has no instance
+		 * object for a connection to end at, so the segment is ignored, and the declarative error
+		 * issue #3028 added is the report that remains.
+		 */
+		assertEquals("allowlist entry 3: the warning is gone", List.of(),
+				InstanceReport.diagnosticLines(InstanceSnapshot.of(run.instance(), run.errorManager())));
 	}
 
 	@Test
 	public void nestedFeatureGroupsAgree() throws Exception {
-		assertSameModel(NESTED, "Top.i");
+		InstanceCharacterization.assertConnections(isolated, NESTED, "Top.i",
+				"consumer_side.boundary.destination_inner.alpha -> producer_side.leaf_side.leaf.io",
+				"producer_side.leaf_side.leaf.io -> consumer_side.boundary.destination_inner.alpha");
 	}
 
 	@Test
 	public void subsetMatchingAgrees() throws Exception {
-		assertSameModel(NESTED, "SubsetTop.i");
+		InstanceCharacterization.assertConnections(isolated, NESTED, "SubsetTop.i",
+				"producer.boundary.common -> consumer.boundary.common");
 	}
 
 	@Test
 	public void incompleteBoundaryConnectionsAgree() throws Exception {
-		assertSameModel(BOUNDARY, "Producer.i");
+		InstanceCharacterization.assertConnections(isolated, BOUNDARY, "Producer.i",
+				"boundary.inner.alpha -> leaf_side.leaf.io", "leaf_side.leaf.io -> boundary.inner.alpha");
 	}
 
 	@Test
 	public void nestingDoesNotChangeAgreement() throws Exception {
-		assertSameModel(FLAT_AND_NESTED, "Flat.i");
-		assertSameModel(FLAT_AND_NESTED, "Nested.i");
+		InstanceCharacterization.assertConnections(isolated, FLAT_AND_NESTED, "Flat.i",
+				"boundary.alpha -> leaf_side.leaf.io", "leaf_side.leaf.io -> boundary.alpha");
+		InstanceCharacterization.assertConnections(isolated, FLAT_AND_NESTED, "Nested.i",
+				"boundary.inner.alpha -> leaf_side.leaf.io", "leaf_side.leaf.io -> boundary.inner.alpha");
 	}
 
-	private void assertSameModel(String model, String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, model, implementation);
-	}
 }

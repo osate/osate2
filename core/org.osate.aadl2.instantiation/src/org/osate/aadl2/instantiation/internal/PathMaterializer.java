@@ -55,7 +55,7 @@ import org.osate.aadl2.util.Aadl2InstanceUtil;
  * same name, kind, completeness, and the same ordered connection references with the
  * same contexts and reverse flags. Names are built from the container-relative
  * endpoint paths, as {@code addConnectionInstance()} does, and the reference chain is
- * built the way {@code ConnectionInfo.createConnectionInstance()} builds it, with each
+ * built the way source-first built it from the path it had grown, with each
  * intermediate destination narrowed to the member matching the source it came from.
  * </p>
  *

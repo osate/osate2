@@ -49,7 +49,7 @@ import org.osate.aadl2.instance.FeatureInstance;
  * </p>
  *
  * <p>
- * Source-first traversal spreads this over {@code appendSegment()}, signalling the
+ * Source-first spread this over its one segment-appending method, signalling the
  * outcome with {@code null} and accumulating the feature chain in two stacks shared
  * by every path under enumeration. Here the outcome is a {@link Resolution} and the
  * chain belongs to the returned value.

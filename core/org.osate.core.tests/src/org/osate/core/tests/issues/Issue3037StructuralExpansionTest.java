@@ -27,8 +27,8 @@ import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 
 import com.google.inject.Inject;
@@ -72,10 +72,12 @@ public class Issue3037StructuralExpansionTest extends XtextTest {
 	/** An array of producers and an array of consumers, expanded and then flowed over. */
 	@Test
 	public void arrayReplicationAgrees() throws Exception {
-		assertSameModel(EXPANSION, "Container.i");
-		assertSameModel(EXPANSION, "Top.i");
-		assertSameModel(ENDPOINTS, "Container.i");
-		assertSameModel(ENDPOINTS, "Top.i");
+		assertConnections(EXPANSION, "Container.i", "producers[1].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(EXPANSION, "Top.i", "producers[1].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(ENDPOINTS, "Container.i");
+		assertConnections(ENDPOINTS, "Top.i");
 	}
 
 	/**
@@ -84,14 +86,30 @@ public class Issue3037StructuralExpansionTest extends XtextTest {
 	 */
 	@Test
 	public void connectionPatternAgrees() throws Exception {
-		assertSameModel(PROPERTIES, "Direct.i");
-		assertSameModel(PROPERTIES, "Top.direct");
-		assertSameModel(PROPERTIES, "Top.contextual");
-		assertSameModel(PROPERTIES, "Top.inheriting");
-		assertSameModel(PROPERTIES, "Top.modal");
-		assertSameModel(VALIDATION, "Container.i");
-		assertSameModel(VALIDATION, "Top.i");
-		assertSameModel(ONE_TO_ALL, "top.impl");
+		assertConnections(PROPERTIES, "Direct.i", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[2].inp", "producers[2].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(PROPERTIES, "Top.direct", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[2].inp", "producers[2].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(PROPERTIES, "Top.contextual", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[2].inp", "producers[2].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(PROPERTIES, "Top.inheriting", "producers[1].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(PROPERTIES, "Top.modal", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[2].inp", "producers[2].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(VALIDATION, "Container.i", "producers[1].outp --> consumer.inp",
+				"producers[2].outp --> consumer.inp");
+		assertConnections(VALIDATION, "Top.i", "producers[1].outp --> consumer.inp",
+				"producers[2].outp --> consumer.inp");
+		assertConnections(ONE_TO_ALL, "top.impl", "src.op --> threads[1].ip", "src.op --> threads[2].ip",
+				"src.op --> threads[3].ip", "src.op --> threads[4].ip", "src.op --> threads[5].ip",
+				"src.op --> threads[6].ip", "src.op --> threads[7].ip", "src.op --> threads[8].ip",
+				"threads[1].ip --> src.op", "threads[2].ip --> src.op", "threads[3].ip --> src.op",
+				"threads[4].ip --> src.op", "threads[5].ip --> src.op", "threads[6].ip --> src.op",
+				"threads[7].ip --> src.op", "threads[8].ip --> src.op");
 	}
 
 	/**
@@ -101,19 +119,27 @@ public class Issue3037StructuralExpansionTest extends XtextTest {
 	 */
 	@Test
 	public void connectionSetAgrees() throws Exception {
-		assertSameModel(SET, "Matched.i");
-		assertSameModel(SET, "Crossed.i");
-		assertSameModel(SET, "Top.matched");
-		assertSameModel(SET, "Top.crossed");
-		assertSameModel(PROPERTIES, "Top.contextualSet");
+		assertConnections(SET, "Matched.i", "producers[1].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(SET, "Crossed.i", "producers[1].outp --> consumers[2].inp",
+				"producers[2].outp --> consumers[1].inp");
+		assertConnections(SET, "Top.matched", "producers[1].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(SET, "Top.crossed", "producers[1].outp --> consumers[2].inp",
+				"producers[2].outp --> consumers[1].inp");
+		assertConnections(PROPERTIES, "Top.contextualSet", "producers[1].outp --> consumers[2].inp");
 	}
 
 	/** A contained property association that names array indices. */
 	@Test
 	public void containedPropertiesOnArrayElementsAgree() throws Exception {
-		assertSameModel(CONTAINED, "Inner.i");
-		assertSameModel(CONTAINED, "Top.uniform");
-		assertSameModel(CONTAINED, "Top.perElement");
+		assertConnections(CONTAINED, "Inner.i", "producers[1].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(CONTAINED, "Top.uniform", "producers[1].outp --> consumers[1].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(CONTAINED, "Top.perElement", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[1].inp", "producers[2].outp --> consumers[2].inp",
+				"producers[2].outp --> consumers[2].inp");
 	}
 
 	/**
@@ -122,14 +148,23 @@ public class Issue3037StructuralExpansionTest extends XtextTest {
 	 */
 	@Test
 	public void replicatedReferenceContextsAgree() throws Exception {
-		assertSameModel(CONTEXTS, "Top.first");
-		assertSameModel(CONTEXTS, "Top.second");
-		assertSameModel(CONTEXTS, "Top.noIndex");
-		assertSameModel(CONTEXTS, "Top.componentTarget");
-		assertSameModel(NESTED_ARRAYS, "Top.i");
+		assertConnections(CONTEXTS, "Top.first", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[1].inp", "producers[2].outp --> consumers[2].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(CONTEXTS, "Top.second", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[1].inp", "producers[2].outp --> consumers[2].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(CONTEXTS, "Top.noIndex", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[1].inp", "producers[2].outp --> consumers[2].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(CONTEXTS, "Top.componentTarget", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[1].inp", "producers[2].outp --> consumers[2].inp",
+				"producers[2].outp --> consumers[2].inp");
+		assertConnections(NESTED_ARRAYS, "Top.i", "producer_side.p.outp --> consumer_side.cs.inp",
+				"producer_side.p.outp -> consumer_side.cs.inp");
 	}
 
-	private void assertSameModel(String model, String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, model, implementation);
+	private void assertConnections(String model, String implementation, String... expected) throws Exception {
+		InstanceCharacterization.assertConnections(isolated, model, implementation, expected);
 	}
 }

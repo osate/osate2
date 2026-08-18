@@ -31,8 +31,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
-import org.osate.aadl2.instantiation.testing.InstantiationCharacterization;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.testsupport.TestHelper;
 
@@ -40,15 +42,13 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 /**
- * Instantiates a model in a resource set of its own, under a chosen connection
- * traversal strategy.
+ * Instantiates a model in a resource set of its own.
  *
  * <p>
- * Comparing two traversal strategies, or one strategy against itself for
- * determinism, requires that the runs share nothing. The characterization facade
- * cannot arrange that itself: loading an AADL model needs the Xtext resource
- * machinery and the plug-in contributed packages, which the production bundle must
- * not depend on. So resource-set ownership lives here.
+ * A characterization test instantiates the same fixture many times over, and repeated runs
+ * must share nothing: the instance model is created at one URI per implementation, so two
+ * runs in one resource set would collide there, and comparing what they produced would
+ * compare EMF objects the runs share. A fresh resource set per run settles both.
  * </p>
  *
  * <p>
@@ -69,28 +69,16 @@ public class IsolatedInstantiation {
 	private TestHelper<AadlPackage> testHelper;
 
 	/**
-	 * Instantiate {@code implementationName} from {@code modelPath} in a fresh
-	 * resource set.
+	 * Instantiate {@code implementationName} from {@code modelPath} in a fresh resource set.
 	 *
 	 * @param modelPath the fixture, as a path relative to the test workspace
 	 * @param implementationName the component implementation to instantiate
-	 * @param strategyName {@code "SOURCE_FIRST"} or {@code "ACROSS_FIRST"}
-	 * @param observeDuplicateCandidates whether to keep pre-materialization
-	 *            candidate observations
 	 */
-	public CharacterizationRun run(String modelPath, String implementationName, String strategyName,
-			boolean observeDuplicateCandidates) throws Exception {
-		return InstantiationCharacterization.run(load(modelPath, implementationName), strategyName,
-				observeDuplicateCandidates);
-	}
-
-	/**
-	 * The same run, recording only the phase timings. For a benchmark, which must not measure
-	 * the cost of observing.
-	 */
-	public CharacterizationRun runTimed(String modelPath, String implementationName, String strategyName)
-			throws Exception {
-		return InstantiationCharacterization.run(load(modelPath, implementationName), strategyName, false, false);
+	public InstanceRun run(String modelPath, String implementationName) throws Exception {
+		AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
+				QueuingAnalysisErrorReporter.factory);
+		SystemInstance instance = InstantiateModel.instantiate(load(modelPath, implementationName), errorManager);
+		return new InstanceRun(instance, errorManager);
 	}
 
 	/**

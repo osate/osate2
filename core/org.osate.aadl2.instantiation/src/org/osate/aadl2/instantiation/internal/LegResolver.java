@@ -29,7 +29,6 @@ import static org.osate.aadl2.ComponentCategory.THREAD;
 import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -79,7 +78,6 @@ public final class LegResolver {
 	private final HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 	private final ComponentInstance root;
 	private final ResolutionFailures failures;
-	private final TraversalObservations observations;
 
 	/**
 	 * Resolved segments per component, so that a declaration is resolved once per
@@ -98,7 +96,7 @@ public final class LegResolver {
 	 *            category
 	 */
 	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root) {
-		this(classifierCache, root, new ResolutionFailures(), TraversalObservations.disabled());
+		this(classifierCache, root, new ResolutionFailures());
 	}
 
 	/**
@@ -107,15 +105,12 @@ public final class LegResolver {
 	 *            category
 	 * @param failures collects the endpoint resolutions that should have succeeded, so
 	 *            that the caller can report them
-	 * @param observations where to count the work this resolver does, so that it can be
-	 *            compared with what source-first spends on the same model
 	 */
 	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root,
-			ResolutionFailures failures, TraversalObservations observations) {
+			ResolutionFailures failures) {
 		this.classifierCache = classifierCache;
 		this.root = root;
 		this.failures = failures;
-		this.observations = observations;
 	}
 
 	/**
@@ -151,7 +146,6 @@ public final class LegResolver {
 			keyed.add(Map.entry(leg.key(), leg));
 		}
 		keyed.sort(Map.Entry.comparingByKey());
-		observations.increment(TraversalObservations.Counter.LEGS_RESOLVED, results.size());
 		return keyed.stream().map(Map.Entry::getValue).toList();
 	}
 
@@ -234,7 +228,6 @@ public final class LegResolver {
 		}
 
 		for (ResolvedSegment segment : continuations) {
-			observations.increment(TraversalObservations.Counter.TRAVERSAL_STATES);
 			List<ResolvedSegment> extended = new ArrayList<>(segments);
 			extended.add(segment);
 			Set<String> branchVisited = new HashSet<>(visited);
@@ -271,7 +264,7 @@ public final class LegResolver {
 	 * A connection ending component is the exception: a semantic connection ends at its port
 	 * or feature group whatever it does internally, so it starts there too. Its access
 	 * features are not exempt, which is what {@code lookInside} says in
-	 * {@code CreateConnectionsSwitch.instantiateConnections()}, the rule this mirrors.
+	 * the per-component enumeration this rule comes from.
 	 * </p>
 	 */
 	private boolean mayBeUltimateSource(ComponentInstance owner, FeatureInstance feature,
@@ -315,7 +308,7 @@ public final class LegResolver {
 	/**
 	 * Whether one of a component's own declarations delivers to {@code feature}, counting a
 	 * bidirectional declaration whichever end names it, and a declaration that names a member
-	 * of it. Mirrors {@code CreateConnectionsSwitch.isDestination()}.
+	 * of it, which is the question source-first asked before starting a path at the feature.
 	 */
 	private static boolean isDestinationInside(List<Connection> inside, Feature feature) {
 		List<Feature> refinements = feature.getAllFeatureRefinements();
@@ -335,7 +328,7 @@ public final class LegResolver {
 
 	/**
 	 * Whether one of a component's own declarations has {@code feature}, or a member of it, as
-	 * either end. Mirrors {@code CreateConnectionsSwitch.isConnectionEnd()}.
+	 * either end, which is the second question source-first asked before starting there.
 	 */
 	private static boolean isEndInside(List<Connection> inside, Feature feature) {
 		List<Feature> refinements = feature.getAllFeatureRefinements();
@@ -360,8 +353,8 @@ public final class LegResolver {
 	 * Whether a leg continues into a component is a question about a feature group's
 	 * members, not about the group. The declarations that continue it may name only some
 	 * members, an access member reaching a subprogram for instance, and leave the rest
-	 * with no path onwards. Source-first asks the same question member by member in
-	 * {@code CreateConnectionsSwitch.stopAtUncontinuedMembers()}, added for issue #3044,
+	 * with no path onwards. Source-first asked the same question member by member, from the fix for
+	 * issue #3044,
 	 * where a port sharing a feature group with a connected access feature got no
 	 * connection instance at all.
 	 * </p>
@@ -370,8 +363,8 @@ public final class LegResolver {
 	 * A member with nowhere to go ends the connection only if it triggers a mode
 	 * transition of the component, since a mode transition is an end in itself. Any other
 	 * such member can reach nothing that ends a connection, so a path to it is recorded as
-	 * a dead end: it is reported rather than materialized, which is what source-first does
-	 * from {@code addConnectionInstance()}. A connection ending component is left out
+	 * a dead end: it is reported rather than materialized, which is what source-first decided
+	 * as it materialized such a path. A connection ending component is left out
 	 * because the leg already stopped at the whole feature before reaching here, and
 	 * expansion narrows that stop to its members.
 	 * </p>
@@ -446,7 +439,6 @@ public final class LegResolver {
 			Set<String> visited, boolean endingCategory) {
 		List<ResolvedSegment> continuations = new ArrayList<>();
 		for (ResolvedSegment segment : resolved(owner)) {
-			observations.increment(TraversalObservations.Counter.DECLARATIONS_EXAMINED);
 			/*
 			 * Inside a connection-ending component only an access connection continues a
 			 * semantic connection: shared access reaches through such a component, while a
@@ -564,7 +556,7 @@ public final class LegResolver {
 	/**
 	 * Whether the feature is a feature group with a feature group member. A feature group
 	 * that is not nested does not count, which matches
-	 * {@code CreateConnectionsSwitch.FeatureInfo.hasFeatureGroup()}: that flag is only
+	 * the feature summary source-first computed for the same rule, whose flag was only
 	 * ever set while scanning the members of a group.
 	 */
 	private static boolean includesNestedFeatureGroup(FeatureInstance feature) {

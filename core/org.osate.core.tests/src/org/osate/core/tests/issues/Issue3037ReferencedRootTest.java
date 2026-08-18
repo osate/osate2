@@ -36,9 +36,9 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -88,9 +88,9 @@ public class Issue3037ReferencedRootTest extends XtextTest {
 	/** A system whose ports are typed by a classifier with internals, compared over all roots. */
 	@Test
 	public void aModelWithReferencedRootsAgrees() throws Exception {
-		assertSameModel("Top.referenced");
-		assertSameModel("Feeder.i");
-		assertSameModel("Drain.i");
+		assertConnections("Top.referenced", "feeder.worker.outp -> drain.worker.inp");
+		assertConnections("Feeder.i", "worker.outp -> outp");
+		assertConnections("Drain.i", "inp -> worker.inp");
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class Issue3037ReferencedRootTest extends XtextTest {
 	 */
 	@Test
 	public void theResourceCarriesTheReferencedRoots() throws Exception {
-		CharacterizationRun run = isolated.run(MODEL, "Top.referenced", "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, "Top.referenced");
 
 		assertEquals(List.of("feeder.worker.outp -> drain.worker.inp"), names(run.instance()));
 		assertEquals(List.of("ReferencedClassifiers::Element", "ReferencedClassifiers::Payload.i"),
@@ -109,24 +109,24 @@ public class Issue3037ReferencedRootTest extends XtextTest {
 				names(referencedRoot(run)));
 	}
 
-	private void assertSameModel(String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, MODEL, implementation);
+	private void assertConnections(String implementation, String... expected) throws Exception {
+		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
 	}
 
 	private static List<String> names(ComponentInstance root) {
 		return root.getAllConnectionInstances().stream().map(ConnectionInstance::getName).sorted().toList();
 	}
 
-	private static List<String> referencedRootNames(CharacterizationRun run) {
+	private static List<String> referencedRootNames(InstanceRun run) {
 		return roots(run).stream().map(ComponentInstance::getName).sorted().toList();
 	}
 
-	private static ComponentInstance referencedRoot(CharacterizationRun run) {
+	private static ComponentInstance referencedRoot(InstanceRun run) {
 		return roots(run).get(0);
 	}
 
 	/** The roots of the instance resource other than the system instance. */
-	private static List<ComponentInstance> roots(CharacterizationRun run) {
+	private static List<ComponentInstance> roots(InstanceRun run) {
 		return run.instance()
 				.eResource()
 				.getContents()

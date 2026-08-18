@@ -21,38 +21,23 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.instantiation.internal;
+package org.osate.core.tests.instantiation;
+
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 /**
- * Which semantic connection enumeration strategy an instantiation run uses.
+ * One instantiation of one component implementation: the model it produced and the
+ * diagnostics it reported.
  *
  * <p>
- * The strategy is per-instantiation state, never static mutable state: the
- * language server instantiates models concurrently, so a global switch would let
- * one run change another run's behavior.
+ * Diagnostics are collected by an in-memory queuing reporter rather than by workspace
+ * markers, so that a test reads them directly and repeated runs do not collide on marker
+ * state.
  * </p>
  *
- * <p>
- * Strategy selection is a migration aid for the across-first traversal work, so
- * this type lives in an unexported package rather than becoming public API.
- * </p>
+ * @param instance the instance model
+ * @param errorManager the manager holding what the run reported
  */
-public enum ConnectionTraversalStrategy {
-	/**
-	 * Grow partial paths forward from each candidate source feature. Retained only
-	 * so that the differential tests can compare against it; across-first is the
-	 * production strategy.
-	 */
-	SOURCE_FIRST,
-
-	/**
-	 * Seed enumeration at each across declaration and resolve a source leg and a
-	 * destination leg downward from that pivot. The production strategy.
-	 */
-	ACROSS_FIRST;
-
-	/** The strategy used when a caller does not select one. */
-	public static ConnectionTraversalStrategy productionDefault() {
-		return ACROSS_FIRST;
-	}
+public record InstanceRun(SystemInstance instance, AnalysisErrorReporterManager errorManager) {
 }

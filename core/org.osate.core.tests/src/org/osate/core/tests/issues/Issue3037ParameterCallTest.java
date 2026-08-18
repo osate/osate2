@@ -35,9 +35,9 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -82,9 +82,8 @@ public class Issue3037ParameterCallTest extends XtextTest {
 	 */
 	@Test
 	public void aCallInTheRootAgrees() throws Exception {
-		assertSameModel("Caller.i");
+		assertConnections("Caller.i");
 
-		assertEquals(List.of(), connectionNames("Caller.i"));
 		assertEquals("the call itself contributes no instance object",
 				List.of("Caller_i_Instance", "Caller_i_Instance.body", "Caller_i_Instance.store"),
 				componentPaths("Caller.i"));
@@ -100,20 +99,18 @@ public class Issue3037ParameterCallTest extends XtextTest {
 	 */
 	@Test
 	public void aCallBelowTheRootAgrees() throws Exception {
-		assertSameModel("Host.i");
-		assertSameModel("Top.withCall");
+		assertConnections("Host.i", "inp -> worker.inp", "worker.outp -> outp");
+		assertConnections("Top.withCall", "feeder.outp -> host.worker.inp", "host.worker.outp -> collector.inp");
 
-		assertEquals(List.of("feeder.outp -> host.worker.inp", "host.worker.outp -> collector.inp"),
-				connectionNames("Top.withCall"));
 	}
 
-	private void assertSameModel(String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, MODEL, implementation);
+	private void assertConnections(String implementation, String... expected) throws Exception {
+		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
 	}
 
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
-		CharacterizationRun run = isolated.run(MODEL, implementation, "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, implementation);
 		return roots(run).stream()
 				.flatMap(root -> root.getAllConnectionInstances().stream())
 				.map(ConnectionInstance::getName)
@@ -123,7 +120,7 @@ public class Issue3037ParameterCallTest extends XtextTest {
 
 	/** The component instances of a run, so that a vacuous fixture cannot pass. */
 	private List<String> componentPaths(String implementation) throws Exception {
-		CharacterizationRun run = isolated.run(MODEL, implementation, "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, implementation);
 		return run.instance()
 				.getAllComponentInstances()
 				.stream()
@@ -133,7 +130,7 @@ public class Issue3037ParameterCallTest extends XtextTest {
 	}
 
 	/** Every root of the instance resource, since a data classifier gets one of its own. */
-	private static List<ComponentInstance> roots(CharacterizationRun run) {
+	private static List<ComponentInstance> roots(InstanceRun run) {
 		return run.instance()
 				.eResource()
 				.getContents()

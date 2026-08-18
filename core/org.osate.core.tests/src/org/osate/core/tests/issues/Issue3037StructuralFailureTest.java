@@ -34,11 +34,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceReport;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -79,12 +79,11 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 	/** Crossed index pairs through a whole feature group, which the corpus never had. */
 	@Test
 	public void aCrossedConnectionSetThroughAFeatureGroupAgrees() throws Exception {
-		assertSameModel("CrossedGroupSet.i");
-		assertSameModel("Top.crossedGroupSet");
+		assertConnections("CrossedGroupSet.i", "producers[1].bundle.signal --> consumers[2].bundle.signal",
+				"producers[2].bundle.signal --> consumers[1].bundle.signal");
+		assertConnections("Top.crossedGroupSet", "producers[1].bundle.signal --> consumers[2].bundle.signal",
+				"producers[2].bundle.signal --> consumers[1].bundle.signal");
 
-		assertEquals(List.of("producers[1].bundle.signal --> consumers[2].bundle.signal",
-				"producers[2].bundle.signal --> consumers[1].bundle.signal"),
-				connectionNames("CrossedGroupSet.i"));
 	}
 
 	/**
@@ -102,11 +101,11 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 	 */
 	@Test
 	public void aPatternWithTooFewIndicesAgrees() throws Exception {
-		assertSameModel("TooFewIndices.i");
-		assertSameModel("Top.tooFewIndices");
+		assertConnections("TooFewIndices.i", "producers[1][1].outp --> consumers[1][1].inp",
+				"producers[1][1].outp --> consumers[1][1].inp");
+		assertConnections("Top.tooFewIndices", "producers[1][1].outp --> consumers[1][1].inp",
+				"producers[1][1].outp --> consumers[1][1].inp");
 
-		assertEquals(List.of("producers[1][1].outp --> consumers[1][1].inp",
-				"producers[1][1].outp --> consumers[1][1].inp"), connectionNames("TooFewIndices.i"));
 		assertEquals(List.of(
 				"Error | For c : producers[1][1].outp -> consumers[1][1].inp,"
 						+ " destination indices [1] do not match destination dimension 2",
@@ -130,20 +129,19 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 	 */
 	@Test
 	public void aConnectionSetOutOfRangeAgrees() throws Exception {
-		assertSameModel("OutOfRangeSet.i");
-		assertSameModel("Top.outOfRangeSet");
+		assertConnections("OutOfRangeSet.i");
+		assertConnections("Top.outOfRangeSet");
 
-		assertEquals(List.of(), connectionNames("OutOfRangeSet.i"));
 		assertEquals(List.of("Error | Connection destination not found"), messages("OutOfRangeSet.i"));
 	}
 
-	private void assertSameModel(String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, MODEL, implementation);
+	private void assertConnections(String implementation, String... expected) throws Exception {
+		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
 	}
 
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
-		CharacterizationRun run = isolated.run(MODEL, implementation, "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, implementation);
 		return run.instance()
 				.getAllConnectionInstances()
 				.stream()
@@ -159,7 +157,7 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 	 * all, which is the part worth reading.
 	 */
 	private List<String> messages(String implementation) throws Exception {
-		CharacterizationRun run = isolated.run(MODEL, implementation, "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, implementation);
 		return InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager()))
 				.stream()
 				.map(line -> line.substring(0, line.indexOf(" | at ")))

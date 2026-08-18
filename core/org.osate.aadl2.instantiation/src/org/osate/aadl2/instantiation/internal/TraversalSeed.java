@@ -117,7 +117,7 @@ public sealed interface TraversalSeed {
 	 * <p>
 	 * Such a port ends a semantic connection even though the connection reaches no peer
 	 * and leaves no boundary: the trigger is the connection's consumer. Source-first
-	 * creates it in {@code appendSegment()} when an upward path can go no further and
+	 * created it while extending a path, when an upward path could go no further and
 	 * {@code isModeTransitionTrigger()} holds; where that test fails it warns instead and
 	 * creates nothing, which is why this seed exists only for a port that really is a
 	 * trigger.

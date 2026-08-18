@@ -31,7 +31,7 @@ import java.util.List;
  * component's own feature down into nested feature groups.
  *
  * <p>
- * Source-first traversal keeps this state in the two shared {@code upFeature} and
+ * Source-first kept this state in two feature group stacks shared by every path under
  * {@code downFeature} stacks, which belong to the switch rather than to a path.
  * Two paths being enumerated share one stack, and a path seeded partway down a
  * feature group nesting still sees the levels above it, which is the mechanism

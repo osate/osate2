@@ -33,9 +33,9 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -78,23 +78,17 @@ public class Issue3037FeatureArrayTest extends XtextTest {
 	 */
 	@Test
 	public void arrayFeaturesAtABoundaryAgree() throws Exception {
-		assertSameModel("ArrayFeeder.i");
-		assertSameModel("ArrayDrain.i");
+		assertConnections("ArrayFeeder.i", "boxes[1].worker.outp --> outs[1]", "boxes[2].worker.outp --> outs[2]");
+		assertConnections("ArrayDrain.i", "ins[1] --> boxes[1].worker.inp", "ins[2] --> boxes[2].worker.inp");
 
-		assertEquals(List.of("boxes[1].worker.outp --> outs[1]", "boxes[2].worker.outp --> outs[2]"),
-				connectionNames("ArrayFeeder.i"));
-		assertEquals(List.of("ins[1] --> boxes[1].worker.inp", "ins[2] --> boxes[2].worker.inp"),
-				connectionNames("ArrayDrain.i"));
 	}
 
 	/** Feature arrays at both ends of the pivot, each side descending into a component array. */
 	@Test
 	public void featureArraysAcrossAPivotAgree() throws Exception {
-		assertSameModel("Top.arrayToArray");
+		assertConnections("Top.arrayToArray", "feeder.boxes[1].worker.outp --> drain.boxes[1].worker.inp",
+				"feeder.boxes[2].worker.outp --> drain.boxes[2].worker.inp");
 
-		assertEquals(List.of("feeder.boxes[1].worker.outp --> drain.boxes[1].worker.inp",
-				"feeder.boxes[2].worker.outp --> drain.boxes[2].worker.inp"),
-				connectionNames("Top.arrayToArray"));
 	}
 
 	/**
@@ -110,20 +104,18 @@ public class Issue3037FeatureArrayTest extends XtextTest {
 	 */
 	@Test
 	public void aPatternOverFeatureArraysAgrees() throws Exception {
-		assertSameModel("Top.patternedArrayToArray");
+		assertConnections("Top.patternedArrayToArray", "feeder.boxes[1].worker.outp --> drain.boxes[1].worker.inp",
+				"feeder.boxes[1].worker.outp --> drain.boxes[2].worker.inp");
 
-		assertEquals(List.of("feeder.boxes[1].worker.outp --> drain.boxes[1].worker.inp",
-				"feeder.boxes[1].worker.outp --> drain.boxes[2].worker.inp"),
-				connectionNames("Top.patternedArrayToArray"));
 	}
 
-	private void assertSameModel(String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, MODEL, implementation);
+	private void assertConnections(String implementation, String... expected) throws Exception {
+		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
 	}
 
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
-		CharacterizationRun run = isolated.run(MODEL, implementation, "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, implementation);
 		return run.instance()
 				.getAllConnectionInstances()
 				.stream()

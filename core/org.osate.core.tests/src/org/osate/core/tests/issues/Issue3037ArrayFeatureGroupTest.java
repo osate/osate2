@@ -33,12 +33,12 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceIntegrity;
 import org.osate.core.tests.instantiation.InstanceReport;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -79,19 +79,35 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	/** Whole feature groups connected between arrays, on both endpoints and on each alone. */
 	@Test
 	public void featureGroupsBetweenArraysAgree() throws Exception {
-		assertSameModel("GroupArrays.i");
-		assertSameModel("Top.groupArrays");
-		assertSameModel("SourceArray.i");
-		assertSameModel("Top.sourceArray");
-		assertSameModel("DestinationArray.i");
-		assertSameModel("Top.destinationArray");
+		assertConnections("GroupArrays.i", "consumers[1].bundle.ack --> producers[1].bundle.ack",
+				"consumers[2].bundle.ack --> producers[2].bundle.ack",
+				"producers[1].bundle.signal --> consumers[1].bundle.signal",
+				"producers[2].bundle.signal --> consumers[2].bundle.signal");
+		assertConnections("Top.groupArrays", "consumers[1].bundle.ack --> producers[1].bundle.ack",
+				"consumers[2].bundle.ack --> producers[2].bundle.ack",
+				"producers[1].bundle.signal --> consumers[1].bundle.signal",
+				"producers[2].bundle.signal --> consumers[2].bundle.signal");
+		assertConnections("SourceArray.i", "consumer.bundle.ack -> producers[1].bundle.ack",
+				"producers[1].bundle.signal -> consumer.bundle.signal");
+		assertConnections("Top.sourceArray", "consumer.bundle.ack -> producers[1].bundle.ack",
+				"producers[1].bundle.signal -> consumer.bundle.signal");
+		assertConnections("DestinationArray.i", "consumers[1].bundle.ack -> producer.bundle.ack",
+				"producer.bundle.signal -> consumers[1].bundle.signal");
+		assertConnections("Top.destinationArray", "consumers[1].bundle.ack -> producer.bundle.ack",
+				"producer.bundle.signal -> consumers[1].bundle.signal");
 	}
 
 	/** Whole nested feature groups between arrays, so pairing descends before it reaches a port. */
 	@Test
 	public void nestedFeatureGroupsBetweenArraysAgree() throws Exception {
-		assertSameModel("NestedGroupArrays.i");
-		assertSameModel("Top.nestedGroupArrays");
+		assertConnections("NestedGroupArrays.i", 2, "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
+				"consumers[2].nest.inner.ack --> producers[2].nest.inner.ack",
+				"producers[1].nest.inner.signal --> consumers[1].nest.inner.signal",
+				"producers[2].nest.inner.signal --> consumers[2].nest.inner.signal");
+		assertConnections("Top.nestedGroupArrays", 2, "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
+				"consumers[2].nest.inner.ack --> producers[2].nest.inner.ack",
+				"producers[1].nest.inner.signal --> consumers[1].nest.inner.signal",
+				"producers[2].nest.inner.signal --> consumers[2].nest.inner.signal");
 	}
 
 	/**
@@ -101,12 +117,9 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	 */
 	@Test
 	public void reachingIntoABoundaryGroupMemberAgrees() throws Exception {
-		assertSameModel("Reacher.i");
-		assertSameModel("SoloReacher.i");
+		assertConnections("Reacher.i", "producers[1].outp --> bundle.signal", "producers[2].outp --> bundle.signal");
+		assertConnections("SoloReacher.i", "producer.outp -> bundle.signal");
 
-		assertEquals(List.of("producers[1].outp --> bundle.signal", "producers[2].outp --> bundle.signal"),
-				connectionNames("Reacher.i"));
-		assertEquals(List.of("producer.outp -> bundle.signal"), connectionNames("SoloReacher.i"));
 	}
 
 	/**
@@ -123,26 +136,18 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	 * </p>
 	 */
 	@Test
-	public void aPivotOntoAReachedIntoMemberDropsOnlyTheSourceFirstWarning() throws Exception {
-		CharacterizationRun sourceFirst = isolated.run(MODEL, "Top.soloReachedInto", "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(MODEL, "Top.soloReachedInto", "ACROSS_FIRST", false);
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
+	public void aPivotOntoAReachedIntoMemberReportsNothing() throws Exception {
+		InstanceRun run = InstanceCharacterization.assertConnections(isolated, MODEL, "Top.soloReachedInto",
+				"collector.consumer.bundle.ack -> reacher.bundle.ack",
+				"reacher.producer.outp -> collector.consumer.bundle.signal");
 
-		assertEquals(InstanceReport.connectionLines(expected), InstanceReport.connectionLines(actual));
-		assertEquals(InstanceReport.flowLines(expected), InstanceReport.flowLines(actual));
-		assertEquals(InstanceIntegrity.check(sourceFirst.instance()), InstanceIntegrity.check(acrossFirst.instance()));
-		assertEquals(List.of("collector.consumer.bundle.ack -> reacher.bundle.ack",
-				"reacher.producer.outp -> collector.consumer.bundle.signal"),
-				connectionNames("Top.soloReachedInto"));
-
-		assertEquals(List.of("Warning | No connection declaration from feature bundle of component reacher to"
-				+ " subcomponents. Connection instance ends at reacher"
-				+ " | at Top_soloReachedInto_Instance|SystemInstance"
-				+ " | in ArraysAndFeatureGroups_Top_soloReachedInto_Instance.aaxl2"),
-				InstanceReport.diagnosticSet(expected));
-		assertEquals("allowlist entry 5: the warning disappears", List.of(),
-				InstanceReport.diagnosticSet(actual));
+		/*
+		 * Allowlist entry 5. The baseline reported "No connection declaration from feature bundle of
+		 * component reacher to subcomponents. Connection instance ends at reacher" here, against the
+		 * system instance, and created both connections anyway.
+		 */
+		assertEquals("allowlist entry 5: the warning is gone", List.of(),
+				InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager())));
 	}
 
 	/**
@@ -167,13 +172,8 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	 */
 	@Test
 	public void anArrayReachingIntoAMemberAcrossAPivotLosesAllButTheFirstElement() throws Exception {
-		CharacterizationRun sourceFirst = isolated.run(MODEL, "Top.reachedInto", "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(MODEL, "Top.reachedInto", "ACROSS_FIRST", false);
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
-
-		assertEquals(InstanceReport.connectionLines(expected), InstanceReport.connectionLines(actual));
-		assertEquals(InstanceIntegrity.check(sourceFirst.instance()), InstanceIntegrity.check(acrossFirst.instance()));
+		InstanceRun run = isolated.run(MODEL, "Top.reachedInto");
+		InstanceSnapshot actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
 		assertEquals("producers[2] is missing, and the survivor is the provisional connection",
 				List.of("collector.consumer.bundle.ack -> reacher.bundle.ack",
@@ -184,30 +184,48 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 				+ " -> collector.consumer.bundle.signal"
 				+ " | at Top_reachedInto_Instance.reacher.producers[1].outp -> collector.consumer.bundle.signal"
 				+ "|ConnectionInstance | in ArraysAndFeatureGroups_Top_reachedInto_Instance.aaxl2";
-		assertEquals(List.of(expansionError,
-				"Warning | No connection declaration from feature bundle of component reacher to subcomponents."
-						+ " Connection instance ends at reacher"
-						+ " | at Top_reachedInto_Instance|SystemInstance"
-						+ " | in ArraysAndFeatureGroups_Top_reachedInto_Instance.aaxl2"),
-				InstanceReport.diagnosticSet(expected));
-		assertEquals("allowlist entry 5, over the shared expansion error", List.of(expansionError),
+		/*
+		 * Allowlist entry 5 again: the baseline added "No connection declaration from feature bundle
+		 * of component reacher to subcomponents. Connection instance ends at reacher" to the
+		 * expansion error, which is the report that describes the model.
+		 */
+		assertEquals("the expansion error is what remains", List.of(expansionError),
 				InstanceReport.diagnosticSet(actual));
 	}
 
 	/** Arrays, nested inverse feature groups, and a structural pattern at once. */
 	@Test
 	public void arraysNestedGroupsAndAPatternAgree() throws Exception {
-		assertSameModel("Patterned.i");
-		assertSameModel("Top.patterned");
+		assertConnections("Patterned.i", 4, "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
+				"consumers[1].nest.inner.ack --> producers[2].nest.inner.ack",
+				"consumers[2].nest.inner.ack --> producers[1].nest.inner.ack",
+				"consumers[2].nest.inner.ack --> producers[2].nest.inner.ack",
+				"producers[1].nest.inner.signal --> consumers[1].nest.inner.signal",
+				"producers[1].nest.inner.signal --> consumers[2].nest.inner.signal",
+				"producers[2].nest.inner.signal --> consumers[1].nest.inner.signal",
+				"producers[2].nest.inner.signal --> consumers[2].nest.inner.signal");
+		assertConnections("Top.patterned", 4, "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
+				"consumers[1].nest.inner.ack --> producers[2].nest.inner.ack",
+				"consumers[2].nest.inner.ack --> producers[1].nest.inner.ack",
+				"consumers[2].nest.inner.ack --> producers[2].nest.inner.ack",
+				"producers[1].nest.inner.signal --> consumers[1].nest.inner.signal",
+				"producers[1].nest.inner.signal --> consumers[2].nest.inner.signal",
+				"producers[2].nest.inner.signal --> consumers[1].nest.inner.signal",
+				"producers[2].nest.inner.signal --> consumers[2].nest.inner.signal");
 	}
 
-	private void assertSameModel(String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, MODEL, implementation);
+	private void assertConnections(String implementation, String... expected) throws Exception {
+		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
+	}
+
+	private void assertConnections(String implementation, int staleReferences, String... expected) throws Exception {
+		InstanceCharacterization.assertConnectionsWithStaleArrayReferences(isolated, MODEL, implementation,
+				staleReferences, expected);
 	}
 
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
-		CharacterizationRun run = isolated.run(MODEL, implementation, "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(MODEL, implementation);
 		return run.instance()
 				.getAllConnectionInstances()
 				.stream()

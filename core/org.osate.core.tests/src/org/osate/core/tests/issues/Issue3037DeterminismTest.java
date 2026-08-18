@@ -25,7 +25,6 @@ package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -33,9 +32,9 @@ import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
 import org.osate.core.tests.instantiation.InstanceIntegrity;
 import org.osate.core.tests.instantiation.InstanceReport;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
 import org.osate.testsupport.Aadl2InjectorProvider;
@@ -64,10 +63,15 @@ public class Issue3037DeterminismTest extends XtextTest {
 	@Inject
 	private IsolatedInstantiation isolated;
 
+	/**
+	 * Two runs of the same model produce the same instance model, including the collection order
+	 * of its connections, which allowlist entry 1 of issue #3037 releases from the baseline's
+	 * order and therefore has to pin to something.
+	 */
 	@Test
 	public void repeatedRunsAreIsolatedAndIdentical() throws Exception {
-		CharacterizationRun first = isolated.run(MODEL, "Sys.Imp", "SOURCE_FIRST", false);
-		CharacterizationRun second = isolated.run(MODEL, "Sys.Imp", "SOURCE_FIRST", false);
+		InstanceRun first = isolated.run(MODEL, "Sys.Imp");
+		InstanceRun second = isolated.run(MODEL, "Sys.Imp");
 
 		// Isolation: nothing is shared, so no comparison can rest on object identity.
 		assertNotSame(first.instance(), second.instance());
@@ -80,31 +84,10 @@ public class Issue3037DeterminismTest extends XtextTest {
 		assertEquals(InstanceReport.full(firstSnapshot), InstanceReport.full(secondSnapshot));
 		assertEquals(InstanceReport.connectionOrderLines(firstSnapshot),
 				InstanceReport.connectionOrderLines(secondSnapshot));
-		assertEquals(first.counters(), second.counters());
 
 		assertEquals(List.of(), InstanceIntegrity.check(first.instance()));
 		assertEquals(List.of(), InstanceIntegrity.check(second.instance()));
-		assertTrue("the isolated harness must produce the same connections as an ordinary instantiation",
-				InstanceReport.connectionLines(firstSnapshot).size() == 2);
-	}
-
-	/**
-	 * Across-first traversal must be deterministic in its own right, including its
-	 * collection order, before the two strategies can be compared meaningfully.
-	 */
-	@Test
-	public void repeatedAcrossFirstRunsAreIdentical() throws Exception {
-		CharacterizationRun first = isolated.run(MODEL, "Sys.Imp", "ACROSS_FIRST", false);
-		CharacterizationRun second = isolated.run(MODEL, "Sys.Imp", "ACROSS_FIRST", false);
-
-		assertNotSame(first.instance(), second.instance());
-		InstanceSnapshot firstSnapshot = InstanceSnapshot.of(first.instance(), first.errorManager());
-		InstanceSnapshot secondSnapshot = InstanceSnapshot.of(second.instance(), second.errorManager());
-
-		assertEquals(InstanceReport.full(firstSnapshot), InstanceReport.full(secondSnapshot));
-		assertEquals(InstanceReport.connectionOrderLines(firstSnapshot),
-				InstanceReport.connectionOrderLines(secondSnapshot));
-		assertEquals(first.counters(), second.counters());
-		assertEquals(List.of(), InstanceIntegrity.check(first.instance()));
+		assertEquals("the two legal orientations of the issue #565 model", 2,
+				InstanceReport.connectionLines(firstSnapshot).size());
 	}
 }

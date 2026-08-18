@@ -114,16 +114,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
-import org.osate.aadl2.instantiation.internal.ConnectionTraversalStrategy;
-import org.osate.aadl2.instantiation.internal.LeafExpansion;
-import org.osate.aadl2.instantiation.internal.LegResult;
-import org.osate.aadl2.instantiation.internal.LegResolver;
-import org.osate.aadl2.instantiation.internal.PathAssembler;
-import org.osate.aadl2.instantiation.internal.LegRole;
-import org.osate.aadl2.instantiation.internal.SeedDiscovery;
-import org.osate.aadl2.instantiation.internal.SemanticConnectionPath;
-import org.osate.aadl2.instantiation.internal.TraversalSeed;
-import org.osate.aadl2.instantiation.internal.TraversalObservations;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -174,19 +164,6 @@ public class InstantiateModel {
 	 * bindings are included also.
 	 */
 	protected HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
-
-	/**
-	 * The connection enumeration strategy this run uses. Instance state rather than
-	 * static state: the language server instantiates models concurrently, so a global
-	 * switch would let one run change another run's behavior.
-	 */
-	private ConnectionTraversalStrategy strategy = ConnectionTraversalStrategy.productionDefault();
-
-	/**
-	 * Connection-phase measurements for this run, disabled unless a characterization
-	 * run asked for them.
-	 */
-	private TraversalObservations observations = TraversalObservations.disabled();
 
 	protected SCProperties scProps = new SCProperties();
 	/**
@@ -268,34 +245,6 @@ public class InstantiateModel {
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
 		errManager = errMgr;
 		monitor = pm;
-	}
-
-	/**
-	 * Create an instantiator that uses a specific connection traversal strategy and
-	 * records connection-phase measurements.
-	 *
-	 * <p>
-	 * Both parameter types come from the unexported package
-	 * {@code org.osate.aadl2.instantiation.internal}, so no other bundle can resolve
-	 * this signature or call this method. It exists only so that the characterization
-	 * facade, which lives in a different package of this bundle, can select a
-	 * strategy without strategy selection becoming supported API. It is removed
-	 * together with the rest of the migration support.
-	 * </p>
-	 *
-	 * @param pm the progress monitor
-	 * @param errMgr the error manager
-	 * @param strategy the connection traversal strategy to use
-	 * @param observations where to record measurements and candidate observations
-	 * @return an instantiator configured for one characterization run
-	 */
-	public static InstantiateModel forCharacterization(final IProgressMonitor pm,
-			final AnalysisErrorReporterManager errMgr, final ConnectionTraversalStrategy strategy,
-			final TraversalObservations observations) {
-		final InstantiateModel instantiateModel = new InstantiateModel(pm, errMgr);
-		instantiateModel.strategy = strategy;
-		instantiateModel.observations = observations;
-		return instantiateModel;
 	}
 
 	// Methods
@@ -611,62 +560,8 @@ public class InstantiateModel {
 		pending.phase = InstantiationRoot.Phase.INSTANTIATE_ANNEXES;
 		final ComponentInstance root = pending.root;
 
-		/*
-		 * The connection phase covers enumeration, structural expansion, materialization,
-		 * mode and SOM assignment, and connection validation, and stops before
-		 * end-to-end flow creation. Enumeration is measured separately, because the rest
-		 * is shared by every traversal strategy and would mask a traversal regression
-		 * inside a passing phase-level ratio.
-		 */
-		/*
-		 * Under source-first, the across-first pipeline is run alongside it purely to
-		 * record what it would have produced, which is how seeds, legs, paths, and expanded
-		 * endpoints are checked against source-first results. It has no effect on what is
-		 * instantiated. Under across-first the traversal itself records the same
-		 * observations, so running them here as well would count everything twice.
-		 * Temporary, like the rest of the instrumentation.
-		 */
-		if (observations.isRecording() && strategy == ConnectionTraversalStrategy.SOURCE_FIRST) {
-			final LegResolver legResolver = new LegResolver(classifierCache, root);
-			for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache)) {
-				observations.addSeed(seed::key);
-				List<LegResult> sourceLegs = List.of();
-				List<LegResult> destinationLegs = List.of();
-				if (seed instanceof TraversalSeed.Across across) {
-					sourceLegs = legResolver.resolve(across.segment().source(), LegRole.SOURCE_LEG,
-							across.segment().declaration());
-					destinationLegs = legResolver.resolve(across.segment().destination(), LegRole.DESTINATION_LEG);
-				} else if (seed instanceof TraversalSeed.Boundary boundary) {
-					/*
-					 * A boundary seed has one leg. An incoming boundary feature leads inwards, so the
-					 * model supplies the destination; an outgoing one leads towards the ultimate
-					 * source inside the model.
-					 */
-					if (boundary.incoming()) {
-						destinationLegs = legResolver.resolve(boundary.feature(), LegRole.DESTINATION_LEG);
-					} else {
-						sourceLegs = legResolver.resolve(boundary.feature(), LegRole.SOURCE_LEG);
-					}
-				}
-				sourceLegs.forEach(leg -> observations.addLeg(leg::key));
-				destinationLegs.forEach(leg -> observations.addLeg(leg::key));
-				for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs)) {
-					observations.addPath(() -> (path.complete() ? "complete|" : "incomplete|") + path.key().render());
-					// A path that ends at a dead end is reported, not expanded into endpoint pairs.
-					if (!path.deadEnd()) {
-						LeafExpansion.expand(path).forEach(endpoints -> observations.addExpanded(endpoints::key));
-					}
-				}
-			}
-		}
-
-		observations.startConnectionPhase();
-		observations.startTraversal();
-		new CreateConnectionsSwitch(monitor, errManager, classifierCache, strategy, observations)
-				.processPreOrderAll(root);
-		observations.stopTraversal();
+		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			observations.stopConnectionPhase();
 			throw new InterruptedException();
 		}
 
@@ -691,14 +586,12 @@ public class InstantiateModel {
 		// handle arrays, connection patterns, and connection sets
 		processConnections(root);
 		if (monitor.isCanceled()) {
-			observations.stopConnectionPhase();
 			throw new InterruptedException();
 		}
 
 		final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager, classifierCache);
 		vcs.processPreOrderAll(root);
 		vcs.postProcess();
-		observations.stopConnectionPhase();
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}

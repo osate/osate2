@@ -36,21 +36,21 @@ from pathlib import Path
 REPORT = Path("core/org.osate.aadl2.instantiation/target/site/jacoco/jacoco.xml")
 SOURCES = Path("core/org.osate.aadl2.instantiation/src")
 PACKAGE = "org.osate.aadl2.instantiation.internal"
-# The plan's own asks, 90% line and 85% branch, and they are met. They were lowered to 89 and 77
-# on 2026-08-18 by reviewer decision, when what remained was concentrated in endpoint resolution
-# outcomes and leaf expansion fallbacks that need invalid models the corpus does not have. The
-# switch to across-first as the production strategy later the same day raised the measurement to
-# 92.5% line and 86.4% branch of the reachable code, because the rules it needed to add brought
-# their own tests and reached those fallbacks, so the floors were restored to what the plan asks.
+# The plan's own asks, 90% line and 85% branch, and they are met: 91.2% line and 85.8% branch of
+# the reachable code, measured on 2026-08-18 after source-first traversal was removed. They had
+# been lowered to 89 and 77 earlier that day, when what remained was concentrated in endpoint
+# resolution outcomes and leaf expansion fallbacks that need invalid models the corpus does not
+# have; the rules the production switch had to add brought their own tests, which reached those
+# fallbacks, and the floors were restored to what the plan asks.
 # Treat them as a ratchet: they may rise, and a fall means a test was lost.
 LINE_FLOOR = 90.0
 BRANCH_FLOOR = 85.0
 
 THROWS = re.compile(r"throw new (IllegalArgumentException|IllegalStateException)")
 
-# Temporary migration scaffolding, removed with the rest of it in Phase 6. Its branches are the
-# recording flags, whose disabled side only production takes and no test measures.
-SCAFFOLDING = {"TraversalObservations.java"}
+# Nothing is excluded as migration scaffolding any more: the traversal observations that used to be
+# were removed with source-first traversal.
+SCAFFOLDING = set()
 
 
 def source_lines(class_name):
@@ -148,7 +148,6 @@ def main():
     print("  reachable branches %.1f%% (%d of %d), floor %.0f%%"
           % (branch_pct, counted["branch"][0], branch_total, BRANCH_FLOOR))
     print("  excluded as defensive: %d lines, %d branches" % (defensive["line"], defensive["branch"]))
-    print("  excluded as temporary scaffolding: " + ", ".join(sorted(SCAFFOLDING)))
     print()
     for name, number, kind, text in gaps:
         print("  %-34s %5d  %-14s %s" % (name, number, kind, text[:80]))

@@ -31,8 +31,8 @@ import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
 import org.osate.core.tests.instantiation.InstanceReport;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
 import org.osate.testsupport.Aadl2InjectorProvider;
@@ -84,13 +84,11 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 * </p>
 	 */
 	@Test
-	public void componentsAtBothEndsAreReportedIdentically() throws Exception {
-		assertSameDiagnostics(BAD_PARAMETER, "T1.impl");
-		assertSameDiagnostics(BAD_PARAMETER, "P1.impl");
-		assertSameDiagnostics(BAD_ACCESS, "Sys1.impl");
-		assertSameDiagnostics(BAD_ACCESS, "Sys3.impl");
+	public void componentsAtBothEndsAreReported() throws Exception {
+		assertReports(BAD_PARAMETER, "P1.impl", "Connection source and destination are components");
+		assertReports(BAD_ACCESS, "Sys3.impl", "Connection source and destination are components");
 
-		CharacterizationRun run = isolated.run(BAD_PARAMETER, "T1.impl", "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(BAD_PARAMETER, "T1.impl");
 		assertEquals(List.of("Error | Connection source and destination are components:"
 				+ " T1_impl_Instance.Data2 => T1_impl_Instance.Data1 | at T1_impl_Instance|SystemInstance"
 				+ " | in BadParameterConnection_T1_impl_Instance.aaxl2"),
@@ -111,15 +109,13 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 */
 	@Test
 	public void aMissingFeatureIsReportedForBothEndsOfTheDeclaration() throws Exception {
-		CharacterizationRun sourceFirst = isolated.run(MISSING_FEATURE, "s.impl3", "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(MISSING_FEATURE, "s.impl3", "ACROSS_FIRST", false);
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
+		InstanceRun run = isolated.run(MISSING_FEATURE, "s.impl3");
+		InstanceSnapshot actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
-		assertEquals(InstanceReport.connectionLines(expected), InstanceReport.connectionLines(actual));
-		assertEquals(List.of("Error | Destination feature f_in not found. No connection created."
-				+ " | at s_impl3_Instance.f_pa|ComponentInstance"
-				+ " | in flow_order_test_s_impl3_Instance.aaxl2"), errors(expected));
+		/*
+		 * The baseline reported one error for the end its traversal was reaching for, "Destination
+		 * feature f_in not found. No connection created.", against the component.
+		 */
 		assertEquals("allowlist entry 6: the resolver's own wording, for both ends",
 				List.of("Error | Feature f_in not found in s_impl3_Instance.f_pa"
 						+ " | at s_impl3_Instance|SystemInstance | in flow_order_test_s_impl3_Instance.aaxl2",
@@ -139,14 +135,10 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 */
 	@Test
 	public void aMissingSubcomponentInstanceIsReportedWithoutThePrefix() throws Exception {
-		CharacterizationRun sourceFirst = isolated.run(MISSING_SUBCOMPONENT, "Top.i", "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(MISSING_SUBCOMPONENT, "Top.i", "ACROSS_FIRST", false);
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
+		InstanceRun run = isolated.run(MISSING_SUBCOMPONENT, "Top.i");
+		InstanceSnapshot actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
-		assertEquals(InstanceReport.connectionLines(expected), InstanceReport.connectionLines(actual));
-		assertEquals(List.of("Error | Instantiation error: no component instance for subcomponent monitors"
-				+ " | at Top_i_Instance|SystemInstance | in Issue3030_Top_i_Instance.aaxl2"), errors(expected));
+		// The baseline prefixed the same report, on the same target, with "Instantiation error:".
 		assertEquals("allowlist entry 7: the resolver's own wording",
 				List.of("Error | No component instance for subcomponent monitors"
 						+ " | at Top_i_Instance|SystemInstance | in Issue3030_Top_i_Instance.aaxl2"),
@@ -172,50 +164,44 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 */
 	@Test
 	public void anUpwardPathTheLevelAboveDoesNotContinueLosesOnlyTheSourceFirstWarning() throws Exception {
-		assertOnlySourceFirstWarns(UNCONTINUED_UPWARD, "X.root",
+		assertNoReportAbout(UNCONTINUED_UPWARD, "X.root",
 				"Warning | Could not continue connection from X_root_Instance.sub.th.th_p"
 						+ "  through X_root_Instance.sub.ss_p. No connection instance created."
 						+ " | at X_root_Instance.sub.ss_p|FeatureInstance|eventPort|0"
 						+ " | in findConnectionInstance_X_root_Instance.aaxl2");
-		assertOnlySourceFirstWarns(NESTED_UPWARD, "integration.impl",
+		assertNoReportAbout(NESTED_UPWARD, "integration.impl",
 				"Warning | Could not continue connection from integration_impl_Instance.b.a.outy"
 						+ "  through integration_impl_Instance.b.outy. No connection instance created."
 						+ " | at integration_impl_Instance.b.outy|FeatureInstance|featureGroup|0"
 						+ " | in Issue2872_integration_impl_Instance.aaxl2");
-		assertOnlySourceFirstWarns(UNRESOLVED_UPWARD, "Top.i",
+		assertNoReportAbout(UNRESOLVED_UPWARD, "Top.i",
 				"Warning | Could not continue connection from Top_i_Instance.bridge.producer.to_unresolved"
 						+ "  through Top_i_Instance.bridge.unresolved_terminal. No connection instance created."
 						+ " | at Top_i_Instance.bridge.unresolved_terminal|FeatureInstance|eventPort|0"
 						+ " | in Issue3025_Top_i_Instance.aaxl2");
 	}
 
-	/**
-	 * The two runs agree on their connection instances and on every diagnostic except
-	 * {@code warning}, which source-first reports and across-first does not.
-	 */
-	private void assertOnlySourceFirstWarns(String model, String implementation, String warning) throws Exception {
-		CharacterizationRun sourceFirst = isolated.run(model, implementation, "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(model, implementation, "ACROSS_FIRST", false);
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
-
-		assertEquals(implementation, InstanceReport.connectionLines(expected),
-				InstanceReport.connectionLines(actual));
-		assertEquals(implementation, true, InstanceReport.diagnosticSet(expected).contains(warning));
-		assertEquals("allowlist entry 8: the warning disappears",
-				InstanceReport.diagnosticSet(expected).stream().filter(line -> !line.equals(warning)).toList(),
-				InstanceReport.diagnosticSet(actual));
+	/** The run reports {@code message}, whatever else it reports. */
+	private void assertReports(String model, String implementation, String message) throws Exception {
+		InstanceRun run = isolated.run(model, implementation);
+		List<String> reports = InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager()));
+		assertEquals(implementation + " reports " + reports, true,
+				reports.stream().anyMatch(line -> line.contains(message)));
 	}
 
-	private void assertSameDiagnostics(String model, String implementation) throws Exception {
-		CharacterizationRun sourceFirst = isolated.run(model, implementation, "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(model, implementation, "ACROSS_FIRST", false);
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
+	/**
+	 * The model reports nothing about the path that cannot continue, and {@code baselineWarning}
+	 * records what the baseline said about it before allowlist entry 8 released the report.
+	 */
+	private void assertNoReportAbout(String model, String implementation, String baselineWarning) throws Exception {
+		InstanceRun run = isolated.run(model, implementation);
+		InstanceSnapshot actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
-		assertEquals(implementation, InstanceReport.connectionLines(expected),
-				InstanceReport.connectionLines(actual));
-		assertEquals(implementation, InstanceReport.diagnosticSet(expected), InstanceReport.diagnosticSet(actual));
+		assertEquals("allowlist entry 8: " + baselineWarning + " is gone", List.of(),
+				InstanceReport.diagnosticSet(actual)
+						.stream()
+						.filter(line -> line.contains("Could not continue connection"))
+						.toList());
 	}
 
 	/** The error reports of a run, which is what these models are about. */

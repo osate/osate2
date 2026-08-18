@@ -24,7 +24,6 @@
 package org.osate.aadl2.instantiation.internal;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -100,21 +99,10 @@ public final class PathAssembler {
 	 */
 	public static List<SemanticConnectionPath> join(TraversalSeed seed, List<LegResult> sourceLegs,
 			List<LegResult> destinationLegs) {
-		return join(seed, sourceLegs, destinationLegs, TraversalObservations.disabled());
-	}
-
-	/**
-	 * Every path that can be built from {@code seed} and the given legs, counting the join
-	 * attempts in {@code observations} so that the work can be compared with what source-first
-	 * spends on the same model.
-	 */
-	public static List<SemanticConnectionPath> join(TraversalSeed seed, List<LegResult> sourceLegs,
-			List<LegResult> destinationLegs, TraversalObservations observations) {
 		Map<SemanticConnectionKey, SemanticConnectionPath> unique = new LinkedHashMap<>();
 		if (seed instanceof TraversalSeed.Across across) {
 			for (LegResult sourceLeg : sourceLegs) {
 				for (LegResult destinationLeg : destinationLegs) {
-					observations.increment(TraversalObservations.Counter.JOIN_CANDIDATES);
 					if (attachedMembersCorrespond(across, sourceLeg, destinationLeg)) {
 						add(unique, assembleComplete(across, sourceLeg, destinationLeg));
 					}
@@ -291,8 +279,8 @@ public final class PathAssembler {
 	 * <p>
 	 * A connection ending component ends a semantic connection, so a path that leaves a
 	 * port and arrives at something the component itself contains is not a path: it would
-	 * connect a component to its own insides. Source-first refuses the same segment at
-	 * {@code CreateConnectionsSwitch.java:641}, added for issue #2032 to stop a connection
+	 * connect a component to its own insides. Source-first refused the same segment, from the fix
+	 * for issue #2032, to stop a connection
 	 * from an abstract subcomponent's port to a port of its containing thread.
 	 * </p>
 	 *
@@ -325,8 +313,8 @@ public final class PathAssembler {
 	 * <p>
 	 * A parameter belongs to a subprogram or a subprogram call, and the instance model has
 	 * never carried a connection that arrives at one from a data component or from the
-	 * top-level instance. Source-first refuses those at
-	 * {@code CreateConnectionsSwitch.java:543}, recorded there as bug #220. Its third
+	 * top-level instance. Source-first refused those where it resolved a segment's ends, recorded
+	 * there as bug #220. Its third
 	 * condition tests the component the declaration sits in for being the instantiation
 	 * root, which is why the same model produces different connections depending on
 	 * whether it is instantiated on its own or as a subcomponent.

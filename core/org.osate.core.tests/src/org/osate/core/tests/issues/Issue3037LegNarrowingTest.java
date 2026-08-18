@@ -32,11 +32,11 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceReport;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 
 import com.google.inject.Inject;
@@ -75,11 +75,10 @@ public class Issue3037LegNarrowingTest extends XtextTest {
 	 */
 	@Test
 	public void legsPairByTheWholeMemberChainTheyCover() throws Exception {
-		StrategyDifference.assertSameModel(isolated, NARROWING, "Top.branching");
+		InstanceCharacterization.assertConnections(isolated, NARROWING, "Top.branching",
+				"sender.mid.firstSource.p -> receiver.mid.firstSink.p",
+				"sender.mid.secondSource.p -> receiver.mid.secondSink.p");
 
-		assertEquals(List.of("sender.mid.firstSource.p -> receiver.mid.firstSink.p",
-				"sender.mid.secondSource.p -> receiver.mid.secondSink.p"),
-				names(isolated.run(NARROWING, "Top.branching", "ACROSS_FIRST", false)));
 	}
 
 	/**
@@ -101,35 +100,30 @@ public class Issue3037LegNarrowingTest extends XtextTest {
 	 */
 	@Test
 	public void aFeatureRoutedInsideItsComponentIsNotTheUltimateSource() throws Exception {
-		CharacterizationRun sourceFirst = isolated.run(ROUTED_INSIDE, "S1.i", "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(ROUTED_INSIDE, "S1.i", "ACROSS_FIRST", false);
-		InstanceSnapshot expected = InstanceSnapshot.of(sourceFirst.instance(), sourceFirst.errorManager());
-		InstanceSnapshot actual = InstanceSnapshot.of(acrossFirst.instance(), acrossFirst.errorManager());
+		InstanceRun run = isolated.run(ROUTED_INSIDE, "S1.i");
 
-		assertEquals(InstanceReport.connectionLines(expected), InstanceReport.connectionLines(actual));
-		assertEquals(InstanceReport.flowLines(expected), InstanceReport.flowLines(actual));
-
-		// The three duplicates of each complete connection are the three declarations that
-		// carry it: cl, cl1, and cl2 on the left, cr, cr1, and cr2 on the right.
+		/*
+		 * The three duplicates of each complete connection are the three declarations that carry it:
+		 * cl, cl1 and cl2 on the left, cr, cr1 and cr2 on the right. The connection the rule refuses,
+		 * m.fl.fg.fo to l.fl.fg.fo, is absent, and so is any report about it.
+		 */
 		assertEquals(List.of("l.fl.fg.fi -> m.mm.fgl.fg.fi", "l.fl.fg.fi -> m.mm.fgl.fg.fi",
 				"l.fl.fg.fi -> m.mm.fgl.fg.fi", "m.mm.fgr.fg.fo -> r.fr.fg.fo", "m.mm.fgr.fg.fo -> r.fr.fg.fo",
-				"m.mm.fgr.fg.fo -> r.fr.fg.fo", "r.fr.fg.fi -> m.fr.fg.fi"), names(acrossFirst));
+				"m.mm.fgr.fg.fo -> r.fr.fg.fo", "r.fr.fg.fi -> m.fr.fg.fi"), names(run));
 
-		assertEquals("allowlist entry 5, on one more implementation than the entry lists",
-				List.of("Warning | No connection declaration from feature fr of component m to subcomponents."
-						+ " Connection instance ends at m | at S1_i_Instance|SystemInstance"
-						+ " | in P_S1_i_Instance.aaxl2"),
-				InstanceReport.diagnosticSet(expected)
-						.stream()
-						.filter(line -> !InstanceReport.diagnosticSet(actual).contains(line))
-						.toList());
-		assertEquals(List.of(), InstanceReport.diagnosticSet(actual)
+		/*
+		 * Allowlist entry 5, on one implementation more than the entry lists: the baseline also
+		 * reported "No connection declaration from feature fr of component m to subcomponents.
+		 * Connection instance ends at m" here, while descending into m, and created that connection
+		 * from the other direction anyway. What remains is the end-to-end flow errors of the model.
+		 */
+		assertEquals(List.of(), InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager()))
 				.stream()
-				.filter(line -> !InstanceReport.diagnosticSet(expected).contains(line))
+				.filter(line -> line.contains("No connection declaration from feature"))
 				.toList());
 	}
 
-	private static List<String> names(CharacterizationRun run) {
+	private static List<String> names(InstanceRun run) {
 		return run.instance()
 				.getAllConnectionInstances()
 				.stream()

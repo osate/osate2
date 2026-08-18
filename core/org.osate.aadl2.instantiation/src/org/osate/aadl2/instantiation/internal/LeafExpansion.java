@@ -50,7 +50,7 @@ import org.osate.aadl2.instance.FeatureInstance;
  * </p>
  *
  * <p>
- * The rules mirror {@code CreateConnectionsSwitch.expandFeatureGroupConnection()},
+ * The rules are the ones source-first applied while expanding a feature group connection,
  * including its direction filtering, its name-then-index matching for inverse feature
  * groups, and its positional pairing when neither side is a leaf. They are AADL
  * feature group semantics rather than an artifact of source-first traversal, so
@@ -223,7 +223,7 @@ public final class LeafExpansion {
 	 * because the connection reaches one member of it: the one the path stepped through
 	 * on its way, mapped across as it would be for any other pair. Source-first narrows
 	 * the same end with its feature stacks and only then notices that the other end is a
-	 * component ({@code balanceFeatureGroupEnds()}), which is why leaving the group whole
+	 * component, while balancing the two ends, which is why leaving the group whole
 	 * here produced a feature group connection where the baseline has an access
 	 * connection.
 	 * </p>
@@ -261,8 +261,8 @@ public final class LeafExpansion {
 	 * this path connects. Two features named directly by declarations are not a choice:
 	 * the connection exists whatever they face, and
 	 * {@code ValidateConnectionsSwitch.checkSegmentDirections()} reports it since issue
-	 * #3042. Source-first draws the same line, reaching its member-by-member direction
-	 * filtering only from {@code balanceFeatureGroupEnds()} and materializing two
+	 * #3042. Source-first drew the same line, reaching its member-by-member direction
+	 * filtering only while balancing the two ends, and materializing two
 	 * directly named leaves without consulting direction at all.
 	 * </p>
 	 */

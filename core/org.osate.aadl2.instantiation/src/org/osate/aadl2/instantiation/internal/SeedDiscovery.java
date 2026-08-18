@@ -30,12 +30,8 @@ import java.util.List;
 
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -98,7 +94,7 @@ public final class SeedDiscovery {
 	 * <p>
 	 * The feature's own direction does not decide which of the two exists. Source-first
 	 * only starts at an incoming boundary feature
-	 * ({@code CreateConnectionsSwitch.processIncomingFeature()}), but it reaches an
+	 * as it walked the boundary features inwards, but it reached an
 	 * outgoing path's end from the other side, walking up from the feature inside that
 	 * starts it and stopping at whatever boundary feature it arrives at, whichever way that
 	 * feature faces. An {@code in} boundary feature therefore still ends an upward

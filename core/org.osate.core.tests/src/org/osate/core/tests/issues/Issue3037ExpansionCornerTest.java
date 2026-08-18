@@ -34,8 +34,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -83,10 +83,20 @@ public class Issue3037ExpansionCornerTest extends XtextTest {
 	 */
 	@Test
 	public void directionDecidesWhichMembersPair() throws Exception {
-		StrategyDifference.assertSameModel(isolated, DIRECTIONS, "Peer.i");
-		StrategyDifference.assertSameModel(isolated, DIRECTIONS, "InversePeer.i");
-		StrategyDifference.assertSameModel(isolated, DIRECTIONS, "Top.peers");
-		StrategyDifference.assertSameModel(isolated, DIRECTIONS, "Top.boundary");
+		InstanceCharacterization.assertConnections(isolated, DIRECTIONS, "Peer.i",
+				"bundle.both -> worker.bundle.both", "bundle.incoming -> worker.bundle.incoming",
+				"worker.bundle.both -> bundle.both", "worker.bundle.outgoing -> bundle.outgoing");
+		InstanceCharacterization.assertConnections(isolated, DIRECTIONS, "InversePeer.i",
+				"bundle.both -> worker.bundle.both", "bundle.outgoing -> worker.bundle.outgoing",
+				"worker.bundle.both -> bundle.both", "worker.bundle.incoming -> bundle.incoming");
+		InstanceCharacterization.assertConnections(isolated, DIRECTIONS, "Top.peers",
+				"left.worker.bundle.both -> right.worker.bundle.both",
+				"left.worker.bundle.outgoing -> right.worker.bundle.outgoing",
+				"right.worker.bundle.both -> left.worker.bundle.both",
+				"right.worker.bundle.incoming -> left.worker.bundle.incoming");
+		InstanceCharacterization.assertConnections(isolated, DIRECTIONS, "Top.boundary",
+				"bundle.both -> inner.worker.bundle.both", "bundle.incoming -> inner.worker.bundle.incoming",
+				"inner.worker.bundle.both -> bundle.both", "inner.worker.bundle.outgoing -> bundle.outgoing");
 
 		assertEquals(List.of("left.worker.bundle.both -> right.worker.bundle.both",
 				"left.worker.bundle.outgoing -> right.worker.bundle.outgoing",
@@ -103,19 +113,16 @@ public class Issue3037ExpansionCornerTest extends XtextTest {
 	/** An inverse group whose members are renamed, so position is the only thing left to pair on. */
 	@Test
 	public void renamedMembersPairByPosition() throws Exception {
-		assertSameModel("Top.renamed");
+		assertConnections("Top.renamed", "producer.worker.bundle.first -> consumer.bundle.alpha",
+				"producer.worker.bundle.second -> consumer.bundle.beta");
 
-		assertEquals(List.of("producer.worker.bundle.first -> consumer.bundle.alpha",
-				"producer.worker.bundle.second -> consumer.bundle.beta"), connectionNames("Top.renamed"));
 	}
 
 	/** A subset destination, where the source's other member pairs with nothing. */
 	@Test
 	public void aSubsetDestinationPairsByName() throws Exception {
-		assertSameModel("Top.subset");
+		assertConnections("Top.subset", "producer.worker.bundle.second -> consumer.bundle.second");
 
-		assertEquals("only the member the destination has", List.of("producer.worker.bundle.second -> consumer.bundle.second"),
-				connectionNames("Top.subset"));
 	}
 
 	/**
@@ -129,12 +136,14 @@ public class Issue3037ExpansionCornerTest extends XtextTest {
 	 */
 	@Test
 	public void shortAccessAgrees() throws Exception {
-		StrategyDifference.assertSameModel(isolated, SHORT_ACCESS, "P.i");
-		StrategyDifference.assertSameModel(isolated, SHORT_ACCESS, "Root.impl");
+		InstanceCharacterization.assertConnections(isolated, SHORT_ACCESS, "P.i", "t1.fg.p -> t2.fgi.p",
+				"t1.s -> t2.s.rsa", "t2.s.rsa -> t1.s");
+		InstanceCharacterization.assertConnections(isolated, SHORT_ACCESS, "Root.impl", "t1.fg.p -> t2.fgi.p",
+				"t1.s -> t2.s.rsa", "t2.s.rsa -> t1.s");
 	}
 
-	private void assertSameModel(String implementation) throws Exception {
-		StrategyDifference.assertSameModel(isolated, MODEL, implementation);
+	private void assertConnections(String implementation, String... expected) throws Exception {
+		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
 	}
 
 	private List<String> connectionNames(String implementation) throws Exception {
@@ -142,7 +151,7 @@ public class Issue3037ExpansionCornerTest extends XtextTest {
 	}
 
 	private List<String> namesOf(String model, String implementation) throws Exception {
-		return isolated.run(model, implementation, "ACROSS_FIRST", false)
+		return isolated.run(model, implementation)
 				.instance()
 				.getAllConnectionInstances()
 				.stream()

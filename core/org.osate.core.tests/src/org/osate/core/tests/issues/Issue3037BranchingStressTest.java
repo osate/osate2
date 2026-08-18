@@ -24,10 +24,6 @@
 package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -35,9 +31,7 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -45,21 +39,21 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * The gated part of the performance budget for issue #3037: the traversal state counts that
- * do not depend on the machine.
+ * What the stress fixtures of issue #3037 must produce, whatever machine runs them.
  *
  * <p>
- * Wall-clock and allocation budgets cannot be asserted in a reactor build, so they are
- * measured by {@code AcrossFirstBenchmark} and reported as evidence. What is asserted here is
- * the deterministic part: how much work each strategy does on the same branching shape at
- * three widths, and that the result is the number of connection instances the shape says it
- * should be, computed from the width rather than copied from a run.
+ * These shapes are where depth, feature group width and branching could multiply, and the
+ * assertion is the number of connection instances each one has, computed from the shape rather
+ * than copied from a run. A traversal that starts multiplying fails here.
  * </p>
  *
  * <p>
- * The state counts are frozen from the measured curve. They are an upper bound on across-first
- * work relative to source-first on the same model, which is what the plan's abort criterion
- * needs: growth that changes shape, rather than a number that drifts, is what has to fail.
+ * The traversal state counts that used to be asserted alongside them are gone with the
+ * instrumentation they read. They were the gated part of the performance budget: across-first
+ * spends 2w + 2 traversal states at branch width w where source-first spends w<sup>2</sup> + 4w,
+ * and its joins are exactly w<sup>2</sup>, the number of connections the shape has. Those
+ * numbers, and the wall-clock measurements that were never gateable in a reactor build, are
+ * recorded as evidence on issue #3037 rather than asserted here.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -84,107 +78,25 @@ public class Issue3037BranchingStressTest extends XtextTest {
 	}
 
 	/**
-	 * Depth, feature group width, and branching at once, which is where the three could
-	 * multiply. Four source legs and four destination legs join into 16 paths, each expanding
-	 * to the 64 leaves of a group nested three levels deep with a width of four, so 1024
-	 * connection instances. The expected numbers are computed from the shape.
+	 * Depth, feature group width and branching at once, which is where the three could multiply.
+	 * Four source legs and four destination legs join into 16 paths, each expanding to the 64
+	 * leaves of a group nested three levels deep with a width of four: 1024 connection instances.
 	 */
 	@Test
 	public void depthWidthAndBranchingDoNotMultiplyTheTraversal() throws Exception {
-		StrategyDifference.assertSameModel(isolated, DEPTH, "Top.depthAndWidth");
-
-		CharacterizationRun sourceFirst = isolated.run(DEPTH, "Top.depthAndWidth", "SOURCE_FIRST", false);
-		CharacterizationRun acrossFirst = isolated.run(DEPTH, "Top.depthAndWidth", "ACROSS_FIRST", false);
 		int leaves = 4 * 4 * 4;
 		int paths = 4 * 4;
-		assertEquals(paths * leaves, acrossFirst.instance().getAllConnectionInstances().size());
-		assertEquals(paths, count(acrossFirst, "PATHS_ASSEMBLED"));
-		assertEquals(paths, count(acrossFirst, "JOIN_CANDIDATES"));
-		assertEquals(paths * leaves, count(acrossFirst, "ENDPOINTS_EXPANDED"));
-		/*
-		 * Eight states per side, four for the pass-through levels and four for the branches,
-		 * and nothing for the depth being re-walked: the four levels above the branches are
-		 * traversed once, not once per path, and the 64 leaves cost no traversal at all because
-		 * expansion happens after the join.
-		 */
-		assertEquals("depth is walked once per branch, not once per path", 16L,
-				count(acrossFirst, "TRAVERSAL_STATES"));
-		assertTrue("across-first states must not exceed source-first",
-				count(acrossFirst, "TRAVERSAL_STATES") <= count(sourceFirst, "TRAVERSAL_STATES"));
+		assertEquals(paths * leaves,
+				isolated.run(DEPTH, "Top.depthAndWidth").instance().getAllConnectionInstances().size());
 	}
 
-	/**
-	 * The shape produces one connection instance per pair of branches, and both strategies
-	 * produce the same model at every width.
-	 */
+	/** The shape produces one connection instance per pair of branches, at every width. */
 	@Test
 	public void everyBranchPairBecomesOneConnection() throws Exception {
 		for (int width : new int[] { 2, 4, 8 }) {
 			String implementation = "Top.width" + width;
-			StrategyDifference.assertSameModel(isolated, MODEL, implementation);
 			assertEquals(implementation, width * width,
-					isolated.run(MODEL, implementation, "ACROSS_FIRST", false)
-							.instance()
-							.getAllConnectionInstances()
-							.size());
+					isolated.run(MODEL, implementation).instance().getAllConnectionInstances().size());
 		}
-	}
-
-	/**
-	 * The calibration curve, as gated numbers. Recorded from measurement and frozen: the
-	 * traversal states each strategy spends, and the joins and paths across-first adds, at
-	 * branch widths 2, 4, and 8.
-	 */
-	@Test
-	public void theStateCountCurveIsFrozen() throws Exception {
-		Map<String, Long> expected = new LinkedHashMap<>();
-		for (int width : new int[] { 2, 4, 8 }) {
-			String implementation = "Top.width" + width;
-			CharacterizationRun sourceFirst = isolated.run(MODEL, implementation, "SOURCE_FIRST", false);
-			CharacterizationRun acrossFirst = isolated.run(MODEL, implementation, "ACROSS_FIRST", false);
-			expected.put(width + " sourceFirst TRAVERSAL_STATES", count(sourceFirst, "TRAVERSAL_STATES"));
-			expected.put(width + " acrossFirst TRAVERSAL_STATES", count(acrossFirst, "TRAVERSAL_STATES"));
-			expected.put(width + " acrossFirst JOIN_CANDIDATES", count(acrossFirst, "JOIN_CANDIDATES"));
-			expected.put(width + " acrossFirst PATHS_ASSEMBLED", count(acrossFirst, "PATHS_ASSEMBLED"));
-			expected.put(width + " acrossFirst FINAL_PATHS", count(acrossFirst, "FINAL_PATHS"));
-		}
-		assertEquals(FROZEN_CURVE, expected);
-
-		/*
-		 * The relations the frozen numbers stand for, asserted separately so that a change of
-		 * shape fails even if someone re-freezes the numbers. Across-first may not spend more
-		 * traversal states than source-first on the same model, its joins may not exceed the
-		 * number of connections the shape has, and every joined pair must become a path.
-		 */
-		for (int width : new int[] { 2, 4, 8 }) {
-			long paths = (long) width * width;
-			assertTrue("across-first states at width " + width,
-					expected.get(width + " acrossFirst TRAVERSAL_STATES") <= expected
-							.get(width + " sourceFirst TRAVERSAL_STATES"));
-			assertTrue("joins at width " + width, expected.get(width + " acrossFirst JOIN_CANDIDATES") <= paths);
-			assertEquals("paths at width " + width, paths, (long) expected.get(width + " acrossFirst PATHS_ASSEMBLED"));
-			assertEquals("final paths at width " + width, paths, (long) expected.get(width + " acrossFirst FINAL_PATHS"));
-		}
-	}
-
-	/**
-	 * Measured on 2026-08-18 and frozen. Across-first spends traversal states linearly in the
-	 * width, 2w + 2, because each branch is walked once and the pairs are formed afterwards;
-	 * source-first spends w<sup>2</sup> + 4w, because it re-walks the shared part of the path
-	 * for every pair. The joins across-first adds are exactly w<sup>2</sup>, which is the
-	 * number of connections the shape has, so the Cartesian product wastes nothing here.
-	 */
-	private static final Map<String, Long> FROZEN_CURVE = Map.ofEntries(
-			Map.entry("2 sourceFirst TRAVERSAL_STATES", 12L), Map.entry("2 acrossFirst TRAVERSAL_STATES", 6L),
-			Map.entry("2 acrossFirst JOIN_CANDIDATES", 4L), Map.entry("2 acrossFirst PATHS_ASSEMBLED", 4L),
-			Map.entry("2 acrossFirst FINAL_PATHS", 4L), Map.entry("4 sourceFirst TRAVERSAL_STATES", 32L),
-			Map.entry("4 acrossFirst TRAVERSAL_STATES", 10L), Map.entry("4 acrossFirst JOIN_CANDIDATES", 16L),
-			Map.entry("4 acrossFirst PATHS_ASSEMBLED", 16L), Map.entry("4 acrossFirst FINAL_PATHS", 16L),
-			Map.entry("8 sourceFirst TRAVERSAL_STATES", 96L), Map.entry("8 acrossFirst TRAVERSAL_STATES", 18L),
-			Map.entry("8 acrossFirst JOIN_CANDIDATES", 64L), Map.entry("8 acrossFirst PATHS_ASSEMBLED", 64L),
-			Map.entry("8 acrossFirst FINAL_PATHS", 64L));
-
-	private static long count(CharacterizationRun run, String counter) {
-		return run.counters().getOrDefault(counter, 0L);
 	}
 }

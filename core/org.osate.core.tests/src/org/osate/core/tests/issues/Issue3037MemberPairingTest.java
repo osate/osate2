@@ -32,11 +32,11 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instantiation.testing.CharacterizationRun;
+import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceReport;
+import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
-import org.osate.core.tests.instantiation.StrategyDifference;
 import org.osate.testsupport.Aadl2InjectorProvider;
 
 import com.google.inject.Inject;
@@ -81,11 +81,16 @@ public class Issue3037MemberPairingTest extends XtextTest {
 	 */
 	@Test
 	public void membersOfAPivotPairOneToOne() throws Exception {
-		StrategyDifference.assertSameModel(isolated, UNCONTINUED, "TriggerTop.impl");
-		StrategyDifference.assertSameModel(isolated, UNCONTINUED, "Sender.impl");
-		StrategyDifference.assertSameModel(isolated, UNCONTINUED, "Receiver.impl");
+		InstanceCharacterization.assertConnections(isolated, UNCONTINUED, "TriggerTop.impl",
+				"sender.emitter.alarm_out -> receiver.sensor_bundle.alarm_line",
+				"sender.emitter.data_out -> receiver.consumer.data_in");
+		InstanceCharacterization.assertConnections(isolated, UNCONTINUED, "Sender.impl",
+				"emitter.alarm_out -> sensor_bundle.alarm_line", "emitter.data_out -> sensor_bundle.data_line",
+				"emitter.spare_out -> sensor_bundle.spare_line");
+		InstanceCharacterization.assertConnections(isolated, UNCONTINUED, "Receiver.impl",
+				"sensor_bundle.data_line -> consumer.data_in");
 
-		CharacterizationRun run = isolated.run(UNCONTINUED, "TriggerTop.impl", "ACROSS_FIRST", false);
+		InstanceRun run = isolated.run(UNCONTINUED, "TriggerTop.impl");
 		assertEquals(List.of("sender.emitter.alarm_out -> receiver.sensor_bundle.alarm_line",
 				"sender.emitter.data_out -> receiver.consumer.data_in"), names(run));
 		assertEquals(List.of("Warning | Could not continue connection from"
@@ -103,14 +108,13 @@ public class Issue3037MemberPairingTest extends XtextTest {
 	 */
 	@Test
 	public void aPortSharingAGroupWithConnectedAccessAgrees() throws Exception {
-		StrategyDifference.assertSameModel(isolated, SHARED_GROUP, "DemoTop.impl");
+		InstanceCharacterization.assertConnections(isolated, SHARED_GROUP, "DemoTop.impl",
+				"provider_side.service_bundle.signal_line -> requester_side.service_bundle.signal_line",
+				"provider_side.worker_unit -> requester_side.worker_unit.requested_call");
 
-		assertEquals(List.of("provider_side.service_bundle.signal_line -> requester_side.service_bundle.signal_line",
-				"provider_side.worker_unit -> requester_side.worker_unit.requested_call"),
-				names(isolated.run(SHARED_GROUP, "DemoTop.impl", "ACROSS_FIRST", false)));
 	}
 
-	private static List<String> names(CharacterizationRun run) {
+	private static List<String> names(InstanceRun run) {
 		return run.instance()
 				.getAllConnectionInstances()
 				.stream()
