@@ -651,7 +651,10 @@ public class InstantiateModel {
 				destinationLegs.forEach(leg -> observations.addLeg(leg.key()));
 				for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs)) {
 					observations.addPath((path.complete() ? "complete|" : "incomplete|") + path.key().render());
-					LeafExpansion.expand(path).forEach(endpoints -> observations.addExpanded(endpoints.key()));
+					// A path that ends at a dead end is reported, not expanded into endpoint pairs.
+					if (!path.deadEnd()) {
+						LeafExpansion.expand(path).forEach(endpoints -> observations.addExpanded(endpoints.key()));
+					}
 				}
 			}
 		}

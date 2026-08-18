@@ -51,10 +51,20 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
  * @param modes the modal declarations traversed
  * @param allSegmentsBidirectional whether every traversed segment could also be
  *            followed the other way
+ * @param deadEnd whether the leg stopped at a feature that can neither carry the
+ *            connection further nor end it, so that a path through it is reported
+ *            rather than materialized
  * @param reason why the leg stopped, for tests and diagnostics only
  */
 public record LegResult(LegRole role, ConnectionInstanceEnd terminal, List<ResolvedSegment> segments,
-		FeaturePath featurePath, ModeConstraint modes, boolean allSegmentsBidirectional, String reason) {
+		FeaturePath featurePath, ModeConstraint modes, boolean allSegmentsBidirectional, boolean deadEnd,
+		String reason) {
+
+	/** A leg that stopped somewhere a connection may end. */
+	public LegResult(LegRole role, ConnectionInstanceEnd terminal, List<ResolvedSegment> segments,
+			FeaturePath featurePath, ModeConstraint modes, boolean allSegmentsBidirectional, String reason) {
+		this(role, terminal, segments, featurePath, modes, allSegmentsBidirectional, false, reason);
+	}
 
 	public LegResult {
 		if (role == null || terminal == null || featurePath == null || modes == null) {

@@ -24,6 +24,7 @@
 package org.osate.aadl2.instantiation.internal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -106,6 +107,86 @@ public final class LeafExpansion {
 		} else {
 			expandGroupToGroup(path, sourceFeature, destinationFeature, expanded);
 		}
+	}
+
+	/**
+	 * The feature at the source end of {@code path} that its destination pairs with.
+	 *
+	 * <p>
+	 * A path that ends at a dead end is reported rather than materialized, and the report
+	 * names both of its ends, so the member the source end covers has to be found without
+	 * expanding the path. The destination is mapped back through every segment: a whole
+	 * feature group is connected to a whole feature group, so a feature below one end
+	 * corresponds to the feature reached by following the same member names, or positions
+	 * where an inverse feature group type renames them, below the other.
+	 * </p>
+	 *
+	 * <p>
+	 * The unmapped source end is returned when no correspondence can be established, which
+	 * keeps a diagnostic approximate rather than absent.
+	 * </p>
+	 */
+	public static ConnectionInstanceEnd correspondingSource(SemanticConnectionPath path) {
+		ConnectionInstanceEnd current = path.destination();
+		for (int i = path.segments().size() - 1; i >= 0; i--) {
+			ResolvedSegment segment = path.segments().get(i);
+			current = mapAcrossSegment(segment.destination(), segment.source(), current);
+			if (current == null) {
+				return path.source();
+			}
+		}
+		return current;
+	}
+
+	/**
+	 * Map {@code end}, which sits at or below {@code from}, to the feature at or below
+	 * {@code to} that it corresponds to, or {@code null} when it has none.
+	 */
+	private static ConnectionInstanceEnd mapAcrossSegment(ConnectionInstanceEnd from, ConnectionInstanceEnd to,
+			ConnectionInstanceEnd end) {
+		ConnectionInstanceEnd mapped = to;
+		for (FeatureInstance member : membersBelow(from, end)) {
+			if (!(mapped instanceof FeatureInstance group)) {
+				return null;
+			}
+			mapped = matchingMember(group, member);
+			if (mapped == null) {
+				return null;
+			}
+		}
+		return mapped;
+	}
+
+	/**
+	 * The features from just below {@code outer} down to {@code inner}, or an empty list
+	 * when {@code inner} is {@code outer} itself or sits above it.
+	 */
+	static List<FeatureInstance> membersBelow(ConnectionInstanceEnd outer, ConnectionInstanceEnd inner) {
+		List<FeatureInstance> members = new ArrayList<>();
+		for (Object current = inner; current instanceof FeatureInstance feature; current = feature.getOwner()) {
+			if (feature == outer) {
+				Collections.reverse(members);
+				return members;
+			}
+			members.add(feature);
+		}
+		return List.of();
+	}
+
+	/**
+	 * The member of {@code group} that {@code member} of the group connected to it pairs
+	 * with: the one with the same name, or the one at the same position when an inverse
+	 * feature group type renames its features.
+	 */
+	static FeatureInstance matchingMember(FeatureInstance group, FeatureInstance member) {
+		for (FeatureInstance candidate : group.getFeatureInstances()) {
+			if (candidate.getName().equalsIgnoreCase(member.getName())) {
+				return candidate;
+			}
+		}
+		int index = member.getOwner() instanceof FeatureInstance parent ? parent.getFeatureInstances().indexOf(member)
+				: -1;
+		return index >= 0 && index < group.getFeatureInstances().size() ? group.getFeatureInstances().get(index) : null;
 	}
 
 	/**

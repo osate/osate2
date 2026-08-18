@@ -90,6 +90,13 @@ public class Issue3037PathAssemblyTest extends XtextTest {
 	 * {@code up, nested_up, across} with contexts {@code leaf_side, producer_side, Top}
 	 * and every reverse flag false, which is exactly what assembly produces from legs
 	 * that were resolved reversed.
+	 *
+	 * <p>
+	 * The path to {@code leaf_side.boundary.beta} is the member of that feature group
+	 * nothing inside {@code leaf_side} continues. It is assembled like any other and then
+	 * reported rather than materialized, which is why the baseline has two connection
+	 * instances here and one warning.
+	 * </p>
 	 */
 	@Test
 	public void aSourceLegIsReversedAndReoriented() throws Exception {
@@ -97,6 +104,9 @@ public class Issue3037PathAssemblyTest extends XtextTest {
 				"complete|Top_i_Instance.producer_side.leaf_side.leaf.io -> Top_i_Instance.consumer_side.boundary"
 						+ " | decl8.0(f)@Top_i_Instance.producer_side.leaf_side,"
 						+ "decl10.0(f)@Top_i_Instance.producer_side,decl13.0(f)@Top_i_Instance,",
+				"complete|Top_i_Instance.consumer_side.boundary"
+						+ " -> Top_i_Instance.producer_side.leaf_side.boundary.beta"
+						+ " | decl13.0(r)@Top_i_Instance,decl10.0(r)@Top_i_Instance.producer_side,",
 				"complete|Top_i_Instance.consumer_side.boundary -> Top_i_Instance.producer_side.leaf_side.leaf.io"
 						+ " | decl13.0(r)@Top_i_Instance,decl10.0(r)@Top_i_Instance.producer_side,"
 						+ "decl8.0(r)@Top_i_Instance.producer_side.leaf_side,"),

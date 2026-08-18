@@ -24,6 +24,7 @@
 package org.osate.aadl2.instantiation.internal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -58,13 +59,14 @@ import org.osate.aadl2.instance.SystemInstance;
  * </p>
  *
  * <p>
- * Every source leg is joined with every destination leg. Comparing the two legs'
- * feature chains to filter pairs does not work, because those chains describe
- * features of different components and so never match; a predicate built on them
- * rejected every pair where both legs had descended, which lost the connection
- * entirely. What pairs correctly is decided instead by the pivot, whose two endpoints
- * are already resolved against each other, and by leaf expansion, which pairs feature
- * group members and filters on direction.
+ * Two legs pair when the members of the pivot they leave from correspond. Comparing the
+ * legs' whole feature chains to filter pairs does not work, because those chains describe
+ * features of different components and so never match; a predicate built on them rejected
+ * every pair where both legs had descended, which lost the connection entirely. What can
+ * be compared is where each leg attaches to its own end of the pivot, because the pivot's
+ * two endpoints are already resolved against each other: a leg leaving one member of a
+ * connected feature group belongs with the leg leaving the member that pairs with it and
+ * with no other. Everything below that, and direction, is left to leaf expansion.
  * </p>
  *
  * <p>
@@ -102,7 +104,9 @@ public final class PathAssembler {
 		if (seed instanceof TraversalSeed.Across across) {
 			for (LegResult sourceLeg : sourceLegs) {
 				for (LegResult destinationLeg : destinationLegs) {
-					add(unique, assembleComplete(across, sourceLeg, destinationLeg));
+					if (attachedMembersCorrespond(across, sourceLeg, destinationLeg)) {
+						add(unique, assembleComplete(across, sourceLeg, destinationLeg));
+					}
 				}
 			}
 		} else if (seed instanceof TraversalSeed.Boundary boundary) {
@@ -137,7 +141,59 @@ public final class PathAssembler {
 		return new SemanticConnectionPath(sourceLeg.terminal(), destinationLeg.terminal(), segments, true,
 				across.segment().declaration().isAllBidirectional() && sourceLeg.allSegmentsBidirectional()
 						&& destinationLeg.allSegmentsBidirectional(),
-				combine(sourceLeg, destinationLeg));
+				combine(sourceLeg, destinationLeg), destinationLeg.deadEnd());
+	}
+
+	/**
+	 * Whether the two legs leave members of the pivot that pair with each other.
+	 *
+	 * <p>
+	 * A leg leaves the pivot at the feature its first declaration names, or at its terminal
+	 * when it has no declaration to name one. Below a connected feature group that is the
+	 * member the connection covers, and only the leg leaving the member that pairs with it
+	 * continues the same semantic connection. Without this, a feature group connecting two
+	 * components that each route several members onwards produces a path for every
+	 * combination of them.
+	 * </p>
+	 *
+	 * <p>
+	 * A leg that leaves the pivot endpoint itself, or a feature group containing it,
+	 * constrains nothing: the connection then covers the whole endpoint and which members
+	 * it pairs is leaf expansion's decision.
+	 * </p>
+	 */
+	private static boolean attachedMembersCorrespond(TraversalSeed.Across across, LegResult sourceLeg,
+			LegResult destinationLeg) {
+		List<FeatureInstance> sourceMembers = LeafExpansion.membersBelow(across.segment().source(),
+				attachment(sourceLeg));
+		List<FeatureInstance> destinationMembers = LeafExpansion.membersBelow(across.segment().destination(),
+				attachment(destinationLeg));
+		ConnectionInstanceEnd destinationParent = across.segment().destination();
+		for (int level = 0; level < Math.min(sourceMembers.size(), destinationMembers.size()); level++) {
+			FeatureInstance destination = destinationMembers.get(level);
+			if (!pairs(sourceMembers.get(level), destinationParent, destination)) {
+				return false;
+			}
+			destinationParent = destination;
+		}
+		return true;
+	}
+
+	/** Where a leg leaves the pivot: the feature its first declaration names, or its terminal. */
+	private static ConnectionInstanceEnd attachment(LegResult leg) {
+		return leg.isTrivial() ? leg.terminal() : leg.segments().get(0).source();
+	}
+
+	/**
+	 * Whether two members of two connected feature groups are the pair the group mapping
+	 * makes them, decided the same way {@link LeafExpansion} pairs members.
+	 */
+	private static boolean pairs(FeatureInstance source, ConnectionInstanceEnd destinationParent,
+			FeatureInstance destination) {
+		if (!(destinationParent instanceof FeatureInstance destinationGroup)) {
+			return source.getName().equalsIgnoreCase(destination.getName());
+		}
+		return LeafExpansion.matchingMember(destinationGroup, source) == destination;
 	}
 
 	/**
@@ -159,7 +215,7 @@ public final class PathAssembler {
 		ConnectionInstanceEnd seedEnd = leg.segments().get(0).source();
 		if (inwards) {
 			return new SemanticConnectionPath(seedEnd, leg.terminal(), leg.segments(), false,
-					leg.allSegmentsBidirectional(), leg.modes());
+					leg.allSegmentsBidirectional(), leg.modes(), leg.deadEnd());
 		}
 		return new SemanticConnectionPath(leg.terminal(), seedEnd, reversed(leg), false,
 				leg.allSegmentsBidirectional(), leg.modes());

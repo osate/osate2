@@ -187,7 +187,7 @@ public final class SeedDiscovery {
 	}
 
 	/** Whether {@code feature} triggers one of {@code container}'s mode transitions. */
-	private static boolean triggersModeTransition(ComponentInstance container, FeatureInstance feature) {
+	static boolean triggersModeTransition(ComponentInstance container, FeatureInstance feature) {
 		return feature.getCategory() == FeatureCategory.EVENT_PORT && container.getModeTransitionInstances()
 				.stream()
 				.anyMatch(transition -> transition.getTriggers().contains(feature));

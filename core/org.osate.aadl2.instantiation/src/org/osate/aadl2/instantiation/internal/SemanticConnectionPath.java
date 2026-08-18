@@ -55,9 +55,19 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
  *            copy it to {@code ConnectionInstance.bidirectional}, which normal
  *            instantiation leaves {@code false}
  * @param modes the modal declarations the path passes through
+ * @param deadEnd whether the path arrives at a feature that can neither carry it
+ *            further nor end it. Such a path is reported rather than materialized, so
+ *            no connection instance exists for it
  */
 public record SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionInstanceEnd destination,
-		List<ResolvedSegment> segments, boolean complete, boolean allSegmentsBidirectional, ModeConstraint modes) {
+		List<ResolvedSegment> segments, boolean complete, boolean allSegmentsBidirectional, ModeConstraint modes,
+		boolean deadEnd) {
+
+	/** A path that ends somewhere a connection may end. */
+	public SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionInstanceEnd destination,
+			List<ResolvedSegment> segments, boolean complete, boolean allSegmentsBidirectional, ModeConstraint modes) {
+		this(source, destination, segments, complete, allSegmentsBidirectional, modes, false);
+	}
 
 	public SemanticConnectionPath {
 		if (source == null || destination == null) {

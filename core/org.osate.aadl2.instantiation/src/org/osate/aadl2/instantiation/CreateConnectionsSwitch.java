@@ -313,6 +313,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs)) {
 				observations.addPath((path.complete() ? "complete|" : "incomplete|") + path.key().render());
+				if (path.deadEnd()) {
+					reportDeadEnd(path);
+					continue;
+				}
 				for (LeafExpansion.Endpoints endpoints : LeafExpansion.expand(path)) {
 					observations.addExpanded(endpoints.key());
 					attachAcrossFirst(systemInstance, path, endpoints);
@@ -322,6 +326,19 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Report a path that arrives where the connection can go no further and cannot end
+	 * either, so that the connection it would have carried is not lost silently. The
+	 * baseline reports the same fact from {@code addConnectionInstance()} once the end of
+	 * such a path is known.
+	 */
+	private void reportDeadEnd(final SemanticConnectionPath path) {
+		warning(path.destination(),
+				"Could not continue connection from "
+						+ LeafExpansion.correspondingSource(path).getInstanceObjectPath() + " through "
+						+ path.destination().getInstanceObjectPath() + ". No connection instance created.");
 	}
 
 	/**

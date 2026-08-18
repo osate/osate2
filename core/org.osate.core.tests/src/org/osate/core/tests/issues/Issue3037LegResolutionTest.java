@@ -92,6 +92,14 @@ public class Issue3037LegResolutionTest extends XtextTest {
 	 * Accepting a declaration that touches the feature or anything nested in it lets the
 	 * leg descend two levels to the thread port, which is the ultimate source the
 	 * baseline reports.
+	 *
+	 * <p>
+	 * That declaration continues one member of {@code leaf_side.boundary} and leaves the
+	 * other with nowhere to go, so a destination leg also stops at {@code beta}. Nothing
+	 * inside a process ends a connection and {@code beta} triggers no mode transition, so
+	 * that leg is a dead end: the baseline reports the same member and creates no
+	 * connection instance for it either.
+	 * </p>
 	 */
 	@Test
 	public void legsDescendIntoFeatureGroupMembers() throws Exception {
@@ -100,6 +108,8 @@ public class Issue3037LegResolutionTest extends XtextTest {
 						+ "|decl10.0(r),decl8.0(r),|connection ending component",
 				"DESTINATION_LEG|Top_i_Instance.consumer_side.boundary||component type only",
 				"SOURCE_LEG|Top_i_Instance.consumer_side.boundary||component type only",
+				"DESTINATION_LEG|Top_i_Instance.producer_side.leaf_side.boundary.beta"
+						+ "|decl10.0(r),|nothing continues this member",
 				"DESTINATION_LEG|Top_i_Instance.producer_side.leaf_side.leaf.io"
 						+ "|decl10.0(r),decl8.0(r),|connection ending component"),
 				legs(NESTED, "Top.i"));

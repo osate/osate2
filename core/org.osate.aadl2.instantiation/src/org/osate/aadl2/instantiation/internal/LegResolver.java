@@ -165,6 +165,11 @@ public final class LegResolver {
 			return;
 		}
 
+		if (role == LegRole.DESTINATION_LEG && !endingCategory) {
+			stopAtUncontinuedMembers(owner, feature, segments, featurePath, modes, allBidirectional, continuations,
+					results);
+		}
+
 		for (ResolvedSegment segment : continuations) {
 			List<ResolvedSegment> extended = new ArrayList<>(segments);
 			extended.add(segment);
@@ -173,6 +178,85 @@ public final class LegResolver {
 			descend(segment.destination(), role, extended, segment.destinationPath(),
 					modes.and(segment.declaration(), owner),
 					allBidirectional && segment.declaration().isAllBidirectional(), branchVisited, results);
+		}
+	}
+
+	/**
+	 * Stop the leg at each member of a feature group that the declarations continuing it
+	 * leave with nowhere to go.
+	 *
+	 * <p>
+	 * Whether a leg continues into a component is a question about a feature group's
+	 * members, not about the group. The declarations that continue it may name only some
+	 * members, an access member reaching a subprogram for instance, and leave the rest
+	 * with no path onwards. Source-first asks the same question member by member in
+	 * {@code CreateConnectionsSwitch.stopAtUncontinuedMembers()}, added for issue #3044,
+	 * where a port sharing a feature group with a connected access feature got no
+	 * connection instance at all.
+	 * </p>
+	 *
+	 * <p>
+	 * A member with nowhere to go ends the connection only if it triggers a mode
+	 * transition of the component, since a mode transition is an end in itself. Any other
+	 * such member can reach nothing that ends a connection, so a path to it is recorded as
+	 * a dead end: it is reported rather than materialized, which is what source-first does
+	 * from {@code addConnectionInstance()}. A connection ending component is left out
+	 * because the leg already stopped at the whole feature before reaching here, and
+	 * expansion narrows that stop to its members.
+	 * </p>
+	 *
+	 * <p>
+	 * Nothing is added when the declarations continue the whole feature, and nothing when
+	 * they cannot be related to it at all, which leaves a shape neither strategy
+	 * recognizes as it was.
+	 * </p>
+	 */
+	private void stopAtUncontinuedMembers(ComponentInstance owner, FeatureInstance feature,
+			List<ResolvedSegment> segments, FeaturePath featurePath, ModeConstraint modes, boolean allBidirectional,
+			List<ResolvedSegment> continuations, List<LegResult> results) {
+		if (feature.getFeatureInstances().isEmpty()) {
+			return;
+		}
+
+		Set<FeatureInstance> continued = new HashSet<>();
+		for (ResolvedSegment continuation : continuations) {
+			if (!(continuation.source() instanceof FeatureInstance near)) {
+				continue;
+			}
+			if (near == feature || isNestedIn(feature, near)) {
+				return;
+			}
+			continued.add(near);
+		}
+		if (continued.isEmpty()) {
+			return;
+		}
+
+		List<FeatureInstance> uncontinued = new ArrayList<>();
+		collectUncontinuedLeaves(feature, continued, uncontinued);
+		for (FeatureInstance member : uncontinued) {
+			boolean triggersTransition = SeedDiscovery.triggersModeTransition(owner, member);
+			results.add(new LegResult(LegRole.DESTINATION_LEG, member, segments, featurePath, modes, allBidirectional,
+					!triggersTransition,
+					triggersTransition ? "member triggers a mode transition" : "nothing continues this member"));
+		}
+	}
+
+	/**
+	 * The leaves under {@code feature} that no continuing declaration reaches. A leaf is
+	 * reached when a declaration names it or names a feature group that contains it.
+	 */
+	private static void collectUncontinuedLeaves(FeatureInstance feature, Set<FeatureInstance> continued,
+			List<FeatureInstance> uncontinued) {
+		if (continued.contains(feature)) {
+			return;
+		}
+		if (feature.getFeatureInstances().isEmpty()) {
+			uncontinued.add(feature);
+			return;
+		}
+		for (FeatureInstance member : feature.getFeatureInstances()) {
+			collectUncontinuedLeaves(member, continued, uncontinued);
 		}
 	}
 
