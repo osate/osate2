@@ -49,7 +49,41 @@ class Issue2032Test {
 
 	@Test
 	def void testShortAccessConnections_Cleanup() {
-		test3("ShortAccessConnections.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "ShortAccessConnections.aadl")
+
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		assertTrue('System implementation "' + ROOT_IMPL + '" not found', cls.exists[name == ROOT_IMPL])
+
+		// Instantiate system
+		val sysImpl = cls.findFirst[name == ROOT_IMPL] as SystemImplementation
+		val instance = InstantiateModel.instantiate(sysImpl)
+		assertEquals(ROOT_INSTANCE, instance.name)
+
+		/*
+		 * Issue 3044: The port of the feature group gets a connection instance of its own, in
+		 * addition to the two orientations of the access connection. It is not connected inside
+		 * either thread, so the feature group connection is the whole of it.
+		 */
+		val myP = instance.componentInstances.get(0)
+		assertEquals(3, myP.connectionInstances.size)
+		assertEquals('t1.fg.p -> t2.fgi.p, t1.s -> t2.s.rsa, t2.s.rsa -> t1.s',
+			myP.connectionInstances.map[name].sort.join(', '))
+
+		val portConn = myP.connectionInstances.findFirst[name == 't1.fg.p -> t2.fgi.p']
+		assertEquals(1, portConn.connectionReferences.size)
+		assertEquals("ca", portConn.connectionReferences.get(0).connection.name)
+
+		// Each access connection instance should have 3 connection references
+		val accessConns = myP.connectionInstances.filter[it !== portConn].toList
+		val connRefs1 = accessConns.get(0).connectionReferences
+		val connRefs2 = accessConns.get(1).connectionReferences
+		assertEquals(3, connRefs1.size)
+		assertEquals(3, connRefs2.size)
+
+		// The two access connection instances should follow opposite paths
+		assertEquals(connRefs1.get(0).connection, connRefs2.get(2).connection)
+		assertEquals(connRefs1.get(1).connection, connRefs2.get(1).connection)
+		assertEquals(connRefs1.get(2).connection, connRefs2.get(0).connection)
 	}
 
 	@Test
