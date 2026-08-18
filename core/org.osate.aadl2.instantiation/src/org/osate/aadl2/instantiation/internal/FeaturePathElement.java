@@ -31,14 +31,12 @@ import org.osate.aadl2.instance.FeatureInstance;
  * resolved, the feature instance it denotes.
  *
  * <p>
- * The instance is absent while a path is still symbolic, which happens when a
- * feature group has not been expanded into its leaves yet. Keeping the
- * declaration and the instance in one element is what lets a symbolic path and a
- * resolved path be compared for compatibility without losing the declaration.
+ * Keeping the declaration beside the instance is what lets a step be compared by what
+ * the model says rather than by the instance object it happens to have resolved to.
  * </p>
  *
  * @param feature the declared feature this step enters
- * @param instance the resolved feature instance, or {@code null} while symbolic
+ * @param instance the resolved feature instance
  */
 public record FeaturePathElement(Feature feature, FeatureInstance instance) {
 
@@ -54,15 +52,6 @@ public record FeaturePathElement(Feature feature, FeatureInstance instance) {
 			throw new IllegalArgumentException("A resolved feature path element needs a feature instance");
 		}
 		return new FeaturePathElement(instance.getFeature(), instance);
-	}
-
-	/** A symbolic element, for a feature group that has not been expanded yet. */
-	public static FeaturePathElement symbolic(Feature feature) {
-		return new FeaturePathElement(feature, null);
-	}
-
-	public boolean isResolved() {
-		return instance != null;
 	}
 
 	/** Stable identity of this step. Never uses object identity. */

@@ -1,0 +1,73 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), covering the direction combinations feature group pairing has to decide.
+--
+-- One feature group with an out member, an in member, and an in out member, met three ways:
+-- across a pivot between peers, travelling up to the root's own boundary group, and
+-- travelling down from it. Which member pairs with which is decided by direction, and the
+-- direction that has to hold differs between a complete path and each direction of an
+-- incomplete one, so the three implementations together exercise the choices pairing makes.
+package DirectionCombinations
+public
+	feature group Mixed
+		features
+			outgoing: out event port;
+			incoming: in event port;
+			both: in out event port;
+	end Mixed;
+
+	thread Worker
+		features
+			bundle: feature group Mixed;
+	end Worker;
+
+	thread InverseWorker
+		features
+			bundle: feature group inverse of Mixed;
+	end InverseWorker;
+
+	process Peer
+		features
+			bundle: feature group Mixed;
+	end Peer;
+
+	process implementation Peer.i
+		subcomponents
+			worker: thread Worker;
+		connections
+			inner: feature group bundle <-> worker.bundle;
+	end Peer.i;
+
+	process InversePeer
+		features
+			bundle: feature group inverse of Mixed;
+	end InversePeer;
+
+	process implementation InversePeer.i
+		subcomponents
+			worker: thread InverseWorker;
+		connections
+			inner: feature group bundle <-> worker.bundle;
+	end InversePeer.i;
+
+	system Top
+		features
+			bundle: feature group Mixed;
+	end Top;
+
+	-- A complete path between peers, where each member pairs with the member facing the other way
+	system implementation Top.peers
+		subcomponents
+			left: process Peer.i;
+			right: process InversePeer.i;
+		connections
+			across: feature group left.bundle <-> right.bundle;
+	end Top.peers;
+
+	-- Incomplete paths in both directions, against the root's own boundary group
+	system implementation Top.boundary
+		subcomponents
+			inner: process Peer.i;
+		connections
+			up: feature group inner.bundle <-> bundle;
+	end Top.boundary;
+end DirectionCombinations;

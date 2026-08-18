@@ -1,0 +1,147 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), aimed at the corners of feature group pairing and endpoint resolution that
+-- the rest of the matrix reaches only in passing.
+--
+-- Each implementation isolates one decision that pairing has to make: an inverse group whose
+-- members are renamed so that names cannot pair them, a subset match where the source has a
+-- member the destination does not, and a group with no type at all against a typed one.
+--
+-- An access connection meeting a feature group is not here, because it is not legal AADL: a
+-- feature group of a subcomponent is not a valid access connection end. That shape reaches
+-- across-first only through a group whose member is an access feature, which
+-- models/issue3044/Issue3044.aadl has and Issue3037MemberPairingTest compares.
+package ExpansionCorners
+public
+	data D
+	end D;
+
+	feature group Pair
+		features
+			first: out data port D;
+			second: out data port D;
+	end Pair;
+
+	-- (a) a group with renamed members, declared as the inverse of Pair, so pairing has to
+	-- fall back on position: no member name matches
+	feature group RenamedPair
+		features
+			alpha: in data port D;
+			beta: in data port D;
+		inverse of Pair
+	end RenamedPair;
+
+	-- (b) a subset destination: it has one of the source's two members, by name
+	feature group SecondOnly
+		features
+			second: in data port D;
+	end SecondOnly;
+
+	thread Emitter
+		features
+			bundle: feature group Pair;
+	end Emitter;
+
+	thread Renamed
+		features
+			bundle: feature group RenamedPair;
+	end Renamed;
+
+	thread Subset
+		features
+			bundle: feature group SecondOnly;
+	end Subset;
+
+	-- (c) a group with no type at all, which pairs with every member of what it meets
+	thread Untyped
+		features
+			bundle: feature group;
+	end Untyped;
+
+	process Producer
+		features
+			bundle: feature group Pair;
+	end Producer;
+
+	process implementation Producer.i
+		subcomponents
+			worker: thread Emitter;
+		connections
+			up: feature group worker.bundle -> bundle;
+	end Producer.i;
+
+	-- A producer whose inner thread reaches one member of the boundary group with a plain port,
+	-- so the source leg ends at a leaf rather than at a group
+	thread SingleEmitter
+		features
+			outp: out data port D;
+	end SingleEmitter;
+
+	process LeafProducer
+		features
+			bundle: feature group Pair;
+	end LeafProducer;
+
+	process implementation LeafProducer.i
+		subcomponents
+			worker: thread SingleEmitter;
+		connections
+			up: port worker.outp -> bundle.first;
+	end LeafProducer.i;
+
+	system Top
+	end Top;
+
+	-- Renamed members: the pair is decided by position, and both connections are created
+	system implementation Top.renamed
+		subcomponents
+			producer: process Producer.i;
+			consumer: system RenamedHost;
+		connections
+			across: feature group producer.bundle -> consumer.bundle;
+	end Top.renamed;
+
+	system RenamedHost
+		features
+			bundle: feature group RenamedPair;
+	end RenamedHost;
+
+	-- A subset destination, matched by name, where the source's other member has nowhere to go
+	system implementation Top.subset
+		subcomponents
+			producer: process Producer.i;
+			consumer: system SubsetHost;
+		connections
+			across: feature group producer.bundle -> consumer.bundle {
+				Modeling_Properties::Classifier_Matching_Rule => Subset;
+			};
+	end Top.subset;
+
+	system SubsetHost
+		features
+			bundle: feature group SecondOnly;
+	end SubsetHost;
+
+	-- A group with no type, which the whole of the other group pairs against
+	system implementation Top.untyped
+		subcomponents
+			producer: process Producer.i;
+			consumer: system UntypedHost;
+		connections
+			across: feature group producer.bundle -> consumer.bundle;
+	end Top.untyped;
+
+	system UntypedHost
+		features
+			bundle: feature group;
+	end UntypedHost;
+
+	-- A leaf source against a group with no type, which pairs the leaf with every member of it
+	system implementation Top.leafToUntyped
+		subcomponents
+			producer: process LeafProducer.i;
+			consumer: system UntypedHost;
+		connections
+			across: feature group producer.bundle -> consumer.bundle;
+	end Top.leafToUntyped;
+
+end ExpansionCorners;

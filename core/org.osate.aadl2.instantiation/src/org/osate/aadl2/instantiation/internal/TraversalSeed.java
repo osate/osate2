@@ -46,9 +46,6 @@ import org.osate.aadl2.instance.SystemInstance;
  */
 public sealed interface TraversalSeed {
 
-	/** The component instance the seed belongs to. */
-	ComponentInstance container();
-
 	/** Stable identity, for deterministic ordering and for tests. Never object identity. */
 	String key();
 
@@ -68,11 +65,6 @@ public sealed interface TraversalSeed {
 						"An across seed needs an across declaration, but " + segment.declaration().getQualifiedName()
 								+ " does not cross between peers");
 			}
-		}
-
-		@Override
-		public ComponentInstance container() {
-			return segment.context();
 		}
 
 		@Override

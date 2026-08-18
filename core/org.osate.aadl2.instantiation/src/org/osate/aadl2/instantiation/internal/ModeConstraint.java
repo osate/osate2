@@ -71,15 +71,6 @@ public record ModeConstraint(List<Requirement> requirements) {
 			}
 			modes = List.copyOf(modes);
 		}
-
-		public String key() {
-			StringBuilder key = new StringBuilder(PathKeys.declarative(declaration));
-			key.append('@').append(PathKeys.instance(context)).append('[');
-			for (Mode mode : modes) {
-				key.append(PathKeys.declarative(mode)).append(',');
-			}
-			return key.append(']').toString();
-		}
 	}
 
 	/**
@@ -95,18 +86,5 @@ public record ModeConstraint(List<Requirement> requirements) {
 		List<Requirement> extended = new ArrayList<>(requirements);
 		extended.add(new Requirement(declaration, context, modes));
 		return new ModeConstraint(extended);
-	}
-
-	public boolean isUnconstrained() {
-		return requirements.isEmpty();
-	}
-
-	/** Stable identity of the constraint. Never uses object identity. */
-	public String key() {
-		StringBuilder key = new StringBuilder();
-		for (Requirement requirement : requirements) {
-			key.append(requirement.key()).append(';');
-		}
-		return key.toString();
 	}
 }

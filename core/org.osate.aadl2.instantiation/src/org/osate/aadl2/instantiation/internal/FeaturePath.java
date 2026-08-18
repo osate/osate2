@@ -50,19 +50,6 @@ public record FeaturePath(List<FeaturePathElement> elements) {
 		elements = List.copyOf(elements);
 	}
 
-	public boolean isEmpty() {
-		return elements.isEmpty();
-	}
-
-	public int depth() {
-		return elements.size();
-	}
-
-	/** The innermost step, or {@code null} for the empty path. */
-	public FeaturePathElement leaf() {
-		return elements.isEmpty() ? null : elements.get(elements.size() - 1);
-	}
-
 	/** This path with one more step appended. Returns a new path; this one is unchanged. */
 	public FeaturePath append(FeaturePathElement element) {
 		if (element == null) {

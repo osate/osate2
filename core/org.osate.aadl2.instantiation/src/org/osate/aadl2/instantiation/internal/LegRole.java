@@ -48,8 +48,4 @@ public enum LegRole {
 	public boolean arrivesAtDeclaredDestination() {
 		return this == SOURCE_LEG;
 	}
-
-	public LegRole opposite() {
-		return this == SOURCE_LEG ? DESTINATION_LEG : SOURCE_LEG;
-	}
 }
