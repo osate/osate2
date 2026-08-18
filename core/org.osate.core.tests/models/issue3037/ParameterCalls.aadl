@@ -1,0 +1,79 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), covering connections that reach the parameters of a subprogram call.
+--
+-- The corpus has subprogram calls, in the Issue1988 and Issue1987 models, but only in a
+-- thread instantiated as the root. Source-first refuses a parameter destination whenever the
+-- declaration sits in the instantiation root, so those models say nothing about the case
+-- where the call is below the root, which is the only place source-first creates such a
+-- connection instance. Both placements are here for that reason: Caller.i is the thread on
+-- its own, Top.withCall is the same thread two levels down.
+package ParameterCalls
+public
+	data D
+	end D;
+
+	subprogram Kernel
+		features
+			arg: in parameter D;
+			result: out parameter D;
+	end Kernel;
+
+	thread Caller
+		features
+			inp: in data port D;
+			outp: out data port D;
+	end Caller;
+
+	thread implementation Caller.i
+		subcomponents
+			store: data D;
+			body: subprogram Kernel;
+		calls
+			seq: {
+				step: subprogram body;
+			};
+		connections
+			feed: parameter inp -> step.arg;
+			emit: parameter step.result -> outp;
+			keep: parameter step.result -> store;
+	end Caller.i;
+
+	process Host
+		features
+			inp: in data port D;
+			outp: out data port D;
+	end Host;
+
+	process implementation Host.i
+		subcomponents
+			worker: thread Caller.i;
+		connections
+			down: port inp -> worker.inp;
+			up: port worker.outp -> outp;
+	end Host.i;
+
+	process Feeder
+		features
+			outp: out data port D;
+	end Feeder;
+
+	process Drain
+		features
+			inp: in data port D;
+	end Drain;
+
+	system Top
+	end Top;
+
+	-- The call two containment levels below the root, with a complete connection arriving at
+	-- the thread and one leaving it
+	system implementation Top.withCall
+		subcomponents
+			feeder: process Feeder;
+			host: process Host.i;
+			collector: process Drain;
+		connections
+			toHost: port feeder.outp -> host.inp;
+			fromHost: port host.outp -> collector.inp;
+	end Top.withCall;
+end ParameterCalls;

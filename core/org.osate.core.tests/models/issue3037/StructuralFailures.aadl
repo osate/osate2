@@ -1,0 +1,99 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), covering structural expansion where the declared property cannot be
+-- applied, and a crossed Connection_Set through a feature group.
+--
+-- Expansion runs after enumeration, on provisional connection instances, and it is shared
+-- pipeline: both strategies feed it the same way. What has to be characterized is that they
+-- feed it the same thing even where it fails, and that a failed expansion leaves the same
+-- model behind rather than a partial object in one strategy and nothing in the other.
+package StructuralFailures
+public
+	feature group Bundle
+		features
+			signal: out data port;
+	end Bundle;
+
+	thread GroupProducer
+		features
+			bundle: feature group Bundle;
+	end GroupProducer;
+
+	thread GroupConsumer
+		features
+			bundle: feature group inverse of Bundle;
+	end GroupConsumer;
+
+	thread Producer
+		features
+			outp: out data port;
+	end Producer;
+
+	thread Consumer
+		features
+			inp: in data port;
+	end Consumer;
+
+	-- (a) a Connection_Set whose index pairs cross, through a whole feature group. The
+	-- corpus has crossed pairs between ports, never through a group, so the pairing of the
+	-- group members and the pairing of the array elements meet here for the first time.
+	process CrossedGroupSet
+	end CrossedGroupSet;
+
+	process implementation CrossedGroupSet.i
+		subcomponents
+			producers: thread GroupProducer[2];
+			consumers: thread GroupConsumer[2];
+		connections
+			c: feature group producers.bundle -> consumers.bundle {
+				Communication_Properties::Connection_Set => ([src => (1); dst => (2);], [src => (2); dst => (1);]);
+			};
+	end CrossedGroupSet.i;
+
+	-- (b) a pattern with fewer dimensions than the arrays it has to replicate over
+	process TooFewIndices
+	end TooFewIndices;
+
+	process implementation TooFewIndices.i
+		subcomponents
+			producers: thread Producer[2][2];
+			consumers: thread Consumer[2][2];
+		connections
+			c: port producers.outp -> consumers.inp {
+				Communication_Properties::Connection_Pattern => ((One_To_One));
+			};
+	end TooFewIndices.i;
+
+	-- (c) a Connection_Set naming an element the array does not have
+	process OutOfRangeSet
+	end OutOfRangeSet;
+
+	process implementation OutOfRangeSet.i
+		subcomponents
+			producers: thread Producer[2];
+			consumers: thread Consumer[2];
+		connections
+			c: port producers.outp -> consumers.inp {
+				Communication_Properties::Connection_Set => ([src => (1); dst => (3);]);
+			};
+	end OutOfRangeSet.i;
+
+	system Top
+	end Top;
+
+	-- The same three, one containment level down, so the connection is enumerated by a leg
+	-- rather than at the root
+	system implementation Top.crossedGroupSet
+		subcomponents
+			container: process CrossedGroupSet.i;
+	end Top.crossedGroupSet;
+
+	system implementation Top.tooFewIndices
+		subcomponents
+			container: process TooFewIndices.i;
+	end Top.tooFewIndices;
+
+	system implementation Top.outOfRangeSet
+		subcomponents
+			container: process OutOfRangeSet.i;
+	end Top.outOfRangeSet;
+end StructuralFailures;
