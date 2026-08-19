@@ -702,7 +702,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (targetMedium instanceof ComponentInstance) {
 					computedMaxTransmissionLatencies.put(
 							new Pair<>((ComponentInstance) targetMedium, onBehalfOfConnection),
-							busTransferTime.getMaximum());
+							busLatency.getMaximum());
 				}
 			} else {
 				// XXX: [Code Coverage] Only executable if maxBusTransferTime or maxBusLatency is negative.
