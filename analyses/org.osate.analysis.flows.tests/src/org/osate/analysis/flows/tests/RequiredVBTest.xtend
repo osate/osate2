@@ -75,7 +75,7 @@ class RequiredVBTest extends XtextTest {
 		val target = resab.modelElement as NamedElement
 		assertEquals(target.name,"etef2")
 		assertTrue((resab.values.get(1) as RealValue).value == (12.0))
-		assertTrue((resab.values.get(2) as RealValue).value == (16.0))
+		assertTrue((resab.values.get(2) as RealValue).value == (24.0))
 		assertTrue((resab.values.get(3) as RealValue).value == (12.0))
 		assertTrue((resab.values.get(4) as RealValue).value == (16.0))
 		assertTrue((resab.values.get(5) as RealValue).value == (2.0))
