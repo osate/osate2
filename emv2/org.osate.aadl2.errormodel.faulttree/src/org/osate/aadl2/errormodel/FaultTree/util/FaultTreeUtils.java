@@ -623,32 +623,19 @@ public class FaultTreeUtils {
 		// "Computing k-out-of-n System Reliability", by R. E. Barlow and K. D. Heidtmann
 		// in IEEE Transactions on Reliability, Vol R-33, No 4, October 1984
 		//
-		// The general intuition of this algorithm goes as follows, using LaTex notation for the equations
-		// Conventions:
-		// $q_i$ is the failure rate of component i
-		// $p_i$ is the reliability rate of component i, $p_i = 1 - q_i$
-		// Re(k, n) is the probability that there are exactly k working components out of n
+		// If p_i is the probability of event i, the generating function
 		//
-		// Borderline cases as managed by the following conventions:
-		// $\forall j \in \{1 .. n\}, Re(-1, j) = Re(j+1, j) = 0$
-		// $Re(0, 0) = 0$
+		// g(z) = \prod_{i=1}^n ((1 - p_i) + p_i z)
 		//
-		// Barlow and Heidtmann propose the following generating function
-		//
-		// g(z)=\prod_{i=1}^n (q_i + p_i z)
-		//
-		// By recurrence, one can establish that $g(z)=\prod_{i=1}^n (q_i + p_i z)=\sum_{i=0}^ n Re(i,n) z^i$
-		// using $Re(i,j) = q_j * Re(i, j - 1) + p_j * Re(i-1, j-1)$.
-		//
-		// It follows that computing $Re(k, n)$ for some $k \leq n$ is equivalent to computing the k-th element in the polynom
-		// g (z) = \sum_{i=0}^ n g_i z^i$ and perform term identification
+		// has the probability that exactly j events occur as the coefficient of z^j. The recurrence below computes those
+		// coefficients, offset by one in A to match the original algorithm's indexing.
 
 		// For simplicity, we implement PROGRAM 1
 		// Note: to match the original algorithm, we start with index at 1, up-to index n + 1
 
 		int n = event.getSubEvents().size();
-		BigDecimal[] probabilities = new BigDecimal[n + 2];
-		Arrays.fill(probabilities, BigDecimal.ZERO);
+		BigDecimal[] eventProbabilities = new BigDecimal[n + 2];
+		Arrays.fill(eventProbabilities, BigDecimal.ZERO);
 
 		BigDecimal[] A = new BigDecimal[n + 2];
 		Arrays.fill(A, BigDecimal.ZERO);
@@ -657,26 +644,25 @@ public class FaultTreeUtils {
 
 		int k = 1;
 		for (Event subEvent : event.getSubEvents()) {
-			probabilities[k] = BigOne.subtract(getScaledProbability(subEvent));
+			eventProbabilities[k] = getScaledProbability(subEvent);
 			k++;
 		}
 
 		for (int j = 1; j <= n; j++) {
 			for (int i = j + 1; i >= 1; i--) {
 				// At each step, we perform A(i) = A(i) + P(j) * (A(i - 1) - A(i))
-				A[i] = A[i].add(probabilities[j].multiply(A[i - 1].subtract(A[i])));
+				A[i] = A[i].add(eventProbabilities[j].multiply(A[i - 1].subtract(A[i])));
 			}
 		}
 
-		// The associated failure probability of k or more is $1 - \Sum_{j=k}^n Re(j, n)$
-		BigDecimal R = BigZero;
+		// The probability that k or more events occur is the sum of the coefficients for k through n.
+		BigDecimal result = BigZero;
 
 		for (int j = event.getK() + 1; j <= n + 1; j++) {
-			R = R.add(A[j]);
+			result = result.add(A[j]);
 		}
 
-		R = BigOne.subtract(R);
-		return R;
+		return result;
 	}
 
 	public static BigDecimal pANDEvents(Event event) {
