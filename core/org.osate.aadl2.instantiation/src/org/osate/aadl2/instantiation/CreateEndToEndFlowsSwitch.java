@@ -88,6 +88,9 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
  * <p>
  * Nested end-to-end flows are expanded once per component context. Their leading and trailing declarative connection
  * paths are retained so parent candidates can select compatible nested variants and continue after them.
+ * <p>
+ * Internal consistency failures throw {@link IllegalStateException} intentionally. Continuing after an invariant has
+ * failed could publish an instance model whose flow graph cannot be trusted.
  *
  * @author lwrage
  */
@@ -245,7 +248,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		private final Map<EndToEndFlowInstance, FlowCandidate> candidatesByInstance = new IdentityHashMap<>();
 		private final List<EndToEndFlow> activeDeclarations = new ArrayList<>();
 		private final List<PendingDiagnostic> diagnostics = new ArrayList<>();
-		private final HashMap<EndToEndFlow, List<ETEInfo>> compatibilityInfo = new HashMap<>();
 		private long nextCandidateSequence;
 		private long nextDiagnosticSequence;
 		private boolean canceled;
@@ -312,7 +314,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 								break;
 							}
 							if (!context.expansions.containsKey(ete)) {
-								instantiateEndToEndFlow(ci, ete, context.compatibilityInfo);
+								instantiateEndToEndFlow(ci, ete, null);
 							}
 						}
 					}
@@ -338,6 +340,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		ETEInstanceCloneCount = 1;
 	}
 
+	/**
+	 * Expand one declaration and optionally publish its legacy compatibility view. Internal callers pass {@code null};
+	 * the map parameter is retained for protected API compatibility.
+	 */
 	protected void instantiateEndToEndFlow(ComponentInstance ci, EndToEndFlow ete,
 			HashMap<EndToEndFlow, List<ETEInfo>> ete2info) {
 		FlowInstantiationContext previousContext = activeContext;
@@ -346,6 +352,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		if (standalone) {
 			activeContext = new FlowInstantiationContext(ci);
 		} else if (activeContext.owner != ci) {
+			// EndToEndFlow is not a FlowElement, so a nested ETE segment can only be expanded at its declaration's level.
 			throw new IllegalStateException("End-to-end flow expansion crossed component contexts");
 		}
 
@@ -396,13 +403,14 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			} else {
 				for (FlowCandidate createdCandidate : expansion.candidates) {
 					if (createdCandidate.status == CandidateStatus.ACTIVE) {
-						createdCandidate.status = CandidateStatus.COMPLETE;
+						createdCandidate.status = createdCandidate.instance.getFlowElements().isEmpty()
+								? CandidateStatus.FAILED
+								: CandidateStatus.COMPLETE;
 					}
 				}
 				expansion.status = ExpansionStatus.COMPLETE;
 			}
 			activeState = previousState;
-			updateCompatibilityInfo(expansion, context.compatibilityInfo);
 		}
 		return expansion;
 	}
@@ -795,7 +803,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			}
 			traversal.flowImplementations.add(nextFlowImpl);
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
-			removeLastFlowImplementation(activeState);
+			removeLastFlowImplementation(traversal);
 		} else {
 			List<ConnectionInstance> connis = collectConnectionInstances(ci, etei, traversal.connections);
 
@@ -825,12 +833,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				 */
 				final List<ConnectionInstance> connectionsToUse = new ArrayList<>();
 				for (final ConnectionInstance ciToCheck : connis) {
-					if ((flowFilter == null || isValidContinuation(etei, flowFilter, ciToCheck))
+					if ((flowFilter == null || isValidContinuation(flowFilter, ciToCheck))
 							&& (nextFlowImpl == null
 									? (leaf instanceof FlowSpecification flowSpecification
 											? isValidContinuation(ci, ciToCheck, flowSpecification)
 											: true)
-									: isValidContinuation(etei, ciToCheck, nextFlowImpl))) {
+									: isValidContinuation(ciToCheck, nextFlowImpl))) {
 						connectionsToUse.add(ciToCheck);
 					}
 				}
@@ -861,33 +869,34 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					while (connIter.hasNext()) {
 						final ConnectionInstance conni = connIter.next();
 						final boolean prepareNext = connIter.hasNext();
+						TraversalState branchState = getState(etei);
 						TraversalState stateClone = null;
 						FlowIterator iterClone = null;
 
 						if (prepareNext) {
-							stateClone = forkState(getState(etei));
+							stateClone = forkState(branchState);
 							iterClone = iter.copy();
 						}
 
-						getState(etei).flowImplementations.add(nextFlowImpl);
+						branchState.flowImplementations.add(nextFlowImpl);
 						etei.getFlowElements().add(conni);
 						if (addLeafElement(ci, etei, leaf)) {
 							// prepare next connection filter
-							getState(etei).connections.clear();
+							branchState.connections.clear();
 							if (iter.hasNext()) {
 								Connection conn = getConnection(iter.next());
 								if (conn != null) {
-									getState(etei).connections.add(conn);
+									branchState.connections.add(conn);
 								}
 							}
 
 							continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 						} else {
-							getState(etei).connections.clear();
+							branchState.connections.clear();
 							abortCandidate(getCandidate(etei));
 						}
 
-						removeLastFlowImplementation(activeState);
+						removeLastFlowImplementation(branchState);
 
 						if (prepareNext) {
 							activeState = stateClone;
@@ -901,20 +910,17 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	private static void removeLastFlowImplementation(TraversalState state) {
-		if (state != null && !state.flowImplementations.isEmpty()) {
-			state.flowImplementations.removeLast();
-		}
+		state.flowImplementations.removeLast();
 	}
 
 	/**
 	 * Check whether a connection instance ends at the input feature of a flow implementation.
 	 *
-	 * @param etei the candidate being filtered
 	 * @param conni the connection instance
 	 * @param fimpl the flow implementation that must follow the connection
 	 * @return whether the connection destination is the flow input
 	 */
-	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowImplementation fimpl) {
+	boolean isValidContinuation(ConnectionInstance conni, FlowImplementation fimpl) {
 		boolean result = false;
 		ConnectionInstanceEnd dst = conni.getDestination();
 		if (dst instanceof FeatureInstance featureInstance) {
@@ -955,12 +961,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	/**
 	 * Check whether a connection instance starts at the output feature of a flow implementation.
 	 *
-	 * @param etei the candidate being filtered
 	 * @param fimpl the flow implementation that must precede the connection
 	 * @param conni the connection instance
 	 * @return whether the connection source is the flow output
 	 */
-	boolean isValidContinuation(EndToEndFlowInstance etei, FlowImplementation fimpl, ConnectionInstance conni) {
+	boolean isValidContinuation(FlowImplementation fimpl, ConnectionInstance conni) {
 		boolean result = false;
 		ConnectionInstanceEnd src = conni.getSource();
 		if (src instanceof FeatureInstance featureInstance) {
@@ -995,68 +1000,72 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						+ ": Missing connection instance to " + a.getName());
 				traversal.connections.clear();
 			} else {
-				Iterator<ConnectionInstance> connIter = connis.iterator();
-				boolean errorReported = false;
-
-				traversal.continuations.push(iter);
-				while (connIter.hasNext()) {
-					TraversalState stateClone = null;
-					ConnectionInstance conni = connIter.next();
-					boolean prepareNext = connIter.hasNext();
-					EndToEndFlowElement leaf = null;
-					ComponentInstance target = null;
-
-					if (conni.getDestination() instanceof ComponentInstance componentInstance) {
-						target = componentInstance;
-
-						if (target.getCategory() == ComponentCategory.DATA
-								|| target.getCategory() == ComponentCategory.SUBPROGRAM) {
-							leaf = target.getSubcomponent();
-						}
+				record AccessMatch(ConnectionInstance connection, ComponentInstance target,
+						EndToEndFlowElement leaf) {
+				}
+				List<AccessMatch> matches = new ArrayList<>();
+				boolean invalidTarget = false;
+				for (ConnectionInstance conni : connis) {
+					if (conni.getDestination() instanceof ComponentInstance target
+							&& (target.getCategory() == ComponentCategory.DATA
+									|| target.getCategory() == ComponentCategory.SUBPROGRAM)) {
+						matches.add(new AccessMatch(conni, target, target.getSubcomponent()));
 					} else {
-						if (!errorReported) {
-							errorReported = true;
-							reportCandidateError(getCandidate(etei), "Access feature " + a.getQualifiedName()
-									+ " is not a proxy for a data or subprogram component.");
+						invalidTarget = true;
+					}
+				}
+
+				if (invalidTarget) {
+					reportCandidateError(candidate, "Access feature " + a.getQualifiedName()
+							+ " is not a proxy for a data or subprogram component.");
+				}
+				if (matches.isEmpty()) {
+					traversal.connections.clear();
+					failCandidate(candidate);
+					return;
+				}
+
+				Iterator<AccessMatch> matchIter = matches.iterator();
+				traversal.continuations.push(iter);
+				while (matchIter.hasNext()) {
+					TraversalState branchState = getState(etei);
+					TraversalState stateClone = null;
+					AccessMatch match = matchIter.next();
+					boolean prepareNext = matchIter.hasNext();
+
+					if (prepareNext) {
+						stateClone = forkState(branchState);
+						etei.setName(etei.getEndToEndFlow().getName());
+					}
+					FlowIterator continuation = branchState.continuations.pop();
+
+					etei.getFlowElements().add(match.connection());
+					addLeafElement(match.target(), etei, match.leaf());
+
+					// prepare next connection filter
+					Connection lastConn = branchState.connections.getLast();
+					branchState.connections.clear();
+					if (continuation.hasNext()) {
+						Connection nextConn = getConnection(continuation.next());
+						if (nextConn != null) {
+							int i = match.connection().getConnectionReferences().size() - 1;
+							Connection preConn = null;
+
+							while (i > 0 && preConn != lastConn) {
+								preConn = match.connection().getConnectionReferences().get(i--).getConnection();
+								if (preConn != lastConn) {
+									branchState.connections.add(preConn);
+								}
+							}
+							branchState.connections.add(nextConn);
 						}
 					}
 
-					if (leaf != null) {
-						if (prepareNext) {
-							stateClone = forkState(getState(etei));
-							etei.setName(etei.getEndToEndFlow().getName());
-						}
+					continueFlow(ci, etei, continuation, ci);
 
-						etei.getFlowElements().add(conni);
-						addLeafElement(target, etei, leaf);
-
-						// prepare next connection filter
-						TraversalState branchState = getState(etei);
-						Connection lastConn = branchState.connections.getLast();
-
-						branchState.connections.clear();
-						if (iter.hasNext()) {
-							Connection nextConn = getConnection(iter.next());
-							if (nextConn != null) {
-								int i = conni.getConnectionReferences().size() - 1;
-								Connection preConn = null;
-
-								while (i > 0 && preConn != lastConn) {
-									preConn = conni.getConnectionReferences().get(i--).getConnection();
-									if (preConn != lastConn) {
-										branchState.connections.add(preConn);
-									}
-								}
-								branchState.connections.add(nextConn);
-							}
-						}
-
-						continueFlow(ci, etei, branchState.continuations.pop(), ci);
-
-						if (prepareNext) {
-							activeState = stateClone;
-							etei = stateClone.candidate.instance;
-						}
+					if (prepareNext) {
+						activeState = stateClone;
+						etei = stateClone.candidate.instance;
 					}
 				}
 			}
@@ -1089,7 +1098,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 		// instantiate the nested ete if that hasn't been done already
 		if (!activeContext.expansions.containsKey(ete)) {
-			instantiateEndToEndFlow(ci, ete, activeContext.compatibilityInfo);
+			instantiateEndToEndFlow(ci, ete, null);
 		}
 		FlowExpansion nestedExpansion = activeContext.expansions.get(ete);
 		if (nestedExpansion.status == ExpansionStatus.FAILED) {
@@ -1330,6 +1339,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				activeContext.canceled = true;
 				return;
 			}
+			if (candidate.status == CandidateStatus.ABORTED || candidate.status == CandidateStatus.FAILED) {
+				return;
+			}
 			if (activeState == null || activeState.candidate != candidate) {
 				return;
 			}
@@ -1343,7 +1355,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			while (iter.hasNext()) {
 				Element e = iter.next();
 				processETESegment(ci, etei, e, iter, errorElement);
-				if (candidate.status == CandidateStatus.ABORTED
+				if (candidate.status == CandidateStatus.ABORTED || candidate.status == CandidateStatus.FAILED
 						|| activeState == null || activeState.candidate != candidate) {
 					return;
 				}
@@ -1353,9 +1365,14 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			}
 			if (traversal.continuations.isEmpty()) {
 				if (candidate.status == CandidateStatus.ACTIVE) {
-					candidate.postConnections.addAll(traversal.connections);
-					traversal.connections.clear();
-					candidate.status = CandidateStatus.COMPLETE;
+					if (candidate.instance.getFlowElements().isEmpty()) {
+						traversal.connections.clear();
+						failCandidate(candidate);
+					} else {
+						candidate.postConnections.addAll(traversal.connections);
+						traversal.connections.clear();
+						candidate.status = CandidateStatus.COMPLETE;
+					}
 				}
 				break;
 			}

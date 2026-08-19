@@ -25,6 +25,7 @@ package org.osate.core.tests.instantiation.flows;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -80,7 +81,7 @@ public class AccessEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIns
 		SystemInstance instance = instantiate(FILE, "MultipleAccessTop.i");
 		ComponentInstance container = component(instance, "container");
 
-		assertEquals(List.of("access_path_1", "access_path_2", "starts_at_access"), flowNames(container));
+		assertEquals(List.of("access_path_1", "access_path_2"), flowNames(container));
 	}
 
 	@Test
@@ -93,6 +94,33 @@ public class AccessEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIns
 		assertEquals("second_data", componentElement(flows.get(1), 2).getName());
 		assertSame(component(instance, "first_data"), componentElement(flows.get(0), 2));
 		assertSame(component(instance, "second_data"), componentElement(flows.get(1), 2));
+	}
+
+	@Test
+	public void testSameTargetAccessBranchesRetainTheirOwnConnectionPaths() throws Exception {
+		SystemInstance instance = instantiate(FILE, "SameTargetMultipleAccessTop.i");
+		ComponentInstance container = component(instance, "container");
+		List<EndToEndFlowInstance> flows = flowsFor(container, "access_path");
+
+		assertEquals(List.of("access_path_1", "access_path_2"),
+				flows.stream().map(EndToEndFlowInstance::getName).toList());
+		assertEquals(List.of("first", "from_boundary"), connectionDeclarations(connection(flows.get(0), 3)));
+		assertEquals(List.of("second", "from_boundary"), connectionDeclarations(connection(flows.get(1), 3)));
+	}
+
+	@Test
+	public void testInvalidAccessAlternativeDoesNotCommitAnUntraversedFork() throws Exception {
+		InstantiationResult result = instantiateWithErrors(FILE, "MixedValidInvalidAccessTop.i");
+		ComponentInstance container = component(result.instance(), "container");
+		EndToEndFlowInstance flow = flow(container, "access_path");
+
+		assertEquals(List.of("access_path"), flowNames(container));
+		assertEquals(5, flow.getFlowElements().size());
+		assertEquals(List.of("valid", "from_boundary"), connectionDeclarations(connection(flow, 3)));
+		assertEquals(1, result.messages()
+				.stream()
+				.filter(message -> message.message.contains("is not a proxy for a data or subprogram component"))
+				.count());
 	}
 
 	@Test
@@ -109,23 +137,20 @@ public class AccessEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIns
 	}
 
 	@Test
-	public void testFlowStartingAtAccessFeatureRetainsCurrentBoundaryBehavior() throws Exception {
+	public void testFlowStartingAtAccessFeatureIsDiscardedWhenItHasNoElements() throws Exception {
 		SystemInstance instance = instantiate(FILE, "MultipleAccessTop.i");
-		EndToEndFlowInstance flow = flow(component(instance, "container"), "starts_at_access");
 
-		assertEquals(List.of(), flow.getFlowElements());
+		assertTrue(flowsFor(component(instance, "container"), "starts_at_access").isEmpty());
 	}
 
 	@Test
-	public void testUnresolvedBoundaryAccessReportsSystemBoundaryErrors() throws Exception {
+	public void testUnresolvedBoundaryAccessDiscardsEmptyFlowsAndReportsSystemBoundaryErrors() throws Exception {
 		InstantiationResult result = instantiateWithErrors(FILE, "AccessContainer.i");
 
-		assertEquals(List.of("starts_at_access"), flowNames(result.instance()));
-		assertEquals(List.of(), flow(result.instance(), "starts_at_access").getFlowElements());
+		assertTrue(result.instance().getEndToEndFlows().isEmpty());
 		assertEquals(List.of(
 				"access_path could not be instantiated: Access feature "
 						+ "E2E_Access_Flows::AccessContainer.data_access is not a proxy for a data or subprogram component.",
-				"Flow instance leaves system instance for flow AccessContainer_i_Instance.access_path",
 				"Flow instance leaves system instance for flow AccessContainer_i_Instance.starts_at_access"),
 				result.messages().stream().map(message -> message.message).toList());
 		assertEquals(result.instance(), result.messages().get(0).where);

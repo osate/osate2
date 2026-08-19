@@ -46,6 +46,7 @@ public class NestedEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIns
 	public void testNestedAndParentCloneCounts() throws Exception {
 		SystemInstance instance = instantiate(FILE, "Top.i");
 
+		// Forward parents are created before their nested alternatives, while the last parent clone is created afterward.
 		assertEquals(List.of("forward_parent_1", "forward_nested_1", "forward_nested_2", "forward_parent_2",
 				"nested_1", "nested_2", "parent_1", "parent_2", "starts_nested_1", "starts_nested_2",
 				"ends_nested_1", "ends_nested_2"), flowNames(instance));

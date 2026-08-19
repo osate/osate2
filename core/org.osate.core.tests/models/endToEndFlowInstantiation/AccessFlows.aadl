@@ -59,6 +59,11 @@ public
 			fsnk: flow sink data_access;
 	end DataConsumer;
 
+	system DataProvider
+		features
+			data_access: provides data access Shared_Data;
+	end DataProvider;
+
 	system AccessContainer
 		features
 			data_access: requires data access Shared_Data;
@@ -89,6 +94,31 @@ public
 			first: data access first_data <-> container.data_access;
 			second: data access second_data <-> container.data_access;
 	end MultipleAccessTop.i;
+
+	system SameTargetMultipleAccessTop
+	end SameTargetMultipleAccessTop;
+
+	system implementation SameTargetMultipleAccessTop.i
+		subcomponents
+			shared_data: data Shared_Data;
+			container: system AccessContainer.i;
+		connections
+			first: data access shared_data <-> container.data_access;
+			second: data access shared_data <-> container.data_access;
+	end SameTargetMultipleAccessTop.i;
+
+	system MixedValidInvalidAccessTop
+	end MixedValidInvalidAccessTop;
+
+	system implementation MixedValidInvalidAccessTop.i
+		subcomponents
+			shared_data: data Shared_Data;
+			invalid_provider: system DataProvider;
+			container: system AccessContainer.i;
+		connections
+			valid: data access shared_data <-> container.data_access;
+			invalid: data access invalid_provider.data_access <-> container.data_access;
+	end MixedValidInvalidAccessTop.i;
 
 	system SubprogramAccessContainer
 		features

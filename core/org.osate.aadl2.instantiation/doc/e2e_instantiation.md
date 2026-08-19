@@ -177,7 +177,6 @@ FlowInstantiationContext                      ← per ComponentInstance
   candidatesByInstance : EndToEndFlowInstance → FlowCandidate
   activeDeclarations : List<EndToEndFlow>              ← DFS stack, cycle detection
   diagnostics        : List<PendingDiagnostic>         ← deferred, replayed at commit
-  compatibilityInfo  : EndToEndFlow → List<ETEInfo>    ← legacy view, published for callers
   nextCandidateSequence, nextDiagnosticSequence, canceled
 
    └── FlowExpansion                          ← per declarative EndToEndFlow
@@ -219,8 +218,9 @@ position — that is how a fork resumes exactly where its sibling was.
 
 `ETEInfo` is the legacy record (`preConns`, `etei`, `postConns`) published through
 `updateCompatibilityInfo` into the `HashMap<EndToEndFlow, List<ETEInfo>>` that
-`instantiateEndToEndFlow` accepts. It exists for API compatibility; internal logic uses
-`FlowCandidate` directly.
+`instantiateEndToEndFlow` accepts. It exists for API compatibility and is populated once when an
+external caller supplies a map; internal calls pass `null` because traversal uses `FlowCandidate`
+directly.
 
 ---
 
@@ -317,13 +317,16 @@ continueFlow(ci, etei, iter, errorElement):
                                           clear pending connections; return
     while iter.hasNext():
         processETESegment(ci, etei, iter.next(), iter, errorElement)
-        if candidate ABORTED or branch switched → return
+        if candidate ABORTED/FAILED or branch switched → return
     if candidate COMPLETE              → return
     if continuations.isEmpty():
         if candidate is still ACTIVE:
-            candidate.postConnections += leftover pending connections
-            clear pending connections
-            candidate.status = COMPLETE            ← normal termination
+            if candidate has no flow elements:
+                clear pending connections; candidate.status = FAILED
+            else:
+                candidate.postConnections += leftover pending connections
+                clear pending connections
+                candidate.status = COMPLETE        ← normal termination
         break
     iter = continuations.pop()                     ← ASCEND
     ci   = ci.getContainingComponentInstance()
@@ -366,8 +369,8 @@ processFlowStep(ci, etei, leaf, nextFlowImpl, iter)
       │                    from feature 'x'"
       │
       └─ filter each conni — issue 1984: filter first, report only if none survive
-           flowFilter (previous impl's out end) → isValidContinuation(etei, fimpl, conni)
-           nextFlowImpl known                  → isValidContinuation(etei, conni, fimpl)
+           flowFilter (previous impl's out end) → isValidContinuation(fimpl, conni)
+           nextFlowImpl known                  → isValidContinuation(conni, fimpl)
            plain flow-spec leaf                → isValidContinuation(ci, conni, fspec)
            │
            ├─ none survive → owner error
@@ -390,8 +393,8 @@ The three `isValidContinuation` overloads are pure predicates:
 
 | Overload | Question |
 |---|---|
-| `(EndToEndFlowInstance, ConnectionInstance, FlowImplementation)` | does the connection *end* at the implementation's in-end feature? |
-| `(EndToEndFlowInstance, FlowImplementation, ConnectionInstance)` | does the connection *start* at the implementation's out-end feature? |
+| `(ConnectionInstance, FlowImplementation)` | does the connection *end* at the implementation's in-end feature? |
+| `(FlowImplementation, ConnectionInstance)` | does the connection *start* at the implementation's out-end feature? |
 | `(ComponentInstance, ConnectionInstance, FlowSpecification)` | does the connection end at the flow specification's source feature, or at a feature nested inside it? (walks up the `FeatureInstance` containment chain) |
 
 `collectConnectionInstances` iterates `ci.allEnclosingConnectionInstances()` and keeps those for
@@ -435,10 +438,11 @@ A false return causes the caller to `abortCandidate` — issue #612.
 ### 6.6 Accesses
 
 `processAccess` adds the *accessed component instance*, not the access feature, as the flow element.
-When there are pending connections it forks once per matching connection instance whose destination
-is a data or subprogram `ComponentInstance`. Destinations that are not such a proxy produce a single
-candidate-targeted error ("Access feature … is not a proxy for a data or subprogram component."),
-reported at most once per step.
+When there are pending connections it first collects the matching connection instances whose
+destination is a data or subprogram `ComponentInstance`, then forks once per valid match. If no valid
+matches remain, the candidate fails instead of being committed without traversing the access.
+Destinations that are not such a proxy produce a single candidate-targeted error ("Access feature …
+is not a proxy for a data or subprogram component."), reported at most once per step.
 
 The next connection filter here is reconstructed rather than just cleared: the branch walks the
 matched connection instance's references backwards from the end until it reaches the last pending
@@ -455,7 +459,7 @@ connection from the iterator. That preserves the remainder of a multi-hop access
        candidate error "Cyclic dependency between end to end flows involving …"   (#2987)
        clear pending; return
 
-② memoize: if not yet expanded → instantiateEndToEndFlow(ci, ete, compatibilityInfo)
+② memoize: if not yet expanded → instantiateEndToEndFlow(ci, ete, null)
      (this is what makes forward references work, and routes them through the same
       expansion bookkeeping and commit-time naming as declared-order flows)      (#2985)
    nested expansion FAILED → parent expansion FAILED, all its candidates FAILED
@@ -581,14 +585,15 @@ Resulting candidate tree for `BranchingTop.i`:
 ```
 
 `abortCandidate` sets `ABORTED` unconditionally; `failCandidate` only downgrades a candidate that is
-still `ACTIVE`. `ABORTED` also stops `continueFlow` from extending that branch; sibling branches are
-unaffected.
+still `ACTIVE`. Both statuses stop `continueFlow` from extending that branch, preventing cascaded
+diagnostics after the first failure; sibling branches are unaffected.
 
 At the *expansion* level, `expandEndToEndFlow`'s `finally` block resolves status: if the expansion is
 `FAILED`, every candidate of that declaration becomes `FAILED`; otherwise every still-`ACTIVE`
-candidate becomes `COMPLETE` and the expansion becomes `COMPLETE`. The `finally` block also pops
-`activeDeclarations`, restores `activeState`, sets `context.canceled` if the monitor was cancelled,
-and republishes `compatibilityInfo`.
+candidate with at least one flow element becomes `COMPLETE`, while an empty candidate becomes
+`FAILED`. The `finally` block also pops `activeDeclarations`, restores `activeState`, sets
+`context.canceled` if the monitor was cancelled, and leaves compatibility-map publication to the
+protected entry point when a caller supplied one.
 
 ---
 
@@ -657,6 +662,12 @@ commit(context):
   │ EXISTING_ELEMENT → error(existingElement, msg)             always        │
   └──────────────────────────────────────────────────────────────────────────┘
 ```
+
+The `IllegalStateException` checks are deliberate fail-fast guards for internal consistency, not
+validation errors in an AADL model. They propagate to the caller because continuing after one of
+these invariants is broken could return an untrustworthy instance model. Discovery remains
+detached, and an exception during mode finalization removes the newly attached instances and
+restores their mode snapshots before it is rethrown.
 
 Only `CANDIDATE`-targeted diagnostics are status-filtered. Diagnostics about discarded branches are
 therefore **not** lost — they are simply reported against the owning component instead of against a
@@ -751,8 +762,9 @@ and the suites are `Basic`, `Nested`, `Invalid`, `Modal`, `Access`, `FeatureGrou
 ## Appendix: referenced issues
 
 Only issues 1953 and 1984 are cited in the source itself, as comments explaining why the code
-deviates from the obvious reading. The rest are behaviors the rework addressed; they are listed here
-so the attributions in this document can be checked without relying on the source comments.
+deviates from the obvious reading. The remaining entries identify behavior preserved and explained
+by this rework; most of their original fixes predate this change. They are listed here so the
+attributions in this document can be checked without relying on the source comments.
 
 | Issue | Title | Where it appears above |
 |---|---|---|

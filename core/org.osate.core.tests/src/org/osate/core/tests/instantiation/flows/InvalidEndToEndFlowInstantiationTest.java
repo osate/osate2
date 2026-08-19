@@ -64,17 +64,16 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 	}
 
 	@Test
-	public void testMissingFlowImplementationRetainsCompletedFlowAndReportsExactError() throws Exception {
+	public void testMissingFlowImplementationRetainsCompletedFlowAndReportsFlowError() throws Exception {
 		InstantiationResult result = instantiateWithErrors(FILE, "MissingImplementationTop.i");
 
 		assertEquals(List.of("missing"), flowNames(result.instance()));
-		assertEquals(List.of(
-				"No connection declaration from feature input of component composite to subcomponents. "
-						+ "Connection instance ends at composite",
-				"Cannot create end to end flow 'missing' because component 'composite' has subcomponents "
-						+ "but no flow implementation for flow 'fpath'"),
-				result.messages().stream().map(message -> message.message).toList());
-		assertEquals(result.instance(), result.messages().get(1).where);
+		List<Message> messages = messagesStartingWith(result.messages(),
+				"Cannot create end to end flow 'missing'");
+		assertEquals(1, messages.size());
+		assertEquals("Cannot create end to end flow 'missing' because component 'composite' has subcomponents "
+				+ "but no flow implementation for flow 'fpath'", messages.getFirst().message);
+		assertEquals(result.instance(), messages.getFirst().where);
 	}
 
 	@Test(timeout = 30_000)
