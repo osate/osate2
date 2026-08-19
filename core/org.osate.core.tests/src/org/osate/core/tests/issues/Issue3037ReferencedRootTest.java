@@ -46,7 +46,7 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two traversal strategies over referenced classifier roots, for issue #3037.
+ * Characterizes referenced classifier roots, for issue #3037.
  *
  * <p>
  * A feature whose classifier resolves to a component classifier makes instantiation create
@@ -58,12 +58,11 @@ import com.itemis.xtext.testing.XtextTest;
  * </p>
  *
  * <p>
- * A referenced root with connections inside it is deliberately not covered. Instantiation
- * crashes on that shape at the baseline, under both strategies, and the reviewer excluded it
- * from characterization on 2026-08-18; it is recorded as follow-on work in the plan. What is
- * covered here is that the roots exist, that they carry their subcomponents and features, and
- * that both strategies produce the same model for a system whose ports are typed by such a
- * classifier.
+ * A referenced root with connections inside it is deliberately not covered: instantiation
+ * crashes on that shape, and it did before issue #3037 as well, so it is follow-on work rather
+ * than something this test can hold. What is covered here is that the roots exist, that they
+ * carry their subcomponents and features, and what a system whose ports are typed by such a
+ * classifier produces.
  * </p>
  */
 @RunWith(XtextRunner.class)

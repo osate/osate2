@@ -49,11 +49,10 @@ import com.itemis.xtext.testing.XtextTest;
  *
  * <p>
  * The traversal state counts that used to be asserted alongside them are gone with the
- * instrumentation they read. They were the gated part of the performance budget: across-first
- * spends 2w + 2 traversal states at branch width w where source-first spends w<sup>2</sup> + 4w,
- * and its joins are exactly w<sup>2</sup>, the number of connections the shape has. Those
- * numbers, and the wall-clock measurements that were never gateable in a reactor build, are
- * recorded as evidence on issue #3037 rather than asserted here.
+ * instrumentation they read. The cost curve they measured, 2w + 2 traversal states and
+ * w<sup>2</sup> joins at branch width w, is recorded as evidence on issue #3037; w<sup>2</sup>
+ * is also the number of connections the shape has, which is what the counts below assert and
+ * what a traversal that starts multiplying would break.
  * </p>
  */
 @RunWith(XtextRunner.class)

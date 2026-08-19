@@ -49,10 +49,9 @@ import org.osate.aadl2.instance.FeatureInstance;
  * </p>
  *
  * <p>
- * Source-first spread this over its one segment-appending method, signalling the
- * outcome with {@code null} and accumulating the feature chain in two stacks shared
- * by every path under enumeration. Here the outcome is a {@link Resolution} and the
- * chain belongs to the returned value.
+ * The outcome is a {@link Resolution} rather than a nullable endpoint, and the feature chain
+ * belongs to the returned value rather than to the caller, so that a side which cannot be
+ * resolved is distinguishable from one that has no instance object by design.
  * </p>
  */
 public final class EndpointResolver {
@@ -168,8 +167,9 @@ public final class EndpointResolver {
 
 	/**
 	 * The child feature instance of {@code parent} that {@code feature} denotes.
-	 * Refinements are followed, and the name is used as the fallback, which is what
-	 * source-first traversal does when it descends a feature group.
+	 * Refinements are followed, and the name is the fallback: an inverse feature group type
+	 * gives its features their own names, so the declared feature of a member instance is not
+	 * always the one a declaration names.
 	 */
 	private static FeatureInstance child(FeatureInstance parent, Feature feature) {
 		for (var candidate : parent.getFeatureInstances()) {

@@ -79,9 +79,9 @@ public sealed interface TraversalSeed {
 	 *
 	 * <p>
 	 * Only a top-level feature of the system instance is seeded, never a feature
-	 * contained in one. Source-first traversal seeds both, so the contained-member seed
-	 * re-enumerates a path the enclosing seed already covers; that redundant seed is the
-	 * one that crashed in issue #3038. Reaching into the feature group is the job of the
+	 * contained in one, and the constructor below enforces it. A contained member
+	 * re-enumerates a path the enclosing seed already covers, and seeding it is what
+	 * crashed in issue #3038. Reaching into the feature group is the job of the
 	 * declaration's own connected-element chain, which resolves the deeper endpoint
 	 * directly.
 	 * </p>
@@ -116,11 +116,10 @@ public sealed interface TraversalSeed {
 	 *
 	 * <p>
 	 * Such a port ends a semantic connection even though the connection reaches no peer
-	 * and leaves no boundary: the trigger is the connection's consumer. Source-first
-	 * created it while extending a path, when an upward path could go no further and
-	 * {@code isModeTransitionTrigger()} holds; where that test fails it warns instead and
-	 * creates nothing, which is why this seed exists only for a port that really is a
-	 * trigger.
+	 * and leaves no boundary: the trigger is the connection's consumer. Only a port that
+	 * really triggers a transition of the containing component is seeded. An event port
+	 * that the level above routes nowhere ends no connection and gets no seed, which is
+	 * allowlist entry 8 of issue #3037: the warning that used to report it is gone.
 	 * </p>
 	 *
 	 * <p>

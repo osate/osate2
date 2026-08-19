@@ -62,15 +62,13 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
  * One operation resolves both legs. A leg always moves the same way, into the
  * component that owns the current feature and then into its subcomponents, and the
  * {@link LegRole} decides only which declared side of a candidate declaration the leg
- * arrives from. Source-first traversal grows a path forwards while tracking whether
- * it may currently go up, across, or down.
+ * arrives from.
  * </p>
  *
  * <p>
  * Branching produces several results from one seed. Each branch carries its own
  * feature chain, mode constraint, and visited set, so extending one branch cannot
- * disturb another; source-first shares that state across every path under
- * enumeration.
+ * disturb another.
  * </p>
  */
 public final class LegResolver {
@@ -178,15 +176,14 @@ public final class LegResolver {
 		 *
 		 * When a feature group holds both, the leg both stops here and continues for the
 		 * access part, which is why this adds a result and carries on rather than
-		 * returning. Source-first reaches the same two outcomes by separate means: its
-		 * start rule creates the path that stops at the component, and enumeration from
-		 * the inner subcomponent creates the one that continues.
+		 * returning. Both connections exist, and issue #3044 is the report that they did
+		 * not: a port sharing a feature group with a connected access feature got no
+		 * connection instance at all.
 		 */
 		/*
-		 * The connection-ending rule applies to components the traversal descends into, not
-		 * to the root. A thread implementation instantiated on its own is the whole model,
-		 * and its internals are still reached; source-first likewise applies the rule while
-		 * examining subcomponents and never to the root it walks the features of.
+		 * The rule applies to components the traversal descends into, not to the root. A
+		 * thread implementation instantiated on its own is the whole model, and its
+		 * internals are still reached.
 		 */
 		boolean endingCategory = owner != root && isConnectionEndingCategory(owner.getCategory());
 		if (endingCategory && (includesPort(feature) || includesNestedFeatureGroup(feature))) {
@@ -255,29 +252,30 @@ public final class LegResolver {
 	 * feature refuses it outright. A declaration that merely names the feature refuses it when
 	 * the declaration the path leaves by is bidirectional, because that path could equally be
 	 * followed from inside. Where the internal declaration cannot in fact be followed the
-	 * other way, no connection exists at all, and that is the baseline's answer as much as
-	 * this one's.
+	 * other way, no connection exists at all.
 	 * </p>
 	 *
 	 * <p>
 	 * A connection ending component is the exception: a semantic connection ends at its port
 	 * or feature group whatever it does internally, so it starts there too. Its access
-	 * features are not exempt, which is what {@code lookInside} says in
-	 * the per-component enumeration this rule comes from.
+	 * features are not exempt, because shared access reaches through such a component into
+	 * what it contains, so the source can be deeper.
 	 * </p>
 	 */
 	private boolean mayBeUltimateSource(ComponentInstance owner, FeatureInstance feature,
 			ComponentImplementation implementation, Connection leaving, boolean endingCategory) {
 		/*
-		 * The root is not descended into by the baseline's per-component enumeration at all;
-		 * its own features are seeded as boundaries, with no maximality question to ask.
+		 * The root's own features are seeded as boundaries, so there is no maximality
+		 * question to ask about them: nothing encloses the root for a longer path to
+		 * reach in from.
 		 */
 		if (owner == root) {
 			return true;
 		}
 		/*
-		 * The baseline asks about the component's own feature, not about the member a leg
-		 * happens to stand at, so the whole feature is what is examined here as well.
+		 * The question is about the component's own feature, not about the member a leg
+		 * happens to stand at: what routes onwards internally is declared against the
+		 * whole feature.
 		 */
 		var outermost = outermost(feature);
 		if (endingCategory && (includesNestedFeatureGroup(outermost) || includesPort(outermost))) {
@@ -307,7 +305,7 @@ public final class LegResolver {
 	/**
 	 * Whether one of a component's own declarations delivers to {@code feature}, counting a
 	 * bidirectional declaration whichever end names it, and a declaration that names a member
-	 * of it, which is the question source-first asked before starting a path at the feature.
+	 * of it. A feature the component delivers to is not where a semantic connection starts.
 	 */
 	private static boolean isDestinationInside(List<Connection> inside, Feature feature) {
 		var refinements = feature.getAllFeatureRefinements();
@@ -327,7 +325,8 @@ public final class LegResolver {
 
 	/**
 	 * Whether one of a component's own declarations has {@code feature}, or a member of it, as
-	 * either end, which is the second question source-first asked before starting there.
+	 * either end. This is the weaker of the two questions, and it only refuses a start when
+	 * the declaration the path leaves by is bidirectional.
 	 */
 	private static boolean isEndInside(List<Connection> inside, Feature feature) {
 		var refinements = feature.getAllFeatureRefinements();
@@ -352,26 +351,24 @@ public final class LegResolver {
 	 * Whether a leg continues into a component is a question about a feature group's
 	 * members, not about the group. The declarations that continue it may name only some
 	 * members, an access member reaching a subprogram for instance, and leave the rest
-	 * with no path onwards. Source-first asked the same question member by member, from the fix for
-	 * issue #3044,
-	 * where a port sharing a feature group with a connected access feature got no
-	 * connection instance at all.
+	 * with no path onwards. Asking it of the group instead is issue #3044, where a port
+	 * sharing a feature group with a connected access feature got no connection instance
+	 * at all.
 	 * </p>
 	 *
 	 * <p>
 	 * A member with nowhere to go ends the connection only if it triggers a mode
 	 * transition of the component, since a mode transition is an end in itself. Any other
 	 * such member can reach nothing that ends a connection, so a path to it is recorded as
-	 * a dead end: it is reported rather than materialized, which is what source-first decided
-	 * as it materialized such a path. A connection ending component is left out
-	 * because the leg already stopped at the whole feature before reaching here, and
-	 * expansion narrows that stop to its members.
+	 * a dead end and reported rather than materialized. A connection ending component is
+	 * left out because the leg already stopped at the whole feature before reaching here,
+	 * and expansion narrows that stop to its members.
 	 * </p>
 	 *
 	 * <p>
 	 * Nothing is added when the declarations continue the whole feature, and nothing when
-	 * they cannot be related to it at all, which leaves a shape neither strategy
-	 * recognizes as it was.
+	 * they cannot be related to it at all, which leaves an unrecognized shape as it was
+	 * rather than guessing at it.
 	 * </p>
 	 */
 	private void stopAtUncontinuedMembers(ComponentInstance owner, FeatureInstance feature,
@@ -522,8 +519,9 @@ public final class LegResolver {
 	 *
 	 * <p>
 	 * Requiring an exact match loses every connection that reaches into a feature
-	 * group. This is the narrowing source-first traversal performs with its two shared
-	 * stacks, and the reason two distinct semantic paths can share an endpoint pair.
+	 * group. It is also the reason two distinct semantic paths can share an endpoint
+	 * pair, and therefore why identity has to include the feature chains and not only
+	 * the endpoints; see {@link SemanticConnectionKey}.
 	 * </p>
 	 */
 	static boolean touches(ConnectionInstanceEnd near, FeatureInstance position) {
@@ -555,9 +553,20 @@ public final class LegResolver {
 
 	/**
 	 * Whether the feature is a feature group with a feature group member. A feature group
-	 * that is not nested does not count, which matches
-	 * the feature summary source-first computed for the same rule, whose flag was only
-	 * ever set while scanning the members of a group.
+	 * that contains no feature group does not count, so it does not by itself stop a leg
+	 * at a connection ending component: what stops the leg there is a port, which
+	 * {@link #includesPort} answers, or a nested group that may contain one.
+	 *
+	 * <p>
+	 * This barely decides anything on its own, and no test pins it. For the stop it is
+	 * redundant: inside a connection ending component only an access connection continues a
+	 * leg, so a group holding no access member stops anyway, as "no continuing declaration".
+	 * Both fixtures in {@code Issue3037RefusedSegmentTest} were written to catch a change here
+	 * and neither does. What is left is the source side, where the stop is unconditional while
+	 * "no continuing declaration" has to ask {@link #mayBeUltimateSource} first, and no fixture
+	 * reaches that difference. Treat it as unverified rather than as a rule with evidence
+	 * behind it.
+	 * </p>
 	 */
 	private static boolean includesNestedFeatureGroup(FeatureInstance feature) {
 		return feature.getFeature() instanceof FeatureGroup && includes(feature, member -> member instanceof FeatureGroup);
@@ -570,8 +579,9 @@ public final class LegResolver {
 
 	/**
 	 * Test the immediate members of a feature group, or the feature itself when it is not
-	 * one. These are the two cases {@code FeatureInfo} distinguishes, so the answers match
-	 * the source-first rule they feed.
+	 * one. Immediate members only: a group two levels up does not inherit what a nested
+	 * group contains, which is what makes {@link #includesNestedFeatureGroup} a separate
+	 * question from the one it asks about its own members.
 	 */
 	private static boolean includes(FeatureInstance feature, Predicate<Feature> test) {
 		if (!(feature.getFeature() instanceof FeatureGroup)) {
@@ -586,8 +596,11 @@ public final class LegResolver {
 	}
 
 	/**
-	 * Whether a component of this category ends a semantic connection. Mirrors the
-	 * source-first rule, so maximal paths stay the same length.
+	 * Whether a component of this category ends a semantic connection. These are the four
+	 * categories AS5506B treats as the ultimate destination of a connection: a thread, a
+	 * device, a processor and a virtual processor consume what arrives at their ports
+	 * rather than routing it onwards. Adding or removing a category changes how long every
+	 * semantic connection through it is.
 	 */
 	static boolean isConnectionEndingCategory(ComponentCategory category) {
 		return category == THREAD || category == DEVICE || category == PROCESSOR || category == VIRTUAL_PROCESSOR;

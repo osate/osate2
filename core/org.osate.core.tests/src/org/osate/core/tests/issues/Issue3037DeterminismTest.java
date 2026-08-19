@@ -47,12 +47,12 @@ import com.itemis.xtext.testing.XtextTest;
  * same result, which is the harness the across-first differential gate depends on.
  *
  * <p>
- * Two things have to hold before any strategy comparison means anything. The runs
- * must be genuinely isolated, otherwise the second run's result is contaminated by
- * the first, and EMF object identity would leak into comparisons that are supposed
- * to rest on stable keys. And a single strategy must be deterministic, including its
- * collection order, otherwise a difference between two strategies cannot be
- * distinguished from a difference between two runs of either one.
+ * Two things have to hold before any of the other characterizations mean anything.
+ * The runs must be genuinely isolated, otherwise the second run's result is
+ * contaminated by the first and EMF object identity leaks into comparisons that are
+ * supposed to rest on stable keys. And the traversal must be deterministic, including
+ * its collection order, otherwise a real change cannot be distinguished from a
+ * difference between two runs.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -65,8 +65,8 @@ public class Issue3037DeterminismTest extends XtextTest {
 
 	/**
 	 * Two runs of the same model produce the same instance model, including the collection order
-	 * of its connections, which allowlist entry 1 of issue #3037 releases from the baseline's
-	 * order and therefore has to pin to something.
+	 * of its connections. Allowlist entry 1 of issue #3037 released that order from the one
+	 * 2.18.0 produced, so something has to hold it, and this is what does.
 	 */
 	@Test
 	public void repeatedRunsAreIsolatedAndIdentical() throws Exception {

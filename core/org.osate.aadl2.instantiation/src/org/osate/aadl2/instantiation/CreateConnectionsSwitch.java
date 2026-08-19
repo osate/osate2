@@ -195,9 +195,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	/**
 	 * Report a path that arrives where the connection can go no further and cannot end
-	 * either, so that the connection it would have carried is not lost silently. The traversal
-	 * issue #3037 replaced reported the same fact as it materialized such a path, once its end
-	 * was known.
+	 * either, so that the connection it would have carried is not lost silently. The report is
+	 * made here, where the path's end is known, and its wording is the one issue #3044 settled;
+	 * {@code Issue3037MemberPairingTest} asserts it exactly.
 	 */
 	private void reportDeadEnd(final SemanticConnectionPath path) {
 		warning(path.destination(),

@@ -44,10 +44,10 @@ import org.osate.aadl2.instance.SystemInstance;
  * <p>
  * A path reads from ultimate source to ultimate destination, so the source leg is
  * reversed and each of its segments re-oriented: the leg walked outwards from the
- * pivot, entering each declaration from the side the finished path leaves it by. The
- * baseline agrees on both points. For the issue #3019 model it reports declarations in
- * the order {@code up, nested_up, across} with every reverse flag false, while the
- * legs that produced them were resolved reversed.
+ * pivot, entering each declaration from the side the finished path leaves it by.
+ * Reference order and reverse flags are externally visible, and for the issue #3019
+ * model they are {@code up, nested_up, across} with every flag false, though the legs
+ * that produced them were resolved reversed.
  * </p>
  *
  * <p>
@@ -71,8 +71,8 @@ import org.osate.aadl2.instance.SystemInstance;
  * <p>
  * Directions are not checked here. Since issue #3042 a connection whose direction does
  * not work out is materialized and reported by connection validation, so filtering such
- * a path out during enumeration would suppress the diagnostic that both strategies are
- * expected to produce.
+ * a path out during enumeration would suppress that diagnostic and leave the model with no
+ * report of a connection it declares and cannot have.
  * </p>
  *
  * <p>
@@ -229,8 +229,6 @@ public final class PathAssembler {
 	 * seed feature. A declaration may reach <em>into</em> a boundary feature group and
 	 * connect one member of it, and then that member is the endpoint: the seed feature
 	 * names where the traversal started looking, not how far the connection reaches.
-	 * Source-first arrives at the same feature by narrowing the group end afterwards with
-	 * its {@code upFeature} and {@code downFeature} stacks.
 	 * </p>
 	 */
 	private static SemanticConnectionPath assembleOneLeg(boolean inwards, LegResult leg) {
@@ -284,17 +282,19 @@ public final class PathAssembler {
 	 * <p>
 	 * A connection ending component ends a semantic connection, so a path that leaves a
 	 * port and arrives at something the component itself contains is not a path: it would
-	 * connect a component to its own insides. Source-first refused the same segment, from the fix
-	 * for issue #2032, to stop a connection
-	 * from an abstract subcomponent's port to a port of its containing thread.
+	 * connect a component to its own insides. Required since issue #2032, which reported a
+	 * connection from an abstract subcomponent's port to a port of its containing thread.
+	 * Pinned by {@code Issue3037AccessAndEndingTest.connectionEndingCategoriesAgree}, which
+	 * also pins the exception for the instantiation root.
 	 * </p>
 	 *
 	 * <p>
-	 * As written there the rule reaches further than its comment describes, because a
+	 * The rule deliberately reaches further than issue #2032 describes, because a
 	 * subcomponent instance is also contained in the component: a port connection into a
-	 * data subcomponent of a thread is refused too, which is why {@code DataTest.aadl}
-	 * produces no connection instance for {@code port input -> myData}. That is baseline
-	 * behavior and is reproduced here rather than corrected.
+	 * data subcomponent of a thread is refused too, which is why
+	 * {@code models/Issue1987/DataTest.aadl} produces no connection instance for
+	 * {@code port input -> myData}. Required behavior since 2.18.0 and not an oversight;
+	 * pinned by {@code Issue3037RefusedSegmentTest.aPortIntoADataSubcomponentOfAThreadIsRefused}.
 	 * </p>
 	 *
 	 * <p>
@@ -313,16 +313,24 @@ public final class PathAssembler {
 	}
 
 	/**
-	 * Whether a segment arrives at a parameter the baseline refuses to reach.
+	 * Whether a segment arrives at a parameter that no connection instance may reach.
 	 *
 	 * <p>
 	 * A parameter belongs to a subprogram or a subprogram call, and the instance model has
 	 * never carried a connection that arrives at one from a data component or from the
-	 * top-level instance. Source-first refused those where it resolved a segment's ends, recorded
-	 * there as bug #220. Its third
-	 * condition tests the component the declaration sits in for being the instantiation
-	 * root, which is why the same model produces different connections depending on
-	 * whether it is instantiated on its own or as a subcomponent.
+	 * top-level instance; the refusal is recorded as bug #220. Required behavior since 2.18.0.
+	 * </p>
+	 *
+	 * <p>
+	 * Only the data subcomponent condition is pinned, by
+	 * {@code Issue3037RefusedSegmentTest.aParameterReachedFromADataSubcomponentIsRefused}. The
+	 * other two cannot be, and it is worth knowing why before trusting them. A parameter that
+	 * has an instance object at all has to be the subprogram's own, since a parameter of a
+	 * subprogram subcomponent is not a valid connection end and a subprogram call is never
+	 * instantiated. Reaching one from a data access is then illegal, because two features of
+	 * the same component cannot be connected to each other, so that condition has no valid
+	 * model. And the remaining legal source is a data subcomponent, which the first condition
+	 * already refuses, so the instantiation-root condition never decides anything by itself.
 	 * </p>
 	 *
 	 * <p>

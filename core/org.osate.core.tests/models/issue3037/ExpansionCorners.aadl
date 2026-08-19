@@ -7,14 +7,14 @@
 -- a member the destination does not.
 --
 -- A feature group with no type is deliberately not here. It is a shape the corpus does not
--- have, and the reviewer removed it on 2026-08-18 rather than decide the diagnostic difference
--- it exposes: source-first warns that the group has no type from inside the narrowing
--- across-first replaces, and the connections are identical either way.
+-- have, and it was removed on 2026-08-18 rather than settle the diagnostic it exposes: 2.18.0
+-- warned that the group has no type, from a narrowing step that no longer exists, and the
+-- connections are the same either way.
 --
 -- An access connection meeting a feature group is not here, because it is not legal AADL: a
 -- feature group of a subcomponent is not a valid access connection end. That shape reaches
--- across-first only through a group whose member is an access feature, which
--- models/issue3044/Issue3044.aadl has and Issue3037MemberPairingTest compares.
+-- the traversal only through a group whose member is an access feature, which
+-- models/issue3044/Issue3044.aadl has and Issue3037MemberPairingTest characterizes.
 package ExpansionCorners
 public
 	data D

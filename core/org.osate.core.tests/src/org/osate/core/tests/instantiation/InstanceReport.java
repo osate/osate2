@@ -30,10 +30,9 @@ import java.util.List;
  * Renders an {@link InstanceSnapshot} as deterministic text lines.
  *
  * <p>
- * The rendering is what characterization tests assert against, and what the
- * baseline capture records. Two renderings differ exactly when the underlying
- * descriptors differ, so a failed assertion shows the difference directly rather
- * than reporting an opaque object mismatch.
+ * The rendering is what characterization tests assert against. Two renderings differ
+ * exactly when the underlying descriptors differ, so a failed assertion shows the
+ * difference directly rather than reporting an opaque object mismatch.
  * </p>
  */
 public final class InstanceReport {
@@ -132,7 +131,7 @@ public final class InstanceReport {
 				+ " elements=" + key.elementKeys() + " soms=" + descriptor.systemOperationModes();
 	}
 
-	/** Complete rendering, for baseline capture and for debugging output. */
+	/** Complete rendering, for recording a whole model and for debugging output. */
 	public static String full(InstanceSnapshot snapshot) {
 		var report = new StringBuilder();
 		section(report, "connections", connectionLines(snapshot));

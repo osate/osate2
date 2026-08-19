@@ -14,12 +14,12 @@
 -- declaration naming a whole group, and the rule that a source leg finding nothing to
 -- descend into is not always the ultimate source. Issue3037LegNarrowingTest compares it.
 --
--- A third shape was written for this fixture and removed on 2026-08-18, pending a reviewer
--- decision: a pivot naming the member "signals" of a boundary group, reached from inside the
--- component through a declaration on the whole group. The baseline creates no connection
--- instance for it and reports nothing, where across-first creates the two the model has. See
--- "Open question for the reviewer" in the plan; it is the same suspected baseline defect as
--- Issue500Test :: S.i4 and must not be characterized until that is settled.
+-- A third shape was written for this fixture and removed on 2026-08-18: a pivot naming the
+-- member "signals" of a boundary group, reached from inside the component through a
+-- declaration on the whole group. 2.18.0 created no connection instance for it and reported
+-- nothing, where the current traversal creates the two the model has. That difference is the
+-- one issue #3046 records and allowlist entry 9 of issue #3037 accepts, on the same mechanism
+-- as Issue500Test :: S.i4, and it is pinned there rather than here.
 package LegNarrowing
 public
 	data D

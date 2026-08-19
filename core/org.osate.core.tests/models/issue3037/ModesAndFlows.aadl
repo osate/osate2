@@ -114,8 +114,8 @@ public
 	end Top.modalLegs;
 
 	-- (b) a connection whose mode cannot coexist with the mode its destination exists in, so
-	-- no system operation mode contains the path. The baseline materializes it, computes no
-	-- system operation mode for it, reports that, and deletes it.
+	-- no system operation mode contains the path. It is materialized anyway, gets no system
+	-- operation mode, is reported, and is deleted.
 	system implementation Top.noSom
 		subcomponents
 			feeder: process Feeder.i;

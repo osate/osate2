@@ -44,11 +44,11 @@ import org.osate.aadl2.instance.FeatureInstance;
  * </p>
  *
  * <p>
- * The rules are the ones source-first applied while expanding a feature group connection,
- * including its direction filtering, its name-then-index matching for inverse feature
- * groups, and its positional pairing when neither side is a leaf. They are AADL
- * feature group semantics rather than an artifact of source-first traversal, so
- * across-first has to reproduce them.
+ * The rules here are AADL feature group semantics and not a property of how the traversal
+ * reached the path: direction filtering inside a group, name-then-index matching for inverse
+ * feature groups, subset matching by name, and positional pairing when neither side is a
+ * leaf. They decide how many connection instances a model has, so each is stated below with
+ * the reason it takes the form it does.
  * </p>
  */
 public final class LeafExpansion {
@@ -147,8 +147,7 @@ public final class LeafExpansion {
 	 * <p>
 	 * {@code to} is returned unchanged when the leg stands at {@code from} itself or at a
 	 * group containing it, which is the declaration reaching <em>into</em> a group, and when
-	 * no member of the far end corresponds. Source-first narrows the same end afterwards,
-	 * from the member chain it keeps in its {@code upFeature} and {@code downFeature} stacks.
+	 * no member of the far end corresponds.
 	 * </p>
 	 */
 	static ConnectionInstanceEnd continuation(ConnectionInstanceEnd from, ConnectionInstanceEnd to,
@@ -215,16 +214,22 @@ public final class LeafExpansion {
 	 * An access connection ends at the component itself, so there is no opposite feature
 	 * to pair a group against member by member. The group still has to be narrowed,
 	 * because the connection reaches one member of it: the one the path stepped through
-	 * on its way, mapped across as it would be for any other pair. Source-first narrows
-	 * the same end with its feature stacks and only then notices that the other end is a
-	 * component, while balancing the two ends, which is why leaving the group whole
-	 * here produced a feature group connection where the baseline has an access
-	 * connection.
+	 * on its way, mapped across as it would be for any other pair.
 	 * </p>
 	 *
 	 * <p>
-	 * A group the path never stepped into is returned as it stands, matching the
-	 * source-first case where neither feature stack has an entry to narrow with.
+	 * Leaving the group whole is visible in the instance model rather than merely
+	 * imprecise: {@code PathMaterializer.kind} reads the endpoint categories, so an
+	 * unnarrowed group end makes the connection a feature group connection where the model
+	 * has an access connection. No fixture reaches this branch, which needs a leg to stop at
+	 * a whole feature group while the other end is a component;
+	 * {@code Issue3037MemberPairingTest} covers the nearest shape, where the leg continues
+	 * into the group's access member instead, and asserts the kind for it.
+	 * </p>
+	 *
+	 * <p>
+	 * A group the path never stepped into is returned as it stands: there is no member to
+	 * prefer, and the connection does reach the whole group.
 	 * </p>
 	 */
 	private static ConnectionInstanceEnd reached(SemanticConnectionPath path, ConnectionInstanceEnd end,
@@ -243,9 +248,6 @@ public final class LeafExpansion {
 	 * A path leaves its ultimate source travelling away from it: outgoing for a complete
 	 * path and for one that only travels up, incoming for one that only travels down.
 	 * That much always holds, because it is what makes the feature a source at all.
-	 * Source-first enforces it as its start rule, by beginning enumeration only at a
-	 * feature {@code AadlUtil.hasOutgoingFeatures()} accepts and only at a boundary
-	 * feature that is incoming.
 	 * </p>
 	 *
 	 * <p>
@@ -255,9 +257,8 @@ public final class LeafExpansion {
 	 * this path connects. Two features named directly by declarations are not a choice:
 	 * the connection exists whatever they face, and
 	 * {@code ValidateConnectionsSwitch.checkSegmentDirections()} reports it since issue
-	 * #3042. Source-first drew the same line, reaching its member-by-member direction
-	 * filtering only while balancing the two ends, and materializing two
-	 * directly named leaves without consulting direction at all.
+	 * #3042. Filtering such a pair out here instead would suppress that diagnostic and
+	 * leave the model with no report of a connection it declares and cannot have.
 	 * </p>
 	 */
 	private static boolean directionsAllow(SemanticConnectionPath path, FeatureInstance source,

@@ -43,23 +43,25 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the instance models the two traversal strategies produce, for issue #3037.
+ * Characterizes the connection set of five reference models, for issue #3037.
  *
  * <p>
- * Each strategy runs in its own resource set, and the comparison is between normalized
- * descriptors keyed on structured identity, so nothing rests on EMF object identity or
- * on collection position. Names are part of the descriptor and are compared exactly.
+ * These are the models the traversal was developed against, kept together because between them
+ * they cover inverse feature groups, nested feature groups, subset matching, an incomplete
+ * boundary connection, and the same shape flat and nested. Each runs in its own resource set,
+ * and what is asserted is the container-relative connection names, so nothing rests on EMF
+ * object identity or on collection position.
  * </p>
  *
  * <p>
- * These fixtures contain no component arrays, {@code Connection_Pattern}, or
- * {@code Connection_Set}, so they exercise enumeration, expansion, and materialization
- * but not structural expansion.
+ * None of them contains a component array, {@code Connection_Pattern}, or
+ * {@code Connection_Set}, so they exercise enumeration, expansion, and materialization but not
+ * structural expansion.
  * </p>
  */
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue3037DifferentialTest extends XtextTest {
+public class Issue3037ReferenceModelTest extends XtextTest {
 	private static final String DUPLICATE = "org.osate.core.tests/models/issue3037/Issue565DuplicateTraversal.aadl";
 	private static final String INTERNAL = "org.osate.core.tests/models/issue3027/Issue3027.aadl";
 	private static final String NESTED = "org.osate.core.tests/models/issue3019/Issue3019.aadl";
@@ -70,54 +72,53 @@ public class Issue3037DifferentialTest extends XtextTest {
 	private IsolatedInstantiation isolated;
 
 	@Test
-	public void inverseFeatureGroupsAgree() throws Exception {
+	public void inverseFeatureGroupsAreInstantiatedInBothDirections() throws Exception {
 		InstanceCharacterization.assertConnections(isolated, DUPLICATE, "Sys.Imp",
 				"proc.fgPorts.inPort -> sub.iproc.fgPorts.inPort", "sub.iproc.fgPorts.inPort -> proc.fgPorts.inPort");
 	}
 
 	/**
-	 * The connections agree, and the diagnostics differ by exactly the approved
-	 * allowlist entry: source-first warns that the connection into the internal feature
-	 * could not be instantiated, and across-first ignores the segment silently. The
-	 * warning is redundant with the declarative error added by issue #3028 and is
-	 * unreachable for a model that validates.
+	 * The one connection the model has, and no diagnostic from the traversal. A segment whose
+	 * end is an internal feature is ignored silently, which is allowlist entry 3 of issue
+	 * #3037: the warning that used to accompany it is redundant with the declarative error
+	 * added by issue #3028 and is unreachable for a model that validates.
 	 */
 	@Test
-	public void aConnectionIntoAnInternalFeatureAgreesApartFromTheApprovedWarning() throws Exception {
+	public void aConnectionIntoAnInternalFeatureIsIgnoredSilently() throws Exception {
 		InstanceRun run = InstanceCharacterization.assertConnections(isolated, INTERNAL, "Top.i",
 				"sensor.alarm -> monitor.incoming");
 
 		/*
-		 * Allowlist entry 3. The baseline warned "Connection to Issue3027::Top.i.raised_event could
-		 * not be instantiated." against the system instance. An internal feature has no instance
-		 * object for a connection to end at, so the segment is ignored, and the declarative error
-		 * issue #3028 added is the report that remains.
+		 * Allowlist entry 3. Before issue #3037 this warned "Connection to
+		 * Issue3027::Top.i.raised_event could not be instantiated." against the system instance. An
+		 * internal feature has no instance object for a connection to end at, so the segment is
+		 * ignored, and the declarative error issue #3028 added is the report that remains.
 		 */
 		assertEquals("allowlist entry 3: the warning is gone", List.of(),
 				InstanceReport.diagnosticLines(InstanceSnapshot.of(run.instance(), run.errorManager())));
 	}
 
 	@Test
-	public void nestedFeatureGroupsAgree() throws Exception {
+	public void nestedFeatureGroupsAreInstantiated() throws Exception {
 		InstanceCharacterization.assertConnections(isolated, NESTED, "Top.i",
 				"consumer_side.boundary.destination_inner.alpha -> producer_side.leaf_side.leaf.io",
 				"producer_side.leaf_side.leaf.io -> consumer_side.boundary.destination_inner.alpha");
 	}
 
 	@Test
-	public void subsetMatchingAgrees() throws Exception {
+	public void subsetMatchingPairsMembersByName() throws Exception {
 		InstanceCharacterization.assertConnections(isolated, NESTED, "SubsetTop.i",
 				"producer.boundary.common -> consumer.boundary.common");
 	}
 
 	@Test
-	public void incompleteBoundaryConnectionsAgree() throws Exception {
+	public void incompleteBoundaryConnectionsAreInstantiated() throws Exception {
 		InstanceCharacterization.assertConnections(isolated, BOUNDARY, "Producer.i",
 				"boundary.inner.alpha -> leaf_side.leaf.io", "leaf_side.leaf.io -> boundary.inner.alpha");
 	}
 
 	@Test
-	public void nestingDoesNotChangeAgreement() throws Exception {
+	public void nestingDoesNotChangeTheConnectionSet() throws Exception {
 		InstanceCharacterization.assertConnections(isolated, FLAT_AND_NESTED, "Flat.i",
 				"boundary.alpha -> leaf_side.leaf.io", "leaf_side.leaf.io -> boundary.alpha");
 		InstanceCharacterization.assertConnections(isolated, FLAT_AND_NESTED, "Nested.i",

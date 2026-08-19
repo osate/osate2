@@ -46,15 +46,13 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two traversal strategies where structural expansion cannot apply the declared
- * property, and over a crossed {@code Connection_Set} through a feature group, for issue
- * #3037.
+ * Characterizes a structural expansion that cannot apply the declared property, and a crossed
+ * {@code Connection_Set} through a feature group, for issue #3037.
  *
  * <p>
- * Expansion is shared pipeline: it runs after enumeration, on provisional connection
- * instances, and both strategies feed it the same way. What matters here is that they feed it
- * the same thing where it fails, and that a failed expansion leaves the same model behind
- * rather than a partial object under one strategy and nothing under the other.
+ * Expansion runs after enumeration, on provisional connection instances. What matters here is
+ * what it is fed where it fails, and that a failed expansion leaves a whole model behind rather
+ * than a partly replicated one.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -90,13 +88,13 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 	 * A pattern with fewer dimensions than the arrays it has to replicate over.
 	 *
 	 * <p>
-	 * The baseline neither replicates nor gives up: it reports the mismatch, falls back to the
+	 * Expansion neither replicates nor gives up: it reports the mismatch, falls back to the
 	 * first array element for each end, and leaves two connection instances that are identical
 	 * in name and endpoints, which validation then reports as more than one connection ending
 	 * at the same data port. Thirteen of the sixteen element pairs the arrays could have are
-	 * absent. Both strategies produce exactly this, so it is expansion's behavior and not a
-	 * traversal choice; it is recorded here so that a change to it shows up, and noted in the
-	 * plan as a candidate for separate work.
+	 * absent. This is what 2.18.0 produced too, so it is structural expansion's behavior and
+	 * not the traversal's; it is recorded here so that a change to it shows up as a failure,
+	 * and fixing it is separate work.
 	 * </p>
 	 */
 	@Test

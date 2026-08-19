@@ -45,13 +45,12 @@
  * </p>
  *
  * <p>
- * Issue #3037 introduced this traversal in place of one that grew partial paths forward from each
- * candidate source feature, tracking whether it could currently go up, across or down, with two
- * shared feature group stacks to remember what it had to narrow on the way back down. Comments in
- * this package call that one <em>source-first</em> where the contrast explains why a rule exists.
- * It is gone, so those references are history rather than pointers: what they record is that the
- * rule reproduces a behavior the enhancement was required to preserve, and the issue holds the
- * evidence for each.
+ * Issue #3037 introduced this traversal in 2.19.0, in place of one that grew partial paths
+ * forward from each candidate source feature with two shared feature group stacks to remember
+ * what it had to narrow on the way back down. Almost all of the observable behavior was required
+ * to carry over unchanged; the eight differences that were reviewed and accepted are listed in
+ * {@code doc/connection_instantiation.md}, section 9, and the tests refer to them by number.
+ * A rule below that looks arbitrary is usually one of those carried-over behaviors, and says so.
  * </p>
  */
 package org.osate.aadl2.instantiation.internal;

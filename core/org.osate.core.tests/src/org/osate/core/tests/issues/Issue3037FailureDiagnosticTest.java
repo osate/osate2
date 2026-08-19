@@ -41,8 +41,8 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares what the two traversal strategies report about a declaration that cannot
- * become a connection instance, for issue #3037.
+ * Characterizes what is reported about a declaration that cannot become a connection
+ * instance, for issue #3037.
  *
  * <p>
  * These models are invalid on purpose, so none of them is validated first. They are the
@@ -52,10 +52,10 @@ import com.itemis.xtext.testing.XtextTest;
  * </p>
  *
  * <p>
- * Across-first resolves an endpoint before any path exists, so it says which feature of
- * which component is missing and reports both ends of the declaration rather than the one
- * a partial path happened to reach. That wording is an approved intended difference,
- * allowlist entries 6 and 7, and both sides are recorded exactly here.
+ * Endpoints are resolved before any path exists, so a report says which feature of which
+ * component is missing and covers both ends of the declaration rather than the one a partial
+ * path happened to reach. That wording is allowlist entries 6 and 7 of issue #3037, and both
+ * the old and the new text are recorded exactly here.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -78,9 +78,9 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 * create nothing for it.
 	 *
 	 * <p>
-	 * Across-first reaches that conclusion elsewhere: the declaration is not across, so no
-	 * seed and no leg ever touches it, and the check stands on its own over every
-	 * declaration. Source-first reports it when a path arrives with components at both ends.
+	 * The report does not come from the traversal proper: the declaration is not across, so no
+	 * seed and no leg ever touches it, and the check stands on its own in
+	 * {@code SeedDiscovery}, over every declaration.
 	 * </p>
 	 */
 	@Test
@@ -100,11 +100,9 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 * not have.
 	 *
 	 * <p>
-	 * The connection instances are the same. Source-first reports the destination end only,
-	 * because that is the end its traversal was resolving, and attaches the report to the
-	 * component. Across-first resolves both ends of the declaration before it can be a
-	 * segment at all, so it names both missing features and attaches them to the system
-	 * instance.
+	 * The connection instances are unchanged. Only the report differs: both ends of the
+	 * declaration are resolved before it can be a segment at all, so both missing features are
+	 * named, against the system instance rather than the component.
 	 * </p>
 	 */
 	@Test
@@ -113,8 +111,8 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 		var actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
 		/*
-		 * The baseline reported one error for the end its traversal was reaching for, "Destination
-		 * feature f_in not found. No connection created.", against the component.
+		 * Before issue #3037 this was one error for the end the traversal was reaching for,
+		 * "Destination feature f_in not found. No connection created.", against the component.
 		 */
 		assertEquals("allowlist entry 6: the resolver's own wording, for both ends",
 				List.of("Error | Feature f_in not found in s_impl3_Instance.f_pa"
@@ -129,8 +127,7 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 * have, which is the shape issue #3030 fixed the crash for.
 	 *
 	 * <p>
-	 * One report either way, on the same target, differing only in the phrase source-first
-	 * prefixes it with.
+	 * One report before and after, on the same target, differing only in a dropped prefix.
 	 * </p>
 	 */
 	@Test
@@ -138,7 +135,7 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 		var run = isolated.run(MISSING_SUBCOMPONENT, "Top.i");
 		var actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
-		// The baseline prefixed the same report, on the same target, with "Instantiation error:".
+		// Before issue #3037 the same report, on the same target, read "Instantiation error: no ...".
 		assertEquals("allowlist entry 7: the resolver's own wording",
 				List.of("Error | No component instance for subcomponent monitors"
 						+ " | at Top_i_Instance|SystemInstance | in Issue3030_Top_i_Instance.aaxl2"),
@@ -150,11 +147,10 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 * above routes nowhere.
 	 *
 	 * <p>
-	 * The connection instances are the same, and neither strategy creates one for the path
-	 * in question. Source-first is extending that path when it finds the level above has
-	 * nothing to continue it with, so it has a candidate to report; across-first never
-	 * enumerates it, because the declaration carrying it up is not across, nothing seeds it,
-	 * and no leg reaches it.
+	 * The connection instances are unchanged, and no connection instance exists for the path in
+	 * question either way. Only the report is gone: the path is never enumerated, because the
+	 * declaration carrying it up is not across, so nothing seeds it and no leg reaches it, and
+	 * there is no candidate to attach a warning to.
 	 * </p>
 	 *
 	 * <p>
@@ -190,14 +186,14 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	}
 
 	/**
-	 * The model reports nothing about the path that cannot continue, and {@code baselineWarning}
-	 * records what the baseline said about it before allowlist entry 8 released the report.
+	 * The model reports nothing about the path that cannot continue, and {@code retiredWarning}
+	 * records what was reported about it before allowlist entry 8 released the report.
 	 */
-	private void assertNoReportAbout(String model, String implementation, String baselineWarning) throws Exception {
+	private void assertNoReportAbout(String model, String implementation, String retiredWarning) throws Exception {
 		var run = isolated.run(model, implementation);
 		var actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
-		assertEquals("allowlist entry 8: " + baselineWarning + " is gone", List.of(),
+		assertEquals("allowlist entry 8: " + retiredWarning + " is gone", List.of(),
 				InstanceReport.diagnosticSet(actual)
 						.stream()
 						.filter(line -> line.contains("Could not continue connection"))

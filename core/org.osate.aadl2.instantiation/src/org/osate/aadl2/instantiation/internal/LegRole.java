@@ -29,8 +29,7 @@ package org.osate.aadl2.instantiation.internal;
  * <p>
  * Both legs are the same downward walk through component containment. They differ
  * only in which declared side of a segment the leg arrives from, so one operation
- * resolves both and this role is its parameter. Source-first traversal instead
- * encodes the difference in shared direction state and stack balancing.
+ * resolves both and this role is its parameter.
  * </p>
  */
 public enum LegRole {

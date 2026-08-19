@@ -43,14 +43,13 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two traversal strategies over feature arrays, with no feature group
- * involved, for issue #3037.
+ * Characterizes feature arrays with no feature group involved, for issue #3037.
  *
  * <p>
  * The other feature array model in the corpus, {@code issue2786/FeatureArrays.aadl},
  * connects nothing: it declares one array feature in every category to check where a
- * feature array is allowed. These are therefore the first connections over a feature array
- * that either strategy is held to, which is what the plan's matrix was missing.
+ * feature array is allowed. These are therefore the only connections over a feature array
+ * that the traversal is held to.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -97,9 +96,9 @@ public class Issue3037FeatureArrayTest extends XtextTest {
 	 * <p>
 	 * {@code One_To_All} pairs the first source element with every destination element, so
 	 * the second producer has no connection instance at all where the default pairing above
-	 * gives it one. That is what both strategies produce, and it is recorded rather than
-	 * judged: whether a pattern over a feature array should consume every source element is a
-	 * question about expansion, which is shared pipeline and outside this enhancement.
+	 * gives it one. That is what 2.18.0 produced too, and it is recorded rather than judged:
+	 * whether a pattern over a feature array should consume every source element is a question
+	 * about structural expansion, which runs after the traversal.
 	 * </p>
 	 */
 	@Test

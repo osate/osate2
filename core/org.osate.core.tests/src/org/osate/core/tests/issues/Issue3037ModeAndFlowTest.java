@@ -45,15 +45,13 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two traversal strategies over modes, system operation modes, and
- * end-to-end flows, for issue #3037.
+ * Characterizes modes, system operation modes, and end-to-end flows, for issue #3037.
  *
  * <p>
- * Across-first carries a path's mode constraint without enforcing it, exactly as
- * source-first does: a topologically valid path is materialized, the shared pipeline
- * computes its system operation modes, and a path active in none of them is reported and
- * deleted. Deciding earlier would change which diagnostics a model produces, so
- * {@code Top.noSom} is here to prove that the decision is still made where it was.
+ * The traversal carries a path's mode constraint without enforcing it: a topologically valid
+ * path is materialized, the pipeline computes its system operation modes, and a path active in
+ * none of them is reported and deleted. Deciding earlier would change which diagnostics a
+ * model produces, so {@code Top.noSom} is here to pin where the decision is made.
  * </p>
  *
  * <p>
@@ -118,8 +116,8 @@ public class Issue3037ModeAndFlowTest extends XtextTest {
 
 	/**
 	 * Three sibling end-to-end flows over the same connections, each in its own modes. The
-	 * count is asserted so that the comparison cannot pass by both strategies producing no
-	 * flows, and each flow's ordered element sequence is what the comparison checks exactly.
+	 * count is asserted so that the test cannot pass vacuously on a model with no flows, and
+	 * each flow's ordered element sequence is asserted exactly.
 	 */
 	@Test
 	public void siblingEndToEndFlowsAgree() throws Exception {

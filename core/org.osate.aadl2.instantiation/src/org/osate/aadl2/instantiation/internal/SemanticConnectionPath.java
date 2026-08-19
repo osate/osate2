@@ -86,8 +86,8 @@ public record SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionIns
 		 * A semantic connection has one containment turning point: it travels up zero or
 		 * more levels, crosses between peers once, and travels down zero or more levels.
 		 * More than one across segment is an implementation defect rather than a legal
-		 * path, so it fails here. Source-first traversal overwrote its record of the
-		 * across segment and its container when it met a second one.
+		 * path, so it fails here rather than producing a connection instance whose
+		 * container is whichever crossing was recorded last.
 		 */
 		long across = segments.stream().filter(ResolvedSegment::isAcross).count();
 		if (across > 1) {

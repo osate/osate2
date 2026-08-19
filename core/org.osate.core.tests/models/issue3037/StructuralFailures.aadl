@@ -2,10 +2,9 @@
 -- (issue #3037), covering structural expansion where the declared property cannot be
 -- applied, and a crossed Connection_Set through a feature group.
 --
--- Expansion runs after enumeration, on provisional connection instances, and it is shared
--- pipeline: both strategies feed it the same way. What has to be characterized is that they
--- feed it the same thing even where it fails, and that a failed expansion leaves the same
--- model behind rather than a partial object in one strategy and nothing in the other.
+-- Expansion runs after enumeration, on provisional connection instances. What has to be
+-- characterized is what it is fed where it fails, and that a failed expansion leaves a whole
+-- model behind rather than a partly replicated one.
 package StructuralFailures
 public
 	feature group Bundle

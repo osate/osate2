@@ -201,11 +201,10 @@ public
 	end Top.soloReachedInto;
 
 	-- The same with the array. Semantically there are two connections, one per producer, and
-	-- the baseline produces one: expansion rejects the replication with "Too few indices for
+	-- only one is produced: expansion rejects the replication with "Too few indices for
 	-- connection destination" and leaves the un-replicated provisional attached. Reacher.i on
 	-- its own replicates the very same declaration correctly, so what the pivot changes is
-	-- worth finding out. Across-first reproduces the baseline exactly, so this is pinned
-	-- rather than fixed here.
+	-- worth finding out. 2.18.0 produced this too, so it is pinned rather than fixed here.
 	system implementation Top.reachedInto
 		subcomponents
 			reacher: process Reacher.i;

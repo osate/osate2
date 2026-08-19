@@ -32,6 +32,7 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.core.tests.instantiation.ConnectionDescriptor;
 import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceReport;
 import org.osate.core.tests.instantiation.InstanceRun;
@@ -43,22 +44,22 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two strategies where both sides of a feature group pivot route several members
- * onwards, for issue #3037.
+ * Characterizes a feature group pivot whose two sides both route several members onwards, for
+ * issue #3037.
  *
  * <p>
- * This is the shape the issue #3044 fixtures have, and it is the one that decides two rules
- * across-first needs and no other committed test reaches. Legs pair by the member of the pivot
- * they leave from, so a leg leaving one member joins only the leg leaving the member that pairs
- * with it; without that, every combination of members becomes a path. And a member the
- * declarations inside leave with nowhere to go ends the connection when it triggers a mode
- * transition and is reported as a dead end otherwise.
+ * This is the shape the issue #3044 fixtures have, and it is the one that decides two rules no
+ * other committed test reaches. Legs pair by the member of the pivot they leave from, so a leg
+ * leaving one member joins only the leg leaving the member that pairs with it; without that,
+ * every combination of members becomes a path. And a member the declarations inside leave with
+ * nowhere to go ends the connection when it triggers a mode transition and is reported as a
+ * dead end otherwise.
  * </p>
  *
  * <p>
- * The fixtures are the ones issue #3044 added, used here from the other strategy: the
- * regression test for that issue exercises the production path, so nothing held across-first to
- * the same model.
+ * The fixtures are the ones issue #3044 added. Its own regression test asserts the connection
+ * that issue restored; this one asserts the whole connection set and the exact dead end report,
+ * which is what pins the two rules above.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -103,15 +104,27 @@ public class Issue3037MemberPairingTest extends XtextTest {
 
 	/**
 	 * The reported shape of issue #3044: a port and a connected access feature sharing a feature
-	 * group between two connection ending components. The port connection is the one the fix
-	 * restored, and across-first produced it before the fix, which is how the defect was found.
+	 * group between two connection ending components. The port connection is the one that issue
+	 * restored, by asking member by member whether a leg continues.
+	 *
+	 * <p>
+	 * The kinds are asserted as well as the names. A connection whose end is left at the feature
+	 * group rather than narrowed to the member the path reaches is still named plausibly, but
+	 * {@code PathMaterializer.kind} reads the endpoint categories, so it comes out as a feature
+	 * group connection where the model has an access connection. The kind is what makes that
+	 * visible, and nothing else asserts it.
+	 * </p>
 	 */
 	@Test
-	public void aPortSharingAGroupWithConnectedAccessAgrees() throws Exception {
+	public void aPortSharingAGroupWithConnectedAccessIsInstantiated() throws Exception {
 		InstanceCharacterization.assertConnections(isolated, SHARED_GROUP, "DemoTop.impl",
 				"provider_side.service_bundle.signal_line -> requester_side.service_bundle.signal_line",
 				"provider_side.worker_unit -> requester_side.worker_unit.requested_call");
 
+		var run = isolated.run(SHARED_GROUP, "DemoTop.impl");
+		var snapshot = InstanceSnapshot.of(run.instance(), run.errorManager());
+		assertEquals(List.of("accessConnection", "portConnection"),
+				snapshot.allConnections().stream().map(ConnectionDescriptor::kind).sorted().toList());
 	}
 
 	private static List<String> names(InstanceRun run) {

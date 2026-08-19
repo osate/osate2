@@ -2,11 +2,12 @@
 -- (issue #3037), covering connections that reach the parameters of a subprogram call.
 --
 -- The corpus has subprogram calls, in the Issue1988 and Issue1987 models, but only in a
--- thread instantiated as the root. Source-first refuses a parameter destination whenever the
+-- thread instantiated as the root. A parameter destination is refused outright whenever the
 -- declaration sits in the instantiation root, so those models say nothing about the case
--- where the call is below the root, which is the only place source-first creates such a
--- connection instance. Both placements are here for that reason: Caller.i is the thread on
--- its own, Top.withCall is the same thread two levels down.
+-- where the call is below the root, which is the only place such a connection instance could
+-- be created. Both placements are here for that reason: Caller.i is the thread on its own,
+-- Top.withCall is the same thread two levels down. The refusal rules themselves are pinned by
+-- RefusedSegments.aadl, which reaches a parameter that does have an instance object.
 package ParameterCalls
 public
 	data D

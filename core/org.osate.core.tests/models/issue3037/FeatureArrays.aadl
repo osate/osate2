@@ -3,8 +3,8 @@
 --
 -- The corpus has one other feature array model, issue2786/FeatureArrays.aadl, and it never
 -- connects anything: it declares one array feature in every category to check where a
--- feature array is allowed. So nothing pinned what either strategy does when a declaration
--- names a feature that is an array rather than a leaf.
+-- feature array is allowed. So nothing pinned what happens when a declaration names a
+-- feature that is an array rather than a leaf.
 --
 -- A feature array is allowed only in an abstract, thread, device, memory, system, or
 -- processor classifier, which is why the boundary arrays here sit on systems, and why what

@@ -53,11 +53,12 @@ import com.itemis.xtext.testing.XtextTest;
  * across-first connection traversal enhancement (issue #3037).
  *
  * <p>
- * Source-first traversal enumerates the semantic connection through the pair of
- * inverse feature groups more than once, and the reverse-order duplicate check in
- * {@code CreateConnectionsSwitch} suppresses the redundant candidates. This test
- * pins what actually survives, so that across-first traversal can be held to the
- * same materialized result.
+ * A pair of inverse feature groups is the shape that issue #565 reported as
+ * duplicate enumeration, and it is why the connection phase once ended in a
+ * reverse-order duplicate check. This test pins what the model actually has: two
+ * connection instances, one per legal endpoint orientation, and no third one to
+ * suppress. Enumeration now deduplicates by structured identity instead, and treats
+ * a surviving duplicate as a defect rather than absorbing it.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -79,14 +80,14 @@ public class Issue3037DuplicateTraversalTest extends XtextTest {
 	private static final String SUB = "Sys_Imp_Instance.sub|ComponentInstance";
 
 	/**
-	 * The two connection instances the baseline materializes, one per legal
-	 * endpoint orientation. Both are complete, both report
+	 * The two connection instances this model has, one per legal endpoint
+	 * orientation, unchanged since 2.18.0. Both are complete, both report
 	 * {@code bidirectional == false}, and the two differ in every
 	 * orientation-bearing field: endpoint pair, declaration order, context order,
 	 * and per-reference reverse flag. Neither is a suppressed duplicate of the
 	 * other.
 	 */
-	private static final List<String> BASELINE_CONNECTIONS = List.of(
+	private static final List<String> EXPECTED_CONNECTIONS = List.of(
 			"name='proc.fgPorts.inPort -> sub.iproc.fgPorts.inPort' kind=portConnection complete=true"
 					+ " bidirectional=false container=" + TOP + " src=" + PROC_PORT + " dst=" + IPROC_PORT
 					+ " declarations=[" + C1 + ", " + C2 + "] contexts=[" + TOP + ", " + SUB
@@ -119,7 +120,7 @@ public class Issue3037DuplicateTraversalTest extends XtextTest {
 
 		assertEquals(List.of(), InstanceIntegrity.check(instance));
 		assertEquals(List.of(), InstanceReport.diagnosticLines(snapshot));
-		assertEquals(BASELINE_CONNECTIONS, InstanceReport.connectionLines(snapshot));
+		assertEquals(EXPECTED_CONNECTIONS, InstanceReport.connectionLines(snapshot));
 		assertEquals(List.of(), InstanceReport.flowLines(snapshot));
 
 		var connections = snapshot.allConnections();
@@ -132,9 +133,9 @@ public class Issue3037DuplicateTraversalTest extends XtextTest {
 	/**
 	 * The two legal orientations are the <em>only</em> connections in the model, and
 	 * both live in the system instance rather than in {@code sub}. This is recorded
-	 * separately from the semantic comparison above because collection order is an
-	 * approved intended difference for across-first traversal, so this is the one
-	 * assertion that is expected to be revisited when the strategy changes.
+	 * separately from the semantic comparison above because it asserts collection
+	 * order, which allowlist entry 1 of issue #3037 changed; the order asserted here is
+	 * the deterministic one, and it is pinned precisely because nothing else documents it.
 	 *
 	 * <p>
 	 * The last container is not part of the system instance at all: the data classifier the
@@ -144,7 +145,7 @@ public class Issue3037DuplicateTraversalTest extends XtextTest {
 	 * </p>
 	 */
 	@Test
-	public void baselineCollectionOrderIsRecorded() throws Exception {
+	public void collectionOrderIsRecorded() throws Exception {
 		var pkg = testHelper.parseFile(MODEL);
 		validationHelper.assertNoIssues(pkg);
 		var top = (ComponentImplementation) pkg.getOwnedPublicSection()

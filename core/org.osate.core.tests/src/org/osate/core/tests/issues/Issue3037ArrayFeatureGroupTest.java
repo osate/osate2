@@ -46,15 +46,15 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two traversal strategies where component arrays, feature arrays, and
- * feature groups meet, for issue #3037.
+ * Characterizes what happens where component arrays, feature arrays, and feature groups
+ * meet, for issue #3037.
  *
  * <p>
- * These combinations are the ones the rest of the core test corpus does not contain, and
- * they are where the two strategies differ most in what they know when: source-first
- * narrows a feature group after reaching a destination, using two shared stacks, while
- * across-first resolves both endpoint chains at the pivot and narrows during expansion.
- * Structural expansion then multiplies whatever either produced across the arrays.
+ * These combinations are the ones the rest of the core test corpus does not contain, and they
+ * are the ones where a feature group has to be narrowed to a member at the same time as
+ * structural expansion multiplies the result across the arrays. Narrowing happens during
+ * expansion, from the endpoint chains resolved at the pivot, and structural expansion then
+ * replicates whatever it produced.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -124,15 +124,15 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 
 	/**
 	 * That member with a pivot across into an inverse group, descending on both sides. The
-	 * connections and flows agree; the only difference is the warning allowlist entry 5
-	 * covers.
+	 * connections and flows are what 2.18.0 produced; the one difference is the warning
+	 * allowlist entry 5 covers.
 	 *
 	 * <p>
-	 * That warning disappearing was approved on 2026-08-14. It describes the traversal's own
-	 * difficulty rather than the model: source-first emits it while descending into a
-	 * component whose boundary feature group has no downward declaration, and then creates the
-	 * connection anyway, from the other direction. Nothing is missing from the model, which is
-	 * why the warning may be dropped rather than reproduced.
+	 * That warning described the traversal's own difficulty rather than the model. It was
+	 * emitted while descending into a component whose boundary feature group has no downward
+	 * declaration, and the connection was then created anyway from the other direction.
+	 * Nothing is missing from the model, which is why the warning was dropped rather than
+	 * reproduced.
 	 * </p>
 	 */
 	@Test
@@ -142,16 +142,16 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 				"reacher.producer.outp -> collector.consumer.bundle.signal");
 
 		/*
-		 * Allowlist entry 5. The baseline reported "No connection declaration from feature bundle of
-		 * component reacher to subcomponents. Connection instance ends at reacher" here, against the
-		 * system instance, and created both connections anyway.
+		 * Allowlist entry 5. Before issue #3037 this reported "No connection declaration from feature
+		 * bundle of component reacher to subcomponents. Connection instance ends at reacher", against
+		 * the system instance, and created both connections anyway.
 		 */
 		assertEquals("allowlist entry 5: the warning is gone", List.of(),
 				InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager())));
 	}
 
 	/**
-	 * The same pivot fed from an array, where the baseline loses all but the first element.
+	 * The same pivot fed from an array, where all but the first element is lost.
 	 *
 	 * <p>
 	 * Two producers feed the boundary group member, so there are two semantic connections
@@ -164,10 +164,9 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	 * </p>
 	 *
 	 * <p>
-	 * Both strategies produce this identically, so it is baseline behavior and not
-	 * across-first's to fix. It is pinned here so that a fix shows up as a failure of this
-	 * test rather than as an unexplained change, and it is recorded in the plan as work to
-	 * raise separately.
+	 * This is what 2.18.0 produced too, so it is structural expansion's defect and not the
+	 * traversal's. It is pinned here so that fixing it shows up as a failure of this test
+	 * rather than as an unexplained change; the fix itself is separate work.
 	 * </p>
 	 */
 	@Test
@@ -185,9 +184,9 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 				+ " | at Top_reachedInto_Instance.reacher.producers[1].outp -> collector.consumer.bundle.signal"
 				+ "|ConnectionInstance | in ArraysAndFeatureGroups_Top_reachedInto_Instance.aaxl2";
 		/*
-		 * Allowlist entry 5 again: the baseline added "No connection declaration from feature bundle
-		 * of component reacher to subcomponents. Connection instance ends at reacher" to the
-		 * expansion error, which is the report that describes the model.
+		 * Allowlist entry 5 again: before issue #3037 "No connection declaration from feature bundle
+		 * of component reacher to subcomponents. Connection instance ends at reacher" accompanied the
+		 * expansion error, which is the report that actually describes the model.
 		 */
 		assertEquals("the expansion error is what remains", List.of(expansionError),
 				InstanceReport.diagnosticSet(actual));

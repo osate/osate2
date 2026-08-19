@@ -45,13 +45,14 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two traversal strategies over connections that reach the parameters of a
- * subprogram call, for issue #3037.
+ * Characterizes connections that reach the parameters of a subprogram call, for issue #3037.
  *
  * <p>
- * The corpus has subprogram calls only in a thread instantiated as the root, and source-first
- * refuses a parameter destination whenever the declaration sits in the root, so nothing said
- * what happens when the call is below it. Both placements are compared here.
+ * The rest of the corpus has subprogram calls only in a thread instantiated as the root, and a
+ * parameter destination is refused outright whenever the declaration sits in the root, so
+ * nothing said what happens when the call is below it. Both placements are here for that
+ * reason. The refusal rules themselves are pinned by {@code Issue3037RefusedSegmentTest},
+ * which reaches a parameter that does have an instance object.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -74,14 +75,14 @@ public class Issue3037ParameterCallTest extends XtextTest {
 	}
 
 	/**
-	 * The thread with the call instantiated on its own. Neither strategy creates a connection
-	 * instance for any of its three parameter connections, and the reason is upstream of both:
-	 * a subprogram call is not instantiated, so {@code step.arg} and {@code step.result} have
-	 * no instance object for a connection instance to end at. Only the subprogram subcomponent
-	 * the call refers to and the data subcomponent become instances.
+	 * The thread with the call instantiated on its own. None of its three parameter connections
+	 * gets a connection instance, and the reason is upstream of the refusal rules: a subprogram
+	 * call is not instantiated, so {@code step.arg} and {@code step.result} have no instance
+	 * object for a connection instance to end at. Only the subprogram subcomponent the call
+	 * refers to and the data subcomponent become instances.
 	 */
 	@Test
-	public void aCallInTheRootAgrees() throws Exception {
+	public void aCallInTheRootProducesNoConnection() throws Exception {
 		assertConnections("Caller.i");
 
 		assertEquals("the call itself contributes no instance object",
@@ -90,15 +91,13 @@ public class Issue3037ParameterCallTest extends XtextTest {
 	}
 
 	/**
-	 * The same thread two containment levels below the root, which is where source-first's rule
-	 * against a parameter destination in the instantiation root does not apply. It makes no
-	 * difference: the only connection instances are the two that end at the thread's own ports,
-	 * because the call still has no instance object. That settles the open question of whether
-	 * across-first was missing connections by not seeding subprogram calls; there are none to
-	 * miss at this baseline.
+	 * The same thread two containment levels below the root, where the refusal of a parameter
+	 * destination in the instantiation root does not apply. It makes no difference: the only
+	 * connection instances are the two that end at the thread's own ports, because the call still
+	 * has no instance object. Not seeding subprogram calls therefore misses nothing.
 	 */
 	@Test
-	public void aCallBelowTheRootAgrees() throws Exception {
+	public void aCallBelowTheRootProducesOnlyThePortConnections() throws Exception {
 		assertConnections("Host.i", "inp -> worker.inp", "worker.outp -> outp");
 		assertConnections("Top.withCall", "feeder.outp -> host.worker.inp", "host.worker.outp -> collector.inp");
 

@@ -8,9 +8,8 @@
 -- see them: it snapshots every root of the instance resource.
 --
 -- A referenced root with connections inside it is deliberately not here. Instantiation
--- crashes on that shape at the baseline, under both strategies, and the reviewer excluded it
--- from characterization on 2026-08-18. It is recorded as follow-on work in
--- codex_plan_2_across_first.md, with the crash and its two mechanisms described there.
+-- crashes on that shape, and it did in 2.18.0 as well, so it was excluded from
+-- characterization on 2026-08-18 and is follow-on work for issue #3037.
 package ReferencedClassifiers
 public
 	data Element

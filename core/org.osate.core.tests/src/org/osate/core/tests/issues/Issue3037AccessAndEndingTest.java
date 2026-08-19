@@ -43,12 +43,12 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two traversal strategies over the five kinds of access connection and the
- * four component categories that end a semantic connection, for issue #3037.
+ * Characterizes the five kinds of access connection and the four component categories that
+ * end a semantic connection, for issue #3037.
  *
  * <p>
- * The corpus exercises access connections only in combination with feature groups, short
- * access, or an invalid model, so these are the plain cases: one shared component, one
+ * The rest of the corpus exercises access connections only in combination with feature groups,
+ * short access, or an invalid model, so these are the plain cases: one shared component, one
  * access feature, and legs that descend to reach them. An access connection is also the
  * only shape whose endpoint is a component rather than a feature, which is where a leg
  * stops because there is nothing left to continue from and where expansion has no member to

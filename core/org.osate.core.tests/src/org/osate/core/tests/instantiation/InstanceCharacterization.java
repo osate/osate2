@@ -33,13 +33,12 @@ import org.osate.aadl2.instance.ConnectionInstance;
  * Asserts what one implementation instantiates to, against the production traversal.
  *
  * <p>
- * These assertions replace the strategy comparison the issue #3037 characterization tests
- * used while both traversals existed. The comparison was the stronger instrument, because
- * every field of every descriptor had to agree; it is also gone with source-first, so what
- * remains is a record of the model each fixture produces. The record is the sorted connection
- * instance names, which name their endpoints relative to the container and therefore pin
- * expansion, array replication and feature group narrowing, together with the structural
- * invariants that hold for every instance model.
+ * The record is the sorted connection instance names, which name their endpoints relative to
+ * the container and therefore pin expansion, array replication and feature group narrowing,
+ * together with the structural invariants that hold for every instance model. It is weaker
+ * than comparing every field of every descriptor, which is what these tests did while issue
+ * #3037 had two traversals to compare; where a specific field matters, a test asserts it
+ * directly through {@link InstanceReport} rather than relying on the name.
  * </p>
  *
  * <p>

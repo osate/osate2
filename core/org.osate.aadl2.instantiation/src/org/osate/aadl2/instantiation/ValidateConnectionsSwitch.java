@@ -121,11 +121,11 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * </p>
 	 *
 	 * <p>
-	 * The traversal used to apply these rules while extending a partial path, so it
-	 * rejected the path and reported against the component it was working in. The
-	 * connection instance is created now and the error is attached to it, which names the
-	 * connection the reader can see in the instance model and reports it once instead of
-	 * once per rejected candidate.
+	 * These rules belong here and not in the traversal. Issue #3042 moved them: applied
+	 * while a path is under construction they reject the path, so the report has nothing to
+	 * name but the component the traversal was working in, and it lands once per rejected
+	 * candidate. Applied to a materialized connection the error names something the reader
+	 * can see in the instance model, once.
 	 * </p>
 	 */
 	private void checkSegmentDirections(ComponentInstance ci) {

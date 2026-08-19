@@ -101,11 +101,11 @@ public class Issue2780Test extends XtextTest {
 				.toList());
 
 		/*
-		 * Allowlist entry 5 of issue #3037. Source-first also warned "No connection declaration from
-		 * feature fr of component m to subcomponents. Connection instance ends at m" while descending
-		 * into m, and then created that very connection from the other direction. Across-first records
-		 * the same fact as a leg stop and has no candidate to report it against, so only the three
-		 * end-to-end flow errors remain.
+		 * Allowlist entry 5 of issue #3037. Before that release this also warned "No connection
+		 * declaration from feature fr of component m to subcomponents. Connection instance ends at m",
+		 * while descending into m, and then created that very connection from the other direction. The
+		 * same fact is now recorded as a leg stop, with no candidate to report it against, so only the
+		 * three end-to-end flow errors remain.
 		 */
 		List<Message> messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource()))
 				.getErrors();

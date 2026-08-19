@@ -43,8 +43,8 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two strategies where a leg descends through a declaration that names a
- * different level of a feature group than the leg stands at, for issue #3037.
+ * Characterizes a leg that descends through a declaration naming a different level of a
+ * feature group than the leg stands at, for issue #3037.
  *
  * <p>
  * These are the rules that switching the production strategy found missing on 2026-08-18. Each
@@ -86,16 +86,17 @@ public class Issue3037LegNarrowingTest extends XtextTest {
 	 *
 	 * <p>
 	 * The pivot {@code cl1} is bidirectional and {@code m} routes the feature it arrives at
-	 * inwards with {@code c1: feature group fl -> mm.fgl}, so the baseline refuses to start a
-	 * path at {@code m}'s own feature and starts from inside instead. Nothing inside can reach
-	 * it, because {@code c1} is directional, so no connection instance exists in that direction
-	 * at all. Across-first created one until {@code LegResolver} reproduced the rule.
+	 * inwards with {@code c1: feature group fl -> mm.fgl}, so a path may not start at
+	 * {@code m}'s own feature: it would start deeper. Nothing inside can reach it either,
+	 * because {@code c1} is directional, so no connection instance exists in that direction at
+	 * all. This is {@code LegResolver.mayBeUltimateSource}, and it is required behavior: 2.18.0
+	 * created no connection here either.
 	 * </p>
 	 *
 	 * <p>
-	 * The two strategies differ on this model by one warning, which is allowlist entry 5: the
-	 * baseline reports that no declaration carries the connection further into {@code m} while
-	 * descending, and then creates that connection from the other direction anyway.
+	 * The one difference from 2.18.0 on this model is allowlist entry 5, the warning that no
+	 * declaration carries the connection further into {@code m}, which was reported while
+	 * descending and followed by that connection being created from the other direction anyway.
 	 * </p>
 	 */
 	@Test
@@ -112,10 +113,10 @@ public class Issue3037LegNarrowingTest extends XtextTest {
 				"m.mm.fgr.fg.fo -> r.fr.fg.fo", "r.fr.fg.fi -> m.fr.fg.fi"), names(run));
 
 		/*
-		 * Allowlist entry 5, on one implementation more than the entry lists: the baseline also
-		 * reported "No connection declaration from feature fr of component m to subcomponents.
-		 * Connection instance ends at m" here, while descending into m, and created that connection
-		 * from the other direction anyway. What remains is the end-to-end flow errors of the model.
+		 * Allowlist entry 5, on one implementation more than the entry lists: "No connection
+		 * declaration from feature fr of component m to subcomponents. Connection instance ends at m"
+		 * was also reported here before issue #3037, while descending into m, and that connection was
+		 * then created from the other direction anyway. What remains is the model's flow errors.
 		 */
 		assertEquals(List.of(), InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager()))
 				.stream()

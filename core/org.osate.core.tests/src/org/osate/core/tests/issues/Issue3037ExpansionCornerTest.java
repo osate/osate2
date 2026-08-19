@@ -43,11 +43,11 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two strategies over the corners of feature group pairing and endpoint
- * resolution, for issue #3037.
+ * Characterizes the corners of feature group pairing and endpoint resolution, for issue
+ * #3037.
  *
  * <p>
- * Each case isolates one decision pairing has to make and that the rest of the matrix reaches
+ * Each case isolates one decision pairing has to make and that the rest of the corpus reaches
  * only in passing: renamed members that names cannot pair, a subset destination missing one of
  * the source's members, direction deciding which members pair, and short access, where a
  * connection's destination is a component rather than a feature.

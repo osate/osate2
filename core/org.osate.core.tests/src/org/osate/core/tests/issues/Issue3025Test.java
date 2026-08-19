@@ -88,13 +88,13 @@ public class Issue3025Test extends XtextTest {
 		assertSame(trigger, transition.getTriggers().get(0));
 
 		/*
-		 * Allowlist entry 8 of issue #3037. Source-first warned "Could not continue connection from
-		 * Top_i_Instance.bridge.producer.to_unresolved  through Top_i_Instance.bridge.unresolved_terminal.
-		 * No connection instance created." because it was extending that path when it found the level
-		 * above routes the feature nowhere. Across-first never enumerates the path: the declaration
-		 * carrying it up out of the subcomponent is not across, so nothing seeds it and no leg reaches
-		 * it. Neither strategy creates a connection instance for it, which is what the assertion on the
-		 * two connections above pins.
+		 * Allowlist entry 8 of issue #3037. Before that release this warned "Could not continue
+		 * connection from Top_i_Instance.bridge.producer.to_unresolved  through
+		 * Top_i_Instance.bridge.unresolved_terminal. No connection instance created.", from a path being
+		 * extended when it found the level above routes the feature nowhere. The path is no longer
+		 * enumerated at all: the declaration carrying it up out of the subcomponent is not across, so
+		 * nothing seeds it and no leg reaches it. No connection instance existed for it either way,
+		 * which is what the assertion on the two connections above pins.
 		 */
 		var messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors();
 		assertEquals(List.of(), messages);

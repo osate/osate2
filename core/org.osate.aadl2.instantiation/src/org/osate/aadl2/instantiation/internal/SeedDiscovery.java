@@ -92,13 +92,12 @@ public final class SeedDiscovery {
 	 * and ends here.
 	 *
 	 * <p>
-	 * The feature's own direction does not decide which of the two exists. Source-first
-	 * only starts at an incoming boundary feature
-	 * as it walked the boundary features inwards, but it reached an
-	 * outgoing path's end from the other side, walking up from the feature inside that
-	 * starts it and stopping at whatever boundary feature it arrives at, whichever way that
-	 * feature faces. An {@code in} boundary feature therefore still ends an upward
-	 * connection, which the baseline creates and connection validation then reports.
+	 * The feature's own direction does not decide which of the two exists. An upward
+	 * connection ends at whatever boundary feature it arrives at, whichever way that
+	 * feature faces, so an {@code in} boundary feature still ends one: the connection
+	 * instance exists and connection validation reports the direction. Seeding only the
+	 * direction the feature faces loses it, and losing the inward one for a nested boundary
+	 * group is issue #3040.
 	 * </p>
 	 *
 	 * <p>
@@ -143,8 +142,7 @@ public final class SeedDiscovery {
 	 * by {@code InstantiateModel.finalizeConnections()}. Seeding every element instead
 	 * would look equivalent but is not: a replica is named with {@code " --> "} and has its
 	 * reference contexts relocated, so enumerating it directly changes an externally
-	 * visible name. Source-first applies the same rule before calling
-	 * {@code instantiateConnections()}.
+	 * visible name.
 	 * </p>
 	 */
 	private static boolean isFirstArrayElement(ComponentInstance container) {
@@ -162,8 +160,8 @@ public final class SeedDiscovery {
 	/**
 	 * Add one seed per legal traversal orientation of {@code declaration}: the declared
 	 * direction always, and the opposite direction as well when the declaration is
-	 * bidirectional. The baseline materializes one connection instance per legal
-	 * orientation, so both must be enumerated.
+	 * bidirectional. One connection instance exists per legal orientation, so both have to
+	 * be enumerated; collapsing them is on the list of changes issue #3037 did not permit.
 	 */
 	private static void addOrientations(ComponentInstance container, Connection declaration,
 			ResolutionFailures failures, List<TraversalSeed> seeds) {
@@ -186,16 +184,15 @@ public final class SeedDiscovery {
 	 * <p>
 	 * Such a declaration connects a component to a component, which no connection instance
 	 * can express: an access connection reaches a shared component from a feature, never
-	 * from another component. AS5506B disallows it, and source-first reports it from
-	 * {@code addConnectionInstance()} when a path arrives with components at both ends.
+	 * from another component. AS5506B disallows it, and the error has to be reported.
 	 * </p>
 	 *
 	 * <p>
-	 * Across-first never enumerates the declaration at all, because
-	 * {@code Connection.isAcross()} is false when neither end has a context, so nothing
-	 * seeds it and no leg continues through it. The check therefore stands on its own,
-	 * where every declaration is examined once, and it is a declarative test: only the two
-	 * ends need resolving, and only to name them in the report.
+	 * Nothing else in the traversal reaches such a declaration: {@code Connection.isAcross()}
+	 * is false when neither end has a context, so nothing seeds it and no leg continues
+	 * through it. The check therefore stands on its own, here, where every declaration is
+	 * examined once. It is a declarative test: only the two ends need resolving, and only to
+	 * name them in the report.
 	 * </p>
 	 */
 	private static void checkComponentEnds(ComponentInstance container, Connection declaration,

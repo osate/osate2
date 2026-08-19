@@ -1,12 +1,10 @@
 -- Historical reproducer for issue #565, used as a characterization fixture for
 -- the across-first connection traversal enhancement (issue #3037).
 --
--- Source-first traversal enumerates the semantic connection through the two
--- inverse feature groups more than once, with the declaration reference lists in
--- opposite order, and the reverse-order duplicate check in
--- CreateConnectionsSwitch suppresses the redundant candidates. This fixture
--- exists to capture what those pre-suppression candidates actually contain, and
--- to pin the final materialized connection set.
+-- Two inverse feature groups are the shape issue #565 reported as duplicate
+-- enumeration, and the reason the connection phase once ended in a reverse-order
+-- duplicate check. This fixture pins the connection set the model actually has:
+-- two connections, one per legal endpoint orientation, and no third to suppress.
 --
 -- Do not add arrays, Connection_Pattern, or Connection_Set to this fixture.
 -- Separate fixtures cover structural expansion.

@@ -51,12 +51,12 @@ import org.osate.aadl2.util.Aadl2InstanceUtil;
  * Turns a path and one pair of expanded endpoints into a connection instance.
  *
  * <p>
- * The result has to be indistinguishable from what source-first materializes: the
- * same name, kind, completeness, and the same ordered connection references with the
- * same contexts and reverse flags. Names are built from the container-relative
- * endpoint paths, as {@code addConnectionInstance()} does, and the reference chain is
- * built the way source-first built it from the path it had grown, with each
- * intermediate destination narrowed to the member matching the source it came from.
+ * Everything here is externally visible and none of it may drift: the name, the kind, the
+ * completeness, and the ordered connection references with their contexts and reverse flags
+ * are what analyses and end-to-end flows read. Names are built from the container-relative
+ * endpoint paths, and each intermediate reference destination is narrowed to the member
+ * matching the source it came from, so that a reference chain through a feature group names
+ * members rather than the group.
  * </p>
  *
  * <p>

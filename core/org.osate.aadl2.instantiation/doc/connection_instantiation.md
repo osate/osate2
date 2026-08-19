@@ -275,10 +275,40 @@ models.
 
 ---
 
+## 9. Behavior accepted as changed in 2.19.0
+
+Issue #3037 replaced the traversal, and eight differences from 2.18.0 were reviewed and
+approved rather than reproduced. This is the list, and it is the reason a test asserts an
+absent diagnostic or a set instead of a sequence. Tests refer to these by number as
+"allowlist entry N"; the numbering is the review's own, and entry 4 was approved and then
+withdrawn, so its number is not reused.
+
+Nothing else about a connection instance was allowed to change. In particular: names,
+source and destination, the count where two orientations exist, `bidirectional`, membership
+in flows, and mode-transition connections are all unchanged.
+
+| Entry | What may differ | 2.18.0 | 2.19.0 | Why |
+|---|---|---|---|---|
+| **1** | Per-container `connectionInstances` order | insertion order of the old traversal | deterministic key order (§5) | The old order was an artifact of per-component enumeration. Nothing documented it, and the new order is derived from stable keys, so it can be pinned. |
+| **2** | Per-container sibling `endToEndFlows` order | followed entry 1 | follows entry 1 | A consequence of entry 1. The ordered element sequence *inside* each flow is unchanged. |
+| **3** | Diagnostic set | warning `Connection to <path> could not be instantiated.` for a destination that is an internal feature | no diagnostic | Redundant with the declarative error added by issue #3028, and unreachable for a model that validates. An internal feature is never instantiated, so the segment can only be ignored. |
+| **5** | Diagnostic set | warning `No connection declaration from feature <f> of component <c> to subcomponents. Connection instance ends at <c>` | no diagnostic | Both traversals observe the same fact and build the same model. The old one reported it while descending, at the point where it went on to create that connection from the other direction. For an `in` member of an inverse feature group the enclosing component does not route onwards, nothing is in fact missing. |
+| **6** | Diagnostic text and target | one error on the destination component, `Destination feature <f> not found. No connection created.` | one error per unresolvable end, on the instantiation root, `Feature <f> not found in <component>` | Endpoints are now resolved before any path exists, so the report can name which feature of which component is missing, and can name both ends. The old text needs information the resolver does not have: which end a partial path was heading for. |
+| **7** | Diagnostic text | `Instantiation error: no component instance for subcomponent <s>` | `No component instance for subcomponent <s>` | Same fact, same severity, same target. The prefix said only that instantiation noticed, which the target already says. |
+| **8** | Diagnostic set | warning `Could not continue connection from <src>  through <dst>. No connection instance created.` (two spaces) for a path travelling up that the level above does not continue | no diagnostic | Neither traversal creates the connection. The old one was extending that path when it found out, so it had a candidate to report; nothing seeds such a path now, and reproducing the warning would mean seeding every uncontinued boundary feature of every subcomponent purely to report and discard it. The information is worth having and is follow-up work, not a regression. |
+| **9** | The connection instances of an implementation whose pivot names a feature group member | references pinned to the enclosing group, which crosses member pairs and loses one orientation | references narrowed to the member the declaration names | The only entry that changes connection instances. The old behavior resolved an end from the first link of its `ConnectedElement` chain, so `o.ofg.of1` resolved to `o.ofg`; the crossed pairs connect members the model does not connect, and the lost orientation is a semantic connection the model has. Filed as [#3046](https://github.com/osate/osate2/issues/3046) and accepted rather than fixed in 2.18.0. |
+
+Entries 1 and 2 also account for changes outside this bundle: `Serializer1Test` compares whole
+serialized instance models, `Issue2205Test` reads a broadcast group's connections by position,
+and two flow-latency `.result` fixtures reference connections as `@connectionInstance.N`.
+
+---
+
 ## Appendix: referenced issues
 
 | Issue | Title | Where it appears above |
 |---|---|---|
+| [#3028](https://github.com/osate/osate2/issues/3028) | Internal feature allowed only at the source end of a connection | §9 — allowlist entry 3 |
 | [#3037](https://github.com/osate/osate2/issues/3037) | Use across-first connection traversal | the traversal this document describes |
 | [#3038](https://github.com/osate/osate2/issues/3038) | Crash instantiating a nested boundary feature group member | §4.1 — boundary seeds and their members |
 | [#3040](https://github.com/osate/osate2/issues/3040) | Nested boundary feature group loses the inward connection instance | §4.1 — seeding both boundary directions |

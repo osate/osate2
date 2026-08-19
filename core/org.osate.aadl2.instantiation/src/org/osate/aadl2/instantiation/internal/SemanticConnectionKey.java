@@ -45,8 +45,9 @@ import java.util.List;
  * </p>
  *
  * <p>
- * The key must not collapse the two legal orientations of a bidirectional pair,
- * which the baseline materializes as two connection instances. It does not: the two
+ * The key must not collapse the two legal orientations of a bidirectional pair, which are
+ * two connection instances and were two before issue #3037 as well; collapsing them is on
+ * the list of changes that release did not permit. It does not: the two
  * orientations differ in endpoint pair, in declaration order, in context order, and
  * in every reverse flag, and any one of those differences is enough. The feature
  * path keys carry the remaining expansion identity that the endpoints do not, which

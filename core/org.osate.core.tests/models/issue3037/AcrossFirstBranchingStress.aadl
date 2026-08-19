@@ -6,10 +6,10 @@
 -- Cartesian product of width * width paths. Three containment levels below the root on each
 -- side, which is what makes the legs descend rather than stop at the pivot.
 --
--- The widths are 2, 4, and 8 so that the same shape gives the calibration curve the plan
--- asks for: source-first traversal state counts at three widths, from which the frozen
--- state-count budget is derived. Event ports are used throughout because fan-in to an event
--- port is legal, so the fixture measures traversal rather than producing validation errors.
+-- The widths are 2, 4, and 8 so that the same shape gives a curve rather than a point: the
+-- cost of the traversal at three widths, which is the evidence recorded on issue #3037. Event
+-- ports are used throughout because fan-in to an event port is legal, so the fixture measures
+-- traversal rather than producing validation errors.
 --
 -- Generated shape, kept explicit so that what is measured is what is in the file.
 package AcrossFirstBranchingStress

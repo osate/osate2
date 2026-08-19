@@ -31,12 +31,10 @@ import java.util.List;
  * component's own feature down into nested feature groups.
  *
  * <p>
- * Source-first kept this state in two feature group stacks shared by every path under
- * {@code downFeature} stacks, which belong to the switch rather than to a path.
- * Two paths being enumerated share one stack, and a path seeded partway down a
- * feature group nesting still sees the levels above it, which is the mechanism
- * behind issues #3038 and #3040. A path here owns its feature state, and the state
- * is immutable, so extending one path cannot disturb another.
+ * A path owns this state and the state is immutable, so extending one path cannot disturb
+ * another. That is a requirement rather than a preference: holding it per traversal instead of
+ * per path is the mechanism behind issues #3038 and #3040, where a path seeded partway down a
+ * feature group nesting saw the levels above it that belonged to another path.
  * </p>
  *
  * @param elements the steps, outermost feature first

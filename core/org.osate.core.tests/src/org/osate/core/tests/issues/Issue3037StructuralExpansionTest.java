@@ -35,17 +35,17 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Compares the two traversal strategies over structural expansion, for issue #3037.
+ * Characterizes what the traversal hands to structural expansion, for issue #3037.
  *
  * <p>
  * Enumeration hands the pipeline in {@code InstantiateModel.finalizeConnections()} one
  * provisional connection instance per declaration, and that pipeline replicates it across
  * component arrays, applies {@code Connection_Pattern} and {@code Connection_Set}, and
- * deletes the provisional instance. Across-first must feed it exactly what source-first
- * feeds it, which these fixtures are what checks: they cover replication, every pattern
- * the corpus declares, matched and crossed connection sets, the same properties supplied
- * directly, contextually, by refinement, and per mode, and array indices on a contained
- * property association.
+ * deletes the provisional instance. What the traversal feeds it therefore decides the final
+ * model without appearing in it, which is what these fixtures pin: they cover replication,
+ * every pattern the corpus declares, matched and crossed connection sets, the same properties
+ * supplied directly, contextually, by refinement, and per mode, and array indices on a
+ * contained property association.
  * </p>
  *
  * <p>
