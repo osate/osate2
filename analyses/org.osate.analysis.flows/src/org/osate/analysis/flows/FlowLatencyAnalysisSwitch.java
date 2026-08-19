@@ -1048,7 +1048,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 
 		// Issue 1148
-		fillInQueuingTimes(si);
+		fillInQueuingTimes(si, som);
 	}
 
 	public AnalysisResult invoke(ComponentInstance ci) {
@@ -1097,24 +1097,26 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
-				invokeOnSOM(ci, root.getSystemOperationModes().get(0), asynchronousSystem, majorFrameDelay,
+				final SystemOperationMode noModesSom = root.getSystemOperationModes().get(0);
+				invokeOnSOM(ci, noModesSom, asynchronousSystem, majorFrameDelay,
 						worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency);
+				fillInQueuingTimes(root, noModesSom);
 			} else {
 				// we need to run it for every SOM
 				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
 					root.setCurrentSystemOperationMode(eachsom);
 					invokeOnSOM(ci, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 							bestCaseEmptyQueue, disableQueuingLatency);
+					fillInQueuingTimes(root, eachsom);
 					root.clearCurrentSystemOperationMode();
 				}
 			}
 		} else {
 			invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
 					disableQueuingLatency);
+			fillInQueuingTimes(root, som);
 		}
 
-		// Issue 1148
-		fillInQueuingTimes(ci.getSystemInstance());
 		final List<Result> finalizedResults = report.finalizeAllEntries();
 
 		return FlowLatencyUtil.recordAsAnalysisResult(finalizedResults, ci, asynchronousSystem, majorFrameDelay,
@@ -1190,15 +1192,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				root.setCurrentSystemOperationMode(eachsom);
 				invokeOnSOM(etef, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
 						disableQueuingLatency);
+				fillInQueuingTimes(root, eachsom);
 				root.clearCurrentSystemOperationMode();
 			}
 		} else {
 			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
 					disableQueuingLatency);
+			fillInQueuingTimes(root, som);
 		}
 
-		// Issue 1148
-		fillInQueuingTimes(etef.getSystemInstance());
 		final List<Result> finalizedResults = finalizeResults();
 
 		return FlowLatencyUtil.recordAsAnalysisResult(finalizedResults, etef, asynchronousSystem, majorFrameDelay,
@@ -1314,26 +1316,28 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	private static final void sortBoundConnectionsHelper(final ComponentInstance compInstance,
-			final Map<ComponentInstance, Set<ConnectionInstance>> map) {
+			final SystemOperationMode som, final Map<ComponentInstance, Set<ConnectionInstance>> map) {
 		for (final ConnectionInstance ci : compInstance.getConnectionInstances()) {
-			final List<InstanceObject> bindings = DeploymentProperties.getActualConnectionBinding(ci)
-					.orElse(Collections.emptyList());
-			for (final InstanceObject io : bindings) {
-				final ComponentInstance componentInstance = (ComponentInstance) io;
-				addToHashedSet(map, componentInstance, ci);
-				processComponentBindings(map, ci, componentInstance);
+			if (ci.isActive(som)) {
+				final List<InstanceObject> bindings = DeploymentProperties.getActualConnectionBinding(ci)
+						.orElse(Collections.emptyList());
+				for (final InstanceObject io : bindings) {
+					final ComponentInstance componentInstance = (ComponentInstance) io;
+					addToHashedSet(map, componentInstance, ci);
+					processComponentBindings(map, ci, componentInstance);
+				}
 			}
 		}
 
 		for (final ComponentInstance child : compInstance.getComponentInstances()) {
-			sortBoundConnectionsHelper(child, map);
+			sortBoundConnectionsHelper(child, som, map);
 		}
 	}
 
 	private static final Map<ComponentInstance, Set<ConnectionInstance>> sortBoundConnections(
-			final SystemInstance system) {
+			final SystemInstance system, final SystemOperationMode som) {
 		final Map<ComponentInstance, Set<ConnectionInstance>> map = new HashMap<>();
-		sortBoundConnectionsHelper(system, map);
+		sortBoundConnectionsHelper(system, som, map);
 		return map;
 	}
 
@@ -1408,11 +1412,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
-	private void fillInQueuingTimes(final SystemInstance system) {
+	private void fillInQueuingTimes(final SystemInstance system, final SystemOperationMode som) {
 		// Nothing to do if there are no asynchronous buses
 		if (!asyncBuses.isEmpty()) {
 			// Get all the connections bound to a bus and group them together by the bus they are bound to
-			final Map<ComponentInstance, Set<ConnectionInstance>> sortedConnections = sortBoundConnections(system);
+			final Map<ComponentInstance, Set<ConnectionInstance>> sortedConnections = sortBoundConnections(system, som);
 			/*
 			 * Go through the list of all the asynchronous buses
 			 */
@@ -1477,6 +1481,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 		}
+
+		busOrder.clear();
+		nextBusId = 0;
+		asyncBuses.clear();
+		connectionsToContributors.clear();
+		computedMaxTransmissionLatencies.clear();
 	}
 
 	// *****************************
