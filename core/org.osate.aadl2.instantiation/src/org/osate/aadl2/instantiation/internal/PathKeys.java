@@ -26,6 +26,7 @@ package org.osate.aadl2.instantiation.internal;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 
@@ -37,8 +38,9 @@ import org.osate.aadl2.instance.InstanceObject;
  * declarative model instantiated twice lives in two resource sets, so identity
  * comparison would report every path as different, and enumeration suppression
  * would stop working. Every key here is derived only from values that survive a
- * reload: resource-relative URIs, instance object paths, metaclasses, feature
- * categories, and array indices.
+ * reload: root names with the fragments that locate an element inside their
+ * resource, instance object paths, metaclasses, feature categories, and array
+ * indices.
  * </p>
  *
  * <p>
@@ -55,9 +57,8 @@ public final class PathKeys {
 	}
 
 	/**
-	 * Key for a declarative element. Only the last URI segment and the fragment are
-	 * used, because the leading segments differ between runs that load the same model
-	 * from different locations.
+	 * Key for a declarative element: the identity of the resource that holds it, and the
+	 * fragment that locates it inside that resource.
 	 */
 	public static String declarative(EObject element) {
 		if (element == null) {
@@ -67,8 +68,30 @@ public final class PathKeys {
 		if (uri == null) {
 			return NULL_KEY;
 		}
-		String segment = uri.segmentCount() == 0 ? uri.toString() : uri.lastSegment();
-		return segment + "#" + uri.fragment();
+		return resourceKey(element, uri) + "#" + uri.fragment();
+	}
+
+	/**
+	 * Identity of the resource that holds a declarative element.
+	 *
+	 * <p>
+	 * The leading URI segments are dropped, because they differ between runs that load the
+	 * same model from different locations. The last segment alone is not an identity: two
+	 * projects may hold files of the same name, and keying both to the same string would let
+	 * a legitimate continuation be suppressed as a cycle, or a distinct path be discarded as
+	 * a duplicate. The qualified name of the root — the AADL package or property set —
+	 * distinguishes them and does not depend on where the model was loaded from. A root
+	 * without a name is not an AADL package, and keeps the whole location, which is unique
+	 * by construction.
+	 * </p>
+	 */
+	private static String resourceKey(EObject element, URI uri) {
+		var root = EcoreUtil.getRootContainer(element);
+		var rootName = root instanceof NamedElement named ? named.getName() : null;
+		if (rootName == null || rootName.isEmpty()) {
+			return uri.trimFragment().toString();
+		}
+		return rootName + '/' + (uri.segmentCount() == 0 ? uri.toString() : uri.lastSegment());
 	}
 
 	/**
