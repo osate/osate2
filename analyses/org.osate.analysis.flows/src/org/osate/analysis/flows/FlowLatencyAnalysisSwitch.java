@@ -804,7 +804,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			List<Classifier> reqprotocols = DeploymentProperties.getRequiredVirtualBusClass(cc)
 					.orElse(Collections.emptyList());
 			if (!reqprotocols.isEmpty()) {
-				total = total + computeTotalDataSize(reqprotocols, wrapped, latencyContributor, onBehalfOfConnection);
+				double nestedTotal = computeTotalDataSize(reqprotocols, wrapped, latencyContributor,
+						onBehalfOfConnection);
+				total = total + nestedTotal - wrapped;
 			}
 		}
 		return total;
