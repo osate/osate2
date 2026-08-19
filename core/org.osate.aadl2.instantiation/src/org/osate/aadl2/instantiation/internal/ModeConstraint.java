@@ -79,11 +79,11 @@ public record ModeConstraint(List<Requirement> requirements) {
 	 * constraint; this one is unchanged.
 	 */
 	public ModeConstraint and(Connection declaration, ComponentInstance context) {
-		List<Mode> modes = declaration.getAllInModes();
+		var modes = declaration.getAllInModes();
 		if (modes == null || modes.isEmpty()) {
 			return this;
 		}
-		List<Requirement> extended = new ArrayList<>(requirements);
+		var extended = new ArrayList<>(requirements);
 		extended.add(new Requirement(declaration, context, modes));
 		return new ModeConstraint(extended);
 	}

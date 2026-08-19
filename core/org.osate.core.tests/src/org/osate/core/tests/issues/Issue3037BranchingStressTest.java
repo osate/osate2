@@ -94,7 +94,7 @@ public class Issue3037BranchingStressTest extends XtextTest {
 	@Test
 	public void everyBranchPairBecomesOneConnection() throws Exception {
 		for (int width : new int[] { 2, 4, 8 }) {
-			String implementation = "Top.width" + width;
+			var implementation = "Top.width" + width;
 			assertEquals(implementation, width * width,
 					isolated.run(MODEL, implementation).instance().getAllConnectionInstances().size());
 		}

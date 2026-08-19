@@ -99,8 +99,8 @@ public class Issue3037ModeAndFlowTest extends XtextTest {
 	public void aPathActiveInNoSystemOperationModeAgrees() throws Exception {
 		assertConnections("Top.noSom");
 
-		InstanceRun run = isolated.run(MODEL, "Top.noSom");
-		InstanceSnapshot snapshot = InstanceSnapshot.of(run.instance(), run.errorManager());
+		var run = isolated.run(MODEL, "Top.noSom");
+		var snapshot = InstanceSnapshot.of(run.instance(), run.errorManager());
 		assertEquals(List.of(), InstanceReport.connectionLines(snapshot));
 		assertEquals(List.of("Warning | Connection feeder.emitter.outp -> drain.receiver.inp was removed because it is"
 				+ " not active in any system operation mode | at Top_noSom_Instance|SystemInstance"
@@ -126,8 +126,8 @@ public class Issue3037ModeAndFlowTest extends XtextTest {
 		assertConnections("Top.siblingFlows", "feeder.emitter.outp -> middle.worker.inp",
 				"middle.worker.outp -> drain.receiver.inp");
 
-		InstanceRun run = isolated.run(MODEL, "Top.siblingFlows");
-		InstanceSnapshot snapshot = InstanceSnapshot.of(run.instance(), run.errorManager());
+		var run = isolated.run(MODEL, "Top.siblingFlows");
+		var snapshot = InstanceSnapshot.of(run.instance(), run.errorManager());
 		assertEquals(3, InstanceReport.flowLines(snapshot).size());
 	}
 

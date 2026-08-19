@@ -75,9 +75,9 @@ public class IsolatedInstantiation {
 	 * @param implementationName the component implementation to instantiate
 	 */
 	public InstanceRun run(String modelPath, String implementationName) throws Exception {
-		AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
+		var errorManager = new AnalysisErrorReporterManager(
 				QueuingAnalysisErrorReporter.factory);
-		SystemInstance instance = InstantiateModel.instantiate(load(modelPath, implementationName), errorManager);
+		var instance = InstantiateModel.instantiate(load(modelPath, implementationName), errorManager);
 		return new InstanceRun(instance, errorManager);
 	}
 
@@ -86,14 +86,14 @@ public class IsolatedInstantiation {
 	 * implementation from it.
 	 */
 	public ComponentImplementation load(String modelPath, String implementationName) {
-		XtextResourceSet resourceSet = resourceSets.get();
-		Map<URI, URI> uriMap = resourceSet.getURIConverter().getURIMap();
-		for (URI uri : CONTRIBUTED) {
+		var resourceSet = resourceSets.get();
+		var uriMap = resourceSet.getURIConverter().getURIMap();
+		for (var uri : CONTRIBUTED) {
 			resourceSet.getResource(uri, true);
 			uriMap.put(uri, URI.createPlatformResourceURI(uri.path().substring(7), false));
 		}
 
-		Resource resource = testHelper.loadFile(modelPath, resourceSet);
+		var resource = testHelper.loadFile(modelPath, resourceSet);
 		if (resource == null || resource.getContents().isEmpty()) {
 			throw new IllegalStateException("Could not load " + modelPath + " into an isolated resource set");
 		}

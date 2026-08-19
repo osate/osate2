@@ -80,9 +80,9 @@ public record LegResult(LegRole role, ConnectionInstanceEnd terminal, List<Resol
 
 	/** Stable identity, for deterministic ordering and for tests. Never object identity. */
 	public String key() {
-		StringBuilder key = new StringBuilder(role.name());
+		var key = new StringBuilder(role.name());
 		key.append('|').append(PathKeys.instance(terminal)).append('|');
-		for (ResolvedSegment segment : segments) {
+		for (var segment : segments) {
 			key.append(PathKeys.declarative(segment.declaration())).append(segment.reverse() ? "(r)" : "(f)").append(',');
 		}
 		return key.append('|').append(reason).toString();

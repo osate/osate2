@@ -159,7 +159,7 @@ public class Issue3037AccessAndEndingTest extends XtextTest {
 
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
-		InstanceRun run = isolated.run(MODEL, implementation);
+		var run = isolated.run(MODEL, implementation);
 		return run.instance()
 				.getAllConnectionInstances()
 				.stream()

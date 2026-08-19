@@ -80,14 +80,14 @@ public final class PathMaterializer {
 	 */
 	public static ConnectionInstance materialize(SystemInstance systemInstance, SemanticConnectionPath path,
 			LeafExpansion.Endpoints endpoints) {
-		ComponentInstance container = container(systemInstance, path);
-		ConnectionInstance connection = InstanceFactory.eINSTANCE.createConnectionInstance();
+		var container = container(systemInstance, path);
+		var connection = InstanceFactory.eINSTANCE.createConnectionInstance();
 		connection.setName(name(container, systemInstance, path, endpoints));
 
-		ConnectionInstanceEnd source = endpoints.source();
+		var source = endpoints.source();
 		for (int i = 0; i < path.segments().size(); i++) {
-			ResolvedSegment segment = path.segments().get(i);
-			ConnectionReference reference = connection.createConnectionReference();
+			var segment = path.segments().get(i);
+			var reference = connection.createConnectionReference();
 			reference.setConnection(segment.declaration());
 			reference.setContext(segment.context());
 			reference.setSource(source);
@@ -107,7 +107,7 @@ public final class PathMaterializer {
 
 	/** The component instance that contains the connection. */
 	public static ComponentInstance container(SystemInstance systemInstance, SemanticConnectionPath path) {
-		ComponentInstance container = path.container();
+		var container = path.container();
 		return container == null ? systemInstance : container;
 	}
 
@@ -133,27 +133,21 @@ public final class PathMaterializer {
 	 * reached from, so a reference chain through nested feature groups stays continuous.
 	 */
 	private static ConnectionInstanceEnd narrow(ConnectionInstanceEnd source, ConnectionInstanceEnd destination) {
-		if (destination == null || source instanceof ComponentInstance || destination instanceof ComponentInstance) {
+		if (!(source instanceof FeatureInstance sourceFeature) || !(destination instanceof FeatureInstance
+				destinationFeature) || destinationFeature.getFeatureInstances().isEmpty()) {
 			return destination;
 		}
-		FeatureInstance destinationFeature = (FeatureInstance) destination;
-		if (destinationFeature.getFeatureInstances().isEmpty()) {
-			return destination;
+		if (!(sourceFeature.getOwner() instanceof FeatureInstance sourceParent)) {
+			return destinationFeature;
 		}
-		FeatureInstance parent = destinationFeature;
-		FeatureInstance sourceFeature = (FeatureInstance) source;
-		if (sourceFeature.getOwner() instanceof FeatureInstance sourceParent
-				&& sourceParent.getOwner() instanceof FeatureInstance) {
-			ConnectionInstanceEnd resolved = narrow(sourceParent, destinationFeature);
-			if (resolved instanceof FeatureInstance resolvedFeature) {
-				parent = resolvedFeature;
-			}
+		var parent = destinationFeature;
+		if (sourceParent.getOwner() instanceof FeatureInstance
+				&& narrow(sourceParent, destinationFeature) instanceof FeatureInstance resolved) {
+			parent = resolved;
 		}
-		if (sourceFeature.getOwner() instanceof FeatureInstance) {
-			for (FeatureInstance member : parent.getFeatureInstances()) {
-				if (Aadl2InstanceUtil.isSame(sourceFeature, member)) {
-					return member;
-				}
+		for (var member : parent.getFeatureInstances()) {
+			if (Aadl2InstanceUtil.isSame(sourceFeature, member)) {
+				return member;
 			}
 		}
 		return destinationFeature;
@@ -194,7 +188,7 @@ public final class PathMaterializer {
 	}
 
 	private static boolean isAccess(ConnectionInstanceEnd end) {
-		FeatureCategory category = category(end);
+		var category = category(end);
 		return category == BUS_ACCESS || category == DATA_ACCESS || category == SUBPROGRAM_ACCESS
 				|| category == SUBPROGRAM_GROUP_ACCESS;
 	}

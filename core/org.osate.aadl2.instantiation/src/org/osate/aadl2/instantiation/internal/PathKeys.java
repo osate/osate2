@@ -63,7 +63,7 @@ public final class PathKeys {
 		if (element == null) {
 			return NULL_KEY;
 		}
-		URI uri = EcoreUtil.getURI(element);
+		var uri = EcoreUtil.getURI(element);
 		if (uri == null) {
 			return NULL_KEY;
 		}
@@ -80,12 +80,10 @@ public final class PathKeys {
 		if (object == null) {
 			return NULL_KEY;
 		}
-		StringBuilder key = new StringBuilder(object.getInstanceObjectPath());
-		key.append('|').append(object.eClass().getName());
-		if (object instanceof FeatureInstance feature) {
-			key.append('|').append(feature.getCategory()).append('|').append(feature.getIndex());
-		}
-		return key.toString();
+		var key = object.getInstanceObjectPath() + "|" + object.eClass().getName();
+		return object instanceof FeatureInstance feature
+				? key + "|" + feature.getCategory() + "|" + feature.getIndex()
+				: key;
 	}
 
 	/** Key for an object that may be either declarative or an instance object. */

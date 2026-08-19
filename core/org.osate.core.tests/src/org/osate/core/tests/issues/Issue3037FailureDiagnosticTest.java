@@ -88,7 +88,7 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 		assertReports(BAD_PARAMETER, "P1.impl", "Connection source and destination are components");
 		assertReports(BAD_ACCESS, "Sys3.impl", "Connection source and destination are components");
 
-		InstanceRun run = isolated.run(BAD_PARAMETER, "T1.impl");
+		var run = isolated.run(BAD_PARAMETER, "T1.impl");
 		assertEquals(List.of("Error | Connection source and destination are components:"
 				+ " T1_impl_Instance.Data2 => T1_impl_Instance.Data1 | at T1_impl_Instance|SystemInstance"
 				+ " | in BadParameterConnection_T1_impl_Instance.aaxl2"),
@@ -109,8 +109,8 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 */
 	@Test
 	public void aMissingFeatureIsReportedForBothEndsOfTheDeclaration() throws Exception {
-		InstanceRun run = isolated.run(MISSING_FEATURE, "s.impl3");
-		InstanceSnapshot actual = InstanceSnapshot.of(run.instance(), run.errorManager());
+		var run = isolated.run(MISSING_FEATURE, "s.impl3");
+		var actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
 		/*
 		 * The baseline reported one error for the end its traversal was reaching for, "Destination
@@ -135,8 +135,8 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 */
 	@Test
 	public void aMissingSubcomponentInstanceIsReportedWithoutThePrefix() throws Exception {
-		InstanceRun run = isolated.run(MISSING_SUBCOMPONENT, "Top.i");
-		InstanceSnapshot actual = InstanceSnapshot.of(run.instance(), run.errorManager());
+		var run = isolated.run(MISSING_SUBCOMPONENT, "Top.i");
+		var actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
 		// The baseline prefixed the same report, on the same target, with "Instantiation error:".
 		assertEquals("allowlist entry 7: the resolver's own wording",
@@ -183,8 +183,8 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 
 	/** The run reports {@code message}, whatever else it reports. */
 	private void assertReports(String model, String implementation, String message) throws Exception {
-		InstanceRun run = isolated.run(model, implementation);
-		List<String> reports = InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager()));
+		var run = isolated.run(model, implementation);
+		var reports = InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager()));
 		assertEquals(implementation + " reports " + reports, true,
 				reports.stream().anyMatch(line -> line.contains(message)));
 	}
@@ -194,8 +194,8 @@ public class Issue3037FailureDiagnosticTest extends XtextTest {
 	 * records what the baseline said about it before allowlist entry 8 released the report.
 	 */
 	private void assertNoReportAbout(String model, String implementation, String baselineWarning) throws Exception {
-		InstanceRun run = isolated.run(model, implementation);
-		InstanceSnapshot actual = InstanceSnapshot.of(run.instance(), run.errorManager());
+		var run = isolated.run(model, implementation);
+		var actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
 		assertEquals("allowlist entry 8: " + baselineWarning + " is gone", List.of(),
 				InstanceReport.diagnosticSet(actual)

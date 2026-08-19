@@ -51,13 +51,13 @@ public record DiagnosticDescriptor(String severity, String message, String targe
 	 *             cannot be compared between runs
 	 */
 	public static List<DiagnosticDescriptor> of(AnalysisErrorReporterManager manager, Resource resource) {
-		AnalysisErrorReporter reporter = manager.getReporter(resource);
+		var reporter = manager.getReporter(resource);
 		if (!(reporter instanceof QueuingAnalysisErrorReporter queuing)) {
 			throw new IllegalArgumentException("Characterization requires a queuing in-memory error reporter, but got "
 					+ (reporter == null ? "null" : reporter.getClass().getName()));
 		}
-		List<DiagnosticDescriptor> diagnostics = new ArrayList<>();
-		for (QueuingAnalysisErrorReporter.Message message : queuing.getErrors()) {
+		var diagnostics = new ArrayList<DiagnosticDescriptor>();
+		for (var message : queuing.getErrors()) {
 			Resource target = message.where == null ? null : message.where.eResource();
 			String resourceName = target == null || target.getURI() == null ? InstanceKeys.NULL_KEY
 					: target.getURI().lastSegment();

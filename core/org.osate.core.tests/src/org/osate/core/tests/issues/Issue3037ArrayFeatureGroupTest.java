@@ -172,8 +172,8 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	 */
 	@Test
 	public void anArrayReachingIntoAMemberAcrossAPivotLosesAllButTheFirstElement() throws Exception {
-		InstanceRun run = isolated.run(MODEL, "Top.reachedInto");
-		InstanceSnapshot actual = InstanceSnapshot.of(run.instance(), run.errorManager());
+		var run = isolated.run(MODEL, "Top.reachedInto");
+		var actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
 		assertEquals("producers[2] is missing, and the survivor is the provisional connection",
 				List.of("collector.consumer.bundle.ack -> reacher.bundle.ack",
@@ -225,7 +225,7 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
-		InstanceRun run = isolated.run(MODEL, implementation);
+		var run = isolated.run(MODEL, implementation);
 		return run.instance()
 				.getAllConnectionInstances()
 				.stream()

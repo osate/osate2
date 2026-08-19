@@ -100,7 +100,7 @@ public class Issue3037ReferencedRootTest extends XtextTest {
 	 */
 	@Test
 	public void theResourceCarriesTheReferencedRoots() throws Exception {
-		InstanceRun run = isolated.run(MODEL, "Top.referenced");
+		var run = isolated.run(MODEL, "Top.referenced");
 
 		assertEquals(List.of("feeder.worker.outp -> drain.worker.inp"), names(run.instance()));
 		assertEquals(List.of("ReferencedClassifiers::Element", "ReferencedClassifiers::Payload.i"),

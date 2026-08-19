@@ -46,8 +46,8 @@ public final class InstanceReport {
 	 * rendering is independent of collection order.
 	 */
 	public static List<String> connectionLines(InstanceSnapshot snapshot) {
-		List<String> lines = new ArrayList<>();
-		for (ConnectionDescriptor descriptor : snapshot.allConnections()) {
+		var lines = new ArrayList<String>();
+		for (var descriptor : snapshot.allConnections()) {
 			lines.add(render(descriptor));
 		}
 		return InstanceKeys.sorted(lines);
@@ -55,8 +55,8 @@ public final class InstanceReport {
 
 	/** End-to-end flow lines, keyed and sorted, independent of collection order. */
 	public static List<String> flowLines(InstanceSnapshot snapshot) {
-		List<String> lines = new ArrayList<>();
-		for (FlowDescriptor descriptor : snapshot.allFlows()) {
+		var lines = new ArrayList<String>();
+		for (var descriptor : snapshot.allFlows()) {
 			lines.add(render(descriptor));
 		}
 		return InstanceKeys.sorted(lines);
@@ -64,8 +64,8 @@ public final class InstanceReport {
 
 	/** Diagnostic lines, in report order, which is itself part of the behavior. */
 	public static List<String> diagnosticLines(InstanceSnapshot snapshot) {
-		List<String> lines = new ArrayList<>();
-		for (DiagnosticDescriptor diagnostic : snapshot.diagnostics()) {
+		var lines = new ArrayList<String>();
+		for (var diagnostic : snapshot.diagnostics()) {
 			lines.add(diagnostic.severity() + " | " + diagnostic.message() + " | at " + diagnostic.targetKey() + " | in "
 					+ diagnostic.resourceName());
 		}
@@ -94,7 +94,7 @@ public final class InstanceReport {
 	 * collection position is intentionally observable.
 	 */
 	public static List<String> connectionOrderLines(InstanceSnapshot snapshot) {
-		List<String> lines = new ArrayList<>();
+		var lines = new ArrayList<String>();
 		snapshot.connectionOrderByContainer()
 				.forEach((container, names) -> lines.add(container + " => " + String.join(", ", names)));
 		return InstanceKeys.sorted(lines);
@@ -102,15 +102,15 @@ public final class InstanceReport {
 
 	/** Per-container collection order of end-to-end flows. */
 	public static List<String> flowOrderLines(InstanceSnapshot snapshot) {
-		List<String> lines = new ArrayList<>();
+		var lines = new ArrayList<String>();
 		snapshot.flowOrderByContainer()
 				.forEach((container, names) -> lines.add(container + " => " + String.join(", ", names)));
 		return InstanceKeys.sorted(lines);
 	}
 
 	private static String render(ConnectionDescriptor descriptor) {
-		ConnectionDescriptor.Key key = descriptor.key();
-		StringBuilder line = new StringBuilder();
+		var key = descriptor.key();
+		var line = new StringBuilder();
 		line.append("name='").append(descriptor.name()).append('\'');
 		line.append(" kind=").append(descriptor.kind());
 		line.append(" complete=").append(descriptor.complete());
@@ -127,14 +127,14 @@ public final class InstanceReport {
 	}
 
 	private static String render(FlowDescriptor descriptor) {
-		FlowDescriptor.Key key = descriptor.key();
+		var key = descriptor.key();
 		return "flow='" + key.name() + "' container=" + key.containerKey() + " declaration=" + key.declarationKey()
 				+ " elements=" + key.elementKeys() + " soms=" + descriptor.systemOperationModes();
 	}
 
 	/** Complete rendering, for baseline capture and for debugging output. */
 	public static String full(InstanceSnapshot snapshot) {
-		StringBuilder report = new StringBuilder();
+		var report = new StringBuilder();
 		section(report, "connections", connectionLines(snapshot));
 		section(report, "connection collection order", connectionOrderLines(snapshot));
 		section(report, "end-to-end flows", flowLines(snapshot));

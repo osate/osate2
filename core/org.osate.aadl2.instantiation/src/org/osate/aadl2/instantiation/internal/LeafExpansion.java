@@ -24,17 +24,11 @@
 package org.osate.aadl2.instantiation.internal;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.Connection;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.contrib.modeling.ClassifierMatchingRule;
 import org.osate.aadl2.contrib.modeling.ModelingProperties;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -80,7 +74,7 @@ public final class LeafExpansion {
 	 * expands to itself when its directions allow, and to nothing when they do not.
 	 */
 	public static List<Endpoints> expand(SemanticConnectionPath path) {
-		List<Endpoints> expanded = new ArrayList<>();
+		var expanded = new ArrayList<Endpoints>();
 		expand(path, path.source(), path.destination(), expanded);
 		return List.copyOf(expanded);
 	}
@@ -127,9 +121,9 @@ public final class LeafExpansion {
 	 * </p>
 	 */
 	public static ConnectionInstanceEnd correspondingSource(SemanticConnectionPath path) {
-		ConnectionInstanceEnd current = path.destination();
+		var current = path.destination();
 		for (int i = path.segments().size() - 1; i >= 0; i--) {
-			ResolvedSegment segment = path.segments().get(i);
+			var segment = path.segments().get(i);
 			current = mapAcrossSegment(segment.destination(), segment.source(), current);
 			if (current == null) {
 				return path.source();
@@ -159,7 +153,7 @@ public final class LeafExpansion {
 	 */
 	static ConnectionInstanceEnd continuation(ConnectionInstanceEnd from, ConnectionInstanceEnd to,
 			ConnectionInstanceEnd position) {
-		ConnectionInstanceEnd mapped = mapAcrossSegment(from, to, position);
+		var mapped = mapAcrossSegment(from, to, position);
 		return mapped == null ? to : mapped;
 	}
 
@@ -169,8 +163,8 @@ public final class LeafExpansion {
 	 */
 	private static ConnectionInstanceEnd mapAcrossSegment(ConnectionInstanceEnd from, ConnectionInstanceEnd to,
 			ConnectionInstanceEnd end) {
-		ConnectionInstanceEnd mapped = to;
-		for (FeatureInstance member : membersBelow(from, end)) {
+		var mapped = to;
+		for (var member : membersBelow(from, end)) {
 			if (!(mapped instanceof FeatureInstance group)) {
 				return null;
 			}
@@ -187,11 +181,11 @@ public final class LeafExpansion {
 	 * when {@code inner} is {@code outer} itself or sits above it.
 	 */
 	static List<FeatureInstance> membersBelow(ConnectionInstanceEnd outer, ConnectionInstanceEnd inner) {
-		List<FeatureInstance> members = new ArrayList<>();
+		var members = new ArrayList<FeatureInstance>();
 		for (Object current = inner; current instanceof FeatureInstance feature; current = feature.getOwner()) {
 			if (feature == outer) {
-				Collections.reverse(members);
-				return members;
+				// collected inner to outer, wanted outer to inner
+				return members.reversed();
 			}
 			members.add(feature);
 		}
@@ -204,7 +198,7 @@ public final class LeafExpansion {
 	 * feature group type renames its features.
 	 */
 	static FeatureInstance matchingMember(FeatureInstance group, FeatureInstance member) {
-		for (FeatureInstance candidate : group.getFeatureInstances()) {
+		for (var candidate : group.getFeatureInstances()) {
 			if (candidate.getName().equalsIgnoreCase(member.getName())) {
 				return candidate;
 			}
@@ -284,7 +278,7 @@ public final class LeafExpansion {
 		if (path.complete()) {
 			return false;
 		}
-		ComponentInstance destinationComponent = destination.getContainingComponentInstance();
+		var destinationComponent = destination.getContainingComponentInstance();
 		for (Element component = source.getContainingComponentInstance(); component != null; component = component
 				.getOwner()) {
 			if (component == destinationComponent) {
@@ -296,14 +290,14 @@ public final class LeafExpansion {
 
 	private static void expandAgainstLeafSource(SemanticConnectionPath path, FeatureInstance source,
 			FeatureInstance destinationGroup, List<Endpoints> expanded) {
-		FeatureInstance destination = findDestinationFeature(path, destinationGroup);
+		var destination = findDestinationFeature(path, destinationGroup);
 		if (destination != null && (path.complete() ? destination.getFlowDirection().incoming()
 				: destination.getFlowDirection().outgoing())) {
 			expand(path, source, destination, expanded);
 		} else if (source.getCategory() == FeatureCategory.FEATURE_GROUP) {
 			// A feature group with no type, or an empty one, pairs with every member.
 			boolean upOnly = isUpOnly(path, source, destinationGroup);
-			for (FeatureInstance member : destinationGroup.getFeatureInstances()) {
+			for (var member : destinationGroup.getFeatureInstances()) {
 				if (upOnly ? member.getFlowDirection().outgoing() : member.getFlowDirection().incoming()) {
 					expand(path, source, member, expanded);
 				}
@@ -315,13 +309,13 @@ public final class LeafExpansion {
 
 	private static void expandAgainstLeafDestination(SemanticConnectionPath path, FeatureInstance sourceGroup,
 			FeatureInstance destination, List<Endpoints> expanded) {
-		FeatureInstance source = findSourceFeature(path, sourceGroup);
+		var source = findSourceFeature(path, sourceGroup);
 		if (source != null && (path.complete() ? source.getFlowDirection().outgoing()
 				: source.getFlowDirection().incoming())) {
 			expand(path, source, destination, expanded);
 		} else if (destination.getCategory() == FeatureCategory.FEATURE_GROUP) {
 			boolean downOnly = !path.complete() && !isUpOnly(path, sourceGroup, destination);
-			for (FeatureInstance member : sourceGroup.getFeatureInstances()) {
+			for (var member : sourceGroup.getFeatureInstances()) {
 				if (downOnly ? member.getFlowDirection().incoming() : member.getFlowDirection().outgoing()) {
 					expand(path, member, destination, expanded);
 				}
@@ -339,10 +333,10 @@ public final class LeafExpansion {
 	private static void expandGroupToGroup(SemanticConnectionPath path, FeatureInstance sourceGroup,
 			FeatureInstance destinationGroup, List<Endpoints> expanded) {
 		if (isSubsetMatch(path)) {
-			for (FeatureInstance destination : destinationGroup.getFeatureInstances()) {
+			for (var destination : destinationGroup.getFeatureInstances()) {
 				if (path.complete() ? destination.getFlowDirection().incoming()
 						: destination.getFlowDirection().outgoing()) {
-					FeatureInstance source = findLeafNamed(sourceGroup, destination.getName());
+					var source = findLeafNamed(sourceGroup, destination.getName());
 					if (source != null) {
 						expand(path, source, destination, expanded);
 					}
@@ -350,20 +344,20 @@ public final class LeafExpansion {
 			}
 			return;
 		}
-		Iterator<FeatureInstance> sources = sourceGroup.getFeatureInstances().iterator();
-		Iterator<FeatureInstance> destinations = destinationGroup.getFeatureInstances().iterator();
-		while (sources.hasNext() && destinations.hasNext()) {
-			expand(path, sources.next(), destinations.next(), expanded);
-		}
-		if (sources.hasNext() || destinations.hasNext()) {
+		var sources = sourceGroup.getFeatureInstances();
+		var destinations = destinationGroup.getFeatureInstances();
+		if (sources.size() != destinations.size()) {
 			throw new IllegalStateException("Connected feature groups do not have the same number of features: "
 					+ PathKeys.instance(sourceGroup) + " and " + PathKeys.instance(destinationGroup));
+		}
+		for (var i = 0; i < sources.size(); i++) {
+			expand(path, sources.get(i), destinations.get(i), expanded);
 		}
 	}
 
 	private static boolean isSubsetMatch(SemanticConnectionPath path) {
-		for (ResolvedSegment segment : path.segments()) {
-			Connection declaration = segment.declaration();
+		for (var segment : path.segments()) {
+			var declaration = segment.declaration();
 			if (ModelingProperties.getClassifierMatchingRule(declaration)
 					.orElse(null) == ClassifierMatchingRule.SUBSET) {
 				return true;
@@ -380,7 +374,7 @@ public final class LeafExpansion {
 	 */
 	private static FeatureInstance findDestinationFeature(SemanticConnectionPath path, FeatureInstance group) {
 		ConnectionInstanceEnd target = null;
-		for (ResolvedSegment segment : path.segments()) {
+		for (var segment : path.segments()) {
 			if (target != null && target != segment.source()) {
 				if (segment.source() == target.eContainer()) {
 					return mapAcross(group, (FeatureInstance) segment.source(), target);
@@ -394,9 +388,9 @@ public final class LeafExpansion {
 	/** The mirror of {@link #findDestinationFeature}, walking the path backwards. */
 	private static FeatureInstance findSourceFeature(SemanticConnectionPath path, FeatureInstance group) {
 		ConnectionInstanceEnd target = null;
-		List<ResolvedSegment> segments = path.segments();
+		var segments = path.segments();
 		for (int i = segments.size() - 1; i >= 0; i--) {
-			ResolvedSegment segment = segments.get(i);
+			var segment = segments.get(i);
 			if (target != null && target != segment.destination()) {
 				if (segment.destination() == target.eContainer()) {
 					return mapAcross(group, (FeatureInstance) segment.destination(), target);
@@ -409,7 +403,7 @@ public final class LeafExpansion {
 
 	private static FeatureInstance mapAcross(FeatureInstance group, FeatureInstance otherGroup,
 			ConnectionInstanceEnd member) {
-		FeatureInstance matched = findLeafNamed(group, member.getName());
+		var matched = findLeafNamed(group, member.getName());
 		if (matched != null) {
 			return matched;
 		}
@@ -419,8 +413,8 @@ public final class LeafExpansion {
 
 	/** The first leaf under {@code group} with this name. */
 	private static FeatureInstance findLeafNamed(FeatureInstance group, String name) {
-		for (TreeIterator<EObject> contents = group.eAllContents(); contents.hasNext();) {
-			EObject next = contents.next();
+		for (var contents = group.eAllContents(); contents.hasNext();) {
+			var next = contents.next();
 			if (next instanceof FeatureInstance feature && isLeaf(feature) && feature.getName().equalsIgnoreCase(name)) {
 				return feature;
 			}

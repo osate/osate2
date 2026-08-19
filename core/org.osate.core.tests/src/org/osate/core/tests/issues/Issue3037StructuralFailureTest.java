@@ -141,7 +141,7 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
-		InstanceRun run = isolated.run(MODEL, implementation);
+		var run = isolated.run(MODEL, implementation);
 		return run.instance()
 				.getAllConnectionInstances()
 				.stream()
@@ -157,7 +157,7 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 	 * all, which is the part worth reading.
 	 */
 	private List<String> messages(String implementation) throws Exception {
-		InstanceRun run = isolated.run(MODEL, implementation);
+		var run = isolated.run(MODEL, implementation);
 		return InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager()))
 				.stream()
 				.map(line -> line.substring(0, line.indexOf(" | at ")))

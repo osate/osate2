@@ -55,15 +55,15 @@ public record FeaturePath(List<FeaturePathElement> elements) {
 		if (element == null) {
 			throw new IllegalArgumentException("Cannot append a null feature path element");
 		}
-		List<FeaturePathElement> extended = new ArrayList<>(elements);
+		var extended = new ArrayList<>(elements);
 		extended.add(element);
 		return new FeaturePath(extended);
 	}
 
 	/** Stable identity of the whole chain. Never uses object identity. */
 	public String key() {
-		StringBuilder key = new StringBuilder();
-		for (FeaturePathElement element : elements) {
+		var key = new StringBuilder();
+		for (var element : elements) {
 			key.append(element.key()).append('/');
 		}
 		return key.toString();

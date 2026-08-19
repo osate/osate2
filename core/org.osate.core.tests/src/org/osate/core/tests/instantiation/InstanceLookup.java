@@ -116,7 +116,7 @@ public final class InstanceLookup {
 	 * </p>
 	 */
 	public static ConnectionInstance connectionThrough(ComponentInstance container, Connection... declarations) {
-		List<Connection> wanted = List.of(declarations);
+		var wanted = List.of(declarations);
 		List<ConnectionInstance> matches = container.getConnectionInstances()
 				.stream()
 				.filter(connection -> declarationsOf(connection).equals(wanted))
@@ -170,8 +170,8 @@ public final class InstanceLookup {
 	}
 
 	private static String sortKey(ConnectionInstance connection) {
-		StringBuilder key = new StringBuilder(String.valueOf(connection.getName()));
-		for (ConnectionReference reference : connection.getConnectionReferences()) {
+		var key = new StringBuilder(String.valueOf(connection.getName()));
+		for (var reference : connection.getConnectionReferences()) {
 			key.append('|')
 					.append(reference.getConnection() == null ? "?" : reference.getConnection().getName())
 					.append(reference.isReverse() ? "(r)" : "(f)");
@@ -186,7 +186,7 @@ public final class InstanceLookup {
 	 * is the real assertion.
 	 */
 	public static ConnectionInstance onlyConnection(ComponentInstance container) {
-		List<ConnectionInstance> connections = container.getConnectionInstances();
+		var connections = container.getConnectionInstances();
 		if (connections.size() == 1) {
 			return connections.get(0);
 		}
@@ -196,7 +196,7 @@ public final class InstanceLookup {
 
 	/** The one end-to-end flow instance {@code container} contains. */
 	public static EndToEndFlowInstance onlyFlow(ComponentInstance container) {
-		List<EndToEndFlowInstance> flows = container.getEndToEndFlows();
+		var flows = container.getEndToEndFlows();
 		if (flows.size() == 1) {
 			return flows.get(0);
 		}

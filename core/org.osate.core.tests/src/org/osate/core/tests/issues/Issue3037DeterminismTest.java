@@ -70,16 +70,16 @@ public class Issue3037DeterminismTest extends XtextTest {
 	 */
 	@Test
 	public void repeatedRunsAreIsolatedAndIdentical() throws Exception {
-		InstanceRun first = isolated.run(MODEL, "Sys.Imp");
-		InstanceRun second = isolated.run(MODEL, "Sys.Imp");
+		var first = isolated.run(MODEL, "Sys.Imp");
+		var second = isolated.run(MODEL, "Sys.Imp");
 
 		// Isolation: nothing is shared, so no comparison can rest on object identity.
 		assertNotSame(first.instance(), second.instance());
 		assertNotSame(first.instance().eResource().getResourceSet(), second.instance().eResource().getResourceSet());
 		assertNotSame(first.instance().getComponentImplementation(), second.instance().getComponentImplementation());
 
-		InstanceSnapshot firstSnapshot = InstanceSnapshot.of(first.instance(), first.errorManager());
-		InstanceSnapshot secondSnapshot = InstanceSnapshot.of(second.instance(), second.errorManager());
+		var firstSnapshot = InstanceSnapshot.of(first.instance(), first.errorManager());
+		var secondSnapshot = InstanceSnapshot.of(second.instance(), second.errorManager());
 
 		assertEquals(InstanceReport.full(firstSnapshot), InstanceReport.full(secondSnapshot));
 		assertEquals(InstanceReport.connectionOrderLines(firstSnapshot),

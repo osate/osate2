@@ -114,8 +114,8 @@ public class Issue3037DuplicateTraversalTest extends XtextTest {
 				.orElseThrow();
 		var errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);
 
-		SystemInstance instance = InstantiateModel.instantiate(top, errorManager);
-		InstanceSnapshot snapshot = InstanceSnapshot.of(instance, errorManager);
+		var instance = InstantiateModel.instantiate(top, errorManager);
+		var snapshot = InstanceSnapshot.of(instance, errorManager);
 
 		assertEquals(List.of(), InstanceIntegrity.check(instance));
 		assertEquals(List.of(), InstanceReport.diagnosticLines(snapshot));
@@ -155,7 +155,7 @@ public class Issue3037DuplicateTraversalTest extends XtextTest {
 				.orElseThrow();
 		var errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);
 
-		InstanceSnapshot snapshot = InstanceSnapshot.of(InstantiateModel.instantiate(top, errorManager), errorManager);
+		var snapshot = InstanceSnapshot.of(InstantiateModel.instantiate(top, errorManager), errorManager);
 
 		assertEquals(List.of("Sys_Imp_Instance.proc|ComponentInstance => ",
 				"Sys_Imp_Instance.sub.iproc|ComponentInstance => ", "Sys_Imp_Instance.sub|ComponentInstance => ",

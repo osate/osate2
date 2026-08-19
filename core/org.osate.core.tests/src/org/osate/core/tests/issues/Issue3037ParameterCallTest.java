@@ -110,7 +110,7 @@ public class Issue3037ParameterCallTest extends XtextTest {
 
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
-		InstanceRun run = isolated.run(MODEL, implementation);
+		var run = isolated.run(MODEL, implementation);
 		return roots(run).stream()
 				.flatMap(root -> root.getAllConnectionInstances().stream())
 				.map(ConnectionInstance::getName)
@@ -120,7 +120,7 @@ public class Issue3037ParameterCallTest extends XtextTest {
 
 	/** The component instances of a run, so that a vacuous fixture cannot pass. */
 	private List<String> componentPaths(String implementation) throws Exception {
-		InstanceRun run = isolated.run(MODEL, implementation);
+		var run = isolated.run(MODEL, implementation);
 		return run.instance()
 				.getAllComponentInstances()
 				.stream()

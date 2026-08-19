@@ -62,7 +62,7 @@ public final class InstanceCharacterization {
 	 */
 	public static InstanceRun assertConnections(IsolatedInstantiation isolated, String model, String implementation,
 			String... expected) throws Exception {
-		InstanceRun run = isolated.run(model, implementation);
+		var run = isolated.run(model, implementation);
 		assertEquals(implementation + " connections", List.of(expected), names(run));
 		assertEquals(implementation + " integrity", List.of(), InstanceIntegrity.check(run.instance()));
 		return run;
@@ -85,11 +85,11 @@ public final class InstanceCharacterization {
 	 */
 	public static InstanceRun assertConnectionsWithStaleArrayReferences(IsolatedInstantiation isolated, String model,
 			String implementation, int staleReferences, String... expected) throws Exception {
-		InstanceRun run = isolated.run(model, implementation);
+		var run = isolated.run(model, implementation);
 		assertEquals(implementation + " connections", List.of(expected), names(run));
-		List<String> violations = InstanceIntegrity.check(run.instance());
+		var violations = InstanceIntegrity.check(run.instance());
 		assertEquals(implementation + " integrity " + violations, staleReferences, violations.size());
-		for (String violation : violations) {
+		for (var violation : violations) {
 			assertEquals(implementation + " unexpected violation: " + violation, true,
 					violation.contains("does not match first reference source"));
 		}

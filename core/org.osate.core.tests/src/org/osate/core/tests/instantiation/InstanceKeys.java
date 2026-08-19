@@ -68,7 +68,7 @@ public final class InstanceKeys {
 		if (element == null) {
 			return NULL_KEY;
 		}
-		URI uri = EcoreUtil.getURI(element);
+		var uri = EcoreUtil.getURI(element);
 		if (uri == null) {
 			return NULL_KEY;
 		}
@@ -85,7 +85,7 @@ public final class InstanceKeys {
 		if (object == null) {
 			return NULL_KEY;
 		}
-		StringBuilder key = new StringBuilder(object.getInstanceObjectPath());
+		var key = new StringBuilder(object.getInstanceObjectPath());
 		key.append('|').append(object.eClass().getName());
 		if (object instanceof FeatureInstance feature) {
 			key.append('|').append(feature.getCategory()).append('|').append(feature.getIndex());
@@ -115,7 +115,7 @@ public final class InstanceKeys {
 	 * </p>
 	 */
 	public static String structural(EObject object) {
-		StringBuilder rendered = new StringBuilder();
+		var rendered = new StringBuilder();
 		render(rendered, object);
 		return rendered.toString();
 	}
@@ -126,15 +126,15 @@ public final class InstanceKeys {
 			return;
 		}
 		rendered.append(object.eClass().getName()).append('(');
-		for (EStructuralFeature feature : object.eClass().getEAllStructuralFeatures()) {
+		for (var feature : object.eClass().getEAllStructuralFeatures()) {
 			if (feature.isDerived() || feature.isTransient() || !object.eIsSet(feature)) {
 				continue;
 			}
 			rendered.append(feature.getName()).append('=');
-			if (feature instanceof EAttribute) {
-				rendered.append(object.eGet(feature));
+			if (feature instanceof EReference reference) {
+				renderReference(rendered, object, reference);
 			} else {
-				renderReference(rendered, object, (EReference) feature);
+				rendered.append(object.eGet(feature));
 			}
 			rendered.append(';');
 		}
@@ -145,7 +145,7 @@ public final class InstanceKeys {
 		Object value = object.eGet(reference);
 		if (reference.isMany()) {
 			rendered.append('[');
-			for (Object element : (List<?>) value) {
+			for (var element : (List<?>) value) {
 				renderTarget(rendered, reference, (EObject) element);
 				rendered.append(',');
 			}
@@ -169,7 +169,7 @@ public final class InstanceKeys {
 	 * the order in which the pipeline happened to add them.
 	 */
 	public static List<String> sorted(List<String> keys) {
-		List<String> copy = new ArrayList<>(keys);
+		var copy = new ArrayList<>(keys);
 		copy.sort(Comparator.naturalOrder());
 		return List.copyOf(copy);
 	}

@@ -81,7 +81,7 @@ public record SemanticConnectionKey(String containerKey, String sourceKey, Strin
 	 * endpoint paths, by the materializer, and are unchanged by this work.
 	 */
 	public String render() {
-		StringBuilder rendered = new StringBuilder(sourceKey).append(" -> ").append(destinationKey).append(" | ");
+		var rendered = new StringBuilder(sourceKey).append(" -> ").append(destinationKey).append(" | ");
 		for (int i = 0; i < declarationKeys.size(); i++) {
 			rendered.append(declarationKeys.get(i)).append(reverseFlags.get(i) ? "(r)" : "(f)").append('@')
 					.append(contextKeys.get(i)).append(',');
@@ -91,11 +91,11 @@ public record SemanticConnectionKey(String containerKey, String sourceKey, Strin
 
 	/** The identity of {@code path}. */
 	public static SemanticConnectionKey of(SemanticConnectionPath path) {
-		List<String> declarations = new ArrayList<>();
-		List<String> contexts = new ArrayList<>();
-		List<Boolean> reverseFlags = new ArrayList<>();
-		List<String> featurePaths = new ArrayList<>();
-		for (ResolvedSegment segment : path.segments()) {
+		var declarations = new ArrayList<String>();
+		var contexts = new ArrayList<String>();
+		var reverseFlags = new ArrayList<Boolean>();
+		var featurePaths = new ArrayList<String>();
+		for (var segment : path.segments()) {
 			declarations.add(PathKeys.declarative(segment.declaration()));
 			contexts.add(PathKeys.instance(segment.context()));
 			reverseFlags.add(segment.reverse());

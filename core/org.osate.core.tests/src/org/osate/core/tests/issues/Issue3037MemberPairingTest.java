@@ -90,7 +90,7 @@ public class Issue3037MemberPairingTest extends XtextTest {
 		InstanceCharacterization.assertConnections(isolated, UNCONTINUED, "Receiver.impl",
 				"sensor_bundle.data_line -> consumer.data_in");
 
-		InstanceRun run = isolated.run(UNCONTINUED, "TriggerTop.impl");
+		var run = isolated.run(UNCONTINUED, "TriggerTop.impl");
 		assertEquals(List.of("sender.emitter.alarm_out -> receiver.sensor_bundle.alarm_line",
 				"sender.emitter.data_out -> receiver.consumer.data_in"), names(run));
 		assertEquals(List.of("Warning | Could not continue connection from"

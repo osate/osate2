@@ -87,12 +87,12 @@ public final class EndpointResolver {
 		if (side == null) {
 			return Resolution.notApplicable("the declaration has no connected element on this side");
 		}
-		ConnectionEnd end = side.getConnectionEnd();
-		Context context = side.getContext();
+		var end = side.getConnectionEnd();
+		var context = side.getContext();
 
 		// A side that is a component: an access connection ending at a shared component.
 		if (end instanceof Subcomponent subcomponent) {
-			ComponentInstance instance = container.findSubcomponentInstance(subcomponent);
+			var instance = container.findSubcomponentInstance(subcomponent);
 			return instance == null
 					? Resolution.failed(diagnosticTarget,
 							"No component instance for subcomponent " + subcomponent.getName())
@@ -125,8 +125,8 @@ public final class EndpointResolver {
 					"connection end " + end.getClass().getSimpleName() + " is neither a feature nor a subcomponent");
 		}
 
-		ComponentInstance owner = container;
-		FeaturePath path = FeaturePath.EMPTY;
+		var owner = container;
+		var path = FeaturePath.EMPTY;
 		FeatureInstance current = null;
 
 		if (context instanceof Subcomponent subcomponent) {
@@ -137,7 +137,7 @@ public final class EndpointResolver {
 			}
 		} else if (context instanceof FeatureGroup featureGroup) {
 			// Reaching into a feature group of the enclosing component.
-			FeatureInstance group = owner.findFeatureInstance(featureGroup);
+			var group = owner.findFeatureInstance(featureGroup);
 			if (group == null) {
 				return Resolution.failed(diagnosticTarget,
 						"No feature instance for feature group " + featureGroup.getName() + " of "
@@ -172,17 +172,17 @@ public final class EndpointResolver {
 	 * source-first traversal does when it descends a feature group.
 	 */
 	private static FeatureInstance child(FeatureInstance parent, Feature feature) {
-		for (FeatureInstance candidate : parent.getFeatureInstances()) {
+		for (var candidate : parent.getFeatureInstances()) {
 			if (candidate.getFeature() == feature) {
 				return candidate;
 			}
 		}
-		for (FeatureInstance candidate : parent.getFeatureInstances()) {
+		for (var candidate : parent.getFeatureInstances()) {
 			if (feature.getAllFeatureRefinements().contains(candidate.getFeature())) {
 				return candidate;
 			}
 		}
-		for (FeatureInstance candidate : parent.getFeatureInstances()) {
+		for (var candidate : parent.getFeatureInstances()) {
 			if (candidate.getName().equalsIgnoreCase(feature.getName())) {
 				return candidate;
 			}

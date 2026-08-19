@@ -70,9 +70,9 @@ public final class InstanceIntegrity {
 	 * </p>
 	 */
 	public static List<String> check(SystemInstance instance) {
-		List<String> violations = new ArrayList<>();
+		var violations = new ArrayList<String>();
 		checkRoot(instance, violations);
-		for (EObject root : instance.eResource().getContents()) {
+		for (var root : instance.eResource().getContents()) {
 			if (root instanceof ComponentInstance referenced && referenced != instance) {
 				checkRoot(referenced, violations);
 			}
@@ -82,9 +82,9 @@ public final class InstanceIntegrity {
 	}
 
 	private static void checkRoot(ComponentInstance root, List<String> violations) {
-		Set<ConnectionInstance> contained = containedConnections(root);
+		var contained = containedConnections(root);
 
-		for (ConnectionInstance connection : contained) {
+		for (var connection : contained) {
 			checkEndpoints(connection, violations);
 			checkReferenceChain(connection, violations);
 			checkAcrossCount(connection, violations);
@@ -106,7 +106,7 @@ public final class InstanceIntegrity {
 
 	private static void collectContained(ComponentInstance container, Set<ConnectionInstance> contained) {
 		contained.addAll(container.getConnectionInstances());
-		for (ComponentInstance child : container.getComponentInstances()) {
+		for (var child : container.getComponentInstances()) {
 			collectContained(child, contained);
 		}
 	}
@@ -121,21 +121,21 @@ public final class InstanceIntegrity {
 	}
 
 	private static void checkReferenceChain(ConnectionInstance connection, List<String> violations) {
-		List<ConnectionReference> references = connection.getConnectionReferences();
+		var references = connection.getConnectionReferences();
 		if (references.isEmpty()) {
 			violations.add(describe(connection) + ": has no connection references");
 			return;
 		}
 		for (int i = 0; i < references.size() - 1; i++) {
-			ConnectionInstanceEnd end = references.get(i).getDestination();
-			ConnectionInstanceEnd next = references.get(i + 1).getSource();
+			var end = references.get(i).getDestination();
+			var next = references.get(i + 1).getSource();
 			if (!samePoint(end, next)) {
 				violations.add(describe(connection) + ": reference chain breaks between index " + i + " and " + (i + 1)
 						+ " (" + InstanceKeys.instance(end) + " != " + InstanceKeys.instance(next) + ")");
 			}
 		}
-		ConnectionInstanceEnd first = references.get(0).getSource();
-		ConnectionInstanceEnd last = references.get(references.size() - 1).getDestination();
+		var first = references.get(0).getSource();
+		var last = references.get(references.size() - 1).getDestination();
 		if (!samePoint(connection.getSource(), first)) {
 			violations.add(describe(connection) + ": source does not match first reference source ("
 					+ InstanceKeys.instance(connection.getSource()) + " != " + InstanceKeys.instance(first) + ")");
@@ -200,30 +200,30 @@ public final class InstanceIntegrity {
 
 	private static void checkInverseLists(ComponentInstance instance, Set<ConnectionInstance> contained,
 			List<String> violations) {
-		for (ConnectionInstance connection : contained) {
-			ConnectionInstanceEnd source = connection.getSource();
+		for (var connection : contained) {
+			var source = connection.getSource();
 			if (source != null && !containsIdentical(source.getSrcConnectionInstances(), connection)) {
 				violations.add(describe(connection) + ": missing from srcConnectionInstances of "
 						+ InstanceKeys.instance(source));
 			}
-			ConnectionInstanceEnd destination = connection.getDestination();
+			var destination = connection.getDestination();
 			if (destination != null && !containsIdentical(destination.getDstConnectionInstances(), connection)) {
 				violations.add(describe(connection) + ": missing from dstConnectionInstances of "
 						+ InstanceKeys.instance(destination));
 			}
 		}
 		for (TreeIterator<EObject> all = instance.eAllContents(); all.hasNext();) {
-			EObject next = all.next();
+			var next = all.next();
 			if (!(next instanceof ConnectionInstanceEnd end)) {
 				continue;
 			}
-			for (ConnectionInstance connection : end.getSrcConnectionInstances()) {
+			for (var connection : end.getSrcConnectionInstances()) {
 				if (!contained.contains(connection)) {
 					violations.add(InstanceKeys.instance(end) + ": srcConnectionInstances references the uncontained "
 							+ describe(connection));
 				}
 			}
-			for (ConnectionInstance connection : end.getDstConnectionInstances()) {
+			for (var connection : end.getDstConnectionInstances()) {
 				if (!contained.contains(connection)) {
 					violations.add(InstanceKeys.instance(end) + ": dstConnectionInstances references the uncontained "
 							+ describe(connection));
@@ -235,11 +235,11 @@ public final class InstanceIntegrity {
 	private static void checkFlowMembership(ComponentInstance instance, Set<ConnectionInstance> contained,
 			List<String> violations) {
 		for (TreeIterator<EObject> all = instance.eAllContents(); all.hasNext();) {
-			EObject next = all.next();
+			var next = all.next();
 			if (!(next instanceof EndToEndFlowInstance flow)) {
 				continue;
 			}
-			for (FlowElementInstance element : flow.getFlowElements()) {
+			for (var element : flow.getFlowElements()) {
 				if (element instanceof ConnectionInstance connection && !contained.contains(connection)) {
 					violations.add("flow " + flow.getInstanceObjectPath() + ": references the uncontained "
 							+ describe(connection));
@@ -249,7 +249,7 @@ public final class InstanceIntegrity {
 	}
 
 	private static boolean containsIdentical(List<ConnectionInstance> connections, ConnectionInstance connection) {
-		for (ConnectionInstance candidate : connections) {
+		for (var candidate : connections) {
 			if (candidate == connection) {
 				return true;
 			}
@@ -258,7 +258,7 @@ public final class InstanceIntegrity {
 	}
 
 	private static String describe(ConnectionInstance connection) {
-		ComponentInstance container = connection.getContainingComponentInstance();
+		var container = connection.getContainingComponentInstance();
 		String containerPath = container == null ? InstanceKeys.NULL_KEY : container.getInstanceObjectPath();
 		return "connection '" + connection.getName() + "' in " + containerPath;
 	}

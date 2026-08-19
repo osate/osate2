@@ -57,15 +57,15 @@ public record FlowDescriptor(Key key, List<String> systemOperationModes) {
 
 	/** Describe an end-to-end flow instance contained in {@code container}. */
 	public static FlowDescriptor of(ComponentInstance container, EndToEndFlowInstance flow) {
-		List<String> elementKeys = new ArrayList<>();
-		for (FlowElementInstance element : flow.getFlowElements()) {
+		var elementKeys = new ArrayList<String>();
+		for (var element : flow.getFlowElements()) {
 			elementKeys.add(InstanceKeys.instance(element));
 		}
-		Key key = new Key(InstanceKeys.instance(container), InstanceKeys.declarative(flow.getEndToEndFlow()),
+		var key = new Key(InstanceKeys.instance(container), InstanceKeys.declarative(flow.getEndToEndFlow()),
 				flow.getName(), elementKeys);
 
-		List<String> modes = new ArrayList<>();
-		for (SystemOperationMode som : flow.getInSystemOperationModes()) {
+		var modes = new ArrayList<String>();
+		for (var som : flow.getInSystemOperationModes()) {
 			modes.add(som.getName());
 		}
 		return new FlowDescriptor(key, InstanceKeys.sorted(modes));

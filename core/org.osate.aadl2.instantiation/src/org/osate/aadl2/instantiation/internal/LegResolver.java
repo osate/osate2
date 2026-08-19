@@ -134,19 +134,18 @@ public final class LegResolver {
 	 *            declaration, which is every boundary and trigger seed
 	 */
 	public List<LegResult> resolve(ConnectionInstanceEnd start, LegRole role, Connection seedDeclaration) {
-		List<LegResult> results = new ArrayList<>();
+		var results = new ArrayList<LegResult>();
 		descend(start, role, List.of(), FeaturePath.EMPTY, ModeConstraint.UNCONSTRAINED, true, new HashSet<>(),
 				seedDeclaration, results);
 		/*
 		 * Sorted by stable key, computed once per leg rather than once per comparison: building
 		 * one walks the leg's segments.
 		 */
-		List<Map.Entry<String, LegResult>> keyed = new ArrayList<>();
-		for (LegResult leg : results) {
-			keyed.add(Map.entry(leg.key(), leg));
-		}
-		keyed.sort(Map.Entry.comparingByKey());
-		return keyed.stream().map(Map.Entry::getValue).toList();
+		return results.stream()
+				.map(leg -> Map.entry(leg.key(), leg))
+				.sorted(Map.Entry.comparingByKey())
+				.map(Map.Entry::getValue)
+				.toList();
 	}
 
 	private void descend(ConnectionInstanceEnd current, LegRole role, List<ResolvedSegment> segments,
@@ -164,7 +163,7 @@ public final class LegResolver {
 			return;
 		}
 
-		ComponentInstance owner = feature.getContainingComponentInstance();
+		var owner = feature.getContainingComponentInstance();
 		if (owner == null) {
 			results.add(new LegResult(role, current, segments, featurePath, modes, allBidirectional,
 					"no owning component"));
@@ -202,17 +201,17 @@ public final class LegResolver {
 		 * Terminal policy: an incomplete boundary. A component type without an
 		 * implementation has no internals to descend into, so the leg ends at its feature.
 		 */
-		ComponentImplementation implementation = InstanceUtil.getComponentImplementation(owner, 0, classifierCache);
+		var implementation = InstanceUtil.getComponentImplementation(owner, 0, classifierCache);
 		if (implementation == null) {
 			results.add(new LegResult(role, current, segments, featurePath, modes, allBidirectional,
 					"component type only"));
 			return;
 		}
 
-		List<ResolvedSegment> continuations = continuations(owner, feature, role, visited, endingCategory);
+		var continuations = continuations(owner, feature, role, visited, endingCategory);
 		if (continuations.isEmpty()) {
 			Connection leaving = segments.isEmpty() ? seedDeclaration
-					: segments.get(segments.size() - 1).declaration();
+					: segments.getLast().declaration();
 			if (role == LegRole.SOURCE_LEG
 					&& !mayBeUltimateSource(owner, feature, implementation, leaving, endingCategory)) {
 				return;
@@ -227,10 +226,10 @@ public final class LegResolver {
 					results);
 		}
 
-		for (ResolvedSegment segment : continuations) {
-			List<ResolvedSegment> extended = new ArrayList<>(segments);
+		for (var segment : continuations) {
+			var extended = new ArrayList<>(segments);
 			extended.add(segment);
-			Set<String> branchVisited = new HashSet<>(visited);
+			var branchVisited = new HashSet<>(visited);
 			branchVisited.add(orientedKey(segment));
 			descend(LeafExpansion.continuation(segment.source(), segment.destination(), feature), role, extended,
 					segment.destinationPath(),
@@ -280,7 +279,7 @@ public final class LegResolver {
 		 * The baseline asks about the component's own feature, not about the member a leg
 		 * happens to stand at, so the whole feature is what is examined here as well.
 		 */
-		FeatureInstance outermost = outermost(feature);
+		var outermost = outermost(feature);
 		if (endingCategory && (includesNestedFeatureGroup(outermost) || includesPort(outermost))) {
 			return true;
 		}
@@ -288,8 +287,8 @@ public final class LegResolver {
 				|| (endingCategory && !includesAccess(outermost))) {
 			return true;
 		}
-		List<Connection> inside = implementation.getAllConnections();
-		Feature declared = outermost.getFeature();
+		var inside = implementation.getAllConnections();
+		var declared = outermost.getFeature();
 		if (isDestinationInside(inside, declared)) {
 			return false;
 		}
@@ -298,7 +297,7 @@ public final class LegResolver {
 
 	/** The feature of the component that {@code feature} is, or is a member of. */
 	private static FeatureInstance outermost(FeatureInstance feature) {
-		FeatureInstance outermost = feature;
+		var outermost = feature;
 		while (outermost.getOwner() instanceof FeatureInstance parent) {
 			outermost = parent;
 		}
@@ -311,8 +310,8 @@ public final class LegResolver {
 	 * of it, which is the question source-first asked before starting a path at the feature.
 	 */
 	private static boolean isDestinationInside(List<Connection> inside, Feature feature) {
-		List<Feature> refinements = feature.getAllFeatureRefinements();
-		for (Connection declaration : inside) {
+		var refinements = feature.getAllFeatureRefinements();
+		for (var declaration : inside) {
 			if (declaration instanceof ParameterConnection) {
 				continue;
 			}
@@ -331,8 +330,8 @@ public final class LegResolver {
 	 * either end, which is the second question source-first asked before starting there.
 	 */
 	private static boolean isEndInside(List<Connection> inside, Feature feature) {
-		List<Feature> refinements = feature.getAllFeatureRefinements();
-		for (Connection declaration : inside) {
+		var refinements = feature.getAllFeatureRefinements();
+		for (var declaration : inside) {
 			if (declaration instanceof ParameterConnection) {
 				continue;
 			}
@@ -382,8 +381,8 @@ public final class LegResolver {
 			return;
 		}
 
-		Set<FeatureInstance> continued = new HashSet<>();
-		for (ResolvedSegment continuation : continuations) {
+		var continued = new HashSet<FeatureInstance>();
+		for (var continuation : continuations) {
 			if (!(continuation.source() instanceof FeatureInstance near)) {
 				continue;
 			}
@@ -396,9 +395,9 @@ public final class LegResolver {
 			return;
 		}
 
-		List<FeatureInstance> uncontinued = new ArrayList<>();
+		var uncontinued = new ArrayList<FeatureInstance>();
 		collectUncontinuedLeaves(feature, continued, uncontinued);
-		for (FeatureInstance member : uncontinued) {
+		for (var member : uncontinued) {
 			boolean triggersTransition = SeedDiscovery.triggersModeTransition(owner, member);
 			results.add(new LegResult(LegRole.DESTINATION_LEG, member, segments, featurePath, modes, allBidirectional,
 					!triggersTransition,
@@ -419,7 +418,7 @@ public final class LegResolver {
 			uncontinued.add(feature);
 			return;
 		}
-		for (FeatureInstance member : feature.getFeatureInstances()) {
+		for (var member : feature.getFeatureInstances()) {
 			collectUncontinuedLeaves(member, continued, uncontinued);
 		}
 	}
@@ -437,8 +436,8 @@ public final class LegResolver {
 	 */
 	private List<ResolvedSegment> continuations(ComponentInstance owner, FeatureInstance feature, LegRole role,
 			Set<String> visited, boolean endingCategory) {
-		List<ResolvedSegment> continuations = new ArrayList<>();
-		for (ResolvedSegment segment : resolved(owner)) {
+		var continuations = new ArrayList<ResolvedSegment>();
+		for (var segment : resolved(owner)) {
 			/*
 			 * Inside a connection-ending component only an access connection continues a
 			 * semantic connection: shared access reaches through such a component, while a
@@ -462,20 +461,21 @@ public final class LegResolver {
 				continue;
 			}
 			// Only a descent continues a leg: the far end must be inside a subcomponent.
-			ComponentInstance destinationOwner = segment.destination() instanceof FeatureInstance destination
-					? destination.getContainingComponentInstance()
-					: (ComponentInstance) segment.destination();
+			var destinationOwner = switch (segment.destination()) {
+			case FeatureInstance destination -> destination.getContainingComponentInstance();
+			case ComponentInstance component -> component;
+			default -> null;
+			};
 			if (destinationOwner == null || destinationOwner == owner) {
 				continue;
 			}
 			continuations.add(segment);
 		}
-		List<Map.Entry<String, ResolvedSegment>> keyed = new ArrayList<>();
-		for (ResolvedSegment segment : continuations) {
-			keyed.add(Map.entry(segment.key(), segment));
-		}
-		keyed.sort(Map.Entry.comparingByKey());
-		return keyed.stream().map(Map.Entry::getValue).toList();
+		return continuations.stream()
+				.map(segment -> Map.entry(segment.key(), segment))
+				.sorted(Map.Entry.comparingByKey())
+				.map(Map.Entry::getValue)
+				.toList();
 	}
 
 	/**
@@ -490,15 +490,15 @@ public final class LegResolver {
 	 */
 	private List<ResolvedSegment> resolved(ComponentInstance owner) {
 		return resolvedByContainer.computeIfAbsent(owner, container -> {
-			List<ResolvedSegment> segments = new ArrayList<>();
+			var segments = new ArrayList<ResolvedSegment>();
 			ComponentImplementation implementation = InstanceUtil.getComponentImplementation(container, 0,
 					classifierCache);
 			if (implementation == null) {
 				return List.of();
 			}
-			for (Connection declaration : implementation.getAllConnections()) {
+			for (var declaration : implementation.getAllConnections()) {
 				for (boolean reverse : new boolean[] { false, true }) {
-					Resolution<ResolvedSegment> resolution = SeedDiscovery.segment(container, declaration, reverse);
+					var resolution = SeedDiscovery.segment(container, declaration, reverse);
 					failures.add(resolution);
 					if (resolution instanceof Resolution.Resolved<ResolvedSegment> value) {
 						segments.add(value.value());
@@ -577,7 +577,7 @@ public final class LegResolver {
 		if (!(feature.getFeature() instanceof FeatureGroup)) {
 			return test.test(feature.getFeature());
 		}
-		for (FeatureInstance member : feature.getFeatureInstances()) {
+		for (var member : feature.getFeatureInstances()) {
 			if (test.test(member.getFeature())) {
 				return true;
 			}

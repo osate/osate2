@@ -23,34 +23,19 @@
  */
 package org.osate.aadl2.instantiation;
 
-import static org.osate.aadl2.ComponentCategory.DEVICE;
-import static org.osate.aadl2.ComponentCategory.PROCESSOR;
-import static org.osate.aadl2.ComponentCategory.THREAD;
-import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.aadl2.instance.FeatureCategory;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeInstance;
-import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
@@ -61,7 +46,6 @@ import org.osate.aadl2.instantiation.internal.LegResult;
 import org.osate.aadl2.instantiation.internal.LegRole;
 import org.osate.aadl2.instantiation.internal.PathAssembler;
 import org.osate.aadl2.instantiation.internal.PathMaterializer;
-import org.osate.aadl2.instantiation.internal.Resolution;
 import org.osate.aadl2.instantiation.internal.ResolutionFailures;
 import org.osate.aadl2.instantiation.internal.SeedDiscovery;
 import org.osate.aadl2.instantiation.internal.SemanticConnectionPath;
@@ -91,7 +75,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * feature or subprogram call. If the classifier is anonymous, then its
 	 * bindings are included also.
 	 */
-	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache = null;
+	private final HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 
 	/**
 	 * The component the across-first traversal was rooted at, so that its seed-driven
@@ -121,7 +105,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	@Override
 	protected void initSwitches() {
-		instanceSwitch = new InstanceSwitch<String>() {
+		instanceSwitch = new InstanceSwitch<>() {
 
 			@Override
 			public String caseComponentInstance(final ComponentInstance ci) throws UnsupportedOperationException {
@@ -155,32 +139,40 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * </p>
 	 */
 	private void instantiateAcrossFirst(final ComponentInstance root) {
-		final SystemInstance systemInstance = root.getSystemInstance();
-		final ResolutionFailures failures = new ResolutionFailures();
-		final LegResolver legResolver = new LegResolver(classifierCache, root, failures);
+		final var systemInstance = root.getSystemInstance();
+		final var failures = new ResolutionFailures();
+		final var legResolver = new LegResolver(classifierCache, root, failures);
 
-		for (TraversalSeed seed : SeedDiscovery.discover(root, classifierCache, failures)) {
+		for (var seed : SeedDiscovery.discover(root, classifierCache, failures)) {
 			List<LegResult> sourceLegs = List.of();
 			List<LegResult> destinationLegs = List.of();
-			if (seed instanceof TraversalSeed.Across across) {
+			/*
+			 * Exhaustive over the sealed seed hierarchy, so a seed kind added later does not
+			 * silently resolve no legs at all.
+			 */
+			switch (seed) {
+			case TraversalSeed.Across across -> {
 				sourceLegs = legResolver.resolve(across.segment().source(), LegRole.SOURCE_LEG,
 						across.segment().declaration());
 				destinationLegs = legResolver.resolve(across.segment().destination(), LegRole.DESTINATION_LEG);
-			} else if (seed instanceof TraversalSeed.Boundary boundary) {
-				if (boundary.incoming()) {
-					destinationLegs = legResolver.resolve(boundary.feature(), LegRole.DESTINATION_LEG);
-				} else {
-					sourceLegs = legResolver.resolve(boundary.feature(), LegRole.SOURCE_LEG);
-				}
-			} else if (seed instanceof TraversalSeed.Trigger trigger) {
+			}
+			/*
+			 * A boundary seed has one leg. An incoming boundary feature leads inwards, so the model
+			 * supplies the destination; an outgoing one leads towards the ultimate source inside.
+			 */
+			case TraversalSeed.Boundary boundary when boundary.incoming() ->
+				destinationLegs = legResolver.resolve(boundary.feature(), LegRole.DESTINATION_LEG);
+			case TraversalSeed.Boundary boundary ->
+				sourceLegs = legResolver.resolve(boundary.feature(), LegRole.SOURCE_LEG);
+			case TraversalSeed.Trigger trigger ->
 				sourceLegs = legResolver.resolve(trigger.feature(), LegRole.SOURCE_LEG);
 			}
-			for (SemanticConnectionPath path : PathAssembler.join(seed, sourceLegs, destinationLegs)) {
+			for (var path : PathAssembler.join(seed, sourceLegs, destinationLegs)) {
 				if (path.deadEnd()) {
 					reportDeadEnd(path);
 					continue;
 				}
-				for (LeafExpansion.Endpoints endpoints : LeafExpansion.expand(path)) {
+				for (var endpoints : LeafExpansion.expand(path)) {
 					attachAcrossFirst(systemInstance, path, endpoints);
 				}
 			}
@@ -196,16 +188,16 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		 * without leaving anything behind; the failures it gathered are reported here, once
 		 * each, after every seed has been examined.
 		 */
-		for (Resolution.Failed<?> failure : failures.collected()) {
+		for (var failure : failures.collected()) {
 			error(failure.target(), failure.message());
 		}
 	}
 
 	/**
 	 * Report a path that arrives where the connection can go no further and cannot end
-	 * either, so that the connection it would have carried is not lost silently. The
-	 * baseline reports the same fact from {@code addConnectionInstance()} once the end of
-	 * such a path is known.
+	 * either, so that the connection it would have carried is not lost silently. The traversal
+	 * issue #3037 replaced reported the same fact as it materialized such a path, once its end
+	 * was known.
 	 */
 	private void reportDeadEnd(final SemanticConnectionPath path) {
 		warning(path.destination(),
@@ -222,9 +214,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	private void attachAcrossFirst(final SystemInstance systemInstance, final SemanticConnectionPath path,
 			final LeafExpansion.Endpoints endpoints) {
-		ComponentInstance container = PathMaterializer.container(systemInstance, path);
-		ConnectionInstance conni = PathMaterializer.materialize(systemInstance, path, endpoints);
-		for (ConnectionInstance existing : container.getConnectionInstances()) {
+		var container = PathMaterializer.container(systemInstance, path);
+		var conni = PathMaterializer.materialize(systemInstance, path, endpoints);
+		for (var existing : container.getConnectionInstances()) {
 			if (existing.getSource() == conni.getSource() && existing.getDestination() == conni.getDestination()
 					&& sameReferences(existing, conni)) {
 				throw new IllegalStateException("Across-first traversal enumerated " + conni.getName() + " in "
@@ -237,39 +229,28 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private static boolean sameReferences(ConnectionInstance one, ConnectionInstance other) {
-		if (one.getConnectionReferences().size() != other.getConnectionReferences().size()) {
+		var ours = one.getConnectionReferences();
+		var theirs = other.getConnectionReferences();
+		if (ours.size() != theirs.size()) {
 			return false;
 		}
-		for (int i = 0; i < one.getConnectionReferences().size(); i++) {
-			ConnectionReference a = one.getConnectionReferences().get(i);
-			ConnectionReference b = other.getConnectionReferences().get(i);
-			if (a.getConnection() != b.getConnection() || a.getContext() != b.getContext()
-					|| a.isReverse() != b.isReverse()) {
-				return false;
-			}
-		}
-		return true;
-	}
-	private static boolean isModeTransitionTrigger(ComponentInstance component, ConnectionInstanceEnd end) {
-		return end instanceof FeatureInstance feature && feature.getCategory() == FeatureCategory.EVENT_PORT
-				&& component.getModeTransitionInstances()
-						.stream()
-						.anyMatch(transition -> transition.getTriggers().contains(feature));
+		return IntStream.range(0, ours.size()).allMatch(i -> sameReference(ours.get(i), theirs.get(i)));
 	}
 
+	private static boolean sameReference(ConnectionReference one, ConnectionReference other) {
+		return one.getConnection() == other.getConnection() && one.getContext() == other.getContext()
+				&& one.isReverse() == other.isReverse();
+	}
 	// ------------------------------------------------------------------------
 	// Helper methods related to modes
 	// ------------------------------------------------------------------------
 
 	private void fillInModeTransitions(ConnectionInstance conni) {
-		ComponentInstance ci = conni.getContainingComponentInstance();
+		var ci = conni.getContainingComponentInstance();
 
-		for (ConnectionReference connRef : conni.getConnectionReferences()) {
-			Connection conn = connRef.getConnection();
-
-			for (ModeTransition mt : conn.getAllInModeTransitions()) {
-				ModeTransitionInstance mti = ci.findModeTransitionInstance(mt);
-
+		for (var connRef : conni.getConnectionReferences()) {
+			for (var mt : connRef.getConnection().getAllInModeTransitions()) {
+				var mti = ci.findModeTransitionInstance(mt);
 				if (mti != null) {
 					conni.getInModeTransitions().add(mti);
 				}
@@ -286,32 +267,23 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 *            the connection instance
 	 */
 	private void fillInModes(ConnectionInstance conni) {
-		ListIterator<ConnectionReference> refIter = conni.getConnectionReferences().listIterator();
+		var refIter = conni.getConnectionReferences().listIterator();
 
 		while (refIter.hasNext()) {
-			ConnectionReference connRef = refIter.next();
-			Connection conn = connRef.getConnection();
-			ComponentInstance ci = connRef.getContext();
-			List<ModeInstance> mis = null;
+			var connRef = refIter.next();
+			var ci = connRef.getContext();
 
-			// source modal
-			mis = getComponentModes(conni.getSource().getComponentInstance());
-			// conns modal
+			// the source, the connection declarations, or the destination may be modal, in that order
+			var mis = getComponentModes(conni.getSource().getComponentInstance());
 			if (mis == null) {
-				var connModes = conn.getAllInModes();
-				if (connModes.isEmpty()) {
-					mis = getComponentModes(ci);
-				} else {
-					mis = connModes.stream().map(ci::findModeInstance).collect(Collectors.toList());
-				}
+				mis = declaredModes(connRef, ci);
 			}
-			// destination modal
 			if (mis == null) {
 				mis = getComponentModes(conni.getDestination().getComponentInstance());
 			}
 			if (mis != null) {
-				for (ModeInstance mi : mis) {
-					generateModeCombinations(conni, refIter, new ArrayList<>(Collections.singletonList(mi)));
+				for (var mi : mis) {
+					generateModeCombinations(conni, refIter, new ArrayList<>(List.of(mi)));
 				}
 				if (conni.getInSystemOperationModes().isEmpty()) {
 					warning(conni.getContainingComponentInstance(), "Connection " + conni.getName()
@@ -326,62 +298,56 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private void generateModeCombinations(ConnectionInstance conni, ListIterator<ConnectionReference> refIter,
 			List<ModeInstance> mis) {
 		if (!refIter.hasNext()) {
-			// add SOMs based on mis
-			SystemInstance si = (SystemInstance) conni.getElementRoot();
-			List<SystemOperationMode> somList = si.getSystemOperationModesFor(mis);
-
-			// check if all parts of the connection exist
-			outer: for (SystemOperationMode som : somList) {
-				if (conni.getSource().isActive(som) && conni.getDestination().isActive(som)) {
-					for (ConnectionReference cr : conni.getConnectionReferences()) {
-						if (!cr.getContext().isActive(som)) {
-							continue outer;
-						}
-					}
+			var si = (SystemInstance) conni.getElementRoot();
+			for (var som : si.getSystemOperationModesFor(mis)) {
+				if (isActiveIn(conni, som)) {
 					conni.getInSystemOperationModes().add(som);
 				}
 			}
 		} else {
-			ConnectionReference connRef = refIter.next();
-			Connection conn = connRef.getConnection();
-			ComponentInstance ci = connRef.getContext();
-			EList<Mode> connModes = conn.getAllInModes();
-			List<ModeInstance> nextMis = null;
+			var connRef = refIter.next();
+			var nextMis = declaredModes(connRef, connRef.getContext());
 
-			if (connModes.isEmpty()) {
-				nextMis = getComponentModes(ci);
+			if (nextMis == null) {
+				generateModeCombinations(conni, refIter, mis);
 			} else {
-				nextMis = connModes.stream().map(ci::findModeInstance).collect(Collectors.toList());
-			}
-			if (nextMis != null) {
-				for (ModeInstance mi : nextMis) {
+				for (var mi : nextMis) {
 					mis.add(mi);
 					generateModeCombinations(conni, refIter, mis);
 					mis.remove(mi);
 				}
-			} else {
-				generateModeCombinations(conni, refIter, mis);
 			}
 			refIter.previous();
 		}
 	}
 
-	private List<ModeInstance> getComponentModes(ComponentInstance ci) {
-		while (!(ci instanceof SystemInstance)) {
-			if (ci.getInModes().isEmpty()) {
-				ci = ci.getContainingComponentInstance();
-			} else {
+	/**
+	 * The modes a reference's own declaration names, or the modes of the component it is
+	 * declared in when it names none, or null when neither is modal.
+	 */
+	private List<ModeInstance> declaredModes(ConnectionReference connRef, ComponentInstance ci) {
+		var connModes = connRef.getConnection().getAllInModes();
+		return connModes.isEmpty() ? getComponentModes(ci) : connModes.stream().map(ci::findModeInstance).toList();
+	}
+
+	/** Whether every part of the connection, its ends and every context it traverses, is active. */
+	private static boolean isActiveIn(ConnectionInstance conni, SystemOperationMode som) {
+		return conni.getSource().isActive(som) && conni.getDestination().isActive(som) && conni
+				.getConnectionReferences()
+				.stream()
+				.allMatch(reference -> reference.getContext().isActive(som));
+	}
+
+	/**
+	 * The modes of the innermost modal component at or above {@code component}, or null when
+	 * nothing from there up to the system instance is modal.
+	 */
+	private List<ModeInstance> getComponentModes(ComponentInstance component) {
+		for (var ci = component; !(ci instanceof SystemInstance); ci = ci.getContainingComponentInstance()) {
+			if (!ci.getInModes().isEmpty()) {
 				return ci.getInModes();
 			}
 		}
 		return null;
-	}
-
-	// ------------------------------------------------------------------------
-	// Helper methods for filtering connection lists
-	// ------------------------------------------------------------------------
-
-	private boolean isConnectionEndingCategory(final ComponentCategory cat) {
-		return cat == THREAD || cat == DEVICE || cat == PROCESSOR || cat == VIRTUAL_PROCESSOR;
 	}
 }

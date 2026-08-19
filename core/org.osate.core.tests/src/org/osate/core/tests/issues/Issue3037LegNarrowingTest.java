@@ -100,7 +100,7 @@ public class Issue3037LegNarrowingTest extends XtextTest {
 	 */
 	@Test
 	public void aFeatureRoutedInsideItsComponentIsNotTheUltimateSource() throws Exception {
-		InstanceRun run = isolated.run(ROUTED_INSIDE, "S1.i");
+		var run = isolated.run(ROUTED_INSIDE, "S1.i");
 
 		/*
 		 * The three duplicates of each complete connection are the three declarations that carry it:

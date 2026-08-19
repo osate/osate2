@@ -76,7 +76,7 @@ public final class SeedDiscovery {
 	 */
 	public static List<TraversalSeed> discover(ComponentInstance root,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ResolutionFailures failures) {
-		List<TraversalSeed> seeds = new ArrayList<>();
+		var seeds = new ArrayList<TraversalSeed>();
 		if (root instanceof SystemInstance system) {
 			boundarySeeds(system, seeds);
 		}
@@ -107,7 +107,7 @@ public final class SeedDiscovery {
 	 * </p>
 	 */
 	private static void boundarySeeds(SystemInstance system, List<TraversalSeed> seeds) {
-		for (FeatureInstance feature : system.getFeatureInstances()) {
+		for (var feature : system.getFeatureInstances()) {
 			if (feature.getFlowDirection() == null) {
 				continue;
 			}
@@ -119,9 +119,9 @@ public final class SeedDiscovery {
 	private static void acrossSeeds(ComponentInstance container,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ResolutionFailures failures,
 			List<TraversalSeed> seeds) {
-		ComponentImplementation implementation = InstanceUtil.getComponentImplementation(container, 0, classifierCache);
+		var implementation = InstanceUtil.getComponentImplementation(container, 0, classifierCache);
 		if (implementation != null && isFirstArrayElement(container)) {
-			for (Connection declaration : implementation.getAllConnections()) {
+			for (var declaration : implementation.getAllConnections()) {
 				if (declaration.isAcross()) {
 					addOrientations(container, declaration, failures, seeds);
 				} else {
@@ -129,7 +129,7 @@ public final class SeedDiscovery {
 				}
 			}
 		}
-		for (ComponentInstance child : container.getComponentInstances()) {
+		for (var child : container.getComponentInstances()) {
 			acrossSeeds(child, classifierCache, failures, seeds);
 		}
 	}
@@ -150,7 +150,7 @@ public final class SeedDiscovery {
 	private static boolean isFirstArrayElement(ComponentInstance container) {
 		for (ComponentInstance level = container; level != null
 				&& !(level instanceof SystemInstance); level = level.getContainingComponentInstance()) {
-			for (Long index : level.getIndices()) {
+			for (var index : level.getIndices()) {
 				if (index > 1) {
 					return false;
 				}
@@ -175,7 +175,7 @@ public final class SeedDiscovery {
 
 	private static void addOrientation(ComponentInstance container, Connection declaration, boolean reverse,
 			ResolutionFailures failures, List<TraversalSeed> seeds) {
-		Resolution<ResolvedSegment> resolution = segment(container, declaration, reverse);
+		var resolution = segment(container, declaration, reverse);
 		failures.add(resolution);
 		resolution.asOptional().ifPresent(segment -> seeds.add(new TraversalSeed.Across(segment)));
 	}
@@ -200,14 +200,14 @@ public final class SeedDiscovery {
 	 */
 	private static void checkComponentEnds(ComponentInstance container, Connection declaration,
 			ResolutionFailures failures) {
-		Connection root = declaration.getRootConnection();
+		var root = declaration.getRootConnection();
 		if (root.getAllSourceContext() != null || root.getAllDestinationContext() != null
 				|| !(root.getAllSource() instanceof Subcomponent source)
 				|| !(root.getAllDestination() instanceof Subcomponent destination)) {
 			return;
 		}
-		ComponentInstance sourceInstance = container.findSubcomponentInstance(source);
-		ComponentInstance destinationInstance = container.findSubcomponentInstance(destination);
+		var sourceInstance = container.findSubcomponentInstance(source);
+		var destinationInstance = container.findSubcomponentInstance(destination);
 		if (sourceInstance == null || destinationInstance == null) {
 			// A subcomponent the instance model does not have is reported where it is resolved.
 			return;
@@ -230,8 +230,8 @@ public final class SeedDiscovery {
 	 */
 	private static void triggerSeeds(ComponentInstance container,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, List<TraversalSeed> seeds) {
-		for (ComponentInstance child : container.getComponentInstances()) {
-			for (FeatureInstance feature : child.getFeatureInstances()) {
+		for (var child : container.getComponentInstances()) {
+			for (var feature : child.getFeatureInstances()) {
 				if (triggersModeTransition(container, feature)
 						&& !continuesOutward(container, feature, classifierCache)) {
 					seeds.add(new TraversalSeed.Trigger(child, feature));
@@ -254,11 +254,11 @@ public final class SeedDiscovery {
 	 */
 	private static boolean continuesOutward(ComponentInstance container, FeatureInstance feature,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
-		ComponentImplementation implementation = InstanceUtil.getComponentImplementation(container, 0, classifierCache);
+		var implementation = InstanceUtil.getComponentImplementation(container, 0, classifierCache);
 		if (implementation == null) {
 			return false;
 		}
-		for (Connection declaration : implementation.getAllConnections()) {
+		for (var declaration : implementation.getAllConnections()) {
 			for (boolean reverse : new boolean[] { false, true }) {
 				if (reverse && !declaration.isAllBidirectional()) {
 					continue;
@@ -278,7 +278,7 @@ public final class SeedDiscovery {
 	 */
 	public static Resolution<ResolvedSegment> segment(ComponentInstance container, Connection declaration,
 			boolean reverse) {
-		Connection root = declaration.getRootConnection();
+		var root = declaration.getRootConnection();
 		Resolution<ResolvedEnd> from = EndpointResolver.resolve(container,
 				reverse ? root.getDestination() : root.getSource(), container);
 		if (!(from instanceof Resolution.Resolved<ResolvedEnd> resolvedFrom)) {
@@ -292,8 +292,6 @@ public final class SeedDiscovery {
 		return Resolution.resolved(new ResolvedSegment(declaration, container, resolvedFrom.value().endpoint(),
 				resolvedTo.value().endpoint(), reverse, resolvedFrom.value().path(), resolvedTo.value().path()));
 	}
-
-
 
 	/** Re-type a non-resolved endpoint outcome as a segment outcome. */
 	private static Resolution<ResolvedSegment> carryOver(Resolution<ResolvedEnd> outcome) {

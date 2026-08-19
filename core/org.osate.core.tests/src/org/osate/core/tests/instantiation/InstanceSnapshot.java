@@ -75,10 +75,10 @@ public record InstanceSnapshot(Map<String, List<ConnectionDescriptor>> connectio
 	 * </p>
 	 */
 	public static InstanceSnapshot of(SystemInstance instance, AnalysisErrorReporterManager manager) {
-		Map<String, List<ConnectionDescriptor>> connections = new LinkedHashMap<>();
-		Map<String, List<FlowDescriptor>> flows = new LinkedHashMap<>();
+		var connections = new LinkedHashMap<String, List<ConnectionDescriptor>>();
+		var flows = new LinkedHashMap<String, List<FlowDescriptor>>();
 		collect(instance, connections, flows);
-		for (EObject root : instance.eResource().getContents()) {
+		for (var root : instance.eResource().getContents()) {
 			if (root instanceof ComponentInstance referenced && referenced != instance) {
 				collect(referenced, connections, flows);
 			}
@@ -89,21 +89,21 @@ public record InstanceSnapshot(Map<String, List<ConnectionDescriptor>> connectio
 
 	private static void collect(ComponentInstance container, Map<String, List<ConnectionDescriptor>> connections,
 			Map<String, List<FlowDescriptor>> flows) {
-		String containerKey = InstanceKeys.instance(container);
+		var containerKey = InstanceKeys.instance(container);
 
-		List<ConnectionDescriptor> containedConnections = new ArrayList<>();
-		for (ConnectionInstance connection : container.getConnectionInstances()) {
+		var containedConnections = new ArrayList<ConnectionDescriptor>();
+		for (var connection : container.getConnectionInstances()) {
 			containedConnections.add(ConnectionDescriptor.of(container, connection));
 		}
 		connections.put(containerKey, List.copyOf(containedConnections));
 
-		List<FlowDescriptor> containedFlows = new ArrayList<>();
-		for (EndToEndFlowInstance flow : container.getEndToEndFlows()) {
+		var containedFlows = new ArrayList<FlowDescriptor>();
+		for (var flow : container.getEndToEndFlows()) {
 			containedFlows.add(FlowDescriptor.of(container, flow));
 		}
 		flows.put(containerKey, List.copyOf(containedFlows));
 
-		for (ComponentInstance child : container.getComponentInstances()) {
+		for (var child : container.getComponentInstances()) {
 			collect(child, connections, flows);
 		}
 	}
@@ -137,7 +137,7 @@ public record InstanceSnapshot(Map<String, List<ConnectionDescriptor>> connectio
 	 * never used as identity.
 	 */
 	public Map<String, List<String>> connectionOrderByContainer() {
-		Map<String, List<String>> order = new LinkedHashMap<>();
+		var order = new LinkedHashMap<String, List<String>>();
 		connectionsByContainer.forEach((container, descriptors) -> order.put(container,
 				descriptors.stream().map(ConnectionDescriptor::name).toList()));
 		return order;
@@ -145,7 +145,7 @@ public record InstanceSnapshot(Map<String, List<ConnectionDescriptor>> connectio
 
 	/** Per-container end-to-end flow names in collection order. */
 	public Map<String, List<String>> flowOrderByContainer() {
-		Map<String, List<String>> order = new LinkedHashMap<>();
+		var order = new LinkedHashMap<String, List<String>>();
 		flowsByContainer.forEach((container, descriptors) -> order.put(container,
 				descriptors.stream().map(descriptor -> descriptor.key().name()).toList()));
 		return order;

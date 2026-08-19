@@ -73,22 +73,22 @@ public record ConnectionDescriptor(Key key, String name, String kind, boolean co
 
 	/** Describe a materialized connection instance contained in {@code container}. */
 	public static ConnectionDescriptor of(ComponentInstance container, ConnectionInstance connection) {
-		List<String> declarationKeys = new ArrayList<>();
-		List<String> contextKeys = new ArrayList<>();
-		List<Boolean> reverseFlags = new ArrayList<>();
-		for (ConnectionReference reference : connection.getConnectionReferences()) {
+		var declarationKeys = new ArrayList<String>();
+		var contextKeys = new ArrayList<String>();
+		var reverseFlags = new ArrayList<Boolean>();
+		for (var reference : connection.getConnectionReferences()) {
 			declarationKeys.add(InstanceKeys.declarative(reference.getConnection()));
 			contextKeys.add(InstanceKeys.instance(reference.getContext()));
 			reverseFlags.add(reference.isReverse());
 		}
-		Key key = new Key(InstanceKeys.instance(container), InstanceKeys.instance(connection.getSource()),
+		var key = new Key(InstanceKeys.instance(container), InstanceKeys.instance(connection.getSource()),
 				InstanceKeys.instance(connection.getDestination()), declarationKeys, contextKeys, reverseFlags);
 
-		List<String> modes = new ArrayList<>();
-		for (SystemOperationMode som : connection.getInSystemOperationModes()) {
+		var modes = new ArrayList<String>();
+		for (var som : connection.getInSystemOperationModes()) {
 			modes.add(som.getName());
 		}
-		List<String> properties = new ArrayList<>();
+		var properties = new ArrayList<String>();
 		connection.getOwnedPropertyAssociations()
 				.forEach(association -> properties.add(InstanceKeys.structural(association)));
 

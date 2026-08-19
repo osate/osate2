@@ -99,17 +99,20 @@ public final class PathAssembler {
 	 */
 	public static List<SemanticConnectionPath> join(TraversalSeed seed, List<LegResult> sourceLegs,
 			List<LegResult> destinationLegs) {
-		Map<SemanticConnectionKey, SemanticConnectionPath> unique = new LinkedHashMap<>();
-		if (seed instanceof TraversalSeed.Across across) {
-			for (LegResult sourceLeg : sourceLegs) {
-				for (LegResult destinationLeg : destinationLegs) {
+		var unique = new LinkedHashMap<SemanticConnectionKey, SemanticConnectionPath>();
+		// Exhaustive over the sealed seed hierarchy: every kind of seed says how its legs join.
+		switch (seed) {
+		case TraversalSeed.Across across -> {
+			for (var sourceLeg : sourceLegs) {
+				for (var destinationLeg : destinationLegs) {
 					if (attachedMembersCorrespond(across, sourceLeg, destinationLeg)) {
 						add(unique, assembleComplete(across, sourceLeg, destinationLeg));
 					}
 				}
 			}
-		} else if (seed instanceof TraversalSeed.Boundary boundary) {
-			for (LegResult leg : boundary.incoming() ? destinationLegs : sourceLegs) {
+		}
+		case TraversalSeed.Boundary boundary -> {
+			for (var leg : boundary.incoming() ? destinationLegs : sourceLegs) {
 				/*
 				 * A boundary feature with nothing connected inside it yields a leg that stopped
 				 * where it started. There is no semantic connection, so there is no path: a
@@ -119,12 +122,14 @@ public final class PathAssembler {
 					add(unique, assembleOneLeg(boundary.incoming(), leg));
 				}
 			}
-		} else if (seed instanceof TraversalSeed.Trigger) {
-			for (LegResult leg : sourceLegs) {
+		}
+		case TraversalSeed.Trigger trigger -> {
+			for (var leg : sourceLegs) {
 				if (!leg.isTrivial()) {
 					add(unique, assembleOneLeg(false, leg));
 				}
 			}
+		}
 		}
 		/*
 		 * Sorted by structured identity, with the key computed once per path rather than once per
@@ -140,7 +145,7 @@ public final class PathAssembler {
 	/** A complete path: source leg reversed, then the pivot, then the destination leg. */
 	private static SemanticConnectionPath assembleComplete(TraversalSeed.Across across, LegResult sourceLeg,
 			LegResult destinationLeg) {
-		List<ResolvedSegment> segments = new ArrayList<>(reversed(sourceLeg));
+		var segments = new ArrayList<>(reversed(sourceLeg));
 		segments.add(across.segment());
 		segments.addAll(destinationLeg.segments());
 		return new SemanticConnectionPath(sourceLeg.terminal(), destinationLeg.terminal(), segments, true,
@@ -174,9 +179,9 @@ public final class PathAssembler {
 				footprint(sourceLeg));
 		List<FeatureInstance> destinationMembers = LeafExpansion.membersBelow(across.segment().destination(),
 				footprint(destinationLeg));
-		ConnectionInstanceEnd destinationParent = across.segment().destination();
+		var destinationParent = across.segment().destination();
 		for (int level = 0; level < Math.min(sourceMembers.size(), destinationMembers.size()); level++) {
-			FeatureInstance destination = destinationMembers.get(level);
+			var destination = destinationMembers.get(level);
 			if (!pairs(sourceMembers.get(level), destinationParent, destination)) {
 				return false;
 			}
@@ -192,10 +197,10 @@ public final class PathAssembler {
 	 * terminal, which is the pivot endpoint.
 	 */
 	private static ConnectionInstanceEnd footprint(LegResult leg) {
-		ConnectionInstanceEnd covered = leg.terminal();
-		List<ResolvedSegment> segments = leg.segments();
+		var covered = leg.terminal();
+		var segments = leg.segments();
 		for (int i = segments.size() - 1; i >= 0; i--) {
-			ResolvedSegment segment = segments.get(i);
+			var segment = segments.get(i);
 			covered = LeafExpansion.continuation(segment.destination(), segment.source(), covered);
 		}
 		return covered;
@@ -229,7 +234,7 @@ public final class PathAssembler {
 	 * </p>
 	 */
 	private static SemanticConnectionPath assembleOneLeg(boolean inwards, LegResult leg) {
-		ConnectionInstanceEnd seedEnd = leg.segments().get(0).source();
+		var seedEnd = leg.segments().getFirst().source();
 		if (inwards) {
 			return new SemanticConnectionPath(seedEnd, leg.terminal(), leg.segments(), false,
 					leg.allSegmentsBidirectional(), leg.modes(), leg.deadEnd());
@@ -244,9 +249,9 @@ public final class PathAssembler {
 	 * that discovered it.
 	 */
 	private static List<ResolvedSegment> reversed(LegResult leg) {
-		List<ResolvedSegment> reversed = new ArrayList<>();
+		var reversed = new ArrayList<ResolvedSegment>();
 		for (int i = leg.segments().size() - 1; i >= 0; i--) {
-			ResolvedSegment segment = leg.segments().get(i);
+			var segment = leg.segments().get(i);
 			reversed.add(new ResolvedSegment(segment.declaration(), segment.context(), segment.destination(),
 					segment.source(), !segment.reverse(), segment.destinationPath(), segment.sourcePath()));
 		}
@@ -254,7 +259,7 @@ public final class PathAssembler {
 	}
 
 	private static ModeConstraint combine(LegResult sourceLeg, LegResult destinationLeg) {
-		List<ModeConstraint.Requirement> requirements = new ArrayList<>(sourceLeg.modes().requirements());
+		var requirements = new ArrayList<>(sourceLeg.modes().requirements());
 		requirements.addAll(destinationLeg.modes().requirements());
 		return new ModeConstraint(requirements);
 	}
@@ -265,7 +270,7 @@ public final class PathAssembler {
 	 * must not collapse two paths that differ in any identity field.
 	 */
 	private static void add(Map<SemanticConnectionKey, SemanticConnectionPath> unique, SemanticConnectionPath path) {
-		for (ResolvedSegment segment : path.segments()) {
+		for (var segment : path.segments()) {
 			if (!traversable(segment)) {
 				return;
 			}
