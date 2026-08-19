@@ -1,0 +1,74 @@
+package issue2927
+public
+	annex EMV2 {**
+		error behavior Simple
+		states
+			Good: initial state;
+			Failed: state;
+		end behavior;
+	**};
+
+	system power_bus
+		annex EMV2 {**
+			use behavior issue2927::Simple;
+
+			component error behavior
+			events
+				PowerBusFail: error event;
+			transitions
+				Good -[PowerBusFail]-> Failed;
+			end component;
+
+			properties
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 10.0e-6; Distribution => Fixed;]
+					applies to PowerBusFail;
+		**};
+	end power_bus;
+
+	system implementation power_bus.i
+	end power_bus.i;
+
+	system redundant_thing
+	end redundant_thing;
+
+	system implementation redundant_thing.four
+		subcomponents
+			power_bus_1: system power_bus.i;
+			power_bus_2: system power_bus.i;
+			power_bus_3: system power_bus.i;
+			power_bus_4: system power_bus.i;
+	end redundant_thing.four;
+
+	system implementation redundant_thing.i4_2 extends redundant_thing.four
+		annex EMV2 {**
+			use behavior issue2927::Simple;
+
+			composite error behavior
+			states
+				[2 ormore (power_bus_1.Failed, power_bus_2.Failed, power_bus_3.Failed, power_bus_4.Failed)]-> Failed;
+			end composite;
+		**};
+	end redundant_thing.i4_2;
+
+	system implementation redundant_thing.i4_3 extends redundant_thing.four
+		annex EMV2 {**
+			use behavior issue2927::Simple;
+
+			composite error behavior
+			states
+				[3 ormore (power_bus_1.Failed, power_bus_2.Failed, power_bus_3.Failed, power_bus_4.Failed)]-> Failed;
+			end composite;
+		**};
+	end redundant_thing.i4_3;
+
+	system implementation redundant_thing.i4_4 extends redundant_thing.four
+		annex EMV2 {**
+			use behavior issue2927::Simple;
+
+			composite error behavior
+			states
+				[4 ormore (power_bus_1.Failed, power_bus_2.Failed, power_bus_3.Failed, power_bus_4.Failed)]-> Failed;
+			end composite;
+		**};
+	end redundant_thing.i4_4;
+end issue2927;
