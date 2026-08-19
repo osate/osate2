@@ -1131,7 +1131,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				TraversalState branchState = getState(etei);
 				FlowIterator continuation = branchState.continuations.pop();
 
-				addNestedETE(etei, nested);
+				etei.getFlowElements().add(nested.instance);
 
 				// prepare next connection filter
 				branchState.connections.clear();
@@ -1191,7 +1191,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 					// Preserve path order: the incoming connection precedes the nested flow.
 					etei.getFlowElements().add(match.connection());
-					addNestedETE(etei, match.nested());
+					etei.getFlowElements().add(match.nested().instance);
 
 					// prepare next connection filter
 					branchState.connections.clear();
@@ -1269,10 +1269,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		case ComponentInstance component -> component;
 		case null, default -> null;
 		};
-	}
-
-	private void addNestedETE(EndToEndFlowInstance etei, FlowCandidate nested) {
-		etei.getFlowElements().add(nested.instance);
 	}
 
 	/**

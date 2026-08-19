@@ -483,7 +483,7 @@ connection from the iterator. That preserves the remainder of a multi-hop access
              "No compatible nested end to end flow instance for …"; clear pending; return
          otherwise FORK PER MATCH:
              etei.getFlowElements() += match.connection()   (path order: conn precedes nested)
-             addNestedETE(etei, match.nested())
+             etei.getFlowElements().add(match.nested().instance)
              pending := match.nested().postConnections + the next declarative connection
              continueFlow(...)
 ```
