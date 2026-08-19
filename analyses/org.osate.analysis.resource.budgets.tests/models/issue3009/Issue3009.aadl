@@ -1,0 +1,53 @@
+package Issue3009
+public
+	with SEI;
+
+	data D
+		properties
+			Data_Size => 8 Bytes;
+	end D;
+
+	bus B
+		properties
+			SEI::BandWidthBudget => 64.0 KBytesps;
+			SEI::BandWidthCapacity => 64.0 KBytesps;
+	end B;
+
+	virtual bus VB
+		properties
+			SEI::BandWidthBudget => 16.0 KBytesps;
+			SEI::BandWidthCapacity => 16.0 KBytesps;
+	end VB;
+
+	system Producer
+		features
+			outgoing: out data port D;
+	end Producer;
+
+	system Consumer
+		features
+			incoming: in data port D;
+	end Consumer;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			producer: system Producer;
+			consumer: system Consumer;
+			b1: bus B;
+			b2: bus B;
+			b3: bus B;
+			vb: virtual bus VB;
+		connections
+			c: port producer.outgoing -> consumer.incoming {
+				Actual_Connection_Binding => (reference (vb));
+				SEI::BandWidthBudget => 8.0 KBytesps;
+			};
+		properties
+			Actual_Connection_Binding => (reference (b1), reference (b2), reference (b3)) applies to vb;
+			Communication_Properties::Output_Rate =>
+				[Value_Range => 1000.0 .. 1000.0; Rate_Unit => PerSecond;] applies to producer.outgoing;
+	end Top.i;
+end Issue3009;

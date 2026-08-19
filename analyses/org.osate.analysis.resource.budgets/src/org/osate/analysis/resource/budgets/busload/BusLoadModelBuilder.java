@@ -52,7 +52,6 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 final class BusLoadModelBuilder {
 	private final Map<ComponentInstance, Bus> buses = new HashMap<>();
-	private final Map<ComponentInstance, VirtualBus> virtualBuses = new HashMap<>();
 
 	private final SystemInstance systemInstance;
 	private final SystemOperationMode som;
@@ -81,16 +80,12 @@ final class BusLoadModelBuilder {
 		return bus;
 	}
 
-	private VirtualBus getVirtualBus(final ComponentInstance ci) {
+	private static VirtualBus createVirtualBus(final ComponentInstance ci) {
 		if (ci.getCategory() != ComponentCategory.VIRTUAL_BUS) {
 			throw new IllegalArgumentException("Component instance is not a virtual bus");
 		}
-		VirtualBus vb = virtualBuses.get(ci);
-		if (vb == null) {
-			vb = BusloadFactory.eINSTANCE.createVirtualBus();
-			vb.setBusInstance(ci);
-			virtualBuses.put(ci, vb);
-		}
+		final VirtualBus vb = BusloadFactory.eINSTANCE.createVirtualBus();
+		vb.setBusInstance(ci);
 		return vb;
 	}
 
@@ -111,8 +106,6 @@ final class BusLoadModelBuilder {
 				final ComponentCategory cat = ci.getCategory();
 				if (cat == ComponentCategory.BUS) {
 					addBus(model, ci, som);
-				} else if (cat == ComponentCategory.VIRTUAL_BUS) {
-					addVirtualBus(model, ci, som);
 				}
 			}
 		};
@@ -123,17 +116,10 @@ final class BusLoadModelBuilder {
 	private void addBus(final BusLoadModel model, final ComponentInstance bus, final SystemOperationMode som) {
 		final Bus theBus = getBus(bus);
 		model.getRootBuses().add(theBus);
-		addBusOrVirtualBus(model, theBus, bus, som);
+		addBusOrVirtualBus(theBus, bus, som);
 	}
 
-	private void addVirtualBus(final BusLoadModel model, final ComponentInstance vb,
-			final SystemOperationMode som) {
-		final VirtualBus theVirtualBus = getVirtualBus(vb);
-		// Node will attached to the model by the (virtual) bus that it is bound to
-		addBusOrVirtualBus(model, theVirtualBus, vb, som);
-	}
-
-	private void addBusOrVirtualBus(final BusLoadModel model, final BusOrVirtualBus bus, final ComponentInstance ci,
+	private void addBusOrVirtualBus(final BusOrVirtualBus bus, final ComponentInstance ci,
 			final SystemOperationMode som) {
 		final boolean isBroadcast = Sei.getBroadcastProtocol(ci).orElse(false);
 		List<ConnectionInstance> budgetedConnections = InstanceModelUtil.getBoundConnections(ci);
@@ -154,7 +140,12 @@ final class BusLoadModelBuilder {
 		budgetedVBs = filterInMode(budgetedVBs, som);
 
 		budgetedConnections.forEach(connInstance -> bus.getBoundConnections().add(getConnection(connInstance)));
-		budgetedVBs.forEach(vb -> bus.getBoundVirtualBuses().add(getVirtualBus(vb)));
+		for (final ComponentInstance vb : budgetedVBs) {
+			// Each containment path needs its own analysis-model subtree.
+			final VirtualBus theVirtualBus = createVirtualBus(vb);
+			bus.getBoundVirtualBuses().add(theVirtualBus);
+			addBusOrVirtualBus(theVirtualBus, vb, som);
+		}
 	}
 
 	private static <E extends InstanceObject> List<E> filterInMode(final List<E> instanceObjects,
