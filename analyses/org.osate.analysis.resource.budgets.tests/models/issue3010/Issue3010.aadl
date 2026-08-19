@@ -1,0 +1,54 @@
+package Issue3010
+public
+	with SEI;
+
+	data D
+		properties
+			Data_Size => 8 Bytes;
+	end D;
+
+	bus BroadcastBus
+		properties
+			SEI::BandWidthBudget => 64.0 KBytesps;
+			SEI::BandWidthCapacity => 64.0 KBytesps;
+			SEI::Broadcast_Protocol => true;
+	end BroadcastBus;
+
+	system Producer
+		features
+			outgoing: out data port D;
+	end Producer;
+
+	system Consumer
+		features
+			in1: in data port D;
+			in2: in data port D;
+			in3: in data port D;
+	end Consumer;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			producer: system Producer;
+			consumer: system Consumer;
+			bus1: bus BroadcastBus;
+		connections
+			c1: port producer.outgoing -> consumer.in1 {
+				Actual_Connection_Binding => (reference (bus1));
+				SEI::BandWidthBudget => 8.0 KBytesps;
+			};
+			c2: port producer.outgoing -> consumer.in2 {
+				Actual_Connection_Binding => (reference (bus1));
+				SEI::BandWidthBudget => 16.0 KBytesps;
+			};
+			c3: port producer.outgoing -> consumer.in3 {
+				Actual_Connection_Binding => (reference (bus1));
+				SEI::BandWidthBudget => 16.0 KBytesps;
+			};
+		properties
+			Communication_Properties::Output_Rate =>
+				[Value_Range => 1000.0 .. 1000.0; Rate_Unit => PerSecond;] applies to producer.outgoing;
+	end Top.i;
+end Issue3010;

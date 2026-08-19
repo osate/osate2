@@ -367,7 +367,7 @@ public final class NewBusLoadAnalysis {
 				final double current = c.getBudget();
 				maxBudget = Math.max(maxBudget, current);
 				if (last != null) {
-					unequal = last.getBudget() != current;
+					unequal |= last.getBudget() != current;
 				}
 				last = c;
 			}
