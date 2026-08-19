@@ -283,7 +283,7 @@ models.
 
 ---
 
-## 9. Behavior accepted as changed in 2.19.0
+## 9. Behavior accepted as changed
 
 Issue #3037 replaced the traversal, and eight differences from 2.18.0 were reviewed and
 approved rather than reproduced. This is the list, and it is the reason a test asserts an
@@ -295,7 +295,7 @@ Nothing else about a connection instance was allowed to change. In particular: n
 source and destination, the count where two orientations exist, `bidirectional`, membership
 in flows, and mode-transition connections are all unchanged.
 
-| Entry | What may differ | 2.18.0 | 2.19.0 | Why |
+| Entry | What may differ | 2.18.0 | now | Why |
 |---|---|---|---|---|
 | **1** | Per-container `connectionInstances` order | insertion order of the old traversal | deterministic key order (§5) | The old order was an artifact of per-component enumeration. Nothing documented it, and the new order is derived from stable keys, so it can be pinned. |
 | **2** | Per-container sibling `endToEndFlows` order | followed entry 1 | follows entry 1 | A consequence of entry 1. The ordered element sequence *inside* each flow is unchanged. |
