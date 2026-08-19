@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The chain of features a semantic connection reaches through on one side, from a
+ * The chain of features a connection instance reaches through on one side, from a
  * component's own feature down into nested feature groups.
  *
  * <p>

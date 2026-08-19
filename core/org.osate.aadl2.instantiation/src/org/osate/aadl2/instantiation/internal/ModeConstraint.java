@@ -31,7 +31,7 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.instance.ComponentInstance;
 
 /**
- * The modal declarations a semantic connection path passes through, in traversal
+ * The modal declarations a connection instance path passes through, in traversal
  * order.
  *
  * <p>

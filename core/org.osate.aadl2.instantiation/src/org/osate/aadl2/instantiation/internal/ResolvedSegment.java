@@ -71,7 +71,7 @@ public record ResolvedSegment(Connection declaration, ComponentInstance context,
 
 	/**
 	 * Whether this segment crosses between peers, which makes it the pivot of a
-	 * complete semantic connection. The predicate is purely declarative and includes
+	 * complete path. The predicate is purely declarative and includes
 	 * an access connection whose endpoint is a subcomponent.
 	 */
 	public boolean isAcross() {

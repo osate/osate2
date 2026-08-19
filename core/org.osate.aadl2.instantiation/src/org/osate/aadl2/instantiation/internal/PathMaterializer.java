@@ -78,7 +78,7 @@ public final class PathMaterializer {
 	 * @param path the enumerated path
 	 * @param endpoints one pair of leaves the path expanded to
 	 */
-	public static ConnectionInstance materialize(SystemInstance systemInstance, SemanticConnectionPath path,
+	public static ConnectionInstance materialize(SystemInstance systemInstance, ConnectionInstancePath path,
 			LeafExpansion.Endpoints endpoints) {
 		var container = container(systemInstance, path);
 		var connection = InstanceFactory.eINSTANCE.createConnectionInstance();
@@ -106,7 +106,7 @@ public final class PathMaterializer {
 	}
 
 	/** The component instance that contains the connection. */
-	public static ComponentInstance container(SystemInstance systemInstance, SemanticConnectionPath path) {
+	public static ComponentInstance container(SystemInstance systemInstance, ConnectionInstancePath path) {
 		var container = path.container();
 		return container == null ? systemInstance : container;
 	}
@@ -115,7 +115,7 @@ public final class PathMaterializer {
 	 * The connection name: the endpoint paths relative to the container, separated by an
 	 * arrow. This is presentation data and must stay byte-for-byte compatible.
 	 */
-	private static String name(ComponentInstance container, SystemInstance systemInstance, SemanticConnectionPath path,
+	private static String name(ComponentInstance container, SystemInstance systemInstance, ConnectionInstancePath path,
 			LeafExpansion.Endpoints endpoints) {
 		String containerPath = path.container() != null ? container.getInstanceObjectPath()
 				: systemInstance.getName();

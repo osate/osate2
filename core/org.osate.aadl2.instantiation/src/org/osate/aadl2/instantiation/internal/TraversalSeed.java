@@ -31,7 +31,7 @@ import org.osate.aadl2.instance.SystemInstance;
  * Where an across-first traversal starts.
  *
  * <p>
- * A complete internal semantic connection is seeded at its across declaration, the
+ * A complete internal connection instance is seeded at its across declaration, the
  * one point where it crosses between peers. That declaration identifies the
  * containing component instance and supplies both endpoint feature chains up front,
  * rather than leaving them to be reconstructed once a destination is reached.
@@ -50,7 +50,7 @@ public sealed interface TraversalSeed {
 	String key();
 
 	/**
-	 * A seed at an across declaration, the pivot of a complete semantic connection.
+	 * A seed at an across declaration, the pivot of a complete connection instance.
 	 *
 	 * @param segment the across declaration, resolved in one orientation
 	 */
@@ -115,7 +115,7 @@ public sealed interface TraversalSeed {
 	 * component containing it.
 	 *
 	 * <p>
-	 * Such a port ends a semantic connection even though the connection reaches no peer
+	 * Such a port ends a connection instance even though the connection reaches no peer
 	 * and leaves no boundary: the trigger is the connection's consumer. Only a port that
 	 * really triggers a transition of the containing component is seeded. An event port
 	 * that the level above routes nowhere ends no connection and gets no seed, which is

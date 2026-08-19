@@ -48,7 +48,7 @@ import org.osate.aadl2.instantiation.internal.PathAssembler;
 import org.osate.aadl2.instantiation.internal.PathMaterializer;
 import org.osate.aadl2.instantiation.internal.ResolutionFailures;
 import org.osate.aadl2.instantiation.internal.SeedDiscovery;
-import org.osate.aadl2.instantiation.internal.SemanticConnectionPath;
+import org.osate.aadl2.instantiation.internal.ConnectionInstancePath;
 import org.osate.aadl2.instantiation.internal.TraversalSeed;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
@@ -128,7 +128,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	/**
-	 * Enumerate and materialize every semantic connection under {@code root} with
+	 * Enumerate and materialize every connection instance under {@code root} with
 	 * across-first traversal.
 	 *
 	 * <p>
@@ -199,7 +199,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * made here, where the path's end is known, and its wording is the one issue #3044 settled;
 	 * {@code Issue3037MemberPairingTest} asserts it exactly.
 	 */
-	private void reportDeadEnd(final SemanticConnectionPath path) {
+	private void reportDeadEnd(final ConnectionInstancePath path) {
 		warning(path.destination(),
 				"Could not continue connection from "
 						+ LeafExpansion.correspondingSource(path).getInstanceObjectPath() + " through "
@@ -212,7 +212,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * before expansion, so a duplicate would mean two identities produced the same connection,
 	 * which is an enumeration defect rather than something to absorb silently.
 	 */
-	private void attachAcrossFirst(final SystemInstance systemInstance, final SemanticConnectionPath path,
+	private void attachAcrossFirst(final SystemInstance systemInstance, final ConnectionInstancePath path,
 			final LeafExpansion.Endpoints endpoints) {
 		var container = PathMaterializer.container(systemInstance, path);
 		var conni = PathMaterializer.materialize(systemInstance, path, endpoints);

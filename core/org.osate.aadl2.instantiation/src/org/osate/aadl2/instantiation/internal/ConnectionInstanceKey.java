@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Structured identity of a semantic connection path, used to suppress redundant
+ * Structured identity of a connection instance path, used to suppress redundant
  * enumeration work.
  *
  * <p>
@@ -39,9 +39,8 @@ import java.util.List;
  * <p>
  * Display names are not part of identity and must not become part of it. A name is
  * built only from the container-relative source and destination paths, so two
- * distinct semantic paths that share an endpoint pair share a name; keying on names
- * would collapse them. Name formatting stays exactly where it is, in
- * materialization.
+ * distinct paths that share an endpoint pair share a name; keying on names would
+ * collapse them. Name formatting stays exactly where it is, in materialization.
  * </p>
  *
  * <p>
@@ -65,11 +64,11 @@ import java.util.List;
  * @param featurePathKeys the source and destination feature chains of each segment,
  *            in the same order
  */
-public record SemanticConnectionKey(String containerKey, String sourceKey, String destinationKey,
+public record ConnectionInstanceKey(String containerKey, String sourceKey, String destinationKey,
 		List<String> declarationKeys, List<String> contextKeys, List<Boolean> reverseFlags,
 		List<String> featurePathKeys) {
 
-	public SemanticConnectionKey {
+	public ConnectionInstanceKey {
 		declarationKeys = List.copyOf(declarationKeys);
 		contextKeys = List.copyOf(contextKeys);
 		reverseFlags = List.copyOf(reverseFlags);
@@ -91,7 +90,7 @@ public record SemanticConnectionKey(String containerKey, String sourceKey, Strin
 	}
 
 	/** The identity of {@code path}. */
-	public static SemanticConnectionKey of(SemanticConnectionPath path) {
+	public static ConnectionInstanceKey of(ConnectionInstancePath path) {
 		var declarations = new ArrayList<String>();
 		var contexts = new ArrayList<String>();
 		var reverseFlags = new ArrayList<Boolean>();
@@ -102,7 +101,7 @@ public record SemanticConnectionKey(String containerKey, String sourceKey, Strin
 			reverseFlags.add(segment.reverse());
 			featurePaths.add(segment.sourcePath().key() + "->" + segment.destinationPath().key());
 		}
-		return new SemanticConnectionKey(PathKeys.instance(path.container()), PathKeys.instance(path.source()),
+		return new ConnectionInstanceKey(PathKeys.instance(path.container()), PathKeys.instance(path.source()),
 				PathKeys.instance(path.destination()), declarations, contexts, reverseFlags, featurePaths);
 	}
 }

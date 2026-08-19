@@ -73,13 +73,13 @@ public final class LeafExpansion {
 	 * The leaf pairs {@code path} expands to. A path whose endpoints are already leaves
 	 * expands to itself when its directions allow, and to nothing when they do not.
 	 */
-	public static List<Endpoints> expand(SemanticConnectionPath path) {
+	public static List<Endpoints> expand(ConnectionInstancePath path) {
 		var expanded = new ArrayList<Endpoints>();
 		expand(path, path.source(), path.destination(), expanded);
 		return List.copyOf(expanded);
 	}
 
-	private static void expand(SemanticConnectionPath path, ConnectionInstanceEnd source,
+	private static void expand(ConnectionInstancePath path, ConnectionInstanceEnd source,
 			ConnectionInstanceEnd destination, List<Endpoints> expanded) {
 		if (!(source instanceof FeatureInstance sourceFeature)) {
 			expanded.add(new Endpoints(source, reached(path, destination, true)));
@@ -120,7 +120,7 @@ public final class LeafExpansion {
 	 * keeps a diagnostic approximate rather than absent.
 	 * </p>
 	 */
-	public static ConnectionInstanceEnd correspondingSource(SemanticConnectionPath path) {
+	public static ConnectionInstanceEnd correspondingSource(ConnectionInstancePath path) {
 		var current = path.destination();
 		for (int i = path.segments().size() - 1; i >= 0; i--) {
 			var segment = path.segments().get(i);
@@ -232,7 +232,7 @@ public final class LeafExpansion {
 	 * prefer, and the connection does reach the whole group.
 	 * </p>
 	 */
-	private static ConnectionInstanceEnd reached(SemanticConnectionPath path, ConnectionInstanceEnd end,
+	private static ConnectionInstanceEnd reached(ConnectionInstancePath path, ConnectionInstanceEnd end,
 			boolean destinationSide) {
 		if (!(end instanceof FeatureInstance group) || isLeaf(group)) {
 			return end;
@@ -261,7 +261,7 @@ public final class LeafExpansion {
 	 * leave the model with no report of a connection it declares and cannot have.
 	 * </p>
 	 */
-	private static boolean directionsAllow(SemanticConnectionPath path, FeatureInstance source,
+	private static boolean directionsAllow(ConnectionInstancePath path, FeatureInstance source,
 			FeatureInstance destination) {
 		boolean downOnly = !path.complete() && !isUpOnly(path, source, destination);
 		if (!(downOnly ? source.getFlowDirection().incoming() : source.getFlowDirection().outgoing())) {
@@ -275,7 +275,7 @@ public final class LeafExpansion {
 	}
 
 	/** Whether an incomplete path only travels up, that is, the source sits inside the destination. */
-	private static boolean isUpOnly(SemanticConnectionPath path, FeatureInstance source, FeatureInstance destination) {
+	private static boolean isUpOnly(ConnectionInstancePath path, FeatureInstance source, FeatureInstance destination) {
 		if (path.complete()) {
 			return false;
 		}
@@ -289,7 +289,7 @@ public final class LeafExpansion {
 		return false;
 	}
 
-	private static void expandAgainstLeafSource(SemanticConnectionPath path, FeatureInstance source,
+	private static void expandAgainstLeafSource(ConnectionInstancePath path, FeatureInstance source,
 			FeatureInstance destinationGroup, List<Endpoints> expanded) {
 		var destination = findDestinationFeature(path, destinationGroup);
 		if (destination != null && (path.complete() ? destination.getFlowDirection().incoming()
@@ -308,7 +308,7 @@ public final class LeafExpansion {
 		}
 	}
 
-	private static void expandAgainstLeafDestination(SemanticConnectionPath path, FeatureInstance sourceGroup,
+	private static void expandAgainstLeafDestination(ConnectionInstancePath path, FeatureInstance sourceGroup,
 			FeatureInstance destination, List<Endpoints> expanded) {
 		var source = findSourceFeature(path, sourceGroup);
 		if (source != null && (path.complete() ? source.getFlowDirection().outgoing()
@@ -331,7 +331,7 @@ public final class LeafExpansion {
 	 * members the other side does not have; otherwise the two groups have the same
 	 * internal structure and pair positionally.
 	 */
-	private static void expandGroupToGroup(SemanticConnectionPath path, FeatureInstance sourceGroup,
+	private static void expandGroupToGroup(ConnectionInstancePath path, FeatureInstance sourceGroup,
 			FeatureInstance destinationGroup, List<Endpoints> expanded) {
 		if (isSubsetMatch(path)) {
 			for (var destination : destinationGroup.getFeatureInstances()) {
@@ -356,7 +356,7 @@ public final class LeafExpansion {
 		}
 	}
 
-	private static boolean isSubsetMatch(SemanticConnectionPath path) {
+	private static boolean isSubsetMatch(ConnectionInstancePath path) {
 		for (var segment : path.segments()) {
 			var declaration = segment.declaration();
 			if (ModelingProperties.getClassifierMatchingRule(declaration)
@@ -373,7 +373,7 @@ public final class LeafExpansion {
 	 * that member across by name, or by index when an inverse feature group type renames
 	 * its features.
 	 */
-	private static FeatureInstance findDestinationFeature(SemanticConnectionPath path, FeatureInstance group) {
+	private static FeatureInstance findDestinationFeature(ConnectionInstancePath path, FeatureInstance group) {
 		ConnectionInstanceEnd target = null;
 		for (var segment : path.segments()) {
 			if (target != null && target != segment.source()) {
@@ -387,7 +387,7 @@ public final class LeafExpansion {
 	}
 
 	/** The mirror of {@link #findDestinationFeature}, walking the path backwards. */
-	private static FeatureInstance findSourceFeature(SemanticConnectionPath path, FeatureInstance group) {
+	private static FeatureInstance findSourceFeature(ConnectionInstancePath path, FeatureInstance group) {
 		ConnectionInstanceEnd target = null;
 		var segments = path.segments();
 		for (int i = segments.size() - 1; i >= 0; i--) {

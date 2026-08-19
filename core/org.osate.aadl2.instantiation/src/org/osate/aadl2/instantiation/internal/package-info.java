@@ -22,10 +22,10 @@
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 /**
- * Enumerates the semantic connections of an instance model, across-first.
+ * Enumerates the connection instances of an instance model, across-first.
  *
  * <p>
- * A semantic connection has exactly one containment turning point: it travels up zero or more
+ * A connection instance has exactly one containment turning point: it travels up zero or more
  * containment levels, crosses between peers once, and travels down zero or more levels. This
  * package takes that shape as its structure. {@link org.osate.aadl2.instantiation.internal.SeedDiscovery}
  * finds the declaration at each turning point, the across seed, together with the boundary and

@@ -154,7 +154,7 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	 * The same pivot fed from an array, where all but the first element is lost.
 	 *
 	 * <p>
-	 * Two producers feed the boundary group member, so there are two semantic connections
+	 * Two producers feed the boundary group member, so there are two connection instances
 	 * across the pivot. One is instantiated. Structural expansion rejects the replication with
 	 * "Too few indices for connection destination" and leaves the un-replicated provisional
 	 * attached, which is why the surviving name has a single arrow rather than the double

@@ -29,7 +29,8 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 
 /**
- * A complete enumerated semantic connection, before anything is materialized.
+ * A whole enumerated path, from ultimate source to ultimate destination, before
+ * anything is materialized.
  *
  * <p>
  * Nothing here is an EMF instance object of the connection itself: enumeration
@@ -59,31 +60,31 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
  *            further nor end it. Such a path is reported rather than materialized, so
  *            no connection instance exists for it
  */
-public record SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionInstanceEnd destination,
+public record ConnectionInstancePath(ConnectionInstanceEnd source, ConnectionInstanceEnd destination,
 		List<ResolvedSegment> segments, boolean complete, boolean allSegmentsBidirectional, ModeConstraint modes,
 		boolean deadEnd) {
 
 	/** A path that ends somewhere a connection may end. */
-	public SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionInstanceEnd destination,
+	public ConnectionInstancePath(ConnectionInstanceEnd source, ConnectionInstanceEnd destination,
 			List<ResolvedSegment> segments, boolean complete, boolean allSegmentsBidirectional, ModeConstraint modes) {
 		this(source, destination, segments, complete, allSegmentsBidirectional, modes, false);
 	}
 
-	public SemanticConnectionPath {
+	public ConnectionInstancePath {
 		if (source == null || destination == null) {
-			throw new IllegalArgumentException("A semantic connection path needs both ultimate endpoints, but got "
+			throw new IllegalArgumentException("A connection instance path needs both ultimate endpoints, but got "
 					+ PathKeys.instance(source) + " -> " + PathKeys.instance(destination));
 		}
 		if (modes == null) {
-			throw new IllegalArgumentException("A semantic connection path needs a mode constraint");
+			throw new IllegalArgumentException("A connection instance path needs a mode constraint");
 		}
 		segments = List.copyOf(segments);
 		if (segments.isEmpty()) {
-			throw new IllegalArgumentException("A semantic connection path needs at least one segment");
+			throw new IllegalArgumentException("A connection instance path needs at least one segment");
 		}
 
 		/*
-		 * A semantic connection has one containment turning point: it travels up zero or
+		 * A connection instance has one containment turning point: it travels up zero or
 		 * more levels, crosses between peers once, and travels down zero or more levels.
 		 * More than one across segment is an implementation defect rather than a legal
 		 * path, so it fails here rather than producing a connection instance whose
@@ -91,12 +92,12 @@ public record SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionIns
 		 */
 		long across = segments.stream().filter(ResolvedSegment::isAcross).count();
 		if (across > 1) {
-			throw new IllegalStateException("A semantic connection path may cross between peers at most once, but "
+			throw new IllegalStateException("A connection instance path may cross between peers at most once, but "
 					+ PathKeys.instance(source) + " -> " + PathKeys.instance(destination) + " has " + across
 					+ " across segments");
 		}
 		if (complete != (across == 1)) {
-			throw new IllegalStateException("A semantic connection path is complete exactly when it crosses between "
+			throw new IllegalStateException("A connection instance path is complete exactly when it crosses between "
 					+ "peers, but " + PathKeys.instance(source) + " -> " + PathKeys.instance(destination)
 					+ " has complete=" + complete + " with " + across + " across segments");
 		}
@@ -128,7 +129,7 @@ public record SemanticConnectionPath(ConnectionInstanceEnd source, ConnectionIns
 	 * Structured identity of this path, for suppressing redundant enumeration. Built
 	 * from stable keys, never from object identity or display names.
 	 */
-	public SemanticConnectionKey key() {
-		return SemanticConnectionKey.of(this);
+	public ConnectionInstanceKey key() {
+		return ConnectionInstanceKey.of(this);
 	}
 }

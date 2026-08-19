@@ -170,7 +170,7 @@ public final class LegResolver {
 
 		/*
 		 * Terminal policy: a connection-ending component. A thread, device, processor, or
-		 * virtual processor ends a semantic connection at a port or feature group, so the
+		 * virtual processor ends a connection instance at a port or feature group, so the
 		 * leg stops there. It does not stop for an access feature: shared access reaches
 		 * through such a component into what it contains.
 		 *
@@ -256,7 +256,7 @@ public final class LegResolver {
 	 * </p>
 	 *
 	 * <p>
-	 * A connection ending component is the exception: a semantic connection ends at its port
+	 * A connection ending component is the exception: a connection instance ends at its port
 	 * or feature group whatever it does internally, so it starts there too. Its access
 	 * features are not exempt, because shared access reaches through such a component into
 	 * what it contains, so the source can be deeper.
@@ -305,7 +305,7 @@ public final class LegResolver {
 	/**
 	 * Whether one of a component's own declarations delivers to {@code feature}, counting a
 	 * bidirectional declaration whichever end names it, and a declaration that names a member
-	 * of it. A feature the component delivers to is not where a semantic connection starts.
+	 * of it. A feature the component delivers to is not where a connection instance starts.
 	 */
 	private static boolean isDestinationInside(List<Connection> inside, Feature feature) {
 		var refinements = feature.getAllFeatureRefinements();
@@ -437,7 +437,7 @@ public final class LegResolver {
 		for (var segment : resolved(owner)) {
 			/*
 			 * Inside a connection-ending component only an access connection continues a
-			 * semantic connection: shared access reaches through such a component, while a
+			 * connection instance: shared access reaches through such a component, while a
 			 * port or feature group connection ends at it.
 			 */
 			if (endingCategory && !(segment.declaration() instanceof AccessConnection)) {
@@ -513,15 +513,15 @@ public final class LegResolver {
 	 * An exact match is not enough. A declaration may reach <em>into</em> a feature
 	 * group the leg stands at, connecting one member of it, and it may connect a whole
 	 * feature group while the leg stands at a member of it. Both continue the same
-	 * semantic connection and differ only in how much of the group the connection
+	 * connection instance and differ only in how much of the group the connection
 	 * covers, which the feature chain records.
 	 * </p>
 	 *
 	 * <p>
 	 * Requiring an exact match loses every connection that reaches into a feature
-	 * group. It is also the reason two distinct semantic paths can share an endpoint
+	 * group. It is also the reason two distinct paths can share an endpoint
 	 * pair, and therefore why identity has to include the feature chains and not only
-	 * the endpoints; see {@link SemanticConnectionKey}.
+	 * the endpoints; see {@link ConnectionInstanceKey}.
 	 * </p>
 	 */
 	static boolean touches(ConnectionInstanceEnd near, FeatureInstance position) {
@@ -596,11 +596,11 @@ public final class LegResolver {
 	}
 
 	/**
-	 * Whether a component of this category ends a semantic connection. These are the four
+	 * Whether a component of this category ends a connection instance. These are the four
 	 * categories AS5506B treats as the ultimate destination of a connection: a thread, a
 	 * device, a processor and a virtual processor consume what arrives at their ports
 	 * rather than routing it onwards. Adding or removing a category changes how long every
-	 * semantic connection through it is.
+	 * connection instance through it is.
 	 */
 	static boolean isConnectionEndingCategory(ComponentCategory category) {
 		return category == THREAD || category == DEVICE || category == PROCESSOR || category == VIRTUAL_PROCESSOR;

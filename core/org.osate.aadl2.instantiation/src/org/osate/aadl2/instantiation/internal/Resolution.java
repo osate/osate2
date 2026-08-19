@@ -28,7 +28,7 @@ import java.util.Optional;
 import org.osate.aadl2.Element;
 
 /**
- * The outcome of resolving one step of a semantic connection path.
+ * The outcome of resolving one step of a connection instance path.
  *
  * <p>
  * A step that does not apply, an end the model should have had and does not, and a

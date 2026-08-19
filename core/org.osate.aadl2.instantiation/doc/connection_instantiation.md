@@ -12,19 +12,27 @@ by type and method name only — no line numbers, since those move.
 
 ## 1. Terms
 
-The traversal has its own vocabulary, and none of it appears in the AADL standard. These are
-the words used throughout the code and the rest of this document.
+The traversal has its own vocabulary. These are the words used throughout the code and the
+rest of this document.
+
+One word is deliberately absent. The AADL standard's *semantic connection* is the complete case
+only: a connection between two connection-ending components, thread to thread for instance. What
+this traversal enumerates and what `CreateConnectionsSwitch` materializes is a `ConnectionInstance`,
+which may be complete or incomplete — a boundary connection at a feature of the instantiation root
+is neither thread-to-thread nor invalid. The code therefore says *connection instance* for the
+thing produced and *path* for the route it is enumerated from, and leaves *semantic connection* to
+the standard.
 
 | Term | Meaning |
 |---|---|
-| **semantic connection** | The thing being instantiated: one end-to-end route from an ultimate source to an ultimate destination, made of one or more declarative `Connection`s. One `ConnectionInstance` is one semantic connection. |
+| **connection instance** | The thing being instantiated: one end-to-end route from an ultimate source to an ultimate destination, made of one or more declarative `Connection`s. One `ConnectionInstance` is one such route, and it is *complete* when it crosses between peers and *incomplete* when it does not. |
 | **segment** | One declarative connection, resolved against the instance model and given an orientation: a `ResolvedSegment` of a declaration, the component instance it is declared in, its two resolved endpoints, and whether it is traversed against its declared direction. |
-| **pivot** | The single segment of a complete semantic connection that crosses between peers, that is, the one whose declaration `Connection.isAcross()` accepts. A semantic connection travels up zero or more containment levels, crosses **once**, and travels down zero or more levels, so there is exactly one pivot. |
+| **pivot** | The single segment of a complete connection instance that crosses between peers, that is, the one whose declaration `Connection.isAcross()` accepts. A connection instance travels up zero or more containment levels, crosses **once**, and travels down zero or more levels, so there is exactly one pivot. |
 | **seed** | Where enumeration starts. A `TraversalSeed` is either an `Across` seed, which is a pivot, or a `Boundary` seed at a feature of the instantiation root, or a `Trigger` seed at an event port that triggers a mode transition. The last two exist because a connection can be incomplete: it has no crossing of its own. |
-| **leg** | The part of a semantic connection on one side of the pivot, resolved by descending containment away from it. A `LegResult` records where the leg stopped, the segments it traversed to get there, and why it stopped. A leg is *trivial* when the seed endpoint is already the end of the connection. |
+| **leg** | The part of a connection instance on one side of the pivot, resolved by descending containment away from it. A `LegResult` records where the leg stopped, the segments it traversed to get there, and why it stopped. A leg is *trivial* when the seed endpoint is already the end of the connection. |
 | **role** | Which side of the pivot a leg descends towards: `LegRole.SOURCE_LEG` towards the ultimate source, `LegRole.DESTINATION_LEG` towards the ultimate destination. One operation resolves both; the role only decides which declared side of a candidate declaration the leg arrives from. |
 | **join** | Pairing a source leg with a destination leg to make a whole path. Not every pair is a connection, see §5. |
-| **path** | A joined source leg, pivot and destination leg: a `SemanticConnectionPath`, which is the complete semantic connection before any EMF object exists for it. |
+| **path** | A joined source leg, pivot and destination leg: a `ConnectionInstancePath`, which is the whole route before any EMF object exists for it. |
 | **expansion** | Narrowing a path's two ends to the leaf features that a connection instance can actually connect, because a path may end at a whole feature group. One path becomes one connection instance per leaf pair. |
 | **dead end** | A path that arrives somewhere the connection can neither continue from nor end at. It is reported and not materialized. |
 | **structural expansion** | A later, separate phase in `InstantiateModel`: replicating a materialized connection across component arrays and applying `Connection_Pattern` and `Connection_Set`. Not part of the traversal, see §7. |
@@ -40,7 +48,7 @@ assembled from hops.
 ```text
 Declarative AADL                          Instance model
 ----------------                          --------------
-connections                               ConnectionInstance   (one semantic connection)
+connections                               ConnectionInstance   (one whole route)
   c1: port a.p -> b.q          ------->     ConnectionReference (one per declarative hop,
   c2: port q -> inner.r        ------->     ConnectionReference  in source-to-destination
                                                                  order, each with the
@@ -126,7 +134,7 @@ deterministic key order.
   feature faces, and in both directions when it faces both ways. These carry the incomplete
   connections that enter or leave the model.
 - **Trigger seeds.** Each event port that triggers a mode transition of its component. A mode
-  transition ends a semantic connection, and the trigger is its consumer, so the connection
+  transition ends a connection instance, and the trigger is its consumer, so the connection
   has a destination but no crossing.
 
 Endpoint resolution is `EndpointResolver`, which walks the whole `ConnectedElement` chain of a
@@ -153,7 +161,7 @@ result:
 | Stop reason | Why |
 |---|---|
 | `endpoint is a component` | An access connection ends at a shared data, bus, virtual bus, subprogram or subprogram group. |
-| `connection ending component` | A thread, device, processor or virtual processor ends a semantic connection at a port or feature group. It does not end one at an access feature: shared access reaches through such a component into what it contains, so the leg both stops and continues when a feature group holds both. |
+| `connection ending component` | A thread, device, processor or virtual processor ends a connection instance at a port or feature group. It does not end one at an access feature: shared access reaches through such a component into what it contains, so the leg both stops and continues when a feature group holds both. |
 | `component type only` | A component with no implementation has no internals to descend into. |
 | `no continuing declaration` | Nothing inside routes the feature onwards. Such a stop is only the ultimate source if the component does not route the feature internally, which is what `mayBeUltimateSource()` decides. |
 | `nothing continues this member` / `member triggers a mode transition` | Asked member by member of a feature group: a member nothing continues ends the connection if it triggers a mode transition, and is a dead end otherwise. |
@@ -172,7 +180,7 @@ position where an inverse feature group renames its features. Comparing the legs
 chains instead does not work: those chains describe features of different components and never
 match.
 
-Paths are deduplicated by `SemanticConnectionKey`, which is built from stable data — endpoint
+Paths are deduplicated by `ConnectionInstanceKey`, which is built from stable data — endpoint
 paths, ordered declaration identity, contexts and reverse flags — never from object identity or
 a display name.
 
@@ -261,7 +269,7 @@ path.
 3. `EndpointResolver` and `Resolution` — how a declaration's end becomes an instance object,
    and how the three outcomes differ.
 4. `LegResolver.descend` — the terminal policies, then `continuations` for the descent rule.
-5. `PathAssembler.join` — leg pairing, then `SemanticConnectionKey` for deduplication.
+5. `PathAssembler.join` — leg pairing, then `ConnectionInstanceKey` for deduplication.
 6. `LeafExpansion.expand` — feature group semantics.
 7. `PathMaterializer` — names and reference chains, which are the externally visible part.
 
@@ -296,7 +304,7 @@ in flows, and mode-transition connections are all unchanged.
 | **6** | Diagnostic text and target | one error on the destination component, `Destination feature <f> not found. No connection created.` | one error per unresolvable end, on the instantiation root, `Feature <f> not found in <component>` | Endpoints are now resolved before any path exists, so the report can name which feature of which component is missing, and can name both ends. The old text needs information the resolver does not have: which end a partial path was heading for. |
 | **7** | Diagnostic text | `Instantiation error: no component instance for subcomponent <s>` | `No component instance for subcomponent <s>` | Same fact, same severity, same target. The prefix said only that instantiation noticed, which the target already says. |
 | **8** | Diagnostic set | warning `Could not continue connection from <src>  through <dst>. No connection instance created.` (two spaces) for a path travelling up that the level above does not continue | no diagnostic | Neither traversal creates the connection. The old one was extending that path when it found out, so it had a candidate to report; nothing seeds such a path now, and reproducing the warning would mean seeding every uncontinued boundary feature of every subcomponent purely to report and discard it. The information is worth having and is follow-up work, not a regression. |
-| **9** | The connection instances of an implementation whose pivot names a feature group member | references pinned to the enclosing group, which crosses member pairs and loses one orientation | references narrowed to the member the declaration names | The only entry that changes connection instances. The old behavior resolved an end from the first link of its `ConnectedElement` chain, so `o.ofg.of1` resolved to `o.ofg`; the crossed pairs connect members the model does not connect, and the lost orientation is a semantic connection the model has. Filed as [#3046](https://github.com/osate/osate2/issues/3046) and accepted rather than fixed in 2.18.0. |
+| **9** | The connection instances of an implementation whose pivot names a feature group member | references pinned to the enclosing group, which crosses member pairs and loses one orientation | references narrowed to the member the declaration names | The only entry that changes connection instances. The old behavior resolved an end from the first link of its `ConnectedElement` chain, so `o.ofg.of1` resolved to `o.ofg`; the crossed pairs connect members the model does not connect, and the lost orientation is a connection the model has. Filed as [#3046](https://github.com/osate/osate2/issues/3046) and accepted rather than fixed in 2.18.0. |
 
 Entries 1 and 2 also account for changes outside this bundle: `Serializer1Test` compares whole
 serialized instance models, `Issue2205Test` reads a broadcast group's connections by position,

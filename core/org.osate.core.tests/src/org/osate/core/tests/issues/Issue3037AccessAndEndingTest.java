@@ -44,7 +44,7 @@ import com.itemis.xtext.testing.XtextTest;
 
 /**
  * Characterizes the five kinds of access connection and the four component categories that
- * end a semantic connection, for issue #3037.
+ * end a connection instance, for issue #3037.
  *
  * <p>
  * The rest of the corpus exercises access connections only in combination with feature groups,

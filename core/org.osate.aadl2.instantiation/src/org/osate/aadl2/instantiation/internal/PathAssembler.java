@@ -39,7 +39,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 
 /**
- * Joins legs into whole semantic connection paths.
+ * Joins legs into whole connection instance paths.
  *
  * <p>
  * A path reads from ultimate source to ultimate destination, so the source leg is
@@ -97,9 +97,9 @@ public final class PathAssembler {
 	 *            seed endpoint is itself the ultimate source
 	 * @param destinationLegs legs towards the ultimate destination
 	 */
-	public static List<SemanticConnectionPath> join(TraversalSeed seed, List<LegResult> sourceLegs,
+	public static List<ConnectionInstancePath> join(TraversalSeed seed, List<LegResult> sourceLegs,
 			List<LegResult> destinationLegs) {
-		var unique = new LinkedHashMap<SemanticConnectionKey, SemanticConnectionPath>();
+		var unique = new LinkedHashMap<ConnectionInstanceKey, ConnectionInstancePath>();
 		// Exhaustive over the sealed seed hierarchy: every kind of seed says how its legs join.
 		switch (seed) {
 		case TraversalSeed.Across across -> {
@@ -115,7 +115,7 @@ public final class PathAssembler {
 			for (var leg : boundary.incoming() ? destinationLegs : sourceLegs) {
 				/*
 				 * A boundary feature with nothing connected inside it yields a leg that stopped
-				 * where it started. There is no semantic connection, so there is no path: a
+				 * where it started. There is no connection, so there is no path: a
 				 * boundary seed contributes no pivot of its own.
 				 */
 				if (!leg.isTrivial()) {
@@ -143,12 +143,12 @@ public final class PathAssembler {
 	}
 
 	/** A complete path: source leg reversed, then the pivot, then the destination leg. */
-	private static SemanticConnectionPath assembleComplete(TraversalSeed.Across across, LegResult sourceLeg,
+	private static ConnectionInstancePath assembleComplete(TraversalSeed.Across across, LegResult sourceLeg,
 			LegResult destinationLeg) {
 		var segments = new ArrayList<>(reversed(sourceLeg));
 		segments.add(across.segment());
 		segments.addAll(destinationLeg.segments());
-		return new SemanticConnectionPath(sourceLeg.terminal(), destinationLeg.terminal(), segments, true,
+		return new ConnectionInstancePath(sourceLeg.terminal(), destinationLeg.terminal(), segments, true,
 				across.segment().declaration().isAllBidirectional() && sourceLeg.allSegmentsBidirectional()
 						&& destinationLeg.allSegmentsBidirectional(),
 				combine(sourceLeg, destinationLeg), destinationLeg.deadEnd());
@@ -161,7 +161,7 @@ public final class PathAssembler {
 	 * The member a leg covers is its footprint on the pivot endpoint, not merely the feature
 	 * its first declaration names: a leg that descends several levels narrows the connection
 	 * at each of them, and only the leg whose whole chain pairs with this one's continues the
-	 * same semantic connection. Without this, a feature group connecting two components that
+	 * same connection instance. Without this, a feature group connecting two components that
 	 * each route several members onwards produces a path for every combination of them, and
 	 * comparing only the first level lets the combinations below it through.
 	 * </p>
@@ -231,13 +231,13 @@ public final class PathAssembler {
 	 * names where the traversal started looking, not how far the connection reaches.
 	 * </p>
 	 */
-	private static SemanticConnectionPath assembleOneLeg(boolean inwards, LegResult leg) {
+	private static ConnectionInstancePath assembleOneLeg(boolean inwards, LegResult leg) {
 		var seedEnd = leg.segments().getFirst().source();
 		if (inwards) {
-			return new SemanticConnectionPath(seedEnd, leg.terminal(), leg.segments(), false,
+			return new ConnectionInstancePath(seedEnd, leg.terminal(), leg.segments(), false,
 					leg.allSegmentsBidirectional(), leg.modes(), leg.deadEnd());
 		}
-		return new SemanticConnectionPath(leg.terminal(), seedEnd, reversed(leg), false,
+		return new ConnectionInstancePath(leg.terminal(), seedEnd, reversed(leg), false,
 				leg.allSegmentsBidirectional(), leg.modes());
 	}
 
@@ -267,20 +267,20 @@ public final class PathAssembler {
 	 * the same path, and enumerating it twice is wasted work. This is bookkeeping, so it
 	 * must not collapse two paths that differ in any identity field.
 	 */
-	private static void add(Map<SemanticConnectionKey, SemanticConnectionPath> unique, SemanticConnectionPath path) {
+	private static void add(Map<ConnectionInstanceKey, ConnectionInstancePath> unique, ConnectionInstancePath path) {
 		for (var segment : path.segments()) {
 			if (!traversable(segment)) {
 				return;
 			}
 		}
-		unique.putIfAbsent(SemanticConnectionKey.of(path), path);
+		unique.putIfAbsent(ConnectionInstanceKey.of(path), path);
 	}
 
 	/**
 	 * Whether a segment may be traversed, read in path order.
 	 *
 	 * <p>
-	 * A connection ending component ends a semantic connection, so a path that leaves a
+	 * A connection ending component ends a connection instance, so a path that leaves a
 	 * port and arrives at something the component itself contains is not a path: it would
 	 * connect a component to its own insides. Required since issue #2032, which reported a
 	 * connection from an abstract subcomponent's port to a port of its containing thread.

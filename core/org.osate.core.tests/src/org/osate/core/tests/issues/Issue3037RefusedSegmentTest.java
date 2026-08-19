@@ -72,7 +72,7 @@ public class Issue3037RefusedSegmentTest extends XtextTest {
 	 * connection instance.
 	 *
 	 * <p>
-	 * A connection ending component ends a semantic connection, so a path that leaves its port
+	 * A connection ending component ends a connection instance, so a path that leaves its port
 	 * and arrives at something it contains would connect the component to its own insides. Issue
 	 * #2032 added the rule for a port of an abstract subcomponent; a data subcomponent is
 	 * contained in the component too, so the same rule refuses this. {@code TT.i} declares
@@ -116,7 +116,7 @@ public class Issue3037RefusedSegmentTest extends XtextTest {
 	 * through to the subprogram inside and there is no second connection ending at the group.
 	 *
 	 * <p>
-	 * A thread ends a semantic connection at a port or a nested feature group, but not at an
+	 * A thread ends a connection instance at a port or a nested feature group, but not at an
 	 * access feature, because shared access reaches through it into what it contains. The same
 	 * shape with a port member added is {@code models/issue3044/Issue3044.aadl}, where the leg
 	 * both stops and continues and there are two connections; {@code Issue3037MemberPairingTest}
