@@ -803,7 +803,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			}
 			traversal.flowImplementations.add(nextFlowImpl);
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
-			removeLastFlowImplementation(traversal);
+			traversal.flowImplementations.removeLast();
 		} else {
 			List<ConnectionInstance> connis = collectConnectionInstances(ci, etei, traversal.connections);
 
@@ -896,7 +896,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							abortCandidate(getCandidate(etei));
 						}
 
-						removeLastFlowImplementation(branchState);
+						branchState.flowImplementations.removeLast();
 
 						if (prepareNext) {
 							activeState = stateClone;
@@ -907,10 +907,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 		}
-	}
-
-	private static void removeLastFlowImplementation(TraversalState state) {
-		state.flowImplementations.removeLast();
 	}
 
 	/**
