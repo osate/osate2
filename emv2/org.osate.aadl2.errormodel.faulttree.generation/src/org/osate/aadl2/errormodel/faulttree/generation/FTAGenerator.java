@@ -343,8 +343,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			alternatives.setSubEventLogic(LogicOperation.OR);
 		}
 		if (rootevent.getSubEventLogic() == LogicOperation.OR || rootevent.getSubEventLogic() == LogicOperation.XOR
-				|| rootevent.getSubEventLogic() == LogicOperation.KORMORE
-				|| rootevent.getType() == EventType.INTERMEDIATE) {
+				|| rootevent.getSubEventLogic() == LogicOperation.KORMORE) {
 			for (Event alt : rootevent.getSubEvents()) {
 				// if top-level is OR, XOR, KORMORE each of the sub-events become the starting point of a cutset
 				Event alternative = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,

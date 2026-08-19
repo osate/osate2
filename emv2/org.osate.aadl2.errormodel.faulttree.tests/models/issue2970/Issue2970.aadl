@@ -1,0 +1,33 @@
+package issue2970
+public
+	process FMS
+		features
+			actuatorOut: out data port;
+		annex EMV2 {**
+			use types ErrorLibrary;
+
+			error propagations
+				actuatorOut: out propagation {ServiceError};
+			end propagations;
+
+			component error behavior
+			events
+				ev1: error event;
+				ev2: error event;
+			propagations
+				pr1: all -[ev1 and ev2]-> actuatorOut{ServiceError};
+			end component;
+		**};
+	end FMS;
+
+	process implementation FMS.i
+	end FMS.i;
+
+	system Root
+	end Root;
+
+	system implementation Root.i
+		subcomponents
+			fms: process FMS.i;
+	end Root.i;
+end issue2970;
