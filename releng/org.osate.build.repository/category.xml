@@ -92,7 +92,6 @@ censes only apply to the Third Party Software and not any other portion of this 
    <repository-reference location="https://download.eclipse.org/xsemantics/milestones/1.24" name="" enabled="true" />
    <repository-reference location="https://download.eclipse.org/elk/updates/releases/0.9.1" name="" enabled="true" />
    <repository-reference location="https://osate-build.sei.cmu.edu/p2/py4j" name="" enabled="true" />
-   <repository-reference location="https://updates.yakindu.com/statecharts/releases/3.5.9" name="" enabled="true" />
    <repository-reference location="https://download.eclipse.org/ease/integration/nightly/" name="" enabled="true" />
    <repository-reference location="https://download.eclipse.org/justj/jres/21/updates/release/latest" name="" enabled="true" />
    <repository-reference location="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.2" name="" enabled="true" />

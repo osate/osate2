@@ -454,7 +454,6 @@
         <setEntry value="org.osgi.util.function@default:default"/>
         <setEntry value="org.osgi.util.promise@default:default"/>
         <setEntry value="org.tukaani.xz@default:default"/>
-        <setEntry value="org.yakindu.base.xtext.utils.jface@default:default"/>
         <setEntry value="slf4j.api@default:default"/>
     </setAttribute>
     <setAttribute key="selected_workspace_bundles">

@@ -934,8 +934,6 @@
       <requirement
           name="org.junit.jupiter.api"/>
       <requirement
-          name="org.yakindu.base.xtext.utils.jface"/>
-      <requirement
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.osate2.location}"/>
@@ -959,8 +957,6 @@
             url="https://xtexttools.libutzki.de/"/>
         <repository
             url="https://osate-build.sei.cmu.edu/p2/py4j"/>
-        <repository
-            url="https://updates.yakindu.com/statecharts/releases/3.5.9"/>
         <repository
             url="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-17.0.2"/>
         <repository
