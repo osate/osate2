@@ -165,10 +165,14 @@ public final class SeedDiscovery {
 	 */
 	private static void addOrientations(ComponentInstance container, Connection declaration,
 			ResolutionFailures failures, List<TraversalSeed> seeds) {
-		addOrientation(container, declaration, false, failures, seeds);
-		if (declaration.isAllBidirectional()) {
-			addOrientation(container, declaration, true, failures, seeds);
+		for (boolean reverse : orientations(declaration)) {
+			addOrientation(container, declaration, reverse, failures, seeds);
 		}
+	}
+
+	/** The legal traversal orientations of {@code declaration}, forward first. */
+	private static boolean[] orientations(Connection declaration) {
+		return declaration.isAllBidirectional() ? new boolean[] { false, true } : new boolean[] { false };
 	}
 
 	private static void addOrientation(ComponentInstance container, Connection declaration, boolean reverse,
@@ -256,10 +260,7 @@ public final class SeedDiscovery {
 			return false;
 		}
 		for (var declaration : implementation.getAllConnections()) {
-			for (boolean reverse : new boolean[] { false, true }) {
-				if (reverse && !declaration.isAllBidirectional()) {
-					continue;
-				}
+			for (boolean reverse : orientations(declaration)) {
 				if (segment(container, declaration, reverse) instanceof Resolution.Resolved<ResolvedSegment> resolved
 						&& LegResolver.touches(resolved.value().source(), feature)) {
 					return true;
