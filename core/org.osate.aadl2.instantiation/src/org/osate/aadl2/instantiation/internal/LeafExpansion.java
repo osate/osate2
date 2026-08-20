@@ -69,6 +69,10 @@ public final class LeafExpansion {
 	private LeafExpansion() {
 	}
 
+	private enum PathEnd {
+		SOURCE, DESTINATION
+	}
+
 	/**
 	 * The leaf pairs {@code path} expands to. A path whose endpoints are already leaves
 	 * expands to itself when its directions allow, and to nothing when they do not.
@@ -374,30 +378,26 @@ public final class LeafExpansion {
 	 * its features.
 	 */
 	private static FeatureInstance findDestinationFeature(ConnectionInstancePath path, FeatureInstance group) {
-		ConnectionInstanceEnd target = null;
-		for (var segment : path.segments()) {
-			if (target != null && target != segment.source()) {
-				if (segment.source() == target.eContainer()) {
-					return mapAcross(group, (FeatureInstance) segment.source(), target);
-				}
-			}
-			target = segment.destination();
-		}
-		return null;
+		return findReachedFeature(path, group, PathEnd.DESTINATION);
 	}
 
 	/** The mirror of {@link #findDestinationFeature}, walking the path backwards. */
 	private static FeatureInstance findSourceFeature(ConnectionInstancePath path, FeatureInstance group) {
+		return findReachedFeature(path, group, PathEnd.SOURCE);
+	}
+
+	/** Find the member reached by walking the path towards its source or destination. */
+	private static FeatureInstance findReachedFeature(ConnectionInstancePath path, FeatureInstance group,
+			PathEnd end) {
+		boolean towardsSource = end == PathEnd.SOURCE;
 		ConnectionInstanceEnd target = null;
-		var segments = path.segments();
-		for (int i = segments.size() - 1; i >= 0; i--) {
-			var segment = segments.get(i);
-			if (target != null && target != segment.destination()) {
-				if (segment.destination() == target.eContainer()) {
-					return mapAcross(group, (FeatureInstance) segment.destination(), target);
-				}
+		var segments = towardsSource ? path.segments().reversed() : path.segments();
+		for (var segment : segments) {
+			var near = towardsSource ? segment.destination() : segment.source();
+			if (target != null && target != near && near == target.eContainer()) {
+				return mapAcross(group, (FeatureInstance) near, target);
 			}
-			target = segment.source();
+			target = towardsSource ? segment.source() : segment.destination();
 		}
 		return null;
 	}
