@@ -23,6 +23,9 @@ import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 
 
+/**
+ * @since 9.0
+ */
 public class XtextStyledTextSelectionProvider implements ISelectionProvider {
 
 	private StyledText styledText;
@@ -33,23 +36,29 @@ public class XtextStyledTextSelectionProvider implements ISelectionProvider {
 		this.xtextResource = xtextResource;
 	}
 
+	@Override
 	public void setSelection(ISelection selection) {
 	}
 
+	@Override
 	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 	}
 
+	@Override
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
 	}
 
+	@Override
 	public ISelection getSelection() {
-		if (styledText.isDisposed())
+		if (styledText.isDisposed()) {
 			return StructuredSelection.EMPTY;
+		}
 		int offset = Math.max(styledText.getCaretOffset() - 1, 0);
 		XtextResource fakeResource = xtextResource;
 		IParseResult parseResult = fakeResource.getParseResult();
-		if (parseResult == null)
+		if (parseResult == null) {
 			return StructuredSelection.EMPTY;
+		}
 		ICompositeNode rootNode = parseResult.getRootNode();
 		ILeafNode selectedNode = NodeModelUtils.findLeafNodeAtOffset(rootNode, offset);
 		final EObject selectedObject = NodeModelUtils.findActualSemanticObjectFor(selectedNode);

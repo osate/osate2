@@ -43,6 +43,7 @@ import org.eclipse.ui.PlatformUI;
  *
  * @author patrick.koenemann@itemis.de
  * @author alexander.nyssen@itemis.de
+ * @since 9.0
  *
  */
 public class ActiveEditorTracker implements IPageListener, IPartListener,
@@ -61,11 +62,13 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 	private static ActiveEditorTracker INSTANCE;
 
 	public ActiveEditorTracker() {
-		if (INSTANCE != null)
+		if (INSTANCE != null) {
 			throw new IllegalStateException(SINGLETON_MSG);
+		}
 		INSTANCE = this;
 	}
 
+	@Override
 	public void earlyStartup() {
 		PlatformUI.getWorkbench().addWindowListener(this);
 	}
@@ -122,14 +125,15 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 	 */
 	public static ResourceSet getLastActiveEditorResourceSet() {
 		final IEditorPart editor = getLastActiveEditor();
-		if (editor == null)
+		if (editor == null) {
 			return null;
+		}
 		EditingDomain domain = null;
 		if (editor instanceof IEditingDomainProvider) {
 			domain = ((IEditingDomainProvider) editor).getEditingDomain();
 		} else if (editor.getAdapter(IEditingDomainProvider.class) != null) {
-			domain = ((IEditingDomainProvider) editor
-					.getAdapter(IEditingDomainProvider.class))
+			domain = editor
+					.getAdapter(IEditingDomainProvider.class)
 					.getEditingDomain();
 		} else if (editor.getAdapter(EditingDomain.class) != null) {
 			domain = (EditingDomain) editor.getAdapter(EditingDomain.class);
@@ -147,8 +151,9 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 	 */
 	public static IProject getLastActiveEditorProject() {
 		final IEditorPart editor = getLastActiveEditor();
-		if (editor == null)
+		if (editor == null) {
 			return null;
+		}
 		final IEditorInput editorInput = editor.getEditorInput();
 		if (editorInput instanceof IFileEditorInput) {
 			final IFileEditorInput input = (IFileEditorInput) editorInput;
@@ -163,10 +168,12 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 		return null;
 	}
 
+	@Override
 	public void pageActivated(IWorkbenchPage page) {
 		this.activePage = page;
 	}
 
+	@Override
 	public void pageClosed(IWorkbenchPage page) {
 		if (page == activePage) {
 			activePage = null;
@@ -174,22 +181,26 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 		lastActiveEditorId = null;
 	}
 
+	@Override
 	public void pageOpened(IWorkbenchPage page) {
 		// do nothing
 	}
 
+	@Override
 	public void partActivated(IWorkbenchPart part) {
 		if (part instanceof IEditorPart) {
 			setActiveEditor((IEditorPart) part);
 		}
 	}
 
+	@Override
 	public void partBroughtToTop(IWorkbenchPart part) {
 		if (part instanceof IEditorPart) {
 			setActiveEditor((IEditorPart) part);
 		}
 	}
 
+	@Override
 	public void partClosed(IWorkbenchPart part) {
 		if (part instanceof IEditorPart) {
 			String id = null;
@@ -208,6 +219,7 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 		}
 	}
 
+	@Override
 	public void partDeactivated(IWorkbenchPart part) {
 		if (part instanceof IEditorPart) {
 			// do nothing
@@ -217,8 +229,9 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 	private IEditorPart getLastActiveEditorInternal() {
 		if (activePage == null) {
 			initialize(PlatformUI.getWorkbench().getActiveWorkbenchWindow());
-			if (activePage == null)
+			if (activePage == null) {
 				return null;
+			}
 		}
 		boolean updated = false;
 		if (lastActiveEditorId == null) {
@@ -239,8 +252,9 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 	}
 
 	private IEditorPart getEditorById(String editorId) {
-		if (activePage == null || editorId == null)
+		if (activePage == null || editorId == null) {
 			return null;
+		}
 		final IEditorPart editor = activeEditors.get(editorId);
 		final String id = checkEditorAndGetId(editor);
 		if (id != null && id.equals(editorId)) {
@@ -250,8 +264,9 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 	}
 
 	private String checkEditorAndGetId(IEditorPart editor) {
-		if (editor == null)
+		if (editor == null) {
 			return null;
+		}
 		for (IEditorReference ref : activePage.getEditorReferences()) {
 			if (editor.equals(ref.getEditor(false))) {
 				return ref.getId();
@@ -273,12 +288,14 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 			return;
 		}
 		final IWorkbenchPartReference reference = activePage.getReference(part);
-		if (reference == null)
+		if (reference == null) {
 			throw new IllegalStateException("Impossible?!");
+		}
 		lastActiveEditorId = reference.getId();
 		activeEditors.put(lastActiveEditorId, part);
 	}
 
+	@Override
 	public void partOpened(IWorkbenchPart part) {
 		if (part instanceof IEditorPart) {
 			setActiveEditor((IEditorPart) part);
@@ -294,6 +311,7 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 		workbenchWindow = null;
 	}
 
+	@Override
 	public void windowActivated(IWorkbenchWindow window) {
 		initialize(window);
 	}
@@ -306,8 +324,9 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 			 */
 		}
 		this.workbenchWindow = window;
-		if (window == null)
+		if (window == null) {
 			return;
+		}
 		this.activePage = window.getActivePage();
 		final IEditorPart editor = this.activePage.getActiveEditor();
 		if (editor != null) {
@@ -318,14 +337,17 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 		window.getPartService().addPartListener(this);
 	}
 
+	@Override
 	public void windowDeactivated(IWorkbenchWindow window) {
 		// not of interest
 	}
 
+	@Override
 	public void windowClosed(IWorkbenchWindow window) {
 		dispose();
 	}
 
+	@Override
 	public void windowOpened(IWorkbenchWindow window) {
 		// not of interest
 	}

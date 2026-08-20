@@ -16,15 +16,13 @@ import org.eclipse.xtext.resource.XtextResource;
 /**
  *
  * @author alexander.nyssen@itemis.de
+ * @since 9.0
  *
  */
 public interface IXtextFakeContextResourcesProvider {
 
-	public static final IXtextFakeContextResourcesProvider NULL_CONTEXT_PROVIDER = new IXtextFakeContextResourcesProvider() {
-		public void populateFakeResourceSet(
-				ResourceSet fakeResourceSet, XtextResource fakeResource) {
-		};
-	};
+	public static final IXtextFakeContextResourcesProvider NULL_CONTEXT_PROVIDER = (fakeResourceSet, fakeResource) -> {
+};
 
 	/**
 	 * Populate the fake resource set with additional resources that may be

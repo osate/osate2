@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Listener;
  * {@link IContentAssistant}.
  *
  * @author patrick.koenemann@itemis.de
+ * @since 9.0
  *
  */
 public class CompletionProposalAdapter implements ICompletionListener {
@@ -252,6 +253,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 			return;
 		}
 		controlListener = new Listener() {
+			@Override
 			public void handleEvent(Event e) {
 				if (!isEnabled) {
 					return;
@@ -477,22 +479,16 @@ public class CompletionProposalAdapter implements ICompletionListener {
 	 */
 	private void autoActivate() {
 		if (autoActivationDelay > 0) {
-			Runnable runnable = new Runnable() {
-				public void run() {
-					receivedKeyDown = false;
-					try {
-						Thread.sleep(autoActivationDelay);
-					} catch (InterruptedException e) {
-					}
-					if (!isValid() || receivedKeyDown) {
-						return;
-					}
-					getControl().getDisplay().syncExec(new Runnable() {
-						public void run() {
-							openProposalPopup(true);
-						}
-					});
+			Runnable runnable = () -> {
+				receivedKeyDown = false;
+				try {
+					Thread.sleep(autoActivationDelay);
+				} catch (InterruptedException e) {
 				}
+				if (!isValid() || receivedKeyDown) {
+					return;
+				}
+				getControl().getDisplay().syncExec(() -> openProposalPopup(true));
 			};
 			Thread t = new Thread(runnable);
 			t.start();
@@ -503,11 +499,9 @@ public class CompletionProposalAdapter implements ICompletionListener {
 			// some event that will cause the cursor position or
 			// other important info to change as a result of this
 			// event occurring.
-			getControl().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					if (isValid()) {
-						openProposalPopup(true);
-					}
+			getControl().getDisplay().asyncExec(() -> {
+				if (isValid()) {
+					openProposalPopup(true);
 				}
 			});
 		}
@@ -550,8 +544,9 @@ public class CompletionProposalAdapter implements ICompletionListener {
 	 * @since 3.6
 	 */
 	public boolean isProposalPopupOpen() {
-		if (isValid() && isProposalPopupActive())
+		if (isValid() && isProposalPopupActive()) {
 			return true;
+		}
 		return false;
 	}
 
@@ -585,14 +580,17 @@ public class CompletionProposalAdapter implements ICompletionListener {
 		}
 	}
 
+	@Override
 	public void assistSessionStarted(ContentAssistEvent event) {
 		notifyPopupOpened();
 	}
 
+	@Override
 	public void assistSessionEnded(ContentAssistEvent event) {
 		notifyPopupClosed();
 	}
 
+	@Override
 	public void selectionChanged(ICompletionProposal proposal,
 			boolean smartToggle) {
 		// do nothing

@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.source.AnnotationModel;
 import org.eclipse.xtext.ui.editor.XtextSourceViewer;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
+
 import com.google.inject.Injector;
 
 /**
@@ -34,6 +35,9 @@ import com.google.inject.Injector;
  */
 public class OsateStyledTextXtextAdapter extends StyledTextXtextAdapter {
 
+	/**
+	 * @since 9.0
+	 */
 	public OsateStyledTextXtextAdapter(Injector injector, IXtextFakeContextResourcesProvider contextFakeResourceProvider,
 			IProject project) {
 		super(injector, contextFakeResourceProvider);

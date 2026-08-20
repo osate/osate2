@@ -28,6 +28,7 @@ import org.eclipse.xtext.ui.editor.XtextSourceViewer;
  * #352847 to enable that offsets are respected.
  *
  * @author alexander.nyssen@itemis.de
+ * @since 9.0
  *
  */
 public class XtextSourceViewerEx extends XtextSourceViewer {

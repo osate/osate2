@@ -19,6 +19,7 @@ import org.eclipse.xtext.util.Arrays;
  * Copied from DiagramContextMenuProvider
  *
  * @author muelder
+ * @since 9.0
  *
  */
 public class FilteringMenuManager extends MenuManager {
@@ -38,9 +39,11 @@ public class FilteringMenuManager extends MenuManager {
 		super(text, null, id);
 	}
 
+	@Override
 	protected boolean allowItem(IContributionItem itemToAdd) {
-		if (itemToAdd.getId() != null && Arrays.contains(exclusionSet, itemToAdd.getId()))
+		if (itemToAdd.getId() != null && Arrays.contains(exclusionSet, itemToAdd.getId())) {
 			itemToAdd.setVisible(false);
+		}
 		return super.allowItem(itemToAdd);
 	}
 }
