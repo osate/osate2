@@ -414,7 +414,7 @@ period property values with threads and devices.
 
 ### Queuing Delay in Asynchronous Communication ###
 
-As described above, when a bus is periodic (has a **Period** property association), the period is used to determine the worst-case sampling delay.  When a bus does not have a period, a sender may need to wait for other users of the bus to finish sending data on the bus before it can access it.  Analysis computes the worst-case queuing delay based on the **Transmission_Time** property of the bus and the **Data_Size** of the information that flows over the bus.  Specifically, the maximum queuing delay for a connection is the sum off all the maximum transmission times for any other connections bound to the bus.  The data sizes for the communication includes the data overhead imposed by the bus, connections, and any higher-level protocols (virtual buses) encountered.
+As described above, when a bus is periodic (has a **Period** property association), the period is used to determine the worst-case sampling delay.  When a bus does not have a period, a sender may need to wait for other users of the bus to finish sending data on the bus before it can access it.  Analysis computes the worst-case queuing delay from the maximum communication latency of each connection bound to the bus.  The communication latency is calculated from the bus **Transmission_Time** property and the **Data_Size** of the information that flows over the bus.  If no usable transmission time can be calculated, the bus **Latency** property is used as a fallback.  Specifically, the maximum queuing delay for a connection is the sum of the maximum communication latencies, including any latency fallback, for all other connections bound to the bus.  The data size for the communication includes the data overhead imposed by the bus, connections, and any higher-level protocols (virtual buses) encountered.
 
 > Buses with a period will always have a non-zero sampling delay and no queuing delay.
 >
@@ -584,9 +584,11 @@ specified by a **Data_Size** property on the virtual bus or bus. This will be
 added to the size of the application data when used in computing the 
 transmission time.
 
-If *Transmission_Time* is not present, the **Latency** property value 
-associated with the virtual bus, bus, or other component the connection is bound 
-to, is used.
+If no usable *Transmission_Time* contribution can be calculated, the
+**Latency** property value associated with the virtual bus, bus, or other
+component the connection is bound to is used as a fallback. For an asynchronous
+bus, its maximum fallback latency also represents how long the connection can
+occupy the bus when the analysis calculates other connections' queuing delays.
 
 If neither *Transmission_Time* nor *Latency* property is specified for the bus 
 or virtual bus then no latency contribution is assumed. 

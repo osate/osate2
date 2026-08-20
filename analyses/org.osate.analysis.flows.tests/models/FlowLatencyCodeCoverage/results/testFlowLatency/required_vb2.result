@@ -55,7 +55,7 @@
   <results message="Latency results for etef2" resultType="FAILURE">
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="12.0"/>
-    <values xsi:type="result:RealValue" value="16.0"/>
+    <values xsi:type="result:RealValue" value="24.0"/>
     <values xsi:type="result:RealValue" value="12.0"/>
     <values xsi:type="result:RealValue" value="16.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
@@ -69,13 +69,13 @@
     <diagnostics diagnosticType="ERROR" message="Maximum specified flow latency total 16.0ms exceeds expected maximum end to end latency 4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/required_vb2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
-    <diagnostics diagnosticType="ERROR" message="Maximum actual latency total 16.0ms exceeds expected maximum end to end latency 4.00ms">
+    <diagnostics diagnosticType="ERROR" message="Maximum actual latency total 24.0ms exceeds expected maximum end to end latency 4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/required_vb2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
     <diagnostics diagnosticType="WARNING" message="Jitter of specified latency total 12.0..16.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/required_vb2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
-    <diagnostics diagnosticType="WARNING" message="Jitter of actual latency total 12.0..16.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
+    <diagnostics diagnosticType="WARNING" message="Jitter of actual latency total 12.0..24.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/required_vb2_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
     <subResults>
@@ -133,7 +133,7 @@
       </subResults>
       <subResults>
         <values xsi:type="result:RealValue"/>
-        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue" value="8.0"/>
         <values xsi:type="result:RealValue"/>
         <values xsi:type="result:RealValue"/>
         <values xsi:type="result:StringValue" value="queued"/>
@@ -168,7 +168,7 @@
   <results message="Latency results for etef3" resultType="FAILURE">
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="17.0"/>
-    <values xsi:type="result:RealValue" value="22.0"/>
+    <values xsi:type="result:RealValue" value="30.0"/>
     <values xsi:type="result:RealValue" value="17.0"/>
     <values xsi:type="result:RealValue" value="22.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
@@ -182,13 +182,13 @@
     <diagnostics diagnosticType="ERROR" message="Maximum specified flow latency total 22.0ms exceeds expected maximum end to end latency 4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/required_vb2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
-    <diagnostics diagnosticType="ERROR" message="Maximum actual latency total 22.0ms exceeds expected maximum end to end latency 4.00ms">
+    <diagnostics diagnosticType="ERROR" message="Maximum actual latency total 30.0ms exceeds expected maximum end to end latency 4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/required_vb2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
     <diagnostics diagnosticType="WARNING" message="Jitter of specified latency total 17.0..22.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/required_vb2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
-    <diagnostics diagnosticType="WARNING" message="Jitter of actual latency total 17.0..22.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
+    <diagnostics diagnosticType="WARNING" message="Jitter of actual latency total 17.0..30.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/required_vb2_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
     <subResults>
@@ -259,7 +259,7 @@
       </subResults>
       <subResults>
         <values xsi:type="result:RealValue"/>
-        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue" value="8.0"/>
         <values xsi:type="result:RealValue"/>
         <values xsi:type="result:RealValue"/>
         <values xsi:type="result:StringValue" value="queued"/>
