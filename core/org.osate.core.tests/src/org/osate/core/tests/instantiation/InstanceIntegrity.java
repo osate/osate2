@@ -71,11 +71,8 @@ public final class InstanceIntegrity {
 	 */
 	public static List<String> check(SystemInstance instance) {
 		var violations = new ArrayList<String>();
-		checkRoot(instance, violations);
-		for (var root : instance.eResource().getContents()) {
-			if (root instanceof ComponentInstance referenced && referenced != instance) {
-				checkRoot(referenced, violations);
-			}
+		for (var root : InstanceRoots.all(instance)) {
+			checkRoot(root, violations);
 		}
 		Collections.sort(violations);
 		return List.copyOf(violations);

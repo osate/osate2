@@ -28,7 +28,6 @@ import static org.osate.core.tests.instantiation.InstanceLookup.connectionNames;
 
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
@@ -37,6 +36,7 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.core.tests.instantiation.InstanceCharacterization;
+import org.osate.core.tests.instantiation.InstanceRoots;
 import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
 import org.osate.testsupport.Aadl2InjectorProvider;
@@ -113,22 +113,10 @@ public class Issue3037ReferencedRootTest extends XtextTest {
 	}
 
 	private static List<String> referencedRootNames(InstanceRun run) {
-		return roots(run).stream().map(ComponentInstance::getName).sorted().toList();
+		return InstanceRoots.referenced(run.instance()).stream().map(ComponentInstance::getName).sorted().toList();
 	}
 
 	private static ComponentInstance referencedRoot(InstanceRun run) {
-		return roots(run).get(0);
-	}
-
-	/** The roots of the instance resource other than the system instance. */
-	private static List<ComponentInstance> roots(InstanceRun run) {
-		return run.instance()
-				.eResource()
-				.getContents()
-				.stream()
-				.filter(content -> content instanceof ComponentInstance && content != run.instance())
-				.map(EObject.class::cast)
-				.map(ComponentInstance.class::cast)
-				.toList();
+		return InstanceRoots.referenced(run.instance()).get(0);
 	}
 }

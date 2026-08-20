@@ -29,10 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
@@ -77,11 +74,8 @@ public record InstanceSnapshot(Map<String, List<ConnectionDescriptor>> connectio
 	public static InstanceSnapshot of(SystemInstance instance, AnalysisErrorReporterManager manager) {
 		var connections = new LinkedHashMap<String, List<ConnectionDescriptor>>();
 		var flows = new LinkedHashMap<String, List<FlowDescriptor>>();
-		collect(instance, connections, flows);
-		for (var root : instance.eResource().getContents()) {
-			if (root instanceof ComponentInstance referenced && referenced != instance) {
-				collect(referenced, connections, flows);
-			}
+		for (var root : InstanceRoots.all(instance)) {
+			collect(root, connections, flows);
 		}
 		return new InstanceSnapshot(connections, flows,
 				DiagnosticDescriptor.of(manager, instance.eResource()));

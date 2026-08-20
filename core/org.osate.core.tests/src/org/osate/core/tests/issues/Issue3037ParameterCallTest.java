@@ -36,7 +36,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.core.tests.instantiation.InstanceCharacterization;
-import org.osate.core.tests.instantiation.InstanceRun;
+import org.osate.core.tests.instantiation.InstanceRoots;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
@@ -110,7 +110,7 @@ public class Issue3037ParameterCallTest extends XtextTest {
 	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
 	private List<String> connectionNames(String implementation) throws Exception {
 		var run = isolated.run(MODEL, implementation);
-		return roots(run).stream()
+		return InstanceRoots.all(run.instance()).stream()
 				.flatMap(root -> root.getAllConnectionInstances().stream())
 				.map(ConnectionInstance::getName)
 				.sorted()
@@ -128,14 +128,4 @@ public class Issue3037ParameterCallTest extends XtextTest {
 				.toList();
 	}
 
-	/** Every root of the instance resource, since a data classifier gets one of its own. */
-	private static List<ComponentInstance> roots(InstanceRun run) {
-		return run.instance()
-				.eResource()
-				.getContents()
-				.stream()
-				.filter(ComponentInstance.class::isInstance)
-				.map(ComponentInstance.class::cast)
-				.toList();
-	}
 }
