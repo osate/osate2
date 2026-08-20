@@ -25,6 +25,8 @@ package org.osate.core.tests.instantiation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Renders an {@link InstanceSnapshot} as deterministic text lines.
@@ -45,30 +47,17 @@ public final class InstanceReport {
 	 * rendering is independent of collection order.
 	 */
 	public static List<String> connectionLines(InstanceSnapshot snapshot) {
-		var lines = new ArrayList<String>();
-		for (var descriptor : snapshot.allConnections()) {
-			lines.add(render(descriptor));
-		}
-		return InstanceKeys.sorted(lines);
+		return sortedLines(snapshot.allConnections(), InstanceReport::render);
 	}
 
 	/** End-to-end flow lines, keyed and sorted, independent of collection order. */
 	public static List<String> flowLines(InstanceSnapshot snapshot) {
-		var lines = new ArrayList<String>();
-		for (var descriptor : snapshot.allFlows()) {
-			lines.add(render(descriptor));
-		}
-		return InstanceKeys.sorted(lines);
+		return sortedLines(snapshot.allFlows(), InstanceReport::render);
 	}
 
 	/** Diagnostic lines, in report order, which is itself part of the behavior. */
 	public static List<String> diagnosticLines(InstanceSnapshot snapshot) {
-		var lines = new ArrayList<String>();
-		for (var diagnostic : snapshot.diagnostics()) {
-			lines.add(diagnostic.severity() + " | " + diagnostic.message() + " | at " + diagnostic.targetKey() + " | in "
-					+ diagnostic.resourceName());
-		}
-		return List.copyOf(lines);
+		return lines(snapshot.diagnostics(), InstanceReport::render);
 	}
 
 	/**
@@ -93,18 +82,29 @@ public final class InstanceReport {
 	 * collection position is intentionally observable.
 	 */
 	public static List<String> connectionOrderLines(InstanceSnapshot snapshot) {
-		var lines = new ArrayList<String>();
-		snapshot.connectionOrderByContainer()
-				.forEach((container, names) -> lines.add(container + " => " + String.join(", ", names)));
-		return InstanceKeys.sorted(lines);
+		return orderLines(snapshot.connectionOrderByContainer());
 	}
 
 	/** Per-container collection order of end-to-end flows. */
 	public static List<String> flowOrderLines(InstanceSnapshot snapshot) {
+		return orderLines(snapshot.flowOrderByContainer());
+	}
+
+	private static <T> List<String> lines(Iterable<T> values, Function<T, String> renderer) {
 		var lines = new ArrayList<String>();
-		snapshot.flowOrderByContainer()
-				.forEach((container, names) -> lines.add(container + " => " + String.join(", ", names)));
-		return InstanceKeys.sorted(lines);
+		for (var value : values) {
+			lines.add(renderer.apply(value));
+		}
+		return List.copyOf(lines);
+	}
+
+	private static <T> List<String> sortedLines(Iterable<T> values, Function<T, String> renderer) {
+		return InstanceKeys.sorted(lines(values, renderer));
+	}
+
+	private static List<String> orderLines(Map<String, List<String>> order) {
+		return sortedLines(order.entrySet(),
+				entry -> entry.getKey() + " => " + String.join(", ", entry.getValue()));
 	}
 
 	private static String render(ConnectionDescriptor descriptor) {
@@ -129,6 +129,11 @@ public final class InstanceReport {
 		var key = descriptor.key();
 		return "flow='" + key.name() + "' container=" + key.containerKey() + " declaration=" + key.declarationKey()
 				+ " elements=" + key.elementKeys() + " soms=" + descriptor.systemOperationModes();
+	}
+
+	private static String render(DiagnosticDescriptor diagnostic) {
+		return diagnostic.severity() + " | " + diagnostic.message() + " | at " + diagnostic.targetKey() + " | in "
+				+ diagnostic.resourceName();
 	}
 
 	/** Complete rendering, for recording a whole model and for debugging output. */
