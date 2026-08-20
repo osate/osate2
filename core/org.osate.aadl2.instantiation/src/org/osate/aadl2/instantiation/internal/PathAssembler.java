@@ -24,7 +24,6 @@
 package org.osate.aadl2.instantiation.internal;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -135,11 +134,7 @@ public final class PathAssembler {
 		 * Sorted by structured identity, with the key computed once per path rather than once per
 		 * comparison: building one walks the whole path.
 		 */
-		return unique.entrySet()
-				.stream()
-				.sorted(Comparator.comparing(entry -> entry.getKey().toString()))
-				.map(Map.Entry::getValue)
-				.toList();
+		return PathKeys.sortedByStableKey(unique, key -> key.toString());
 	}
 
 	/** A complete path: source leg reversed, then the pivot, then the destination leg. */

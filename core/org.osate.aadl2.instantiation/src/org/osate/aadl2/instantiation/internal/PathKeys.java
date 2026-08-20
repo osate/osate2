@@ -23,6 +23,11 @@
  */
 package org.osate.aadl2.instantiation.internal;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -115,5 +120,21 @@ public final class PathKeys {
 			return NULL_KEY;
 		}
 		return object instanceof InstanceObject instanceObject ? instance(instanceObject) : declarative(object);
+	}
+
+	/** Sort values by stable keys that are each computed once. */
+	static <T> List<T> sortedByStableKey(Collection<T> values, Function<T, String> key) {
+		return values.stream()
+				.map(value -> Map.entry(key.apply(value), value))
+				.sorted(Map.Entry.comparingByKey())
+				.map(Map.Entry::getValue)
+				.toList();
+	}
+
+	/** Sort already-keyed values by a stable rendering of their keys. */
+	static <K, T> List<T> sortedByStableKey(Map<K, T> values, Function<K, String> key) {
+		return sortedByStableKey(values.entrySet(), entry -> key.apply(entry.getKey())).stream()
+				.map(Map.Entry::getValue)
+				.toList();
 	}
 }

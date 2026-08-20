@@ -139,11 +139,7 @@ public final class LegResolver {
 		 * Sorted by stable key, computed once per leg rather than once per comparison: building
 		 * one walks the leg's segments.
 		 */
-		return results.stream()
-				.map(leg -> Map.entry(leg.key(), leg))
-				.sorted(Map.Entry.comparingByKey())
-				.map(Map.Entry::getValue)
-				.toList();
+		return PathKeys.sortedByStableKey(results, LegResult::key);
 	}
 
 	private void descend(ConnectionInstanceEnd current, LegRole role, List<ResolvedSegment> segments,
@@ -468,11 +464,7 @@ public final class LegResolver {
 			}
 			continuations.add(segment);
 		}
-		return continuations.stream()
-				.map(segment -> Map.entry(segment.key(), segment))
-				.sorted(Map.Entry.comparingByKey())
-				.map(Map.Entry::getValue)
-				.toList();
+		return PathKeys.sortedByStableKey(continuations, ResolvedSegment::key);
 	}
 
 	/**
