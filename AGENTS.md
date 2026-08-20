@@ -82,6 +82,7 @@ Cross-cutting concerns:
 - **Xtend and Xsemantics**: Xtend is compiled via `xtend-maven-plugin` into `xtend-gen/`; Xsemantics rules compile into `xsemantics-gen/`. Both directories are wiped by `mvn clean` (except `.gitignore`).
 - **Extension points / annexes**: `org.osate.annexsupport` defines extension points that EMV2, BA, Resolute, ReqSpec, etc. plug into — this is how annex languages attach to the core AADL model.
 - **Testing**: tests live in `*.tests` bundles and run under `tycho-surefire-plugin`. UI tests set `ui.test.vmargs` (`-XstartOnFirstThread` on macOS via the `macosx` profile); headless tests do not. Test logging is routed through `SimpleLog` at `error` level (see `test.logging*` properties in the main parent POM).
+- **Test models**: when creating an AADL test model project, include a `.gitignore` containing `/.aadlbin-gen/` and `/instances/`.
 - **Baseline / API tooling**: API baseline is currently 2.18.0 (recent commit `Set API baseline 2.18.0`); changes that break API should be weighed against that baseline. The (currently commented-out) `tycho-p2-extras-plugin` compares against `lastStableRepository`.
 - **SpotBugs + FindSecBugs**: activated with `-Dspotbugs=true`; config lives under `releng/org.osate.build.main/src/main/resources/spotbugs/`.
 
