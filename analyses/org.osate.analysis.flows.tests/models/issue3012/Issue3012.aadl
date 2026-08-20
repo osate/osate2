@@ -1,0 +1,52 @@
+package Issue3012
+public
+	bus SharedBus
+		properties
+			Communication_Properties::Transmission_Time => [Fixed => 5 ms .. 5 ms;];
+	end SharedBus;
+
+	abstract Producer
+		features
+			out1: out feature;
+			out2: out feature;
+		flows
+			source1: flow source out1;
+			source2: flow source out2;
+	end Producer;
+
+	abstract Consumer
+		features
+			in1: in feature;
+			in2: in feature;
+		flows
+			sink1: flow sink in1;
+			sink2: flow sink in2;
+	end Consumer;
+
+	system Top
+		modes
+			m1: initial mode;
+			m2: mode;
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			producer: abstract Producer;
+			consumer: abstract Consumer;
+			bus1: bus SharedBus;
+		connections
+			c1: feature producer.out1 -> consumer.in1 {
+				Actual_Connection_Binding => (reference (bus1));
+			} in modes (m1);
+			c2: feature producer.out2 -> consumer.in2 {
+				Actual_Connection_Binding => (reference (bus1));
+			} in modes (m2);
+		flows
+			f1: end to end flow producer.source1 -> c1 -> consumer.sink1 {
+				Communication_Properties::Latency => 5 ms .. 5 ms;
+			} in modes (m1);
+			f2: end to end flow producer.source2 -> c2 -> consumer.sink2 {
+				Communication_Properties::Latency => 5 ms .. 5 ms;
+			} in modes (m2);
+	end Top.i;
+end Issue3012;
