@@ -1,0 +1,8 @@
+-- Supplies an enumeration literal that is not one of the fourteen literals of
+-- AADL_Project::Supported_Connection_Patterns. A project may extend that enumeration, which is
+-- how a Connection_Pattern value with an unknown literal name reaches instantiation. The literal
+-- lives in its own property set here because the predeclared property sets that the test harness
+-- loads are the plugin-contributed ones, which a test project cannot override.
+property set ExtraPatterns is
+	Project_Specific_Patterns: type enumeration (Even_To_Odd);
+end ExtraPatterns;

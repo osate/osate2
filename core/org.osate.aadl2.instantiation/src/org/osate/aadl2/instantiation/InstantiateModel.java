@@ -1764,6 +1764,15 @@ public class InstantiateModel {
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
+				} else {
+					/*
+					 * A pattern this method does not know expands into nothing. Report it and keep the
+					 * connection: returning the initial true would tell the caller that the connection was
+					 * expanded, and the caller would delete it without a replacement.
+					 */
+					errManager.error(conni, "Unsupported connection pattern '" + patternName + "' on connection "
+							+ conni.getFullName());
+					return false;
 				}
 			}
 		}
