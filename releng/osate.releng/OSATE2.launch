@@ -687,7 +687,6 @@
         <setEntry value="org.sat4j.core@default:default"/>
         <setEntry value="org.sat4j.pb@default:default"/>
         <setEntry value="org.tukaani.xz@default:default"/>
-        <setEntry value="org.yakindu.base.xtext.utils.jface@default:default"/>
         <setEntry value="py4j-java@default:default"/>
         <setEntry value="py4j-python@default:default"/>
         <setEntry value="slf4j.api@default:default"/>

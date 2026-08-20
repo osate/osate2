@@ -37,8 +37,8 @@ import org.eclipse.xtext.ui.editor.model.XtextDocument;
 import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+import org.osate.xtext.aadl2.ui.propertyview.IXtextFakeContextResourcesProvider;
 import org.osate.xtext.aadl2.ui.propertyview.OsateStyledTextXtextAdapter;
-import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
 
 import com.google.inject.Injector;
 

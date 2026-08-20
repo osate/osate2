@@ -24,8 +24,6 @@
 package org.osate.xtext.aadl2.ui.propertyview;
 
 import org.eclipse.core.resources.IProject;
-import org.yakindu.base.xtext.utils.jface.viewers.context.XtextFakeResourceContext;
-
 import com.google.inject.Injector;
 
 /**
