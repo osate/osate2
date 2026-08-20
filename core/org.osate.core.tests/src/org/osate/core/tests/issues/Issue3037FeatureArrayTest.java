@@ -25,8 +25,6 @@ package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
@@ -34,7 +32,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.core.tests.instantiation.InstanceCharacterization;
-import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
@@ -112,14 +109,4 @@ public class Issue3037FeatureArrayTest extends XtextTest {
 		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
 	}
 
-	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
-	private List<String> connectionNames(String implementation) throws Exception {
-		var run = isolated.run(MODEL, implementation);
-		return run.instance()
-				.getAllConnectionInstances()
-				.stream()
-				.map(connection -> connection.getName())
-				.sorted()
-				.toList();
-	}
 }

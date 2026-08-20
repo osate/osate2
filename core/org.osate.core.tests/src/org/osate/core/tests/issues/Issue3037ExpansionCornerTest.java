@@ -33,7 +33,6 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
 import org.osate.testsupport.Aadl2InjectorProvider;
@@ -102,12 +101,12 @@ public class Issue3037ExpansionCornerTest extends XtextTest {
 				"left.worker.bundle.outgoing -> right.worker.bundle.outgoing",
 				"right.worker.bundle.both -> left.worker.bundle.both",
 				"right.worker.bundle.incoming -> left.worker.bundle.incoming"),
-				namesOf(DIRECTIONS, "Top.peers"));
+				InstanceCharacterization.names(isolated, DIRECTIONS, "Top.peers"));
 		assertEquals(List.of("bundle.both -> inner.worker.bundle.both",
 				"bundle.incoming -> inner.worker.bundle.incoming",
 				"inner.worker.bundle.both -> bundle.both",
 				"inner.worker.bundle.outgoing -> bundle.outgoing"),
-				namesOf(DIRECTIONS, "Top.boundary"));
+				InstanceCharacterization.names(isolated, DIRECTIONS, "Top.boundary"));
 	}
 
 	/** An inverse group whose members are renamed, so position is the only thing left to pair on. */
@@ -146,17 +145,4 @@ public class Issue3037ExpansionCornerTest extends XtextTest {
 		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
 	}
 
-	private List<String> connectionNames(String implementation) throws Exception {
-		return namesOf(MODEL, implementation);
-	}
-
-	private List<String> namesOf(String model, String implementation) throws Exception {
-		return isolated.run(model, implementation)
-				.instance()
-				.getAllConnectionInstances()
-				.stream()
-				.map(ConnectionInstance::getName)
-				.sorted()
-				.toList();
-	}
 }

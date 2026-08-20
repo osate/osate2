@@ -104,4 +104,10 @@ public final class InstanceCharacterization {
 				.sorted()
 				.toList();
 	}
+
+	/** Instantiate one implementation and return its sorted connection instance names. */
+	public static List<String> names(IsolatedInstantiation isolated, String model, String implementation)
+			throws Exception {
+		return names(isolated.run(model, implementation));
+	}
 }

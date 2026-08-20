@@ -177,7 +177,7 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 		assertEquals("producers[2] is missing, and the survivor is the provisional connection",
 				List.of("collector.consumer.bundle.ack -> reacher.bundle.ack",
 						"reacher.producers[1].outp -> collector.consumer.bundle.signal"),
-				connectionNames("Top.reachedInto"));
+				InstanceCharacterization.names(isolated, MODEL, "Top.reachedInto"));
 
 		String expansionError = "Error | Too few indices for connection destination for reacher.producers[1].outp"
 				+ " -> collector.consumer.bundle.signal"
@@ -222,14 +222,4 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 				staleReferences, expected);
 	}
 
-	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
-	private List<String> connectionNames(String implementation) throws Exception {
-		var run = isolated.run(MODEL, implementation);
-		return run.instance()
-				.getAllConnectionInstances()
-				.stream()
-				.map(connection -> connection.getName())
-				.sorted()
-				.toList();
-	}
 }

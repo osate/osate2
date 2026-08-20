@@ -24,6 +24,7 @@
 package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
+import static org.osate.core.tests.instantiation.InstanceCharacterization.names;
 
 import java.util.List;
 
@@ -31,10 +32,8 @@ import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceReport;
-import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
 import org.osate.testsupport.Aadl2InjectorProvider;
@@ -124,12 +123,4 @@ public class Issue3037LegNarrowingTest extends XtextTest {
 				.toList());
 	}
 
-	private static List<String> names(InstanceRun run) {
-		return run.instance()
-				.getAllConnectionInstances()
-				.stream()
-				.map(ConnectionInstance::getName)
-				.sorted()
-				.toList();
-	}
 }

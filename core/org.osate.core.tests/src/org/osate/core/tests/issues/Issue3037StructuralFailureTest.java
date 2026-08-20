@@ -33,10 +33,8 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceReport;
-import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
 import org.osate.testsupport.Aadl2InjectorProvider;
@@ -135,17 +133,6 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 
 	private void assertConnections(String implementation, String... expected) throws Exception {
 		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
-	}
-
-	/** The across-first connection instance names, sorted, so a count cannot pass vacuously. */
-	private List<String> connectionNames(String implementation) throws Exception {
-		var run = isolated.run(MODEL, implementation);
-		return run.instance()
-				.getAllConnectionInstances()
-				.stream()
-				.map(ConnectionInstance::getName)
-				.sorted()
-				.toList();
 	}
 
 	/**

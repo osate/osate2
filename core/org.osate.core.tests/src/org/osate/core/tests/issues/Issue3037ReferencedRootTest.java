@@ -24,6 +24,7 @@
 package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
+import static org.osate.core.tests.instantiation.InstanceLookup.connectionNames;
 
 import java.util.List;
 
@@ -35,7 +36,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.core.tests.instantiation.InstanceCharacterization;
 import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.IsolatedInstantiation;
@@ -101,19 +101,15 @@ public class Issue3037ReferencedRootTest extends XtextTest {
 	public void theResourceCarriesTheReferencedRoots() throws Exception {
 		var run = isolated.run(MODEL, "Top.referenced");
 
-		assertEquals(List.of("feeder.worker.outp -> drain.worker.inp"), names(run.instance()));
+		assertEquals(List.of("feeder.worker.outp -> drain.worker.inp"), connectionNames(run.instance()));
 		assertEquals(List.of("ReferencedClassifiers::Element", "ReferencedClassifiers::Payload.i"),
 				referencedRootNames(run));
 		assertEquals("a referenced root with connections is excluded from characterization", List.of(),
-				names(referencedRoot(run)));
+				connectionNames(referencedRoot(run)));
 	}
 
 	private void assertConnections(String implementation, String... expected) throws Exception {
 		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
-	}
-
-	private static List<String> names(ComponentInstance root) {
-		return root.getAllConnectionInstances().stream().map(ConnectionInstance::getName).sorted().toList();
 	}
 
 	private static List<String> referencedRootNames(InstanceRun run) {
