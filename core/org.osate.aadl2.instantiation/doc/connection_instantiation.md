@@ -129,10 +129,14 @@ deterministic key order.
 - **Across seeds.** Every declaration of every component instance for which
   `Connection.isAcross()` holds, resolved in both orientations where the declaration is
   bidirectional. A declaration inside a component array is seeded at its first element only;
-  the other elements are produced by structural expansion (§7).
-- **Boundary seeds.** Each top-level feature of the instantiation root, in the direction the
-  feature faces, and in both directions when it faces both ways. These carry the incomplete
-  connections that enter or leave the model.
+  the other elements are produced by structural expansion (§7). `SeedDiscovery.orientations`
+  is the single definition of these legal choices — forward for every declaration and reverse
+  only for a bidirectional declaration — and the outward-continuation check uses the same
+  definition.
+- **Boundary seeds.** Each top-level feature of the instantiation root, in both directions
+  regardless of which way the feature faces. These carry the incomplete connections that enter
+  or leave the model. Leaf expansion decides whether the resulting endpoint directions work,
+  and validation reports a directly named endpoint whose direction does not work out.
 - **Trigger seeds.** Each event port that triggers a mode transition of its component. A mode
   transition ends a connection instance, and the trigger is its consumer, so the connection
   has a destination but no crossing.
@@ -182,7 +186,9 @@ match.
 
 Paths are deduplicated by `ConnectionInstanceKey`, which is built from stable data — endpoint
 paths, ordered declaration identity, contexts and reverse flags — never from object identity or
-a display name.
+a display name. Legs, resolved segments and deduplicated paths are returned in stable key order.
+`PathKeys.sortedByStableKey` implements the shared decorate-sort-undecorate operation, so each
+stable key is computed once rather than once per comparison.
 
 ### 4.4 Expansion and materialization
 
@@ -191,7 +197,9 @@ semantics: direction filtering inside a group, name-then-index matching for inve
 subset matching by name, and positional pairing when neither end is a leaf. Direction decides
 which members pair *inside* a feature group; two features a declaration names directly are
 connected whatever they face, and `ValidateConnectionsSwitch` reports it if that does not work
-out.
+out. Finding which member a path reached uses one `findReachedFeature` operation parameterized
+by the source or destination end; the two descriptive wrappers differ only in which way they
+walk the segment list.
 
 `PathMaterializer.materialize` builds the `ConnectionInstance` for one leaf pair: the name from
 the container-relative endpoint paths, the ordered `ConnectionReference` chain with each
@@ -276,10 +284,12 @@ path.
 The characterization tests in
 `core/org.osate.core.tests/src/org/osate/core/tests/issues/Issue3037*Test.java`, with models in
 `core/org.osate.core.tests/models/issue3037/`, are the executable specification;
-`InstanceCharacterization` and `InstanceIntegrity` in
-`core/org.osate.core.tests/src/org/osate/core/tests/instantiation/` hold the assertions they
-share. `ArraysAndFeatureGroups.aadl` and `AccessAndEndings.aadl` are the two most instructive
-models.
+the utilities in `core/org.osate.core.tests/src/org/osate/core/tests/instantiation/` hold the
+behavior they share. `InstanceCharacterization` owns connection-name and integrity assertions,
+`InstanceRoots` supplies the system and referenced-classifier roots to both `InstanceSnapshot`
+and `InstanceIntegrity`, and `InstanceReport` renders descriptors through common ordered and
+sorted line helpers. `ArraysAndFeatureGroups.aadl` and `AccessAndEndings.aadl` are the two most
+instructive models.
 
 ---
 
