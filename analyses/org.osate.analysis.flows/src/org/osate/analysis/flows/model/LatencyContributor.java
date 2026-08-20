@@ -433,8 +433,11 @@ public abstract class LatencyContributor {
 			res = res + lc.getTotalMinimumSpecified();
 		}
 		if (this.relatedElement instanceof ConnectionInstance) {
-			// we compare the subtotals against own
-			if (spec > 0 && res > spec) {
+			// Use the connection latency when no protocol contributes a subtotal.
+			// Otherwise, compare the subtotal against the connection latency.
+			if (res == 0) {
+				res = spec;
+			} else if (spec > 0 && res > spec) {
 				reportWarning("specified min protocol latency subtotal " + res + " exceeds connection latency " + spec);
 			} else {
 				if (spec > 0) {
@@ -456,8 +459,11 @@ public abstract class LatencyContributor {
 			res = res + lc.getTotalMaximumSpecified();
 		}
 		if (this.relatedElement instanceof ConnectionInstance) {
-			// we compare the subtotals against own
-			if (spec > 0 && res > spec) {
+			// Use the connection latency when no protocol contributes a subtotal.
+			// Otherwise, compare the subtotal against the connection latency.
+			if (res == 0) {
+				res = spec;
+			} else if (spec > 0 && res > spec) {
 				reportWarning("specified max protocol latency subtotal " + res + " exceeds connection latency " + spec);
 			} else {
 				if (spec > 0) {
