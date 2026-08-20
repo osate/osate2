@@ -829,9 +829,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			final LatencyContributor latencyContributor, final ConnectionInstance onBehalfOfConnection) {
 		boolean willDoVirtualBuses = false;
 		boolean willDoBuses = false;
+		List<InstanceObject> bindings = Collections.emptyList();
 		if (connOrVB instanceof InstanceObject) {
 			// look for actual binding if we have a connection instance or virtual bus instance
-			List<InstanceObject> bindings = DeploymentProperties.getActualConnectionBinding(connOrVB)
+			bindings = DeploymentProperties.getActualConnectionBinding(connOrVB)
 					.orElse(Collections.emptyList());
 			for (InstanceObject componentInstance : bindings) {
 				if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
@@ -840,35 +841,33 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					willDoBuses = true;
 				}
 			}
-			/**
-			 * required virtual bus class indicates protocols the connection intends to use.
-			 * We also can have an actual connection binding to a virtual bus
-			 * If we have that we want to use that virtual bus overhead
-			 */
-			if (!willDoVirtualBuses) {
-				List<Classifier> protocols = DeploymentProperties.getRequiredVirtualBusClass(connOrVB)
-						.orElse(Collections.emptyList());
-				// XXX: [Code Coverage] protocols cannot be null.
-				if ((protocols != null) && (protocols.size() > 0)) {
-					if (willDoBuses) {
-						latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
-					}
-					for (Classifier cc : protocols) {
-						processSamplingAndQueuingTimes(cc, null, latencyContributor);
-						processActualConnectionBindingsSampling(cc, latencyContributor, onBehalfOfConnection);
-					}
+		}
+		/**
+		 * required virtual bus class indicates protocols the connection intends to use.
+		 * We also can have an actual connection binding to a virtual bus
+		 * If we have that we want to use that virtual bus overhead
+		 */
+		if (!willDoVirtualBuses) {
+			List<Classifier> protocols = DeploymentProperties.getRequiredVirtualBusClass(connOrVB)
+					.orElse(Collections.emptyList());
+			// XXX: [Code Coverage] protocols cannot be null.
+			if ((protocols != null) && (protocols.size() > 0)) {
+				if (willDoBuses) {
+					latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
 				}
-			}
-
-			for (InstanceObject componentInstance : bindings) {
-				processSamplingAndQueuingTimes(componentInstance, onBehalfOfConnection, latencyContributor);
-				if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
-					processActualConnectionBindingsSampling(componentInstance, latencyContributor,
-							onBehalfOfConnection);
+				for (Classifier cc : protocols) {
+					processSamplingAndQueuingTimes(cc, null, latencyContributor);
+					processActualConnectionBindingsSampling(cc, latencyContributor, onBehalfOfConnection);
 				}
 			}
 		}
 
+		for (InstanceObject componentInstance : bindings) {
+			processSamplingAndQueuingTimes(componentInstance, onBehalfOfConnection, latencyContributor);
+			if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+				processActualConnectionBindingsSampling(componentInstance, latencyContributor, onBehalfOfConnection);
+			}
+		}
 	}
 
 	private final static Set<ComponentCategory> hasPeriod = EnumSet.of(ComponentCategory.THREAD,
