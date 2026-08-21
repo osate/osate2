@@ -91,6 +91,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 
 /**
  * Provides functions for controlling the user interface.
@@ -786,12 +787,12 @@ public class UiTestUtil {
 
 		// If there is a palette group, expand it if necessary
 		if (paletteGroup != null && !paletteGroup.isExpanded()) {
-			fxBot.click(paletteGroup);
+			UIThreadRunnable.syncExec(() -> ((ToggleButton) paletteGroup.getChildren().get(0)).fire());
 			waitUntil(() -> paletteGroup.isExpanded(), "Palette group not expanded");
 		}
 
 		// Click the item to select it
-		fxBot.click(paletteItem);
+		UIThreadRunnable.syncExec(() -> paletteItem.getButton().fire());
 
 		// Wait for the item to be active
 		final AgeEditorPaletteModel paletteModel = editor.getPaletteModel();
@@ -825,7 +826,7 @@ public class UiTestUtil {
 
 		Display.getDefault().syncExec(() -> editor.scrollToTopLeft(sceneNode));
 
-		fxBot.click(sceneNode);
+		fxBot.firePressAndReleasePrimaryMouseButtonEventsAsync(sceneNode);
 	}
 
 	private static SWTBotCanvas findViewCanvasByTitle(final String title) {
