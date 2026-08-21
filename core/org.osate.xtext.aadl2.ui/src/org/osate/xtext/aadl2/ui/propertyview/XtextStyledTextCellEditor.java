@@ -13,8 +13,6 @@ package org.osate.xtext.aadl2.ui.propertyview;
 
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.bindings.keys.KeyStroke;
-import org.eclipse.jface.text.ITextListener;
-import org.eclipse.jface.text.TextEvent;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.viewers.CellEditor;
@@ -26,13 +24,12 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+
 import com.google.inject.Injector;
 
 /**
@@ -48,6 +45,7 @@ import com.google.inject.Injector;
  * @author andreas.muelder@itemis.de
  * @author alexander.nyssen@itemis.de
  * @author patrick.koenemann@itemis.de
+ * @since 9.0
  */
 public class XtextStyledTextCellEditor extends StyledTextCellEditor {
 
@@ -93,34 +91,23 @@ public class XtextStyledTextCellEditor extends StyledTextCellEditor {
 
 		// This listener notifies the modification, when text is selected via
 		// proposal. A ModifyEvent is not thrown by the StyledText in this case.
-		getXtextAdapter().getXtextSourceviewer().addTextListener(new ITextListener() {
-			@Override
-			public void textChanged(TextEvent event) {
-				editOccured(null);
-			}
-		});
+		getXtextAdapter().getXtextSourceviewer().addTextListener(event -> editOccured(null));
 
 		if ((styledText.getStyle() & SWT.SINGLE) != 0) {
 			// The regular key down event is too late (after popup is closed
 			// again).
 			// when using the StyledText.VerifyKey event (3005), we get the
 			// event early enough!
-			styledText.addListener(3005, new Listener() {
-				@Override
-				public void handleEvent(Event event) {
-					if (event.character == SWT.CR && !getCompletionProposalAdapter().isProposalPopupOpen()) {
-						focusLost();
-					}
+			styledText.addListener(3005, event -> {
+				if (event.character == SWT.CR && !getCompletionProposalAdapter().isProposalPopupOpen()) {
+					focusLost();
 				}
 			});
 		}
-		styledText.addListener(3005, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				if (event.character == '\u001b' // ESC
-						&& !getCompletionProposalAdapter().isProposalPopupOpen()) {
-					XtextStyledTextCellEditor.this.fireCancelEditor();
-				}
+		styledText.addListener(3005, event -> {
+			if (event.character == '\u001b' // ESC
+					&& !getCompletionProposalAdapter().isProposalPopupOpen()) {
+				XtextStyledTextCellEditor.this.fireCancelEditor();
 			}
 		});
 

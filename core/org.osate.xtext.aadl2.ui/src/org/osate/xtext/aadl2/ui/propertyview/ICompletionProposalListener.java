@@ -15,6 +15,7 @@ package org.osate.xtext.aadl2.ui.propertyview;
  * {@link CompletionProposalAdapter}.
  *
  * @author patrick.koenemann@itemis.de
+ * @since 9.0
  *
  */
 public interface ICompletionProposalListener {

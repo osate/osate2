@@ -23,6 +23,7 @@ import org.eclipse.xtext.Constants;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.util.StringInputStream;
+
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
@@ -33,6 +34,7 @@ import com.google.inject.name.Named;
  * underlying (fake) resources.
  *
  * @author alexander.nyssen@itemis.de
+ * @since 9.0
  *
  */
 public class XtextFakeResourceContext {
