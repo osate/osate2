@@ -104,6 +104,7 @@ import javafx.scene.control.ToggleButton;
 public class UiTestUtil {
 	private static final SWTWorkbenchBot bot;
 	private static final JavaFXBot fxBot = new JavaFXBot();
+	private static AbstractSWTBot<?> contextMenuTarget;
 	private static Control pendingFocusOutControl;
 	private static final HashSet<String> allowedViewTitles = Sets.newHashSet("AADL Navigator", "AADL Diagrams",
 			"Properties", "Outline");
@@ -445,7 +446,8 @@ public class UiTestUtil {
 	 * Clicks the context menu of the focused widget
 	 */
 	public static void clickContextMenuOfFocused(final String... texts) {
-		getFocusedWidget().contextMenu().menu(texts).click();
+		assertNotNull("Context menu target is null", contextMenuTarget);
+		contextMenuTarget.contextMenu().menu(texts).click();
 	}
 
 	/**
@@ -571,9 +573,11 @@ public class UiTestUtil {
 	 * Throws an exception if it is unable to do so.
 	 */
 	public static void selectItemInTreeView(final String viewTitle, final String... itemTexts) {
+		bot.viewByTitle(viewTitle).setFocus();
 		final Optional<SWTBotTreeItem> item = getItemInTree(getFirstTreeInView(viewTitle), itemTexts);
 		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in tree", item.isPresent());
-		item.orElseThrow().select();
+		contextMenuTarget = item.orElseThrow();
+		((SWTBotTreeItem) contextMenuTarget).select();
 	}
 
 	/**
@@ -678,13 +682,16 @@ public class UiTestUtil {
 	 * Focus the specified editor
 	 */
 	public static void focusDiagramEditor(final DiagramReference diagram) {
+		final AgeEditor editor = getDiagramEditor(diagram);
 		UIThreadRunnable.syncExec(() -> {
 			if (pendingFocusOutControl != null && !pendingFocusOutControl.isDisposed()) {
 				pendingFocusOutControl.notifyListeners(SWT.FocusOut, new Event());
 				pendingFocusOutControl = null;
 			}
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(editor);
+			editor.setFocus();
+			editor.getFxCanvas().forceFocus();
 		});
-		getDiagramEditorBot(diagram).setFocus();
 	}
 
 	/**
@@ -942,12 +949,21 @@ public class UiTestUtil {
 		return editor;
 	}
 
+	public static void activateDiagramEditor(final DiagramReference diagram) {
+		final AgeEditor editor = getDiagramEditor(diagram);
+		UIThreadRunnable.syncExec(() -> PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow()
+				.getActivePage()
+				.activate(editor));
+	}
+
 	/**
 	 * Does not open or activate the editor the specified diagram.
 	 */
 	public static void selectDiagramElements(final DiagramReference diagram,
 			final DiagramElementReference... elements) {
 		final AgeEditor editor = getDiagramEditor(diagram);
+		contextMenuTarget = new SWTBotCanvas(editor.getFxCanvas());
 		final Set<DiagramElement> diagramElementsToSelect = new HashSet<>();
 		for (int i = 0; i < elements.length; i++) {
 			final DiagramElementReference element = elements[i];
@@ -957,6 +973,8 @@ public class UiTestUtil {
 		}
 
 		Display.getDefault().syncExec(() -> {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(editor);
+			editor.setFocus();
 			editor.getFxCanvas().forceFocus();
 			editor.selectDiagramNodes(diagramElementsToSelect);
 		});
