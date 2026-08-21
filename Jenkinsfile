@@ -21,7 +21,7 @@ pipeline {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
               sh 'mvn -s releng/osate.releng/seisettings.xml clean verify \
-                  -Plocal -Dsonar.token=$SONARTOKEN \
+                  -Plocal,with-ge-tests -Dsonar.token=$SONARTOKEN \
                   -Dsonar.pullrequest.provider=GitHub \
                   -Dsonar.pullrequest.github.repository=$(echo $CHANGE_URL | cut -d/ -f4,5) \
                   -Dsonar.pullrequest.key=$CHANGE_ID \
@@ -43,7 +43,7 @@ pipeline {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
               sh 'mvn -s releng/osate.releng/seisettings.xml clean verify \
-                  -Pfull -Dsonar.token=$SONARTOKEN \
+                  -Pfull,with-ge-tests -Dsonar.token=$SONARTOKEN \
                   -Declipse.p2.mirrors=false -DfailIfNoTests=false \
                   -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'
             }
