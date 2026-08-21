@@ -860,7 +860,9 @@ public class UiTestUtil {
 	 * @param menuItem is the menu item to select
 	 */
 	public static void clickContextMenuOfOutlineViewItem(final String[] treeItems, final String[] menuItem) {
-		final SWTBotTree tree = bot.viewByTitle("Outline").bot().tree();
+		final SWTBotView outline = bot.viewByTitle("Outline");
+		outline.setFocus();
+		final SWTBotTree tree = outline.bot().tree();
 		SWTBotTreeItem treeItem = findTreeItem(tree.getAllItems(), treeItems[0]);
 		final String[] nodes = Arrays.copyOfRange(treeItems, 1, treeItems.length);
 
@@ -868,6 +870,7 @@ public class UiTestUtil {
 			treeItem = findTreeItem(treeItem.getItems(), node).expand();
 		}
 
+		treeItem.select();
 		treeItem.contextMenu().menu(menuItem).click();
 	}
 
@@ -876,7 +879,9 @@ public class UiTestUtil {
 	 * @param treeItems is the name of the elements to traverse in the outline view
 	 */
 	public static void clickElementInOutlineView(final String... treeItems) {
-		final SWTBotTree tree = bot.viewByTitle("Outline").bot().tree();
+		final SWTBotView outline = bot.viewByTitle("Outline");
+		outline.setFocus();
+		final SWTBotTree tree = outline.bot().tree();
 		SWTBotTreeItem treeItem = findTreeItem(tree.getAllItems(), treeItems[0]);
 		final String[] nodes = Arrays.copyOfRange(treeItems, 1, treeItems.length);
 
