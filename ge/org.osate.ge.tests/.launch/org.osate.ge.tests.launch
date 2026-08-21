@@ -37,7 +37,7 @@
     <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dorg.eclipse.swt.graphics.Resource.reportNonDisposed=true&#10;-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog&#10;-Dorg.apache.commons.logging.simplelog.defaultlog=error&#10;-Dosgi.framework.extensions=org.eclipse.fx.osgi&#10;-XstartOnFirstThread"/>
     <stringAttribute key="pde.version" value="3.3"/>
     <stringAttribute key="product" value="org.osate.branding.osate2"/>
-    <booleanAttribute key="run_in_ui_thread" value="true"/>
+    <booleanAttribute key="run_in_ui_thread" value="false"/>
     <setAttribute key="selected_target_bundles">
         <setEntry value="bcpg@default:default"/>
         <setEntry value="bcpkix@default:default"/>
