@@ -793,10 +793,10 @@ public class PrimaryEndToEndTest {
 				threadsImplElement.join(getFeatureRelativeReference("point_cloud")),
 				getFlowSpecificationRelativeReference("threads_new_flow_spec"), "point_cloud_source");
 
-		// Create flow sink threads.impl.integrator.point_cloud
+		// Create flow source threads.impl.integrator.point_cloud
 		createFlowIndicatorAndLayout(softwareDiagram, integratorScImpl,
-				"Flow Sink Specification", integratorScImpl.join(getFeatureRelativeReference("point_cloud")),
-				getFlowSpecificationRelativeReference("integrator_new_flow_spec"), "point_cloud_sink");
+				"Flow Source Specification", integratorScImpl.join(getFeatureRelativeReference("point_cloud")),
+				getFlowSpecificationRelativeReference("integrator_new_flow_spec"), "point_cloud_source");
 
 		// Create connection threads.impl.point_cloud -> threads.impl.integrator.point_cloud
 		createConnectionAndLayout(softwareDiagram,
@@ -835,7 +835,7 @@ public class PrimaryEndToEndTest {
 				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
 						"threads.impl"),
 						getSubcomponentRelativeReference("integrator"),
-						getFlowSpecificationRelativeReference("point_cloud_sink")),
+						getFlowSpecificationRelativeReference("point_cloud_source")),
 				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
 						"threads.impl"),
 						getConnectionRelativeReference("point_cloud_connection")),
