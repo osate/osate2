@@ -1,0 +1,102 @@
+package E2E_Basic_And_Branching
+public
+
+	data Payload
+	end Payload;
+
+	system Endpoint
+		features
+			input: in data port Payload;
+			output: out data port Payload;
+		flows
+			fsrc: flow source output;
+			fsnk: flow sink input;
+			fpath: flow path input -> output;
+	end Endpoint;
+
+	system Choice extends Endpoint
+	end Choice;
+
+	system implementation Choice.two_paths
+		subcomponents
+			upper: system Endpoint;
+			lower: system Endpoint;
+		connections
+			to_upper: port input -> upper.input;
+			from_upper: port upper.output -> output;
+			to_lower: port input -> lower.input;
+			from_lower: port lower.output -> output;
+		flows
+			fpath: flow path input -> to_upper -> upper.fpath -> from_upper -> output;
+			fpath: flow path input -> to_lower -> lower.fpath -> from_lower -> output;
+	end Choice.two_paths;
+
+	system BasicTop
+	end BasicTop;
+
+	system implementation BasicTop.i
+		subcomponents
+			producer: system Endpoint;
+			middle: system Endpoint;
+			consumer: system Endpoint;
+		connections
+			first: port producer.output -> middle.input;
+			second: port middle.output -> consumer.input;
+		flows
+			explicit: end to end flow producer.fsrc -> first -> middle.fpath -> second -> consumer.fsnk;
+			implicit: end to end flow producer -> first -> middle -> second -> consumer;
+	end BasicTop.i;
+
+	system BranchingTop
+	end BranchingTop;
+
+	system implementation BranchingTop.i
+		subcomponents
+			producer: system Endpoint;
+			choice: system Choice.two_paths;
+			consumer: system Endpoint;
+		connections
+			enter: port producer.output -> choice.input;
+			leave: port choice.output -> consumer.input;
+		flows
+			branched: end to end flow producer.fsrc -> enter -> choice.fpath -> leave -> consumer.fsnk;
+	end BranchingTop.i;
+
+	system PlainProducer
+		features
+			output: out feature;
+	end PlainProducer;
+
+	system PlainConsumer
+		features
+			input: in feature;
+	end PlainConsumer;
+
+	system Container
+		features
+			input: in feature;
+	end Container;
+
+	system implementation Container.i
+		subcomponents
+			inner: system PlainConsumer;
+		connections
+			link: feature input -> inner.input;
+	end Container.i;
+
+	system ConnectionIdentityTop
+	end ConnectionIdentityTop;
+
+	system implementation ConnectionIdentityTop.i
+		subcomponents
+			producer: system PlainProducer;
+			wanted: system PlainConsumer;
+			container: system Container.i;
+		connections
+			link: feature producer.output -> wanted.input;
+			other: feature producer.output -> container.input;
+		flows
+			identity: end to end flow producer -> link -> wanted;
+	end ConnectionIdentityTop.i;
+
+end E2E_Basic_And_Branching;

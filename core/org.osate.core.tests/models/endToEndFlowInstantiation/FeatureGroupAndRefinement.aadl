@@ -1,0 +1,184 @@
+package E2E_Feature_Group_And_Refinement
+public
+
+	feature group Channels
+		features
+			input: in data port;
+			output: out data port;
+	end Channels;
+
+	feature group Inverse_Channels inverse of Channels
+	end Inverse_Channels;
+
+	thread Transform
+		features
+			left: feature group Channels;
+			right: feature group Inverse_Channels;
+		flows
+			fpath: flow path left -> right;
+	end Transform;
+
+	thread implementation Transform.specific
+		flows
+			fpath: flow path left.input -> right.input;
+	end Transform.specific;
+
+	thread Endpoint
+		features
+			outputs: feature group Inverse_Channels;
+			inputs: feature group Channels;
+		flows
+			fsrc: flow source outputs.input;
+			fsnk: flow sink inputs.input;
+	end Endpoint;
+
+	process FeatureGroupTop
+	end FeatureGroupTop;
+
+	process implementation FeatureGroupTop.i
+		subcomponents
+			endpoint: thread Endpoint;
+			transform: thread Transform.specific;
+		connections
+			enter: feature group endpoint.outputs <-> transform.left;
+			leave: feature group transform.right <-> endpoint.inputs;
+		flows
+			feature_group_path: end to end flow endpoint.fsrc ->
+				enter -> transform.fpath -> leave -> endpoint.fsnk;
+	end FeatureGroupTop.i;
+
+	abstract BasePath
+		features
+			input: in feature;
+			output: out feature;
+		flows
+			fpath: flow path input -> output;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end BasePath;
+
+	abstract LeafPath
+		features
+			input: in feature;
+			output: out feature;
+		flows
+			fpath: flow path input -> output;
+	end LeafPath;
+
+	abstract implementation BasePath.i
+		subcomponents
+			leaf: abstract LeafPath;
+		connections
+			enter: feature input -> leaf.input;
+			leave: feature leaf.output -> output;
+		flows
+			fpath: flow path input -> enter -> leaf.fpath -> leave -> output;
+	end BasePath.i;
+
+	system ConcretePath extends BasePath
+		features
+			input: refined to in data port;
+			output: refined to out data port;
+	end ConcretePath;
+
+	system ConcreteLeaf extends LeafPath
+		features
+			input: refined to in data port;
+			output: refined to out data port;
+	end ConcreteLeaf;
+
+	system implementation ConcretePath.i extends BasePath.i
+		subcomponents
+			leaf: refined to system ConcreteLeaf;
+		connections
+			enter: refined to port;
+			leave: refined to port;
+	end ConcretePath.i;
+
+	system PortEndpoint
+		features
+			input: in data port;
+			output: out data port;
+		flows
+			fsrc: flow source output;
+			fsnk: flow sink input;
+	end PortEndpoint;
+
+	system RefinedConnectionTop
+	end RefinedConnectionTop;
+
+	system implementation RefinedConnectionTop.i
+		subcomponents
+			producer: system PortEndpoint;
+			middle: system ConcretePath.i;
+			consumer: system PortEndpoint;
+		connections
+			enter: port producer.output -> middle.input;
+			leave: port middle.output -> consumer.input;
+		flows
+			refined_path: end to end flow producer.fsrc ->
+				enter -> middle.fpath -> leave -> consumer.fsnk;
+	end RefinedConnectionTop.i;
+
+	subprogram Operation
+		features
+			argument: in parameter;
+			result: out parameter;
+		flows
+			fpath: flow path argument -> result;
+	end Operation;
+
+	thread CallTransform
+		features
+			input: in data port;
+			output: out data port;
+		flows
+			fpath: flow path input -> output;
+		modes
+			active: initial mode;
+			standby: mode;
+	end CallTransform;
+
+	thread implementation CallTransform.i
+		subcomponents
+			operation: subprogram Operation;
+		calls
+			sequence: {
+				invoke: subprogram operation;
+			};
+		connections
+			to_operation: parameter input -> invoke.argument;
+			from_operation: parameter invoke.result -> output;
+		flows
+			fpath: flow path input -> to_operation ->
+				operation.fpath -> from_operation -> output in modes (active);
+			fpath: flow path input -> to_operation ->
+				operation.fpath -> from_operation -> output in modes (standby);
+	end CallTransform.i;
+
+	thread PortThreadEndpoint
+		features
+			input: in data port;
+			output: out data port;
+		flows
+			fsrc: flow source output;
+			fsnk: flow sink input;
+	end PortThreadEndpoint;
+
+	process ThreadCallTop
+	end ThreadCallTop;
+
+	process implementation ThreadCallTop.i
+		subcomponents
+			producer: thread PortThreadEndpoint;
+			transform: thread CallTransform.i;
+			consumer: thread PortThreadEndpoint;
+		connections
+			enter: port producer.output -> transform.input;
+			leave: port transform.output -> consumer.input;
+		flows
+			thread_call_path: end to end flow producer.fsrc ->
+				enter -> transform.fpath -> leave -> consumer.fsnk;
+	end ThreadCallTop.i;
+
+end E2E_Feature_Group_And_Refinement;

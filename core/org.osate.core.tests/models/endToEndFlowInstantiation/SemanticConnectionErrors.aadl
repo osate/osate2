@@ -1,0 +1,86 @@
+package E2E_Semantic_Connection_Errors
+public
+
+	system Producer
+		features
+			output: out data port;
+		flows
+			fsrc: flow source output;
+	end Producer;
+
+	system TwoInputSink
+		features
+			expected_input: in data port;
+			alternate_input: in data port;
+		flows
+			fsnk: flow sink expected_input;
+	end TwoInputSink;
+
+	system Consumer
+		features
+			input: in data port;
+		flows
+			fsnk: flow sink input;
+	end Consumer;
+
+	system DirectRoute
+		features
+			expected_input: in data port;
+			alternate_input: in data port;
+			output: out data port;
+			alternate_output: out data port;
+		flows
+			fpath: flow path expected_input -> output;
+	end DirectRoute;
+
+	system implementation DirectRoute.i
+		flows
+			fpath: flow path expected_input -> output;
+	end DirectRoute.i;
+
+	system MismatchedSinkTop
+	end MismatchedSinkTop;
+
+	system implementation MismatchedSinkTop.i
+		subcomponents
+			producer: system Producer;
+			consumer: system TwoInputSink;
+		connections
+			wrong_input: port producer.output -> consumer.alternate_input;
+		flows
+			mismatched: end to end flow producer.fsrc -> wrong_input -> consumer.fsnk;
+	end MismatchedSinkTop.i;
+
+	system MismatchedImplementationInputTop
+	end MismatchedImplementationInputTop;
+
+	system implementation MismatchedImplementationInputTop.i
+		subcomponents
+			producer: system Producer;
+			route: system DirectRoute.i;
+			consumer: system Consumer;
+		connections
+			wrong_input: port producer.output -> route.alternate_input;
+			leave: port route.output -> consumer.input;
+		flows
+			mismatched: end to end flow producer.fsrc -> wrong_input ->
+				route.fpath -> leave -> consumer.fsnk;
+	end MismatchedImplementationInputTop.i;
+
+	system MismatchedImplementationOutputTop
+	end MismatchedImplementationOutputTop;
+
+	system implementation MismatchedImplementationOutputTop.i
+		subcomponents
+			producer: system Producer;
+			route: system DirectRoute.i;
+			consumer: system Consumer;
+		connections
+			enter: port producer.output -> route.expected_input;
+			wrong_output: port route.alternate_output -> consumer.input;
+		flows
+			mismatched: end to end flow producer.fsrc -> enter ->
+				route.fpath -> wrong_output -> consumer.fsnk;
+	end MismatchedImplementationOutputTop.i;
+
+end E2E_Semantic_Connection_Errors;
