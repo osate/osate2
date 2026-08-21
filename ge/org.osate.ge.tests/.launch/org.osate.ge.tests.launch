@@ -29,7 +29,7 @@
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_SHOW_CODEDETAILS_IN_EXCEPTION_MESSAGES" value="true"/>
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
-    <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JRE for JavaSE-21"/>
+    <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21"/>
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value=""/>
     <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.osate.ge.tests"/>
@@ -54,7 +54,6 @@
         <setEntry value="de.itemis.xtext.antlr@default:default"/>
         <setEntry value="io.github.classgraph.classgraph@default:default"/>
         <setEntry value="jakarta.activation-api@default:default"/>
-        <setEntry value="jakarta.activation@default:default"/>
         <setEntry value="jakarta.annotation-api@default:default"/>
         <setEntry value="jakarta.inject.jakarta.inject-api@default:default"/>
         <setEntry value="javax.activation@default:default"/>
@@ -69,9 +68,9 @@
         <setEntry value="openjfx.graphics.mac_aarch64@default:default"/>
         <setEntry value="openjfx.swing@default:default"/>
         <setEntry value="openjfx.swt@default:default"/>
+        <setEntry value="org.antlr.antlr4-runtime@default:default"/>
         <setEntry value="org.antlr.generator@default:default"/>
-        <setEntry value="org.antlr.runtime*3.2.0.v20230929-1400@default:default"/>
-        <setEntry value="org.antlr.runtime*4.7.2.v20221112-0806@default:default"/>
+        <setEntry value="org.antlr.runtime@default:default"/>
         <setEntry value="org.aopalliance@default:default"/>
         <setEntry value="org.apache.ant@default:default"/>
         <setEntry value="org.apache.aries.spifly.dynamic.bundle@default:default"/>
@@ -214,8 +213,6 @@
         <setEntry value="org.eclipse.jface.notifications@default:default"/>
         <setEntry value="org.eclipse.jface.text@default:default"/>
         <setEntry value="org.eclipse.jface@default:default"/>
-        <setEntry value="org.eclipse.lsp4j.jsonrpc@default:default"/>
-        <setEntry value="org.eclipse.lsp4j@default:default"/>
         <setEntry value="org.eclipse.ltk.core.refactoring@default:default"/>
         <setEntry value="org.eclipse.ltk.ui.refactoring@default:default"/>
         <setEntry value="org.eclipse.mylyn.commons.core@default:default"/>
@@ -325,7 +322,6 @@
         <setEntry value="org.osgi.util.promise@default:default"/>
         <setEntry value="org.osgi.util.xml@default:default"/>
         <setEntry value="org.tukaani.xz@default:default"/>
-        <setEntry value="org.yakindu.base.xtext.utils.jface@default:default"/>
         <setEntry value="slf4j.api@default:default"/>
     </setAttribute>
     <setAttribute key="selected_workspace_bundles">
