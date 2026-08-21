@@ -104,6 +104,7 @@ import javafx.scene.control.ToggleButton;
 public class UiTestUtil {
 	private static final SWTWorkbenchBot bot;
 	private static final JavaFXBot fxBot = new JavaFXBot();
+	private static Control pendingFocusOutControl;
 	private static final HashSet<String> allowedViewTitles = Sets.newHashSet("AADL Navigator", "AADL Diagrams",
 			"Properties", "Outline");
 
@@ -242,7 +243,9 @@ public class UiTestUtil {
 	 * @param value is the new value
 	 */
 	public static void setTextFieldWithIdText(final String id, final String value) {
-		bot.textWithId(id).setText(value);
+		final SWTBotText text = bot.textWithId(id);
+		text.setText(value);
+		pendingFocusOutControl = (Control) bot.getFinder().findControls(withId(id)).get(0);
 		assertTextFieldWithIdText("New value not valid", id, value);
 	}
 
@@ -675,6 +678,12 @@ public class UiTestUtil {
 	 * Focus the specified editor
 	 */
 	public static void focusDiagramEditor(final DiagramReference diagram) {
+		UIThreadRunnable.syncExec(() -> {
+			if (pendingFocusOutControl != null && !pendingFocusOutControl.isDisposed()) {
+				pendingFocusOutControl.notifyListeners(SWT.FocusOut, new Event());
+				pendingFocusOutControl = null;
+			}
+		});
 		getDiagramEditorBot(diagram).setFocus();
 	}
 
