@@ -145,7 +145,7 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel imp
 			// Modify the AADL model
 			modifyTypeSets(ts -> {
 				ts.getTypeTokens().clear();
-				ts.getTypeTokens().addAll(inner.getTypeTokenList());
+				ts.getTypeTokens().addAll(EcoreUtil.copyAll(inner.getTypeTokenList()));
 			});
 		}
 	}
