@@ -480,8 +480,6 @@
     <requirement
         name="org.eclipse.sirius.runtime.feature.group"/>
     <requirement
-        name="org.eclipse.sirius.runtime.ide.ui.acceleo.feature.group"/>
-    <requirement
         name="org.eclipse.sirius.runtime.ide.xtext.feature.group"/>
     <requirement
         name="org.eclipse.sirius.properties.feature.feature.group"/>
@@ -492,23 +490,15 @@
     <requirement
         name="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
     <requirement
-        name="org.eclipse.sirius.runtime.acceleo.feature.group"/>
-    <requirement
         name="org.eclipse.sirius.runtime.aql.feature.group"/>
     <requirement
-        name="org.eclipse.sirius.runtime.ocl.feature.group"/>
-    <requirement
         name="org.eclipse.sirius.samples.feature.group"/>
-    <requirement
-        name="org.eclipse.sirius.specifier.ide.ui.acceleo.feature.group"/>
     <requirement
         name="org.eclipse.sirius.specifier.ide.ui.aql.feature.group"/>
     <requirement
         name="org.eclipse.sirius.specifier.ide.ui.feature.group"/>
     <requirement
         name="org.eclipse.sirius.tests.support.feature.group"/>
-    <requirement
-        name="org.eclipse.acceleo.ui.interpreter.feature.group"/>
     <requirement
         name="org.eclipse.acceleo.query.feature.group"/>
     <requirement
@@ -518,7 +508,9 @@
     <repository
         url="https://download.eclipse.org/releases/${eclipse.target.platform}"/>
     <repository
-        url="https://download.eclipse.org/sirius/updates/releases/7.4.10/2023-03"/>
+        url="https://download.eclipse.org/sirius/updates/releases/7.6.0/2025-09"/>
+    <repository
+        url="https://download.eclipse.org/acceleo/updates/releases/4.2/R202603201315"/>
     <repository
         url="https://download.eclipse.org/emfstore/releases_19/190"/>
   </setupTask>
@@ -944,7 +936,9 @@
         <repository
             url="https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.39.0"/>
         <repository
-            url="https://download.eclipse.org/sirius/updates/releases/7.4.10/2023-03"/>
+            url="https://download.eclipse.org/sirius/updates/releases/7.6.0/2025-09"/>
+        <repository
+            url="https://download.eclipse.org/acceleo/updates/releases/4.2/R202603201315"/>
         <repository
             url="https://download.eclipse.org/ease/integration/nightly"/>
         <repository

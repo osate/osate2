@@ -56,13 +56,30 @@ Run with
             <iu id="org.eclipse.platform.feature.group"/>
             <iu id="org.eclipse.rcp.feature.group"/>
             <iu id="org.eclipse.sdk.feature.group"/>
-            <iu id="org.eclipse.sirius.common.acceleo.aql"/>
-            <iu id="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
             <iu id="org.eclipse.uml2.feature.group"/>
             <iu id="org.eclipse.zest.feature.group"/>
     		<iu id="org.hamcrest.library"/>
             <iu id="org.eclipse.mylyn.context.feature.feature.group"/>
     		<iu id="junit-jupiter-api"/>
+        </p2.mirror>
+
+        <p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/sirius/updates/releases/7.6.0/2025-09"/>
+            </source>
+            <destination location="${target.dir}/sirius/updates/releases/7.6.0/2025-09"/>
+            <iu id="org.eclipse.sirius.common.acceleo.aql"/>
+            <iu id="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
+        </p2.mirror>
+
+        <p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/acceleo/updates/releases/4.2/R202603201315"/>
+            </source>
+            <destination location="${target.dir}/acceleo/updates/releases/4.2/R202603201315"/>
+            <iu id="org.eclipse.acceleo.query"/>
+            <iu id="org.eclipse.acceleo.annotations"/>
+            <iu id="org.antlr.antlr4-runtime"/>
         </p2.mirror>
 
     	<p2.mirror>
