@@ -37,6 +37,7 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
+import static extension org.osate.core.tests.instantiation.InstanceLookup.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -60,8 +61,8 @@ class Issue665Test {
 		assertEquals("whole_i_Instance", instance.name)
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
-		// Find the semantic connection
-		instance.connectionInstances.get(0)
+		// There is one semantic connection, and it is the only one
+		instance.onlyConnection
 		
 		assertEquals(0, messages.size)
 	}	
@@ -77,8 +78,8 @@ class Issue665Test {
 		assertEquals("whole_i_Instance", instance.name)
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
-		// Find the semantic connection
-		instance.connectionInstances.get(0)
+		// There is one semantic connection, and it is the only one
+		instance.onlyConnection
 		
 		assertEquals(0, messages.size)
 	}	
@@ -94,8 +95,8 @@ class Issue665Test {
 		assertEquals("whole_i_Instance", instance.name)
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
-		// Find the semantic connection
-		val sc = instance.connectionInstances.get(0)
+		// Find the semantic connection, which is the only one
+		val sc = instance.onlyConnection
 		
 		assertEquals(2, messages.size)
 		messages.get(1) => [
@@ -121,8 +122,8 @@ class Issue665Test {
 		assertEquals("whole_i_Instance", instance.name)
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
-		// Find the semantic connection
-		val sc = instance.connectionInstances.get(0)
+		// Find the semantic connection, which is the only one
+		val sc = instance.onlyConnection
 		
 		assertEquals(2, messages.size)
 		messages.get(1) => [

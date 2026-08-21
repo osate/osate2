@@ -1,0 +1,288 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), covering the five kinds of access connection one at a time and the four
+-- component categories that end a semantic connection.
+--
+-- An access connection ends at the shared component itself, so one of its ends is not a
+-- feature at all, and it is the one shape where a leg stops because there is nothing left
+-- to continue from. The categories that end a connection do so for a port and a feature
+-- group but not for an access feature: shared access reaches through a thread, device,
+-- processor, or virtual processor into what it contains, which is what makes Top.endings
+-- and Top.sharedSubprogram two different questions about the same rule.
+package AccessAndEndings
+public
+	data D
+	end D;
+
+	data implementation D.i
+	end D.i;
+
+	bus B
+	end B;
+
+	bus implementation B.i
+	end B.i;
+
+	virtual bus VB
+	end VB;
+
+	virtual bus implementation VB.i
+	end VB.i;
+
+	subprogram Service
+	end Service;
+
+	subprogram group SG
+	end SG;
+
+	subprogram group implementation SG.i
+	end SG.i;
+
+	system Top
+	end Top;
+
+	-- (a) shared data. The connection reaches from the data component to an access feature
+	-- two containment levels down, so the destination leg descends while the source end is a
+	-- component and never moves.
+	thread DataUser
+		features
+			store: requires data access D;
+	end DataUser;
+
+	process DataHolder
+		features
+			store: requires data access D;
+	end DataHolder;
+
+	process implementation DataHolder.i
+		subcomponents
+			user: thread DataUser;
+		connections
+			inward: data access store -> user.store;
+	end DataHolder.i;
+
+	system implementation Top.sharedData
+		subcomponents
+			shared: data D.i;
+			holder: process DataHolder.i;
+		connections
+			toHolder: data access shared -> holder.store;
+	end Top.sharedData;
+
+	-- (b) shared bus, reached by a device, which ends a connection at a port but not at an
+	-- access feature
+	device BusUser
+		features
+			net: requires bus access B;
+	end BusUser;
+
+	system BusHolder
+		features
+			net: requires bus access B;
+	end BusHolder;
+
+	system implementation BusHolder.i
+		subcomponents
+			user: device BusUser;
+		connections
+			inward: bus access net -> user.net;
+	end BusHolder.i;
+
+	system implementation Top.sharedBus
+		subcomponents
+			backbone: bus B.i;
+			holder: system BusHolder.i;
+		connections
+			toHolder: bus access backbone -> holder.net;
+	end Top.sharedBus;
+
+	-- (c) shared virtual bus, reached by a processor
+	processor VirtualBusUser
+		features
+			channel: requires virtual bus access VB;
+	end VirtualBusUser;
+
+	system VirtualBusHolder
+		features
+			channel: requires virtual bus access VB;
+	end VirtualBusHolder;
+
+	system implementation VirtualBusHolder.i
+		subcomponents
+			user: processor VirtualBusUser;
+		connections
+			inward: virtual bus access channel -> user.channel;
+	end VirtualBusHolder.i;
+
+	system implementation Top.sharedVirtualBus
+		subcomponents
+			transport: virtual bus VB.i;
+			holder: system VirtualBusHolder.i;
+		connections
+			toHolder: virtual bus access transport -> holder.channel;
+	end Top.sharedVirtualBus;
+
+	-- (d) shared subprogram, provided by a thread and required by another. Both legs descend,
+	-- and the source leg reaches through a thread, which ends a connection for a port but not
+	-- for the access feature this path arrives at.
+	thread ServiceProvider
+		features
+			call: provides subprogram access Service;
+	end ServiceProvider;
+
+	thread implementation ServiceProvider.i
+		subcomponents
+			body: subprogram Service;
+		connections
+			supply: subprogram access body -> call;
+	end ServiceProvider.i;
+
+	thread ServiceClient
+		features
+			call: requires subprogram access Service;
+	end ServiceClient;
+
+	process ProviderHolder
+		features
+			call: provides subprogram access Service;
+	end ProviderHolder;
+
+	process implementation ProviderHolder.i
+		subcomponents
+			provider: thread ServiceProvider.i;
+		connections
+			outward: subprogram access provider.call -> call;
+	end ProviderHolder.i;
+
+	process ClientHolder
+		features
+			call: requires subprogram access Service;
+	end ClientHolder;
+
+	process implementation ClientHolder.i
+		subcomponents
+			client: thread ServiceClient;
+		connections
+			inward: subprogram access call -> client.call;
+	end ClientHolder.i;
+
+	system implementation Top.sharedSubprogram
+		subcomponents
+			provider: process ProviderHolder.i;
+			consumer: process ClientHolder.i;
+		connections
+			toConsumer: subprogram access provider.call -> consumer.call;
+	end Top.sharedSubprogram;
+
+	-- (e) shared subprogram group
+	thread GroupUser
+		features
+			lib: requires subprogram group access SG;
+	end GroupUser;
+
+	process GroupHolder
+		features
+			lib: requires subprogram group access SG;
+	end GroupHolder;
+
+	process implementation GroupHolder.i
+		subcomponents
+			user: thread GroupUser;
+		connections
+			inward: subprogram group access lib -> user.lib;
+	end GroupHolder.i;
+
+	system implementation Top.sharedSubprogramGroup
+		subcomponents
+			library: subprogram group SG.i;
+			holder: process GroupHolder.i;
+		connections
+			toHolder: subprogram group access library -> holder.lib;
+	end Top.sharedSubprogramGroup;
+
+	-- (f) the four categories that end a semantic connection at a port. Each has an
+	-- implementation that carries the port onwards, and the connection from outside must end
+	-- at the category's own port all the same, with the inner connection its own instance.
+	abstract Inner
+		features
+			inp: in data port D;
+	end Inner;
+
+	process Feeder
+		features
+			outp: out data port D;
+	end Feeder;
+
+	thread EndingThread
+		features
+			inp: in data port D;
+	end EndingThread;
+
+	thread implementation EndingThread.i
+		subcomponents
+			inner: abstract Inner;
+		connections
+			down: port inp -> inner.inp;
+	end EndingThread.i;
+
+	process ThreadHost
+		features
+			inp: in data port D;
+	end ThreadHost;
+
+	process implementation ThreadHost.i
+		subcomponents
+			th: thread EndingThread.i;
+		connections
+			down: port inp -> th.inp;
+	end ThreadHost.i;
+
+	device EndingDevice
+		features
+			inp: in data port D;
+	end EndingDevice;
+
+	device implementation EndingDevice.i
+		subcomponents
+			inner: abstract Inner;
+		connections
+			down: port inp -> inner.inp;
+	end EndingDevice.i;
+
+	processor EndingProcessor
+		features
+			inp: in data port D;
+	end EndingProcessor;
+
+	processor implementation EndingProcessor.i
+		subcomponents
+			inner: abstract Inner;
+		connections
+			down: port inp -> inner.inp;
+	end EndingProcessor.i;
+
+	virtual processor EndingVirtualProcessor
+		features
+			inp: in data port D;
+	end EndingVirtualProcessor;
+
+	virtual processor implementation EndingVirtualProcessor.i
+		subcomponents
+			inner: abstract Inner;
+		connections
+			down: port inp -> inner.inp;
+	end EndingVirtualProcessor.i;
+
+	system implementation Top.endings
+		subcomponents
+			feeder: process Feeder;
+			host: process ThreadHost.i;
+			dev: device EndingDevice.i;
+			cpu: processor EndingProcessor.i;
+			vcpu: virtual processor EndingVirtualProcessor.i;
+		connections
+			toThread: port feeder.outp -> host.inp;
+			toDevice: port feeder.outp -> dev.inp;
+			toProcessor: port feeder.outp -> cpu.inp;
+			toVirtual: port feeder.outp -> vcpu.inp;
+	end Top.endings;
+end AccessAndEndings;

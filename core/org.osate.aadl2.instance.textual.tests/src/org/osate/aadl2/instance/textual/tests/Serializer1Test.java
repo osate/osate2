@@ -337,11 +337,11 @@ public class Serializer1Test extends AbstractSerializerTest {
 					processor pkg1::p psub [ 0 ] : pkg1::s.i:psub {
 						in busAccess ba : pkg1::p:ba
 					}
-					complete accessConnection "b -> psub.ba" : b[0] -> psub[0].ba {
-						b[0] -> psub[0].ba : reverse pkg1::s.i:conn1 in parent
-					}
 					complete accessConnection "psub.ba -> b" : psub[0].ba -> b[0] {
 						psub[0].ba -> b[0] : pkg1::s.i:conn1 in parent
+					}
+					complete accessConnection "b -> psub.ba" : b[0] -> psub[0].ba {
+						b[0] -> psub[0].ba : reverse pkg1::s.i:conn1 in parent
 					}
 					som "No Modes"
 				}""");
@@ -569,14 +569,14 @@ public class Serializer1Test extends AbstractSerializerTest {
 						in busAccess ba2 : pkg1::a2:ba2
 						in eventPort ep2 : pkg1::a2:ep2
 					}
-					complete featureGroupConnection "a1sub.fg1 -> a2sub.fg2" : a1sub[0].fg1 -> a2sub[0].fg2 {
-						a1sub[0].fg1 -> a2sub[0].fg2 : pkg1::top.i:conn4 in parent
+					complete accessConnection "a1sub.ba1 -> a2sub.ba2" : a1sub[0].ba1 -> a2sub[0].ba2 {
+						a1sub[0].ba1 -> a2sub[0].ba2 : pkg1::top.i:conn2 in parent
 					}
 					complete featureConnection "a1sub.af1 -> a2sub.af2" : a1sub[0].af1 -> a2sub[0].af2 {
 						a1sub[0].af1 -> a2sub[0].af2 : pkg1::top.i:conn1 in parent
 					}
-					complete accessConnection "a1sub.ba1 -> a2sub.ba2" : a1sub[0].ba1 -> a2sub[0].ba2 {
-						a1sub[0].ba1 -> a2sub[0].ba2 : pkg1::top.i:conn2 in parent
+					complete featureGroupConnection "a1sub.fg1 -> a2sub.fg2" : a1sub[0].fg1 -> a2sub[0].fg2 {
+						a1sub[0].fg1 -> a2sub[0].fg2 : pkg1::top.i:conn4 in parent
 					}
 					complete portConnection "a1sub.ep1 -> a2sub.ep2" : a1sub[0].ep1 -> a2sub[0].ep2 {
 						a1sub[0].ep1 -> a2sub[0].ep2 : pkg1::top.i:conn3 in parent

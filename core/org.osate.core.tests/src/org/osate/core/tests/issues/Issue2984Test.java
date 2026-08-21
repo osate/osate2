@@ -25,6 +25,8 @@ package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
@@ -35,6 +37,7 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.core.tests.instantiation.InstanceLookup;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -71,10 +74,8 @@ public class Issue2984Test extends XtextTest {
 				.findFirst()
 				.orElseThrow();
 
-		assertEquals(2, middle.getEndToEndFlows().size());
-		assertEquals("e2e_1", middle.getEndToEndFlows().get(0).getName());
-		assertEquals("e2e_2", middle.getEndToEndFlows().get(1).getName());
-		assertEquals(5, middle.getEndToEndFlows().get(0).getFlowElements().size());
-		assertEquals(5, middle.getEndToEndFlows().get(1).getFlowElements().size());
+		assertEquals(List.of("e2e_1", "e2e_2"), InstanceLookup.flowNames(middle));
+		assertEquals(5, InstanceLookup.flow(middle, "e2e_1").getFlowElements().size());
+		assertEquals(5, InstanceLookup.flow(middle, "e2e_2").getFlowElements().size());
 	}
 }

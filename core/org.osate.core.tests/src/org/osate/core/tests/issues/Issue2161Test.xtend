@@ -39,6 +39,7 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
+import static extension org.osate.core.tests.instantiation.InstanceLookup.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -112,8 +113,10 @@ class Issue2161Test {
 		// There should be exactly 2 connection instances
 		assertEquals(2, instance.connectionInstances.size)
 		
-		val ci1 = instance.connectionInstances.get(0)
-		val ci2 = instance.connectionInstances.get(1)
+		// The two of them, in an order derived from the model rather than from creation
+		val pair = instance.connectionsInStableOrder
+		val ci1 = pair.get(0)
+		val ci2 = pair.get(1)
 		
 		// Each connection instance should have 1 connection reference
 		val connRefs1 = ci1.connectionReferences
@@ -133,7 +136,7 @@ class Issue2161Test {
 		// There should be exactly 1 connection instances
 		assertEquals(1, instance.connectionInstances.size)
 		
-		val ci = instance.connectionInstances.get(0)
+		val ci = instance.onlyConnection
 		
 		// Each connection instance should have 1 connection reference
 		val connRefs = ci.connectionReferences
@@ -150,7 +153,7 @@ class Issue2161Test {
 		// There should be exactly 1 connection instances
 		assertEquals(1, instance.connectionInstances.size)
 		
-		val ci = instance.connectionInstances.get(0)
+		val ci = instance.onlyConnection
 		
 		// Each connection instance should have 1 connection reference
 		val connRefs = ci.connectionReferences
@@ -201,8 +204,10 @@ class Issue2161Test {
 		// There should be exactly 2 connection instances
 		assertEquals(2, instance.connectionInstances.size)
 		
-		val ci1 = instance.connectionInstances.get(0)
-		val ci2 = instance.connectionInstances.get(1)
+		// The two of them, in an order derived from the model rather than from creation
+		val pair = instance.connectionsInStableOrder
+		val ci1 = pair.get(0)
+		val ci2 = pair.get(1)
 		
 		// Each connection instance should have 2 connection reference
 		val connRefs1 = ci1.connectionReferences
@@ -223,7 +228,7 @@ class Issue2161Test {
 		// There should be exactly 1 connection instances
 		assertEquals(1, instance.connectionInstances.size)
 		
-		val ci = instance.connectionInstances.get(0)
+		val ci = instance.onlyConnection
 		
 		// Each connection instance should have 2 connection reference
 		val connRefs = ci.connectionReferences
@@ -240,7 +245,7 @@ class Issue2161Test {
 		// There should be exactly 1 connection instances
 		assertEquals(1, instance.connectionInstances.size)
 		
-		val ci = instance.connectionInstances.get(0)
+		val ci = instance.onlyConnection
 		
 		// Each connection instance should have 1 connection reference
 		val connRefs = ci.connectionReferences
@@ -292,8 +297,10 @@ class Issue2161Test {
 		// There should be exactly 2 connection instances
 		assertEquals(2, process.connectionInstances.size)
 		
-		val ci1 = process.connectionInstances.get(0)
-		val ci2 = process.connectionInstances.get(1)
+		// The two of them, in an order derived from the model rather than from creation
+		val pair = process.connectionsInStableOrder
+		val ci1 = pair.get(0)
+		val ci2 = pair.get(1)
 		
 		// Each connection instance should have 2 connection reference
 		val connRefs1 = ci1.connectionReferences
@@ -315,7 +322,7 @@ class Issue2161Test {
 		// There should be exactly 1 connection instances
 		assertEquals(1, process.connectionInstances.size)
 		
-		val ci = process.connectionInstances.get(0)
+		val ci = process.onlyConnection
 		
 		// Each connection instance should have 2 connection reference
 		val connRefs = ci.connectionReferences
@@ -333,7 +340,7 @@ class Issue2161Test {
 		// There should be exactly 1 connection instances
 		assertEquals(1, process.connectionInstances.size)
 		
-		val ci = process.connectionInstances.get(0)
+		val ci = process.onlyConnection
 		
 		// Each connection instance should have 1 connection reference
 		val connRefs = ci.connectionReferences

@@ -1,0 +1,192 @@
+-- Performance fixture for the across-first connection traversal enhancement (issue #3037).
+--
+-- Depth, feature group width, and branching at once, which is where the three could
+-- multiply: six containment levels below the root on each side of the pivot, a boundary
+-- feature group nested three levels deep with a width of four at each level, so 64 leaves,
+-- and four branches at the bottom of each side.
+--
+-- The expected result is computed rather than copied: 4 source legs x 4 destination legs
+-- gives 16 joined paths, each expanding to the 64 leaf pairs of the boundary group, so 1024
+-- connection instances. Event ports throughout, because fan-in to an event port is legal.
+package AcrossFirstDepthWidthStress
+public
+	feature group Level1
+		features
+			p1: out event port;
+			p2: out event port;
+			p3: out event port;
+			p4: out event port;
+	end Level1;
+
+	feature group Level2
+		features
+			g1: feature group Level1;
+			g2: feature group Level1;
+			g3: feature group Level1;
+			g4: feature group Level1;
+	end Level2;
+
+	feature group Level3
+		features
+			g1: feature group Level2;
+			g2: feature group Level2;
+			g3: feature group Level2;
+			g4: feature group Level2;
+	end Level3;
+
+	-- Source side: a thread whose boundary group is the whole nested group
+	thread Emitter
+		features
+			bundle: feature group Level3;
+	end Emitter;
+
+	-- level 6: four branches, each carrying its own copy of the group to the boundary
+	process SourceLeaves
+		features
+			bundle: feature group Level3;
+	end SourceLeaves;
+
+	process implementation SourceLeaves.i
+		subcomponents
+			leaf1: thread Emitter;
+			leaf2: thread Emitter;
+			leaf3: thread Emitter;
+			leaf4: thread Emitter;
+		connections
+			up1: feature group leaf1.bundle -> bundle;
+			up2: feature group leaf2.bundle -> bundle;
+			up3: feature group leaf3.bundle -> bundle;
+			up4: feature group leaf4.bundle -> bundle;
+	end SourceLeaves.i;
+
+	system SourceDepth4
+		features
+			bundle: feature group Level3;
+	end SourceDepth4;
+
+	system implementation SourceDepth4.i
+		subcomponents
+			inner: process SourceLeaves.i;
+		connections
+			up: feature group inner.bundle -> bundle;
+	end SourceDepth4.i;
+
+	system SourceDepth3
+		features
+			bundle: feature group Level3;
+	end SourceDepth3;
+
+	system implementation SourceDepth3.i
+		subcomponents
+			inner: system SourceDepth4.i;
+		connections
+			up: feature group inner.bundle -> bundle;
+	end SourceDepth3.i;
+
+	system SourceDepth2
+		features
+			bundle: feature group Level3;
+	end SourceDepth2;
+
+	system implementation SourceDepth2.i
+		subcomponents
+			inner: system SourceDepth3.i;
+		connections
+			up: feature group inner.bundle -> bundle;
+	end SourceDepth2.i;
+
+	system SourceDepth1
+		features
+			bundle: feature group Level3;
+	end SourceDepth1;
+
+	system implementation SourceDepth1.i
+		subcomponents
+			inner: system SourceDepth2.i;
+		connections
+			up: feature group inner.bundle -> bundle;
+	end SourceDepth1.i;
+
+	-- Destination side: the mirror, with the group inverted so the ports face inwards
+	thread Absorber
+		features
+			bundle: feature group inverse of Level3;
+	end Absorber;
+
+	process DestinationLeaves
+		features
+			bundle: feature group inverse of Level3;
+	end DestinationLeaves;
+
+	process implementation DestinationLeaves.i
+		subcomponents
+			leaf1: thread Absorber;
+			leaf2: thread Absorber;
+			leaf3: thread Absorber;
+			leaf4: thread Absorber;
+		connections
+			down1: feature group bundle -> leaf1.bundle;
+			down2: feature group bundle -> leaf2.bundle;
+			down3: feature group bundle -> leaf3.bundle;
+			down4: feature group bundle -> leaf4.bundle;
+	end DestinationLeaves.i;
+
+	system DestinationDepth4
+		features
+			bundle: feature group inverse of Level3;
+	end DestinationDepth4;
+
+	system implementation DestinationDepth4.i
+		subcomponents
+			inner: process DestinationLeaves.i;
+		connections
+			down: feature group bundle -> inner.bundle;
+	end DestinationDepth4.i;
+
+	system DestinationDepth3
+		features
+			bundle: feature group inverse of Level3;
+	end DestinationDepth3;
+
+	system implementation DestinationDepth3.i
+		subcomponents
+			inner: system DestinationDepth4.i;
+		connections
+			down: feature group bundle -> inner.bundle;
+	end DestinationDepth3.i;
+
+	system DestinationDepth2
+		features
+			bundle: feature group inverse of Level3;
+	end DestinationDepth2;
+
+	system implementation DestinationDepth2.i
+		subcomponents
+			inner: system DestinationDepth3.i;
+		connections
+			down: feature group bundle -> inner.bundle;
+	end DestinationDepth2.i;
+
+	system DestinationDepth1
+		features
+			bundle: feature group inverse of Level3;
+	end DestinationDepth1;
+
+	system implementation DestinationDepth1.i
+		subcomponents
+			inner: system DestinationDepth2.i;
+		connections
+			down: feature group bundle -> inner.bundle;
+	end DestinationDepth1.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.depthAndWidth
+		subcomponents
+			src: system SourceDepth1.i;
+			dst: system DestinationDepth1.i;
+		connections
+			across: feature group src.bundle -> dst.bundle;
+	end Top.depthAndWidth;
+end AcrossFirstDepthWidthStress;

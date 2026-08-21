@@ -1,0 +1,102 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), covering feature arrays on their own, with no feature group anywhere.
+--
+-- The corpus has one other feature array model, issue2786/FeatureArrays.aadl, and it never
+-- connects anything: it declares one array feature in every category to check where a
+-- feature array is allowed. So nothing pinned what happens when a declaration names a
+-- feature that is an array rather than a leaf.
+--
+-- A feature array is allowed only in an abstract, thread, device, memory, system, or
+-- processor classifier, which is why the boundary arrays here sit on systems, and why what
+-- feeds them is an array of processes rather than of threads: a thread has to sit in a
+-- process or a thread group.
+package PlainFeatureArrays
+public
+	data D
+	end D;
+
+	thread Producer
+		features
+			outp: out data port D;
+	end Producer;
+
+	thread Consumer
+		features
+			inp: in data port D;
+	end Consumer;
+
+	process ProducerBox
+		features
+			outp: out data port D;
+	end ProducerBox;
+
+	process implementation ProducerBox.i
+		subcomponents
+			worker: thread Producer;
+		connections
+			up: port worker.outp -> outp;
+	end ProducerBox.i;
+
+	process ConsumerBox
+		features
+			inp: in data port D;
+	end ConsumerBox;
+
+	process implementation ConsumerBox.i
+		subcomponents
+			worker: thread Consumer;
+		connections
+			down: port inp -> worker.inp;
+	end ConsumerBox.i;
+
+	-- An out feature array on a system boundary, fed element by element from an array of
+	-- processes inside it
+	system ArrayFeeder
+		features
+			outs: out data port D[2];
+	end ArrayFeeder;
+
+	system implementation ArrayFeeder.i
+		subcomponents
+			boxes: process ProducerBox.i[2];
+		connections
+			up: port boxes.outp -> outs;
+	end ArrayFeeder.i;
+
+	-- The mirror: an in feature array carried down to an array of processes
+	system ArrayDrain
+		features
+			ins: in data port D[2];
+	end ArrayDrain;
+
+	system implementation ArrayDrain.i
+		subcomponents
+			boxes: process ConsumerBox.i[2];
+		connections
+			down: port ins -> boxes.inp;
+	end ArrayDrain.i;
+
+	system Top
+	end Top;
+
+	-- (a) feature arrays at both ends of the pivot, with a leg descending into a component
+	-- array on each side
+	system implementation Top.arrayToArray
+		subcomponents
+			feeder: system ArrayFeeder.i;
+			drain: system ArrayDrain.i;
+		connections
+			across: port feeder.outs -> drain.ins;
+	end Top.arrayToArray;
+
+	-- (b) the same pivot with a structural pattern, so expansion and the feature array meet
+	system implementation Top.patternedArrayToArray
+		subcomponents
+			feeder: system ArrayFeeder.i;
+			drain: system ArrayDrain.i;
+		connections
+			across: port feeder.outs -> drain.ins {
+				Communication_Properties::Connection_Pattern => ((One_To_All));
+			};
+	end Top.patternedArrayToArray;
+end PlainFeatureArrays;

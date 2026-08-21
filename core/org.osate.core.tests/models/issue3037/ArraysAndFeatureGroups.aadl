@@ -1,0 +1,221 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), covering the combinations of component arrays and feature groups that
+-- the rest of the core test corpus does not contain.
+--
+-- Each implementation isolates one combination, and each is also wrapped in a system
+-- implementation so that the same shape is exercised below an instantiation root as well
+-- as as the root itself.
+--
+-- Feature arrays are deliberately absent from the feature group types here: a feature
+-- array is legal only in an abstract, thread, device, memory, system, or processor
+-- classifier, so a feature group cannot declare one.
+package ArraysAndFeatureGroups
+public
+	data D
+	end D;
+
+	feature group Bundle
+		features
+			signal: out data port D;
+			ack: in data port D;
+	end Bundle;
+
+	feature group Nest
+		features
+			inner: feature group Bundle;
+	end Nest;
+
+	thread Producer
+		features
+			bundle: feature group Bundle;
+	end Producer;
+
+	thread Consumer
+		features
+			bundle: feature group inverse of Bundle;
+	end Consumer;
+
+	thread NestedProducer
+		features
+			nest: feature group Nest;
+	end NestedProducer;
+
+	thread NestedConsumer
+		features
+			nest: feature group inverse of Nest;
+	end NestedConsumer;
+
+	-- (a) arrays on both endpoints, connected as whole feature groups
+	process GroupArrays
+	end GroupArrays;
+
+	process implementation GroupArrays.i
+		subcomponents
+			producers: thread Producer[2];
+			consumers: thread Consumer[2];
+		connections
+			c: feature group producers.bundle <-> consumers.bundle;
+	end GroupArrays.i;
+
+	-- (b) an array on the source endpoint only
+	process SourceArray
+	end SourceArray;
+
+	process implementation SourceArray.i
+		subcomponents
+			producers: thread Producer[2];
+			consumer: thread Consumer;
+		connections
+			c: feature group producers.bundle <-> consumer.bundle;
+	end SourceArray.i;
+
+	-- (c) an array on the destination endpoint only
+	process DestinationArray
+	end DestinationArray;
+
+	process implementation DestinationArray.i
+		subcomponents
+			producer: thread Producer;
+			consumers: thread Consumer[2];
+		connections
+			c: feature group producer.bundle <-> consumers.bundle;
+	end DestinationArray.i;
+
+	-- (d) arrays on both endpoints, connected as whole nested feature groups, so pairing
+	-- has to descend a level before it reaches any port
+	process NestedGroupArrays
+	end NestedGroupArrays;
+
+	process implementation NestedGroupArrays.i
+		subcomponents
+			producers: thread NestedProducer[2];
+			consumers: thread NestedConsumer[2];
+		connections
+			c: feature group producers.nest <-> consumers.nest;
+	end NestedGroupArrays.i;
+
+	-- (e) a connection whose endpoint is a port that a boundary feature group only carries as
+	-- a member, so what the connection reaches is below the feature group the enclosing
+	-- declaration connects. Only the enclosing component can name a member that way: a
+	-- connection end has one context, so a subcomponent's group member is out of reach
+	-- syntactically.
+	--
+	-- Two variants, because the array multiplies the shape rather than varying it. Reacher.i
+	-- feeds the member from an array, which is legal and means two writers reach one port;
+	-- SoloReacher.i feeds it from one thread. Top.soloReachedInto is the clean pivot case and
+	-- Top.reachedInto is the array one, where expansion does not survive the pivot.
+	thread PlainProducer
+		features
+			outp: out data port D;
+	end PlainProducer;
+
+	process Reacher
+		features
+			bundle: feature group Bundle;
+	end Reacher;
+
+	process implementation Reacher.i
+		subcomponents
+			producers: thread PlainProducer[2];
+		connections
+			c: port producers.outp -> bundle.signal;
+	end Reacher.i;
+
+	process SoloReacher
+		features
+			bundle: feature group Bundle;
+	end SoloReacher;
+
+	process implementation SoloReacher.i
+		subcomponents
+			producer: thread PlainProducer;
+		connections
+			c: port producer.outp -> bundle.signal;
+	end SoloReacher.i;
+
+	-- (f) arrays, nested inverse feature groups, and a structural pattern at once. The
+	-- reached-into member cannot be combined with this: a connection end carries one
+	-- context, so neither a subcomponent's group member nor a member two levels down can be
+	-- named at all.
+	process Patterned
+	end Patterned;
+
+	process implementation Patterned.i
+		subcomponents
+			producers: thread NestedProducer[2];
+			consumers: thread NestedConsumer[2];
+		connections
+			c: feature group producers.nest <-> consumers.nest {
+				Communication_Properties::Connection_Pattern => ((All_To_All));
+			};
+	end Patterned.i;
+
+	-- A thread cannot sit directly in a system implementation, so the receiving side is a
+	-- process that passes the group down to its own thread. That also makes the path descend on
+	-- both sides of the pivot. It cannot be called Sink: AADL keywords are case insensitive, so
+	-- that name is the reserved word from 'flow sink'.
+	process Collector
+		features
+			bundle: feature group inverse of Bundle;
+	end Collector;
+
+	process implementation Collector.i
+		subcomponents
+			consumer: thread Consumer;
+		connections
+			c: feature group bundle <-> consumer.bundle;
+	end Collector.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.groupArrays
+		subcomponents
+			sub: process GroupArrays.i;
+	end Top.groupArrays;
+
+	system implementation Top.sourceArray
+		subcomponents
+			sub: process SourceArray.i;
+	end Top.sourceArray;
+
+	system implementation Top.destinationArray
+		subcomponents
+			sub: process DestinationArray.i;
+	end Top.destinationArray;
+
+	system implementation Top.nestedGroupArrays
+		subcomponents
+			sub: process NestedGroupArrays.i;
+	end Top.nestedGroupArrays;
+
+	-- The reached-into member, an inverse feature group, and a pivot: the path runs up from
+	-- the producer, out through a member of the boundary group, across, and down to the
+	-- consumer.
+	system implementation Top.soloReachedInto
+		subcomponents
+			reacher: process SoloReacher.i;
+			collector: process Collector.i;
+		connections
+			link: feature group reacher.bundle <-> collector.bundle;
+	end Top.soloReachedInto;
+
+	-- The same with the array. Semantically there are two connections, one per producer, and
+	-- only one is produced: expansion rejects the replication with "Too few indices for
+	-- connection destination" and leaves the un-replicated provisional attached. Reacher.i on
+	-- its own replicates the very same declaration correctly, so what the pivot changes is
+	-- worth finding out. 2.18.0 produced this too, so it is pinned rather than fixed here.
+	system implementation Top.reachedInto
+		subcomponents
+			reacher: process Reacher.i;
+			collector: process Collector.i;
+		connections
+			link: feature group reacher.bundle <-> collector.bundle;
+	end Top.reachedInto;
+
+	system implementation Top.patterned
+		subcomponents
+			sub: process Patterned.i;
+	end Top.patterned;
+
+end ArraysAndFeatureGroups;
