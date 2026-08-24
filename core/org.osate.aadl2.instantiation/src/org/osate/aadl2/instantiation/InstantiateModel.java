@@ -32,7 +32,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -647,9 +646,22 @@ public class InstantiateModel {
 	 * cached values.
 	 */
 	private static boolean isStructuralConnectionProperty(Property property) {
-		return (CONNECTION_PATTERN.equalsIgnoreCase(property.getName())
-				|| CONNECTION_SET.equalsIgnoreCase(property.getName()))
-				&& property.getOwner() instanceof PropertySet ps
+		return isCommunicationProperty(property, CONNECTION_PATTERN)
+				|| isCommunicationProperty(property, CONNECTION_SET);
+	}
+
+	/**
+	 * Is this the named property of the standard {@code Communication_Properties} property set? The one
+	 * test is shared by {@link #isStructuralConnectionProperty(Property)}, which decides which
+	 * properties are cached on the provisional connection instances, and
+	 * {@link #getPA(ConnectionInstance, String)}, which reads them from there, so the two cannot drift
+	 * apart.
+	 *
+	 * @param property the property definition to test
+	 * @param name the name of the property to look for
+	 */
+	private static boolean isCommunicationProperty(Property property, String name) {
+		return name.equalsIgnoreCase(property.getName()) && property.getOwner() instanceof PropertySet ps
 				&& COMMUNICATION_PROPERTIES.equalsIgnoreCase(ps.getName());
 	}
 
@@ -1034,21 +1046,19 @@ public class InstantiateModel {
 	}
 
 	/**
+	 * Add a feature instance for a feature of a component type to a component instance.
+	 *
+	 * @param ci the component instance to add the feature instance to
+	 * @param feature the feature to instantiate
+	 * @param inverse whether the enclosing feature group(s) invert the direction of the feature
+	 * @param index the index of the feature instance, zero if the feature is not an array
+	 * @return the new feature instance
+	 * @throws InterruptedException if instantiation is canceled
 	 * @since 3.0
 	 */
 	protected FeatureInstance fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse, int index)
 			throws InterruptedException {
-		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
-		fi.setName(feature.getName());
-		fi.setFeature(feature);
-		// must add before prototype resolution in fillFeatureInstance
-		ci.getFeatureInstances().add(fi);
-
-		// take into account inverse in setting direction of features inside feature groups
-		fi.setDirection(getDirection(feature, inverse));
-
-		filloutFeatureInstance(fi, feature, inverse, index);
-		return fi;
+		return fillFeatureInstance(ci.getFeatureInstances(), feature, inverse, index);
 	}
 
 	/**
@@ -1064,15 +1074,32 @@ public class InstantiateModel {
 	 */
 	protected FeatureInstance fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse, int index)
 			throws InterruptedException {
+		return fillFeatureInstance(fgi.getFeatureInstances(), feature, inverse, index);
+	}
+
+	/**
+	 * Create a feature instance and fill it out. Both {@code fillFeatureInstance} overloads are the same
+	 * apart from what owns the new feature instance, which is a component instance for a feature of a
+	 * component type and a feature group instance for a feature of a feature group type.
+	 *
+	 * @param owner the feature instances of the component instance or feature group instance to add to
+	 * @param feature the feature to instantiate
+	 * @param inverse whether the enclosing feature group(s) invert the direction of the feature
+	 * @param index the index of the feature instance, zero if the feature is not an array
+	 * @return the new feature instance
+	 * @throws InterruptedException if instantiation is canceled
+	 */
+	private FeatureInstance fillFeatureInstance(EList<FeatureInstance> owner, Feature feature, boolean inverse,
+			int index) throws InterruptedException {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 		fi.setName(feature.getName());
 		fi.setFeature(feature);
-		fgi.getFeatureInstances().add(fi);
+		// must add before prototype resolution in filloutFeatureInstance
+		owner.add(fi);
 
 		// take into account inverse in setting direction of features inside feature groups
 		fi.setDirection(getDirection(feature, inverse));
 
-		// must add before prototype resolution in fillFeatureInstance
 		filloutFeatureInstance(fi, feature, inverse, index);
 		return fi;
 	}
@@ -1367,39 +1394,16 @@ public class InstantiateModel {
 			PropertyAssociation patternPA = getPA(conni, CONNECTION_PATTERN);
 
 			if (setPA == null && patternPA == null) {
-				LinkedList<Integer> srcDims = new LinkedList<>();
-				LinkedList<Integer> dstDims = new LinkedList<>();
-				LinkedList<Integer> srcSizes = new LinkedList<>();
-				LinkedList<Integer> dstSizes = new LinkedList<>();
-				boolean done = false;
-
-				boolean srcPathAnalyzed = analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null,
-						srcDims, srcSizes);
-				boolean dstPathAnalyzed = analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null,
-						dstDims, dstSizes);
-				if (!srcPathAnalyzed || !dstPathAnalyzed) {
+				InstancePath srcPath = analyzePath(conni.getContainingComponentInstance(), conni.getSource());
+				InstancePath dstPath = analyzePath(conni.getContainingComponentInstance(), conni.getDestination());
+				if (srcPath == null || dstPath == null) {
 					continue;
 				}
-				for (int d : srcDims) {
-					if (d != 0) {
-						done = true;
-						if (interpretConnectionPatterns(conni, false, null, 0, srcSizes, 0, dstSizes, 0,
-								new ArrayList<>(), new ArrayList<>())) {
-							toRemove.add(conni);
-						}
-						break;
-					}
-				}
-				if (!done) {
-					for (int d : dstDims) {
-						if (d != 0) {
-							done = true;
-							if (interpretConnectionPatterns(conni, false, null, 0, srcSizes, 0, dstSizes, 0,
-									new ArrayList<>(), new ArrayList<>())) {
-								toRemove.add(conni);
-							}
-							break;
-						}
+				// only a connection with an array element at one of its ends is expanded
+				if (srcPath.throughArrayElement() || dstPath.throughArrayElement()) {
+					if (interpretConnectionPatterns(conni, false, null, 0, srcPath.sizes(), 0, dstPath.sizes(), 0,
+							new ArrayList<>(), new ArrayList<>())) {
+						toRemove.add(conni);
 					}
 				}
 			} else if (patternPA != null) {
@@ -1410,23 +1414,19 @@ public class InstantiateModel {
 				boolean pathError = false;
 				for (PropertyExpression pe : patterns) {
 					List<PropertyExpression> pattern = ((ListValue) pe).getOwnedListElements();
-					LinkedList<Integer> srcSizes = new LinkedList<>();
-					LinkedList<Integer> dstSizes = new LinkedList<>();
 
-					boolean srcPathAnalyzed = analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null,
-							null, srcSizes);
-					boolean dstPathAnalyzed = analyzePath(conni.getContainingComponentInstance(), conni.getDestination(),
-							null, null, dstSizes);
-					if (!srcPathAnalyzed || !dstPathAnalyzed) {
+					InstancePath srcPath = analyzePath(conni.getContainingComponentInstance(), conni.getSource());
+					InstancePath dstPath = analyzePath(conni.getContainingComponentInstance(), conni.getDestination());
+					if (srcPath == null || dstPath == null) {
 						pathError = true;
 						break;
 					}
-					if (srcSizes.size() == 0 && dstSizes.size() == 0) {
+					if (!srcPath.throughArrayElement() && !dstPath.throughArrayElement()) {
 						errManager.warning(conni,
 								"Connection pattern specified for connection that does not connect array elements.");
 					} else {
-						if (interpretConnectionPatterns(conni, isOpposite, pattern, 0, srcSizes, 0, dstSizes, 0,
-								new ArrayList<>(), new ArrayList<>())) {
+						if (interpretConnectionPatterns(conni, isOpposite, pattern, 0, srcPath.sizes(), 0,
+								dstPath.sizes(), 0, new ArrayList<>(), new ArrayList<>())) {
 							toRemove.add(conni);
 						}
 					}
@@ -1731,11 +1731,16 @@ public class InstantiateModel {
 		return indices;
 	}
 
+	/**
+	 * The association of a {@code Communication_Properties} property cached on a provisional connection
+	 * instance, or {@code null} if the connection has none.
+	 *
+	 * @param conni the connection instance to look in
+	 * @param name the name of the property to look for
+	 */
 	private PropertyAssociation getPA(ConnectionInstance conni, String name) {
 		for (PropertyAssociation pa : conni.getOwnedPropertyAssociations()) {
-			if (pa.getProperty().getName().equalsIgnoreCase(name)
-					&& ((PropertySet) pa.getProperty().getOwner()).getName()
-							.equalsIgnoreCase(COMMUNICATION_PROPERTIES)) {
+			if (isCommunicationProperty(pa.getProperty(), name)) {
 				return pa;
 			}
 		}
@@ -1773,94 +1778,71 @@ public class InstantiateModel {
 		return path;
 	}
 
-	private boolean analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
-			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
-		List<InstanceObject> path = getConnectionEndPath(container, end);
-		if (path == null) {
-			return false;
+	/**
+	 * The path from a connection instance end up to its containing component instance, described by one
+	 * entry per step for the names and the dimensions, and by one entry per array dimension for the sizes
+	 * and the indices.
+	 *
+	 * @param names the name of every instance object along the path, bottom up
+	 * @param dims the number of declared array dimensions of every instance object along the path, zero
+	 *            for one that is not an array element
+	 * @param sizes the size of every array dimension along the path, bottom up
+	 * @param indices the index of the path in every array dimension along the path, bottom up
+	 */
+	private record InstancePath(List<String> names, List<Integer> dims, List<Integer> sizes, List<Long> indices) {
+		/**
+		 * Does this path go through an array element? An empty size list and a dimension list of nothing
+		 * but zeros are the same statement, because every step contributes one size per declared
+		 * dimension.
+		 */
+		boolean throughArrayElement() {
+			return !sizes.isEmpty();
 		}
-		for (InstanceObject current : path) {
-			int d = 0;
-
-			if (names != null) {
-				names.add(current.getName());
-			}
-
-			if (current instanceof ComponentInstance componentInstance) {
-				d = componentInstance.getSubcomponent().getArrayDimensions().size();
-			} else if (current instanceof FeatureInstance featureInstance && featureInstance.getIndex() != 0) {
-				d = 1;
-			}
-			if (dims != null) {
-				dims.add(d);
-			}
-			if (sizes != null && d != 0) {
-				if (current instanceof ComponentInstance componentInstance) {
-					Subcomponent s = componentInstance.getSubcomponent();
-
-					for (ArrayDimension ad : s.getArrayDimensions()) {
-						ArraySize as = ad.getSize();
-
-						sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
-					}
-
-				} else if (current instanceof FeatureInstance featureInstance && featureInstance.getIndex() != 0) {
-					Feature f = featureInstance.getFeature();
-					ArraySize as = f.getArrayDimensions().get(0).getSize();
-
-					sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
-				}
-			}
-		}
-		return true;
 	}
 
-	private boolean analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
-			LinkedList<Integer> dims, LinkedList<Integer> sizes, LinkedList<Long> indices) {
+	/**
+	 * Describe the path from a connection instance end up to the component instance that contains the
+	 * connection instance.
+	 *
+	 * @param container the component instance the path is relative to
+	 * @param end the connection instance end the path starts at
+	 * @return the path, or {@code null} if the end is not contained in {@code container}, which is
+	 *         reported
+	 */
+	private InstancePath analyzePath(ComponentInstance container, ConnectionInstanceEnd end) {
 		List<InstanceObject> path = getConnectionEndPath(container, end);
 		if (path == null) {
-			return false;
+			return null;
 		}
+		List<String> names = new ArrayList<>();
+		List<Integer> dims = new ArrayList<>();
+		List<Integer> sizes = new ArrayList<>();
+		List<Long> indices = new ArrayList<>();
 		for (InstanceObject current : path) {
 			int d = 0;
 
-			if (names != null) {
-				names.add(current.getName());
-			}
+			names.add(current.getName());
 			if (current instanceof ComponentInstance componentInstance) {
 				d = componentInstance.getSubcomponent().getArrayDimensions().size();
 				if (d != 0) {
 					indices.addAll(componentInstance.getIndices());
-				}
-			} else if (current instanceof FeatureInstance featureInstance) {
-				long idx = featureInstance.getIndex();
-				if (idx != 0) {
-					d = 1;
-					indices.add(idx);
-				}
-			}
-			if (dims != null) {
-				dims.add(d);
-			}
-			if (sizes != null && d != 0) {
-				if (current instanceof ComponentInstance componentInstance) {
-					Subcomponent s = componentInstance.getSubcomponent();
-
-					for (ArrayDimension ad : s.getArrayDimensions()) {
+					for (ArrayDimension ad : componentInstance.getSubcomponent().getArrayDimensions()) {
 						ArraySize as = ad.getSize();
 
 						sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 					}
-
-				} else if (current instanceof FeatureInstance featureInstance && featureInstance.getIndex() != 0) {
-					Feature f = featureInstance.getFeature();
-					ArraySize as = f.getArrayDimensions().get(0).getSize();
-
-					sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 				}
+			} else if (current instanceof FeatureInstance featureInstance && featureInstance.getIndex() != 0) {
+				d = 1;
+				indices.add(featureInstance.getIndex());
+				Feature f = featureInstance.getFeature();
+				ArraySize as = f.getArrayDimensions().get(0).getSize();
+
+				sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 			}
+			dims.add(d);
 		}
-		return true;
+		return new InstancePath(names, dims, sizes, indices);
 	}
 
 	/**
@@ -1873,40 +1855,36 @@ public class InstantiateModel {
 	 */
 	private void createNewConnection(ConnectionInstance conni, List<Long> srcIndices, List<Long> dstIndices) {
 		ComponentInstance container = conni.getContainingComponentInstance();
-		LinkedList<String> names = new LinkedList<>();
-		LinkedList<Integer> dims = new LinkedList<>();
-		LinkedList<Integer> sizes = new LinkedList<>();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
 		newConn.setSource(null);
 		newConn.setDestination(null);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
-		if (!analyzePath(container, conni.getSource(), names, dims, sizes)) {
+		InstancePath srcPath = analyzePath(container, conni.getSource());
+		if (srcPath == null) {
 			return;
 		}
-		if (srcIndices.size() != sizes.size() &&
+		if (srcIndices.size() != srcPath.sizes().size() &&
 		// filter out one side being an element without index (array of 1) (many to one mapping)
-				!(sizes.size() == 0 && dstIndices.size() == 1)) {
+				!(srcPath.sizes().isEmpty() && dstIndices.size() == 1)) {
 			errManager.error(container,
-					"Source indices " + srcIndices + " do not match source dimension " + sizes.size());
+					"Source indices " + srcIndices + " do not match source dimension " + srcPath.sizes().size());
 		}
-		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, container, container, names, dims, sizes,
-				srcIndices, true);
-		names.clear();
-		dims.clear();
-		sizes.clear();
-		if (!analyzePath(container, conni.getDestination(), names, dims, sizes)) {
+		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, container, container, srcPath, srcIndices,
+				true);
+		InstancePath dstPath = analyzePath(container, conni.getDestination());
+		if (dstPath == null) {
 			return;
 		}
-		if (dstIndices.size() != sizes.size() &&
+		if (dstIndices.size() != dstPath.sizes().size() &&
 		// filter out one side being an element without index (array of 1) (many to one mapping)
-				!(sizes.size() == 0 && dstIndices.size() == 1)) {
+				!(dstPath.sizes().isEmpty() && dstIndices.size() == 1)) {
 			errManager.error(container,
 					"For " + newConn.getConnectionReferences().get(0).getFullName() + " : " + newConn.getFullName()
 							+ ", destination indices " + dstIndices + " do not match destination dimension "
-							+ sizes.size());
+							+ dstPath.sizes().size());
 		}
-		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, container, container, names, dims, sizes,
-				dstIndices, false);
+		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, container, container, dstPath, dstIndices,
+				false);
 		if (src == null) {
 			errManager.error(container, "Connection source not found");
 		}
@@ -1917,26 +1895,16 @@ public class InstantiateModel {
 			return;
 		}
 
-		String containerPath = container.getInstanceObjectPath();
-		int len = containerPath.length() + 1;
-		String srcPath = src.getInstanceObjectPath();
-		StringBuilder sb = new StringBuilder();
-		int i = (srcPath.startsWith(containerPath)) ? len : 0;
-		sb.append(srcPath.substring(i));
-		sb.append(" --> ");
-		String dstPath = dst.getInstanceObjectPath();
-		i = (dstPath.startsWith(containerPath)) ? len : 0;
-		sb.append(dstPath.substring(i));
-
+		String name = connectionInstanceName(container, src, dst);
 		ConnectionInstance duplicate = (ConnectionInstance) AadlUtil
-				.findNamedElementInList(container.getConnectionInstances(), sb.toString());
+				.findNamedElementInList(container.getConnectionInstances(), name);
 		if (duplicate != null && duplicate != conni) { // conni will be removed later
 			errManager.warning(container, "There is already another connection between the same endpoints");
 		}
 		newConn.setSource((ConnectionInstanceEnd) src);
 		newConn.setDestination((ConnectionInstanceEnd) dst);
 		alignConnectionReferenceEndpoints(newConn);
-		newConn.setName(sb.toString());
+		newConn.setName(name);
 		container.getConnectionInstances().add(newConn);
 
 	}
@@ -1949,28 +1917,23 @@ public class InstantiateModel {
 	 * @param targetComponent the component instance the copy belongs to
 	 */
 	private void createNewConnection(ConnectionInstance conni, ComponentInstance targetComponent) {
-		LinkedList<Long> indices = new LinkedList<>();
-		LinkedList<String> names = new LinkedList<>();
-		LinkedList<Integer> dims = new LinkedList<>();
-		LinkedList<Integer> sizes = new LinkedList<>();
+		ComponentInstance origComponent = conni.getContainingComponentInstance();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
 		newConn.setSource(null);
 		newConn.setDestination(null);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
-		if (!analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes, indices)) {
+		InstancePath srcPath = analyzePath(origComponent, conni.getSource());
+		if (srcPath == null) {
 			return;
 		}
-		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, targetComponent, targetComponent, names,
-				dims, sizes, indices, true);
-		names.clear();
-		dims.clear();
-		sizes.clear();
-		indices.clear();
-		if (!analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes, indices)) {
+		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, targetComponent, targetComponent, srcPath,
+				srcPath.indices(), true);
+		InstancePath dstPath = analyzePath(origComponent, conni.getDestination());
+		if (dstPath == null) {
 			return;
 		}
-		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, targetComponent, targetComponent, names,
-				dims, sizes, indices, false);
+		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, targetComponent, targetComponent, dstPath,
+				dstPath.indices(), false);
 		if (src == null) {
 			errManager.error(targetComponent, "Connection source not found");
 		}
@@ -1981,24 +1944,37 @@ public class InstantiateModel {
 			return;
 		}
 
-		String containerPath = targetComponent.getInstanceObjectPath();
-		int len = containerPath.length() + 1;
-		String srcPath = src.getInstanceObjectPath();
-		StringBuilder sb = new StringBuilder();
-		int i = (srcPath.startsWith(containerPath)) ? len : 0;
-		sb.append(srcPath.substring(i));
-		sb.append(" --> ");
-		String dstPath = dst.getInstanceObjectPath();
-		i = (dstPath.startsWith(containerPath)) ? len : 0;
-		sb.append(dstPath.substring(i));
-
-		relocateConnectionReferenceContexts(newConn, conni.getContainingComponentInstance(), targetComponent);
+		relocateConnectionReferenceContexts(newConn, origComponent, targetComponent);
 		newConn.setSource((ConnectionInstanceEnd) src);
 		newConn.setDestination((ConnectionInstanceEnd) dst);
 		alignConnectionReferenceEndpoints(newConn);
-		newConn.setName(sb.toString());
+		newConn.setName(connectionInstanceName(targetComponent, src, dst));
 		targetComponent.getConnectionInstances().add(newConn);
 
+	}
+
+	/**
+	 * The name of a connection instance, which is the path of its source and the path of its destination
+	 * relative to the component instance that contains it.
+	 *
+	 * @param container the component instance that contains the connection instance
+	 * @param src the source of the connection instance
+	 * @param dst the destination of the connection instance
+	 * @return the name of the connection instance
+	 */
+	private static String connectionInstanceName(ComponentInstance container, InstanceObject src, InstanceObject dst) {
+		String containerPath = container.getInstanceObjectPath();
+		return relativeInstanceObjectPath(containerPath, src) + " --> "
+				+ relativeInstanceObjectPath(containerPath, dst);
+	}
+
+	/**
+	 * The path of a connection end relative to the component instance that contains the connection
+	 * instance, or its absolute path if it is not below that component instance.
+	 */
+	private static String relativeInstanceObjectPath(String containerPath, InstanceObject end) {
+		String endPath = end.getInstanceObjectPath();
+		return endPath.startsWith(containerPath) ? endPath.substring(containerPath.length() + 1) : endPath;
 	}
 
 	/**
@@ -2173,16 +2149,16 @@ public class InstantiateModel {
 	 * @param topref Connection Reference going across components
 	 * @param resolutionRoot component instance from which the path is resolved
 	 * @param diagnosticTarget resource-backed object used for diagnostics
-	 * @param names sequence of names of the path bottom up
-	 * @param dims Dimensions (bottom up) along the path
-	 * @param sizes Sizes of each dimension bottom up
+	 * @param path the names and dimensions of the path of the original connection end, bottom up
 	 * @param indices The indices to be used for elements that are arrays
 	 * @param doSource Go down the source path or the destination path
 	 * @return ConnectionInstanceEnd the ultimate source/destination object (feature instance or component instance)
 	 */
 	private ConnectionInstanceEnd resolveConnectionInstancePath(ConnectionInstance newconn, ConnectionReference topref,
-			ComponentInstance resolutionRoot, Element diagnosticTarget, List<String> names, List<Integer> dims,
-			List<Integer> sizes, List<Long> indices, boolean doSource) {
+			ComponentInstance resolutionRoot, Element diagnosticTarget, InstancePath path, List<Long> indices,
+			boolean doSource) {
+		final List<String> names = path.names();
+		final List<Integer> dims = path.dims();
 		// the connection reference to be resolved
 		ConnectionReference targetConnRef = topref;
 		ConnectionReference outerConnRef = topref;
