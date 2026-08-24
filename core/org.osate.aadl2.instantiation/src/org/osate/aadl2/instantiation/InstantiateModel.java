@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -2422,153 +2421,16 @@ public class InstantiateModel {
 	// Methods related to system operation modes
 	// --------------------------------------------------------------------------------------------
 
-	/*
-	 * Create the system operation mode objects for the instance model.
+	/**
+	 * Create the system operation modes of an instance model, which are the combinations of one mode per
+	 * modal component that the mode maps of the model allow.
+	 *
+	 * @param root the system instance to create the system operation modes of
+	 * @param limit the maximum number of system operation modes to create
+	 * @throws InterruptedException if instantiation is canceled
 	 */
 	protected void createSystemOperationModes(final SystemInstance root, final int limit) throws InterruptedException {
-		class SOMBuilder {
-
-			class Node {
-				ComponentInstance ci;
-				Node parentNode;
-				State state;
-
-				Node(ComponentInstance ci, Node parentNode) {
-					this.ci = ci;
-					this.parentNode = parentNode;
-				}
-			}
-
-			class State {
-				boolean active;
-				// mode is ignored if !active
-				ModeInstance mode;
-
-				State(boolean active) {
-					this.active = active;
-				}
-			}
-
-			ArrayList<Node> workState = new ArrayList<>();
-
-			int modalCount;
-
-			int createSoms() throws InterruptedException {
-				Node rootNode = new Node(null, null);
-				rootNode.state = new State(true);
-				initWorkState(root, rootNode);
-				modalCount = workState.size();
-				if (modalCount == 0) {
-					/*
-					 * We have no modal components, but we need to create a special SOM to
-					 * represent our single normal operating state.
-					 */
-					final SystemOperationMode som = InstanceFactory.eINSTANCE.createSystemOperationMode();
-					som.setName(NORMAL_SOM_NAME);
-					root.getSystemOperationModes().add(som);
-					return 0;
-				} else {
-					return enumerateSoms(0, 0);
-				}
-			}
-
-			protected int enumerateSoms(int depth, int index) throws InterruptedException {
-
-				checkCanceled();
-
-				Node node = workState.get(depth);
-				State parentState = node.parentNode.state;
-				Iterator<ModeInstance> modes = parentState.active ? getActiveModes(node.ci, parentState.mode)
-						: Collections.emptyIterator();
-				boolean active = parentState.active && modes.hasNext();
-
-				State state = new State(active);
-				node.state = state;
-
-				if (depth + 1 == modalCount) {
-					// here we add one or more SOMs
-					if (active) {
-						while (modes.hasNext()) {
-							checkCanceled();
-							state.mode = modes.next();
-							root.getSystemOperationModes().add(createSOM(index + 1));
-							if (index < 0 || ++index >= limit) {
-								return -1;
-							}
-						}
-					} else {
-						root.getSystemOperationModes().add(createSOM(index + 1));
-						if (index < 0 || ++index >= limit) {
-							return -1;
-						}
-					}
-				} else {
-					if (active) {
-						while (modes.hasNext()) {
-							state.mode = modes.next();
-							index = enumerateSoms(depth + 1, index);
-							if (index < 0) {
-								return -1;
-							}
-						}
-					} else {
-						index = enumerateSoms(depth + 1, index);
-					}
-				}
-				node.state = null;
-				return index;
-			}
-
-			protected Iterator<ModeInstance> getActiveModes(ComponentInstance ci, ModeInstance parentMode) {
-				List<ModeInstance> modes = ci.getModeInstances();
-				if (parentMode == null) {
-					// system instance
-					return modes.iterator();
-				} else if (!ci.getInModes().isEmpty() && !ci.getInModes().contains(parentMode)) {
-					// component not active in parent mode
-					return Collections.emptyIterator();
-				} else {
-					// limit derived modes to mapping
-					return modes.stream()
-							.filter(mi -> !mi.isDerived() || mi.getParents().contains(parentMode))
-							.iterator();
-				}
-			}
-
-			protected void initWorkState(ComponentInstance ci, Node parentNode) throws InterruptedException {
-				checkCanceled();
-				if (!ci.getModeInstances().isEmpty()) {
-					parentNode = new Node(ci, parentNode);
-					workState.add(parentNode);
-				}
-				for (ComponentInstance sub : ci.getComponentInstances()) {
-					initWorkState(sub, parentNode);
-				}
-			}
-
-			protected SystemOperationMode createSOM(int somNo) throws InterruptedException {
-				final SystemOperationMode som;
-
-				som = InstanceFactory.eINSTANCE.createSystemOperationMode();
-				for (Node node : workState) {
-					checkCanceled();
-					if (!node.state.active) {
-						continue;
-					}
-					ModeInstance mi = node.state.mode;
-					mode2som.computeIfAbsent(mi, key -> new ArrayList<>()).add(som);
-					som.getCurrentModes().add(mi);
-				}
-				som.setName("som_" + somNo);
-				return som;
-			}
-		}
-
-		int index = new SOMBuilder().createSoms();
-		if (index < 0) {
-			errManager.warning(root,
-					"List of system operation modes is incomplete (see project property 'Instantiation')");
-		}
+		new SystemOperationModeBuilder(root, limit, mode2som, errManager, monitor).createSystemOperationModes();
 	}
 
 	private int getSOMLimit(final IProject project) {
