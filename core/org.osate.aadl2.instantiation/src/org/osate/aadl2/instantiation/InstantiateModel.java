@@ -1178,7 +1178,12 @@ public class InstantiateModel {
 			inverse ^= fg.isInverse();
 
 			InstantiatedClassifier ic = getInstantiatedClassifier(fi);
-			if (ic.getClassifier() == null) {
+			/*
+			 * A prototype that resolves to neither an actual nor a constraining feature group type has no
+			 * instantiated classifier at all: getInstantiatedClassifier returns null rather than an
+			 * InstantiatedClassifier holding a null classifier. Both spellings mean the same thing here.
+			 */
+			if (ic == null || ic.getClassifier() == null) {
 				errManager.error(fi, "Could not resolve feature group type of feature group prototype "
 						+ fi.getInstanceObjectPath());
 				return;

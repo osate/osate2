@@ -25,7 +25,6 @@ package org.osate.core.tests.instantiation.components;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -110,15 +109,17 @@ public class PrototypeInstantiationTest extends AbstractComponentInstantiationTe
 	}
 
 	/**
-	 * Characterizes a defect rather than intended behavior: a feature group typed with a feature group
-	 * prototype that is neither bound nor constrained makes instantiation fail with a
-	 * {@link NullPointerException}, instead of reporting the error that {@code expandFeatureGroupInstance}
-	 * has a message for. The AADL model is valid. When this is fixed, this test has to be replaced by one
-	 * that asserts the reported error.
+	 * A feature group prototype that is neither bound nor constrained has no feature group type to expand.
+	 * That is reported and the feature group is instantiated without members (see issue #3074).
 	 */
 	@Test
-	public void unboundFeatureGroupPrototypeCurrentlyFailsWithANullPointerException() throws Exception {
-		assertThrows(NullPointerException.class,
-				() -> instantiate("UnboundFeatureGroupPrototype.aadl", "Top.i"));
+	public void unboundFeatureGroupPrototypeIsReported() throws Exception {
+		var result = instantiate("UnboundFeatureGroupPrototype.aadl", "Top.i");
+		var group = feature(component(result.instance(), "unbound"), "fg");
+
+		assertEquals(FeatureCategory.FEATURE_GROUP, group.getCategory());
+		assertEquals(List.of(), featureNames(group));
+		assertTrue(diagnostics(result).contains("Error Top_i_Instance.unbound.fg: "
+				+ "Could not resolve feature group type of feature group prototype Top_i_Instance.unbound.fg"));
 	}
 }
