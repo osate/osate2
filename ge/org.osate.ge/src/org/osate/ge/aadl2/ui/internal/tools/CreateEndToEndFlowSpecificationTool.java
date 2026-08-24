@@ -121,9 +121,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		final ReferenceService referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
 				"unable to retrieve reference service");
 
-		final Display display = Display.getCurrent();
 		final UiService uiService = Adapters.adapt(editor, UiService.class);
-		createFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), container, endToEndFlow, uiService);
+		createFlowDialog = new CreateFlowsToolsDialog(editor.getSite().getShell(), container, endToEndFlow, uiService);
 		createFlowDialog.setEndToEndFlowName(endToEndFlow.getName());
 
 		// Find segments in order
@@ -142,9 +141,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	public CreateEndToEndFlowSpecificationTool(final InternalDiagramEditor editor) {
 		this.editor = editor;
 
-		final Display display = Display.getCurrent();
 		final UiService uiService = Adapters.adapt(editor, UiService.class);
-		createFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), null, null, uiService);
+		createFlowDialog = new CreateFlowsToolsDialog(editor.getSite().getShell(), null, null, uiService);
 	}
 
 	@Override
@@ -843,7 +841,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			super.configureShell(newShell);
 			newShell.setText("End To End Flow Specification Tool");
 			newShell.setLocation(
-					UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+					UiUtil.getOffsetRectangleLocation(newShell.getParent().getBounds(), 50, 50));
 			newShell.setSize(800, 400);
 			newShell.setMinimumSize(460, 215);
 		}
@@ -1140,7 +1138,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				super.configureShell(newShell);
 				newShell.setText("Element Selection");
 				newShell.setLocation(
-						UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+						UiUtil.getOffsetRectangleLocation(newShell.getParent().getBounds(), 50, 50));
 				newShell.setSize(400, 200);
 				newShell.setMinimumSize(400, 200);
 			}
@@ -1232,7 +1230,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				super.configureShell(newShell);
 				newShell.setText("Element Selection");
 				newShell.setLocation(
-						UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+						UiUtil.getOffsetRectangleLocation(newShell.getParent().getBounds(), 50, 50));
 				newShell.setSize(400, 200);
 				newShell.setMinimumSize(400, 200);
 			}

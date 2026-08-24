@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
-<target includeMode="feature" name="osate2-platform" sequenceNumber="29">
+<target includeMode="feature" name="osate2-platform" sequenceNumber="30">
   <locations>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
@@ -13,12 +13,16 @@
       <unit id="org.eclipse.m2e.logback.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.mylyn.context.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
-      <unit id="org.eclipse.sirius.common.acceleo.aql" version="0.0.0"/>
-      <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.uml2.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
       <unit id="junit-jupiter-api" version="0.0.0"/>
       <repository location="https://download.eclipse.org/releases/2025-12"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="org.eclipse.sirius.common.acceleo.aql" version="0.0.0"/>
+      <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
+      <repository location="https://download.eclipse.org/sirius/updates/releases/7.6.0/2025-09"/>
+      <repository location="https://download.eclipse.org/acceleo/updates/releases/4.2/R202603201315"/>
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.apache.commons.io" version="0.0.0"/>
@@ -67,10 +71,6 @@
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.py4j.feature.feature.group" version="0.0.0"/>
       <repository location="https://osate-build.sei.cmu.edu/p2/py4j"/>
-    </location>
-    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-      <unit id="org.yakindu.base.xtext.utils.jface" version="0.0.0"/>
-      <repository location="https://updates.yakindu.com/statecharts/releases/3.5.9"/>
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
     	<unit id="openjfx.standard.feature.feature.group" version="0.0.0"/>

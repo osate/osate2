@@ -53,8 +53,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RollbackException;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
-import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ArrayDimension;
@@ -75,7 +75,6 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowEnd;
@@ -89,7 +88,6 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Port;
-import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
@@ -1187,46 +1185,19 @@ public class InstantiateModel {
 			throws InterruptedException {
 		fi.setIndex(index);
 
-		// resolve feature prototype
-		if (feature.getPrototype() instanceof FeaturePrototype) {
-			FeaturePrototypeActual fpa = resolveFeaturePrototype(feature.getPrototype(), fi);
-
-			if (fpa instanceof AccessSpecification) {
-				AccessCategory ac = ((AccessSpecification) fpa).getCategory();
-
-				switch (ac) {
-				case BUS:
-					fi.setCategory(FeatureCategory.BUS_ACCESS);
-					break;
-				case DATA:
-					fi.setCategory(FeatureCategory.DATA_ACCESS);
-					break;
-				case SUBPROGRAM:
-					fi.setCategory(FeatureCategory.SUBPROGRAM_ACCESS);
-					break;
-				case SUBPROGRAM_GROUP:
-					fi.setCategory(FeatureCategory.SUBPROGRAM_GROUP_ACCESS);
-					break;
-				default:
-					;
-				}
-			} else if (fpa instanceof PortSpecification) {
-				PortCategory pc = ((PortSpecification) fpa).getCategory();
-
-				switch (pc) {
-				case DATA:
-					fi.setCategory(FeatureCategory.DATA_PORT);
-					break;
-				case EVENT:
-					fi.setCategory(FeatureCategory.EVENT_PORT);
-					break;
-				case EVENT_DATA:
-					fi.setCategory(FeatureCategory.EVENT_DATA_PORT);
-					break;
-				default:
-					;
-				}
-			}
+		/*
+		 * A feature that is declared with a feature prototype takes its category from the actual the
+		 * prototype is bound to. The prototype is reached through AbstractFeature. Feature.getPrototype()
+		 * is not the way there: it is declared to return a ComponentPrototype, which a FeaturePrototype
+		 * never is, and it is null for this shape.
+		 */
+		FeatureCategory prototypeCategory = null;
+		if (feature instanceof AbstractFeature af && af.getFeaturePrototype() != null) {
+			prototypeCategory = featureCategory(
+					InstanceUtil.resolveFeaturePrototype(af.getFeaturePrototype(), fi, classifierCache));
+		}
+		if (prototypeCategory != null) {
+			fi.setCategory(prototypeCategory);
 		} else {
 			fi.setCategory(feature);
 		}
@@ -1244,6 +1215,33 @@ public class InstantiateModel {
 				instantiateFeatureClassifier(fi, fc);
 			}
 		}
+	}
+
+	/**
+	 * The feature category determined by a feature prototype actual, or {@code null} if the actual does
+	 * not determine one. Null also covers a prototype that is not bound in this context, in which case
+	 * the category comes from the feature declaration.
+	 * <p>
+	 * A virtual bus access becomes a bus access, which is what a feature declared as a virtual bus
+	 * access instantiates to as well, because {@link FeatureCategory} has no separate literal for it.
+	 */
+	private static FeatureCategory featureCategory(FeaturePrototypeActual actual) {
+		if (actual instanceof AccessSpecification access) {
+			return switch (access.getCategory()) {
+			case BUS, VIRTUAL_BUS -> FeatureCategory.BUS_ACCESS;
+			case DATA -> FeatureCategory.DATA_ACCESS;
+			case SUBPROGRAM -> FeatureCategory.SUBPROGRAM_ACCESS;
+			case SUBPROGRAM_GROUP -> FeatureCategory.SUBPROGRAM_GROUP_ACCESS;
+			};
+		}
+		if (actual instanceof PortSpecification port) {
+			return switch (port.getCategory()) {
+			case DATA -> FeatureCategory.DATA_PORT;
+			case EVENT -> FeatureCategory.EVENT_PORT;
+			case EVENT_DATA -> FeatureCategory.EVENT_DATA_PORT;
+			};
+		}
+		return null;
 	}
 
 	/*
@@ -1766,6 +1764,15 @@ public class InstantiateModel {
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
+				} else {
+					/*
+					 * A pattern this method does not know expands into nothing. Report it and keep the
+					 * connection: returning the initial true would tell the caller that the connection was
+					 * expanded, and the caller would delete it without a replacement.
+					 */
+					errManager.error(conni, "Unsupported connection pattern '" + patternName + "' on connection "
+							+ conni.getFullName());
+					return false;
 				}
 			}
 		}

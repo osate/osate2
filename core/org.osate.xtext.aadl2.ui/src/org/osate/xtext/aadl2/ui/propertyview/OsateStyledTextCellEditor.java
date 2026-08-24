@@ -30,16 +30,13 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.yakindu.base.xtext.utils.jface.viewers.XtextStyledTextCellEditor;
-import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
-
 import com.google.inject.Injector;
 
 /**
  * @since 2.0
  */
 public class OsateStyledTextCellEditor extends XtextStyledTextCellEditor {
-	private static final String CONTEXTMENUID = "org.yakindu.base.xtext.utils.jface.viewers.StyledTextXtextAdapterContextMenu";
+	private static final String CONTEXTMENUID = "org.osate.xtext.aadl2.ui.propertyview.StyledTextXtextAdapterContextMenu";
 
 	private final IProject project;
 

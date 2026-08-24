@@ -28,8 +28,6 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.projection.ProjectionDocument;
 import org.eclipse.swt.custom.StyledText;
-import org.yakindu.base.xtext.utils.jface.viewers.XtextSourceViewerEx;
-
 /**
  * @since 2.0
  */

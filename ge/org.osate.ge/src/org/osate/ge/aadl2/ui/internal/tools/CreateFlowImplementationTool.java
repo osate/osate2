@@ -107,8 +107,7 @@ public class CreateFlowImplementationTool implements Tool {
 				"ui service must not be null");
 		this.referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
 				"unable to retrieve reference service");
-		final Display display = Display.getCurrent();
-		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(), flowImpl, uiService);
+		createFlowImplDlg = new CreateFlowImplementationDialog(editor.getSite().getShell(), flowImpl, uiService);
 
 		// Populate segments
 		final FlowSpecification flowSpec = flowImpl.getSpecification();
@@ -138,12 +137,11 @@ public class CreateFlowImplementationTool implements Tool {
 	}
 
 	public CreateFlowImplementationTool(final InternalDiagramEditor editor) {
-		final Display display = Display.getCurrent();
 		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
 				"ui service must not be null");
 		this.referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
 				"unable to retrieve reference service");
-		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(), null, uiService);
+		createFlowImplDlg = new CreateFlowImplementationDialog(editor.getSite().getShell(), null, uiService);
 	}
 
 	@Override
@@ -1032,7 +1030,7 @@ public class CreateFlowImplementationTool implements Tool {
 				super.configureShell(newShell);
 				newShell.setText("Element Selection");
 				newShell.setLocation(
-						UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+						UiUtil.getOffsetRectangleLocation(newShell.getParent().getBounds(), 50, 50));
 				newShell.setSize(400, 200);
 				newShell.setMinimumSize(400, 200);
 			}
@@ -1114,7 +1112,7 @@ public class CreateFlowImplementationTool implements Tool {
 			super.configureShell(newShell);
 			newShell.setText("Flow Implementation Tool");
 			newShell.setLocation(
-					UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+					UiUtil.getOffsetRectangleLocation(newShell.getParent().getBounds(), 50, 50));
 			newShell.setSize(800, 400);
 			newShell.setMinimumSize(300, 215);
 		}

@@ -1,0 +1,28 @@
+package Issue3068
+public
+	thread Producer
+	features
+		outp: out data port;
+	end Producer;
+
+	thread Consumer
+	features
+		inp: in data port;
+	end Consumer;
+
+	process Top
+	end Top;
+
+	-- The connection carries a legal Connection_Pattern so that the model validates. The test replaces
+	-- the enumeration literal of that pattern with a literal the instantiator does not know, which is
+	-- what a project that extends AADL_Project::Supported_Connection_Patterns produces.
+	process implementation Top.i
+	subcomponents
+		producers: thread Producer[2];
+		consumers: thread Consumer[2];
+	connections
+		c: port producers.outp -> consumers.inp {
+			Communication_Properties::Connection_Pattern => ((One_To_One));
+		};
+	end Top.i;
+end Issue3068;

@@ -1,0 +1,20 @@
+package Issue3067
+public
+	-- The feature f is declared with a feature prototype rather than with a feature classifier. The
+	-- prototype binding on the subcomponent below says the feature is an incoming data port, so the
+	-- feature instance of f must have the category of a data port.
+	abstract A
+	prototypes
+		fp: in feature;
+	features
+		f: in prototype fp;
+	end A;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+	subcomponents
+		sub: abstract A (fp => in data port);
+	end Top.i;
+end Issue3067;
