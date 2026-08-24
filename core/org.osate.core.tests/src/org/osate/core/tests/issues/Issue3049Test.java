@@ -84,8 +84,8 @@ public class Issue3049Test extends XtextTest {
 	private static List<String> referenceEndpoints(List<ConnectionInstance> connections) {
 		return connections.stream().map(connection -> {
 			var references = connection.getConnectionReferences();
-			return connection.getName() + " = " + relativePath(connection, references.get(0).getSource()) + " --> "
-					+ relativePath(connection, references.get(references.size() - 1).getDestination());
+			return connection.getName() + " = " + relativePath(connection, references.getFirst().getSource()) + " --> "
+					+ relativePath(connection, references.getLast().getDestination());
 		}).sorted().toList();
 	}
 

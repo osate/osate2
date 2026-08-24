@@ -2000,8 +2000,8 @@ public class InstantiateModel {
 	private void alignConnectionReferenceEndpoints(ConnectionInstance connection) {
 		List<ConnectionReference> references = connection.getConnectionReferences();
 		if (!references.isEmpty()) {
-			references.get(0).setSource(connection.getSource());
-			references.get(references.size() - 1).setDestination(connection.getDestination());
+			references.getFirst().setSource(connection.getSource());
+			references.getLast().setDestination(connection.getDestination());
 		}
 	}
 
