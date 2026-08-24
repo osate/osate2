@@ -79,7 +79,13 @@ public class Issue3076Test extends XtextTest {
 		assertNotNull(instance);
 		assertEquals(List.of(
 				"Top_i_Instance.holder[1].arr[1].mid.inner[1].out_p --> Top_i_Instance.holder[1].consumer.in_p",
-				"Top_i_Instance.holder[2].arr[1].mid.inner[1].out_p --> Top_i_Instance.holder[2].consumer.in_p"),
+				"Top_i_Instance.holder[1].arr[1].mid.inner[2].out_p --> Top_i_Instance.holder[1].consumer.in_p",
+				"Top_i_Instance.holder[1].arr[2].mid.inner[1].out_p --> Top_i_Instance.holder[1].consumer.in_p",
+				"Top_i_Instance.holder[1].arr[2].mid.inner[2].out_p --> Top_i_Instance.holder[1].consumer.in_p",
+				"Top_i_Instance.holder[2].arr[1].mid.inner[1].out_p --> Top_i_Instance.holder[2].consumer.in_p",
+				"Top_i_Instance.holder[2].arr[1].mid.inner[2].out_p --> Top_i_Instance.holder[2].consumer.in_p",
+				"Top_i_Instance.holder[2].arr[2].mid.inner[1].out_p --> Top_i_Instance.holder[2].consumer.in_p",
+				"Top_i_Instance.holder[2].arr[2].mid.inner[2].out_p --> Top_i_Instance.holder[2].consumer.in_p"),
 				instance.getComponentInstances()
 						.stream()
 						.flatMap(holder -> holder.getConnectionInstances().stream())
@@ -87,9 +93,8 @@ public class Issue3076Test extends XtextTest {
 								+ connection.getDestination().getInstanceObjectPath())
 						.sorted()
 						.toList());
-		// Issue #3048 independently reports the many-to-one destination as an index mismatch.
-		assertEquals(List.of("Error: Too few indices for connection destination for "
-				+ "arr[1].mid.inner[1].out_p -> consumer.in_p"),
+		// Issue #3048 expands both source array elements without an index mismatch.
+		assertEquals(List.of(),
 				((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors()
 						.stream()
 						.map(message -> message.kind + ": " + message.message)

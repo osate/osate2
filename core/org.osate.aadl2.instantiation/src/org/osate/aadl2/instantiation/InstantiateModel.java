@@ -1526,19 +1526,12 @@ public class InstantiateModel {
 		}
 		String patternName = "One_to_One";
 		if (patterns == null) {
-			// default one-to-one pattern
-			if (!conni.isComplete()) {
-				// outgoing or incoming only
-				InstanceObject io = conni.getSource();
-				if (io instanceof FeatureInstance && io.getContainingComponentInstance() instanceof SystemInstance) {
-					if (srcSizes.isEmpty()) {
-						patternName = isOpposite ? "All_to_One" : "One_To_All";
-					}
-				} else {
-					if (dstSizes.isEmpty()) {
-						patternName = isOpposite ? "One_To_All" : "All_to_One";
-					}
-				}
+			// A default pattern pairs dimensions one-to-one. If only one end has dimensions,
+			// every element on that end maps to the one scalar end.
+			if (srcSizes.isEmpty()) {
+				patternName = isOpposite ? "All_to_One" : "One_To_All";
+			} else if (dstSizes.isEmpty()) {
+				patternName = isOpposite ? "One_To_All" : "All_to_One";
 			}
 		} else {
 			NamedValue nv = (NamedValue) patterns.get(offset);
