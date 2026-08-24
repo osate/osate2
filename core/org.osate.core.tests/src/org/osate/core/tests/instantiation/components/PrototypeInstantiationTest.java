@@ -24,6 +24,7 @@
 package org.osate.core.tests.instantiation.components;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -92,9 +93,8 @@ public class PrototypeInstantiationTest extends AbstractComponentInstantiationTe
 	}
 
 	/**
-	 * A bound feature group prototype expands into the features of the feature group type it is bound
-	 * to. The instantiator still reports the group as not bound yet, because the resolved actual carries
-	 * no bindings of its own.
+	 * A bound feature group prototype expands into the features of the feature group type it is bound to,
+	 * and nothing is reported for it (see issue #3075).
 	 */
 	@Test
 	public void boundFeatureGroupPrototypeExpandsIntoItsMembers() throws Exception {
@@ -103,9 +103,8 @@ public class PrototypeInstantiationTest extends AbstractComponentInstantiationTe
 
 		assertEquals(FeatureCategory.FEATURE_GROUP, group.getCategory());
 		assertEquals(List.of("p"), featureNames(group));
-		assertTrue(diagnostics(result).stream()
-				.anyMatch(message -> message.startsWith("Warning Top_i_Instance.group_bound.fg: ")
-						&& message.endsWith("is not bound yet to feature group type")));
+		assertFalse(diagnostics(result).stream()
+				.anyMatch(message -> message.startsWith("Warning Top_i_Instance.group_bound.fg: ")));
 	}
 
 	/**
