@@ -73,6 +73,7 @@ import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeatureType;
@@ -1187,8 +1188,13 @@ public class InstantiateModel {
 				errManager.error(fi, "Could not resolve feature group type of feature group prototype "
 						+ fi.getInstanceObjectPath());
 				return;
-			} else if (ic.getBindings() != null && ic.getBindings().isEmpty()) {
-				// prototype has not been bound yet
+			} else if (ft instanceof FeatureGroupPrototype fgp
+					&& InstanceUtil.resolveFeatureGroupPrototype(fgp, fi, classifierCache) == null) {
+				/*
+				 * The prototype has no actual in this context: the feature group type above came from the
+				 * constraint on the prototype. The bindings of the instantiated classifier do not answer
+				 * this question, because an actual that names a feature group type carries none of its own.
+				 */
 				errManager.warning(fi, "Feature group prototype of " + fi.getInstanceObjectPath()
 						+ " is not bound yet to feature group type");
 			}
