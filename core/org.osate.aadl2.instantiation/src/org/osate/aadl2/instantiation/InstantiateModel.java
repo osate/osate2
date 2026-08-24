@@ -1362,8 +1362,13 @@ public class InstantiateModel {
 				LinkedList<Integer> dstSizes = new LinkedList<>();
 				boolean done = false;
 
-				analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, srcDims, srcSizes);
-				analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, dstDims, dstSizes);
+				boolean srcPathAnalyzed = analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null,
+						srcDims, srcSizes);
+				boolean dstPathAnalyzed = analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null,
+						dstDims, dstSizes);
+				if (!srcPathAnalyzed || !dstPathAnalyzed) {
+					continue;
+				}
 				for (int d : srcDims) {
 					if (d != 0) {
 						done = true;
@@ -1391,13 +1396,20 @@ public class InstantiateModel {
 				EcoreUtil.remove(patternPA);
 				List<PropertyExpression> patterns = ((ListValue) patternPA.getOwnedValues().get(0).getOwnedValue())
 						.getOwnedListElements();
+				boolean pathError = false;
 				for (PropertyExpression pe : patterns) {
 					List<PropertyExpression> pattern = ((ListValue) pe).getOwnedListElements();
 					LinkedList<Integer> srcSizes = new LinkedList<>();
 					LinkedList<Integer> dstSizes = new LinkedList<>();
 
-					analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, null, srcSizes);
-					analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, null, dstSizes);
+					boolean srcPathAnalyzed = analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null,
+							null, srcSizes);
+					boolean dstPathAnalyzed = analyzePath(conni.getContainingComponentInstance(), conni.getDestination(),
+							null, null, dstSizes);
+					if (!srcPathAnalyzed || !dstPathAnalyzed) {
+						pathError = true;
+						break;
+					}
 					if (srcSizes.size() == 0 && dstSizes.size() == 0) {
 						errManager.warning(conni,
 								"Connection pattern specified for connection that does not connect array elements.");
@@ -1407,6 +1419,9 @@ public class InstantiateModel {
 							toRemove.add(conni);
 						}
 					}
+				}
+				if (pathError) {
+					continue;
 				}
 			}
 			// no else as we want both the pattern and the connection set evaluated
@@ -1723,10 +1738,44 @@ public class InstantiateModel {
 		return null;
 	}
 
-	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
-			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
+	/**
+	 * Returns the instance objects from {@code end} up to, but excluding, {@code container}. A
+	 * connection end path is relative to its containing component instance, so reaching any other root
+	 * is an error rather than a successful stopping condition.
+	 */
+	private List<InstanceObject> getConnectionEndPath(ComponentInstance container, ConnectionInstanceEnd end) {
+		if (container == null) {
+			String endPath = end == null ? "<null>" : end.getInstanceObjectPath();
+			String message = "Cannot analyze connection end '" + endPath + "' without a containing component instance";
+			if (end == null) {
+				errManager.internalError(message);
+			} else {
+				errManager.error(end, message);
+			}
+			return null;
+		}
+		List<InstanceObject> path = new ArrayList<>();
 		InstanceObject current = end;
-		while ((current != container) && !(current instanceof SystemInstance)) {// &&(current != null)) {
+		while (current != container) {
+			if (current == null || !(current.getOwner() instanceof InstanceObject owner)) {
+				String endPath = end == null ? "<null>" : end.getInstanceObjectPath();
+				errManager.error(container, "Connection end '" + endPath + "' is not contained in component instance '"
+						+ container.getInstanceObjectPath() + "'");
+				return null;
+			}
+			path.add(current);
+			current = owner;
+		}
+		return path;
+	}
+
+	private boolean analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
+			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
+		List<InstanceObject> path = getConnectionEndPath(container, end);
+		if (path == null) {
+			return false;
+		}
+		for (InstanceObject current : path) {
 			int d = 0;
 
 			if (names != null) {
@@ -1758,14 +1807,17 @@ public class InstantiateModel {
 					sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 				}
 			}
-			current = (InstanceObject) current.getOwner();
 		}
+		return true;
 	}
 
-	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
+	private boolean analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
 			LinkedList<Integer> dims, LinkedList<Integer> sizes, LinkedList<Long> indices) {
-		InstanceObject current = end;
-		while (current != container) {
+		List<InstanceObject> path = getConnectionEndPath(container, end);
+		if (path == null) {
+			return false;
+		}
+		for (InstanceObject current : path) {
 			int d = 0;
 
 			if (names != null) {
@@ -1807,8 +1859,8 @@ public class InstantiateModel {
 					sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 				}
 			}
-			current = (InstanceObject) current.getOwner();
 		}
+		return true;
 	}
 
 	/**
@@ -1828,7 +1880,9 @@ public class InstantiateModel {
 		newConn.setSource(null);
 		newConn.setDestination(null);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
-		analyzePath(container, conni.getSource(), names, dims, sizes);
+		if (!analyzePath(container, conni.getSource(), names, dims, sizes)) {
+			return;
+		}
 		if (srcIndices.size() != sizes.size() &&
 		// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
@@ -1840,7 +1894,9 @@ public class InstantiateModel {
 		names.clear();
 		dims.clear();
 		sizes.clear();
-		analyzePath(container, conni.getDestination(), names, dims, sizes);
+		if (!analyzePath(container, conni.getDestination(), names, dims, sizes)) {
+			return;
+		}
 		if (dstIndices.size() != sizes.size() &&
 		// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
@@ -1900,14 +1956,18 @@ public class InstantiateModel {
 		newConn.setSource(null);
 		newConn.setDestination(null);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
-		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes, indices);
+		if (!analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes, indices)) {
+			return;
+		}
 		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, targetComponent, targetComponent, names,
 				dims, sizes, indices, true);
 		names.clear();
 		dims.clear();
 		sizes.clear();
 		indices.clear();
-		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes, indices);
+		if (!analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes, indices)) {
+			return;
+		}
 		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, targetComponent, targetComponent, names,
 				dims, sizes, indices, false);
 		if (src == null) {
