@@ -1824,20 +1824,16 @@ public class InstantiateModel {
 				names.add(current.getName());
 			}
 			if (current instanceof ComponentInstance componentInstance) {
-				EList<Long> idx = componentInstance.getIndices();
-				if (!idx.isEmpty()) {
-					indices.addAll(idx);
+				d = componentInstance.getSubcomponent().getArrayDimensions().size();
+				if (d != 0) {
+					indices.addAll(componentInstance.getIndices());
 				}
 			} else if (current instanceof FeatureInstance featureInstance) {
 				long idx = featureInstance.getIndex();
 				if (idx != 0) {
+					d = 1;
 					indices.add(idx);
 				}
-			}
-			if (current instanceof ComponentInstance componentInstance) {
-				d = componentInstance.getSubcomponent().getArrayDimensions().size();
-			} else if (current instanceof FeatureInstance featureInstance && featureInstance.getIndex() != 0) {
-				d = 1;
 			}
 			if (dims != null) {
 				dims.add(d);
