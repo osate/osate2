@@ -1,0 +1,65 @@
+-------------------------------------------------------------------------------
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+-- to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+-- only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-------------------------------------------------------------------------------
+
+-- A feature that has a component classifier makes instantiation create a root of its own for that
+-- classifier, next to the system instance in the same resource. Two features with the same
+-- classifier share one root.
+package ReferencedClassifiers
+public
+	data Field
+	end Field;
+
+	data D
+	end D;
+
+	data implementation D.i
+		subcomponents
+			field: data Field;
+	end D.i;
+
+	thread Th
+		features
+			p1: in data port D.i;
+			p2: out data port D.i;
+			p3: in data port D;
+			shared: requires data access D.i;
+			event_no_classifier: out event port;
+	end Th;
+
+	process Pr
+	end Pr;
+
+	process implementation Pr.i
+		subcomponents
+			t: thread Th;
+	end Pr.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			p: process Pr.i;
+	end Top.i;
+end ReferencedClassifiers;

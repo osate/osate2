@@ -1,0 +1,102 @@
+-------------------------------------------------------------------------------
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+-- to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+-- only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-------------------------------------------------------------------------------
+
+-- System operation modes: a model with no modes at all, the product of two modal components, a
+-- modal component that is inactive in one of its parent's modes, and required modes that restrict the
+-- product to the mapped combinations.
+package SystemOperationModes
+public
+	system Plain
+	end Plain;
+
+	system implementation Plain.i
+	end Plain.i;
+
+	system TwoModes
+	end TwoModes;
+
+	system implementation TwoModes.i
+		modes
+			a1: initial mode;
+			a2: mode;
+	end TwoModes.i;
+
+	system ThreeModes
+	end ThreeModes;
+
+	system implementation ThreeModes.i
+		modes
+			b1: initial mode;
+			b2: mode;
+			b3: mode;
+	end ThreeModes.i;
+
+	system NonModal
+	end NonModal;
+
+	system implementation NonModal.i
+		subcomponents
+			s: system Plain.i;
+	end NonModal.i;
+
+	system Product
+	end Product;
+
+	system implementation Product.i
+		subcomponents
+			a: system TwoModes.i;
+			b: system ThreeModes.i;
+	end Product.i;
+
+	system Nested
+	end Nested;
+
+	system implementation Nested.i
+		subcomponents
+			inner: system TwoModes.i in modes (n1);
+		modes
+			n1: initial mode;
+			n2: mode;
+	end Nested.i;
+
+	system DerivedChild
+		requires modes
+			n1: mode;
+			n2: mode;
+	end DerivedChild;
+
+	system implementation DerivedChild.i
+	end DerivedChild.i;
+
+	system DerivedParent
+	end DerivedParent;
+
+	system implementation DerivedParent.i
+		subcomponents
+			child: system DerivedChild.i;
+		modes
+			n1: initial mode;
+			n2: mode;
+	end DerivedParent.i;
+end SystemOperationModes;
