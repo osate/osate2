@@ -34,7 +34,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -231,18 +230,29 @@ public class InstantiateModel {
 	 * @param errMgr
 	 */
 	public InstantiateModel(final IProgressMonitor pm) {
-		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
-		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
+		classifierCache = new HashMap<>();
+		mode2som = new HashMap<>();
 		errManager = new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER));
 		monitor = pm;
 	}
 
 	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) {
-		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
-		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
+		classifierCache = new HashMap<>();
+		mode2som = new HashMap<>();
 		errManager = errMgr;
 		monitor = pm;
+	}
+
+	/**
+	 * Stop the current instantiation if the user canceled it.
+	 *
+	 * @throws InterruptedException if the progress monitor reports cancellation
+	 */
+	private void checkCanceled() throws InterruptedException {
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
 	}
 
 	// Methods
@@ -372,8 +382,8 @@ public class InstantiateModel {
 	 */
 	public static void rebuildAllInstanceModelFiles(final IProgressMonitor monitor) throws Exception {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
-		List<URI> instanceRoots = new ArrayList<URI>();
-		List<IResource> instanceIResources = new ArrayList<IResource>();
+		List<URI> instanceRoots = new ArrayList<>();
+		List<IResource> instanceIResources = new ArrayList<>();
 		ResourceSet rset = new ResourceSetImpl();
 		for (IFile iFile : files) {
 			IResource ires = iFile;
@@ -411,9 +421,7 @@ public class InstantiateModel {
 			throws Exception {
 		SystemInstance result = createSystemInstanceInt(ci, aadlResource, true);
 
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
+		checkCanceled();
 
 		// We're done: Save the model.
 		// We don't respond to a cancel at this point
@@ -463,15 +471,15 @@ public class InstantiateModel {
 				if (msg.where.eResource() != null) {
 					// keep only errors referring to elements that are still in the instance model
 					switch (msg.kind) {
-					case QueuingAnalysisErrorReporter.ERROR:
-						errManager.error(msg.where, msg.message, msg.attributes, msg.values);
-						break;
-					case QueuingAnalysisErrorReporter.WARNING:
-						errManager.warning(msg.where, msg.message, msg.attributes, msg.values);
-						break;
-					case QueuingAnalysisErrorReporter.INFO:
-						errManager.info(msg.where, msg.message, msg.attributes, msg.values);
-						break;
+					case QueuingAnalysisErrorReporter.ERROR -> errManager.error(msg.where, msg.message, msg.attributes,
+							msg.values);
+					case QueuingAnalysisErrorReporter.WARNING -> errManager.warning(msg.where, msg.message,
+							msg.attributes, msg.values);
+					case QueuingAnalysisErrorReporter.INFO -> errManager.info(msg.where, msg.message, msg.attributes,
+							msg.values);
+					default -> {
+						// a message of any other kind is dropped, as it was before
+					}
 					}
 				}
 			}
@@ -521,9 +529,7 @@ public class InstantiateModel {
 				InstantiationRoot pending = roots.get(annexed++);
 				aic.instantiateAllAnnexes(pending.root);
 				pending.phase = InstantiationRoot.Phase.DONE;
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
+				checkCanceled();
 			}
 		}
 
@@ -559,9 +565,7 @@ public class InstantiateModel {
 		final ComponentInstance root = pending.root;
 
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
+		checkCanceled();
 
 		/*
 		 * The expansion needs Connection_Pattern and Connection_Set on the provisional connections, but
@@ -583,21 +587,15 @@ public class InstantiateModel {
 		cacheStructuralConnectionProperties(root, structuralProperties);
 		// handle arrays, connection patterns, and connection sets
 		processConnections(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
+		checkCanceled();
 
 		final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager, classifierCache);
 		vcs.processPreOrderAll(root);
 		vcs.postProcess();
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
+		checkCanceled();
 
 		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
+		checkCanceled();
 
 		cacheProperties(root, remainingProperties);
 	}
@@ -642,16 +640,12 @@ public class InstantiateModel {
 		CacheContainedPropertyAssociationsSwitch ccpas = new CacheContainedPropertyAssociationsSwitch(classifierCache,
 				scProps, monitor, errManager);
 		ccpas.processPostOrderAll(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
+		checkCanceled();
 
 		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager,
 				propertyDefinitionList, classifierCache, scProps, mode2som);
 		cpas.processPreOrderAll(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
+		checkCanceled();
 	}
 
 	/**
@@ -672,15 +666,11 @@ public class InstantiateModel {
 		SCProperties structuralScProps = new SCProperties();
 		new CacheContainedPropertyAssociationsSwitch(classifierCache, structuralScProps, monitor, errManager,
 				structuralProperties).processPostOrderAll(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
+		checkCanceled();
 
 		new CachePropertyAssociationsSwitch(monitor, errManager, structuralProperties, classifierCache,
 				structuralScProps, mode2som).processPreOrderAll(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
+		checkCanceled();
 	}
 
 	/**
@@ -757,9 +747,7 @@ public class InstantiateModel {
 
 	private void fillModes(ComponentInstance ci, List<Mode> modes) throws InterruptedException {
 		for (Mode m : modes) {
-			if (monitor.isCanceled()) {
-				throw new InterruptedException();
-			}
+			checkCanceled();
 			ModeInstance mi = InstanceFactory.eINSTANCE.createModeInstance();
 			/*
 			 * Used to add the mode instance to the component instance at the end of the loop,
@@ -783,23 +771,15 @@ public class InstantiateModel {
 				final EList<ModeBinding> ownedModeBindings = sub.getOwnedModeBindings();
 				if (ownedModeBindings == null || ownedModeBindings.isEmpty()) {
 					// Implicit mode map, must find modes of the same name in the containing component
-					ModeInstance foundParentMode = null;
-					for (ModeInstance pmi : parentci.getModeInstances()) {
-						if (pmi.getName().equalsIgnoreCase(m.getName())) {
-							foundParentMode = pmi;
-							break;
-						}
-					}
-					if (foundParentMode == null) {
-						errManager.error(mi, "Required mode '" + m.getName() + "' not found in containing component");
-					} else {
-						mi.getParents().add(foundParentMode);
-					}
+					parentci.getModeInstances()
+							.stream()
+							.filter(pmi -> pmi.getName().equalsIgnoreCase(m.getName()))
+							.findFirst()
+							.ifPresentOrElse(mi.getParents()::add, () -> errManager.error(mi,
+									"Required mode '" + m.getName() + "' not found in containing component"));
 				} else {
 					for (ModeBinding mb : ownedModeBindings) {
-						if (monitor.isCanceled()) {
-							throw new InterruptedException();
-						}
+						checkCanceled();
 						if (mb.getDerivedMode() == m || mb.getDerivedMode() == null
 								&& mb.getParentMode().getName().equalsIgnoreCase(m.getName())) {
 							mi.getParents().add(parentci.findModeInstance(mb.getParentMode()));
@@ -818,9 +798,7 @@ public class InstantiateModel {
 	protected void fillModeTransitions(ComponentInstance ci, List<ModeTransition> transitions)
 			throws InterruptedException {
 		for (ModeTransition mt : transitions) {
-			if (monitor.isCanceled()) {
-				throw new InterruptedException();
-			}
+			checkCanceled();
 			ModeTransitionInstance mti = InstanceFactory.eINSTANCE.createModeTransitionInstance();
 			Mode srcmode = mt.getSource();
 			Mode dstmode = mt.getDestination();
@@ -840,12 +818,8 @@ public class InstantiateModel {
 				if (!triggers.isEmpty()) {
 					TriggerPort tp = triggers.get(0).getTriggerPort();
 
-					if (tp instanceof Port) {
-						Context ctx = triggers.get(0).getContext();
-
-						if (ctx instanceof Subcomponent) {
-							eventName = ((Subcomponent) ctx).getName() + "_";
-						}
+					if (tp instanceof Port && triggers.get(0).getContext() instanceof Subcomponent subcomponent) {
+						eventName = subcomponent.getName() + "_";
 					}
 					eventName += tp.getName();
 				}
@@ -857,16 +831,15 @@ public class InstantiateModel {
 			for (ModeTransitionTrigger t : triggers) {
 				TriggerPort tp = t.getTriggerPort();
 
-				if (tp instanceof Port) {
-					Port port = (Port) tp;
+				if (tp instanceof Port port) {
 					FeatureInstance porti = null;
 					Context ctx = t.getContext();
 
-					if (ctx instanceof Subcomponent) {
-						ComponentInstance subi = ci.findSubcomponentInstance((Subcomponent) ctx);
+					if (ctx instanceof Subcomponent subcomponent) {
+						ComponentInstance subi = ci.findSubcomponentInstance(subcomponent);
 						porti = subi.findFeatureInstance(port);
-					} else if (ctx instanceof FeatureGroup) {
-						FeatureInstance fgi = ci.findFeatureInstance((FeatureGroup) ctx);
+					} else if (ctx instanceof FeatureGroup featureGroup) {
+						FeatureInstance fgi = ci.findFeatureInstance(featureGroup);
 						porti = fgi.findFeatureInstance(port);
 					} else if (ctx == null) {
 						porti = ci.findFeatureInstance(port);
@@ -888,34 +861,30 @@ public class InstantiateModel {
 	protected void instantiateSubcomponents(final ComponentInstance ci, ComponentImplementation impl)
 			throws InterruptedException {
 		for (final Subcomponent sub : impl.getAllSubcomponents()) {
-			if (monitor.isCanceled()) {
-				throw new InterruptedException();
-			}
+			checkCanceled();
 			if (hasSubcomponentInstance(ci, sub)) {
 				errManager.error(ci, "Cyclic containment dependency: Subcomponent '" + sub.getName()
 						+ "' has already been instantiated as enclosing component.");
 			} else {
 				final EList<ArrayDimension> dims = sub.getArrayDimensions();
-				Stack<Long> indexStack = new Stack<Long>();
+				List<Long> indexStack = new ArrayList<>();
 
 				if (dims.isEmpty()) {
 					instantiateSubcomponent(ci, sub, sub, indexStack, 0);
 				} else {
 					final int dimensions = dims.size();
 					class ArrayInstantiator {
-						void process(int dim, Stack<Long> indexStack) throws InterruptedException {
+						void process(int dim, List<Long> indexStack) throws InterruptedException {
 							// index starts with one
 							ArraySize arraySize = dims.get(dim).getSize();
 							long count = getElementCount(arraySize, ci);
 
 							for (int i = 1; i <= count; i++) {
-								if (monitor.isCanceled()) {
-									throw new InterruptedException();
-								}
+								checkCanceled();
 								if (dim + 1 < dimensions) {
-									indexStack.push(Long.valueOf(i));
+									indexStack.add(Long.valueOf(i));
 									process(dim + 1, indexStack);
-									indexStack.pop();
+									indexStack.removeLast();
 								} else {
 									instantiateSubcomponent(ci, sub, sub, indexStack, i);
 								}
@@ -944,7 +913,7 @@ public class InstantiateModel {
 		return false;
 	}
 
-	protected String indexStackToString(Stack<Long> indexStack) {
+	protected String indexStackToString(List<Long> indexStack) {
 		String result = "";
 		for (int i = 0; i < indexStack.size(); i++) {
 			result = result + "_" + indexStack.get(i);
@@ -953,7 +922,7 @@ public class InstantiateModel {
 	}
 
 	protected void instantiateSubcomponent(final ComponentInstance parent, final ModalElement mm,
-			final Subcomponent sub, Stack<Long> indexStack, int index) throws InterruptedException {
+			final Subcomponent sub, List<Long> indexStack, int index) throws InterruptedException {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
@@ -1009,9 +978,7 @@ public class InstantiateModel {
 		}
 
 		for (Mode mode : mm.getAllInModes()) {
-			if (monitor.isCanceled()) {
-				throw new InterruptedException();
-			}
+			checkCanceled();
 			ModeInstance mi = parent.findModeInstance(mode);
 
 			if (mi != null) {
@@ -1028,9 +995,7 @@ public class InstantiateModel {
 	 */
 	private void instantiateFlowSpecs(ComponentInstance ci) throws InterruptedException {
 		for (FlowSpecification spec : getComponentType(ci).getAllFlowSpecifications()) {
-			if (monitor.isCanceled()) {
-				throw new InterruptedException();
-			}
+			checkCanceled();
 			FlowSpecificationInstance speci = ci.createFlowSpecification();
 			speci.setName(spec.getName());
 			speci.setFlowSpecification(spec);
@@ -1049,9 +1014,7 @@ public class InstantiateModel {
 				}
 			}
 			for (Mode mode : spec.getAllInModes()) {
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
+				checkCanceled();
 				ModeInstance mi = ci.findModeInstance(mode);
 				if (mi != null) {
 					speci.getInModes().add(mi);
@@ -1059,9 +1022,7 @@ public class InstantiateModel {
 			}
 
 			for (ModeTransition mt : spec.getInModeTransitions()) {
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
+				checkCanceled();
 				ModeTransitionInstance ti = ci.findModeTransitionInstance(mt);
 
 				if (ti != null) {
@@ -1085,9 +1046,7 @@ public class InstantiateModel {
 	 */
 	protected void instantiateFeatures(final ComponentInstance ci) throws InterruptedException {
 		for (final Feature feature : getInstantiatedClassifier(ci).getClassifier().getAllFeatures()) {
-			if (monitor.isCanceled()) {
-				throw new InterruptedException();
-			}
+			checkCanceled();
 			final EList<ArrayDimension> dims = feature.getArrayDimensions();
 			boolean arrayAllowed = canBeArray(feature);
 			if (dims.isEmpty() || !arrayAllowed) {
@@ -1160,8 +1119,8 @@ public class InstantiateModel {
 
 	private DirectionType getDirection(Feature feature, boolean inverse) {
 		DirectionType dir;
-		if (feature instanceof DirectedFeature) {
-			dir = ((DirectedFeature) feature).getDirection();
+		if (feature instanceof DirectedFeature directedFeature) {
+			dir = directedFeature.getDirection();
 		} else {
 			Access access = (Access) feature;
 			dir = access.getKind() == AccessType.PROVIDES ? DirectionType.OUT : DirectionType.IN;
@@ -1251,9 +1210,8 @@ public class InstantiateModel {
 	 */
 	protected void expandFeatureGroupInstance(Feature feature, FeatureInstance fi, boolean inverse)
 			throws InterruptedException {
-		if (feature instanceof FeatureGroup) {
-			final FeatureGroup fg = (FeatureGroup) feature;
-			FeatureType ft = ((FeatureGroup) feature).getFeatureType();
+		if (feature instanceof FeatureGroup fg) {
+			FeatureType ft = fg.getFeatureType();
 			if (Aadl2Util.isNull(ft)) {
 				return;
 			}
@@ -1333,10 +1291,14 @@ public class InstantiateModel {
 		if (f.getOwner() instanceof Feature) {
 			return false;
 		} else if (f.getOwner() instanceof ComponentType ct) {
-			var cat = ct.getCategory();
-			return (cat == ComponentCategory.THREAD || cat == ComponentCategory.DEVICE
-					|| cat == ComponentCategory.PROCESSOR || cat == ComponentCategory.MEMORY
-					|| cat == ComponentCategory.SYSTEM || cat == ComponentCategory.ABSTRACT);
+			/*
+			 * Exhaustive on purpose: this list has to agree with the one the validator enforces, so a new
+			 * component category should not compile until it has been decided for here as well.
+			 */
+			return switch (ct.getCategory()) {
+			case ABSTRACT, DEVICE, MEMORY, PROCESSOR, SYSTEM, THREAD -> true;
+			case BUS, DATA, PROCESS, SUBPROGRAM, SUBPROGRAM_GROUP, THREAD_GROUP, VIRTUAL_BUS, VIRTUAL_PROCESSOR -> false;
+			};
 		}
 		return false;
 	}
@@ -1347,9 +1309,8 @@ public class InstantiateModel {
 	 */
 	private boolean hasFeatureInstance(FeatureInstance fi, Feature f) {
 		EObject parent = fi;
-		while (parent instanceof FeatureInstance) {
-			Feature df = ((FeatureInstance) parent).getFeature();
-			if (df == f) {
+		while (parent instanceof FeatureInstance featureInstance) {
+			if (featureInstance.getFeature() == f) {
 				return true;
 			}
 			parent = parent.eContainer();
@@ -1417,11 +1378,9 @@ public class InstantiateModel {
 	// --------------------------------------------------------------------------------------------
 
 	private void processConnections(ComponentInstance root) throws InterruptedException {
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
-		EList<ComponentInstance> replicateConns = new UniqueEList<ComponentInstance>();
-		List<ConnectionInstance> toRemove = new ArrayList<ConnectionInstance>();
+		checkCanceled();
+		EList<ComponentInstance> replicateConns = new UniqueEList<>();
+		List<ConnectionInstance> toRemove = new ArrayList<>();
 		EList<ConnectionInstance> connilist = root.getAllConnectionInstances();
 		for (ConnectionInstance conni : connilist) {
 			// track all component instances that contain connection instances
@@ -1433,10 +1392,10 @@ public class InstantiateModel {
 			if (setPA == null && patternPA == null) {
 				// OsateDebug.osateDebug("[InstantiateModel] processConnections");
 
-				LinkedList<Integer> srcDims = new LinkedList<Integer>();
-				LinkedList<Integer> dstDims = new LinkedList<Integer>();
-				LinkedList<Integer> srcSizes = new LinkedList<Integer>();
-				LinkedList<Integer> dstSizes = new LinkedList<Integer>();
+				LinkedList<Integer> srcDims = new LinkedList<>();
+				LinkedList<Integer> dstDims = new LinkedList<>();
+				LinkedList<Integer> srcSizes = new LinkedList<>();
+				LinkedList<Integer> dstSizes = new LinkedList<>();
 				boolean done = false;
 
 				analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, srcDims, srcSizes);
@@ -1445,7 +1404,7 @@ public class InstantiateModel {
 					if (d != 0) {
 						done = true;
 						if (interpretConnectionPatterns(conni, false, null, 0, srcSizes, 0, dstSizes, 0,
-								new ArrayList<Long>(), new ArrayList<Long>())) {
+								new ArrayList<>(), new ArrayList<>())) {
 							toRemove.add(conni);
 						}
 						break;
@@ -1456,7 +1415,7 @@ public class InstantiateModel {
 						if (d != 0) {
 							done = true;
 							if (interpretConnectionPatterns(conni, false, null, 0, srcSizes, 0, dstSizes, 0,
-									new ArrayList<Long>(), new ArrayList<Long>())) {
+									new ArrayList<>(), new ArrayList<>())) {
 								toRemove.add(conni);
 							}
 							break;
@@ -1470,8 +1429,8 @@ public class InstantiateModel {
 						.getOwnedListElements();
 				for (PropertyExpression pe : patterns) {
 					List<PropertyExpression> pattern = ((ListValue) pe).getOwnedListElements();
-					LinkedList<Integer> srcSizes = new LinkedList<Integer>();
-					LinkedList<Integer> dstSizes = new LinkedList<Integer>();
+					LinkedList<Integer> srcSizes = new LinkedList<>();
+					LinkedList<Integer> dstSizes = new LinkedList<>();
 
 					analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, null, srcSizes);
 					analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, null, dstSizes);
@@ -1480,7 +1439,7 @@ public class InstantiateModel {
 								"Connection pattern specified for connection that does not connect array elements.");
 					} else {
 						if (interpretConnectionPatterns(conni, isOpposite, pattern, 0, srcSizes, 0, dstSizes, 0,
-								new ArrayList<Long>(), new ArrayList<Long>())) {
+								new ArrayList<>(), new ArrayList<>())) {
 							toRemove.add(conni);
 						}
 					}
@@ -1780,7 +1739,7 @@ public class InstantiateModel {
 	}
 
 	private List<Long> getIndices(RecordValue rv, String field) {
-		List<Long> indices = new ArrayList<Long>();
+		List<Long> indices = new ArrayList<>();
 		for (BasicPropertyAssociation fv : rv.getOwnedFieldValues()) {
 			if (fv.getProperty().getName().equalsIgnoreCase(field)) {
 				ListValue lv = (ListValue) fv.getOwnedValue();
@@ -1816,17 +1775,17 @@ public class InstantiateModel {
 				names.add(current.getName());
 			}
 
-			if (current instanceof ComponentInstance) {
-				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
-			} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
+			if (current instanceof ComponentInstance componentInstance) {
+				d = componentInstance.getSubcomponent().getArrayDimensions().size();
+			} else if (current instanceof FeatureInstance featureInstance && featureInstance.getIndex() != 0) {
 				d = 1;
 			}
 			if (dims != null) {
 				dims.add(d);
 			}
 			if (sizes != null && d != 0) {
-				if (current instanceof ComponentInstance) {
-					Subcomponent s = ((ComponentInstance) current).getSubcomponent();
+				if (current instanceof ComponentInstance componentInstance) {
+					Subcomponent s = componentInstance.getSubcomponent();
 
 					for (ArrayDimension ad : s.getArrayDimensions()) {
 						ArraySize as = ad.getSize();
@@ -1834,8 +1793,8 @@ public class InstantiateModel {
 						sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 					}
 
-				} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
-					Feature f = ((FeatureInstance) current).getFeature();
+				} else if (current instanceof FeatureInstance featureInstance && featureInstance.getIndex() != 0) {
+					Feature f = featureInstance.getFeature();
 					ArraySize as = f.getArrayDimensions().get(0).getSize();
 
 					sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
@@ -1854,28 +1813,28 @@ public class InstantiateModel {
 			if (names != null) {
 				names.add(current.getName());
 			}
-			if (current instanceof ComponentInstance) {
-				EList<Long> idx = ((ComponentInstance) current).getIndices();
+			if (current instanceof ComponentInstance componentInstance) {
+				EList<Long> idx = componentInstance.getIndices();
 				if (!idx.isEmpty()) {
-					indices.addAll(((ComponentInstance) current).getIndices());
+					indices.addAll(idx);
 				}
-			} else if (current instanceof FeatureInstance) {
-				long idx = ((FeatureInstance) current).getIndex();
+			} else if (current instanceof FeatureInstance featureInstance) {
+				long idx = featureInstance.getIndex();
 				if (idx != 0) {
 					indices.add(idx);
 				}
 			}
-			if (current instanceof ComponentInstance) {
-				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
-			} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
+			if (current instanceof ComponentInstance componentInstance) {
+				d = componentInstance.getSubcomponent().getArrayDimensions().size();
+			} else if (current instanceof FeatureInstance featureInstance && featureInstance.getIndex() != 0) {
 				d = 1;
 			}
 			if (dims != null) {
 				dims.add(d);
 			}
 			if (sizes != null && d != 0) {
-				if (current instanceof ComponentInstance) {
-					Subcomponent s = ((ComponentInstance) current).getSubcomponent();
+				if (current instanceof ComponentInstance componentInstance) {
+					Subcomponent s = componentInstance.getSubcomponent();
 
 					for (ArrayDimension ad : s.getArrayDimensions()) {
 						ArraySize as = ad.getSize();
@@ -1883,8 +1842,8 @@ public class InstantiateModel {
 						sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 					}
 
-				} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
-					Feature f = ((FeatureInstance) current).getFeature();
+				} else if (current instanceof FeatureInstance featureInstance && featureInstance.getIndex() != 0) {
+					Feature f = featureInstance.getFeature();
 					ArraySize as = f.getArrayDimensions().get(0).getSize();
 
 					sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
@@ -1902,9 +1861,9 @@ public class InstantiateModel {
 	 */
 	private void createNewConnection(ConnectionInstance conni, List<Long> srcIndices, List<Long> dstIndices) {
 		ComponentInstance container = conni.getContainingComponentInstance();
-		LinkedList<String> names = new LinkedList<String>();
-		LinkedList<Integer> dims = new LinkedList<Integer>();
-		LinkedList<Integer> sizes = new LinkedList<Integer>();
+		LinkedList<String> names = new LinkedList<>();
+		LinkedList<Integer> dims = new LinkedList<>();
+		LinkedList<Integer> sizes = new LinkedList<>();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
 		newConn.setSource(null);
 		newConn.setDestination(null);
@@ -1945,7 +1904,7 @@ public class InstantiateModel {
 		String containerPath = container.getInstanceObjectPath();
 		int len = containerPath.length() + 1;
 		String srcPath = (src != null) ? src.getInstanceObjectPath() : "Source end not found";
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		int i = (srcPath.startsWith(containerPath)) ? len : 0;
 		sb.append(srcPath.substring(i));
 		sb.append(" --> ");
@@ -1973,10 +1932,10 @@ public class InstantiateModel {
 	 * @return
 	 */
 	private void createNewConnection(ConnectionInstance conni, ComponentInstance targetComponent) {
-		LinkedList<Long> indices = new LinkedList<Long>();
-		LinkedList<String> names = new LinkedList<String>();
-		LinkedList<Integer> dims = new LinkedList<Integer>();
-		LinkedList<Integer> sizes = new LinkedList<Integer>();
+		LinkedList<Long> indices = new LinkedList<>();
+		LinkedList<String> names = new LinkedList<>();
+		LinkedList<Integer> dims = new LinkedList<>();
+		LinkedList<Integer> sizes = new LinkedList<>();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
 		newConn.setSource(null);
 		newConn.setDestination(null);
@@ -2004,7 +1963,7 @@ public class InstantiateModel {
 		String containerPath = targetComponent.getInstanceObjectPath();
 		int len = containerPath.length() + 1;
 		String srcPath = (src != null) ? src.getInstanceObjectPath() : "Source end not found";
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		int i = (srcPath.startsWith(containerPath)) ? len : 0;
 		sb.append(srcPath.substring(i));
 		sb.append(" --> ");
@@ -2094,12 +2053,9 @@ public class InstantiateModel {
 				// re-resolve the source feature
 				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil
 						.findNamedElementInList(target.getFeatureInstances(), src.getName(), idx);
-				if (found == null) {
-					Element parent = src.getOwner();
-					if (parent instanceof FeatureInstance) {
-						found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(),
-								((FeatureInstance) parent).getName(), fgidx);
-					}
+				if (found == null && src.getOwner() instanceof FeatureInstance parent) {
+					found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(),
+							parent.getName(), fgidx);
 				}
 				if (found != null) {
 					targetConnRef.setSource(found);
@@ -2119,12 +2075,9 @@ public class InstantiateModel {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
 					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
 							((FeatureInstance) outerSrc).getFeatureInstances(), dst.getName(), idx);
-					if (found == null) {
-						Element parent = dst.getOwner();
-						if (parent instanceof FeatureInstance) {
-							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
-									target.getFeatureInstances(), ((FeatureInstance) parent).getName(), fgidx);
-						}
+					if (found == null && dst.getOwner() instanceof FeatureInstance parent) {
+						found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(),
+								parent.getName(), fgidx);
 					}
 					if (found != null) {
 						targetConnRef.setDestination(found);
@@ -2140,12 +2093,9 @@ public class InstantiateModel {
 				// re-resolve the source feature
 				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil
 						.findNamedElementInList(target.getFeatureInstances(), dst.getName(), idx);
-				if (found == null) {
-					Element parent = dst.getOwner();
-					if (parent instanceof FeatureInstance) {
-						found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(),
-								((FeatureInstance) parent).getName(), fgidx);
-					}
+				if (found == null && dst.getOwner() instanceof FeatureInstance parent) {
+					found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(),
+							parent.getName(), fgidx);
 				}
 				if (found != null) {
 					targetConnRef.setDestination(found);
@@ -2164,12 +2114,9 @@ public class InstantiateModel {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
 					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
 							((FeatureInstance) outerDst).getFeatureInstances(), src.getName(), idx);
-					if (found == null) {
-						Element parent = src.getOwner();
-						if (parent instanceof FeatureInstance) {
-							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
-									target.getFeatureInstances(), ((FeatureInstance) parent).getName(), fgidx);
-						}
+					if (found == null && src.getOwner() instanceof FeatureInstance parent) {
+						found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(),
+								parent.getName(), fgidx);
 					}
 					if (found != null) {
 						targetConnRef.setSource(found);
@@ -2207,14 +2154,14 @@ public class InstantiateModel {
 		ConnectionInstanceEnd result = null;
 		for (int nameidx = names.size() - 1; nameidx >= 0; nameidx--) {
 			String name = names.get(nameidx);
-			List<InstanceObject> owned = new ArrayList<InstanceObject>();
+			List<InstanceObject> owned = new ArrayList<>();
 			int dim = dims.get(count);
-			if (resolutionContext instanceof ComponentInstance) {
+			if (resolutionContext instanceof ComponentInstance componentContext) {
 				// if nextConnRef is null it is because we are going to look up feature instances inside the last component instance
-				owned.addAll(((ComponentInstance) resolutionContext).getComponentInstances());
-				owned.addAll(((ComponentInstance) resolutionContext).getFeatureInstances());
-			} else if (resolutionContext instanceof FeatureInstance) {
-				owned.addAll(((FeatureInstance) resolutionContext).getFeatureInstances());
+				owned.addAll(componentContext.getComponentInstances());
+				owned.addAll(componentContext.getFeatureInstances());
+			} else if (resolutionContext instanceof FeatureInstance featureContext) {
+				owned.addAll(featureContext.getFeatureInstances());
 			}
 
 			if (dim == 0) {
@@ -2231,10 +2178,10 @@ public class InstantiateModel {
 				outer: for (InstanceObject io : owned) {
 					if (io.getName().equalsIgnoreCase(name)) {
 						try {
-							if (io instanceof ComponentInstance) {
+							if (io instanceof ComponentInstance componentInstance) {
 								// we need to deal with possibly more than one index
 								int d = dim - 1;
-								for (long i : ((ComponentInstance) io).getIndices()) {
+								for (long i : componentInstance.getIndices()) {
 									if (i != indices.get(offset - d)) {
 										continue outer;
 									}
@@ -2357,10 +2304,8 @@ public class InstantiateModel {
 	 * @since 3.0
 	 */
 	public EList<Property> getAllUsedPropertyDefinitions(ComponentInstance root) throws InterruptedException {
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
-		EList<Property> result = new UniqueEList<Property>();
+		checkCanceled();
+		EList<Property> result = new UniqueEList<>();
 
 		addUsedProperties(root, root.getClassifier(), result);
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
@@ -2368,8 +2313,8 @@ public class InstantiateModel {
 		while (it.hasNext()) {
 			Element elem = it.next();
 
-			if (elem instanceof ComponentInstance) {
-				InstantiatedClassifier ic = getInstantiatedClassifier((ComponentInstance) elem);
+			if (elem instanceof ComponentInstance componentInstance) {
+				InstantiatedClassifier ic = getInstantiatedClassifier(componentInstance);
 				if (ic != null && ic.getClassifier() != null) {
 					if (ic.getClassifier().equals(root.getClassifier())) {
 						addUsedProperties(root, ic.getClassifier(), result, false);
@@ -2377,8 +2322,7 @@ public class InstantiateModel {
 						addUsedProperties(root, ic.getClassifier(), result);
 					}
 				}
-			} else if (elem instanceof FeatureInstance) {
-				FeatureInstance fi = (FeatureInstance) elem;
+			} else if (elem instanceof FeatureInstance fi) {
 				if (fi.getFeature() instanceof FeatureGroup) {
 					FeatureGroupType fgt = getFeatureGroupType(fi);
 					addUsedProperties(root, fgt, result);
@@ -2386,8 +2330,7 @@ public class InstantiateModel {
 					Classifier c = fi.getFeature().getClassifier();
 					addUsedProperties(root, c, result);
 				}
-			} else if (elem instanceof ConnectionInstance) {
-				ConnectionInstance ci = (ConnectionInstance) elem;
+			} else if (elem instanceof ConnectionInstance ci) {
 				addUsedPropertyDefinitions(ci.getContainingClassifier(), result);
 
 				for (ConnectionReference cr : ci.getConnectionReferences()) {
@@ -2404,9 +2347,9 @@ public class InstantiateModel {
 
 	private void addUsedProperties(InstanceObject root, Classifier cc, EList<Property> result, boolean showError) {
 
-		if (cc instanceof ComponentImplementation) {
-			ComponentImplementation impl = (ComponentImplementation) cc;
-			List<ComponentImplementation> extendedComponentImpls = new ArrayList<ComponentImplementation>();
+		if (cc instanceof ComponentImplementation implementation) {
+			ComponentImplementation impl = implementation;
+			List<ComponentImplementation> extendedComponentImpls = new ArrayList<>();
 			while (impl != null) {
 				extendedComponentImpls.add(impl);
 				addUsedPropertyDefinitions(impl, result);
@@ -2419,9 +2362,9 @@ public class InstantiateModel {
 					break;
 				}
 			}
-			cc = ((ComponentImplementation) cc).getType();
+			cc = implementation.getType();
 		}
-		List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
+		List<Classifier> extendedClassifiers = new ArrayList<>();
 		while (cc != null) {
 			extendedClassifiers.add(cc);
 			addUsedPropertyDefinitions(cc, result);
@@ -2453,10 +2396,10 @@ public class InstantiateModel {
 			EObject ao = it.next();
 			// OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
 
-			if (ao instanceof PropertyAssociation) {
+			if (ao instanceof PropertyAssociation propertyAssociation) {
 				// OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
 
-				Property pd = ((PropertyAssociation) ao).getProperty();
+				Property pd = propertyAssociation.getProperty();
 				// OsateDebug.osateDebug ("[InstantiateModel] pd=" + pd);
 
 				if (pd != null) {
@@ -2523,9 +2466,7 @@ public class InstantiateModel {
 
 			protected int enumerateSoms(int depth, int index) throws InterruptedException {
 
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
+				checkCanceled();
 
 				Node node = workState.get(depth);
 				State parentState = node.parentNode.state;
@@ -2540,9 +2481,7 @@ public class InstantiateModel {
 					// here we add one or more SOMs
 					if (active) {
 						while (modes.hasNext()) {
-							if (monitor.isCanceled()) {
-								throw new InterruptedException();
-							}
+							checkCanceled();
 							state.mode = modes.next();
 							root.getSystemOperationModes().add(createSOM(index + 1));
 							if (index < 0 || ++index >= limit) {
@@ -2582,16 +2521,14 @@ public class InstantiateModel {
 					return Collections.emptyIterator();
 				} else {
 					// limit derived modes to mapping
-					return modes.stream().filter(mi -> {
-						return !mi.isDerived() || mi.getParents().contains(parentMode);
-					}).iterator();
+					return modes.stream()
+							.filter(mi -> !mi.isDerived() || mi.getParents().contains(parentMode))
+							.iterator();
 				}
 			}
 
 			protected void initWorkState(ComponentInstance ci, Node parentNode) throws InterruptedException {
-				if (monitor.isCanceled()) {
-					throw new InterruptedException();
-				}
+				checkCanceled();
 				if (!ci.getModeInstances().isEmpty()) {
 					parentNode = new Node(ci, parentNode);
 					workState.add(parentNode);
@@ -2606,19 +2543,12 @@ public class InstantiateModel {
 
 				som = InstanceFactory.eINSTANCE.createSystemOperationMode();
 				for (Node node : workState) {
-					if (monitor.isCanceled()) {
-						throw new InterruptedException();
-					}
+					checkCanceled();
 					if (!node.state.active) {
 						continue;
 					}
 					ModeInstance mi = node.state.mode;
-					List<SystemOperationMode> soms = mode2som.get(mi);
-					if (soms == null) {
-						soms = new ArrayList<SystemOperationMode>();
-						mode2som.put(mi, soms);
-					}
-					soms.add(som);
+					mode2som.computeIfAbsent(mi, key -> new ArrayList<>()).add(som);
 					som.getCurrentModes().add(mi);
 				}
 				som.setName("som_" + somNo);
