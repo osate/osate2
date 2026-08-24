@@ -38,7 +38,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value=""/>
-      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/connect_to_subcomponent_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/connect_to_subcomponent_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
     </subResults>
     <subResults>
       <values xsi:type="result:RealValue"/>
@@ -58,7 +58,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value=""/>
-      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/connect_to_subcomponent_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/connect_to_subcomponent_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
     </subResults>
     <subResults>
       <values xsi:type="result:RealValue" value="1.0"/>

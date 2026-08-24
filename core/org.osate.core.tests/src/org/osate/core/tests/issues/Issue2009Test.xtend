@@ -36,6 +36,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
 import org.osate.aadl2.instantiation.InstantiateModel
 import static extension org.junit.Assert.*
+import static extension org.osate.core.tests.instantiation.InstanceLookup.*
 import com.itemis.xtext.testing.XtextTest
 import org.osate.aadl2.ProcessImplementation
 import org.osate.aadl2.SystemImplementation
@@ -108,8 +109,7 @@ class Issue2009Test extends XtextTest {
 		]
 		
 		// There should be one end to end flow instance
-		assertEquals(1, instance.endToEndFlows.size)
-		assertEquals("etef1", instance.endToEndFlows.get(0).name)
+		assertEquals(#["etef1"], instance.flowNames)
 	}	
 	
 	@Test
@@ -126,8 +126,7 @@ class Issue2009Test extends XtextTest {
 		assertTrue(messages.size == 0)
 		
 		// There should be one end to end flow instance
-		assertEquals(1, instance.endToEndFlows.size)
-		assertEquals("etef1", instance.endToEndFlows.get(0).name)
+		assertEquals(#["etef1"], instance.flowNames)
 	}	
 	
 	@Test
@@ -169,9 +168,7 @@ class Issue2009Test extends XtextTest {
 		]
 		
 		// There should be 2 end to end flow instances
-		assertEquals(2, instance.endToEndFlows.size)
-		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
-		assertEquals("etef1", instance.endToEndFlows.get(1).name)
+		assertEquals(#["etef1", "etef1F"], instance.flowNames)
 	}	
 	
 	@Test
@@ -200,10 +197,7 @@ class Issue2009Test extends XtextTest {
 		]
 		
 		// There should be 3 end to end flow instances
-		assertEquals(3, instance.endToEndFlows.size)
-		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
-		assertEquals("etef1", instance.endToEndFlows.get(1).name)
-		assertEquals("etef1_wrong1", instance.endToEndFlows.get(2).name)
+		assertEquals(#["etef1", "etef1F", "etef1_wrong1"], instance.flowNames)
 	}	
 	
 	@Test
@@ -220,9 +214,7 @@ class Issue2009Test extends XtextTest {
 		assertTrue(messages.size == 0)
 		
 		// There should be 2 end to end flow instances
-		assertEquals(2, instance.endToEndFlows.size)
-		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
-		assertEquals("etef1", instance.endToEndFlows.get(1).name)
+		assertEquals(#["etef1", "etef1F"], instance.flowNames)
 	}	
 	
 	@Test
@@ -243,10 +235,7 @@ class Issue2009Test extends XtextTest {
 		]
 		
 		// There should be 4 end to end flow instances
-		assertEquals(3, instance.endToEndFlows.size)
-		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
-		assertEquals("etef1", instance.endToEndFlows.get(1).name)
-		assertEquals("etef1_wrong1", instance.endToEndFlows.get(2).name)
+		assertEquals(#["etef1", "etef1F", "etef1_wrong1"], instance.flowNames)
 	}	
 	
 	@Test
@@ -271,9 +260,7 @@ class Issue2009Test extends XtextTest {
 		]
 		
 		// There should be 2 end to end flow instances
-		assertEquals(2, instance.endToEndFlows.size)
-		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
-		assertEquals("etef1", instance.endToEndFlows.get(1).name)
+		assertEquals(#["etef1", "etef1F"], instance.flowNames)
 	}	
 	
 	@Test
@@ -302,9 +289,6 @@ class Issue2009Test extends XtextTest {
 		]
 		
 		// There should be 3 end to end flow instances
-		assertEquals(3, instance.endToEndFlows.size)
-		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
-		assertEquals("etef1", instance.endToEndFlows.get(1).name)
-		assertEquals("etef1_wrong1", instance.endToEndFlows.get(2).name)
+		assertEquals(#["etef1", "etef1F", "etef1_wrong1"], instance.flowNames)
 	}	
 }

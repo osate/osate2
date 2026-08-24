@@ -1,0 +1,153 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), covering the segments the traversal refuses outright.
+--
+-- Two refusal rules in PathAssembler have no other fixture. Both are required behavior carried
+-- over from 2.18.0, both look arbitrary, and both silently remove a connection the model
+-- declares, which is why they are pinned here rather than left to a reader's judgement.
+--
+-- (a) A segment that arrives at a parameter, refused when it leaves a data subcomponent, a data
+--     access feature, or a declaration sitting in the instantiation root. Recorded as bug #220.
+--     The parameter has to be the subprogram's own, because a parameter of a subprogram
+--     subcomponent is not a valid connection end and a parameter of a subprogram call has no
+--     instance object, which is why ParameterCalls.aadl cannot reach this rule at all.
+--     Kernel.fromData is instantiated twice, on its own and below a thread, because the root
+--     condition is why one implementation produces different connections in the two placements.
+--     The rule's third condition, a segment leaving a data access feature, has no reproducer in
+--     valid AADL: a data access and a parameter of the same subprogram cannot be connected to
+--     each other, and a parameter of anything else is not a valid connection end. It is
+--     therefore unpinned, and deliberately so rather than by omission.
+--
+-- (b) A feature group at a connection ending component that holds no port and no nested feature
+--     group does not stop a leg. This is the shape of models/issue3044/Issue3044.aadl with the
+--     port member taken out, so the connection that ends at the group there is absent here and
+--     only the access connection reaching through remains.
+--
+-- (c) The other half of the same rule: a group whose only member is a nested feature group does
+--     stop a leg, and it is the only thing that can, since the group's immediate members hold no
+--     port. Pair.nestedGroup is where removing the nested-group test changes the model.
+package RefusedSegments
+public
+	data D
+	end D;
+
+	abstract Consumer
+		features
+			bundle: feature group Inner;
+	end Consumer;
+
+	-- (a) A parameter connection arriving at the subprogram's own out parameter, from a data
+	-- subcomponent beside it.
+	subprogram Kernel
+		features
+			result: out parameter D;
+	end Kernel;
+
+	subprogram implementation Kernel.fromData
+		subcomponents
+			store: data D;
+		connections
+			emit: parameter store -> result;
+	end Kernel.fromData;
+
+	-- The same subprogram below a thread, so that the declaration above no longer sits in the
+	-- instantiation root.
+	thread Host
+	end Host;
+
+	thread implementation Host.i
+		subcomponents
+			byData: subprogram Kernel.fromData;
+	end Host.i;
+
+	-- (b) A feature group whose only member is an access feature, between two threads. A thread
+	-- ends a semantic connection at a port or at a nested feature group, and this group is
+	-- neither, so the leg does not stop at it: the only connection is the one reaching through to
+	-- the subprogram inside.
+	subprogram Service
+	end Service;
+
+	subprogram ServiceClient
+		features
+			requested_call: requires subprogram access Service;
+	end ServiceClient;
+
+	feature group AccessOnly
+		features
+			shared_call: provides subprogram access Service;
+	end AccessOnly;
+
+	thread AccessProvider
+		features
+			bundle: feature group AccessOnly;
+	end AccessProvider;
+
+	thread implementation AccessProvider.i
+		subcomponents
+			worker: subprogram Service;
+		connections
+			supply: subprogram access worker -> bundle.shared_call;
+	end AccessProvider.i;
+
+	thread AccessRequester
+		features
+			bundle: feature group inverse of AccessOnly;
+	end AccessRequester;
+
+	thread implementation AccessRequester.i
+		subcomponents
+			user: subprogram ServiceClient;
+		connections
+			demand: subprogram access user.requested_call <-> bundle.shared_call;
+	end AccessRequester.i;
+
+	-- (c) A feature group whose only member is a nested feature group, at a thread that routes the
+	-- nested group onwards. This is where the nested-group half of the stopping rule is the only
+	-- thing that can fire: the group's immediate members hold no port, so the port test cannot
+	-- decide it. With the rule the connection ends at the thread's own member; without it the
+	-- connection would carry on to the subcomponent inside.
+	feature group Inner
+		features
+			p: in data port D;
+	end Inner;
+
+	feature group Outer
+		features
+			inner: feature group Inner;
+	end Outer;
+
+	thread NestedGroupEmitter
+		features
+			bundle: feature group inverse of Outer;
+	end NestedGroupEmitter;
+
+	thread NestedGroupReceiver
+		features
+			bundle: feature group Outer;
+	end NestedGroupReceiver;
+
+	thread implementation NestedGroupReceiver.i
+		subcomponents
+			inner_sub: abstract Consumer;
+		connections
+			down: feature group bundle.inner -> inner_sub.bundle;
+	end NestedGroupReceiver.i;
+
+	process Pair
+	end Pair;
+
+	process implementation Pair.accessOnlyGroup
+		subcomponents
+			provider: thread AccessProvider.i;
+			requester: thread AccessRequester.i;
+		connections
+			link: feature group provider.bundle <-> requester.bundle;
+	end Pair.accessOnlyGroup;
+
+	process implementation Pair.nestedGroup
+		subcomponents
+			emitter: thread NestedGroupEmitter;
+			receiver: thread NestedGroupReceiver.i;
+		connections
+			link: feature group emitter.bundle -> receiver.bundle;
+	end Pair.nestedGroup;
+end RefusedSegments;

@@ -68,7 +68,7 @@
       <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
       <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
       <values xsi:type="result:StringValue" value=""/>
-      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/immediate_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/immediate_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
     </subResults>
     <subResults>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -114,7 +114,7 @@
       <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
       <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
       <values xsi:type="result:StringValue" value=""/>
-      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/immediate_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/immediate_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
     </subResults>
     <subResults>
       <values xsi:type="result:RealValue"/>

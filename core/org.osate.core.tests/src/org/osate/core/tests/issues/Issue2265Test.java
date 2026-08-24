@@ -44,6 +44,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.core.tests.instantiation.InstanceLookup;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -79,8 +80,7 @@ public class Issue2265Test extends XtextTest {
 		AbstractNamedValue nv = ((NamedValue) pe).getNamedValue();
 		Assert.assertEquals("Ada95", ((EnumerationLiteral) nv).getName());
 
-		ConnectionInstance conni = instance.getConnectionInstances().get(0);
-		Assert.assertEquals("sub1.out1 -> sub2.in1", conni.getName());
+		ConnectionInstance conni = InstanceLookup.connection(instance, "sub1.out1 -> sub2.in1");
 		pe = conni.getOwnedPropertyAssociations().get(0).getOwnedValues().get(0).getOwnedValue();
 		Assert.assertEquals(1, ((ListValue) pe).getOwnedListElements().size());
 		pe = ((ListValue) pe).getOwnedListElements().get(0);

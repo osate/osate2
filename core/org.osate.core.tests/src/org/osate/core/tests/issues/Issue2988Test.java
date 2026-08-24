@@ -36,6 +36,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.core.tests.instantiation.InstanceLookup;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -67,8 +68,7 @@ public class Issue2988Test extends XtextTest {
 				.orElseThrow();
 		SystemInstance instance = InstantiateModel.instantiate(top);
 
-		assertEquals(1, instance.getEndToEndFlows().size());
-		EndToEndFlowInstance flow = instance.getEndToEndFlows().get(0);
+		EndToEndFlowInstance flow = InstanceLookup.onlyFlow(instance);
 		assertEquals(3, flow.getFlowElements().size());
 		ComponentInstance destination = (ComponentInstance) flow.getFlowElements().get(2);
 		assertEquals("wanted", destination.getName());

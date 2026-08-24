@@ -1,0 +1,429 @@
+/**
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
+package org.osate.aadl2.instantiation.internal;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.osate.aadl2.Element;
+import org.osate.aadl2.contrib.modeling.ClassifierMatchingRule;
+import org.osate.aadl2.contrib.modeling.ModelingProperties;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.FeatureCategory;
+import org.osate.aadl2.instance.FeatureInstance;
+
+/**
+ * Narrows the endpoints of a path down to the leaf features that become connection
+ * instances.
+ *
+ * <p>
+ * A path may end at a feature group, because a leg stops where declarations stop and
+ * a declaration can connect a whole group. One connection instance is created per
+ * pair of connected leaves, so the group has to be paired member by member first.
+ * </p>
+ *
+ * <p>
+ * The rules here are AADL feature group semantics and not a property of how the traversal
+ * reached the path: direction filtering inside a group, name-then-index matching for inverse
+ * feature groups, subset matching by name, and positional pairing when neither side is a
+ * leaf. They decide how many connection instances a model has, so each is stated below with
+ * the reason it takes the form it does.
+ * </p>
+ */
+public final class LeafExpansion {
+
+	/**
+	 * One pair of leaves that becomes a connection instance.
+	 *
+	 * @param source the ultimate source leaf
+	 * @param destination the ultimate destination leaf
+	 */
+	public record Endpoints(ConnectionInstanceEnd source, ConnectionInstanceEnd destination) {
+
+		public String key() {
+			return PathKeys.instance(source) + " -> " + PathKeys.instance(destination);
+		}
+	}
+
+	private LeafExpansion() {
+	}
+
+	private enum PathEnd {
+		SOURCE, DESTINATION
+	}
+
+	/**
+	 * The leaf pairs {@code path} expands to. A path whose endpoints are already leaves
+	 * expands to itself when its directions allow, and to nothing when they do not.
+	 */
+	public static List<Endpoints> expand(ConnectionInstancePath path) {
+		var expanded = new ArrayList<Endpoints>();
+		expand(path, path.source(), path.destination(), expanded);
+		return List.copyOf(expanded);
+	}
+
+	private static void expand(ConnectionInstancePath path, ConnectionInstanceEnd source,
+			ConnectionInstanceEnd destination, List<Endpoints> expanded) {
+		if (!(source instanceof FeatureInstance sourceFeature)) {
+			expanded.add(new Endpoints(source, reached(path, destination, true)));
+			return;
+		}
+		if (!(destination instanceof FeatureInstance destinationFeature)) {
+			expanded.add(new Endpoints(reached(path, source, false), destination));
+			return;
+		}
+
+		if (isLeaf(sourceFeature) && isLeaf(destinationFeature)) {
+			if (directionsAllow(path, sourceFeature, destinationFeature)) {
+				expanded.add(new Endpoints(sourceFeature, destinationFeature));
+			}
+		} else if (isLeaf(sourceFeature)) {
+			expandAgainstLeafSource(path, sourceFeature, destinationFeature, expanded);
+		} else if (isLeaf(destinationFeature)) {
+			expandAgainstLeafDestination(path, sourceFeature, destinationFeature, expanded);
+		} else {
+			expandGroupToGroup(path, sourceFeature, destinationFeature, expanded);
+		}
+	}
+
+	/**
+	 * The feature at the source end of {@code path} that its destination pairs with.
+	 *
+	 * <p>
+	 * A path that ends at a dead end is reported rather than materialized, and the report
+	 * names both of its ends, so the member the source end covers has to be found without
+	 * expanding the path. The destination is mapped back through every segment: a whole
+	 * feature group is connected to a whole feature group, so a feature below one end
+	 * corresponds to the feature reached by following the same member names, or positions
+	 * where an inverse feature group type renames them, below the other.
+	 * </p>
+	 *
+	 * <p>
+	 * The unmapped source end is returned when no correspondence can be established, which
+	 * keeps a diagnostic approximate rather than absent.
+	 * </p>
+	 */
+	public static ConnectionInstanceEnd correspondingSource(ConnectionInstancePath path) {
+		var current = path.destination();
+		for (int i = path.segments().size() - 1; i >= 0; i--) {
+			var segment = path.segments().get(i);
+			current = mapAcrossSegment(segment.destination(), segment.source(), current);
+			if (current == null) {
+				return path.source();
+			}
+		}
+		return current;
+	}
+
+	/**
+	 * The endpoint a leg standing at {@code position} continues to when it leaves through a
+	 * declaration that connects {@code from} to {@code to}.
+	 *
+	 * <p>
+	 * A declaration may connect a whole feature group while the leg stands at a member of
+	 * it. The connection then covers that member only, so it continues at the member of the
+	 * far end that pairs with it rather than at the whole far end. Leaving the far end whole
+	 * pairs a group against a group one level too high, which is only visible where the two
+	 * have different numbers of members.
+	 * </p>
+	 *
+	 * <p>
+	 * {@code to} is returned unchanged when the leg stands at {@code from} itself or at a
+	 * group containing it, which is the declaration reaching <em>into</em> a group, and when
+	 * no member of the far end corresponds.
+	 * </p>
+	 */
+	static ConnectionInstanceEnd continuation(ConnectionInstanceEnd from, ConnectionInstanceEnd to,
+			ConnectionInstanceEnd position) {
+		var mapped = mapAcrossSegment(from, to, position);
+		return mapped == null ? to : mapped;
+	}
+
+	/**
+	 * Map {@code end}, which sits at or below {@code from}, to the feature at or below
+	 * {@code to} that it corresponds to, or {@code null} when it has none.
+	 */
+	private static ConnectionInstanceEnd mapAcrossSegment(ConnectionInstanceEnd from, ConnectionInstanceEnd to,
+			ConnectionInstanceEnd end) {
+		var mapped = to;
+		for (var member : membersBelow(from, end)) {
+			if (!(mapped instanceof FeatureInstance group)) {
+				return null;
+			}
+			mapped = matchingMember(group, member);
+			if (mapped == null) {
+				return null;
+			}
+		}
+		return mapped;
+	}
+
+	/**
+	 * The features from just below {@code outer} down to {@code inner}, or an empty list
+	 * when {@code inner} is {@code outer} itself or sits above it.
+	 */
+	static List<FeatureInstance> membersBelow(ConnectionInstanceEnd outer, ConnectionInstanceEnd inner) {
+		var members = new ArrayList<FeatureInstance>();
+		for (Object current = inner; current instanceof FeatureInstance feature; current = feature.getOwner()) {
+			if (feature == outer) {
+				// collected inner to outer, wanted outer to inner
+				return members.reversed();
+			}
+			members.add(feature);
+		}
+		return List.of();
+	}
+
+	/**
+	 * The member of {@code group} that {@code member} of the group connected to it pairs
+	 * with: the one with the same name, or the one at the same position when an inverse
+	 * feature group type renames its features.
+	 */
+	static FeatureInstance matchingMember(FeatureInstance group, FeatureInstance member) {
+		for (var candidate : group.getFeatureInstances()) {
+			if (candidate.getName().equalsIgnoreCase(member.getName())) {
+				return candidate;
+			}
+		}
+		int index = member.getOwner() instanceof FeatureInstance parent ? parent.getFeatureInstances().indexOf(member)
+				: -1;
+		return index >= 0 && index < group.getFeatureInstances().size() ? group.getFeatureInstances().get(index) : null;
+	}
+
+	/**
+	 * The feature a path reaches at one end when the other end is a component.
+	 *
+	 * <p>
+	 * An access connection ends at the component itself, so there is no opposite feature
+	 * to pair a group against member by member. The group still has to be narrowed,
+	 * because the connection reaches one member of it: the one the path stepped through
+	 * on its way, mapped across as it would be for any other pair.
+	 * </p>
+	 *
+	 * <p>
+	 * Leaving the group whole is visible in the instance model rather than merely
+	 * imprecise: {@code PathMaterializer.kind} reads the endpoint categories, so an
+	 * unnarrowed group end makes the connection a feature group connection where the model
+	 * has an access connection. No fixture reaches this branch, which needs a leg to stop at
+	 * a whole feature group while the other end is a component;
+	 * {@code Issue3037MemberPairingTest} covers the nearest shape, where the leg continues
+	 * into the group's access member instead, and asserts the kind for it.
+	 * </p>
+	 *
+	 * <p>
+	 * A group the path never stepped into is returned as it stands: there is no member to
+	 * prefer, and the connection does reach the whole group.
+	 * </p>
+	 */
+	private static ConnectionInstanceEnd reached(ConnectionInstancePath path, ConnectionInstanceEnd end,
+			boolean destinationSide) {
+		if (!(end instanceof FeatureInstance group) || isLeaf(group)) {
+			return end;
+		}
+		FeatureInstance member = destinationSide ? findDestinationFeature(path, group) : findSourceFeature(path, group);
+		return member == null ? end : member;
+	}
+
+	/**
+	 * Whether two leaves may be connected.
+	 *
+	 * <p>
+	 * A path leaves its ultimate source travelling away from it: outgoing for a complete
+	 * path and for one that only travels up, incoming for one that only travels down.
+	 * That much always holds, because it is what makes the feature a source at all.
+	 * </p>
+	 *
+	 * <p>
+	 * The arriving direction is only decided here inside a feature group. Pairing the
+	 * members of two connected feature groups is a choice between candidates, and
+	 * direction is what makes it, so a member that faces the wrong way is not the member
+	 * this path connects. Two features named directly by declarations are not a choice:
+	 * the connection exists whatever they face, and
+	 * {@code ValidateConnectionsSwitch.checkSegmentDirections()} reports it since issue
+	 * #3042. Filtering such a pair out here instead would suppress that diagnostic and
+	 * leave the model with no report of a connection it declares and cannot have.
+	 * </p>
+	 */
+	private static boolean directionsAllow(ConnectionInstancePath path, FeatureInstance source,
+			FeatureInstance destination) {
+		boolean downOnly = !path.complete() && !isUpOnly(path, source, destination);
+		if (!(downOnly ? source.getFlowDirection().incoming() : source.getFlowDirection().outgoing())) {
+			return false;
+		}
+		if (!(source.getOwner() instanceof FeatureInstance || destination.getOwner() instanceof FeatureInstance)) {
+			return true;
+		}
+		return path.complete() || downOnly ? destination.getFlowDirection().incoming()
+				: destination.getFlowDirection().outgoing();
+	}
+
+	/** Whether an incomplete path only travels up, that is, the source sits inside the destination. */
+	private static boolean isUpOnly(ConnectionInstancePath path, FeatureInstance source, FeatureInstance destination) {
+		if (path.complete()) {
+			return false;
+		}
+		var destinationComponent = destination.getContainingComponentInstance();
+		for (Element component = source.getContainingComponentInstance(); component != null; component = component
+				.getOwner()) {
+			if (component == destinationComponent) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static void expandAgainstLeafSource(ConnectionInstancePath path, FeatureInstance source,
+			FeatureInstance destinationGroup, List<Endpoints> expanded) {
+		var destination = findDestinationFeature(path, destinationGroup);
+		if (destination != null && (path.complete() ? destination.getFlowDirection().incoming()
+				: destination.getFlowDirection().outgoing())) {
+			expand(path, source, destination, expanded);
+		} else if (source.getCategory() == FeatureCategory.FEATURE_GROUP) {
+			// A feature group with no type, or an empty one, pairs with every member.
+			boolean upOnly = isUpOnly(path, source, destinationGroup);
+			for (var member : destinationGroup.getFeatureInstances()) {
+				if (upOnly ? member.getFlowDirection().outgoing() : member.getFlowDirection().incoming()) {
+					expand(path, source, member, expanded);
+				}
+			}
+		} else {
+			expanded.add(new Endpoints(source, destinationGroup));
+		}
+	}
+
+	private static void expandAgainstLeafDestination(ConnectionInstancePath path, FeatureInstance sourceGroup,
+			FeatureInstance destination, List<Endpoints> expanded) {
+		var source = findSourceFeature(path, sourceGroup);
+		if (source != null && (path.complete() ? source.getFlowDirection().outgoing()
+				: source.getFlowDirection().incoming())) {
+			expand(path, source, destination, expanded);
+		} else if (destination.getCategory() == FeatureCategory.FEATURE_GROUP) {
+			boolean downOnly = !path.complete() && !isUpOnly(path, sourceGroup, destination);
+			for (var member : sourceGroup.getFeatureInstances()) {
+				if (downOnly ? member.getFlowDirection().incoming() : member.getFlowDirection().outgoing()) {
+					expand(path, member, destination, expanded);
+				}
+			}
+		} else {
+			expanded.add(new Endpoints(sourceGroup, destination));
+		}
+	}
+
+	/**
+	 * Two feature groups pair member by member. Subset matching pairs by name and skips
+	 * members the other side does not have; otherwise the two groups have the same
+	 * internal structure and pair positionally.
+	 */
+	private static void expandGroupToGroup(ConnectionInstancePath path, FeatureInstance sourceGroup,
+			FeatureInstance destinationGroup, List<Endpoints> expanded) {
+		if (isSubsetMatch(path)) {
+			for (var destination : destinationGroup.getFeatureInstances()) {
+				if (path.complete() ? destination.getFlowDirection().incoming()
+						: destination.getFlowDirection().outgoing()) {
+					var source = findLeafNamed(sourceGroup, destination.getName());
+					if (source != null) {
+						expand(path, source, destination, expanded);
+					}
+				}
+			}
+			return;
+		}
+		var sources = sourceGroup.getFeatureInstances();
+		var destinations = destinationGroup.getFeatureInstances();
+		if (sources.size() != destinations.size()) {
+			throw new IllegalStateException("Connected feature groups do not have the same number of features: "
+					+ PathKeys.instance(sourceGroup) + " and " + PathKeys.instance(destinationGroup));
+		}
+		for (var i = 0; i < sources.size(); i++) {
+			expand(path, sources.get(i), destinations.get(i), expanded);
+		}
+	}
+
+	private static boolean isSubsetMatch(ConnectionInstancePath path) {
+		for (var segment : path.segments()) {
+			var declaration = segment.declaration();
+			if (ModelingProperties.getClassifierMatchingRule(declaration)
+					.orElse(null) == ClassifierMatchingRule.SUBSET) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * The member of {@code group} that the path reaches, found by looking for the point
+	 * where the path stepped from a feature group into one of its members and mapping
+	 * that member across by name, or by index when an inverse feature group type renames
+	 * its features.
+	 */
+	private static FeatureInstance findDestinationFeature(ConnectionInstancePath path, FeatureInstance group) {
+		return findReachedFeature(path, group, PathEnd.DESTINATION);
+	}
+
+	/** The mirror of {@link #findDestinationFeature}, walking the path backwards. */
+	private static FeatureInstance findSourceFeature(ConnectionInstancePath path, FeatureInstance group) {
+		return findReachedFeature(path, group, PathEnd.SOURCE);
+	}
+
+	/** Find the member reached by walking the path towards its source or destination. */
+	private static FeatureInstance findReachedFeature(ConnectionInstancePath path, FeatureInstance group,
+			PathEnd end) {
+		boolean towardsSource = end == PathEnd.SOURCE;
+		ConnectionInstanceEnd target = null;
+		var segments = towardsSource ? path.segments().reversed() : path.segments();
+		for (var segment : segments) {
+			var near = towardsSource ? segment.destination() : segment.source();
+			if (target != null && target != near && near == target.eContainer()) {
+				return mapAcross(group, (FeatureInstance) near, target);
+			}
+			target = towardsSource ? segment.source() : segment.destination();
+		}
+		return null;
+	}
+
+	private static FeatureInstance mapAcross(FeatureInstance group, FeatureInstance otherGroup,
+			ConnectionInstanceEnd member) {
+		var matched = findLeafNamed(group, member.getName());
+		if (matched != null) {
+			return matched;
+		}
+		int index = otherGroup.getFeatureInstances().indexOf(member);
+		return index >= 0 && index < group.getFeatureInstances().size() ? group.getFeatureInstances().get(index) : null;
+	}
+
+	/** The first leaf under {@code group} with this name. */
+	private static FeatureInstance findLeafNamed(FeatureInstance group, String name) {
+		for (var contents = group.eAllContents(); contents.hasNext();) {
+			var next = contents.next();
+			if (next instanceof FeatureInstance feature && isLeaf(feature) && feature.getName().equalsIgnoreCase(name)) {
+				return feature;
+			}
+		}
+		return null;
+	}
+
+	private static boolean isLeaf(FeatureInstance feature) {
+		return feature.getFeatureInstances().isEmpty();
+	}
+}
