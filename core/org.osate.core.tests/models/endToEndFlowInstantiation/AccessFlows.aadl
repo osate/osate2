@@ -1,0 +1,153 @@
+package E2E_Access_Flows
+public
+
+	data Shared_Data
+	end Shared_Data;
+
+	subprogram Shared_Subprogram
+	end Shared_Subprogram;
+
+	system Data_User
+		features
+			data_access: requires data access Shared_Data;
+		flows
+			start: flow source data_access;
+			finish: flow sink data_access;
+	end Data_User;
+
+	system Subprogram_User
+		features
+			subprogram_access: requires subprogram access Shared_Subprogram;
+		flows
+			start: flow source subprogram_access;
+			finish: flow sink subprogram_access;
+	end Subprogram_User;
+
+	system DirectAccessTop
+	end DirectAccessTop;
+
+	system implementation DirectAccessTop.i
+		subcomponents
+			data_source: system Data_User;
+			data_sink: system Data_User;
+			shared_data: data Shared_Data;
+			subprogram_source: system Subprogram_User;
+			subprogram_sink: system Subprogram_User;
+			shared_subprogram: subprogram Shared_Subprogram;
+		connections
+			data_in: data access data_source.data_access <-> shared_data;
+			data_out: data access shared_data <-> data_sink.data_access;
+			subprogram_in: subprogram access subprogram_source.subprogram_access <-> shared_subprogram;
+			subprogram_out: subprogram access shared_subprogram <-> subprogram_sink.subprogram_access;
+		flows
+			data_path: end to end flow data_source.start -> data_in -> shared_data -> data_out -> data_sink.finish;
+			subprogram_path: end to end flow subprogram_source.start -> subprogram_in ->
+				shared_subprogram -> subprogram_out -> subprogram_sink.finish;
+	end DirectAccessTop.i;
+
+	system DataProducer
+		features
+			data_access: requires data access Shared_Data;
+		flows
+			fsrc: flow source data_access;
+	end DataProducer;
+
+	system DataConsumer
+		features
+			data_access: requires data access Shared_Data;
+		flows
+			fsnk: flow sink data_access;
+	end DataConsumer;
+
+	system DataProvider
+		features
+			data_access: provides data access Shared_Data;
+	end DataProvider;
+
+	system AccessContainer
+		features
+			data_access: requires data access Shared_Data;
+	end AccessContainer;
+
+	system implementation AccessContainer.i
+		subcomponents
+			producer: system DataProducer;
+			consumer: system DataConsumer;
+		connections
+			to_boundary: data access producer.data_access -> data_access;
+			from_boundary: data access data_access -> consumer.data_access;
+		flows
+			access_path: end to end flow producer.fsrc -> to_boundary ->
+				data_access -> from_boundary -> consumer.fsnk;
+			starts_at_access: end to end flow data_access -> from_boundary -> consumer.fsnk;
+	end AccessContainer.i;
+
+	system MultipleAccessTop
+	end MultipleAccessTop;
+
+	system implementation MultipleAccessTop.i
+		subcomponents
+			first_data: data Shared_Data;
+			second_data: data Shared_Data;
+			container: system AccessContainer.i;
+		connections
+			first: data access first_data <-> container.data_access;
+			second: data access second_data <-> container.data_access;
+	end MultipleAccessTop.i;
+
+	system SameTargetMultipleAccessTop
+	end SameTargetMultipleAccessTop;
+
+	system implementation SameTargetMultipleAccessTop.i
+		subcomponents
+			shared_data: data Shared_Data;
+			container: system AccessContainer.i;
+		connections
+			first: data access shared_data <-> container.data_access;
+			second: data access shared_data <-> container.data_access;
+	end SameTargetMultipleAccessTop.i;
+
+	system MixedValidInvalidAccessTop
+	end MixedValidInvalidAccessTop;
+
+	system implementation MixedValidInvalidAccessTop.i
+		subcomponents
+			shared_data: data Shared_Data;
+			invalid_provider: system DataProvider;
+			container: system AccessContainer.i;
+		connections
+			valid: data access shared_data <-> container.data_access;
+			invalid: data access invalid_provider.data_access <-> container.data_access;
+	end MixedValidInvalidAccessTop.i;
+
+	system SubprogramAccessContainer
+		features
+			subprogram_access: requires subprogram access Shared_Subprogram;
+	end SubprogramAccessContainer;
+
+	system implementation SubprogramAccessContainer.i
+		subcomponents
+			producer: system Subprogram_User;
+			consumer: system Subprogram_User;
+		connections
+			to_boundary: subprogram access producer.subprogram_access -> subprogram_access;
+			from_boundary: subprogram access subprogram_access -> consumer.subprogram_access;
+		flows
+			access_path: end to end flow producer.start -> to_boundary ->
+				subprogram_access -> from_boundary -> consumer.finish;
+	end SubprogramAccessContainer.i;
+
+	system MultipleSubprogramAccessTop
+	end MultipleSubprogramAccessTop;
+
+	system implementation MultipleSubprogramAccessTop.i
+		subcomponents
+			first_subprogram: subprogram Shared_Subprogram;
+			second_subprogram: subprogram Shared_Subprogram;
+			container: system SubprogramAccessContainer.i;
+		connections
+			first: subprogram access first_subprogram <-> container.subprogram_access;
+			second: subprogram access second_subprogram <-> container.subprogram_access;
+	end MultipleSubprogramAccessTop.i;
+
+end E2E_Access_Flows;

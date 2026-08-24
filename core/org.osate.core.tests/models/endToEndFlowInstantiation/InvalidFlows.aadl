@@ -1,0 +1,121 @@
+package E2E_Invalid_Flows
+public
+
+	system Endpoint
+		features
+			input: in data port;
+			output: out data port;
+		flows
+			fsrc: flow source output;
+			fsnk: flow sink input;
+			fpath: flow path input -> output;
+	end Endpoint;
+
+	system Choice extends Endpoint
+	end Choice;
+
+	system implementation Choice.two_paths
+		subcomponents
+			upper: system Endpoint;
+			lower: system Endpoint;
+		connections
+			to_upper: port input -> upper.input;
+			from_upper: port upper.output -> output;
+			to_lower: port input -> lower.input;
+			from_lower: port lower.output -> output;
+		flows
+			fpath: flow path input -> to_upper -> upper.fpath -> from_upper -> output;
+			fpath: flow path input -> to_lower -> lower.fpath -> from_lower -> output;
+	end Choice.two_paths;
+
+	system BranchFailureTop
+	end BranchFailureTop;
+
+	system implementation BranchFailureTop.i
+		subcomponents
+			producer: system Endpoint;
+			choice: system Choice.two_paths;
+			consumer: system Endpoint;
+		connections
+			enter: port producer.output -> choice.input;
+			leave: port choice.output -> consumer.input;
+		flows
+			invalid: end to end flow producer.fsrc -> enter -> choice -> leave -> consumer.fsnk;
+			valid: end to end flow producer.fsrc -> enter -> choice.fpath -> leave -> consumer.fsnk;
+	end BranchFailureTop.i;
+
+	system Composite
+		features
+			input: in data port;
+			output: out data port;
+		flows
+			fpath: flow path input -> output;
+	end Composite;
+
+	system implementation Composite.no_flow_implementation
+		subcomponents
+			inner: system Endpoint;
+	end Composite.no_flow_implementation;
+
+	system MissingImplementationTop
+	end MissingImplementationTop;
+
+	system implementation MissingImplementationTop.i
+		subcomponents
+			producer: system Endpoint;
+			composite: system Composite.no_flow_implementation;
+			consumer: system Endpoint;
+		connections
+			enter: port producer.output -> composite.input;
+			leave: port composite.output -> consumer.input;
+		flows
+			missing: end to end flow producer.fsrc -> enter ->
+				composite.fpath -> leave -> consumer.fsnk;
+	end MissingImplementationTop.i;
+
+	system CycleTop
+	end CycleTop;
+
+	system implementation CycleTop.i
+		subcomponents
+			node: system Endpoint;
+		connections
+			loop: port node.output -> node.input;
+		flows
+			first: end to end flow node.fpath -> loop -> second;
+			second: end to end flow node.fpath -> loop -> first;
+			dependent: end to end flow first -> loop -> node.fpath;
+	end CycleTop.i;
+
+	system NestedCompatibilityTop
+	end NestedCompatibilityTop;
+
+	system DualInputPath
+		features
+			parent_input: in data port;
+			nested_input: in data port;
+			output: out data port;
+		flows
+			parent_path: flow path parent_input -> output;
+			nested_path: flow path nested_input -> output;
+	end DualInputPath;
+
+	system implementation NestedCompatibilityTop.i
+		subcomponents
+			parent_producer: system Endpoint;
+			nested_producer: system Endpoint;
+			middle: system DualInputPath;
+			right: system Endpoint;
+			consumer: system Endpoint;
+		connections
+			parent_enter: port parent_producer.output -> middle.parent_input;
+			nested_enter: port nested_producer.output -> middle.nested_input;
+			cross: port middle.output -> right.input;
+			leave: port right.output -> consumer.input;
+		flows
+			nested: end to end flow middle.nested_path -> cross -> right.fpath;
+			parent: end to end flow parent_producer.fsrc -> parent_enter ->
+				nested -> leave -> consumer.fsnk;
+	end NestedCompatibilityTop.i;
+
+end E2E_Invalid_Flows;

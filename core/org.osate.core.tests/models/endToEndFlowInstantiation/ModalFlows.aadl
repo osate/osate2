@@ -1,0 +1,140 @@
+package E2E_Modal_Flows
+public
+
+	system Producer
+		features
+			output: out data port;
+		flows
+			one: flow source output in modes (one_mode);
+			two: flow source output in modes (two_mode);
+		modes
+			one_mode: initial mode;
+			two_mode: mode;
+	end Producer;
+
+	system Consumer
+		features
+			input: in data port;
+		flows
+			one: flow sink input in modes (one_mode);
+			two: flow sink input in modes (two_mode);
+		modes
+			one_mode: initial mode;
+			two_mode: mode;
+	end Consumer;
+
+	system ModalTop
+	end ModalTop;
+
+	system implementation ModalTop.i
+		subcomponents
+			producer: system Producer;
+			consumer: system Consumer;
+		connections
+			link: port producer.output -> consumer.input;
+		flows
+			one_one: end to end flow producer.one -> link -> consumer.one;
+			one_two: end to end flow producer.one -> link -> consumer.two;
+			two_one: end to end flow producer.two -> link -> consumer.one;
+			two_two: end to end flow producer.two -> link -> consumer.two;
+	end ModalTop.i;
+
+	system Endpoint
+		features
+			input: in data port;
+			output: out data port;
+		flows
+			fsrc: flow source output;
+			fsnk: flow sink input;
+			fpath: flow path input -> output;
+	end Endpoint;
+
+	system NestedModalTop
+		modes
+			active: initial mode;
+			standby: mode;
+	end NestedModalTop;
+
+	system implementation NestedModalTop.i
+		subcomponents
+			producer: system Endpoint;
+			middle: system Endpoint;
+			right: system Endpoint;
+			consumer: system Endpoint;
+		connections
+			enter: port producer.output -> middle.input in modes (active);
+			cross: port middle.output -> right.input in modes (active);
+			leave: port right.output -> consumer.input in modes (active);
+		flows
+			nested: end to end flow middle.fpath -> cross -> right.fpath in modes (active);
+			parent: end to end flow producer.fsrc -> enter -> nested -> leave -> consumer.fsnk in modes (active);
+	end NestedModalTop.i;
+
+	system ModalRoute
+		features
+			input: in data port;
+			output: out data port;
+		flows
+			fpath: flow path input -> output;
+		modes
+			upper_mode: initial mode;
+			lower_mode: mode;
+	end ModalRoute;
+
+	system implementation ModalRoute.i
+		subcomponents
+			upper: system Endpoint;
+			lower: system Endpoint;
+		connections
+			to_upper: port input -> upper.input;
+			from_upper: port upper.output -> output;
+			to_lower: port input -> lower.input;
+			from_lower: port lower.output -> output;
+		flows
+			fpath: flow path input -> to_upper -> upper.fpath -> from_upper -> output in modes (upper_mode);
+			fpath: flow path input -> to_lower -> lower.fpath -> from_lower -> output in modes (lower_mode);
+	end ModalRoute.i;
+
+	system FlowImplementationModeTop
+	end FlowImplementationModeTop;
+
+	system implementation FlowImplementationModeTop.i
+		subcomponents
+			producer: system Endpoint;
+			route: system ModalRoute.i;
+			consumer: system Endpoint;
+		connections
+			enter: port producer.output -> route.input;
+			leave: port route.output -> consumer.input;
+		flows
+			modal_implementation: end to end flow producer.fsrc ->
+				enter -> route.fpath -> leave -> consumer.fsnk;
+	end FlowImplementationModeTop.i;
+
+	system ImplicitFlowContainer
+	end ImplicitFlowContainer;
+
+	system implementation ImplicitFlowContainer.i
+		subcomponents
+			producer: system Endpoint;
+			middle: system Endpoint;
+			consumer: system Endpoint;
+		connections
+			first: port producer.output -> middle.input;
+			second: port middle.output -> consumer.input;
+		flows
+			implicit: end to end flow producer -> first -> middle -> second -> consumer;
+	end ImplicitFlowContainer.i;
+
+	system InheritedModeTop
+		modes
+			active: initial mode;
+			standby: mode;
+	end InheritedModeTop;
+
+	system implementation InheritedModeTop.i
+		subcomponents
+			container: system ImplicitFlowContainer.i in modes (active);
+	end InheritedModeTop.i;
+
+end E2E_Modal_Flows;
