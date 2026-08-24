@@ -1,0 +1,82 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), covering referenced classifier roots.
+--
+-- A feature whose classifier resolves to a component classifier makes instantiation create
+-- that classifier as a further root beside the system instance. Every model whose ports
+-- have a data classifier has such a root, and since the Plan 1 pipeline change those roots
+-- go through the same phases as the system instance, so the characterization harness has to
+-- see them: it snapshots every root of the instance resource.
+--
+-- A referenced root with connections inside it is deliberately not here. Instantiation
+-- crashes on that shape, and it did in 2.18.0 as well, so it was excluded from
+-- characterization on 2026-08-18 and is follow-on work for issue #3037.
+package ReferencedClassifiers
+public
+	data Element
+	end Element;
+
+	subprogram Reader
+		features
+			datum: requires data access Element;
+	end Reader;
+
+	-- The data classifier the ports below are typed with. It has subcomponents and a feature
+	-- of its own, both of which its root has to carry, and no connections.
+	data Payload
+		features
+			read: provides data access Element;
+	end Payload;
+
+	data implementation Payload.i
+		subcomponents
+			part: data Element;
+			reader: subprogram Reader;
+	end Payload.i;
+
+	thread Producer
+		features
+			outp: out data port Payload.i;
+	end Producer;
+
+	thread Consumer
+		features
+			inp: in data port Payload.i;
+	end Consumer;
+
+	process Feeder
+		features
+			outp: out data port Payload.i;
+	end Feeder;
+
+	process implementation Feeder.i
+		subcomponents
+			worker: thread Producer;
+		connections
+			up: port worker.outp -> outp;
+	end Feeder.i;
+
+	process Drain
+		features
+			inp: in data port Payload.i;
+	end Drain;
+
+	process implementation Drain.i
+		subcomponents
+			worker: thread Consumer;
+		connections
+			down: port inp -> worker.inp;
+	end Drain.i;
+
+	system Top
+	end Top;
+
+	-- A complete connection whose ports carry a data classifier with internals, so the
+	-- instance resource has more than one root and the comparison covers all of them
+	system implementation Top.referenced
+		subcomponents
+			feeder: process Feeder.i;
+			drain: process Drain.i;
+		connections
+			across: port feeder.outp -> drain.inp;
+	end Top.referenced;
+end ReferencedClassifiers;

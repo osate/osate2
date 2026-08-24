@@ -92,6 +92,9 @@ public class OsateGeTestUtil {
 		// Don't do anything if diagram is active
 		if (!isDiagramEditorActive(diagram)) {
 			doubleClickInAadlNavigator(diagram.pathSegments.toArray(new String[diagram.pathSegments.size()]));
+			waitUntil(() -> isDiagramEditorOpen(diagram),
+					"Editor for diagram path segments '" + diagram + "' did not open.");
+			activateDiagramEditor(diagram);
 			waitForDiagramActive(diagram);
 		}
 	}

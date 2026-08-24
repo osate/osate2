@@ -66,8 +66,6 @@ class Issue643Test {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(system, errorManager)
 		assertEquals(numFlows, instance.endToEndFlows.size)
-		for (var i = 0; i < numFlows; i++) {
-			assertEquals(flowLength, instance.endToEndFlows.get(i).flowElements.size)
-		}
+		instance.endToEndFlows.forEach[assertEquals(flowLength, flowElements.size)]
 	}
 }

@@ -37,6 +37,7 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.*
+import static extension org.osate.core.tests.instantiation.InstanceLookup.*
 import org.osate.aadl2.IntegerLiteral
 import java.text.MessageFormat
 
@@ -531,8 +532,8 @@ class Issue1447Test {
 		assertEquals("whole_i_Instance", instance.name)
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
-		// Find the semantic connection
-		val sc = instance.connectionInstances.get(0)
+		// Find the semantic connection, which is the only one
+		val sc = instance.onlyConnection
 		
 		assertEquals(1, messages.size)
 		messages.get(0) => [
@@ -561,8 +562,8 @@ class Issue1447Test {
 		assertEquals("whole_i_Instance", instance.name)
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
-		// Find the semantic connection
-		val sc = instance.connectionInstances.get(0)
+		// Find the semantic connection, which is the only one
+		val sc = instance.onlyConnection
 		
 		assertEquals(1, messages.size)
 		messages.get(0) => [
@@ -591,8 +592,8 @@ class Issue1447Test {
 		assertEquals("whole_i_Instance", instance.name)
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		
-		// Find the semantic connection
-		val sc = instance.connectionInstances.get(0)
+		// Find the semantic connection, which is the only one
+		val sc = instance.onlyConnection
 		
 		assertEquals(1, messages.size)
 		messages.get(0) => [

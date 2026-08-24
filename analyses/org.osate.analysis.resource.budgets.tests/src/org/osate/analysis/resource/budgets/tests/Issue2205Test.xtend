@@ -569,12 +569,15 @@ class Issue2205Test extends XtextTest {
 			val broadcast3Result = broadcastBusResult.subResults.get(2)
 			checkValues(broadcast3Result, #[24.0, 8.0], #[warning("Connection sub3c.out1 -> sub4a.in3 sharing broadcast source top_i_Instance.sub3c.out1 has budget 8.0 KB/s; using maximum"), warning("Connection sub3c.out1 -> sub4b.in3 sharing broadcast source top_i_Instance.sub3c.out1 has budget 16.0 KB/s; using maximum"), warning("Connection sub3c.out1 -> sub4c.in3 sharing broadcast source top_i_Instance.sub3c.out1 has budget 24.0 KB/s; using maximum")])
 			{
-				val c1Result = broadcast3Result.subResults.get(0)
-				checkValues(c1Result, #[8.0, 8.0], #[])
-				val c2Result = broadcast3Result.subResults.get(1)
-				checkValues(c2Result, #[16.0, 8.0], #[])
-				val c3Result = broadcast3Result.subResults.get(2)
-				checkValues(c3Result, #[24.0, 8.0], #[])
+				/*
+				 * Compared as a set. Each sub-result is one connection of the broadcast group, so
+				 * their order follows the order of the container's connection instances, and issue
+				 * #3037 made that a deterministic across-first order instead of source-first
+				 * insertion order. The three connections and their budgets are unchanged.
+				 */
+				assertEquals(#[#[8.0, 8.0], #[16.0, 8.0], #[24.0, 8.0]], broadcast3Result.subResults.map [
+					#[ResultUtil.getReal(it, 0), ResultUtil.getReal(it, 1)]
+				].sortBy[get(0)])
 			}
 		}		
 	}
@@ -635,23 +638,23 @@ class Issue2205Test extends XtextTest {
 		return #[DiagnosticType.WARNING, msg]
 	}
 	
-	private static def void checkDiagnostic(Diagnostic d, DiagnosticType type, String msg) {
-		assertEquals(type, d.diagnosticType)
-		assertEquals(msg, d.message)
-	}
-
 	private static def void checkValues(Result result, List<Double> values, List<List<Object>> diagnostics) {
 		for (var i = 0; i < values.size; i++) {
 			val expected = values.get(i)
 			val actual = ResultUtil.getReal(result, i)
 			assertEquals(expected, actual, 0.0)
 		}
-		
-		assertEquals(diagnostics.size, result.diagnostics.size)
-		for (var i = 0; i < diagnostics.size; i++) {
-			val expected = diagnostics.get(i)
-			checkDiagnostic(result.diagnostics.get(i), expected.get(0) as DiagnosticType, expected.get(1) as String)
-		}
+
+		/*
+		 * Diagnostics are compared as a set. A budget diagnostic is reported while iterating a
+		 * component's connection instances, so its position follows the connection collection
+		 * order, and issue #3037 made that a deterministic across-first order instead of
+		 * source-first insertion order. Which member of a broadcast group is named first is
+		 * therefore not a property of the analysis; the reported set is unchanged.
+		 */
+		val expectedDiagnostics = diagnostics.map['''«get(0)»|«get(1)»'''.toString].sort
+		val actualDiagnostics = result.diagnostics.map['''«diagnosticType»|«message»'''.toString].sort
+		assertEquals(expectedDiagnostics, actualDiagnostics)
 	}
 	
 	private static def void checkIntegerValue(Result result, int idx, long expected) {

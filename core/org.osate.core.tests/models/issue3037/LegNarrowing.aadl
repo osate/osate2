@@ -1,0 +1,115 @@
+-- Characterization fixture for the across-first connection traversal enhancement
+-- (issue #3037), for how much of a feature group a leg covers when it descends through a
+-- declaration that names a different level of the group than the leg stands at.
+--
+-- Top.branching has two feature group levels, with both sides routing both members of the
+-- inner group onwards through their own subcomponents. Two source legs and two destination
+-- legs can be joined four ways, and only two of those are semantic connections. Comparing
+-- where each leg attaches to the pivot is not enough here, because all four legs attach at
+-- the same member, "signals", and diverge one level below it. Both strategies produce the
+-- two connections.
+--
+-- Two other rules found on 2026-08-18 are not restated here, because corpus models carry
+-- them: models/issue2780/P.aadl :: S1.i needs both a leg that narrows the far end of a
+-- declaration naming a whole group, and the rule that a source leg finding nothing to
+-- descend into is not always the ultimate source. Issue3037LegNarrowingTest compares it.
+--
+-- A third shape was written for this fixture and removed on 2026-08-18: a pivot naming the
+-- member "signals" of a boundary group, reached from inside the component through a
+-- declaration on the whole group. 2.18.0 created no connection instance for it and reported
+-- nothing, where the current traversal creates the two the model has. That difference is the
+-- one issue #3046 records and allowlist entry 9 of issue #3037 accepts, on the same mechanism
+-- as Issue500Test :: S.i4, and it is pinned there rather than here.
+package LegNarrowing
+public
+	data D
+	end D;
+
+	feature group Signals
+		features
+			first: out data port D;
+			second: out data port D;
+	end Signals;
+
+	-- one member, so that both sides of the pivot attach at the same member and can only
+	-- diverge below it
+	feature group Bundle
+		features
+			signals: feature group Signals;
+	end Bundle;
+
+	system Top
+	end Top;
+
+	abstract Emitter
+		features
+			p: out data port D;
+	end Emitter;
+
+	abstract Collector
+		features
+			p: in data port D;
+	end Collector;
+
+	-- routes both members of the inner group onwards, one per subcomponent
+	abstract Mid
+		features
+			signals: feature group Signals;
+	end Mid;
+
+	abstract implementation Mid.i
+		subcomponents
+			firstSource: abstract Emitter;
+			secondSource: abstract Emitter;
+		connections
+			firstUp: port firstSource.p -> signals.first;
+			secondUp: port secondSource.p -> signals.second;
+	end Mid.i;
+
+	abstract MidIn
+		features
+			signals: feature group inverse of Signals;
+	end MidIn;
+
+	abstract implementation MidIn.i
+		subcomponents
+			firstSink: abstract Collector;
+			secondSink: abstract Collector;
+		connections
+			firstDown: port signals.first -> firstSink.p;
+			secondDown: port signals.second -> secondSink.p;
+	end MidIn.i;
+
+	abstract Sender
+		features
+			bundle: feature group Bundle;
+	end Sender;
+
+	abstract implementation Sender.i
+		subcomponents
+			mid: abstract Mid.i;
+		connections
+			up: feature group mid.signals -> bundle.signals;
+	end Sender.i;
+
+	abstract Receiver
+		features
+			bundle: feature group inverse of Bundle;
+	end Receiver;
+
+	abstract implementation Receiver.i
+		subcomponents
+			mid: abstract MidIn.i;
+		connections
+			down: feature group bundle.signals -> mid.signals;
+	end Receiver.i;
+
+	system implementation Top.branching
+		subcomponents
+			sender: abstract Sender.i;
+			receiver: abstract Receiver.i;
+		connections
+			pivot: feature group sender.bundle -> receiver.bundle;
+	end Top.branching;
+
+end LegNarrowing;

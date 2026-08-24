@@ -26,6 +26,8 @@ package org.osate.core.tests.issues;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -60,17 +62,17 @@ public class Issue3019Test extends XtextTest {
 		var impl = findImplementation(pkg, "Top.i");
 		var connections = InstantiateModel.instantiate(impl).getAllConnectionInstances();
 
-		assertEquals(2, connections.size());
-		assertEquals(List.of(
+		// The two orientations, compared as a set: each chain is ordered, and which of the two
+		// the traversal created first is not part of the model
+		assertEquals(Set.of(List.of(
 				"up|Top_i_Instance.producer_side.leaf_side.leaf.io|Top_i_Instance.producer_side.leaf_side.boundary.alpha|Top_i_Instance.producer_side.leaf_side|false",
 				"nested_up|Top_i_Instance.producer_side.leaf_side.boundary.alpha|Top_i_Instance.producer_side.boundary.source_inner.alpha|Top_i_Instance.producer_side|false",
 				"across|Top_i_Instance.producer_side.boundary.source_inner.alpha|Top_i_Instance.consumer_side.boundary.destination_inner.alpha|Top_i_Instance|false"),
-				describe(connections.get(0)));
-		assertEquals(List.of(
+				List.of(
 				"across|Top_i_Instance.consumer_side.boundary.destination_inner.alpha|Top_i_Instance.producer_side.boundary.source_inner.alpha|Top_i_Instance|true",
 				"nested_up|Top_i_Instance.producer_side.boundary.source_inner.alpha|Top_i_Instance.producer_side.leaf_side.boundary.alpha|Top_i_Instance.producer_side|true",
-				"up|Top_i_Instance.producer_side.leaf_side.boundary.alpha|Top_i_Instance.producer_side.leaf_side.leaf.io|Top_i_Instance.producer_side.leaf_side|true"),
-				describe(connections.get(1)));
+				"up|Top_i_Instance.producer_side.leaf_side.boundary.alpha|Top_i_Instance.producer_side.leaf_side.leaf.io|Top_i_Instance.producer_side.leaf_side|true")),
+				connections.stream().map(Issue3019Test::describe).collect(Collectors.toSet()));
 	}
 
 	@Test

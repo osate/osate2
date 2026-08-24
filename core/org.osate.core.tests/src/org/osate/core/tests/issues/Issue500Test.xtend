@@ -83,9 +83,18 @@ class Issue500Test extends XtextTest {
 						'm.l1.f -> o.m1.l2.f, o.m1.l2.f -> m.l1.f', connections.map[it.name].sort.join(', '))
 				}
 				case 4: {
+					/*
+					 * Allowlist entry 9 of issue #3037, for the defect recorded as issue #3046. The
+					 * pivot names the feature group member ofg.of1, and before that release the end
+					 * resolved to the enclosing group ofg, which cost it the member: mf1 was paired
+					 * with mf2 as well as with mf1, and nothing was created in the o to m direction.
+					 * The whole connection end is now resolved, so these are the two semantic
+					 * connections the model has, each in both directions because every feature here
+					 * is directionless.
+					 */
 					assertEquals(instance.name + ': must have 4 connections', 4, connections.size)
 					assertEquals(instance.name + ': connection names do not match',
-						'm.l1.f -> o.m1.l1.f, m.l1.f -> o.m1.l2.f, m.l2.f -> o.m1.l1.f, m.l2.f -> o.m1.l2.f',
+						'm.l1.f -> o.m1.l1.f, m.l2.f -> o.m1.l2.f, o.m1.l1.f -> m.l1.f, o.m1.l2.f -> m.l2.f',
 						connections.map[it.name].sort.join(', '))
 				}
 				case 5: {

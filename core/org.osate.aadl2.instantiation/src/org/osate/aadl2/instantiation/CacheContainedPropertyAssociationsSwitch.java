@@ -89,6 +89,7 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 	/**
 	 * @param propertyFilter cache only these property definitions, or <code>null</code> to cache all of
 	 *            them
+	 * @since 3.2
 	 */
 	protected CacheContainedPropertyAssociationsSwitch(
 			final HashMap<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,

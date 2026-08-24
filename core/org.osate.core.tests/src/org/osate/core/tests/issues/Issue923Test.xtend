@@ -60,13 +60,15 @@ class Issue923Test {
 		// first connection was already correct, but let's make sure it stays that way
 		val c1_src = instance.componentInstances.get(0).featureInstances.get(0).featureInstances.get(0).featureInstances.get(0)
 		val c1_dst = instance.componentInstances.get(1).featureInstances.get(0).featureInstances.get(0).featureInstances.get(0)
-		assertTrue(instance.connectionInstances.get(0).connectionReferences.get(0).source == c1_src)
-		assertTrue(instance.connectionInstances.get(0).connectionReferences.get(0).destination == c1_dst)
+		assertTrue(instance.connectionInstances.exists [
+			connectionReferences.get(0).source == c1_src && connectionReferences.get(0).destination == c1_dst
+		])
 
 		// second connection was wrong, but that's make sure it stays that way
 		val c2_src = instance.componentInstances.get(0).featureInstances.get(0).featureInstances.get(0).featureInstances.get(0)
 		val c2_dst = instance.componentInstances.get(1).featureInstances.get(1).featureInstances.get(0)
-		assertTrue(instance.connectionInstances.get(1).connectionReferences.get(0).source == c2_src)
-		assertTrue(instance.connectionInstances.get(1).connectionReferences.get(0).destination == c2_dst)
+		assertTrue(instance.connectionInstances.exists [
+			connectionReferences.get(0).source == c2_src && connectionReferences.get(0).destination == c2_dst
+		])
 	}
 }
