@@ -200,11 +200,8 @@ public
 			link: feature group reacher.bundle <-> collector.bundle;
 	end Top.soloReachedInto;
 
-	-- The same with the array. Semantically there are two connections, one per producer, and
-	-- only one is produced: expansion rejects the replication with "Too few indices for
-	-- connection destination" and leaves the un-replicated provisional attached. Reacher.i on
-	-- its own replicates the very same declaration correctly, so what the pivot changes is
-	-- worth finding out. 2.18.0 produced this too, so it is pinned rather than fixed here.
+	-- The same with the array. Semantically there are two connections, one per producer.
+	-- Issue #3048 ensures that structural expansion retains both of them across the pivot.
 	system implementation Top.reachedInto
 		subcomponents
 			reacher: process Reacher.i;

@@ -87,14 +87,22 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 				"consumers[2].bundle.ack --> producers[2].bundle.ack",
 				"producers[1].bundle.signal --> consumers[1].bundle.signal",
 				"producers[2].bundle.signal --> consumers[2].bundle.signal");
-		assertConnections("SourceArray.i", "consumer.bundle.ack -> producers[1].bundle.ack",
-				"producers[1].bundle.signal -> consumer.bundle.signal");
-		assertConnections("Top.sourceArray", "consumer.bundle.ack -> producers[1].bundle.ack",
-				"producers[1].bundle.signal -> consumer.bundle.signal");
-		assertConnections("DestinationArray.i", "consumers[1].bundle.ack -> producer.bundle.ack",
-				"producer.bundle.signal -> consumers[1].bundle.signal");
-		assertConnections("Top.destinationArray", "consumers[1].bundle.ack -> producer.bundle.ack",
-				"producer.bundle.signal -> consumers[1].bundle.signal");
+		assertConnections("SourceArray.i", "consumer.bundle.ack --> producers[1].bundle.ack",
+				"consumer.bundle.ack --> producers[2].bundle.ack",
+				"producers[1].bundle.signal --> consumer.bundle.signal",
+				"producers[2].bundle.signal --> consumer.bundle.signal");
+		assertConnections("Top.sourceArray", "consumer.bundle.ack --> producers[1].bundle.ack",
+				"consumer.bundle.ack --> producers[2].bundle.ack",
+				"producers[1].bundle.signal --> consumer.bundle.signal",
+				"producers[2].bundle.signal --> consumer.bundle.signal");
+		assertConnections("DestinationArray.i", "consumers[1].bundle.ack --> producer.bundle.ack",
+				"consumers[2].bundle.ack --> producer.bundle.ack",
+				"producer.bundle.signal --> consumers[1].bundle.signal",
+				"producer.bundle.signal --> consumers[2].bundle.signal");
+		assertConnections("Top.destinationArray", "consumers[1].bundle.ack --> producer.bundle.ack",
+				"consumers[2].bundle.ack --> producer.bundle.ack",
+				"producer.bundle.signal --> consumers[1].bundle.signal",
+				"producer.bundle.signal --> consumers[2].bundle.signal");
 	}
 
 	/** Whole nested feature groups between arrays, so pairing descends before it reaches a port. */
@@ -150,46 +158,24 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 				InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager())));
 	}
 
-	/**
-	 * The same pivot fed from an array, where all but the first element is lost.
-	 *
-	 * <p>
-	 * Two producers feed the boundary group member, so there are two connection instances
-	 * across the pivot. One is instantiated. Structural expansion rejects the replication with
-	 * "Too few indices for connection destination" and leaves the un-replicated provisional
-	 * attached, which is why the surviving name has a single arrow rather than the double
-	 * arrow of a replica. {@code Reacher.i} replicates the very same declaration correctly
-	 * when the connection ends at the boundary instead of crossing the pivot, so it is the
-	 * pivot that changes the outcome.
-	 * </p>
-	 *
-	 * <p>
-	 * This is what 2.18.0 produced too, so it is structural expansion's defect and not the
-	 * traversal's. It is pinned here so that fixing it shows up as a failure of this test
-	 * rather than as an unexplained change; the fix itself is separate work.
-	 * </p>
-	 */
+	/** The same pivot fed from an array must retain every source element. */
 	@Test
-	public void anArrayReachingIntoAMemberAcrossAPivotLosesAllButTheFirstElement() throws Exception {
+	public void anArrayReachingIntoAMemberAcrossAPivotKeepsEveryElement() throws Exception {
 		var run = isolated.run(MODEL, "Top.reachedInto");
 		var actual = InstanceSnapshot.of(run.instance(), run.errorManager());
 
-		assertEquals("producers[2] is missing, and the survivor is the provisional connection",
+		assertEquals("one materialized connection per producer",
 				List.of("collector.consumer.bundle.ack -> reacher.bundle.ack",
-						"reacher.producers[1].outp -> collector.consumer.bundle.signal"),
+						"reacher.producers[1].outp --> collector.consumer.bundle.signal",
+						"reacher.producers[2].outp --> collector.consumer.bundle.signal"),
 				InstanceCharacterization.names(isolated, MODEL, "Top.reachedInto"));
-
-		String expansionError = "Error | Too few indices for connection destination for reacher.producers[1].outp"
-				+ " -> collector.consumer.bundle.signal"
-				+ " | at Top_reachedInto_Instance.reacher.producers[1].outp -> collector.consumer.bundle.signal"
-				+ "|ConnectionInstance | in ArraysAndFeatureGroups_Top_reachedInto_Instance.aaxl2";
 		/*
-		 * Allowlist entry 5 again: before issue #3037 "No connection declaration from feature bundle
-		 * of component reacher to subcomponents. Connection instance ends at reacher" accompanied the
-		 * expansion error, which is the report that actually describes the model.
+		 * Issue #3049 separately covers the replicated references. This assertion is limited to
+		 * issue #3048's expansion diagnostic so the two fixes remain independent.
 		 */
-		assertEquals("the expansion error is what remains", List.of(expansionError),
-				InstanceReport.diagnosticSet(actual));
+		var diagnostics = InstanceReport.diagnosticSet(actual);
+		assertEquals("structural expansion diagnostics: " + diagnostics, false,
+				diagnostics.stream().anyMatch(message -> message.contains("Too few indices")));
 	}
 
 	/** Arrays, nested inverse feature groups, and a structural pattern at once. */

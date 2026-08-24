@@ -21,64 +21,61 @@
 -- of this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses only
 -- apply to the Third Party Software and not any other portion of this program or this program as a whole.
 -------------------------------------------------------------------------------
--- A connection instance inside an array element, whose source path passes through a level that is not
--- an array on its way to an indexed level. Replication into the sibling array element must preserve the
--- corresponding ultimate source instead of stopping at the intermediate boundary feature.
-package ReplicationProbe
+-- Two array elements feed a boundary feature group member. The semantic connection crosses
+-- the system-level feature group connection and descends into the collector, so structural
+-- expansion must retain both source elements while mapping them to the one destination.
+package Issue3048
 public
 	data D
 	end D;
 
-	device Producer
+	feature group Bundle
 		features
-			out_p: out event data port D;
+			signal: out event data port D;
+	end Bundle;
+
+	thread Producer
+		features
+			outp: out event data port D;
 	end Producer;
 
-	device Consumer
+	thread Consumer
 		features
-			in_p: in event data port D;
+			inp: in event data port D;
 	end Consumer;
 
-	system Mid
+	process Feeder
 		features
-			out_p: out event data port D;
-	end Mid;
+			bundle: feature group Bundle;
+	end Feeder;
 
-	system implementation Mid.i
+	process implementation Feeder.i
 		subcomponents
-			inner: device Producer [2];
+			producers: thread Producer[2];
 		connections
-			c: port inner.out_p -> out_p;
-	end Mid.i;
+			c: port producers.outp -> bundle.signal;
+	end Feeder.i;
 
-	system Arr
+	process Collector
 		features
-			out_p: out event data port D;
-	end Arr;
+			bundle: feature group inverse of Bundle;
+	end Collector;
 
-	system implementation Arr.i
+	process implementation Collector.i
 		subcomponents
-			mid: system Mid.i;
+			consumer: thread Consumer;
 		connections
-			c: port mid.out_p -> out_p;
-	end Arr.i;
-
-	system Holder
-	end Holder;
-
-	system implementation Holder.i
-		subcomponents
-			arr: system Arr.i [2];
-			consumer: device Consumer;
-		connections
-			c: port arr.out_p -> consumer.in_p;
-	end Holder.i;
+			c: port bundle.signal -> consumer.inp;
+	end Collector.i;
 
 	system Top
 	end Top;
 
 	system implementation Top.i
 		subcomponents
-			holder: system Holder.i [2];
+			feeder: process Feeder.i;
+			collector: process Collector.i;
+		connections
+			link: feature group feeder.bundle <-> collector.bundle;
 	end Top.i;
-end ReplicationProbe;
+end Issue3048;
