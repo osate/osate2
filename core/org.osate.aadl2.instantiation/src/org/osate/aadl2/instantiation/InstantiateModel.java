@@ -1924,6 +1924,7 @@ public class InstantiateModel {
 		}
 		newConn.setSource((ConnectionInstanceEnd) src);
 		newConn.setDestination((ConnectionInstanceEnd) dst);
+		alignConnectionReferenceEndpoints(newConn);
 		newConn.setName(sb.toString());
 		container.getConnectionInstances().add(newConn);
 
@@ -1983,9 +1984,25 @@ public class InstantiateModel {
 		relocateConnectionReferenceContexts(newConn, conni.getContainingComponentInstance(), targetComponent);
 		newConn.setSource((ConnectionInstanceEnd) src);
 		newConn.setDestination((ConnectionInstanceEnd) dst);
+		alignConnectionReferenceEndpoints(newConn);
 		newConn.setName(sb.toString());
 		targetComponent.getConnectionInstances().add(newConn);
 
+	}
+
+	/**
+	 * Keep the ends of a copied connection's reference chain aligned with the ends that were resolved
+	 * for the copy. Re-resolving from a declaration that names a feature group can otherwise leave the
+	 * reference at the group, and a failed nested lookup can leave it in the original array element.
+	 *
+	 * @param connection the copied connection whose source and destination have been resolved
+	 */
+	private void alignConnectionReferenceEndpoints(ConnectionInstance connection) {
+		List<ConnectionReference> references = connection.getConnectionReferences();
+		if (!references.isEmpty()) {
+			references.get(0).setSource(connection.getSource());
+			references.get(references.size() - 1).setDestination(connection.getDestination());
+		}
 	}
 
 	/**

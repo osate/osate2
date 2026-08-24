@@ -148,12 +148,9 @@ public final class InstanceIntegrity {
 	 *
 	 * <p>
 	 * A reference may name a feature group where the connection names the member of it that
-	 * the connection actually connects, so one end nested in the other is the same point at
-	 * a different granularity. That is not an across-first choice: structural expansion
-	 * re-resolves a replicated connection's reference endpoints from the declaration, which
-	 * names the group, while the connection keeps the member. Both strategies produce it,
-	 * identically, for every connection replicated across a component array through a
-	 * feature group.
+	 * the connection actually connects, so one end nested in the other is the same point at a
+	 * different granularity. This is valid for a reference to the original declaration; copied
+	 * connections align the outer reference endpoints with their resolved leaf endpoints.
 	 * </p>
 	 */
 	private static boolean samePoint(ConnectionInstanceEnd one, ConnectionInstanceEnd other) {
