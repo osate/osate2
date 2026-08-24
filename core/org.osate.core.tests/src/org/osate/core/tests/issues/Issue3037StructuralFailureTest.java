@@ -113,7 +113,7 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 				"Error | Source indices [1] do not match source dimension 2",
 				"Error | Source indices [2] do not match source dimension 2",
 				"Warning | There is already another connection between the same endpoints",
-				"Warning | Too few indices for connection end, using fist array element"),
+				"Warning | Too few indices for connection end, using first array element"),
 				messages("TooFewIndices.i"));
 	}
 
