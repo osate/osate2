@@ -108,11 +108,11 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	/** Whole nested feature groups between arrays, so pairing descends before it reaches a port. */
 	@Test
 	public void nestedFeatureGroupsBetweenArraysAgree() throws Exception {
-		assertConnections("NestedGroupArrays.i", 2, "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
+		assertConnections("NestedGroupArrays.i", "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
 				"consumers[2].nest.inner.ack --> producers[2].nest.inner.ack",
 				"producers[1].nest.inner.signal --> consumers[1].nest.inner.signal",
 				"producers[2].nest.inner.signal --> consumers[2].nest.inner.signal");
-		assertConnections("Top.nestedGroupArrays", 2, "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
+		assertConnections("Top.nestedGroupArrays", "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
 				"consumers[2].nest.inner.ack --> producers[2].nest.inner.ack",
 				"producers[1].nest.inner.signal --> consumers[1].nest.inner.signal",
 				"producers[2].nest.inner.signal --> consumers[2].nest.inner.signal");
@@ -181,7 +181,7 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 	/** Arrays, nested inverse feature groups, and a structural pattern at once. */
 	@Test
 	public void arraysNestedGroupsAndAPatternAgree() throws Exception {
-		assertConnections("Patterned.i", 4, "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
+		assertConnections("Patterned.i", "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
 				"consumers[1].nest.inner.ack --> producers[2].nest.inner.ack",
 				"consumers[2].nest.inner.ack --> producers[1].nest.inner.ack",
 				"consumers[2].nest.inner.ack --> producers[2].nest.inner.ack",
@@ -189,7 +189,7 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 				"producers[1].nest.inner.signal --> consumers[2].nest.inner.signal",
 				"producers[2].nest.inner.signal --> consumers[1].nest.inner.signal",
 				"producers[2].nest.inner.signal --> consumers[2].nest.inner.signal");
-		assertConnections("Top.patterned", 4, "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
+		assertConnections("Top.patterned", "consumers[1].nest.inner.ack --> producers[1].nest.inner.ack",
 				"consumers[1].nest.inner.ack --> producers[2].nest.inner.ack",
 				"consumers[2].nest.inner.ack --> producers[1].nest.inner.ack",
 				"consumers[2].nest.inner.ack --> producers[2].nest.inner.ack",
@@ -201,11 +201,6 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 
 	private void assertConnections(String implementation, String... expected) throws Exception {
 		InstanceCharacterization.assertConnections(isolated, MODEL, implementation, expected);
-	}
-
-	private void assertConnections(String implementation, int staleReferences, String... expected) throws Exception {
-		InstanceCharacterization.assertConnectionsWithStaleArrayReferences(isolated, MODEL, implementation,
-				staleReferences, expected);
 	}
 
 }

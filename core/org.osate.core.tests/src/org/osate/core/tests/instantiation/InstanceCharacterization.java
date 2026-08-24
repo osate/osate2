@@ -67,34 +67,6 @@ public final class InstanceCharacterization {
 		return run;
 	}
 
-	/**
-	 * The same, for an implementation whose array replicas carry the stale reference chains
-	 * that structural expansion leaves behind.
-	 *
-	 * <p>
-	 * Expansion re-resolves a replicated connection's reference endpoints from the
-	 * declaration, so for a nested feature group the chain names array element 1 whatever
-	 * element the replica belongs to. Both traversals produced that identically, which is why
-	 * it is recorded here rather than repaired: it is structural expansion's to answer, and it
-	 * is item 3 of the follow-up work issue #3037 hands over.
-	 * </p>
-	 *
-	 * @param staleReferences how many replicas have a source that does not match their first
-	 *            reference
-	 */
-	public static InstanceRun assertConnectionsWithStaleArrayReferences(IsolatedInstantiation isolated, String model,
-			String implementation, int staleReferences, String... expected) throws Exception {
-		var run = isolated.run(model, implementation);
-		assertEquals(implementation + " connections", List.of(expected), names(run));
-		var violations = InstanceIntegrity.check(run.instance());
-		assertEquals(implementation + " integrity " + violations, staleReferences, violations.size());
-		for (var violation : violations) {
-			assertEquals(implementation + " unexpected violation: " + violation, true,
-					violation.contains("does not match first reference source"));
-		}
-		return run;
-	}
-
 	/** The connection instance names of the whole model, sorted. */
 	public static List<String> names(InstanceRun run) {
 		return run.instance()
