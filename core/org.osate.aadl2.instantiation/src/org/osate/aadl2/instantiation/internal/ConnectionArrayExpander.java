@@ -27,6 +27,7 @@ import static org.osate.aadl2.modelsupport.util.AadlUtil.getElementCount;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.LongBinaryOperator;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
@@ -147,8 +148,7 @@ public final class ConnectionArrayExpander {
 				}
 				// only a connection with an array element at one of its ends is expanded
 				if (srcPath.throughArrayElement() || dstPath.throughArrayElement()) {
-					if (interpretConnectionPatterns(conni, false, null, 0, srcPath.sizes(), 0, dstPath.sizes(), 0,
-							new ArrayList<>(), new ArrayList<>())) {
+					if (new PatternExpansion(conni, false, null, srcPath.sizes(), dstPath.sizes()).expand()) {
 						toRemove.add(conni);
 					}
 				}
@@ -171,8 +171,8 @@ public final class ConnectionArrayExpander {
 						errManager.warning(conni,
 								"Connection pattern specified for connection that does not connect array elements.");
 					} else {
-						if (interpretConnectionPatterns(conni, isOpposite, pattern, 0, srcPath.sizes(), 0,
-								dstPath.sizes(), 0, new ArrayList<>(), new ArrayList<>())) {
+						if (new PatternExpansion(conni, isOpposite, pattern, srcPath.sizes(), dstPath.sizes())
+								.expand()) {
 							toRemove.add(conni);
 						}
 					}
@@ -272,195 +272,288 @@ public final class ConnectionArrayExpander {
 		return path + "." + localname;
 	}
 
-	private boolean interpretConnectionPatterns(ConnectionInstance conni, boolean isOpposite,
-			List<PropertyExpression> patterns, int offset, List<Integer> srcSizes, int srcOffset,
-			List<Integer> dstSizes, int dstOffset, List<Long> srcIndices, List<Long> dstIndices) {
-		boolean result = true;
-		if (patterns != null ? offset >= patterns.size()
-				: srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
-			createNewConnection(conni, srcIndices, dstIndices);
-			return result;
-		}
-		String patternName = "One_to_One";
-		if (patterns == null) {
-			// A default pattern pairs dimensions one-to-one. If only one end has dimensions,
-			// every element on that end maps to the one scalar end.
-			if (srcSizes.isEmpty()) {
-				patternName = isOpposite ? "All_to_One" : "One_To_All";
-			} else if (dstSizes.isEmpty()) {
-				patternName = isOpposite ? "One_To_All" : "All_to_One";
-			}
-		} else {
-			NamedValue nv = (NamedValue) patterns.get(offset);
-			EnumerationLiteral pattern = (EnumerationLiteral) nv.getNamedValue();
-			patternName = pattern.getName();
+	/**
+	 * The values of the standard {@code Connection_Pattern} property, which are also the patterns the
+	 * default expansion of an array connection uses. The name of a literal is the name of the constant,
+	 * up to case, which is how {@link #parse(String)} looks a pattern of the model up.
+	 * <p>
+	 * Eleven of the patterns pair up the elements of a source dimension and a destination dimension of
+	 * the same size, and differ only in which source elements take part and which destination element
+	 * each of them is paired with. Those four numbers are the state of such a pattern: the first source
+	 * index, how many elements at the end of the dimension are left out, the step from one source index
+	 * to the next, and the destination index of a source index. The other three patterns have a shape of
+	 * their own and carry none of it.
+	 */
+	private enum ConnectionPattern {
+		/** Every element of the source dimension to every element of the destination dimension. */
+		ALL_TO_ALL,
+
+		/** The one element of the scalar declared source to every element of the destination dimension. */
+		ONE_TO_ALL,
+
+		/** Every element of the source dimension to the one element of the scalar declared destination. */
+		ALL_TO_ONE,
+
+		ONE_TO_ONE(1, 0, 1, (i, size) -> i),
+		NEXT(1, 1, 1, (i, size) -> i + 1),
+		PREVIOUS(2, 0, 1, (i, size) -> i - 1),
+		CYCLIC_NEXT(1, 0, 1, (i, size) -> i == size ? 1 : i + 1),
+		CYCLIC_PREVIOUS(1, 0, 1, (i, size) -> i == 1 ? size : i - 1),
+		NEXT_NEXT(1, 2, 1, (i, size) -> i + 2),
+		PREVIOUS_PREVIOUS(3, 0, 1, (i, size) -> i - 2),
+		/*
+		 * The two cyclic double step patterns wrap around by two elements but advance by one everywhere
+		 * else, where Next_Next and Previous_Previous advance by two. That is the arithmetic these two
+		 * have always had, and issue #3066 is a refactoring with no intended change in behavior, so it is
+		 * carried over as it stands rather than corrected here.
+		 */
+		CYCLIC_NEXT_NEXT(1, 0, 1, (i, size) -> i == size ? 2 : (i == size - 1 ? 1 : i + 1)),
+		CYCLIC_PREVIOUS_PREVIOUS(1, 0, 1, (i, size) -> i == 2 ? size : (i == 1 ? size - 1 : i - 1)),
+		EVEN_TO_EVEN(2, 0, 2, (i, size) -> i),
+		ODD_TO_ODD(1, 0, 2, (i, size) -> i);
+
+		/** The first index of the source dimension that takes part. */
+		private final long firstIndex;
+
+		/** How many elements at the end of the source dimension do not take part. */
+		private final int lastIndexOffset;
+
+		/** The distance from one participating source index to the next. */
+		private final long step;
+
+		/** The destination index a source index is paired with, given the size of the dimension. */
+		private final LongBinaryOperator destinationIndex;
+
+		ConnectionPattern() {
+			this(0, 0, 0, null);
 		}
 
-		if (!isOpposite && !patternName.equalsIgnoreCase("One_To_All") && (srcOffset >= srcSizes.size())) {
-			errManager.error(conni, "Too few indices for connection source for " + conni.getFullName());
-			return false;
+		ConnectionPattern(long firstIndex, int lastIndexOffset, long step, LongBinaryOperator destinationIndex) {
+			this.firstIndex = firstIndex;
+			this.lastIndexOffset = lastIndexOffset;
+			this.step = step;
+			this.destinationIndex = destinationIndex;
 		}
-		if (!isOpposite && !patternName.equalsIgnoreCase("All_To_One") && (dstOffset >= dstSizes.size())) {
-			errManager.error(conni, "Too few indices for connection destination for " + conni.getFullName());
-			return false;
+
+		/**
+		 * The pattern of a {@code Connection_Pattern} enumeration literal.
+		 *
+		 * @param name the name of the literal
+		 * @return the pattern, or {@code null} if this is not a pattern the expansion supports
+		 */
+		static ConnectionPattern parse(String name) {
+			for (ConnectionPattern pattern : values()) {
+				if (pattern.name().equalsIgnoreCase(name)) {
+					return pattern;
+				}
+			}
+			return null;
 		}
-		if (isOpposite && !patternName.equalsIgnoreCase("One_To_All") && (dstOffset >= dstSizes.size())) {
-			errManager.error(conni, "Too few indices for connection source for " + conni.getFullName());
-			return false;
+	}
+
+	/**
+	 * One expansion of a connection instance into the connection instances that its array dimensions,
+	 * its {@code Connection_Pattern} or the default pattern call for. The expansion walks the dimensions
+	 * of the two ends outside in, one pattern per dimension, and creates a connection instance for every
+	 * combination of indices the patterns pair up.
+	 * <p>
+	 * The sizes and the patterns do not change; the three cursors and the two index lists are where the
+	 * expansion is. A cursor is advanced by {@link #expandNextDimension(int, int)} only, which also
+	 * restores it, so every level of the recursion sees the cursors and indices it established itself.
+	 * <p>
+	 * Patterns are read in the declarative frame: {@code isOpposite} means that the declared source of
+	 * the connection is the destination of the connection instance, so a pattern that keeps the declared
+	 * source fixed varies the index of the connection instance's destination.
+	 */
+	private final class PatternExpansion {
+		private final ConnectionInstance conni;
+		private final boolean isOpposite;
+
+		/** The pattern per dimension, or {@code null} to expand with the default pattern. */
+		private final List<PropertyExpression> patterns;
+
+		private final List<Integer> srcSizes;
+		private final List<Integer> dstSizes;
+
+		/** The indices collected for the dimensions the expansion has entered, outside in. */
+		private final List<Long> srcIndices = new ArrayList<>();
+		private final List<Long> dstIndices = new ArrayList<>();
+
+		private int offset;
+		private int srcOffset;
+		private int dstOffset;
+
+		/**
+		 * @param conni the connection instance to expand
+		 * @param isOpposite whether the connection instance goes against the direction of the declaration
+		 * @param patterns the value of {@code Connection_Pattern}, one literal per dimension, or
+		 *            {@code null} to expand with the default pattern
+		 * @param srcSizes the sizes of the array dimensions of the source end, outside in
+		 * @param dstSizes the sizes of the array dimensions of the destination end, outside in
+		 */
+		private PatternExpansion(ConnectionInstance conni, boolean isOpposite, List<PropertyExpression> patterns,
+				List<Integer> srcSizes, List<Integer> dstSizes) {
+			this.conni = conni;
+			this.isOpposite = isOpposite;
+			this.patterns = patterns;
+			this.srcSizes = srcSizes;
+			this.dstSizes = dstSizes;
 		}
-		if (isOpposite && !patternName.equalsIgnoreCase("All_To_One") && (srcOffset >= srcSizes.size())) {
-			errManager.error(conni, "Too few indices for connection destination for " + conni.getFullName());
-			return false;
-		}
-		if (patternName.equalsIgnoreCase("All_To_All")) {
-			for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-				srcIndices.add(i);
+
+		/**
+		 * Create the connection instances of the dimension the expansion is at and of every dimension
+		 * inside it.
+		 *
+		 * @return whether the connection instance was expanded, which means that it has to be deleted; a
+		 *         reported failure leaves it in place, because it has no replacement then
+		 */
+		private boolean expand() {
+			if (patterns != null ? offset >= patterns.size()
+					: srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
+				createNewConnection(conni, srcIndices, dstIndices);
+				return true;
+			}
+			String patternName = patternName();
+			ConnectionPattern pattern = ConnectionPattern.parse(patternName);
+			/*
+			 * An unsupported pattern is neither One_To_All nor All_To_One, so it needs an index at both
+			 * ends, and it is reported below, after the size check the supported patterns go through.
+			 */
+			if (!hasIndexFor(End.SOURCE, pattern) || !hasIndexFor(End.DESTINATION, pattern)) {
+				return false;
+			}
+			boolean result = true;
+			if (pattern == ConnectionPattern.ALL_TO_ALL) {
+				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+					srcIndices.add(i);
+					for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
+						dstIndices.add(j);
+						result &= expandNextDimension(1, 1);
+						dstIndices.removeLast();
+					}
+					srcIndices.removeLast();
+				}
+				return result;
+			}
+			if (pattern == (isOpposite ? ConnectionPattern.ALL_TO_ONE : ConnectionPattern.ONE_TO_ALL)) {
+				// the declared source stays at its one element, so this dimension gives it no index
 				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
 					dstIndices.add(j);
-					result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-							srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-					dstIndices.remove(dstOffset);
+					result &= expandNextDimension(0, 1);
+					dstIndices.removeLast();
 				}
-				srcIndices.remove(srcOffset);
+				return result;
 			}
-		} else if ((!isOpposite && patternName.equalsIgnoreCase("One_To_All"))
-				|| (isOpposite && patternName.equalsIgnoreCase("All_To_One"))) {
-			for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
-				dstIndices.add(j);
-				result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes, srcOffset,
-						dstSizes, dstOffset + 1, srcIndices, dstIndices);
-				dstIndices.remove(dstOffset);
+			if (pattern == (isOpposite ? ConnectionPattern.ONE_TO_ALL : ConnectionPattern.ALL_TO_ONE)) {
+				// the declared destination stays at its one element, so this dimension gives it no index
+				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+					srcIndices.add(i);
+					result &= expandNextDimension(1, 0);
+					srcIndices.removeLast();
+				}
+				return result;
 			}
-		} else if ((!isOpposite && patternName.equalsIgnoreCase("All_To_One"))
-				|| (isOpposite && patternName.equalsIgnoreCase("One_To_All"))) {
-			for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-				srcIndices.add(i);
-				result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes, srcOffset + 1,
-						dstSizes, dstOffset, srcIndices, dstIndices);
-				srcIndices.remove(srcOffset);
-			}
-		} else {
-			if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
+			// every remaining pattern pairs up two dimensions of the same size
+			int size = srcSizes.get(srcOffset);
+			if (size != dstSizes.get(dstOffset)) {
 				errManager.error(conni,
 						"Array size mismatch (" + patternName + ") on connection " + conni.getFullName() + " in "
-								+ conni.getContainingComponentInstance().getFullName() + ": " + srcSizes.get(srcOffset)
+								+ conni.getContainingComponentInstance().getFullName() + ": " + size
 								+ " at source and " + dstSizes.get(dstOffset) + " at destination.");
 				return false;
-			} else {
-				if (patternName.equalsIgnoreCase("One_To_One")) {
-					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-						srcIndices.add(i);
-						dstIndices.add(i);
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						srcIndices.remove(srcOffset);
-						dstIndices.remove(dstOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Next")) {
-					for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
-						srcIndices.add(i);
-						dstIndices.add(i + 1);
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Previous")) {
-					for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
-						srcIndices.add(i);
-						dstIndices.add(i - 1);
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Cyclic_Next")) {
-					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-						srcIndices.add(i);
-						dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Cyclic_Previous")) {
-					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-						srcIndices.add(i);
-						dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Next_Next")) {
-					for (long i = 1; i <= srcSizes.get(srcOffset) - 2; i++) {
-						srcIndices.add(i);
-						dstIndices.add(i + 2);
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Previous_Previous")) {
-					for (long i = 3; i <= srcSizes.get(srcOffset); i++) {
-						srcIndices.add(i);
-						dstIndices.add(i - 2);
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Cyclic_Next_Next")) {
-					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-						srcIndices.add(i);
-						dstIndices
-								.add(i == srcSizes.get(srcOffset) ? 2 : (i == srcSizes.get(srcOffset) - 1 ? 1 : i + 1));
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Cyclic_Previous_Previous")) {
-					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-						srcIndices.add(i);
-						dstIndices
-								.add(i == 2 ? srcSizes.get(srcOffset) : (i == 1 ? srcSizes.get(srcOffset) - 1 : i - 1));
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Even_To_Even")) {
-					for (long i = 2; i <= srcSizes.get(srcOffset); i = i + 2) {
-						srcIndices.add(i);
-						dstIndices.add(i);
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else if (patternName.equalsIgnoreCase("Odd_To_Odd")) {
-					for (long i = 1; i <= srcSizes.get(srcOffset); i = i + 2) {
-						srcIndices.add(i);
-						dstIndices.add(i);
-						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
-								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
-						dstIndices.remove(dstOffset);
-						srcIndices.remove(srcOffset);
-					}
-				} else {
-					/*
-					 * A pattern this method does not know expands into nothing. Report it and keep the
-					 * connection: returning the initial true would tell the caller that the connection was
-					 * expanded, and the caller would delete it without a replacement.
-					 */
-					errManager.error(conni, "Unsupported connection pattern '" + patternName + "' on connection "
-							+ conni.getFullName());
-					return false;
-				}
 			}
+			if (pattern == null) {
+				/*
+				 * A pattern the expansion does not know expands into nothing. Report it and keep the
+				 * connection: returning true would tell the caller that the connection was expanded, and
+				 * the caller would delete it without a replacement.
+				 */
+				errManager.error(conni,
+						"Unsupported connection pattern '" + patternName + "' on connection " + conni.getFullName());
+				return false;
+			}
+			for (long i = pattern.firstIndex; i <= size - pattern.lastIndexOffset; i += pattern.step) {
+				srcIndices.add(i);
+				dstIndices.add(pattern.destinationIndex.applyAsLong(i, size));
+				result &= expandNextDimension(1, 1);
+				dstIndices.removeLast();
+				srcIndices.removeLast();
+			}
+			return result;
 		}
-		return result;
+
+		/**
+		 * Expand the dimensions inside the one the expansion is at with the indices collected for it, then
+		 * undo the step, so that the caller continues with the cursors and indices it had.
+		 *
+		 * @param srcStep one if this dimension took an index from the source end, zero if it did not
+		 * @param dstStep one if this dimension took an index from the destination end, zero if it did not
+		 * @return whether the connection instance was expanded
+		 */
+		private boolean expandNextDimension(int srcStep, int dstStep) {
+			offset++;
+			srcOffset += srcStep;
+			dstOffset += dstStep;
+			boolean result = expand();
+			dstOffset -= dstStep;
+			srcOffset -= srcStep;
+			offset--;
+			return result;
+		}
+
+		/**
+		 * The name of the pattern of the dimension the expansion is at: the name of the enumeration
+		 * literal of {@code Connection_Pattern}, or the name of the pattern the default expansion uses.
+		 * The name is what the array size mismatch message reports, which is why the default expansion
+		 * needs one at all.
+		 */
+		private String patternName() {
+			if (patterns != null) {
+				NamedValue nv = (NamedValue) patterns.get(offset);
+				return ((EnumerationLiteral) nv.getNamedValue()).getName();
+			}
+			/*
+			 * A default pattern pairs dimensions one-to-one. If only one end has dimensions, every element
+			 * on that end maps to the one scalar end. The spelling of these three names is the spelling
+			 * they had.
+			 */
+			if (srcSizes.isEmpty()) {
+				return isOpposite ? "All_to_One" : "One_To_All";
+			}
+			if (dstSizes.isEmpty()) {
+				return isOpposite ? "One_To_All" : "All_to_One";
+			}
+			return "One_to_One";
+		}
+
+		/**
+		 * Does the dimension the expansion is at have an index to give to a declared end of the
+		 * connection? Reports the end having fewer array dimensions than the patterns need indices for.
+		 * <p>
+		 * {@code End} names the declared end here, and the message follows it. Which of the two size
+		 * lists to look in does not: with {@code isOpposite}, the declared source of the connection is the
+		 * destination of the connection instance, so its dimensions are the ones of the destination.
+		 *
+		 * @param end the declared end of the connection
+		 * @param pattern the pattern of the dimension, {@code null} if the model names one that is not
+		 *            supported
+		 * @return whether the pattern has an index for this end
+		 */
+		private boolean hasIndexFor(End end, ConnectionPattern pattern) {
+			// One_To_All takes no index from the declared source, All_To_One none from the declared destination
+			if (pattern == (end == End.SOURCE ? ConnectionPattern.ONE_TO_ALL : ConnectionPattern.ALL_TO_ONE)) {
+				return true;
+			}
+			boolean atInstanceSource = (end == End.SOURCE) != isOpposite;
+			int offsetAtEnd = atInstanceSource ? srcOffset : dstOffset;
+			int dimensions = (atInstanceSource ? srcSizes : dstSizes).size();
+			if (offsetAtEnd < dimensions) {
+				return true;
+			}
+			errManager.error(conni, "Too few indices for connection " + (end == End.SOURCE ? "source" : "destination")
+					+ " for " + conni.getFullName());
+			return false;
+		}
 	}
 
 	private List<Long> getIndices(RecordValue rv, String field) {
