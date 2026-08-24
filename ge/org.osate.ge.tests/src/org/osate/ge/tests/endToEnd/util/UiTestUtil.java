@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BooleanSupplier;
 
 import org.eclipse.swt.SWT;
@@ -48,15 +47,16 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
-import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBotControl;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCanvas;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotSpinner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
@@ -91,6 +91,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 
 /**
  * Provides functions for controlling the user interface.
@@ -103,6 +104,9 @@ import javafx.scene.control.TextField;
 public class UiTestUtil {
 	private static final SWTWorkbenchBot bot;
 	private static final JavaFXBot fxBot = new JavaFXBot();
+	private static Shell interactionShell;
+	private static AbstractSWTBot<?> contextMenuTarget;
+	private static Control pendingFocusOutControl;
 	private static final HashSet<String> allowedViewTitles = Sets.newHashSet("AADL Navigator", "AADL Diagrams",
 			"Properties", "Outline");
 
@@ -161,14 +165,85 @@ public class UiTestUtil {
 	 * Clicks a menu in the top level menu.
 	 */
 	public static void clickMenu(final String... texts) {
-		bot.menu().menu(texts).click();
+		bot.menu(getWorkbenchWindowShell()).menu(texts).click();
+	}
+
+	private static SWTBotShell getWorkbenchWindowShell() {
+		final Shell shell = UIThreadRunnable.syncExec(() -> {
+			final var window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			return window == null ? null : window.getShell();
+		});
+		return new SWTBotShell(shell);
+	}
+
+	private static SWTBot getInteractionBot() {
+		final Shell shell = UIThreadRunnable.syncExec(() -> {
+			if (interactionShell != null && !interactionShell.isDisposed() && interactionShell.isVisible()) {
+				return interactionShell;
+			}
+
+			final var window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			final Shell workbenchShell = window == null ? null : window.getShell();
+			Shell topmostShell = workbenchShell;
+			int greatestDepth = -1;
+			for (final Shell candidate : Display.getDefault().getShells()) {
+				if (candidate == workbenchShell || candidate.isDisposed() || !candidate.isVisible()
+						|| candidate.getText().isEmpty()) {
+					continue;
+				}
+
+				int depth = 0;
+				for (Control parent = candidate.getParent(); parent != null; parent = parent.getParent()) {
+					depth++;
+				}
+				if (depth >= greatestDepth) {
+					topmostShell = candidate;
+					greatestDepth = depth;
+				}
+			}
+
+			interactionShell = topmostShell;
+			return topmostShell;
+		});
+		return new SWTBot(shell);
+	}
+
+	private static SWTBot getShellBot(final String title) {
+		final Shell shell = UIThreadRunnable.syncExec(() -> {
+			if (interactionShell != null && !interactionShell.isDisposed() && interactionShell.isVisible()
+					&& interactionShell.getChildren().length > 0
+					&& Objects.equals(title, interactionShell.getText())) {
+				return interactionShell;
+			}
+
+			return Arrays.stream(Display.getDefault().getShells())
+					.filter(candidate -> !candidate.isDisposed() && candidate.isVisible()
+							&& candidate.getChildren().length > 0
+							&& Objects.equals(title, candidate.getText()))
+					.findFirst()
+					.orElse(null);
+		});
+		if (shell != null) {
+			interactionShell = shell;
+			return new SWTBot(shell);
+		}
+
+		waitForWindowWithTitle(title);
+		return new SWTBot(interactionShell);
 	}
 
 	/**
 	 * Waits for a window with the specified title to appear.
 	 */
 	public static void waitForWindowWithTitle(final String title) {
-		bot.waitUntil(Conditions.shellIsActive(title));
+		waitUntil(() -> UIThreadRunnable.syncExec(() -> {
+			interactionShell = Arrays.stream(Display.getDefault().getShells())
+					.filter(shell -> !shell.isDisposed() && shell.isVisible() && shell.getChildren().length > 0
+							&& Objects.equals(title, shell.getText()))
+					.findFirst()
+					.orElse(null);
+			return interactionShell != null;
+		}), "Unable to find initialized window with title '" + title + "'");
 	}
 
 	/**
@@ -176,7 +251,7 @@ public class UiTestUtil {
 	 * Throws an exception if it is unable to do so.
 	 */
 	public static void checkTreeItemInWindowWithTitle(final String title, final String... itemTexts) {
-		final Optional<SWTBotTreeItem> item = getItemInTree(bot.shell(title).bot().tree(0), itemTexts);
+		final Optional<SWTBotTreeItem> item = getItemInTree(getShellBot(title).tree(0), itemTexts);
 		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in tree", item.isPresent());
 		item.orElseThrow().check();
 	}
@@ -185,16 +260,29 @@ public class UiTestUtil {
 	 * Waits for a window with the specified title to appear but is not the specified window.
 	 */
 	public static void waitForOtherWindowWithTitle(final String title, final Shell windowToIgnore) {
-		waitUntil(() -> {
-			final AtomicBoolean result = new AtomicBoolean(false);
-			Display.getDefault().syncExec(() -> {
-				final Shell activeShell = bot.getFinder().activeShell();
-				result.set(activeShell != null && activeShell != windowToIgnore
-						&& Objects.equals(title, bot.activeShell().getText()));
-			});
+		waitUntil(() -> UIThreadRunnable.syncExec(() -> {
+			Shell bestMatch = null;
+			int bestScore = -1;
+			for (final Shell shell : Display.getDefault().getShells()) {
+				if (shell != windowToIgnore && shell.isVisible() && shell.getChildren().length > 0
+						&& Objects.equals(title, shell.getText())) {
+					int depth = 0;
+					boolean descendsFromIgnoredShell = false;
+					for (Control parent = shell.getParent(); parent != null; parent = parent.getParent()) {
+						depth++;
+						descendsFromIgnoredShell |= parent == windowToIgnore;
+					}
+					final int score = depth + (descendsFromIgnoredShell ? 1_000 : 0);
+					if (score >= bestScore) {
+						bestMatch = shell;
+						bestScore = score;
+					}
+				}
+			}
 
-			return result.get();
-		}, "Unable to find window with title '" + title + "' which is also not the specified window");
+			interactionShell = bestMatch;
+			return bestMatch != null;
+		}), "Unable to find window with title '" + title + "' which is also not the specified window");
 	}
 
 	/**
@@ -202,18 +290,19 @@ public class UiTestUtil {
 	 * @return the active shell
 	 */
 	public static Shell getActiveWindow() {
-		return bot.getFinder().activeShell();
+		return interactionShell;
 	}
 
 	public static void setFocusToShell(final String title) {
-		bot.shell(title).setFocus();
+		getShellBot(title);
+		new SWTBotShell(interactionShell).setFocus();
 	}
 
 	/**
 	 * Asserts that the nth text field has the specified value.
 	 */
 	public static void assertTextFieldText(final String message, final int index, final String expectedValue) {
-		final SWTBotText text = bot.text(index);
+		final SWTBotText text = getInteractionBot().text(index);
 		assertEquals(message, expectedValue, text.getText());
 	}
 
@@ -223,7 +312,7 @@ public class UiTestUtil {
 	 * @param value
 	 */
 	public static void setTextFieldText(final int index, final String value) {
-		bot.text(index).setText(value);
+		getInteractionBot().text(index).setText(value);
 		assertTextFieldText("New value not valid", index, value);
 	}
 
@@ -231,7 +320,7 @@ public class UiTestUtil {
 	 * Asserts that the text field with the specified ID has the specified value.
 	 */
 	public static void assertTextFieldWithIdText(final String message, final String id, final String expectedValue) {
-		final SWTBotText text = bot.textWithId(id);
+		final SWTBotText text = getInteractionBot().textWithId(id);
 		assertEquals(message, expectedValue, text.getText());
 	}
 
@@ -241,7 +330,9 @@ public class UiTestUtil {
 	 * @param value is the new value
 	 */
 	public static void setTextFieldWithIdText(final String id, final String value) {
-		bot.textWithId(id).setText(value);
+		final SWTBotText text = getInteractionBot().textWithId(id);
+		text.setText(value);
+		pendingFocusOutControl = (Control) getInteractionBot().getFinder().findControls(withId(id)).get(0);
 		assertTextFieldWithIdText("New value not valid", id, value);
 	}
 
@@ -250,14 +341,14 @@ public class UiTestUtil {
 	 * @param id is the ID of the text widget
 	 */
 	public static void setFocusToTextFieldWithId(final String id) {
-		bot.textWithId(id).setFocus();
+		getInteractionBot().textWithId(id).setFocus();
 	}
 
 	/**
 	 * Asserts that the nth spinner has the specified value.
 	 */
 	public static void assertSpinnerValue(final String message, final int index, final int expectedValue) {
-		final SWTBotSpinner spinner = bot.spinner(index);
+		final SWTBotSpinner spinner = getInteractionBot().spinner(index);
 		assertEquals(message, expectedValue, spinner.getSelection());
 	}
 
@@ -267,7 +358,7 @@ public class UiTestUtil {
 	 * @param value
 	 */
 	public static void setSpinnerValue(final int index, final int value) {
-		bot.spinner(index).setSelection(value);
+		getInteractionBot().spinner(index).setSelection(value);
 		assertSpinnerValue("New value not valid", index, value);
 	}
 
@@ -275,14 +366,14 @@ public class UiTestUtil {
 	 * Asserts that the nth combo box has the specified selection.
 	 */
 	public static void assertComboBoxSelection(final String message, final int index, final String expected) {
-		assertEquals(message, expected, bot.comboBox(index).getText());
+		assertEquals(message, expected, getInteractionBot().comboBox(index).getText());
 	}
 
 	/**
 	 * Waits until the nth combo box has the specified selection
 	 */
 	public static void waitUntilComboBoxSelect(final int comboIndex, final String text) {
-		waitUntil(() -> Objects.equals(text, bot.comboBox(comboIndex).getText()),
+		waitUntil(() -> Objects.equals(text, getInteractionBot().comboBox(comboIndex).getText()),
 				"Combo selection does not match '" + text + "'");
 	}
 
@@ -290,7 +381,7 @@ public class UiTestUtil {
 	 * Waits until the combo box with the specified ID has the specified selection
 	 */
 	public static void waitUntilComboBoxWithIdSelect(final String id, final String text) {
-		waitUntil(() -> Objects.equals(text, bot.comboBoxWithId(id).getText()),
+		waitUntil(() -> Objects.equals(text, getInteractionBot().comboBoxWithId(id).getText()),
 				"Combo selection does not match '" + text + "'");
 	}
 
@@ -298,7 +389,7 @@ public class UiTestUtil {
 	 * Sets the selection of the nth combo box to the specified value.
 	 */
 	public static void setComboBoxSelection(final int index, final String value) {
-		bot.comboBox(index).setSelection(value);
+		getInteractionBot().comboBox(index).setSelection(value);
 		assertComboBoxSelection("New value not valid", index, value);
 	}
 
@@ -306,35 +397,35 @@ public class UiTestUtil {
 	 * Sets the combo box with specified ID to the specified value.
 	 */
 	public static void setComboBoxWithIdSelection(final String id, final String value) {
-		bot.comboBoxWithId(id).setSelection(value);
+		getInteractionBot().comboBoxWithId(id).setSelection(value);
 	}
 
 	/**
 	 * Clicks the radio button which has the specified text.
 	 */
 	public static void clickRadioButton(final String text) {
-		bot.radio(text).click();
+		getInteractionBot().radio(text).click();
 	}
 
 	/**
 	 * Returns whether the radio button with the specified mnemonic is selected.
 	 */
 	public static boolean isRadioButtonSelected(final String text) {
-		return bot.radio(text).isSelected();
+		return getInteractionBot().radio(text).isSelected();
 	}
 
 	/**
 	 * Clicks the check box at specified index.
 	 */
 	public static void clickCheckbox(final int index) {
-		bot.checkBox(index).click();
+		getInteractionBot().checkBox(index).click();
 	}
 
 	/**
 	 * Types the specified text in the StyledText with the specified id.
 	 */
 	public static void typeInStyledText(final String id, final String text) {
-		final SWTBotStyledText styledText = bot.styledTextWithId(id);
+		final SWTBotStyledText styledText = getInteractionBot().styledTextWithId(id);
 		styledText.setText(text);
 
 		Display.getDefault().syncExec(() -> {
@@ -364,12 +455,12 @@ public class UiTestUtil {
 	 * Returns the text of the StyledText with the specified id.
 	 */
 	public static String getStyledTextWithIdText(final String id) {
-		final SWTBotStyledText styledText = bot.styledTextWithId(id);
+		final SWTBotStyledText styledText = getInteractionBot().styledTextWithId(id);
 		return styledText.getText();
 	}
 
 	public static void waitForStyledTextToMatch(final String id, final String text) {
-		final SWTBotStyledText styledText = bot.styledTextWithId(id);
+		final SWTBotStyledText styledText = getInteractionBot().styledTextWithId(id);
 		waitUntil(() -> styledText.getText().equals(text),
 				"StyledText text '" + styledText.getText() + "' does not match expected '" + text + "'");
 	}
@@ -378,35 +469,35 @@ public class UiTestUtil {
 	 * Clicks the checkbox with the specified mnemonic text
 	 */
 	public static void clickCheckbox(final String text) {
-		bot.checkBox(text).click();
+		getInteractionBot().checkBox(text).click();
 	}
 
 	/**
 	 * Clicks the checkbox with the specified id
 	 */
 	public static void clickCheckboxById(final String id) {
-		bot.checkBoxWithId(id).click();
+		getInteractionBot().checkBoxWithId(id).click();
 	}
 
 	/**
 	 * Returns whether check box with the specified mnemonic text is checked
 	 */
 	public static boolean isCheckboxChecked(final String text) {
-		return bot.checkBox(text).isChecked();
+		return getInteractionBot().checkBox(text).isChecked();
 	}
 
 	/**
 	 * Returns whether check box with the specified id is checked
 	 */
 	public static boolean isCheckboxCheckedById(final String id) {
-		return bot.checkBoxWithId(id).isChecked();
+		return getInteractionBot().checkBoxWithId(id).isChecked();
 	}
 
 	/**
 	 * Clicks the button which has the specified text.
 	 */
 	public static void clickButton(final String text) {
-		final SWTBotButton btn = bot.button(text);
+		final SWTBotButton btn = getInteractionBot().button(text);
 		btn.click();
 	}
 
@@ -414,7 +505,7 @@ public class UiTestUtil {
 	 * Clicks the nth button which has the specified text.
 	 */
 	public static void clickButton(final String text, final int index) {
-		final SWTBotButton btn = bot.button(text, index);
+		final SWTBotButton btn = getInteractionBot().button(text, index);
 		btn.click();
 	}
 
@@ -422,7 +513,7 @@ public class UiTestUtil {
 	 * Clicks the button which has the specified testing ID.
 	 */
 	public static void clickButtonWithId(final String id) {
-		final SWTBotButton btn = bot.buttonWithId(id);
+		final SWTBotButton btn = getInteractionBot().buttonWithId(id);
 		btn.click();
 	}
 
@@ -430,25 +521,50 @@ public class UiTestUtil {
 	 * Clicks the checkbox which has the specified testing ID.
 	 */
 	public static void clickCheckboxWithId(final String id) {
-		bot.checkBoxWithId(id).click();
+		getInteractionBot().checkBoxWithId(id).click();
 	}
 
 	public static void clickToolbarItem(final String title) {
-		bot.toolbarButtonWithTooltip(title).click();
+		final SWTBotShell shell = getWorkbenchWindowShell();
+		shell.bot().toolbarButtonWithTooltip(title).click();
 	}
 
 	/**
 	 * Clicks the context menu of the focused widget
 	 */
 	public static void clickContextMenuOfFocused(final String... texts) {
-		getFocusedWidget().contextMenu().menu(texts).click();
+		assertNotNull("Context menu target is null", contextMenuTarget);
+		contextMenuTarget.contextMenu().menu(texts).click();
 	}
 
 	/**
 	 * Asserts that the title of the active title contains the specified string
 	 */
 	public static void assertActiveWindowTitleContains(final String value) {
-		assertContains(value, bot.activeShell().getText());
+		bot.waitUntil(new DefaultCondition() {
+			@Override
+			public boolean test() {
+				return UIThreadRunnable.syncExec(() -> {
+					final var window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+					if (window == null) {
+						return false;
+					}
+
+					final Shell shell = window.getShell();
+					if (shell == null || shell.isDisposed() || !shell.isVisible()) {
+						return false;
+					}
+
+					interactionShell = shell;
+					return shell.getText().contains(value);
+				});
+			}
+
+			@Override
+			public String getFailureMessage() {
+				return "Visible workbench window with title containing '" + value + "' was not found";
+			}
+		});
 	}
 
 	/**
@@ -472,15 +588,15 @@ public class UiTestUtil {
 	}
 
 	public static void clickTableItem(final int tableIndex, final String tableItem) {
-		bot.table(tableIndex).getTableItem(tableItem).click();
+		getInteractionBot().table(tableIndex).getTableItem(tableItem).click();
 	}
 
 	public static void clickTableItem(final int tableIndex, final int rowIndex) {
-		bot.table(tableIndex).getTableItem(rowIndex).click();
+		getInteractionBot().table(tableIndex).getTableItem(rowIndex).click();
 	}
 
 	public static int getNumberOfTableRows(final int tableIndex) {
-		return bot.table(tableIndex).rowCount();
+		return getInteractionBot().table(tableIndex).rowCount();
 	}
 
 	public static void assertNumberOfTableRows(final int tableIndex, final int expectedValue) {
@@ -489,11 +605,11 @@ public class UiTestUtil {
 
 	public static void assertTableItemText(final int tableIndex, final int rowIndex, final String expectedValue) {
 		assertEquals("Unexpected table item text", expectedValue,
-				bot.table(tableIndex).getTableItem(rowIndex).getText());
+				getInteractionBot().table(tableIndex).getTableItem(rowIndex).getText());
 	}
 
 	public static void selectListWithIdItems(final String id, final String... texts) {
-		bot.listWithId(id).select(texts);
+		getInteractionBot().listWithId(id).select(texts);
 	}
 
 	public static void selectListWithIdItem(final String id, final String text) {
@@ -501,7 +617,7 @@ public class UiTestUtil {
 	}
 
 	public static void selectListItems(final int listIndex, final String... texts) {
-		bot.list(listIndex).select(texts);
+		getInteractionBot().list(listIndex).select(texts);
 	}
 
 	public static void selectListItem(final int listIndex, final String text) {
@@ -509,14 +625,14 @@ public class UiTestUtil {
 	}
 
 	public static void doubleClickListItem(final int listIndex, final String text) {
-		bot.list(listIndex).doubleClick(text);
+		getInteractionBot().list(listIndex).doubleClick(text);
 	}
 
 	/**
 	 * Returns whether the text for a Label with the specified id
 	 */
 	public static String getTextForLabelWithId(final String id) {
-		return bot.labelWithId(id).getText();
+		return getInteractionBot().labelWithId(id).getText();
 	}
 
 	/**
@@ -524,7 +640,7 @@ public class UiTestUtil {
 	 */
 	public static String getTextForBorderedClabelWithId(final String id) {
 		@SuppressWarnings("unchecked")
-		final BorderedCLabel label = bot.widget(allOf(widgetOfType(BorderedCLabel.class), withId(id)), 0);
+		final BorderedCLabel label = getInteractionBot().widget(allOf(widgetOfType(BorderedCLabel.class), withId(id)), 0);
 		final String[] value = { "" };
 		UIThreadRunnable.syncExec(() -> {
 			value[0] = new SWTBotCLabel((CLabel) label.getChildren()[0]).getText();
@@ -537,21 +653,21 @@ public class UiTestUtil {
 	 * Returns the text for the text field with the specified id
 	 */
 	public static String getTextForTextFieldWithId(final String id) {
-		return bot.textWithId(id).getText();
+		return getInteractionBot().textWithId(id).getText();
 	}
 
 	/**
 	 * Returns whether an item with the specified text is contained in the list with the specified ID.
 	 */
 	public static boolean doesItemExistsInListWithId(final String id, final String text) {
-		return Arrays.asList(bot.listWithId(id).getItems()).contains(text);
+		return Arrays.asList(getInteractionBot().listWithId(id).getItems()).contains(text);
 	}
 
 	/**
 	 * Returns whether the text of the items in the list with a specified ID matches a specified value.
 	 */
 	public static boolean itemsMatchInListWithId(final String id, final String[] texts) {
-		return Arrays.deepEquals(bot.listWithId(id).getItems(), texts);
+		return Arrays.deepEquals(getInteractionBot().listWithId(id).getItems(), texts);
 	}
 
 	/**
@@ -567,9 +683,11 @@ public class UiTestUtil {
 	 * Throws an exception if it is unable to do so.
 	 */
 	public static void selectItemInTreeView(final String viewTitle, final String... itemTexts) {
+		bot.viewByTitle(viewTitle).setFocus();
 		final Optional<SWTBotTreeItem> item = getItemInTree(getFirstTreeInView(viewTitle), itemTexts);
 		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in tree", item.isPresent());
-		item.orElseThrow().select();
+		contextMenuTarget = item.orElseThrow();
+		((SWTBotTreeItem) contextMenuTarget).select();
 	}
 
 	/**
@@ -674,7 +792,16 @@ public class UiTestUtil {
 	 * Focus the specified editor
 	 */
 	public static void focusDiagramEditor(final DiagramReference diagram) {
-		getDiagramEditorBot(diagram).setFocus();
+		final AgeEditor editor = getDiagramEditor(diagram);
+		UIThreadRunnable.syncExec(() -> {
+			if (pendingFocusOutControl != null && !pendingFocusOutControl.isDisposed()) {
+				pendingFocusOutControl.notifyListeners(SWT.FocusOut, new Event());
+				pendingFocusOutControl = null;
+			}
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(editor);
+			editor.setFocus();
+			editor.getFxCanvas().forceFocus();
+		});
 	}
 
 	/**
@@ -726,7 +853,7 @@ public class UiTestUtil {
 	 * Returns a bot for the focused widget
 	 */
 	public static AbstractSWTBot<?> getFocusedWidget() {
-		final Control focused = bot.getFocusedWidget();
+		final Control focused = getInteractionBot().getFocusedWidget();
 		assertTrue("Focused widget is null", focused != null);
 		return new AbstractSWTBotControl<Control>(focused);
 	}
@@ -736,7 +863,7 @@ public class UiTestUtil {
 	 * Assumes the table is a simple table with checkboxes. Such a table does not have any columns.
 	 */
 	public static void checkItemInSimpleTable(final int tableIndex, final String text) {
-		final SWTBotTable table = bot.table(tableIndex);
+		final SWTBotTable table = getInteractionBot().table(tableIndex);
 		for (int row = 0; row < table.rowCount(); row++) {
 			final SWTBotTableItem rowItem = table.getTableItem(row);
 			if (Objects.equals(rowItem.getText(), text)) {
@@ -786,12 +913,12 @@ public class UiTestUtil {
 
 		// If there is a palette group, expand it if necessary
 		if (paletteGroup != null && !paletteGroup.isExpanded()) {
-			fxBot.click(paletteGroup);
+			UIThreadRunnable.syncExec(() -> ((ToggleButton) paletteGroup.getChildren().get(0)).fire());
 			waitUntil(() -> paletteGroup.isExpanded(), "Palette group not expanded");
 		}
 
 		// Click the item to select it
-		fxBot.click(paletteItem);
+		UIThreadRunnable.syncExec(() -> paletteItem.getButton().fire());
 
 		// Wait for the item to be active
 		final AgeEditorPaletteModel paletteModel = editor.getPaletteModel();
@@ -825,7 +952,7 @@ public class UiTestUtil {
 
 		Display.getDefault().syncExec(() -> editor.scrollToTopLeft(sceneNode));
 
-		fxBot.click(sceneNode);
+		fxBot.firePressAndReleasePrimaryMouseButtonEventsAsync(sceneNode);
 	}
 
 	private static SWTBotCanvas findViewCanvasByTitle(final String title) {
@@ -850,7 +977,9 @@ public class UiTestUtil {
 	 * @param menuItem is the menu item to select
 	 */
 	public static void clickContextMenuOfOutlineViewItem(final String[] treeItems, final String[] menuItem) {
-		final SWTBotTree tree = bot.viewByTitle("Outline").bot().tree();
+		final SWTBotView outline = bot.viewByTitle("Outline");
+		outline.setFocus();
+		final SWTBotTree tree = outline.bot().tree();
 		SWTBotTreeItem treeItem = findTreeItem(tree.getAllItems(), treeItems[0]);
 		final String[] nodes = Arrays.copyOfRange(treeItems, 1, treeItems.length);
 
@@ -858,6 +987,7 @@ public class UiTestUtil {
 			treeItem = findTreeItem(treeItem.getItems(), node).expand();
 		}
 
+		treeItem.select();
 		treeItem.contextMenu().menu(menuItem).click();
 	}
 
@@ -866,7 +996,9 @@ public class UiTestUtil {
 	 * @param treeItems is the name of the elements to traverse in the outline view
 	 */
 	public static void clickElementInOutlineView(final String... treeItems) {
-		final SWTBotTree tree = bot.viewByTitle("Outline").bot().tree();
+		final SWTBotView outline = bot.viewByTitle("Outline");
+		outline.setFocus();
+		final SWTBotTree tree = outline.bot().tree();
 		SWTBotTreeItem treeItem = findTreeItem(tree.getAllItems(), treeItems[0]);
 		final String[] nodes = Arrays.copyOfRange(treeItems, 1, treeItems.length);
 
@@ -892,7 +1024,7 @@ public class UiTestUtil {
 	 * Sets the nth text for the window with specified title.
 	 */
 	public static void setTextForWindow(final String title, final int index, final String text) {
-		bot.shell(title).bot().text(index).setText(text);
+		getShellBot(title).text(index).setText(text);
 	}
 
 	/**
@@ -903,9 +1035,10 @@ public class UiTestUtil {
 	 * @param event the event to send to listeners
 	 */
 	public static void sendTextKeyUpEvent(final String title, final int index, final int eventType, final Event event) {
-		Display.getDefault().syncExec(() -> {
+		final SWTBotText text = getShellBot(title).text(index);
+		UIThreadRunnable.syncExec(() -> {
 			// Send notification
-			bot.shell(title).bot().text(index).widget.notifyListeners(eventType, event);
+			text.widget.notifyListeners(eventType, event);
 		});
 	}
 
@@ -913,8 +1046,7 @@ public class UiTestUtil {
 	 * Clicks the button with specified text on the window with specified title.
 	 */
 	public static void clickButtonForWindow(final String title, final String text) {
-		final SWTBotButton btn = bot.shell(title).bot().button(text);
-		btn.click();
+		getShellBot(title).button(text).click();
 	}
 
 	/**
@@ -927,12 +1059,21 @@ public class UiTestUtil {
 		return editor;
 	}
 
+	public static void activateDiagramEditor(final DiagramReference diagram) {
+		final AgeEditor editor = getDiagramEditor(diagram);
+		UIThreadRunnable.syncExec(() -> PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow()
+				.getActivePage()
+				.activate(editor));
+	}
+
 	/**
 	 * Does not open or activate the editor the specified diagram.
 	 */
 	public static void selectDiagramElements(final DiagramReference diagram,
 			final DiagramElementReference... elements) {
 		final AgeEditor editor = getDiagramEditor(diagram);
+		contextMenuTarget = new SWTBotCanvas(editor.getFxCanvas());
 		final Set<DiagramElement> diagramElementsToSelect = new HashSet<>();
 		for (int i = 0; i < elements.length; i++) {
 			final DiagramElementReference element = elements[i];
@@ -942,6 +1083,8 @@ public class UiTestUtil {
 		}
 
 		Display.getDefault().syncExec(() -> {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(editor);
+			editor.setFocus();
 			editor.getFxCanvas().forceFocus();
 			editor.selectDiagramNodes(diagramElementsToSelect);
 		});

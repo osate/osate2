@@ -43,7 +43,7 @@ pipeline {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
               sh 'mvn -s releng/osate.releng/seisettings.xml clean verify \
-                  -Pfull -Dsonar.token=$SONARTOKEN \
+                  -Pfull,with-ge-tests -Dsonar.token=$SONARTOKEN \
                   -Declipse.p2.mirrors=false -DfailIfNoTests=false \
                   -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true'
             }

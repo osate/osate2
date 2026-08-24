@@ -96,13 +96,25 @@ public class JavaFXBot {
 	 */
 	public void firePressAndReleasePrimaryMouseButtonEvents(final Node node) {
 		Display.getDefault().syncExec(() -> {
-			javafx.event.Event.fireEvent(node,
-					new MouseEvent(MouseEvent.MOUSE_PRESSED, 0.0, 0.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false,
-							false, false, false, false, false, false, false, false, null));
-			javafx.event.Event.fireEvent(node,
-					new MouseEvent(MouseEvent.MOUSE_RELEASED, 0.0, 0.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false,
-							false, false, false, false, false, false, false, false, null));
+			firePressAndReleasePrimaryMouseButtonEventsOnDisplayThread(node);
 		});
+	}
+
+	/**
+	 * Asynchronously generates mouse pressed and released events for a node. This allows a handler to open a modal
+	 * dialog without blocking the test thread which must interact with that dialog.
+	 */
+	public void firePressAndReleasePrimaryMouseButtonEventsAsync(final Node node) {
+		Display.getDefault().asyncExec(() -> firePressAndReleasePrimaryMouseButtonEventsOnDisplayThread(node));
+	}
+
+	private static void firePressAndReleasePrimaryMouseButtonEventsOnDisplayThread(final Node node) {
+		javafx.event.Event.fireEvent(node,
+				new MouseEvent(MouseEvent.MOUSE_PRESSED, 0.0, 0.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false,
+						false, false, false, false, false, false, false, false, null));
+		javafx.event.Event.fireEvent(node,
+				new MouseEvent(MouseEvent.MOUSE_RELEASED, 0.0, 0.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false,
+						false, false, false, false, false, false, false, false, null));
 	}
 
 	/**
