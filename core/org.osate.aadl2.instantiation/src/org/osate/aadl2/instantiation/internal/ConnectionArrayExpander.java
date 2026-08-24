@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.instantiation;
+package org.osate.aadl2.instantiation.internal;
 
 import static org.osate.aadl2.modelsupport.util.AadlUtil.getElementCount;
 
@@ -65,7 +65,7 @@ import org.osate.aadl2.util.Aadl2InstanceUtil;
  * elements of that array.
  * <p>
  * The expansion replaces the provisional connection instances that
- * {@link CreateConnectionsSwitch} produced and deletes them, so it has to run before the connection
+ * {@code CreateConnectionsSwitch} produced and deletes them, so it has to run before the connection
  * instances are validated and before the end to end flows are built over them.
  * <p>
  * {@code Connection_Pattern} and {@code Connection_Set} have to be cached on the provisional
@@ -75,7 +75,7 @@ import org.osate.aadl2.util.Aadl2InstanceUtil;
  * <p>
  * One expander expands one root once.
  */
-class ConnectionArrayExpander {
+public final class ConnectionArrayExpander {
 	/* The properties that determine how a connection is expanded into connection instances */
 	private static final String COMMUNICATION_PROPERTIES = "Communication_Properties";
 	private static final String CONNECTION_PATTERN = "Connection_Pattern";
@@ -88,7 +88,7 @@ class ConnectionArrayExpander {
 	 * @param monitor the progress monitor
 	 * @param errManager the error manager to report to
 	 */
-	ConnectionArrayExpander(IProgressMonitor monitor, AnalysisErrorReporterManager errManager) {
+	public ConnectionArrayExpander(IProgressMonitor monitor, AnalysisErrorReporterManager errManager) {
 		this.monitor = monitor;
 		this.errManager = errManager;
 	}
@@ -98,7 +98,7 @@ class ConnectionArrayExpander {
 	 * into? Uses the same test as {@link #getPA(ConnectionInstance, String)}, which is what reads the
 	 * cached values.
 	 */
-	static boolean isStructuralConnectionProperty(Property property) {
+	public static boolean isStructuralConnectionProperty(Property property) {
 		return isCommunicationProperty(property, CONNECTION_PATTERN)
 				|| isCommunicationProperty(property, CONNECTION_SET);
 	}
@@ -127,7 +127,7 @@ class ConnectionArrayExpander {
 	 * @param root the instance model root to expand the connection instances of
 	 * @throws InterruptedException if instantiation is canceled
 	 */
-	void processConnections(ComponentInstance root) throws InterruptedException {
+	public void processConnections(ComponentInstance root) throws InterruptedException {
 		checkCanceled();
 		EList<ComponentInstance> replicateConns = new UniqueEList<>();
 		List<ConnectionInstance> toRemove = new ArrayList<>();

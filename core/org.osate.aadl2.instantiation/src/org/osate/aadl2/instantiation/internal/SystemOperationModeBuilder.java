@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.instantiation;
+package org.osate.aadl2.instantiation.internal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +35,7 @@ import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 /**
@@ -48,7 +49,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
  * The number of combinations grows with the product of the mode counts, so enumeration stops at a
  * limit. One builder enumerates the modes of one system instance once.
  */
-class SystemOperationModeBuilder {
+public final class SystemOperationModeBuilder {
 	private final SystemInstance root;
 	private final int limit;
 	private final Map<ModeInstance, List<SystemOperationMode>> mode2som;
@@ -107,7 +108,7 @@ class SystemOperationModeBuilder {
 	 * @param errManager the error manager to report an incomplete enumeration to
 	 * @param monitor the progress monitor
 	 */
-	SystemOperationModeBuilder(SystemInstance root, int limit,
+	public SystemOperationModeBuilder(SystemInstance root, int limit,
 			Map<ModeInstance, List<SystemOperationMode>> mode2som, AnalysisErrorReporterManager errManager,
 			IProgressMonitor monitor) {
 		this.root = root;
@@ -123,7 +124,7 @@ class SystemOperationModeBuilder {
 	 *
 	 * @throws InterruptedException if instantiation is canceled
 	 */
-	void createSystemOperationModes() throws InterruptedException {
+	public void createSystemOperationModes() throws InterruptedException {
 		Node rootNode = new Node(null, null);
 		rootNode.state = new State(true);
 		initWorkState(root, rootNode);

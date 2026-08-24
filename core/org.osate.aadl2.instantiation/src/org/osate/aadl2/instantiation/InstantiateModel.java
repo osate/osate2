@@ -100,6 +100,8 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
+import org.osate.aadl2.instantiation.internal.ConnectionArrayExpander;
+import org.osate.aadl2.instantiation.internal.SystemOperationModeBuilder;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
