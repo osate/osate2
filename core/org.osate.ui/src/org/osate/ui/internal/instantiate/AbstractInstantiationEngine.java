@@ -50,7 +50,6 @@ import org.eclipse.core.runtime.jobs.JobGroup;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
 import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
@@ -218,7 +217,6 @@ abstract class AbstractInstantiationEngine<T> {
 			try {
 				final SystemInstance systemInstance = buildSystemInstance(subMonitor.split(1));
 				successful = systemInstance != null;
-				errorMessage = InstantiateModel.getErrorMessage();
 				delete = !successful;
 			} catch (final InterruptedException | OperationCanceledException e) {
 				// Instantiation was canceled by the user.

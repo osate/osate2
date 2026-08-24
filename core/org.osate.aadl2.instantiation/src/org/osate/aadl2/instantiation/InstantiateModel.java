@@ -127,11 +127,14 @@ import org.osgi.service.prefs.Preferences;
 import com.google.common.base.Strings;
 
 /**
- * This class implements the instantiation of models from a root system impl.
- * The class also contains a switch for performing checks on semantic
- * constraints that must be satisfied for certain analyes on instance models.
- * Although there is a method that invokes these checks, it is best for each
- * analysis method to invoke those checks that are relevant for its processing.
+ * This class implements the instantiation of an instance model from a root component implementation:
+ * the component hierarchy with its features, modes and flow specifications, the system operation
+ * modes, and the phases that turn the hierarchy into a complete instance model, which are the
+ * connection instances, the end to end flows, the cached properties and the annex instances.
+ * <p>
+ * One instantiator serves one instantiation at a time. The classifier cache, the mode to SOM map and
+ * the list of instance model roots are all per instantiation, so an instance of this class must not be
+ * shared between concurrent instantiations.
  *
  * @author phf
  */
@@ -139,7 +142,7 @@ public class InstantiateModel {
 	// Project properties that are set via a PropertyPage
 	public static final String PREFS_QUALIFIER = "org.osate.aadl2.instantiation";
 	public static final String PREF_SOM_LIMIT = "org.osate.aadl2.instantiation.som_limit";
-	public static final String PREF_SOM_USE_WORKSPACE = "org.osage.aadl2.instantiation.som_use_workspace";
+	public static final String PREF_SOM_USE_WORKSPACE = "org.osate.aadl2.instantiation.som_use_workspace";
 
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
@@ -174,60 +177,37 @@ public class InstantiateModel {
 	 * {@link #instantiateFeatureClassifier(FeatureInstance, FeatureClassifier)}, which is the only place
 	 * that adds a root to the instance resource. All of them go through the same phases, see
 	 * {@link #fillSystemInstance(SystemInstance)}.
+	 * <p>
+	 * The list is emptied at the start of every {@link #fillSystemInstance(SystemInstance)} call. It has
+	 * to be a field rather than a local because
+	 * {@link #instantiateFeatureClassifier(FeatureInstance, FeatureClassifier)} appends to it from deep
+	 * inside the recursion. That, and the classifier cache, is why one {@code InstantiateModel} must not
+	 * be used for more than one instantiation at a time.
 	 */
 	private final List<InstantiationRoot> roots = new ArrayList<>();
 
 	/**
-	 * A root of the instance model together with the next phase it has to go through. A root is
-	 * populated as soon as it is discovered, because that is what discovers further roots, but the
-	 * remaining phases run from the queue. Tracking the phase per root keeps a root that is discovered
-	 * late from being processed twice.
+	 * A root of the instance model, and whether it still has to be brought to its final connections. A
+	 * root is populated as soon as it is discovered, because that is what discovers further roots, but
+	 * the remaining phases run from the queue, and the flag keeps a root that is discovered late from
+	 * being processed twice. Which roots still need their annexes is tracked by the index into
+	 * {@link #roots} in {@link #fillSystemInstance(SystemInstance)}.
 	 */
 	private static final class InstantiationRoot {
-		private enum Phase {
-			FINALIZE_CONNECTIONS, INSTANTIATE_ANNEXES, DONE
-		}
-
 		private final ComponentInstance root;
-		private Phase phase;
+		private boolean connectionsFinalized;
 
 		private InstantiationRoot(ComponentInstance root) {
 			this.root = root;
-			phase = Phase.FINALIZE_CONNECTIONS;
 		}
-	}
-
-	/*
-	 * An error message that is filled by potential methods that
-	 * instantiate the system and raises an error. This message
-	 * is then show in the error dialog when an instantiation error
-	 * is raised.
-	 */
-	private static String errorMessage = null;
-
-	/*
-	 * To keep under control the error messages and ease
-	 * debug, we encapsulate the error message string
-	 * and access it only through methods (setters and getters).
-	 */
-	public static void setErrorMessage(String s) {
-		errorMessage = s;
-	}
-
-	public static String getErrorMessage() {
-		return errorMessage;
 	}
 
 	// Constructors
 
-	/*
-	 * Create an instantiate object. Tracks who to report errors to - the
-	 * resource that contains si. It also holds on to the property definition
-	 * filter to be used for caching properties in the instance model
+	/**
+	 * Create an instantiator that reports to the workspace markers of the instance model file.
 	 *
-	 * @param pm
-	 *
-	 * @param errMgr
+	 * @param pm the progress monitor
 	 */
 	public InstantiateModel(final IProgressMonitor pm) {
 		classifierCache = new HashMap<>();
@@ -237,6 +217,12 @@ public class InstantiateModel {
 		monitor = pm;
 	}
 
+	/**
+	 * Create an instantiator that reports to the given error manager.
+	 *
+	 * @param pm the progress monitor
+	 * @param errMgr the error manager to report to
+	 */
 	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) {
 		classifierCache = new HashMap<>();
 		mode2som = new HashMap<>();
@@ -256,16 +242,13 @@ public class InstantiateModel {
 	}
 
 	// Methods
-	/*
-	 * This method will construct an instance model, save it on disk and return
-	 * its root object The method makes sure that the system implementation is
-	 * in the OSATE resource set and will create the instance model there as
-	 * well. The Osate resource set is the shared resource set maintained by
-	 * OsateResourceUtil.
+	/**
+	 * Construct an instance model, save it on disk and return its root object. The instance model is
+	 * created in a resource set of its own that also holds the component implementation.
 	 *
-	 * @param si system implementation
-	 *
-	 * @return SystemInstance or <code>null</code> if cancelled.
+	 * @param ci the component implementation to instantiate
+	 * @param monitor the progress monitor
+	 * @return the system instance
 	 */
 	public static SystemInstance buildInstanceModelFile(final ComponentImplementation ci, IProgressMonitor monitor)
 			throws Exception {
@@ -331,14 +314,12 @@ public class InstantiateModel {
 		return instantiate(ci, AnalysisErrorReporterManager.NULL_ERROR_MANANGER);
 	}
 
-	/*
-	 * This method will construct an instance model, save it on disk and return
-	 * its root object The method will make sure the declarative models are up
-	 * to date.
+	/**
+	 * Construct an instance model from an existing instance model file, save it on disk and return its
+	 * root object.
 	 *
-	 * @param si system implementation
-	 *
-	 * @return SystemInstance or <code>null</code> if cancelled.
+	 * @param ires the instance model file to rebuild
+	 * @return the system instance
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
 		return rebuildInstanceModelFile(ires, new NullProgressMonitor());
@@ -349,9 +330,9 @@ public class InstantiateModel {
 	 * its root object The method will make sure the declarative models are up
 	 * to date.
 	 *
-	 * @param si system implementation
-	 *
-	 * @return SystemInstance or <code>null</code> if cancelled.
+	 * @param ires the instance model file to rebuild
+	 * @param monitor the progress monitor
+	 * @return the system instance
 	 * @since 1.1
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires, final IProgressMonitor monitor)
@@ -372,9 +353,7 @@ public class InstantiateModel {
 		}
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		SystemInstance root = instantiateModel.createSystemInstance(ci, res);
-
-		return root;
+		return instantiateModel.createSystemInstance(ci, res);
 	}
 
 	/*
@@ -410,12 +389,13 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * create a system instance into the provided (empty) resource and save it
-	 * @param ci
-	 * @param aadlResource
-	 * @return
-	 * @throws RollbackException
-	 * @throws InterruptedException
+	 * Create a system instance in the provided (empty) resource and save it.
+	 *
+	 * @param ci the component implementation to instantiate
+	 * @param aadlResource the resource to create the instance model in
+	 * @return the system instance
+	 * @throws Exception if instantiation is canceled, which is an {@link InterruptedException}, or the
+	 *             resource cannot be saved
 	 */
 	public SystemInstance createSystemInstance(final ComponentImplementation ci, final Resource aadlResource)
 			throws Exception {
@@ -431,16 +411,15 @@ public class InstantiateModel {
 		return result;
 	}
 
-	/*
-	 * instantiate SystemImpl as root of instance tree and save the model
+	/**
+	 * Instantiate a component implementation as the root of an instance tree.
 	 *
-	 * @param si SystemImpl the root of the system instance
-	 *
-	 * @param aadlResource the Resource to store the instance model in
-	 *
-	 * @return SystemInstance or <code>null</code> if canceled.
+	 * @param ci the component implementation to instantiate
+	 * @param aadlResource the resource to store the instance model in
+	 * @param save whether to save the resource before filling in the instance model
+	 * @return the system instance
 	 * @throws InterruptedException if instantiation is canceled
-	 * @throws RuntimeException if instantiation fails
+	 * @throws UncheckedIOException if the initial instance model cannot be saved
 	 */
 	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource, boolean save)
 			throws InterruptedException {
@@ -466,6 +445,7 @@ public class InstantiateModel {
 			errManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);
 			fillSystemInstance(root);
 			var errors = ((QueuingAnalysisErrorReporter) errManager.getReporter(aadlResource)).getErrors();
+			// the finally block restores errManager, the messages below go to the original one
 			errManager = origErrManager;
 			for (var msg : errors) {
 				if (msg.where.eResource() != null) {
@@ -492,8 +472,10 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * Will in fill instance model under system instance but not save it
-	 * @param root
+	 * Fill in the instance model under a system instance, but do not save it.
+	 *
+	 * @param root the system instance to fill in
+	 * @throws InterruptedException if instantiation is canceled
 	 */
 	public void fillSystemInstance(SystemInstance root) throws InterruptedException {
 		roots.clear();
@@ -526,24 +508,10 @@ public class InstantiateModel {
 			final int fixedPoint = roots.size();
 			monitor.subTask("Instantiating annexes");
 			while (annexed < fixedPoint) {
-				InstantiationRoot pending = roots.get(annexed++);
-				aic.instantiateAllAnnexes(pending.root);
-				pending.phase = InstantiationRoot.Phase.DONE;
+				aic.instantiateAllAnnexes(roots.get(annexed++).root);
 				checkCanceled();
 			}
 		}
-
-//		OsateResourceManager.save(aadlResource);
-//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
-		// Run some checks over the model.
-//		final SOMIterator soms = new SOMIterator(root);
-//		while (soms.hasNext()) {
-//			final SystemOperationMode som = soms.nextSOM();
-//			monitor.subTask("Checking model semantics for mode " + som.getName());
-//			final CheckInstanceSemanticsSwitch semanticsSwitch = new CheckInstanceSemanticsSwitch(som, soms
-//					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
-//			semanticsSwitch.processPostOrderAll(root);
-//		}
 	}
 
 	/**
@@ -558,10 +526,10 @@ public class InstantiateModel {
 	 * Does nothing if the root already went through this phase.
 	 */
 	private void finalizeConnections(InstantiationRoot pending) throws InterruptedException {
-		if (pending.phase != InstantiationRoot.Phase.FINALIZE_CONNECTIONS) {
+		if (pending.connectionsFinalized) {
 			return;
 		}
-		pending.phase = InstantiationRoot.Phase.INSTANTIATE_ANNEXES;
+		pending.connectionsFinalized = true;
 		final ComponentInstance root = pending.root;
 
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
@@ -600,12 +568,11 @@ public class InstantiateModel {
 		cacheProperties(root, remainingProperties);
 	}
 
-	/*
-	 * returns the instance model URI for a given system implementation
+	/**
+	 * The URI of the instance model file of a component implementation.
 	 *
-	 * @param si
-	 *
-	 * @return URI for instance model file
+	 * @param ci the component implementation
+	 * @return the URI of its instance model file
 	 */
 	public static URI getInstanceModelURI(ComponentImplementation ci) {
 		Resource res = ci.eResource();
@@ -713,18 +680,7 @@ public class InstantiateModel {
 			// Recursively add subcomponents
 			instantiateSubcomponents(ci, impl);
 
-			// TODO now add subprogram calls
-			// EList callseqlist = compimpl.getXAllCallSequence();
-			// for (Iterator it = callseqlist.iterator(); it.hasNext();) {
-			// CallSequence cseq = (CallSequence) it.next();
-			//
-			// EList calllist = cseq.getCall();
-			// for (Iterator iit = calllist.iterator(); iit.hasNext();) {
-			// final SubprogramSubcomponent call =
-			// (SubprogramSubcomponent) iit.next();
-			// instantiateSubcomponent(ci, cseq, call);
-			// }
-			// }
+			// TODO subprogram calls are not instantiated
 		}
 
 		// do it only if subcomponent has type
@@ -791,9 +747,11 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * @param ci
-	 * @param transitions
-	 * @throws InterruptedException
+	 * Add a mode transition instance for every mode transition, with its triggers resolved.
+	 *
+	 * @param ci the component instance to add the mode transition instances to
+	 * @param transitions the mode transitions of its classifier
+	 * @throws InterruptedException if instantiation is canceled
 	 */
 	protected void fillModeTransitions(ComponentInstance ci, List<ModeTransition> transitions)
 			throws InterruptedException {
@@ -853,10 +811,13 @@ public class InstantiateModel {
 		}
 	}
 
-	/*
-	 * @param ci
+	/**
+	 * Add a component instance for every subcomponent, one per array element for a subcomponent that is
+	 * an array.
 	 *
-	 * @param impl
+	 * @param ci the component instance to add the subcomponent instances to
+	 * @param impl the implementation the subcomponents are declared in
+	 * @throws InterruptedException if instantiation is canceled
 	 */
 	protected void instantiateSubcomponents(final ComponentInstance ci, ComponentImplementation impl)
 			throws InterruptedException {
@@ -943,13 +904,6 @@ public class InstantiateModel {
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
 		} else {
-//			if (cc instanceof ComponentType) {
-//				if (sub instanceof SystemSubcomponent || sub instanceof ProcessSubcomponent
-//						|| sub instanceof ThreadGroupSubcomponent) {
-//					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
-//				}
-//			}
-
 			newInstance.setClassifier(cc);
 
 			/*
@@ -989,9 +943,13 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * same method but with different name exists in createEndToEndFlowSwitch.
-	 * It adds the flow instances on demand when ETEF is created
-	 * @param ci
+	 * Add a flow specification instance for every flow specification of the component type.
+	 * <p>
+	 * {@code CreateEndToEndFlowsSwitch} has a method of its own for this, which adds flow specification
+	 * instances on demand while an end to end flow is created.
+	 *
+	 * @param ci the component instance to add the flow specification instances to
+	 * @throws InterruptedException if instantiation is canceled
 	 */
 	private void instantiateFlowSpecs(ComponentInstance ci) throws InterruptedException {
 		for (FlowSpecification spec : getComponentType(ci).getAllFlowSpecifications()) {
@@ -1095,11 +1053,12 @@ public class InstantiateModel {
 	/**
 	 * fill in a feature within a feature group
 	 * Take into account the inverse setting on enclosing feature group(s) in setting feature direction
-	 * @param fgi
-	 * @param feature
-	 * @param inverse
-	 * @param index
-	 * @throws InterruptedException
+	 * @param fgi the feature group instance to add the feature instance to
+	 * @param feature the feature to instantiate
+	 * @param inverse whether the enclosing feature group(s) invert the direction of the feature
+	 * @param index the index of the feature instance, zero if the feature is not an array
+	 * @return the new feature instance
+	 * @throws InterruptedException if instantiation is canceled
 	 * @since 3.0
 	 */
 	protected FeatureInstance fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse, int index)
@@ -1132,13 +1091,13 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * fill out the rest of the feature instance
-	 * resolve any prototype first
-	 * @param feature
-	 * @param fi is feature instance of feature
-	 * @param inverse
-	 * @param index
-	 * @throws InterruptedException
+	 * Fill out the rest of a feature instance, resolving a feature prototype first.
+	 *
+	 * @param fi the feature instance of {@code feature}
+	 * @param feature the feature that was instantiated
+	 * @param inverse whether the enclosing feature group(s) invert the direction of the feature
+	 * @param index the index of the feature instance, zero if the feature is not an array
+	 * @throws InterruptedException if instantiation is canceled
 	 */
 	protected void filloutFeatureInstance(FeatureInstance fi, Feature feature, boolean inverse, int index)
 			throws InterruptedException {
@@ -1225,7 +1184,7 @@ public class InstantiateModel {
 				return;
 			} else if (ic.getBindings() != null && ic.getBindings().isEmpty()) {
 				// prototype has not been bound yet
-				errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
+				errManager.warning(fi, "Feature group prototype of " + fi.getInstanceObjectPath()
 						+ " is not bound yet to feature group type");
 			}
 			FeatureGroupType fgt = (FeatureGroupType) ic.getClassifier();
@@ -1268,8 +1227,14 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * instantiate features in feature group take into account that they can be declared as arrays
-	 * @throws InterruptedException
+	 * Add a feature instance for every feature of a feature group type. A feature declared inside a
+	 * feature group type cannot be an array, so an array declaration is reported and the feature is
+	 * instantiated as a single feature.
+	 *
+	 * @param fgi the feature group instance to add the feature instances to
+	 * @param flist the features of its feature group type
+	 * @param inverse whether the enclosing feature group(s) invert the direction of the features
+	 * @throws InterruptedException if instantiation is canceled
 	 */
 	protected void instantiateFGFeatures(final FeatureInstance fgi, List<Feature> flist, final boolean inverse)
 			throws InterruptedException {
@@ -1319,10 +1284,12 @@ public class InstantiateModel {
 	}
 
 	/**
+	 * Give a feature instance the component instance of its classifier, as a root of its own in the
+	 * instance resource. Features that name the same classifier share one root.
 	 *
-	 * @param classifier
-	 * @return
-	 * @throws InterruptedException
+	 * @param fi the feature instance
+	 * @param fc the classifier of its feature
+	 * @throws InterruptedException if instantiation is canceled
 	 * @since 3.0
 	 */
 	protected void instantiateFeatureClassifier(FeatureInstance fi, FeatureClassifier fc) throws InterruptedException {
@@ -1359,7 +1326,6 @@ public class InstantiateModel {
 				newInstance.setCategory(cc.getCategory());
 				classifierCache.put(newInstance, ic);
 				contents.add(newInstance);
-				// root.getReferencedComponents().add(newInstance);
 				fi.setType(newInstance);
 				/*
 				 * Only establish the hierarchy, which is what discovers further referenced classifiers, and
@@ -1390,8 +1356,6 @@ public class InstantiateModel {
 			PropertyAssociation patternPA = getPA(conni, CONNECTION_PATTERN);
 
 			if (setPA == null && patternPA == null) {
-				// OsateDebug.osateDebug("[InstantiateModel] processConnections");
-
 				LinkedList<Integer> srcDims = new LinkedList<>();
 				LinkedList<Integer> dstDims = new LinkedList<>();
 				LinkedList<Integer> srcSizes = new LinkedList<>();
@@ -1576,7 +1540,6 @@ public class InstantiateModel {
 			return false;
 		}
 		if (isOpposite && !patternName.equalsIgnoreCase("One_To_All") && (dstOffset >= dstSizes.size())) {
-			// verbose exception message
 			errManager.error(conni, "Too few indices for connection source for " + conni.getFullName());
 			return false;
 		}
@@ -1613,13 +1576,10 @@ public class InstantiateModel {
 			}
 		} else {
 			if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
-//verbose exception message
 				errManager.error(conni,
 						"Array size mismatch (" + patternName + ") on connection " + conni.getFullName() + " in "
 								+ conni.getContainingComponentInstance().getFullName() + ": " + srcSizes.get(srcOffset)
-								+ " at source " + // ("+conni.getSource().getFullName()+")
-								"and " + dstSizes.get(dstOffset) + " at destination." // ("+conni.getSource().getFullName()+")."
-				);
+								+ " at source and " + dstSizes.get(dstOffset) + " at destination.");
 				return false;
 			} else {
 				if (patternName.equalsIgnoreCase("One_To_One")) {
@@ -1744,8 +1704,6 @@ public class InstantiateModel {
 			if (fv.getProperty().getName().equalsIgnoreCase(field)) {
 				ListValue lv = (ListValue) fv.getOwnedValue();
 				EList<PropertyExpression> vlist = lv.getOwnedListElements();
-//				for (int i = vlist.size()-1; i >=0; i--){
-//				PropertyExpression elem = vlist.get(i);
 				for (PropertyExpression elem : vlist) {
 					indices.add(((IntegerLiteral) elem).getValue());
 				}
@@ -1854,10 +1812,12 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * create a copy of the connection instance with the specified indices for the source and the destination
-	 * @param conni
-	 * @param srcIndices
-	 * @param dstIndices
+	 * Create a copy of the connection instance with the specified indices for the source and the
+	 * destination.
+	 *
+	 * @param conni the connection instance to copy
+	 * @param srcIndices the indices of the source end
+	 * @param dstIndices the indices of the destination end
 	 */
 	private void createNewConnection(ConnectionInstance conni, List<Long> srcIndices, List<Long> dstIndices) {
 		ComponentInstance container = conni.getContainingComponentInstance();
@@ -1903,12 +1863,12 @@ public class InstantiateModel {
 
 		String containerPath = container.getInstanceObjectPath();
 		int len = containerPath.length() + 1;
-		String srcPath = (src != null) ? src.getInstanceObjectPath() : "Source end not found";
+		String srcPath = src.getInstanceObjectPath();
 		StringBuilder sb = new StringBuilder();
 		int i = (srcPath.startsWith(containerPath)) ? len : 0;
 		sb.append(srcPath.substring(i));
 		sb.append(" --> ");
-		String dstPath = (dst != null) ? dst.getInstanceObjectPath() : "Destination end not found";
+		String dstPath = dst.getInstanceObjectPath();
 		i = (dstPath.startsWith(containerPath)) ? len : 0;
 		sb.append(dstPath.substring(i));
 
@@ -1925,11 +1885,11 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * create a copy of the connection instance with the specified indices for the source and the destination
-	 * @param conni
-	 * @param srcIndices
-	 * @param dstIndices
-	 * @return
+	 * Create a copy of the connection instance in another element of the array the connection instance
+	 * belongs to.
+	 *
+	 * @param conni the connection instance to copy
+	 * @param targetComponent the component instance the copy belongs to
 	 */
 	private void createNewConnection(ConnectionInstance conni, ComponentInstance targetComponent) {
 		LinkedList<Long> indices = new LinkedList<>();
@@ -1962,12 +1922,12 @@ public class InstantiateModel {
 
 		String containerPath = targetComponent.getInstanceObjectPath();
 		int len = containerPath.length() + 1;
-		String srcPath = (src != null) ? src.getInstanceObjectPath() : "Source end not found";
+		String srcPath = src.getInstanceObjectPath();
 		StringBuilder sb = new StringBuilder();
 		int i = (srcPath.startsWith(containerPath)) ? len : 0;
 		sb.append(srcPath.substring(i));
 		sb.append(" --> ");
-		String dstPath = (dst != null) ? dst.getInstanceObjectPath() : "Destination end not found";
+		String dstPath = dst.getInstanceObjectPath();
 		i = (dstPath.startsWith(containerPath)) ? len : 0;
 		sb.append(dstPath.substring(i));
 
@@ -2036,10 +1996,13 @@ public class InstantiateModel {
 	 * resolve downgoing source or destination of the connection reference.
 	 * we do so by re-retrieving the feature instance based on the existing connection instance end name.
 	 * If the connection reference is up or down going we also fill in the other end.
-	 * @param targetConnRef
-	 * @param result
-	 * @param name
-	 * @param doSource
+	 * @param targetConnRef the connection reference to resolve
+	 * @param outerConnRef the connection reference one level up
+	 * @param target the component instance to resolve the end in
+	 * @param doSource whether to resolve the source end or the destination end
+	 * @param idx the index of the feature instance to resolve to
+	 * @param fgidx the index of the enclosing feature group instance to resolve to
+	 * @return the resolved end
 	 */
 	private ConnectionInstanceEnd resolveConnectionReference(ConnectionReference targetConnRef,
 			ConnectionReference outerConnRef, ComponentInstance target, boolean doSource, long idx, long fgidx) {
@@ -2195,7 +2158,7 @@ public class InstantiateModel {
 							}
 						} catch (IndexOutOfBoundsException e) {
 							errManager.warning(diagnosticTarget,
-									"Too few indices for connection end, using fist array element");
+									"Too few indices for connection end, using first array element");
 						}
 						resolutionContext = (ConnectionInstanceEnd) io;
 						break;
@@ -2299,8 +2262,9 @@ public class InstantiateModel {
 	 * includes the predeclared properties and any property definitions in user
 	 * declared property sets.
 	 *
-	 * @param si System Implementation
-	 * @return property definitions
+	 * @param root the root of the instance model to collect from
+	 * @return the used property definitions
+	 * @throws InterruptedException if instantiation is canceled
 	 * @since 3.0
 	 */
 	public EList<Property> getAllUsedPropertyDefinitions(ComponentInstance root) throws InterruptedException {
@@ -2389,21 +2353,12 @@ public class InstantiateModel {
 	 * @return List holding the used property definitions
 	 */
 	protected void addUsedPropertyDefinitions(Element root, List<Property> result) {
-//		OsateDebug.osateDebug ("[InstantiateModel] addUsedPropertyDefinitions=" + root);
-
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		while (it.hasNext()) {
 			EObject ao = it.next();
-			// OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
-
 			if (ao instanceof PropertyAssociation propertyAssociation) {
-				// OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
-
 				Property pd = propertyAssociation.getProperty();
-				// OsateDebug.osateDebug ("[InstantiateModel] pd=" + pd);
-
 				if (pd != null) {
-//					OsateDebug.osateDebug ("[InstanceModel] AddUsedProperty " + pd + " to " + root);
 					result.add(pd);
 				}
 			}
@@ -2441,7 +2396,7 @@ public class InstantiateModel {
 				}
 			}
 
-			ArrayList<Node> workState = new ArrayList<>();;
+			ArrayList<Node> workState = new ArrayList<>();
 
 			int modalCount;
 
