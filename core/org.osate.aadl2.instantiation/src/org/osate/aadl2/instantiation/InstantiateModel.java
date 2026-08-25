@@ -553,6 +553,13 @@ public class InstantiateModel {
 		Resource res = ci.eResource();
 		URI modeluri = res.getURI();
 		String last = modeluri.lastSegment();
+		/*
+		 * Issue #3086: this keeps the part of the source file name before the first dot rather than
+		 * dropping its extension, so two file names that differ only after the first dot produce the same
+		 * instance model file, and a name without an extension raises an exception. Correcting it renames
+		 * the instance model file of every source whose name contains a dot, which is why it is not part
+		 * of the refactoring in #3066.
+		 */
 		String filename = last.substring(0, last.indexOf('.'));
 		URI path = modeluri.trimSegments(1);
 		URI instanceURI = path.appendSegment(FileNameConstants.AADL_INSTANCES_DIR)
