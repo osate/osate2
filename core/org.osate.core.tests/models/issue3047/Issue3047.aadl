@@ -1,0 +1,71 @@
+package Issue3047
+public
+	thread Placeholder
+	end Placeholder;
+
+	process DataProducer
+	features
+		outp: out data port;
+	end DataProducer;
+
+	process DataConsumer
+	features
+		inp: in data port;
+	end DataConsumer;
+
+	process EventProducer
+	features
+		outp: out event port;
+	end EventProducer;
+
+	process SourceBoundary
+	features
+		outp: out data port;
+	end SourceBoundary;
+
+	process implementation SourceBoundary.impl
+	subcomponents
+		placeholder: thread Placeholder;
+	end SourceBoundary.impl;
+
+	process DestinationBoundary
+	features
+		inp: in data port;
+	end DestinationBoundary;
+
+	process implementation DestinationBoundary.impl
+	subcomponents
+		placeholder: thread Placeholder;
+	end DestinationBoundary.impl;
+
+	process TriggerDestination
+	features
+		trigger: in event port;
+	end TriggerDestination;
+
+	process implementation TriggerDestination.impl
+	subcomponents
+		placeholder: thread Placeholder;
+	modes
+		idle: initial mode;
+		active: mode;
+		activate: idle -[ trigger ]-> active;
+	end TriggerDestination.impl;
+
+	system Top
+	end Top;
+
+	system implementation Top.impl
+	subcomponents
+		source_boundary: process SourceBoundary.impl;
+		data_consumer: process DataConsumer;
+		data_producer: process DataProducer;
+		destination: process DestinationBoundary.impl;
+		event_producer: process EventProducer;
+		trigger_destination: process TriggerDestination.impl;
+	connections
+		source_stop: port source_boundary.outp -> data_consumer.inp;
+		destination_stop: port data_producer.outp -> destination.inp;
+		trigger_stop: port event_producer.outp -> trigger_destination.trigger;
+	end Top.impl;
+end Issue3047;
