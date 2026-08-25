@@ -1,0 +1,115 @@
+-- Regression fixture for issue #2787: a flow specification whose ends are feature arrays stands for
+-- one flow per pair of elements that Connection_Pattern or Connection_Set pairs up, and the pairing
+-- has to reach the end to end flow instances built over it.
+--
+-- A feature array is allowed only in an abstract, thread, device, memory, system, or processor
+-- classifier, so the array ends here sit on devices and on abstract components rather than on the
+-- processes that issue #1833 used.
+package Issue2787
+public
+	data Sample
+	end Sample;
+
+	device Sensor
+	features
+		outp: out data port Sample[2];
+	flows
+		fsrc: flow source outp;
+	end Sensor;
+
+	device Actuator
+	features
+		inp: in data port Sample[2];
+	flows
+		fsnk: flow sink inp;
+	end Actuator;
+
+	-- A leaf that carries the flow through, so the flow path is the whole component
+	abstract Worker
+	features
+		inp: in data port Sample[2];
+		outp: out data port Sample[2];
+	flows
+		wpath: flow path inp -> outp;
+	end Worker;
+
+	-- The same flow path, but realized by a flow implementation that runs through Worker
+	abstract Relay
+	features
+		inp: in data port Sample[2];
+		outp: out data port Sample[2];
+	flows
+		fpath: flow path inp -> outp;
+	end Relay;
+
+	abstract implementation Relay.i
+	subcomponents
+		worker: abstract Worker;
+	connections
+		down: port inp -> worker.inp;
+		up: port worker.outp -> outp;
+	flows
+		fpath: flow path inp -> down -> worker.wpath -> up -> outp;
+	end Relay.i;
+
+	system Top
+	end Top;
+
+	-- The model of issue #1833: a flow source and a flow sink on feature arrays, connected element by
+	-- element. The connection stands for two connection instances, so the flow has to stand for two flow
+	-- instances as well.
+	system implementation Top.i
+	subcomponents
+		sensor: device Sensor;
+		actuator: device Actuator;
+	connections
+		c: port sensor.outp -> actuator.inp;
+	flows
+		etef: end to end flow sensor.fsrc -> c -> actuator.fsnk;
+	end Top.i;
+
+	-- The same flow through a component whose flow specification is realized by a flow implementation.
+	-- The element a flow specification instance is for pins the element its implementation runs through.
+	system implementation Top.viaImplementation
+	subcomponents
+		sensor: device Sensor;
+		relay: abstract Relay.i;
+		actuator: device Actuator;
+	connections
+		toRelay: port sensor.outp -> relay.inp;
+		fromRelay: port relay.outp -> actuator.inp;
+	flows
+		etef: end to end flow sensor.fsrc -> toRelay -> relay.fpath -> fromRelay -> actuator.fsnk;
+	end Top.viaImplementation;
+
+	-- A nested end to end flow replicated by the flow specification instances of a feature array. Every
+	-- subcomponent here is a single component, so the multiplicity comes from the arrays on their features
+	-- alone. The flow that contains the nested one has to be replicated with it, and each replica has to
+	-- pick the nested replica of its own array element. The nested flow ends its container here.
+	system implementation Top.nested
+	subcomponents
+		sensor: device Sensor;
+		worker: abstract Worker;
+		actuator: device Actuator;
+	connections
+		toWorker: port sensor.outp -> worker.inp;
+		fromWorker: port worker.outp -> actuator.inp;
+	flows
+		inner: end to end flow worker.wpath -> fromWorker -> actuator.fsnk;
+		outer: end to end flow sensor.fsrc -> toWorker -> inner;
+	end Top.nested;
+
+	-- The same, with the nested flow starting its container instead of ending it
+	system implementation Top.nestedAtStart
+	subcomponents
+		sensor: device Sensor;
+		worker: abstract Worker;
+		actuator: device Actuator;
+	connections
+		toWorker: port sensor.outp -> worker.inp;
+		fromWorker: port worker.outp -> actuator.inp;
+	flows
+		inner: end to end flow sensor.fsrc -> toWorker -> worker.wpath;
+		outer: end to end flow inner -> fromWorker -> actuator.fsnk;
+	end Top.nestedAtStart;
+end Issue2787;

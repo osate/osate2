@@ -102,6 +102,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.instantiation.internal.ConnectionArrayExpander;
+import org.osate.aadl2.instantiation.internal.FlowSpecArrayExpander;
 import org.osate.aadl2.instantiation.internal.SystemOperationModeBuilder;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.FileNameConstants;
@@ -491,15 +492,17 @@ public class InstantiateModel {
 
 	/**
 	 * Prepare one instance-resource root for annex instantiation. For the system instance, create the
-	 * connection instances, expand them into the final connection set, validate the result, build the
-	 * end to end flows over it, and cache its properties. For a referenced classifier root, cache its
-	 * properties without instantiating connections or end to end flows: those semantic instances belong
-	 * to a system instance and depend on its system operation modes.
+	 * connection instances, expand them and the flow specification instances, validate the result, build
+	 * the end to end flows over it, and cache its properties. For a referenced classifier root, expand its
+	 * flow specification instances and cache its properties, but instantiate no connections and no end to
+	 * end flows: those semantic instances belong to a system instance and depend on its system operation
+	 * modes.
 	 * <p>
 	 * The expansion of arrays, {@code Connection_Pattern} and {@code Connection_Set} replaces the
 	 * provisional connection instances and deletes them. It has to happen before validation and before
 	 * end to end flow creation, because a flow refers to connection instances without containing them
-	 * and would silently lose a deleted one.
+	 * and would silently lose a deleted one. The flow specification instances are expanded in the same
+	 * window and for the same reason: an end to end flow is built over them.
 	 * <p>
 	 * Does nothing if the root already went through this phase.
 	 */
@@ -509,19 +512,12 @@ public class InstantiateModel {
 		}
 		pending.preparedForAnnexes = true;
 		final ComponentInstance root = pending.root;
-		if (!(root instanceof SystemInstance)) {
-			cacheProperties(root);
-			return;
-		}
-
-		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
-		checkCanceled();
 
 		/*
-		 * The expansion needs Connection_Pattern and Connection_Set on the provisional connections, but
-		 * the remaining properties have to be cached on the final connections. Split the used property
-		 * definitions and run the same caching mechanism twice, so that the values the expansion sees are
-		 * the ones full property caching would have produced for them.
+		 * An expansion needs Connection_Pattern and Connection_Set on the provisional instances, but the
+		 * remaining properties have to be cached on the final ones. Split the used property definitions and
+		 * run the same caching mechanism twice, so that the values an expansion sees are the ones full
+		 * property caching would have produced for them.
 		 */
 		final EList<Property> usedProperties = getAllUsedPropertyDefinitions(root);
 		final List<Property> structuralProperties = new ArrayList<>();
@@ -534,9 +530,24 @@ public class InstantiateModel {
 			}
 		}
 
-		cacheStructuralConnectionProperties(root, structuralProperties);
+		if (!(root instanceof SystemInstance)) {
+			cacheStructuralProperties(root, structuralProperties);
+			new FlowSpecArrayExpander(monitor, errManager).processFlowSpecifications(root);
+			checkCanceled();
+
+			cacheProperties(root, remainingProperties);
+			return;
+		}
+
+		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
+		checkCanceled();
+
+		cacheStructuralProperties(root, structuralProperties);
 		// handle arrays, connection patterns, and connection sets
 		new ConnectionArrayExpander(monitor, errManager).processConnections(root);
+		checkCanceled();
+
+		new FlowSpecArrayExpander(monitor, errManager).processFlowSpecifications(root);
 		checkCanceled();
 
 		final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager, classifierCache);
@@ -597,16 +608,16 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * Cache {@code Connection_Pattern} and {@code Connection_Set} on the provisional connection
-	 * instances of a root. {@link ConnectionArrayExpander} reads them from there to expand the
-	 * connections into the final connection set.
+	 * Cache {@code Connection_Pattern} and {@code Connection_Set} on the provisional connection instances
+	 * and flow specification instances of a root. {@link ConnectionArrayExpander} and
+	 * {@link FlowSpecArrayExpander} read them from there to expand those instances into the final sets.
 	 * <p>
 	 * This uses the same two switches and the same lookup contexts as full property caching, restricted
 	 * to those two property definitions, so the resolved values are the ones full property caching would
 	 * have produced. The contained associations go into a separate cache because the one used by full
-	 * caching must not hold associations recorded for connection instances that the expansion deletes.
+	 * caching must not hold associations recorded for instances that an expansion replaces.
 	 */
-	private void cacheStructuralConnectionProperties(ComponentInstance root, List<Property> structuralProperties)
+	private void cacheStructuralProperties(ComponentInstance root, List<Property> structuralProperties)
 			throws InterruptedException {
 		if (structuralProperties.isEmpty()) {
 			return;
