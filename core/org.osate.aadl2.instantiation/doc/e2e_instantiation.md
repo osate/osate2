@@ -3,9 +3,23 @@
 This document describes how OSATE turns declarative AADL end-to-end flows into
 `EndToEndFlowInstance` objects in the instance model.
 
-Unless another file is named, all types and methods mentioned here live in
-`core/org.osate.aadl2.instantiation/src/org/osate/aadl2/instantiation/CreateEndToEndFlowsSwitch.java`.
-References are by type and method name only — no line numbers, since those move.
+All types mentioned here live under
+`core/org.osate.aadl2.instantiation/src/org/osate/aadl2/instantiation/`, one per file, in the
+package shown below. References are by type and method name only — no line numbers, since those
+move.
+
+| Type | Package | Responsibility |
+|---|---|---|
+| `CreateEndToEndFlowsSwitch` | `instantiation` | the traversal adapter: component callbacks, classifier lookup, cancellation, the compatibility entry point, and every protected extension point |
+| `EndToEndFlowSession` | `instantiation.internal` | one component instance's discovery: candidates, traversal state, expansion, deferred diagnostics, and the atomic commit |
+| `FlowConnectionMatcher` | `instantiation.internal` | stateless connection lookup and compatibility predicates |
+| `EndToEndFlowModes` | `instantiation.internal` | mode resolution and system-operation-mode computation |
+| `FlowInstantiationHost` | `instantiation.internal` | the adapter's extension points as the session sees them |
+| `FlowIterator` | `instantiation.internal` | branch-local cursor over one declaration |
+| `ETEInfo` | `instantiation.internal` | the legacy per-variant view published on request |
+
+Issue #3055 split these out of what was one class; the ownership boundaries are §4.1 and the
+decomposition is not observable in the instance model.
 
 ---
 
@@ -61,13 +75,21 @@ referenced classifiers.
 
 The switch extends `AadlProcessingSwitchWithProgress` and is constructed with
 `PROCESS_PRE_ORDER_ALL`, so its `InstanceSwitch.caseComponentInstance` fires for **every**
-component instance in pre-order. Each component instantiates the ETEs declared in *its own*
-implementation, obtained via `ComponentImplementation.getAllEndToEndFlows()`.
+component instance in pre-order. It creates one `EndToEndFlowSession` per visited component,
+instantiates the ETEs declared in *its own* implementation — obtained via
+`ComponentImplementation.getAllEndToEndFlows()` — into that session, and commits it.
 
 `org.osate.aadl2.instantiation` is an exported package (see the bundle `MANIFEST.MF`), so the
 `public`/`protected` members of this class — the constructor, `instantiateEndToEndFlow`,
 `processETE`, `processETESegment`, `processSubcomponentFlow`, `processFlowImpl`, `processFlowStep`,
 `setCloneName`, `resetETECloneCount`, `getModeInstances`, `fillinModes` — are external API.
+`org.osate.aadl2.instantiation.internal` is **not** exported, which bounds what a subclass outside
+the bundle can actually reach: `instantiateEndToEndFlow`, `processETESegment`,
+`processSubcomponentFlow`, and both `processFlowStep` overloads name `ETEInfo` or `FlowIterator` in
+their signatures, so they are overridable only from inside the bundle. That was already true when
+both types were package-private members of the switch. The hooks reachable from another bundle are
+`processETE`, `processFlowImpl`, `setCloneName`, `resetETECloneCount`, `getModeInstances`, and
+`fillinModes`.
 
 ---
 
@@ -161,14 +183,48 @@ consequences:
 - `FlowCandidate` carries an explicit `owner` field instead of relying on `eContainer()`.
 - Every diagnostic is queued and replayed after commit (§8).
 
+### 4.1 Who owns what
+
+```text
+CreateEndToEndFlowsSwitch                     ← public, exported, the compatibility promise
+  visits component instances, resolves their implementation through the classifier cache,
+  watches the progress monitor, reports errors, counts clone names,
+  declares every protected extension point, and holds activeSession
+        │                                     ▲
+        │ creates one per                     │ every traversal step and both mode
+        │ component instance                  │ computations leave the session through
+        ▼                                     │ FlowInstantiationHost, never around it
+EndToEndFlowSession                           ← internal, one component instance
+  candidates, expansions, traversal state, deferred diagnostics, atomic commit
+        │ uses
+        ├─► FlowConnectionMatcher   stateless: which connection instance can continue this flow
+        ├─► EndToEndFlowModes       mode instances and system operation modes
+        ├─► FlowIterator            branch-local cursor over one declaration
+        └─► ETEInfo                 legacy per-variant view, only when a caller asks for one
+```
+
+The session never calls its own traversal steps directly and never computes modes directly. Both go
+out through `FlowInstantiationHost`, whose methods are the switch's protected ones seen from inside,
+implemented by a private inner class of the switch that forwards to them. That indirection is the
+reason an override still decides an outcome no matter how deep in the traversal the step is reached
+from — `ExtensionHookEndToEndFlowInstantiationTest` pins exactly that. `FlowConnectionMatcher` and
+`EndToEndFlowModes` hold no state and are reached statically; the matcher's predicates are pure
+questions about a connection instance, so they can be read without knowing how the flow got there.
+
+The switch resolves the session for a protected step from `activeSession` and throws
+`IllegalStateException("No active end-to-end flow instantiation context")` when there is none, so
+calling a hook outside an instantiation fails instead of touching an unrelated component.
+
 ---
 
 ## 5. Data structures
 
-Three nested scopes, plus one branch-local cursor:
+Three nested scopes, plus one branch-local cursor. All of them are private to
+`EndToEndFlowSession`; nothing outside it sees a candidate:
 
 ```text
-FlowInstantiationContext                      ← per ComponentInstance
+EndToEndFlowSession                           ← per ComponentInstance
+  host               : FlowInstantiationHost  (the switch's extension points)
   owner              : ComponentInstance      (explicit; no eContainer() reliance)
   initialFlows       : List.copyOf(owner.getEndToEndFlows())  ← commit precondition
   expansions         : EndToEndFlow → FlowExpansion   (IdentityHashMap, memoized)
@@ -193,34 +249,40 @@ FlowInstantiationContext                      ← per ComponentInstance
                 sequence        : long               ← creation order, drives naming
                 status          : ACTIVE | COMPLETE | FAILED | ABORTED
 
-TraversalState                                ← branch-local cursor, held in a switch field
+TraversalState                                ← branch-local cursor, held in a session field
   candidate           : FlowCandidate
   continuations       : Deque<FlowIterator>   ← descent stack
   connections         : List<Connection>      ← pending connection filter
   flowImplementations : List<FlowImplementation>  ← source/destination feature constraints
 ```
 
-Note that `TraversalState` is **not** owned by `FlowInstantiationContext`. Two fields of the switch
-hold the current scope:
+Two fields hold the current scope, one in each class:
 
-- `activeContext` — the `FlowInstantiationContext` of the component being visited
-- `activeState` — the `TraversalState` of the branch currently advancing
+- `CreateEndToEndFlowsSwitch.activeSession` — the session of the component being visited
+- `EndToEndFlowSession.activeState` — the `TraversalState` of the branch currently advancing
 
-`caseComponentInstance` and `instantiateEndToEndFlow` save and restore both around their bodies, so
-re-entrant calls nest cleanly. `getCandidate(etei)` and `getState(etei)` are the guarded accessors:
-they throw `IllegalStateException` if an instance is not part of the active context, or if a branch
-tries to advance while it is no longer the active one.
+`caseComponentInstance` and `instantiateEndToEndFlow` save and restore `activeSession` around their
+bodies, and `expand` does the same for `activeState`, so re-entrant calls nest cleanly. Restoring the
+session restores its traversal state with it, since the state belongs to the session. `session()`,
+`getCandidate(etei)`, and `getState(etei)` are the guarded accessors: they throw
+`IllegalStateException` if there is no instantiation in progress, if an instance is not part of the
+active session, or if a branch tries to advance while it is no longer the active one.
+
+A session belongs to one component instance. `instantiateEndToEndFlow` enforces that by throwing
+`IllegalStateException("End-to-end flow expansion crossed component contexts")` when it is asked to
+expand a declaration in a component other than the active session's owner, which is why `expand`
+can use the session's `owner` as the component context.
 
 `FlowIterator` is a uniform cursor over either `EndToEndFlow.getAllFlowSegments()` or
 `FlowImplementation.getOwnedFlowSegments()`. It holds a single `List<? extends Element> segments`
-plus an `index`, and its private `copy()` returns a new iterator over the same list at the same
-position — that is how a fork resumes exactly where its sibling was.
+plus an `index`, and its `copy()` returns a new iterator over the same list at the same position —
+that is how a fork resumes exactly where its sibling was.
 
-`ETEInfo` is the legacy record (`preConns`, `etei`, `postConns`) published through
-`updateCompatibilityInfo` into the `HashMap<EndToEndFlow, List<ETEInfo>>` that
-`instantiateEndToEndFlow` accepts. It exists for API compatibility and is populated once when an
-external caller supplies a map; internal calls pass `null` because traversal uses `FlowCandidate`
-directly.
+`ETEInfo` is the legacy per-variant view (`preConns`, `etei`, `postConns`) that
+`EndToEndFlowSession.compatibilityInfo` builds from a declaration's candidates, in creation order,
+for the `HashMap<EndToEndFlow, List<ETEInfo>>` that `instantiateEndToEndFlow` accepts. It exists for
+API compatibility and is built only when a caller supplies a map; internal calls pass `null` because
+traversal uses `FlowCandidate` directly.
 
 ---
 
@@ -309,7 +371,7 @@ segments may still refine a feature-group endpoint to one of its features.
 continueFlow(ci, etei, iter, errorElement):
   candidate = getCandidate(etei)
   loop:
-    if monitor canceled                → activeContext.canceled = true; return
+    if monitor canceled                → session canceled = true; return
     if activeState is null or its candidate != candidate
                                        → return       (a fork took over)
     if ci == null                      → EXISTING_ELEMENT error
@@ -389,7 +451,8 @@ processFlowStep(ci, etei, leaf, nextFlowImpl, iter)
                  pop flowImplementations
 ```
 
-The three `isValidContinuation` overloads are pure predicates:
+Connection resolution itself is `FlowConnectionMatcher`, which asks nothing about how the flow was
+reached. Its three `isValidContinuation` overloads are pure predicates:
 
 | Overload | Question |
 |---|---|
@@ -419,6 +482,11 @@ match rules:
 `getLastFeature` supplies that last feature, recursing into a trailing nested
 `EndToEndFlowInstance`, taking a `FlowSpecificationInstance`'s destination, or a
 `ConnectionInstance`'s destination when it is a `FeatureInstance`.
+
+`testConnection`, `isSameOrRefinedConnection`, `isSameorContains`, `getLastFeature`,
+`containsConnectionPath`, and `getFirstConnectionEnd` are private to the matcher; discovery only
+calls `collectConnectionInstances`, the three `isValidContinuation` overloads, and
+`isCompatibleNestedConnection`.
 
 ### 6.5 Leaf elements
 
@@ -454,14 +522,15 @@ connection from the iterator. That preserves the remainder of a multi-hop access
 `processEndToEndFlow` handles an ETE referenced inside another ETE, in the same component context.
 
 ```text
-① cycle check: activeContext.activeDeclarations.indexOf(ete) >= 0
+① cycle check: activeDeclarations.indexOf(ete) >= 0
      → mark every expansion from cycleStart..end FAILED, and all their candidates FAILED
        candidate error "Cyclic dependency between end to end flows involving …"   (#2987)
        clear pending; return
 
-② memoize: if not yet expanded → instantiateEndToEndFlow(ci, ete, null)
-     (this is what makes forward references work, and routes them through the same
-      expansion bookkeeping and commit-time naming as declared-order flows)      (#2985)
+② memoize: if not yet expanded → host.expandNestedFlow(ci, ete)
+     (that is instantiateEndToEndFlow(ci, ete, null) on the switch, which is what makes
+      forward references work and routes them through the same expansion bookkeeping
+      and commit-time naming as declared-order flows)                            (#2985)
    nested expansion FAILED → parent expansion FAILED, all its candidates FAILED
    nested expansion has no COMPLETE candidates → candidate error
        "No nested end to end flows instantiated for …"
@@ -478,7 +547,8 @@ connection from the iterator. That preserves the remainder of a multi-hop access
          otherwise build the full match list:
              record NestedMatch(ConnectionInstance connection, FlowCandidate nested)
              for each conni × each nested where
-                 containsConnectionPath(conni, nested.preConnections)             (#2986)
+                 isCompatibleNestedConnection(conni, nested.preConnections,
+                                              nested.instance)                    (#2986)
          matches empty → candidate error
              "No compatible nested end to end flow instance for …"; clear pending; return
          otherwise FORK PER MATCH:
@@ -503,8 +573,10 @@ Nested declaration
 
 The `preConnections` / `postConnections` pair exists precisely for this handshake: a nested flow's
 *leading* declarative connections identify which parent connection instance can reach it, and its
-*trailing* ones seed the parent's next filter. `containsConnectionPath` is the contiguous-sequence
-test over a connection instance's references (an empty path matches trivially).
+*trailing* ones seed the parent's next filter. `FlowConnectionMatcher.isCompatibleNestedConnection`
+asks two things of a pairing: that the connection instance contains the nested variant's leading
+declarative path as a contiguous sequence of its references — that is `containsConnectionPath`, and
+an empty path matches trivially — and that its destination reaches the nested flow's first endpoint.
 
 Matching is materialised as a list rather than counted, so every compatible
 `(connection, nested)` pair produces exactly one parent branch — including the case where one
@@ -522,7 +594,7 @@ forkState(source)
   preConnections = source.candidate.instance.getFlowElements().isEmpty()
                      ? new ArrayList<>()
                      : new ArrayList<>(source.candidate.preConnections)
-  candidate = createCandidate(activeContext, source.candidate.expansion, instance, preConnections)
+  candidate = createCandidate(source.candidate.expansion, instance, preConnections)
                                                             ← fresh sequence number
   return source.copy(candidate)   ← copies the continuations deque (each FlowIterator
                                     copied), the pending connections, and the
@@ -588,18 +660,19 @@ Resulting candidate tree for `BranchingTop.i`:
 still `ACTIVE`. Both statuses stop `continueFlow` from extending that branch, preventing cascaded
 diagnostics after the first failure; sibling branches are unaffected.
 
-At the *expansion* level, `expandEndToEndFlow`'s `finally` block resolves status: if the expansion is
-`FAILED`, every candidate of that declaration becomes `FAILED`; otherwise every still-`ACTIVE`
-candidate with at least one flow element becomes `COMPLETE`, while an empty candidate becomes
-`FAILED`. The `finally` block also pops `activeDeclarations`, restores `activeState`, sets
-`context.canceled` if the monitor was cancelled, and leaves compatibility-map publication to the
-protected entry point when a caller supplied one.
+At the *expansion* level, `EndToEndFlowSession.expand`'s `finally` block resolves status: if the
+expansion is `FAILED`, every candidate of that declaration becomes `FAILED`; otherwise every
+still-`ACTIVE` candidate with at least one flow element becomes `COMPLETE`, while an empty candidate
+becomes `FAILED`. The `finally` block also pops `activeDeclarations`, restores `activeState`, sets
+the session's `canceled` flag if the monitor was cancelled, and leaves compatibility-map publication
+to the protected entry point when a caller supplied one.
 
 ---
 
 ## 9. Commit
 
-Nothing touches the instance model until `commit(context)`, which runs once per component instance.
+Nothing touches the instance model until `EndToEndFlowSession.commit()`, which runs once per
+component instance. The switch calls it after the last declaration of a component has been expanded.
 
 ```mermaid
 sequenceDiagram
@@ -620,8 +693,8 @@ sequenceDiagram
 ```
 
 ```text
-commit(context):
-  if context.canceled or monitor canceled  → attach nothing                     ①
+commit():
+  if session canceled or monitor canceled  → attach nothing                     ①
   if owner.getEndToEndFlows() != initialFlows → IllegalStateException
        "End-to-end flow list changed during candidate discovery"                ②
 
@@ -642,7 +715,7 @@ commit(context):
   owner.getEndToEndFlows().addAll(instances)   ← THE ONLY MUTATION (sequence order)
 
   ┌ MODE FINALIZATION — post-order over the nesting graph ────────────────────┐
-  │ finalizeModes(context, candidate, finalized, finalizing):                 │
+  │ finalizeModes(candidate, finalized, finalizing):                          │
   │   recurse into nested COMPLETE candidates FIRST, so a parent reads        │
   │   already-computed nested inSystemOperationModes                          │
   │   `finalizing` guard → IllegalStateException                              │
@@ -678,6 +751,10 @@ nothing, cancellation after expansion attaches nothing, and a `fillinModes` that
 `getEndToEndFlows()` exactly as it was.
 
 ### Mode and SOM computation
+
+The arithmetic is `EndToEndFlowModes`; the protected `getModeInstances` and `fillinModes` are thin
+delegates to `modeInstances` and `fillInModes` there, and discovery reaches them only through those
+delegates, so an override still decides the result.
 
 `fillinModes` reduces the candidate system operation modes in three passes. It returns immediately
 if the system instance has one SOM or fewer.
@@ -740,22 +817,34 @@ cyclic declarations terminate without flows while reporting the cycle on the con
 
 ## 11. Reading order for the code
 
-1. `initSwitches` / `caseComponentInstance` — per-component scoping, and where `commit` is called.
-2. `instantiateEndToEndFlow` / `expandEndToEndFlow` — memoization, the DFS stack, and status
-   resolution in the `finally` block.
-3. `continueFlow` — the driver loop; understand `continuations` first.
-4. `processFlowStep` — the pending-connection filter and the fork idiom.
-5. `testConnection` / `isSameOrRefinedConnection` / `getLastFeature` — semantic-connection matching.
-6. `processEndToEndFlow` — nesting, cycles, and the pre/post-connection handshake.
-7. `commit` / `finalizeModes` / `fillinModes` — materialization.
+In `CreateEndToEndFlowsSwitch`:
+
+1. `initSwitches` / `caseComponentInstance` — per-component scoping, where a session is created and
+   where `commit` is called.
+2. `instantiateEndToEndFlow` — the compatibility entry point, the one-component-per-session rule, and
+   the standalone case.
+3. the protected steps and `SessionHost` — how a traversal step leaves the session and comes back.
+
+Then in `EndToEndFlowSession`:
+
+4. `expand` — memoization, the DFS stack, and status resolution in the `finally` block.
+5. `continueFlow` — the driver loop; understand `continuations` first.
+6. `processFlowStep` — the pending-connection filter and the fork idiom.
+7. `processEndToEndFlow` — nesting, cycles, and the pre/post-connection handshake.
+8. `commit` / `finalizeModes` — materialization.
+
+And finally the two stateless collaborators: `FlowConnectionMatcher.testConnection` /
+`isSameOrRefinedConnection` / `getLastFeature` for semantic-connection matching, and
+`EndToEndFlowModes.fillInModes` for system operation modes.
 
 The characterization tests in
 `core/org.osate.core.tests/src/org/osate/core/tests/instantiation/flows/`, with models in
 `core/org.osate.core.tests/models/endToEndFlowInstantiation/`, are the executable specification.
 `AbstractEndToEndFlowInstantiationTest` provides the shared helpers (`instantiate`,
 `instantiateWithErrors`, `flowNames`, `flow`, `flowSpecification`, `connection`, `nestedFlow`, …),
-and the suites are `Basic`, `Nested`, `Invalid`, `Modal`, `Access`, `FeatureGroupAndRefinement`, and
-`Cancellation`. `BasicAndBranching.aadl` and `NestedFlows.aadl` are the two most instructive models.
+and the suites are `Basic`, `Nested`, `Invalid`, `Modal`, `Access`, `FeatureGroupAndRefinement`,
+`Cancellation`, and `ExtensionHook`. `BasicAndBranching.aadl` and `NestedFlows.aadl` are the two most
+instructive models.
 
 ---
 
@@ -776,3 +865,4 @@ attributions in this document can be checked without relying on the source comme
 | [#2986](https://github.com/osate/osate2/issues/2986) | Nested end-to-end flow composition combines incompatible path variants | §6.7, §10 — `containsConnectionPath` pairing |
 | [#2987](https://github.com/osate/osate2/issues/2987) | Cyclic nested end-to-end flows create cyclic instance graphs | §6.7, §10 — `activeDeclarations` cycle check |
 | [#2988](https://github.com/osate/osate2/issues/2988) | End-to-end flow connection matching ignores declarative connection context | §6.4 — `isSameOrRefinedConnection` |
+| [#3055](https://github.com/osate/osate2/issues/3055) | Refactor `CreateEndToEndFlowsSwitch` into focused collaborators | §1, §4.1 — where each type lives and what it owns |
