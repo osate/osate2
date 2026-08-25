@@ -58,20 +58,31 @@ InstantiateModel.fillSystemInstance(root)
  ┌────────────────────────────────────────────────────────────────────────┐
  │ 1. populateComponentInstance()                                         │
  │      → ComponentInstance tree, FeatureInstances, ModeInstances,        │
- │        FlowSpecificationInstances (via instantiateFlowSpecs)           │
+ │        provisional FlowSpecificationInstances (instantiateFlowSpecs)   │
  │ 2. createSystemOperationModes()      → SystemOperationMode list        │
- │ 3. CreateConnectionsSwitch           → ConnectionInstances, each with  │
- │                                        an ordered ConnectionReference  │
- │                                        chain of declarative Connections│
- │ 4. ValidateConnectionsSwitch                                           │
- │ 5. CreateEndToEndFlowsSwitch         → EndToEndFlowInstances   ◄── us  │
- │ 6. cacheProperties(), annex instantiation                              │
+ │ 3. CreateConnectionsSwitch           → provisional ConnectionInstances,│
+ │                                        each with an ordered            │
+ │                                        ConnectionReference chain of    │
+ │                                        declarative Connections         │
+ │ 4. cacheStructuralProperties()       → Connection_Pattern and          │
+ │                                        Connection_Set on both kinds of │
+ │                                        provisional instance            │
+ │ 5. ConnectionArrayExpander           → final ConnectionInstances       │
+ │ 6. FlowSpecArrayExpander             → final FlowSpecificationInstances│
+ │ 7. ValidateConnectionsSwitch                                           │
+ │ 8. CreateEndToEndFlowsSwitch         → EndToEndFlowInstances   ◄── us  │
+ │ 9. cacheProperties(), annex instantiation                              │
  └────────────────────────────────────────────────────────────────────────┘
 ```
 
+Steps 5 and 6 are why a flow sees only final instances. Both replace the provisional instances
+they expand, and a flow refers to connection instances and flow specification instances without
+containing them, so a flow built before either expansion would keep instances that no longer exist.
+
 `InstantiateModel` invokes the switch as `new CreateEndToEndFlowsSwitch(...).processPreOrderAll(root)`
-for the system instance. Additional roots that represent referenced classifiers bypass this phase
-because they have no system operation modes.
+for the system instance. Additional roots that represent referenced classifiers bypass steps 3, 5, 7
+and 8 because they have no system operation modes; they do go through steps 4, 6 and 9, so their flow
+specification instances mean the same thing as the system instance's.
 
 The switch extends `AadlProcessingSwitchWithProgress` and is constructed with
 `PROCESS_PRE_ORDER_ALL`, so its `InstanceSwitch.caseComponentInstance` fires for **every**
@@ -112,7 +123,7 @@ end to end flow
   consumer.fsnk
 ```
 
-Four sources of multiplicity:
+Five sources of multiplicity:
 
 1. **Multiple flow implementations** for one flow specification — in the test model
    `BasicAndBranching.aadl`, `Choice.two_paths` declares `fpath` twice, once through `upper` and
@@ -121,6 +132,10 @@ Four sources of multiplicity:
    group expansion, arrays, fan-out.
 3. **Multiple access targets** behind one data or subprogram access.
 4. **Multiple instances of a nested ETE** referenced by an outer ETE.
+5. **Multiple flow specification instances** for one flow specification — a specification whose in or
+   out end is a feature array was expanded by `FlowSpecArrayExpander` into one instance per pair of
+   array elements that `Connection_Pattern`, `Connection_Set` or the default `One_To_One` pairs up
+   (issue #2787).
 
 Each multiplicity point **forks** the traversal. Surviving branches are named `<flow>_1`,
 `<flow>_2`, … at commit time.
@@ -416,11 +431,16 @@ elements accumulate in `traversal.connections`; when the next flow element arriv
 ```text
 processFlowStep(ci, etei, leaf, nextFlowImpl, iter)
  │
+ │  flowSpecs = flowSpecInstances(ci, leaf)      ← every instance of the leaf's spec
+ │
  ├─ pending connections EMPTY  (start of the flow)
- │    addLeafElement(ci, etei, leaf) == false → abortCandidate, return
- │    push nextFlowImpl onto flowImplementations
- │    continueFlow(ci.getContainingComponentInstance(), …)
- │    pop flowImplementations
+ │    FORK PER FLOW SPECIFICATION INSTANCE:      (one step when the leaf has none)
+ │       if addLeafElement(ci, etei, leaf, flowSpec):
+ │           push nextFlowImpl onto flowImplementations
+ │           continueFlow(ci.getContainingComponentInstance(), …)
+ │           pop flowImplementations
+ │       else:
+ │           abortCandidate
  │
  └─ pending connections NON-EMPTY
       connis = collectConnectionInstances(ci, etei, traversal.connections)
@@ -430,20 +450,24 @@ processFlowStep(ci, etei, leaf, nextFlowImpl, iter)
       │                   "… no semantic connections that continue the flow 'f'
       │                    from feature 'x'"
       │
-      └─ filter each conni — issue 1984: filter first, report only if none survive
+      └─ build the match list — issue 1984: filter first, report only if none survive
            flowFilter (previous impl's out end) → startsAtFlowOutput(fimpl, conni)
-           nextFlowImpl known                  → endsAtFlowInput(conni, fimpl)
-           plain flow-spec leaf                → endsAtFlowSource(ci, conni, fspec)
+           subcomponent leaf                   → matches with no flow spec
+           otherwise, per flow spec instance   → reaches(conni, flowSpec, nextFlowImpl, …)
+                nextFlowImpl known → endsAtFlowInput(conni, fimpl), and
+                                     endsAtFlowSource(conni, flowSpec) when the spec
+                                     has more than one instance
+                otherwise          → endsAtFlowSource(conni, flowSpec)
            │
-           ├─ none survive → owner error
-           │                 "… no semantic connections that connect to the start of
-           │                  the flow 'f' at feature 'x'"
-           │                 clear pending; failCandidate
+           ├─ no match → owner error
+           │             "… no semantic connections that connect to the start of
+           │              the flow 'f' at feature 'x'"
+           │             clear pending; failCandidate
            │
-           └─ FORK PER SURVIVING CONNECTION INSTANCE:
+           └─ FORK PER MATCH (connection instance × flow specification instance):
                  push nextFlowImpl onto flowImplementations
-                 etei.getFlowElements() += conni
-                 if addLeafElement(ci, etei, leaf):
+                 etei.getFlowElements() += match.connection()
+                 if addLeafElement(ci, etei, leaf, match.flowSpec()):
                      clear pending; peek `iter` for the next Connection → pending
                      continueFlow(ci.getContainingComponentInstance(), …)
                  else:
@@ -458,7 +482,15 @@ reached. Its three endpoint predicates are pure:
 |---|---|
 | `endsAtFlowInput(conni, fimpl)` | does the connection end at the implementation's in-end feature? |
 | `startsAtFlowOutput(fimpl, conni)` | does the connection start at the implementation's out-end feature? |
-| `endsAtFlowSource(ci, conni, fspec)` | does the connection end at the flow specification's source feature, or at a feature nested inside it? (walks up the `FeatureInstance` containment chain) |
+| `endsAtFlowSource(conni, fsi)` | does the connection end at *this* flow specification instance's source feature, or at a feature nested inside it? (walks up the `FeatureInstance` containment chain) |
+
+`endsAtFlowSource` takes the instance, not the specification, because a specification over feature
+arrays has one instance per pair of array elements and each has a source feature instance of its own.
+Asking about one of them is what decides which array element a flow goes through. The **outgoing**
+side of a hop needs no element test of its own: `carriesConnectionPath` already requires the next
+connection instance to start exactly at the previous element's destination feature instance, so a
+branch that entered `inp[2]` cannot leave through `outp[1]`. That holds inside a flow implementation
+too, which is why descent needs nothing added (issue #2787).
 
 `collectConnectionInstances` iterates `ci.allEnclosingConnectionInstances()` and keeps those for
 which `carriesConnectionPath` holds. That test matches the pending declarative sequence against the
@@ -493,9 +525,11 @@ calls `collectConnectionInstances`, the three endpoint predicates, and
 `addLeafElement` maps a declarative leaf to a concrete instance object and returns whether it
 succeeded:
 
-- `FlowImplementation` → its specification; `FlowSpecification` → itself. Either way, append
-  `ci.findFlowSpecInstance(fs)`. If there is no such instance, queue an owner error
-  ("Could not find flow spec …") and return false.
+- `FlowImplementation` → its specification; `FlowSpecification` → itself. Either way, append the
+  `FlowSpecificationInstance` the caller chose among the instances of that specification. If the caller
+  had none to choose from, queue an owner error ("Could not find flow spec …") and return false.
+  `flowSpecInstances(ci, leaf)` is the plural lookup, matching `findFlowSpecInstance`'s
+  `isSameOrRefined` test so that a refined specification still resolves.
 - `Subcomponent` → append `ci` itself. If the candidate already has elements, the preceding element
   must be a `ConnectionInstance` whose destination is a component instance, or whose destination
   lies inside `ci`; otherwise queue an owner error ("Connection … continues into component …") and
@@ -868,4 +902,5 @@ attributions in this document can be checked without relying on the source comme
 | [#2986](https://github.com/osate/osate2/issues/2986) | Nested end-to-end flow composition combines incompatible path variants | §6.7, §10 — `containsConnectionPath` pairing |
 | [#2987](https://github.com/osate/osate2/issues/2987) | Cyclic nested end-to-end flows create cyclic instance graphs | §6.7, §10 — `activeDeclarations` cycle check |
 | [#2988](https://github.com/osate/osate2/issues/2988) | End-to-end flow connection matching ignores declarative connection context | §6.4 — `isSameOrRefinedConnection` |
+| [#2787](https://github.com/osate/osate2/issues/2787) | Flow specifications need to be able to reference features in a feature array | §2, §3, §6.4, §6.5 — one flow specification instance per pair of array elements, and the fork over them |
 | [#3055](https://github.com/osate/osate2/issues/3055) | Refactor `CreateEndToEndFlowsSwitch` into focused collaborators | §1, §4.1 — where each type lives and what it owns |

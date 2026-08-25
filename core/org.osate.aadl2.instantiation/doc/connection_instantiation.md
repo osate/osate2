@@ -82,18 +82,20 @@ InstantiateModel.fillSystemInstance(root)
  │ 2. createSystemOperationModes()  → SystemOperationMode list            │
  │ 3. CreateConnectionsSwitch       → ConnectionInstances            ◄── us│
  │      seeds → legs → paths → expansion → materialization → modes/SOMs   │
- │ 4. cacheStructuralConnectionProperties() + processConnections()         │
+ │ 4. cacheStructuralProperties() + processConnections()                   │
  │      → array replication, Connection_Pattern, Connection_Set           │
- │ 5. ValidateConnectionsSwitch     → direction, classifier and           │
+ │ 5. processFlowSpecifications()    → one flow specification instance per │
+ │                                     pair of feature array elements     │
+ │ 6. ValidateConnectionsSwitch     → direction, classifier and           │
  │                                    duplicate-destination checks        │
- │ 6. CreateEndToEndFlowsSwitch     → EndToEndFlowInstances               │
- │ 7. cacheProperties(), annex instantiation                              │
+ │ 7. CreateEndToEndFlowsSwitch     → EndToEndFlowInstances               │
+ │ 8. cacheProperties(), annex instantiation                              │
  └────────────────────────────────────────────────────────────────────────┘
 ```
 
-`InstantiateModel.prepareForAnnexes()` runs steps 3 to 7 for the system instance. Additional roots
-that represent referenced classifiers skip connection and end-to-end-flow instantiation; only their
-properties and annexes are instantiated because they have no system operation modes.
+`InstantiateModel.prepareForAnnexes()` runs steps 3 to 8 for the system instance. Additional roots
+that represent referenced classifiers skip connection and end-to-end-flow instantiation, because
+they have no system operation modes; they do go through steps 4, 5 and 8.
 
 `CreateConnectionsSwitch` extends `AadlProcessingSwitchWithProgress` with
 `PROCESS_PRE_ORDER_ALL`, so its `caseComponentInstance` fires for every component instance.
@@ -256,7 +258,9 @@ path.
   *provisional* until `InstantiateModel.processConnections()` replicates it across arrays and
   applies the structural properties, deleting the provisional instances it replaces. Those
   properties are cached on connection instances, so they cannot constrain a join that happens
-  before any instance exists.
+  before any instance exists. Which elements the properties pair up is `ArrayPatternExpansion`,
+  shared with the flow specification expansion, which reads the same two properties with the same
+  meaning; `StructuralProperty` is where the two are identified and their values decoded.
 - **Mode and SOM assignment.** A topologically valid path is materialized even when its modes
   have no compatible system operation mode; `fillInModes` then finds none, warns and deletes
   it. A `ModeConstraint` is carried through the traversal for identity and diagnostics, not as
