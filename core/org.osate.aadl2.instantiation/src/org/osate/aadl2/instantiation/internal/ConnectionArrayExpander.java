@@ -301,14 +301,8 @@ public final class ConnectionArrayExpander {
 		CYCLIC_PREVIOUS(1, 0, 1, (i, size) -> i == 1 ? size : i - 1),
 		NEXT_NEXT(1, 2, 1, (i, size) -> i + 2),
 		PREVIOUS_PREVIOUS(3, 0, 1, (i, size) -> i - 2),
-		/*
-		 * The two cyclic double step patterns wrap around by two elements but advance by one everywhere
-		 * else, where Next_Next and Previous_Previous advance by two. That is the arithmetic these two
-		 * have always had, and issue #3066 is a refactoring with no intended change in behavior, so it is
-		 * carried over as it stands rather than corrected here.
-		 */
-		CYCLIC_NEXT_NEXT(1, 0, 1, (i, size) -> i == size ? 2 : (i == size - 1 ? 1 : i + 1)),
-		CYCLIC_PREVIOUS_PREVIOUS(1, 0, 1, (i, size) -> i == 2 ? size : (i == 1 ? size - 1 : i - 1)),
+		CYCLIC_NEXT_NEXT(1, 0, 1, (i, size) -> (i + 1) % size + 1),
+		CYCLIC_PREVIOUS_PREVIOUS(1, 0, 1, (i, size) -> (i + size - 3) % size + 1),
 		EVEN_TO_EVEN(2, 0, 2, (i, size) -> i),
 		ODD_TO_ODD(1, 0, 2, (i, size) -> i);
 
