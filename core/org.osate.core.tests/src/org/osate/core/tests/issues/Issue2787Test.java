@@ -123,6 +123,32 @@ public class Issue2787Test extends XtextTest {
 	}
 
 	/**
+	 * A nested end to end flow whose replication comes from the flow specification instances of a feature
+	 * array, not from an array of subcomponents: every subcomponent in the model is a single component. The
+	 * flow that contains the nested one is replicated with it, and each replica refers to the nested replica
+	 * of its own array element. Asserted for the nested flow ending its container and starting it, the two
+	 * handshakes {@code processEndToEndFlow} has.
+	 */
+	@Test
+	public void aNestedFlowIsReplicatedPerArrayElement() throws Exception {
+		var ending = instantiate("Issue2787.aadl", "Top.nested");
+
+		assertEquals(List.of("inner_1 : wpath_1 -> worker.outp[1] --> actuator.inp[1] -> fsnk_1",
+				"inner_2 : wpath_2 -> worker.outp[2] --> actuator.inp[2] -> fsnk_2",
+				"outer_1 : fsrc_1 -> sensor.outp[1] --> worker.inp[1] -> inner_1",
+				"outer_2 : fsrc_2 -> sensor.outp[2] --> worker.inp[2] -> inner_2"), flows(ending));
+		assertEquals(List.of(), diagnostics(ending));
+
+		var starting = instantiate("Issue2787.aadl", "Top.nestedAtStart");
+
+		assertEquals(List.of("inner_1 : fsrc_1 -> sensor.outp[1] --> worker.inp[1] -> wpath_1",
+				"inner_2 : fsrc_2 -> sensor.outp[2] --> worker.inp[2] -> wpath_2",
+				"outer_1 : inner_1 -> worker.outp[1] --> actuator.inp[1] -> fsnk_1",
+				"outer_2 : inner_2 -> worker.outp[2] --> actuator.inp[2] -> fsnk_2"), flows(starting));
+		assertEquals(List.of(), diagnostics(starting));
+	}
+
+	/**
 	 * Every pairing a flow specification over feature arrays can be given. The pairings, their order, and
 	 * the reports are the ones the same property values produce on a connection, because the pairing is the
 	 * same arithmetic.

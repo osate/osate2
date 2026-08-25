@@ -81,4 +81,35 @@ public
 	flows
 		etef: end to end flow sensor.fsrc -> toRelay -> relay.fpath -> fromRelay -> actuator.fsnk;
 	end Top.viaImplementation;
+
+	-- A nested end to end flow replicated by the flow specification instances of a feature array. Every
+	-- subcomponent here is a single component, so the multiplicity comes from the arrays on their features
+	-- alone. The flow that contains the nested one has to be replicated with it, and each replica has to
+	-- pick the nested replica of its own array element. The nested flow ends its container here.
+	system implementation Top.nested
+	subcomponents
+		sensor: device Sensor;
+		worker: abstract Worker;
+		actuator: device Actuator;
+	connections
+		toWorker: port sensor.outp -> worker.inp;
+		fromWorker: port worker.outp -> actuator.inp;
+	flows
+		inner: end to end flow worker.wpath -> fromWorker -> actuator.fsnk;
+		outer: end to end flow sensor.fsrc -> toWorker -> inner;
+	end Top.nested;
+
+	-- The same, with the nested flow starting its container instead of ending it
+	system implementation Top.nestedAtStart
+	subcomponents
+		sensor: device Sensor;
+		worker: abstract Worker;
+		actuator: device Actuator;
+	connections
+		toWorker: port sensor.outp -> worker.inp;
+		fromWorker: port worker.outp -> actuator.inp;
+	flows
+		inner: end to end flow sensor.fsrc -> toWorker -> worker.wpath;
+		outer: end to end flow inner -> fromWorker -> actuator.fsnk;
+	end Top.nestedAtStart;
 end Issue2787;
