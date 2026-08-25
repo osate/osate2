@@ -23,7 +23,8 @@
  */
 /**
  * The internals of instance model creation: the across-first enumeration of connection instances,
- * the expansion of connection arrays, and the enumeration of system operation modes.
+ * the expansion of connection arrays, the enumeration of system operation modes, and the discovery
+ * of end-to-end flow instances.
  *
  * <p>
  * {@link org.osate.aadl2.instantiation.internal.ConnectionArrayExpander} expands the connection
@@ -31,7 +32,8 @@
  * {@link org.osate.aadl2.instantiation.internal.SystemOperationModeBuilder} enumerates the system
  * operation modes of a system instance. Both are phases of {@code InstantiateModel}, which is the
  * entry point that carries the compatibility promise for them. The rest of the package is the
- * connection instance traversal described below.
+ * connection instance traversal described below, and the end-to-end flow discovery described after
+ * it.
  * </p>
  *
  * <p>
@@ -54,9 +56,31 @@
  * </p>
  *
  * <p>
+ * An end-to-end flow instance is discovered detached and attached once.
+ * </p>
+ *
+ * <p>
+ * {@link org.osate.aadl2.instantiation.internal.EndToEndFlowSession} instantiates the end-to-end
+ * flows declared by one component instance. A declaration resolves against the instance model one
+ * segment at a time and can fork wherever several flow implementations, connection instances,
+ * access targets, or nested flow variants match, so the session keeps a candidate per branch, none
+ * of them in the instance model, and attaches the ones that completed in a single commit. It uses
+ * {@link org.osate.aadl2.instantiation.internal.FlowIterator} as the branch-local cursor over a
+ * declaration, {@link org.osate.aadl2.instantiation.internal.FlowConnectionMatcher} for the
+ * stateless questions about which semantic connections carry a declarative connection path, and
+ * {@link org.osate.aadl2.instantiation.internal.EndToEndFlowModes} for the mode arithmetic.
+ * {@link org.osate.aadl2.instantiation.internal.ETEInfo} is the legacy view of a candidate, built
+ * only for a caller that asks for it. {@code CreateEndToEndFlowsSwitch} is the entry point that
+ * carries the compatibility promise, and it is also the only thing a session talks to:
+ * {@link org.osate.aadl2.instantiation.internal.FlowInstantiationHost} is the switch's protected
+ * extension points seen from inside, so an override still decides every step. Issue #3055 separated
+ * these responsibilities; {@code doc/e2e_instantiation.md} describes the result.
+ * </p>
+ *
+ * <p>
  * The package is not exported. Its types are the internal vocabulary of the phases above and carry
- * no compatibility promise; for the traversal, {@code CreateConnectionsSwitch} is the entry point
- * that does.
+ * no compatibility promise; for the connection traversal, {@code CreateConnectionsSwitch} is the
+ * entry point that does, and for end-to-end flows, {@code CreateEndToEndFlowsSwitch}.
  * </p>
  *
  * <p>
