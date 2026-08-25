@@ -23,17 +23,23 @@
  */
 /**
  * The internals of instance model creation: the across-first enumeration of connection instances,
- * the expansion of connection arrays, the enumeration of system operation modes, and the discovery
- * of end-to-end flow instances.
+ * the expansion of arrays, the enumeration of system operation modes, and the discovery of
+ * end-to-end flow instances.
  *
  * <p>
  * {@link org.osate.aadl2.instantiation.internal.ConnectionArrayExpander} expands the connection
- * instances of one instance model root into the final connection set, and
+ * instances of one instance model root into the final connection set,
+ * {@link org.osate.aadl2.instantiation.internal.FlowSpecArrayExpander} does the same for its flow
+ * specification instances, and
  * {@link org.osate.aadl2.instantiation.internal.SystemOperationModeBuilder} enumerates the system
- * operation modes of a system instance. Both are phases of {@code InstantiateModel}, which is the
- * entry point that carries the compatibility promise for them. The rest of the package is the
- * connection instance traversal described below, and the end-to-end flow discovery described after
- * it.
+ * operation modes of a system instance. All three are phases of {@code InstantiateModel}, which is
+ * the entry point that carries the compatibility promise for them. The two expanders read the same
+ * two properties, identified by
+ * {@link org.osate.aadl2.instantiation.internal.StructuralProperty}, and pair up array elements the
+ * same way, which is
+ * {@link org.osate.aadl2.instantiation.internal.ArrayPatternExpansion}. The rest of the package is
+ * the connection instance traversal described below, and the end-to-end flow discovery described
+ * after it.
  * </p>
  *
  * <p>

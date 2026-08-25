@@ -170,8 +170,9 @@ public class Issue2787Test extends XtextTest {
 		assertEquals(List.of(
 				"Error: Array size mismatch (One_to_One) on flow specification wrongSizes"
 						+ " in Top_i_Instance.mismatch: 4 at source and 3 at destination.",
-				"Warning: Connection pattern specified for flow specification that does not connect array elements.",
-				"Error: Too few indices for flow specification destination for tooFewIndices"), diagnostics(instance));
+				"Error: Too few indices for flow specification destination for tooFewIndices",
+				"Warning: Connection pattern specified for flow specification that does not connect array elements."),
+				diagnostics(instance));
 	}
 
 	/**
@@ -229,6 +230,10 @@ public class Issue2787Test extends XtextTest {
 		return objects.stream().map(InstanceObject::getName).sorted().toList();
 	}
 
+	/**
+	 * The reports of an instantiation, sorted. Which component instance is expanded first is not what is
+	 * under test, so the order the reports were made in is not pinned here.
+	 */
 	private List<String> diagnostics(SystemInstance instance) {
 		return ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors()
 				.stream()

@@ -34,16 +34,11 @@ import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.ListValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -77,11 +72,6 @@ import org.osate.aadl2.util.Aadl2InstanceUtil;
  * One expander expands one root once.
  */
 public final class ConnectionArrayExpander {
-	/* The properties that determine how a connection is expanded into connection instances */
-	private static final String COMMUNICATION_PROPERTIES = "Communication_Properties";
-	private static final String CONNECTION_PATTERN = "Connection_Pattern";
-	private static final String CONNECTION_SET = "Connection_Set";
-
 	private final AnalysisErrorReporterManager errManager;
 	private final IProgressMonitor monitor;
 
@@ -95,28 +85,12 @@ public final class ConnectionArrayExpander {
 	}
 
 	/**
-	 * Is this one of the properties that determine how many connection instances a connection expands
-	 * into? Uses the same test as {@link #getPA(ConnectionInstance, String)}, which is what reads the
-	 * cached values.
+	 * Is this one of the properties that determine how many instances a declaration over arrays expands
+	 * into, and that therefore have to be cached before any expansion runs? See
+	 * {@link StructuralProperty}, which is also what reads the cached values back.
 	 */
 	public static boolean isStructuralConnectionProperty(Property property) {
-		return isCommunicationProperty(property, CONNECTION_PATTERN)
-				|| isCommunicationProperty(property, CONNECTION_SET);
-	}
-
-	/**
-	 * Is this the named property of the standard {@code Communication_Properties} property set? The one
-	 * test is shared by {@link #isStructuralConnectionProperty(Property)}, which decides which
-	 * properties are cached on the provisional connection instances, and
-	 * {@link #getPA(ConnectionInstance, String)}, which reads them from there, so the two cannot drift
-	 * apart.
-	 *
-	 * @param property the property definition to test
-	 * @param name the name of the property to look for
-	 */
-	private static boolean isCommunicationProperty(Property property, String name) {
-		return name.equalsIgnoreCase(property.getName()) && property.getOwner() instanceof PropertySet ps
-				&& COMMUNICATION_PROPERTIES.equalsIgnoreCase(ps.getName());
+		return StructuralProperty.isStructural(property);
 	}
 
 	/**
@@ -137,8 +111,8 @@ public final class ConnectionArrayExpander {
 			// track all component instances that contain connection instances
 			replicateConns.add(conni.getComponentInstance());
 
-			PropertyAssociation setPA = getPA(conni, CONNECTION_SET);
-			PropertyAssociation patternPA = getPA(conni, CONNECTION_PATTERN);
+			PropertyAssociation setPA = StructuralProperty.CONNECTION_SET.cachedOn(conni);
+			PropertyAssociation patternPA = StructuralProperty.CONNECTION_PATTERN.cachedOn(conni);
 
 			if (setPA == null && patternPA == null) {
 				InstancePath srcPath = analyzePath(conni.getContainingComponentInstance(), conni.getSource());
@@ -155,12 +129,8 @@ public final class ConnectionArrayExpander {
 			} else if (patternPA != null) {
 				boolean isOpposite = Aadl2InstanceUtil.isOpposite(conni);
 				EcoreUtil.remove(patternPA);
-				List<PropertyExpression> patterns = ((ListValue) patternPA.getOwnedValues().get(0).getOwnedValue())
-						.getOwnedListElements();
 				boolean pathError = false;
-				for (PropertyExpression pe : patterns) {
-					List<PropertyExpression> pattern = ((ListValue) pe).getOwnedListElements();
-
+				for (List<PropertyExpression> pattern : StructuralProperty.alternativesOf(patternPA)) {
 					InstancePath srcPath = analyzePath(conni.getContainingComponentInstance(), conni.getSource());
 					InstancePath dstPath = analyzePath(conni.getContainingComponentInstance(), conni.getDestination());
 					if (srcPath == null || dstPath == null) {
@@ -184,19 +154,12 @@ public final class ConnectionArrayExpander {
 			if (setPA != null) {
 				EcoreUtil.remove(setPA);
 				// TODO-LW: modal conn set allowed?
-				List<Long> srcIndices;
-				List<Long> dstIndices;
-				for (PropertyExpression pe : ((ListValue) setPA.getOwnedValues().get(0).getOwnedValue())
-						.getOwnedListElements()) {
-					RecordValue rv = (RecordValue) pe;
-
-					srcIndices = getIndices(rv, "src");
-					dstIndices = getIndices(rv, "dst");
+				for (StructuralProperty.IndexPair pair : StructuralProperty.pairsOf(setPA)) {
 					if (Aadl2InstanceUtil.isOpposite(conni)) {
 						// flip indices since we are going in the opposite direction
-						createNewConnection(conni, dstIndices, srcIndices);
+						createNewConnection(conni, pair.destination(), pair.source());
 					} else {
-						createNewConnection(conni, srcIndices, dstIndices);
+						createNewConnection(conni, pair.source(), pair.destination());
 					}
 				}
 				toRemove.add(conni);
@@ -292,36 +255,6 @@ public final class ConnectionArrayExpander {
 				container.getFullName());
 		return new ArrayPatternExpansion(errManager, subject, isOpposite, patterns, srcSizes, dstSizes,
 				(srcIndices, dstIndices) -> createNewConnection(conni, srcIndices, dstIndices)).expand();
-	}
-
-	private List<Long> getIndices(RecordValue rv, String field) {
-		List<Long> indices = new ArrayList<>();
-		for (BasicPropertyAssociation fv : rv.getOwnedFieldValues()) {
-			if (fv.getProperty().getName().equalsIgnoreCase(field)) {
-				ListValue lv = (ListValue) fv.getOwnedValue();
-				EList<PropertyExpression> vlist = lv.getOwnedListElements();
-				for (PropertyExpression elem : vlist) {
-					indices.add(((IntegerLiteral) elem).getValue());
-				}
-			}
-		}
-		return indices;
-	}
-
-	/**
-	 * The association of a {@code Communication_Properties} property cached on a provisional connection
-	 * instance, or {@code null} if the connection has none.
-	 *
-	 * @param conni the connection instance to look in
-	 * @param name the name of the property to look for
-	 */
-	private PropertyAssociation getPA(ConnectionInstance conni, String name) {
-		for (PropertyAssociation pa : conni.getOwnedPropertyAssociations()) {
-			if (isCommunicationProperty(pa.getProperty(), name)) {
-				return pa;
-			}
-		}
-		return null;
 	}
 
 	/**
