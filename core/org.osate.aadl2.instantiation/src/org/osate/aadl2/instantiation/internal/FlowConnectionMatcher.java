@@ -31,7 +31,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -84,28 +83,28 @@ public final class FlowConnectionMatcher {
 	}
 
 	/**
-	 * Check whether a connection instance ends at a flow specification's source feature. A connection to the source
-	 * feature itself or to a feature nested within it is accepted by walking up the feature-instance containment chain.
+	 * Check whether a connection instance ends at the source feature of one instance of a flow specification. A
+	 * connection to the source feature itself or to a feature nested within it is accepted by walking up the
+	 * feature-instance containment chain.
+	 * <p>
+	 * The instance is given rather than looked up from the flow specification, because a flow specification over
+	 * feature arrays has one instance per pair of array elements and each of them has a source feature instance of its
+	 * own. Asking about one of them is what decides which array element a flow goes through.
 	 *
-	 * @param flowComponent the component that owns the flow specification instance
 	 * @param conni the connection instance
-	 * @param fspec the flow specification that must follow the connection
-	 * @return whether the connection destination reaches the flow source
+	 * @param fsi the flow specification instance that must follow the connection
+	 * @return whether the connection destination reaches that instance's flow source
 	 */
-	public static boolean endsAtFlowSource(ComponentInstance flowComponent, ConnectionInstance conni,
-			FlowSpecification fspec) {
+	public static boolean endsAtFlowSource(ConnectionInstance conni, FlowSpecificationInstance fsi) {
 		ConnectionInstanceEnd cie = conni.getDestination();
-		if (cie instanceof FeatureInstance conniFi) {
-			FlowSpecificationInstance fsi = flowComponent.findFlowSpecInstance(fspec);
-			if (fsi != null) {
-				FeatureInstance fsSrcFi = fsi.getSource();
-				EObject e = conniFi;
-				while (e instanceof FeatureInstance fi) {
-					if (fi == fsSrcFi) {
-						return true;
-					}
-					e = fi.eContainer();
+		if (fsi != null && cie instanceof FeatureInstance conniFi) {
+			FeatureInstance fsSrcFi = fsi.getSource();
+			EObject e = conniFi;
+			while (e instanceof FeatureInstance fi) {
+				if (fi == fsSrcFi) {
+					return true;
 				}
+				e = fi.eContainer();
 			}
 		}
 		return false;

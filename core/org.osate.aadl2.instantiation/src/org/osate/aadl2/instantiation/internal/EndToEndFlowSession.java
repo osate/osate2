@@ -25,6 +25,7 @@ package org.osate.aadl2.instantiation.internal;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashSet;
@@ -660,6 +661,93 @@ public final class EndToEndFlowSession {
 	}
 
 	/**
+	 * One way to continue the flow through a leaf: the connection instance that reaches it, and the instance
+	 * of its flow specification the flow goes through, which is null for a subcomponent leaf.
+	 */
+	private record LeafMatch(ConnectionInstance connection, FlowSpecificationInstance flowSpec) {
+	}
+
+	/**
+	 * The one step to take for a leaf that has no flow specification instance to choose between. Holds a
+	 * null so that the single step and the fork over several instances are the same loop.
+	 */
+	private static final List<FlowSpecificationInstance> NO_FLOW_SPEC = Collections.singletonList(null);
+
+	/**
+	 * The instances of a leaf's flow specification on the component the leaf is in. A flow specification over
+	 * feature arrays has one instance per pair of array elements it was expanded into, so the flow forks over
+	 * them; see {@code FlowSpecArrayExpander}.
+	 *
+	 * @param ci the component instance containing the leaf, may be null
+	 * @param leaf the ETE element
+	 * @return the instances in expansion order, empty for a leaf that is not a flow specification and for one
+	 *         whose component has no instance of it
+	 */
+	private static List<FlowSpecificationInstance> flowSpecInstances(ComponentInstance ci, Element leaf) {
+		var fs = specificationOf(leaf);
+		if (ci == null || fs == null) {
+			return List.of();
+		}
+		var instances = new ArrayList<FlowSpecificationInstance>();
+		for (var fsi : ci.getFlowSpecifications()) {
+			if (isSameOrRefined(fs, fsi.getFlowSpecification())) {
+				instances.add(fsi);
+			}
+		}
+		return instances;
+	}
+
+	/** The flow specification a leaf stands for, or null if the leaf is not one. */
+	private static FlowSpecification specificationOf(Element leaf) {
+		return switch (leaf) {
+		case FlowImplementation flowImplementation -> flowImplementation.getSpecification();
+		case FlowSpecification flowSpecification -> flowSpecification;
+		default -> null;
+		};
+	}
+
+	/**
+	 * Are these the same flow specification, or one a refinement of the other? Matches
+	 * {@code ComponentInstance.findFlowSpecInstance}, which is what resolved a leaf before a flow
+	 * specification could stand for more than one instance.
+	 */
+	private static boolean isSameOrRefined(FlowSpecification first, FlowSpecification second) {
+		for (var fs = first; fs != null; fs = fs.getRefined()) {
+			if (fs == second) {
+				return true;
+			}
+		}
+		for (var fs = second; fs != null; fs = fs.getRefined()) {
+			if (fs == first) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Can a connection instance continue the flow into one instance of the next leaf's flow specification?
+	 *
+	 * @param conni the connection instance that would reach the leaf
+	 * @param flowSpec the instance of the leaf's flow specification under consideration
+	 * @param nextFlowImpl the flow implementation the connection must reach, or null when the leaf is the
+	 *            flow specification itself
+	 * @param pinElement whether the array element of the instance has to be pinned, which is needed only
+	 *            when the flow specification stands for more than one instance. A flow implementation may
+	 *            refine a feature-group endpoint to a feature inside it, and its in end is then narrower
+	 *            than the flow specification's, so the extra test is applied only where it decides
+	 *            something.
+	 */
+	private static boolean reaches(ConnectionInstance conni, FlowSpecificationInstance flowSpec,
+			FlowImplementation nextFlowImpl, boolean pinElement) {
+		if (nextFlowImpl == null) {
+			return FlowConnectionMatcher.endsAtFlowSource(conni, flowSpec);
+		}
+		return FlowConnectionMatcher.endsAtFlowInput(conni, nextFlowImpl)
+				&& (!pinElement || FlowConnectionMatcher.endsAtFlowSource(conni, flowSpec));
+	}
+
+	/**
 	 * Continue through a leaf flow element and constrain the incoming connection to the start of the next flow
 	 * implementation when one is known.
 	 *
@@ -673,15 +761,45 @@ public final class EndToEndFlowSession {
 			FlowImplementation nextFlowImpl, FlowIterator iter) {
 		var traversal = getState(etei);
 		var candidate = traversal.candidate;
+		/*
+		 * A flow specification over feature arrays was expanded into one instance per pair of array
+		 * elements, so a leaf may stand for several and the flow forks over them. NO_FLOW_SPEC is the one
+		 * step for a leaf that is not a flow specification at all, which is a subcomponent.
+		 */
+		final var flowSpecs = flowSpecInstances(ci, leaf);
 		// add connection(s), will be empty when starting the ETE
 		if (traversal.connections.isEmpty()) {
-			if (!addLeafElement(ci, etei, leaf)) {
-				abortCandidate(candidate);
-				return;
+			/*
+			 * Nothing has constrained this branch yet, so every instance of the leaf's flow specification
+			 * starts a flow of its own.
+			 */
+			var startIter = (flowSpecs.isEmpty() ? NO_FLOW_SPEC : flowSpecs).iterator();
+			while (startIter.hasNext()) {
+				final var flowSpec = startIter.next();
+				final boolean prepareNext = startIter.hasNext();
+				var branchState = getState(etei);
+				TraversalState stateClone = null;
+				FlowIterator iterClone = null;
+
+				if (prepareNext) {
+					stateClone = forkState(branchState);
+					iterClone = iter.copy();
+				}
+
+				if (addLeafElement(ci, etei, leaf, flowSpec)) {
+					branchState.flowImplementations.add(nextFlowImpl);
+					continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
+					branchState.flowImplementations.removeLast();
+				} else {
+					abortCandidate(branchState.candidate);
+				}
+
+				if (prepareNext) {
+					activeState = stateClone;
+					etei = stateClone.candidate.instance;
+					iter = iterClone;
+				}
 			}
-			traversal.flowImplementations.add(nextFlowImpl);
-			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
-			traversal.flowImplementations.removeLast();
 		} else {
 			var connis = FlowConnectionMatcher.collectConnectionInstances(ci, etei,
 					traversal.connections);
@@ -710,19 +828,24 @@ public final class EndToEndFlowSession {
 				 * Issue 1984: the endpoint predicates are a filter, not an error reporter. Determine the applicable
 				 * connections first and report an error only when none of the candidates can continue this flow.
 				 */
-				final var connectionsToUse = new ArrayList<ConnectionInstance>();
+				final var matches = new ArrayList<LeafMatch>();
 				for (var ciToCheck : connis) {
-					if ((flowFilter == null || FlowConnectionMatcher.startsAtFlowOutput(flowFilter, ciToCheck))
-							&& (nextFlowImpl == null
-									? (leaf instanceof FlowSpecification flowSpecification
-											? FlowConnectionMatcher.endsAtFlowSource(ci, ciToCheck, flowSpecification)
-											: true)
-									: FlowConnectionMatcher.endsAtFlowInput(ciToCheck, nextFlowImpl))) {
-						connectionsToUse.add(ciToCheck);
+					if (flowFilter != null && !FlowConnectionMatcher.startsAtFlowOutput(flowFilter, ciToCheck)) {
+						continue;
+					}
+					if (nextFlowImpl == null && !(leaf instanceof FlowSpecification)) {
+						// a subcomponent leaf becomes the component instance itself, so nothing narrows the choice
+						matches.add(new LeafMatch(ciToCheck, null));
+						continue;
+					}
+					for (var flowSpec : flowSpecs) {
+						if (reaches(ciToCheck, flowSpec, nextFlowImpl, flowSpecs.size() > 1)) {
+							matches.add(new LeafMatch(ciToCheck, flowSpec));
+						}
 					}
 				}
 
-				if (connectionsToUse.isEmpty()) {
+				if (matches.isEmpty()) {
 					/*
 					 * Connections may bypass the start of the selected flow implementation: the declarative flow and the
 					 * actual component connections then describe different paths.
@@ -743,11 +866,11 @@ public final class EndToEndFlowSession {
 					traversal.connections.clear();
 					failCandidate(candidate);
 				} else {
-					// continue the flow along each eligible connection instance
-					var connIter = connectionsToUse.iterator();
-					while (connIter.hasNext()) {
-						final var conni = connIter.next();
-						final boolean prepareNext = connIter.hasNext();
+					// continue the flow along each eligible connection instance and flow specification instance
+					var matchIter = matches.iterator();
+					while (matchIter.hasNext()) {
+						final var match = matchIter.next();
+						final boolean prepareNext = matchIter.hasNext();
 						var branchState = getState(etei);
 						TraversalState stateClone = null;
 						FlowIterator iterClone = null;
@@ -758,8 +881,8 @@ public final class EndToEndFlowSession {
 						}
 
 						branchState.flowImplementations.add(nextFlowImpl);
-						etei.getFlowElements().add(conni);
-						if (addLeafElement(ci, etei, leaf)) {
+						etei.getFlowElements().add(match.connection());
+						if (addLeafElement(ci, etei, leaf, match.flowSpec())) {
 							// prepare next connection filter
 							branchState.connections.clear();
 							if (iter.hasNext()) {
@@ -802,7 +925,7 @@ public final class EndToEndFlowSession {
 		var candidate = traversal.candidate;
 		// add connection(s), will be empty when starting the ETE
 		if (traversal.connections.isEmpty()) {
-			addLeafElement(ci, etei, a);
+			addLeafElement(ci, etei, a, null);
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 		} else {
 			var connis = FlowConnectionMatcher.collectConnectionInstances(ci, etei,
@@ -851,7 +974,7 @@ public final class EndToEndFlowSession {
 					var continuation = branchState.continuations.pop();
 
 					etei.getFlowElements().add(match.connection());
-					addLeafElement(match.target(), etei, match.leaf());
+					addLeafElement(match.target(), etei, match.leaf(), null);
 
 					// prepare next connection filter
 					var lastConn = branchState.connections.getLast();
@@ -1028,20 +1151,19 @@ public final class EndToEndFlowSession {
 	 * @param ci the component instance containing the leaf
 	 * @param etei the candidate receiving the leaf
 	 * @param leaf a flow specification, flow implementation, or subcomponent
+	 * @param flowSpec the instance of the leaf's flow specification the flow goes through, chosen by the
+	 *            caller among the instances the feature arrays of the flow specification were expanded into;
+	 *            null for a subcomponent leaf and when the component has no instance of the specification
 	 * @return whether the leaf was added successfully
 	 */
-	private boolean addLeafElement(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf) {
+	private boolean addLeafElement(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf,
+			FlowSpecificationInstance flowSpec) {
 		var candidate = getCandidate(etei);
-		FlowSpecification fs = switch (leaf) {
-		case FlowImplementation flowImplementation -> flowImplementation.getSpecification();
-		case FlowSpecification flowSpecification -> flowSpecification;
-		default -> null;
-		};
+		var fs = specificationOf(leaf);
 		if (fs != null) {
 			// append a flow specification instance
-			var fsi = ci.findFlowSpecInstance(fs);
-			if (fsi != null) {
-				etei.getFlowElements().add(fsi);
+			if (flowSpec != null) {
+				etei.getFlowElements().add(flowSpec);
 			} else {
 				reportOwnerError(candidate, "Incomplete end-to-end flow instance " + etei.getName()
 						+ ": Could not find flow spec " + fs.getName() + " of component " + ci.getName());
