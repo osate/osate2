@@ -1,0 +1,48 @@
+-- The pairings a flow specification over feature arrays cannot produce. The reports mirror the ones the
+-- connection expansion makes for the same situations, because the pairing is the same arithmetic.
+package Issue2787Failures
+public
+	data Sample
+	end Sample;
+
+	-- One_To_One applies by default and the two arrays have different sizes, so there is no pairing.
+	abstract Mismatch
+	features
+		inp: in data port Sample[4];
+		outp: out data port Sample[3];
+	flows
+		wrongSizes: flow path inp -> outp;
+	end Mismatch;
+
+	-- A pattern on a flow specification whose ends are not arrays has nothing to pair up.
+	abstract Plain
+	features
+		inp: in data port Sample;
+		outp: out data port Sample;
+	flows
+		notAnArray: flow path inp -> outp {
+			Communication_Properties::Connection_Pattern => ((One_To_One));
+		};
+	end Plain;
+
+	-- Only one end is an array, and the pattern needs an index at both ends.
+	abstract Underspecified
+	features
+		inp: in data port Sample[2];
+		outp: out data port Sample;
+	flows
+		tooFewIndices: flow path inp -> outp {
+			Communication_Properties::Connection_Pattern => ((One_To_One));
+		};
+	end Underspecified;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+	subcomponents
+		mismatch: abstract Mismatch;
+		plain: abstract Plain;
+		underspecified: abstract Underspecified;
+	end Top.i;
+end Issue2787Failures;

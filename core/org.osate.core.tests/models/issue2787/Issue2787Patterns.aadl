@@ -1,0 +1,77 @@
+-- The patterns a flow specification over feature arrays can be paired up by. There are no connections
+-- and no end to end flows here: what is under test is the set of flow specification instances the
+-- pairing produces, and their source and destination array elements.
+package Issue2787Patterns
+public
+	data Sample
+	end Sample;
+
+	-- Multiple flow specifications involving the same features are allowed, so one component can carry
+	-- one flow specification per pairing.
+	abstract Shifter
+	features
+		inp: in data port Sample[3];
+		outp: out data port Sample[3];
+	flows
+		-- No property: One_To_One applies
+		straight: flow path inp -> outp;
+		-- Next drops the last source element, because it has no successor
+		shifted: flow path inp -> outp {
+			Communication_Properties::Connection_Pattern => ((Next));
+		};
+		-- Two alternatives in one property value: the pairings are the union of both
+		bidirectional: flow path inp -> outp {
+			Communication_Properties::Connection_Pattern => ((Next), (Previous));
+		};
+		-- Explicit index pairs instead of a pattern
+		selected: flow path inp -> outp {
+			Communication_Properties::Connection_Set => ([src => (1); dst => (3);], [src => (3); dst => (1);]);
+		};
+		-- A pattern and a set together: the pairings are the union of both
+		combined: flow path inp -> outp {
+			Communication_Properties::Connection_Pattern => ((Even_To_Even));
+			Communication_Properties::Connection_Set => ([src => (1); dst => (1);]);
+		};
+	end Shifter;
+
+	-- One array end and one scalar end. All_To_One applies, so every element of the array end has its own
+	-- flow to the single element of the scalar end.
+	abstract Merger
+	features
+		inp: in data port Sample[2];
+		outp: out data port Sample;
+	flows
+		merge: flow path inp -> outp;
+	end Merger;
+
+	-- The mirror of Merger: One_To_All applies.
+	abstract Splitter
+	features
+		inp: in data port Sample;
+		outp: out data port Sample[2];
+	flows
+		split: flow path inp -> outp;
+	end Splitter;
+
+	-- A flow source and a flow sink have one array end each, so the pairing degenerates to one flow per
+	-- element of that end. The flow names avoid 'source' and 'sink', which are reserved words.
+	abstract Boundary
+	features
+		inp: in data port Sample[2];
+		outp: out data port Sample[3];
+	flows
+		emit: flow source outp;
+		absorb: flow sink inp;
+	end Boundary;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+	subcomponents
+		shifter: abstract Shifter;
+		merger: abstract Merger;
+		splitter: abstract Splitter;
+		boundary: abstract Boundary;
+	end Top.i;
+end Issue2787Patterns;
