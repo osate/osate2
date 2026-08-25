@@ -1,0 +1,8 @@
+package Issue3086
+public
+	system Top
+	end Top;
+
+	system implementation Top.i
+	end Top.i;
+end Issue3086;
