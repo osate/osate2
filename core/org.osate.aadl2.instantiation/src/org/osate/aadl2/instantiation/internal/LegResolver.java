@@ -593,7 +593,7 @@ public final class LegResolver {
 	 * rather than routing it onwards. Adding or removing a category changes how long every
 	 * connection instance through it is.
 	 */
-	static boolean isConnectionEndingCategory(ComponentCategory category) {
+	public static boolean isConnectionEndingCategory(ComponentCategory category) {
 		return category == THREAD || category == DEVICE || category == PROCESSOR || category == VIRTUAL_PROCESSOR;
 	}
 }

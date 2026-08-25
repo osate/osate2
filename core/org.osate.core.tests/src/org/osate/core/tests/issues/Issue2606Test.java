@@ -77,8 +77,12 @@ public class Issue2606Test extends XtextTest {
 		assertTrue(instance.getEndToEndFlows().isEmpty());
 		List<Message> messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource()))
 				.getErrors();
-		assertEquals(1, messages.size());
+		assertEquals(2, messages.size());
 		Message message = messages.get(0);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.WARNING, message.kind);
+		assertEquals("Connection starts at m because feature o has no continuing connection declaration.",
+				message.message);
+		message = messages.get(1);
 		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, message.kind);
 		assertEquals("Cannot create end to end flow 'ee' because there are no semantic connections that connect to "
 				+ "the start of the flow 'pth' at feature 'i'", message.message);

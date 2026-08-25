@@ -103,24 +103,27 @@ public class Issue2780Test extends XtextTest {
 		/*
 		 * Allowlist entry 5 of issue #3037. Before that release this also warned "No connection
 		 * declaration from feature fr of component m to subcomponents. Connection instance ends at m",
-		 * while descending into m, and then created that very connection from the other direction. The
-		 * same fact is now recorded as a leg stop, with no candidate to report it against, so only the
-		 * three end-to-end flow errors remain.
+		 * while descending into m, and then created that very connection from the other direction. Issue
+		 * #3047 reports that fact once from connection validation against the materialized connection,
+		 * before the three end-to-end flow errors.
 		 */
 		List<Message> messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource()))
 				.getErrors();
-		assertTrue(messages.size() == 3);
+		assertTrue(messages.size() == 4);
 		Message msg = messages.get(0);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.WARNING, msg.kind);
+		assertEquals("Connection ends at m because feature fr has no continuing connection declaration.", msg.message);
+		msg = messages.get(1);
 		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, msg.kind);
 		assertEquals(
 				"Invalid end-to-end flow instance e2e: Connection l.fl.fg.fi -> m.mm.fgl.fg.fi continues into component S1_i_Instance.m",
 				msg.message);
-		msg = messages.get(1);
+		msg = messages.get(2);
 		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, msg.kind);
 		assertEquals(
 				"Invalid end-to-end flow instance e2e1: Connection l.fl.fg.fi -> m.mm.fgl.fg.fi continues into component S1_i_Instance.m",
 				msg.message);
-		msg = messages.get(2);
+		msg = messages.get(3);
 		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, msg.kind);
 		assertEquals(
 				"Invalid end-to-end flow instance e2e2: Connection l.fl.fg.fi -> m.mm.fgl.fg.fi continues into component S1_i_Instance.m",

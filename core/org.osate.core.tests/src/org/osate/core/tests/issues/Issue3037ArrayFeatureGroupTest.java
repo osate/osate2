@@ -132,29 +132,30 @@ public class Issue3037ArrayFeatureGroupTest extends XtextTest {
 
 	/**
 	 * That member with a pivot across into an inverse group, descending on both sides. The
-	 * connections and flows are what 2.18.0 produced; the one difference is the warning
-	 * allowlist entry 5 covers.
+	 * connections and flows are what 2.18.0 produced; issue #3047 restores the fact behind
+	 * warning allowlist entry 5 from connection validation.
 	 *
 	 * <p>
-	 * That warning described the traversal's own difficulty rather than the model. It was
-	 * emitted while descending into a component whose boundary feature group has no downward
-	 * declaration, and the connection was then created anyway from the other direction.
-	 * Nothing is missing from the model, which is why the warning was dropped rather than
-	 * reproduced.
+	 * The old warning was emitted while descending into a component whose boundary feature
+	 * group has no downward declaration, and the connection was then created anyway from the
+	 * other direction. The replacement is emitted once against that materialized connection.
 	 * </p>
 	 */
 	@Test
-	public void aPivotOntoAReachedIntoMemberReportsNothing() throws Exception {
+	public void aPivotOntoAReachedIntoMemberReportsItsUncontinuedEnd() throws Exception {
 		InstanceRun run = InstanceCharacterization.assertConnections(isolated, MODEL, "Top.soloReachedInto",
 				"collector.consumer.bundle.ack -> reacher.bundle.ack",
 				"reacher.producer.outp -> collector.consumer.bundle.signal");
 
 		/*
-		 * Allowlist entry 5. Before issue #3037 this reported "No connection declaration from feature
-		 * bundle of component reacher to subcomponents. Connection instance ends at reacher", against
-		 * the system instance, and created both connections anyway.
+		 * Allowlist entry 5. Before issue #3037 this reported against the system instance. Issue #3047
+		 * reports the same condition once against the connection instance the traversal creates.
 		 */
-		assertEquals("allowlist entry 5: the warning is gone", List.of(),
+		assertEquals("allowlist entry 5: connection validation reports the materialized connection",
+				List.of("Warning | Connection ends at reacher because feature bundle has no continuing connection declaration."
+						+ " | at Top_soloReachedInto_Instance.collector.consumer.bundle.ack"
+						+ " -> reacher.bundle.ack|ConnectionInstance"
+						+ " | in ArraysAndFeatureGroups_Top_soloReachedInto_Instance.aaxl2"),
 				InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager())));
 	}
 

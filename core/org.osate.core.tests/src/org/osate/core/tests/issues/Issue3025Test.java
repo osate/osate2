@@ -95,8 +95,20 @@ public class Issue3025Test extends XtextTest {
 		 * enumerated at all: the declaration carrying it up out of the subcomponent is not across, so
 		 * nothing seeds it and no leg reaches it. No connection instance existed for it either way,
 		 * which is what the assertion on the two connections above pins.
+		 *
+		 * Issue #3047 reports the materialized connection that ends at bridge.trigger_terminal. That
+		 * port triggers a transition in Top, not in its destination component bridge, so the
+		 * destination-side mode-transition exemption does not apply.
 		 */
 		var messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors();
-		assertEquals(List.of(), messages);
+		assertEquals(1, messages.size());
+		var warning = messages.get(0);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.WARNING, warning.kind);
+		assertSame(connections.stream()
+				.filter(connection -> connection.getDestination() == trigger)
+				.findFirst()
+				.orElseThrow(), warning.where);
+		assertEquals("Connection ends at bridge because feature trigger_terminal has no continuing connection declaration.",
+				warning.message);
 	}
 }
