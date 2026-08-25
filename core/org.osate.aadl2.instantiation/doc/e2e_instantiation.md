@@ -70,8 +70,8 @@ InstantiateModel.fillSystemInstance(root)
 ```
 
 `InstantiateModel` invokes the switch as `new CreateEndToEndFlowsSwitch(...).processPreOrderAll(root)`
-from two places: once for the system instance, and once again when instantiating sub-instances of
-referenced classifiers.
+for the system instance. Additional roots that represent referenced classifiers bypass this phase
+because they have no system operation modes.
 
 The switch extends `AadlProcessingSwitchWithProgress` and is constructed with
 `PROCESS_PRE_ORDER_ALL`, so its `InstanceSwitch.caseComponentInstance` fires for **every**

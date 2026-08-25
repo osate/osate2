@@ -139,7 +139,7 @@ public final class SeedDiscovery {
 	 * <p>
 	 * A declaration inside an array of components is enumerated once, for the first
 	 * element, and the connection instance it produces is replicated to the other elements
-	 * by {@code InstantiateModel.finalizeConnections()}. Seeding every element instead
+	 * by the connection-expansion phase in {@code InstantiateModel}. Seeding every element instead
 	 * would look equivalent but is not: a replica is named with {@code " --> "} and has its
 	 * reference contexts relocated, so enumerating it directly changes an externally
 	 * visible name.

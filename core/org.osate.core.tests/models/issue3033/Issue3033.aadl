@@ -1,0 +1,52 @@
+package Issue3033
+public
+	abstract Producer
+	features
+		outp: out data port;
+	flows
+		fsrc: flow source outp;
+	end Producer;
+
+	abstract Consumer
+	features
+		inp: in data port;
+	flows
+		fsnk: flow sink inp;
+	end Consumer;
+
+	abstract Inner
+	end Inner;
+
+	-- The classifier of a feature is instantiated as a root beside the system instance. Connections and
+	-- end to end flows in that root must not be instantiated because it has no system operation modes.
+	abstract implementation Inner.i
+	subcomponents
+		producer: abstract Producer;
+		consumer: abstract Consumer;
+	connections
+		c: port producer.outp -> consumer.inp;
+	flows
+		etef: end to end flow producer.fsrc -> c -> consumer.fsnk;
+	end Inner.i;
+
+	thread Holder
+	features
+		af: feature Inner.i;
+	end Holder;
+
+	process Wrapper
+	end Wrapper;
+
+	process implementation Wrapper.i
+	subcomponents
+		holder: thread Holder;
+	end Wrapper.i;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+	subcomponents
+		wrapper: process Wrapper.i;
+	end Top.i;
+end Issue3033;

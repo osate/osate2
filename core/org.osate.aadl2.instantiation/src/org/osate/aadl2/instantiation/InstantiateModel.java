@@ -160,8 +160,8 @@ public class InstantiateModel {
 	 * The roots of the instance model in the order they were discovered. The first one is the system
 	 * instance, the others are the instances of referenced classifiers created by
 	 * {@link #instantiateFeatureClassifier(FeatureInstance, FeatureClassifier)}, which is the only place
-	 * that adds a root to the instance resource. All of them go through the same phases, see
-	 * {@link #fillSystemInstance(SystemInstance)}.
+	 * that adds a root to the instance resource. The system root goes through connection and end to end
+	 * flow instantiation; referenced roots retain only their hierarchy, properties and annex instances.
 	 * <p>
 	 * The list is emptied at the start of every {@link #fillSystemInstance(SystemInstance)} call. It has
 	 * to be a field rather than a local because
@@ -172,15 +172,15 @@ public class InstantiateModel {
 	private final List<InstantiationRoot> roots = new ArrayList<>();
 
 	/**
-	 * A root of the instance model, and whether it still has to be brought to its final connections. A
-	 * root is populated as soon as it is discovered, because that is what discovers further roots, but
-	 * the remaining phases run from the queue, and the flag keeps a root that is discovered late from
-	 * being processed twice. Which roots still need their annexes is tracked by the index into
+	 * A root of the instance model, and whether it has been prepared for annex instantiation. A root is
+	 * populated as soon as it is discovered, because that is what discovers further roots, but the
+	 * remaining phases run from the queue, and the flag keeps a root that is discovered late from being
+	 * prepared twice. Which roots still need their annexes is tracked by the index into
 	 * {@link #roots} in {@link #fillSystemInstance(SystemInstance)}.
 	 */
 	private static final class InstantiationRoot {
 		private final ComponentInstance root;
-		private boolean connectionsFinalized;
+		private boolean preparedForAnnexes;
 
 		private InstantiationRoot(ComponentInstance root) {
 			this.root = root;
@@ -469,16 +469,16 @@ public class InstantiateModel {
 		createSystemOperationModes(root, somLimit);
 
 		/*
-		 * Bring every root to its final connections and cached properties before any annex is
-		 * instantiated. Otherwise an annex on one root could observe another root whose connections are
-		 * still the provisional ones created before expansion. The queue can grow while we work on it, so
-		 * use indexed access and re-establish the barrier if annex instantiation discovers another root.
+		 * Finalize the system root's connections and cache every root's properties before any annex is
+		 * instantiated. Otherwise an annex on one root could observe the system root while its connections
+		 * are still the provisional ones created before expansion. The queue can grow while we work on it,
+		 * so use indexed access and re-establish the barrier if annex instantiation discovers another root.
 		 */
 		AnnexInstantiationController aic = new AnnexInstantiationController(errManager);
 		int annexed = 0;
 		while (annexed < roots.size()) {
 			for (int i = 0; i < roots.size(); i++) {
-				finalizeConnections(roots.get(i));
+				prepareForAnnexes(roots.get(i));
 			}
 			final int fixedPoint = roots.size();
 			monitor.subTask("Instantiating annexes");
@@ -490,8 +490,11 @@ public class InstantiateModel {
 	}
 
 	/**
-	 * Create the connection instances of a root, expand them into the final connection set, then
-	 * validate the result, build the end to end flows over it, and cache the properties on it.
+	 * Prepare one instance-resource root for annex instantiation. For the system instance, create the
+	 * connection instances, expand them into the final connection set, validate the result, build the
+	 * end to end flows over it, and cache its properties. For a referenced classifier root, cache its
+	 * properties without instantiating connections or end to end flows: those semantic instances belong
+	 * to a system instance and depend on its system operation modes.
 	 * <p>
 	 * The expansion of arrays, {@code Connection_Pattern} and {@code Connection_Set} replaces the
 	 * provisional connection instances and deletes them. It has to happen before validation and before
@@ -500,12 +503,16 @@ public class InstantiateModel {
 	 * <p>
 	 * Does nothing if the root already went through this phase.
 	 */
-	private void finalizeConnections(InstantiationRoot pending) throws InterruptedException {
-		if (pending.connectionsFinalized) {
+	private void prepareForAnnexes(InstantiationRoot pending) throws InterruptedException {
+		if (pending.preparedForAnnexes) {
 			return;
 		}
-		pending.connectionsFinalized = true;
+		pending.preparedForAnnexes = true;
 		final ComponentInstance root = pending.root;
+		if (!(root instanceof SystemInstance)) {
+			cacheProperties(root);
+			return;
+		}
 
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		checkCanceled();
@@ -1316,9 +1323,8 @@ public class InstantiateModel {
 				fi.setType(newInstance);
 				/*
 				 * Only establish the hierarchy, which is what discovers further referenced classifiers, and
-				 * hand the new root to the common pipeline. Creating its connections, validating them,
-				 * building its flows, or instantiating its annexes here would run those phases for this root
-				 * before any root has its final connections.
+				 * hand the new root to the common property and annex pipeline. Connections and end to end flows
+				 * are not instantiated for a referenced root because it has no system operation modes.
 				 */
 				populateComponentInstance(newInstance, 0);
 				roots.add(new InstantiationRoot(newInstance));
