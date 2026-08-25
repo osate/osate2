@@ -1,0 +1,31 @@
+package Issue3085
+public
+	device Endpoint
+	features
+		in_p: in event data port;
+		out_p: out event data port;
+	end Endpoint;
+
+	system Top
+	end Top;
+
+	system implementation Top.cyclic_next_next
+	subcomponents
+		src: device Endpoint[5];
+		dst: device Endpoint[5];
+	connections
+		c: port src.out_p -> dst.in_p {
+			Communication_Properties::Connection_Pattern => ((Cyclic_Next_Next));
+		};
+	end Top.cyclic_next_next;
+
+	system implementation Top.cyclic_previous_previous
+	subcomponents
+		src: device Endpoint[5];
+		dst: device Endpoint[5];
+	connections
+		c: port src.out_p -> dst.in_p {
+			Communication_Properties::Connection_Pattern => ((Cyclic_Previous_Previous));
+		};
+	end Top.cyclic_previous_previous;
+end Issue3085;

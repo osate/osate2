@@ -53,9 +53,8 @@ import com.itemis.xtext.testing.XtextTest;
  * instance per pair of array elements the pattern pairs up.
  *
  * <p>
- * The expected pairs of the twelve patterns that agree with AS5506D section 9.2.3 are written from the
- * standard, not from what the instantiator produces. The two patterns of issue #3085 are pinned as they
- * are today, which is not what the standard says, and their tests say so.
+ * The expected pairs of all fourteen patterns are written from AS5506D section 9.2.3, not from what the
+ * instantiator produces.
  * </p>
  *
  * <p>
@@ -138,25 +137,16 @@ public class ConnectionPatternInstantiationTest extends XtextTest {
 		assertPattern("Pair.previous_previous", "3 -> 1", "4 -> 2", "5 -> 3");
 	}
 
-	/**
-	 * Issue #3085: Cyclic_Next_Next wraps the last two elements to the first two, as AS5506D section
-	 * 9.2.3 requires, but shifts the interior of the dimension by one instead of by two. The expected
-	 * pairs of the standard are {@code 1 -> 3}, {@code 2 -> 4}, {@code 3 -> 5}, {@code 4 -> 1} and
-	 * {@code 5 -> 2}.
-	 */
+	/** Cyclic_Next_Next shifts by two and wraps the last two elements to the first two. */
 	@Test
-	public void cyclicNextNextCurrentlyShiftsTheInteriorByOnlyOne() throws Exception {
-		assertPattern("Pair.cyclic_next_next", "1 -> 2", "2 -> 3", "3 -> 4", "4 -> 1", "5 -> 2");
+	public void cyclicNextNextShiftsByTwoAndWraps() throws Exception {
+		assertPattern("Pair.cyclic_next_next", "1 -> 3", "2 -> 4", "3 -> 5", "4 -> 1", "5 -> 2");
 	}
 
-	/**
-	 * Issue #3085: Cyclic_Previous_Previous has the same defect as Cyclic_Next_Next. The expected pairs
-	 * of the standard are {@code 1 -> 4}, {@code 2 -> 5}, {@code 3 -> 1}, {@code 4 -> 2} and
-	 * {@code 5 -> 3}.
-	 */
+	/** Cyclic_Previous_Previous shifts back by two and wraps the first two elements to the last two. */
 	@Test
-	public void cyclicPreviousPreviousCurrentlyShiftsTheInteriorByOnlyOne() throws Exception {
-		assertPattern("Pair.cyclic_previous_previous", "1 -> 4", "2 -> 5", "3 -> 2", "4 -> 3", "5 -> 4");
+	public void cyclicPreviousPreviousShiftsBackByTwoAndWraps() throws Exception {
+		assertPattern("Pair.cyclic_previous_previous", "1 -> 4", "2 -> 5", "3 -> 1", "4 -> 2", "5 -> 3");
 	}
 
 	/** Even_To_Even connects the even elements to the same even element. */
