@@ -123,7 +123,7 @@ end to end flow
   consumer.fsnk
 ```
 
-Five sources of multiplicity:
+Six sources of multiplicity:
 
 1. **Multiple flow implementations** for one flow specification — in the test model
    `BasicAndBranching.aadl`, `Choice.two_paths` declares `fpath` twice, once through `upper` and
@@ -136,6 +136,9 @@ Five sources of multiplicity:
    out end is a feature array was expanded by `FlowSpecArrayExpander` into one instance per pair of
    array elements that `Connection_Pattern`, `Connection_Set` or the default `One_To_One` pairs up
    (issue #2787).
+6. **Multiple component instances** for one subcomponent named by a segment — a subcomponent array has
+   one component instance per element, and each of them continues a flow of its own (issue #1833).
+   A nested ETE replicated this way replicates the flow that contains it, through source 4.
 
 Each multiplicity point **forks** the traversal. Surviving branches are named `<flow>_1`,
 `<flow>_2`, … at commit time.
@@ -331,17 +334,27 @@ processETESegment(ci, etei, segment, iter, errorElement)
   │                            else:
   │                                traversal.connections += fe   (pending filter)
   │
-  ├─ FlowSpecification ──────► sci = ci.findSubcomponentInstance(segment.getContext())
-  │                            sci != null → processSubcomponentFlow(sci, …)
-  │                            sci == null → owner error, "Could not find component
-  │                                          instance for subcomponent …"
+  ├─ FlowSpecification ──────► scis = subcomponentInstances(ci, segment.getContext(), …)
+  │                            FORK PER ELEMENT → processSubcomponentFlow(element, …)
+  │                            scis empty → owner error, "Could not find component
+  │                                         instance for subcomponent …"
   │
-  ├─ Subcomponent ───────────► processFlowStep(sci, …)  (implicit flow: whole component)
+  ├─ Subcomponent ───────────► scis = subcomponentInstances(ci, fe, …)
+  │                            FORK PER ELEMENT → processFlowStep(element, …)
+  │                            (implicit flow: the whole component)
   │
   ├─ DataAccess / SubprogramAccess ─► processAccess(…)
   │
   └─ EndToEndFlow ───────────► processEndToEndFlow(…)   (nested flow)
 ```
+
+A declaration names a subcomponent, not one of its elements, so `subcomponentInstances` returns all
+of them and `forkOverElements` continues a flow per element (issue #1833). It **narrows** them first:
+with pending connections, only the elements some matching connection instance ends in survive.
+Forking into an element no connection reaches would create a branch that can only die, and
+§6.4 would report that death as a missing semantic connection — so issue 1984's filter-first rule
+has to be applied one fork earlier. When nothing reaches any element, one element is kept, so the
+report is made once, the way it was when a declaration resolved to the first element only.
 
 ### 6.2 Descent and ascent
 
@@ -903,4 +916,5 @@ attributions in this document can be checked without relying on the source comme
 | [#2987](https://github.com/osate/osate2/issues/2987) | Cyclic nested end-to-end flows create cyclic instance graphs | §6.7, §10 — `activeDeclarations` cycle check |
 | [#2988](https://github.com/osate/osate2/issues/2988) | End-to-end flow connection matching ignores declarative connection context | §6.4 — `isSameOrRefinedConnection` |
 | [#2787](https://github.com/osate/osate2/issues/2787) | Flow specifications need to be able to reference features in a feature array | §2, §3, §6.4, §6.5 — one flow specification instance per pair of array elements, and the fork over them |
+| [#1833](https://github.com/osate/osate2/issues/1833) | Array ports and connections do not appear in flow instances | §3, §6.1 — a segment that names a subcomponent array resolves to every element, narrowed to the ones a connection reaches |
 | [#3055](https://github.com/osate/osate2/issues/3055) | Refactor `CreateEndToEndFlowsSwitch` into focused collaborators | §1, §4.1 — where each type lives and what it owns |
