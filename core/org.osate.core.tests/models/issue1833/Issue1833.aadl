@@ -109,8 +109,31 @@ public
 		fpath: flow path inp -> outp;
 	end Relay;
 
-	-- A nested end to end flow that is itself replicated per array element. The flow that contains it has
-	-- to be replicated with it, and each replica has to pick the nested replica of its own element.
+	-- A box whose flow specification is realized by a flow implementation, so a flow that starts at
+	-- boxes.fpath descends into it and carries a leading declarative connection with it
+	system Box
+	features
+		inp: in data port Sample;
+		outp: out data port Sample;
+	flows
+		fpath: flow path inp -> outp;
+	end Box;
+
+	system implementation Box.i
+	subcomponents
+		relay: process Relay;
+	connections
+		down: port inp -> relay.inp;
+		up: port relay.outp -> outp;
+	flows
+		fpath: flow path inp -> down -> relay.fpath -> up -> outp;
+	end Box.i;
+
+	-- The four positions a replicated nested end to end flow can be in. In each of them the flow that
+	-- contains it has to be replicated with it, and each replica of the container has to pick the nested
+	-- replica of its own element.
+
+	-- (a) the nested flow ends the container, so the container reaches it along a connection
 	system implementation Top.nested
 	subcomponents
 		emitters: process Emitter[2];
@@ -123,4 +146,50 @@ public
 		inner: end to end flow relays.fpath -> fromRelay -> receivers.fsnk;
 		outer: end to end flow emitters.fsrc -> toRelay -> inner;
 	end Top.nested;
+
+	-- (b) the nested flow starts the container, so nothing constrains which replica a replica of the
+	-- container takes, and the container continues after it
+	system implementation Top.nestedAtStart
+	subcomponents
+		emitters: process Emitter[2];
+		relays: process Relay[2];
+		receivers: process Receiver[2];
+	connections
+		toRelay: port emitters.outp -> relays.inp;
+		fromRelay: port relays.outp -> receivers.inp;
+	flows
+		inner: end to end flow emitters.fsrc -> toRelay -> relays.fpath;
+		outer: end to end flow inner -> fromRelay -> receivers.fsnk;
+	end Top.nestedAtStart;
+
+	-- (c) the nested flow sits in the middle, so the container both reaches it and continues after it
+	system implementation Top.nestedInMiddle
+	subcomponents
+		emitters: process Emitter[2];
+		firstRelays: process Relay[2];
+		secondRelays: process Relay[2];
+		receivers: process Receiver[2];
+	connections
+		toFirst: port emitters.outp -> firstRelays.inp;
+		betweenRelays: port firstRelays.outp -> secondRelays.inp;
+		toReceiver: port secondRelays.outp -> receivers.inp;
+	flows
+		inner: end to end flow firstRelays.fpath -> betweenRelays -> secondRelays.fpath;
+		outer: end to end flow emitters.fsrc -> toFirst -> inner -> toReceiver -> receivers.fsnk;
+	end Top.nestedInMiddle;
+
+	-- (d) the nested flow starts inside a flow implementation, so it carries a leading declarative
+	-- connection that the container's connection instance has to contain
+	system implementation Top.nestedThroughImplementation
+	subcomponents
+		emitters: process Emitter[2];
+		boxes: system Box.i[2];
+		receivers: process Receiver[2];
+	connections
+		toBox: port emitters.outp -> boxes.inp;
+		fromBox: port boxes.outp -> receivers.inp;
+	flows
+		inner: end to end flow boxes.fpath -> fromBox -> receivers.fsnk;
+		outer: end to end flow emitters.fsrc -> toBox -> inner;
+	end Top.nestedThroughImplementation;
 end Issue1833;

@@ -151,7 +151,8 @@ public class Issue1833Test extends XtextTest {
 
 	/**
 	 * A nested end to end flow that is replicated per array element replicates the flow that contains it,
-	 * and each replica of the container refers to the nested replica of its own element.
+	 * and each replica of the container refers to the nested replica of its own element. Here the nested
+	 * flow ends the container, so the container reaches it along a connection.
 	 */
 	@Test
 	public void aReplicatedNestedFlowReplicatesItsContainer() throws Exception {
@@ -162,6 +163,60 @@ public class Issue1833Test extends XtextTest {
 				"inner_2 : relays[2].fpath -> relays[2].outp --> receivers[2].inp -> receivers[2].fsnk",
 				"outer_1 : emitters[1].fsrc -> emitters[1].outp --> relays[1].inp -> inner_1",
 				"outer_2 : emitters[2].fsrc -> emitters[2].outp --> relays[2].inp -> inner_2"), flows(instance));
+		assertEquals(List.of(), diagnostics(instance));
+	}
+
+	/**
+	 * The nested flow starts the container. Nothing constrains which replica a replica of the container
+	 * takes, so the fork is over the nested replicas themselves, and the container continues after the one
+	 * it took.
+	 */
+	@Test
+	public void aReplicatedNestedFlowCanStartItsContainer() throws Exception {
+		var instance = instantiate("Issue1833.aadl", "Top.nestedAtStart");
+
+		assertEquals(List.of("inner_1 : emitters[1].fsrc -> emitters[1].outp --> relays[1].inp -> relays[1].fpath",
+				"inner_2 : emitters[2].fsrc -> emitters[2].outp --> relays[2].inp -> relays[2].fpath",
+				"outer_1 : inner_1 -> relays[1].outp --> receivers[1].inp -> receivers[1].fsnk",
+				"outer_2 : inner_2 -> relays[2].outp --> receivers[2].inp -> receivers[2].fsnk"), flows(instance));
+		assertEquals(List.of(), diagnostics(instance));
+	}
+
+	/**
+	 * The nested flow sits in the middle of the container, which therefore both reaches it along a
+	 * connection and continues after it along another.
+	 */
+	@Test
+	public void aReplicatedNestedFlowCanSitInTheMiddle() throws Exception {
+		var instance = instantiate("Issue1833.aadl", "Top.nestedInMiddle");
+
+		assertEquals(List.of(
+				"inner_1 : firstRelays[1].fpath -> firstRelays[1].outp --> secondRelays[1].inp"
+						+ " -> secondRelays[1].fpath",
+				"inner_2 : firstRelays[2].fpath -> firstRelays[2].outp --> secondRelays[2].inp"
+						+ " -> secondRelays[2].fpath",
+				"outer_1 : emitters[1].fsrc -> emitters[1].outp --> firstRelays[1].inp -> inner_1"
+						+ " -> secondRelays[1].outp --> receivers[1].inp -> receivers[1].fsnk",
+				"outer_2 : emitters[2].fsrc -> emitters[2].outp --> firstRelays[2].inp -> inner_2"
+						+ " -> secondRelays[2].outp --> receivers[2].inp -> receivers[2].fsnk"), flows(instance));
+		assertEquals(List.of(), diagnostics(instance));
+	}
+
+	/**
+	 * The nested flow starts at a flow specification that is realized by a flow implementation, so it
+	 * carries a leading declarative connection. The connection instance by which a replica of the container
+	 * reaches a nested replica has to contain that connection, which is what keeps the two on the same
+	 * element.
+	 */
+	@Test
+	public void aReplicatedNestedFlowCanStartInsideAnImplementation() throws Exception {
+		var instance = instantiate("Issue1833.aadl", "Top.nestedThroughImplementation");
+
+		assertEquals(List.of(
+				"inner_1 : boxes[1].relay.fpath -> boxes[1].relay.outp --> receivers[1].inp -> receivers[1].fsnk",
+				"inner_2 : boxes[2].relay.fpath -> boxes[2].relay.outp --> receivers[2].inp -> receivers[2].fsnk",
+				"outer_1 : emitters[1].fsrc -> emitters[1].outp --> boxes[1].relay.inp -> inner_1",
+				"outer_2 : emitters[2].fsrc -> emitters[2].outp --> boxes[2].relay.inp -> inner_2"), flows(instance));
 		assertEquals(List.of(), diagnostics(instance));
 	}
 
