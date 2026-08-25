@@ -719,6 +719,13 @@ public class Serializer1Test extends AbstractSerializerTest {
 		//@formatter:on
 	}
 
+	/**
+	 * {@code f4} is a flow sink on a feature array, so it has one flow specification instance per array
+	 * element, named {@code f4_1} and {@code f4_2} (issue #2787). {@code f6} and {@code f7} are not
+	 * expanded: {@code p5} is an array declared inside a feature group type, where an array is not allowed
+	 * and is instantiated as a single feature, and {@code f7}'s end is a feature reached through an array
+	 * feature group rather than an array feature itself.
+	 */
 	@Test
 	public void testFlowSpecification() throws Exception {
 		var pkg1 = testHelper.parseString("""
@@ -793,7 +800,8 @@ public class Serializer1Test extends AbstractSerializerTest {
 					flow f1 ( -> p2 ) : pkg1::s:f1
 					flow f2 ( p1 -> ) : pkg1::s:f2
 					flow f3 ( p1 -> p2 ) : pkg1::s:f3
-					flow f4 ( p3[1] -> ) : pkg1::s:f4
+					flow f4_1 ( p3[1] -> ) : pkg1::s:f4
+					flow f4_2 ( p3[2] -> ) : pkg1::s:f4
 					flow f5 ( fg1.p4 -> ) : pkg1::s:f5
 					flow f6 ( fg1.p5 -> ) : pkg1::s:f6
 					flow f7 ( fg2[1].p6 -> ) : pkg1::s:f7
