@@ -91,8 +91,9 @@ InstantiateModel.fillSystemInstance(root)
  └────────────────────────────────────────────────────────────────────────┘
 ```
 
-`InstantiateModel.finalizeConnections()` runs steps 3 to 5 for every root of the instance
-resource, the system instance and any instance of a referenced classifier.
+`InstantiateModel.prepareForAnnexes()` runs steps 3 to 7 for the system instance. Additional roots
+that represent referenced classifiers skip connection and end-to-end-flow instantiation; only their
+properties and annexes are instantiated because they have no system operation modes.
 
 `CreateConnectionsSwitch` extends `AadlProcessingSwitchWithProgress` with
 `PROCESS_PRE_ORDER_ALL`, so its `caseComponentInstance` fires for every component instance.

@@ -51,18 +51,16 @@ import com.itemis.xtext.testing.XtextTest;
  * <p>
  * A feature whose classifier resolves to a component classifier makes instantiation create
  * that classifier as a further root beside the system instance. Every model whose ports have
- * a data classifier has one, and since the Plan 1 pipeline change those roots go through the
- * same phases as the system instance, so the characterization harness snapshots every root of
- * the instance resource rather than the system instance alone. Before that it compared
- * nothing inside a referenced root at all.
+ * a data classifier has one. The characterization harness snapshots every root of the instance
+ * resource rather than the system instance alone, so it also compares the populated hierarchy of
+ * each referenced classifier. Before that it compared nothing inside a referenced root at all.
  * </p>
  *
  * <p>
- * A referenced root with connections inside it is deliberately not covered: instantiation
- * crashes on that shape, and it did before issue #3037 as well, so it is follow-on work rather
- * than something this test can hold. What is covered here is that the roots exist, that they
- * carry their subcomponents and features, and what a system whose ports are typed by such a
- * classifier produces.
+ * Connections and end to end flows declared inside a referenced root are covered by
+ * {@code Issue3033Test}: they are not instantiated because the referenced root has no system
+ * operation modes. What is covered here is that the roots exist, that they carry their subcomponents
+ * and features, and what a system whose ports are typed by such a classifier produces.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -104,7 +102,7 @@ public class Issue3037ReferencedRootTest extends XtextTest {
 		assertEquals(List.of("feeder.worker.outp -> drain.worker.inp"), connectionNames(run.instance()));
 		assertEquals(List.of("ReferencedClassifiers::Element", "ReferencedClassifiers::Payload.i"),
 				referencedRootNames(run));
-		assertEquals("a referenced root with connections is excluded from characterization", List.of(),
+		assertEquals("the referenced classifier declares no connections", List.of(),
 				connectionNames(referencedRoot(run)));
 	}
 
