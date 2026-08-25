@@ -24,7 +24,6 @@
 package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -34,57 +33,75 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
-import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter.Message;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
+/** Regression test for issue #3047. */
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue2606Test extends XtextTest {
-
-	private static final String FILE = "org.osate.core.tests/models/issue2606/Issue2606.aadl";
-
-	@Inject
-	TestHelper<AadlPackage> testHelper;
+public class Issue3047Test extends XtextTest {
+	private static final String MODEL = "org.osate.core.tests/models/issue3047/Issue3047.aadl";
 
 	@Inject
-	ValidationTestHelper validationHelper;
+	private TestHelper<AadlPackage> testHelper;
 
+	@Inject
+	private ValidationTestHelper validationHelper;
+
+	/**
+	 * A connection that starts or ends at an uncontinued boundary feature is materialized,
+	 * but connection validation reports why that end stops there. A destination event port
+	 * that triggers a mode transition is a deliberate terminal and is not reported.
+	 */
 	@Test
-	public void testDisconnectedFlowPathIsRejected() throws Exception {
-		AadlPackage pkg = testHelper.parseFile(FILE);
+	public void uncontinuedBoundaryEndsAreReportedExceptForAModeTransitionTrigger() throws Exception {
+		var pkg = testHelper.parseFile(MODEL);
 		validationHelper.assertNoIssues(pkg);
+		var manager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);
+		var instance = InstantiateModel.instantiate(findImplementation(pkg, "Top.impl"), manager);
 
-		SystemImplementation implementation = (SystemImplementation) pkg.getPublicSection()
+		assertEquals(List.of(
+				"Top_impl_Instance.data_producer.outp -> Top_impl_Instance.destination.inp",
+				"Top_impl_Instance.event_producer.outp -> Top_impl_Instance.trigger_destination.trigger",
+				"Top_impl_Instance.source_boundary.outp -> Top_impl_Instance.data_consumer.inp"),
+				instance.getAllConnectionInstances().stream().map(Issue3047Test::describe).sorted().toList());
+
+		assertEquals(List.of(
+				"Warning|Top_impl_Instance.data_producer.outp -> Top_impl_Instance.destination.inp"
+						+ "|Connection ends at destination because feature inp has no continuing connection declaration.",
+				"Warning|Top_impl_Instance.source_boundary.outp -> Top_impl_Instance.data_consumer.inp"
+						+ "|Connection starts at source_boundary because feature outp has no continuing connection declaration."),
+				warnings(instance, manager));
+	}
+
+	private static List<String> warnings(SystemInstance instance, AnalysisErrorReporterManager manager) {
+		return ((QueuingAnalysisErrorReporter) manager.getReporter(instance.eResource())).getErrors()
+				.stream()
+				.map(message -> message.kind + "|" + describe((ConnectionInstance) message.where) + "|" + message.message)
+				.sorted()
+				.toList();
+	}
+
+	private static String describe(ConnectionInstance connection) {
+		return connection.getSource().getInstanceObjectPath() + " -> "
+				+ connection.getDestination().getInstanceObjectPath();
+	}
+
+	private static ComponentImplementation findImplementation(AadlPackage pkg, String name) {
+		return (ComponentImplementation) pkg.getOwnedPublicSection()
 				.getOwnedClassifiers()
 				.stream()
-				.filter(c -> c.getName().equals("S.i"))
+				.filter(classifier -> classifier.getName().equals(name))
 				.findFirst()
 				.orElseThrow();
-		AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
-				QueuingAnalysisErrorReporter.factory);
-
-		SystemInstance instance = InstantiateModel.instantiate(implementation, errorManager);
-
-		assertTrue(instance.getEndToEndFlows().isEmpty());
-		List<Message> messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource()))
-				.getErrors();
-		assertEquals(2, messages.size());
-		Message message = messages.get(0);
-		assertEquals(QueuingAnalysisErrorReporter.Kind.WARNING, message.kind);
-		assertEquals("Connection starts at m because feature o has no continuing connection declaration.",
-				message.message);
-		message = messages.get(1);
-		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, message.kind);
-		assertEquals("Cannot create end to end flow 'ee' because there are no semantic connections that connect to "
-				+ "the start of the flow 'pth' at feature 'i'", message.message);
 	}
 }

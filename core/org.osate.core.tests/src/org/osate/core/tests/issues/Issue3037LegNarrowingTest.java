@@ -93,9 +93,9 @@ public class Issue3037LegNarrowingTest extends XtextTest {
 	 * </p>
 	 *
 	 * <p>
-	 * The one difference from 2.18.0 on this model is allowlist entry 5, the warning that no
-	 * declaration carries the connection further into {@code m}, which was reported while
-	 * descending and followed by that connection being created from the other direction anyway.
+	 * Allowlist entry 5 is the warning that no declaration carries the connection further into
+	 * {@code m}. Issue #3047 reports it from connection validation against the materialized
+	 * connection instead of while descending from the other direction.
 	 * </p>
 	 */
 	@Test
@@ -112,14 +112,15 @@ public class Issue3037LegNarrowingTest extends XtextTest {
 				"m.mm.fgr.fg.fo -> r.fr.fg.fo", "r.fr.fg.fi -> m.fr.fg.fi"), names(run));
 
 		/*
-		 * Allowlist entry 5, on one implementation more than the entry lists: "No connection
-		 * declaration from feature fr of component m to subcomponents. Connection instance ends at m"
-		 * was also reported here before issue #3037, while descending into m, and that connection was
-		 * then created from the other direction anyway. What remains is the model's flow errors.
+		 * Allowlist entry 5, on one implementation more than the entry lists. The new warning is
+		 * attached to the connection that ends at m; unrelated flow errors are excluded here.
 		 */
-		assertEquals(List.of(), InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager()))
+		assertEquals(List.of("Warning | Connection ends at m because feature fr has no continuing connection declaration."
+				+ " | at S1_i_Instance.r.fr.fg.fi -> m.fr.fg.fi|ConnectionInstance"
+				+ " | in P_S1_i_Instance.aaxl2"),
+				InstanceReport.diagnosticSet(InstanceSnapshot.of(run.instance(), run.errorManager()))
 				.stream()
-				.filter(line -> line.contains("No connection declaration from feature"))
+				.filter(line -> line.contains("Connection ends at m because feature fr"))
 				.toList());
 	}
 

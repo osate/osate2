@@ -61,7 +61,10 @@ import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
+import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
+import org.osate.aadl2.instantiation.internal.LegResolver;
+import org.osate.aadl2.instantiation.internal.SeedDiscovery;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
@@ -104,7 +107,53 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		recordInDataPortConnections(ci);
 		checkEndPointClassifiers(ci);
 		checkSegmentDirections(ci);
+		checkUncontinuedBoundaryEnds(ci);
 		// more
+	}
+
+	/**
+	 * Report a materialized connection that starts or ends at a component boundary even
+	 * though the component has internals that the boundary feature does not route to.
+	 *
+	 * <p>
+	 * The report belongs here rather than in the traversal: the completed connection is a
+	 * visible diagnostic target, and each end is reported once. A component type has no
+	 * internals to continue into, a connection-ending category deliberately consumes a
+	 * connection at its boundary, and the instantiation root is the model boundary, so none
+	 * of those are uncontinued ends. A destination that triggers a mode transition is also a
+	 * deliberate terminal and is therefore silent.
+	 * </p>
+	 */
+	private void checkUncontinuedBoundaryEnds(ComponentInstance ci) {
+		for (var conni : ci.getConnectionInstances()) {
+			checkUncontinuedBoundaryEnd(conni, conni.getSource(), true);
+			checkUncontinuedBoundaryEnd(conni, conni.getDestination(), false);
+		}
+	}
+
+	private void checkUncontinuedBoundaryEnd(ConnectionInstance conni, ConnectionInstanceEnd end, boolean source) {
+		if (!(end instanceof FeatureInstance feature)) {
+			return;
+		}
+		var component = feature.getContainingComponentInstance();
+		if (component instanceof SystemInstance || LegResolver.isConnectionEndingCategory(component.getCategory())) {
+			return;
+		}
+		var implementation = InstanceUtil.getComponentImplementation(component, 0, classifierCache);
+		if (implementation == null || implementation.getAllSubcomponents().isEmpty()
+				|| (!source && SeedDiscovery.triggersModeTransition(component, feature))) {
+			return;
+		}
+		var boundaryFeature = outermost(feature);
+		warning(conni, "Connection " + (source ? "starts" : "ends") + " at " + component.getName()
+				+ " because feature " + boundaryFeature.getName() + " has no continuing connection declaration.");
+	}
+
+	private static FeatureInstance outermost(FeatureInstance feature) {
+		while (feature.getOwner() instanceof FeatureInstance parent) {
+			feature = parent;
+		}
+		return feature;
 	}
 
 	/**
