@@ -86,34 +86,16 @@ public class Issue3037StructuralFailureTest extends XtextTest {
 	 * A pattern with fewer dimensions than the arrays it has to replicate over.
 	 *
 	 * <p>
-	 * Expansion neither replicates nor gives up: it reports the mismatch, falls back to the
-	 * first array element for each end, and leaves two connection instances that are identical
-	 * in name and endpoints, which validation then reports as more than one connection ending
-	 * at the same data port. Thirteen of the sixteen element pairs the arrays could have are
-	 * absent. This is what 2.18.0 produced too, so it is structural expansion's behavior and
-	 * not the traversal's; it is recorded here so that a change to it shows up as a failure,
-	 * and fixing it is separate work.
+	 * Expansion rejects the incomplete pattern with one diagnostic and leaves no connection instances.
+	 * This used to fall back to the first element of each end twice, which issue #3052 corrected.
 	 * </p>
 	 */
 	@Test
-	public void aPatternWithTooFewIndicesAgrees() throws Exception {
-		assertConnections("TooFewIndices.i", "producers[1][1].outp --> consumers[1][1].inp",
-				"producers[1][1].outp --> consumers[1][1].inp");
-		assertConnections("Top.tooFewIndices", "producers[1][1].outp --> consumers[1][1].inp",
-				"producers[1][1].outp --> consumers[1][1].inp");
+	public void aPatternWithTooFewIndicesIsRejected() throws Exception {
+		assertConnections("TooFewIndices.i");
+		assertConnections("Top.tooFewIndices");
 
-		assertEquals(List.of(
-				"Error | For c : producers[1][1].outp -> consumers[1][1].inp,"
-						+ " destination indices [1] do not match destination dimension 2",
-				"Error | For c : producers[1][1].outp -> consumers[1][1].inp,"
-						+ " destination indices [2] do not match destination dimension 2",
-				"Error | More than one connection instance ends at data port",
-				"Error | More than one connection instance ends at data port"
-						+ " TooFewIndices_i_Instance.consumers[1][1].inp",
-				"Error | Source indices [1] do not match source dimension 2",
-				"Error | Source indices [2] do not match source dimension 2",
-				"Warning | There is already another connection between the same endpoints",
-				"Warning | Too few indices for connection end, using first array element"),
+		assertEquals(List.of("Error | Connection pattern has fewer dimensions than its array ends"),
 				messages("TooFewIndices.i"));
 	}
 

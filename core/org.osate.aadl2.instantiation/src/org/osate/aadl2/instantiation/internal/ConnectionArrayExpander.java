@@ -398,10 +398,17 @@ public final class ConnectionArrayExpander {
 		 * Create the connection instances of the dimension the expansion is at and of every dimension
 		 * inside it.
 		 *
-		 * @return whether the connection instance was expanded, which means that it has to be deleted; a
-		 *         reported failure leaves it in place, because it has no replacement then
+		 * @return whether the provisional connection instance has to be deleted; a short pattern is rejected
+		 *         without a replacement, while failures that may still describe one scalar connection leave it
+		 *         in place
 		 */
 		private boolean expand() {
+			if (patterns != null && offset == 0
+					&& patterns.size() < Math.max(srcSizes.size(), dstSizes.size())) {
+				errManager.error(conni.getContainingComponentInstance(),
+						"Connection pattern has fewer dimensions than its array ends");
+				return true;
+			}
 			if (patterns != null ? offset >= patterns.size()
 					: srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
 				createNewConnection(conni, srcIndices, dstIndices);
