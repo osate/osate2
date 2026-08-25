@@ -27,10 +27,12 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -38,6 +40,7 @@ import org.osate.aadl2.Access;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
@@ -97,12 +100,26 @@ public final class EndToEndFlowSession {
 		EXPANDING, COMPLETE, FAILED
 	}
 
-	private enum DiagnosticTarget {
-		OWNER, CANDIDATE, EXISTING_ELEMENT
-	}
+	/**
+	 * A diagnostic held back until commit, because reporting resolves its reporter through the target's resource and a
+	 * candidate is not in one until it is attached. The sequence is the emission order they are replayed in.
+	 */
+	private sealed interface PendingDiagnostic {
+		long sequence();
 
-	private record PendingDiagnostic(long sequence, DiagnosticTarget target, FlowCandidate candidate,
-			Element existingElement, String message) {
+		String message();
+
+		/** Reported against the component instance that declares the flow, whether or not the candidate survived. */
+		record OwnerError(long sequence, FlowCandidate candidate, String message) implements PendingDiagnostic {
+		}
+
+		/** Reported against the flow instance when the candidate completed, against its owner when it did not. */
+		record CandidateError(long sequence, FlowCandidate candidate, String message) implements PendingDiagnostic {
+		}
+
+		/** Reported against a declarative element, which is in a resource already. */
+		record ElementError(long sequence, Element element, String message) implements PendingDiagnostic {
+		}
 	}
 
 	/**
@@ -161,8 +178,8 @@ public final class EndToEndFlowSession {
 		}
 
 		private TraversalState copy(FlowCandidate candidate) {
-			TraversalState copy = new TraversalState(candidate);
-			for (FlowIterator continuation : continuations) {
+			var copy = new TraversalState(candidate);
+			for (var continuation : continuations) {
 				copy.continuations.addLast(continuation.copy());
 			}
 			copy.connections.addAll(connections);
@@ -209,12 +226,10 @@ public final class EndToEndFlowSession {
 		return expansions.containsKey(ete);
 	}
 
-	/** Whether discovery was canceled, which keeps the component's flows unchanged. */
-	public boolean isCanceled() {
-		return canceled;
-	}
-
-	/** Record that discovery was canceled. */
+	/**
+	 * Record that discovery was canceled, which is sticky: a session that saw a cancellation attaches nothing, even if
+	 * the monitor is reset afterwards.
+	 */
 	public void cancel() {
 		canceled = true;
 	}
@@ -227,8 +242,8 @@ public final class EndToEndFlowSession {
 		if (expansion == null) {
 			return List.of();
 		}
-		List<ETEInfo> infos = new ArrayList<>();
-		for (FlowCandidate candidate : expansion.candidates) {
+		var infos = new ArrayList<ETEInfo>();
+		for (var candidate : expansion.candidates) {
 			infos.add(new ETEInfo(candidate.preConnections, candidate.instance, candidate.postConnections));
 		}
 		return infos;
@@ -243,16 +258,16 @@ public final class EndToEndFlowSession {
 			return;
 		}
 
-		FlowExpansion expansion = new FlowExpansion(ete);
+		var expansion = new FlowExpansion(ete);
 		expansions.put(ete, expansion);
 		expansionOrder.add(expansion);
 		activeDeclarations.add(ete);
 
-		EndToEndFlowInstance etei = InstanceFactory.eINSTANCE.createEndToEndFlowInstance();
+		var etei = InstanceFactory.eINSTANCE.createEndToEndFlowInstance();
 		etei.setName(ete.getName());
 		etei.setEndToEndFlow(ete);
-		FlowCandidate candidate = createCandidate(expansion, etei, new ArrayList<>());
-		TraversalState previousState = activeState;
+		var candidate = createCandidate(expansion, etei, new ArrayList<>());
+		var previousState = activeState;
 		activeState = new TraversalState(candidate);
 		etei.getModesList().add(host.modeInstances(owner, ete));
 		try {
@@ -263,11 +278,9 @@ public final class EndToEndFlowSession {
 				canceled = true;
 			}
 			if (expansion.status == ExpansionStatus.FAILED) {
-				for (FlowCandidate createdCandidate : expansion.candidates) {
-					createdCandidate.status = CandidateStatus.FAILED;
-				}
+				failExpansion(expansion);
 			} else {
-				for (FlowCandidate createdCandidate : expansion.candidates) {
+				for (var createdCandidate : expansion.candidates) {
 					if (createdCandidate.status == CandidateStatus.ACTIVE) {
 						createdCandidate.status = createdCandidate.instance.getFlowElements().isEmpty()
 								? CandidateStatus.FAILED
@@ -282,7 +295,7 @@ public final class EndToEndFlowSession {
 
 	private FlowCandidate createCandidate(FlowExpansion expansion, EndToEndFlowInstance instance,
 			List<Connection> preConnections) {
-		FlowCandidate candidate = new FlowCandidate(owner, expansion, instance, preConnections,
+		var candidate = new FlowCandidate(owner, expansion, instance, preConnections,
 				nextCandidateSequence++);
 		expansion.candidates.add(candidate);
 		candidates.add(candidate);
@@ -295,13 +308,13 @@ public final class EndToEndFlowSession {
 	 * structure must be copied so subsequent alternatives cannot modify one another.
 	 */
 	private TraversalState forkState(TraversalState source) {
-		EndToEndFlowInstance instance = EcoreUtil.copy(source.candidate.instance);
+		var instance = EcoreUtil.copy(source.candidate.instance);
 		// Preserve accumulated mode constraints, which are not part of the copied flow-element containment tree.
 		instance.getModesList().addAll(source.candidate.instance.getModesList());
 		List<Connection> preConnections = source.candidate.instance.getFlowElements().isEmpty()
 				? new ArrayList<>()
 				: new ArrayList<>(source.candidate.preConnections);
-		FlowCandidate candidate = createCandidate(source.candidate.expansion, instance, preConnections);
+		var candidate = createCandidate(source.candidate.expansion, instance, preConnections);
 		return source.copy(candidate);
 	}
 
@@ -314,7 +327,7 @@ public final class EndToEndFlowSession {
 	}
 
 	private TraversalState getState(EndToEndFlowInstance etei) {
-		FlowCandidate candidate = getCandidate(etei);
+		var candidate = getCandidate(etei);
 		if (activeState == null || activeState.candidate != candidate) {
 			throw new IllegalStateException("End-to-end flow branch is not active");
 		}
@@ -322,22 +335,15 @@ public final class EndToEndFlowSession {
 	}
 
 	private void reportOwnerError(FlowCandidate candidate, String message) {
-		diagnostics.add(new PendingDiagnostic(nextDiagnosticSequence++, DiagnosticTarget.OWNER, candidate, null,
-				message));
+		diagnostics.add(new PendingDiagnostic.OwnerError(nextDiagnosticSequence++, candidate, message));
 	}
 
 	private void reportCandidateError(FlowCandidate candidate, String message) {
-		diagnostics.add(new PendingDiagnostic(nextDiagnosticSequence++, DiagnosticTarget.CANDIDATE, candidate, null,
-				message));
+		diagnostics.add(new PendingDiagnostic.CandidateError(nextDiagnosticSequence++, candidate, message));
 	}
 
-	private void reportExistingElementError(FlowCandidate candidate, Element element, String message) {
-		diagnostics.add(new PendingDiagnostic(nextDiagnosticSequence++, DiagnosticTarget.EXISTING_ELEMENT, candidate,
-				element, message));
-	}
-
-	private String getProspectivePath(FlowCandidate candidate) {
-		return candidate.owner.getInstanceObjectPath() + "." + candidate.instance.getName();
+	private void reportExistingElementError(Element element, String message) {
+		diagnostics.add(new PendingDiagnostic.ElementError(nextDiagnosticSequence++, element, message));
 	}
 
 	private void failCandidate(FlowCandidate candidate) {
@@ -348,6 +354,17 @@ public final class EndToEndFlowSession {
 
 	private void abortCandidate(FlowCandidate candidate) {
 		candidate.status = CandidateStatus.ABORTED;
+	}
+
+	/**
+	 * Discard a whole declaration: no candidate of a failed expansion can be committed, and a candidate that referenced
+	 * one cannot either.
+	 */
+	private void failExpansion(FlowExpansion expansion) {
+		expansion.status = ExpansionStatus.FAILED;
+		for (var candidate : expansion.candidates) {
+			candidate.status = CandidateStatus.FAILED;
+		}
 	}
 
 	// -------------------------------------------------------------------------
@@ -369,27 +386,27 @@ public final class EndToEndFlowSession {
 			throw new IllegalStateException("End-to-end flow list changed during candidate discovery");
 		}
 
-		for (FlowExpansion expansion : expansionOrder) {
-			List<FlowCandidate> successful = expansion.candidates.stream()
+		for (var expansion : expansionOrder) {
+			var successful = expansion.candidates.stream()
 					.filter(candidate -> candidate.status == CandidateStatus.COMPLETE)
 					.sorted(Comparator.comparingLong(candidate -> candidate.sequence))
 					.toList();
 			if (successful.size() == 1) {
-				successful.get(0).instance.setName(expansion.declaration.getName());
+				successful.getFirst().instance.setName(expansion.declaration.getName());
 			} else if (successful.size() > 1) {
 				host.resetCloneCount();
-				for (FlowCandidate candidate : successful) {
+				for (var candidate : successful) {
 					host.setCloneName(candidate.instance);
 				}
 			}
 		}
 
-		List<FlowCandidate> successful = candidates.stream()
+		var successful = candidates.stream()
 				.filter(candidate -> candidate.status == CandidateStatus.COMPLETE)
 				.sorted(Comparator.comparingLong(candidate -> candidate.sequence))
 				.toList();
-		for (FlowCandidate candidate : successful) {
-			for (FlowElementInstance element : candidate.instance.getFlowElements()) {
+		for (var candidate : successful) {
+			for (var element : candidate.instance.getFlowElements()) {
 				if (element instanceof EndToEndFlowInstance nested) {
 					FlowCandidate nestedCandidate = candidatesByInstance.get(nested);
 					if (nestedCandidate == null || nestedCandidate.status != CandidateStatus.COMPLETE) {
@@ -400,46 +417,54 @@ public final class EndToEndFlowSession {
 		}
 
 		List<EndToEndFlowInstance> instances = successful.stream().map(candidate -> candidate.instance).toList();
-		Map<FlowCandidate, List<EList<ModeInstance>>> modeSnapshots = new IdentityHashMap<>();
-		Map<FlowCandidate, List<SystemOperationMode>> somSnapshots = new IdentityHashMap<>();
-		for (FlowCandidate candidate : successful) {
-			modeSnapshots.put(candidate, new ArrayList<>(candidate.instance.getModesList()));
-			somSnapshots.put(candidate, new ArrayList<>(candidate.instance.getInSystemOperationModes()));
+		record ModeSnapshot(List<EList<ModeInstance>> modes, List<SystemOperationMode> systemOperationModes) {
+		}
+		var snapshots = new IdentityHashMap<FlowCandidate, ModeSnapshot>();
+		for (var candidate : successful) {
+			snapshots.put(candidate, new ModeSnapshot(new ArrayList<>(candidate.instance.getModesList()),
+					new ArrayList<>(candidate.instance.getInSystemOperationModes())));
 		}
 
 		owner.getEndToEndFlows().addAll(instances);
 		try {
-			Map<FlowCandidate, Boolean> finalized = new IdentityHashMap<>();
-			Map<FlowCandidate, Boolean> finalizing = new IdentityHashMap<>();
-			for (FlowCandidate candidate : successful) {
+			var finalized = new HashSet<FlowCandidate>();
+			var finalizing = new HashSet<FlowCandidate>();
+			for (var candidate : successful) {
 				finalizeModes(candidate, finalized, finalizing);
 			}
 		} catch (RuntimeException | Error exception) {
 			owner.getEndToEndFlows().removeAll(instances);
-			for (FlowCandidate candidate : successful) {
+			for (var candidate : successful) {
+				var snapshot = snapshots.get(candidate);
 				candidate.instance.getModesList().clear();
-				candidate.instance.getModesList().addAll(modeSnapshots.get(candidate));
+				candidate.instance.getModesList().addAll(snapshot.modes());
 				candidate.instance.getInSystemOperationModes().clear();
-				candidate.instance.getInSystemOperationModes().addAll(somSnapshots.get(candidate));
+				candidate.instance.getInSystemOperationModes().addAll(snapshot.systemOperationModes());
 			}
 			throw exception;
 		}
 
-		for (PendingDiagnostic diagnostic : diagnostics.stream()
+		/*
+		 * Diagnostics are appended in emission order, so the sort only states the invariant that the order they are
+		 * reported in is the order discovery found them in.
+		 */
+		for (var diagnostic : diagnostics.stream()
 				.sorted(Comparator.comparingLong(PendingDiagnostic::sequence))
 				.toList()) {
-			switch (diagnostic.target()) {
-			case OWNER -> host.reportError(diagnostic.candidate().owner, diagnostic.message());
-			case CANDIDATE -> {
-				if (diagnostic.candidate().status == CandidateStatus.COMPLETE) {
-					host.reportError(diagnostic.candidate().instance, diagnostic.message());
+			switch (diagnostic) {
+			case PendingDiagnostic.OwnerError ownerError ->
+				host.reportError(ownerError.candidate().owner, ownerError.message());
+			case PendingDiagnostic.CandidateError candidateError -> {
+				var target = candidateError.candidate();
+				if (target.status == CandidateStatus.COMPLETE) {
+					host.reportError(target.instance, candidateError.message());
 				} else {
-					host.reportError(diagnostic.candidate().owner,
-							diagnostic.candidate().instance.getName() + " could not be instantiated: "
-									+ diagnostic.message());
+					host.reportError(target.owner,
+							target.instance.getName() + " could not be instantiated: " + candidateError.message());
 				}
 			}
-			case EXISTING_ELEMENT -> host.reportError(diagnostic.existingElement(), diagnostic.message());
+			case PendingDiagnostic.ElementError elementError ->
+				host.reportError(elementError.element(), elementError.message());
 			}
 		}
 	}
@@ -447,15 +472,15 @@ public final class EndToEndFlowSession {
 	/**
 	 * Finalize a candidate's system operation modes after finalizing any nested candidates it references.
 	 */
-	private void finalizeModes(FlowCandidate candidate, Map<FlowCandidate, Boolean> finalized,
-			Map<FlowCandidate, Boolean> finalizing) {
-		if (finalized.containsKey(candidate)) {
+	private void finalizeModes(FlowCandidate candidate, Set<FlowCandidate> finalized,
+			Set<FlowCandidate> finalizing) {
+		if (finalized.contains(candidate)) {
 			return;
 		}
-		if (finalizing.put(candidate, Boolean.TRUE) != null) {
+		if (!finalizing.add(candidate)) {
 			throw new IllegalStateException("Cyclic committed end-to-end flow graph");
 		}
-		for (FlowElementInstance element : candidate.instance.getFlowElements()) {
+		for (var element : candidate.instance.getFlowElements()) {
 			if (element instanceof EndToEndFlowInstance nested) {
 				FlowCandidate nestedCandidate = candidatesByInstance.get(nested);
 				if (nestedCandidate != null && nestedCandidate.status == CandidateStatus.COMPLETE) {
@@ -463,10 +488,10 @@ public final class EndToEndFlowSession {
 				}
 			}
 		}
-		host.fillInModes(candidate.instance);
+		host.assignSystemOperationModes(candidate.instance);
 		candidate.instance.getModesList().clear();
 		finalizing.remove(candidate);
-		finalized.put(candidate, Boolean.TRUE);
+		finalized.add(candidate);
 	}
 
 	// -------------------------------------------------------------------------
@@ -474,10 +499,10 @@ public final class EndToEndFlowSession {
 	// -------------------------------------------------------------------------
 
 	public void processETE(final ComponentInstance ci, final EndToEndFlowInstance etei, final EndToEndFlow ete) {
-		FlowIterator iter = new FlowIterator(ete);
-		EndToEndFlowSegment fe = (EndToEndFlowSegment) iter.next();
+		var iter = new FlowIterator(ete);
+		var firstSegment = (EndToEndFlowSegment) iter.next();
 
-		host.processETESegment(ci, etei, fe, iter, ete);
+		host.processETESegment(ci, etei, firstSegment, iter, ete);
 	}
 
 	/**
@@ -486,33 +511,33 @@ public final class EndToEndFlowSession {
 	 *
 	 * @param ci the component instance we're in
 	 * @param etei the current flow instance
-	 * @param fs the next flow segment
+	 * @param segment the next flow segment
 	 * @param iter the position in the current ETE declaration
 	 * @param errorElement the model element that we attach errors to
 	 */
-	public void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element fs, FlowIterator iter,
+	public void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element segment, FlowIterator iter,
 			NamedElement errorElement) {
-		TraversalState traversal = getState(etei);
-		FlowCandidate candidate = traversal.candidate;
-		Element fe = switch (fs) {
-		case FlowSegment segment -> segment.getFlowElement();
-		case EndToEndFlowSegment segment -> segment.getFlowElement();
-		default -> throw new IllegalArgumentException("Unsupported flow segment " + fs.eClass().getName());
+		var traversal = getState(etei);
+		var candidate = traversal.candidate;
+		record SegmentParts(Element flowElement, Context context) {
+		}
+		var parts = switch (segment) {
+		case FlowSegment flowSegment -> new SegmentParts(flowSegment.getFlowElement(), flowSegment.getContext());
+		case EndToEndFlowSegment eteSegment -> new SegmentParts(eteSegment.getFlowElement(), eteSegment.getContext());
+		default -> throw new IllegalArgumentException("Unsupported flow segment " + segment.eClass().getName());
 		};
 
-		if (fe instanceof Connection connection) {
+		switch (parts.flowElement()) {
+		case Connection connection -> {
 			if (etei.getFlowElements().isEmpty()) {
 				candidate.preConnections.add(connection);
 			} else {
 				traversal.connections.add(connection);
 			}
-		} else if (fe instanceof FlowSpecification flowSpecification) {
-			Subcomponent sc = (Subcomponent) switch (fs) {
-			case FlowSegment segment -> segment.getContext();
-			case EndToEndFlowSegment segment -> segment.getContext();
-			default -> throw new IllegalArgumentException("Unsupported flow segment " + fs.eClass().getName());
-			};
-			ComponentInstance sci = ci.findSubcomponentInstance(sc);
+		}
+		case FlowSpecification flowSpecification -> {
+			var sc = (Subcomponent) parts.context();
+			var sci = ci.findSubcomponentInstance(sc);
 			if (sci != null) {
 				host.processSubcomponentFlow(sci, etei, flowSpecification, iter);
 			} else {
@@ -521,15 +546,18 @@ public final class EndToEndFlowSession {
 								+ ": Could not find component instance for subcomponent " + sc.getName()
 								+ " in flow implementation " + errorElement.getName());
 			}
-		} else if (fe instanceof Subcomponent subcomponent) {
-			ComponentInstance sci = ci.findSubcomponentInstance(subcomponent);
-			host.processFlowStep(sci, etei, fe, iter);
-		} else if (fe instanceof DataAccess dataAccess) {
-			processAccess(ci, etei, dataAccess, iter);
-		} else if (fe instanceof SubprogramAccess subprogramAccess) {
-			processAccess(ci, etei, subprogramAccess, iter);
-		} else if (fe instanceof EndToEndFlow endToEndFlow) {
-			processEndToEndFlow(ci, etei, endToEndFlow, iter);
+		}
+		case Subcomponent subcomponent ->
+			host.processFlowStep(ci.findSubcomponentInstance(subcomponent), etei, subcomponent, iter);
+		/*
+		 * Only data and subprogram accesses are traversed. Another access kind, a bus access for instance, is not a
+		 * proxy for a component the flow passes through, and neither is any remaining flow element kind.
+		 */
+		case DataAccess dataAccess -> processAccess(ci, etei, dataAccess, iter);
+		case SubprogramAccess subprogramAccess -> processAccess(ci, etei, subprogramAccess, iter);
+		case EndToEndFlow endToEndFlow -> processEndToEndFlow(ci, etei, endToEndFlow, iter);
+		case null, default -> {
+		}
 		}
 	}
 
@@ -544,13 +572,13 @@ public final class EndToEndFlowSession {
 	 */
 	public void processSubcomponentFlow(final ComponentInstance ci, EndToEndFlowInstance etei,
 			final FlowSpecification fs, FlowIterator iter) {
-		FlowCandidate candidate = getCandidate(etei);
-		final ComponentImplementation subImpl = host.componentImplementation(ci);
-		final List<FlowImplementation> flowImpls = new ArrayList<>();
+		var candidate = getCandidate(etei);
+		final var subImpl = host.componentImplementation(ci);
+		final var flowImpls = new ArrayList<FlowImplementation>();
 
 		// Collect flow impls for this flow spec
 		if (subImpl != null) {
-			for (FlowImplementation fl : subImpl.getAllFlowImplementations()) {
+			for (var fl : subImpl.getAllFlowImplementations()) {
 				if (fl.getSpecification().getName().equalsIgnoreCase(fs.getName())) {
 					flowImpls.add(fl);
 				}
@@ -567,13 +595,13 @@ public final class EndToEndFlowSession {
 								+ "' has subcomponents but no flow implementation for flow '" + fs.getName() + "'");
 			}
 		} else {
-			Iterator<FlowImplementation> itt = flowImpls.iterator();
+			var itt = flowImpls.iterator();
 
 			getState(etei).continuations.push(iter);
 			while (itt.hasNext()) {
 				TraversalState stateClone = null;
 				FlowIterator iterClone = null;
-				FlowImplementation flowImpl = itt.next();
+				var flowImpl = itt.next();
 				boolean prepareNext = itt.hasNext();
 
 				if (prepareNext) {
@@ -643,8 +671,8 @@ public final class EndToEndFlowSession {
 	 */
 	public void processFlowStep(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf,
 			FlowImplementation nextFlowImpl, FlowIterator iter) {
-		TraversalState traversal = getState(etei);
-		FlowCandidate candidate = traversal.candidate;
+		var traversal = getState(etei);
+		var candidate = traversal.candidate;
 		// add connection(s), will be empty when starting the ETE
 		if (traversal.connections.isEmpty()) {
 			if (!addLeafElement(ci, etei, leaf)) {
@@ -655,7 +683,7 @@ public final class EndToEndFlowSession {
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 			traversal.flowImplementations.removeLast();
 		} else {
-			List<ConnectionInstance> connis = FlowConnectionMatcher.collectConnectionInstances(ci, etei,
+			var connis = FlowConnectionMatcher.collectConnectionInstances(ci, etei,
 					traversal.connections);
 
 			if (connis.isEmpty()) {
@@ -663,7 +691,7 @@ public final class EndToEndFlowSession {
 				failCandidate(candidate);
 
 				if (!traversal.flowImplementations.isEmpty()) {
-					FlowImplementation flowFilter = traversal.flowImplementations.getLast();
+					var flowFilter = traversal.flowImplementations.getLast();
 					if (flowFilter != null) {
 						// A semantic connection was expected after the preceding flow implementation.
 						reportOwnerError(candidate,
@@ -674,22 +702,22 @@ public final class EndToEndFlowSession {
 					}
 				}
 			} else {
-				FlowImplementation flowFilter = traversal.flowImplementations.isEmpty()
+				var flowFilter = traversal.flowImplementations.isEmpty()
 						? null
 						: traversal.flowImplementations.getLast();
 
 				/*
-				 * Issue 1984: isValidContinuation() is a filter, not an error reporter. Determine the applicable
+				 * Issue 1984: the endpoint predicates are a filter, not an error reporter. Determine the applicable
 				 * connections first and report an error only when none of the candidates can continue this flow.
 				 */
-				final List<ConnectionInstance> connectionsToUse = new ArrayList<>();
-				for (final ConnectionInstance ciToCheck : connis) {
-					if ((flowFilter == null || FlowConnectionMatcher.isValidContinuation(flowFilter, ciToCheck))
+				final var connectionsToUse = new ArrayList<ConnectionInstance>();
+				for (var ciToCheck : connis) {
+					if ((flowFilter == null || FlowConnectionMatcher.startsAtFlowOutput(flowFilter, ciToCheck))
 							&& (nextFlowImpl == null
 									? (leaf instanceof FlowSpecification flowSpecification
-											? FlowConnectionMatcher.isValidContinuation(ci, ciToCheck, flowSpecification)
+											? FlowConnectionMatcher.endsAtFlowSource(ci, ciToCheck, flowSpecification)
 											: true)
-									: FlowConnectionMatcher.isValidContinuation(ciToCheck, nextFlowImpl))) {
+									: FlowConnectionMatcher.endsAtFlowInput(ciToCheck, nextFlowImpl))) {
 						connectionsToUse.add(ciToCheck);
 					}
 				}
@@ -700,13 +728,13 @@ public final class EndToEndFlowSession {
 					 * actual component connections then describe different paths.
 					 */
 					if (flowFilter == null && nextFlowImpl == null) {
-						final FlowSpecification flowSpec = (FlowSpecification) leaf;
+						final var flowSpec = (FlowSpecification) leaf;
 						reportOwnerError(candidate, "Cannot create end to end flow '" + etei.getName()
 								+ "' because there are no semantic connections that connect to the start of the flow '"
 								+ flowSpec.getName() + "' at feature '" + flowSpec.getAllInEnd().getFeature().getName()
 								+ "'");
 					} else {
-						final FlowImplementation ff = flowFilter == null ? nextFlowImpl : flowFilter;
+						final var ff = flowFilter == null ? nextFlowImpl : flowFilter;
 						reportOwnerError(candidate, "Cannot create end to end flow '" + etei.getName()
 								+ "' because there are no semantic connections that connect to the start of the flow '"
 								+ ff.getSpecification().getName() + "' at feature '"
@@ -716,11 +744,11 @@ public final class EndToEndFlowSession {
 					failCandidate(candidate);
 				} else {
 					// continue the flow along each eligible connection instance
-					Iterator<ConnectionInstance> connIter = connectionsToUse.iterator();
+					var connIter = connectionsToUse.iterator();
 					while (connIter.hasNext()) {
-						final ConnectionInstance conni = connIter.next();
+						final var conni = connIter.next();
 						final boolean prepareNext = connIter.hasNext();
-						TraversalState branchState = getState(etei);
+						var branchState = getState(etei);
 						TraversalState stateClone = null;
 						FlowIterator iterClone = null;
 
@@ -735,7 +763,7 @@ public final class EndToEndFlowSession {
 							// prepare next connection filter
 							branchState.connections.clear();
 							if (iter.hasNext()) {
-								Connection conn = getConnection(iter.next());
+								var conn = getConnection(iter.next());
 								if (conn != null) {
 									branchState.connections.add(conn);
 								}
@@ -770,14 +798,14 @@ public final class EndToEndFlowSession {
 	 * @param iter the continuation in the enclosing flow declaration
 	 */
 	private void processAccess(ComponentInstance ci, EndToEndFlowInstance etei, Access a, FlowIterator iter) {
-		TraversalState traversal = getState(etei);
-		FlowCandidate candidate = traversal.candidate;
+		var traversal = getState(etei);
+		var candidate = traversal.candidate;
 		// add connection(s), will be empty when starting the ETE
 		if (traversal.connections.isEmpty()) {
 			addLeafElement(ci, etei, a);
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 		} else {
-			List<ConnectionInstance> connis = FlowConnectionMatcher.collectConnectionInstances(ci, etei,
+			var connis = FlowConnectionMatcher.collectConnectionInstances(ci, etei,
 					traversal.connections);
 
 			if (connis.isEmpty()) {
@@ -787,9 +815,9 @@ public final class EndToEndFlowSession {
 			} else {
 				record AccessMatch(ConnectionInstance connection, ComponentInstance target, EndToEndFlowElement leaf) {
 				}
-				List<AccessMatch> matches = new ArrayList<>();
+				var matches = new ArrayList<AccessMatch>();
 				boolean invalidTarget = false;
-				for (ConnectionInstance conni : connis) {
+				for (var conni : connis) {
 					if (conni.getDestination() instanceof ComponentInstance target
 							&& (target.getCategory() == ComponentCategory.DATA
 									|| target.getCategory() == ComponentCategory.SUBPROGRAM)) {
@@ -809,28 +837,27 @@ public final class EndToEndFlowSession {
 					return;
 				}
 
-				Iterator<AccessMatch> matchIter = matches.iterator();
+				var matchIter = matches.iterator();
 				traversal.continuations.push(iter);
 				while (matchIter.hasNext()) {
-					TraversalState branchState = getState(etei);
+					var branchState = getState(etei);
 					TraversalState stateClone = null;
-					AccessMatch match = matchIter.next();
+					var match = matchIter.next();
 					boolean prepareNext = matchIter.hasNext();
 
 					if (prepareNext) {
 						stateClone = forkState(branchState);
-						etei.setName(etei.getEndToEndFlow().getName());
 					}
-					FlowIterator continuation = branchState.continuations.pop();
+					var continuation = branchState.continuations.pop();
 
 					etei.getFlowElements().add(match.connection());
 					addLeafElement(match.target(), etei, match.leaf());
 
 					// prepare next connection filter
-					Connection lastConn = branchState.connections.getLast();
+					var lastConn = branchState.connections.getLast();
 					branchState.connections.clear();
 					if (continuation.hasNext()) {
-						Connection nextConn = getConnection(continuation.next());
+						var nextConn = getConnection(continuation.next());
 						if (nextConn != null) {
 							int i = match.connection().getConnectionReferences().size() - 1;
 							Connection preConn = null;
@@ -862,17 +889,13 @@ public final class EndToEndFlowSession {
 	 */
 	private void processEndToEndFlow(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlow ete,
 			FlowIterator iter) {
-		TraversalState traversal = getState(etei);
-		FlowCandidate candidate = traversal.candidate;
+		var traversal = getState(etei);
+		var candidate = traversal.candidate;
 
 		int cycleStart = activeDeclarations.indexOf(ete);
 		if (cycleStart >= 0) {
 			for (int i = cycleStart; i < activeDeclarations.size(); i++) {
-				FlowExpansion failedExpansion = expansions.get(activeDeclarations.get(i));
-				failedExpansion.status = ExpansionStatus.FAILED;
-				for (FlowCandidate failedCandidate : failedExpansion.candidates) {
-					failedCandidate.status = CandidateStatus.FAILED;
-				}
+				failExpansion(expansions.get(activeDeclarations.get(i)));
 			}
 			reportCandidateError(candidate,
 					"Cyclic dependency between end to end flows involving " + ete.getQualifiedName());
@@ -886,14 +909,11 @@ public final class EndToEndFlowSession {
 		}
 		FlowExpansion nestedExpansion = expansions.get(ete);
 		if (nestedExpansion.status == ExpansionStatus.FAILED) {
-			candidate.expansion.status = ExpansionStatus.FAILED;
-			for (FlowCandidate failedCandidate : candidate.expansion.candidates) {
-				failedCandidate.status = CandidateStatus.FAILED;
-			}
+			failExpansion(candidate.expansion);
 			traversal.connections.clear();
 			return;
 		}
-		List<FlowCandidate> nestedETEs = nestedExpansion.candidates.stream()
+		var nestedETEs = nestedExpansion.candidates.stream()
 				.filter(nested -> nested.status == CandidateStatus.COMPLETE)
 				.toList();
 
@@ -905,19 +925,18 @@ public final class EndToEndFlowSession {
 		// add connection(s), will be empty when starting the ETE
 		if (traversal.connections.isEmpty()) {
 			TraversalState stateClone = null;
-			Iterator<FlowCandidate> nestedIter = nestedETEs.iterator();
+			var nestedIter = nestedETEs.iterator();
 
 			traversal.continuations.push(iter);
 			while (nestedIter.hasNext()) {
-				FlowCandidate nested = nestedIter.next();
+				var nested = nestedIter.next();
 				boolean prepareNext = nestedIter.hasNext();
 
 				if (prepareNext) {
 					stateClone = forkState(getState(etei));
-					etei.setName(etei.getEndToEndFlow().getName());
 				}
-				TraversalState branchState = getState(etei);
-				FlowIterator continuation = branchState.continuations.pop();
+				var branchState = getState(etei);
+				var continuation = branchState.continuations.pop();
 
 				etei.getFlowElements().add(nested.instance);
 
@@ -925,7 +944,7 @@ public final class EndToEndFlowSession {
 				branchState.connections.clear();
 				branchState.connections.addAll(nested.postConnections);
 				if (continuation.hasNext()) {
-					Connection conn = getConnection(continuation.next());
+					var conn = getConnection(continuation.next());
 					if (conn != null) {
 						branchState.connections.add(conn);
 					}
@@ -939,7 +958,7 @@ public final class EndToEndFlowSession {
 				}
 			}
 		} else {
-			List<ConnectionInstance> connis = FlowConnectionMatcher.collectConnectionInstances(ci, etei,
+			var connis = FlowConnectionMatcher.collectConnectionInstances(ci, etei,
 					traversal.connections);
 
 			if (connis.isEmpty()) {
@@ -949,9 +968,9 @@ public final class EndToEndFlowSession {
 			} else {
 				record NestedMatch(ConnectionInstance connection, FlowCandidate nested) {
 				}
-				List<NestedMatch> matches = new ArrayList<>();
-				for (ConnectionInstance conni : connis) {
-					for (FlowCandidate nested : nestedETEs) {
+				var matches = new ArrayList<NestedMatch>();
+				for (var conni : connis) {
+					for (var nested : nestedETEs) {
 						if (FlowConnectionMatcher.isCompatibleNestedConnection(conni, nested.preConnections,
 								nested.instance)) {
 							matches.add(new NestedMatch(conni, nested));
@@ -965,19 +984,18 @@ public final class EndToEndFlowSession {
 					return;
 				}
 
-				Iterator<NestedMatch> matchIter = matches.iterator();
+				var matchIter = matches.iterator();
 				traversal.continuations.push(iter);
 				while (matchIter.hasNext()) {
 					TraversalState stateClone = null;
-					NestedMatch match = matchIter.next();
+					var match = matchIter.next();
 					boolean prepareNext = matchIter.hasNext();
 
 					if (prepareNext) {
 						stateClone = forkState(getState(etei));
-						etei.setName(etei.getEndToEndFlow().getName());
 					}
-					TraversalState branchState = getState(etei);
-					FlowIterator continuation = branchState.continuations.pop();
+					var branchState = getState(etei);
+					var continuation = branchState.continuations.pop();
 
 					// Preserve path order: the incoming connection precedes the nested flow.
 					etei.getFlowElements().add(match.connection());
@@ -987,7 +1005,7 @@ public final class EndToEndFlowSession {
 					branchState.connections.clear();
 					branchState.connections.addAll(match.nested().postConnections);
 					if (continuation.hasNext()) {
-						Connection nextConnection = getConnection(continuation.next());
+						var nextConnection = getConnection(continuation.next());
 						if (nextConnection != null) {
 							branchState.connections.add(nextConnection);
 						}
@@ -1013,7 +1031,7 @@ public final class EndToEndFlowSession {
 	 * @return whether the leaf was added successfully
 	 */
 	private boolean addLeafElement(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf) {
-		FlowCandidate candidate = getCandidate(etei);
+		var candidate = getCandidate(etei);
 		FlowSpecification fs = switch (leaf) {
 		case FlowImplementation flowImplementation -> flowImplementation.getSpecification();
 		case FlowSpecification flowSpecification -> flowSpecification;
@@ -1021,7 +1039,7 @@ public final class EndToEndFlowSession {
 		};
 		if (fs != null) {
 			// append a flow specification instance
-			FlowSpecificationInstance fsi = ci.findFlowSpecInstance(fs);
+			var fsi = ci.findFlowSpecInstance(fs);
 			if (fsi != null) {
 				etei.getFlowElements().add(fsi);
 			} else {
@@ -1034,9 +1052,9 @@ public final class EndToEndFlowSession {
 				// append a subcomponent instance
 				etei.getFlowElements().add(ci);
 			} else {
-				ConnectionInstance preConn = (ConnectionInstance) etei.getFlowElements().getLast();
+				var preConn = (ConnectionInstance) etei.getFlowElements().getLast();
 				ConnectionInstanceEnd end = preConn.getDestination();
-				ComponentInstance comp = end.getContainingComponentInstance();
+				var comp = end.getContainingComponentInstance();
 				if (end instanceof ComponentInstance || comp == ci) {
 					// append a subcomponent instance
 					etei.getFlowElements().add(ci);
@@ -1058,7 +1076,7 @@ public final class EndToEndFlowSession {
 	 */
 	private void continueFlow(ComponentInstance ci, EndToEndFlowInstance etei, FlowIterator iter,
 			NamedElement errorElement) {
-		FlowCandidate candidate = getCandidate(etei);
+		var candidate = getCandidate(etei);
 		while (true) {
 			if (host.isCanceled()) {
 				canceled = true;
@@ -1070,16 +1088,17 @@ public final class EndToEndFlowSession {
 			if (activeState == null || activeState.candidate != candidate) {
 				return;
 			}
-			TraversalState traversal = activeState;
+			var traversal = activeState;
 			if (ci == null) {
-				reportExistingElementError(candidate, errorElement,
-						"Flow instance leaves system instance for flow " + getProspectivePath(candidate));
+				// The path the candidate would have had, since it is not attached and has no path of its own yet.
+				reportExistingElementError(errorElement, "Flow instance leaves system instance for flow "
+						+ candidate.owner.getInstanceObjectPath() + "." + candidate.instance.getName());
 				traversal.connections.clear();
 				return;
 			}
 			while (iter.hasNext()) {
-				Element e = iter.next();
-				host.processETESegment(ci, etei, e, iter, errorElement);
+				var segment = iter.next();
+				host.processETESegment(ci, etei, segment, iter, errorElement);
 				if (candidate.status == CandidateStatus.ABORTED || candidate.status == CandidateStatus.FAILED
 						|| activeState == null || activeState.candidate != candidate) {
 					return;
@@ -1107,12 +1126,11 @@ public final class EndToEndFlowSession {
 	}
 
 	private static Connection getConnection(Element segment) {
-		if (segment instanceof FlowSegment fs) {
-			return fs.getFlowElement() instanceof Connection connection ? connection : null;
-		}
-		if (segment instanceof EndToEndFlowSegment eefs) {
-			return eefs.getFlowElement() instanceof Connection connection ? connection : null;
-		}
-		return null;
+		return switch (segment) {
+		case FlowSegment flowSegment when flowSegment.getFlowElement() instanceof Connection connection -> connection;
+		case EndToEndFlowSegment eteSegment when eteSegment.getFlowElement() instanceof Connection connection ->
+			connection;
+		case null, default -> null;
+		};
 	}
 }

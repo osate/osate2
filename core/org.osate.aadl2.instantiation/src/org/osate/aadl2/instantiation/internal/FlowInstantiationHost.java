@@ -63,7 +63,7 @@ public interface FlowInstantiationHost {
 
 	void processETE(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlow ete);
 
-	void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element fs, FlowIterator iter,
+	void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element segment, FlowIterator iter,
 			NamedElement errorElement);
 
 	void processSubcomponentFlow(ComponentInstance ci, EndToEndFlowInstance etei, FlowSpecification fs,
@@ -86,5 +86,5 @@ public interface FlowInstantiationHost {
 	EList<ModeInstance> modeInstances(ComponentInstance ci, ModalElement element);
 
 	/** Compute the system operation modes of a committed flow instance. */
-	void fillInModes(EndToEndFlowInstance etei);
+	void assignSystemOperationModes(EndToEndFlowInstance etei);
 }

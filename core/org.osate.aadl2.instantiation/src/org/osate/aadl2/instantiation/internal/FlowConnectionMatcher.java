@@ -30,7 +30,6 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -48,7 +47,7 @@ import org.osate.aadl2.instance.SystemInstance;
  * <p>
  * Every method here is a pure question about a connection instance and asks nothing about how the flow was reached.
  * Discovery uses them in two ways: {@link #collectConnectionInstances} looks up the connection instances that carry a
- * pending declarative path, and the {@code isValidContinuation} predicates plus
+ * pending declarative path, and {@link #endsAtFlowInput}, {@link #endsAtFlowSource}, {@link #startsAtFlowOutput}, and
  * {@link #isCompatibleNestedConnection} decide which of those can continue the flow.
  */
 public final class FlowConnectionMatcher {
@@ -62,10 +61,10 @@ public final class FlowConnectionMatcher {
 	 */
 	public static List<ConnectionInstance> collectConnectionInstances(ComponentInstance ci, EndToEndFlowInstance etei,
 			List<Connection> connections) {
-		List<ConnectionInstance> result = new ArrayList<>();
+		var result = new ArrayList<ConnectionInstance>();
 
-		for (ConnectionInstance conni : ci.allEnclosingConnectionInstances()) {
-			if (testConnection(conni, etei, connections)) {
+		for (var conni : ci.allEnclosingConnectionInstances()) {
+			if (carriesConnectionPath(conni, etei, connections)) {
 				result.add(conni);
 			}
 		}
@@ -79,15 +78,9 @@ public final class FlowConnectionMatcher {
 	 * @param fimpl the flow implementation that must follow the connection
 	 * @return whether the connection destination is the flow input
 	 */
-	public static boolean isValidContinuation(ConnectionInstance conni, FlowImplementation fimpl) {
-		boolean result = false;
-		ConnectionInstanceEnd dst = conni.getDestination();
-		if (dst instanceof FeatureInstance featureInstance) {
-			Feature flowIn = fimpl.getInEnd().getFeature();
-			Feature connDst = featureInstance.getFeature();
-			result = flowIn == connDst;
-		}
-		return result;
+	public static boolean endsAtFlowInput(ConnectionInstance conni, FlowImplementation fimpl) {
+		return conni.getDestination() instanceof FeatureInstance destination
+				&& fimpl.getInEnd().getFeature() == destination.getFeature();
 	}
 
 	/**
@@ -99,7 +92,7 @@ public final class FlowConnectionMatcher {
 	 * @param fspec the flow specification that must follow the connection
 	 * @return whether the connection destination reaches the flow source
 	 */
-	public static boolean isValidContinuation(ComponentInstance flowComponent, ConnectionInstance conni,
+	public static boolean endsAtFlowSource(ComponentInstance flowComponent, ConnectionInstance conni,
 			FlowSpecification fspec) {
 		ConnectionInstanceEnd cie = conni.getDestination();
 		if (cie instanceof FeatureInstance conniFi) {
@@ -125,15 +118,9 @@ public final class FlowConnectionMatcher {
 	 * @param conni the connection instance
 	 * @return whether the connection source is the flow output
 	 */
-	public static boolean isValidContinuation(FlowImplementation fimpl, ConnectionInstance conni) {
-		boolean result = false;
-		ConnectionInstanceEnd src = conni.getSource();
-		if (src instanceof FeatureInstance featureInstance) {
-			Feature flowOut = fimpl.getOutEnd().getFeature();
-			Feature connSrc = featureInstance.getFeature();
-			result = flowOut == connSrc;
-		}
-		return result;
+	public static boolean startsAtFlowOutput(FlowImplementation fimpl, ConnectionInstance conni) {
+		return conni.getSource() instanceof FeatureInstance source
+				&& fimpl.getOutEnd().getFeature() == source.getFeature();
 	}
 
 	/**
@@ -150,11 +137,11 @@ public final class FlowConnectionMatcher {
 			return false;
 		}
 
-		ConnectionInstanceEnd destination = connection.getDestination();
-		ConnectionInstanceEnd nestedStart = getFirstConnectionEnd(nestedInstance);
+		var destination = connection.getDestination();
+		var nestedStart = getFirstConnectionEnd(nestedInstance);
 		if (destination instanceof FeatureInstance destinationFeature
 				&& nestedStart instanceof FeatureInstance nestedFeature) {
-			return isSameorContains(nestedFeature, destinationFeature);
+			return isSameOrContains(nestedFeature, destinationFeature);
 		}
 		if (nestedStart instanceof ComponentInstance nestedComponent) {
 			return destination == nestedComponent || destination.getComponentInstance() == nestedComponent;
@@ -172,14 +159,14 @@ public final class FlowConnectionMatcher {
 	 * @param connections the declarative connection sequence
 	 * @return whether the connection instance continues the candidate along the requested sequence
 	 */
-	private static boolean testConnection(ConnectionInstance conni, EndToEndFlowInstance etei,
+	private static boolean carriesConnectionPath(ConnectionInstance conni, EndToEndFlowInstance etei,
 			List<Connection> connections) {
-		Iterator<ConnectionReference> refIter = conni.getConnectionReferences().iterator();
-		boolean match = false;
+		var refIter = conni.getConnectionReferences().iterator();
+		var match = false;
 
 		while (refIter.hasNext()) {
-			if (isSameOrRefinedConnection(refIter.next().getConnection(), connections.get(0))) {
-				Iterator<Connection> connIter = connections.iterator();
+			if (isSameOrRefinedConnection(refIter.next().getConnection(), connections.getFirst())) {
+				var connIter = connections.iterator();
 
 				connIter.next();
 				match = true;
@@ -193,7 +180,7 @@ public final class FlowConnectionMatcher {
 		}
 		if (match && connections.size() == 1) {
 			// make sure connection instance goes in the same direction as the flow
-			ComponentInstance connci = conni.getSource().getComponentInstance();
+			var connci = conni.getSource().getComponentInstance();
 			FlowElementInstance fei = etei;
 
 			while (fei instanceof EndToEndFlowInstance nested) {
@@ -202,10 +189,10 @@ public final class FlowConnectionMatcher {
 			if (fei instanceof FlowSpecificationInstance flowSpecification) {
 				fei = flowSpecification.getComponentInstance();
 			}
-			ComponentInstance flowci = (ComponentInstance) fei;
+			var flowci = (ComponentInstance) fei;
 
 			match = false;
-			ComponentInstance ci = connci;
+			var ci = connci;
 			while (!(ci instanceof SystemInstance)) {
 				if (ci == flowci) {
 					match = true;
@@ -218,12 +205,12 @@ public final class FlowConnectionMatcher {
 			// test if the connection instance is connected to the end of the ete instance
 			// relevant if the flow goes through a port of a feature group and the connection
 			// instance comes from an expanded fg connection
-			ConnectionInstanceEnd src = conni.getSource();
+			var src = conni.getSource();
 
 			if (src instanceof FeatureInstance firstFeature) {
-				FeatureInstance lastFeature = getLastFeature(etei);
+				var lastFeature = getLastFeature(etei);
 				if (lastFeature != null) {
-					match = isSameorContains(lastFeature, firstFeature);
+					match = isSameOrContains(lastFeature, firstFeature);
 				}
 			}
 		}
@@ -239,9 +226,9 @@ public final class FlowConnectionMatcher {
 			return true;
 		}
 
-		EList<ConnectionReference> references = connectionInstance.getConnectionReferences();
+		var references = connectionInstance.getConnectionReferences();
 		for (int start = 0; start <= references.size() - connectionPath.size(); start++) {
-			boolean match = true;
+			var match = true;
 			for (int offset = 0; match && offset < connectionPath.size(); offset++) {
 				match = references.get(start + offset).getConnection() == connectionPath.get(offset);
 			}
@@ -266,7 +253,7 @@ public final class FlowConnectionMatcher {
 		return false;
 	}
 
-	private static boolean isSameorContains(FeatureInstance flowFeature, FeatureInstance connFeature) {
+	private static boolean isSameOrContains(FeatureInstance flowFeature, FeatureInstance connFeature) {
 		EObject matchme = connFeature;
 		while (matchme instanceof FeatureInstance featureInstance) {
 			if (featureInstance == flowFeature) {
@@ -278,7 +265,7 @@ public final class FlowConnectionMatcher {
 	}
 
 	private static FeatureInstance getLastFeature(EndToEndFlowInstance etei) {
-		EList<FlowElementInstance> feis = etei.getFlowElements();
+		var feis = etei.getFlowElements();
 		if (feis.isEmpty()) {
 			return null;
 		}
@@ -294,7 +281,7 @@ public final class FlowConnectionMatcher {
 	}
 
 	private static ConnectionInstanceEnd getFirstConnectionEnd(EndToEndFlowInstance etei) {
-		EList<FlowElementInstance> elements = etei.getFlowElements();
+		var elements = etei.getFlowElements();
 		if (elements.isEmpty()) {
 			return null;
 		}

@@ -107,7 +107,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 	@Override
 	protected final void initSwitches() {
-		instanceSwitch = new InstanceSwitch<String>() {
+		instanceSwitch = new InstanceSwitch<>() {
 			@Override
 			public String caseComponentInstance(final ComponentInstance ci) {
 				if (monitor.isCanceled()) {
@@ -117,11 +117,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				if (ci.getContainingComponentInstance() instanceof SystemInstance) {
 					monitor.subTask("Creating end-to-end flows in " + ci.getName());
 				}
-				EndToEndFlowSession previousSession = activeSession;
-				EndToEndFlowSession session = new EndToEndFlowSession(host, ci);
+				var previousSession = activeSession;
+				var session = new EndToEndFlowSession(host, ci);
 				activeSession = session;
 				try {
-					ComponentImplementation impl = getComponentImplementation(ci);
+					var impl = componentImplementation(ci);
 					if (impl != null) {
 						for (EndToEndFlow ete : impl.getAllEndToEndFlows()) {
 							if (monitor.isCanceled()) {
@@ -134,9 +134,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							}
 						}
 					}
-					if (!session.isCanceled() && !monitor.isCanceled()) {
-						session.commit();
-					}
+					// The session itself refuses to attach anything once it has seen a cancellation.
+					session.commit();
 				} finally {
 					activeSession = previousSession;
 				}
@@ -148,7 +147,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	/**
 	 * The implementation instantiated for a component instance, with prototypes resolved through the classifier cache.
 	 */
-	private ComponentImplementation getComponentImplementation(ComponentInstance ci) {
+	private ComponentImplementation componentImplementation(ComponentInstance ci) {
 		return InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
 	}
 
@@ -184,8 +183,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	protected void instantiateEndToEndFlow(ComponentInstance ci, EndToEndFlow ete,
 			HashMap<EndToEndFlow, List<ETEInfo>> ete2info) {
-		EndToEndFlowSession previousSession = activeSession;
-		boolean standalone = activeSession == null;
+		var previousSession = activeSession;
+		var standalone = activeSession == null;
 		if (standalone) {
 			activeSession = new EndToEndFlowSession(host, ci);
 		} else if (activeSession.owner() != ci) {
@@ -194,12 +193,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 
 		try {
-			EndToEndFlowSession session = activeSession;
+			var session = activeSession;
 			session.expand(ete);
 			if (ete2info != null) {
 				ete2info.put(ete, session.compatibilityInfo(ete));
 			}
-			if (standalone && !session.isCanceled() && !monitor.isCanceled()) {
+			if (standalone) {
 				session.commit();
 			}
 		} finally {
@@ -219,13 +218,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 *
 	 * @param ci the component instance we're in
 	 * @param etei the current flow instance
-	 * @param fs the next flow segment
+	 * @param segment the next flow segment
 	 * @param iter the position in the current ETE declaration
 	 * @param errorElement the model element that we attach errors to
 	 */
-	protected void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element fs, FlowIterator iter,
-			NamedElement errorElement) {
-		session().processETESegment(ci, etei, fs, iter, errorElement);
+	protected void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element segment,
+			FlowIterator iter, NamedElement errorElement) {
+		session().processETESegment(ci, etei, segment, iter, errorElement);
 	}
 
 	/**
@@ -299,7 +298,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param etei the committed flow instance
 	 */
 	protected void fillinModes(EndToEndFlowInstance etei) {
-		EndToEndFlowModes.fillInModes(etei);
+		EndToEndFlowModes.assignSystemOperationModes(etei);
 	}
 
 	/**
@@ -315,7 +314,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 		@Override
 		public ComponentImplementation componentImplementation(ComponentInstance ci) {
-			return getComponentImplementation(ci);
+			return CreateEndToEndFlowsSwitch.this.componentImplementation(ci);
 		}
 
 		@Override
@@ -334,9 +333,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 
 		@Override
-		public void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element fs, FlowIterator iter,
-				NamedElement errorElement) {
-			CreateEndToEndFlowsSwitch.this.processETESegment(ci, etei, fs, iter, errorElement);
+		public void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element segment,
+				FlowIterator iter, NamedElement errorElement) {
+			CreateEndToEndFlowsSwitch.this.processETESegment(ci, etei, segment, iter, errorElement);
 		}
 
 		@Override
@@ -377,7 +376,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 
 		@Override
-		public void fillInModes(EndToEndFlowInstance etei) {
+		public void assignSystemOperationModes(EndToEndFlowInstance etei) {
 			fillinModes(etei);
 		}
 	}

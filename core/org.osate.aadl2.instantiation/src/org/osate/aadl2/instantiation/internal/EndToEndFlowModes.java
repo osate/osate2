@@ -47,8 +47,8 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * {@code CreateEndToEndFlowsSwitch}, which remain the extension points a subclass overrides. Instantiation always calls
  * them through the switch, never the methods here directly, so an override still decides the outcome.
  * <p>
- * {@link #fillInModes} needs a committed flow instance: it navigates to the system instance and asks flow elements
- * whether they are active in a system operation mode.
+ * {@link #assignSystemOperationModes} needs a committed flow instance: it navigates to the system instance and asks flow
+ * elements whether they are active in a system operation mode.
  */
 public final class EndToEndFlowModes {
 
@@ -65,11 +65,11 @@ public final class EndToEndFlowModes {
 	 */
 	public static EList<ModeInstance> modeInstances(ComponentInstance ci, ModalElement e) {
 		EList<ModeInstance> mis = new BasicEList<>();
-		List<Mode> mlist = e.getAllInModes();
+		var mlist = e.getAllInModes();
 
 		if (!mlist.isEmpty()) {
-			for (Mode m : mlist) {
-				ModeInstance mi = ci.findModeInstance(m);
+			for (var m : mlist) {
+				var mi = ci.findModeInstance(m);
 
 				if (mi != null) {
 					mis.add(mi);
@@ -95,17 +95,17 @@ public final class EndToEndFlowModes {
 	 *
 	 * @param etei the committed flow instance
 	 */
-	public static void fillInModes(EndToEndFlowInstance etei) {
+	public static void assignSystemOperationModes(EndToEndFlowInstance etei) {
 
 		if (etei.getSystemInstance().getSystemOperationModes().size() <= 1) {
 			return;
 		}
 
 		// first, calculate intersection of all connection and ete instance SOMs
-		EList<FlowElementInstance> feis = etei.getFlowElements();
-		List<SystemOperationMode> soms = new ArrayList<>(etei.getSystemInstance().getSystemOperationModes());
+		var feis = etei.getFlowElements();
+		var soms = new ArrayList<>(etei.getSystemInstance().getSystemOperationModes());
 
-		for (FlowElementInstance fei : feis) {
+		for (var fei : feis) {
 			if (fei instanceof ConnectionInstance conni) {
 				if (!conni.getInSystemOperationModes().isEmpty()) {
 					soms.removeIf(som -> !conni.getInSystemOperationModes().contains(som));
@@ -118,7 +118,7 @@ public final class EndToEndFlowModes {
 		}
 
 		// then, keep those SOMs where all other flow elements are active
-		for (FlowElementInstance fei : feis) {
+		for (var fei : feis) {
 			if (fei instanceof FlowSpecificationInstance fsi) {
 				soms.removeIf(som -> !fsi.isActive(som));
 			} else if (fei instanceof ComponentInstance ci) {
@@ -127,7 +127,7 @@ public final class EndToEndFlowModes {
 		}
 
 		// finally, keep those SOMs where the ete and used flow implementations are active
-		for (SystemOperationMode som : soms) {
+		for (var som : soms) {
 			if (containsModeInstances(som, etei.getModesList())) {
 				etei.getInSystemOperationModes().add(som);
 			}
@@ -139,7 +139,7 @@ public final class EndToEndFlowModes {
 	private static boolean containsModeInstances(SystemOperationMode som, List<EList<ModeInstance>> modeLists) {
 		outer: for (List<ModeInstance> mis : modeLists) {
 			if (!mis.isEmpty()) {
-				for (ModeInstance mi : mis) {
+				for (var mi : mis) {
 					if (som.getCurrentModes().contains(mi)) {
 						continue outer;
 					}

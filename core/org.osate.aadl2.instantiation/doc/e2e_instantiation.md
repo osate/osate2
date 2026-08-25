@@ -232,7 +232,7 @@ EndToEndFlowSession                           ← per ComponentInstance
   candidates         : List<FlowCandidate>            (global creation order)
   candidatesByInstance : EndToEndFlowInstance → FlowCandidate
   activeDeclarations : List<EndToEndFlow>              ← DFS stack, cycle detection
-  diagnostics        : List<PendingDiagnostic>         ← deferred, replayed at commit
+  diagnostics        : List<PendingDiagnostic>         ← sealed; deferred, replayed at commit
   nextCandidateSequence, nextDiagnosticSequence, canceled
 
    └── FlowExpansion                          ← per declarative EndToEndFlow
@@ -374,7 +374,7 @@ continueFlow(ci, etei, iter, errorElement):
     if monitor canceled                → session canceled = true; return
     if activeState is null or its candidate != candidate
                                        → return       (a fork took over)
-    if ci == null                      → EXISTING_ELEMENT error
+    if ci == null                      → ElementError diagnostic
                                           "Flow instance leaves system instance for flow …";
                                           clear pending connections; return
     while iter.hasNext():
@@ -431,9 +431,9 @@ processFlowStep(ci, etei, leaf, nextFlowImpl, iter)
       │                    from feature 'x'"
       │
       └─ filter each conni — issue 1984: filter first, report only if none survive
-           flowFilter (previous impl's out end) → isValidContinuation(fimpl, conni)
-           nextFlowImpl known                  → isValidContinuation(conni, fimpl)
-           plain flow-spec leaf                → isValidContinuation(ci, conni, fspec)
+           flowFilter (previous impl's out end) → startsAtFlowOutput(fimpl, conni)
+           nextFlowImpl known                  → endsAtFlowInput(conni, fimpl)
+           plain flow-spec leaf                → endsAtFlowSource(ci, conni, fspec)
            │
            ├─ none survive → owner error
            │                 "… no semantic connections that connect to the start of
@@ -452,16 +452,16 @@ processFlowStep(ci, etei, leaf, nextFlowImpl, iter)
 ```
 
 Connection resolution itself is `FlowConnectionMatcher`, which asks nothing about how the flow was
-reached. Its three `isValidContinuation` overloads are pure predicates:
+reached. Its three endpoint predicates are pure:
 
-| Overload | Question |
+| Predicate | Question |
 |---|---|
-| `(ConnectionInstance, FlowImplementation)` | does the connection *end* at the implementation's in-end feature? |
-| `(FlowImplementation, ConnectionInstance)` | does the connection *start* at the implementation's out-end feature? |
-| `(ComponentInstance, ConnectionInstance, FlowSpecification)` | does the connection end at the flow specification's source feature, or at a feature nested inside it? (walks up the `FeatureInstance` containment chain) |
+| `endsAtFlowInput(conni, fimpl)` | does the connection end at the implementation's in-end feature? |
+| `startsAtFlowOutput(fimpl, conni)` | does the connection start at the implementation's out-end feature? |
+| `endsAtFlowSource(ci, conni, fspec)` | does the connection end at the flow specification's source feature, or at a feature nested inside it? (walks up the `FeatureInstance` containment chain) |
 
 `collectConnectionInstances` iterates `ci.allEnclosingConnectionInstances()` and keeps those for
-which `testConnection` holds. `testConnection` matches the pending declarative sequence against the
+which `carriesConnectionPath` holds. That test matches the pending declarative sequence against the
 connection instance's `ConnectionReference` chain:
 
 ```text
@@ -475,7 +475,7 @@ match rules:
     refinements match while unrelated same-named connections do not          (#2988)
   • single-connection filter → direction check: the connection instance's source
     component must lie inside the component of the flow's last element
-  • source-feature check → isSameorContains(lastFeature, connSource): accepts
+  • source-feature check → isSameOrContains(lastFeature, connSource): accepts
     connection instances produced by feature-group expansion
 ```
 
@@ -483,9 +483,9 @@ match rules:
 `EndToEndFlowInstance`, taking a `FlowSpecificationInstance`'s destination, or a
 `ConnectionInstance`'s destination when it is a `FeatureInstance`.
 
-`testConnection`, `isSameOrRefinedConnection`, `isSameorContains`, `getLastFeature`,
+`carriesConnectionPath`, `isSameOrRefinedConnection`, `isSameOrContains`, `getLastFeature`,
 `containsConnectionPath`, and `getFirstConnectionEnd` are private to the matcher; discovery only
-calls `collectConnectionInstances`, the three `isValidContinuation` overloads, and
+calls `collectConnectionInstances`, the three endpoint predicates, and
 `isCompatibleNestedConnection`.
 
 ### 6.5 Leaf elements
@@ -727,12 +727,12 @@ commit():
                                   restore snapshot ③, rethrow
 
   ┌ DIAGNOSTICS — replayed sorted by sequence ───────────────────────────────┐
-  │ OWNER            → error(candidate.owner, msg)             always        │
-  │ CANDIDATE        → COMPLETE: error(candidate.instance, msg)              │
-  │                    otherwise: error(candidate.owner,                     │
-  │                        candidate.name + " could not be instantiated: "   │
-  │                        + msg)                                            │
-  │ EXISTING_ELEMENT → error(existingElement, msg)             always        │
+  │ OwnerError     → error(candidate.owner, msg)               always        │
+  │ CandidateError → COMPLETE: error(candidate.instance, msg)                │
+  │                  otherwise: error(candidate.owner,                       │
+  │                      candidate.name + " could not be instantiated: "     │
+  │                      + msg)                                              │
+  │ ElementError   → error(element, msg)                       always        │
   └──────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -742,7 +742,8 @@ these invariants is broken could return an untrustworthy instance model. Discove
 detached, and an exception during mode finalization removes the newly attached instances and
 restores their mode snapshots before it is rethrown.
 
-Only `CANDIDATE`-targeted diagnostics are status-filtered. Diagnostics about discarded branches are
+`PendingDiagnostic` is a sealed interface with one record per target, so the replay switch is
+exhaustive without a default. Only `CandidateError` is status-filtered. Diagnostics about discarded branches are
 therefore **not** lost — they are simply reported against the owning component instead of against a
 flow instance that does not exist.
 
@@ -753,8 +754,10 @@ nothing, cancellation after expansion attaches nothing, and a `fillinModes` that
 ### Mode and SOM computation
 
 The arithmetic is `EndToEndFlowModes`; the protected `getModeInstances` and `fillinModes` are thin
-delegates to `modeInstances` and `fillInModes` there, and discovery reaches them only through those
-delegates, so an override still decides the result.
+delegates to `modeInstances` and `assignSystemOperationModes` there, and discovery reaches them only
+through those delegates, so an override still decides the result. The protected names are the
+historical ones and stay, because renaming an overridable method would silently stop calling an
+existing subclass's override.
 
 `fillinModes` reduces the candidate system operation modes in three passes. It returns immediately
 if the system instance has one SOM or fewer.
@@ -833,9 +836,9 @@ Then in `EndToEndFlowSession`:
 7. `processEndToEndFlow` — nesting, cycles, and the pre/post-connection handshake.
 8. `commit` / `finalizeModes` — materialization.
 
-And finally the two stateless collaborators: `FlowConnectionMatcher.testConnection` /
+And finally the two stateless collaborators: `FlowConnectionMatcher.carriesConnectionPath` /
 `isSameOrRefinedConnection` / `getLastFeature` for semantic-connection matching, and
-`EndToEndFlowModes.fillInModes` for system operation modes.
+`EndToEndFlowModes.assignSystemOperationModes` for system operation modes.
 
 The characterization tests in
 `core/org.osate.core.tests/src/org/osate/core/tests/instantiation/flows/`, with models in
@@ -859,7 +862,7 @@ attributions in this document can be checked without relying on the source comme
 |---|---|---|
 | [#612](https://github.com/osate/osate2/issues/612) | End to end flow instantiation continues after error | §6.5, §8 — `addLeafElement` failure aborts the candidate |
 | 1953 | (cited in source) thread flow implementations treated as atomic | §6.2 — `ThreadClassifier` shortcut |
-| 1984 | (cited in source) `isValidContinuation` is a filter, not a reporter | §6.4, §10 — filter first, report only if none survive |
+| 1984 | (cited in source) the endpoint predicates are a filter, not a reporter | §6.4, §10 — filter first, report only if none survive |
 | [#2872](https://github.com/osate/osate2/issues/2872) | Flow instantiation silently fails when subcomponents have connections but not flow implementations | §6.2, §10 — `AadlUtil.hasPortComponents` check |
 | [#2985](https://github.com/osate/osate2/issues/2985) | Forward-referenced nested end-to-end flows bypass cleanup and clone naming | §6.7 — memoized expansion of forward references |
 | [#2986](https://github.com/osate/osate2/issues/2986) | Nested end-to-end flow composition combines incompatible path variants | §6.7, §10 — `containsConnectionPath` pairing |
