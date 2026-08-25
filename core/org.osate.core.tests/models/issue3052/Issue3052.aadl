@@ -1,0 +1,25 @@
+package Issue3052
+public
+	thread Producer
+	features
+		outp: out data port;
+	end Producer;
+
+	thread Consumer
+	features
+		inp: in data port;
+	end Consumer;
+
+	process Top
+	end Top;
+
+	process implementation Top.i
+	subcomponents
+		producers: thread Producer[2][2];
+		consumers: thread Consumer[2][2];
+	connections
+		c: port producers.outp -> consumers.inp {
+			Communication_Properties::Connection_Pattern => ((One_To_One));
+		};
+	end Top.i;
+end Issue3052;
