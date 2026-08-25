@@ -506,6 +506,127 @@ public final class EndToEndFlowSession {
 		host.processETESegment(ci, etei, firstSegment, iter, ete);
 	}
 
+	/** One traversal step, taken once per element of a subcomponent array by {@link #forkOverElements}. */
+	private interface ElementStep {
+		/**
+		 * @param element the element of the subcomponent array this branch goes through
+		 * @param etei the flow instance of this branch
+		 * @param iter this branch's position in the declaration
+		 */
+		void take(ComponentInstance element, EndToEndFlowInstance etei, FlowIterator iter);
+	}
+
+	/**
+	 * Take a step once per element of a subcomponent array, forking the candidate so that each element
+	 * continues a flow of its own. A declaration names a subcomponent, not one of its elements, so all of
+	 * them are possible continuations; the connection filter of the next hop is what narrows them down
+	 * again, because a connection instance has to start exactly at the element the branch is in.
+	 *
+	 * @param elements the elements of the subcomponent array, in instantiation order
+	 * @param etei the flow instance to fork
+	 * @param iter the position in the declaration, copied per fork so every branch resumes where its
+	 *            siblings did
+	 * @param step the step to take for each element
+	 */
+	private void forkOverElements(List<ComponentInstance> elements, EndToEndFlowInstance etei, FlowIterator iter,
+			ElementStep step) {
+		var elementIter = elements.iterator();
+		while (elementIter.hasNext()) {
+			final var element = elementIter.next();
+			final boolean prepareNext = elementIter.hasNext();
+			TraversalState stateClone = null;
+			FlowIterator iterClone = null;
+
+			if (prepareNext) {
+				stateClone = forkState(getState(etei));
+				iterClone = iter.copy();
+			}
+
+			step.take(element, etei, iter);
+
+			if (prepareNext) {
+				activeState = stateClone;
+				etei = stateClone.candidate.instance;
+				iter = iterClone;
+			}
+		}
+	}
+
+	/**
+	 * The component instances of a subcomponent in a component instance that a flow can continue into: one
+	 * for a plain subcomponent, and for a subcomponent array the elements some pending connection instance
+	 * reaches. Matches {@code ComponentInstance.findSubcomponentInstance}, which returned the first of
+	 * them, in accepting a refined subcomponent.
+	 * <p>
+	 * The elements are narrowed here rather than in the step that resolves them, because forking into an
+	 * element no connection reaches would create a branch that can only die, and the step would report that
+	 * death as a missing semantic connection. Issue 1984's rule that the endpoint predicates are a filter
+	 * and not an error reporter is the same rule; it just has to be applied one fork earlier now that a
+	 * declaration can stand for several elements.
+	 *
+	 * @param ci the component instance containing the subcomponent, may be null
+	 * @param sc the subcomponent
+	 * @param etei the flow instance whose current endpoint constrains the elements
+	 * @param pending the declarative connections awaiting resolution, empty at the start of a flow
+	 * @return the component instances in instantiation order, empty if there are none
+	 */
+	private static List<ComponentInstance> subcomponentInstances(ComponentInstance ci, Subcomponent sc,
+			EndToEndFlowInstance etei, List<Connection> pending) {
+		if (ci == null || sc == null) {
+			return List.of();
+		}
+		var instances = new ArrayList<ComponentInstance>();
+		for (var child : ci.getComponentInstances()) {
+			if (isSameOrRefined(sc, child.getSubcomponent())) {
+				instances.add(child);
+			}
+		}
+		if (instances.size() < 2 || pending.isEmpty()) {
+			// at the start of a flow nothing constrains the choice, so every element starts a flow of its own
+			return instances;
+		}
+		/*
+		 * The elements are siblings, so they all see the same enclosing connection instances; which of them a
+		 * connection instance ends in is what tells the elements apart.
+		 */
+		var connis = FlowConnectionMatcher.collectConnectionInstances(instances.getFirst(), etei, pending);
+		var reachable = instances.stream()
+				.filter(element -> connis.stream().anyMatch(conni -> endsIn(conni.getDestination(), element)))
+				.toList();
+		/*
+		 * Nothing reaches any element. Keep one, so that the step reports the missing connection once, the way
+		 * it did when a declaration resolved to the first element only.
+		 */
+		return reachable.isEmpty() ? List.of(instances.getFirst()) : reachable;
+	}
+
+	/** Is a connection instance end inside a component instance, or the component instance itself? */
+	private static boolean endsIn(ConnectionInstanceEnd end, ComponentInstance element) {
+		var ci = end instanceof ComponentInstance component ? component : end.getContainingComponentInstance();
+		while (ci != null) {
+			if (ci == element) {
+				return true;
+			}
+			ci = ci.getContainingComponentInstance();
+		}
+		return false;
+	}
+
+	/** Are these the same subcomponent, or one a refinement of the other? */
+	private static boolean isSameOrRefined(Subcomponent first, Subcomponent second) {
+		for (var sc = first; sc != null; sc = sc.getRefined()) {
+			if (sc == second) {
+				return true;
+			}
+		}
+		for (var sc = second; sc != null; sc = sc.getRefined()) {
+			if (sc == first) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Consume one declarative flow segment. Connection declarations are accumulated until a concrete flow element
 	 * resolves them; other segment kinds delegate to their specialized traversal methods and may fork the candidate.
@@ -538,18 +659,27 @@ public final class EndToEndFlowSession {
 		}
 		case FlowSpecification flowSpecification -> {
 			var sc = (Subcomponent) parts.context();
-			var sci = ci.findSubcomponentInstance(sc);
-			if (sci != null) {
-				host.processSubcomponentFlow(sci, etei, flowSpecification, iter);
-			} else {
+			var scis = subcomponentInstances(ci, sc, etei, traversal.connections);
+			if (scis.isEmpty()) {
 				reportOwnerError(candidate,
 						"Incomplete End-to-end flow instance " + etei.getName()
 								+ ": Could not find component instance for subcomponent " + sc.getName()
 								+ " in flow implementation " + errorElement.getName());
+			} else {
+				forkOverElements(scis, etei, iter, (element, branch, position) -> host
+						.processSubcomponentFlow(element, branch, flowSpecification, position));
 			}
 		}
-		case Subcomponent subcomponent ->
-			host.processFlowStep(ci.findSubcomponentInstance(subcomponent), etei, subcomponent, iter);
+		case Subcomponent subcomponent -> {
+			var scis = subcomponentInstances(ci, subcomponent, etei, traversal.connections);
+			if (scis.isEmpty()) {
+				// no element to step into; the step itself reports what a null component instance means
+				host.processFlowStep(null, etei, subcomponent, iter);
+			} else {
+				forkOverElements(scis, etei, iter,
+						(element, branch, position) -> host.processFlowStep(element, branch, subcomponent, position));
+			}
+		}
 		/*
 		 * Only data and subprogram accesses are traversed. Another access kind, a bus access for instance, is not a
 		 * proxy for a component the flow passes through, and neither is any remaining flow element kind.

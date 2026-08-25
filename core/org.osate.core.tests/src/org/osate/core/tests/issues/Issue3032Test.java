@@ -74,7 +74,8 @@ public class Issue3032Test extends XtextTest {
 
 	/**
 	 * A subcomponent array expands the connection into one connection instance per element. The end to
-	 * end flow has to be built over those connection instances.
+	 * end flow has to be built over those connection instances, one flow instance per element since issue
+	 * #1833.
 	 */
 	@Test
 	public void endToEndFlowUsesExpandedArrayConnection() throws Exception {
@@ -82,8 +83,8 @@ public class Issue3032Test extends XtextTest {
 
 		assertEquals(List.of("producers[1].outp --> consumers[1].inp", "producers[2].outp --> consumers[2].inp"),
 				names(instance.getAllConnectionInstances()));
-		assertEquals(List.of(List.of("fsrc", "producers[1].outp --> consumers[1].inp", "fsnk")),
-				flowElementNames(instance));
+		assertEquals(List.of(List.of("fsrc", "producers[1].outp --> consumers[1].inp", "fsnk"),
+				List.of("fsrc", "producers[2].outp --> consumers[2].inp", "fsnk")), flowElementNames(instance));
 		assertNoDanglingFlowConnections(instance);
 		assertEquals(List.of(), diagnostics(instance));
 	}
@@ -98,26 +99,29 @@ public class Issue3032Test extends XtextTest {
 
 		assertEquals(List.of("producers[1].outp --> consumers[1].inp", "producers[2].outp --> consumers[2].inp"),
 				names(instance.getAllConnectionInstances()));
-		assertEquals(List.of(List.of("fsrc", "producers[1].outp --> consumers[1].inp", "fsnk")),
-				flowElementNames(instance));
+		assertEquals(List.of(List.of("fsrc", "producers[1].outp --> consumers[1].inp", "fsnk"),
+				List.of("fsrc", "producers[2].outp --> consumers[2].inp", "fsnk")), flowElementNames(instance));
 		assertNoDanglingFlowConnections(instance);
 		assertEquals(List.of(), diagnostics(instance));
 	}
 
 	/**
-	 * A {@code Connection_Set} that crosses the element indices leaves no connection instance that
-	 * continues the declared flow. Instantiation has to report that instead of producing a flow instance
-	 * whose connection segment is missing.
+	 * A {@code Connection_Set} that crosses the element indices connects each producer to the other
+	 * consumer, so the declared flow has an instance per element that ends in the other element. This test
+	 * used to record that no flow was built and that the missing connection was reported, which was the
+	 * defect of issue #1833: the flow segments resolved to the first element of each array only, and no
+	 * connection instance goes from the first producer to the first consumer here.
 	 */
 	@Test
-	public void unconnectableEndToEndFlowIsReported() throws Exception {
+	public void aCrossedConnectionSetConnectsTheOtherElement() throws Exception {
 		SystemInstance instance = instantiate("Issue3032Set.aadl", "Top.crossed");
 
 		assertEquals(List.of("producers[1].outp --> consumers[2].inp", "producers[2].outp --> consumers[1].inp"),
 				names(instance.getAllConnectionInstances()));
-		assertEquals(List.of(), flowElementNames(instance));
-		assertEquals(List.of("Error: Cannot create end to end flow 'etef' because there are no semantic connections"
-				+ " that connect to the start of the flow 'fsnk' at feature 'inp'"), diagnostics(instance));
+		assertEquals(List.of(List.of("fsrc", "producers[1].outp --> consumers[2].inp", "fsnk"),
+				List.of("fsrc", "producers[2].outp --> consumers[1].inp", "fsnk")), flowElementNames(instance));
+		assertNoDanglingFlowConnections(instance);
+		assertEquals(List.of(), diagnostics(instance));
 	}
 
 	/**
