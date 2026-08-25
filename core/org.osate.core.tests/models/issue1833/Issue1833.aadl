@@ -1,0 +1,126 @@
+-- Regression fixture for issue #1833: the second example of the issue, where the multiplicity comes
+-- from arrays of subcomponents rather than from feature arrays. The connection between the two arrays
+-- is expanded into one connection instance per element, so the end to end flow over it has to be
+-- instantiated once per element as well.
+--
+-- Processes rather than threads, so the arrays can sit directly in the system, and no feature arrays
+-- anywhere: what is under test here is resolving a flow segment to every element of a subcomponent
+-- array.
+package Issue1833
+public
+	data Sample
+	end Sample;
+
+	process Emitter
+	features
+		outp: out data port Sample;
+	flows
+		fsrc: flow source outp;
+	end Emitter;
+
+	process Receiver
+	features
+		inp: in data port Sample;
+	flows
+		fsnk: flow sink inp;
+	end Receiver;
+
+	-- A data port takes only one incoming connection, so the fan-in case below needs a queuing port
+	process QueuingReceiver
+	features
+		inp: in event data port Sample;
+	flows
+		fsnk: flow sink inp;
+	end QueuingReceiver;
+
+	system Top
+	end Top;
+
+	-- One_To_One is the default, so the connection pairs the elements up by index and the flow has one
+	-- instance per index.
+	system implementation Top.i
+	subcomponents
+		emitters: process Emitter[2];
+		receivers: process Receiver[2];
+	connections
+		c: port emitters.outp -> receivers.inp;
+	flows
+		etef: end to end flow emitters.fsrc -> c -> receivers.fsnk;
+	end Top.i;
+
+	-- The pattern of the issue's example, written out. Same result as Top.i.
+	system implementation Top.patterned
+	subcomponents
+		emitters: process Emitter[2];
+		receivers: process Receiver[2];
+	connections
+		c: port emitters.outp -> receivers.inp {
+			Communication_Properties::Connection_Pattern => ((One_To_One));
+		};
+	flows
+		etef: end to end flow emitters.fsrc -> c -> receivers.fsnk;
+	end Top.patterned;
+
+	-- A pattern that crosses the indices. Each element still has a flow, but it ends in the other
+	-- element of the receiver array, which is only reachable if the segments are resolved to every
+	-- element rather than to the first one.
+	system implementation Top.crossed
+	subcomponents
+		emitters: process Emitter[2];
+		receivers: process Receiver[2];
+	connections
+		c: port emitters.outp -> receivers.inp {
+			Communication_Properties::Connection_Pattern => ((Cyclic_Next));
+		};
+	flows
+		etef: end to end flow emitters.fsrc -> c -> receivers.fsnk;
+	end Top.crossed;
+
+	-- All_To_All: every element of the emitter array reaches every element of the receiver array, so
+	-- there is a flow per pair. A data port takes only one incoming connection, so the receivers queue.
+	system implementation Top.broadcast
+	subcomponents
+		emitters: process Emitter[2];
+		receivers: process QueuingReceiver[2];
+	connections
+		c: port emitters.outp -> receivers.inp {
+			Communication_Properties::Connection_Pattern => ((All_To_All));
+		};
+	flows
+		etef: end to end flow emitters.fsrc -> c -> receivers.fsnk;
+	end Top.broadcast;
+
+	-- Only one end is an array. All_To_One applies, so both emitters reach the one receiver.
+	system implementation Top.fanIn
+	subcomponents
+		emitters: process Emitter[2];
+		receiver: process QueuingReceiver;
+	connections
+		c: port emitters.outp -> receiver.inp;
+	flows
+		etef: end to end flow emitters.fsrc -> c -> receiver.fsnk;
+	end Top.fanIn;
+
+	process Relay
+	features
+		inp: in data port Sample;
+		outp: out data port Sample;
+	flows
+		fpath: flow path inp -> outp;
+	end Relay;
+
+	-- A nested end to end flow that is itself replicated per array element. The flow that contains it has
+	-- to be replicated with it, and each replica has to pick the nested replica of its own element.
+	system implementation Top.nested
+	subcomponents
+		emitters: process Emitter[2];
+		relays: process Relay[2];
+		receivers: process Receiver[2];
+	connections
+		toRelay: port emitters.outp -> relays.inp;
+		fromRelay: port relays.outp -> receivers.inp;
+	flows
+		inner: end to end flow relays.fpath -> fromRelay -> receivers.fsnk;
+		outer: end to end flow emitters.fsrc -> toRelay -> inner;
+	end Top.nested;
+end Issue1833;
