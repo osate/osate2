@@ -25,9 +25,9 @@ package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
@@ -67,7 +67,7 @@ import org.osate.aadl2.util.Aadl2Util;
  */
 public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
-	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	private Map<InstanceObject, InstantiatedClassifier> classifierCache;
 
 	/*
 	 * The cache of contained property associations that apply to semantic
@@ -81,7 +81,7 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 	private final List<Property> propertyFilter;
 
 	protected CacheContainedPropertyAssociationsSwitch(
-			final HashMap<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
+			final Map<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
 			final IProgressMonitor pm, final AnalysisErrorReporterManager errManager) {
 		this(classifierCache, scProps, pm, errManager, null);
 	}
@@ -92,7 +92,7 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 	 * @since 3.2
 	 */
 	protected CacheContainedPropertyAssociationsSwitch(
-			final HashMap<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
+			final Map<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
 			final IProgressMonitor pm, final AnalysisErrorReporterManager errManager,
 			final List<Property> propertyFilter) {
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);

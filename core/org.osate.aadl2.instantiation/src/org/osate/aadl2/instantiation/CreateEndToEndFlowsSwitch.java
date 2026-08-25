@@ -266,7 +266,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * feature or subprogram call. If the classifier is anonymous, then its
 	 * bindings are included also.
 	 */
-	private final HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	private final Map<InstanceObject, InstantiatedClassifier> classifierCache;
 
 	private FlowInstantiationContext activeContext;
 	private TraversalState activeState;
@@ -280,7 +280,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 *            null
 	 */
 	public CreateEndToEndFlowsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		super(pm, PROCESS_PRE_ORDER_ALL, errMgr);
 		this.classifierCache = classifierCache;
 	}

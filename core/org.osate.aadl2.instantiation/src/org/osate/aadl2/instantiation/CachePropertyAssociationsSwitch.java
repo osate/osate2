@@ -24,9 +24,9 @@
 package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -71,12 +71,12 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 	 */
 	private List<Property> propertyFilter;
 
-	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	private Map<InstanceObject, InstantiatedClassifier> classifierCache;
 
 	/**
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
-	final private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
+	final private Map<ModeInstance, List<SystemOperationMode>> mode2som;
 
 	/*
 	 * The cache of contained property associations that apply to semantic
@@ -85,8 +85,8 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 	final private SCProperties scProps;
 
 	protected CachePropertyAssociationsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errManager,
-			final List<Property> filter, final HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
-			final SCProperties scProps, final HashMap<ModeInstance, List<SystemOperationMode>> mode2som) {
+			final List<Property> filter, final Map<InstanceObject, InstantiatedClassifier> classifierCache,
+			final SCProperties scProps, final Map<ModeInstance, List<SystemOperationMode>> mode2som) {
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);
 		propertyFilter = filter;
 		this.classifierCache = classifierCache;

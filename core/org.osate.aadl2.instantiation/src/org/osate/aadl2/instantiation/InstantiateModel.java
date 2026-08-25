@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -147,13 +148,13 @@ public class InstantiateModel {
 	 * feature or subprogram call. If the classifier is anonymous, then its
 	 * bindings are included also.
 	 */
-	protected HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	protected Map<InstanceObject, InstantiatedClassifier> classifierCache;
 
 	protected SCProperties scProps = new SCProperties();
 	/**
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
-	protected HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
+	protected Map<ModeInstance, List<SystemOperationMode>> mode2som;
 
 	/**
 	 * The roots of the instance model in the order they were discovered. The first one is the system
@@ -1335,7 +1336,7 @@ public class InstantiateModel {
 	}
 
 	protected InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj, int index,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getInstantiatedClassifier(iobj, index, classifierCache);
 	}
 
@@ -1344,7 +1345,7 @@ public class InstantiateModel {
 	}
 
 	protected ComponentType getComponentType(ComponentInstance ci, int index,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getComponentType(ci, index, classifierCache);
 	}
 
@@ -1353,7 +1354,7 @@ public class InstantiateModel {
 	}
 
 	protected ComponentImplementation getComponentImplementation(ComponentInstance ci, int index,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getComponentImplementation(ci, index, classifierCache);
 	}
 
@@ -1362,7 +1363,7 @@ public class InstantiateModel {
 	}
 
 	protected FeatureGroupType getFeatureGroupType(FeatureInstance fi, int index,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getFeatureGroupType(fi, index, classifierCache);
 	}
 
@@ -1371,7 +1372,7 @@ public class InstantiateModel {
 	}
 
 	protected FeaturePrototypeActual resolveFeaturePrototype(ComponentPrototype proto, FeatureInstance fi,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.resolveFeaturePrototype(proto, fi, classifierCache);
 	}
 
