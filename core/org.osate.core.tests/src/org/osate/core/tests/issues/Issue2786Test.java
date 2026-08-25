@@ -100,7 +100,7 @@ public class Issue2786Test extends XtextTest {
 		assertTrue(messages.size() == 8);
 		for (int i = 0; i < 8; i++) {
 			Message msg = messages.get(i);
-			assertEquals(QueuingAnalysisErrorReporter.WARNING, msg.kind);
+			assertEquals(QueuingAnalysisErrorReporter.Kind.WARNING, msg.kind);
 			assertEquals("No array allowed here, instantiated as a single feature", msg.message);
 		}
 	}

@@ -41,9 +41,48 @@ import org.osate.aadl2.Element;
  * @author aarong
  */
 public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorReporter {
-	public static final String ERROR = "Error";
-	public static final String WARNING = "Warning";
-	public static final String INFO = "INFO";
+	/**
+	 * The category of a queued message. Every kind knows how to report a message of its own kind to
+	 * another error manager, so that a kind added here has to be decided here, rather than in a switch
+	 * at whatever replays the queue.
+	 */
+	public enum Kind {
+		ERROR("Error") {
+			@Override
+			void reportTo(final AnalysisErrorReporterManager manager, final Message message) {
+				manager.error(message.where, message.message, message.attributes, message.values);
+			}
+		},
+		WARNING("Warning") {
+			@Override
+			void reportTo(final AnalysisErrorReporterManager manager, final Message message) {
+				manager.warning(message.where, message.message, message.attributes, message.values);
+			}
+		},
+		INFO("INFO") {
+			@Override
+			void reportTo(final AnalysisErrorReporterManager manager, final Message message) {
+				manager.info(message.where, message.message, message.attributes, message.values);
+			}
+		};
+
+		/**
+		 * The text this category is identified by. It is what {@code kind} carried when it was a string,
+		 * spelling and all, so a message that is written out reads as it did before.
+		 */
+		private final String label;
+
+		Kind(final String label) {
+			this.label = label;
+		}
+
+		abstract void reportTo(AnalysisErrorReporterManager manager, Message message);
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
 
 	/** Singleton factory reference. */
 	public static final Factory factory = new Factory();
@@ -56,24 +95,24 @@ public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorRep
 		queue = new LinkedList<Message>();
 	}
 
-	private void queueMessage(final Element where, final String kind, final String message, final String[] attrs,
+	private void queueMessage(final Element where, final Kind kind, final String message, final String[] attrs,
 			final Object[] values) {
 		queue.add(new Message(where, kind, message, attrs, values));
 	}
 
 	@Override
 	protected void errorImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
-		queueMessage(where, ERROR, message, attrs, values);
+		queueMessage(where, Kind.ERROR, message, attrs, values);
 	}
 
 	@Override
 	protected void warningImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
-		queueMessage(where, WARNING, message, attrs, values);
+		queueMessage(where, Kind.WARNING, message, attrs, values);
 	}
 
 	@Override
 	protected void infoImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
-		queueMessage(where, INFO, message, attrs, values);
+		queueMessage(where, Kind.INFO, message, attrs, values);
 	}
 
 	@Override
@@ -101,27 +140,32 @@ public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorRep
 	 * Record of a reported error message/warning. Contains the
 	 * {@link #where Element} on which the message is located, the
 	 * {@link #kind category} of the message, and the
-	 * {@link #message message itself}. The category is a string, and the set
-	 * of current values is given by
-	 * {@link QueuingAnalysisErrorReporter#ERROR},
-	 * {@link QueuingAnalysisErrorReporter#WARNING}, and
-	 * {@link QueuingAnalysisErrorReporter#INFO}.
+	 * {@link #message message itself}.
 	 *
 	 * @author aarong
 	 */
 	public static final class Message {
 		public final Element where;
-		public final String kind;
+		public final Kind kind;
 		public final String message;
 		public final String[] attributes;
 		public final Object[] values;
 
-		public Message(final Element loc, final String k, final String msg, final String[] attrs, final Object[] vals) {
+		public Message(final Element loc, final Kind k, final String msg, final String[] attrs, final Object[] vals) {
 			where = loc;
 			kind = k;
 			message = msg;
 			attributes = attrs;
 			values = vals;
+		}
+
+		/**
+		 * Report this message to an error manager, as the kind it was queued as.
+		 *
+		 * @param manager the error manager to report to
+		 */
+		public void reportTo(final AnalysisErrorReporterManager manager) {
+			kind.reportTo(manager, this);
 		}
 	}
 }

@@ -111,17 +111,17 @@ public class Issue2780Test extends XtextTest {
 				.getErrors();
 		assertTrue(messages.size() == 3);
 		Message msg = messages.get(0);
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, msg.kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, msg.kind);
 		assertEquals(
 				"Invalid end-to-end flow instance e2e: Connection l.fl.fg.fi -> m.mm.fgl.fg.fi continues into component S1_i_Instance.m",
 				msg.message);
 		msg = messages.get(1);
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, msg.kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, msg.kind);
 		assertEquals(
 				"Invalid end-to-end flow instance e2e1: Connection l.fl.fg.fi -> m.mm.fgl.fg.fi continues into component S1_i_Instance.m",
 				msg.message);
 		msg = messages.get(2);
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, msg.kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, msg.kind);
 		assertEquals(
 				"Invalid end-to-end flow instance e2e2: Connection l.fl.fg.fi -> m.mm.fgl.fg.fi continues into component S1_i_Instance.m",
 				msg.message);

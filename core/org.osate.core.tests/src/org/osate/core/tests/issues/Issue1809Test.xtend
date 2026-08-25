@@ -72,7 +72,7 @@ class Issue1809Test {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals(ERROR_MSG, message)
 		]
 	}
@@ -94,7 +94,7 @@ class Issue1809Test {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals(ERROR_MSG, message)
 		]
 	}

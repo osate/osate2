@@ -22,7 +22,21 @@
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 /**
- * Enumerates the connection instances of an instance model, across-first.
+ * The internals of instance model creation: the across-first enumeration of connection instances,
+ * the expansion of connection arrays, and the enumeration of system operation modes.
+ *
+ * <p>
+ * {@link org.osate.aadl2.instantiation.internal.ConnectionArrayExpander} expands the connection
+ * instances of one instance model root into the final connection set, and
+ * {@link org.osate.aadl2.instantiation.internal.SystemOperationModeBuilder} enumerates the system
+ * operation modes of a system instance. Both are phases of {@code InstantiateModel}, which is the
+ * entry point that carries the compatibility promise for them. The rest of the package is the
+ * connection instance traversal described below.
+ * </p>
+ *
+ * <p>
+ * A connection instance is enumerated across-first.
+ * </p>
  *
  * <p>
  * A connection instance has exactly one containment turning point: it travels up zero or more
@@ -40,8 +54,9 @@
  * </p>
  *
  * <p>
- * The package is not exported. Its types are the traversal's internal vocabulary and carry no
- * compatibility promise; {@code CreateConnectionsSwitch} is the entry point that does.
+ * The package is not exported. Its types are the internal vocabulary of the phases above and carry
+ * no compatibility promise; for the traversal, {@code CreateConnectionsSwitch} is the entry point
+ * that does.
  * </p>
  *
  * <p>

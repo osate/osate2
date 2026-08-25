@@ -61,8 +61,8 @@ public record DiagnosticDescriptor(String severity, String message, String targe
 			Resource target = message.where == null ? null : message.where.eResource();
 			String resourceName = target == null || target.getURI() == null ? InstanceKeys.NULL_KEY
 					: target.getURI().lastSegment();
-			diagnostics.add(new DiagnosticDescriptor(message.kind, message.message, InstanceKeys.any(message.where),
-					resourceName));
+			diagnostics.add(new DiagnosticDescriptor(message.kind.toString(), message.message,
+					InstanceKeys.any(message.where), resourceName));
 		}
 		return List.copyOf(diagnostics);
 	}

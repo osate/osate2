@@ -85,7 +85,7 @@ public class Issue2874Test extends XtextTest {
 		assertTrue(messages.size() == 1);
 		Message msg = messages.get(0);
 		assertEquals(instance, msg.where);
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, msg.kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, msg.kind);
 		assertEquals("Property PS::undefined is undefined", msg.message);
 	}
 

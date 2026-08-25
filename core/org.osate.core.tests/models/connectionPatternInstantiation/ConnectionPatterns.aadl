@@ -1,0 +1,229 @@
+-------------------------------------------------------------------------------
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+-- to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+-- only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-------------------------------------------------------------------------------
+
+-- One implementation per connection pattern, so that a test instantiates exactly the pattern it is
+-- about. The arrays hold five elements wherever the pattern shifts indices, which is enough to tell a
+-- single step from a double step in the interior of the dimension and to show both wrapping elements.
+-- The ports are event data ports so that the patterns that give a destination element more than one
+-- incoming connection do not add unrelated diagnostics about data ports.
+package ConnectionPatterns
+public
+	device Sensor
+		features
+			in_p: in event data port;
+			out_p: out event data port;
+	end Sensor;
+
+	system Pair
+	end Pair;
+
+	system implementation Pair.one_to_one
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((One_To_One));
+			};
+	end Pair.one_to_one;
+
+	system implementation Pair.next
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Next));
+			};
+	end Pair.next;
+
+	system implementation Pair.previous
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Previous));
+			};
+	end Pair.previous;
+
+	system implementation Pair.cyclic_next
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Cyclic_Next));
+			};
+	end Pair.cyclic_next;
+
+	system implementation Pair.cyclic_previous
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Cyclic_Previous));
+			};
+	end Pair.cyclic_previous;
+
+	system implementation Pair.next_next
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Next_Next));
+			};
+	end Pair.next_next;
+
+	system implementation Pair.previous_previous
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Previous_Previous));
+			};
+	end Pair.previous_previous;
+
+	-- Issue #3085: the interior of the dimension is connected to the next element instead of the one
+	-- after next. The test that instantiates this pins that as it is today.
+	system implementation Pair.cyclic_next_next
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Cyclic_Next_Next));
+			};
+	end Pair.cyclic_next_next;
+
+	-- Issue #3085, the mirror image of Pair.cyclic_next_next.
+	system implementation Pair.cyclic_previous_previous
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Cyclic_Previous_Previous));
+			};
+	end Pair.cyclic_previous_previous;
+
+	system implementation Pair.even_to_even
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Even_To_Even));
+			};
+	end Pair.even_to_even;
+
+	system implementation Pair.odd_to_odd
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Odd_To_Odd));
+			};
+	end Pair.odd_to_odd;
+
+	-- Two pattern values. The outer list collects alternative patterns, and the connection instances
+	-- are the union of what each of them produces.
+	system implementation Pair.next_and_previous
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((Next), (Previous));
+			};
+	end Pair.next_and_previous;
+
+	-- All_To_All applies to arrays of different sizes as well, so this one does not use five elements.
+	system implementation Pair.all_to_all
+		subcomponents
+			src: device Sensor [3];
+			dst: device Sensor [2];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((All_To_All));
+			};
+	end Pair.all_to_all;
+
+	-- One_To_All is the pattern for a destination of higher dimensionality than the source.
+	system implementation Pair.one_to_all
+		subcomponents
+			src: device Sensor;
+			dst: device Sensor [4];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((One_To_All));
+			};
+	end Pair.one_to_all;
+
+	-- All_To_One is the pattern for a destination of lower dimensionality than the source.
+	system implementation Pair.all_to_one
+		subcomponents
+			src: device Sensor [4];
+			dst: device Sensor;
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((All_To_One));
+			};
+	end Pair.all_to_one;
+
+	-- One pattern value per dimension, in the order the dimensions are declared.
+	system implementation Pair.two_dimensions
+		subcomponents
+			src: device Sensor [2][3];
+			dst: device Sensor [2][3];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((One_To_One, Next));
+			};
+	end Pair.two_dimensions;
+
+	-- A pattern that pairs elements up needs both dimensions to have the same size.
+	system implementation Pair.size_mismatch
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [4];
+		connections
+			c: port src.out_p -> dst.in_p {
+				Communication_Properties::Connection_Pattern => ((One_To_One));
+			};
+	end Pair.size_mismatch;
+
+	-- No Connection_Pattern at all: the default expansion pairs the dimensions one to one.
+	system implementation Pair.no_pattern
+		subcomponents
+			src: device Sensor [5];
+			dst: device Sensor [5];
+		connections
+			c: port src.out_p -> dst.in_p;
+	end Pair.no_pattern;
+end ConnectionPatterns;

@@ -79,7 +79,7 @@ class Issue666Test extends XtextTest {
 					messages => [
 						assertEquals(1, size)
 						head => [
-							assertEquals(QueuingAnalysisErrorReporter.WARNING, kind)
+							assertEquals(QueuingAnalysisErrorReporter.Kind.WARNING, kind)
 							assertEquals("List of system operation modes is incomplete (see project property 'Instantiation')", message)
 						]
 					]

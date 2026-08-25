@@ -24,8 +24,8 @@
 package org.osate.aadl2.instance.util;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -131,7 +131,7 @@ public class InstanceUtil {
 	 * @return the component type
 	 */
 	public static ComponentType getComponentType(ComponentInstance ci, int index,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		ComponentType type = null;
 
 		if (ci instanceof SystemInstance) {
@@ -165,7 +165,7 @@ public class InstanceUtil {
 	 * @return the component implementation
 	 */
 	public static ComponentImplementation getComponentImplementation(ComponentInstance ci, int index,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		ComponentImplementation impl = null;
 		if (ci instanceof SystemInstance) {
 			impl = ((SystemInstance) ci).getComponentImplementation();
@@ -194,7 +194,7 @@ public class InstanceUtil {
 	 * @return the component classifier
 	 */
 	public static ComponentClassifier getComponentClassifier(ComponentInstance ci, int index,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		ComponentClassifier cc = null;
 		if (ci instanceof SystemInstance) {
 			cc = ((SystemInstance) ci).getComponentImplementation();
@@ -219,7 +219,7 @@ public class InstanceUtil {
 	 * @return the feature group classifier, null if the feature instance isn't a feature group
 	 */
 	public static FeatureGroupType getFeatureGroupType(FeatureInstance fi, int index,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		FeatureGroupType fgt = null;
 		if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 			final InstantiatedClassifier ic = getInstantiatedClassifier(fi, index, classifierCache);
@@ -256,7 +256,7 @@ public class InstanceUtil {
 	 *         classifiers
 	 */
 	public static InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj, int index,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		InstantiatedClassifier ic = null;
 
 		if (classifierCache != null) {
@@ -343,7 +343,7 @@ public class InstanceUtil {
 	}
 
 	private static ComponentClassifier findConstrainingClassifier(InstanceObject iobj, ComponentPrototype cproto,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		if (classifierCache == null) {
 			return null;
 		}
@@ -363,7 +363,7 @@ public class InstanceUtil {
 	}
 
 	private static FeatureGroupType findConstrainingFeatureGroupType(InstanceObject iobj, FeatureGroupPrototype fgproto,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		if (classifierCache == null) {
 			return null;
 		}
@@ -383,7 +383,7 @@ public class InstanceUtil {
 	}
 
 	private static List<Prototype> getPrototypes(InstanceObject iobj,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		Classifier ownerCl = classifierCache.get(iobj.getOwner()).getClassifier();
 		if (ownerCl instanceof ComponentClassifier ccl) {
 			return ccl.getAllPrototypes();
@@ -404,7 +404,7 @@ public class InstanceUtil {
 	 * @return The component prototype actual that the prototype resolves to.
 	 */
 	public static ComponentPrototypeActual resolveComponentPrototype(Prototype proto, InstanceObject context,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		ComponentPrototypeActual cpa = null;
 		ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) resolvePrototype(proto, context, classifierCache);
 
@@ -439,7 +439,7 @@ public class InstanceUtil {
 	 * @return The feature group prototype actual the prototype is bound to.
 	 */
 	public static FeatureGroupPrototypeActual resolveFeatureGroupPrototype(Prototype proto, InstanceObject context,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		FeatureGroupPrototypeActual result = null;
 		FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) resolvePrototype(proto, context,
 				classifierCache);
@@ -471,7 +471,7 @@ public class InstanceUtil {
 	 * @return The actual feature this prototype resolves to.
 	 */
 	public static FeaturePrototypeActual resolveFeaturePrototype(Prototype proto, InstanceObject context,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		FeaturePrototypeActual result = null;
 		FeaturePrototypeBinding fpb = (FeaturePrototypeBinding) resolvePrototype(proto, context, classifierCache);
 
@@ -499,7 +499,7 @@ public class InstanceUtil {
 	 *         its usage context.
 	 */
 	public static PrototypeBinding resolvePrototype(Prototype proto, InstanceObject context,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		PrototypeBinding result = null;
 		InstanceObject parent = (InstanceObject) context.getOwner();
 

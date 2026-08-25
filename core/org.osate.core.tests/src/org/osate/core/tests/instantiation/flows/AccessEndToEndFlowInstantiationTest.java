@@ -155,7 +155,7 @@ public class AccessEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIns
 				result.messages().stream().map(message -> message.message).toList());
 		assertEquals(result.instance(), result.messages().get(0).where);
 		for (var message : result.messages()) {
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, message.kind);
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, message.kind);
 		}
 	}
 }

@@ -25,8 +25,8 @@ package org.osate.aadl2.instantiation.internal;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
@@ -62,7 +62,7 @@ public final class SeedDiscovery {
 	 * @param classifierCache resolved classifiers for prototypes, may be null
 	 */
 	public static List<TraversalSeed> discover(ComponentInstance root,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return discover(root, classifierCache, new ResolutionFailures());
 	}
 
@@ -75,7 +75,7 @@ public final class SeedDiscovery {
 	 *            that the caller can report them
 	 */
 	public static List<TraversalSeed> discover(ComponentInstance root,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ResolutionFailures failures) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache, ResolutionFailures failures) {
 		var seeds = new ArrayList<TraversalSeed>();
 		if (root instanceof SystemInstance system) {
 			boundarySeeds(system, seeds);
@@ -116,7 +116,7 @@ public final class SeedDiscovery {
 	}
 
 	private static void acrossSeeds(ComponentInstance container,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ResolutionFailures failures,
+			Map<InstanceObject, InstantiatedClassifier> classifierCache, ResolutionFailures failures,
 			List<TraversalSeed> seeds) {
 		var implementation = InstanceUtil.getComponentImplementation(container, 0, classifierCache);
 		if (implementation != null && isFirstArrayElement(container)) {
@@ -230,7 +230,7 @@ public final class SeedDiscovery {
 	 * </p>
 	 */
 	private static void triggerSeeds(ComponentInstance container,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache, List<TraversalSeed> seeds) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache, List<TraversalSeed> seeds) {
 		for (var child : container.getComponentInstances()) {
 			for (var feature : child.getFeatureInstances()) {
 				if (triggersModeTransition(container, feature)
@@ -254,7 +254,7 @@ public final class SeedDiscovery {
 	 * {@code feature}, which belongs to one of its subcomponents.
 	 */
 	private static boolean continuesOutward(ComponentInstance container, FeatureInstance feature,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		var implementation = InstanceUtil.getComponentImplementation(container, 0, classifierCache);
 		if (implementation == null) {
 			return false;

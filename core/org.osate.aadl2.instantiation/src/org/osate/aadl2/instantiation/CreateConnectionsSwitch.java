@@ -24,9 +24,9 @@
 package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -75,7 +75,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * feature or subprogram call. If the classifier is anonymous, then its
 	 * bindings are included also.
 	 */
-	private final HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	private final Map<InstanceObject, InstantiatedClassifier> classifierCache;
 
 	/**
 	 * The component the across-first traversal was rooted at, so that its seed-driven
@@ -92,7 +92,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 *            cache of known instantiated classifiers, may be null
 	 */
 	public CreateConnectionsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
-			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		super(pm, PROCESS_PRE_ORDER_ALL, errMgr);
 		this.classifierCache = classifierCache;
 	}

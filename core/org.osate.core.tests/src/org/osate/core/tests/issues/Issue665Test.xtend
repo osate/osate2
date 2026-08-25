@@ -101,12 +101,12 @@ class Issue665Test {
 		assertEquals(2, messages.size)
 		messages.get(1) => [
 			assertEquals(sc, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Value for property TestPS::myProp not consistent along connection", message)
 		]
 		messages.get(0) => [
 			assertEquals(sc, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Value for property TestPS::myProp2 not consistent along connection", message)
 		]
 	}	
@@ -128,12 +128,12 @@ class Issue665Test {
 		assertEquals(2, messages.size)
 		messages.get(1) => [
 			assertEquals(sc, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Value for property TestPS::myProp not consistent along connection", message)
 		]
 		messages.get(0) => [
 			assertEquals(sc, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Value for property TestPS::myProp2 not consistent along connection", message)
 		]
 	}

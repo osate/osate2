@@ -29,7 +29,6 @@ import static org.osate.aadl2.ComponentCategory.THREAD;
 import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -73,7 +72,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
  */
 public final class LegResolver {
 
-	private final HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	private final Map<InstanceObject, InstantiatedClassifier> classifierCache;
 	private final ComponentInstance root;
 	private final ResolutionFailures failures;
 
@@ -93,7 +92,7 @@ public final class LegResolver {
 	 * @param root the instantiation root, which is always descended into whatever its
 	 *            category
 	 */
-	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root) {
+	public LegResolver(Map<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root) {
 		this(classifierCache, root, new ResolutionFailures());
 	}
 
@@ -104,7 +103,7 @@ public final class LegResolver {
 	 * @param failures collects the endpoint resolutions that should have succeeded, so
 	 *            that the caller can report them
 	 */
-	public LegResolver(HashMap<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root,
+	public LegResolver(Map<InstanceObject, InstantiatedClassifier> classifierCache, ComponentInstance root,
 			ResolutionFailures failures) {
 		this.classifierCache = classifierCache;
 		this.root = root;

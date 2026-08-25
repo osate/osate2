@@ -57,7 +57,7 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 
 		assertEquals(2, messages.size());
 		for (Message message : messages) {
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, message.kind);
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, message.kind);
 			assertEquals(result.instance(), message.where);
 			assertTrue(message.message.contains("continues into component"));
 		}
@@ -84,7 +84,7 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 		assertEquals(1, result.messages().size());
 		assertTrue(result.messages().get(0).message.startsWith(
 				"second could not be instantiated: Cyclic dependency between end to end flows involving "));
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, result.messages().get(0).kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, result.messages().get(0).kind);
 		assertEquals(result.instance(), result.messages().get(0).where);
 	}
 
@@ -99,7 +99,7 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 							|| message.message.toLowerCase().contains("end to end"))
 					.toList();
 			assertTrue(flowMessages.stream()
-					.allMatch(message -> message.kind.equals(QueuingAnalysisErrorReporter.ERROR)));
+					.allMatch(message -> message.kind.equals(QueuingAnalysisErrorReporter.Kind.ERROR)));
 		}
 	}
 
@@ -111,7 +111,7 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 		assertEquals(List.of("parent could not be instantiated: Incomplete end-to-end flow instance parent: "
 				+ "No compatible nested end to end flow instance for nested"),
 				result.messages().stream().map(message -> message.message).toList());
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, result.messages().get(0).kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, result.messages().get(0).kind);
 		assertEquals(result.instance(), result.messages().get(0).where);
 	}
 
@@ -123,7 +123,7 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 		assertEquals(List.of("Cannot create end to end flow 'mismatched' because there are no semantic connections "
 				+ "that connect to the start of the flow 'fsnk' at feature 'expected_input'"),
 				result.messages().stream().map(message -> message.message).toList());
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, result.messages().get(0).kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, result.messages().get(0).kind);
 		assertEquals(result.instance(), result.messages().get(0).where);
 	}
 
@@ -136,7 +136,7 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 		assertEquals(List.of("Cannot create end to end flow 'mismatched' because there are no semantic connections "
 				+ "that connect to the start of the flow 'fpath' at feature 'expected_input'"),
 				result.messages().stream().map(message -> message.message).toList());
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, result.messages().get(0).kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, result.messages().get(0).kind);
 		assertEquals(result.instance(), result.messages().get(0).where);
 	}
 
@@ -149,7 +149,7 @@ public class InvalidEndToEndFlowInstantiationTest extends AbstractEndToEndFlowIn
 		assertEquals(List.of("Cannot create end to end flow 'mismatched' because there are no semantic connections "
 				+ "that continue the flow 'fpath' from feature 'output'"),
 				result.messages().stream().map(message -> message.message).toList());
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, result.messages().get(0).kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, result.messages().get(0).kind);
 		assertEquals(result.instance(), result.messages().get(0).where);
 	}
 

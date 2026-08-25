@@ -79,7 +79,7 @@ public class Issue2606Test extends XtextTest {
 				.getErrors();
 		assertEquals(1, messages.size());
 		Message message = messages.get(0);
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, message.kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, message.kind);
 		assertEquals("Cannot create end to end flow 'ee' because there are no semantic connections that connect to "
 				+ "the start of the flow 'pth' at feature 'i'", message.message);
 	}

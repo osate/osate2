@@ -119,17 +119,17 @@ class Issue1447Test {
 		assertEquals(3, messages.size)
 		messages.get(0) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents2::C.i\" tries to replace it.", message)
 		]
 		messages.get(1) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents2::B.i\" tries to replace it.", message)
 		]
 		messages.get(2) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents2::A.i\" tries to replace it.", message)
 		]
 
@@ -168,17 +168,17 @@ class Issue1447Test {
 		assertEquals(3, messages.size)
 		messages.get(0) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents3::C.i\" tries to replace it.", message)
 		]
 		messages.get(1) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents3::B.i\" tries to replace it.", message)
 		]
 		messages.get(2) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents3::A.i\" tries to replace it.", message)
 		]
 
@@ -217,17 +217,17 @@ class Issue1447Test {
 		assertEquals(3, messages.size)
 		messages.get(0) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents4::C.i\" tries to replace it.", message)
 		]
 		messages.get(1) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents4::B.i\" tries to replace it.", message)
 		]
 		messages.get(2) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents4::A.i\" tries to replace it.", message)
 		]
 
@@ -265,12 +265,12 @@ class Issue1447Test {
 		assertEquals(2, messages.size)
 		messages.get(0) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents5::B.i\" tries to replace it.", message)
 		]
 		messages.get(1) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents5::A.i\" tries to replace it.", message)
 		]
 
@@ -303,7 +303,7 @@ class Issue1447Test {
 		assertEquals(1, messages.size)
 		messages.get(0) => [
 			assertEquals(s3, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"subcomponents6::A.i\" tries to replace it.", message)
 		]
 
@@ -469,7 +469,7 @@ class Issue1447Test {
 			val err = errors.get(i)
 			messages.get(i) => [
 				assertEquals(f1, where)
-				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 				assertEquals(MessageFormat.format(FEATURE_ERROR_TEMPLATE, idx, err), message)
 			]
 		}
@@ -507,7 +507,7 @@ class Issue1447Test {
 			val err = errors.get(i)
 			messages.get(i) => [
 				assertEquals(f1, where)
-				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 				assertEquals(MessageFormat.format(FEATURE_GROUP_ERROR_TEMPLATE, idx, err), message)
 			]
 		}
@@ -538,7 +538,7 @@ class Issue1447Test {
 		assertEquals(1, messages.size)
 		messages.get(0) => [
 			assertEquals(sc, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"sc1::whole.i\" tries to replace it.", message)
 		]
 
@@ -568,7 +568,7 @@ class Issue1447Test {
 		assertEquals(1, messages.size)
 		messages.get(0) => [
 			assertEquals(sc, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Value for property TestPS::myProp not consistent along connection", message)
 		]
 
@@ -598,7 +598,7 @@ class Issue1447Test {
 		assertEquals(1, messages.size)
 		messages.get(0) => [
 			assertEquals(sc, where)
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Value for property TestPS::myProp not consistent along connection", message)
 		]
 
