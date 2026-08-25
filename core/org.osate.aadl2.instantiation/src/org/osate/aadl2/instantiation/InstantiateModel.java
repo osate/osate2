@@ -434,17 +434,7 @@ public class InstantiateModel {
 			for (var msg : errors) {
 				if (msg.where.eResource() != null) {
 					// keep only errors referring to elements that are still in the instance model
-					switch (msg.kind) {
-					case QueuingAnalysisErrorReporter.ERROR -> errManager.error(msg.where, msg.message, msg.attributes,
-							msg.values);
-					case QueuingAnalysisErrorReporter.WARNING -> errManager.warning(msg.where, msg.message,
-							msg.attributes, msg.values);
-					case QueuingAnalysisErrorReporter.INFO -> errManager.info(msg.where, msg.message, msg.attributes,
-							msg.values);
-					default -> {
-						// a message of any other kind is dropped, as it was before
-					}
-					}
+					msg.reportTo(errManager);
 				}
 			}
 		} catch (IOException e) {

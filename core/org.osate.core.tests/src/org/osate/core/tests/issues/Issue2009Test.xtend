@@ -62,7 +62,7 @@ class Issue2009Test extends XtextTest {
 		// There should be 1 error
 		assertTrue(messages.size == 1)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'e2e' because there are no semantic connections that connect to the start of the flow 'fpath' at feature 'i'", message)			
 		]
 		
@@ -83,7 +83,7 @@ class Issue2009Test extends XtextTest {
 		// There should be 1 error
 		assertTrue(messages.size == 1)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'e2e' because there are no semantic connections that connect to the start of the flow 'fpath' at feature 'i'", message)			
 		]
 		
@@ -104,7 +104,7 @@ class Issue2009Test extends XtextTest {
 		// There should be 1 error
 		assertTrue(messages.size == 1)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1_wrong' because there are no semantic connections that connect to the start of the flow 'snk' at feature 'i'", message)			
 		]
 		
@@ -159,11 +159,11 @@ class Issue2009Test extends XtextTest {
 		// There should be 2 errors
 		assertTrue(messages.size == 2)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1F_wrong' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
 		]
 		messages.get(1) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1_wrong' because there are no semantic connections that connect to the start of the flow 'snk' at feature 'fg'", message)			
 		]
 		
@@ -184,15 +184,15 @@ class Issue2009Test extends XtextTest {
 		// There should be 3 errors
 		assertTrue(messages.size == 3)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1F_wrong1' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
 		]
 		messages.get(1) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1F_wrong2' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
 		]
 		messages.get(2) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1_wrong2' because there are no semantic connections that connect to the start of the flow 'snk' at feature 'fg'", message)			
 		]
 		
@@ -230,7 +230,7 @@ class Issue2009Test extends XtextTest {
 		// There should be no errors
 		assertTrue(messages.size == 1)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1F_wrong1' because there are no semantic connections that connect to the start of the flow 'snk2F' at feature 'i'", message)			
 		]
 		
@@ -251,11 +251,11 @@ class Issue2009Test extends XtextTest {
 		// There should be 2 errors
 		assertTrue(messages.size == 2)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1F_wrong' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
 		]
 		messages.get(1) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1_wrong' because there are no semantic connections that connect to the start of the flow 'snk' at feature 'fg'", message)			
 		]
 		
@@ -276,15 +276,15 @@ class Issue2009Test extends XtextTest {
 		// There should be 3 errors
 		assertTrue(messages.size == 3)
 		messages.get(0) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1F_wrong1' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
 		]
 		messages.get(1) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1F_wrong2' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
 		]
 		messages.get(2) => [
-			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 			assertEquals("Cannot create end to end flow 'etef1_wrong2' because there are no semantic connections that connect to the start of the flow 'snk' at feature 'fg'", message)			
 		]
 		

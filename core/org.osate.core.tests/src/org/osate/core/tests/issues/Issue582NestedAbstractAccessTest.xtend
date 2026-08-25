@@ -231,7 +231,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -288,7 +288,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -358,7 +358,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -389,7 +389,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -407,7 +407,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -425,7 +425,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -482,7 +482,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -500,7 +500,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -518,7 +518,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -562,7 +562,7 @@ class Issue582NestedAbstractAccessTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.s.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]

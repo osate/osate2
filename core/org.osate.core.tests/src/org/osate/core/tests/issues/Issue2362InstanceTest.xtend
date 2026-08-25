@@ -246,7 +246,7 @@ class Issue2362InstanceTest {
 
 	private static def void hasError(List<Message> messages, String connectionName, String errorMsg) {
 		messages.findFirst[(where as ConnectionInstance).name == connectionName] => [
-			assertEquals(kind, QueuingAnalysisErrorReporter.ERROR)
+			assertEquals(kind, QueuingAnalysisErrorReporter.Kind.ERROR)
 			assertEquals(message, errorMsg)
 		]
 	}

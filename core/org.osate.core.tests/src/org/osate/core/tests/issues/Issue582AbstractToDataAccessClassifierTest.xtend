@@ -143,10 +143,10 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 				.map[(where as ConnectionInstance).name].sort)
 
 
-		assertNotNull(messages.findFirst[where == instance.connectionInstances.findFirst[name == "srcSys.p_type -> destSys.r_notype"] && kind == QueuingAnalysisErrorReporter.WARNING && message == "Expected feature 'destSys.r_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'"])
-		assertNotNull(messages.findFirst[where == instance.connectionInstances.findFirst[name == "srcSys.r_type -> destSys.p_notype"] && kind == QueuingAnalysisErrorReporter.WARNING && message == "Expected feature 'destSys.p_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'"])
-		assertNotNull(messages.findFirst[where == instance.connectionInstances.findFirst[name == "srcSys.p_notype -> destSys.r_type"] && kind == QueuingAnalysisErrorReporter.WARNING && message == "Expected feature 'srcSys.p_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'"])
-		assertNotNull(messages.findFirst[where == instance.connectionInstances.findFirst[name == "srcSys.r_notype -> destSys.p_type"] && kind == QueuingAnalysisErrorReporter.WARNING && message == "Expected feature 'srcSys.r_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'"])
+		assertNotNull(messages.findFirst[where == instance.connectionInstances.findFirst[name == "srcSys.p_type -> destSys.r_notype"] && kind == QueuingAnalysisErrorReporter.Kind.WARNING && message == "Expected feature 'destSys.r_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'"])
+		assertNotNull(messages.findFirst[where == instance.connectionInstances.findFirst[name == "srcSys.r_type -> destSys.p_notype"] && kind == QueuingAnalysisErrorReporter.Kind.WARNING && message == "Expected feature 'destSys.p_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'"])
+		assertNotNull(messages.findFirst[where == instance.connectionInstances.findFirst[name == "srcSys.p_notype -> destSys.r_type"] && kind == QueuingAnalysisErrorReporter.Kind.WARNING && message == "Expected feature 'srcSys.p_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'"])
+		assertNotNull(messages.findFirst[where == instance.connectionInstances.findFirst[name == "srcSys.r_notype -> destSys.p_type"] && kind == QueuingAnalysisErrorReporter.Kind.WARNING && message == "Expected feature 'srcSys.r_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'"])
 	}
 
 	@Test
@@ -173,7 +173,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
-		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.Kind.ERROR
 			&& message == "Connection has no valid direction"
 			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
@@ -189,7 +189,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(2, messages.size)
-		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.Kind.ERROR
 			&& message == "Connection has no valid direction"
 			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
@@ -219,7 +219,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.WARNING.assertEquals(kind)
 			assertEquals(message, "Expected feature 'srcSys.f0' to have classifier 'TestAbstractToDataAccessClassifier::D'")
 		]
 	}
@@ -235,7 +235,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(2, messages.size)
-		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.Kind.ERROR
 			&& message == "Connection has no valid direction"
 			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
@@ -251,7 +251,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
-		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.Kind.ERROR
 			&& message == "Connection has no valid direction"
 			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
@@ -268,7 +268,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.WARNING.assertEquals(kind)
 			assertEquals(message, "Expected feature 'destSys.f0' to have classifier 'TestAbstractToDataAccessClassifier::D'")
 		]
 	}
@@ -311,7 +311,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.WARNING.assertEquals(kind)
 			assertEquals(message, "Expected feature 'srcSys.f0' to have classifier 'TestAbstractToDataAccessClassifier::D'")
 		]
 	}
@@ -327,7 +327,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
-		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.Kind.ERROR
 			&& message == "Connection has no valid direction"
 			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
@@ -343,7 +343,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(2, messages.size)
-		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.Kind.ERROR
 			&& message == "Connection has no valid direction"
 			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
@@ -365,7 +365,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.WARNING.assertEquals(kind)
 			assertEquals(message, "Expected feature 'destSys.f0' to have classifier 'TestAbstractToDataAccessClassifier::D'")
 		]
 	}
@@ -394,7 +394,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(2, messages.size)
-		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.Kind.ERROR
 			&& message == "Connection has no valid direction"
 			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}
@@ -410,7 +410,7 @@ class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertEquals(1, messages.size)
-		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.ERROR
+		assertNotNull(messages.findFirst[kind == QueuingAnalysisErrorReporter.Kind.ERROR
 			&& message == "Connection has no valid direction"
 			&& (where as ConnectionInstance).name == "srcSys.f0 -> destSys.f0"])
 	}}

@@ -66,7 +66,7 @@ public class Issue3030Test extends XtextTest {
 
 		var messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors();
 		assertEquals(1, messages.size());
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, messages.get(0).kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, messages.get(0).kind);
 		/*
 		 * Allowlist entry 7 of issue #3037: the same fact, on the same target, reported by the resolver
 		 * that establishes it rather than prefixed with "Instantiation error:".

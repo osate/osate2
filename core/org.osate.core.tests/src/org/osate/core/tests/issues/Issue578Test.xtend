@@ -88,7 +88,7 @@ class Issue578Test extends XtextTest {
 		messages => [
 			size.assertEquals(1)
 			head => [
-				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 				assertEquals("Circular extension: Component 'a.impl' directly or indirectly extends itself.", message)
 			]
 		]
@@ -157,7 +157,7 @@ class Issue578Test extends XtextTest {
 		messages => [
 			size.assertEquals(2)
 			head => [
-				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 				message => [
 					if (indexOf("Classifier") < 0) {
 						assertEquals("Circular extension: Component 'b.impl' directly or indirectly extends itself.")
@@ -168,7 +168,7 @@ class Issue578Test extends XtextTest {
 				]
 			]
 			tail.head => [
-				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 				message => [
 					if (indexOf("Classifier") < 0) {
 						assertEquals("Circular extension: Component 'b.impl' directly or indirectly extends itself.")
@@ -187,7 +187,7 @@ class Issue578Test extends XtextTest {
 		messagesC => [
 			size.assertEquals(2)
 			head => [
-				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 				message => [
 					if (indexOf("Classifier") < 0) {
 						assertEquals("Circular extension: Component 'c.impl' directly or indirectly extends itself.")
@@ -197,7 +197,7 @@ class Issue578Test extends XtextTest {
 				]
 			]
 			tail.head => [
-				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 				message => [
 					if (indexOf("Classifier") < 0) {
 						assertEquals("Circular extension: Component 'c.impl' directly or indirectly extends itself.")
@@ -258,7 +258,7 @@ class Issue578Test extends XtextTest {
 		messages => [
 			size.assertEquals(1)
 			head => [
-				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, kind)
 				message => [
 					if (indexOf("Classifier 'd'") < 0) {
 						assertEquals("Circular extension: Classifier 'e' directly or indirectly extends itself.")

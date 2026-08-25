@@ -283,7 +283,7 @@ class Issue1092Test extends XtextTest {
 	
 	private def static void testForError(List<QueuingAnalysisErrorReporter.Message> messages, EObject e, String errMessage) {
 		messages.findFirst[where == e] => [
-			assertEquals(kind, QueuingAnalysisErrorReporter.ERROR)
+			assertEquals(kind, QueuingAnalysisErrorReporter.Kind.ERROR)
 			assertEquals(message, errMessage)			
 		]
 	}

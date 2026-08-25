@@ -105,7 +105,7 @@ public class Issue2929Test extends XtextTest {
 		assertEquals(
 				((ListValue) pas.get(0).getOwnedValues().get(0).getOwnedValue()).getOwnedListElements().get(0),
 				msg.where);
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, msg.kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, msg.kind);
 		assertEquals("Referenced element does not exist in the instance model", msg.message);
 	}
 

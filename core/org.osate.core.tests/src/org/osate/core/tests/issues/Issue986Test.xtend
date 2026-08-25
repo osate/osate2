@@ -75,13 +75,13 @@ class Issue986Test {
 		
 		messages.get(0) => [
 			SUB_B.assertEquals((where as ComponentInstance).name)
-			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.WARNING.assertEquals(kind)
 			WARNING_NO_CLASSIFIER.assertEquals(message)
 		]
 		
 		messages.get(1) => [
 			SUB_B1.assertEquals((where as ComponentInstance).name)
-			QueuingAnalysisErrorReporter.WARNING.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.WARNING.assertEquals(kind)
 			WARNING_NO_CLASSIFIER.assertEquals(message)
 		]
 	}

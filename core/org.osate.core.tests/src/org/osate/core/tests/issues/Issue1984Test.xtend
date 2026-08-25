@@ -106,7 +106,7 @@ class Issue1984Test extends XtextTest {
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.length == 1)
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			ERROR_NO_END_TO_END_FLOW1.assertEquals(message)			
 		]
 	}

@@ -143,7 +143,7 @@ class Issue582AbstractDirectionTest extends XtextTest {
 		assertTrue(messages.size == 1)
 
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]
@@ -227,7 +227,7 @@ class Issue582AbstractDirectionTest extends XtextTest {
 		assertTrue(messages.size == 1)
 
 		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			QueuingAnalysisErrorReporter.Kind.ERROR.assertEquals(kind)
 			assertEquals("Connection has no valid direction", message)
 			assertEquals("srcSys.f0 -> destSys.f0", (where as ConnectionInstance).name)
 		]

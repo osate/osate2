@@ -74,7 +74,7 @@ public class Issue2872Test extends XtextTest {
 				.filter(message -> message.message.startsWith("Cannot create end to end flow 'fab'"))
 				.toList();
 		assertEquals(1, messages.size());
-		assertEquals(QueuingAnalysisErrorReporter.ERROR, messages.get(0).kind);
+		assertEquals(QueuingAnalysisErrorReporter.Kind.ERROR, messages.get(0).kind);
 		assertEquals("Cannot create end to end flow 'fab' because component 'b' has subcomponents but no flow "
 				+ "implementation for flow 'finny'", messages.get(0).message);
 	}
