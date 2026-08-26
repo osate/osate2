@@ -39,34 +39,32 @@ import org.osate.aadl2.instance.ConnectionInstance;
  * @author aarong
  */
 public class SCProperties {
-	private final Map<ConnectionInstance, Map<Property, Map<Connection, PropertyAssociation>>> scProps;
-
-	public SCProperties() {
-		scProps = new HashMap<ConnectionInstance, Map<Property, Map<Connection, PropertyAssociation>>>();
-	}
-
-	private static <KOuter, KInner, VInner> Map<KInner, VInner> get(final Map<KOuter, Map<KInner, VInner>> map,
-			KOuter key) {
-		Map<KInner, VInner> val = map.get(key);
-		if (val == null) {
-			val = new HashMap<KInner, VInner>();
-			map.put(key, val);
-		}
-		return val;
-	}
+	private final Map<ConnectionInstance, Map<Property, Map<Connection, PropertyAssociation>>> scProps = new HashMap<>();
 
 	public void recordSCProperty(ConnectionInstance conni, Property prop, Connection conn, PropertyAssociation pa) {
-		get(get(scProps, conni), prop).put(conn, pa);
+		scProps.computeIfAbsent(conni, key -> new HashMap<>())
+				.computeIfAbsent(prop, key -> new HashMap<>())
+				.put(conn, pa);
 	}
 
 	public PropertyAssociation retrieveSCProperty(ConnectionInstance conni, Property prop, Connection conn) {
-		PropertyAssociation result = null;
-
-		while (conn != null && result == null) {
-			result = get(get(scProps, conni), prop).get(conn);
-			conn = conn.getRefined();
+		final var conniProps = scProps.get(conni);
+		if (conniProps == null) {
+			return null;
 		}
-		return result;
+		final var byConnection = conniProps.get(prop);
+		if (byConnection == null) {
+			return null;
+		}
+
+		// a connection inherits the value recorded for the connection it refines
+		for (var c = conn; c != null; c = c.getRefined()) {
+			final var result = byConnection.get(c);
+			if (result != null) {
+				return result;
+			}
+		}
+		return null;
 	}
 
 	public Map<Property, Map<Connection, PropertyAssociation>> get(ConnectionInstance sc) {
