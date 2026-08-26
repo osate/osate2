@@ -24,7 +24,6 @@
 package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -71,9 +70,9 @@ import com.itemis.xtext.testing.XtextTest;
  * pass over the association in the context of the connection's enclosing component instance, and
  * that pass used to visit the values of a list twice (issue #3104). These tests pin what the pass
  * produces for every shape of reference value a connection property can hold - a list, a modal
- * list, a reference that resolves two levels down, a reference to a connection, and a reference
- * that no context resolves - so that folding the two visits into one is held to producing exactly
- * them.
+ * list, a reference that resolves two levels down, a reference to a connection, a reference that no
+ * context resolves, and a list that mixes the last two - so that folding the two visits into one is
+ * held to producing exactly them.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -152,13 +151,30 @@ public class Issue3104Test extends XtextTest {
 		var values = valuesOf("Issue3104Props::Bound_Call_Sequence");
 
 		assertEquals(1, values.size());
-		PropertyExpression value = values.get(0).getOwnedValue();
-		assertTrue(value instanceof ReferenceValue);
-		assertFalse(value instanceof InstanceReferenceValue);
-		assertEquals(List.of("src", "worker", "startup"), ((ReferenceValue) value).getContainmentPathElements()
-				.stream()
-				.map(element -> element.getNamedElement().getName())
-				.collect(Collectors.toList()));
+		assertEquals(List.of("src", "worker", "startup"), declarativePathOf(values.get(0).getOwnedValue()));
+	}
+
+	/**
+	 * A list whose elements do not all resolve keeps both kinds, once each and in declaration order:
+	 * the element this context resolves is instantiated, the one it cannot is left declarative.
+	 *
+	 * <p>
+	 * This is the shape the pass used to work on twice over. It replaced the elements of the list
+	 * before the tree iterator descended into it, so a resolved element was visited again as an
+	 * instance reference value, which is not a {@link ReferenceValue} and so was skipped, while an
+	 * unresolved element was still a reference value and was instantiated a second time.
+	 * </p>
+	 */
+	@Test
+	public void aListOfMixedReferencesKeepsBothKindsInOrder() throws Exception {
+		var values = valuesOf("Issue3104Props::Bound_Mixed");
+
+		assertEquals(1, values.size());
+		var elements = elementsOf(values.get(0).getOwnedValue());
+		assertEquals(2, elements.size());
+		assertTrue("not instantiated: " + elements.get(0), elements.get(0) instanceof InstanceReferenceValue);
+		assertEquals(CONNECTION, pathOf(((InstanceReferenceValue) elements.get(0)).getReferencedInstanceObject()));
+		assertEquals(List.of("src", "worker", "startup"), declarativePathOf(elements.get(1)));
 	}
 
 	/**
@@ -179,7 +195,7 @@ public class Issue3104Test extends XtextTest {
 		var instantiated = new ArrayList<String>();
 		var declarative = 0;
 
-		assertEquals(5, connection.getOwnedPropertyAssociations().size());
+		assertEquals(6, connection.getOwnedPropertyAssociations().size());
 		for (var association : connection.getOwnedPropertyAssociations()) {
 			TreeIterator<EObject> contents = EcoreUtil.getAllProperContents(association, false);
 			while (contents.hasNext()) {
@@ -195,12 +211,14 @@ public class Issue3104Test extends XtextTest {
 		}
 		/*
 		 * Sorted, because the order of the associations on the connection is the order of the property
-		 * filter, which is not part of the model. Two references to src.worker and two to dst.worker:
-		 * one each from the list and one each from the modal list.
+		 * filter, which is not part of the model. Two references to src.worker and two to dst.worker,
+		 * one each from the list and one each from the modal list, and two to the connection, one from
+		 * the single reference and one from the mixed list. Declarative: the call sequence, twice, once
+		 * on its own and once in the mixed list.
 		 */
-		assertEquals(List.of("dst.worker", "dst.worker", "src.worker", "src.worker", "src.worker.helper", CONNECTION),
-				instantiated.stream().sorted().toList());
-		assertEquals(1, declarative);
+		assertEquals(List.of("dst.worker", "dst.worker", "src.worker", "src.worker", "src.worker.helper", CONNECTION,
+				CONNECTION), instantiated.stream().sorted().toList());
+		assertEquals(2, declarative);
 	}
 
 	/** The values of the association for this property on the connection of the fixture. */
@@ -221,15 +239,31 @@ public class Issue3104Test extends XtextTest {
 	 * the value holds them. Every reference of the value must have been instantiated.
 	 */
 	private static List<String> referencedPaths(PropertyExpression value) {
-		var expressions = value instanceof ListValue list ? List.copyOf(list.getOwnedListElements())
-				: List.of(value);
 		var paths = new ArrayList<String>();
 
-		for (var expression : expressions) {
+		for (var expression : elementsOf(value)) {
 			assertTrue("not instantiated: " + expression, expression instanceof InstanceReferenceValue);
 			paths.add(pathOf(((InstanceReferenceValue) expression).getReferencedInstanceObject()));
 		}
 		return paths;
+	}
+
+	/** The elements of a list value, or the value itself when it is not a list. */
+	private static List<PropertyExpression> elementsOf(PropertyExpression value) {
+		return value instanceof ListValue list ? List.copyOf(list.getOwnedListElements()) : List.of(value);
+	}
+
+	/**
+	 * The names along the containment path of a value that was left declarative. An instantiated value
+	 * is an {@code InstanceReferenceValue}, which is a {@code PropertyValue} and not a
+	 * {@code ReferenceValue}, so the type test is what says the value was not instantiated.
+	 */
+	private static List<String> declarativePathOf(PropertyExpression value) {
+		assertTrue("instantiated: " + value, value instanceof ReferenceValue);
+		return ((ReferenceValue) value).getContainmentPathElements()
+				.stream()
+				.map(element -> element.getNamedElement().getName())
+				.collect(Collectors.toList());
 	}
 
 	/** The path of an instance object below the system instance, as dot separated names. */

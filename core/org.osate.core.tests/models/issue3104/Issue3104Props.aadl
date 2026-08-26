@@ -16,4 +16,8 @@ property set Issue3104Props is
 	-- A reference to a call sequence, which no context resolves because call sequences are not
 	-- instantiated.
 	Bound_Call_Sequence: reference (subprogram call sequence) applies to (connection);
+
+	-- A list in which one element resolves and one does not. This is the shape whose elements the
+	-- retry pass used to visit twice, and instantiate twice where the first visit resolved nothing.
+	Bound_Mixed: list of reference (connection, subprogram call sequence) applies to (connection);
 end Issue3104Props;
