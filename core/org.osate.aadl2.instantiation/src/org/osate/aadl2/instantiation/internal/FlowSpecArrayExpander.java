@@ -24,11 +24,13 @@
 package org.osate.aadl2.instantiation.internal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -37,7 +39,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 /**
  * Expands the provisional flow specification instances of one instance model root into the final set. A
- * flow specification whose in or out end is a feature array stands for one flow specification instance
+ * flow specification whose in or out end is in a feature array stands for one flow specification instance
  * per pair of elements that {@code Connection_Pattern}, {@code Connection_Set} or the default pattern
  * pairs up, so a flow that goes through such a component goes through one element of it.
  * <p>
@@ -47,8 +49,9 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
  * of indices becomes. When the property is not set, {@code One_To_One} applies, which is why a model that
  * declares nothing still gets one flow specification instance per element.
  * <p>
- * Only an end that is a feature array itself is expanded. An end reached through a feature group that is
- * an array keeps the first element of that group, as it always did.
+ * An end is an array element either because it is a feature array itself or because it is reached through
+ * a feature group that is an array; in the second case the index sits on the enclosing feature group
+ * instance and the paired-up element is the corresponding feature of that element of the group.
  * <p>
  * {@code Connection_Pattern} and {@code Connection_Set} have to be cached on the provisional flow
  * specification instances before the expansion runs, the same window the connection expansion needs, see
@@ -183,39 +186,98 @@ public final class FlowSpecArrayExpander {
 	}
 
 	/**
+	 * The array element a flow specification end belongs to, and how to get from that element back down to
+	 * the end.
+	 * <p>
+	 * The element is the end itself when the end is a feature array, and the enclosing feature group
+	 * instance when the end is a feature reached through a feature group that is an array. Only one step of
+	 * a path can be an array element: a feature declared inside a feature group type may not be an array
+	 * (AS5506D section 8 legality rule 3, which the validator enforces and which
+	 * {@code InstantiateModel.instantiateFGFeatures} reports), so no feature instance below an indexed
+	 * feature group instance is indexed in turn.
+	 *
+	 * @param element the feature instance that is the array element
+	 * @param descent the features that lead from that element down to the end, empty if the end is the
+	 *            element itself
+	 */
+	private record ArrayEnd(FeatureInstance element, List<Feature> descent) {
+	}
+
+	/**
+	 * The array element a flow specification end belongs to, or {@code null} if the end is not in an array.
+	 *
+	 * @param end the source or destination of a flow specification instance, {@code null} for the end a flow
+	 *            source or a flow sink does not have
+	 */
+	private static ArrayEnd arrayEnd(FeatureInstance end) {
+		var descent = new ArrayList<Feature>();
+		for (var current = end; current != null; current = enclosingFeatureGroup(current)) {
+			if (current.getIndex() != 0) {
+				Collections.reverse(descent);
+				return new ArrayEnd(current, List.copyOf(descent));
+			}
+			descent.add(current.getFeature());
+		}
+		return null;
+	}
+
+	/** The feature group instance a feature instance is a feature of, or {@code null} if it is not in one. */
+	private static FeatureInstance enclosingFeatureGroup(FeatureInstance fi) {
+		return fi.eContainer() instanceof FeatureInstance featureGroup ? featureGroup : null;
+	}
+
+	/**
 	 * The sizes of the array dimensions of a flow specification end. A feature array has at most one
-	 * dimension, so this is one size or none at all. The size is the number of feature instances the
-	 * feature was instantiated into, which is what the array bound evaluated to.
+	 * dimension, so this is one size or none at all. The size is the number of feature instances the array
+	 * element was instantiated into, which is what the array bound evaluated to.
 	 *
 	 * @param end the source or destination of a flow specification instance, {@code null} for the end a
 	 *            flow source or a flow sink does not have
-	 * @return the size of the dimension of the end, or an empty list if the end is not an array element
+	 * @return the size of the dimension of the end, or an empty list if the end is not in an array
 	 */
 	private List<Integer> arraySizes(FeatureInstance end) {
-		if (end == null || end.getIndex() == 0) {
+		var arrayEnd = end == null ? null : arrayEnd(end);
+		if (arrayEnd == null) {
 			return List.of();
 		}
-		var elements = siblings(end).stream().filter(sibling -> sibling.getFeature() == end.getFeature()).count();
+		var element = arrayEnd.element();
+		var elements = siblings(element).stream().filter(sibling -> sibling.getFeature() == element.getFeature())
+				.count();
 		return List.of((int) elements);
 	}
 
 	/**
-	 * The feature instance of one element of a flow specification end.
+	 * The feature instance of one element of a flow specification end. When the array element is a feature
+	 * group that encloses the end, this is the corresponding feature of the other element of that group,
+	 * reached by following the same features down again.
 	 *
-	 * @param end the end the provisional instance was created with, which is the first element of the
-	 *            array when the end is one
-	 * @param indices the index of the element, empty if the end is not an array
-	 * @return the feature instance of that element, or {@code end} itself if the end is not an array
+	 * @param end the end the provisional instance was created with, which is in the first element of the
+	 *            array when the end is in one
+	 * @param indices the index of the element, empty if the end is not in an array
+	 * @return the feature instance for that element, or {@code end} itself if the end is not in an array
 	 */
 	private FeatureInstance elementAt(FeatureInstance end, List<Long> indices) {
-		if (end == null || indices.isEmpty()) {
+		var arrayEnd = end == null || indices.isEmpty() ? null : arrayEnd(end);
+		if (arrayEnd == null) {
 			return end;
 		}
+		var declaration = arrayEnd.element().getFeature();
 		var index = indices.getFirst();
-		return siblings(end).stream()
-				.filter(sibling -> sibling.getFeature() == end.getFeature() && sibling.getIndex() == index)
+		var current = siblings(arrayEnd.element()).stream()
+				.filter(sibling -> sibling.getFeature() == declaration && sibling.getIndex() == index)
 				.findFirst()
-				.orElse(end);
+				.orElse(null);
+		for (var feature : arrayEnd.descent()) {
+			if (current == null) {
+				break;
+			}
+			current = current.getFeatureInstances()
+					.stream()
+					.filter(child -> child.getFeature() == feature)
+					.findFirst()
+					.orElse(null);
+		}
+		return current == null ? end : current;
 	}
 
 	/**
@@ -223,8 +285,8 @@ public final class FlowSpecArrayExpander {
 	 * a feature of a component type, and those of the enclosing feature group instance for a feature of a
 	 * feature group type.
 	 */
-	private List<FeatureInstance> siblings(FeatureInstance end) {
-		EObject owner = end.eContainer();
+	private List<FeatureInstance> siblings(FeatureInstance element) {
+		EObject owner = element.eContainer();
 		if (owner instanceof FeatureInstance featureGroup) {
 			return featureGroup.getFeatureInstances();
 		}
