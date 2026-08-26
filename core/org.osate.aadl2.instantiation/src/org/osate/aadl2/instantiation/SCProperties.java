@@ -32,9 +32,10 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
- * Very crude encapsulation of the multi-level map used to cache contained
- * property associations that apply to semantic connections.
- * in {@link org.osate.aadl2.instantiation.CheckInstanceSemanticsSwitch#checkPropertyConsistency(ConnectionInstance)}.
+ * Very crude encapsulation of the multi-level map used to cache contained property associations that
+ * apply to semantic connections. A value is recorded for a connection instance, a property, and the
+ * connection declaration the value came from, because the same semantic connection is built from
+ * several connection declarations that may each carry a value.
  *
  * @author aarong
  */

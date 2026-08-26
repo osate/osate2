@@ -168,68 +168,6 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 			return DONE;
 		}
 
-		/*
-		 *
-		 * FIXME: old code by JD to try to handle reference instance
-		 * public String caseConnectionInstance(final ConnectionInstance conn)
-		 * {
-		 * ComponentInstance ci;
-		 * EList<PropertyAssociation> pas = new BasicEList<PropertyAssociation> ();
-		 *
-		 * ci = conn.getContainingComponentInstance();
-		 * OsateDebug.osateDebug("connection instance" + conn + "on" + ci);
-		 * for (ConnectionReference ref : conn.getConnectionReferences())
-		 * {
-		 * OsateDebug.osateDebug("connection ref" + ref);
-		 * for (PropertyAssociation pa : ref.getOwnedPropertyAssociations())
-		 * {
-		 * OsateDebug.osateDebug("connection pa" + pa);
-		 * Property prop = pa.getProperty();
-		 * PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-		 *
-		 * newPA.setProperty(prop);
-		 * newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
-		 *
-		 *
-		 * for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
-		 * .hasNext();) {
-		 * Element elem = content.next();
-		 * if (elem instanceof ModalPropertyValue)
-		 * {
-		 * ModalPropertyValue mpv = (ModalPropertyValue)elem;
-		 * if (mpv.getOwnedValue() instanceof ListValue)
-		 * {
-		 * ListValue lv = (ListValue)mpv.getOwnedValue();
-		 * for (Element e : lv.getOwnedListElements())
-		 * {
-		 * if (e instanceof ReferenceValue) {
-		 * PropertyExpression irv = ((ReferenceValue) e).instantiate(ci);
-		 * EcoreUtil.replace(e, irv);
-		 * //ref.removePropertyAssociations(prop);
-		 * ref.getOwnedPropertyAssociations().add(newPA);
-		 * }
-		 * }
-		 * }
-		 * }
-		 * if (elem instanceof ReferenceValue) {
-		 * PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
-		 * EcoreUtil.replace(elem, irv);
-		 *
-		 * ref.removePropertyAssociations(prop);
-		 * ref.getOwnedPropertyAssociations().add(newPA);
-		 * }
-		 * }
-		 *
-		 *
-		 *
-		 * }
-		 * }
-		 * processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, pas);
-		 *
-		 * return DONE;
-		 * }
-		 */
-
 		@Override
 		public String caseFeatureInstance(final FeatureInstance fi) {
 			if (monitor.isCanceled()) {

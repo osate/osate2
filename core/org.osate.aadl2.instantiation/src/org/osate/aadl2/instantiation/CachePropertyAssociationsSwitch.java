@@ -152,10 +152,6 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 		};
 	}
 
-	SCProperties getSemanticConnectionProperties() {
-		return scProps;
-	}
-
 	protected void cachePropertyAssociations(InstanceObject io) {
 		for (var property : propertyFilter) {
 			if (io.acceptsProperty(property)) {
