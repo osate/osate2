@@ -625,7 +625,27 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		if (eIsProxy()) {
 			return eProxyURI().toString().hashCode();
 		}
-		return getQualifiedName() != null ? getQualifiedName().hashCode() : super.hashCode();
+		String qualifiedName = getQualifiedName();
+		if (qualifiedName == null) {
+			return super.hashCode();
+		}
+		/*
+		 * equals compares qualified names ignoring case, so the hash has to ignore case as well.
+		 * Hashing the qualified name as written would let a hash based collection keep two entries
+		 * that are equal, because they would land in different buckets.
+		 *
+		 * Two characters count as the same ignoring case exactly when folding each through
+		 * toUpperCase and then toLowerCase gives the same character; that is what
+		 * String.equalsIgnoreCase compares. Hashing the folded characters therefore agrees with
+		 * equals. Folding here rather than calling toLowerCase keeps this independent of the default
+		 * locale and allocates no second string. For a qualified name that is already lower case
+		 * this is String.hashCode.
+		 */
+		int hash = 0;
+		for (int i = 0; i < qualifiedName.length(); i++) {
+			hash = 31 * hash + Character.toLowerCase(Character.toUpperCase(qualifiedName.charAt(i)));
+		}
+		return hash;
 	}
 
 	/*
