@@ -245,10 +245,11 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 						continue;
 					}
 					/*
-					 * FIXME JD
-					 *
-					 * Try to look if the property references a component or not.
-					 * This was done to fix the issue related to the Bound Bus analysis plugin
+					 * The values were instantiated in the context of the connection reference, which
+					 * resolves nothing that a containment path names, because a connection reference
+					 * contains no instance objects. Retry what is left in the context of the connection's
+					 * component instance, which is where a reference to a bus, a connection, or another
+					 * part of the enclosing component resolves.
 					 */
 					instantiateConnectionReferenceValues(newPA, conni.getContainingComponentInstance());
 
@@ -408,30 +409,20 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 	}
 
 	/**
-	 * Replace the reference values of a property association cached on a semantic connection with
-	 * references to the instance objects they denote in the context of the connection's component
-	 * instance.
+	 * Retry the reference values of a property association cached on a semantic connection that the
+	 * connection reference could not resolve, this time in the context of the connection's component
+	 * instance. A value that is already instantiated is left alone, and so is one that this context
+	 * cannot resolve either.
 	 */
 	private static void instantiateConnectionReferenceValues(final PropertyAssociationInstance pa,
 			final ComponentInstance context) {
 		for (var elem : properContentsOf(pa)) {
-			if (elem instanceof ModalPropertyValue mpv && mpv.getOwnedValue() instanceof ListValue lv) {
-				for (var listElement : lv.getOwnedListElements()) {
-					if (listElement instanceof ReferenceValue rv) {
-						instantiateInPlace(rv, context);
-					}
+			if (elem instanceof ReferenceValue rv && !(rv instanceof InstanceReferenceValue)) {
+				var irv = rv.instantiate(context);
+				if (irv != null) {
+					EcoreUtil.replace(rv, irv);
 				}
 			}
-			if (elem instanceof ReferenceValue rv) {
-				instantiateInPlace(rv, context);
-			}
-		}
-	}
-
-	private static void instantiateInPlace(final ReferenceValue rv, final ComponentInstance context) {
-		var irv = rv.instantiate(context);
-		if (irv != null) {
-			EcoreUtil.replace(rv, irv);
 		}
 	}
 
