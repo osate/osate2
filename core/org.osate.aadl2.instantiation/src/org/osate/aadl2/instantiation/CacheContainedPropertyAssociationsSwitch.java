@@ -309,6 +309,11 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 	 * Replace the reference values of a copied property association with references to the instance
 	 * objects they denote in the context of {@code context}, reporting an error on {@code io} for a
 	 * reference that cannot be evaluated at all.
+	 * <p>
+	 * A value that has already been instantiated is an
+	 * {@link org.osate.aadl2.instance.InstanceReferenceValue}, which is not a {@link ReferenceValue}, so
+	 * the test below leaves it alone. Here that cannot happen anyway, because the values are copies of a
+	 * declarative association.
 	 *
 	 * @return the problems found, which the caller reports only if it keeps the association
 	 */
@@ -337,7 +342,8 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 
 	/**
 	 * Replace the reference values of a copied property association with references to the instance
-	 * objects they denote in the context of a feature instance.
+	 * objects they denote in the context of a feature instance. As above, an already instantiated value is
+	 * not a {@link ReferenceValue} and is therefore left alone.
 	 *
 	 * @return the problems found
 	 */

@@ -391,12 +391,16 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 	 * Replace the reference values of a cached value with references to the instance objects they denote
 	 * in the context of {@code io}. Returns the problems found, which the caller reports only if it keeps
 	 * the value.
+	 * <p>
+	 * A value that has already been instantiated is an {@link InstanceReferenceValue}, which is not a
+	 * {@link ReferenceValue}, so the test below leaves it alone. The same holds for the other passes that
+	 * instantiate reference values, here and in {@link CacheContainedPropertyAssociationsSwitch}.
 	 */
 	private static List<Issue> instantiateReferenceValues(final ModalPropertyValue value, final InstanceObject io) {
 		final var issues = new ArrayList<Issue>();
 
 		for (var elem : properContentsOf(value)) {
-			if (elem instanceof ReferenceValue rv && !(rv instanceof InstanceReferenceValue)) {
+			if (elem instanceof ReferenceValue rv) {
 				try {
 					var irv = rv.instantiate(io);
 					if (irv != null) {
@@ -416,13 +420,14 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 	/**
 	 * Retry the reference values of a property association cached on a semantic connection that the
 	 * connection reference could not resolve, this time in the context of the connection's component
-	 * instance. A value that is already instantiated is left alone, and so is one that this context
-	 * cannot resolve either.
+	 * instance. The values that {@link #instantiateReferenceValues} has already replaced are
+	 * {@link InstanceReferenceValue}s, which are not {@link ReferenceValue}s, so the test below leaves
+	 * them alone; a value that this context cannot resolve either is left alone as well.
 	 */
 	private static void instantiateConnectionReferenceValues(final PropertyAssociationInstance pa,
 			final ComponentInstance context) {
 		for (var elem : properContentsOf(pa)) {
-			if (elem instanceof ReferenceValue rv && !(rv instanceof InstanceReferenceValue)) {
+			if (elem instanceof ReferenceValue rv) {
 				var irv = rv.instantiate(context);
 				if (irv != null) {
 					EcoreUtil.replace(rv, irv);

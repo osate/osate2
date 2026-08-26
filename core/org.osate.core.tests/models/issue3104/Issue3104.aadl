@@ -9,8 +9,8 @@ public
 
 	--  The properties on connection c hold every shape of reference value that the connection
 	--  property cache instantiates: a list, a modal list, a single reference that resolves two
-	--  levels down, a reference to a connection, and a reference to a call sequence, which is
-	--  not instantiated and so stays unresolved.
+	--  levels down, a reference to a connection, a reference to a call sequence, which is not
+	--  instantiated and so stays unresolved, and a list that mixes the last two.
 	system implementation Top.i
 		subcomponents
 			src: process Sender.i;
@@ -23,6 +23,7 @@ public
 				Issue3104Props::Bound_Subprogram => reference (src.worker.helper);
 				Issue3104Props::Bound_Connection => reference (src.inner);
 				Issue3104Props::Bound_Call_Sequence => reference (src.worker.startup);
+				Issue3104Props::Bound_Mixed => (reference (src.inner), reference (src.worker.startup));
 			};
 		modes
 			running: initial mode;
