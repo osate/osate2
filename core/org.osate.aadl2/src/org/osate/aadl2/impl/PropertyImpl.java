@@ -40,7 +40,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortConnection;
@@ -558,11 +557,8 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			throws InvalidModelException {
 		InstanceObject io = ctx.getInstanceObject();
 		List<? extends NamedElement> compDecls = io.getInstantiatedObjects();
-		// FIXME: compDecls == null for connection instances
 		// OsateDebug.osateDebug("[PropertyImpl] getPropertyValueFromDeclarativeModel" + compDecls);
 
-		if (compDecls == null) {
-		}
 		// Here we assume compDecls is empty or has only one element
 		if (!compDecls.isEmpty()) {
 			NamedElement compDecl = compDecls.get(0);
@@ -575,8 +571,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 
 			if (compDecl instanceof Subcomponent) {
 				((SubcomponentImpl) compDecl).getPropertyValue(this, pas, cl, false);
-			} else if (compDecl instanceof FeatureGroup) {
-				((FeatureGroupImpl) compDecl).getPropertyValue(this, pas, cl, false);
 			} else if (compDecl instanceof Feature) {
 				((FeatureImpl) compDecl).getPropertyValue(this, pas, cl, false);
 			} else if (compDecl instanceof PortConnection) {

@@ -385,18 +385,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		}
 	}
 
-	public void getPropertyValueTestHelper(Property prop, PropertyAcc pas, Classifier cl) {
-		// values from feature group type
-		FeatureGroupType fgt = getFeatureGroupType();
-		// TODO: Check if the property applies to the feature group type? (->
-		// property.checkAppliesTo(NamedElement)?)
-		if (fgt != null) {
-			fgt.getPropertyValueInternal(prop, pas, true, false);
-		} else if (cl != null) {
-			cl.getPropertyValueInternal(prop, pas, true, false);
-		}
-	}
-
 	/**
 	 * check for inverseof between two features.
 	 * If they are feature groups then we check both the inverse of on the feature group and whether the feature group type is inverseof.
