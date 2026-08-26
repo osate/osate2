@@ -592,7 +592,26 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	}
 
 	public boolean equals(Object p) {
+		if (this == p) {
+			/*
+			 * A resolved model holds one Property object per definition, so this is the case that the
+			 * property lookup hits whenever the answer is yes.
+			 */
+			return true;
+		}
 		if (p instanceof Property) {
+			/*
+			 * A qualified name ends with the element's own name, so two properties whose names already
+			 * differ ignoring case cannot have qualified names that are equal ignoring case. Rejecting on
+			 * the name alone therefore gives the same answer as comparing the qualified names, and it does
+			 * it with a field read instead of a walk up the namespace chain that builds a fresh string.
+			 * The property lookup compares one property against every property association of an element,
+			 * so all but one of those comparisons ends here.
+			 */
+			String name = getName();
+			if (name != null && !name.equalsIgnoreCase(((Property) p).getName())) {
+				return false;
+			}
 			String p1Name = getQualifiedName();
 			String p2Name = ((Property) p).getQualifiedName();
 			if (p1Name != null) {
@@ -606,7 +625,27 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		if (eIsProxy()) {
 			return eProxyURI().toString().hashCode();
 		}
-		return getQualifiedName() != null ? getQualifiedName().hashCode() : super.hashCode();
+		String qualifiedName = getQualifiedName();
+		if (qualifiedName == null) {
+			return super.hashCode();
+		}
+		/*
+		 * equals compares qualified names ignoring case, so the hash has to ignore case as well.
+		 * Hashing the qualified name as written would let a hash based collection keep two entries
+		 * that are equal, because they would land in different buckets.
+		 *
+		 * Two characters count as the same ignoring case exactly when folding each through
+		 * toUpperCase and then toLowerCase gives the same character; that is what
+		 * String.equalsIgnoreCase compares. Hashing the folded characters therefore agrees with
+		 * equals. Folding here rather than calling toLowerCase keeps this independent of the default
+		 * locale and allocates no second string. For a qualified name that is already lower case
+		 * this is String.hashCode.
+		 */
+		int hash = 0;
+		for (int i = 0; i < qualifiedName.length(); i++) {
+			hash = 31 * hash + Character.toLowerCase(Character.toUpperCase(qualifiedName.charAt(i)));
+		}
+		return hash;
 	}
 
 	/*
