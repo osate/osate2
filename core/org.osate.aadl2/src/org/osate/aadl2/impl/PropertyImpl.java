@@ -592,7 +592,26 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	}
 
 	public boolean equals(Object p) {
+		if (this == p) {
+			/*
+			 * A resolved model holds one Property object per definition, so this is the case that the
+			 * property lookup hits whenever the answer is yes.
+			 */
+			return true;
+		}
 		if (p instanceof Property) {
+			/*
+			 * A qualified name ends with the element's own name, so two properties whose names already
+			 * differ ignoring case cannot have qualified names that are equal ignoring case. Rejecting on
+			 * the name alone therefore gives the same answer as comparing the qualified names, and it does
+			 * it with a field read instead of a walk up the namespace chain that builds a fresh string.
+			 * The property lookup compares one property against every property association of an element,
+			 * so all but one of those comparisons ends here.
+			 */
+			String name = getName();
+			if (name != null && !name.equalsIgnoreCase(((Property) p).getName())) {
+				return false;
+			}
 			String p1Name = getQualifiedName();
 			String p2Name = ((Property) p).getQualifiedName();
 			if (p1Name != null) {
