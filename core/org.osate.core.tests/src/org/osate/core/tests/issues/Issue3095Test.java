@@ -29,6 +29,11 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
@@ -53,8 +58,9 @@ import com.itemis.xtext.testing.XtextTest;
  * instantiation (issue #3095). The comparison is by qualified name and ignores case, so two
  * definitions that come from different property sets are distinct even when their simple names are
  * equal, and a definition read from one model equals a definition of the same qualified name that
- * was built elsewhere. These tests pin those answers, so that an optimization of the comparison is
- * held to producing exactly them.
+ * was built elsewhere. {@code hashCode} agrees with that, so a hash based collection keyed by a
+ * property definition holds one entry per definition. These tests pin those answers, so that an
+ * optimization of the comparison is held to producing exactly them.
  * </p>
  */
 @RunWith(XtextRunner.class)
@@ -73,15 +79,16 @@ public class Issue3095Test extends XtextTest {
 
 	@Test
 	public void aPropertyDefinitionEqualsItself() throws Exception {
-		Property countA = property("Issue3095A::Count");
+		Property countA = definitions().get("Issue3095A::Count");
 
 		assertTrue(countA.equals(countA));
 	}
 
 	@Test
 	public void definitionsOfTheSameNameInDifferentPropertySetsAreNotEqual() throws Exception {
-		Property countA = property("Issue3095A::Count");
-		Property countB = property("Issue3095B::Count");
+		var definitions = definitions();
+		Property countA = definitions.get("Issue3095A::Count");
+		Property countB = definitions.get("Issue3095B::Count");
 
 		assertEquals("Count", countA.getName());
 		assertEquals("Count", countB.getName());
@@ -91,8 +98,9 @@ public class Issue3095Test extends XtextTest {
 
 	@Test
 	public void definitionsOfDifferentNamesInOnePropertySetAreNotEqual() throws Exception {
-		Property countA = property("Issue3095A::Count");
-		Property otherA = property("Issue3095A::Other");
+		var definitions = definitions();
+		Property countA = definitions.get("Issue3095A::Count");
+		Property otherA = definitions.get("Issue3095A::Other");
 
 		assertFalse(countA.equals(otherA));
 		assertFalse(otherA.equals(countA));
@@ -104,7 +112,7 @@ public class Issue3095Test extends XtextTest {
 	 */
 	@Test
 	public void aSeparatelyBuiltDefinitionOfTheSameQualifiedNameIsEqualIgnoringCase() throws Exception {
-		Property countA = property("Issue3095A::Count");
+		Property countA = definitions().get("Issue3095A::Count");
 		Property sameName = definition("Issue3095A", "Count");
 		Property sameNameOtherCase = definition("issue3095a", "COUNT");
 
@@ -119,22 +127,52 @@ public class Issue3095Test extends XtextTest {
 	}
 
 	/**
-	 * {@code hashCode} hashes the qualified name as written while {@code equals} ignores case, so two
-	 * definitions that are equal can hash differently. That is how it already behaves; it is recorded
-	 * here so that a change to the comparison is not mistaken for a change to this.
+	 * Equal definitions hash alike, including when they differ only in case, so that a hash based
+	 * collection keyed by a property definition holds one entry per definition.
 	 */
 	@Test
-	public void hashCodeIsCaseSensitiveWhereEqualsIsNot() throws Exception {
-		Property countA = property("Issue3095A::Count");
+	public void equalDefinitionsHashAlikeIgnoringCase() throws Exception {
+		Property countA = definitions().get("Issue3095A::Count");
 		Property sameNameOtherCase = definition("issue3095a", "COUNT");
 
 		assertTrue(countA.equals(sameNameOtherCase));
-		assertNotEquals(countA.hashCode(), sameNameOtherCase.hashCode());
+		assertEquals(countA.hashCode(), sameNameOtherCase.hashCode());
+	}
+
+	/**
+	 * The consequence of the two agreeing: a definition that is already in a hash set is recognized as
+	 * present even when it is spelled with different case.
+	 */
+	@Test
+	public void aHashSetHoldsOneEntryPerDefinitionIgnoringCase() throws Exception {
+		var definitions = definitions();
+		Property countA = definitions.get("Issue3095A::Count");
+		Property countB = definitions.get("Issue3095B::Count");
+
+		Set<Property> set = new HashSet<>();
+		set.add(countA);
+		set.add(definition("issue3095a", "COUNT"));
+		set.add(definition("ISSUE3095A", "count"));
+		assertEquals(1, set.size());
+		assertTrue(set.contains(countA));
+
+		set.add(countB);
+		assertEquals(2, set.size());
+	}
+
+	/** Definitions that are not equal are still allowed to hash alike, but these do not. */
+	@Test
+	public void definitionsOfDifferentQualifiedNamesHashDifferently() throws Exception {
+		var definitions = definitions();
+		Property countA = definitions.get("Issue3095A::Count");
+
+		assertNotEquals(countA.hashCode(), definitions.get("Issue3095B::Count").hashCode());
+		assertNotEquals(countA.hashCode(), definitions.get("Issue3095A::Other").hashCode());
 	}
 
 	@Test
 	public void aSeparatelyBuiltDefinitionOfAnotherQualifiedNameIsNotEqual() throws Exception {
-		Property countA = property("Issue3095A::Count");
+		Property countA = definitions().get("Issue3095A::Count");
 
 		assertFalse(countA.equals(definition("Issue3095A", "Counter")));
 		assertFalse(countA.equals(definition("Issue3095C", "Count")));
@@ -151,16 +189,25 @@ public class Issue3095Test extends XtextTest {
 		assertNull(unnamed.getQualifiedName());
 		assertTrue(unnamed.equals(unnamed));
 		assertFalse(unnamed.equals(alsoUnnamed));
-		assertFalse(unnamed.equals(property("Issue3095A::Count")));
+		assertFalse(unnamed.equals(definitions().get("Issue3095A::Count")));
 	}
 
 	@Test
 	public void aDefinitionIsNotEqualToSomethingThatIsNotAProperty() throws Exception {
-		assertFalse(property("Issue3095A::Count").equals("Issue3095A::Count"));
+		assertFalse(definitions().get("Issue3095A::Count").equals("Issue3095A::Count"));
 	}
 
-	/** A property definition of {@code qualifiedName}, read from the fixture's associations. */
-	private Property property(String qualifiedName) throws Exception {
+	/**
+	 * The property definitions the fixture associates, keyed by qualified name, all read from one
+	 * parse.
+	 *
+	 * <p>
+	 * One parse per call matters: {@code TestHelper.parseFile} loads into a resource set it cleans
+	 * between calls, so a definition read from an earlier parse is detached by the time a later parse
+	 * returns, and comparing across parses compares against a stale object.
+	 * </p>
+	 */
+	private Map<String, Property> definitions() throws Exception {
 		AadlPackage pkg = testHelper.parseFile(MODEL, SET_A, SET_B);
 		validationHelper.assertNoIssues(pkg);
 		ComponentType top = (ComponentType) pkg.getOwnedPublicSection()
@@ -169,12 +216,14 @@ public class Issue3095Test extends XtextTest {
 				.filter(classifier -> classifier.getName().equals("Top"))
 				.findFirst()
 				.orElseThrow(() -> new IllegalStateException("No component type Top"));
-		return top.getOwnedPropertyAssociations()
-				.stream()
-				.map(association -> association.getProperty())
-				.filter(definition -> qualifiedName.equals(definition.getQualifiedName()))
-				.findFirst()
-				.orElseThrow(() -> new IllegalStateException("No association naming " + qualifiedName));
+		var byQualifiedName = new LinkedHashMap<String, Property>();
+		for (var association : top.getOwnedPropertyAssociations()) {
+			Property definition = association.getProperty();
+			byQualifiedName.put(definition.getQualifiedName(), definition);
+		}
+		assertEquals(Set.of("Issue3095A::Count", "Issue3095B::Count", "Issue3095A::Other"),
+				byQualifiedName.keySet());
+		return byQualifiedName;
 	}
 
 	/** A property definition built in memory, in a property set of its own. */
