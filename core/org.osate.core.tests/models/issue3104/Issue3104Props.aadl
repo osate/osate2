@@ -1,0 +1,19 @@
+property set Issue3104Props is
+	-- A list of references that the connection reference cannot resolve, but the connection's
+	-- component instance can.
+	Bound_Threads: list of reference (thread) applies to (connection);
+
+	-- The same, modal, so that the modes a value applies in can be pinned as well.
+	Modal_Threads: list of reference (thread) applies to (connection);
+
+	-- A single reference two levels down, resolved in the same context.
+	Bound_Subprogram: reference (subprogram) applies to (connection);
+
+	-- A reference to a connection, which only a component instance resolves, because only a
+	-- component instance looks for connection instances.
+	Bound_Connection: reference (connection) applies to (connection);
+
+	-- A reference to a call sequence, which no context resolves because call sequences are not
+	-- instantiated.
+	Bound_Call_Sequence: reference (subprogram call sequence) applies to (connection);
+end Issue3104Props;
