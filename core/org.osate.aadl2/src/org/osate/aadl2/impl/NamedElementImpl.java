@@ -483,14 +483,27 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	};
 
 	public boolean acceptsProperty(Property property) {
-
-		for (PropertyOwner appliesTo : property.getAppliesTos()) {
-			if (Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(eClass())) {
-				return true;
-			}
+		EList<PropertyOwner> appliesTos = property.getAppliesTos();
+		if (appliesTos.isEmpty()) {
+			return false;
+		}
+		/*
+		 * Whether this element is an Abstract does not depend on which entry of the applies to list is
+		 * being looked at, so answer it once. Deciding it inside the loop asked the same question of the
+		 * metaclass once per entry, and this is the most frequently executed test in instantiation
+		 * (issue #3095). The empty check above keeps the answer the same as when it was decided inside
+		 * the loop, which an empty list never entered.
+		 */
+		EClass metaclass = eClass();
+		if (Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(metaclass)) {
+			return true;
+		}
+		for (PropertyOwner appliesTo : appliesTos) {
 			if (appliesTo instanceof MetaclassReference) {
-				MetaclassReference metaRef = (MetaclassReference) appliesTo;
-				if (metaRef.getMetaclass() != null && metaRef.getMetaclass().isSuperTypeOf(eClass())) {
+				// One call: getMetaclass resolves the metaclass names on first use and answers from a
+				// field after that, but it was asked twice per entry.
+				EClass appliesToMetaclass = ((MetaclassReference) appliesTo).getMetaclass();
+				if (appliesToMetaclass != null && appliesToMetaclass.isSuperTypeOf(metaclass)) {
 					return true;
 				}
 			}
