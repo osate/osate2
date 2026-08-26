@@ -1,0 +1,75 @@
+package Issue3104
+public
+	with Issue3104Props;
+
+	system Top
+		features
+			trigger: in event port;
+	end Top;
+
+	--  The properties on connection c hold every shape of reference value that the connection
+	--  property cache instantiates: a list, a modal list, a single reference that resolves two
+	--  levels down, a reference to a connection, and a reference to a call sequence, which is
+	--  not instantiated and so stays unresolved.
+	system implementation Top.i
+		subcomponents
+			src: process Sender.i;
+			dst: process Receiver.i;
+		connections
+			c: port src.output -> dst.input {
+				Issue3104Props::Bound_Threads => (reference (src.worker), reference (dst.worker));
+				Issue3104Props::Modal_Threads => (reference (src.worker)) in modes (running),
+					(reference (dst.worker)) in modes (degraded);
+				Issue3104Props::Bound_Subprogram => reference (src.worker.helper);
+				Issue3104Props::Bound_Connection => reference (src.inner);
+				Issue3104Props::Bound_Call_Sequence => reference (src.worker.startup);
+			};
+		modes
+			running: initial mode;
+			degraded: mode;
+			toDegraded: running -[trigger]-> degraded;
+	end Top.i;
+
+	process Sender
+		features
+			output: out event data port;
+	end Sender;
+
+	process implementation Sender.i
+		subcomponents
+			worker: thread W.i;
+		connections
+			inner: port worker.output -> output;
+	end Sender.i;
+
+	process Receiver
+		features
+			input: in event data port;
+	end Receiver;
+
+	process implementation Receiver.i
+		subcomponents
+			worker: thread W.i;
+		connections
+			inner: port input -> worker.input;
+	end Receiver.i;
+
+	thread W
+		features
+			input: in event data port;
+			output: out event data port;
+	end W;
+
+	thread implementation W.i
+		subcomponents
+			helper: subprogram Helper;
+		calls
+			startup: {
+				runHelper: subprogram Helper;
+			};
+	end W.i;
+
+	subprogram Helper
+	end Helper;
+
+end Issue3104;
