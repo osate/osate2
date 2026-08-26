@@ -1,0 +1,49 @@
+package Issue3050
+public
+	device Producer
+	features
+		outp: out event port;
+	end Producer;
+
+	device Consumer
+	features
+		inp: in event port;
+	end Consumer;
+
+	system Carrier
+	features
+		outp: out event port;
+	end Carrier;
+
+	system implementation Carrier.impl
+	subcomponents
+		producer: device Producer;
+	connections
+		outward: port producer.outp -> outp;
+	end Carrier.impl;
+
+	system Receiver_Carrier
+	features
+		inp: in event port;
+	end Receiver_Carrier;
+
+	system implementation Receiver_Carrier.impl
+	subcomponents
+		consumer: device Consumer;
+	connections
+		inward: port inp -> consumer.inp;
+	end Receiver_Carrier.impl;
+
+	system Top
+	end Top;
+
+	system implementation Top.impl
+	subcomponents
+		stopped: system Carrier.impl;
+		continued: system Carrier.impl;
+		unreached: system Receiver_Carrier.impl;
+		consumer: device Consumer;
+	connections
+		continuation: port continued.outp -> consumer.inp;
+	end Top.impl;
+end Issue3050;
