@@ -24,26 +24,18 @@
 package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -62,18 +54,28 @@ import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.util.Aadl2Util;
 
 /**
- * TODO: Add comment
+ * Copy the contained property associations of the declarative model to the instance objects they apply
+ * to. The expressions are not evaluated here; only reference values are turned into references to
+ * instance objects. {@link CachePropertyAssociationsSwitch} evaluates the properties afterwards.
+ *
  * @author lwrage
  */
 public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
-	private Map<InstanceObject, InstantiatedClassifier> classifierCache;
+	private enum Severity {
+		ERROR, WARNING
+	}
+
+	private record Issue(Severity severity, Element element, String message) {
+	}
+
+	private final Map<InstanceObject, InstantiatedClassifier> classifierCache;
 
 	/*
 	 * The cache of contained property associations that apply to semantic
 	 * connections.
 	 */
-	private SCProperties scProps;
+	private final SCProperties scProps;
 
 	/*
 	 * The property definitions to cache, or null to cache all of them.
@@ -101,6 +103,15 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 		this.propertyFilter = propertyFilter;
 	}
 
+	/**
+	 * Is this property association one that must not be cached: either it is missing its definition or
+	 * its definition's type, or the definition is not in the filter?
+	 */
+	private boolean isSkipped(PropertyAssociation pa) {
+		var prop = pa.getProperty();
+		return Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType()) || isFiltered(prop);
+	}
+
 	private boolean isFiltered(Property prop) {
 		return propertyFilter != null && !propertyFilter.contains(prop);
 	}
@@ -120,7 +131,7 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 			}
 			monitor.subTask("Caching system instance contained property associations");
 			// N.B. System instance must be associated with a system implementation, so this will never be null
-			final ComponentImplementation ci = si.getComponentImplementation();
+			final var ci = si.getComponentImplementation();
 			processContainedPropertyAssociations(si, si, ci.getType().getAllPropertyAssociations());
 			processContainedPropertyAssociations(si, si, ci.getAllPropertyAssociations());
 			// TODO: Insert hooks here
@@ -141,11 +152,11 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 			 * subcomponents. (2) Get the contained associations from the
 			 * subcomponent itself.
 			 */
-			ComponentClassifier ctype = InstanceUtil.getComponentType(ci, 0, classifierCache);
+			var ctype = InstanceUtil.getComponentType(ci, 0, classifierCache);
 			if (ctype != null) {
 				processContainedPropertyAssociations(ci, ci, ctype.getAllPropertyAssociations());
 			}
-			ComponentClassifier cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
+			var cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
 			if (cimpl != null) {
 				processContainedPropertyAssociations(ci, ci, cimpl.getAllPropertyAssociations());
 			}
@@ -157,68 +168,6 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 			return DONE;
 		}
 
-		/*
-		 *
-		 * FIXME: old code by JD to try to handle reference instance
-		 * public String caseConnectionInstance(final ConnectionInstance conn)
-		 * {
-		 * ComponentInstance ci;
-		 * EList<PropertyAssociation> pas = new BasicEList<PropertyAssociation> ();
-		 *
-		 * ci = conn.getContainingComponentInstance();
-		 * OsateDebug.osateDebug("connection instance" + conn + "on" + ci);
-		 * for (ConnectionReference ref : conn.getConnectionReferences())
-		 * {
-		 * OsateDebug.osateDebug("connection ref" + ref);
-		 * for (PropertyAssociation pa : ref.getOwnedPropertyAssociations())
-		 * {
-		 * OsateDebug.osateDebug("connection pa" + pa);
-		 * Property prop = pa.getProperty();
-		 * PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-		 *
-		 * newPA.setProperty(prop);
-		 * newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
-		 *
-		 *
-		 * for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
-		 * .hasNext();) {
-		 * Element elem = content.next();
-		 * if (elem instanceof ModalPropertyValue)
-		 * {
-		 * ModalPropertyValue mpv = (ModalPropertyValue)elem;
-		 * if (mpv.getOwnedValue() instanceof ListValue)
-		 * {
-		 * ListValue lv = (ListValue)mpv.getOwnedValue();
-		 * for (Element e : lv.getOwnedListElements())
-		 * {
-		 * if (e instanceof ReferenceValue) {
-		 * PropertyExpression irv = ((ReferenceValue) e).instantiate(ci);
-		 * EcoreUtil.replace(e, irv);
-		 * //ref.removePropertyAssociations(prop);
-		 * ref.getOwnedPropertyAssociations().add(newPA);
-		 * }
-		 * }
-		 * }
-		 * }
-		 * if (elem instanceof ReferenceValue) {
-		 * PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
-		 * EcoreUtil.replace(elem, irv);
-		 *
-		 * ref.removePropertyAssociations(prop);
-		 * ref.getOwnedPropertyAssociations().add(newPA);
-		 * }
-		 * }
-		 *
-		 *
-		 *
-		 * }
-		 * }
-		 * processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, pas);
-		 *
-		 * return DONE;
-		 * }
-		 */
-
 		@Override
 		public String caseFeatureInstance(final FeatureInstance fi) {
 			if (monitor.isCanceled()) {
@@ -226,7 +175,7 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 				return DONE;
 			}
 			if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
-				FeatureGroupType fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
+				var fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
 				if (fgType != null) {
 					processContainedPropertyAssociations(fi, fgType.getAllPropertyAssociations());
 				}
@@ -238,60 +187,41 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 
 	protected void processContainedPropertyAssociations(final FeatureInstance fi,
 			final EList<PropertyAssociation> propertyAssociations) {
-		for (PropertyAssociation pa : propertyAssociations) {
-			Property prop = pa.getProperty();
-			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType()) || isFiltered(prop)) {
+		for (var pa : propertyAssociations) {
+			if (isSkipped(pa)) {
 				// PA is missing the prop def or is not being cached, skip to the next one
 				continue;
 			}
-			for (ContainedNamedElement cne : pa.getAppliesTos()) {
-				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
-				if (cpes != null && !cpes.isEmpty()) {
-					final Collection<FeatureInstance> ios = fi.findFeatureInstances(cpes);
+			var prop = pa.getProperty();
 
-					if (!ios.isEmpty()) {
-						for (InstanceObject io : ios) {
-							PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
-									.createPropertyAssociationInstance();
+			for (var cne : pa.getAppliesTos()) {
+				final var cpes = cne.getContainmentPathElements();
+				if (cpes.isEmpty()) {
+					continue;
+				}
 
-							newPA.setProperty(prop);
-							newPA.setPropertyAssociation(pa);
-							newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
+				for (var io : fi.findFeatureInstances(cpes)) {
+					var newPA = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
 
-							final PropertyAssociation existingPA = io.getPropertyValue(prop, false).first();
-							if (existingPA != null && isConstant(existingPA)) {
-								/*
-								 * Cannot put the error on the property association that is affected because it might
-								 * be a declarative model element at this point. Need to report the error on the
-								 * instance object itself.
-								 */
-								final String classifierName = pa.getContainingClassifier().getQualifiedName();
-								final Element owner = pa.getOwner();
-								final String featureName = (owner instanceof Feature)
-										? ("." + ((Feature) owner).getName())
-										: "";
-								getErrorManager().error(io, "Property association for \"" + prop.getQualifiedName()
-										+ "\" is constant.  A contained property association in classifier \""
-										+ classifierName + featureName + "\" tries to replace it.");
-							} else {
-								io.removePropertyAssociations(prop);
-								io.getOwnedPropertyAssociations().add(newPA);
-								// replace reference values in the context of the contained PA's owner
-								for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
-										.hasNext();) {
-									Element elem = content.next();
+					newPA.setProperty(prop);
+					newPA.setPropertyAssociation(pa);
+					newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
 
-									if (elem instanceof ReferenceValue) {
-										PropertyExpression irv = ((ReferenceValue) elem).instantiate(fi);
-										if (irv != null) {
-											EcoreUtil.replace(elem, irv);
-										} else {
-											error(elem, "Referenced element does not exist in the instance model");
-										}
-									}
-								}
-							}
-						}
+					final var existingPA = io.getPropertyValue(prop, false).first();
+					if (existingPA != null && isConstant(existingPA)) {
+						/*
+						 * Cannot put the error on the property association that is affected because it might
+						 * be a declarative model element at this point. Need to report the error on the
+						 * instance object itself.
+						 */
+						final var owner = pa.getOwner();
+						final var featureName = owner instanceof Feature feature ? "." + feature.getName() : "";
+						reportConstantOverride(io, prop, pa, featureName);
+					} else {
+						io.removePropertyAssociations(prop);
+						io.getOwnedPropertyAssociations().add(newPA);
+						// replace reference values in the context of the contained PA's owner
+						report(instantiateReferenceValues(newPA, fi));
 					}
 				}
 			}
@@ -313,99 +243,56 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 	 */
 	protected void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
 			final EList<PropertyAssociation> propertyAssociations) {
-
-		record Issue(boolean isError, Element e, String msg) {
-		}
-
-		for (PropertyAssociation pa : propertyAssociations) {
-			// OsateDebug.osateDebug ("[CacheContainedProperty] Process contained property association: " + pa.getProperty().getName());
-			Property prop = pa.getProperty();
-
-			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType()) || isFiltered(prop)) {
+		for (var pa : propertyAssociations) {
+			if (isSkipped(pa)) {
 				// PA is missing the prop def or is not being cached, skip to the next one
-				// OsateDebug.osateDebug (" skip");
-
 				continue;
 			}
-			// OsateDebug.osateDebug (" appliesto=" + pa.getAppliesTos());
+			var prop = pa.getProperty();
 
-			for (ContainedNamedElement cne : pa.getAppliesTos()) {
-				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
-				// OsateDebug.osateDebug (" cpes=" + cpes);
+			for (var cne : pa.getAppliesTos()) {
+				final var cpes = cne.getContainmentPathElements();
+				if (cpes.isEmpty()) {
+					continue;
+				}
 
-				if (cpes != null && !cpes.isEmpty()) {
-					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
-					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
-					for (InstanceObject io : ios) {
-						PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
-								.createPropertyAssociationInstance();
+				final var last = cpes.getLast().getNamedElement();
+				for (var io : ci.findInstanceObjects(cpes)) {
+					var newPA = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
 
-						newPA.setProperty(prop);
-						newPA.setPropertyAssociation(pa);
-						newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
+					newPA.setProperty(prop);
+					newPA.setPropertyAssociation(pa);
+					newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
 
-						// replace reference values in the context of the contained PA's owner
-						var issues = new ArrayList<Issue>();
+					// replace reference values in the context of the contained PA's owner
+					var issues = instantiateReferenceValues(newPA, ci, io);
 
-						for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
-								.hasNext();) {
-							Element elem = content.next();
-
-							if (elem instanceof ReferenceValue) {
-								// TODO: LW what if ref to connection?
-								try {
-									PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
-									if (irv != null) {
-										EcoreUtil.replace(elem, irv);
-									} else {
-										issues.add(new Issue(true, elem,
-												"Referenced element does not exist in the instance model"));
-									}
-								} catch (InvalidModelException e) {
-									error(io, e.getMessage());
-								}
-							}
-						}
-
-						if (last instanceof Connection) {
-							final PropertyAssociation existingPA = scProps.retrieveSCProperty((ConnectionInstance) io,
-									prop, (Connection) last);
-							if (existingPA != null && isConstant(existingPA)) {
-								/*
-								 * Cannot put the error on the property association that is affected because it might
-								 * be a declarative model element at this point. Need to report the error on the
-								 * instance object itself.
-								 */
-								getErrorManager().error(io, "Property association for \"" + prop.getQualifiedName()
-										+ "\" is constant.  A contained property association in classifier \""
-										+ pa.getContainingClassifier().getQualifiedName() + "\" tries to replace it.");
-							} else {
-								scProps.recordSCProperty((ConnectionInstance) io, prop, (Connection) last, newPA);
-							}
+					if (last instanceof Connection conn) {
+						final var existingPA = scProps.retrieveSCProperty((ConnectionInstance) io, prop, conn);
+						if (existingPA != null && isConstant(existingPA)) {
+							/*
+							 * Cannot put the error on the property association that is affected because it might
+							 * be a declarative model element at this point. Need to report the error on the
+							 * instance object itself.
+							 */
+							reportConstantOverride(io, prop, pa, "");
 						} else {
-							final PropertyAssociation existingPA = io.getPropertyValue(prop, false).first();
-							if (existingPA != null && isConstant(existingPA)) {
-								/*
-								 * Cannot put the error on the property association that is affected because it might
-								 * be a declarative model element at this point. Need to report the error on the
-								 * instance object itself.
-								 */
-								getErrorManager().error(io, "Property association for \"" + prop.getQualifiedName()
-										+ "\" is constant.  A contained property association in classifier \""
-												+ pa.getContainingClassifier().getQualifiedName()
-												+ "\" tries to replace it.");
-							} else {
-								io.removePropertyAssociations(prop);
-								if (!newPA.getOwnedValues().isEmpty()) {
-									io.getOwnedPropertyAssociations().add(newPA);
-									for (var issue : issues) {
-										if (issue.isError) {
-											error(issue.e, issue.msg);
-										} else {
-											warning(issue.e, issue.msg);
-										}
-									}
-								}
+							scProps.recordSCProperty((ConnectionInstance) io, prop, conn, newPA);
+						}
+					} else {
+						final var existingPA = io.getPropertyValue(prop, false).first();
+						if (existingPA != null && isConstant(existingPA)) {
+							/*
+							 * Cannot put the error on the property association that is affected because it might
+							 * be a declarative model element at this point. Need to report the error on the
+							 * instance object itself.
+							 */
+							reportConstantOverride(io, prop, pa, "");
+						} else {
+							io.removePropertyAssociations(prop);
+							if (!newPA.getOwnedValues().isEmpty()) {
+								io.getOwnedPropertyAssociations().add(newPA);
+								report(issues);
 							}
 						}
 					}
@@ -418,17 +305,98 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 		}
 	}
 
+	/**
+	 * Replace the reference values of a copied property association with references to the instance
+	 * objects they denote in the context of {@code context}, reporting an error on {@code io} for a
+	 * reference that cannot be evaluated at all.
+	 *
+	 * @return the problems found, which the caller reports only if it keeps the association
+	 */
+	private List<Issue> instantiateReferenceValues(final PropertyAssociationInstance pa, final ComponentInstance context,
+			final InstanceObject io) {
+		final var issues = new ArrayList<Issue>();
+
+		for (var elem : properContentsOf(pa)) {
+			if (elem instanceof ReferenceValue rv) {
+				// TODO: LW what if ref to connection?
+				try {
+					var irv = rv.instantiate(context);
+					if (irv != null) {
+						EcoreUtil.replace(rv, irv);
+					} else {
+						issues.add(new Issue(Severity.ERROR, rv,
+								"Referenced element does not exist in the instance model"));
+					}
+				} catch (InvalidModelException e) {
+					error(io, e.getMessage());
+				}
+			}
+		}
+		return issues;
+	}
+
+	/**
+	 * Replace the reference values of a copied property association with references to the instance
+	 * objects they denote in the context of a feature instance.
+	 *
+	 * @return the problems found
+	 */
+	private static List<Issue> instantiateReferenceValues(final PropertyAssociationInstance pa,
+			final FeatureInstance context) {
+		final var issues = new ArrayList<Issue>();
+
+		for (var elem : properContentsOf(pa)) {
+			if (elem instanceof ReferenceValue rv) {
+				var irv = rv.instantiate(context);
+				if (irv != null) {
+					EcoreUtil.replace(rv, irv);
+				} else {
+					issues.add(
+							new Issue(Severity.ERROR, rv, "Referenced element does not exist in the instance model"));
+				}
+			}
+		}
+		return issues;
+	}
+
+	/**
+	 * Report that a contained property association tries to replace a constant value.
+	 *
+	 * @param memberSuffix appended to the name of the classifier that holds the contained association, to
+	 *            name the feature it is declared on, or empty
+	 */
+	private void reportConstantOverride(final InstanceObject io, final Property prop, final PropertyAssociation pa,
+			final String memberSuffix) {
+		error(io,
+				"Property association for \"%s\" is constant.  A contained property association in classifier \"%s%s\" tries to replace it."
+						.formatted(prop.getQualifiedName(), pa.getContainingClassifier().getQualifiedName(),
+								memberSuffix));
+	}
+
+	private void report(final List<Issue> issues) {
+		for (var issue : issues) {
+			switch (issue.severity()) {
+			case ERROR -> error(issue.element(), issue.message());
+			case WARNING -> warning(issue.element(), issue.message());
+			}
+		}
+	}
+
 	private static boolean isConstant(PropertyAssociation pa) {
 		while (pa != null) {
 			if (pa.isConstant()) {
 				return true;
 			}
-			if (pa instanceof PropertyAssociationInstance) {
-				pa = ((PropertyAssociationInstance) pa).getPropertyAssociation();
-			} else {
-				pa = null;
-			}
+			pa = pa instanceof PropertyAssociationInstance pai ? pai.getPropertyAssociation() : null;
 		}
 		return false;
+	}
+
+	/**
+	 * The contents of an element, excluding the contents of cross-resource contained children, as an
+	 * {@code Iterable} so that it can be used in an enhanced for statement.
+	 */
+	private static Iterable<Element> properContentsOf(final EObject root) {
+		return () -> EcoreUtil.getAllProperContents(root, false);
 	}
 }
