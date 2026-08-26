@@ -278,6 +278,7 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 							reportConstantOverride(io, prop, pa, "");
 						} else {
 							scProps.recordSCProperty((ConnectionInstance) io, prop, conn, newPA);
+							report(issues, io);
 						}
 					} else {
 						final var existingPA = io.getPropertyValue(prop, false).first();
@@ -384,6 +385,16 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 			switch (issue.severity()) {
 			case ERROR -> error(issue.element(), issue.message());
 			case WARNING -> warning(issue.element(), issue.message());
+			}
+		}
+	}
+
+	/** Report problems on an attached instance object when their copied value is not in the instance resource. */
+	private void report(final List<Issue> issues, final InstanceObject instanceObject) {
+		for (var issue : issues) {
+			switch (issue.severity()) {
+			case ERROR -> error(instanceObject, issue.message());
+			case WARNING -> warning(instanceObject, issue.message());
 			}
 		}
 	}
