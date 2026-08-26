@@ -36,6 +36,7 @@ import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -294,25 +295,29 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 
 	private List<Issue> fillPropertyValue(InstanceObject io, PropertyAssociation pa, List<EvaluatedProperty> values) {
 		final var issues = new ArrayList<Issue>();
-		final var valueIter = values.iterator();
-		final var proxies = valueIter.next().getProxies();
+		final var proxies = values.getFirst().getProxies();
+		/*
+		 * The values that the first one appends to, flattened into the elements that go in front of every
+		 * modal value of the appending association, least specific first.
+		 */
+		final var appendedTo = new ArrayList<PropertyExpression>();
+
+		for (var value : values.subList(1, values.size())) {
+			var prx = value.getProxies().getFirst();
+
+			if (prx.isModal()) {
+				throw new InvalidModelException(pa, "Trying to append to a modal list value");
+			}
+			appendedTo.addAll(0, ((ListValue) prx.getValue()).getOwnedListElements());
+		}
 
 		for (var proxy : proxies) {
 			var newVal = Aadl2Factory.eINSTANCE.createModalPropertyValue();
 
 			newVal.setOwnedValue(EcoreUtil.copy(proxy.getValue()));
-			// process list appends
-			while (valueIter.hasNext()) {
-				var prx = valueIter.next().getProxies().getFirst();
-
-				if (prx.isModal()) {
-					throw new InvalidModelException(pa, "Trying to append to a modal list value");
-				}
-
-				var appended = (ListValue) EcoreUtil.copy(prx.getValue());
-
+			if (!appendedTo.isEmpty()) {
 				((ListValue) newVal.getOwnedValue()).getOwnedListElements().addAll(0,
-						appended.getOwnedListElements());
+						EcoreUtil.copyAll(appendedTo));
 			}
 
 			boolean valueIsUsed;
