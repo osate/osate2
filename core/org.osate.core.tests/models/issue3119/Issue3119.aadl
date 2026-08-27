@@ -1,0 +1,9 @@
+package Issue3119
+public
+	with Other;
+
+	system S
+		features
+			input: in data port Other::D;
+	end S;
+end Issue3119;
