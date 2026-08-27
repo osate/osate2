@@ -1,0 +1,19 @@
+package Library
+public
+	system Service
+	end Service;
+
+	system implementation Service.i
+	end Service.i;
+private
+	system implementation Service.i
+	end Service.i;
+
+	system Holder
+	end Holder;
+
+	system implementation Holder.i
+		subcomponents
+			local_service: system Service.i;
+	end Holder.i;
+end Library;

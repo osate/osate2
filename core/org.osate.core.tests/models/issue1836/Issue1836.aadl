@@ -1,0 +1,12 @@
+package Issue1836
+public
+	with Library;
+
+	system Top
+	end Top;
+
+	system implementation Top.i
+		subcomponents
+			external: system Library::Service.i;
+	end Top.i;
+end Issue1836;
