@@ -26,14 +26,12 @@ package org.osate.xtext.aadl2.properties.linking;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
@@ -110,6 +108,7 @@ import org.osate.xtext.aadl2.properties.util.PSNode;
 import com.google.inject.Inject;
 
 public class PropertiesLinkingService extends DefaultLinkingService {
+	private static final Logger LOG = Logger.getLogger(PropertiesLinkingService.class);
 
 	@Inject
 	private IQualifiedNameConverter qualifiedNameConverter;
@@ -118,31 +117,43 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		super();
 	}
 
-	private final String PLUGIN_ID = "org.osate.xtext.aadl2";
-
 	public EObject getIndexedObject(EObject context, EReference reference, String crossRefString) {
-		PSNode psNode = new PSNode(crossRefString);
-		EObject res = null;
 		try {
-			List<EObject> el;
-			el = super.getLinkedObjects(context, reference, psNode);
-			res = (el.isEmpty() ? null : el.get(0));
+			EObject res = getIndexedObjectOrProxy(context, reference, crossRefString);
 			if (res != null && res.eIsProxy()) {
 				res = EcoreUtil.resolve(res, context);
 				if (res.eIsProxy()) {
 					return null;
 				}
 			}
+			return res;
 		} catch (Exception e) {
-			IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, e.getMessage(), e);
-			StatusManager manager = StatusManager.getManager();
-			manager.handle(status, StatusManager.LOG);
+			LOG.error("Could not resolve indexed object '" + crossRefString + "'.", e);
+			return null;
 		}
-		return res;
 		// XXX phf: lookup in global index without regard to project dependencies
 		// EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
 		// return res;
 
+	}
+
+	protected IEObjectDescription getIndexedDescription(EObject context, EReference reference, String crossRefString) {
+		if (crossRefString == null || crossRefString.isEmpty()) {
+			return null;
+		}
+		IScope scope = getScope(context, reference);
+		if (scope == null) {
+			throw new AssertionError("Scope provider " + getScopeProvider().getClass().getName()
+					+ " must not return null for context " + context + ", reference " + reference
+					+ "! Consider to return IScope.NULLSCOPE instead.");
+		}
+		QualifiedName qualifiedLinkName = qualifiedNameConverter.toQualifiedName(crossRefString);
+		return scope.getSingleElement(qualifiedLinkName);
+	}
+
+	public EObject getIndexedObjectOrProxy(EObject context, EReference reference, String crossRefString) {
+		IEObjectDescription description = getIndexedDescription(context, reference, crossRefString);
+		return description == null ? null : description.getEObjectOrProxy();
 	}
 
 	/**
@@ -155,26 +166,12 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	*/
 	public Iterable<IEObjectDescription> getIndexedObjects(EObject context, EReference reference,
 			String crossRefString) {
-		// List<EObject> el;
-		try {
-
-			if (crossRefString != null && !crossRefString.equals("")) {
-
-				final IScope scope = getScope(context, reference);
-				QualifiedName qualifiedLinkName = qualifiedNameConverter.toQualifiedName(crossRefString);
-				Iterable<IEObjectDescription> eObjectDescriptions = scope.getElements(qualifiedLinkName);
-				return eObjectDescriptions;
-			}
-			// el = super.getLinkedObjects(context, reference, psNode);
-		} catch (Exception e) {
-			return null;
+		if (crossRefString == null || crossRefString.isEmpty()) {
+			return Collections.emptyList();
 		}
-		// EObject res = (el.isEmpty()?null: el.get(0));
-		// if (res != null&&res.eIsProxy()){
-		// res = EcoreUtil.resolve(res,context);
-		// if (res.eIsProxy()) return null;
-		// }
-		return null;
+		IScope scope = getScope(context, reference);
+		QualifiedName qualifiedLinkName = qualifiedNameConverter.toQualifiedName(crossRefString);
+		return scope.getElements(qualifiedLinkName);
 	}
 
 	@Override

@@ -36,6 +36,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.build.BuildRequest;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.testing.InjectWith;
@@ -49,6 +50,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.SystemType;
 import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 /**
  * Tests AADL linking against serialized descriptions from an earlier build while the target package
@@ -68,7 +70,10 @@ public class Issue3119Test extends AbstractIncrementalBuilderTest {
 
 	@Test
 	public void terminalReferenceCurrentlyLoadsPersistedIndexTarget() throws Exception {
-		StagedBuild staged = buildTargetThenReference();
+		StagedBuild staged = createPersistedIndexReferenceContext();
+		var referenceResource = staged.referenceResourceSet().getResource(staged.referenceUri(), false);
+		EcoreUtil2.resolveLazyCrossReferences(referenceResource, CancelIndicator.NullImpl);
+		assertTrue(referenceResource.getErrors().toString(), referenceResource.getErrors().isEmpty());
 
 		assertNotNull(staged.referenceResourceSet().getResource(staged.targetUri(), false));
 
@@ -76,6 +81,26 @@ public class Issue3119Test extends AbstractIncrementalBuilderTest {
 		EObject rawClassifier = (EObject) port.eGet(Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier(), false);
 		assertNotNull(rawClassifier);
 		assertFalse(rawClassifier.eIsProxy());
+	}
+
+	@Test
+	public void resolvingAndNonResolvingIndexLookupsStayDistinct() throws Exception {
+		StagedBuild staged = createPersistedIndexReferenceContext();
+		LazyLinkingResource resource = (LazyLinkingResource) staged.referenceResourceSet()
+				.getResource(staged.referenceUri(), false);
+		DataPort port = findDataPort(staged.referenceResourceSet(), staged.referenceUri());
+		var linkingService = (PropertiesLinkingService) resource.getLinkingService();
+		var reference = Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier();
+
+		EObject proxy = linkingService.getIndexedObjectOrProxy(port, reference, "Other::D");
+		assertNotNull(proxy);
+		assertTrue(proxy.eIsProxy());
+		assertNull(staged.referenceResourceSet().getResource(staged.targetUri(), false));
+
+		EObject resolved = linkingService.getIndexedObject(port, reference, "Other::D");
+		assertNotNull(resolved);
+		assertFalse(resolved.eIsProxy());
+		assertNotNull(staged.referenceResourceSet().getResource(staged.targetUri(), false));
 	}
 
 	@Test
@@ -99,7 +124,7 @@ public class Issue3119Test extends AbstractIncrementalBuilderTest {
 		assertCleanBuildHasNoIssues(List.of("Other.aadl", "Issue3119.aadl"));
 	}
 
-	private StagedBuild buildTargetThenReference() throws Exception {
+	private StagedBuild createPersistedIndexReferenceContext() throws Exception {
 		URI target = newFile("Other.aadl", readModel("Other.aadl"));
 		build(newBuildRequest(request -> request.setDirtyFiles(List.of(target))));
 		assertTrue(describeIssues().toString(), describeIssues().isEmpty());
@@ -108,9 +133,7 @@ public class Issue3119Test extends AbstractIncrementalBuilderTest {
 		BuildRequest referenceContext = newBuildRequest(request -> request.setIndexOnly(true));
 		XtextResourceSet referenceResourceSet = referenceContext.getResourceSet();
 		assertNull(referenceResourceSet.getResource(target, false));
-		var referenceResource = referenceResourceSet.getResource(reference, true);
-		EcoreUtil2.resolveLazyCrossReferences(referenceResource, CancelIndicator.NullImpl);
-		assertTrue(referenceResource.getErrors().toString(), referenceResource.getErrors().isEmpty());
+		referenceResourceSet.getResource(reference, true);
 		return new StagedBuild(target, reference, referenceResourceSet);
 	}
 
