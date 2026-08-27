@@ -25,6 +25,7 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.properties.PropertyAcc;
@@ -56,13 +57,9 @@ public class PortConnectionImpl extends ConnectionImpl implements PortConnection
 		return Aadl2Package.eINSTANCE.getPortConnection();
 	}
 
-	public void getPropertyValue(Property prop, PropertyAcc pas) {
-
-		// local contained value
-		if (pas.addLocal(this)) {
-			return;
-		}
-
+	@Override
+	public void getPropertyValueForInstance(Property property, PropertyAcc pas, Classifier instantiatedClassifier) {
+		pas.addLocal(this);
 	}
 
 } // PortConnectionImpl

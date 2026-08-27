@@ -25,11 +25,15 @@ package org.osate.aadl2.operations;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyAcc;
 
 /**
  * <!-- begin-user-doc -->
@@ -97,6 +101,22 @@ public class NamedElementOperations extends ElementOperations {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Add property values from a declarative element that has no specialized instance-model lookup behavior.
+	 *
+	 * @param namedElement The declarative element being searched.
+	 * @param property The property whose value is being retrieved.
+	 * @param pas The working property value accumulator to add results to.
+	 * @param instantiatedClassifier The classifier instantiated for the instance object, or {@code null} if none.
+	 * @throws InvalidModelException Thrown if the property value cannot be retrieved because the model is incomplete
+	 *             or otherwise invalid.
+	 * @generated NOT
+	 */
+	public static void getPropertyValueForInstance(NamedElement namedElement, Property property, PropertyAcc pas,
+			Classifier instantiatedClassifier) throws InvalidModelException {
+		namedElement.getPropertyValueInternal(property, pas, true);
 	}
 
 	/**

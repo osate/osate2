@@ -915,7 +915,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		return null;
 	}
 
-	public void getPropertyValue(Property prop, PropertyAcc pas, Classifier cl, final boolean all) {
+	@Override
+	public void getPropertyValueForInstance(Property prop, PropertyAcc pas, Classifier instantiatedClassifier) {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
 
 		// get local value
@@ -933,12 +934,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		}
 
 		// get values from classifier
-		if (cl != null) {
-			cl.getPropertyValueInternal(prop, pas, true, all);
+		if (instantiatedClassifier != null) {
+			instantiatedClassifier.getPropertyValueInternal(prop, pas, true);
 		} else {
 			final ComponentClassifier cc = getClassifier();
 			if (cc != null) {
-				cc.getPropertyValueInternal(prop, pas, true, all);
+				cc.getPropertyValueInternal(prop, pas, true);
 			}
 		}
 	}

@@ -39,15 +39,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyOwner;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.properties.EvaluatedProperty;
@@ -569,15 +566,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			Classifier cl = (ic == null) ? null : ic.getClassifier();
 			// OsateDebug.osateDebug("compDecls" + compDecl);
 
-			if (compDecl instanceof Subcomponent) {
-				((SubcomponentImpl) compDecl).getPropertyValue(this, pas, cl, false);
-			} else if (compDecl instanceof Feature) {
-				((FeatureImpl) compDecl).getPropertyValue(this, pas, cl, false);
-			} else if (compDecl instanceof PortConnection) {
-				((PortConnectionImpl) compDecl).getPropertyValue(this, pas);
-			} else {
-				compDecl.getPropertyValueInternal(this, pas, true);
-			}
+			compDecl.getPropertyValueForInstance(this, pas, cl);
 		}
 	}
 
