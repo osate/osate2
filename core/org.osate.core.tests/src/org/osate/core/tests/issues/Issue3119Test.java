@@ -51,8 +51,10 @@ import org.osate.aadl2.SystemType;
 import org.osate.testsupport.Aadl2InjectorProvider;
 
 /**
- * Exercises AADL linking with serialized descriptions from an earlier build. The target package is
- * never loaded into the fresh resource set before the reference is linked.
+ * Tests AADL linking against serialized descriptions from an earlier build while the target package
+ * is absent from the fresh resource set. This distinguishes returning an index proxy from eagerly
+ * loading the target, and the build-order cases guard the #1009 behavior needed before #1836 can
+ * restore unresolved-proxy caching.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
