@@ -69,18 +69,18 @@ public class Issue3119Test extends AbstractIncrementalBuilderTest {
 	}
 
 	@Test
-	public void terminalReferenceCurrentlyLoadsPersistedIndexTarget() throws Exception {
+	public void terminalReferenceRemainsProxyWithoutLoadingPersistedIndexTarget() throws Exception {
 		StagedBuild staged = createPersistedIndexReferenceContext();
 		var referenceResource = staged.referenceResourceSet().getResource(staged.referenceUri(), false);
 		EcoreUtil2.resolveLazyCrossReferences(referenceResource, CancelIndicator.NullImpl);
 		assertTrue(referenceResource.getErrors().toString(), referenceResource.getErrors().isEmpty());
 
-		assertNotNull(staged.referenceResourceSet().getResource(staged.targetUri(), false));
+		assertNull(staged.referenceResourceSet().getResource(staged.targetUri(), false));
 
 		DataPort port = findDataPort(staged.referenceResourceSet(), staged.referenceUri());
 		EObject rawClassifier = (EObject) port.eGet(Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier(), false);
 		assertNotNull(rawClassifier);
-		assertFalse(rawClassifier.eIsProxy());
+		assertTrue(rawClassifier.eIsProxy());
 	}
 
 	@Test
