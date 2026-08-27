@@ -33,11 +33,17 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
+import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.util.IAcceptor;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.modelsupport.scoping.Aadl2IndexMetadata;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.annexsupport.ParseResultHolder;
 
@@ -58,6 +64,16 @@ public class AnnexAwareResourceDescriptionStrategy extends DefaultResourceDescri
 
 		if (rds != null) {
 			return rds.createEObjectDescriptions(eObject, acceptor);
+		}
+		var namespace = AadlUtil.getContainingTopLevelNamespace(eObject);
+		if (namespace instanceof PackageSection packageSection) {
+			Map<String, String> userData = Map.of(
+					Aadl2IndexMetadata.PACKAGE_NAME, ((AadlPackage) packageSection.getOwner()).getName(),
+					Aadl2IndexMetadata.VISIBILITY,
+					packageSection instanceof PrivatePackageSection ? Aadl2IndexMetadata.PRIVATE
+							: Aadl2IndexMetadata.PUBLIC);
+			return super.createEObjectDescriptions(eObject, description -> acceptor
+					.accept(EObjectDescription.create(description.getName(), eObject, userData)));
 		}
 		return super.createEObjectDescriptions(eObject, acceptor);
 
