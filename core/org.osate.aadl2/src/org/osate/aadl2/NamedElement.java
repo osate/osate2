@@ -290,6 +290,18 @@ public interface NamedElement extends Element {
 			throws InvalidModelException;
 
 	/**
+	 * Add property values from this declarative element to an instance-model lookup.
+	 *
+	 * @param property The property whose value is being retrieved.
+	 * @param pas The working property value accumulator to add results to.
+	 * @param instantiatedClassifier The classifier instantiated for the instance object, or {@code null} if none.
+	 * @throws InvalidModelException Thrown if the property value cannot be retrieved because the model is incomplete
+	 *             or otherwise invalid.
+	 */
+	void getPropertyValueForInstance(Property property, PropertyAcc pas, Classifier instantiatedClassifier)
+			throws InvalidModelException;
+
+	/**
 	 * Set property association for given property definition with specified
 	 * value list. The property association is assumed to apply to all modes;
 	 * all previous property associations for this property are removed from the

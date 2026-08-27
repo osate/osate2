@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ListValue;
@@ -532,6 +533,12 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	public void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
 		getPropertyValueInternal(property, pas, fromInstanceSlaveCall, false);
+	}
+
+	@Override
+	public void getPropertyValueForInstance(Property property, PropertyAcc pas, Classifier instantiatedClassifier)
+			throws InvalidModelException {
+		NamedElementOperations.getPropertyValueForInstance(this, property, pas, instantiatedClassifier);
 	}
 
 	public final PropertyAssociation setPropertyValue(final Property pd, final List<? extends PropertyExpression> pes) {

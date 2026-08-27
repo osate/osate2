@@ -562,47 +562,39 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		}
 	}
 
-	public void getPropertyValue(Property prop, PropertyAcc pas, Classifier cl, final boolean all) {
+	@Override
+	public void getPropertyValueForInstance(Property prop, PropertyAcc pas, Classifier instantiatedClassifier) {
 		Classifier owner = getContainingClassifier();
 
 		// local contained value
-		if (pas.addLocalContained(this, owner) && !all || pas.addLocal(this)) {
-			if (!all) {
-				return;
-			}
+		if (pas.addLocalContained(this, owner) || pas.addLocal(this)) {
+			return;
 		}
 
 		// values from refined features
 		Feature refined = getRefined();
 		while (refined != null) {
 			if (pas.addLocal(refined)) {
-				if (!all) {
-					return;
-				}
+				return;
 			}
 			refined = refined.getRefined();
 		}
 
-		getPropertyValueHelper(prop, pas, cl, all);
+		// values from classifier
+		Classifier classifier = getClassifier();
+		// TODO: Check if the property applies to the classifier? (->
+		// property.checkAppliesTo(NamedElement)?)
+		if (classifier != null) {
+			classifier.getPropertyValueInternal(prop, pas, true);
+		} else if (instantiatedClassifier != null) {
+			instantiatedClassifier.getPropertyValueInternal(prop, pas, true);
+		}
 
 		// values from container
 		// Ignore fromInstanceSlaveCall because the classifier is a component or
 		// feature group TYPE, not an implementation.
 		if (prop.isInherit()) {
-			owner.getPropertyValueInternal(prop, pas, true, all);
-		}
-	}
-
-	public void getPropertyValueHelper(final Property prop, final PropertyAcc pas, Classifier cl, final boolean all)
-			throws InvalidModelException {
-		// values from classifier
-		Classifier c = getClassifier();
-		// TODO: Check if the property applies to the classifier? (->
-		// property.checkAppliesTo(NamedElement)?)
-		if (c != null) {
-			c.getPropertyValueInternal(prop, pas, true, all);
-		} else if (cl != null) {
-			cl.getPropertyValueInternal(prop, pas, true, all);
+			owner.getPropertyValueInternal(prop, pas, true);
 		}
 	}
 
