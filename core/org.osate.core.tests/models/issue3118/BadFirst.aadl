@@ -1,0 +1,10 @@
+package BadFirst
+public
+	with Other;
+
+	system S
+		features
+			bad: requires bus access Other::D;
+			good: in data port Other::D;
+	end S;
+end BadFirst;
