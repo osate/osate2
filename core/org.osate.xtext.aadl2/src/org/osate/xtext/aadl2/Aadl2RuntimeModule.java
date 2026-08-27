@@ -49,7 +49,6 @@ import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.resource.Aadl2DerivedStateComputer;
 import org.osate.xtext.aadl2.resource.Aadl2ResourceServiceProvider;
-import org.osate.xtext.aadl2.resource.NoCacheDerivedStateAwareResource;
 import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
 import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
@@ -172,7 +171,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 
 	@Override
 	public Class<? extends XtextResource> bindXtextResource() {
-		return NoCacheDerivedStateAwareResource.class;
+		return org.eclipse.xtext.resource.DerivedStateAwareResource.class;
 	}
 
 	public Class<? extends IResourceDescription.Manager> bindIResourceDescriptionManager() {
