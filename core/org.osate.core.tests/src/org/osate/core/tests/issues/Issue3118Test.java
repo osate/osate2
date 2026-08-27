@@ -45,7 +45,8 @@ import com.itemis.xtext.testing.XtextTest;
 /**
  * A failed lookup for a qualified name must not be reused for a different reference to the same
  * text. The fixtures use {@code Other::D} first as the wrong classifier category and then as a
- * legal data classifier, in both declaration orders.
+ * legal data classifier, in both declaration orders. This matters because a context-incomplete
+ * cache key otherwise turns one valid reference into a spurious error and leaves it unresolved.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
