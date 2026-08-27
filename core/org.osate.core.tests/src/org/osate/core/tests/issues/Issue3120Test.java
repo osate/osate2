@@ -50,6 +50,11 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+/**
+ * Tests two concurrent index lookups that pause after supplying different names but before the
+ * synthetic nodes are read. The coordinated interleaving matters because a shared mutable node can
+ * make one thread resolve the other thread's name, producing intermittent and incorrect links.
+ */
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
 public class Issue3120Test {
