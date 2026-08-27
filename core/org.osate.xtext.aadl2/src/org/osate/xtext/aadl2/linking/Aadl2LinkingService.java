@@ -107,11 +107,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)
 			throws IllegalNodeException {
 		List<EObject> result;
-		String crossRefString = getCrossRefNodeAsString(node);
-		boolean global = crossRefString.contains("::");
 
-		result = linkingCache.get(global ? crossRefString : node, context.eResource(),
-				() -> doGetLinkedObjects(context, reference, node));
+		result = linkingCache.get(node, context.eResource(), () -> doGetLinkedObjects(context, reference, node));
 		return result;
 	}
 
