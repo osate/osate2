@@ -118,11 +118,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		super();
 	}
 
-	private static PSNode psNode = new PSNode();
 	private final String PLUGIN_ID = "org.osate.xtext.aadl2";
 
 	public EObject getIndexedObject(EObject context, EReference reference, String crossRefString) {
-		psNode.setText(crossRefString);
+		PSNode psNode = new PSNode(crossRefString);
 		EObject res = null;
 		try {
 			List<EObject> el;
