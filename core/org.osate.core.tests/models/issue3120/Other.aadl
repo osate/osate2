@@ -1,0 +1,8 @@
+package Other
+public
+	data D
+	end D;
+
+	data E
+	end E;
+end Other;
