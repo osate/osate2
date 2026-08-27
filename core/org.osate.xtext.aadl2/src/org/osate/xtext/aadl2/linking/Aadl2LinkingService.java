@@ -143,7 +143,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
 			// XXX: this code can be replicated in Aadl2LinkingService as it is called often in the core
 			// resolve classifier reference
-			EObject e = findClassifier(context, reference, name);
+			EObject e = findClassifierOrProxy(context, reference, name);
 			if (e != null) {
 				// the result satisfied the expected class
 				return Collections.singletonList(e);
@@ -170,7 +170,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.emptyList();
 		} else if (Aadl2Package.eINSTANCE.getFeatureClassifier().isSuperTypeOf(requiredType)) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
-			EObject e = findClassifier(context, reference, name);
+			EObject e = findClassifierOrProxy(context, reference, name);
 			if (Aadl2Util.isNull(e) && !(context instanceof Generalization)
 					&& !Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(requiredType)) {
 				// look for prototype
@@ -266,7 +266,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
 				return Collections.singletonList(searchResult);
 			}
-			searchResult = findClassifier(context, reference, name);
+			searchResult = findClassifierOrProxy(context, reference, name);
 			if (searchResult != null) {
 				return Collections.singletonList(searchResult);
 			}
@@ -278,7 +278,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			if (!(context instanceof SubprogramCall)
 					|| (context instanceof SubprogramCall && ((SubprogramCall) context).getContext() == null)) {
 				// first check whether it is a reference to a classifier
-				searchResult = findClassifier(context, reference, name);
+				searchResult = findClassifierOrProxy(context, reference, name);
 				if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
 					return Collections.singletonList(searchResult);
 				}
@@ -304,7 +304,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 					// first try to find subprogram implementation
 					ComponentType ct = (ComponentType) callContext;
 					String implname = ct.getQualifiedName() + "." + name;
-					searchResult = findClassifier(context, reference, implname);
+					searchResult = findClassifierOrProxy(context, reference, implname);
 					if (searchResult != null && searchResult instanceof ComponentImplementation) {
 						return Collections.singletonList(searchResult);
 					}
@@ -337,7 +337,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				// it might be a component implementation. The type is already recorded in the context
 				if (callContext instanceof SubprogramType) {
 					String contextName = ((SubprogramType) callContext).getName();
-					searchResult = findClassifier(context, reference, contextName + "." + name);
+					searchResult = findClassifierOrProxy(context, reference, contextName + "." + name);
 					if (!Aadl2Util.isNull(searchResult)) {
 						return Collections.singletonList(searchResult);
 					}
