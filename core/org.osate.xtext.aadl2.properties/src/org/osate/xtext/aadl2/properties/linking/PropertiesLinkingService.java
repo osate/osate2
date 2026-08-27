@@ -233,7 +233,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
 			// XXX: this code can be replicated in Aadl2LinkingService as it is called often in the core
 			// resolve classifier reference
-			EObject e = findClassifier(context, reference, name);
+			EObject e = findClassifierOrProxy(context, reference, name);
 			if (e != null) {
 				// the result satisfied the expected class
 				return Collections.singletonList(e);
@@ -250,24 +250,24 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				}
 			}
 		} else if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
-			AadlPackage pack = findAadlPackage(context, name, reference);
+			AadlPackage pack = findAadlPackageOrProxy(context, name, reference);
 			if (pack != null) {
 				searchResult = pack;
 			} else {
-				PropertySet ps = findPropertySet(context, name, reference);
+				PropertySet ps = findPropertySetOrProxy(context, name, reference);
 				if (ps != null) {
 					searchResult = ps;
 				}
 			}
 
 		} else if (Aadl2Package.eINSTANCE.getAadlPackage() == requiredType) {
-			AadlPackage pack = findAadlPackage(context, name, reference);
+			AadlPackage pack = findAadlPackageOrProxy(context, name, reference);
 			if (pack != null) {
 				searchResult = pack;
 			}
 
 		} else if (Aadl2Package.eINSTANCE.getPropertySet() == requiredType) {
-			PropertySet ps = findPropertySet(context, name, reference);
+			PropertySet ps = findPropertySetOrProxy(context, name, reference);
 			if (ps != null) {
 				searchResult = ps;
 			}
@@ -315,7 +315,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getProperty() == requiredType) {
 			// look for property definition in property set
-			return findPropertyDefinitionAsList(context, reference, name);
+			return findPropertyDefinitionOrProxyAsList(context, reference, name);
 
 		} else if (Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType) {
 			// AbstractNamedValue: constant reference, property definition reference, unit literal, enumeration literal
@@ -329,10 +329,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					}
 				}
 				if (res.isEmpty()) {
-					res = findPropertyConstant(context, reference, name);
+					res = findPropertyConstantOrProxy(context, reference, name);
 				}
 				if (res.isEmpty()) {
-					res = findPropertyDefinitionAsList(context, reference, name);
+					res = findPropertyDefinitionOrProxyAsList(context, reference, name);
 				}
 				return res;
 			}
@@ -376,11 +376,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			}
 		} else if (pt.isSuperTypeOf(requiredType)) {
 			// look for property type in property set
-			return findPropertyType(context, reference, name);
+			return findPropertyTypeOrProxy(context, reference, name);
 
 		} else if (Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType) {
 			// look for property constant in property set
-			return findPropertyConstant(context, reference, name);
+			return findPropertyConstantOrProxy(context, reference, name);
 
 		} else if (Aadl2Package.eINSTANCE.getUnitLiteral() == requiredType) {
 			// look for unit literal pointed to by baseUnit
@@ -581,6 +581,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
+	protected AadlPackage findAadlPackageOrProxy(EObject context, String name, EReference reference) {
+		EObject res = getIndexedObjectOrProxy(context, reference, name);
+		return res instanceof AadlPackage ? (AadlPackage) res : null;
+	}
+
 	/**
 	 * Find referenced Package by resolving renames first and then making sure it is listed in a with clause
 	 * If package name is null or that of the context return containing package
@@ -669,6 +674,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
+	protected PropertySet findPropertySetOrProxy(EObject context, String name, EReference reference) {
+		EObject res = getIndexedObjectOrProxy(context, reference, name);
+		return res instanceof PropertySet ? (PropertySet) res : null;
+	}
+
 	/**
 	 * find the component classifier taking into account rename aliases
 	 * The name may be qualified with a package name
@@ -744,6 +754,35 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
+	protected EObject findClassifierOrProxy(EObject context, EReference reference, String name) {
+		Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
+		EObject e = getIndexedObjectOrProxy(context, reference, name);
+		if (e != null) {
+			return e;
+		}
+		String packname = null;
+		String cname = name;
+		final int idx = name.lastIndexOf("::");
+		if (idx != -1) {
+			packname = name.substring(0, idx);
+			cname = name.substring(idx + 2);
+			if (cname.equalsIgnoreCase("all")) {
+				return null;
+			}
+		}
+		if (context instanceof NamedElement && ((NamedElement) context).getName() == null
+				&& (packname == null || scope.getName().equalsIgnoreCase(packname))) {
+			return null;
+		}
+		if (scope instanceof PackageSection) {
+			e = findNamedElementInAadlPackage(packname, cname, scope);
+			if (e instanceof Classifier && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
+				return e;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * find a named element in a property set based on an optionally qualified name.
 	 * The name is qualified with the property set name, or if unqualified is assumed to be a predeclared property constant
@@ -769,6 +808,20 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		} else {
 			return getIndexedObject(context, reference, name);
 		}
+	}
+
+	protected EObject findPropertySetElementOrProxy(EObject context, EReference reference, String name) {
+		final int idx = name.lastIndexOf("::");
+		if (idx == -1) {
+			for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
+				EObject res = getIndexedObjectOrProxy(context, reference, getQualifiedName(predeclaredPSName, name));
+				if (res != null) {
+					return res;
+				}
+			}
+			return null;
+		}
+		return getIndexedObjectOrProxy(context, reference, name);
 	}
 
 	/**
@@ -798,6 +851,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 
+	protected List<EObject> findPropertyConstantOrProxy(EObject context, EReference reference, String name) {
+		EObject e = findPropertySetElementOrProxy(context, reference, name);
+		return e instanceof PropertyConstant ? Collections.singletonList(e) : Collections.emptyList();
+	}
+
 	/**
 	 * find property type based on property name.
 	 * The name is qualified with the property set name, or if unqualified is assumed to be a predeclared property type
@@ -823,6 +881,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			return Collections.singletonList(e);
 		}
 		return Collections.<EObject> emptyList();
+	}
+
+	protected List<EObject> findPropertyTypeOrProxy(EObject context, EReference reference, String name) {
+		EObject e = findPropertySetElementOrProxy(context, reference, name);
+		return e instanceof PropertyType ? Collections.singletonList(e) : Collections.emptyList();
 	}
 
 	/**
@@ -866,6 +929,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			return Collections.singletonList(e);
 		}
 		return Collections.<EObject> emptyList();
+	}
+
+	protected List<EObject> findPropertyDefinitionOrProxyAsList(EObject context, EReference reference, String name) {
+		EObject e = findPropertySetElementOrProxy(context, reference, name);
+		return e instanceof Property ? Collections.singletonList(e) : Collections.emptyList();
 	}
 
 	/**
