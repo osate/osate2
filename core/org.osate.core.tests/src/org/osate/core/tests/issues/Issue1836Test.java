@@ -23,14 +23,24 @@
  */
 package org.osate.core.tests.issues;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.PackageSection;
@@ -39,8 +49,10 @@ import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
@@ -60,15 +72,14 @@ public class Issue1836Test extends XtextTest {
 	@Inject
 	private ValidationTestHelper validationHelper;
 
+	@Inject
+	private Injector injector;
+
 	@Test
 	public void publicAndPrivateImplementationDeclarationsAreSelectedByContext() throws Exception {
-		AadlPackage client = testHelper.parseFile(PATH + "Issue1836.aadl", PATH + "Library.aadl");
+		AadlPackage client = parseModel();
 		validationHelper.assertNoIssues(client);
-		AadlPackage library = (AadlPackage) client.eResource()
-				.getResourceSet()
-				.getResource(URI.createURI(PATH + "Library.aadl"), false)
-				.getContents()
-				.get(0);
+		AadlPackage library = getLibrary(client);
 
 		SystemSubcomponent external = findSubcomponent(client.getOwnedPublicSection(), "Top.i", "external");
 		assertTrue(external.getSystemSubcomponentType().eContainer() instanceof PublicPackageSection);
@@ -77,17 +88,65 @@ public class Issue1836Test extends XtextTest {
 		assertTrue(internal.getSystemSubcomponentType().eContainer() instanceof PrivatePackageSection);
 	}
 
+	@Test
+	public void publicAndPrivateSelectionDoesNotDependOnIndexOrder() throws Exception {
+		AadlPackage client = parseModel();
+		AadlPackage library = getLibrary(client);
+		SystemSubcomponent external = findSubcomponent(client.getOwnedPublicSection(), "Top.i", "external");
+		SystemSubcomponent internal = findSubcomponent(library.getOwnedPrivateSection(), "Holder.i", "local_service");
+		var service = injector.getInstance(ExposedPropertiesLinkingService.class);
+		var reference = Aadl2Package.eINSTANCE.getSystemSubcomponent_SystemSubcomponentType();
+		List<IEObjectDescription> descriptions = new ArrayList<>();
+		service.getIndexedObjects(external, reference, "Library::Service.i").forEach(descriptions::add);
+		assertEquals(2, descriptions.size());
+
+		URI publicUri = EcoreUtil.getURI(findImplementation(library.getOwnedPublicSection(), "Service.i"));
+		URI privateUri = EcoreUtil.getURI(findImplementation(library.getOwnedPrivateSection(), "Service.i"));
+		assertSelections(service, external, internal, reference, descriptions, publicUri, privateUri);
+		Collections.reverse(descriptions);
+		assertSelections(service, external, internal, reference, descriptions, publicUri, privateUri);
+	}
+
+	private AadlPackage parseModel() {
+		return testHelper.parseFile(PATH + "Issue1836.aadl", PATH + "Library.aadl");
+	}
+
+	private static AadlPackage getLibrary(AadlPackage client) {
+		return (AadlPackage) client.eResource()
+				.getResourceSet()
+				.getResource(URI.createURI(PATH + "Library.aadl"), false)
+				.getContents()
+				.get(0);
+	}
+
+	private static void assertSelections(ExposedPropertiesLinkingService service, EObject external, EObject internal,
+			EReference reference, List<IEObjectDescription> descriptions, URI publicUri, URI privateUri) {
+		assertEquals(publicUri, service.select(external, reference, descriptions).getEObjectURI());
+		assertEquals(privateUri, service.select(internal, reference, descriptions).getEObjectURI());
+	}
+
 	private static SystemSubcomponent findSubcomponent(PackageSection section, String implementationName,
 			String subcomponentName) {
-		var implementation = (ComponentImplementation) section.getOwnedClassifiers()
-				.stream()
-				.filter(classifier -> classifier.getName().equals(implementationName))
-				.findFirst()
-				.orElseThrow();
+		var implementation = findImplementation(section, implementationName);
 		return (SystemSubcomponent) implementation.getOwnedSubcomponents()
 				.stream()
 				.filter(subcomponent -> subcomponent.getName().equals(subcomponentName))
 				.findFirst()
 				.orElseThrow();
+	}
+
+	private static ComponentImplementation findImplementation(PackageSection section, String implementationName) {
+		return (ComponentImplementation) section.getOwnedClassifiers()
+				.stream()
+				.filter(classifier -> classifier.getName().equals(implementationName))
+				.findFirst()
+				.orElseThrow();
+	}
+
+	public static class ExposedPropertiesLinkingService extends PropertiesLinkingService {
+		public IEObjectDescription select(EObject context, EReference reference,
+				Iterable<IEObjectDescription> descriptions) {
+			return selectIndexedDescription(context, reference, descriptions);
+		}
 	}
 }

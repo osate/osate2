@@ -102,6 +102,7 @@ import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.ResolvePrototypeUtil;
+import org.osate.aadl2.modelsupport.scoping.Aadl2IndexMetadata;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
@@ -141,14 +142,39 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		if (crossRefString == null || crossRefString.isEmpty()) {
 			return null;
 		}
-		IScope scope = getScope(context, reference);
-		if (scope == null) {
-			throw new AssertionError("Scope provider " + getScopeProvider().getClass().getName()
-					+ " must not return null for context " + context + ", reference " + reference
-					+ "! Consider to return IScope.NULLSCOPE instead.");
+		return selectIndexedDescription(context, reference, getIndexedObjects(context, reference, crossRefString));
+	}
+
+	protected IEObjectDescription selectIndexedDescription(EObject context, EReference reference,
+			Iterable<IEObjectDescription> descriptions) {
+		EClass requiredType = reference.getEReferenceType();
+		Namespace namespace = AadlUtil.getContainingTopLevelNamespace(context);
+		boolean privateContext = namespace instanceof PrivatePackageSection;
+		String contextPackage = namespace instanceof PackageSection
+				? ((AadlPackage) ((PackageSection) namespace).getOwner()).getName()
+				: null;
+		IEObjectDescription selected = null;
+		int selectedRank = Integer.MAX_VALUE;
+
+		for (IEObjectDescription description : descriptions) {
+			if (requiredType != null && !requiredType.isSuperTypeOf(description.getEClass())) {
+				continue;
+			}
+			boolean privateCandidate = Aadl2IndexMetadata.PRIVATE
+					.equals(description.getUserData(Aadl2IndexMetadata.VISIBILITY));
+			if (privateCandidate && (!privateContext || contextPackage == null
+					|| !contextPackage.equalsIgnoreCase(description.getUserData(Aadl2IndexMetadata.PACKAGE_NAME)))) {
+				continue;
+			}
+			int rank = privateCandidate ? 0 : 1;
+			if (rank < selectedRank) {
+				selected = description;
+				selectedRank = rank;
+			} else if (rank == selectedRank) {
+				selected = null;
+			}
 		}
-		QualifiedName qualifiedLinkName = qualifiedNameConverter.toQualifiedName(crossRefString);
-		return scope.getSingleElement(qualifiedLinkName);
+		return selected;
 	}
 
 	public EObject getIndexedObjectOrProxy(EObject context, EReference reference, String crossRefString) {
@@ -170,6 +196,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			return Collections.emptyList();
 		}
 		IScope scope = getScope(context, reference);
+		if (scope == null) {
+			throw new AssertionError("Scope provider " + getScopeProvider().getClass().getName()
+					+ " must not return null for context " + context + ", reference " + reference
+					+ "! Consider to return IScope.NULLSCOPE instead.");
+		}
 		QualifiedName qualifiedLinkName = qualifiedNameConverter.toQualifiedName(crossRefString);
 		return scope.getElements(qualifiedLinkName);
 	}
