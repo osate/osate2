@@ -157,17 +157,15 @@ public class Issue3032Test extends XtextTest {
 	}
 
 	/**
-	 * Characterization of the lookup context used for the structural connection properties. The
-	 * expansion evaluates {@code Connection_Pattern} and {@code Connection_Set} before the final
-	 * connection instances exist, so the values it resolves must not change for any of these contexts.
-	 * The number and the endpoints of the connection instances are what the resolved value determines.
+	 * Characterization of the lookup context used for the structural connection properties. The expansion
+	 * evaluates {@code Connection_Pattern} and {@code Connection_Set} before the final connection instances
+	 * exist. The number and endpoints of the connection instances show which value that lookup resolved.
 	 * <p>
-	 * {@code Top.inheriting} records that a value on a refined-from connection is not picked up for the
+	 * {@code Top.inheriting} records that a value on a refined-from connection is picked up for the
 	 * refining connection, and {@code Top.modal} records that the first modal value is the one applied.
-	 * Both are pre-existing behavior.
 	 */
 	@Test
-	public void structuralPropertyLookupContextIsUnchanged() throws Exception {
+	public void structuralPropertyLookupUsesExpectedContexts() throws Exception {
 		List<String> allToAll = List.of("producers[1].outp --> consumers[1].inp",
 				"producers[1].outp --> consumers[2].inp", "producers[2].outp --> consumers[1].inp",
 				"producers[2].outp --> consumers[2].inp");
@@ -178,7 +176,7 @@ public class Issue3032Test extends XtextTest {
 				names(instantiate("Issue3032Properties.aadl", "Top.direct").getAllConnectionInstances()));
 		assertEquals("Connection_Pattern supplied by the enclosing implementation", allToAll,
 				names(instantiate("Issue3032Properties.aadl", "Top.contextual").getAllConnectionInstances()));
-		assertEquals("Connection_Pattern left on the refined-from connection", oneToOne,
+		assertEquals("Connection_Pattern left on the refined-from connection", allToAll,
 				names(instantiate("Issue3032Properties.aadl", "Top.inheriting").getAllConnectionInstances()));
 		assertEquals("Connection_Pattern declared per mode", allToAll,
 				names(instantiate("Issue3032Properties.aadl", "Top.modal").getAllConnectionInstances()));
