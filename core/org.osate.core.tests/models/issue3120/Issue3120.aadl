@@ -1,0 +1,10 @@
+package Issue3120
+public
+	with Other;
+
+	system S
+		features
+			d: in data port Other::D;
+			e: in data port Other::E;
+	end S;
+end Issue3120;
