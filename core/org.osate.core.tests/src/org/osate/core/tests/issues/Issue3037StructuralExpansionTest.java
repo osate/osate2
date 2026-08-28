@@ -96,6 +96,7 @@ public class Issue3037StructuralExpansionTest extends XtextTest {
 				"producers[1].outp --> consumers[2].inp", "producers[2].outp --> consumers[1].inp",
 				"producers[2].outp --> consumers[2].inp");
 		assertConnections(PROPERTIES, "Top.inheriting", "producers[1].outp --> consumers[1].inp",
+				"producers[1].outp --> consumers[2].inp", "producers[2].outp --> consumers[1].inp",
 				"producers[2].outp --> consumers[2].inp");
 		assertConnections(PROPERTIES, "Top.modal", "producers[1].outp --> consumers[1].inp",
 				"producers[1].outp --> consumers[2].inp", "producers[2].outp --> consumers[1].inp",
