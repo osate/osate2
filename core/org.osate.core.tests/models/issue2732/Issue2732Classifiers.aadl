@@ -1,0 +1,5 @@
+package Issue2732Classifiers
+public
+	data Payload
+	end Payload;
+end Issue2732Classifiers;

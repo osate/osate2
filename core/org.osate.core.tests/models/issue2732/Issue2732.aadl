@@ -1,0 +1,40 @@
+property set Issue2732 is
+	with Issue2732Classifiers;
+
+	bool_property: aadlboolean applies to (all);
+
+	bool_record_type: type record (
+		field1: aadlboolean;
+		field2: aadlboolean;
+		field3: list of aadlboolean;
+	);
+
+	direct_property: constant aadlboolean => Issue2732::bool_property;
+	list_property: constant list of aadlboolean => (true, false, Issue2732::bool_property);
+	record_property: constant Issue2732::bool_record_type => [
+		field1 => true;
+		field2 => Issue2732::bool_property;
+		field3 => (true, false, Issue2732::bool_property);
+	];
+
+	property_source: constant aadlboolean => Issue2732::bool_property;
+	indirect_property: constant aadlboolean => Issue2732::property_source;
+	double_indirect_property: constant aadlboolean => Issue2732::indirect_property;
+
+	classifier_type: type classifier;
+	reference_type: type reference;
+	compound_type: type record (
+		classifier_field: Issue2732::classifier_type;
+		reference_field: Issue2732::reference_type;
+	);
+
+	reference_property: Issue2732::reference_type applies to (all);
+	compound_property: Issue2732::compound_type applies to (all);
+
+	classifier_constant: constant Issue2732::classifier_type =>
+		classifier (Issue2732Classifiers::Payload);
+	classifier_list_constant: constant list of Issue2732::classifier_type =>
+		(classifier (Issue2732Classifiers::Payload), classifier (Issue2732Classifiers::Payload));
+	reference_type_constant: constant Issue2732::reference_type => Issue2732::reference_property;
+	compound_type_constant: constant Issue2732::compound_type => Issue2732::compound_property;
+end Issue2732;
