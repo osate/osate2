@@ -46,16 +46,19 @@ public
 
 	system implementation GPS.BasicRedundancy extends GPS.basic
 		subcomponents
-			processing: refined to process GPSProcessing_redundancy;
+			processing: refined to process GPSProcessing_redundancy
+				{Classifier_Substitution_Rule => Type_Extension;};
 	end GPS.BasicRedundancy;
 
 	system implementation GPS.BasicState extends GPS.basic
 		subcomponents
-			processing: refined to process GPSProcessing_redundancyState;
+			processing: refined to process GPSProcessing_redundancyState
+				{Classifier_Substitution_Rule => Type_Extension;};
 	end GPS.BasicState;
 
 	system implementation GPS.computeerror extends GPS.basic
 		subcomponents
-			processing: refined to process GPSProcessing_computeError;
+			processing: refined to process GPSProcessing_computeError
+				{Classifier_Substitution_Rule => Type_Extension;};
 	end GPS.computeerror;
 end Issue2805;
