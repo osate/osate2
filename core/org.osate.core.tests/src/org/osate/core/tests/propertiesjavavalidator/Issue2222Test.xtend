@@ -45,6 +45,8 @@ class Issue2222Test extends XtextTest {
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue2222/"
 	val static PACKAGE = PROJECT_LOCATION + "P.aadl"
 	val static PROPERTY_SET = PROJECT_LOCATION + "Props.aadl"
+	val static PROPERTY_REFERENCE_ERROR = "Property constant expressions may not directly or indirectly reference " +
+		"properties, classifiers, or model elements"
 
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -194,11 +196,21 @@ class Issue2222Test extends XtextTest {
 				]
 			]
 
+			ownedPropertyConstants.findFirst[name == "GoodPropRefConstant1"].constantValue => [
+				assertError(testFileResult.issues, issueCollection, PROPERTY_REFERENCE_ERROR)
+			]
+			ownedPropertyConstants.findFirst[name == "GoodPropRefConstant2"].constantValue => [
+				assertError(testFileResult.issues, issueCollection, PROPERTY_REFERENCE_ERROR)
+			]
 			ownedPropertyConstants.findFirst[name == "BadPropRefConstant1"].constantValue => [
-				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+				assertError(testFileResult.issues, issueCollection,
+					"Property value of type Props::RecordType2; expected type Props::RecordType1",
+					PROPERTY_REFERENCE_ERROR)
 			]
 			ownedPropertyConstants.findFirst[name == "BadPropRefConstant2"].constantValue => [
-				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+				assertError(testFileResult.issues, issueCollection,
+					"Property value of type Props::RecordType1; expected type Props::RecordType2",
+					PROPERTY_REFERENCE_ERROR)
 			]
 
 			ownedProperties.findFirst[name == "BadPropRefDefault1"].defaultValue => [
@@ -208,11 +220,31 @@ class Issue2222Test extends XtextTest {
 				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
 			]
 
-			(ownedPropertyConstants.findFirst[name == "BadListOfPropRefConstant1"].constantValue as ListValue).ownedListElements.get(1) => [
-				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+			(ownedPropertyConstants.findFirst[name == "GoodListOfPropRefConstant1"].constantValue as ListValue).ownedListElements.get(0) => [
+				assertError(testFileResult.issues, issueCollection, PROPERTY_REFERENCE_ERROR)
 			]
-			(ownedPropertyConstants.findFirst[name == "BadListOfPropRefConstant2"].constantValue as ListValue).ownedListElements.get(0) => [
-				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+			(ownedPropertyConstants.findFirst[name == "GoodListOfPropRefConstant2"].constantValue as ListValue).ownedListElements.get(0) => [
+				assertError(testFileResult.issues, issueCollection, PROPERTY_REFERENCE_ERROR)
+			]
+
+			val badListConstant1 = ownedPropertyConstants.findFirst[name == "BadListOfPropRefConstant1"].constantValue as ListValue
+			badListConstant1.ownedListElements.get(0) => [
+				assertError(testFileResult.issues, issueCollection, PROPERTY_REFERENCE_ERROR)
+			]
+			badListConstant1.ownedListElements.get(1) => [
+				assertError(testFileResult.issues, issueCollection,
+					"Property value of type Props::RecordType2; expected type Props::RecordType1",
+					PROPERTY_REFERENCE_ERROR)
+			]
+
+			val badListConstant2 = ownedPropertyConstants.findFirst[name == "BadListOfPropRefConstant2"].constantValue as ListValue
+			badListConstant2.ownedListElements.get(0) => [
+				assertError(testFileResult.issues, issueCollection,
+					"Property value of type Props::RecordType1; expected type Props::RecordType2",
+					PROPERTY_REFERENCE_ERROR)
+			]
+			badListConstant2.ownedListElements.get(1) => [
+				assertError(testFileResult.issues, issueCollection, PROPERTY_REFERENCE_ERROR)
 			]
 			
 			(ownedProperties.findFirst[name == "BadListOfPropRefDefault1"].defaultValue as ListValue).ownedListElements.get(1) => [

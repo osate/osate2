@@ -124,6 +124,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	public static final String MAKE_CONNECTION_BIDIRECTIONAL = "org.osate.xtext.aadl2.make_connection_bidirectional";
 	public static final String WITH_NOT_USED = "org.osate.xtext.aadl2.with_not_used";
 	public static final String DATA_SIZE_INCONSISTENT = "org.osate.xtext.aadl2.data_size_inconsistent";
+	public static final String INVALID_PROPERTY_CONSTANT_EXPRESSION =
+			"org.osate.xtext.aadl2.invalid_property_constant_expression";
+	public static final String INVALID_PROPERTY_CONSTANT_TYPE = "org.osate.xtext.aadl2.invalid_property_constant_type";
+	private static final String INVALID_PROPERTY_CONSTANT_EXPRESSION_MESSAGE =
+			"Property constant expressions may not directly or indirectly reference properties, classifiers, "
+					+ "or model elements";
+	private static final String INVALID_PROPERTY_CONSTANT_TYPE_MESSAGE =
+			"Property constants may not have classifier or reference property types, including within lists or records";
 
 	@Inject
 	private Aadl2GrammarAccess grammarAccess;
@@ -7113,6 +7121,92 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		 */
 		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(), pc.getConstantValue(),
 				pc.getQualifiedName(), 0);
+
+		if (containsClassifierOrReferenceType(pc.getPropertyType(), new HashSet<>())) {
+			error(INVALID_PROPERTY_CONSTANT_TYPE_MESSAGE, pc,
+					Aadl2Package.eINSTANCE.getPropertyConstant_PropertyType(), INVALID_PROPERTY_CONSTANT_TYPE);
+		}
+
+		checkPropertyConstantExpression(pc.getConstantValue());
+	}
+
+	private void checkPropertyConstantExpression(PropertyExpression expression) {
+		checkPropertyConstantExpressionNode(expression);
+
+		TreeIterator<EObject> contents = expression.eAllContents();
+		while (contents.hasNext()) {
+			EObject content = contents.next();
+			if (content instanceof PropertyExpression nestedExpression) {
+				checkPropertyConstantExpressionNode(nestedExpression);
+			}
+		}
+	}
+
+	private void checkPropertyConstantExpressionNode(PropertyExpression expression) {
+		if (expressionNodeReferencesForbiddenElement(expression, new HashSet<>())) {
+			error(INVALID_PROPERTY_CONSTANT_EXPRESSION_MESSAGE, expression, null,
+					INVALID_PROPERTY_CONSTANT_EXPRESSION);
+		}
+	}
+
+	private boolean namedValueReferencesForbiddenElement(NamedValue namedValue, Set<PropertyConstant> visited) {
+		AbstractNamedValue referencedValue = namedValue.getNamedValue();
+		if (referencedValue instanceof Property) {
+			return true;
+		}
+
+		if (referencedValue instanceof PropertyConstant propertyConstant && visited.add(propertyConstant)) {
+			return expressionReferencesForbiddenElement(propertyConstant.getConstantValue(), visited);
+		}
+
+		return false;
+	}
+
+	private boolean expressionReferencesForbiddenElement(PropertyExpression expression,
+			Set<PropertyConstant> visited) {
+		if (expressionNodeReferencesForbiddenElement(expression, visited)) {
+			return true;
+		}
+
+		TreeIterator<EObject> contents = expression.eAllContents();
+		while (contents.hasNext()) {
+			EObject content = contents.next();
+			if (content instanceof PropertyExpression nestedExpression
+					&& expressionNodeReferencesForbiddenElement(nestedExpression, visited)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean expressionNodeReferencesForbiddenElement(PropertyExpression expression,
+			Set<PropertyConstant> visited) {
+		return expression instanceof ClassifierValue || expression instanceof ReferenceValue
+				|| expression instanceof NamedValue namedValue
+						&& namedValueReferencesForbiddenElement(namedValue, visited);
+	}
+
+	private boolean containsClassifierOrReferenceType(PropertyType propertyType, Set<PropertyType> visited) {
+		if (propertyType == null || !visited.add(propertyType)) {
+			return false;
+		}
+
+		if (propertyType instanceof ClassifierType || propertyType instanceof ReferenceType) {
+			return true;
+		}
+
+		if (propertyType instanceof ListType listType) {
+			return containsClassifierOrReferenceType(listType.getElementType(), visited);
+		}
+
+		if (propertyType instanceof RecordType recordType) {
+			return recordType.getOwnedFields()
+					.stream()
+					.anyMatch(field -> containsClassifierOrReferenceType(field.getPropertyType(), visited));
+		}
+
+		return false;
 	}
 
 	//
