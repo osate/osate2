@@ -25,8 +25,14 @@ package org.osate.xtext.aadl2.errormodel.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
+import org.eclipse.xtext.ui.refactoring.IDependentElementsCalculator;
+import org.eclipse.xtext.ui.refactoring.impl.ReferenceUpdaterDispatcher;
+import org.eclipse.xtext.ui.refactoring.ui.IRenameSupport;
 import org.eclipse.xtext.ui.shared.Access;
 import org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.AnnexAwareEntryPointFinder;
+import org.osate.xtext.aadl2.errormodel.ui.refactoring.ErrorModelDependentElementsCalculator;
+import org.osate.xtext.aadl2.errormodel.ui.refactoring.ErrorModelReferenceUpdaterDispatcher;
+import org.osate.xtext.aadl2.errormodel.ui.refactoring.ErrorModelRenameSupportFactory;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
 
@@ -49,5 +55,19 @@ public class ErrorModelUiModule extends org.osate.xtext.aadl2.errormodel.ui.Abst
 
 	public Class<? extends Aadl2ProjectsStateHelper> bindWorkspaceProjectsStateHelper() {
 		return Aadl2ProjectsStateHelper.class;
+	}
+
+	@Override
+	public Class<? extends IDependentElementsCalculator> bindIDependentElementsCalculator() {
+		return ErrorModelDependentElementsCalculator.class;
+	}
+
+	public Class<? extends ReferenceUpdaterDispatcher> bindReferenceUpdaterDispatcher() {
+		return ErrorModelReferenceUpdaterDispatcher.class;
+	}
+
+	@Override
+	public Class<? extends IRenameSupport.Factory> bindIRenameSupport$Factory() {
+		return ErrorModelRenameSupportFactory.class;
 	}
 }

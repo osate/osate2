@@ -221,6 +221,18 @@ censes only apply to the Third Party Software and not any other portion of this 
 				</reference>
 			</activeWhen>
 		</handler>
+		<handler
+			class="org.osate.xtext.aadl2.errormodel.ui.ErrorModelExecutableExtensionFactory:org.osate.xtext.aadl2.errormodel.ui.refactoring.EmbeddedErrorModelRenameElementHandler"
+			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
+			<activeWhen>
+				<and>
+					<reference definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened"/>
+					<with variable="selection">
+						<instanceof value="org.eclipse.jface.text.ITextSelection"/>
+					</with>
+				</and>
+			</activeWhen>
+		</handler>
 	</extension>
     <extension point="org.eclipse.ui.menus">
          <menuContribution
