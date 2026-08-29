@@ -129,6 +129,7 @@ public class InstanceUtil {
 	 * @param classifierCache an optional cache of known instantiated
 	 *            classifiers, may be null
 	 * @return the component type
+	 * @since 7.0
 	 */
 	public static ComponentType getComponentType(ComponentInstance ci, int index,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
@@ -163,6 +164,7 @@ public class InstanceUtil {
 	 * @param classifierCache an optional cache of known instantiated
 	 *            classifiers, may be null
 	 * @return the component implementation
+	 * @since 7.0
 	 */
 	public static ComponentImplementation getComponentImplementation(ComponentInstance ci, int index,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
@@ -192,6 +194,7 @@ public class InstanceUtil {
 	 * @param classifierCache an optional cache of known instantiated
 	 *            classifiers, may be null
 	 * @return the component classifier
+	 * @since 7.0
 	 */
 	public static ComponentClassifier getComponentClassifier(ComponentInstance ci, int index,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
@@ -217,6 +220,7 @@ public class InstanceUtil {
 	 * @param classifierCache an optional cache of known instantiated
 	 *            classifiers, may be null
 	 * @return the feature group classifier, null if the feature instance isn't a feature group
+	 * @since 7.0
 	 */
 	public static FeatureGroupType getFeatureGroupType(FeatureInstance fi, int index,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
@@ -254,6 +258,7 @@ public class InstanceUtil {
 	 *            classifiers, may be null
 	 * @return the instantiated classifier together with bindings for anonymous
 	 *         classifiers
+	 * @since 7.0
 	 */
 	public static InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj, int index,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
@@ -402,6 +407,7 @@ public class InstanceUtil {
 	 * @param classifierCache an optional cache of known instantiated
 	 *            classifiers, may be null
 	 * @return The component prototype actual that the prototype resolves to.
+	 * @since 7.0
 	 */
 	public static ComponentPrototypeActual resolveComponentPrototype(Prototype proto, InstanceObject context,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
@@ -437,6 +443,7 @@ public class InstanceUtil {
 	 * @param classifierCache an optional cache of known instantiated
 	 *            classifiers, may be null
 	 * @return The feature group prototype actual the prototype is bound to.
+	 * @since 7.0
 	 */
 	public static FeatureGroupPrototypeActual resolveFeatureGroupPrototype(Prototype proto, InstanceObject context,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
@@ -469,6 +476,7 @@ public class InstanceUtil {
 	 * @param classifierCache an optional cache of known instantiated
 	 *            classifiers, may be null
 	 * @return The actual feature this prototype resolves to.
+	 * @since 7.0
 	 */
 	public static FeaturePrototypeActual resolveFeaturePrototype(Prototype proto, InstanceObject context,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
@@ -497,6 +505,7 @@ public class InstanceUtil {
 	 *            classifiers, may be null
 	 * @return The binding that assigns the value to the prototype relative to
 	 *         its usage context.
+	 * @since 7.0
 	 */
 	public static PrototypeBinding resolvePrototype(Prototype proto, InstanceObject context,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {

@@ -41,12 +41,18 @@ public class EvaluationContext {
 
 	private PropertyAssociation scProp;
 
+	/**
+	 * @since 7.0
+	 */
 	public EvaluationContext(InstanceObject io,
 			Map<InstanceObject, InstanceUtil.InstantiatedClassifier> classifierCache) {
 		this.io = io;
 		this.classifierCache = classifierCache;
 	}
 
+	/**
+	 * @since 7.0
+	 */
 	public EvaluationContext(InstanceObject io,
 			Map<InstanceObject, InstanceUtil.InstantiatedClassifier> classifierCache, PropertyAssociation scProp) {
 		this(io, classifierCache);
@@ -62,6 +68,7 @@ public class EvaluationContext {
 
 	/**
 	 * @return the classifierCache
+	 * @since 7.0
 	 */
 	public Map<InstanceObject, InstanceUtil.InstantiatedClassifier> getClassifierCache() {
 		return classifierCache;

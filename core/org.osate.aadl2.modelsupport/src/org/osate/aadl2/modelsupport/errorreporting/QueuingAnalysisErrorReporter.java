@@ -45,6 +45,7 @@ public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorRep
 	 * The category of a queued message. Every kind knows how to report a message of its own kind to
 	 * another error manager, so that a kind added here has to be decided here, rather than in a switch
 	 * at whatever replays the queue.
+	 * @since 9.0
 	 */
 	public enum Kind {
 		ERROR("Error") {
@@ -151,6 +152,9 @@ public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorRep
 		public final String[] attributes;
 		public final Object[] values;
 
+		/**
+		 * @since 9.0
+		 */
 		public Message(final Element loc, final Kind k, final String msg, final String[] attrs, final Object[] vals) {
 			where = loc;
 			kind = k;
@@ -163,6 +167,7 @@ public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorRep
 		 * Report this message to an error manager, as the kind it was queued as.
 		 *
 		 * @param manager the error manager to report to
+		 * @since 9.0
 		 */
 		public void reportTo(final AnalysisErrorReporterManager manager) {
 			kind.reportTo(manager, this);

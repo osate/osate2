@@ -108,6 +108,9 @@ import org.osate.xtext.aadl2.properties.util.PSNode;
 
 import com.google.inject.Inject;
 
+/**
+ * @since 3.4
+ */
 public class PropertiesLinkingService extends DefaultLinkingService {
 	private static final Logger LOG = Logger.getLogger(PropertiesLinkingService.class);
 
@@ -138,6 +141,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	protected IEObjectDescription getIndexedDescription(EObject context, EReference reference, String crossRefString) {
 		if (crossRefString == null || crossRefString.isEmpty()) {
 			return null;
@@ -145,13 +151,16 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return selectIndexedDescription(context, reference, getIndexedObjects(context, reference, crossRefString));
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	protected IEObjectDescription selectIndexedDescription(EObject context, EReference reference,
 			Iterable<IEObjectDescription> descriptions) {
 		EClass requiredType = reference.getEReferenceType();
 		Namespace namespace = AadlUtil.getContainingTopLevelNamespace(context);
 		boolean privateContext = namespace instanceof PrivatePackageSection;
 		String contextPackage = namespace instanceof PackageSection
-				? ((AadlPackage) ((PackageSection) namespace).getOwner()).getName()
+				? ((AadlPackage) namespace.getOwner()).getName()
 				: null;
 		IEObjectDescription selected = null;
 		int selectedRank = Integer.MAX_VALUE;
@@ -177,6 +186,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return selected;
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	public EObject getIndexedObjectOrProxy(EObject context, EReference reference, String crossRefString) {
 		IEObjectDescription description = getIndexedDescription(context, reference, crossRefString);
 		return description == null ? null : description.getEObjectOrProxy();
@@ -581,6 +593,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	protected AadlPackage findAadlPackageOrProxy(EObject context, String name, EReference reference) {
 		EObject res = getIndexedObjectOrProxy(context, reference, name);
 		return res instanceof AadlPackage ? (AadlPackage) res : null;
@@ -596,7 +611,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	public AadlPackage findAadlPackageReference(String packageName, Namespace context) {
 		if (context instanceof PackageSection
 				&& (packageName == null || context.getName().equalsIgnoreCase(packageName))) {
-			return (AadlPackage) ((PackageSection) context).eContainer();
+			return (AadlPackage) context.eContainer();
 		} else {
 			AadlPackage aadlPackage = null;
 
@@ -674,6 +689,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	protected PropertySet findPropertySetOrProxy(EObject context, String name, EReference reference) {
 		EObject res = getIndexedObjectOrProxy(context, reference, name);
 		return res instanceof PropertySet ? (PropertySet) res : null;
@@ -709,6 +727,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * @param reference identifying attribute of reference
 	 * @param name name to be resolved
 	 * @return Classifier or null
+	 * @since 3.4
 	 */
 	public Classifier findClassifier(EObject context, EReference reference, String name) {
 		Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
@@ -754,6 +773,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	protected EObject findClassifierOrProxy(EObject context, EReference reference, String name) {
 		Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
 		EObject e = getIndexedObjectOrProxy(context, reference, name);
@@ -793,6 +815,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * @param reference EReference
 	 * @param name property type name possibly qualified with the property set name
 	 * @return
+	 * @since 3.4
 	 */
 	public EObject findPropertySetElement(EObject context, EReference reference, String name) {
 		// look for element in property set
@@ -810,6 +833,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		}
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	protected EObject findPropertySetElementOrProxy(EObject context, EReference reference, String name) {
 		final int idx = name.lastIndexOf("::");
 		if (idx == -1) {
@@ -842,6 +868,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	public List<EObject> findPropertyConstant(EObject context, EReference reference, String name) {
 		// look for property constant in property set
 		EObject e = findPropertySetElement(context, reference, name);
@@ -851,6 +880,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	protected List<EObject> findPropertyConstantOrProxy(EObject context, EReference reference, String name) {
 		EObject e = findPropertySetElementOrProxy(context, reference, name);
 		return e instanceof PropertyConstant ? Collections.singletonList(e) : Collections.emptyList();
@@ -874,6 +906,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	public List<EObject> findPropertyType(EObject context, EReference reference, String name) {
 		// look for property constant in property set
 		EObject e = findPropertySetElement(context, reference, name);
@@ -883,6 +918,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	protected List<EObject> findPropertyTypeOrProxy(EObject context, EReference reference, String name) {
 		EObject e = findPropertySetElementOrProxy(context, reference, name);
 		return e instanceof PropertyType ? Collections.singletonList(e) : Collections.emptyList();
@@ -931,6 +969,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 
+	/**
+	 * @since 3.4
+	 */
 	protected List<EObject> findPropertyDefinitionOrProxyAsList(EObject context, EReference reference, String name) {
 		EObject e = findPropertySetElementOrProxy(context, reference, name);
 		return e instanceof Property ? Collections.singletonList(e) : Collections.emptyList();

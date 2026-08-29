@@ -40,6 +40,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
+import org.osate.aadl2.instantiation.internal.ConnectionInstancePath;
 import org.osate.aadl2.instantiation.internal.LeafExpansion;
 import org.osate.aadl2.instantiation.internal.LegResolver;
 import org.osate.aadl2.instantiation.internal.LegResult;
@@ -48,7 +49,6 @@ import org.osate.aadl2.instantiation.internal.PathAssembler;
 import org.osate.aadl2.instantiation.internal.PathMaterializer;
 import org.osate.aadl2.instantiation.internal.ResolutionFailures;
 import org.osate.aadl2.instantiation.internal.SeedDiscovery;
-import org.osate.aadl2.instantiation.internal.ConnectionInstancePath;
 import org.osate.aadl2.instantiation.internal.TraversalSeed;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
@@ -90,6 +90,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 *            the error manager
 	 * @param classifierCache
 	 *            cache of known instantiated classifiers, may be null
+	 * @since 4.0
 	 */
 	public CreateConnectionsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {

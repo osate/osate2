@@ -297,6 +297,7 @@ public interface NamedElement extends Element {
 	 * @param instantiatedClassifier The classifier instantiated for the instance object, or {@code null} if none.
 	 * @throws InvalidModelException Thrown if the property value cannot be retrieved because the model is incomplete
 	 *             or otherwise invalid.
+	 * @since 7.0
 	 */
 	void getPropertyValueForInstance(Property property, PropertyAcc pas, Classifier instantiatedClassifier)
 			throws InvalidModelException;

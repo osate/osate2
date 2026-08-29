@@ -94,6 +94,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	public static final String MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS = "org.osate.xtext.aadl2.mismatched_beginning_and_ending_identifiers";
 	public static final String DUPLICATE_COMPONENT_TYPE_NAME = "org.osate.xtext.aadl2.duplicate_component_type_names";
 	public static final String DUPLICATE_LITERAL_IN_ENUMERATION = "org.osate.xtext.aadl2.duplicate_literal_in_enumeration";
+	/**
+	 * @since 9.0
+	 */
 	public static final String DUPLICATE_FIELD_IN_RECORD_TYPE = "org.osate.xtext.aadl2.duplicate_field_in_record_type";
 	public static final String UNIT_LITERAL_OUT_OF_ORDER = "org.osate.xtext.aadl2.unit_literal_out_of_order";
 	public static final String MODE_NOT_DEFINED_IN_CONTAINER = "org.osate.xtext.aadl2.mode_not_defined_in_container";
@@ -125,8 +128,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	public static final String MAKE_CONNECTION_BIDIRECTIONAL = "org.osate.xtext.aadl2.make_connection_bidirectional";
 	public static final String WITH_NOT_USED = "org.osate.xtext.aadl2.with_not_used";
 	public static final String DATA_SIZE_INCONSISTENT = "org.osate.xtext.aadl2.data_size_inconsistent";
+	/**
+	 * @since 9.0
+	 */
 	public static final String INVALID_PROPERTY_CONSTANT_EXPRESSION =
 			"org.osate.xtext.aadl2.invalid_property_constant_expression";
+	/**
+	 * @since 9.0
+	 */
 	public static final String INVALID_PROPERTY_CONSTANT_TYPE = "org.osate.xtext.aadl2.invalid_property_constant_type";
 	private static final String INVALID_PROPERTY_CONSTANT_EXPRESSION_MESSAGE =
 			"Property constant expressions may not directly or indirectly reference properties, classifiers, "
@@ -695,6 +704,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 	}
 
+	/**
+	 * @since 9.0
+	 */
 	@Check(CheckType.FAST)
 	public void caseRecordType(final RecordType rt) {
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(rt.getOwnedFields());
@@ -1674,7 +1686,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 											"The source component '" + ce.getName() + "' of connection '"
 													+ connection.getName()
 													+ "' does not match the preceding subcomponent '"
-													+ ((Subcomponent) prevFlowElement).getName() + '\'');
+													+ prevFlowElement.getName() + '\'');
 								}
 							}
 						} else {
@@ -1683,7 +1695,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								error(flow.getOwnedFlowSegments().get(i),
 										"The source of connection '" + connection.getName()
 												+ "' does not match the preceding subcomponent '"
-												+ ((Subcomponent) prevFlowElement).getName() + '\'');
+												+ prevFlowElement.getName() + '\'');
 							}
 						}
 					}
@@ -1741,7 +1753,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 										"The destination component '" + ce.getName() + "' of connection '"
 												+ connection.getName()
 												+ "' does not match the succeeding subcomponent  '"
-												+ ((Subcomponent) felem).getName() + '\'');
+												+ felem.getName() + '\'');
 							}
 						} else {
 							if ((felem != cxt) && !(cxt instanceof SubprogramCall
@@ -1750,7 +1762,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 										"The destination component '" + cxt.getName() + "' of connection '"
 												+ connection.getName()
 												+ "' does not match the succeeding subcomponent  '"
-												+ ((Subcomponent) felem).getName() + '\'');
+												+ felem.getName() + '\'');
 							}
 						}
 					}
@@ -3154,7 +3166,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						EList<SubprogramCall> subProgCalls = ((SubprogramCallSequence) ownedElement)
 								.getOwnedSubprogramCalls();
 						for (SubprogramCall spc : subProgCalls) {
-							if (((NamedElement) spc).getName().equalsIgnoreCase(ne.getName())) {
+							if (spc.getName().equalsIgnoreCase(ne.getName())) {
 								extendedClassifiers.add(extended);
 							}
 						}
@@ -3186,7 +3198,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					EList<SubprogramCall> subProgCalls = ((SubprogramCallSequence) ownedElement)
 							.getOwnedSubprogramCalls();
 					for (SubprogramCall spc : subProgCalls) {
-						if (((NamedElement) spc).getName().equalsIgnoreCase(ne.getName())) {
+						if (spc.getName().equalsIgnoreCase(ne.getName())) {
 							extendedClassifiers.add(extended);
 						}
 					}
@@ -5429,7 +5441,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	private void checkRequiresAccessOnly(DataAccess dataAccess) {
-		Classifier cl = ((Feature) dataAccess).getContainingClassifier();
+		Classifier cl = dataAccess.getContainingClassifier();
 		if ((cl instanceof SubprogramType)) {
 			if (dataAccess.getKind().equals(AccessType.PROVIDES)) {
 				error("Subprograms cannot have provides data access.", dataAccess, null, REVERSE_ACCESS_KIND,
@@ -5446,7 +5458,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	private void checkProvidesAccessOnly(SubprogramAccess spAccess) {
-		Classifier cl = ((Feature) spAccess).getContainingClassifier();
+		Classifier cl = spAccess.getContainingClassifier();
 		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)) {
 				error("Processor, VirtualProcessor, Device cannot have requires subprogram access.", spAccess, null,
@@ -5456,7 +5468,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	private void checkProvidesAccessOnly(SubprogramGroupAccess spAccess) {
-		Classifier cl = ((Feature) spAccess).getContainingClassifier();
+		Classifier cl = spAccess.getContainingClassifier();
 		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)) {
 				error("Processor, VirtualProcessor, Device cannot have requires subprogram group access.", spAccess,
@@ -5466,7 +5478,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	private void checkRequiresAccessOnly(SubprogramAccess spAccess) {
-		Classifier cl = ((Feature) spAccess).getContainingClassifier();
+		Classifier cl = spAccess.getContainingClassifier();
 		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)) {
 				error("Subprograms cannot have provides subprogram access.", spAccess, null, REVERSE_ACCESS_KIND,
@@ -5476,7 +5488,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	private void checkRequiresAccessOnly(SubprogramGroupAccess spAccess) {
-		Classifier cl = ((Feature) spAccess).getContainingClassifier();
+		Classifier cl = spAccess.getContainingClassifier();
 		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)) {
 				error("Subprograms cannot have provides subprogram group access.", spAccess, null, REVERSE_ACCESS_KIND,
@@ -6645,7 +6657,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					sourceType = sourceType.getInverseType();
 				}
 				FeatureGroupType srcFGT = ((FeatureGroup) srcContext).getAllFeatureGroupType();
-				FeatureGroupType contsrcFGT = (FeatureGroupType) ((Access) source).getContainingClassifier();
+				FeatureGroupType contsrcFGT = (FeatureGroupType) source.getContainingClassifier();
 				if (!srcFGT.equals(contsrcFGT) && srcFGT.getInverse() != null) {
 					// feature group type has inverse and feature is defined in
 					// the inverse FGT
@@ -6661,7 +6673,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					destinationType = destinationType.getInverseType();
 				}
 				FeatureGroupType dstFGT = ((FeatureGroup) dstContext).getAllFeatureGroupType();
-				FeatureGroupType contdstFGT = (FeatureGroupType) ((Access) destination).getContainingClassifier();
+				FeatureGroupType contdstFGT = (FeatureGroupType) destination.getContainingClassifier();
 				if (!dstFGT.equals(contdstFGT) && dstFGT.getInverse() != null) {
 					// feature group type has inverse and feature is defined in
 					// the inverse FGT

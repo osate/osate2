@@ -854,6 +854,9 @@ public class InstantiateModel {
 		return false;
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected String indexStackToString(List<Long> indexStack) {
 		String result = "";
 		for (int i = 0; i < indexStack.size(); i++) {
@@ -862,6 +865,9 @@ public class InstantiateModel {
 		return result;
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected void instantiateSubcomponent(final ComponentInstance parent, final ModalElement mm,
 			final Subcomponent sub, List<Long> indexStack, int index) throws InterruptedException {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
@@ -1351,6 +1357,9 @@ public class InstantiateModel {
 		return getInstantiatedClassifier(iobj, 0, classifierCache);
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj, int index,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getInstantiatedClassifier(iobj, index, classifierCache);
@@ -1360,6 +1369,9 @@ public class InstantiateModel {
 		return getComponentType(ci, 0, classifierCache);
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected ComponentType getComponentType(ComponentInstance ci, int index,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getComponentType(ci, index, classifierCache);
@@ -1369,6 +1381,9 @@ public class InstantiateModel {
 		return getComponentImplementation(ci, 0, classifierCache);
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected ComponentImplementation getComponentImplementation(ComponentInstance ci, int index,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getComponentImplementation(ci, index, classifierCache);
@@ -1378,6 +1393,9 @@ public class InstantiateModel {
 		return getFeatureGroupType(fi, 0, classifierCache);
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected FeatureGroupType getFeatureGroupType(FeatureInstance fi, int index,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getFeatureGroupType(fi, index, classifierCache);
@@ -1387,6 +1405,9 @@ public class InstantiateModel {
 		return resolveFeaturePrototype(proto, fi, classifierCache);
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected FeaturePrototypeActual resolveFeaturePrototype(ComponentPrototype proto, FeatureInstance fi,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.resolveFeaturePrototype(proto, fi, classifierCache);

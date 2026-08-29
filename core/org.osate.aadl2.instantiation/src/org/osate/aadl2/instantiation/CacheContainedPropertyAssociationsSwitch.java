@@ -82,6 +82,9 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 	 */
 	private final List<Property> propertyFilter;
 
+	/**
+	 * @since 4.0
+	 */
 	protected CacheContainedPropertyAssociationsSwitch(
 			final Map<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
 			final IProgressMonitor pm, final AnalysisErrorReporterManager errManager) {
@@ -91,7 +94,7 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 	/**
 	 * @param propertyFilter cache only these property definitions, or <code>null</code> to cache all of
 	 *            them
-	 * @since 3.2
+	 * @since 4.0
 	 */
 	protected CacheContainedPropertyAssociationsSwitch(
 			final Map<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,

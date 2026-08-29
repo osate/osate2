@@ -34,6 +34,6 @@
 	</parent>
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.slicer</artifactId>
-	<version>0.1.5-SNAPSHOT</version>
+	<version>0.1.6-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 </project>

@@ -98,6 +98,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param errMgr the error manager
 	 * @param classifierCache cache of known instantiated classifiers, may be
 	 *            null
+	 * @since 4.0
 	 */
 	public CreateEndToEndFlowsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
@@ -221,6 +222,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param segment the next flow segment
 	 * @param iter the position in the current ETE declaration
 	 * @param errorElement the model element that we attach errors to
+	 * @since 4.0
 	 */
 	protected void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element segment,
 			FlowIterator iter, NamedElement errorElement) {
@@ -235,6 +237,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param etei the end to end flow instance
 	 * @param fs the flow specification to be processed
 	 * @param iter the continuation in the enclosing flow declaration
+	 * @since 4.0
 	 */
 	protected void processSubcomponentFlow(final ComponentInstance ci, EndToEndFlowInstance etei,
 			final FlowSpecification fs, FlowIterator iter) {
@@ -261,6 +264,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param etei the current end to end flow instance
 	 * @param leaf the next ETE element
 	 * @param iter the position in the current end to end flow declaration
+	 * @since 4.0
 	 */
 	protected void processFlowStep(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf, FlowIterator iter) {
 		processFlowStep(ci, etei, leaf, null, iter);
@@ -269,6 +273,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	/**
 	 * Continue through a leaf flow element and constrain the incoming connection to the start of the next flow
 	 * implementation when one is known.
+	 * @since 4.0
 	 */
 	protected void processFlowStep(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf,
 			FlowImplementation nextFlowImpl, FlowIterator iter) {

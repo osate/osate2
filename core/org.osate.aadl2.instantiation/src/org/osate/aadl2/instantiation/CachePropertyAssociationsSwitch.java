@@ -93,6 +93,9 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 	 */
 	private final SCProperties scProps;
 
+	/**
+	 * @since 4.0
+	 */
 	protected CachePropertyAssociationsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errManager,
 			final List<Property> filter, final Map<InstanceObject, InstantiatedClassifier> classifierCache,
 			final SCProperties scProps, final Map<ModeInstance, List<SystemOperationMode>> mode2som) {

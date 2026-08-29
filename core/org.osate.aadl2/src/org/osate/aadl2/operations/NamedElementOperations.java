@@ -113,6 +113,7 @@ public class NamedElementOperations extends ElementOperations {
 	 * @throws InvalidModelException Thrown if the property value cannot be retrieved because the model is incomplete
 	 *             or otherwise invalid.
 	 * @generated NOT
+	 * @since 7.0
 	 */
 	public static void getPropertyValueForInstance(NamedElement namedElement, Property property, PropertyAcc pas,
 			Classifier instantiatedClassifier) throws InvalidModelException {
