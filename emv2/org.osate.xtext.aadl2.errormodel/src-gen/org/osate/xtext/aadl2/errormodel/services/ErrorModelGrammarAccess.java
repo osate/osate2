@@ -238,7 +238,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//|ConditionElement | AndExpression | ConditionTerm
 		//|ConditionExpression|OrmoreExpression|OrlessExpression
 		//    |ErrorStateToModeMapping|QualifiedErrorBehaviorState
-		//| SubcomponentElement | FeatureorPPReference |EMV2Path | EMV2PathElement
+		//| SubcomponentElement | FeatureorPPReference | EMV2Path | EMV2PathElement
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -248,7 +248,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//|ConditionElement | AndExpression | ConditionTerm
 		//|ConditionExpression|OrmoreExpression|OrlessExpression
 		//    |ErrorStateToModeMapping|QualifiedErrorBehaviorState
-		//| SubcomponentElement | FeatureorPPReference |EMV2Path | EMV2PathElement
+		//| SubcomponentElement | FeatureorPPReference | EMV2Path | EMV2PathElement
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//TypeSetElement
@@ -7102,7 +7102,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 	//|ConditionElement | AndExpression | ConditionTerm
 	//|ConditionExpression|OrmoreExpression|OrlessExpression
 	//    |ErrorStateToModeMapping|QualifiedErrorBehaviorState
-	//| SubcomponentElement | FeatureorPPReference |EMV2Path | EMV2PathElement
+	//| SubcomponentElement | FeatureorPPReference | EMV2Path | EMV2PathElement
 	//;
 	public ElementElements getElementAccess() {
 		return pElement;
@@ -8767,10 +8767,9 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 		return getSTARAccess().getRule();
 	}
 	
-	//terminal STRING    :
-	//            '"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
-	//            "'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
-	//        ;
+	//terminal STRING:
+	//    '"' ('""' | !'"')* '"'
+	//;
 	public TerminalRule getSTRINGRule() {
 		return gaProperties.getSTRINGRule();
 	}
