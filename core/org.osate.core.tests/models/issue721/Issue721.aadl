@@ -31,6 +31,14 @@ public
 			output: out event port;
 	end Worker;
 
+	system Container
+	end Container;
+
+	system implementation Container.with_inner_array
+		subcomponents
+			inner: system Worker[3];
+	end Container.with_inner_array;
+
 	system Top
 	end Top;
 
@@ -57,4 +65,44 @@ public
 		properties
 			Issue721Properties::Target => reference (workers[2]);
 	end Top.single_element;
+
+	-- A multidimensional array expands with the last dimension changing fastest.
+	system implementation Top.multidimensional_whole
+		subcomponents
+			grid: system Worker[2][3];
+		properties
+			Issue721Properties::Targets => reference (grid);
+	end Top.multidimensional_whole;
+
+	-- Fully indexing every dimension still denotes exactly one array element.
+	system implementation Top.multidimensional_single
+		subcomponents
+			grid: system Worker[2][3];
+		properties
+			Issue721Properties::Target => reference (grid[2][3]);
+	end Top.multidimensional_single;
+
+	-- Every non-single array path element contributes to the flat result list.
+	system implementation Top.nested_arrays
+		subcomponents
+			outer: system Container.with_inner_array [2];
+		properties
+			Issue721Properties::Targets => reference (outer.inner);
+	end Top.nested_arrays;
+
+	-- Indexing the outer array limits expansion to the inner array of one outer element.
+	system implementation Top.indexed_outer_array
+		subcomponents
+			outer: system Container.with_inner_array [2];
+		properties
+			Issue721Properties::Targets => reference (outer[2].inner);
+	end Top.indexed_outer_array;
+
+	-- Indexing the inner array leaves one selected element under every outer array element.
+	system implementation Top.indexed_inner_array
+		subcomponents
+			outer: system Container.with_inner_array [2];
+		properties
+			Issue721Properties::Targets => reference (outer.inner[2]);
+	end Top.indexed_inner_array;
 end Issue721;

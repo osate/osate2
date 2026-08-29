@@ -114,6 +114,63 @@ public class Issue721Test extends XtextTest {
 				relativePath(result.instance(), ((InstanceReferenceValue) value).getReferencedInstanceObject()));
 	}
 
+	/** Every element of a multidimensional array is returned with the last dimension changing fastest. */
+	@Test
+	public void multidimensionalWholeArrayExpandsInIndexOrder() throws Exception {
+		var result = instantiate(MODEL, "Top.multidimensional_whole");
+
+		assertEquals(List.of(), result.errors());
+		assertEquals(List.of("grid[1][1]", "grid[1][2]", "grid[1][3]", "grid[2][1]", "grid[2][2]",
+				"grid[2][3]"), referencedPaths(result, "Targets"));
+	}
+
+	/** A range in each dimension returns the Cartesian product of the selected indices. */
+	@Test
+	public void multidimensionalRangesExpandAcrossDimensions() throws Exception {
+		var result = instantiate(RANGE_MODEL, "Top.multidimensional_range");
+
+		assertEquals(List.of(), result.errors());
+		assertEquals(List.of("grid[2][1]", "grid[2][2]", "grid[3][1]", "grid[3][2]"),
+				referencedPaths(result, "Targets"));
+	}
+
+	/** Indexing every dimension of a multidimensional array preserves a scalar reference value. */
+	@Test
+	public void multidimensionalIndexedElementRemainsOneReference() throws Exception {
+		var result = instantiate(MODEL, "Top.multidimensional_single");
+		var value = propertyValue(result.instance(), "Target");
+
+		assertEquals(List.of(), result.errors());
+		assertTrue("not an instance reference: " + value, value instanceof InstanceReferenceValue);
+		assertEquals("grid[2][3]",
+				relativePath(result.instance(), ((InstanceReferenceValue) value).getReferencedInstanceObject()));
+	}
+
+	/** Multiple array elements along one path expand to the Cartesian product in traversal order. */
+	@Test
+	public void nestedArrayPathExpandsEveryArraySegment() throws Exception {
+		var result = instantiate(MODEL, "Top.nested_arrays");
+
+		assertEquals(List.of(), result.errors());
+		assertEquals(List.of("outer[1].inner[1]", "outer[1].inner[2]", "outer[1].inner[3]",
+				"outer[2].inner[1]", "outer[2].inner[2]", "outer[2].inner[3]"),
+				referencedPaths(result, "Targets"));
+	}
+
+	/** Indexing either nested array restricts only that path segment; the other segment still expands. */
+	@Test
+	public void indexingOneNestedArrayRestrictsOnlyThatSegment() throws Exception {
+		var outerIndexed = instantiate(MODEL, "Top.indexed_outer_array");
+		var innerIndexed = instantiate(MODEL, "Top.indexed_inner_array");
+
+		assertEquals(List.of(), outerIndexed.errors());
+		assertEquals(List.of("outer[2].inner[1]", "outer[2].inner[2]", "outer[2].inner[3]"),
+				referencedPaths(outerIndexed, "Targets"));
+		assertEquals(List.of(), innerIndexed.errors());
+		assertEquals(List.of("outer[1].inner[2]", "outer[2].inner[2]"),
+				referencedPaths(innerIndexed, "Targets"));
+	}
+
 	/**
 	 * Validation accounts for the evaluated list type and checks the terminal element against the
 	 * reference constraints of the list element type.

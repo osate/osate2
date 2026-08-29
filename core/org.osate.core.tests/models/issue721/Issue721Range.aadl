@@ -39,4 +39,12 @@ public
 		properties
 			Issue721Properties::Targets => reference (workers[2 .. 3]);
 	end Top.selected_range;
+
+	-- Ranges in more than one dimension select the Cartesian product of their bounds.
+	system implementation Top.multidimensional_range
+		subcomponents
+			grid: system Worker[3][4];
+		properties
+			Issue721Properties::Targets => reference (grid[2 .. 3][1 .. 2]);
+	end Top.multidimensional_range;
 end Issue721Range;
