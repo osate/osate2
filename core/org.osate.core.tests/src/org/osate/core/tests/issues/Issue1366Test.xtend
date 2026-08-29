@@ -44,6 +44,10 @@ class Issue1366Test extends XtextTest {
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/issue1366/"
 	val static PACKAGE = PROJECT_LOCATION + "Issue1366.aadl"
 	val static PROPERTY_SET = PROJECT_LOCATION + "PS1.aadl"
+	val static PROPERTY_REFERENCE_ERROR = "Property constant expressions may not directly or indirectly reference " +
+		"properties, classifiers, or model elements"
+	val static TYPE_ERROR = "Property constants may not have classifier or reference property types, including within " +
+		"lists or records"
 
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -80,6 +84,12 @@ class Issue1366Test extends XtextTest {
 
 		testFileResult.resource.contents.head as PropertySet => [
 			"PS1".assertEquals(name)
+			ownedPropertyConstants.get(1) => [
+				assertError(testFileResult.issues, issueCollection, TYPE_ERROR)
+				constantValue => [
+					assertError(testFileResult.issues, issueCollection, PROPERTY_REFERENCE_ERROR)
+				]
+			]
 			ownedPropertyConstants.get(2).constantValue => [
 				assertError(testFileResult.issues, issueCollection, "Number value is missing a unit")
 			]
