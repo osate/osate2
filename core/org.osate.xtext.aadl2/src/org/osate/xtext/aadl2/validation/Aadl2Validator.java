@@ -94,6 +94,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	public static final String MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS = "org.osate.xtext.aadl2.mismatched_beginning_and_ending_identifiers";
 	public static final String DUPLICATE_COMPONENT_TYPE_NAME = "org.osate.xtext.aadl2.duplicate_component_type_names";
 	public static final String DUPLICATE_LITERAL_IN_ENUMERATION = "org.osate.xtext.aadl2.duplicate_literal_in_enumeration";
+	public static final String DUPLICATE_FIELD_IN_RECORD_TYPE = "org.osate.xtext.aadl2.duplicate_field_in_record_type";
 	public static final String UNIT_LITERAL_OUT_OF_ORDER = "org.osate.xtext.aadl2.unit_literal_out_of_order";
 	public static final String MODE_NOT_DEFINED_IN_CONTAINER = "org.osate.xtext.aadl2.mode_not_defined_in_container";
 	public static final String SELF_NOT_ALLOWED = "org.osate.xtext.aadl2.self_not_alllowed";
@@ -683,6 +684,15 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				error("Literal '" + ne.getName() + "' previously declared in enumeration", ne, null,
 						DUPLICATE_LITERAL_IN_ENUMERATION, ne.getName());
 			}
+		}
+	}
+
+	@Check(CheckType.FAST)
+	public void caseRecordType(final RecordType rt) {
+		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(rt.getOwnedFields());
+		for (NamedElement ne : doubles) {
+			error("Field '" + ne.getName() + "' previously declared in record type", ne, null,
+					DUPLICATE_FIELD_IN_RECORD_TYPE, ne.getName());
 		}
 	}
 
