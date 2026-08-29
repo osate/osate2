@@ -1,0 +1,3 @@
+property set Issue809 is
+	embedded_quote: constant aadlstring => "OSATE says ""hello"".";
+end Issue809;
