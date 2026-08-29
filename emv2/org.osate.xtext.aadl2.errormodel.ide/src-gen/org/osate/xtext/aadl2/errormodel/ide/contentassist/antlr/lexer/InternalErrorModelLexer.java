@@ -6369,149 +6369,61 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalErrorModelLexer.g:236:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalErrorModelLexer.g:236:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalErrorModelLexer.g:236:13: ( '\"' ( '\"\"' | ~ ( '\"' ) )* '\"' )
+            // InternalErrorModelLexer.g:236:15: '\"' ( '\"\"' | ~ ( '\"' ) )* '\"'
             {
-            // InternalErrorModelLexer.g:236:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
-            int alt20=2;
-            int LA20_0 = input.LA(1);
+            match('\"');
+            // InternalErrorModelLexer.g:236:19: ( '\"\"' | ~ ( '\"' ) )*
+            loop18:
+            do {
+                int alt18=3;
+                int LA18_0 = input.LA(1);
 
-            if ( (LA20_0=='\"') ) {
-                alt20=1;
-            }
-            else if ( (LA20_0=='\'') ) {
-                alt20=2;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 20, 0, input);
+                if ( (LA18_0=='\"') ) {
+                    int LA18_1 = input.LA(2);
 
-                throw nvae;
-            }
-            switch (alt20) {
-                case 1 :
-                    // InternalErrorModelLexer.g:236:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
-                    {
-                    match('\"'); 
-                    // InternalErrorModelLexer.g:236:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
-                    loop18:
-                    do {
-                        int alt18=3;
-                        int LA18_0 = input.LA(1);
-
-                        if ( (LA18_0=='\\') ) {
-                            alt18=1;
-                        }
-                        else if ( ((LA18_0>='\u0000' && LA18_0<='!')||(LA18_0>='#' && LA18_0<='[')||(LA18_0>=']' && LA18_0<='\uFFFF')) ) {
-                            alt18=2;
-                        }
-
-
-                        switch (alt18) {
-                    	case 1 :
-                    	    // InternalErrorModelLexer.g:236:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
-                    	    {
-                    	    match('\\'); 
-                    	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
-                    	        input.consume();
-
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;}
-
-
-                    	    }
-                    	    break;
-                    	case 2 :
-                    	    // InternalErrorModelLexer.g:236:66: ~ ( ( '\\\\' | '\"' ) )
-                    	    {
-                    	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
-                    	        input.consume();
-
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;}
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    break loop18;
-                        }
-                    } while (true);
-
-                    match('\"'); 
-
+                    if ( (LA18_1=='\"') ) {
+                        alt18=1;
                     }
-                    break;
-                case 2 :
-                    // InternalErrorModelLexer.g:236:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
-                    {
-                    match('\''); 
-                    // InternalErrorModelLexer.g:236:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
-                    loop19:
-                    do {
-                        int alt19=3;
-                        int LA19_0 = input.LA(1);
-
-                        if ( (LA19_0=='\\') ) {
-                            alt19=1;
-                        }
-                        else if ( ((LA19_0>='\u0000' && LA19_0<='&')||(LA19_0>='(' && LA19_0<='[')||(LA19_0>=']' && LA19_0<='\uFFFF')) ) {
-                            alt19=2;
-                        }
 
 
-                        switch (alt19) {
-                    	case 1 :
-                    	    // InternalErrorModelLexer.g:236:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
-                    	    {
-                    	    match('\\'); 
-                    	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
-                    	        input.consume();
-
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;}
+                }
+                else if ( ((LA18_0>='\u0000' && LA18_0<='!')||(LA18_0>='#' && LA18_0<='\uFFFF')) ) {
+                    alt18=2;
+                }
 
 
-                    	    }
-                    	    break;
-                    	case 2 :
-                    	    // InternalErrorModelLexer.g:236:137: ~ ( ( '\\\\' | '\\'' ) )
-                    	    {
-                    	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
-                    	        input.consume();
-
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;}
+                switch (alt18) {
+				case 1 :
+				    // InternalErrorModelLexer.g:236:20: '\"\"'
+				    {
+				    match("\"\"");
 
 
-                    	    }
-                    	    break;
+				    }
+				    break;
+				case 2 :
+				    // InternalErrorModelLexer.g:236:25: ~ ( '\"' )
+				    {
+				    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
+				        input.consume();
 
-                    	default :
-                    	    break loop19;
-                        }
-                    } while (true);
+				    }
+				    else {
+				        MismatchedSetException mse = new MismatchedSetException(null,input);
+				        recover(mse);
+				        throw mse;}
 
-                    match('\''); 
 
-                    }
-                    break;
+				    }
+				    break;
 
-            }
+				default :
+				    break loop18;
+                }
+            } while (true);
 
+            match('\"');
 
             }
 
@@ -6541,53 +6453,53 @@ public class InternalErrorModelLexer extends Lexer {
                 throw mse;}
 
             // InternalErrorModelLexer.g:238:31: ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
-            loop22:
+            loop20:
             do {
-                int alt22=2;
-                int LA22_0 = input.LA(1);
+                int alt20=2;
+                int LA20_0 = input.LA(1);
 
-                if ( ((LA22_0>='0' && LA22_0<='9')||(LA22_0>='A' && LA22_0<='Z')||LA22_0=='_'||(LA22_0>='a' && LA22_0<='z')) ) {
-                    alt22=1;
+                if ( ((LA20_0>='0' && LA20_0<='9')||(LA20_0>='A' && LA20_0<='Z')||LA20_0=='_'||(LA20_0>='a' && LA20_0<='z')) ) {
+                    alt20=1;
                 }
 
 
-                switch (alt22) {
-            	case 1 :
-            	    // InternalErrorModelLexer.g:238:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
-            	    {
-            	    // InternalErrorModelLexer.g:238:32: ( '_' )?
-            	    int alt21=2;
-            	    int LA21_0 = input.LA(1);
+                switch (alt20) {
+				case 1 :
+				    // InternalErrorModelLexer.g:238:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
+				    {
+				    // InternalErrorModelLexer.g:238:32: ( '_' )?
+				    int alt19=2;
+				    int LA19_0 = input.LA(1);
 
-            	    if ( (LA21_0=='_') ) {
-            	        alt21=1;
-            	    }
-            	    switch (alt21) {
-            	        case 1 :
-            	            // InternalErrorModelLexer.g:238:32: '_'
-            	            {
-            	            match('_'); 
+				    if ( (LA19_0=='_') ) {
+				        alt19=1;
+				    }
+				    switch (alt19) {
+				        case 1 :
+				            // InternalErrorModelLexer.g:238:32: '_'
+				            {
+				            match('_');
 
-            	            }
-            	            break;
+				            }
+				            break;
 
-            	    }
+				    }
 
-            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
-            	        input.consume();
+				    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+				        input.consume();
 
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
+				    }
+				    else {
+				        MismatchedSetException mse = new MismatchedSetException(null,input);
+				        recover(mse);
+				        throw mse;}
 
 
-            	    }
-            	    break;
+				    }
+				    break;
 
-            	default :
-            	    break loop22;
+				default :
+				    break loop20;
                 }
             } while (true);
 
@@ -6611,41 +6523,41 @@ public class InternalErrorModelLexer extends Lexer {
             // InternalErrorModelLexer.g:240:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
             // InternalErrorModelLexer.g:240:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
-            int cnt23=0;
-            loop23:
+            int cnt21=0;
+            loop21:
             do {
-                int alt23=2;
-                int LA23_0 = input.LA(1);
+                int alt21=2;
+                int LA21_0 = input.LA(1);
 
-                if ( ((LA23_0>='\t' && LA23_0<='\n')||LA23_0=='\r'||LA23_0==' ') ) {
-                    alt23=1;
+                if ( ((LA21_0>='\t' && LA21_0<='\n')||LA21_0=='\r'||LA21_0==' ') ) {
+                    alt21=1;
                 }
 
 
-                switch (alt23) {
-            	case 1 :
-            	    // InternalErrorModelLexer.g:
-            	    {
-            	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
-            	        input.consume();
+                switch (alt21) {
+				case 1 :
+				    // InternalErrorModelLexer.g:
+				    {
+				    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
+				        input.consume();
 
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
+				    }
+				    else {
+				        MismatchedSetException mse = new MismatchedSetException(null,input);
+				        recover(mse);
+				        throw mse;}
 
 
-            	    }
-            	    break;
+				    }
+				    break;
 
-            	default :
-            	    if ( cnt23 >= 1 ) break loop23;
+				default :
+				    if ( cnt21 >= 1 ) break loop21;
                         EarlyExitException eee =
-                            new EarlyExitException(23, input);
+                            new EarlyExitException(21, input);
                         throw eee;
                 }
-                cnt23++;
+                cnt21++;
             } while (true);
 
 
@@ -6661,9 +6573,9 @@ public class InternalErrorModelLexer extends Lexer {
 
     public void mTokens() throws RecognitionException {
         // InternalErrorModelLexer.g:1:8: ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Subclause | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Package | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Public | Repair | Source | States | Annex | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Sink | True | Type | When | With | AsteriskAsteriskRightCurlyBracket | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | LeftCurlyBracketAsteriskAsterisk | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | If | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | CommercialAt | LeftSquareBracket | RightSquareBracket | CircumflexAccent | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS )
-        int alt24=99;
-        alt24 = dfa24.predict(input);
-        switch (alt24) {
+        int alt22=99;
+        alt22 = dfa22.predict(input);
+        switch (alt22) {
             case 1 :
                 // InternalErrorModelLexer.g:1:10: Transformations
                 {
@@ -7363,23 +7275,23 @@ public class InternalErrorModelLexer extends Lexer {
     }
 
 
-    protected DFA24 dfa24 = new DFA24(this);
-    static final String DFA24_eotS =
+    protected DFA22 dfa22 = new DFA22(this);
+    static final String DFA22_eotS =
         "\1\uffff\20\45\1\122\1\124\1\126\1\45\1\131\1\135\1\137\1\141\12\uffff\1\142\3\uffff\2\45\1\147\34\45\1\u008c\1\u008d\2\45\1\u0093\6\45\6\uffff\1\45\14\uffff\3\45\1\uffff\11\45\1\u00a8\16\45\1\u00b8\10\45\1\u00c1\1\u00c2\1\45\2\uffff\2\45\1\u00c6\2\45\1\uffff\1\45\1\u00ca\4\45\1\u00cf\1\45\1\u00d1\1\u00d3\3\45\1\u00d9\6\45\1\uffff\15\45\1\u00ee\1\u00ef\1\uffff\4\45\1\u00f5\3\45\2\uffff\3\45\1\uffff\3\45\1\uffff\2\45\1\u0101\1\u0102\1\uffff\1\45\1\uffff\1\u0105\1\uffff\4\45\1\u010a\1\uffff\1\45\1\u010c\2\45\1\u0110\1\u0111\6\45\1\u0119\6\45\1\u0121\2\uffff\4\45\1\u0126\1\uffff\2\45\1\u0129\6\45\1\u0130\1\u0131\2\uffff\2\45\1\uffff\4\45\1\uffff\1\u0138\1\uffff\2\45\1\u013b\2\uffff\7\45\1\uffff\3\45\1\u0146\1\45\1\u0148\1\u0149\1\uffff\3\45\1\u014d\1\uffff\1\45\1\u014f\1\uffff\3\45\1\u0153\1\u0154\1\u0155\2\uffff\5\45\1\u015b\1\uffff\1\45\1\u015d\1\uffff\5\45\1\u0163\2\45\1\u0166\1\u0167\1\uffff\1\45\2\uffff\1\45\1\u016b\1\45\1\uffff\1\u016d\1\uffff\1\u016e\1\u016f\1\u0170\3\uffff\5\45\1\uffff\1\45\1\uffff\2\45\1\u0179\2\45\1\uffff\2\45\2\uffff\1\45\1\u017f\1\u0180\1\uffff\1\u0181\4\uffff\4\45\1\u0186\3\45\1\uffff\1\u018a\1\u018b\1\45\1\u018d\1\u018e\3\uffff\3\45\1\u0192\1\uffff\1\45\1\u0194\1\u0195\2\uffff\1\u0196\2\uffff\1\45\1\u0198\1\u019a\1\uffff\1\u019b\3\uffff\1\45\1\uffff\1\u019d\2\uffff\1\45\1\uffff\1\45\1\u01a0\1\uffff";
-    static final String DFA24_eofS =
+    static final String DFA22_eofS =
         "\u01a1\uffff";
-    static final String DFA24_minS =
+    static final String DFA22_minS =
         "\1\11\1\117\1\101\1\116\1\114\2\105\1\101\1\105\1\101\1\103\1\106\1\111\1\117\1\122\1\101\1\110\1\52\1\75\1\55\1\123\1\52\1\55\1\56\1\72\12\uffff\1\56\3\uffff\1\101\1\120\1\60\1\117\1\103\1\102\1\111\1\125\1\124\1\105\1\122\1\104\1\101\1\115\1\114\1\103\1\102\1\125\1\101\1\115\1\116\1\124\1\110\1\116\1\120\1\115\1\104\1\120\1\103\1\104\1\114\2\60\1\102\1\105\1\60\1\110\1\124\1\114\1\117\1\105\1\124\6\uffff\1\105\14\uffff\1\116\2\105\1\uffff\1\103\1\113\1\110\1\114\1\116\1\111\1\105\1\116\1\117\1\60\1\123\1\116\1\120\1\105\1\124\1\105\1\117\2\101\1\103\1\122\1\124\1\105\1\113\1\60\1\101\1\104\1\120\1\117\1\105\1\114\2\105\2\60\1\124\2\uffff\2\122\1\60\1\105\1\117\1\uffff\1\105\1\60\1\123\1\127\1\116\1\110\1\60\1\123\2\60\1\101\1\105\1\101\1\60\1\111\1\124\1\126\1\116\1\124\1\122\1\uffff\1\123\1\105\1\124\1\117\1\103\1\101\1\122\1\126\1\115\1\111\1\114\1\103\1\105\2\60\1\uffff\1\126\2\111\1\122\1\60\1\111\1\123\1\130\2\uffff\1\111\1\101\1\122\1\uffff\1\123\2\122\1\uffff\1\105\1\123\2\60\1\uffff\1\106\1\uffff\1\60\1\uffff\1\107\1\122\1\123\1\107\1\60\1\uffff\1\103\1\60\1\101\1\104\2\60\1\111\1\103\1\101\1\116\2\124\1\60\3\105\1\122\1\101\1\105\1\60\2\uffff\1\111\2\116\1\131\1\60\1\uffff\1\105\1\123\1\60\1\101\1\122\1\117\1\123\1\105\1\123\2\60\2\uffff\1\117\1\124\1\uffff\1\101\1\124\1\123\1\105\1\uffff\1\60\1\uffff\1\114\1\123\1\60\2\uffff\1\106\1\124\1\116\1\105\1\111\1\105\1\111\1\uffff\1\116\1\122\1\123\1\60\1\125\2\60\1\uffff\1\117\2\107\1\60\1\uffff\1\123\1\60\1\uffff\1\114\1\131\1\122\3\60\2\uffff\1\122\1\111\1\124\1\111\1\117\1\60\1\uffff\1\105\1\60\1\uffff\2\111\1\124\1\116\1\124\1\60\1\117\1\103\2\60\1\uffff\1\123\2\uffff\1\122\1\60\1\123\1\uffff\1\60\1\uffff\3\60\3\uffff\1\115\1\117\1\111\1\105\1\122\1\uffff\1\116\1\uffff\1\105\1\117\1\60\1\124\1\105\1\uffff\1\116\1\105\2\uffff\1\105\2\60\1\uffff\1\60\4\uffff\1\101\1\116\1\117\1\123\1\60\1\103\1\122\1\116\1\uffff\2\60\1\123\2\60\3\uffff\1\124\1\123\1\116\1\60\1\uffff\1\105\2\60\2\uffff\1\60\2\uffff\1\111\2\60\1\uffff\1\60\3\uffff\1\117\1\uffff\1\60\2\uffff\1\116\1\uffff\1\123\1\60\1\uffff";
-    static final String DFA24_maxS =
+    static final String DFA22_maxS =
         "\1\175\1\171\1\165\1\170\1\157\2\145\1\165\1\151\1\157\1\160\1\156\1\151\1\157\1\165\1\154\1\151\1\52\1\75\1\55\1\163\1\52\1\133\1\56\1\72\12\uffff\1\137\3\uffff\1\165\1\160\1\172\1\157\1\164\1\142\1\151\1\165\1\164\1\145\1\162\1\144\1\141\1\156\1\164\1\160\1\142\1\165\1\141\1\155\1\156\1\164\1\150\1\156\1\160\1\155\1\144\1\160\1\143\1\156\1\154\2\172\1\142\1\164\1\172\1\150\1\164\1\154\1\157\1\145\1\164\6\uffff\1\145\14\uffff\1\156\2\145\1\uffff\1\160\1\153\1\150\1\154\1\156\1\151\1\145\1\156\1\157\1\172\2\163\1\160\1\145\1\164\1\145\1\157\2\141\1\143\1\162\1\164\1\145\1\153\1\172\1\141\1\144\1\160\1\157\1\145\1\154\2\145\2\172\1\164\2\uffff\2\162\1\172\1\145\1\157\1\uffff\1\145\1\172\1\163\1\167\1\156\1\150\1\172\1\163\2\172\2\145\1\141\1\172\1\151\1\164\1\166\1\156\1\164\1\162\1\uffff\1\163\1\145\1\164\1\165\1\143\1\141\1\162\1\166\1\155\1\151\1\154\1\143\1\145\2\172\1\uffff\1\166\2\151\1\162\1\172\1\151\1\163\1\170\2\uffff\1\151\1\141\1\162\1\uffff\1\163\2\162\1\uffff\1\145\1\163\2\172\1\uffff\1\151\1\uffff\1\172\1\uffff\1\147\1\162\1\163\1\147\1\172\1\uffff\1\143\1\172\1\141\1\144\2\172\1\151\1\143\1\141\1\163\2\164\1\172\3\145\1\162\1\141\1\145\1\172\2\uffff\1\151\2\156\1\171\1\172\1\uffff\1\145\1\163\1\172\1\141\1\162\1\157\1\163\1\145\1\163\2\172\2\uffff\1\157\1\164\1\uffff\1\141\1\164\1\163\1\145\1\uffff\1\172\1\uffff\1\154\1\163\1\172\2\uffff\1\146\1\164\1\156\1\145\1\151\1\145\1\151\1\uffff\1\156\1\162\1\163\1\172\1\165\2\172\1\uffff\1\157\2\147\1\172\1\uffff\1\163\1\172\1\uffff\1\154\1\171\1\162\3\172\2\uffff\1\162\1\151\1\164\1\151\1\157\1\172\1\uffff\1\145\1\172\1\uffff\2\151\1\164\1\156\1\164\1\172\1\157\1\143\2\172\1\uffff\1\163\2\uffff\1\162\1\172\1\163\1\uffff\1\172\1\uffff\3\172\3\uffff\1\155\1\157\1\151\1\145\1\162\1\uffff\1\156\1\uffff\1\145\1\157\1\172\1\164\1\145\1\uffff\1\156\1\145\2\uffff\1\145\2\172\1\uffff\1\172\4\uffff\1\141\1\156\1\157\1\163\1\172\1\143\1\162\1\156\1\uffff\2\172\1\163\2\172\3\uffff\1\164\1\163\1\156\1\172\1\uffff\1\145\2\172\2\uffff\1\172\2\uffff\1\151\2\172\1\uffff\1\172\3\uffff\1\157\1\uffff\1\172\2\uffff\1\156\1\uffff\1\163\1\172\1\uffff";
-    static final String DFA24_acceptS =
+    static final String DFA22_acceptS =
         "\31\uffff\1\111\1\116\1\117\1\120\1\123\1\127\1\130\1\131\1\133\1\135\1\uffff\1\141\1\142\1\143\52\uffff\1\72\1\121\1\73\1\122\1\74\1\132\1\uffff\1\104\1\134\1\105\1\106\1\136\1\124\1\107\1\125\1\110\1\126\1\137\1\140\3\uffff\1\115\44\uffff\1\113\1\112\5\uffff\1\114\24\uffff\1\77\17\uffff\1\102\10\uffff\1\76\1\75\3\uffff\1\100\3\uffff\1\101\4\uffff\1\103\1\uffff\1\66\1\uffff\1\67\5\uffff\1\63\24\uffff\1\64\1\65\5\uffff\1\62\13\uffff\1\70\1\71\2\uffff\1\61\4\uffff\1\56\1\uffff\1\57\3\uffff\1\52\1\51\7\uffff\1\50\7\uffff\1\60\4\uffff\1\55\2\uffff\1\47\6\uffff\1\53\1\54\6\uffff\1\43\2\uffff\1\36\12\uffff\1\44\1\uffff\1\45\1\46\3\uffff\1\37\1\uffff\1\35\3\uffff\1\40\1\41\1\42\5\uffff\1\32\1\uffff\1\26\5\uffff\1\25\2\uffff\1\33\1\34\3\uffff\1\24\1\uffff\1\23\1\27\1\30\1\31\10\uffff\1\21\5\uffff\1\17\1\20\1\22\4\uffff\1\14\3\uffff\1\12\1\13\1\uffff\1\15\1\16\3\uffff\1\11\1\uffff\1\6\1\7\1\10\1\uffff\1\5\1\uffff\1\4\1\3\1\uffff\1\2\2\uffff\1\1";
-    static final String DFA24_specialS =
+    static final String DFA22_specialS =
         "\u01a1\uffff}>";
-    static final String[] DFA24_transitionS = DFA24_transitionS_.DFA24_transitionS;
-    private static final class DFA24_transitionS_ {
-        static final String[] DFA24_transitionS = {
-                "\2\46\2\uffff\1\46\22\uffff\1\46\1\32\1\44\4\uffff\1\44\1\33\1\34\1\21\1\22\1\35\1\26\1\27\1\uffff\12\43\1\30\1\36\1\uffff\1\31\2\uffff\1\37\1\12\1\10\1\4\1\5\1\3\1\17\2\45\1\13\2\45\1\14\1\11\1\15\1\16\1\2\1\45\1\6\1\7\1\1\1\24\1\45\1\20\3\45\1\40\1\uffff\1\23\1\41\2\uffff\1\12\1\10\1\4\1\5\1\3\1\17\2\45\1\13\2\45\1\14\1\11\1\15\1\16\1\2\1\45\1\6\1\7\1\1\1\24\1\45\1\20\3\45\1\25\1\uffff\1\42",
+    static final String[] DFA22_transitionS = DFA22_transitionS_.DFA22_transitionS;
+    private static final class DFA22_transitionS_ {
+        static final String[] DFA22_transitionS = {
+                "\2\46\2\uffff\1\46\22\uffff\1\46\1\32\1\44\5\uffff\1\33\1\34\1\21\1\22\1\35\1\26\1\27\1\uffff\12\43\1\30\1\36\1\uffff\1\31\2\uffff\1\37\1\12\1\10\1\4\1\5\1\3\1\17\2\45\1\13\2\45\1\14\1\11\1\15\1\16\1\2\1\45\1\6\1\7\1\1\1\24\1\45\1\20\3\45\1\40\1\uffff\1\23\1\41\2\uffff\1\12\1\10\1\4\1\5\1\3\1\17\2\45\1\13\2\45\1\14\1\11\1\15\1\16\1\2\1\45\1\6\1\7\1\1\1\24\1\45\1\20\3\45\1\25\1\uffff\1\42",
                 "\1\51\2\uffff\1\47\6\uffff\1\50\25\uffff\1\51\2\uffff\1\47\6\uffff\1\50",
                 "\1\53\15\uffff\1\55\2\uffff\1\52\2\uffff\1\54\13\uffff\1\53\15\uffff\1\55\2\uffff\1\52\2\uffff\1\54",
                 "\1\62\2\uffff\1\56\1\61\3\uffff\1\60\1\uffff\1\57\25\uffff\1\62\2\uffff\1\56\1\61\3\uffff\1\60\1\uffff\1\57",
@@ -7799,34 +7711,34 @@ public class InternalErrorModelLexer extends Lexer {
         };
     }
 
-    static final short[] DFA24_eot = DFA.unpackEncodedString(DFA24_eotS);
-    static final short[] DFA24_eof = DFA.unpackEncodedString(DFA24_eofS);
-    static final char[] DFA24_min = DFA.unpackEncodedStringToUnsignedChars(DFA24_minS);
-    static final char[] DFA24_max = DFA.unpackEncodedStringToUnsignedChars(DFA24_maxS);
-    static final short[] DFA24_accept = DFA.unpackEncodedString(DFA24_acceptS);
-    static final short[] DFA24_special = DFA.unpackEncodedString(DFA24_specialS);
-    static final short[][] DFA24_transition;
+    static final short[] DFA22_eot = DFA.unpackEncodedString(DFA22_eotS);
+    static final short[] DFA22_eof = DFA.unpackEncodedString(DFA22_eofS);
+    static final char[] DFA22_min = DFA.unpackEncodedStringToUnsignedChars(DFA22_minS);
+    static final char[] DFA22_max = DFA.unpackEncodedStringToUnsignedChars(DFA22_maxS);
+    static final short[] DFA22_accept = DFA.unpackEncodedString(DFA22_acceptS);
+    static final short[] DFA22_special = DFA.unpackEncodedString(DFA22_specialS);
+    static final short[][] DFA22_transition;
 
     static {
-        int numStates = DFA24_transitionS.length;
-        DFA24_transition = new short[numStates][];
+        int numStates = DFA22_transitionS.length;
+        DFA22_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA24_transition[i] = DFA.unpackEncodedString(DFA24_transitionS[i]);
+            DFA22_transition[i] = DFA.unpackEncodedString(DFA22_transitionS[i]);
         }
     }
 
-    class DFA24 extends DFA {
+    class DFA22 extends DFA {
 
-        public DFA24(BaseRecognizer recognizer) {
+        public DFA22(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 24;
-            this.eot = DFA24_eot;
-            this.eof = DFA24_eof;
-            this.min = DFA24_min;
-            this.max = DFA24_max;
-            this.accept = DFA24_accept;
-            this.special = DFA24_special;
-            this.transition = DFA24_transition;
+            this.decisionNumber = 22;
+            this.eot = DFA22_eot;
+            this.eof = DFA22_eof;
+            this.min = DFA22_min;
+            this.max = DFA22_max;
+            this.accept = DFA22_accept;
+            this.special = DFA22_special;
+            this.transition = DFA22_transition;
         }
         public String getDescription() {
             return "1:1: Tokens : ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Subclause | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Package | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Public | Repair | Source | States | Annex | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Sink | True | Type | When | With | AsteriskAsteriskRightCurlyBracket | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | LeftCurlyBracketAsteriskAsterisk | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | If | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | CommercialAt | LeftSquareBracket | RightSquareBracket | CircumflexAccent | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS );";

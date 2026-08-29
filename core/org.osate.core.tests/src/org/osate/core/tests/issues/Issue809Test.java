@@ -38,6 +38,7 @@ import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.StringLiteral;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
+import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
@@ -61,6 +62,9 @@ public class Issue809Test extends XtextTest {
 	@Inject
 	private ISerializer serializer;
 
+	@Inject
+	private PropertiesValueConverter valueConverter;
+
 	@Test
 	public void doubledQuotationMarksRepresentAQuotationMark() throws Exception {
 		var propertySet = (PropertySet) testHelper.parseFile(MODEL_DIR + "Issue809.aadl");
@@ -76,5 +80,14 @@ public class Issue809Test extends XtextTest {
 		var propertySet = testHelper.parseFile(MODEL_DIR + "Issue809SingleQuoted.aadl");
 
 		assertFalse(propertySet.eResource().getErrors().isEmpty());
+	}
+
+	@Test
+	public void directStringRulesUseAadlQuotationMarkEscaping() {
+		var converter = valueConverter.STRING();
+		var serialized = "\"OSATE says \"\"hello\"\".\"";
+
+		assertEquals("OSATE says \"hello\".", converter.toValue(serialized, null));
+		assertEquals(serialized, converter.toString("OSATE says \"hello\"."));
 	}
 }
