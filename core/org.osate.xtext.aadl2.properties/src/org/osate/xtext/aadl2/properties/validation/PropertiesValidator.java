@@ -220,7 +220,8 @@ public class PropertiesValidator extends AbstractPropertiesValidator {
 							error("Range lower bound is greater than upper bound", providedRange, null,
 									ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
 						}
-						if (EcoreUtil2.getContainerOfType(pathElement, ReferenceValue.class) != null) {
+						if (EcoreUtil2.getContainerOfType(pathElement, ReferenceValue.class) != null
+								&& !(element instanceof Subcomponent)) {
 							warning(providedRange, "Array ranges in reference values are not property instantiated");
 						}
 					}
@@ -916,15 +917,24 @@ public class PropertiesValidator extends AbstractPropertiesValidator {
 				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName, depth);
 			}
 		} else if (pv instanceof ReferenceValue) {
-			if (!(pt instanceof ReferenceType)) {
+			ReferenceValue referenceValue = (ReferenceValue) pv;
+			PropertyType expectedReferenceType = pt;
+			if (selectsMultipleSubcomponentArrayElements(referenceValue)) {
+				if (pt instanceof ListType) {
+					expectedReferenceType = ((ListType) pt).getElementType();
+				} else {
+					error(holder, prefix + "Assigning a list of reference values" + msg);
+					return;
+				}
+			}
+			if (!(expectedReferenceType instanceof ReferenceType)) {
 				error(holder, prefix + "Assigning incorrect reference value" + msg);
 			} else {
-				ReferenceType ptrt = (ReferenceType) pt;
+				ReferenceType ptrt = (ReferenceType) expectedReferenceType;
 				if (ptrt.getNamedElementReferences().isEmpty()) {
 					return;
 				}
-				ReferenceValue pvrv = (ReferenceValue) pv;
-				EList<ContainmentPathElement> cpes = pvrv.getContainmentPathElements();
+				EList<ContainmentPathElement> cpes = referenceValue.getContainmentPathElements();
 				if (!cpes.isEmpty()) {
 					NamedElement ne = cpes.get(cpes.size() - 1).getNamedElement();
 					for (MetaclassReference mcri : ptrt.getNamedElementReferences()) {
@@ -985,6 +995,23 @@ public class PropertiesValidator extends AbstractPropertiesValidator {
 				error(holder, "Enum/Unit literal validation should have happened before");
 			}
 		}
+	}
+
+	/**
+	 * A reference term evaluates to a list when any subcomponent-array path element denotes the whole
+	 * array or an array range rather than an individual indexed element.
+	 */
+	private static boolean selectsMultipleSubcomponentArrayElements(ReferenceValue referenceValue) {
+		for (ContainmentPathElement pathElement : referenceValue.getContainmentPathElements()) {
+			if (pathElement.getNamedElement() instanceof Subcomponent subcomponent
+					&& !subcomponent.getArrayDimensions().isEmpty()) {
+				if (pathElement.getArrayRanges().isEmpty()
+						|| pathElement.getArrayRanges().stream().anyMatch(range -> range.getUpperBound() != 0)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**

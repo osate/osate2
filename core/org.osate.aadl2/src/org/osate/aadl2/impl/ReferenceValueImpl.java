@@ -27,9 +27,12 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
@@ -70,13 +73,12 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		if (iol.size() == 0) {
 			// reference to a non-instantiated element, e.g., subprogram or call sequence
 			return null;
+		} else if (selectsMultipleSubcomponentArrayElements()) {
+			return createInstanceReferenceList(iol);
 		} else if (iol.size() > 1) {
 			throw new InvalidModelException(this, "Reference refers to more than one instance object");
 		} else {
-			final InstanceObject io = iol.get(0);
-			final InstanceReferenceValue irv = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
-			irv.setReferencedInstanceObject(io);
-			return irv;
+			return createInstanceReference(iol.get(0));
 		}
 	}
 
@@ -84,14 +86,45 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		final List<InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
 		if (iol.size() == 0) {
 			throw new InvalidModelException(this, "Reference does not refer to a nested feature");
+		} else if (selectsMultipleSubcomponentArrayElements()) {
+			return createInstanceReferenceList(iol);
 		} else if (iol.size() > 1) {
 			throw new InvalidModelException(this, "Reference refers to more than one feature");
 		} else {
-			final InstanceObject io = iol.get(0);
-			final InstanceReferenceValue irv = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
-			irv.setReferencedInstanceObject(io);
-			return irv;
+			return createInstanceReference(iol.get(0));
 		}
+	}
+
+	/**
+	 * A reference term evaluates to a list when any subcomponent-array path element denotes the whole
+	 * array or an array range rather than an individual indexed element.
+	 */
+	private boolean selectsMultipleSubcomponentArrayElements() {
+		for (var pathElement : getContainmentPathElements()) {
+			if (pathElement.getNamedElement() instanceof Subcomponent subcomponent
+					&& !subcomponent.getArrayDimensions().isEmpty()) {
+				if (pathElement.getArrayRanges().isEmpty()
+						|| pathElement.getArrayRanges().stream().anyMatch(range -> range.getUpperBound() != 0)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/** Create one reference per selected instance object, preserving instance-model order. */
+	private static ListValue createInstanceReferenceList(List<InstanceObject> instanceObjects) {
+		final ListValue list = Aadl2Factory.eINSTANCE.createListValue();
+		for (final InstanceObject instanceObject : instanceObjects) {
+			list.getOwnedListElements().add(createInstanceReference(instanceObject));
+		}
+		return list;
+	}
+
+	private static InstanceReferenceValue createInstanceReference(InstanceObject instanceObject) {
+		final InstanceReferenceValue reference = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
+		reference.setReferencedInstanceObject(instanceObject);
+		return reference;
 	}
 
 	// TODO: LW features can have reference properties too
