@@ -25,6 +25,8 @@
 property set Issue721Properties is
 	Targets: list of reference (subcomponent) applies to (all);
 	Feature_Targets: list of reference (feature) applies to (all);
+	Feature_Range_Targets: list of reference (feature) applies to (all);
+	Feature_Target: reference (feature) applies to (all);
 	Target: reference (subcomponent) applies to (all);
 	Scalar_Target: reference (subcomponent) applies to (all);
 	Wrong_Targets: list of reference (feature) applies to (all);

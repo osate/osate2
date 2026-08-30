@@ -171,6 +171,58 @@ public class Issue721Test extends XtextTest {
 				referencedPaths(innerIndexed, "Targets"));
 	}
 
+	/** A whole feature array expands to one reference per feature instance. */
+	@Test
+	public void featureArrayReferenceExpandsToList() throws Exception {
+		var result = instantiate(MODEL, "FeatureArrayComponent.i");
+
+		assertEquals(List.of(), result.errors());
+		assertEquals(List.of("ports[1]", "ports[2]", "ports[3]", "ports[4]"),
+				referencedPaths(result, "Feature_Targets"));
+	}
+
+	/** A range on a feature array expands to the feature instances within its bounds. */
+	@Test
+	public void featureArrayRangeExpandsToList() throws Exception {
+		var result = instantiate(MODEL, "FeatureArrayComponent.i");
+
+		assertEquals(List.of(), result.errors());
+		assertEquals(List.of("ports[2]", "ports[3]"), referencedPaths(result, "Feature_Range_Targets"));
+	}
+
+	/** An indexed feature-array element remains a scalar instance reference. */
+	@Test
+	public void indexedFeatureArrayElementRemainsOneReference() throws Exception {
+		var result = instantiate(MODEL, "FeatureArrayComponent.i");
+		var value = propertyValue(result.instance(), "Feature_Target");
+
+		assertEquals(List.of(), result.errors());
+		assertTrue("not an instance reference: " + value, value instanceof InstanceReferenceValue);
+		assertEquals("ports[2]",
+				relativePath(result.instance(), ((InstanceReferenceValue) value).getReferencedInstanceObject()));
+	}
+
+	/** Expansion reaches a feature array after traversing a scalar subcomponent path element. */
+	@Test
+	public void pathContinuesIntoFeatureArray() throws Exception {
+		var result = instantiate(MODEL, "Top.feature_array_path");
+
+		assertEquals(List.of(), result.errors());
+		assertEquals(List.of("worker.ports[1]", "worker.ports[2]", "worker.ports[3]", "worker.ports[4]"),
+				referencedPaths(result, "Feature_Targets"));
+	}
+
+	/** A subcomponent array followed by a feature array expands both path elements. */
+	@Test
+	public void subcomponentAndFeatureArraysExpandTogether() throws Exception {
+		var result = instantiate(MODEL, "Top.subcomponent_and_feature_arrays");
+
+		assertEquals(List.of(), result.errors());
+		assertEquals(List.of("workers[1].ports[1]", "workers[1].ports[2]", "workers[1].ports[3]",
+				"workers[1].ports[4]", "workers[2].ports[1]", "workers[2].ports[2]", "workers[2].ports[3]",
+				"workers[2].ports[4]"), referencedPaths(result, "Feature_Targets"));
+	}
+
 	/**
 	 * Validation accounts for the evaluated list type and checks the terminal element against the
 	 * reference constraints of the list element type.

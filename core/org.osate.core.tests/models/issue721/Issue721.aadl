@@ -39,6 +39,18 @@ public
 			inner: system Worker[3];
 	end Container.with_inner_array;
 
+	system FeatureArrayComponent
+		features
+			ports: out event port [4];
+		properties
+			Issue721Properties::Feature_Targets => reference (ports);
+			Issue721Properties::Feature_Range_Targets => reference (ports[2 .. 3]);
+			Issue721Properties::Feature_Target => reference (ports[2]);
+	end FeatureArrayComponent;
+
+	system implementation FeatureArrayComponent.i
+	end FeatureArrayComponent.i;
+
 	system Top
 	end Top;
 
@@ -105,4 +117,20 @@ public
 		properties
 			Issue721Properties::Targets => reference (outer.inner[2]);
 	end Top.indexed_inner_array;
+
+	-- A feature array can be a later path element below a scalar subcomponent.
+	system implementation Top.feature_array_path
+		subcomponents
+			worker: system FeatureArrayComponent;
+		properties
+			Issue721Properties::Feature_Targets => reference (worker.ports);
+	end Top.feature_array_path;
+
+	-- Subcomponent-array and feature-array selections combine into one flat Cartesian result.
+	system implementation Top.subcomponent_and_feature_arrays
+		subcomponents
+			workers: system FeatureArrayComponent[2];
+		properties
+			Issue721Properties::Feature_Targets => reference (workers.ports);
+	end Top.subcomponent_and_feature_arrays;
 end Issue721;
