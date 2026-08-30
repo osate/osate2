@@ -24,6 +24,8 @@
 package org.osate.xtext.aadl2.ide;
 
 import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.eclipse.xtext.ide.refactoring.IRenameStrategy2;
+import org.osate.xtext.aadl2.ide.refactoring.Aadl2IdeRenameStrategy;
 
 /**
  * Use this class to register ide components.
@@ -32,6 +34,11 @@ public class Aadl2IdeModule extends AbstractAadl2IdeModule {
 
 	public Class<? extends ISemanticHighlightingCalculator> bindSemanticHighlightingCalculator() {
 		return org.osate.xtext.aadl2.ide.highlighting.Aadl2SemanticHighlightingCalculator.class;
+	}
+
+	@Override
+	public Class<? extends IRenameStrategy2> bindIRenameStrategy2() {
+		return Aadl2IdeRenameStrategy.class;
 	}
 
 }
