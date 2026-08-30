@@ -43,8 +43,8 @@ property set Communication_Properties is
     --- The <b>Required_Connection</b> property specifies whether the port or subprogram requires a connection.  If the
     --- value of this property is false, then it is assumed that the component can function without this port or 
     --- subprogram access feature being connected.<p>
-    --- The default value is that a connection is required.
-    Required_Connection: aadlboolean applies to (feature);
+    --- OSATE defaults this property to false, which intentionally deviates from the AADL standard default of true.
+    Required_Connection: aadlboolean => false applies to (feature);
 
     --- The <b>Timing</b> property specifies the timing of port connections.  By default the interaction is <b>sampled</b>,
     --- i.e., the receiving component samples at dispatch or during execution.
