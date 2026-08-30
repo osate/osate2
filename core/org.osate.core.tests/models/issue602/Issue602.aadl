@@ -1,0 +1,53 @@
+package Issue602
+public
+	device Producer
+	features
+		all_missing: out data port { Required_Connection => true; };
+		default_optional_missing: out data port;
+		explicit_optional_missing: out data port;
+		partial: out data port { Required_Connection => true; };
+		full: out data port;
+	end Producer;
+
+	device Consumer
+	features
+		partial: in data port { Required_Connection => false; };
+		full: in data port { Required_Connection => false; };
+	end Consumer;
+
+	device ModalProducer
+	features
+		conditional: out data port;
+	modes
+		one: initial mode;
+		two: mode;
+	properties
+		Required_Connection => true in modes (one), false in modes (two) applies to conditional;
+	end ModalProducer;
+
+	system Top
+	end Top;
+
+	system implementation Top.impl
+	subcomponents
+		producer: device Producer;
+		consumer: device Consumer;
+	connections
+		partial: port producer.partial -> consumer.partial in modes (m1);
+		full: port producer.full -> consumer.full;
+	modes
+		m1: initial mode;
+		m2: mode;
+		m3: mode;
+	properties
+		Required_Connection => false applies to producer.explicit_optional_missing;
+	end Top.impl;
+
+	system ModalTop
+	end ModalTop;
+
+	system implementation ModalTop.impl
+	subcomponents
+		producer: device ModalProducer;
+	end ModalTop.impl;
+end Issue602;
