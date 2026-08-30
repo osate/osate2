@@ -1,0 +1,13 @@
+package issue2697references
+public
+	with issue2697;
+
+	system User
+	end User;
+
+	system implementation User.impl
+		subcomponents
+			type_reference: system issue2697::Original;
+			implementation_reference: system issue2697::Original.first;
+	end User.impl;
+end issue2697references;

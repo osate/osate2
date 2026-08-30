@@ -25,12 +25,16 @@ package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.formatting2.regionaccess.ITextReplacement;
 import org.eclipse.xtext.ide.refactoring.IRenameStrategy2;
@@ -65,12 +69,15 @@ import com.itemis.xtext.testing.XtextTest;
 /**
  * Tests serializer-based AADL renames used by language servers. Component implementations encode
  * their realized type in the semantic name, so both implementation and type renames must preserve
- * that coupling in the declaration and closing identifier.
+ * that coupling in declarations and closing identifiers while related resources receive matching
+ * cross-reference edits.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(Issue2697Test.IdeInjectorProvider.class)
 public class Issue2697Test extends XtextTest {
 	private static final String MODEL_PATH = "org.osate.core.tests/models/issue2697/Issue2697.aadl";
+	private static final String REFERENCE_MODEL_PATH =
+			"org.osate.core.tests/models/issue2697/Issue2697References.aadl";
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
@@ -110,9 +117,41 @@ public class Issue2697Test extends XtextTest {
 		validationHelper.assertNoIssues(testHelper.parseString(renamedText));
 	}
 
+	@Test
+	public void typeRenameUpdatesCrossFileReferences() throws Exception {
+		var pkg = testHelper.parseFile(MODEL_PATH, REFERENCE_MODEL_PATH);
+		validationHelper.assertNoIssues(pkg);
+		var referenceResource = pkg.eResource()
+				.getResourceSet()
+				.getResource(URI.createURI(REFERENCE_MODEL_PATH), false);
+		var referencePkg = (AadlPackage) referenceResource.getContents().getFirst();
+		validationHelper.assertNoIssues(referencePkg);
+		var type = (SystemType) pkg.getOwnedPublicSection().getOwnedClassifiers().getFirst();
+
+		var renamedTexts = renameResources(type, "Renamed");
+		var renamedSource = renamedTexts.get(URI.createURI(MODEL_PATH));
+		var renamedReferences = renamedTexts.get(URI.createURI(REFERENCE_MODEL_PATH));
+
+		assertNotNull(renamedSource);
+		assertNotNull(renamedReferences);
+		assertTrue(renamedReferences, renamedReferences.contains("system issue2697::Renamed;"));
+		assertTrue(renamedReferences, renamedReferences.contains("system issue2697::Renamed.first;"));
+		assertFalse(renamedReferences, renamedReferences.contains("issue2697::Original"));
+		validationHelper.assertNoIssues(testHelper.parseString(renamedReferences, renamedSource));
+	}
+
 	private static String rename(NamedElement target, String newName) {
+		return renameResources(target, newName).get(target.eResource().getURI());
+	}
+
+	private static Map<URI, String> renameResources(NamedElement target, String newName) {
 		var resource = (XtextResource) target.eResource();
-		var originalText = resource.getParseResult().getRootNode().getText();
+		var originalTexts = new HashMap<URI, String>();
+		for (var loadedResource : resource.getResourceSet().getResources()) {
+			if (loadedResource instanceof XtextResource xtextResource && xtextResource.getParseResult() != null) {
+				originalTexts.put(loadedResource.getURI(), xtextResource.getParseResult().getRootNode().getText());
+			}
+		}
 		var services = resource.getResourceServiceProvider();
 		var changeSerializer = services.get(IChangeSerializer.class);
 		var renameStrategy = services.get(IRenameStrategy2.class);
@@ -125,13 +164,18 @@ public class Issue2697Test extends XtextTest {
 		changeSerializer.applyModifications(changes::add);
 
 		assertEquals(Severity.OK, issues.getMaximumSeverity());
-		var documentChange = changes.stream()
+		var renamedTexts = new HashMap<URI, String>();
+		changes.stream()
 				.filter(ITextDocumentChange.class::isInstance)
 				.map(ITextDocumentChange.class::cast)
-				.filter(candidate -> resource.getURI().equals(candidate.getOldURI()))
-				.findFirst()
-				.orElseThrow();
-		return applyReplacements(originalText, documentChange.getReplacements());
+				.forEach(documentChange -> {
+					var originalText = originalTexts.get(documentChange.getOldURI());
+					if (originalText != null) {
+						renamedTexts.put(documentChange.getOldURI(),
+								applyReplacements(originalText, documentChange.getReplacements()));
+					}
+				});
+		return renamedTexts;
 	}
 
 	private static String applyReplacements(String originalText, List<ITextReplacement> replacements) {
