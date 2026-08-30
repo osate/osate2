@@ -66,6 +66,7 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ListType;
@@ -221,7 +222,7 @@ public class PropertiesValidator extends AbstractPropertiesValidator {
 									ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
 						}
 						if (EcoreUtil2.getContainerOfType(pathElement, ReferenceValue.class) != null
-								&& !(element instanceof Subcomponent)) {
+								&& !(element instanceof Subcomponent) && !(element instanceof Feature)) {
 							warning(providedRange, "Array ranges in reference values are not property instantiated");
 						}
 					}
@@ -919,7 +920,7 @@ public class PropertiesValidator extends AbstractPropertiesValidator {
 		} else if (pv instanceof ReferenceValue) {
 			ReferenceValue referenceValue = (ReferenceValue) pv;
 			PropertyType expectedReferenceType = pt;
-			if (selectsMultipleSubcomponentArrayElements(referenceValue)) {
+			if (selectsMultipleArrayElements(referenceValue)) {
 				if (pt instanceof ListType) {
 					expectedReferenceType = ((ListType) pt).getElementType();
 				} else {
@@ -998,13 +999,14 @@ public class PropertiesValidator extends AbstractPropertiesValidator {
 	}
 
 	/**
-	 * A reference term evaluates to a list when any subcomponent-array path element denotes the whole
-	 * array or an array range rather than an individual indexed element.
+	 * A reference term evaluates to a list when any subcomponent- or feature-array path element
+	 * denotes the whole array or an array range rather than an individual indexed element.
 	 */
-	private static boolean selectsMultipleSubcomponentArrayElements(ReferenceValue referenceValue) {
+	private static boolean selectsMultipleArrayElements(ReferenceValue referenceValue) {
 		for (ContainmentPathElement pathElement : referenceValue.getContainmentPathElements()) {
-			if (pathElement.getNamedElement() instanceof Subcomponent subcomponent
-					&& !subcomponent.getArrayDimensions().isEmpty()) {
+			NamedElement namedElement = pathElement.getNamedElement();
+			if (isExpandableArrayElement(namedElement)
+					&& !((ArrayableElement) namedElement).getArrayDimensions().isEmpty()) {
 				if (pathElement.getArrayRanges().isEmpty()
 						|| pathElement.getArrayRanges().stream().anyMatch(range -> range.getUpperBound() != 0)) {
 					return true;
@@ -1012,6 +1014,10 @@ public class PropertiesValidator extends AbstractPropertiesValidator {
 			}
 		}
 		return false;
+	}
+
+	private static boolean isExpandableArrayElement(NamedElement namedElement) {
+		return namedElement instanceof Subcomponent || namedElement instanceof Feature;
 	}
 
 	/**
