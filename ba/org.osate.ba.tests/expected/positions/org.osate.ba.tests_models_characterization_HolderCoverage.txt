@@ -1,0 +1,8 @@
+annex[0] owner=Issue2445_Holder_Coverage::holder_source
+  (BehaviorState, s, 725, 1)
+  (BehaviorState, s, 775, 1)
+  (BehaviorState, s, 794, 1)
+  (BehaviorVariable, value, 802, 5)
+  (BehaviorVariable, value, 984, 5)
+  (DataType, Integer, 692, 10)
+  (FeaturePrototype, fp, 993, 2)

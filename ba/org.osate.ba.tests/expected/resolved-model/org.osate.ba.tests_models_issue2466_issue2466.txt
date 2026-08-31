@@ -1,0 +1,132 @@
+annex[0] owner=issue2466::s2
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition name=t
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=issue2466::s1 [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : DataAccessHolder element=issue2466::s2.d [DataAccess]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+          parameterLabels[1] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : DataAccessHolder element=issue2466::s2.d [DataAccess]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+          parameterLabels[2] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : DataAccessHolder element=issue2466::s2.d [DataAccess]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+          parameterLabels[3] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : DataAccessHolder element=issue2466::s2.d [DataAccess]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+        actions[1] : SubprogramCallAction
+          subprogram : SubprogramHolder element=issue2466::s11 [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : DataAccessHolder element=issue2466::s2.d [DataAccess]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+        actions[2] : SubprogramCallAction
+          subprogram : SubprogramHolder element=issue2466::s12 [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : DataAccessHolder element=issue2466::s2.d [DataAccess]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+annex[1] owner=issue2466::s3
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition name=t
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=issue2466::s1 [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : ParameterHolder element=issue2466::s3.d [Parameter]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+          parameterLabels[1] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : ParameterHolder element=issue2466::s3.d [Parameter]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+          parameterLabels[2] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : ParameterHolder element=issue2466::s3.d [Parameter]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+          parameterLabels[3] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : ParameterHolder element=issue2466::s3.d [Parameter]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+        actions[1] : SubprogramCallAction
+          subprogram : SubprogramHolder element=issue2466::s11 [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : ParameterHolder element=issue2466::s3.d [Parameter]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f
+        actions[2] : SubprogramCallAction
+          subprogram : SubprogramHolder element=issue2466::s12 [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : ParameterHolder element=issue2466::s3.d [Parameter]
+                      data[1] : StructUnionElementHolder element=f [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=f

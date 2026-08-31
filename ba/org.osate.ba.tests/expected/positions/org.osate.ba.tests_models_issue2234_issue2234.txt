@@ -1,0 +1,4 @@
+annex[0] owner=issue2234::spg
+  (BehaviorState, singleton, 196, 9)
+  (BehaviorState, singleton, 248, 9)
+  (BehaviorState, singleton, 264, 9)

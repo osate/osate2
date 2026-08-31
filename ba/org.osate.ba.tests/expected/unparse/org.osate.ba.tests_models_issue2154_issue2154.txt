@@ -1,0 +1,16 @@
+===== annex[0] owner=issue2154::abst =====
+
+states
+  s0 : initial complete final state;
+transitions
+  s0 -[on dispatch p_in]-> s0;
+----- legacy round-trip -----
+idempotent
+===== annex[1] owner=issue2154::proc =====
+
+states
+  s0 : initial complete final state;
+transitions
+  s0 -[on dispatch p_in]-> s0;
+----- legacy round-trip -----
+idempotent

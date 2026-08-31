@@ -1,0 +1,2 @@
+annex[0] owner=MissingStateSeparator::t
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification

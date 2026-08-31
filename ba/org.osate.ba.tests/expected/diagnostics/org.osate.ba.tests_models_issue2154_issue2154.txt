@@ -1,0 +1,2 @@
+error | semantic | 22 | 1 | 31 | process components cannot contain a dispatch condition in any of their transitions: they cannot be dispatched (extension of Behavior Annex D.3.(L5) legality rule).
+warning | semantic | 11 | 1 | 31 | Using a dispatch condition in an abstract component means this component can only be refined into a component category on which the Dispatch_Protocol property can be applied.

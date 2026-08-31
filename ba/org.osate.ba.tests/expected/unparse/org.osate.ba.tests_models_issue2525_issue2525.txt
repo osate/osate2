@@ -1,0 +1,15 @@
+===== annex[0] owner=issue2525::t =====
+
+variables
+  v : issue2525::d;
+states
+  s : initial complete final state;
+transitions
+  s -[on dispatch]-> s {
+     ? (v);
+     ?
+  };
+----- legacy round-trip -----
+parse-failure
+Error line 8: no viable alternative at input '{?'
+Error line 8: unterminated behavior transition (missing ending ';')

@@ -1,0 +1,12 @@
+===== annex[0] owner=issue2190_IntegerLiteral::top =====
+
+variables
+  tmp : Base_Types::Integer_32;
+states
+  a : initial final state;
+transitions
+  t : a -[]-> a {
+    o1 := tmp
+  };
+----- legacy round-trip -----
+idempotent

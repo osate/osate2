@@ -1,0 +1,79 @@
+annex[0] owner=BA_example7::a_client
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=x
+    variables[1] : BehaviorVariable name=y
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramAccessHolder element=BA_example7::a_client.pre [SubprogramAccess]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+          parameterLabels[1] : BehaviorVariableHolder element=y [BehaviorVariable]
+        actions[1] : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        actions[2] : SubprogramCallAction
+          subprogram : SubprogramAccessHolder element=BA_example7::a_client.post [SubprogramAccess]
+          parameterLabels[0] : BehaviorVariableHolder element=y [BehaviorVariable]
+          parameterLabels[1] : BehaviorVariableHolder element=x [BehaviorVariable]
+annex[1] owner=BA_example7::a_server.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=v
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=s1
+    states[2] : BehaviorState name=s2
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : SubprogramAccessHolder element=BA_example7::a_server.long [SubprogramAccess]
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+      condition : ExecutionTimeoutCatch
+    transitions[3] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : SubprogramAccessHolder element=BA_example7::a_server.short [SubprogramAccess]
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=BA_example7::long_computation [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=v [BehaviorVariable]
+          parameterLabels[1] : DataSubcomponentHolder element=BA_example7::a_server.i.local_result [DataSubcomponent]
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=BA_example7::a_server.i.local_result [DataSubcomponent]
+            data[1] : DataSubcomponentHolder element=BA_example7::data_type.i.status [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+      timeout : BehaviorTime
+        integerValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataSubcomponentHolder element=BA_example7::a_server.i.local_result [DataSubcomponent]
+          data[1] : DataSubcomponentHolder element=BA_example7::data_type.i.status [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=BA_example7::send_result [SubprogramType]
+        parameterLabels[0] : DataSubcomponentHolder element=BA_example7::a_server.i.local_result [DataSubcomponent]
+        parameterLabels[1] : BehaviorVariableHolder element=v [BehaviorVariable]

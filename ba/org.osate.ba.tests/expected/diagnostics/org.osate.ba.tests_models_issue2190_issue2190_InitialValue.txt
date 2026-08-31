@@ -1,0 +1,1 @@
+warning | semantic | 4 | 7 | 10 | Data_Model in 'with' clause of public package section is not used.

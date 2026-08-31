@@ -1,0 +1,1 @@
+error | syntax | 8 | 1 | 26 | missing behavior state source separator ','

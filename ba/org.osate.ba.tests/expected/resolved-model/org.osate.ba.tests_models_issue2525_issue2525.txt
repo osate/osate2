@@ -1,0 +1,16 @@
+annex[0] owner=issue2525::t
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=v
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : CommAction
+          target : Reference
+            ids[0] : ArrayableIdentifier
+          qualifiedName : QualifiedNamedElement
+            baName : Identifier
+        actions[1] : CommAction
+          qualifiedName : QualifiedNamedElement
+            baName : Identifier

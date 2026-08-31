@@ -1,0 +1,10 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package MissingStateSeparator
+public
+	thread t
+	annex behavior_specification {**
+		states a b: state;
+	**};
+	end t;
+end MissingStateSeparator;

@@ -1,0 +1,48 @@
+===== annex[0] owner=BA_example6::merger.twopersistentstates =====
+
+states
+  s0 : initial complete state;
+  comp : state;
+  next1 : complete final state;
+  next2 : complete final state;
+transitions
+  s0 -[on dispatch p1]-> next2 {
+    x1 := p1
+  };
+  s0 -[on dispatch p2]-> next1 {
+    x2 := p2
+  };
+  next1 -[on dispatch p1]-> comp {
+    x1 := p1
+  };
+  next2 -[on dispatch p2]-> comp {
+    x2 := p2
+  };
+  comp -[x1 < x2]-> next1 {
+    m ! (x1)
+  };
+  comp -[x2 <= x1]-> next2 {
+    m ! (x2)
+  };
+----- legacy round-trip -----
+idempotent
+===== annex[1] owner=BA_example6::merger.portbased =====
+
+states
+  s0 : initial complete state;
+  comp : state;
+  next1 : complete final state;
+  next2 : complete final state;
+transitions
+  s0 -[on dispatch p1]-> next2;
+  s0 -[on dispatch p2]-> next1;
+  next1 -[on dispatch p1]-> comp;
+  next2 -[on dispatch p2]-> comp;
+  comp -[p1 < p2]-> next1 {
+    m ! (p1)
+  };
+  comp -[p2 <= p1]-> next2 {
+    m ! (p2)
+  };
+----- legacy round-trip -----
+idempotent

@@ -1,0 +1,1045 @@
+annex[0] owner=GroupTest::thread2.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=x
+    variables[1] : BehaviorVariable name=y
+    variables[2] : BehaviorVariable name=bool1
+    states[0] : BehaviorState name=a
+    states[1] : BehaviorState name=dummy
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+    transitions[7] : BehaviorTransition
+    transitions[8] : BehaviorTransition
+    transitions[9] : BehaviorTransition
+    transitions[10] : BehaviorTransition
+    transitions[11] : BehaviorTransition
+    transitions[12] : BehaviorTransition
+    transitions[13] : BehaviorTransition
+    transitions[14] : BehaviorTransition
+    transitions[15] : BehaviorTransition
+    transitions[16] : BehaviorTransition
+    transitions[17] : BehaviorTransition
+    transitions[18] : BehaviorTransition
+    transitions[19] : BehaviorTransition
+    transitions[20] : BehaviorTransition
+    transitions[21] : BehaviorTransition
+    transitions[22] : BehaviorTransition
+    transitions[23] : BehaviorTransition
+    transitions[24] : BehaviorTransition
+    transitions[25] : BehaviorTransition
+    transitions[26] : BehaviorTransition
+    transitions[27] : BehaviorTransition
+    transitions[28] : BehaviorTransition
+    transitions[29] : BehaviorTransition
+    transitions[30] : BehaviorTransition
+    transitions[31] : BehaviorTransition
+    transitions[32] : BehaviorTransition
+    transitions[33] : BehaviorTransition
+    transitions[34] : BehaviorTransition
+    transitions[35] : BehaviorTransition
+    transitions[36] : BehaviorTransition
+    transitions[37] : BehaviorTransition
+    transitions[38] : BehaviorTransition
+    transitions[39] : BehaviorTransition
+    transitions[40] : BehaviorTransition
+    transitions[41] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : EventDataPortHolder element=GroupTest::thread1.outPortA [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : EventDataPortHolder element=GroupTest::MyPortGroup.outPort [EventDataPort]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : EventDataPortHolder element=GroupTest::MyPortGroup.outPort [EventDataPort]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+          groupHolders[1] : GroupHolder element=GroupTest::MyPortGroup.recursiveGrp [FeatureGroup]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[3] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataAccessHolder element=GroupTest::thread1.dataAccess [DataAccess]
+          data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.int [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[4] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataAccessHolder element=GroupTest::thread1.dataAccessArray [DataAccess]
+            arrayIndexes[0] : BehaviorIntegerLiteral
+          data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.int [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[5] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataAccessHolder element=GroupTest::thread1.dataAccess [DataAccess]
+          data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+            arrayIndexes[0] : BehaviorIntegerLiteral
+            arrayIndexes[1] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[6] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataAccessHolder element=GroupTest::thread1.dataAccessArray [DataAccess]
+            arrayIndexes[0] : BehaviorIntegerLiteral
+          data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+            arrayIndexes[0] : BehaviorIntegerLiteral
+            arrayIndexes[1] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[7] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupTest::thread1.dataAccessGrp [FeatureGroup]
+          data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.int [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[8] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupTest::thread1.dataAccessGrp [FeatureGroup]
+          data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+            arrayIndexes[0] : BehaviorIntegerLiteral
+            arrayIndexes[1] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[9] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortCountValue
+    actions[10] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=bool1 [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortFreshValue
+    actions[11] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortDequeueValue
+    actions[12] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortDequeueValue
+                    groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+    actions[13] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortCountValue
+                    groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+    actions[14] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=bool1 [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortFreshValue
+                    groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+    actions[15] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=GroupTest::MyPortGroup.inPort [EventDataPort]
+                    groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+    actions[16] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=GroupTest::MyPortGroup.inPort [EventDataPort]
+                    groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+                    groupHolders[1] : GroupHolder element=GroupTest::MyPortGroup.recursiveGrp [FeatureGroup]
+    actions[17] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataAccessHolder element=GroupTest::thread1.dataAccess [DataAccess]
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.int [DataSubcomponent]
+    actions[18] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataAccessHolder element=GroupTest::thread1.dataAccessArray [DataAccess]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.int [DataSubcomponent]
+    actions[19] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataAccessHolder element=GroupTest::thread1.dataAccess [DataAccess]
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                      arrayIndexes[1] : BehaviorIntegerLiteral
+    actions[20] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataAccessHolder element=GroupTest::thread1.dataAccessArray [DataAccess]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                      arrayIndexes[1] : BehaviorIntegerLiteral
+    actions[21] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+                      groupHolders[0] : GroupHolder element=GroupTest::thread1.dataAccessGrp [FeatureGroup]
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.int [DataSubcomponent]
+    actions[22] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+                      groupHolders[0] : GroupHolder element=GroupTest::thread1.dataAccessGrp [FeatureGroup]
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                      arrayIndexes[1] : BehaviorIntegerLiteral
+    actions[23] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=GroupTest::MySubprogramGroup.impl.spg1 [SubprogramSubcomponent]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          groupHolders[0] : GroupHolder element=GroupTest::thread2.impl.subprogGrp [SubprogramGroupSubcomponent]
+    actions[24] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=GroupTest::MySubprogramGroup.impl.spg2 [SubprogramSubcomponent]
+          groupHolders[0] : GroupHolder element=GroupTest::thread2.impl.subprogGrp [SubprogramGroupSubcomponent]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[25] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=GroupTest::MySubprogramGroup.subprog [SubprogramAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::thread2.impl.subprogGrp [SubprogramGroupSubcomponent]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[26] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=GroupTest::MySubprogramGroup.impl.spg1 [SubprogramSubcomponent]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.subprogGrpAccess [SubprogramGroupAccess]
+    actions[27] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=GroupTest::MySubprogramGroup.impl.spg2 [SubprogramSubcomponent]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.subprogGrpAccess [SubprogramGroupAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[28] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=GroupTest::MySubprogramGroup.subprog [SubprogramAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.subprogGrpAccess [SubprogramGroupAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[29] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=GroupTest::MySubprogramGroup.subprog [SubprogramAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.subprogGrpAccess [SubprogramGroupAccess]
+          groupHolders[1] : GroupHolder element=GroupTest::MySubprogramGroup.impl.recursiveGrp [SubprogramGroupSubcomponent]
+          groupHolders[2] : GroupHolder element=GroupTest::MySubprogramGroup.recursiveGrpAccess [SubprogramGroupAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[30] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=GroupTest::MyPrototypeGroup.definedSubprog [SubprogramPrototype]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          groupHolders[0] : GroupHolder element=GroupTest::thread2.impl.subprogGrp [SubprogramGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MySubprogramGroup.prototypeGrp [FeatureGroup]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[31] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=GroupTest::MyPrototypeGroup.definedSubprog [SubprogramPrototype]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          groupHolders[0] : GroupHolder element=GroupTest::thread2.impl.subprogGrp [SubprogramGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MySubprogramGroup.impl.recursiveGrp [SubprogramGroupSubcomponent]
+          groupHolders[2] : GroupHolder element=GroupTest::MySubprogramGroup.recursiveGrpAccess [SubprogramGroupAccess]
+          groupHolders[3] : GroupHolder element=GroupTest::MySubprogramGroup.prototypeGrp [FeatureGroup]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[32] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=GroupTest::MyPrototypeGroup.subprog [SubprogramPrototype]
+          groupHolders[0] : GroupHolder element=GroupTest::thread2.impl.subprogGrp [SubprogramGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MySubprogramGroup.prototypeGrp [FeatureGroup]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[33] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=GroupTest::MySubprogramGroup.subprog [SubprogramAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::thread2.impl.subprogGrp [SubprogramGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MySubprogramGroup.impl.recursiveGrp [SubprogramGroupSubcomponent]
+          groupHolders[2] : GroupHolder element=GroupTest::MySubprogramGroup.recursiveGrpAccess [SubprogramGroupAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[34] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=GroupTest::MyThreadGroup.subprog [SubprogramAccess]
+          groupHolders[0] : GroupPrototypeHolder element=GroupTest::thread1.threadGrpProt [ThreadGroupPrototype]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[35] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=GroupTest::MyPortGroup.outPort [EventDataPort]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+    actions[36] : BehaviorActionBlock
+      content : PortFreezeAction
+        groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+    actions[37] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=GroupTest::MyPortGroup.inPort [EventDataPort]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.portGrp [FeatureGroup]
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+    actions[38] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.dataAccessGrp [FeatureGroup]
+    actions[39] : BehaviorActionBlock
+      content : UnlockAction
+        dataAccess : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.dataAccessGrp [FeatureGroup]
+    actions[40] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.dataAccessGrp [FeatureGroup]
+          groupHolders[1] : GroupHolder element=GroupTest::MyDataAccessGroup.recursiveGrp [FeatureGroup]
+    actions[41] : BehaviorActionBlock
+      content : UnlockAction
+        dataAccess : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::thread1.dataAccessGrp [FeatureGroup]
+          groupHolders[1] : GroupHolder element=GroupTest::MyDataAccessGroup.recursiveGrp [FeatureGroup]
+annex[1] owner=GroupTest::process1.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=x
+    variables[1] : BehaviorVariable name=y
+    variables[2] : BehaviorVariable name=bool1
+    states[0] : BehaviorState name=a
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+    transitions[7] : BehaviorTransition
+    transitions[8] : BehaviorTransition
+    transitions[9] : BehaviorTransition
+    transitions[10] : BehaviorTransition
+    transitions[11] : BehaviorTransition
+    transitions[12] : BehaviorTransition
+    transitions[13] : BehaviorTransition
+    transitions[14] : BehaviorTransition
+    transitions[15] : BehaviorTransition
+    transitions[16] : BehaviorTransition
+    transitions[17] : BehaviorTransition
+    transitions[18] : BehaviorTransition
+    transitions[19] : BehaviorTransition
+    transitions[20] : BehaviorTransition
+    transitions[21] : BehaviorTransition
+    transitions[22] : BehaviorTransition
+    transitions[23] : BehaviorTransition
+    transitions[24] : BehaviorTransition
+    transitions[25] : BehaviorTransition
+    transitions[26] : BehaviorTransition
+    transitions[27] : BehaviorTransition
+    transitions[28] : BehaviorTransition
+    transitions[29] : BehaviorTransition
+    transitions[30] : BehaviorTransition
+    transitions[31] : BehaviorTransition
+    transitions[32] : BehaviorTransition
+    transitions[33] : BehaviorTransition
+    transitions[34] : BehaviorTransition
+    transitions[35] : BehaviorTransition
+    transitions[36] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : EventDataPortHolder element=GroupTest::MyThreadGroup.outPort [EventDataPort]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : EventDataPortHolder element=GroupTest::MyPortGroup.outPort [EventDataPort]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : EventDataPortHolder element=GroupTest::MyPortGroup.outPort [EventDataPort]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.recursiveGrp [ThreadGroupSubcomponent]
+          groupHolders[2] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[3] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+            groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.dataAccessGrp [FeatureGroup]
+          data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+            arrayIndexes[0] : BehaviorIntegerLiteral
+            arrayIndexes[1] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[4] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+            groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.recursiveGrp [ThreadGroupSubcomponent]
+            groupHolders[2] : GroupHolder element=GroupTest::MyThreadGroup.dataAccessGrp [FeatureGroup]
+          data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+            arrayIndexes[0] : BehaviorIntegerLiteral
+            arrayIndexes[1] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[5] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataSubcomponentHolder element=GroupTest::MyThreadGroup.impl.myStruct [DataSubcomponent]
+            arrayIndexes[0] : BehaviorIntegerLiteral
+            groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+            groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.recursiveGrp [ThreadGroupSubcomponent]
+          data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+            arrayIndexes[0] : BehaviorIntegerLiteral
+            arrayIndexes[1] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[6] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortCountValue
+                    groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+    actions[7] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=bool1 [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortFreshValue
+                    groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+    actions[8] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortDequeueValue
+                    groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+    actions[9] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortDequeueValue
+                    groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                    groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+    actions[10] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortCountValue
+                    groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                    groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+    actions[11] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=bool1 [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortFreshValue
+                    groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                    groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+    actions[12] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=GroupTest::MyPortGroup.inPort [EventDataPort]
+                    groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                    groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+    actions[13] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=GroupTest::MyPortGroup.inPort [EventDataPort]
+                    groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                    groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+                    groupHolders[2] : GroupHolder element=GroupTest::MyPortGroup.recursiveGrp [FeatureGroup]
+    actions[14] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=GroupTest::MyPortGroup.inPort [EventDataPort]
+                    groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                    groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.recursiveGrp [ThreadGroupSubcomponent]
+                    groupHolders[2] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+                    groupHolders[3] : GroupHolder element=GroupTest::MyPortGroup.recursiveGrp [FeatureGroup]
+    actions[15] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+                      groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                      groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.dataAccessGrp [FeatureGroup]
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                      arrayIndexes[1] : BehaviorIntegerLiteral
+    actions[16] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataSubcomponentHolder element=GroupTest::MyThreadGroup.impl.myStruct [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                      groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.int [DataSubcomponent]
+    actions[17] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataSubcomponentHolder element=GroupTest::MyThreadGroup.impl.myStruct [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                      groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                      arrayIndexes[1] : BehaviorIntegerLiteral
+    actions[18] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataSubcomponentHolder element=GroupTest::MyThreadGroup.impl.myStruct [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                      groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+                      groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.recursiveGrp [ThreadGroupSubcomponent]
+                    data[1] : DataSubcomponentHolder element=GroupTest::Struct.impl.intArray [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+                      arrayIndexes[1] : BehaviorIntegerLiteral
+    actions[19] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=GroupTest::MySubprogramGroup.impl.spg1 [SubprogramSubcomponent]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.subprogGrp [SubprogramGroupSubcomponent]
+    actions[20] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=GroupTest::MySubprogramGroup.impl.spg2 [SubprogramSubcomponent]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.subprogGrp [SubprogramGroupSubcomponent]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[21] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=GroupTest::MySubprogramGroup.subprog [SubprogramAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.subprogGrp [SubprogramGroupSubcomponent]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[22] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=GroupTest::MySubprogramGroup.subprog [SubprogramAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.subprogGrp [SubprogramGroupSubcomponent]
+          groupHolders[2] : GroupHolder element=GroupTest::MySubprogramGroup.impl.recursiveGrp [SubprogramGroupSubcomponent]
+          groupHolders[3] : GroupHolder element=GroupTest::MySubprogramGroup.recursiveGrpAccess [SubprogramGroupAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[23] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=GroupTest::MySubprogramGroup.impl.spg1 [SubprogramSubcomponent]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.subprogGrpAccess [SubprogramGroupAccess]
+    actions[24] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=GroupTest::MySubprogramGroup.impl.spg2 [SubprogramSubcomponent]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.subprogGrpAccess [SubprogramGroupAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[25] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=GroupTest::MySubprogramGroup.subprog [SubprogramAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.subprogGrpAccess [SubprogramGroupAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[26] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=GroupTest::MySubprogramGroup.subprog [SubprogramAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.subprogGrpAccess [SubprogramGroupAccess]
+          groupHolders[2] : GroupHolder element=GroupTest::MySubprogramGroup.impl.recursiveGrp [SubprogramGroupSubcomponent]
+          groupHolders[3] : GroupHolder element=GroupTest::MySubprogramGroup.recursiveGrpAccess [SubprogramGroupAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[27] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=GroupTest::MyPrototypeGroup.definedSubprog [SubprogramPrototype]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.subprogGrp [SubprogramGroupSubcomponent]
+          groupHolders[2] : GroupHolder element=GroupTest::MySubprogramGroup.prototypeGrp [FeatureGroup]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[28] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=GroupTest::MyPrototypeGroup.definedSubprog [SubprogramPrototype]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.subprogGrp [SubprogramGroupSubcomponent]
+          groupHolders[2] : GroupHolder element=GroupTest::MySubprogramGroup.impl.recursiveGrp [SubprogramGroupSubcomponent]
+          groupHolders[3] : GroupHolder element=GroupTest::MySubprogramGroup.recursiveGrpAccess [SubprogramGroupAccess]
+          groupHolders[4] : GroupHolder element=GroupTest::MySubprogramGroup.prototypeGrp [FeatureGroup]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[29] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=GroupTest::MyPrototypeGroup.subprog [SubprogramPrototype]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.impl.subprogGrp [SubprogramGroupSubcomponent]
+          groupHolders[2] : GroupHolder element=GroupTest::MySubprogramGroup.prototypeGrp [FeatureGroup]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[2] : BehaviorVariableHolder element=y [BehaviorVariable]
+    actions[30] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=GroupTest::MyPortGroup.outPort [EventDataPort]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+    actions[31] : BehaviorActionBlock
+      content : PortFreezeAction
+        groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+        groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+    actions[32] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=GroupTest::MyPortGroup.inPort [EventDataPort]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.portGrp [FeatureGroup]
+        target : BehaviorVariableHolder element=x [BehaviorVariable]
+    actions[33] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.dataAccessGrp [FeatureGroup]
+    actions[34] : BehaviorActionBlock
+      content : UnlockAction
+        dataAccess : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.dataAccessGrp [FeatureGroup]
+    actions[35] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.dataAccessGrp [FeatureGroup]
+          groupHolders[2] : GroupHolder element=GroupTest::MyDataAccessGroup.recursiveGrp [FeatureGroup]
+    actions[36] : BehaviorActionBlock
+      content : UnlockAction
+        dataAccess : DataAccessHolder element=GroupTest::MyDataAccessGroup.dataAccess [DataAccess]
+          groupHolders[0] : GroupHolder element=GroupTest::process1.impl.threadGrp [ThreadGroupSubcomponent]
+          groupHolders[1] : GroupHolder element=GroupTest::MyThreadGroup.dataAccessGrp [FeatureGroup]
+          groupHolders[2] : GroupHolder element=GroupTest::MyDataAccessGroup.recursiveGrp [FeatureGroup]

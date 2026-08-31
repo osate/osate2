@@ -1,0 +1,24 @@
+===== annex[0] owner=issue2466::s2 =====
+
+states
+  s : initial final state;
+transitions
+  t : s -[]-> s {
+    s1 ! (d.f, d.f, d.f, d.f);
+    s11 ! (d.f);
+    s12 ! (d.f)
+  };
+----- legacy round-trip -----
+idempotent
+===== annex[1] owner=issue2466::s3 =====
+
+states
+  s : initial final state;
+transitions
+  t : s -[]-> s {
+    s1 ! (d.f, d.f, d.f, d.f);
+    s11 ! (d.f);
+    s12 ! (d.f)
+  };
+----- legacy round-trip -----
+idempotent

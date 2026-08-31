@@ -1,0 +1,9 @@
+annex[0] owner=exemple_cr_D3_C4::proc
+  (BehaviorState, finalState, 1330, 10)
+  (BehaviorState, m1, 1199, 2)
+  (BehaviorState, m1, 1231, 10)
+  (BehaviorState, m1, 1276, 2)
+  (EventDataPort, inPortA, 1284, 7)
+  (EventDataPort, inPortA, 1319, 7)
+  (EventDataPort, inPortB, 1296, 7)
+  (EventDataPort, inPortC, 1307, 7)

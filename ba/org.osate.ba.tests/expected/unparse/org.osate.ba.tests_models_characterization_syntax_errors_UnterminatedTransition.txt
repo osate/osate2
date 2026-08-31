@@ -1,0 +1,4 @@
+===== annex[0] owner=UnterminatedTransition::t =====
+
+----- legacy round-trip -----
+idempotent

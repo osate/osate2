@@ -1,0 +1,17 @@
+annex[0] owner=issue2056::threadA.impl
+  (BehaviorState, s0, 280, 2)
+  (BehaviorState, s0, 312, 2)
+  (BehaviorState, s0, 349, 2)
+  (BehaviorState, s1, 377, 2)
+  (FeatureGroup, inputA, 367, 6)
+  (FeatureGroup, outputA, 381, 7)
+annex[1] owner=issue2056::threadB.impl
+  (BehaviorState, s0, 678, 2)
+  (BehaviorState, s0, 771, 2)
+  (BehaviorState, s1, 710, 2)
+  (BehaviorState, s1, 734, 2)
+  (BehaviorState, s1, 793, 2)
+  (BehaviorState, s1, 814, 2)
+  (BehaviorState, s2, 841, 2)
+  (FeatureGroup, inputB, 832, 6)
+  (FeatureGroup, outputB, 797, 7)

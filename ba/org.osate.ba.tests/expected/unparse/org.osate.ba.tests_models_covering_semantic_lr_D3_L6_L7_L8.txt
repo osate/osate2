@@ -1,0 +1,19 @@
+===== annex[0] owner=exemple_lr_D3_L6_L7_L8::th.good =====
+
+states
+  uniqueState : initial complete final state;
+transitions
+  uniqueState -[on dispatch]-> uniqueState;
+----- legacy round-trip -----
+idempotent
+===== annex[1] owner=exemple_lr_D3_L6_L7_L8::th.error =====
+
+states
+  compState : initial complete state;
+  exeState : state;
+  finalState : final state;
+transitions
+  compState -[]-> finalState;
+  finalState -[on dispatch]-> finalState;
+----- legacy round-trip -----
+idempotent

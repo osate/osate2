@@ -1,0 +1,34 @@
+===== annex[0] owner=example_sr_D3_18::th.good =====
+
+states
+  s0 : initial state;
+  comp : final state;
+  next1 : complete state;
+transitions
+  s0 -[]-> next1 {
+    x1 := p1
+  };
+  next1 -[on dispatch p2]-> comp {
+    x2 := p2
+  };
+----- legacy round-trip -----
+idempotent
+===== annex[1] owner=example_sr_D3_18::th.error =====
+
+states
+  s0 : initial state;
+  comp : final state;
+  next1 : complete state;
+  next2 : complete state;
+transitions
+  s0 -[x1 = 0]-> next1 {
+    x1 := p1
+  };
+  next1 -[on dispatch p1]-> next2 {
+    x2 := p2
+  };
+  next2 -[x1 = 2]-> comp {
+    x2 := p2
+  };
+----- legacy round-trip -----
+idempotent

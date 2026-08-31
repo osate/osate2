@@ -1,0 +1,13 @@
+annex[0] owner=BA_example4::addition.default
+  (BehaviorState, s0, 560, 2)
+  (BehaviorState, s0, 584, 2)
+  (BehaviorState, s0, 629, 2)
+  (BehaviorState, s0, 687, 2)
+  (BehaviorState, s1, 639, 2)
+  (BehaviorState, s1, 697, 2)
+  (Parameter, ovf, 657, 3)
+  (Parameter, ovf, 710, 3)
+  (Parameter, r, 644, 1)
+  (Parameter, r, 702, 1)
+  (Parameter, x, 649, 1)
+  (Parameter, y, 653, 1)

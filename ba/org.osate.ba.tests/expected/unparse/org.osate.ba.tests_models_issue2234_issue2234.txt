@@ -1,0 +1,11 @@
+===== annex[0] owner=issue2234::spg =====
+
+states
+  singleton : initial final state;
+transitions
+  t : singleton -[]-> singleton {
+    lock !<;
+    lock !>
+  };
+----- legacy round-trip -----
+idempotent

@@ -1,0 +1,10 @@
+annex[0] owner=issue2234::spg
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=singleton
+    transitions[0] : BehaviorTransition name=t
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=issue2234::spg.lock [DataAccess]
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=issue2234::spg.lock [DataAccess]

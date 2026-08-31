@@ -1,0 +1,26 @@
+annex[0] owner=test_lock_actions::th
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s1
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+          upperTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        actions[1] : LockAction
+          dataAccess : DataAccessHolder element=test_lock_actions::th.d [DataAccess]
+        actions[2] : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+          upperTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        actions[3] : UnlockAction
+          dataAccess : DataAccessHolder element=test_lock_actions::th.d [DataAccess]
+        actions[4] : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+          upperTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral

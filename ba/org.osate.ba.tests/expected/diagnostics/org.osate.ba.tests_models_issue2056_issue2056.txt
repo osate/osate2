@@ -1,0 +1,3 @@
+error | semantic | 19 | 1 | 48 | Wrong type in dispatch trigger condition; expected types are: in event port or in event data port or provides subprogram access
+error | semantic | 38 | 1 | 42 | Wrong type in assignment left hand side; expected types are: data subcomponent or data access or behavior variable or data access feature prototype or out parameter or out port or out port prototype
+error | semantic | 39 | 1 | 34 | Wrong type in dispatch trigger condition; expected types are: in event port or in event data port or provides subprogram access

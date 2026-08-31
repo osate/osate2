@@ -1,0 +1,13 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package MalformedInteger
+public
+	with Base_Types;
+	thread t
+	annex behavior_specification {**
+		variables x: Base_Types::Integer;
+		states s: initial final state;
+		transitions s -[]-> s { x := 2#2# };
+	**};
+	end t;
+end MalformedInteger;

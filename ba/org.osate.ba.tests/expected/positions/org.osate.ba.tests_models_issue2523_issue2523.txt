@@ -1,0 +1,6 @@
+annex[0] owner=issue2523::t
+  (BehaviorState, s1, 202, 2)
+  (BehaviorState, s1, 265, 2)
+  (BehaviorState, s1, 285, 2)
+  (BehaviorVariable, v1, 303, 2)
+  (DataType, Integer, 172, 10)

@@ -1,0 +1,3 @@
+error | semantic | 58 | 1 | 30 | Transitions out of complete states must have dispatch condition : Behavior Annex D.3.(L7) legality rule failed.
+error | semantic | 63 | 1 | 43 | Only transition out of complete states may have dispatch condition : Behavior Annex D.3.(L6) legality rule failed.
+warning | semantic | 24 | 9 | 10 | Base_Types in 'with' clause of public package section is not used.

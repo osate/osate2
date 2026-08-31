@@ -1,0 +1,6 @@
+error | semantic | 110 | 1 | 61 | The dispatch relative timeout and catch statement must be declared in only one transition: Behavior Annex D.4.(L1) legality rule failed.
+error | semantic | 130 | 1 | 68 | The completion relative timeout condition and catch statement must be declared in only one transition: Behavior Annex D.4.(L2) legality rule failed.
+error | semantic | 45 | 1 | 55 | The completion relative timeout condition and catch statement must have a value greater or equal to the Period of the thread it is defined in (otherwise) timeout condition can never occur.
+error | semantic | 81 | 1 | 51 | Only transition out of complete states may have dispatch condition : Behavior Annex D.3.(L6) legality rule failed.
+error | semantic | 87 | 1 | 58 | Only transition out of complete states may have dispatch condition : Behavior Annex D.3.(L6) legality rule failed.
+warning | semantic | 24 | 9 | 10 | Base_Types in 'with' clause of public package section is not used.

@@ -1,0 +1,186 @@
+annex[0] owner=BA_example3::sender.v1
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=st
+    states[1] : BehaviorState name=sf
+    states[2] : BehaviorState name=s1
+    states[3] : BehaviorState name=s2
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+    transitions[2] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[3] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[4] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
+    transitions[5] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+    transitions[6] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[7] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=BA_example3::sender.v1.v [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : PortSendAction
+          port : EventDataPortHolder element=BA_example3::sender.d [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=BA_example3::sender.v1.v [DataSubcomponent]
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=BA_example3::sender.v1.v [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : PortSendAction
+          port : EventDataPortHolder element=BA_example3::sender.d [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=BA_example3::sender.v1.v [DataSubcomponent]
+annex[1] owner=BA_example3::sender.v2
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=st
+    states[1] : BehaviorState name=sf
+    states[2] : BehaviorState name=s1
+    states[3] : BehaviorState name=s2
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+    transitions[2] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[3] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[4] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
+    transitions[5] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+    transitions[6] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[7] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example3::sender.a [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    actions[0] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=BA_example3::sender.d [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=BA_example3::sender.d [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral

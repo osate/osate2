@@ -1,0 +1,124 @@
+annex[0] owner=BA_example5::push.default
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    transitions[0] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : ParameterHolder element=BA_example5::push.this [Parameter]
+                  data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[1] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : ParameterHolder element=BA_example5::push.this [Parameter]
+                  data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataComponentReference
+            data[0] : ParameterHolder element=BA_example5::push.this [Parameter]
+            data[1] : DataSubcomponentHolder element=BA_example5::stack.default.elems [DataSubcomponent]
+              arrayIndexes[0] : DataComponentReference
+                data[0] : ParameterHolder element=BA_example5::push.this [Parameter]
+                data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ParameterHolder element=BA_example5::push.v [Parameter]
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : ParameterHolder element=BA_example5::push.this [Parameter]
+            data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : ParameterHolder element=BA_example5::push.this [Parameter]
+                      data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventPortHolder element=BA_example5::push.overflow [EventPort]
+annex[1] owner=BA_example5::pop.default
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    transitions[0] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : ParameterHolder element=BA_example5::pop.this [Parameter]
+                  data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[1] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : ParameterHolder element=BA_example5::pop.this [Parameter]
+                  data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataComponentReference
+            data[0] : ParameterHolder element=BA_example5::pop.this [Parameter]
+            data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : ParameterHolder element=BA_example5::pop.this [Parameter]
+                      data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : ParameterHolder element=BA_example5::pop.v [Parameter]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : ParameterHolder element=BA_example5::pop.this [Parameter]
+                      data[1] : DataSubcomponentHolder element=BA_example5::stack.default.elems [DataSubcomponent]
+                        arrayIndexes[0] : DataComponentReference
+                          data[0] : ParameterHolder element=BA_example5::pop.this [Parameter]
+                          data[1] : DataSubcomponentHolder element=BA_example5::stack.default.sp [DataSubcomponent]
+    actions[1] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventPortHolder element=BA_example5::pop.underflow [EventPort]

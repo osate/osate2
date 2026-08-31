@@ -1,0 +1,5 @@
+annex[0] owner=exemple_lr_D3_L5::sub.error
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=uniqueState
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition

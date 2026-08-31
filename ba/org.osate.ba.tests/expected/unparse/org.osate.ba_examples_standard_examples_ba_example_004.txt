@@ -1,0 +1,16 @@
+===== annex[0] owner=BA_example4::addition.default =====
+
+states
+  s0 : initial state;
+  s1 : final state;
+transitions
+  regular : s0 -[]-> s1 {
+    r := x + y;
+    ovf := false
+  };
+  overflow : s0 -[]-> s1 {
+    r := 0;
+    ovf := true
+  };
+----- legacy round-trip -----
+idempotent

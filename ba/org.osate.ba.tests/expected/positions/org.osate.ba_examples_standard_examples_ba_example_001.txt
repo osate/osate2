@@ -1,0 +1,11 @@
+annex[0] owner=BA_example1::cube.ba
+  (BehaviorState, s, 559, 1)
+  (BehaviorState, s, 602, 1)
+  (BehaviorState, s, 610, 1)
+  (BehaviorVariable, tmp, 623, 3)
+  (BehaviorVariable, tmp, 634, 3)
+  (DataType, number, 542, 6)
+  (Parameter, x, 619, 1)
+  (Parameter, x, 621, 1)
+  (Parameter, x, 638, 1)
+  (Parameter, y, 640, 1)

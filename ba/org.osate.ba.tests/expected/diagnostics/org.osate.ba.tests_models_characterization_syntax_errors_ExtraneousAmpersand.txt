@@ -1,0 +1,2 @@
+error | syntax | 10 | 1 | 37 | extraneous input '&', delete it
+warning | semantic | 5 | 7 | 10 | Base_Types in 'with' clause of public package section is not used.
