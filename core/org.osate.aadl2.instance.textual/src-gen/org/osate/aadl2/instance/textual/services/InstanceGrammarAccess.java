@@ -3400,10 +3400,9 @@ public class InstanceGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		return getSTARAccess().getRule();
 	}
 	
-	//terminal STRING    :
-	//            '"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
-	//            "'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
-	//        ;
+	//terminal STRING:
+	//    '"' ('""' | !'"')* '"'
+	//;
 	public TerminalRule getSTRINGRule() {
 		return gaProperties.getSTRINGRule();
 	}

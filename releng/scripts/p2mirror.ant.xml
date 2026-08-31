@@ -36,7 +36,7 @@ Run with
 
     	<p2.mirror>
             <source>
-                <repository location="http://download.eclipse.org/releases/2025-12"/>
+                <repository location="https://ftp.osuosl.org/pub/eclipse/releases/2025-12"/>
             </source>
             <destination location="${target.dir}/releases/2025-12"/>
             <iu id="org.eclipse.e4.rcp.feature.group"/>
@@ -58,11 +58,11 @@ Run with
             <iu id="org.eclipse.sdk.feature.group"/>
             <iu id="org.eclipse.uml2.feature.group"/>
             <iu id="org.eclipse.zest.feature.group"/>
-    		<iu id="org.hamcrest.library"/>
+            <iu id="org.hamcrest.library"/>
             <iu id="org.eclipse.mylyn.context.feature.feature.group"/>
             <iu id="org.eclipse.lsp4j"/>
             <iu id="org.eclipse.lsp4j.jsonrpc"/>
-    		<iu id="junit-jupiter-api"/>
+            <iu id="junit-jupiter-api"/>
         </p2.mirror>
 
         <p2.mirror>

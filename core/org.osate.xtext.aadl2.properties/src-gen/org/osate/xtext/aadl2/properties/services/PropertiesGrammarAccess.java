@@ -2308,10 +2308,9 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		return getSTARAccess().getRule();
 	}
 	
-	//terminal STRING    :
-	//            '"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
-	//            "'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
-	//        ;
+	//terminal STRING:
+	//    '"' ('""' | !'"')* '"'
+	//;
 	public TerminalRule getSTRINGRule() {
 		return tSTRING;
 	}

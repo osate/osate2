@@ -35635,10 +35635,9 @@ public class Aadl2GrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getSTARAccess().getRule();
 	}
 	
-	//terminal STRING    :
-	//            '"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
-	//            "'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
-	//        ;
+	//terminal STRING:
+	//    '"' ('""' | !'"')* '"'
+	//;
 	public TerminalRule getSTRINGRule() {
 		return gaProperties.getSTRINGRule();
 	}

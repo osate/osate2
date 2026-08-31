@@ -151,27 +151,23 @@ public class PropertiesValueConverter extends DefaultTerminalConverters {
 
 	@ValueConverter(rule = "NoQuoteString")
 	public IValueConverter<String> NoQuoteString() {
+		return STRING();
+	}
+
+	@ValueConverter(rule = "STRING")
+	public IValueConverter<String> STRING() {
 		return new IValueConverter<String>() {
 			@Override
 			public String toValue(String string, INode node) {
 				if (string == null) {
 					return null;
 				}
-				if (string.charAt(0) == '"') {
-					string = string.substring(1);
-				}
-				if (string.endsWith("\"")) {
-					string = string.substring(0, string.length() - 1);
-				}
-				return string;
+				return string.substring(1, string.length() - 1).replace("\"\"", "\"");
 			}
 
 			@Override
 			public String toString(String value) {
-				if (!value.isEmpty() && value.charAt(0) == '"') {
-					return value;
-				}
-				return '"' + value + '"';
+				return '"' + value.replace("\"", "\"\"") + '"';
 			}
 		};
 	}

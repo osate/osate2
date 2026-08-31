@@ -1,0 +1,3 @@
+property set Issue809SingleQuoted is
+	single_quoted: constant aadlstring => 'not an AADL string';
+end Issue809SingleQuoted;
