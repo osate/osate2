@@ -1,0 +1,2 @@
+annex[0] owner=OptionalForallClassifier::operation
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification

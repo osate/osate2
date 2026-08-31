@@ -1,0 +1,2 @@
+error | syntax | 16 | 1 | 26 | no viable alternative at input '{forall(iin'
+warning | semantic | 5 | 7 | 10 | Base_Types in 'with' clause of public package section is not used.

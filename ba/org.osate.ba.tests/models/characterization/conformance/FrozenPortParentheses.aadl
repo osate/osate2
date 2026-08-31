@@ -1,0 +1,23 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package FrozenPortParentheses
+public
+	with Base_Types;
+
+	thread worker
+	features
+		sampled_input: in data port Base_Types::Integer;
+	properties
+		Dispatch_Protocol => Periodic;
+		Period => 10 ms;
+	end worker;
+
+	thread implementation worker.i
+	annex behavior_specification {**
+		states
+			waiting: initial complete final state;
+		transitions
+			waiting -[ on dispatch frozen (sampled_input) ]-> waiting;
+	**};
+	end worker.i;
+end FrozenPortParentheses;

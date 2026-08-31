@@ -1,0 +1,1 @@
+error | syntax | 18 | 1 | 66 | mismatched input '(' expecting ']->'

@@ -1,0 +1,2 @@
+annex[0] owner=InternalCondition::component.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification

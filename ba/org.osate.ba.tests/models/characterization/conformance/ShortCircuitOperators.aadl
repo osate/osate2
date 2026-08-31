@@ -1,0 +1,19 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package ShortCircuitOperators
+public
+	with Base_Types;
+
+	subprogram operation
+	annex behavior_specification {**
+		variables
+			left, right: Base_Types::Boolean;
+		states
+			start: initial state;
+			finish: final state;
+		transitions
+			and_then_transition: start -[ left and then right ]-> finish;
+			or_else_transition: start -[ left or else right ]-> finish;
+	**};
+	end operation;
+end ShortCircuitOperators;
