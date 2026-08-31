@@ -150,8 +150,23 @@ public class AadlBaVisitors {
 	* @return the package sections related to the given BehaviorAnnex.
 	*/
 	public static PackageSection[] getBaPackageSections(BehaviorAnnex ba) {
+		return getBaPackageSections(ba, null);
+	}
+
+	/**
+	 * Return the package sections related to a behavior annex, using the given component classifier when the annex is
+	 * detached from its AADL containment hierarchy.
+	 *
+	 * @param ba the behavior annex
+	 * @param fallback the component classifier to use for a detached annex
+	 * @return the package sections related to the behavior annex
+	 */
+	public static PackageSection[] getBaPackageSections(BehaviorAnnex ba, ComponentClassifier fallback) {
 		PackageSection result[];
 		PackageSection container = Aadl2Visitors.getContainingPackageSection(ba);
+		if (container == null && fallback != null) {
+			container = Aadl2Visitors.getContainingPackageSection(fallback);
+		}
 
 		// Init contexts tab with current package's sections.
 		// Private section is also investigated only if ba is declared in
@@ -231,7 +246,19 @@ public class AadlBaVisitors {
 	* @return the behavior annex's parent component
 	*/
 	public static ComponentClassifier getParentComponent(BehaviorAnnex ba) {
-		return (ComponentClassifier) ba.getContainingClassifier();
+		return getParentComponent(ba, null);
+	}
+
+	/**
+	 * Returns the behavior annex's parent component, using the given classifier when the annex is detached.
+	 *
+	 * @param ba the behavior annex
+	 * @param fallback the component classifier to use for a detached annex
+	 * @return the behavior annex's parent component
+	 */
+	public static ComponentClassifier getParentComponent(BehaviorAnnex ba, ComponentClassifier fallback) {
+		ComponentClassifier result = (ComponentClassifier) ba.getContainingClassifier();
+		return result == null ? fallback : result;
 	}
 
 	protected static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH = new WeakHashMap<BehaviorAnnex, Set<Port>>();

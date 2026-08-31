@@ -52,10 +52,15 @@ public class AadlBaConsistencyRulesChecker {
 	private AnalysisErrorReporterManager _errManager;
 
 	public AadlBaConsistencyRulesChecker(BehaviorAnnex ba, AnalysisErrorReporterManager errManager) {
+		this(ba, AadlBaVisitors.getParentComponent(ba), errManager);
+	}
+
+	public AadlBaConsistencyRulesChecker(BehaviorAnnex ba, ComponentClassifier parentContainer,
+			AnalysisErrorReporterManager errManager) {
 		_ba = ba;
 		_errManager = errManager;
-		_baParentContainer = AadlBaVisitors.getParentComponent(ba);
-		_contextsTab = AadlBaVisitors.getBaPackageSections(_ba);
+		_baParentContainer = AadlBaVisitors.getParentComponent(ba, parentContainer);
+		_contextsTab = AadlBaVisitors.getBaPackageSections(_ba, _baParentContainer);
 	}
 
 	/**

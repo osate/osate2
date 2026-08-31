@@ -163,11 +163,24 @@ public class AadlBaNameResolver {
 	* @param ba the given behavior annex
 	* @param errManager the given error reporter manager
 	*/
+	@Deprecated
 	public AadlBaNameResolver(BehaviorAnnex ba, AnalysisErrorReporterManager errManager) {
+		this(ba, AadlBaVisitors.getParentComponent(ba), errManager);
+	}
+
+	/**
+	 * Constructs an AADL behavior annex name resolver with explicit component context.
+	 *
+	 * @param ba the given behavior annex
+	 * @param parentContainer the component which owns the behavior annex
+	 * @param errManager the given error reporter manager
+	 */
+	public AadlBaNameResolver(BehaviorAnnex ba, ComponentClassifier parentContainer,
+			AnalysisErrorReporterManager errManager) {
 		_ba = ba;
 		_errManager = errManager;
-		_baParentContainer = AadlBaVisitors.getParentComponent(ba);
-		_contextsTab = AadlBaVisitors.getBaPackageSections(_ba);
+		_baParentContainer = AadlBaVisitors.getParentComponent(ba, parentContainer);
+		_contextsTab = AadlBaVisitors.getBaPackageSections(_ba, _baParentContainer);
 	}
 
 	private boolean assignmentActionResolver(AssignmentAction act) {
@@ -1003,7 +1016,7 @@ public class AadlBaNameResolver {
 
 			// If the current id is found, fetch the container for the next id.
 			if (currentIdResult && it.hasNext()) {
-				Element el = AadlBaTypeChecker.getBindedElement(id);
+				Element el = AadlBaModelResolver.getBindedElement(id);
 
 				// AadlBaUtils.getClassifier is not useful as BehaviorVariables have
 				// not been type checked already.
@@ -1168,7 +1181,7 @@ public class AadlBaNameResolver {
 	// Checks behavior time's time unit according to property set Time_Units and
 	// binds if checking is successful.
 	private boolean timeUnitResolver(Identifier unitIdentifier) {
-		PackageSection context = Aadl2Visitors.getContainingPackageSection(_ba);
+		PackageSection context = _contextsTab[0];
 
 		NamedElement pt = Aadl2Visitors.findElementInPropertySet(TIME_UNITS_PROPERTY_ID, TIME_UNITS_PROPERTY_SET,
 				context);
@@ -1204,7 +1217,7 @@ public class AadlBaNameResolver {
 
 		// Now check the type in each current package's sections.
 		for (PackageSection context : _contextsTab) {
-			NamedElement parent = (NamedElement) _ba.eContainer().eContainer();
+			NamedElement parent = _baParentContainer;
 			ne = Aadl2Visitors.findSubcomponentInComponent((Classifier) parent, qne.getBaName().getId());
 			if (ne == null) {
 				ne = Aadl2Visitors.findFeatureInComponent((Classifier) parent, qne.getBaName().getId());
@@ -2067,7 +2080,7 @@ public class AadlBaNameResolver {
 			packageName = qne.getBaNamespace().getId();
 		}
 		NamedElement propNE = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(), packageName,
-				Aadl2Visitors.getContainingPackageSection(_ba));
+				_contextsTab[0]);
 		return (Property) propNE;
 	}
 
