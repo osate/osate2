@@ -23,8 +23,67 @@
  */
 package org.osate.xtext.aadl2.ba;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.eclipse.xtext.scoping.IGlobalScopeProvider;
+import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.serializer.ISerializer;
+import org.osate.aadl2.modelsupport.scoping.DelegatingEClassGlobalScopeProvider;
+import org.osate.xtext.aadl2.ba.naming.BehaviorAnnexQualifiedNameProvider;
+import org.osate.xtext.aadl2.ba.scoping.BehaviorAnnexImportedNamespaceAwareLocalScopeProvider;
+import org.osate.xtext.aadl2.ba.serializer.BehaviorAnnexSerializer;
+import org.osate.xtext.aadl2.ba.serializer.BehaviorAnnexTransientValueService;
+import org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder;
+import org.osate.xtext.aadl2.naming.Aadl2QualifiedNameConverter;
+import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
+
+import com.google.inject.Binder;
+import com.google.inject.name.Names;
+
 /**
- * Runtime bindings for the standalone phase-3 Behavior Annex grammar.
+ * Runtime bindings for the standalone and embedded Behavior Annex Xtext language.
  */
 public class BehaviorAnnexRuntimeModule extends AbstractBehaviorAnnexRuntimeModule {
+	@Override
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+		return PropertiesValueConverter.class;
+	}
+
+	@Override
+	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
+		return BehaviorAnnexQualifiedNameProvider.class;
+	}
+
+	public Class<? extends IQualifiedNameConverter> bindIQualifiedNameConverter() {
+		return Aadl2QualifiedNameConverter.class;
+	}
+
+	@Override
+	public void configureIScopeProviderDelegate(Binder binder) {
+		binder.bind(IScopeProvider.class)
+				.annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
+				.to(BehaviorAnnexImportedNamespaceAwareLocalScopeProvider.class);
+	}
+
+	@Override
+	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
+		return DelegatingEClassGlobalScopeProvider.class;
+	}
+
+	public Class<? extends TextRegionAccessBuilder> bindTextRegionAccessBuilder() {
+		return Aadl2TextRegionAccessBuilder.class;
+	}
+
+	@Override
+	public Class<? extends ISerializer> bindISerializer() {
+		return BehaviorAnnexSerializer.class;
+	}
+
+	@Override
+	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITransientValueService> bindITransientValueService() {
+		return BehaviorAnnexTransientValueService.class;
+	}
 }
