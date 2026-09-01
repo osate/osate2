@@ -1,0 +1,355 @@
+/**
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
+grammar org.osate.xtext.aadl2.ba.BehaviorAnnex
+with org.osate.xtext.aadl2.properties.Properties
+
+generate behaviorAnnex "http://www.aadl.info/BehaviorSpecification"
+
+import "http://aadl.info/AADL/2.0" as aadl2
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+AnnexSubclause returns aadl2::AnnexSubclause:
+    BehaviorAnnex
+;
+
+BehaviorAnnex:
+    {BehaviorAnnex}
+    ('variables' variableGroups+=BehaviorVariableGroup+)?
+    ('states' stateGroups+=BehaviorStateGroup+)?
+    ('transitions' transitions+=BehaviorTransition+)?
+;
+
+BehaviorVariableGroup:
+    variables+=BehaviorVariable (',' variables+=BehaviorVariable)*
+    ':' dataClassifier=[aadl2::ComponentClassifier|QCREF]
+    (':=' initialValue=ValueConstant)?
+    ('{' propertyAssociations+=BehaviorPropertyAssociation+ '}')?
+    ';'
+;
+
+BehaviorVariable:
+    name=ID arrayDimensions+=ArrayDimension*
+;
+
+ArrayDimension:
+    '[' size=IntegerValue ']'
+;
+
+BehaviorPropertyAssociation:
+    property=[aadl2::Property|QPREF] '=>' ownedValue=PropertyExpression ';'
+;
+
+BehaviorStateGroup:
+    states+=BehaviorState (',' states+=BehaviorState)*
+    ':' initial?='initial'? complete?='complete'? final?='final'? 'state' ';'
+;
+
+BehaviorState:
+    name=ID
+;
+
+BehaviorTransition:
+    (name=ID ('[' priority=INTEGER_LIT ']')? ':')?
+    sourceStates+=[BehaviorState|ID] (',' sourceStates+=[BehaviorState|ID])*
+    '-[' condition=BehaviorCondition? ']->'
+    destinationState=[BehaviorState|ID]
+    actionBlock=BehaviorActionBlock?
+    ';'
+;
+
+BehaviorCondition:
+    'on' (dispatch=DispatchCondition | modeSwitch=ModeSwitchCondition)
+    | execute=ExecuteCondition
+;
+
+ExecuteCondition:
+    value=ValueExpression
+    | timeout?='timeout'
+    | otherwise?='otherwise'
+;
+
+DispatchCondition:
+    'dispatch' trigger=DispatchTriggerCondition?
+    ('frozen' frozenPorts+=Reference (',' frozenPorts+=Reference)*)?
+;
+
+DispatchTriggerCondition:
+    expression=DispatchTriggerLogicalExpression
+    | timeout?='timeout' time=BehaviorTime?
+    | stop?='stop'
+;
+
+DispatchTriggerLogicalExpression:
+    conjunctions+=DispatchConjunction ('or' conjunctions+=DispatchConjunction)*
+;
+
+DispatchConjunction:
+    triggers+=Reference ('and' triggers+=Reference)*
+;
+
+ModeSwitchCondition:
+    conjunctions+=ModeSwitchConjunction ('or' conjunctions+=ModeSwitchConjunction)*
+;
+
+ModeSwitchConjunction:
+    triggers+=Reference ('and' triggers+=Reference)*
+;
+
+BehaviorActionBlock:
+    '{' content=BehaviorActions '}'
+    ('timeout' timeout=BehaviorTime)?
+;
+
+BehaviorActions:
+    BehaviorAction
+    (
+        {BehaviorActionSequence.actions+=current} ';' actions+=BehaviorAction
+            (';' actions+=BehaviorAction)*
+        | {BehaviorActionSet.actions+=current} '&' actions+=BehaviorAction
+            ('&' actions+=BehaviorAction)*
+    )?
+;
+
+BehaviorAction:
+    => AssignmentAction
+    | CommunicationAction
+    | TimedAction
+    | IfStatement
+    | ForStatement
+    | WhileStatement
+    | DoUntilStatement
+    | BehaviorActionBlock
+;
+
+AssignmentAction:
+    target=Reference ':=' (value=ValueExpression | any?='any')
+;
+
+CommunicationAction:
+    (
+        reference=Reference
+        (
+            send?='!' ('(' parameters+=ValueExpression (',' parameters+=ValueExpression)* ')')?
+            | dequeue?='?' ('(' target=Reference ')')?
+            | freeze?='>>'
+            | lock?='!<'
+            | unlock?='!>'
+        )
+    )
+    | all?='*' (allLock?='!<' | allUnlock?='!>')
+;
+
+TimedAction:
+    'computation' '(' lowerTime=BehaviorTime ('..' upperTime=BehaviorTime)? ')'
+    ('in' 'binding' '(' processors+=[aadl2::ComponentClassifier|QCREF]
+        (',' processors+=[aadl2::ComponentClassifier|QCREF])* ')')?
+;
+
+IfStatement:
+    'if' '(' condition=ValueExpression ')' thenActions=BehaviorActions
+    elseIfs+=ElseIfClause*
+    ('else' elseActions=BehaviorActions)?
+    'end' 'if'
+;
+
+ElseIfClause:
+    'elsif' '(' condition=ValueExpression ')' actions=BehaviorActions
+;
+
+ForStatement:
+    (for?='for' | forall?='forall')
+    '(' variable=ID ':' dataClassifier=[aadl2::ComponentClassifier|QCREF]
+    'in' values=ElementValues ')'
+    '{' actions=BehaviorActions '}'
+;
+
+WhileStatement:
+    'while' '(' condition=ValueExpression ')' '{' actions=BehaviorActions '}'
+;
+
+DoUntilStatement:
+    'do' actions=BehaviorActions 'until' '(' condition=ValueExpression ')'
+;
+
+ElementValues:
+    lower=IntegerValue ('..' upper=IntegerValue)?
+;
+
+BehaviorTime:
+    value=IntegerValue unit=[aadl2::UnitLiteral|ID]
+;
+
+IntegerValue:
+    BehaviorIntegerLiteral
+    | HashPropertyReference
+    | ReferenceExpression
+;
+
+ValueExpression:
+    LogicalOrExpression
+;
+
+LogicalOrExpression returns ValueExpression:
+    LogicalAndExpression
+    ({BinaryExpression.left=current} operator=('or' | 'xor') right=LogicalAndExpression)*
+;
+
+LogicalAndExpression returns ValueExpression:
+    RelationalExpression
+    ({BinaryExpression.left=current} operator='and' right=RelationalExpression)*
+;
+
+RelationalExpression returns ValueExpression:
+    AdditiveExpression
+    ({BinaryExpression.left=current} operator=('=' | '!=' | '<' | '<=' | '>' | '>=')
+        right=AdditiveExpression)?
+;
+
+AdditiveExpression returns ValueExpression:
+    MultiplicativeExpression
+    ({BinaryExpression.left=current} operator=('+' | '-') right=MultiplicativeExpression)*
+;
+
+MultiplicativeExpression returns ValueExpression:
+    PowerExpression
+    ({BinaryExpression.left=current} operator=('*' | '/' | 'mod' | 'rem') right=PowerExpression)*
+;
+
+PowerExpression returns ValueExpression:
+    UnaryExpression
+    ({BinaryExpression.left=current} operator='**' right=PowerExpression)?
+;
+
+UnaryExpression returns ValueExpression:
+    {UnaryExpression} operator=('+' | '-' | 'abs' | 'not') operand=UnaryExpression
+    | PrimaryExpression
+;
+
+PrimaryExpression returns ValueExpression:
+    ValueConstant
+    | ReferenceExpression
+    | '(' ValueExpression ')'
+;
+
+ValueConstant:
+    BehaviorIntegerLiteral
+    | BehaviorRealLiteral
+    | BehaviorStringLiteral
+    | BehaviorBooleanLiteral
+    | HashPropertyReference
+;
+
+BehaviorIntegerLiteral:
+    value=INTEGER_LIT
+;
+
+BehaviorRealLiteral:
+    value=REAL_LIT
+;
+
+BehaviorStringLiteral:
+    value=STRING
+;
+
+BehaviorBooleanLiteral:
+    {BehaviorBooleanLiteral} (value?='true' | 'false')
+;
+
+ReferenceExpression:
+    reference=Reference
+    (
+        property=PropertyReferenceTail
+        | dequeue?='?'
+        | "'" (count?='count' | fresh?='fresh')
+    )?
+;
+
+HashPropertyReference:
+    '#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+;
+
+PropertyReferenceTail:
+    '#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+;
+
+NamedPropertyField:
+    '.' name=ID indexes+=PropertyArrayIndex*
+;
+
+PropertyArrayIndex:
+    '[' value=PropertyIndexValue ']'
+;
+
+PropertyIndexValue:
+    BehaviorIntegerLiteral
+    | PropertyIndexPropertyReference
+    | UnindexedReferenceExpression
+;
+
+PropertyIndexPropertyReference:
+    '#' property=QualifiedName
+;
+
+UnindexedReferenceExpression:
+    reference=UnindexedReference
+    (dequeue?='?' | "'" (count?='count' | fresh?='fresh'))?
+;
+
+UnindexedReference:
+    segments+=UnindexedReferenceSegment
+    (tails+=UnindexedReferenceTail)*
+;
+
+UnindexedReferenceTail:
+    separator=ReferenceSeparator segment=UnindexedReferenceSegment
+;
+
+UnindexedReferenceSegment:
+    name=ID
+;
+
+QualifiedName returns ecore::EString:
+    ID ('::' ID)*
+;
+
+Reference:
+    segments+=ReferenceSegment
+    (tails+=ReferenceTail)*
+;
+
+ReferenceTail:
+    separator=ReferenceSeparator segment=ReferenceSegment
+;
+
+ReferenceSeparator returns ecore::EString:
+    '::' | '.'
+;
+
+ReferenceSegment:
+    name=ID indexes+=ArrayIndex*
+;
+
+ArrayIndex:
+    '[' value=IntegerValue ']'
+;
