@@ -8265,10 +8265,10 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 	//     ownedValue+=OptionalModalPropertyValue
 	//    ( ',' ownedValue+=OptionalModalPropertyValue )*
 	//    )
-	//    (AppliesToKeywords appliesTo+=ContainmentPath
+	//    ('applies' 'to' appliesTo+=ContainmentPath
 	//        (',' appliesTo+=ContainmentPath)*
 	//    )?
-	//    (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	//    ('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 	//    ';';
 	public PropertiesGrammarAccess.ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return gaProperties.getContainedPropertyAssociationAccess();
@@ -8306,7 +8306,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 	////     namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 	//ModalPropertyValue returns aadl2::ModalPropertyValue:
 	//    ownedValue=PropertyExpression
-	//    InModesKeywords '('
+	//    'in' 'modes' '('
 	//    inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	//    ')'
 	//    ;
@@ -8321,7 +8321,7 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 	//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 	//    ownedValue=PropertyExpression
 	//    // phf made this optional: need to check separately that only the last one is optional
-	//    ( InModesKeywords '('
+	//    ( 'in' 'modes' '('
 	//    inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	//    ')')?
 	//    ;
@@ -8641,39 +8641,6 @@ public class ErrorModelGrammarAccess extends AbstractElementFinder.AbstractGramm
 	
 	public ParserRule getNumAltRule() {
 		return getNumAltAccess().getRule();
-	}
-	
-	//AppliesToKeywords:
-	//    'applies' 'to'
-	//;
-	public PropertiesGrammarAccess.AppliesToKeywordsElements getAppliesToKeywordsAccess() {
-		return gaProperties.getAppliesToKeywordsAccess();
-	}
-	
-	public ParserRule getAppliesToKeywordsRule() {
-		return getAppliesToKeywordsAccess().getRule();
-	}
-	
-	//InBindingKeywords:
-	//    'in' 'binding'
-	//;
-	public PropertiesGrammarAccess.InBindingKeywordsElements getInBindingKeywordsAccess() {
-		return gaProperties.getInBindingKeywordsAccess();
-	}
-	
-	public ParserRule getInBindingKeywordsRule() {
-		return getInBindingKeywordsAccess().getRule();
-	}
-	
-	//InModesKeywords:
-	//    'in' 'modes'
-	//;
-	public PropertiesGrammarAccess.InModesKeywordsElements getInModesKeywordsAccess() {
-		return gaProperties.getInModesKeywordsAccess();
-	}
-	
-	public ParserRule getInModesKeywordsRule() {
-		return getInModesKeywordsAccess().getRule();
 	}
 	
 	//INTVALUE returns aadl2::Integer:

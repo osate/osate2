@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -3448,19 +3448,20 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 			)*
 		)
 		(
+			otherlv_7='applies'
 			{
-				newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToKeywordsParserRuleCall_4_0());
+				newLeafNode(otherlv_7, grammarAccess.getContainedPropertyAssociationAccess().getAppliesKeyword_4_0());
 			}
-			ruleAppliesToKeywords
+			otherlv_8='to'
 			{
-				afterParserOrEnumRuleCall();
+				newLeafNode(otherlv_8, grammarAccess.getContainedPropertyAssociationAccess().getToKeyword_4_1());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_1_0());
+						newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_2_0());
 					}
-					lv_appliesTo_8_0=ruleContainmentPath
+					lv_appliesTo_9_0=ruleContainmentPath
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getContainedPropertyAssociationRule());
@@ -3468,23 +3469,23 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 						add(
 							$current,
 							"appliesTo",
-							lv_appliesTo_8_0,
+							lv_appliesTo_9_0,
 							"org.osate.xtext.aadl2.properties.Properties.ContainmentPath");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
-				otherlv_9=','
+				otherlv_10=','
 				{
-					newLeafNode(otherlv_9, grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_4_2_0());
+					newLeafNode(otherlv_10, grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_4_3_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_2_1_0());
+							newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_3_1_0());
 						}
-						lv_appliesTo_10_0=ruleContainmentPath
+						lv_appliesTo_11_0=ruleContainmentPath
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getContainedPropertyAssociationRule());
@@ -3492,7 +3493,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 							add(
 								$current,
 								"appliesTo",
-								lv_appliesTo_10_0,
+								lv_appliesTo_11_0,
 								"org.osate.xtext.aadl2.properties.Properties.ContainmentPath");
 							afterParserOrEnumRuleCall();
 						}
@@ -3501,16 +3502,17 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 			)*
 		)?
 		(
+			otherlv_12='in'
 			{
-				newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getInBindingKeywordsParserRuleCall_5_0());
+				newLeafNode(otherlv_12, grammarAccess.getContainedPropertyAssociationAccess().getInKeyword_5_0());
 			}
-			ruleInBindingKeywords
+			otherlv_13='binding'
 			{
-				afterParserOrEnumRuleCall();
+				newLeafNode(otherlv_13, grammarAccess.getContainedPropertyAssociationAccess().getBindingKeyword_5_1());
 			}
-			otherlv_12='('
+			otherlv_14='('
 			{
-				newLeafNode(otherlv_12, grammarAccess.getContainedPropertyAssociationAccess().getLeftParenthesisKeyword_5_1());
+				newLeafNode(otherlv_14, grammarAccess.getContainedPropertyAssociationAccess().getLeftParenthesisKeyword_5_2());
 			}
 			(
 				(
@@ -3520,7 +3522,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 						}
 					}
 					{
-						newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getInBindingClassifierCrossReference_5_2_0());
+						newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getInBindingClassifierCrossReference_5_3_0());
 					}
 					ruleQCREF
 					{
@@ -3528,14 +3530,14 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 					}
 				)
 			)
-			otherlv_14=')'
+			otherlv_16=')'
 			{
-				newLeafNode(otherlv_14, grammarAccess.getContainedPropertyAssociationAccess().getRightParenthesisKeyword_5_3());
+				newLeafNode(otherlv_16, grammarAccess.getContainedPropertyAssociationAccess().getRightParenthesisKeyword_5_4());
 			}
 		)?
-		otherlv_15=';'
+		otherlv_17=';'
 		{
-			newLeafNode(otherlv_15, grammarAccess.getContainedPropertyAssociationAccess().getSemicolonKeyword_6());
+			newLeafNode(otherlv_17, grammarAccess.getContainedPropertyAssociationAccess().getSemicolonKeyword_6());
 		}
 	)
 ;
@@ -4597,93 +4599,6 @@ ruleNumAlt returns [EObject current=null]
 		{
 			$current = $this_ConstantValue_3.current;
 			afterParserOrEnumRuleCall();
-		}
-	)
-;
-
-// Entry rule entryRuleAppliesToKeywords
-entryRuleAppliesToKeywords returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getAppliesToKeywordsRule()); }
-	iv_ruleAppliesToKeywords=ruleAppliesToKeywords
-	{ $current=$iv_ruleAppliesToKeywords.current.getText(); }
-	EOF;
-
-// Rule AppliesToKeywords
-ruleAppliesToKeywords returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		kw='applies'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAppliesToKeywordsAccess().getAppliesKeyword_0());
-		}
-		kw='to'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAppliesToKeywordsAccess().getToKeyword_1());
-		}
-	)
-;
-
-// Entry rule entryRuleInBindingKeywords
-entryRuleInBindingKeywords returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getInBindingKeywordsRule()); }
-	iv_ruleInBindingKeywords=ruleInBindingKeywords
-	{ $current=$iv_ruleInBindingKeywords.current.getText(); }
-	EOF;
-
-// Rule InBindingKeywords
-ruleInBindingKeywords returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		kw='in'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getInBindingKeywordsAccess().getInKeyword_0());
-		}
-		kw='binding'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getInBindingKeywordsAccess().getBindingKeyword_1());
-		}
-	)
-;
-
-// Entry rule entryRuleInModesKeywords
-entryRuleInModesKeywords returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getInModesKeywordsRule()); }
-	iv_ruleInModesKeywords=ruleInModesKeywords
-	{ $current=$iv_ruleInModesKeywords.current.getText(); }
-	EOF;
-
-// Rule InModesKeywords
-ruleInModesKeywords returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		kw='in'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getInModesKeywordsAccess().getInKeyword_0());
-		}
-		kw='modes'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getInModesKeywordsAccess().getModesKeyword_1());
 		}
 	)
 ;
