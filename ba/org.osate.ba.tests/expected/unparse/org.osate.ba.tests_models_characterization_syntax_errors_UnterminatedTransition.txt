@@ -1,4 +1,7 @@
 ===== annex[0] owner=UnterminatedTransition::t =====
 
------ legacy round-trip -----
-idempotent
+\t\tstates s: initial final state;
+\t\ttransitions s -[]-> s
+\t
+----- Xtext reparse -----
+reparsed

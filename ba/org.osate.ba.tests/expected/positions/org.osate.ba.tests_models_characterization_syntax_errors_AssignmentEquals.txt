@@ -1,1 +1,11 @@
 annex[0] owner=AssignmentEquals::t
+  (BehaviorActionBlock, <null>, 289, 9)
+  (BehaviorAnnex, behavior_specification, 198, 101)
+  (BehaviorState, s, 241, 1)
+  (BehaviorStateGroup, <null>, 241, 23)
+  (BehaviorTransition, <null>, 279, 20)
+  (BehaviorVariable, x, 208, 1)
+  (BehaviorVariableGroup, <null>, 208, 23)
+  (CommunicationAction, <null>, 291, 5)
+  (Reference, <null>, 291, 1)
+  (ReferenceSegment, x, 291, 1)

@@ -95,43 +95,43 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
           target : DataComponentReference
             data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[1] : AssignmentAction
           target : DataComponentReference
             data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
         actions[2] : AssignmentAction
           target : DataComponentReference
             data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subMyStruct_B [DataSubcomponent]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[3] : AssignmentAction
           target : DataComponentReference
             data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subMyStruct_B [DataSubcomponent]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
         actions[4] : AssignmentAction
           target : DataComponentReference
             data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccess [DataAccess]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[5] : AssignmentAction
           target : DataComponentReference
             data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccess [DataAccess]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
     actions[1] : BehaviorActionBlock
       content : BehaviorActionSequence
@@ -139,57 +139,57 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
           target : DataComponentReference
             data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccessProtoA [DataAccess]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[1] : AssignmentAction
           target : DataComponentReference
             data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccessProtoA [DataAccess]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
         actions[2] : AssignmentAction
           target : DataComponentReference
             data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccessProtoB [DataAccess]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[3] : AssignmentAction
           target : DataComponentReference
             data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccessProtoB [DataAccess]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
         actions[4] : AssignmentAction
           target : DataComponentReference
             data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subDataProtoA [DataSubcomponent]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[5] : AssignmentAction
           target : DataComponentReference
             data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subDataProtoA [DataSubcomponent]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
         actions[6] : AssignmentAction
           target : DataComponentReference
             data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subDataProtoB [DataSubcomponent]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[7] : AssignmentAction
           target : DataComponentReference
             data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subDataProtoB [DataSubcomponent]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
     actions[2] : BehaviorActionBlock
       content : BehaviorActionSequence
@@ -197,21 +197,21 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
           target : DataComponentReference
             data[0] : DataAccessPrototypeHolder element=DataStructPrototypeTest::abstractThread.requiresAccessProto [FeaturePrototype]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[1] : AssignmentAction
           target : DataComponentReference
             data[0] : DataAccessPrototypeHolder element=DataStructPrototypeTest::abstractThread.requiresAccessProto [FeaturePrototype]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
         actions[2] : AssignmentAction
           target : DataComponentReference
             data[0] : DataAccessPrototypeHolder element=DataStructPrototypeTest::abstractThread.requiresAccessProto [FeaturePrototype]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : ValueExpression
             relations[0] : Relation
               firstExpression : SimpleExpression
@@ -220,7 +220,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                     firstValue : DataComponentReference
                       data[0] : DataAccessPrototypeHolder element=DataStructPrototypeTest::abstractThread.providesAccessProto [FeaturePrototype]
                       data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-                        <legacy-detached-child> : StructUnionElement name=myInt
+                        structUnionElement : StructUnionElement name=myInt
     actions[3] : BehaviorActionBlock
       content : AssignmentAction
         target : PortPrototypeHolder element=DataStructPrototypeTest::abstractThread.outPortFeatProto [FeaturePrototype]
@@ -249,7 +249,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
         iteratedValues : DataComponentReference
           data[0] : BehaviorVariableHolder element=localMyStruct_C [BehaviorVariable]
           data[1] : StructUnionElementHolder element=myArrayInteger [StructUnionElement]
-            <legacy-detached-child> : StructUnionElement name=myArrayInteger
+            structUnionElement : StructUnionElement name=myArrayInteger
         iterativeVariable : IterativeVariable name=i
     actions[7] : BehaviorActionBlock
       content : ForOrForAllStatement
@@ -390,7 +390,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
           arrayIndexes[0] : DataComponentReference
             data[0] : BehaviorVariableHolder element=localMyStruct_A [BehaviorVariable]
             data[1] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -403,7 +403,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
           arrayIndexes[0] : DataComponentReference
             data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -416,7 +416,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
           arrayIndexes[0] : DataComponentReference
             data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subMyStruct_B [DataSubcomponent]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -429,9 +429,9 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
         target : DataComponentReference
           data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
           data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-            <legacy-detached-child> : StructUnionElement name=myStruct_A
+            structUnionElement : StructUnionElement name=myStruct_A
           data[2] : StructUnionElementHolder element=int [StructUnionElement]
-            <legacy-detached-child> : StructUnionElement name=int
+            structUnionElement : StructUnionElement name=int
     actions[25] : BehaviorActionBlock
       content : PortDequeueAction
         port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.inPortMyIntegerArray_A [EventDataPort]
@@ -450,9 +450,9 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                   firstValue : DataComponentReference
                     data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
                     data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-                      <legacy-detached-child> : StructUnionElement name=myStruct_A
+                      structUnionElement : StructUnionElement name=myStruct_A
                     data[2] : StructUnionElementHolder element=int [StructUnionElement]
-                      <legacy-detached-child> : StructUnionElement name=int
+                      structUnionElement : StructUnionElement name=int
     actions[27] : BehaviorActionBlock
       content : PortSendAction
         port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.outPortMyIntegerArray_A [EventDataPort]
@@ -476,7 +476,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                   firstValue : DataComponentReference
                     data[0] : BehaviorVariableHolder element=localMyStruct_A [BehaviorVariable]
                     data[1] : StructUnionElementHolder element=int [StructUnionElement]
-                      <legacy-detached-child> : StructUnionElement name=int
+                      structUnionElement : StructUnionElement name=int
         parameterLabels[1] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -515,7 +515,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
           target : DataComponentReference
             data[0] : BehaviorVariableHolder element=localMyStruct_A [BehaviorVariable]
             data[1] : StructUnionElementHolder element=float [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=float
+              structUnionElement : StructUnionElement name=float
           valueExpression : ValueExpression
             relations[0] : Relation
               firstExpression : SimpleExpression
@@ -524,7 +524,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                     firstValue : DataComponentReference
                       data[0] : IterativeVariableHolder element=i [IterativeVariable]
                       data[1] : StructUnionElementHolder element=float [StructUnionElement]
-                        <legacy-detached-child> : StructUnionElement name=float
+                        structUnionElement : StructUnionElement name=float
         iteratedValues : BehaviorVariableHolder element=localArrayMyStruct_A [BehaviorVariable]
         iterativeVariable : IterativeVariable name=i
     actions[32] : BehaviorActionBlock
@@ -563,15 +563,15 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                     firstValue : BehaviorVariableHolder element=localDay [BehaviorVariable]
     actions[33] : BehaviorActionBlock
       content : AssignmentAction
-        target : Reference
-          ids[0] : ArrayableIdentifier
-          ids[1] : ArrayableIdentifier
+        target : DataComponentReference
+          data[0] : StructUnionElementHolder element=myInt [StructUnionElement]
+            structUnionElement : StructUnionElement name=myInt
         valueExpression : Any
     actions[34] : BehaviorActionBlock
       content : AssignmentAction
-        target : Reference
-          ids[0] : ArrayableIdentifier
-          ids[1] : ArrayableIdentifier
+        target : DataComponentReference
+          data[0] : StructUnionElementHolder element=myInt [StructUnionElement]
+            structUnionElement : StructUnionElement name=myInt
         valueExpression : Any
     actions[35] : BehaviorActionBlock
       content : AssignmentAction
@@ -581,8 +581,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : Reference
-                    ids[0] : ArrayableIdentifier
+                  firstValue : PortPrototypeHolder element=DataStructPrototypeTest::abstractThread.outPortFeatProto [FeaturePrototype]
     actions[36] : BehaviorActionBlock
       content : ForOrForAllStatement
         behaviorActions : TimedAction
@@ -591,7 +590,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
         iteratedValues : DataComponentReference
           data[0] : BehaviorVariableHolder element=localMyStruct_C [BehaviorVariable]
           data[1] : StructUnionElementHolder element=int [StructUnionElement]
-            <legacy-detached-child> : StructUnionElement name=int
+            structUnionElement : StructUnionElement name=int
         iterativeVariable : IterativeVariable name=i
     actions[37] : BehaviorActionBlock
       content : ForOrForAllStatement
@@ -740,9 +739,9 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
         target : DataComponentReference
           data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
           data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-            <legacy-detached-child> : StructUnionElement name=myStruct_A
+            structUnionElement : StructUnionElement name=myStruct_A
           data[2] : StructUnionElementHolder element=float [StructUnionElement]
-            <legacy-detached-child> : StructUnionElement name=float
+            structUnionElement : StructUnionElement name=float
     actions[51] : BehaviorActionBlock
       content : PortDequeueAction
         port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.inPortMyIntegerArray_A [EventDataPort]
@@ -760,9 +759,9 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                   firstValue : DataComponentReference
                     data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
                     data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-                      <legacy-detached-child> : StructUnionElement name=myStruct_A
+                      structUnionElement : StructUnionElement name=myStruct_A
                     data[2] : StructUnionElementHolder element=float [StructUnionElement]
-                      <legacy-detached-child> : StructUnionElement name=float
+                      structUnionElement : StructUnionElement name=float
     actions[53] : BehaviorActionBlock
       content : PortSendAction
         port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.outPortMyIntegerArray_A [EventDataPort]
@@ -785,7 +784,7 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                   firstValue : DataComponentReference
                     data[0] : BehaviorVariableHolder element=localMyStruct_A [BehaviorVariable]
                     data[1] : StructUnionElementHolder element=float [StructUnionElement]
-                      <legacy-detached-child> : StructUnionElement name=float
+                      structUnionElement : StructUnionElement name=float
         parameterLabels[1] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -816,15 +815,15 @@ annex[1] owner=DataStructPrototypeTest::MySubProgConcrete
           target : DataComponentReference
             data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam1 [Parameter]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[1] : AssignmentAction
           target : DataComponentReference
             data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam1 [Parameter]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
     actions[1] : BehaviorActionBlock
       content : BehaviorActionSequence
@@ -832,29 +831,29 @@ annex[1] owner=DataStructPrototypeTest::MySubProgConcrete
           target : DataComponentReference
             data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam2 [Parameter]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[1] : AssignmentAction
           target : DataComponentReference
             data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam2 [Parameter]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
         actions[2] : AssignmentAction
           target : DataComponentReference
             data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam3 [Parameter]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
           valueExpression : Any
         actions[3] : AssignmentAction
           target : DataComponentReference
             data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam3 [Parameter]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
           valueExpression : Any
         actions[4] : AssignmentAction
           target : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
@@ -870,7 +869,7 @@ annex[1] owner=DataStructPrototypeTest::MySubProgConcrete
           arrayIndexes[0] : DataComponentReference
             data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.inParam1 [Parameter]
             data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myInt
+              structUnionElement : StructUnionElement name=myInt
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -883,9 +882,9 @@ annex[1] owner=DataStructPrototypeTest::MySubProgConcrete
           arrayIndexes[0] : DataComponentReference
             data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.inParam1 [Parameter]
             data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=myStruct_A
+              structUnionElement : StructUnionElement name=myStruct_A
             data[2] : StructUnionElementHolder element=int [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=int
+              structUnionElement : StructUnionElement name=int
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -904,9 +903,10 @@ annex[1] owner=DataStructPrototypeTest::MySubProgConcrete
                   firstValue : BehaviorIntegerLiteral
     actions[5] : BehaviorActionBlock
       content : AssignmentAction
-        target : Reference
-          ids[0] : ArrayableIdentifier
-          ids[1] : ArrayableIdentifier
+        target : DataComponentReference
+          data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.inParam1 [Parameter]
+          data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+            structUnionElement : StructUnionElement name=myInt
         valueExpression : Any
     actions[6] : BehaviorActionBlock
       content : AssignmentAction
@@ -916,5 +916,4 @@ annex[1] owner=DataStructPrototypeTest::MySubProgConcrete
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : Reference
-                    ids[0] : ArrayableIdentifier
+                  firstValue : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam1 [Parameter]

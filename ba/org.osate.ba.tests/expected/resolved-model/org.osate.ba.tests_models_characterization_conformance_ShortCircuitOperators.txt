@@ -1,2 +1,2 @@
 annex[0] owner=ShortCircuitOperators::operation
-  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+  <unparsed>

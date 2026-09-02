@@ -10,5 +10,6 @@ transitions
     ed_in ? (v1);
     ed_in ?
   };
------ legacy round-trip -----
-idempotent
+\s\s\s\s\s\s\s\s
+----- Xtext reparse -----
+reparsed

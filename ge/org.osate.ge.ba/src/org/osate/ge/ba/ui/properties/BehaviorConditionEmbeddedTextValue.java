@@ -24,11 +24,10 @@
 package org.osate.ge.ba.ui.properties;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.NamedElement;
-import org.osate.ba.aadlba.BehaviorCondition;
-import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.ba.ui.EmbeddedTextEditor;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 
 /**
  * EditableEmbeddedTextValue editing an {@link BehaviorCondition} in an {@link EmbeddedTextEditor}
@@ -72,7 +71,7 @@ public class BehaviorConditionEmbeddedTextValue extends EditableEmbeddedTextValu
 	}
 
 	@Override
-	public NamedElement getElementToModify() {
+	public EObject getElementToModify() {
 		return behaviorTransition;
 	}
 

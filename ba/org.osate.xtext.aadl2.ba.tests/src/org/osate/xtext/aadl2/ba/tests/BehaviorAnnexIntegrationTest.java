@@ -58,11 +58,10 @@ import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import com.google.inject.Inject;
 
 /**
- * Exercises the temporary Behavior Annex name through the real embedded-AADL parser path. These tests ensure that
- * phase 4 contributes the parser, linker, and unparser together; phase 6 runs the legacy semantic checkers through
- * the translated strict model; local BA names and referenced AADL objects resolve; deliberate Xtext linking messages
- * gate semantic validation; reviewed checker corrections are explicit and fast; and no annex-library form is
- * accidentally added.
+ * Exercises the Behavior Annex through the real embedded-AADL parser path. These tests ensure that the parser, linker,
+ * and unparser are contributed together; semantic checkers run through the translated strict model; local BA names
+ * and referenced AADL objects resolve; Xtext linking messages gate semantic validation; reviewed checker corrections
+ * are explicit and fast; and no annex-library form is accidentally added.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexEmbeddedInjectorProvider.class)
@@ -159,8 +158,7 @@ public class BehaviorAnnexIntegrationTest {
 	public void reportsReviewedCheckerCorrectionsWithoutResolvingTheWorkspace() throws Exception {
 		var source = Files.readString(
 				Path.of("..", "org.osate.ba.tests", "models", "covering_semantic", "lr_D3_L1_L2.aadl"),
-				StandardCharsets.UTF_8)
-				.replace("annex behavior_specification", "annex behavior_specification_xtext");
+				StandardCharsets.UTF_8);
 		var result = testHelper.testString(source);
 		assertEquals(List.of(
 				"ERROR: exemple_lr_D3_L1_L2::sub.error1 can't have complete state : compState : "

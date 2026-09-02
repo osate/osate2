@@ -1,2 +1,14 @@
 annex[0] owner=exemple_lr_D3_L3_L4::th.good
+  (BehaviorAnnex, behavior_specification, 937, 102)
+  (BehaviorState, compState, 1011, 9)
+  (BehaviorState, finalState1, 982, 11)
+  (BehaviorState, uniqueState, 945, 11)
+  (BehaviorStateGroup, <null>, 1011, 28)
+  (BehaviorStateGroup, <null>, 945, 35)
+  (BehaviorStateGroup, <null>, 982, 27)
 annex[1] owner=exemple_lr_D3_L3_L4::th.error
+  (BehaviorAnnex, behavior_specification, 1342, 66)
+  (BehaviorState, initState1, 1350, 10)
+  (BehaviorState, initState2, 1380, 10)
+  (BehaviorStateGroup, <null>, 1350, 28)
+  (BehaviorStateGroup, <null>, 1380, 28)

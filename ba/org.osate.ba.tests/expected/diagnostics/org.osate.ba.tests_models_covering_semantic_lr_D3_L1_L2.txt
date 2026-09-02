@@ -1,2 +1,3 @@
-error | semantic | 41 | 1 | 0 | exemple_lr_D3_L1_L2::sub.error1 can't have more than one initial state : initState1, initState2 : Behavior Annex D.3.(L1) legality rule failed.
-error | semantic | 56 | 1 | 0 | exemple_lr_D3_L1_L2::sub.error2 has more than one final state : uniqueState, finalState1 : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 31 | 7 | 22 | Duplicate Element 'behavior_specification' in SubprogramImplementation 'sub.good'
+error | semantic | 41 | 7 | 22 | Duplicate Element 'behavior_specification' in SubprogramImplementation 'sub.error1'
+error | semantic | 56 | 7 | 22 | Duplicate Element 'behavior_specification' in SubprogramImplementation 'sub.error2'

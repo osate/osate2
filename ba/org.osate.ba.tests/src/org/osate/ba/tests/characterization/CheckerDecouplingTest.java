@@ -42,7 +42,6 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.analyzers.AadlBaNameResolver;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
@@ -50,6 +49,7 @@ import org.osate.ba.analyzers.DataTypeChecker;
 import org.osate.ba.utils.AadlBaVisitors;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
+import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.FluentIssueCollection;
@@ -75,7 +75,7 @@ public class CheckerDecouplingTest {
 
 		final DefaultAnnexSubclause defaultAnnex = AnnexUtil.getAllDefaultAnnexSubclauses(root).get(0);
 		final ComponentClassifier classifier = (ComponentClassifier) defaultAnnex.getContainingClassifier();
-		final BehaviorAnnex detached = EcoreUtil.copy((BehaviorAnnex) defaultAnnex.getParsedAnnexSubclause());
+		final BehaviorAnnex detached = EcoreUtil.copy(BehaviorAnnexUtil.getStrictModel(defaultAnnex));
 		assertNull(detached.eContainer());
 
 		final Method getParentComponent = AadlBaVisitors.class.getMethod("getParentComponent", BehaviorAnnex.class,
@@ -84,10 +84,6 @@ public class CheckerDecouplingTest {
 
 		final AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
 				QueuingAnalysisErrorReporter.factory);
-		final Constructor<AadlBaNameResolver> nameResolverConstructor = AadlBaNameResolver.class
-				.getConstructor(BehaviorAnnex.class, ComponentClassifier.class, AnalysisErrorReporterManager.class);
-		nameResolverConstructor.newInstance(detached, classifier, errorManager);
-
 		final DataTypeChecker dataTypeChecker = new AdaLikeDataTypeChecker(errorManager);
 		final Constructor<AadlBaTypeChecker> typeCheckerConstructor = AadlBaTypeChecker.class.getConstructor(
 				BehaviorAnnex.class, ComponentClassifier.class, DataTypeChecker.class,

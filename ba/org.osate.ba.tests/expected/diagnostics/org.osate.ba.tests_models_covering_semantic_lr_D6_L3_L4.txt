@@ -1,2 +1,2 @@
-error | semantic | 166 | 1 | 58 | The same port variable must not be assigned to in different actions of an action set: Behavior Annex D.6.(L4) legality rules failed.
-error | semantic | 196 | 1 | 32 | The same port variable must not be assigned to in different actions of an action set: Behavior Annex D.6.(L4) legality rules failed.
+error | semantic | 131 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.error'
+error | semantic | 50 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.good'

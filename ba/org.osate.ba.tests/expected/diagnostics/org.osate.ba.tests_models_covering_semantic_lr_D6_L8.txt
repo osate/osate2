@@ -1,1 +1,2 @@
-error | semantic | 65 | 1 | 45 | In timed actions, the value of  the first parameter must be lesser than the second one: Behavior Annex D.6.(L8) legality rule failed.
+error | semantic | 31 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.good'
+error | semantic | 55 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.error'

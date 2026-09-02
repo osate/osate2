@@ -34,5 +34,6 @@ transitions
   a -[]-> a {
     multiplication ! (AadlBaTest::Types::Integer.v1#aSimpleValue,tmp,tmp)
   };
------ legacy round-trip -----
-idempotent
+\s\s\s\s\s\s\s\s
+----- Xtext reparse -----
+reparsed

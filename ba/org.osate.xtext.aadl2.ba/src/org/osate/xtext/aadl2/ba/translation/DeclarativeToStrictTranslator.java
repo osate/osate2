@@ -447,7 +447,10 @@ public final class DeclarativeToStrictTranslator {
 				final org.osate.ba.aadlba.ModeSwitchConjunction conjunction = trace(
 						FACTORY.createModeSwitchConjunction(), sourceConjunction);
 				for (final Reference reference : sourceConjunction.getTriggers()) {
-					conjunction.getModeSwitchTriggers().add((org.osate.ba.aadlba.ModeSwitchTrigger) toReferenceValue(reference));
+					final var resolvedTrigger = toReferenceValue(reference);
+					if (resolvedTrigger instanceof org.osate.ba.aadlba.ModeSwitchTrigger modeSwitchTrigger) {
+						conjunction.getModeSwitchTriggers().add(modeSwitchTrigger);
+					}
 				}
 				result.getModeSwitchConjunctions().add(conjunction);
 			}
@@ -455,6 +458,9 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private org.osate.ba.aadlba.BehaviorActionBlock toActionBlock(final BehaviorActionBlock actionBlock) {
+			if (actionBlock == null) {
+				return FACTORY.createBehaviorActionBlock();
+			}
 			final org.osate.ba.aadlba.BehaviorActionBlock result = trace(FACTORY.createBehaviorActionBlock(), actionBlock);
 			result.setContent(toActions(actionBlock.getContent()));
 			if (actionBlock.getTimeout() != null) {
@@ -588,7 +594,9 @@ public final class DeclarativeToStrictTranslator {
 			scope.put(variable.getName(), variable);
 			iterativeScopes.add(scope);
 			try {
-				result.setIteratedValues(toElementValues(statement.getValues()));
+				if (statement.getValues() != null) {
+					result.setIteratedValues(toElementValues(statement.getValues()));
+				}
 				result.setBehaviorActions(toActions(statement.getActions()));
 			} finally {
 				iterativeScopes.remove(iterativeScopes.size() - 1);

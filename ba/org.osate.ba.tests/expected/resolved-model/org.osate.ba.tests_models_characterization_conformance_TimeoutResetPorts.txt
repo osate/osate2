@@ -1,2 +1,8 @@
 annex[0] owner=TimeoutResetPorts::worker.i
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition

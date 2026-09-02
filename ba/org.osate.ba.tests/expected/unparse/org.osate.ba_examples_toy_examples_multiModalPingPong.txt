@@ -1,90 +1,92 @@
 ===== annex[0] owner=MultiModalPingPong::Cping_t.impl =====
 
-states
-  standby : initial complete final state;
-  busy : complete state;
-  validation : state;
-transitions
-  busy -[on dispatch]-> busy {
-    result := "failure"
-  };
-  standby -[on dispatch]-> busy {
-    for (i : component_id in recipient_array) {
-      the_ping_msg.t := "PING";
-      the_ping_msg.r := i;
-      set_muid ! (the_ping_msg.s);
-      message_array[i] := the_ping_msg.s;
-      emit ! (the_ping_msg)
-    }
-  };
-  standby -[on dispatch receive]-> standby {
-    receive ?
-  };
-  busy -[on dispatch receive]-> validation {
-    receive ? (received_msg)
-  };
-  validation -[received_msg.t = "PONG" and received_msg.s = message_array[received_msg.r]]-> standby {
-    result := "success";
-    counter := counter + 1
-  };
-  validation -[received_msg.t != "PONG" or received_msg.s != message_array[received_msg.r]]-> busy;
-  busy -[on dispatch timeout 80 ms]-> standby {
-    result := "failure"
-  };
------ legacy round-trip -----
-idempotent
+
+  states
+    standby : initial complete final state;
+    busy : complete state;
+    validation : state;
+\s\s
+  transitions
+-- TODO: init recipient_array\s\s
+    busy -[ on dispatch ]-> busy { result := "failure" };
+    standby -[ on dispatch ]-> busy { for(i : component_id in recipient_array)
+              {
+                the_ping_msg.t :="PING";
+                the_ping_msg.r := i;
+                set_muid!(the_ping_msg.s);
+                message_array[i] := the_ping_msg.s;
+                emit!(the_ping_msg)
+              }
+            };
+    standby -[ on dispatch receive ]-> standby {receive?};
+    busy -[ on dispatch receive]-> validation {receive?(received_msg)};
+    validation -[ received_msg.t="PONG" and received_msg.s = message_array[received_msg.r] ]->\s
+            standby { result := "success"; counter:=counter+1};
+    validation -[ received_msg.t!="PONG" or received_msg.s != message_array[received_msg.r]]-> busy;
+    busy -[on dispatch timeout 80 ms]-> standby { result := "failure" };
+
+\s\s
+----- Xtext reparse -----
+reparsed
 ===== annex[1] owner=MultiModalPingPong::Cpong_t.impl =====
 
-states
-  available : initial complete final state;
-transitions
-  available -[on dispatch receive]-> available {
-    receive ? (received_ping);
-    received_ping.t := "PONG";
-    emit ! (received_ping)
-  };
------ legacy round-trip -----
-idempotent
+    states
+      available: initial complete final state;
+\s\s\s\s
+    transitions -- TODO: specify the buffer size of receive=2
+      available -[ on dispatch receive ]->\s
+        available{receive?(received_ping); received_ping.t:="PONG";emit!(received_ping)};
+\s\s
+----- Xtext reparse -----
+reparsed
 ===== annex[2] owner=MultiModalPingPong::controller_thread.impl =====
 
-states
-  idle : initial complete state;
-  exec : state;
-  close : final state;
-transitions
-  exec -[last_cmd.to_role = "to_ping"]-> idle {
-    for (i : Base_Types::Integer in 0 .. result) {
-      to_ping[last_cmd.c_id] !
-    };
-    last_cmd.to_role := ""
-  };
-  idle -[on dispatch mode_switch_p]-> idle {
-    mode_switch_p ? (last_cmd);
-    mode_switch ! (last_cmd.to_role, last_cmd.c_id, result, components)
-  };
------ legacy round-trip -----
-idempotent
+    states
+      idle: initial complete state;
+      exec: state;
+      close: final state;
+\s\s\s\s
+    transitions
+      exec -[last_cmd.to_role="to_ping"]-> idle {for(i : base_types::integer in 0 .. result)
+                                                    {
+                                                        to_ping[last_cmd.c_id]!
+                                                    };
+                                                    last_cmd.to_role:=""
+                                                };
+      idle -[on dispatch mode_switch_p]-> idle\s
+                                           {
+                                               mode_switch_p?(last_cmd);
+                                               mode_switch!(last_cmd.to_role,last_cmd.c_id,result, components)
+                                           };
+\s\s
+----- Xtext reparse -----
+reparsed
 ===== annex[3] owner=MultiModalPingPong::controller_subprogram.impl =====
 
-states
-  s_ini : initial state;
-  s_fini : final state;
-transitions
-  s_ini -[dest_mode = "to_disconnect" and components.c[c_id].role = "pong"]-> s_fini {
-    result := 2;
-    components.c[c_id].role := "not_connected"
-  };
-  s_ini -[dest_mode = "to_disconnect" and components.c[c_id].role = "ping"]-> s_fini {
-    result := 2;
-    components.c[c_id].role := "not_connected"
-  };
-  s_ini -[dest_mode = "to_ping" and components.c[c_id].role = "not_connected"]-> s_fini {
-    result := 1;
-    components.c[c_id].role := "ping"
-  };
-  s_ini -[dest_mode = "to_pong" and components.c[c_id].role = "not_connected"]-> s_fini {
-    result := 1;
-    components.c[c_id].role := "pong"
-  };
------ legacy round-trip -----
-idempotent
+    states
+      s_ini: initial state;
+      s_fini: final state;
+    transitions -- TODO : not the same event name for to_ping and to_disconnected.
+      s_ini -[dest_mode="to_disconnect" and components.c[c_id].role="pong"]-> s_fini\s
+                             {
+                                 result:=2;
+                                 components.c[c_id].role:="not_connected"
+                             };
+      s_ini -[dest_mode="to_disconnect" and components.c[c_id].role="ping"]-> s_fini
+                             {
+                                 result:=2;
+                                 components.c[c_id].role:="not_connected"
+                             };
+      s_ini -[dest_mode="to_ping" and components.c[c_id].role="not_connected"]-> s_fini
+                             {
+                                 result:=1;
+                                 components.c[c_id].role:="ping"
+                             };
+      s_ini -[dest_mode="to_pong" and components.c[c_id].role="not_connected"]-> s_fini
+                             {
+                                 result:=1;
+                                 components.c[c_id].role:="pong"
+                             };
+\s\s
+----- Xtext reparse -----
+reparsed

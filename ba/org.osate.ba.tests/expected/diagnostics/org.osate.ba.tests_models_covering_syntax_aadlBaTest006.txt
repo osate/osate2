@@ -1,39 +1,107 @@
-error | syntax | 102 | 1 | 15 | mismatched input 'endif' expecting 'end if'
-error | syntax | 104 | 1 | 22 | unbalanced ()
-error | syntax | 106 | 1 | 52 | unbalanced ()
-error | syntax | 115 | 1 | 24 | unbalanced ()
-error | syntax | 116 | 1 | 9 | missing behavior action sequence separator ';'
-error | syntax | 118 | 1 | 20 | unbalanced ()
-error | syntax | 120 | 1 | 24 | missing subprogram parameter separator ','
-error | syntax | 123 | 1 | 25 | unbalanced ()
-error | syntax | 126 | 1 | 35 | unbalanced ()
-error | syntax | 127 | 1 | 30 | missing subprogram parameter separator ','
-error | syntax | 131 | 1 | 22 | unbalanced ()
-error | syntax | 134 | 1 | 51 | missing processor parameter separator ','
-error | syntax | 136 | 1 | 24 | mismatched input '==' expecting '>'
-error | syntax | 138 | 1 | 26 | unbalanced ()
-error | syntax | 140 | 1 | 24 | mismatched input '=' expecting '5'
-error | syntax | 33 | 1 | 20 | missing behavior variable separator ','
-error | syntax | 35 | 1 | 47 | missing behavior variable separator ','
-error | syntax | 38 | 1 | 28 | unterminated behavior variable (missing ending ';')
-error | syntax | 40 | 1 | 34 | unterminated behavior variable (missing ending ';')
-error | syntax | 44 | 1 | 11 | missing behavior state separator ','
-error | syntax | 46 | 1 | 23 | missing behavior state separator ','
-error | syntax | 49 | 1 | 14 | unterminated behavior state (missing ending ';')
-error | syntax | 51 | 1 | 15 | unterminated behavior state (missing ending ';')
-error | syntax | 57 | 1 | 40 | missing frozen port separator ','
-error | syntax | 59 | 1 | 48 | missing frozen port separator ','
-error | syntax | 63 | 1 | 25 | unterminated behavior transition (missing ending ';')
-error | syntax | 66 | 1 | 12 | missing behavior state source separator ','
-error | syntax | 68 | 1 | 16 | missing behavior state source separator ','
-error | syntax | 71 | 1 | 41 | extraneous input ';', delete it
-error | syntax | 74 | 1 | 21 | missing behavior action sequence separator ';'
-error | syntax | 76 | 1 | 47 | unbalanced ()
-error | syntax | 80 | 1 | 29 | missing behavior action sequence separator ';'
-error | syntax | 81 | 1 | 29 | extraneous input ';', delete it
-error | syntax | 84 | 1 | 9 | missing behavior action sequence separator ';'
-error | syntax | 86 | 1 | 18 | unbalanced ()
-error | syntax | 90 | 1 | 19 | mismatched input 'elif' expecting ''''
-error | syntax | 94 | 1 | 21 | unbalanced ()
-error | syntax | 97 | 1 | 10 | unbalanced {}
-warning | semantic | 25 | 9 | 10 | Base_Types in 'with' clause of public package section is not used.
+error | linking | 100 | 11 | 5 | Couldn't resolve reference to BehaviorState 'bool4'.
+error | linking | 102 | 9 | 5 | Couldn't resolve reference to BehaviorState 'endif'.
+error | linking | 104 | 17 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 106 | 22 | 10 | Couldn't resolve reference to BehaviorState 'Base_Types'.
+error | linking | 106 | 34 | 7 | Couldn't resolve reference to BehaviorState 'Integer'.
+error | linking | 108 | 13 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 113 | 13 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 115 | 19 | 5 | Couldn't resolve reference to BehaviorState 'bool2'.
+error | linking | 118 | 9 | 7 | Couldn't resolve reference to BehaviorState 'subprog'.
+error | linking | 119 | 21 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 120 | 20 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 120 | 9 | 7 | Couldn't resolve reference to BehaviorState 'subprog'.
+error | linking | 121 | 29 | 5 | Couldn't resolve reference to BehaviorState 'bool3'.
+error | linking | 123 | 17 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 123 | 9 | 4 | Couldn't resolve reference to BehaviorState 'port'.
+error | linking | 125 | 15 | 7 | Couldn't resolve reference to BehaviorState 'subprog'.
+error | linking | 125 | 9 | 4 | Couldn't resolve reference to BehaviorState 'pack'.
+error | linking | 126 | 27 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 127 | 15 | 7 | Couldn't resolve reference to BehaviorState 'subprog'.
+error | linking | 127 | 26 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 127 | 9 | 4 | Couldn't resolve reference to BehaviorState 'pack'.
+error | linking | 128 | 29 | 5 | Couldn't resolve reference to BehaviorState 'bool3'.
+error | linking | 132 | 25 | 1 | Couldn't resolve reference to BehaviorState 's'.
+error | linking | 132 | 31 | 1 | Couldn't resolve reference to BehaviorState 's'.
+error | linking | 134 | 26 | 2 | Couldn't resolve reference to BehaviorState 'ms'.
+error | linking | 134 | 43 | 1 | Couldn't resolve reference to BehaviorState 'p'.
+error | linking | 134 | 48 | 1 | Couldn't resolve reference to BehaviorState 'p'.
+error | linking | 136 | 9 | 4 | Couldn't resolve reference to BehaviorState 'bool'.
+error | linking | 138 | 9 | 5 | Couldn't resolve reference to BehaviorState 'bool2'.
+error | linking | 140 | 9 | 5 | Couldn't resolve reference to BehaviorState 'bool3'.
+error | linking | 34 | 9 | 6 | Couldn't resolve reference to ComponentClassifier 'bool1t'.
+error | linking | 58 | 35 | 2 | Couldn't resolve reference to BehaviorState 'p4'.
+error | linking | 59 | 35 | 2 | Couldn't resolve reference to BehaviorState 'p5'.
+error | linking | 76 | 17 | 10 | Couldn't resolve reference to BehaviorState 'Base_Types'.
+error | linking | 76 | 29 | 7 | Couldn't resolve reference to BehaviorState 'Integer'.
+error | linking | 80 | 15 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 81 | 15 | 5 | Couldn't resolve reference to BehaviorState 'bool2'.
+error | linking | 86 | 13 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 88 | 11 | 5 | Couldn't resolve reference to BehaviorState 'bool1'.
+error | linking | 90 | 9 | 4 | Couldn't resolve reference to BehaviorState 'elif'.
+error | linking | 92 | 11 | 5 | Couldn't resolve reference to BehaviorState 'bool2'.
+error | linking | 94 | 16 | 5 | Couldn't resolve reference to BehaviorState 'bool3'.
+error | linking | 96 | 11 | 5 | Couldn't resolve reference to BehaviorState 'bool3'.
+error | syntax | 100 | 17 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 102 | 15 | 1 | mismatched input ';' expecting '-['
+error | syntax | 104 | 22 | 1 | mismatched input ')' expecting '-['
+error | syntax | 106 | 32 | 2 | mismatched input '::' expecting '-['
+error | syntax | 106 | 42 | 2 | mismatched input 'in' expecting '-['
+error | syntax | 108 | 19 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 113 | 19 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 115 | 24 | 1 | mismatched input ')' expecting '-['
+error | syntax | 118 | 17 | 1 | mismatched input '!' expecting '-['
+error | syntax | 119 | 26 | 1 | mismatched input ')' expecting '-['
+error | syntax | 120 | 17 | 1 | mismatched input '!' expecting '-['
+error | syntax | 121 | 22 | 5 | missing '-[' at 'bool2'
+error | syntax | 121 | 27 | 1 | mismatched input ',' expecting ']->'
+error | syntax | 121 | 34 | 1 | mismatched input ')' expecting '-['
+error | syntax | 123 | 14 | 1 | mismatched input '?' expecting '-['
+error | syntax | 123 | 22 | 1 | mismatched input ')' expecting '-['
+error | syntax | 125 | 13 | 2 | mismatched input '::' expecting '-['
+error | syntax | 125 | 23 | 1 | mismatched input '!' expecting '-['
+error | syntax | 126 | 32 | 1 | mismatched input ')' expecting '-['
+error | syntax | 127 | 13 | 2 | mismatched input '::' expecting '-['
+error | syntax | 127 | 23 | 1 | mismatched input '!' expecting '-['
+error | syntax | 128 | 22 | 5 | missing '-[' at 'bool2'
+error | syntax | 128 | 27 | 1 | mismatched input ',' expecting ']->'
+error | syntax | 128 | 34 | 1 | mismatched input ')' expecting '-['
+error | syntax | 132 | 27 | 2 | mismatched input '..' expecting '-['
+error | syntax | 132 | 32 | 1 | mismatched input ')' expecting '-['
+error | syntax | 134 | 28 | 1 | mismatched input ')' expecting '-['
+error | syntax | 134 | 45 | 1 | missing '-[' at 'p'
+error | syntax | 134 | 46 | 1 | mismatched input ',' expecting ']->'
+error | syntax | 134 | 49 | 1 | mismatched input ')' expecting '-['
+error | syntax | 136 | 14 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 138 | 15 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 140 | 15 | 1 | mismatched input '=' expecting '-['
+error | syntax | 34 | 15 | 1 | mismatched input ',' expecting ';'
+error | syntax | 34 | 9 | 6 | missing ':' at 'bool1t'
+error | syntax | 35 | 18 | 6 | extraneous input 'bool1s' expecting ':'
+error | syntax | 39 | 7 | 5 | missing ';' at 'bool4'
+error | syntax | 42 | 5 | 6 | missing ';' at 'states'
+error | syntax | 45 | 9 | 1 | mismatched input 'c' expecting ':'
+error | syntax | 46 | 13 | 1 | extraneous input 'e' expecting ':'
+error | syntax | 50 | 7 | 1 | missing ';' at 'h'
+error | syntax | 53 | 7 | 3 | missing ';' at 'all'
+error | syntax | 58 | 35 | 2 | missing ']->' at 'p4'
+error | syntax | 58 | 37 | 1 | mismatched input ',' expecting ';'
+error | syntax | 59 | 38 | 2 | missing '-[' at 'p6'
+error | syntax | 64 | 7 | 3 | missing ';' at 'all'
+error | syntax | 67 | 14 | 1 | missing '-[' at 'c'
+error | syntax | 67 | 15 | 1 | mismatched input ',' expecting ']->'
+error | syntax | 69 | 18 | 1 | missing '-[' at 'e'
+error | syntax | 69 | 19 | 1 | mismatched input ',' expecting ']->'
+error | syntax | 71 | 39 | 1 | no viable alternative at input '}'
+error | syntax | 76 | 13 | 1 | missing ';' at 'i'
+error | syntax | 76 | 27 | 2 | mismatched input '::' expecting '-['
+error | syntax | 76 | 37 | 2 | mismatched input 'in' expecting '-['
+error | syntax | 76 | 9 | 3 | mismatched input 'for' expecting '}'
+error | syntax | 80 | 21 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 81 | 21 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 86 | 18 | 1 | mismatched input ')' expecting '-['
+error | syntax | 88 | 17 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 90 | 13 | 1 | missing '-[' at '('
+error | syntax | 91 | 9 | 1 | mismatched input '{' expecting ']->'
+error | syntax | 92 | 17 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 94 | 21 | 1 | mismatched input ')' expecting '-['
+error | syntax | 96 | 17 | 2 | mismatched input ':=' expecting '-['

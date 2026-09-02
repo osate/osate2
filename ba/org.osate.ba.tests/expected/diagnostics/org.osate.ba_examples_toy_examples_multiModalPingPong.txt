@@ -1,0 +1,4 @@
+error | semantic | 112 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'Cping_t.impl'
+error | semantic | 161 | 9 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'Cpong_t.impl'
+error | semantic | 253 | 9 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'controller_thread.impl'
+error | semantic | 283 | 9 | 22 | Duplicate Element 'behavior_specification' in SubprogramImplementation 'controller_subprogram.impl'

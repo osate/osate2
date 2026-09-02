@@ -34,7 +34,7 @@ censes only apply to the Third Party Software and not any other portion of this 
         <parser
             id="org.osate.xtext.aadl2.ba.parser"
             name="Behavior Annex Xtext Parser"
-            annexName="behavior_specification_xtext"
+            annexName="behavior_specification"
             annexNSURI="http://www.aadl.info/BehaviorSpecification"
             class="org.osate.xtext.aadl2.ba.parsing.BehaviorAnnexAnnexParser" />
     </extension>
@@ -42,14 +42,14 @@ censes only apply to the Third Party Software and not any other portion of this 
         <linkingservice
             id="org.osate.xtext.aadl2.ba.linkingservice"
             name="Behavior Annex Xtext Linking Service"
-            annexName="behavior_specification_xtext"
+            annexName="behavior_specification"
             class="org.osate.xtext.aadl2.ba.parsing.BehaviorAnnexAnnexLinkingService" />
     </extension>
     <extension point="org.osate.annexsupport.unparser">
         <unparser
             id="org.osate.xtext.aadl2.ba.unparser"
             name="Behavior Annex Xtext Unparser"
-            annexName="behavior_specification_xtext"
+            annexName="behavior_specification"
             class="org.osate.xtext.aadl2.ba.parsing.BehaviorAnnexAnnexUnparser" />
     </extension>
 </plugin>

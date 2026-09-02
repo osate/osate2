@@ -1,1 +1,9 @@
 annex[0] owner=MissingFrozenPortSeparator::t
+  (BehaviorAnnex, behavior_specification, 240, 86)
+  (BehaviorCondition, <null>, 298, 20)
+  (BehaviorState, s, 247, 1)
+  (BehaviorStateGroup, <null>, 247, 32)
+  (BehaviorTransition, <null>, 294, 32)
+  (DispatchCondition, <null>, 301, 17)
+  (Reference, <null>, 317, 1)
+  (ReferenceSegment, p, 317, 1)

@@ -1,4 +1,9 @@
 ===== annex[0] owner=FrozenPortParentheses::worker.i =====
 
------ legacy round-trip -----
-idempotent
+\t\tstates
+\t\t\twaiting: initial complete final state;
+\t\ttransitions
+\t\t\twaiting -[ on dispatch frozen (sampled_input) ]-> waiting;
+\t
+----- Xtext reparse -----
+reparsed

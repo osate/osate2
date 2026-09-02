@@ -7,7 +7,7 @@ public
 	end Cpu;
 
 	system Example
-		annex behavior_specification_xtext {**
+		annex behavior_specification {**
 			variables
 				counter : Base_Types::Integer
 				{

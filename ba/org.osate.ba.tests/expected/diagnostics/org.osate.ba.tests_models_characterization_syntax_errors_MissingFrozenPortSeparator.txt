@@ -1,1 +1,1 @@
-error | syntax | 11 | 1 | 46 | missing frozen port separator ','
+error | syntax | 11 | 40 | 1 | extraneous input 'q' expecting ']->'

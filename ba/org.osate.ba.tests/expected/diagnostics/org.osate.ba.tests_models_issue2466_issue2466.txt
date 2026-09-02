@@ -1,3 +1,2 @@
-warning | semantic | 57 | 1 | 30 | 'd.f': is a read only value and it is used as a writable value
-warning | semantic | 58 | 1 | 15 | 'd.f': is a read only value and it is used as a writable value
-warning | semantic | 59 | 1 | 14 | 'd.f': is a read only value and it is used as a writable value
+error | semantic | 37 | 9 | 22 | Duplicate Element 'behavior_specification' in SubprogramType 's2'
+error | semantic | 52 | 9 | 22 | Duplicate Element 'behavior_specification' in SubprogramType 's3'

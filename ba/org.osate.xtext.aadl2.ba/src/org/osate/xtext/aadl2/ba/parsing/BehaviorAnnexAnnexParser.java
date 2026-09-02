@@ -36,9 +36,7 @@ import org.osate.xtext.aadl2.ba.parser.antlr.BehaviorAnnexParser;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-/**
- * Parses the temporary embedded BA subclause through {@link AnnexParseUtil}; BA intentionally has no library form.
- */
+/** Parses embedded BA subclauses through {@link AnnexParseUtil}; BA intentionally has no library form. */
 public final class BehaviorAnnexAnnexParser implements AnnexParser {
 	@Inject
 	private BehaviorAnnexParser parser;

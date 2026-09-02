@@ -8,17 +8,19 @@ transitions
     s11 ! (d.f);
     s12 ! (d.f)
   };
------ legacy round-trip -----
-idempotent
+\s\s\s\s\s\s\s\s
+----- Xtext reparse -----
+reparsed
 ===== annex[1] owner=issue2466::s3 =====
 
-states
-  s : initial final state;
-transitions
-  t : s -[]-> s {
-    s1 ! (d.f, d.f, d.f, d.f);
-    s11 ! (d.f);
-    s12 ! (d.f)
-  };
------ legacy round-trip -----
-idempotent
+\t\t\tstates
+\t\t\t\ts: initial final state;
+\t\t\ttransitions
+\t\t\t\tt: s-[]-> s {
+\t\t\t\t\ts1!(d.f, d.f, d.f, d.f);\s
+\t\t\t\t\ts11!(d.f);
+\t\t\t\t\ts12!(d.f)
+\t\t\t\t};
+\t\t
+----- Xtext reparse -----
+reparsed

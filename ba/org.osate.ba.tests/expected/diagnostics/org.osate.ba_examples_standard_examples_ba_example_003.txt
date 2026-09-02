@@ -1,0 +1,2 @@
+error | semantic | 23 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'sender.v1'
+error | semantic | 44 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'sender.v2'

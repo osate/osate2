@@ -1,61 +1,38 @@
 annex[0] owner=issue2459::top
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
     variables[0] : BehaviorVariable name=bool1
-      arrayDimension[0] : DeclarativeArrayDimension
-        dimension : BehaviorIntegerLiteral
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
     states[0] : BehaviorState name=s3
-    transitions[0] : DeclarativeBehaviorTransition name=t1
+    transitions[0] : BehaviorTransition name=t1
       condition : ValueExpression
         relations[0] : Relation
           firstExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
-                firstValue : Reference
-                  ids[0] : ArrayableIdentifier
-                    arrayIndexes[0] : BehaviorIntegerLiteral
-                  ids[1] : ArrayableIdentifier
-                    arrayIndexes[0] : Reference
-                      ids[0] : ArrayableIdentifier
-      srcStates[0] : Identifier
-      destState : Identifier
-    transitions[1] : DeclarativeBehaviorTransition
-      srcStates[0] : Identifier
-      destState : Identifier
-    transitions[2] : DeclarativeBehaviorTransition
+                firstValue : BehaviorVariableHolder element=<null>
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
       condition : ValueExpression
         relations[0] : Relation
           firstExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
-                firstValue : NamedValue
-                  reference : Reference
-                    ids[0] : ArrayableIdentifier
-      srcStates[0] : Identifier
-      destState : Identifier
-    transitions[3] : DeclarativeBehaviorTransition
-      srcStates[0] : Identifier
-      destState : Identifier
-    transitions[4] : DeclarativeBehaviorTransition
-      srcStates[0] : Identifier
-      destState : Identifier
-    transitions[5] : DeclarativeBehaviorTransition
-      srcStates[0] : Identifier
-      destState : Identifier
-    transitions[6] : DeclarativeBehaviorTransition
+                firstValue : PortFreshValue
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
       condition : ValueExpression
         relations[0] : Relation
           firstExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
-                firstValue : DeclarativePropertyReference
-                  qualifiedName : QualifiedNamedElement
-                    baNamespace : Identifier
-                    baName : Identifier
-                  propertyNames[0] : DeclarativePropertyName
-                    propertyName : Identifier
+                firstValue : PropertySetPropertyReference
+                  properties[0] : PropertyNameHolder
+                    property : BasicPropertyHolder element=<null>
               factors[1] : Factor
-                firstValue : Reference
-                  ids[0] : ArrayableIdentifier
+                firstValue : BehaviorVariableHolder element=<null>
           secondExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
@@ -65,20 +42,15 @@ annex[0] owner=issue2459::top
             terms[0] : Term
               factors[0] : Factor
                 firstValue : BehaviorBooleanLiteral
-      srcStates[0] : Identifier
-      destState : Identifier
-    transitions[7] : DeclarativeBehaviorTransition
+    transitions[7] : BehaviorTransition
       condition : ValueExpression
         relations[0] : Relation
           firstExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
-                firstValue : DeclarativePropertyReference
-                  qualifiedName : QualifiedNamedElement
-                    baNamespace : Identifier
-                    baName : Identifier
-                  propertyNames[0] : DeclarativePropertyName
-                    propertyName : Identifier
+                firstValue : PropertySetPropertyReference
+                  properties[0] : PropertyNameHolder
+                    property : BasicPropertyHolder element=<null>
           secondExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
@@ -87,175 +59,127 @@ annex[0] owner=issue2459::top
           firstExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
-                firstValue : Reference
-                  ids[0] : ArrayableIdentifier
-      srcStates[0] : Identifier
-      destState : Identifier
-    transitions[8] : DeclarativeBehaviorTransition
-      srcStates[0] : Identifier
-      destState : Identifier
+                firstValue : BehaviorVariableHolder element=bool1 [BehaviorVariable]
+    transitions[8] : BehaviorTransition
     actions[0] : BehaviorActionBlock
       content : BehaviorActionSequence
         actions[0] : AssignmentAction
-          target : Reference
-            ids[0] : ArrayableIdentifier
+          target : BehaviorVariableHolder element=<null>
           valueExpression : ValueExpression
             relations[0] : Relation
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : Reference
-                      ids[0] : ArrayableIdentifier
+                    firstValue : BehaviorVariableHolder element=<null>
                 terms[1] : Term
                   factors[0] : Factor
                     firstValue : BehaviorIntegerLiteral
-        actions[1] : CommAction
-          reference : Reference
-            ids[0] : ArrayableIdentifier
-        actions[2] : CommAction
-          parameters[0] : ValueExpression
+        actions[1] : SubprogramCallAction
+          proxy : BehaviorVariableHolder element=<null>
+        actions[2] : SubprogramCallAction
+          parameterLabels[0] : ValueExpression
             relations[0] : Relation
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : Reference
-                      ids[0] : ArrayableIdentifier
-          reference : Reference
-            ids[0] : ArrayableIdentifier
+                    firstValue : BehaviorVariableHolder element=<null>
+          proxy : BehaviorVariableHolder element=<null>
         actions[3] : TimedAction
-          lowerTime : DeclarativeTime
+          lowerTime : BehaviorTime
             integerValue : BehaviorIntegerLiteral
-            unitId : Identifier
     actions[1] : BehaviorActionBlock
       content : BehaviorActionSequence
         actions[0] : AssignmentAction
-          target : Reference
-            ids[0] : ArrayableIdentifier
+          target : BehaviorVariableHolder element=<null>
           valueExpression : ValueExpression
             relations[0] : Relation
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : NamedValue
-                      reference : Reference
-                        ids[0] : ArrayableIdentifier
-                        ids[1] : ArrayableIdentifier
+                    firstValue : PortCountValue
         actions[1] : AssignmentAction
-          target : Reference
-            ids[0] : ArrayableIdentifier
+          target : BehaviorVariableHolder element=<null>
           valueExpression : ValueExpression
             relations[0] : Relation
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : NamedValue
-                      reference : Reference
-                        ids[0] : ArrayableIdentifier
-                        ids[1] : ArrayableIdentifier
+                    firstValue : PortFreshValue
         actions[2] : AssignmentAction
-          target : Reference
-            ids[0] : ArrayableIdentifier
+          target : BehaviorVariableHolder element=<null>
           valueExpression : ValueExpression
             relations[0] : Relation
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : NamedValue
-                      reference : Reference
-                        ids[0] : ArrayableIdentifier
-                        ids[1] : ArrayableIdentifier
-        actions[3] : CommAction
-          target : Reference
-            ids[0] : ArrayableIdentifier
-          reference : Reference
-            ids[0] : ArrayableIdentifier
-            ids[1] : ArrayableIdentifier
+                    firstValue : PortDequeueValue
+        actions[3] : PortDequeueAction
+          target : BehaviorVariableHolder element=<null>
     actions[2] : BehaviorActionBlock
       content : AssignmentAction
-        target : Reference
-          ids[0] : ArrayableIdentifier
+        target : BehaviorVariableHolder element=<null>
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : Reference
-                    ids[0] : ArrayableIdentifier
-                    ids[1] : ArrayableIdentifier
-                    ids[2] : ArrayableIdentifier
-                      arrayIndexes[0] : BehaviorIntegerLiteral
-                      arrayIndexes[1] : BehaviorIntegerLiteral
+                  firstValue : BehaviorVariableHolder element=<null>
     actions[3] : BehaviorActionBlock
       content : AssignmentAction
-        target : Reference
-          ids[0] : ArrayableIdentifier
+        target : BehaviorVariableHolder element=<null>
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
                   firstValue : BehaviorIntegerLiteral
-      timeout : DeclarativeTime
+      timeout : BehaviorTime
         integerValue : BehaviorIntegerLiteral
-        unitId : Identifier
     actions[4] : BehaviorActionBlock
       content : AssignmentAction
-        target : Reference
-          ids[0] : ArrayableIdentifier
+        target : BehaviorVariableHolder element=<null>
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
                   firstValue : BehaviorIntegerLiteral
-      timeout : DeclarativeTime
-        integerValue : Reference
-          ids[0] : ArrayableIdentifier
-        unitId : Identifier
+      timeout : BehaviorTime
+        integerValue : BehaviorVariableHolder element=<null>
     actions[5] : BehaviorActionBlock
       content : AssignmentAction
-        target : Reference
-          ids[0] : ArrayableIdentifier
+        target : BehaviorVariableHolder element=<null>
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
                   firstValue : BehaviorIntegerLiteral
-      timeout : DeclarativeTime
-        integerValue : DeclarativePropertyReference
-          qualifiedName : QualifiedNamedElement
-            baNamespace : Identifier
-            baName : Identifier
-          propertyNames[0] : DeclarativePropertyName
-            propertyName : Identifier
-        unitId : Identifier
+      timeout : BehaviorTime
+        integerValue : PropertySetPropertyReference
+          properties[0] : PropertyNameHolder
+            property : BasicPropertyHolder element=<null>
     actions[6] : BehaviorActionBlock
-      content : CommAction
-        parameters[0] : ValueExpression
+      content : SubprogramCallAction
+        parameterLabels[0] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : DeclarativePropertyReference
-                    qualifiedName : QualifiedNamedElement
-                      baNamespace : Identifier
-                      baName : Identifier
-                    propertyNames[0] : DeclarativePropertyName
-                      propertyName : Identifier
-        parameters[1] : ValueExpression
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=<null>
+        parameterLabels[1] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : Reference
-                    ids[0] : ArrayableIdentifier
-        parameters[2] : ValueExpression
+                  firstValue : BehaviorVariableHolder element=<null>
+        parameterLabels[2] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : Reference
-                    ids[0] : ArrayableIdentifier
-        reference : Reference
-          ids[0] : ArrayableIdentifier
+                  firstValue : BehaviorVariableHolder element=<null>
+        proxy : BehaviorVariableHolder element=<null>

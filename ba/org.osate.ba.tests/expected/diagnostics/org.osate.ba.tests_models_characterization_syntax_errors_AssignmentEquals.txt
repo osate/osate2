@@ -1,2 +1,1 @@
-error | syntax | 10 | 1 | 34 | mismatched input '=' expecting '5'
-warning | semantic | 5 | 7 | 10 | Base_Types in 'with' clause of public package section is not used.
+error | syntax | 10 | 29 | 1 | no viable alternative at input '='

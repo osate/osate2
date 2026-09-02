@@ -13,6 +13,6 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",
  org.eclipse.emf.edit;bundle-version="[2.16.0,3.0.0)";visibility:=reexport,
  org.osate.aadl2;bundle-version="[7.0.0,8.0.0)";visibility:=reexport,
  org.osate.aadl2.edit;bundle-version="[7.0.0,8.0.0)";visibility:=reexport,
- org.osate.ba;bundle-version="[8.0.0,9.0.0)";visibility:=reexport
+ org.osate.ba;bundle-version="[9.0.0,10.0.0)";visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.ba.edit

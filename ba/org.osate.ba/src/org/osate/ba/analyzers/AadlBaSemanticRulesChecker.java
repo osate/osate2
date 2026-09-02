@@ -29,7 +29,6 @@ import org.osate.ba.aadlba.BehaviorElement;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.DispatchTriggerConditionStop;
-import org.osate.ba.declarative.Identifier;
 
 public class AadlBaSemanticRulesChecker {
 	private AnalysisErrorReporterManager _errManager;
@@ -49,12 +48,10 @@ public class AadlBaSemanticRulesChecker {
 	public boolean D_3_18_Checker(BehaviorTransition bt) {
 		boolean result = true;
 
-		for (Identifier srcState : BehaviorTransitionContext.getSourceIdentifiers(bt)) {
-			BehaviorState bs = (BehaviorState) srcState.getBaRef();
-
+		for (BehaviorState srcState : BehaviorTransitionContext.getSourceStates(bt)) {
 			// Error case : only transition out of execution states or pure
 			// initial state may have execute condition.
-			if (bs.isComplete() || bs.isFinal()) {
+			if (srcState.isComplete() || srcState.isFinal()) {
 				this.reportSemanticError(srcState,
 						"Only transition out of " + "execution states or states that are intial only may have "
 								+ "execute condition: Behavior Annex D.3.(18) semantic rule " + "failed");

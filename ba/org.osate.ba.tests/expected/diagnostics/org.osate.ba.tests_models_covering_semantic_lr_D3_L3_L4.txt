@@ -1,1 +1,2 @@
-error | semantic | 44 | 1 | 0 | exemple_lr_D3_L3_L4::th.error can't have more than one initial state : initState1, initState2 : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 32 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.good'
+error | semantic | 44 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.error'

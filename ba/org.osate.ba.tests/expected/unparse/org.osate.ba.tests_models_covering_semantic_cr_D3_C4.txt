@@ -1,9 +1,12 @@
 ===== annex[0] owner=exemple_cr_D3_C4::proc =====
 
+
 states
-  m1 : initial complete state;
-  finalState : final state;
+  m1 : initial complete state ;
+  finalState : final state ;
+\s\s\s
 transitions
-  m1 -[]-> finalState;
------ legacy round-trip -----
-idempotent
+  m1 -[on inPorta and inPortB or inPortc and inPortA]-> finalState ;
+\s\s
+----- Xtext reparse -----
+reparsed

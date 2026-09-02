@@ -50,7 +50,6 @@ import org.osate.ba.aadlba.LoopStatement;
 import org.osate.ba.aadlba.Otherwise;
 import org.osate.ba.aadlba.TimedAction;
 import org.osate.ba.aadlba.util.AadlBaSwitch;
-import org.osate.ba.declarative.Identifier;
 
 public class AadlBaRulesCheckersDriver {
 
@@ -183,8 +182,8 @@ public class AadlBaRulesCheckersDriver {
 
 				for (BehaviorState s : ba.getStates()) {
 					for (BehaviorTransition bt : ba.getTransitions()) {
-						for (Identifier src : BehaviorTransitionContext.getSourceIdentifiers(bt)) {
-							if (s.getName().equalsIgnoreCase(src.getId())) {
+						for (BehaviorState src : BehaviorTransitionContext.getSourceStates(bt)) {
+							if (s == src) {
 								btTmp.add(bt);
 							}
 						}
@@ -221,11 +220,11 @@ public class AadlBaRulesCheckersDriver {
 
 				boolean result = true;
 
-				List<Identifier> sourceStateList = BehaviorTransitionContext.getSourceIdentifiers(_currentBt);
+				List<BehaviorState> sourceStateList = BehaviorTransitionContext.getSourceStates(_currentBt);
 
 				// Check source identifiers.
 
-				for (Identifier srcState : sourceStateList) {
+				for (BehaviorState srcState : sourceStateList) {
 					result &= _legality.D_3_L6_Check(_currentBt, srcState);
 					result &= _legality.D_3_L7_Check(_currentBt, srcState);
 					result &= _legality.D_3_L8_Check(srcState);

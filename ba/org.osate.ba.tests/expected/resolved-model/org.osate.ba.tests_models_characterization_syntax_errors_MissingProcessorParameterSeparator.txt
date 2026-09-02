@@ -1,2 +1,8 @@
 annex[0] owner=MissingProcessorParameterSeparator::t
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : TimedAction
+        lowerTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral

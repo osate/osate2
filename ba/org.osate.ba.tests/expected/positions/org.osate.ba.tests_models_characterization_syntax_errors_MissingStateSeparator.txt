@@ -1,1 +1,4 @@
 annex[0] owner=MissingStateSeparator::t
+  (BehaviorAnnex, behavior_specification, 185, 18)
+  (BehaviorState, a, 192, 1)
+  (BehaviorStateGroup, <null>, 192, 11)

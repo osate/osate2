@@ -1,1 +1,9 @@
 annex[0] owner=FrozenPortParentheses::worker.i
+  (BehaviorAnnex, behavior_specification, 380, 124)
+  (BehaviorCondition, <null>, 457, 33)
+  (BehaviorState, waiting, 390, 7)
+  (BehaviorStateGroup, <null>, 390, 38)
+  (BehaviorTransition, <null>, 446, 58)
+  (DispatchCondition, <null>, 460, 30)
+  (Reference, <null>, 476, 14)
+  (ReferenceSegment, sampled_input, 476, 14)

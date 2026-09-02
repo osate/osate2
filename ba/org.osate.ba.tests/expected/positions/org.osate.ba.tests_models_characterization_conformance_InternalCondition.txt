@@ -1,1 +1,13 @@
 annex[0] owner=InternalCondition::component.i
+  (BehaviorAnnex, behavior_specification, 309, 133)
+  (BehaviorCondition, <null>, 391, 11)
+  (BehaviorState, finish, 344, 6)
+  (BehaviorState, start, 319, 5)
+  (BehaviorStateGroup, <null>, 319, 21)
+  (BehaviorStateGroup, <null>, 344, 20)
+  (BehaviorTransition, <null>, 382, 35)
+  (BehaviorTransition, <null>, 418, 24)
+  (ModeSwitchCondition, <null>, 394, 8)
+  (ModeSwitchConjunction, <null>, 394, 8)
+  (Reference, <null>, 394, 8)
+  (ReferenceSegment, internal, 394, 8)

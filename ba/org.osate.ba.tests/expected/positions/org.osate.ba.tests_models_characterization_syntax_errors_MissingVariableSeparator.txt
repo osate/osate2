@@ -1,1 +1,4 @@
 annex[0] owner=MissingVariableSeparator::t
+  (BehaviorAnnex, behavior_specification, 206, 35)
+  (BehaviorVariable, a, 216, 1)
+  (BehaviorVariableGroup, <null>, 216, 25)

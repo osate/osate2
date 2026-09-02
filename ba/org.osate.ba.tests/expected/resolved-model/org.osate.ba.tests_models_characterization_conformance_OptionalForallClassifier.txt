@@ -1,2 +1,12 @@
 annex[0] owner=OptionalForallClassifier::operation
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=finish
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : BehaviorActionBlock
+        iterativeVariable : IterativeVariable name=i

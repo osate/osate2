@@ -22,37 +22,6 @@ https://www.eclipse.org/legal/epl-2.0/
 <?eclipse version="3.4"?>
 <plugin>
 
-   <extension
-         point="org.osate.annexsupport.parser">
-      <parser
-            annexNSURI="https://github.com/osate/osate2-ba.git"
-            annexName="behavior_specification"
-            class="org.osate.ba.AadlBaParserAction"
-            id="org.osate.ba.parser"
-            name="AADL-BA-FrontEnd">
-      </parser>
-   </extension>
-   
-   <extension
-         point="org.osate.annexsupport.resolver">
-      <resolver
-            annexName="behavior_specification"
-            class="org.osate.ba.AadlBaResolver"
-            id="org.osate.ba.analyzers.resolver"
-            name="AADL-BA-FrontEnd">
-      </resolver>
-   </extension>
-
-   <extension
-         point="org.osate.annexsupport.unparser">
-      <unparser
-            annexName="behavior_specification"
-            class="org.osate.ba.AadlBaUnParserAction"
-            id="org.osate.ba.unparser"
-            name="AADL-BA-FrontEnd">
-      </unparser>
-   </extension>
-
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
        uri = "https://github.com/osate/osate2-ba.git" 
@@ -61,22 +30,6 @@ https://www.eclipse.org/legal/epl-2.0/
   </extension> 
 
 
-  <extension
-        point="org.osate.annexsupport.highlighter">
-     <highlighter
-           annexName="behavior_specification"
-           class="org.osate.ba.texteditor.AadlBaSemanticHighlighter"
-           id="org.osate.ba.highlighter">
-     </highlighter>
-  </extension>
-  <extension
-        point="org.osate.annexsupport.textpositionresolver">
-     <textpositionresolver
-           annexName="behavior_specification"
-           class="org.osate.ba.texteditor.AadlBaTextPositionResolver"
-           id="org.osate.ba.textpositionresolver">
-     </textpositionresolver>
-  </extension>
   <extension
         point="org.eclipse.ui.newWizards">
      <wizard
@@ -89,18 +42,4 @@ https://www.eclipse.org/legal/epl-2.0/
      </wizard>
   </extension>
    
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated declarative -->
-      <package
-            uri="https://github.com/osate/osate2-ba.git/declarative"
-            class="org.osate.ba.declarative.DeclarativePackage"
-            genModel="model/declarative.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated declarative -->
-      <parser
-            type="declarative"
-            class="org.osate.ba.declarative.util.DeclarativeResourceFactoryImpl"/>
-   </extension>
 </plugin>

@@ -193,8 +193,6 @@ annex[1] owner=exemple_lr_D6_L2_nr_D6_N1::th.error
                     behaviorActions : WhileOrDoUntilStatement
                       behaviorActions : BehaviorActionBlock
                         content : AssignmentAction
-                          target : Reference
-                            ids[0] : ArrayableIdentifier
                           valueExpression : ValueExpression
                             relations[0] : Relation
                               firstExpression : SimpleExpression

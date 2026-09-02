@@ -3938,53 +3938,43 @@ annex[0] owner=DataTypeCheckerTest::concreteThread.impl
                     data[0] : DataSubcomponentHolder element=DataTypeCheckerTest::abstractThread.impl.subMyStruct1 [DataSubcomponent]
                     data[1] : DataSubcomponentHolder element=DataTypeCheckerTest::MyStructure.impl.int1 [DataSubcomponent]
     actions[286] : BehaviorActionBlock
-      content : CommAction
-        reference : Reference
-          ids[0] : ArrayableIdentifier
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=DataTypeCheckerTest::abstractThread.proto1 [SubprogramPrototype]
     actions[287] : BehaviorActionBlock
-      content : CommAction
-        parameters[0] : ValueExpression
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=DataTypeCheckerTest::abstractThread.impl.proto2 [SubprogramPrototype]
+        parameterLabels[0] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : Reference
-                    ids[0] : ArrayableIdentifier
-        parameters[1] : ValueExpression
+                  firstValue : BehaviorVariableHolder element=int1 [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : Reference
-                    ids[0] : ArrayableIdentifier
-        reference : Reference
-          ids[0] : ArrayableIdentifier
+                  firstValue : BehaviorVariableHolder element=float1 [BehaviorVariable]
     actions[288] : BehaviorActionBlock
-      content : CommAction
-        parameters[0] : ValueExpression
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=DataTypeCheckerTest::abstractThread.impl.undefinedProto [SubprogramPrototype]
+        parameterLabels[0] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : Reference
-                    ids[0] : ArrayableIdentifier
-        parameters[1] : ValueExpression
+                  firstValue : BehaviorVariableHolder element=int1 [BehaviorVariable]
+        parameterLabels[1] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : Reference
-                    ids[0] : ArrayableIdentifier
-        reference : Reference
-          ids[0] : ArrayableIdentifier
+                  firstValue : BehaviorVariableHolder element=float1 [BehaviorVariable]
     actions[289] : BehaviorActionBlock
-      content : CommAction
-        reference : Reference
-          ids[0] : ArrayableIdentifier
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=DataTypeCheckerTest::abstractThread.definedProto [SubprogramPrototype]
     actions[290] : BehaviorActionBlock
-      content : CommAction
-        reference : Reference
-          ids[0] : ArrayableIdentifier
+      content : SubprogramCallAction
     actions[291] : BehaviorActionBlock
       content : SubprogramCallAction
         subprogram : SubprogramAccessHolder element=DataTypeCheckerTest::MyStructure.addition [SubprogramAccess]
@@ -4033,9 +4023,9 @@ annex[0] owner=DataTypeCheckerTest::concreteThread.impl
                     firstValue : BehaviorIntegerLiteral
         iteratedValues : IntegerRange
           lowerIntegerValue : BehaviorIntegerLiteral
-          upperIntegerValue : Reference
-            ids[0] : ArrayableIdentifier
-            ids[1] : ArrayableIdentifier
+          upperIntegerValue : DataComponentReference
+            data[0] : DataSubcomponentHolder element=DataTypeCheckerTest::abstractThread.impl.subMyStruct1 [DataSubcomponent]
+            data[1] : DataSubcomponentHolder element=DataTypeCheckerTest::MyStructure.impl.float1 [DataSubcomponent]
         iterativeVariable : IterativeVariable name=i
     actions[295] : BehaviorActionBlock
       content : ForOrForAllStatement
@@ -4063,8 +4053,7 @@ annex[0] owner=DataTypeCheckerTest::concreteThread.impl
                     firstValue : BehaviorIntegerLiteral
         iteratedValues : IntegerRange
           lowerIntegerValue : BehaviorVariableHolder element=int1 [BehaviorVariable]
-          upperIntegerValue : Reference
-            ids[0] : ArrayableIdentifier
+          upperIntegerValue : BehaviorVariableHolder element=float1 [BehaviorVariable]
         iterativeVariable : IterativeVariable name=i
     actions[297] : BehaviorActionBlock
       content : PortSendAction

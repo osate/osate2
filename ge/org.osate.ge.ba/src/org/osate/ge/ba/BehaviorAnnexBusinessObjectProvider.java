@@ -27,12 +27,13 @@ import java.util.stream.Stream;
 
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorCondition;
-import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 
 /**
  * Business object provider which provides behavior annex model elements to the OSATE graphical editor
@@ -55,8 +56,8 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 			return getChildBusinessObjects(sc.getAllClassifier());
 		} else if (bo instanceof BehaviorAnnex) {
 			final BehaviorAnnex ba = (BehaviorAnnex) bo;
-			return Stream.concat(Stream.concat(ba.getTransitions().stream(), ba.getStates().stream()),
-					ba.getVariables().stream());
+			return Stream.concat(Stream.concat(ba.getTransitions().stream(), BehaviorAnnexUtil.getStates(ba)),
+					BehaviorAnnexUtil.getVariables(ba));
 		} else if (bo instanceof BehaviorTransition) {
 			final BehaviorTransition bt = (BehaviorTransition) bo;
 			final BehaviorCondition bc = bt.getCondition();

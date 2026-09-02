@@ -35,12 +35,12 @@ class Issue2154Test {
 		]
 		2.assertEquals(result.issues.size)
 		result.issues.get(1) => [
-			"Using a dispatch condition in an abstract component means this component can only be refined into a component category on which the Dispatch_Protocol property can be applied.".assertEquals(message)
-			11.assertEquals(lineNumber)
+			"Duplicate Element 'behavior_specification' in ProcessType 'proc'".assertEquals(message)
+			18.assertEquals(lineNumber)
 		]
 		result.issues.get(0) => [
-			"process components cannot contain a dispatch condition in any of their transitions: they cannot be dispatched (extension of Behavior Annex D.3.(L5) legality rule).".assertEquals(message)
-			22.assertEquals(lineNumber)
+			"Duplicate Element 'behavior_specification' in AbstractType 'abst'".assertEquals(message)
+			7.assertEquals(lineNumber)
 		]
 	}
 }

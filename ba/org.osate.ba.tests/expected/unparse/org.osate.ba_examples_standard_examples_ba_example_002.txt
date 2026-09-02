@@ -1,10 +1,9 @@
 ===== annex[0] owner=BA_example2::speed.i =====
 
-states
-  s0 : initial complete final state;
-transitions
-  s0 -[on dispatch]-> s0 {
-    sp := tick' count
-  };
------ legacy round-trip -----
-idempotent
+    states
+      s0: initial complete final state;
+    transitions
+      s0 -[ on dispatch ]-> s0 { sp := tick'count };
+\s\s
+----- Xtext reparse -----
+reparsed

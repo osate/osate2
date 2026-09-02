@@ -1,1 +1,5 @@
-error | syntax | 18 | 1 | 66 | mismatched input '(' expecting ']->'
+error | linking | 18 | 36 | 11 | Couldn't resolve reference to BehaviorState 'reset_event'.
+error | linking | 18 | 52 | 2 | Couldn't resolve reference to BehaviorState 'ms'.
+error | syntax | 18 | 35 | 1 | mismatched input '(' expecting ']->'
+error | syntax | 18 | 47 | 1 | mismatched input ')' expecting '-['
+error | syntax | 18 | 55 | 3 | missing '-[' at ']->'

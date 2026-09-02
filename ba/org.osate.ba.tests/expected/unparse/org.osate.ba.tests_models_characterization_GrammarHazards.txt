@@ -1,65 +1,65 @@
 ===== annex[0] owner=Issue2445_Grammar_Hazards::hazards =====
 
-variables
-  Value : Issue2445_Grammar_Hazards::hazard_integer;
-  Other : Base_Types::Integer;
-states
-  start : initial state;
-  execute : state;
-  done : complete final state;
-transitions
-  start -[]-> execute;
-  execute -[Value = 0]-> execute {
-    Value := 255;
-    Value := 160;
-    Value := #Max_Queue_Size
-  };
-  execute -[Value = 1]-> execute {
-    Value := Other ** 2;
-    Value := -Value;
-    Value := abs Value;
-    Value := Value mod Other;
-    Value := Value rem Other
-  };
-  execute -[! (input' fresh) or input' count > 0]-> execute {
-    input ?;
-    input ? (Value);
-    input !;
-    output ! (Value)
-  };
-  execute -[Value >= 0]-> execute {
-    shared !<;
-    shared !>;
-    *!<;
-    *!>
-  };
-  execute -[Value < 10]-> execute {
-    if (Value = 0)
-      Value := 1
-    elsif (Value = 1)
-      Value := 2
-    else
-      Value := 3
-    end if;
-    for (i : Base_Types::Integer in 0 .. 1) {
-      Value := Value + i
-    };
-    forall (j : Base_Types::Integer in 0 .. 1) {
-      Value := Value + j
-    };
-    while (Value < 10) {
-      Value := Value + 1
-    }
-    ;
-    do
-    Value := Value - 1
-    until (Value = 0)
-\s\s
-  };
-  execute -[]-> done {
-    computation (1 ms .. 2 ms) in binding (cpu1, cpu2)
-  };
-  done -[on dispatch dispatch_event]-> execute;
------ legacy round-trip -----
-parse-failure
-Error line 23: mismatched input '!' expecting ']->'
+\t\tVaRiAbLeS
+\t\t\tValue: hazard_integer := 0 {
+\t\t\t\tData_Model::Initial_Value => ("1");
+\t\t\t};
+\t\t\tOther: Base_Types::Integer := 1;
+\t\tStAtEs
+\t\t\tstart: initial state;
+\t\t\texecute: state;
+\t\t\tdone: complete final state;
+\t\tTrAnSiTiOnS
+\t\t\tstart -[]-> execute;
+\t\t\texecute -[vAlUe = 0]-> execute {
+\t\t\t\tValue := 16#ff#;
+\t\t\t\tValue := 2#1010#e4;
+\t\t\t\tValue := #Max_Queue_Size
+\t\t\t};
+\t\t\texecute -[ Value = 1 ]-> execute {
+\t\t\t\tValue := Other ** 2;
+\t\t\t\tValue := -Value;
+\t\t\t\tValue := abs Value;
+\t\t\t\tValue := Value mod Other;
+\t\t\t\tValue := Value rem Other
+\t\t\t};
+\t\t\texecute -[not (input'fresh) or input'count > 0]-> execute {
+\t\t\t\tinput ?;
+\t\t\t\tinput ? (Value);
+\t\t\t\tinput >>;
+\t\t\t\toutput ! (Value)
+\t\t\t};
+\t\t\texecute -[Value >= 0]-> execute {
+\t\t\t\tshared !<;
+\t\t\t\tshared !>;
+\t\t\t\t*!<;
+\t\t\t\t*!>
+\t\t\t};
+\t\t\texecute -[Value < 10]-> execute {
+\t\t\t\tif (Value = 0)
+\t\t\t\t\tValue := 1
+\t\t\t\telsif (Value = 1)
+\t\t\t\t\tValue := 2
+\t\t\t\telse
+\t\t\t\t\tValue := 3
+\t\t\t\tend if;
+\t\t\t\tfor (i : Base_Types::Integer in 0 .. 1) {
+\t\t\t\t\tValue := Value + i
+\t\t\t\t};
+\t\t\t\tforall (j : Base_Types::Integer in 0 .. 1) {
+\t\t\t\t\tValue := Value + j
+\t\t\t\t};
+\t\t\t\twhile (Value < 10) {
+\t\t\t\t\tValue := Value + 1
+\t\t\t\t};
+\t\t\t\tdo
+\t\t\t\t\tValue := Value - 1
+\t\t\t\tuntil (Value = 0)
+\t\t\t};
+\t\t\texecute -[]-> done {
+\t\t\t\tcomputation(1 ms .. 2 ms) in binding (cpu1, cpu2)
+\t\t\t};
+\t\t\tdone -[on dispatch dispatch_event]-> execute;
+\t
+----- Xtext reparse -----
+reparsed

@@ -25,16 +25,15 @@ package org.osate.ge.ba.ui.palette;
 
 import java.util.Optional;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
 
 /**
  * Palette command for creating {@link BehaviorState} elements.
@@ -52,13 +51,14 @@ public class CreateStatePaletteCommand extends BasePaletteCommand implements Tar
 		return ctx.getTarget().getBusinessObject(BehaviorAnnex.class)
 				.map(ba -> Operation.createSimple(ctx.getTarget(), BehaviorAnnex.class, baToModify -> {
 					// Create the state
-					final BehaviorState newState = (BehaviorState) EcoreUtil
-							.create(AadlBaPackage.eINSTANCE.getBehaviorState());
+					final var newState = BehaviorAnnexFactory.eINSTANCE.createBehaviorState();
 					final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(baToModify, "new_state");
 					newState.setName(newName);
 
 					// Add the new state to the behavior annex
-					baToModify.getStates().add(newState);
+					final var group = BehaviorAnnexFactory.eINSTANCE.createBehaviorStateGroup();
+					group.getStates().add(newState);
+					baToModify.getStateGroups().add(group);
 					return StepResultBuilder.create()
 							.showNewBusinessObject(ctx.getTarget(), newState).build();
 				})).orElse(Optional.empty());

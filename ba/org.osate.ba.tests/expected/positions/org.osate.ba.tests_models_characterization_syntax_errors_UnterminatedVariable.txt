@@ -1,1 +1,6 @@
 annex[0] owner=UnterminatedVariable::t
+  (BehaviorAnnex, behavior_specification, 202, 65)
+  (BehaviorState, s, 244, 1)
+  (BehaviorStateGroup, <null>, 244, 23)
+  (BehaviorVariable, x, 212, 1)
+  (BehaviorVariableGroup, <null>, 212, 22)

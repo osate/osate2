@@ -1,1 +1,12 @@
 annex[0] owner=PortUpdated::component.i
+  (BehaviorAnnex, behavior_specification, 311, 107)
+  (BehaviorCondition, <null>, 393, 6)
+  (BehaviorState, finish, 346, 6)
+  (BehaviorState, start, 321, 5)
+  (BehaviorStateGroup, <null>, 321, 21)
+  (BehaviorStateGroup, <null>, 346, 20)
+  (BehaviorTransition, <null>, 384, 34)
+  (ExecuteCondition, <null>, 393, 6)
+  (Reference, <null>, 393, 5)
+  (ReferenceExpression, <null>, 393, 6)
+  (ReferenceSegment, input, 393, 5)

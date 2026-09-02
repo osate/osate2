@@ -1117,8 +1117,7 @@ annex[1] owner=NamesResolutionTest::thread1.impl
         port : EventDataPortHolder element=NamesResolutionTest::thread1.inPortA [EventDataPort]
         target : BehaviorVariableHolder element=y [BehaviorVariable]
     actions[34] : BehaviorActionBlock
-      content : PortSendAction
-        port : EventDataPortHolder element=NamesResolutionTest::thread1.inPortA [EventDataPort]
+      content : PortFreezeAction
     actions[35] : BehaviorActionBlock
       content : PortDequeueAction
         port : EventDataPortHolder element=NamesResolutionTest::thread1.inPortA [EventDataPort]

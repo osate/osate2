@@ -39,7 +39,7 @@ import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-/** Delegates temporary embedded BA references to the Xtext linker and qualified-name provider. */
+/** Delegates embedded BA references to the Xtext linker and qualified-name provider. */
 public final class BehaviorAnnexAnnexLinkingService implements AnnexLinkingService {
 	@Inject
 	private DefaultLinkingService linkingService;
