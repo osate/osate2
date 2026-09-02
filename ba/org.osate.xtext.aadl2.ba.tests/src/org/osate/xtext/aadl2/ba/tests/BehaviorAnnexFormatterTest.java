@@ -26,7 +26,6 @@ package org.osate.xtext.aadl2.ba.tests;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.formatter.FormatterTestHelper;
-import org.eclipse.xtext.testing.formatter.FormatterTestRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -44,24 +43,24 @@ public class BehaviorAnnexFormatterTest {
 
 	@Test
 	public void formatsDeclarationsTransitionsAndNestedActions() {
-		var request = new FormatterTestRequest();
-		request.setUseSerializer(false);
-		request.setAllowUnformattedWhitespace(false);
-		request.setToBeFormatted(
-				"variables counter,other:Base_Types::Integer:=1;states idle:initial state;running:final state;"
-						+ "transitions start:idle-[counter=1]->running{counter:=counter+1;output!(counter)};");
-		request.setExpectation("""
-				variables
-					counter, other : Base_Types::Integer := 1;
-				states
-					idle : initial state;
-					running : final state;
-				transitions
-					start: idle -[counter = 1]-> running {
-						counter := counter + 1;
-						output!(counter)
-					};
-				""");
-		formatter.assertFormatted(request);
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted(
+					"variables counter,other:Base_Types::Integer:=1;states idle:initial state;running:final state;"
+							+ "transitions start:idle-[counter=1]->running{counter:=counter+1;output!(counter)};");
+			request.setExpectation("""
+					variables
+						counter, other: Base_Types::Integer := 1;
+					states
+						idle: initial state;
+						running: final state;
+					transitions
+						start: idle -[counter = 1]-> running {
+							counter := counter + 1;
+							output!(counter)
+						};
+					""");
+		});
 	}
 }

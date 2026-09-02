@@ -23,6 +23,15 @@
  */
 package org.osate.xtext.aadl2.ba.ui.quickfix;
 
+import java.util.Map;
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+import org.eclipse.xtext.diagnostics.Diagnostic;
+import org.eclipse.xtext.ui.editor.quickfix.Fix;
+import org.eclipse.xtext.ui.editor.quickfix.Fixes;
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
+import org.eclipse.xtext.validation.Issue;
 import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider;
 
 /**
@@ -31,16 +40,32 @@ import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider;
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#quick-fixes
  */
 public class BehaviorAnnexQuickfixProvider extends PropertiesQuickfixProvider {
+	private static final Map<String, String> SYNTAX_CORRECTIONS = Map.of(
+			"elif", "elsif",
+			"endif", "end if",
+			"==", "=");
+	private static final Pattern QUOTED_TOKEN = Pattern.compile("'([^']+)'");
 
-//    @Fix(BehaviorAnnexValidator.INVALID_NAME)
-//    public void capitalizeName(final Issue issue, IssueResolutionAcceptor acceptor) {
-//        acceptor.accept(issue, "Capitalize name", "Capitalize the name.", "upcase.png", new IModification() {
-//            public void apply(IModificationContext context) throws BadLocationException {
-//                IXtextDocument xtextDocument = context.getXtextDocument();
-//                String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-//                xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-//            }
-//        });
-//    }
+	@Fixes({
+			@Fix(Diagnostic.SYNTAX_DIAGNOSTIC),
+			@Fix(Diagnostic.SYNTAX_DIAGNOSTIC_WITH_RANGE)
+	})
+	public void correctKnownSyntaxTypo(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		var matcher = QUOTED_TOKEN.matcher(issue.getMessage());
+		while (matcher.find()) {
+			var token = matcher.group(1);
+			var correction = getSyntaxCorrection(token);
+			if (correction.isEmpty() || "==".equals(token)) {
+				continue;
+			}
+			acceptor.accept(issue, "Replace '" + token + "' with '" + correction.orElseThrow() + "'",
+					"Apply the Behavior Annex spelling.", null, context -> context.getXtextDocument()
+							.replace(issue.getOffset(), issue.getLength(), correction.orElseThrow()));
+			return;
+		}
+	}
 
+	public static Optional<String> getSyntaxCorrection(final String token) {
+		return Optional.ofNullable(SYNTAX_CORRECTIONS.get(token.toLowerCase()));
+	}
 }

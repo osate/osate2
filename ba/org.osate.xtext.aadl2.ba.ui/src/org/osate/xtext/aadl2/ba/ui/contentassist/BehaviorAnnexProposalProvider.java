@@ -23,10 +23,38 @@
  */
 package org.osate.xtext.aadl2.ba.ui.contentassist;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.osate.xtext.aadl2.ba.services.BehaviorAnnexReferenceProposalService;
 
-/**
- * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#content-assist
- * on how to customize the content assistant.
- */
+import com.google.inject.Inject;
+
+/** Supplies model-aware proposals for symbolic BA reference segments. */
 public class BehaviorAnnexProposalProvider extends AbstractBehaviorAnnexProposalProvider {
+	@Inject
+	private BehaviorAnnexReferenceProposalService proposals;
+
+	@Override
+	public void completeReferenceSegment_Name(final EObject model, final Assignment assignment,
+			final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+		completeReference(model, context, acceptor);
+	}
+
+	@Override
+	public void completeUnindexedReferenceSegment_Name(final EObject model, final Assignment assignment,
+			final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+		completeReference(model, context, acceptor);
+	}
+
+	private void completeReference(final EObject model, final ContentAssistContext context,
+			final ICompletionProposalAcceptor acceptor) {
+		for (var proposal : proposals.getRootProposals(model)) {
+			var completion = createCompletionProposal(proposal, context);
+			if (completion != null) {
+				acceptor.accept(completion);
+			}
+		}
+	}
 }
