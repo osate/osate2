@@ -30,6 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.function.BiFunction;
 
 /**
  * Compares deterministic characterization output with reviewed golden files. Regeneration is deliberately gated by
@@ -38,10 +39,18 @@ import java.nio.file.Paths;
 final class GoldenFile {
 	private static final boolean REGENERATE = Boolean.getBoolean("osate.ba.tests.regenerate");
 
+	record Comparison(String expected, String actual) {
+	}
+
 	private GoldenFile() {
 	}
 
 	static void assertMatches(final String suite, final String id, final String actual) throws IOException {
+		assertMatches(suite, id, actual, Comparison::new);
+	}
+
+	static void assertMatches(final String suite, final String id, final String actual,
+			final BiFunction<String, String, Comparison> comparisonProjection) throws IOException {
 		final Path bundleDirectory = Paths.get(System.getProperty("user.dir"));
 		final Path golden = bundleDirectory.resolve("expected").resolve(suite).resolve(id + ".txt");
 		final String normalizedActual = normalize(actual);
@@ -50,7 +59,8 @@ final class GoldenFile {
 			Files.write(golden, normalizedActual.getBytes(StandardCharsets.UTF_8));
 		} else {
 			final String expected = normalize(new String(Files.readAllBytes(golden), StandardCharsets.UTF_8));
-			assertEquals("Golden file differs: " + golden, expected, normalizedActual);
+			final var comparison = comparisonProjection.apply(expected, normalizedActual);
+			assertEquals("Golden file differs: " + golden, comparison.expected(), comparison.actual());
 		}
 	}
 

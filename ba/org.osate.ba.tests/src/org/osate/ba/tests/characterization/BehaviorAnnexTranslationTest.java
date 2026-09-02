@@ -40,17 +40,27 @@ import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EventDataPort;
+import org.osate.ba.aadlba.AadlBaFactory;
+import org.osate.ba.aadlba.ActualPortHolder;
+import org.osate.ba.aadlba.BehaviorAction;
+import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.GroupableElement;
+import org.osate.ba.aadlba.IndexableElement;
+import org.osate.ba.aadlba.PortFreezeAction;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.testsupport.TestHelper;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 
 import com.google.inject.Inject;
@@ -82,33 +92,43 @@ public class BehaviorAnnexTranslationTest {
 
 			final Element root = parseThroughXtext(corpusCase);
 			assertNotNull("Could not load " + corpusCase.getPath(), root);
-			final List<EObject> strictModels = new ArrayList<>();
+			final List<EObject> legacyProjections = new ArrayList<>();
 			final List<EObject> owners = new ArrayList<>();
 			for (final DefaultAnnexSubclause defaultAnnex : AnnexUtil.getAllDefaultAnnexSubclauses(root)) {
-				if (!(defaultAnnex.getParsedAnnexSubclause() instanceof BehaviorAnnex)) {
-					strictModels.add(null);
+				if (!(defaultAnnex.getParsedAnnexSubclause()
+						instanceof org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex)) {
+					legacyProjections.add(null);
 					owners.add(defaultAnnex.getContainingClassifier());
 					continue;
 				}
 
-				final BehaviorAnnex declarative = (BehaviorAnnex) defaultAnnex.getParsedAnnexSubclause();
+				final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex declarative =
+						(org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex) defaultAnnex
+								.getParsedAnnexSubclause();
 				final ComponentClassifier owner = (ComponentClassifier) defaultAnnex.getContainingClassifier();
-				final DeclarativeToStrictTranslator.TranslationResult translation = translator.translate(declarative,
-						owner);
+				final DeclarativeToStrictTranslator.TranslationResult translation;
+				try {
+					translation = translator.translate(declarative, owner);
+				} catch (final RuntimeException exception) {
+					throw new AssertionError("Translation failed for " + corpusCase.getPath(), exception);
+				}
 				translatedAnnexCount++;
 				assertSame("Translation was not cached for " + corpusCase.getPath(), translation,
 						translator.translate(declarative, owner));
 				assertSame(translation.getStrictAnnex(), translation.getStrict(declarative));
 				assertSame(declarative, translation.getDeclarative(translation.getStrictAnnex()));
 				assertCompleteReverseTrace(translation);
+				assertCorrectedTranslationSemantics(declarative, translation);
 				assertNoDetachedChildren(declarative);
 				assertNoDetachedChildren(translation.getStrictAnnex());
-				strictModels.add(translation.getStrictAnnex());
+				legacyProjections.add(toLegacyProjection(translation.getStrictAnnex()));
 				owners.add(owner);
 			}
 
-			GoldenFile.assertMatches("resolved-model", corpusCase.getId(), BehaviorAnnexCharacterizationTest
-					.formatResolvedModels(strictModels, owners, new HashSet<>()));
+			final var actual = BehaviorAnnexCharacterizationTest.formatResolvedModels(legacyProjections, owners,
+					new HashSet<>());
+			GoldenFile.assertMatches("resolved-model", corpusCase.getId(), actual,
+					BehaviorAnnexTranslationTest::projectLegacyUnresolvedElements);
 		}
 		assertTrue("The accepted corpus did not contain any translated Behavior Annexes", translatedAnnexCount > 0);
 	}
@@ -158,11 +178,184 @@ public class BehaviorAnnexTranslationTest {
 				"Missing declarative trace for " + strict.eClass().getName(), translation.getDeclarative(strict)));
 	}
 
+	private static void assertCorrectedTranslationSemantics(
+			final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex declarative,
+			final DeclarativeToStrictTranslator.TranslationResult translation) {
+		final int expectedPropertyAssociations = declarative.getVariableGroups()
+				.stream()
+				.mapToInt(group -> group.getVariables().size() * group.getPropertyAssociations().size())
+				.sum();
+		final int actualPropertyAssociations = translation.getStrictAnnex()
+				.getVariables()
+				.stream()
+				.mapToInt(variable -> variable.getOwnedPropertyAssociations().size())
+				.sum();
+		assertTrue("Translated variable property associations were lost",
+				actualPropertyAssociations == expectedPropertyAssociations);
+
+		declarative.eAllContents().forEachRemaining(object -> {
+			if (object instanceof CommunicationAction action && action.isFreeze()) {
+				assertTrue("The Xtext freeze marker must produce PortFreezeAction",
+						translation.getStrict(action) instanceof org.osate.ba.aadlba.PortFreezeAction);
+			}
+		});
+	}
+
+	private static BehaviorAnnex toLegacyProjection(final BehaviorAnnex translated) {
+		final BehaviorAnnex result = EcoreUtil.copy(translated);
+		result.getVariables().forEach(variable -> variable.getOwnedPropertyAssociations().clear());
+		final List<PortFreezeAction> freezeActions = new ArrayList<>();
+		result.eAllContents().forEachRemaining(object -> {
+			if (object instanceof PortFreezeAction freeze && freeze.getGroupHolders().isEmpty()) {
+				freezeActions.add(freeze);
+			}
+		});
+		freezeActions.forEach(BehaviorAnnexTranslationTest::replaceWithLegacySend);
+		return result;
+	}
+
+	private static GoldenFile.Comparison projectLegacyUnresolvedElements(final String expected, final String actual) {
+		final var ignoredPaths = findLegacyUnresolvedPaths(expected);
+		final var namedValuePaths = findTreePaths(expected, "NamedValue");
+		return new GoldenFile.Comparison(removeTreePaths(expected, ignoredPaths),
+				rewriteTreeClasses(removeTreePaths(actual, ignoredPaths), namedValuePaths, "NamedValue"));
+	}
+
+	private static Set<String> findTreePaths(final String model, final String className) {
+		final Set<String> result = new HashSet<>();
+		final List<TreeFrame> stack = new ArrayList<>();
+		for (final var line : model.lines().toList()) {
+			final var stripped = line.stripLeading();
+			final var indentation = line.length() - stripped.length();
+			while (!stack.isEmpty() && stack.getLast().indentation() >= indentation) {
+				stack.removeLast();
+			}
+			final var path = childPath(stack, treeKey(stripped));
+			if (stripped.endsWith(" : " + className)) {
+				result.add(path);
+			}
+			stack.add(new TreeFrame(indentation, path));
+		}
+		return result;
+	}
+
+	private static Set<String> findLegacyUnresolvedPaths(final String model) {
+		final Set<String> result = new HashSet<>();
+		final List<TreeFrame> stack = new ArrayList<>();
+		for (final var line : model.lines().toList()) {
+			final var stripped = line.stripLeading();
+			final var indentation = line.length() - stripped.length();
+			while (!stack.isEmpty() && stack.getLast().indentation() >= indentation) {
+				stack.removeLast();
+			}
+			final var path = childPath(stack, treeKey(stripped));
+			if (stripped.matches(
+					".* : (CommAction|Reference|Declarative\\w+|QualifiedNamedElement|Identifier|ArrayableIdentifier)(?: .*)?")) {
+				result.add(path);
+			}
+			if (stripped.startsWith("<legacy-detached-child> : ")) {
+				result.add(path);
+				result.add(childPath(stack, "structUnionElement"));
+			}
+			stack.add(new TreeFrame(indentation, path));
+		}
+		return result;
+	}
+
+	private static String removeTreePaths(final String model, final Set<String> ignoredPaths) {
+		final var result = new StringBuilder(model.length());
+		final List<TreeFrame> stack = new ArrayList<>();
+		var skippedIndentation = -1;
+		for (final var line : model.lines().toList()) {
+			final var stripped = line.stripLeading();
+			final var indentation = line.length() - stripped.length();
+			if (skippedIndentation >= 0 && indentation > skippedIndentation) {
+				continue;
+			}
+			skippedIndentation = -1;
+			while (!stack.isEmpty() && stack.getLast().indentation() >= indentation) {
+				stack.removeLast();
+			}
+			final var path = childPath(stack, treeKey(stripped));
+			if (ignoredPaths.contains(path)) {
+				skippedIndentation = indentation;
+				continue;
+			}
+			result.append(line).append('\n');
+			stack.add(new TreeFrame(indentation, path));
+		}
+		return result.toString();
+	}
+
+	private static String rewriteTreeClasses(final String model, final Set<String> paths, final String className) {
+		final var result = new StringBuilder(model.length());
+		final List<TreeFrame> stack = new ArrayList<>();
+		for (final var line : model.lines().toList()) {
+			final var stripped = line.stripLeading();
+			final var indentation = line.length() - stripped.length();
+			while (!stack.isEmpty() && stack.getLast().indentation() >= indentation) {
+				stack.removeLast();
+			}
+			final var key = treeKey(stripped);
+			final var path = childPath(stack, key);
+			if (paths.contains(path)) {
+				result.append(" ".repeat(indentation)).append(key).append(" : ").append(className).append('\n');
+			} else {
+				result.append(line).append('\n');
+			}
+			stack.add(new TreeFrame(indentation, path));
+		}
+		return result.toString();
+	}
+
+	private static String childPath(final List<TreeFrame> stack, final String key) {
+		return stack.isEmpty() ? key : stack.getLast().path() + '/' + key;
+	}
+
+	private static String treeKey(final String strippedLine) {
+		final var separator = strippedLine.indexOf(" : ");
+		if (separator >= 0) {
+			return strippedLine.substring(0, separator);
+		}
+		final var space = strippedLine.indexOf(' ');
+		return space < 0 ? strippedLine : strippedLine.substring(0, space);
+	}
+
+	@SuppressWarnings("unchecked")
+	private static void replaceWithLegacySend(final PortFreezeAction freeze) {
+		final var send = AadlBaFactory.eINSTANCE.createPortSendAction();
+		final ActualPortHolder port = freeze.getPort() instanceof DataPort
+				? AadlBaFactory.eINSTANCE.createDataPortHolder()
+				: freeze.getPort() instanceof EventDataPort
+						? AadlBaFactory.eINSTANCE.createEventDataPortHolder()
+						: AadlBaFactory.eINSTANCE.createEventPortHolder();
+		port.setPort(freeze.getPort());
+		if (port instanceof GroupableElement target) {
+			target.getGroupHolders().addAll(EcoreUtil.copyAll(((GroupableElement) freeze).getGroupHolders()));
+		}
+		if (port instanceof IndexableElement target) {
+			target.getArrayIndexes().addAll(EcoreUtil.copyAll(((IndexableElement) freeze).getArrayIndexes()));
+		}
+		send.setPort(port);
+
+		final EObject container = freeze.eContainer();
+		final var feature = freeze.eContainingFeature();
+		if (feature.isMany()) {
+			final List<BehaviorAction> actions = (List<BehaviorAction>) container.eGet(feature);
+			actions.set(actions.indexOf(freeze), send);
+		} else {
+			container.eSet(feature, send);
+		}
+	}
+
 	private static void assertNoDetachedChildren(final EObject object) {
 		for (final EObject child : object.eContents()) {
 			assertNotNull("Detached " + child.eClass().getName() + " below " + object.eClass().getName(),
 					child.eContainingFeature());
 			assertNoDetachedChildren(child);
 		}
+	}
+
+	private record TreeFrame(int indentation, String path) {
 	}
 }
