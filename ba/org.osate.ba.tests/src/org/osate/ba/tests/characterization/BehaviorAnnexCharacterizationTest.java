@@ -103,33 +103,32 @@ public class BehaviorAnnexCharacterizationTest {
 
 	@Test
 	public void characterizeCurrentImplementation() throws Exception {
-		final Set<String> instantiatedHolderClasses = new HashSet<>();
-		for (final BehaviorAnnexCorpus.Case corpusCase : BehaviorAnnexCorpus.discover()) {
-			final Element root = testHelper.parseFile(corpusCase.getPath(), corpusCase.getReferencedPaths());
+		final var instantiatedHolderClasses = new HashSet<String>();
+		for (final var corpusCase : BehaviorAnnexCorpus.discover()) {
+			final var root = testHelper.parseFile(corpusCase.getPath(), corpusCase.getReferencedPaths());
 			assertNotNull("Could not load " + corpusCase.getPath(), root);
 
-			final FluentIssueCollection issueCollection = testHelper.testResource(root.eResource());
+			final var issueCollection = testHelper.testResource(root.eResource());
 			GoldenFile.assertMatches("diagnostics", corpusCase.getId(),
 					formatDiagnostics(issueCollection.getIssues()));
 
-			final List<DefaultAnnexSubclause> annexes = AnnexUtil.getAllDefaultAnnexSubclauses(root);
+			final var annexes = AnnexUtil.getAllDefaultAnnexSubclauses(root);
 			GoldenFile.assertMatches("resolved-model", corpusCase.getId(),
 					formatResolvedModels(annexes, instantiatedHolderClasses));
 			GoldenFile.assertMatches("positions", corpusCase.getId(), formatPositions(annexes));
 			GoldenFile.assertMatches("unparse", corpusCase.getId(), formatUnparseAndCheckRoundTrip(annexes));
 		}
 
-		final Set<String> expectedHolderClasses = new TreeSet<>();
-		for (final EClassifier classifier : AadlBaPackage.eINSTANCE.getEClassifiers()) {
-			if (classifier instanceof EClass) {
-				final EClass eClass = (EClass) classifier;
+		final var expectedHolderClasses = new TreeSet<String>();
+		for (final var classifier : AadlBaPackage.eINSTANCE.getEClassifiers()) {
+			if (classifier instanceof EClass eClass) {
 				if (!eClass.isAbstract() && eClass.getName().endsWith("Holder")) {
 					expectedHolderClasses.add(eClass.getName());
 				}
 			}
 		}
 
-		final Set<String> incorrectlyInstantiatedBases = new TreeSet<>(instantiatedHolderClasses);
+		final var incorrectlyInstantiatedBases = new TreeSet<>(instantiatedHolderClasses);
 		incorrectlyInstantiatedBases.retainAll(UNREACHABLE_HOLDER_BASES);
 		assertTrue("Generic holder bases must not be instantiated: " + incorrectlyInstantiatedBases,
 				incorrectlyInstantiatedBases.isEmpty());
@@ -261,18 +260,17 @@ public class BehaviorAnnexCharacterizationTest {
 	private static void appendModel(final StringBuilder result, final EObject object, final String containment,
 			final int depth, final Set<String> instantiatedHolderClasses) {
 		indent(result, depth).append(containment).append(" : ").append(object.eClass().getName());
-		final String name = name(object);
+		final var name = name(object);
 		if (name != null) {
 			result.append(" name=").append(name);
 		}
 
 		if (object.eClass().getName().endsWith("Holder")) {
 			instantiatedHolderClasses.add(object.eClass().getName());
-			final EStructuralFeature elementFeature = object.eClass().getEStructuralFeature("element");
+			final var elementFeature = object.eClass().getEStructuralFeature("element");
 			if (elementFeature != null) {
-				final Object element = object.eGet(elementFeature, false);
-				if (element instanceof EObject) {
-					final EObject resolved = (EObject) element;
+				final var element = object.eGet(elementFeature, false);
+				if (element instanceof EObject resolved) {
 					result.append(" element=").append(qualifiedName(resolved)).append(" [")
 							.append(resolved.eClass().getName()).append(']');
 				} else {
@@ -282,16 +280,16 @@ public class BehaviorAnnexCharacterizationTest {
 		}
 		result.append('\n');
 
-		final Map<EStructuralFeature, Integer> indexes = new HashMap<>();
-		for (final EObject child : object.eContents()) {
-			final EStructuralFeature feature = child.eContainingFeature();
+		final var indexes = new HashMap<EStructuralFeature, Integer>();
+		for (final var child : object.eContents()) {
+			final var feature = child.eContainingFeature();
 			if (feature == null) {
 				appendModel(result, child, "<legacy-detached-child>", depth + 1, instantiatedHolderClasses);
 				continue;
 			}
-			final int index = indexes.containsKey(feature) ? indexes.get(feature).intValue() : 0;
+			final var index = indexes.containsKey(feature) ? indexes.get(feature).intValue() : 0;
 			indexes.put(feature, Integer.valueOf(index + 1));
-			final String childContainment = feature.isMany() ? feature.getName() + "[" + index + "]"
+			final var childContainment = feature.isMany() ? feature.getName() + "[" + index + "]"
 					: feature.getName();
 			appendModel(result, child, childContainment, depth + 1, instantiatedHolderClasses);
 		}
@@ -355,7 +353,7 @@ public class BehaviorAnnexCharacterizationTest {
 					org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex)) {
 				return new RoundTripResult(first, null, reporter.getErrors());
 			}
-			return new RoundTripResult(first, first, Collections.emptyList());
+			return new RoundTripResult(first, first, List.of());
 	}
 
 	private static org.osate.annexsupport.AnnexParser getParser() {
@@ -412,12 +410,12 @@ public class BehaviorAnnexCharacterizationTest {
 		if (object == null) {
 			return "<null>";
 		}
-		if (object instanceof NamedElement) {
-			final String qualifiedName = ((NamedElement) object).getQualifiedName();
+		if (object instanceof NamedElement namedElement) {
+			final var qualifiedName = namedElement.getQualifiedName();
 			if (qualifiedName != null) {
 				return qualifiedName;
 			}
-			final String name = ((NamedElement) object).getName();
+			final var name = namedElement.getName();
 			if (name != null) {
 				return name;
 			}
@@ -426,8 +424,8 @@ public class BehaviorAnnexCharacterizationTest {
 	}
 
 	private static String name(final EObject object) {
-		if (object instanceof NamedElement) {
-			return ((NamedElement) object).getName();
+		if (object instanceof NamedElement namedElement) {
+			return namedElement.getName();
 		}
 		final EStructuralFeature nameFeature = object.eClass().getEStructuralFeature("name");
 		if (nameFeature != null) {
@@ -480,8 +478,8 @@ public class BehaviorAnnexCharacterizationTest {
 		}
 
 		private void retainLocation(final EObject object) {
-			if (object instanceof Element) {
-				final Object location = ((Element) object).getLocationReference();
+			if (object instanceof Element element) {
+				final var location = element.getLocationReference();
 				if (location != null) {
 					strongLocationReferences.add(location);
 				}

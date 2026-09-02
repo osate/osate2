@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -69,32 +68,32 @@ final class BehaviorAnnexCorpus {
 	}
 
 	static List<Case> discover() throws IOException {
-		final Path baDirectory = Paths.get(System.getProperty("user.dir")).getParent();
-		final List<String> paths = new ArrayList<>();
+		var baDirectory = Paths.get(System.getProperty("user.dir")).getParent();
+		var paths = new ArrayList<String>();
 		paths.addAll(findAadlFiles(baDirectory, baDirectory.resolve("org.osate.ba.tests/models")));
 		paths.addAll(findAadlFiles(baDirectory, baDirectory.resolve("org.osate.ba/examples")));
 		Collections.sort(paths);
 
-		final List<String> coveringSyntaxPaths = paths.stream()
+		var coveringSyntaxPaths = paths.stream()
 				.filter(path -> path.startsWith(COVERING_SYNTAX_PREFIX))
-				.collect(Collectors.toList());
-		final List<String> characterizationPaths = paths.stream()
+				.toList();
+		var characterizationPaths = paths.stream()
 				.filter(path -> path.startsWith(CHARACTERIZATION_PREFIX))
 				.filter(path -> !path.substring(CHARACTERIZATION_PREFIX.length()).contains("/"))
-				.collect(Collectors.toList());
-		final List<Case> result = new ArrayList<>();
-		for (final String path : paths) {
-			final List<String> references;
+				.toList();
+		var result = new ArrayList<Case>();
+		for (var path : paths) {
+			List<String> references;
 			if (path.startsWith(COVERING_SYNTAX_PREFIX)) {
 				references = coveringSyntaxPaths.stream()
 						.filter(reference -> !reference.equals(path))
-						.collect(Collectors.toList());
+						.toList();
 			} else if (characterizationPaths.contains(path)) {
 				references = characterizationPaths.stream()
 						.filter(reference -> !reference.equals(path))
-						.collect(Collectors.toList());
+						.toList();
 			} else {
-				references = Collections.emptyList();
+				references = List.of();
 			}
 			result.add(new Case(path, references));
 		}
@@ -102,13 +101,13 @@ final class BehaviorAnnexCorpus {
 	}
 
 	private static List<String> findAadlFiles(final Path baDirectory, final Path root) throws IOException {
-		try (Stream<Path> files = Files.walk(root)) {
+		try (var files = Files.walk(root)) {
 			return files.filter(Files::isRegularFile)
 					.filter(path -> path.getFileName().toString().endsWith(".aadl"))
 					.sorted(Comparator.comparing(Path::toString))
 					.map(baDirectory::relativize)
 					.map(path -> path.toString().replace(path.getFileSystem().getSeparator(), "/"))
-					.collect(Collectors.toList());
+					.toList();
 		}
 	}
 }

@@ -83,7 +83,7 @@ public class AadlBaLegalityRulesChecker {
 
 	private Map<BehaviorState, BehaviorTransition> _alreadyFoundCompletionRelativeTimeoutConditionCatchTransition = new WeakHashMap<BehaviorState, BehaviorTransition>();
 	private Map<BehaviorState, BehaviorTransition> _alreadyFoundDispatchRelativeTimeoutTransition = new WeakHashMap<BehaviorState, BehaviorTransition>();
-	private List<BehaviorTransition> _alreadyReportedErroneousTransition = new ArrayList<BehaviorTransition>();
+	private List<BehaviorTransition> _alreadyReportedErroneousTransition = new ArrayList<>();
 
 	public AadlBaLegalityRulesChecker(BehaviorAnnex ba, AnalysisErrorReporterManager errManager) {
 		this(ba, AadlBaVisitors.getParentComponent(ba), errManager);
@@ -627,10 +627,10 @@ public class AadlBaLegalityRulesChecker {
 
 		// Temporary list of targets passed between recursive calls of
 		// buildActionSetAssignedValuesLists method.
-		List<Target> lActionSetTar = new ArrayList<Target>();
+		var lActionSetTar = new ArrayList<Target>();
 
 		// Set of duplicated targets between multiple action sets.
-		Set<Target> lDuplicates = new HashSet<Target>();
+		var lDuplicates = new HashSet<Target>();
 
 		buildActionSetAssignedTargetLists(beActions, lActionSetTar, lDuplicates);
 		String localVariableErrorMsg = "The same local variable must not be "
@@ -753,7 +753,7 @@ public class AadlBaLegalityRulesChecker {
 		// For each BehaviorAction of the given BehaviorActionCollection.
 		for (int i = 0; i < lbeActs.size(); i++) {
 			behAct = lbeActs.get(i);
-			llActionSetTar[i] = new ArrayList<Target>();
+			llActionSetTar[i] = new ArrayList<>();
 			buildActionSetAssignedTargetLists(behAct, llActionSetTar[i], lDuplicates);
 		}
 

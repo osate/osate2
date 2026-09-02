@@ -24,7 +24,6 @@ package org.osate.utils.internal;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -80,8 +79,7 @@ public class Aadl2Utils {
 	 * @return the sorted list of features owned by the given Component object
 	 */
 	public static List<Feature> orderFeatures(Classifier cpt) {
-		List<PrototypeBinding> inheritedBindings = Collections.emptyList();
-		return orderFeatures(cpt, inheritedBindings);
+		return orderFeatures(cpt, List.of());
 	}
 
 	/**
@@ -94,49 +92,43 @@ public class Aadl2Utils {
 	 */
 	public static List<Feature> orderFeatures(Classifier cpt, List<PrototypeBinding> inheritedBindings) {
 		// List<PrototypeBinding> bindings = cpt.getOwnedPrototypeBindings();
-		List<PrototypeBinding> bindings = new ArrayList<PrototypeBinding>();
+		var bindings = new ArrayList<PrototypeBinding>();
 		bindings.addAll(cpt.getOwnedPrototypeBindings());
 		bindings.addAll(inheritedBindings);
 
-		List<Feature> res = new ArrayList<Feature>();
-		for (Feature f : cpt.getAllFeatures()) {
+		var res = new ArrayList<Feature>();
+		for (var f : cpt.getAllFeatures()) {
 			res.add(getBindedFeature(bindings, f));
 		}
 
 		// res.addAll(cpt.getAllFeatures()) ;
-		FeaturePositionComparator comparator = new FeaturePositionComparator();
-		Collections.sort(res, comparator);
+		res.sort(new FeaturePositionComparator());
 		return res;
 	}
 
 	private static Feature getBindedFeature(List<PrototypeBinding> bindings, Feature f) {
-		FeatureClassifier cl = f.getFeatureClassifier();
-		if ((!(cl instanceof DataPrototype)) || bindings == null || bindings.isEmpty()) {
+		var classifier = f.getFeatureClassifier();
+		if (!(classifier instanceof DataPrototype prototype) || bindings == null || bindings.isEmpty()) {
 			return f;
 		}
 		if ((f instanceof EventPort) || (f instanceof AbstractFeature)) {
 			return f;
 		}
 
-		DataPrototype proto = (DataPrototype) cl;
-
-		for (PrototypeBinding b : bindings) {
-			if (!(b instanceof ComponentPrototypeBinding)) {
+		for (var binding : bindings) {
+			if (!(binding instanceof ComponentPrototypeBinding componentBinding)) {
 				continue;
 			}
 
-			ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) b;
-			Prototype p = b.getFormal();
-			if (p.getName().equals(proto.getName())) {
-				List<ComponentPrototypeActual> actuals = cpb.getActuals();
+			var formal = binding.getFormal();
+			if (formal.getName().equals(prototype.getName())) {
+				var actuals = componentBinding.getActuals();
 				if (actuals != null && !actuals.isEmpty()) {
-					ComponentPrototypeActual actual = actuals.get(0);
-					SubcomponentType st = actual.getSubcomponentType();
-					if (!(st instanceof DataClassifier)) {
+					var actual = actuals.getFirst();
+					if (!(actual.getSubcomponentType() instanceof DataClassifier dataClassifier)) {
 						continue;
 					}
-					DataClassifier dc = (DataClassifier) st;
-					return setFeatureClassifier(f, dc);
+					return setFeatureClassifier(f, dataClassifier);
 				}
 			}
 		}
@@ -145,14 +137,14 @@ public class Aadl2Utils {
 	}
 
 	private static Feature setFeatureClassifier(Feature f, DataClassifier dc) {
-		if (f instanceof Parameter) {
-			((Parameter) f).setDataFeatureClassifier(dc);
-		} else if (f instanceof DataAccess) {
-			((DataAccess) f).setDataFeatureClassifier(dc);
-		} else if (f instanceof DataPort) {
-			((DataPort) f).setDataFeatureClassifier(dc);
-		} else if (f instanceof EventDataPort) {
-			((EventDataPort) f).setDataFeatureClassifier(dc);
+		if (f instanceof Parameter parameter) {
+			parameter.setDataFeatureClassifier(dc);
+		} else if (f instanceof DataAccess access) {
+			access.setDataFeatureClassifier(dc);
+		} else if (f instanceof DataPort port) {
+			port.setDataFeatureClassifier(dc);
+		} else if (f instanceof EventDataPort port) {
+			port.setDataFeatureClassifier(dc);
 		}
 		return f;
 	}
@@ -177,12 +169,11 @@ public class Aadl2Utils {
 	 * }
 	 */
 	public static ConnectionEnd getConnectedEnd(SubprogramCall sc, Feature p) {
-		NamedElement parent = (NamedElement) sc.eContainer().eContainer();
-		if (parent instanceof BehavioredImplementation) {
-			BehavioredImplementation bi = (BehavioredImplementation) parent;
-			for (ParameterConnection paramCnx : bi.getOwnedParameterConnections()) {
-				ConnectedElement sourceConnectedElement = paramCnx.getSource();
-				ConnectedElement destinationConnectedElement = paramCnx.getDestination();
+		var parent = (NamedElement) sc.eContainer().eContainer();
+		if (parent instanceof BehavioredImplementation implementation) {
+			for (var paramCnx : implementation.getOwnedParameterConnections()) {
+				var sourceConnectedElement = paramCnx.getSource();
+				var destinationConnectedElement = paramCnx.getDestination();
 				if (sourceConnectedElement.getContext() == sc && sourceConnectedElement.getConnectionEnd() == p) {
 					return destinationConnectedElement.getConnectionEnd();
 				} else if (destinationConnectedElement.getContext() == sc
@@ -190,9 +181,9 @@ public class Aadl2Utils {
 					return sourceConnectedElement.getConnectionEnd();
 				}
 			}
-			for (AccessConnection accessCnx : bi.getOwnedAccessConnections()) {
-				ConnectedElement sourceConnectedElement = accessCnx.getSource();
-				ConnectedElement destinationConnectedElement = accessCnx.getDestination();
+			for (var accessCnx : implementation.getOwnedAccessConnections()) {
+				var sourceConnectedElement = accessCnx.getSource();
+				var destinationConnectedElement = accessCnx.getDestination();
 				if (sourceConnectedElement.getContext() == sc && sourceConnectedElement.getConnectionEnd() == p) {
 					return destinationConnectedElement.getConnectionEnd();
 				} else if (destinationConnectedElement.getContext() == sc
@@ -213,12 +204,12 @@ public class Aadl2Utils {
 	}
 
 	public static boolean isReadWriteDataAccess(DataAccess da) {
-		String accessRight = getAccessRight(da);
+		var accessRight = getAccessRight(da);
 		return accessRight.equalsIgnoreCase("Read_Write");
 	}
 
 	public static boolean isWriteOnlyDataAccess(DataAccess da) {
-		String accessRight = getAccessRight(da);
+		var accessRight = getAccessRight(da);
 		return accessRight.equalsIgnoreCase("Write_Only");
 	}
 
@@ -234,15 +225,15 @@ public class Aadl2Utils {
 
 		@Override
 		public int compare(Feature arg0, Feature arg1) {
-			Feature ancestor0 = arg0.getRefined() != null ? arg0.getRefined() : arg0;
-			Feature ancestor1 = arg1.getRefined() != null ? arg1.getRefined() : arg1;
+			var ancestor0 = arg0.getRefined() != null ? arg0.getRefined() : arg0;
+			var ancestor1 = arg1.getRefined() != null ? arg1.getRefined() : arg1;
 
-			INode node0 = NodeModelUtils.findActualNodeFor(ancestor0);
-			int offset0 = node0.getOffset();
-			int line0 = node0.getStartLine();
-			INode node1 = NodeModelUtils.findActualNodeFor(ancestor1);
-			int offset1 = node1.getOffset();
-			int line1 = node1.getStartLine();
+			var node0 = NodeModelUtils.findActualNodeFor(ancestor0);
+			var offset0 = node0.getOffset();
+			var line0 = node0.getStartLine();
+			var node1 = NodeModelUtils.findActualNodeFor(ancestor1);
+			var offset1 = node1.getOffset();
+			var line1 = node1.getStartLine();
 
 			if (line0 < line1) {
 				return -1;
@@ -279,11 +270,11 @@ public class Aadl2Utils {
 	 * @return local parameter usage or default parameter usage or an empty string
 	 */
 	public static String getParameterUsage(NamedElement ne) {
-		String result = PropertyUtils.getEnumValue(ne, "Parameter_Usage");
+		var result = PropertyUtils.getEnumValue(ne, "Parameter_Usage");
 		if (result == null) {
-			Property prop = GetProperties.lookupPropertyDefinition(ne, "Code_Generation_Properties", "Parameter_Usage");
+			var prop = GetProperties.lookupPropertyDefinition(ne, "Code_Generation_Properties", "Parameter_Usage");
 			if (prop != null) {
-				NamedValue nv = (NamedValue) prop.getDefaultValue();
+				var nv = (NamedValue) prop.getDefaultValue();
 				if (nv != null) {
 					result = ((EnumerationLiteral) nv.getNamedValue()).getName();
 				} else {
@@ -309,12 +300,12 @@ public class Aadl2Utils {
 	 * @return local access right or default access right or "unknown"
 	 */
 	public static String getAccessRight(NamedElement ne) {
-		String result = PropertyUtils.getEnumValue(ne, "Access_Right");
+		var result = PropertyUtils.getEnumValue(ne, "Access_Right");
 		if (result == null) {
 			if (DEFAULT_ACCESS_RIGHT == null) {
-				Property prop = GetProperties.lookupPropertyDefinition(ne, "Memory_Properties", "Access_Right");
+				var prop = GetProperties.lookupPropertyDefinition(ne, "Memory_Properties", "Access_Right");
 				if (prop != null) {
-					NamedValue nv = (NamedValue) prop.getDefaultValue();
+					var nv = (NamedValue) prop.getDefaultValue();
 					result = ((EnumerationLiteral) nv.getNamedValue()).getName();
 					DEFAULT_ACCESS_RIGHT = result;
 				} else {
@@ -382,7 +373,7 @@ public class Aadl2Utils {
 	 * @return the concatenated strings
 	 */
 	public static String concatenateString(String separator, String... toBeConcatenated) {
-		StringBuilder result = new StringBuilder();
+		var result = new StringBuilder();
 
 		for (String s : toBeConcatenated) {
 			result.append(s);
@@ -447,16 +438,14 @@ public class Aadl2Utils {
 	 */
 	public static boolean compareStringList(List<String> list1, List<String> list2) {
 		if (list1.size() == list2.size()) {
-			ArrayList<String> l1 = new ArrayList<String>(list1);
-			ArrayList<String> l2 = new ArrayList<String>(list2);
+			var l1 = new ArrayList<>(list1);
+			var l2 = new ArrayList<>(list2);
 
-			Comparator<String> c = (o1, o2) -> o1.compareToIgnoreCase(o2);
+			l1.sort(String.CASE_INSENSITIVE_ORDER);
+			l2.sort(String.CASE_INSENSITIVE_ORDER);
 
-			Collections.sort(l1, c);
-			Collections.sort(l2, c);
-
-			Iterator<String> it1 = l1.iterator();
-			Iterator<String> it2 = l2.iterator();
+			var it1 = l1.iterator();
+			var it2 = l2.iterator();
 
 			String s1, s2;
 
@@ -482,12 +471,10 @@ public class Aadl2Utils {
 	 * @return a LocationReference object
 	 */
 	public static LocationReference getLocationReference(Element e) {
-		LocationReference result = null;
-
-		result = e.getLocationReference();
+		var result = e.getLocationReference();
 
 		if (result == null) {
-			ICompositeNode node = NodeModelUtils.findActualNodeFor(e);
+			var node = NodeModelUtils.findActualNodeFor(e);
 
 			result = new LocationReference();
 
@@ -519,12 +506,12 @@ public class Aadl2Utils {
 		File result = null;
 
 		if (Platform.isRunning()) {
-			Bundle bundle = Platform.getBundle(pluginId);
+			var bundle = Platform.getBundle(pluginId);
 			if (bundle == null) {
 				throw new Exception("plugin: " + pluginId + " is not found");
 			}
 
-			URL rootURL = bundle.getEntry(relativePath);
+			var rootURL = bundle.getEntry(relativePath);
 			if (rootURL == null) {
 				throw new Exception("file or directory: " + relativePath + " is not found");
 			}

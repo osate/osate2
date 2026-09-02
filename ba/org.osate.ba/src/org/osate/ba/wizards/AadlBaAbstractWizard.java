@@ -63,11 +63,11 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard {
 	protected static String _REMOVE_IMG_FILE_PATH = "resources/img/file_remove_16.png";
 	protected static String _CAT_IMG_FILE_PATH = "resources/img/folder_16.png";
 	protected static String _NAME_SEPARATOR = "_";
-	protected static List<String> _EXCLUDED_DIRECTORIES = new ArrayList<String>();
+	protected static List<String> _EXCLUDED_DIRECTORIES = new ArrayList<>();
 
 	protected Map<String, List<Integer>> _SelectedExamplesTreeContent = new WeakHashMap<String, List<Integer>>();
 
-	protected List<File> _files = new ArrayList<File>();
+	protected List<File> _files = new ArrayList<>();
 
 	protected static Map<String, File> _ALREADY_SELECTED = new WeakHashMap<String, File>();
 
@@ -84,7 +84,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard {
 
 	public class AadlBaExamplesWizardPage extends WizardNewAadlProjectCreationPage {
 		// Gives the category for a given file index.
-		protected List<String> _fileMapping = new ArrayList<String>();
+		protected List<String> _fileMapping = new ArrayList<>();
 
 		public AadlBaExamplesWizardPage(String pageId) {
 			super(pageId);
@@ -279,7 +279,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard {
 
 				List<Integer> cat = selectedItem.get(catName);
 				if (cat == null) {
-					cat = new ArrayList<Integer>();
+					cat = new ArrayList<>();
 					selectedItem.put(catName, cat);
 				}
 
@@ -440,7 +440,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard {
 
 	protected List<File> fetchSelectedExamples(Map<String, List<Integer>> treeContent) {
 		Collection<List<Integer>> content = treeContent.values();
-		List<File> result = new ArrayList<File>();
+		var result = new ArrayList<File>();
 
 		for (List<Integer> fileIndexes : content) {
 			for (Integer index : fileIndexes) {
