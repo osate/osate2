@@ -157,6 +157,7 @@ public abstract class EditableEmbeddedTextValue {
 
 	/**
 	 * @return the object being modified
+	 * @since 3.0
 	 */
 	public abstract EObject getElementToModify();
 

@@ -62,6 +62,9 @@ public class ErrorModelUiModule extends org.osate.xtext.aadl2.errormodel.ui.Abst
 		return ErrorModelDependentElementsCalculator.class;
 	}
 
+	/**
+	 * @since 8.0
+	 */
 	public Class<? extends ReferenceUpdaterDispatcher> bindReferenceUpdaterDispatcher() {
 		return ErrorModelReferenceUpdaterDispatcher.class;
 	}

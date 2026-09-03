@@ -142,7 +142,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	protected IEObjectDescription getIndexedDescription(EObject context, EReference reference, String crossRefString) {
 		if (crossRefString == null || crossRefString.isEmpty()) {
@@ -152,7 +152,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	protected IEObjectDescription selectIndexedDescription(EObject context, EReference reference,
 			Iterable<IEObjectDescription> descriptions) {
@@ -187,7 +187,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	public EObject getIndexedObjectOrProxy(EObject context, EReference reference, String crossRefString) {
 		IEObjectDescription description = getIndexedDescription(context, reference, crossRefString);
@@ -594,7 +594,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	protected AadlPackage findAadlPackageOrProxy(EObject context, String name, EReference reference) {
 		EObject res = getIndexedObjectOrProxy(context, reference, name);
@@ -690,7 +690,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	protected PropertySet findPropertySetOrProxy(EObject context, String name, EReference reference) {
 		EObject res = getIndexedObjectOrProxy(context, reference, name);
@@ -774,7 +774,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	protected EObject findClassifierOrProxy(EObject context, EReference reference, String name) {
 		Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
@@ -834,7 +834,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	protected EObject findPropertySetElementOrProxy(EObject context, EReference reference, String name) {
 		final int idx = name.lastIndexOf("::");
@@ -881,7 +881,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	protected List<EObject> findPropertyConstantOrProxy(EObject context, EReference reference, String name) {
 		EObject e = findPropertySetElementOrProxy(context, reference, name);
@@ -919,7 +919,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	protected List<EObject> findPropertyTypeOrProxy(EObject context, EReference reference, String name) {
 		EObject e = findPropertySetElementOrProxy(context, reference, name);
@@ -970,7 +970,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * @since 3.4
+	 * @since 4.0
 	 */
 	protected List<EObject> findPropertyDefinitionOrProxyAsList(EObject context, EReference reference, String name) {
 		EObject e = findPropertySetElementOrProxy(context, reference, name);

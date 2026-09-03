@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.errormodel" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.java" type="org.osate.xtext.aadl2.errormodel.parser.antlr.lexer.InternalErrorModelLexer">
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa22"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/errormodel/serializer/AbstractErrorModelSyntacticSequencer.java" type="org.osate.xtext.aadl2.errormodel.serializer.AbstractErrorModelSyntacticSequencer">
         <filter id="576720909">
             <message_arguments>

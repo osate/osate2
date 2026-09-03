@@ -128,6 +128,7 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 	 * Creates an {@link EditableEmbeddedTextValue} that allows editing of the embedded AADL source for the {@link BehaviorActionBlock}
 	 * @param behaviorTransition the Behavior Transition that owns the Behavior Action Block
 	 * @return an {@link EditableEmbeddedTextValue} for the {@link BehaviorActionBlock}
+	 * @since 3.0
 	 */
 	public static EditableEmbeddedTextValue create(final BehaviorTransition behaviorTransition) {
 		final String sourceText = BehaviorAnnexXtextUtil.getText(behaviorTransition);

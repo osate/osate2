@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.properties" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.java" type="org.osate.xtext.aadl2.properties.parser.antlr.lexer.InternalPropertiesLexer">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa27"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/properties/serializer/AbstractPropertiesSemanticSequencer.java" type="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSemanticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>
@@ -20,6 +27,244 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="AbstractPropertiesSyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java" type="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess$ContainedPropertyAssociationElements">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesKeyword_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToAssignment_4_2()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToAssignment_4_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToContainmentPathParserRuleCall_4_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToContainmentPathParserRuleCall_4_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getBindingKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_4_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_4_3()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingAssignment_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingClassifierCrossReference_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingClassifierQCREFParserRuleCall_5_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getToKeyword_4_1()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java" type="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess$ModalPropertyValueElements">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_4()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_5_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_4_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_5_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_2()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_6()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java" type="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess$OptionalModalPropertyValueElements">
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_1_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_1_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_1_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_1_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_1_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_1_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_1_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_1_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_1_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_1_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java" type="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess$PropertyAssociationElements">
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getBindingKeyword_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingAssignment_4_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingClassifierCrossReference_4_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingClassifierQCREFParserRuleCall_4_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_4_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_4_4()"/>
             </message_arguments>
         </filter>
     </resource>

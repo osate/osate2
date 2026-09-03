@@ -48,6 +48,7 @@ public class BehaviorConditionEmbeddedTextValue extends EditableEmbeddedTextValu
 	 * @param prefix is the text before the modifiable text
 	 * @param editableText is the text that is modifiable
 	 * @param suffix is the text after the modifiable text
+	 * @since 3.0
 	 */
 	public BehaviorConditionEmbeddedTextValue(final BehaviorTransition behaviorTransition, final int originalSrcLength,
 			final String prefix, final String editableText, final String suffix) {

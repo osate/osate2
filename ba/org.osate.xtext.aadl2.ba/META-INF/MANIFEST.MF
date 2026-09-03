@@ -19,11 +19,11 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.osate.aadl2;bundle-version="[7.0.0,8.0.0)",
  org.osate.annexsupport;bundle-version="[4.2.0,5.0.0)",
  org.osate.xtext.aadl2;bundle-version="[9.0.0,10.0.0)",
- org.osate.xtext.aadl2.properties;bundle-version="[3.4.0,4.0.0)";visibility:=reexport,
+ org.osate.xtext.aadl2.properties;bundle-version="[4.0.0,5.0.0)";visibility:=reexport,
  org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[9.0.0,10.0.0)",
  org.osate.ba;bundle-version="[9.0.0,10.0.0)",
- org.osate.utils,
+ org.osate.utils;bundle-version="[2.1.0,3.0.0)",
  org.eclipse.uml2.codegen.ecore;bundle-version="[1.9.100,3.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.osate.xtext.aadl2.ba
@@ -43,4 +43,4 @@ Export-Package: org.osate.xtext.aadl2.ba,
  org.osate.xtext.aadl2.ba.util,
  org.osate.xtext.aadl2.ba.validation,
  org.osate.xtext.aadl2.ba.parser.antlr.lexer
-Import-Package: org.apache.log4j
+Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"

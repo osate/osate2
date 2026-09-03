@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.xtext.aadl2.ide" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/ide/contentassist/antlr/lexer/InternalAadl2Lexer.java" type="org.osate.xtext.aadl2.ide.contentassist.antlr.lexer.InternalAadl2Lexer">
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa28"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
