@@ -7,8 +7,7 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-21
-Export-Package: org.osate.ba,
- org.osate.ba.aadlba,
+Export-Package: org.osate.ba.aadlba,
  org.osate.ba.aadlba.impl,
  org.osate.ba.aadlba.util,
  org.osate.ba.analyzers,
