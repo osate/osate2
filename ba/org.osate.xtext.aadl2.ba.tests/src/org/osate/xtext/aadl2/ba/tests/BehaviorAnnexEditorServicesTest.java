@@ -101,7 +101,7 @@ public class BehaviorAnnexEditorServicesTest {
 		var root = new DocumentRootNode((ImageDescriptor) null, "root", document, outline);
 		var parent = new EObjectNode(defaultAnnex, root, (ImageDescriptor) null, "behavior_specification", false);
 		outline.createChildren(parent, defaultAnnex);
-		assertEquals(List.of("counter", "idle", "running", "start"),
+		assertEquals(List.of("Variable counter", "State idle", "State running", "Transition start"),
 				parent.getChildren().stream().map(IOutlineNode::getText).map(Object::toString).toList());
 	}
 
