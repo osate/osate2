@@ -25,11 +25,6 @@ package org.osate.ge.ba.ui.palette;
 
 import java.util.Optional;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.operations.Operation;
@@ -40,6 +35,11 @@ import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 
 /**
  * Palette command for create {@link BehaviorTransition}.
@@ -80,8 +80,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).orElseThrow();
 		return srcContainer.getBusinessObject(BehaviorAnnex.class)
 				.map(ba -> Operation.createSimple(srcContainer, BehaviorAnnex.class, boToModify -> {
-					final BehaviorTransition baTransition = (BehaviorTransition) EcoreUtil
-							.create(AadlBaPackage.eINSTANCE.getBehaviorTransition());
+					final var baTransition = BehaviorAnnexFactory.eINSTANCE.createBehaviorTransition();
 
 					final String srcName = srcState.getName();
 					final String dstName = dstState.getName();
@@ -90,10 +89,10 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 					}
 
 					// Set source and destination for transition
-					for (final BehaviorState behaviorState : boToModify.getStates()) {
+					for (final BehaviorState behaviorState : BehaviorAnnexUtil.getStates(boToModify).toList()) {
 						final String name = behaviorState.getName();
 						if (srcName.equalsIgnoreCase(name)) { // Source
-							baTransition.setSourceState(behaviorState);
+							baTransition.getSourceStates().add(behaviorState);
 						}
 
 						if (dstName.equalsIgnoreCase(name)) { // Destination

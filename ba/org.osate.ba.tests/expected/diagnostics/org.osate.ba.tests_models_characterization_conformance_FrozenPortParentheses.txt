@@ -1,1 +1,1 @@
-error | syntax | 20 | 1 | 61 | extraneous input '(' expecting IDENT
+error | syntax | 20 | 34 | 1 | extraneous input '(' expecting RULE_ID

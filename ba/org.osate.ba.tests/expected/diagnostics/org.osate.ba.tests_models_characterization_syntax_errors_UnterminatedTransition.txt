@@ -1,1 +1,1 @@
-error | syntax | 8 | 1 | 23 | unterminated behavior transition (missing ending ';')
+error | syntax | 8 | 24 | 2 | mismatched input '<EOF>' expecting ';'

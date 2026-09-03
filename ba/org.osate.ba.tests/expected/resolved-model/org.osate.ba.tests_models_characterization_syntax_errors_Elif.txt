@@ -1,2 +1,22 @@
 annex[0] owner=Elif::t
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=x
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=x [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral

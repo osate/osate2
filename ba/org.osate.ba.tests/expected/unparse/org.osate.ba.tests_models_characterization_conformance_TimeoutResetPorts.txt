@@ -1,4 +1,9 @@
 ===== annex[0] owner=TimeoutResetPorts::worker.i =====
 
------ legacy round-trip -----
-idempotent
+\t\tstates
+\t\t\twaiting: initial complete final state;
+\t\ttransitions
+\t\t\twaiting -[ on dispatch timeout (reset_event) 10 ms ]-> waiting;
+\t
+----- Xtext reparse -----
+reparsed

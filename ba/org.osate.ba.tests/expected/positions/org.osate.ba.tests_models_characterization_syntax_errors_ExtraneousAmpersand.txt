@@ -1,1 +1,13 @@
 annex[0] owner=ExtraneousAmpersand::t
+  (AssignmentAction, <null>, 294, 6)
+  (BehaviorActionBlock, <null>, 292, 12)
+  (BehaviorActionSet, <null>, 294, 8)
+  (BehaviorAnnex, behavior_specification, 201, 104)
+  (BehaviorIntegerLiteral, <null>, 299, 1)
+  (BehaviorState, s, 244, 1)
+  (BehaviorStateGroup, <null>, 244, 23)
+  (BehaviorTransition, <null>, 282, 23)
+  (BehaviorVariable, x, 211, 1)
+  (BehaviorVariableGroup, <null>, 211, 23)
+  (Reference, <null>, 294, 1)
+  (ReferenceSegment, x, 294, 1)

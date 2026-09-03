@@ -28,14 +28,13 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ba.util.BehaviorTransitionEmbeddedTextUtil;
-import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 
 import com.google.inject.Inject;
 
@@ -44,7 +43,7 @@ import com.google.inject.Inject;
  * before those helpers are migrated from the legacy strict/declarative models to the Xtext-generated model.
  */
 @RunWith(XtextRunner.class)
-@InjectWith(Aadl2InjectorProvider.class)
+@InjectWith(BehaviorAnnexGeInjectorProvider.class)
 public class BehaviorAnnexGeCharacterizationTest {
 	private static final String MODEL = "org.osate.ge.ba.tests/models/characterization/GeCharacterization.aadl";
 
@@ -67,13 +66,14 @@ public class BehaviorAnnexGeCharacterizationTest {
 				BehaviorAnnexReferenceUtil.getVariableRelativeReference("value").getSegments());
 
 		assertEquals("source2", BehaviorAnnexNamingUtil.buildUniqueIdentifier(behaviorAnnex, "source"));
-		assertTrue(BehaviorAnnexNamingUtil.checkNameValidity(behaviorAnnex.getVariables().get(0), "new_value").isEmpty());
-		assertFalse(BehaviorAnnexNamingUtil.checkNameValidity(behaviorAnnex.getVariables().get(0), "destination")
+		final var variable = BehaviorAnnexUtil.getVariables(behaviorAnnex).findFirst().orElseThrow();
+		assertTrue(BehaviorAnnexNamingUtil.checkNameValidity(variable, "new_value").isEmpty());
+		assertFalse(BehaviorAnnexNamingUtil.checkNameValidity(variable, "destination")
 				.isEmpty());
-		assertFalse(BehaviorAnnexNamingUtil.checkNameValidity(behaviorAnnex.getVariables().get(0), "existing_feature")
+		assertFalse(BehaviorAnnexNamingUtil.checkNameValidity(variable, "existing_feature")
 				.isEmpty());
 
-		assertSame(pkg, BehaviorAnnexUtil.getPackage(behaviorAnnex.getVariables().get(0)).orElseThrow());
+		assertSame(pkg, BehaviorAnnexUtil.getPackage(variable).orElseThrow());
 
 		final String source = ((XtextResource) pkg.eResource()).getParseResult().getRootNode().getText();
 		assertEquals("on dispatch trigger", BehaviorTransitionEmbeddedTextUtil.getConditionText(transition, source));

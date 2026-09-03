@@ -1,4 +1,116 @@
 ===== annex[0] owner=ParseTest::t =====
 
------ legacy round-trip -----
-idempotent
+
+    variables
+\s\s\s\s\s\s
+      bool1, bool1b\s
+        bool1t,\s
+          bool1q bool1s : Base_Types::Boolean ;
+      bool2 : Base_Types::Boolean ;\s
+      bool3 :\s
+        Base_Types::Boolean\s
+      bool4 : Base_Types::Boolean ;
+      bool5 : Base_Types::Boolean\s
+\s\s\s\s\s\s
+    states
+\s\s\s\s
+      a, b\s
+        c,\s
+          d e : state ;
+      f : state ;\s
+      g :\s
+        state\s
+      h : state ;
+      i : state
+\s\s\s\s
+      all : initial complete final state ;
+\s\s\s\s\s\s
+    transitions
+\s\s\s\s
+      all -[on dispatch p1 frozen p2, p3
+                                  p4,
+                                  p5 p6]-> all ;
+\s\s\s\s\s\s
+      all -[]-> all ;
+      all -[]->\s
+                     all\s
+      all -[]-> all ;
+      t: a,
+           b
+             c,
+               d
+                 e, f -[]-> all ;
+\s\s\s\s\s\s
+      all -[]-> all { bool1 := true ; } ;
+      all -[]-> all
+      {
+        bool1 := true
+\s\s\s\s\s\s\s\s
+        for(i : Base_Types::Integer in 0 .. 9))
+        {
+          {
+            {
+              bool1 := false\s
+              bool2 := true ;
+            }
+          }
+        }
+\s\s\s\s\s\s\s\s
+        if((bool1)
+        {
+          bool1 := true
+        }
+        elif(bool2)
+        {
+          bool2 := true
+        }
+        elsif((bool3)
+        {
+          bool3 := true
+        }}
+        else
+        {
+          bool4 := true
+        }
+        endif ;
+\s\s\s\s\s\s\s\s
+        while ((bool1)
+        {
+          forall(i : Base_Types::Integer in 0 .. 9))
+          {
+            bool1 := false\s
+          } ;
+\s\s\s\s\s\s\s\s\s\s
+          do
+          {
+            bool1 := false
+          }
+          until ((bool2)
+        }
+\s\s\s\s\s\s\s\s
+        subprog ! ((
+                    bool1) ;
+        subprog ! (bool1
+                     bool2, bool3) ;
+\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s
+        port ? (bool1)) ;
+\s\s\s\s\s\s\s\s
+        pack::subprog ! (
+                          bool1)) ;
+        pack::subprog ! (bool1
+                     bool2, bool3) ;
+\s\s\s\s\s\s\s\s
+        computation (
+                     (
+                       0s .. 9s) ;
+\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s
+        computation (100 ms) in binding ((p p, p) ;
+\s\s\s\s\s\s\s\s
+        bool := 1 == 0 ;
+\s\s\s\s\s\s\s\s
+        bool2 := (true)) ;
+\s\s\s\s\s\s\s\s
+        bool3 = false ;\s
+      } ;
+----- Xtext reparse -----
+reparsed

@@ -1,1 +1,13 @@
 annex[0] owner=OptionalForallClassifier::operation
+  (BehaviorActionBlock, <null>, 355, 28)
+  (BehaviorAnnex, behavior_specification, 219, 192)
+  (BehaviorState, finish, 297, 6)
+  (BehaviorState, start, 272, 5)
+  (BehaviorStateGroup, <null>, 272, 21)
+  (BehaviorStateGroup, <null>, 297, 20)
+  (BehaviorTransition, <null>, 335, 48)
+  (BehaviorTransition, <null>, 389, 8)
+  (BehaviorTransition, <null>, 398, 13)
+  (BehaviorVariable, value, 232, 5)
+  (BehaviorVariableGroup, <null>, 232, 27)
+  (ForStatement, <null>, 361, 22)

@@ -1,28 +1,20 @@
 ===== annex[0] owner=BA_example5::push.default =====
 
-states
-  s0 : initial final state;
-transitions
-  s0 -[this.sp <= 100]-> s0 {
-    this.elems[this.sp] := v;
-    this.sp := this.sp + 1
-  };
-  s0 -[this.sp > 100]-> s0 {
-    overflow !
-  };
------ legacy round-trip -----
-idempotent
+    states
+      s0 : initial final state;
+    transitions
+      s0 -[ this.sp <= 100 ]-> s0 { this.elems[this.sp] := v; this.sp := this.sp+1 };
+      s0 -[ this.sp > 100 ]-> s0 { overflow! };
+\s\s
+----- Xtext reparse -----
+reparsed
 ===== annex[1] owner=BA_example5::pop.default =====
 
-states
-  s0 : initial final state;
-transitions
-  s0 -[this.sp > 0]-> s0 {
-    this.sp := this.sp - 1;
-    v := this.elems[this.sp]
-  };
-  s0 -[this.sp = 0]-> s0 {
-    underflow !
-  };
------ legacy round-trip -----
-idempotent
+    states
+      s0 : initial final state;
+    transitions
+      s0 -[ this.sp > 0 ]-> s0 { this.sp := this.sp - 1 ; v := this.elems[this.sp] };
+      s0 -[ this.sp = 0 ]-> s0 { underflow! };
+\s\s
+----- Xtext reparse -----
+reparsed

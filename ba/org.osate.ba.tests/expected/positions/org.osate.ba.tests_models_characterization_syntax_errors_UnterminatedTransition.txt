@@ -1,1 +1,5 @@
 annex[0] owner=UnterminatedTransition::t
+  (BehaviorAnnex, behavior_specification, 186, 54)
+  (BehaviorState, s, 193, 1)
+  (BehaviorStateGroup, <null>, 193, 23)
+  (BehaviorTransition, <null>, 231, 9)

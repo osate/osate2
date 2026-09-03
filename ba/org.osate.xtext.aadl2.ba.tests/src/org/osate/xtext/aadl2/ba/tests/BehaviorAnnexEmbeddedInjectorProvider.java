@@ -29,8 +29,8 @@ import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
 import com.google.inject.Injector;
 
 /**
- * Registers the standalone BA Xtext services before creating the AADL injector so integration tests exercise annex
- * parsing inside complete {@code .aadl} resources.
+ * Registers the BA Xtext services before creating the AADL injector so integration tests exercise annex parsing
+ * inside complete {@code .aadl} resources.
  */
 public final class BehaviorAnnexEmbeddedInjectorProvider extends Aadl2InjectorProvider {
 	@Override

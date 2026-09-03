@@ -23,10 +23,8 @@
  */
 package org.osate.xtext.aadl2.ba;
 
-/**
- * Registers the temporary standalone Behavior Annex language without replacing the legacy embedded parser.
- */
+/** Registers the standalone and embedded Behavior Annex language. */
 public class BehaviorAnnexStandaloneSetup extends BehaviorAnnexStandaloneSetupGenerated {
-    public static final String ANNEX_NAME = "behavior_specification_xtext";
+    public static final String ANNEX_NAME = "behavior_specification";
     public static final String FILE_EXTENSION = "baxtext";
 }

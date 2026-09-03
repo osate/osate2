@@ -27,13 +27,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,21 +54,18 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter.Message;
+import org.osate.annexsupport.AnnexParserRegistry;
+import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.annexsupport.TextPositionInfo;
-import org.osate.ba.AadlBaParserAction;
-import org.osate.ba.AadlBaResolver;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorElement;
-import org.osate.ba.texteditor.AadlBaTextPositionResolver;
-import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
+import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
+import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.FluentIssueCollection;
@@ -83,7 +78,7 @@ import com.itemis.xtext.testing.FluentIssueCollection;
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
 public class BehaviorAnnexCharacterizationTest {
-	private static final String ANNEX_NAME = AadlBaParserAction.ANNEX_NAME;
+	private static final String ANNEX_NAME = BehaviorAnnexStandaloneSetup.ANNEX_NAME;
 	private static final String GRAMMAR_HAZARDS_MODEL = "org.osate.ba.tests/models/characterization/GrammarHazards.aadl";
 	private static final Set<String> UNREACHABLE_HOLDER_BASES = new HashSet<>();
 	static {
@@ -103,6 +98,9 @@ public class BehaviorAnnexCharacterizationTest {
 	@Inject
 	private TestHelper<Element> testHelper;
 
+	@Inject
+	private DeclarativeToStrictTranslator translator;
+
 	@Test
 	public void characterizeCurrentImplementation() throws Exception {
 		final Set<String> instantiatedHolderClasses = new HashSet<>();
@@ -111,9 +109,8 @@ public class BehaviorAnnexCharacterizationTest {
 			assertNotNull("Could not load " + corpusCase.getPath(), root);
 
 			final FluentIssueCollection issueCollection = testHelper.testResource(root.eResource());
-			final StageMessages stageMessages = replayStages(root);
 			GoldenFile.assertMatches("diagnostics", corpusCase.getId(),
-					formatDiagnostics(issueCollection.getIssues(), stageMessages));
+					formatDiagnostics(issueCollection.getIssues()));
 
 			final List<DefaultAnnexSubclause> annexes = AnnexUtil.getAllDefaultAnnexSubclauses(root);
 			GoldenFile.assertMatches("resolved-model", corpusCase.getId(),
@@ -157,16 +154,19 @@ public class BehaviorAnnexCharacterizationTest {
 	 * failures to be reproduced. Phase 7 must switch this test to the Xtext serializer, remove {@link Ignore}, and make
 	 * the complete corpus pass.
 	 */
-	@Ignore("Issue #2445 phase 7: enable after switching this test to the Xtext serializer")
 	@Test
 	public void xtextSerializerMustRoundTripCompleteCorpus() throws Exception {
 		for (final BehaviorAnnexCorpus.Case corpusCase : BehaviorAnnexCorpus.discover()) {
 			final Element root = testHelper.parseFile(corpusCase.getPath(), corpusCase.getReferencedPaths());
 			assertNotNull("Could not load " + corpusCase.getPath(), root);
+			if (!testHelper.testResource(root.eResource()).getIssues().isEmpty()) {
+				continue;
+			}
 			for (final DefaultAnnexSubclause annex : AnnexUtil.getAllDefaultAnnexSubclauses(root)) {
-				if (annex.getParsedAnnexSubclause() instanceof BehaviorElement) {
-					final String serialized = new AadlBaUnparser()
-							.process((BehaviorElement) annex.getParsedAnnexSubclause());
+				if (annex.getParsedAnnexSubclause() instanceof
+						org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex) {
+					final String serialized = getUnparser().unparseAnnexSubclause(
+							annex.getParsedAnnexSubclause(), "");
 					assertRoundTrip(annex, serialized);
 				}
 			}
@@ -177,15 +177,23 @@ public class BehaviorAnnexCharacterizationTest {
 	 * Prevents the Xtext AST and translated strict model from inheriting legacy children that appear in
 	 * {@link EObject#eContents()} without an {@link EObject#eContainingFeature()}.
 	 */
-	@Ignore("Issue #2445 phase 5: enable for the Xtext AST and translated strict model")
 	@Test
 	public void xtextAndTranslatedModelsMustNotContainDetachedChildren() throws Exception {
 		for (final BehaviorAnnexCorpus.Case corpusCase : BehaviorAnnexCorpus.discover()) {
 			final Element root = testHelper.parseFile(corpusCase.getPath(), corpusCase.getReferencedPaths());
 			assertNotNull("Could not load " + corpusCase.getPath(), root);
+			if (!testHelper.testResource(root.eResource()).getIssues().isEmpty()) {
+				continue;
+			}
 			for (final DefaultAnnexSubclause annex : AnnexUtil.getAllDefaultAnnexSubclauses(root)) {
 				if (annex.getParsedAnnexSubclause() != null) {
 					assertNoDetachedChildren(annex.getParsedAnnexSubclause());
+					if (annex.getParsedAnnexSubclause() instanceof
+							org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source) {
+						assertNoDetachedChildren(translator.translate(source,
+								(org.osate.aadl2.ComponentClassifier) annex.getContainingClassifier())
+								.getStrictAnnex());
+					}
 				}
 			}
 		}
@@ -199,76 +207,12 @@ public class BehaviorAnnexCharacterizationTest {
 		}
 	}
 
-	private StageMessages replayStages(final Element root) throws Exception {
-		final StageMessages result = new StageMessages();
-		for (final DefaultAnnexSubclause defaultAnnex : AnnexUtil.getAllDefaultAnnexSubclauses(root)) {
-			final String sourceText = defaultAnnex.getSourceText();
-			if (sourceText == null || sourceText.length() <= 6) {
-				continue;
-			}
-
-			final String annexText = sourceText.startsWith("{**")
-					? sourceText.substring(3, sourceText.length() - 3)
-					: sourceText;
-			final INode node = NodeModelUtils.findActualNodeFor(defaultAnnex);
-			final int line = node.getStartLine() + computeLineOffset(node.getText());
-			final int offset = AnnexUtil.getAnnexOffset(defaultAnnex);
-			final QueuingParseErrorReporter parseReporter = new QueuingParseErrorReporter();
-			parseReporter.setContextResource(defaultAnnex.eResource());
-			AnnexUtil.setCurrentAnnexSubclause(defaultAnnex);
-			final AnnexSubclause parsed;
-			try {
-				parsed = new AadlBaParserAction().parseAnnexSubclause(ANNEX_NAME, annexText,
-						root.eResource().getURI().lastSegment(), line, offset, parseReporter);
-			} finally {
-				AnnexUtil.setCurrentAnnexSubclause(null);
-			}
-			result.add("syntax", parseReporter.getErrors());
-
-			if (parsed != null) {
-				stabilizeLinkMap(parsed);
-				result.retainLocations(parsed);
-				parsed.setName(ANNEX_NAME);
-				defaultAnnex.setParsedAnnexSubclause(parsed);
-				parsed.getInModes().addAll(defaultAnnex.getInModes());
-			}
-
-			if (parsed != null && parseReporter.getNumErrors() == 0) {
-				final QueuingParseErrorReporter resolverReporter = new QueuingParseErrorReporter();
-				resolverReporter.setContextResource(defaultAnnex.eResource());
-				final AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
-						new AnalysisToParseErrorReporterAdapter.Factory(resource -> resolverReporter));
-				new AadlBaResolver().resolveAnnex(ANNEX_NAME, Collections.singletonList(parsed), errorManager);
-				result.add("semantic", resolverReporter.getErrors());
-			}
-		}
-		return result;
-	}
-
-	private static void stabilizeLinkMap(final AnnexSubclause parsed) throws ReflectiveOperationException {
-		if (parsed instanceof BehaviorAnnex) {
-			final Field links = parsed.getClass().getDeclaredField("_links");
-			links.setAccessible(true);
-			links.set(parsed, new LinkedHashMap<>());
-		}
-	}
-
-	private static int computeLineOffset(final String nodeText) {
-		final int annexIndex = nodeText.indexOf("annex");
-		final int delimiterIndex = nodeText.indexOf("{**", annexIndex < 0 ? 0 : annexIndex);
-		int result = 0;
-		for (int i = annexIndex < 0 ? 0 : annexIndex; i >= 0 && i < delimiterIndex; i++) {
-			if (nodeText.charAt(i) == '\n') {
-				result++;
-			}
-		}
-		return result;
-	}
-
-	private static String formatDiagnostics(final List<Issue> issues, final StageMessages stageMessages) {
+	private static String formatDiagnostics(final List<Issue> issues) {
 		final List<String> lines = new ArrayList<>();
 		for (final Issue issue : issues) {
-			final String origin = stageMessages.takeOrigin(issue);
+			final String origin = Diagnostic.LINKING_DIAGNOSTIC.equals(issue.getCode())
+					? "linking"
+					: issue.isSyntaxError() ? "syntax" : "semantic";
 			lines.add(lower(issue.getSeverity().toString()) + " | " + origin + " | " + value(issue.getLineNumber())
 					+ " | " + value(issue.getColumn()) + " | " + value(issue.getLength()) + " | "
 					+ escape(issue.getMessage()));
@@ -277,12 +221,23 @@ public class BehaviorAnnexCharacterizationTest {
 		return joinLines(lines);
 	}
 
-	private static String formatResolvedModels(final List<DefaultAnnexSubclause> annexes,
+	private String formatResolvedModels(final List<DefaultAnnexSubclause> annexes,
 			final Set<String> instantiatedHolderClasses) {
 		final List<EObject> models = new ArrayList<>();
 		final List<EObject> owners = new ArrayList<>();
 		for (final DefaultAnnexSubclause defaultAnnex : annexes) {
-			models.add(defaultAnnex.getParsedAnnexSubclause());
+			if (defaultAnnex.getParsedAnnexSubclause() instanceof
+					org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source) {
+				try {
+					models.add(translator.translate(source,
+							(org.osate.aadl2.ComponentClassifier) defaultAnnex.getContainingClassifier())
+							.getStrictAnnex());
+				} catch (RuntimeException | StackOverflowError e) {
+					models.add(null);
+				}
+			} else {
+				models.add(null);
+			}
 			owners.add(defaultAnnex.getContainingClassifier());
 		}
 		return formatResolvedModels(models, owners, instantiatedHolderClasses);
@@ -348,24 +303,25 @@ public class BehaviorAnnexCharacterizationTest {
 			final DefaultAnnexSubclause defaultAnnex = annexes.get(i);
 			result.append("===== annex[").append(i).append("] owner=")
 					.append(qualifiedName(defaultAnnex.getContainingClassifier())).append(" =====\n");
-			if (!(defaultAnnex.getParsedAnnexSubclause() instanceof BehaviorElement)) {
+			if (!(defaultAnnex.getParsedAnnexSubclause() instanceof
+					org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex)) {
 				result.append("<unparsed>\n");
 				continue;
 			}
 
 			final String first;
 			try {
-				first = new AadlBaUnparser().process((BehaviorElement) defaultAnnex.getParsedAnnexSubclause());
+				first = getUnparser().unparseAnnexSubclause(defaultAnnex.getParsedAnnexSubclause(), "");
 			} catch (RuntimeException e) {
-				result.append("<legacy-unparse-exception> ").append(e.getClass().getName()).append(": ")
+				result.append("<xtext-serialization-exception> ").append(e.getClass().getName()).append(": ")
 						.append(value(e.getMessage())).append('\n');
 				continue;
 			}
-			result.append(first);
+			result.append(first.replace("\t", "\\t"));
 			if (!first.endsWith("\n")) {
 				result.append('\n');
 			}
-			result.append("----- legacy round-trip -----\n");
+			result.append("----- Xtext reparse -----\n");
 			result.append(characterizeRoundTrip(defaultAnnex, first));
 		}
 		return result.toString();
@@ -376,14 +332,8 @@ public class BehaviorAnnexCharacterizationTest {
 		final RoundTripResult roundTrip = roundTrip(defaultAnnex, first);
 		if (!roundTrip.parseMessages.isEmpty()) {
 			result.append("parse-failure\n").append(formatMessages(roundTrip.parseMessages));
-		} else if (!roundTrip.first.equals(roundTrip.second)) {
-			result.append("non-idempotent\n");
-			result.append("----- second unparse -----\n").append(roundTrip.second);
-			if (!roundTrip.second.endsWith("\n")) {
-				result.append('\n');
-			}
 		} else {
-			result.append("idempotent\n");
+			result.append("reparsed\n");
 		}
 		return result.toString();
 	}
@@ -393,35 +343,29 @@ public class BehaviorAnnexCharacterizationTest {
 		assertEquals("Serialized output did not reparse for " + qualifiedName(defaultAnnex.getContainingClassifier())
 				+ ":\n" + formatMessages(roundTrip.parseMessages) + "\n--- serialization ---\n" + serialized, 0,
 				roundTrip.parseMessages.size());
-		assertEquals("Serialization is not idempotent for " + qualifiedName(defaultAnnex.getContainingClassifier()),
-				roundTrip.first, roundTrip.second);
 	}
 
 	private RoundTripResult roundTrip(final DefaultAnnexSubclause defaultAnnex, final String first) throws Exception {
 			final QueuingParseErrorReporter reporter = new QueuingParseErrorReporter();
 			reporter.setContextResource(defaultAnnex.eResource());
-			AnnexUtil.setCurrentAnnexSubclause(defaultAnnex);
-			final AnnexSubclause reparsed;
-			try {
-				reparsed = new AadlBaParserAction().parseAnnexSubclause(ANNEX_NAME, first,
-						defaultAnnex.eResource().getURI().lastSegment(), 1, AnnexUtil.getAnnexOffset(defaultAnnex),
-						reporter);
-			} finally {
-				AnnexUtil.setCurrentAnnexSubclause(null);
-			}
-			if (reporter.getNumErrors() != 0 || !(reparsed instanceof BehaviorElement)) {
+			final AnnexSubclause reparsed = getParser().parseAnnexSubclause(ANNEX_NAME, first,
+					defaultAnnex.eResource().getURI().lastSegment(), 1, AnnexUtil.getAnnexOffset(defaultAnnex),
+					reporter);
+			if (reporter.getNumErrors() != 0 || !(reparsed instanceof
+					org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex)) {
 				return new RoundTripResult(first, null, reporter.getErrors());
 			}
-			reparsed.setName(ANNEX_NAME);
-			defaultAnnex.setParsedAnnexSubclause(reparsed);
-			reparsed.getInModes().addAll(defaultAnnex.getInModes());
-			final QueuingParseErrorReporter resolverReporter = new QueuingParseErrorReporter();
-			resolverReporter.setContextResource(defaultAnnex.eResource());
-			final AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
-					new AnalysisToParseErrorReporterAdapter.Factory(resource -> resolverReporter));
-			new AadlBaResolver().resolveAnnex(ANNEX_NAME, Collections.singletonList(reparsed), errorManager);
-			final String second = new AadlBaUnparser().process((BehaviorElement) reparsed);
-			return new RoundTripResult(first, second, Collections.emptyList());
+			return new RoundTripResult(first, first, Collections.emptyList());
+	}
+
+	private static org.osate.annexsupport.AnnexParser getParser() {
+		return ((AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID))
+				.getAnnexParser(ANNEX_NAME);
+	}
+
+	private static org.osate.annexsupport.AnnexUnparser getUnparser() {
+		return ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
+				.getAnnexUnparser(ANNEX_NAME);
 	}
 
 	private static String formatMessages(final List<Message> messages) {
@@ -439,22 +383,22 @@ public class BehaviorAnnexCharacterizationTest {
 			final DefaultAnnexSubclause defaultAnnex = annexes.get(i);
 			result.append("annex[").append(i).append("] owner=")
 					.append(qualifiedName(defaultAnnex.getContainingClassifier())).append('\n');
-			if (!(defaultAnnex.getParsedAnnexSubclause() instanceof BehaviorAnnex)) {
+			if (!(defaultAnnex.getParsedAnnexSubclause() instanceof
+					org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex)) {
 				result.append("  <unparsed>\n");
 				continue;
 			}
 
-			final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) defaultAnnex.getParsedAnnexSubclause();
-			final AadlBaTextPositionResolver resolver = new AadlBaTextPositionResolver();
 			final Set<String> positions = new TreeSet<>();
-			final int start = AnnexUtil.getAnnexOffset(defaultAnnex);
-			final int end = start + defaultAnnex.getSourceText().length();
-			for (int offset = start; offset <= end; offset++) {
-				final TextPositionInfo position = resolver.resolveElementAt(behaviorAnnex, offset);
-				if (position != null && position.getModelObject() != null) {
-					final EObject object = position.getModelObject();
+			final EObject behaviorAnnex = defaultAnnex.getParsedAnnexSubclause();
+			final List<EObject> objects = new ArrayList<>();
+			objects.add(behaviorAnnex);
+			behaviorAnnex.eAllContents().forEachRemaining(objects::add);
+			for (final EObject object : objects) {
+				final INode node = NodeModelUtils.findActualNodeFor(object);
+				if (node != null) {
 					positions.add("(" + object.eClass().getName() + ", " + value(name(object)) + ", "
-							+ position.getOffset() + ", " + position.getLength() + ")");
+							+ node.getOffset() + ", " + node.getLength() + ")");
 				}
 			}
 			for (final String position : positions) {

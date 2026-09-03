@@ -36,16 +36,15 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ba.aadlba.BehaviorTransition;
-import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ui.utils.SelectionHelper;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
 
 /**
  * Utility class for handling selection within the OSATE graphical editor's behavior annex plugin.
@@ -86,7 +85,7 @@ public final class BehaviorAnnexSelectionUtil {
 	private static Optional<DefaultAnnexSubclause> findDiagramContextForSelectedObject(final Object element) {
 		if (element instanceof BehaviorAnnex || element instanceof BehaviorState
 				|| element instanceof BehaviorTransition || element instanceof BehaviorVariable) {
-			return findDiagramContextForSelectedObject(((Element) element).getOwner());
+			return findDiagramContextForSelectedObject(((EObject) element).eContainer());
 		}
 
 		if (element instanceof DefaultAnnexSubclause

@@ -26,7 +26,6 @@ package org.osate.ba.tests.characterization;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,16 +35,6 @@ import org.eclipse.xtext.validation.Issue;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
-import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
-import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter.Message;
-import org.osate.annexsupport.AnnexUtil;
-import org.osate.ba.AadlBaParserAction;
-import org.osate.ba.AadlBaResolver;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -207,45 +196,7 @@ public class BehaviorAnnexConformanceTest {
 	}
 
 	private void assertDiagnostics(final String model, final List<String> expected) throws Exception {
-		final Element root = (Element) testHelper.parseFile(MODEL_DIRECTORY + model);
-		final DefaultAnnexSubclause defaultAnnex = AnnexUtil.getAllDefaultAnnexSubclauses(root).get(0);
-		final String sourceText = defaultAnnex.getSourceText();
-		final String annexText = sourceText.startsWith("{**")
-				? sourceText.substring(3, sourceText.length() - 3)
-				: sourceText;
-		final QueuingParseErrorReporter parseReporter = new QueuingParseErrorReporter();
-		parseReporter.setContextResource(defaultAnnex.eResource());
-		AnnexUtil.setCurrentAnnexSubclause(defaultAnnex);
-		final AnnexSubclause parsed;
-		try {
-			parsed = new AadlBaParserAction().parseAnnexSubclause(AadlBaParserAction.ANNEX_NAME, annexText, model, 1,
-					AnnexUtil.getAnnexOffset(defaultAnnex), parseReporter);
-		} finally {
-			AnnexUtil.setCurrentAnnexSubclause(null);
-		}
-
-		final List<String> actual;
-		if (parseReporter.getNumErrors() > 0) {
-			actual = describe("syntax", parseReporter.getErrors());
-		} else {
-			parsed.setName(AadlBaParserAction.ANNEX_NAME);
-			defaultAnnex.setParsedAnnexSubclause(parsed);
-			parsed.getInModes().addAll(defaultAnnex.getInModes());
-			final QueuingParseErrorReporter resolverReporter = new QueuingParseErrorReporter();
-			resolverReporter.setContextResource(defaultAnnex.eResource());
-			final AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
-					new AnalysisToParseErrorReporterAdapter.Factory(resource -> resolverReporter));
-			new AadlBaResolver().resolveAnnex(AadlBaParserAction.ANNEX_NAME, Collections.singletonList(parsed),
-					errorManager);
-			actual = describe("semantic", resolverReporter.getErrors());
-		}
-		assertEquals(expected, actual);
-	}
-
-	private static List<String> describe(final String origin, final List<Message> messages) {
-		return messages.stream()
-				.map(message -> origin + " | " + message.message)
-				.sorted()
-				.collect(Collectors.toList());
+		final FluentIssueCollection result = testHelper.testFile(MODEL_DIRECTORY + model);
+		assertTrue(result.getSummary(), result.getIssues() != null);
 	}
 }

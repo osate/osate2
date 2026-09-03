@@ -39,7 +39,6 @@ import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ba.aadlba.DispatchTrigger;
 import org.osate.ba.aadlba.DispatchTriggerLogicalExpression;
-import org.osate.ba.declarative.Identifier;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;
 import org.osate.utils.internal.Aadl2Utils;
@@ -71,16 +70,11 @@ public class AadlBaConsistencyRulesChecker {
 	 * Object  : Check consistency rule D.3.(C4)
 	 * Keys    : complete state mode behavior condition mode transition triggers
 	 */
-	public boolean D_3_C4_Check(BehaviorTransition btOwner, Identifier srcState) {
+	public boolean D_3_C4_Check(BehaviorTransition btOwner, BehaviorState srcState) {
 		// [OPTIM] -------------------------------------------------------------
 		// these checking can be moved to the rules driver in order to optimize.
 
-		BehaviorState bs = (BehaviorState) srcState.getBaRef();
-		BehaviorState declaredState = null;
-
-		if (bs.getName().equalsIgnoreCase(srcState.getId())) {
-			declaredState = bs;
-		}
+		BehaviorState declaredState = srcState;
 
 		// If the srcState doesn't represent a mode: nothing to check for, exit
 		// with true.

@@ -1,4 +1,8 @@
 ===== annex[0] owner=Elif::t =====
 
------ legacy round-trip -----
-idempotent
+\t\tvariables x: Base_Types::Integer;
+\t\tstates s: initial final state;
+\t\ttransitions s -[]-> s { if (true) x := 1 elif (false) x := 2 end if };
+\t
+----- Xtext reparse -----
+reparsed

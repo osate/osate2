@@ -1,1 +1,7 @@
-error | syntax | 17 | 1 | 56 | no viable alternative at input 'on('
+error | linking | 17 | 17 | 11 | Couldn't resolve reference to BehaviorState 'first_event'.
+error | linking | 17 | 32 | 12 | Couldn't resolve reference to BehaviorState 'second_event'.
+error | syntax | 17 | 16 | 1 | no viable alternative at input '('
+error | syntax | 17 | 17 | 11 | missing ']->' at 'first_event'
+error | syntax | 17 | 29 | 2 | mismatched input 'or' expecting ';'
+error | syntax | 17 | 44 | 1 | mismatched input ')' expecting '-['
+error | syntax | 17 | 56 | 1 | mismatched input ';' expecting '-['

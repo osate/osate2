@@ -31,6 +31,6 @@ class Issue2525Test {
 				]
 			]
 		]
-		2.assertEquals(result.issues.size)
+		0.assertEquals(result.issues.size)
 	}
 }

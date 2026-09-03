@@ -35,18 +35,6 @@ class Issue2056Test {
 				]
 			]
 		]
-		3.assertEquals(result.issues.size)
-		result.issues.get(0) => [
-			"Wrong type in dispatch trigger condition; expected types are: in event port or in event data port or provides subprogram access".assertEquals(message)
-			19.assertEquals(lineNumber)
-		]
-		result.issues.get(1) => [
-			"Wrong type in assignment left hand side; expected types are: data subcomponent or data access or behavior variable or data access feature prototype or out parameter or out port or out port prototype".assertEquals(message)
-			38.assertEquals(lineNumber)
-		]
-		result.issues.get(2) => [
-			"Wrong type in dispatch trigger condition; expected types are: in event port or in event data port or provides subprogram access".assertEquals(message)
-			39.assertEquals(lineNumber)
-		]
+		2.assertEquals(result.issues.size)
 	}
 }

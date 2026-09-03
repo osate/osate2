@@ -1,4 +1,8 @@
 ===== annex[0] owner=DoubleEquals::t =====
 
------ legacy round-trip -----
-idempotent
+\t\tvariables x: Base_Types::Integer;
+\t\tstates s: initial final state;
+\t\ttransitions s -[x == 1]-> s;
+\t
+----- Xtext reparse -----
+reparsed

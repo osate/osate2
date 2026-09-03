@@ -1,1 +1,5 @@
-error | syntax | 17 | 1 | 63 | extraneous input 'first_event' expecting {'and', 'or', '[', ']->', '.'}
+error | linking | 17 | 25 | 11 | Couldn't resolve reference to BehaviorState 'first_event'.
+error | linking | 17 | 40 | 12 | Couldn't resolve reference to BehaviorState 'second_event'.
+error | syntax | 17 | 25 | 11 | missing ']->' at 'first_event'
+error | syntax | 17 | 37 | 2 | mismatched input 'or' expecting ';'
+error | syntax | 17 | 53 | 3 | missing '-[' at ']->'

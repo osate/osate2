@@ -53,15 +53,15 @@ import org.osate.testsupport.TestHelper;
 import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.TimedAction;
+import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 
 import com.google.inject.Inject;
 
 /**
- * Exercises the temporary Behavior Annex name through the real embedded-AADL parser path. These tests ensure that
- * phase 4 contributes the parser, linker, and unparser together; phase 6 runs the legacy semantic checkers through
- * the translated strict model; local BA names and referenced AADL objects resolve; deliberate Xtext linking messages
- * gate semantic validation; reviewed checker corrections are explicit and fast; and no annex-library form is
- * accidentally added.
+ * Exercises the Behavior Annex through the real embedded-AADL parser path. These tests ensure that the parser, linker,
+ * and unparser are contributed together; semantic checkers run through the translated strict model; local BA names
+ * and referenced AADL objects resolve; Xtext linking messages gate semantic validation; reviewed checker corrections
+ * are explicit and fast; and no annex-library form is accidentally added.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexEmbeddedInjectorProvider.class)
@@ -70,6 +70,32 @@ public class BehaviorAnnexIntegrationTest {
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
+
+	@Inject
+	private DeclarativeToStrictTranslator translator;
+
+	@Test
+	public void ordinaryBehaviorSpecificationUsesXtextPipeline() throws Exception {
+		var result = testHelper.testFile(MODEL_DIRECTORY + "Phase7.aadl");
+		assertTrue(result.getSummary(), result.getIssues()
+				.stream()
+				.noneMatch(issue -> issue.getSeverity() == Severity.ERROR));
+
+		var system = getSystem((AadlPackage) result.getResource().getContents().get(0));
+		var defaultAnnex = (DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0);
+		assertTrue(defaultAnnex.getParsedAnnexSubclause().getClass().getName(),
+				defaultAnnex.getParsedAnnexSubclause() instanceof BehaviorAnnex);
+		var annex = (BehaviorAnnex) defaultAnnex.getParsedAnnexSubclause();
+
+		var unparser = ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
+				.getAnnexUnparser("behavior_specification");
+		var serialized = unparser.unparseAnnexSubclause(annex, "");
+		assertTrue(serialized, serialized.contains("start: idle -[]-> running"));
+
+		var translation = translator.translate(annex, system);
+		assertNotNull(translation.getStrictAnnex());
+		assertSame(translation.getStrictAnnex(), translation.getStrict(annex));
+	}
 
 	@Test
 	public void parsesLinksAndSerializesEmbeddedSubclause() throws Exception {
@@ -132,8 +158,7 @@ public class BehaviorAnnexIntegrationTest {
 	public void reportsReviewedCheckerCorrectionsWithoutResolvingTheWorkspace() throws Exception {
 		var source = Files.readString(
 				Path.of("..", "org.osate.ba.tests", "models", "covering_semantic", "lr_D3_L1_L2.aadl"),
-				StandardCharsets.UTF_8)
-				.replace("annex behavior_specification", "annex behavior_specification_xtext");
+				StandardCharsets.UTF_8);
 		var result = testHelper.testString(source);
 		assertEquals(List.of(
 				"ERROR: exemple_lr_D3_L1_L2::sub.error1 can't have complete state : compState : "
@@ -153,13 +178,17 @@ public class BehaviorAnnexIntegrationTest {
 	}
 
 	private static BehaviorAnnex getBehaviorAnnex(AadlPackage aadlPackage) {
-		var system = (SystemType) aadlPackage.getOwnedPublicSection().getOwnedClassifiers()
+		var system = getSystem(aadlPackage);
+		var defaultAnnex = (DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0);
+		assertNotNull(defaultAnnex.getParsedAnnexSubclause());
+		return (BehaviorAnnex) defaultAnnex.getParsedAnnexSubclause();
+	}
+
+	private static SystemType getSystem(AadlPackage aadlPackage) {
+		return (SystemType) aadlPackage.getOwnedPublicSection().getOwnedClassifiers()
 				.stream()
 				.filter(SystemType.class::isInstance)
 				.findFirst()
 				.orElseThrow();
-		var defaultAnnex = (DefaultAnnexSubclause) system.getOwnedAnnexSubclauses().get(0);
-		assertNotNull(defaultAnnex.getParsedAnnexSubclause());
-		return (BehaviorAnnex) defaultAnnex.getParsedAnnexSubclause();
 	}
 }

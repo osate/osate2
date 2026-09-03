@@ -46,11 +46,13 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
 
 /**
  * Property section for {@link BehaviorState}
@@ -103,7 +105,7 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 				"Complete:");
 
 		completeStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				new SetPropertyStateSelectionListener("Set Complete State", (state, value) -> state.setComplete(value)),
+				new SetPropertyStateSelectionListener("Set Complete State", (group, value) -> group.setComplete(value)),
 				"", SWT.CHECK);
 		SwtUtil.setTestingId(completeStatePropertyBtn, WIDGET_ID_COMPLETE);
 		setButtonLayoutData(completeStatePropertyBtn, completeSectionLabel);
@@ -112,7 +114,7 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 		setLabelLayoutData(finalSectionLabel, completeSectionLabel);
 
 		finalStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				new SetPropertyStateSelectionListener("Set Final State", (state, value) -> state.setFinal(value)), "",
+				new SetPropertyStateSelectionListener("Set Final State", (group, value) -> group.setFinal(value)), "",
 				SWT.CHECK);
 		SwtUtil.setTestingId(finalStatePropertyBtn, WIDGET_ID_FINAL);
 		setButtonLayoutData(finalStatePropertyBtn, finalSectionLabel);
@@ -122,7 +124,7 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 		setLabelLayoutData(initialSectionLabel, finalSectionLabel);
 
 		initialStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				new SetPropertyStateSelectionListener("Set Initial State", (state, value) -> state.setInitial(value)),
+				new SetPropertyStateSelectionListener("Set Initial State", (group, value) -> group.setInitial(value)),
 				"", SWT.CHECK);
 		SwtUtil.setTestingId(initialStatePropertyBtn, WIDGET_ID_INITIAL);
 		setButtonLayoutData(initialStatePropertyBtn, initialSectionLabel);
@@ -147,19 +149,19 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 		final List<BehaviorState> behaviorStates = selectedBos.boStream(BehaviorState.class)
 				.collect(Collectors.toList());
 		final Entry<Boolean, Boolean> completeBtnSelectionAndGray = getButtonSelectionAndGrayedState(
-				behaviorStates.iterator(), behaviorState -> behaviorState.isComplete());
+				behaviorStates.iterator(), behaviorState -> ((BehaviorStateGroup) behaviorState.eContainer()).isComplete());
 		// Set button grayed and selection state
 		completeStatePropertyBtn.setSelection(completeBtnSelectionAndGray.getKey());
 		completeStatePropertyBtn.setGrayed(completeBtnSelectionAndGray.getValue());
 
 		final Entry<Boolean, Boolean> finalBtnSelectionAndGray = getButtonSelectionAndGrayedState(
-				behaviorStates.iterator(), behaviorState -> behaviorState.isFinal());
+				behaviorStates.iterator(), behaviorState -> ((BehaviorStateGroup) behaviorState.eContainer()).isFinal());
 		// Set button grayed and selection state
 		finalStatePropertyBtn.setSelection(finalBtnSelectionAndGray.getKey());
 		finalStatePropertyBtn.setGrayed(finalBtnSelectionAndGray.getValue());
 
 		final Entry<Boolean, Boolean> initialBtnSelectionAndGray = getButtonSelectionAndGrayedState(
-				behaviorStates.iterator(), behaviorState -> behaviorState.isInitial());
+				behaviorStates.iterator(), behaviorState -> ((BehaviorStateGroup) behaviorState.eContainer()).isInitial());
 		// Set button grayed and selection state
 		initialStatePropertyBtn.setSelection(initialBtnSelectionAndGray.getKey());
 		initialStatePropertyBtn.setGrayed(initialBtnSelectionAndGray.getValue());
@@ -167,10 +169,10 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 
 	private class SetPropertyStateSelectionListener extends SelectionAdapter {
 		private final String label;
-		private BiConsumer<BehaviorState, Boolean> modifier;
+		private BiConsumer<BehaviorStateGroup, Boolean> modifier;
 
 		public SetPropertyStateSelectionListener(final String label,
-				final BiConsumer<BehaviorState, Boolean> modifier) {
+				final BiConsumer<BehaviorStateGroup, Boolean> modifier) {
 			this.label = label;
 			this.modifier = modifier;
 		}
@@ -179,7 +181,8 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 		public void widgetSelected(final SelectionEvent e) {
 			selectedBos.modify(label, boc -> boc.getBusinessObject(BehaviorState.class).isPresent(),
 					boc -> boc.getBusinessObject(BehaviorState.class).orElseThrow(),
-					(behaviorState, boc) -> modifier.accept(behaviorState, ((Button) e.getSource()).getSelection()));
+					(behaviorState, boc) -> modifier.accept(BehaviorAnnexUtil.isolateState(behaviorState),
+							((Button) e.getSource()).getSelection()));
 		}
 	}
 

@@ -1,6 +1,10 @@
 annex[0] owner=Issue2445_Grammar_Hazards::hazards
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
     variables[0] : BehaviorVariable name=Value
+      ownedPropertyAssociations[0] : PropertyAssociation
+        ownedValue[0] : ModalPropertyValue
+          ownedValue : ListValue
+            ownedListElement[0] : StringLiteral
       ownedValueConstant : BehaviorIntegerLiteral
     variables[1] : BehaviorVariable name=Other
       ownedValueConstant : BehaviorIntegerLiteral
@@ -159,8 +163,7 @@ annex[0] owner=Issue2445_Grammar_Hazards::hazards
         actions[1] : PortDequeueAction
           port : EventDataPortHolder element=Issue2445_Grammar_Hazards::hazards.input [EventDataPort]
           target : BehaviorVariableHolder element=Value [BehaviorVariable]
-        actions[2] : PortSendAction
-          port : EventDataPortHolder element=Issue2445_Grammar_Hazards::hazards.input [EventDataPort]
+        actions[2] : PortFreezeAction
         actions[3] : PortSendAction
           port : EventDataPortHolder element=Issue2445_Grammar_Hazards::hazards.output [EventDataPort]
           valueExpression : ValueExpression

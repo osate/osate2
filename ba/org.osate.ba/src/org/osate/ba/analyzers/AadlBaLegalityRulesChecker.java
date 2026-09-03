@@ -65,7 +65,6 @@ import org.osate.ba.aadlba.IntegerValue;
 import org.osate.ba.aadlba.LoopStatement;
 import org.osate.ba.aadlba.Target;
 import org.osate.ba.aadlba.TimedAction;
-import org.osate.ba.declarative.Identifier;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;
 import org.osate.utils.internal.Aadl2Visitors;
@@ -402,12 +401,10 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check legality rule D.3.(L6)
 	 * Keys : transition complete state dispatch condition
 	 */
-	public boolean D_3_L6_Check(BehaviorTransition bt, Identifier transSrcStateIdentifier) {
-		BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef();
-
+	public boolean D_3_L6_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// D.3.(L6) error case.
-		if (bt.getCondition() instanceof DispatchCondition && !tmp.isComplete()) {
-			this.reportLegalityError(transSrcStateIdentifier,
+		if (bt.getCondition() instanceof DispatchCondition && !sourceState.isComplete()) {
+			this.reportLegalityError(sourceState,
 					"Only transition " + "out of complete states may have dispatch condition : Behavior "
 							+ "Annex D.3.(L6) legality rule failed");
 
@@ -425,12 +422,11 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check legality rule D.3.(L7)
 	 * Keys : transition complete state dispatch condition
 	 */
-	public boolean D_3_L7_Check(BehaviorTransition bt, Identifier transSrcStateIdentifier) {
-		BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef();
-
+	public boolean D_3_L7_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// D.3.(L7) error case.
-		if (tmp.isComplete() && (!(bt.getCondition() instanceof DispatchCondition)) && (tmp.getBindedMode() == null)) {
-			this.reportLegalityError(transSrcStateIdentifier,
+		if (sourceState.isComplete() && (!(bt.getCondition() instanceof DispatchCondition))
+				&& (sourceState.getBindedMode() == null)) {
+			this.reportLegalityError(sourceState,
 					"Transitions out " + "of complete states must have dispatch condition : Behavior Annex"
 							+ " D.3.(L7) legality rule failed");
 			return false;
@@ -447,12 +443,10 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check legality rule D.3.(L8)
 	 * Keys : transition out final state
 	 */
-	public boolean D_3_L8_Check(Identifier transSrcStateIdentifier) {
-		BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef();
-
+	public boolean D_3_L8_Check(BehaviorState sourceState) {
 		// D.3.(L8) error case.
-		if (tmp.isFinal() && !(tmp.isComplete() || tmp.isInitial())) {
-			this.reportLegalityError(transSrcStateIdentifier, "Transitions out "
+		if (sourceState.isFinal() && !(sourceState.isComplete() || sourceState.isInitial())) {
+			this.reportLegalityError(sourceState, "Transitions out "
 					+ "of final states are not allowed : Behavior Annex" + " D.3.(L8) legality rule failed");
 			return false;
 		} else {

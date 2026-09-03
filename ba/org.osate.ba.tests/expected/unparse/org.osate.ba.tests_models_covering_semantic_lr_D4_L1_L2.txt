@@ -1,60 +1,86 @@
 ===== annex[0] owner=exemple_lr_D4_L1_L2::th.good1 =====
 
+
 states
-  intialState : initial state;
-  finalState : final state;
-  compState : complete state;
-transitions
-  compState -[on dispatch timeout ]-> compState;
-  compState -[on dispatch timeout 100 ms]-> compState;
------ legacy round-trip -----
-idempotent
+ intialState : initial state ;
+ finalState  : final state ;
+ compState   : complete state ;\s
+
+transitions\s
+ compState -[on dispatch timeout]-> compState ;
+ compState -[on dispatch timeout 100 ms]-> compState ;\s
+----- Xtext reparse -----
+reparsed
 ===== annex[1] owner=exemple_lr_D4_L1_L2::th.good2 =====
 
+
 states
-  intialState : initial state;
-  finalState : final state;
-  compState : complete state;
-transitions
-  compState -[on dispatch timeout 100 ms]-> compState;
------ legacy round-trip -----
-idempotent
+ intialState : initial state ;
+ finalState  : final state ;
+ compState   : complete state ;\s
+
+transitions\s
+ compState -[on dispatch timeout 100 ms]-> compState ;\s
+----- Xtext reparse -----
+reparsed
 ===== annex[2] owner=exemple_lr_D4_L1_L2::th.error1 =====
 
+
 states
-  initialState : initial state;
-  compState : complete state;
-  finalState : final state;
-transitions
-  initialState -[on dispatch timeout ]-> finalState;
-  initialState -[on dispatch timeout 100 ms]-> finalState;
------ legacy round-trip -----
-idempotent
+ initialState : initial state ;
+ compState : complete state ;
+ finalState  : final state ;
+
+transitions\s
+
+  -- Errors:\s
+  --          _ The dispatch relative timeout and catch statement must only be declared for timed thread.
+  --          _ The dispatch relative timeout and catch statement must be declared in an outgoing transition of a complete state.
+  --          _ Only transition out of complete states may have dispatch condition.\s
+
+ initialState -[on dispatch timeout]-> finalState ;
+\s
+  -- Errors:\s
+  --          _ The dispatch relative timeout and catch statement must be declared in an outgoing transition of a complete state.
+  --          _ Only transition out of complete states may have dispatch condition.\s
+\s
+ initialState -[on dispatch timeout 100 ms]-> finalState ;
+\s
+----- Xtext reparse -----
+reparsed
 ===== annex[3] owner=exemple_lr_D4_L1_L2::th.error2 =====
 
-states
-  initialState : initial state;
-  compState1 : complete state;
-  compState2 : complete state;
-  compState3 : complete state;
-  finalState : final state;
-transitions
-  compState1 -[on dispatch timeout ]-> finalState;
-  compState2 -[]-> finalState;
-  compState3 -[on dispatch timeout ]-> finalState;
------ legacy round-trip -----
-idempotent
-===== annex[4] owner=exemple_lr_D4_L1_L2::th.error3 =====
 
 states
-  initialState : initial state;
-  compState1 : complete state;
-  compState2 : complete state;
-  compState3 : complete state;
-  finalState : final state;
-transitions
-  compState1 -[on dispatch timeout 100 ms]-> finalState;
-  compState2 -[]-> finalState;
-  compState3 -[on dispatch timeout 100 ms]-> finalState;
------ legacy round-trip -----
-idempotent
+ initialState : initial state ;
+ compState1 : complete state ;
+ compState2 : complete state ;
+ compState3 : complete state ;\s
+ finalState  : final state ;
+
+  -- Error: The dispatch relative timeout and catch statement must be declared in only one transition.
+
+transitions\s
+ compState1, compState2 -[on dispatch timeout]-> finalState ;
+ compState3 -[on dispatch timeout]-> finalState ;
+\s
+----- Xtext reparse -----
+reparsed
+===== annex[4] owner=exemple_lr_D4_L1_L2::th.error3 =====
+
+
+states
+ initialState : initial state ;
+ compState1 : complete state ;
+ compState2 : complete state ;
+ compState3 : complete state ;\s
+ finalState  : final state ;
+
+  -- Error: The completion relative timeout condition and catch statement must be declared in only one transition.
+
+transitions\s
+ compState1, compState2 -[on dispatch timeout 100 ms]-> finalState ;
+ compState3 -[on dispatch timeout 100 ms]-> finalState ;
+\s
+----- Xtext reparse -----
+reparsed

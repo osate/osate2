@@ -1,21 +1,33 @@
 ===== annex[0] owner=exemple_lr_D3_L1_L2::sub.good =====
 
+
 states
-  uniqueState : initial final state;
------ legacy round-trip -----
-idempotent
+ uniqueState : initial final state ;
+\s\s
+----- Xtext reparse -----
+reparsed
 ===== annex[1] owner=exemple_lr_D3_L1_L2::sub.error1 =====
 
+
+  -- Errors: The behavior annex of a subprogram
+  --          _ can't have more than one initial state.
+  --          _ must define one final state.
+  --          _ can't have complete state.\s
 states
-  initState1 : initial state;
-  initState2 : initial state;
-  compState : complete state;
------ legacy round-trip -----
-idempotent
+ initState1 : initial state ;
+ initState2 : initial state ;
+ compState : complete state ;
+\s
+----- Xtext reparse -----
+reparsed
 ===== annex[2] owner=exemple_lr_D3_L1_L2::sub.error2 =====
 
+
+  -- Errors: The behavior annex of a subprogram
+  --          _ can't have more than one final state.
 states
-  uniqueState : initial final state;
-  finalState1 : final state;
------ legacy round-trip -----
-idempotent
+ uniqueState : initial final state ;
+ finalState1 : final state ;
+\s\s
+----- Xtext reparse -----
+reparsed

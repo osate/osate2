@@ -12,6 +12,7 @@ import org.osate.ba.aadlba.BehaviorAnnex
 import org.osate.ba.aadlba.SharedDataAction
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
+import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertTrue
@@ -32,7 +33,7 @@ class Issue2372Test {
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
 					"behavior_specification".assertEquals(name)
 					(parsedAnnexSubclause!==null).assertTrue
-					parsedAnnexSubclause as BehaviorAnnex => [
+					BehaviorAnnexUtil.getStrictModel(it) => [
 						actions.get(0).content as BehaviorActionCollection => [
 							actions.get(1) as SharedDataAction => [
 								(dataAccess.dataAccess!==null).assertTrue

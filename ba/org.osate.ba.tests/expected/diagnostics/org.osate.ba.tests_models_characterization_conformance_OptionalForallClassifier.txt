@@ -1,2 +1,6 @@
-error | syntax | 16 | 1 | 26 | no viable alternative at input '{forall(iin'
-warning | semantic | 5 | 7 | 10 | Base_Types in 'with' clause of public package section is not used.
+error | linking | 17 | 15 | 1 | Couldn't resolve reference to BehaviorState 'i'.
+error | linking | 17 | 6 | 5 | Couldn't resolve reference to BehaviorState 'value'.
+error | syntax | 16 | 15 | 2 | mismatched input 'in' expecting ':'
+error | syntax | 17 | 12 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 17 | 6 | 5 | mismatched input 'value' expecting '}'
+error | syntax | 18 | 5 | 1 | mismatched input '}' expecting '-['

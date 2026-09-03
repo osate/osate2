@@ -1,2 +1,4 @@
-error | syntax | 10 | 1 | 72 | mismatched input 'elif' expecting ''''
-warning | semantic | 5 | 7 | 10 | Base_Types in 'with' clause of public package section is not used.
+error | linking | 10 | 57 | 1 | Couldn't resolve reference to BehaviorState 'x'.
+error | syntax | 10 | 44 | 4 | mismatched input 'elif' expecting 'end'
+error | syntax | 10 | 57 | 1 | missing ';' at 'x'
+error | syntax | 10 | 59 | 2 | mismatched input ':=' expecting '-['

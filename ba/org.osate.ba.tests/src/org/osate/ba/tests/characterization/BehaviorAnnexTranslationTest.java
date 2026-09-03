@@ -36,7 +36,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -67,17 +66,13 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 /**
- * Replays the resolved-model characterization fence through the temporary Xtext front end. The test requires the
- * phase-5 translator to reproduce the legacy strict model, cache a translation per declarative annex, trace both model
- * directions by object identity, and construct containment-correct models without legacy detached children.
+ * Replays the resolved-model characterization fence through the Xtext front end. The test requires the translator to
+ * reproduce the strict model, cache a translation per declarative annex, trace both model directions by object
+ * identity, and construct containment-correct models without detached children.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexTranslationInjectorProvider.class)
 public class BehaviorAnnexTranslationTest {
-	private static final Pattern LEGACY_ANNEX_NAME = Pattern.compile(
-			"(?i)(\\bannex\\s+)behavior_specification(\\s*\\{\\*\\*)");
-	private static final String XTEXT_ANNEX_NAME = "behavior_specification_xtext";
-
 	@Inject
 	private TestHelper<Element> testHelper;
 
@@ -121,14 +116,13 @@ public class BehaviorAnnexTranslationTest {
 				assertCorrectedTranslationSemantics(declarative, translation);
 				assertNoDetachedChildren(declarative);
 				assertNoDetachedChildren(translation.getStrictAnnex());
-				legacyProjections.add(toLegacyProjection(translation.getStrictAnnex()));
+				legacyProjections.add(translation.getStrictAnnex());
 				owners.add(owner);
 			}
 
 			final var actual = BehaviorAnnexCharacterizationTest.formatResolvedModels(legacyProjections, owners,
 					new HashSet<>());
-			GoldenFile.assertMatches("resolved-model", corpusCase.getId(), actual,
-					BehaviorAnnexTranslationTest::projectLegacyUnresolvedElements);
+			GoldenFile.assertMatches("resolved-model", corpusCase.getId(), actual);
 		}
 		assertTrue("The accepted corpus did not contain any translated Behavior Annexes", translatedAnnexCount > 0);
 	}
@@ -154,7 +148,7 @@ public class BehaviorAnnexTranslationTest {
 	}
 
 	private static String useXtextAnnex(final String source) {
-		return LEGACY_ANNEX_NAME.matcher(source).replaceAll("$1" + XTEXT_ANNEX_NAME + "$2");
+		return source;
 	}
 
 	private static boolean isFutureConformanceFixture(final BehaviorAnnexCorpus.Case corpusCase) {

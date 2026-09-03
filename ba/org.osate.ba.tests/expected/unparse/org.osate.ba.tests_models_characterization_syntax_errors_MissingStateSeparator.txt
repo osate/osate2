@@ -1,4 +1,6 @@
 ===== annex[0] owner=MissingStateSeparator::t =====
 
------ legacy round-trip -----
-idempotent
+\t\tstates a b: state;
+\t
+----- Xtext reparse -----
+reparsed

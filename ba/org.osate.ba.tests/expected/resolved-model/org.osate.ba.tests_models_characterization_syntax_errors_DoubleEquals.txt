@@ -1,2 +1,2 @@
 annex[0] owner=DoubleEquals::t
-  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+  <unparsed>

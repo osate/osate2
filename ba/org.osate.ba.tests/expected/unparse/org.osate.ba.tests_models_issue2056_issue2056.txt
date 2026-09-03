@@ -1,24 +1,22 @@
 ===== annex[0] owner=issue2056::threadA.impl =====
 
-states
-  s0 : initial complete state;
-  s1 : final state;
-transitions
-  s0 -[on dispatch inputA]-> s1 {
-    outputA := 1
-  };
------ legacy round-trip -----
-idempotent
+    states
+    s0: initial complete state;
+    s1: final state;
+    transitions
+    s0 -[ on dispatch inputA]-> s1 {outputA:=1};
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
 ===== annex[1] owner=issue2056::threadB.impl =====
 
-states
-  s0 : initial complete state;
-  s1 : complete state;
-  s2 : final state;
-transitions
-  s0 -[on dispatch]-> s1 {
-    outputB := 1
-  };
-  s1 -[on dispatch inputB]-> s2;
------ legacy round-trip -----
-idempotent
+    states
+    s0: initial complete state;
+    s1: complete state;
+    s2: final state;
+    transitions
+    s0 -[ on dispatch ]-> s1 {outputB:=1};
+    s1 -[ on dispatch inputB]->s2;
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

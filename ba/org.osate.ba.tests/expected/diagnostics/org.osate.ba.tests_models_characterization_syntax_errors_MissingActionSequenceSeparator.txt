@@ -1,2 +1,3 @@
-error | syntax | 10 | 1 | 42 | missing behavior action sequence separator ';'
-warning | semantic | 5 | 7 | 10 | Base_Types in 'with' clause of public package section is not used.
+error | linking | 10 | 34 | 1 | Couldn't resolve reference to BehaviorState 'x'.
+error | syntax | 10 | 34 | 1 | mismatched input 'x' expecting '}'
+error | syntax | 10 | 36 | 2 | mismatched input ':=' expecting '-['

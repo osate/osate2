@@ -1,1 +1,2 @@
-error | semantic | 112 | 1 | 58 | type error for 'i', 'data subcomponent or data access or behavior variable or data access feature prototype or out parameter or out port or out port prototype' expected, found 'iterative variable'.
+error | semantic | 37 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.good'
+error | semantic | 86 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.error'

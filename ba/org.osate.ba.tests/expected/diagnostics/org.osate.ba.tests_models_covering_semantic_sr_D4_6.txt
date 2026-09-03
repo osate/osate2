@@ -1,1 +1,2 @@
-error | semantic | 64 | 1 | 44 | Only transition out of complete states may have dispatch condition : Behavior Annex D.3.(L6) legality rule failed.
+error | semantic | 31 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.good'
+error | semantic | 50 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.error'

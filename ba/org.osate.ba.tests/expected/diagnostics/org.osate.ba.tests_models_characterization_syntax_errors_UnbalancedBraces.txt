@@ -1,2 +1,1 @@
-error | syntax | 14 | 1 | 15 | unbalanced {}
-warning | semantic | 5 | 7 | 10 | Base_Types in 'with' clause of public package section is not used.
+error | syntax | 14 | 15 | 1 | extraneous input '}' expecting 'end'

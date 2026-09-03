@@ -6,12 +6,9 @@ annex[0] owner=issue2056::threadA.impl
       condition : DispatchCondition
         dispatchTriggerCondition : DispatchTriggerLogicalExpression
           dispatchConjunctions[0] : DispatchConjunction
-            dispatchTriggers[0] : Reference
-              ids[0] : ArrayableIdentifier
     actions[0] : BehaviorActionBlock
       content : AssignmentAction
-        target : Reference
-          ids[0] : ArrayableIdentifier
+        target : BehaviorVariableHolder element=<null>
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -29,12 +26,9 @@ annex[1] owner=issue2056::threadB.impl
       condition : DispatchCondition
         dispatchTriggerCondition : DispatchTriggerLogicalExpression
           dispatchConjunctions[0] : DispatchConjunction
-            dispatchTriggers[0] : Reference
-              ids[0] : ArrayableIdentifier
     actions[0] : BehaviorActionBlock
       content : AssignmentAction
-        target : Reference
-          ids[0] : ArrayableIdentifier
+        target : BehaviorVariableHolder element=<null>
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression

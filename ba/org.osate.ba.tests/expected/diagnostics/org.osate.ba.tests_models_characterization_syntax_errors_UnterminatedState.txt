@@ -1,1 +1,1 @@
-error | syntax | 7 | 1 | 31 | unterminated behavior state (missing ending ';')
+error | syntax | 8 | 3 | 11 | missing ';' at 'transitions'

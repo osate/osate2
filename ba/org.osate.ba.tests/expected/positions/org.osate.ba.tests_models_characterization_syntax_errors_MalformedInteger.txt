@@ -1,1 +1,12 @@
 annex[0] owner=MalformedInteger::t
+  (AssignmentAction, <null>, 291, 9)
+  (BehaviorActionBlock, <null>, 289, 13)
+  (BehaviorAnnex, behavior_specification, 198, 105)
+  (BehaviorIntegerLiteral, <null>, 296, 4)
+  (BehaviorState, s, 241, 1)
+  (BehaviorStateGroup, <null>, 241, 23)
+  (BehaviorTransition, <null>, 279, 24)
+  (BehaviorVariable, x, 208, 1)
+  (BehaviorVariableGroup, <null>, 208, 23)
+  (Reference, <null>, 291, 1)
+  (ReferenceSegment, x, 291, 1)

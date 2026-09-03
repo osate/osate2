@@ -1,1 +1,1 @@
-error | syntax | 8 | 1 | 39 | missing subprogram parameter separator ','
+error | syntax | 8 | 35 | 1 | extraneous input '2' expecting ')'

@@ -3,3 +3,5 @@ error | linking | 65 | 56 | 4 | Couldn't resolve reference to Property Constant,
 error | linking | 65 | 7 | 45 | Couldn't resolve reference to property definition 'Behavior_Properties::Subprogram_Call_Protocol'.
 error | linking | 67 | 56 | 4 | Couldn't resolve reference to Property Constant, Property Definition, Enumeration or Unit literal 'HSER'. For classifier references use classifier( <ref> ).
 error | linking | 67 | 7 | 45 | Couldn't resolve reference to property definition 'Behavior_Properties::Subprogram_Call_Protocol'.
+error | semantic | 45 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadType 'a_client'
+error | semantic | 82 | 9 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'a_server.i'

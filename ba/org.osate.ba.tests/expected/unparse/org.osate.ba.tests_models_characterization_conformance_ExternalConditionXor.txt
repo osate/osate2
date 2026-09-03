@@ -1,4 +1,10 @@
 ===== annex[0] owner=ExternalConditionXor::component.i =====
 
------ legacy round-trip -----
-idempotent
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tfinish: final state;
+\t\ttransitions
+\t\t\tstart -[ on first_event xor second_event ]-> finish;
+\t
+----- Xtext reparse -----
+reparsed

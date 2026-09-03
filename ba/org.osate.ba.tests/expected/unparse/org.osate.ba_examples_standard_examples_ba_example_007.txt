@@ -1,37 +1,33 @@
 ===== annex[0] owner=BA_example7::a_client =====
 
-variables
-  x : BA_example7::data_type;
-  y : BA_example7::data_type;
-states
-  s : initial complete final state;
-transitions
-  s -[on dispatch]-> s {
-    pre ! (x, y);
-    computation (60 ms);
-    post ! (y, x)
-  };
------ legacy round-trip -----
-idempotent
+  variables
+    x, y : data_type;
+  states
+    s : initial complete final state;
+  transitions
+    s -[ on dispatch ]-> s {
+      -- x should have been initialized somewhere before being sent
+      -- y is a dummy parameter to match subprogram signature
+      pre!(x,y);
+      computation(60ms);
+      -- y is a dummy parameter to match subprogram signature
+      -- x is updated
+      post!(y,x) };
+----- Xtext reparse -----
+reparsed
 ===== annex[1] owner=BA_example7::a_server.i =====
 
-variables
-  v : BA_example7::data_type.i;
-states
-  s0 : initial complete final state;
-  s1 : state;
-  s2 : complete state;
-transitions
-  s0 -[on dispatch long]-> s1;
-  s1 -[]-> s2 {
-    long_computation ! (v, local_result);
-    local_result.status := 1
-  } timeout 60 ms;
-  s1 -[timeout]-> s2 {
-    local_result.status := 0
-  };
-  s2 -[on dispatch short]-> s0 {
-    send_result ! (local_result, v)
-  };
------ legacy round-trip -----
-idempotent
+  variables
+    v : data_type.i;
+  states
+    s0 : initial complete final state;
+    s1 : state;
+    s2 : complete state;
+  transitions
+    s0 -[ on dispatch long ]-> s1;
+    s1 -[ ]-> s2 {\s
+        long_computation!(v, local_result); local_result.status := 1 } timeout 60ms;
+    s1 -[ timeout ]-> s2 { local_result.status := 0 };
+    s2 -[ on dispatch short ]-> s0 { send_result!(local_result, v) };
+----- Xtext reparse -----
+reparsed

@@ -29,8 +29,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
@@ -40,6 +38,8 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 
 /**
  * Palette command for creating {@link BehaviorAnnex} elements.
@@ -75,7 +75,7 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 	private static BehaviorAnnex createBehaviorAnnex(final Classifier c) {
 		final String name = BehaviorAnnexReferenceUtil.ANNEX_NAME;
 		final BehaviorAnnex ba = GraphicalAnnexUtil.createParsedAnnexSubclause(c, name,
-				AadlBaPackage.eINSTANCE.getBehaviorAnnex(), BehaviorAnnex.class);
+				BehaviorAnnexPackage.eINSTANCE.getBehaviorAnnex(), BehaviorAnnex.class);
 		ba.setName(name);
 		return ba;
 	}

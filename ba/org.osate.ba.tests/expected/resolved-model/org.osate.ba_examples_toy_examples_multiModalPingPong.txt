@@ -220,7 +220,7 @@ annex[2] owner=MultiModalPingPong::controller_thread.impl
                 firstValue : DataComponentReference
                   data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
                   data[1] : StructUnionElementHolder element=to_role [StructUnionElement]
-                    <legacy-detached-child> : StructUnionElement name=to_role
+                    structUnionElement : StructUnionElement name=to_role
           secondExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
@@ -238,7 +238,7 @@ annex[2] owner=MultiModalPingPong::controller_thread.impl
               arrayIndexes[0] : DataComponentReference
                 data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
                 data[1] : StructUnionElementHolder element=c_id [StructUnionElement]
-                  <legacy-detached-child> : StructUnionElement name=c_id
+                  structUnionElement : StructUnionElement name=c_id
           iteratedValues : IntegerRange
             lowerIntegerValue : BehaviorIntegerLiteral
             upperIntegerValue : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.result [DataSubcomponent]
@@ -247,7 +247,7 @@ annex[2] owner=MultiModalPingPong::controller_thread.impl
           target : DataComponentReference
             data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
             data[1] : StructUnionElementHolder element=to_role [StructUnionElement]
-              <legacy-detached-child> : StructUnionElement name=to_role
+              structUnionElement : StructUnionElement name=to_role
           valueExpression : ValueExpression
             relations[0] : Relation
               firstExpression : SimpleExpression
@@ -269,7 +269,7 @@ annex[2] owner=MultiModalPingPong::controller_thread.impl
                     firstValue : DataComponentReference
                       data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
                       data[1] : StructUnionElementHolder element=to_role [StructUnionElement]
-                        <legacy-detached-child> : StructUnionElement name=to_role
+                        structUnionElement : StructUnionElement name=to_role
           parameterLabels[1] : ValueExpression
             relations[0] : Relation
               firstExpression : SimpleExpression
@@ -278,7 +278,7 @@ annex[2] owner=MultiModalPingPong::controller_thread.impl
                     firstValue : DataComponentReference
                       data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
                       data[1] : StructUnionElementHolder element=c_id [StructUnionElement]
-                        <legacy-detached-child> : StructUnionElement name=c_id
+                        structUnionElement : StructUnionElement name=c_id
           parameterLabels[2] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.result [DataSubcomponent]
           parameterLabels[3] : DataAccessHolder element=MultiModalPingPong::controller_thread.components [DataAccess]
 annex[3] owner=MultiModalPingPong::controller_subprogram.impl

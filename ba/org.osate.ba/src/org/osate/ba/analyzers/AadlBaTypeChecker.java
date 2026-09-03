@@ -61,7 +61,6 @@ import org.osate.ba.aadlba.SimpleExpression;
 import org.osate.ba.aadlba.Term;
 import org.osate.ba.aadlba.ValueExpression;
 import org.osate.ba.aadlba.WhileOrDoUntilStatement;
-import org.osate.ba.texteditor.AadlBaHyperlink;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;
 import org.osate.ba.utils.DimensionException;
@@ -99,16 +98,6 @@ public class AadlBaTypeChecker {
 		this.baParentContainer = AadlBaVisitors.getParentComponent(ba, parentContainer);
 		this.dataChecker = dataChecker;
 		this.errManager = errManager;
-	}
-
-	/**
-	 * Retained for source compatibility. Hyperlinks are created while the strict model is resolved, before type
-	 * checking.
-	 *
-	 * @param hyperlink the hyperlink builder
-	 */
-	public void setAadlBaHyperlink(AadlBaHyperlink hyperlink) {
-		// Resolution owns hyperlink creation. A read-only checker has nothing to record.
 	}
 
 	/**

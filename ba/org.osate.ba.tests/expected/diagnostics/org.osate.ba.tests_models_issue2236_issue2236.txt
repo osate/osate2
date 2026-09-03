@@ -1,0 +1,1 @@
+error | linking | 10 | 8 | 12 | Couldn't resolve reference to ComponentClassifier 'issue2236::d'.

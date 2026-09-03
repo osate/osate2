@@ -24,10 +24,10 @@
 package org.osate.ge.ba.util;
 
 import org.eclipse.xtext.xbase.lib.Pair;
-import org.osate.ba.aadlba.BehaviorCondition;
-import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.ba.ui.properties.BehaviorConditionEmbeddedTextValue;
 import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 
 /**
  * Utility containing methods related to the source text of {@link BehaviorTransition} elements.
@@ -92,14 +92,14 @@ public final class BehaviorTransitionEmbeddedTextUtil {
 		final int conditionOffset;
 		if (condition == null) {
 			// Transition offset
-			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
+			final int transitionOffset = BehaviorAnnexUtil.getOffset(behaviorTransition);
 			final Pair<Character, Character> charsToMatch = new Pair<Character, Character>('-', '[');
 			// Find index for beginning of condition text "-["
 			conditionOffset = BehaviorAnnexXtextUtil.findUncommentedCharPair(sourceText.substring(transitionOffset),
 					charsToMatch) + transitionOffset;
 		} else {
 			// Condition offset
-			conditionOffset = condition.getAadlBaLocationReference().getOffset();
+			conditionOffset = BehaviorAnnexUtil.getOffset(condition);
 		}
 
 		return conditionOffset;

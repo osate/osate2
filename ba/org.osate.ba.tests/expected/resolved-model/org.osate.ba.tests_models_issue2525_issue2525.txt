@@ -6,11 +6,8 @@ annex[0] owner=issue2525::t
       condition : DispatchCondition
     actions[0] : BehaviorActionBlock
       content : BehaviorActionSequence
-        actions[0] : CommAction
-          target : Reference
-            ids[0] : ArrayableIdentifier
-          qualifiedName : QualifiedNamedElement
-            baName : Identifier
-        actions[1] : CommAction
-          qualifiedName : QualifiedNamedElement
-            baName : Identifier
+        actions[0] : PortDequeueAction
+          port : DataPortHolder element=issue2525::t.d_in [DataPort]
+          target : BehaviorVariableHolder element=v [BehaviorVariable]
+        actions[1] : PortDequeueAction
+          port : DataPortHolder element=issue2525::t.d_in [DataPort]

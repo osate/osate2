@@ -1,2 +1,7 @@
 annex[0] owner=ExternalConditionGrouping::component.i
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=finish
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition

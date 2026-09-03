@@ -25,18 +25,14 @@ package org.osate.ge.ba.businessobjecthandlers;
 
 import java.util.Optional;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ba.declarative.DeclarativeBehaviorTransition;
-import org.osate.ba.declarative.Identifier;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -50,6 +46,9 @@ import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
 
 /**
  * Business Object Handler for {@link BehaviorState} objects.
@@ -78,7 +77,8 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE,
 				behaviorState.getName(),
-				ctx.getReferenceBuilder().getCanonicalReference(behaviorState.getOwner()).encode());
+				ctx.getReferenceBuilder().getCanonicalReference(BehaviorAnnexUtil.getBehaviorAnnex(behaviorState))
+						.encode());
 	}
 
 	@Override
@@ -103,40 +103,17 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 		// Find state by URI.
 		final BehaviorState behaviorState = (BehaviorState) behaviorAnnex.eResource().getResourceSet()
 				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorState.class).orElseThrow()), true);
+		final var group = (BehaviorStateGroup) behaviorState.eContainer();
 		EcoreUtil.remove(behaviorState);
-		if (behaviorAnnex.getStates().isEmpty()) {
-			behaviorAnnex.unsetStates();
+		if (group.getStates().isEmpty()) {
+			behaviorAnnex.getStateGroups().remove(group);
 		}
 	}
 
 	@Override
 	public void rename(final RenameContext ctx) {
 		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).orElseThrow();
-		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.getOwner();
-		final String originalName = behaviorState.getName();
-		final String newName = ctx.getNewName();
-
-		// Handle DeclarativeBehaviorTransitions
-		// Set the ID for source and destination states because they do not update if an invalid state name change occurs
-		behaviorAnnex.getTransitions().stream().filter(DeclarativeBehaviorTransition.class::isInstance)
-				.forEach(transition -> {
-					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) transition;
-					final EList<Identifier> srcStates = dt.getSrcStates();
-					if (!srcStates.isEmpty() && dt.getDestState() != null) {
-						// Set id for source and destination
-						setId(srcStates.get(0), originalName, newName);
-						setId(dt.getDestState(), originalName, newName);
-					}
-		});
-
-		behaviorState.setName(newName);
-	}
-
-	private static void setId(final Identifier identifier, final String originalName, final String newName) {
-		final String id = identifier.getId();
-		if (originalName.equalsIgnoreCase(id)) {
-			identifier.setId(newName);
-		}
+		behaviorState.setName(ctx.getNewName());
 	}
 
 	@Override

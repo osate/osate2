@@ -27,13 +27,9 @@ import static org.osate.ge.ba.util.BehaviorAnnexUtil.getPackage;
 
 import java.util.Optional;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.PublicPackageSection;
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
@@ -44,6 +40,9 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
 
 /**
  * Palette command for creating {@link BehaviorVariable} elements.
@@ -82,15 +81,15 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 
 				addImportIfNeeded.modifyModel(null, (tag, dataClassifier) -> behaviorAnnex,
 						(tag, behaviorAnnexToModify, prevResult) -> {
-							final BehaviorVariable newVariable = (BehaviorVariable) EcoreUtil
-									.create(AadlBaPackage.eINSTANCE.getBehaviorVariable());
+							final var newVariable = BehaviorAnnexFactory.eINSTANCE.createBehaviorVariable();
 							final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(behaviorAnnexToModify,
 									"new_behavior_variable");
 							newVariable.setName(newName);
 
-							newVariable.setDataClassifier(prevResult);
-
-							behaviorAnnexToModify.getVariables().add(newVariable);
+							final var group = BehaviorAnnexFactory.eINSTANCE.createBehaviorVariableGroup();
+							group.setDataClassifier(prevResult);
+							group.getVariables().add(newVariable);
+							behaviorAnnexToModify.getVariableGroups().add(group);
 							return StepResultBuilder.create()
 									.showNewBusinessObject(ctx.getTarget(), newVariable)
 									.build();

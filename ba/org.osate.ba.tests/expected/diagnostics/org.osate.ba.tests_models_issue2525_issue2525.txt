@@ -1,2 +1,0 @@
-error | semantic | 16 | 1 | 14 | incorrect port dequeue action, d_in is not an event [data] port
-error | semantic | 17 | 1 | 10 | incorrect port dequeue action, d_in is not an event [data] port

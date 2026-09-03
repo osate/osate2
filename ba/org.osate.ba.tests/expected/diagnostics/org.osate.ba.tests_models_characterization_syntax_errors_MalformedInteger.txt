@@ -1,2 +1,0 @@
-error | syntax | 10 | 1 | 38 | mal-formatted integer literal input '2#2#'
-warning | semantic | 5 | 7 | 10 | Base_Types in 'with' clause of public package section is not used.
