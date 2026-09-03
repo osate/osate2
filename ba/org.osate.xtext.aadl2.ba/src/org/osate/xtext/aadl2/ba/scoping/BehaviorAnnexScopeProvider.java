@@ -23,13 +23,66 @@
  */
 package org.osate.xtext.aadl2.ba.scoping;
 
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.scoping.IScope;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorPropertyAssociation;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTime;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariableGroup;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.TimedAction;
 
 /**
- * This class contains custom scoping description.
- *
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#scoping
- * on how and when to use it.
+ * Supplies local BA-state scopes and delegates AADL, property, and time-unit references to OSATE-aware global scoping.
+ * Generic {@code Reference} segments intentionally remain symbolic until the phase-5 translator has their type
+ * context.
  */
 public class BehaviorAnnexScopeProvider extends AbstractBehaviorAnnexScopeProvider {
+	public IScope scope_BehaviorTransition_sourceStates(BehaviorTransition context, EReference reference) {
+		return scopeForBehaviorStates(context);
+	}
+
+	public IScope scope_BehaviorTransition_destinationState(BehaviorTransition context, EReference reference) {
+		return scopeForBehaviorStates(context);
+	}
+
+	public IScope scope_BehaviorVariableGroup_dataClassifier(BehaviorVariableGroup context, EReference reference) {
+		return delegateGetScope(context, reference);
+	}
+
+	public IScope scope_ForStatement_dataClassifier(ForStatement context, EReference reference) {
+		return delegateGetScope(context, reference);
+	}
+
+	public IScope scope_TimedAction_processors(TimedAction context, EReference reference) {
+		return delegateGetScope(context, reference);
+	}
+
+	public IScope scope_BehaviorPropertyAssociation_property(BehaviorPropertyAssociation context,
+			EReference reference) {
+		return delegateGetScope(context, reference);
+	}
+
+	public IScope scope_BehaviorTime_unit(BehaviorTime context, EReference reference) {
+		UnitsType timeUnits = Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getUnitsType(),
+				"AADL_Project::Time_Units");
+		return timeUnits == null ? IScope.NULLSCOPE : scopeFor(timeUnits.getOwnedLiterals());
+	}
+
+	private static IScope scopeForBehaviorStates(BehaviorTransition context) {
+		BehaviorAnnex annex = EcoreUtil2.getContainerOfType(context, BehaviorAnnex.class);
+		if (annex == null) {
+			return IScope.NULLSCOPE;
+		}
+		return scopeFor(annex.getStateGroups()
+				.stream()
+				.flatMap(group -> group.getStates().stream())
+				.toList());
+	}
 
 }
