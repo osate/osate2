@@ -30,6 +30,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.eclipse.xtext.diagnostics.Severity;
@@ -55,8 +58,10 @@ import com.google.inject.Inject;
 
 /**
  * Exercises the temporary Behavior Annex name through the real embedded-AADL parser path. These tests ensure that
- * phase 4 contributes the parser, linker, and unparser together; resolves local BA names and referenced AADL objects;
- * records the deliberate Xtext linking message; and does not accidentally add an annex-library form.
+ * phase 4 contributes the parser, linker, and unparser together; phase 6 runs the legacy semantic checkers through
+ * the translated strict model; local BA names and referenced AADL objects resolve; deliberate Xtext linking messages
+ * gate semantic validation; reviewed checker corrections are explicit and fast; and no annex-library form is
+ * accidentally added.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexEmbeddedInjectorProvider.class)
@@ -111,6 +116,40 @@ public class BehaviorAnnexIntegrationTest {
 				.stream()
 				.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
 				.toList());
+	}
+
+	@Test
+	public void reportsTranslatedCheckerDiagnostic() throws Exception {
+		var result = testHelper.testFile(MODEL_DIRECTORY + "SemanticError.aadl");
+		assertEquals(List.of("ERROR: Phase6_Semantic_Error::Example can't have more than one initial state : "
+				+ "first, second : Behavior Annex D.3.(L3) legality rule failed."), result.getIssues()
+						.stream()
+						.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
+						.toList());
+	}
+
+	@Test(timeout = 30_000)
+	public void reportsReviewedCheckerCorrectionsWithoutResolvingTheWorkspace() throws Exception {
+		var source = Files.readString(
+				Path.of("..", "org.osate.ba.tests", "models", "covering_semantic", "lr_D3_L1_L2.aadl"),
+				StandardCharsets.UTF_8)
+				.replace("annex behavior_specification", "annex behavior_specification_xtext");
+		var result = testHelper.testString(source);
+		assertEquals(List.of(
+				"ERROR: exemple_lr_D3_L1_L2::sub.error1 can't have complete state : compState : "
+						+ "Behavior Annex D.3.(L2) legality rule failed.",
+				"ERROR: exemple_lr_D3_L1_L2::sub.error1 can't have more than one initial state : "
+						+ "initState1, initState2 : Behavior Annex D.3.(L1) legality rule failed.",
+				"ERROR: exemple_lr_D3_L1_L2::sub.error1 has no final state : "
+						+ "Behavior Annex D.3.(L1) legality rule failed.",
+				"ERROR: exemple_lr_D3_L1_L2::sub.error2 has more than one final state : "
+						+ "uniqueState, finalState1 : Behavior Annex D.3.(L1) legality rule failed."),
+				result.getIssues()
+						.stream()
+						.filter(issue -> "org.osate.xtext.aadl2.ba.checker".equals(issue.getCode()))
+						.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
+						.sorted()
+						.toList());
 	}
 
 	private static BehaviorAnnex getBehaviorAnnex(AadlPackage aadlPackage) {

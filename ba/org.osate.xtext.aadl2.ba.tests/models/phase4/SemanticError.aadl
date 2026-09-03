@@ -1,0 +1,10 @@
+package Phase6_Semantic_Error
+public
+	thread Example
+		annex behavior_specification_xtext {**
+			states
+				first, second : initial state;
+				ready : complete state;
+		**};
+	end Example;
+end Phase6_Semantic_Error;
