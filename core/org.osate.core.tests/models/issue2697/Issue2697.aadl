@@ -1,0 +1,11 @@
+package issue2697
+public
+	system Original
+	end Original;
+
+	system implementation Original.first
+	end Original.first;
+
+	system implementation Original.second
+	end Original.second;
+end issue2697;
