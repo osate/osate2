@@ -20,6 +20,14 @@ Require-Bundle: org.eclipse.ui,
  org.osate.aadl2.errormodel.instance;bundle-version="1.0.0",
  org.osate.pluginsupport;bundle-version="7.2.0",
  org.osate.aadl2.modelsupport,
+ org.osate.xtext.aadl2.ide,
+ org.osate.xtext.aadl2.ui,
+ org.osate.xtext.aadl2.errormodel.ide,
+ org.osate.xtext.aadl2.errormodel.ui,
+ org.eclipse.xtext.ide,
+ org.eclipse.lsp4j,
+ org.eclipse.lsp4j.jsonrpc,
+ org.eclipse.ltk.core.refactoring,
  org.junit,
  junit-jupiter-api
 Bundle-RequiredExecutionEnvironment: JavaSE-21
@@ -27,4 +35,3 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.aadl2.errormodel.tests
 Automatic-Module-Name: org.osate.aadl2.errormodel.tests
 Bundle-Vendor: CMU/SEI
-

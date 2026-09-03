@@ -23,9 +23,11 @@
  */
 package org.osate.xtext.aadl2.errormodel.ide;
 
+import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.util.Modules2;
 import org.osate.xtext.aadl2.errormodel.ErrorModelRuntimeModule;
 import org.osate.xtext.aadl2.errormodel.ErrorModelStandaloneSetup;
+import org.osate.xtext.aadl2.errormodel.ide.refactoring.EmbeddedErrorModelResourceServiceProvider;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -39,6 +41,18 @@ public class ErrorModelIdeSetup extends ErrorModelStandaloneSetup {
 	@Override
 	public Injector createInjector() {
 		return Guice.createInjector(Modules2.mixin(new ErrorModelRuntimeModule(), new ErrorModelIdeModule()));
+	}
+
+	@Override
+	public void register(Injector injector) {
+		super.register(injector);
+		var providers = IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap();
+		var aadlProvider = providers.get("aadl");
+		if (aadlProvider instanceof IResourceServiceProvider
+				&& !(aadlProvider instanceof EmbeddedErrorModelResourceServiceProvider)) {
+			providers.put("aadl",
+					new EmbeddedErrorModelResourceServiceProvider((IResourceServiceProvider) aadlProvider));
+		}
 	}
 
 }

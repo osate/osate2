@@ -1,0 +1,26 @@
+package issue2409
+public
+	annex emv2 {**
+		error types
+			ServiceError: type;
+		end types;
+	**};
+
+	system Subsystem
+		annex emv2 {**
+			use types issue2409;
+
+			error propagations
+				up1: in propagation {ServiceError};
+
+				flows
+					f3: error sink up1;
+			end propagations;
+
+			propagation paths
+				up1: propagation point;
+				path1: up1 -> up1;
+			end paths;
+		**};
+	end Subsystem;
+end issue2409;
