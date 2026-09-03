@@ -1,2 +1,0 @@
-error | semantic | 39 | 9 | 22 | Duplicate Element 'behavior_specification' in SubprogramImplementation 'push.default'
-error | semantic | 49 | 9 | 22 | Duplicate Element 'behavior_specification' in SubprogramImplementation 'pop.default'

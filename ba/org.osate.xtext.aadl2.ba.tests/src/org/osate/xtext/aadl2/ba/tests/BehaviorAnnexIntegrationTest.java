@@ -59,9 +59,10 @@ import com.google.inject.Inject;
 
 /**
  * Exercises the Behavior Annex through the real embedded-AADL parser path. These tests ensure that the parser, linker,
- * and unparser are contributed together; semantic checkers run through the translated strict model; local BA names
- * and referenced AADL objects resolve; Xtext linking messages gate semantic validation; reviewed checker corrections
- * are explicit and fast; and no annex-library form is accidentally added.
+ * and unparser are contributed together; semantic checkers run through the translated strict model; multiple
+ * subclauses remain local instead of colliding in the global index; local BA names and referenced AADL objects resolve;
+ * Xtext linking messages gate semantic validation; reviewed checker corrections are explicit and fast; and no
+ * annex-library form is accidentally added.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexEmbeddedInjectorProvider.class)
@@ -73,6 +74,12 @@ public class BehaviorAnnexIntegrationTest {
 
 	@Inject
 	private DeclarativeToStrictTranslator translator;
+
+	@Test
+	public void multipleSubclausesDoNotHaveDuplicateNames() throws Exception {
+		var result = testHelper.testFile(MODEL_DIRECTORY + "MultipleSubclauses.aadl");
+		assertTrue(result.getSummary(), result.getIssues().isEmpty());
+	}
 
 	@Test
 	public void ordinaryBehaviorSpecificationUsesXtextPipeline() throws Exception {

@@ -33,6 +33,6 @@ class Issue1884Test {
 				]
 			]
 		]
-		5.assertEquals(result.issues.size)
+		2.assertEquals(result.issues.size)
 	}
 }

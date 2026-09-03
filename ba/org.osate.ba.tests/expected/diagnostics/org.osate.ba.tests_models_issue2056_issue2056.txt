@@ -1,2 +1,0 @@
-error | semantic | 14 | 11 | 22 | Duplicate Element 'behavior_specification' in ThreadGroupImplementation 'threadA.impl'
-error | semantic | 32 | 13 | 22 | Duplicate Element 'behavior_specification' in ThreadGroupImplementation 'threadB.impl'

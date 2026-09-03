@@ -1,3 +1,0 @@
-error | semantic | 31 | 7 | 22 | Duplicate Element 'behavior_specification' in SubprogramImplementation 'sub.good'
-error | semantic | 41 | 7 | 22 | Duplicate Element 'behavior_specification' in SubprogramImplementation 'sub.error1'
-error | semantic | 56 | 7 | 22 | Duplicate Element 'behavior_specification' in SubprogramImplementation 'sub.error2'

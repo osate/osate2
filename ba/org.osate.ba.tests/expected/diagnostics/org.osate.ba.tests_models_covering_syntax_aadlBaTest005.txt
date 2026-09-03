@@ -3,9 +3,7 @@ error | semantic | 124 | 5 | 56 | The type of subcomponent 'recursiveGrp' cannot
 error | semantic | 182 | 5 | 54 | Invalid circular dependency. Subcomponent 'subprogGrp' directly or indirectly contains 'MyThreadGroup.impl'.
 error | semantic | 183 | 5 | 48 | The type of subcomponent 'recursiveGrp' cannot be the object that contains it
 error | semantic | 231 | 5 | 54 | Invalid circular dependency. Subcomponent 'subprogGrp' directly or indirectly contains 'thread2.impl'.
-error | semantic | 237 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'thread2.impl'
 error | semantic | 379 | 5 | 45 | Invalid circular dependency. Subcomponent 'threadGrp' directly or indirectly contains 'process1.impl'.
-error | semantic | 381 | 7 | 22 | Duplicate Element 'behavior_specification' in ProcessImplementation 'process1.impl'
 error | semantic | 96 | 5 | 42 | Feature group directly or indirectly contains itself
 warning | semantic | 29 | 30 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
 warning | semantic | 29 | 72 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.

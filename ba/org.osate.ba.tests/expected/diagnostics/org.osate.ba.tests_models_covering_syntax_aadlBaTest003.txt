@@ -1,4 +1,2 @@
-error | semantic | 220 | 8 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'concreteThread.impl'
-error | semantic | 514 | 8 | 22 | Duplicate Element 'behavior_specification' in SubprogramType 'MySubProgConcrete'
 warning | semantic | 25 | 33 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
 warning | semantic | 25 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.

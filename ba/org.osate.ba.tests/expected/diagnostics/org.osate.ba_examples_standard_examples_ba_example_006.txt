@@ -1,2 +1,0 @@
-error | semantic | 24 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'merger.twopersistentstates'
-error | semantic | 43 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'merger.portbased'

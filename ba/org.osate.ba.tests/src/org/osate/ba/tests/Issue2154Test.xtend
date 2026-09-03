@@ -33,14 +33,6 @@ class Issue2154Test {
 				]
 			]
 		]
-		2.assertEquals(result.issues.size)
-		result.issues.get(1) => [
-			"Duplicate Element 'behavior_specification' in ProcessType 'proc'".assertEquals(message)
-			18.assertEquals(lineNumber)
-		]
-		result.issues.get(0) => [
-			"Duplicate Element 'behavior_specification' in AbstractType 'abst'".assertEquals(message)
-			7.assertEquals(lineNumber)
-		]
+		0.assertEquals(result.issues.size)
 	}
 }

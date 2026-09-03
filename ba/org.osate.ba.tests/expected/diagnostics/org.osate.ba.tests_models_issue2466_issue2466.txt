@@ -1,2 +1,0 @@
-error | semantic | 37 | 9 | 22 | Duplicate Element 'behavior_specification' in SubprogramType 's2'
-error | semantic | 52 | 9 | 22 | Duplicate Element 'behavior_specification' in SubprogramType 's3'
