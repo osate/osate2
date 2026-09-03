@@ -28,7 +28,8 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
-import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
@@ -39,21 +40,27 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
  *
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#outline
  */
-public class BehaviorAnnexOutlineTreeProvider extends DefaultOutlineTreeProvider {
-	protected void _createChildren(final IOutlineNode parentNode, final BehaviorAnnex annex) {
+public class BehaviorAnnexOutlineTreeProvider extends BackgroundOutlineTreeProvider {
+	@Override
+	protected void internalCreateChildren(final IOutlineNode parentNode, final EObject modelElement) {
+		if (modelElement instanceof DefaultAnnexSubclause defaultAnnex
+				&& defaultAnnex.getParsedAnnexSubclause() instanceof BehaviorAnnex annex) {
+			createBehaviorChildren(parentNode, annex);
+		} else if (modelElement instanceof BehaviorAnnex annex) {
+			createBehaviorChildren(parentNode, annex);
+		} else {
+			super.internalCreateChildren(parentNode, modelElement);
+		}
+	}
+
+	private void createBehaviorChildren(final IOutlineNode parentNode, final BehaviorAnnex annex) {
 		getTopLevelElements(annex).forEach(element -> createNode(parentNode, element));
 	}
 
-	protected boolean _isLeaf(final BehaviorVariable variable) {
-		return true;
-	}
-
-	protected boolean _isLeaf(final BehaviorState state) {
-		return true;
-	}
-
-	protected boolean _isLeaf(final BehaviorTransition transition) {
-		return true;
+	@Override
+	protected boolean isLeaf(final EObject modelElement) {
+		return modelElement instanceof BehaviorVariable || modelElement instanceof BehaviorState
+				|| modelElement instanceof BehaviorTransition || super.isLeaf(modelElement);
 	}
 
 	public static List<EObject> getTopLevelElements(final BehaviorAnnex annex) {
