@@ -1,0 +1,20 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package InternalCondition
+public
+	abstract component
+	end component;
+
+	abstract implementation component.i
+	internal features
+		first_event: event;
+		second_event: event;
+	annex behavior_specification {**
+		states
+			start: initial state;
+			finish: final state;
+		transitions
+			start -[ on internal first_event or second_event ]-> finish;
+	**};
+	end component.i;
+end InternalCondition;

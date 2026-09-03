@@ -1,0 +1,2 @@
+error | semantic | 17 | 1 | 58 | 'internal_target' is not found
+error | semantic | 18 | 1 | 50 | 'internal_action' is not found

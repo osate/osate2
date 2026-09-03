@@ -1,0 +1,4 @@
+===== annex[0] owner=ExternalConditionGrouping::component.i =====
+
+----- legacy round-trip -----
+idempotent

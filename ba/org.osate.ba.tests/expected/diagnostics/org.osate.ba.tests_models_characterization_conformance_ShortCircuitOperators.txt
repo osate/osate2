@@ -1,0 +1,3 @@
+error | syntax | 15 | 1 | 64 | extraneous input 'right' expecting {'and', 'mod', 'or', 'rem', 'xor', '[', ']->', '?', '.', ''', '=', '!=', '<', '<=', '>', '>=', '+', '-', '*', '/', '**', '=='}
+error | syntax | 16 | 1 | 62 | no viable alternative at input 'else'
+warning | semantic | 5 | 7 | 10 | Base_Types in 'with' clause of public package section is not used.

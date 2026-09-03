@@ -1,0 +1,24 @@
+annex[0] owner=SelfPropertyReference::worker
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=finish
+    transitions[0] : DeclarativeBehaviorTransition
+      srcStates[0] : Identifier
+      destState : Identifier
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : Reference
+          ids[0] : ArrayableIdentifier
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DeclarativePropertyReference
+                    qualifiedName : QualifiedNamedElement
+                      baName : Identifier
+                    reference : Reference
+                      ids[0] : ArrayableIdentifier
+                    propertyNames[0] : DeclarativePropertyName
+                      propertyName : Identifier

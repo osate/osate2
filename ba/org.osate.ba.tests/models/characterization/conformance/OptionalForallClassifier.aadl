@@ -1,0 +1,22 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package OptionalForallClassifier
+public
+	with Base_Types;
+
+	subprogram operation
+	annex behavior_specification {**
+		variables
+			value: Base_Types::Integer;
+		states
+			start: initial state;
+			finish: final state;
+		transitions
+			start -[ ]-> finish {
+				forall (i in 0 .. 1) {
+					value := i
+				}
+			};
+	**};
+	end operation;
+end OptionalForallClassifier;

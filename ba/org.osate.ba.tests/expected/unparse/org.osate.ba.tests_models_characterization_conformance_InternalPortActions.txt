@@ -1,0 +1,14 @@
+===== annex[0] owner=InternalPortActions::component.i =====
+
+states
+  start : initial state;
+  finish : final state;
+transitions
+  assign : start -[]-> finish {
+    internal_target := any
+  };
+  send : start -[]-> finish {
+    internal_action !
+  };
+----- legacy round-trip -----
+idempotent

@@ -1,0 +1,4 @@
+===== annex[0] owner=PortUpdated::component.i =====
+
+----- legacy round-trip -----
+idempotent

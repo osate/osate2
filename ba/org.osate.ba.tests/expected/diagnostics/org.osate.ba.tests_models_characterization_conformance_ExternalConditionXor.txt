@@ -1,0 +1,1 @@
+error | syntax | 17 | 1 | 55 | mismatched input 'xor' expecting {'and', 'or', '[', ']->', '.'}
