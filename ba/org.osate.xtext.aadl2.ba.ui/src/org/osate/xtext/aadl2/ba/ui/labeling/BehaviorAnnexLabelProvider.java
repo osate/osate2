@@ -43,14 +43,18 @@ public class BehaviorAnnexLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	public String text(final BehaviorVariable variable) {
-		return variable.getName();
+		return appendName("Variable", variable.getName());
 	}
 
 	public String text(final BehaviorState state) {
-		return state.getName();
+		return appendName("State", state.getName());
 	}
 
 	public String text(final BehaviorTransition transition) {
-		return transition.getName() == null ? "<unnamed transition>" : transition.getName();
+		return appendName("Transition", transition.getName());
+	}
+
+	private static String appendName(final String type, final String name) {
+		return name == null || name.isEmpty() ? type : type + " " + name;
 	}
 }
