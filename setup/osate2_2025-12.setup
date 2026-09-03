@@ -432,6 +432,8 @@
     <requirement
         name="org.eclipse.emf.validation.sdk.feature.group"/>
     <requirement
+        name="org.eclipse.lsp4j.sdk.feature.group"/>
+    <requirement
         name="org.eclipse.gef.sdk.feature.group"/>
     <requirement
         name="org.eclipse.gmf.runtime.sdk.feature.group"/>
@@ -657,7 +659,7 @@
       <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
       <repository
-          url="https://download.itemis.de/updates/releases/2.1.1"/>
+          url="https://osate-build.sei.cmu.edu/p2/xtext-antlr"/>
       <repository
           url="https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.39.0"/>
     </setupTask>
@@ -924,6 +926,8 @@
       <requirement
           name="org.eclipse.pde.feature.group"/>
       <requirement
+          name="org.eclipse.lsp4j.sdk.feature.group"/>
+      <requirement
           name="org.junit.jupiter.api"/>
       <requirement
           name="*"/>
@@ -946,7 +950,7 @@
         <repository
             url="https://download.eclipse.org/xsemantics/milestones/1.24"/>
         <repository
-            url="https://download.itemis.de/updates/releases/2.1.1"/>
+            url="https://osate-build.sei.cmu.edu/p2/xtext-antlr"/>
         <repository
             url="https://xtexttools.libutzki.de/"/>
         <repository
