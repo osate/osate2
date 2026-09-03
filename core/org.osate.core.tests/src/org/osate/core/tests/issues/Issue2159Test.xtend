@@ -37,7 +37,6 @@ import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.assertError
-import static extension org.osate.testsupport.AssertHelper.assertWarning
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -62,13 +61,6 @@ class Issue2159Test extends XtextTest {
 				ownedPropertyAssociations.get(0) => [
 					(ownedValues.head.ownedValue as ReferenceValue).path.arrayRanges.head => [
 						assertError(testFileResult.issues, issueCollection, "'f1' does not have an array size")
-					]
-				]
-				ownedPropertyAssociations.get(1) => [
-					(ownedValues.head.ownedValue as ReferenceValue).path.arrayRanges.head => [
-						assertWarning(testFileResult.issues, issueCollection,
-							"Array ranges in reference values are not property instantiated"
-						)
 					]
 				]
 				ownedPropertyAssociations.get(2) => [
