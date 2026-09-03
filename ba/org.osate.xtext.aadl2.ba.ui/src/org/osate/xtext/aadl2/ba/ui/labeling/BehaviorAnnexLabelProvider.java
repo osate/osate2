@@ -26,6 +26,9 @@ package org.osate.xtext.aadl2.ba.ui.labeling;
 import com.google.inject.Inject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
 
 /**
  * Provides labels for EObjects.
@@ -34,18 +37,20 @@ import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
  */
 public class BehaviorAnnexLabelProvider extends DefaultEObjectLabelProvider {
 
-    @Inject
-    public BehaviorAnnexLabelProvider(AdapterFactoryLabelProvider delegate) {
-        super(delegate);
-    }
+	@Inject
+	public BehaviorAnnexLabelProvider(final AdapterFactoryLabelProvider delegate) {
+		super(delegate);
+	}
 
-    // Labels and icons can be computed like this:
+	public String text(final BehaviorVariable variable) {
+		return variable.getName();
+	}
 
-//    String text(Greeting ele) {
-//        return "A greeting to " + ele.getName();
-//    }
-//
-//    String image(Greeting ele) {
-//        return "Greeting.gif";
-//    }
+	public String text(final BehaviorState state) {
+		return state.getName();
+	}
+
+	public String text(final BehaviorTransition transition) {
+		return transition.getName() == null ? "<unnamed transition>" : transition.getName();
+	}
 }

@@ -23,40 +23,142 @@
  */
 package org.osate.xtext.aadl2.ba.formatting2;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
+import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion;
+import org.eclipse.xtext.resource.XtextResource;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorPropertyAssociation;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariableGroup;
 import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter;
 
-public class BehaviorAnnexFormatter extends PropertiesFormatter {
+/**
+ * Formats BA sections and nested action blocks while applying consistent punctuation and expression spacing across
+ * the complete annex subtree.
+ */
+public final class BehaviorAnnexFormatter extends PropertiesFormatter {
+	private static final Set<String> NO_SPACE_BEFORE = Set.of(",", ";", ":", ")", "]", "}", ".", "::", "#", "'",
+			"?", "!", ">>", "!<", "!>");
+	private static final Set<String> NO_SPACE_AFTER = Set.of("(", "[", ".", "::", "#", "'", "!", "?", ">>", "!<",
+			"!>", "-[");
+	private static final Set<String> SPACED_OPERATORS = Set.of(":=", "=>", "=", "!=", "<", "<=", ">", ">=", "+", "-",
+			"*", "/", "mod", "rem", "**", "and", "or", "xor", "..");
 
-    protected void format(BehaviorAnnex behaviorAnnex, IFormattableDocument doc) {
-        // TODO: format HiddenRegions around keywords, attributes, cross references, etc.
-        for (BehaviorVariableGroup behaviorVariableGroup : behaviorAnnex.getVariableGroups()) {
-            doc.format(behaviorVariableGroup);
-        }
-        for (BehaviorStateGroup behaviorStateGroup : behaviorAnnex.getStateGroups()) {
-            doc.format(behaviorStateGroup);
-        }
-        for (BehaviorTransition behaviorTransition : behaviorAnnex.getTransitions()) {
-            doc.format(behaviorTransition);
-        }
-    }
+	@Override
+	public void format(final Object object, final IFormattableDocument document) {
+		switch (object) {
+		case BehaviorAnnex annex -> _format(annex, document);
+		case XtextResource resource -> _format(resource, document);
+		case EObject eObject -> _format(eObject, document);
+		case null -> _format((Void) null, document);
+		default -> _format(object, document);
+		}
+	}
 
-    protected void format(BehaviorVariableGroup behaviorVariableGroup, IFormattableDocument doc) {
-        // TODO: format HiddenRegions around keywords, attributes, cross references, etc.
-        for (BehaviorVariable behaviorVariable : behaviorVariableGroup.getVariables()) {
-            doc.format(behaviorVariable);
-        }
-        doc.format(behaviorVariableGroup.getInitialValue());
-        for (BehaviorPropertyAssociation behaviorPropertyAssociation : behaviorVariableGroup.getPropertyAssociations()) {
-            doc.format(behaviorPropertyAssociation);
-        }
-    }
+	@SuppressWarnings("unchecked")
+	protected void _format(final BehaviorAnnex annex, final IFormattableDocument document) {
+		var regions = textRegionExtensions.allSemanticRegions(annex);
+		var semanticRegions = regions instanceof List<?> ? (List<ISemanticRegion>) regions
+				: java.util.stream.StreamSupport.stream(regions.spliterator(), false).toList();
+		var sectionKeywords = new ArrayList<ISemanticRegion>(3);
+		for (var i = 0; i + 1 < semanticRegions.size(); i++) {
+			document.append(semanticRegions.get(i), it -> {
+				it.lowPriority();
+				it.oneSpace();
+			});
+		}
 
-    // TODO: implement for BehaviorVariable, ArrayDimension, BehaviorPropertyAssociation, BehaviorStateGroup, BehaviorTransition, BehaviorCondition, ExecuteCondition, DispatchCondition, DispatchTriggerCondition, DispatchTriggerLogicalExpression, DispatchConjunction, ModeSwitchCondition, ModeSwitchConjunction, BehaviorActionBlock, BehaviorActionSequence, BehaviorActionSet, AssignmentAction, CommunicationAction, TimedAction, IfStatement, ElseIfClause, ForStatement, WhileStatement, DoUntilStatement, ElementValues, BehaviorTime, BinaryExpression, UnaryExpression, ReferenceExpression, HashPropertyReference, PropertyReferenceTail, NamedPropertyField, PropertyArrayIndex, UnindexedReferenceExpression, UnindexedReference, UnindexedReferenceTail, Reference, ReferenceTail, ReferenceSegment, ArrayIndex
+		for (var region : semanticRegions) {
+			var text = region.getText().toLowerCase();
+			if (NO_SPACE_BEFORE.contains(text)) {
+				document.prepend(region, it -> {
+					it.highPriority();
+					it.noSpace();
+				});
+			}
+			if (NO_SPACE_AFTER.contains(text)) {
+				document.append(region, it -> {
+					it.highPriority();
+					it.noSpace();
+				});
+			}
+			if (SPACED_OPERATORS.contains(text)) {
+				document.surround(region, it -> {
+					it.highPriority();
+					it.oneSpace();
+				});
+			}
+			if (";".equals(text)) {
+				document.append(region, it -> {
+					it.highPriority();
+					it.newLine();
+				});
+			}
+			if (",".equals(text)) {
+				document.append(region, it -> {
+					it.highPriority();
+					it.oneSpace();
+				});
+			}
+			if ("variables".equals(text) || "states".equals(text) || "transitions".equals(text)) {
+				sectionKeywords.add(region);
+				document.prepend(region, it -> {
+					it.highPriority();
+					if ("variables".equals(text)) {
+						it.noSpace();
+					} else {
+						it.newLine();
+					}
+				});
+				document.append(region, it -> {
+					it.highPriority();
+					it.newLine();
+				});
+			}
+			if ("if".equals(text) || "elsif".equals(text) || "while".equals(text) || "until".equals(text)
+					|| "for".equals(text) || "forall".equals(text) || "computation".equals(text)
+					|| "binding".equals(text)) {
+				document.append(region, it -> {
+					it.highPriority();
+					it.oneSpace();
+				});
+			}
+			if ("]->".equals(text)) {
+				document.prepend(region, it -> {
+					it.highPriority();
+					it.noSpace();
+				});
+				document.append(region, it -> {
+					it.highPriority();
+					it.oneSpace();
+				});
+			}
+		}
+		for (var i = 0; i < sectionKeywords.size(); i++) {
+			var start = sectionKeywords.get(i);
+			var end = i + 1 < sectionKeywords.size() ? sectionKeywords.get(i + 1)
+					: semanticRegions.getLast();
+			document.interior(start, end, it -> it.indent());
+		}
+
+		for (var pair : textRegionExtensions.allRegionsFor(annex).keywordPairs("{", "}")) {
+			var open = pair.getKey();
+			var close = pair.getValue();
+			document.prepend(open, it -> {
+				it.highPriority();
+				it.oneSpace();
+			});
+			document.append(open, it -> {
+				it.highPriority();
+				it.newLine();
+			});
+			document.prepend(close, it -> {
+				it.highPriority();
+				it.newLine();
+			});
+			document.interior(open, close, it -> it.indent());
+		}
+	}
 }

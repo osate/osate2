@@ -21,16 +21,46 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ba.ide;
+package org.osate.xtext.aadl2.ba.tests;
 
-import org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider;
-import org.osate.xtext.aadl2.ba.ide.contentassist.BehaviorAnnexIdeContentProposalProvider;
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.eclipse.xtext.testing.formatter.FormatterTestHelper;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import com.google.inject.Inject;
 
 /**
- * Generic IDE bindings for the standalone Behavior Annex language.
+ * Verifies the Phase 8 formatter through Xtext's formatter test harness so whitespace, indentation, and reparsing are
+ * checked on the real Behavior Annex grammar rather than on a string-only helper.
  */
-public class BehaviorAnnexIdeModule extends AbstractBehaviorAnnexIdeModule {
-	public Class<? extends IdeContentProposalProvider> bindIdeContentProposalProvider() {
-		return BehaviorAnnexIdeContentProposalProvider.class;
+@RunWith(XtextRunner.class)
+@InjectWith(BehaviorAnnexInjectorProvider.class)
+public class BehaviorAnnexFormatterTest {
+	@Inject
+	private FormatterTestHelper formatter;
+
+	@Test
+	public void formatsDeclarationsTransitionsAndNestedActions() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted(
+					"variables counter,other:Base_Types::Integer:=1;states idle:initial state;running:final state;"
+							+ "transitions start:idle-[counter=1]->running{counter:=counter+1;output!(counter)};");
+			request.setExpectation("""
+					variables
+						counter, other: Base_Types::Integer := 1;
+					states
+						idle: initial state;
+						running: final state;
+					transitions
+						start: idle -[counter = 1]-> running {
+							counter := counter + 1;
+							output!(counter)
+						};
+					""");
+		});
 	}
 }

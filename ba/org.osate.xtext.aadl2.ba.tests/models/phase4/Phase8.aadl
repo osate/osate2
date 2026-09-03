@@ -1,0 +1,26 @@
+package Phase8
+public
+	with Base_Types;
+
+	system Example
+		features
+			input: in event data port Base_Types::Integer;
+			output: out event data port Base_Types::Integer;
+	end Example;
+
+	system implementation Example.i
+		subcomponents
+			storage: data Base_Types::Integer;
+		annex behavior_specification {**
+			variables
+				counter : Base_Types::Integer;
+			states
+				idle : initial state;
+				running : final state;
+			transitions
+				start: idle -[]-> running {
+					counter := input
+				};
+		**};
+	end Example.i;
+end Phase8;

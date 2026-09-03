@@ -21,16 +21,42 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ba.ide;
+package org.osate.xtext.aadl2.ba.ide.contentassist;
 
+import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.ide.editor.contentassist.ContentAssistContext;
+import org.eclipse.xtext.ide.editor.contentassist.ContentAssistEntry;
+import org.eclipse.xtext.ide.editor.contentassist.IIdeContentProposalAcceptor;
 import org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider;
-import org.osate.xtext.aadl2.ba.ide.contentassist.BehaviorAnnexIdeContentProposalProvider;
+import org.osate.xtext.aadl2.ba.services.BehaviorAnnexReferenceProposalService;
+
+import com.google.inject.Inject;
 
 /**
- * Generic IDE bindings for the standalone Behavior Annex language.
+ * Adds model-aware proposals for the non-cross-reference {@code ReferenceSegment} rules used throughout BA.
  */
-public class BehaviorAnnexIdeModule extends AbstractBehaviorAnnexIdeModule {
-	public Class<? extends IdeContentProposalProvider> bindIdeContentProposalProvider() {
-		return BehaviorAnnexIdeContentProposalProvider.class;
+public final class BehaviorAnnexIdeContentProposalProvider extends IdeContentProposalProvider {
+	@Inject
+	private BehaviorAnnexReferenceProposalService proposals;
+
+	@Override
+	protected void _createProposals(final Assignment assignment, final ContentAssistContext context,
+			final IIdeContentProposalAcceptor acceptor) {
+		var rule = EcoreUtil2.getContainerOfType(assignment, ParserRule.class);
+		if ("name".equals(assignment.getFeature()) && rule != null
+				&& ("ReferenceSegment".equals(rule.getName()) || "UnindexedReferenceSegment".equals(rule.getName()))) {
+			var model = context.getCurrentModel() != null ? context.getCurrentModel() : context.getRootModel();
+			for (var proposal : proposals.getRootProposals(model)) {
+				ContentAssistEntry entry = getProposalCreator().createProposal(proposal, context,
+						it -> it.setKind(ContentAssistEntry.KIND_REFERENCE));
+				if (entry != null) {
+					acceptor.accept(entry, getProposalPriorities().getDefaultPriority(entry));
+				}
+			}
+			return;
+		}
+		super._createProposals(assignment, context, acceptor);
 	}
 }

@@ -21,16 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ba.ide;
+package org.osate.xtext.aadl2.ba.ui.contentassist;
 
-import org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider;
-import org.osate.xtext.aadl2.ba.ide.contentassist.BehaviorAnnexIdeContentProposalProvider;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.parser.IParseResult;
+import org.eclipse.xtext.ui.editor.contentassist.antlr.EntryPointFinder;
+import org.osate.aadl2.AnnexSubclause;
 
 /**
- * Generic IDE bindings for the standalone Behavior Annex language.
+ * Keeps content assist rooted in the retained annex node model when BA is embedded in an AADL resource.
  */
-public class BehaviorAnnexIdeModule extends AbstractBehaviorAnnexIdeModule {
-	public Class<? extends IdeContentProposalProvider> bindIdeContentProposalProvider() {
-		return BehaviorAnnexIdeContentProposalProvider.class;
+public final class AnnexAwareEntryPointFinder extends EntryPointFinder {
+	@Override
+	public ICompositeNode findEntryPoint(final IParseResult parseResult, final int offset) {
+		var root = parseResult.getRootNode();
+		return root.getSemanticElement() instanceof AnnexSubclause ? root : super.findEntryPoint(parseResult, offset);
 	}
 }

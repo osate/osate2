@@ -21,60 +21,62 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ba.ui.outline;
+package org.osate.xtext.aadl2.ba.services;
 
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
-import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 
 /**
- * Customization of the default outline structure.
- *
- * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#outline
+ * Computes case-insensitive first-segment proposals for the symbolic BA {@code Reference} rules. The same service is
+ * used by Eclipse and generic IDE/LSP completion so both environments expose the same model-aware candidates.
  */
-public class BehaviorAnnexOutlineTreeProvider extends DefaultOutlineTreeProvider {
-	protected void _createChildren(final IOutlineNode parentNode, final BehaviorAnnex annex) {
-		getTopLevelElements(annex).forEach(element -> createNode(parentNode, element));
-	}
+public final class BehaviorAnnexReferenceProposalService {
+	public List<String> getRootProposals(final EObject context) {
+		var names = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+		names.add("self");
 
-	protected boolean _isLeaf(final BehaviorVariable variable) {
-		return true;
-	}
+		var annex = context instanceof BehaviorAnnex behaviorAnnex ? behaviorAnnex
+				: EcoreUtil2.getContainerOfType(context, BehaviorAnnex.class);
+		if (annex == null) {
+			return List.copyOf(names);
+		}
 
-	protected boolean _isLeaf(final BehaviorState state) {
-		return true;
-	}
-
-	protected boolean _isLeaf(final BehaviorTransition transition) {
-		return true;
-	}
-
-	public static List<EObject> getTopLevelElements(final BehaviorAnnex annex) {
-		var variables = annex.getVariableGroups()
+		annex.getVariableGroups()
 				.stream()
 				.flatMap(group -> group.getVariables().stream())
-				.map(EObject.class::cast);
-		var states = annex.getStateGroups()
-				.stream()
-				.flatMap(group -> group.getStates().stream())
-				.map(EObject.class::cast);
-		var transitions = annex.getTransitions().stream().map(EObject.class::cast);
-		return Stream.of(variables, states, transitions).flatMap(stream -> stream).toList();
+				.map(variable -> variable.getName())
+				.forEach(names::add);
+
+		for (var current = context; current != null && current != annex; current = current.eContainer()) {
+			if (current instanceof ForStatement statement && statement.getVariable() != null) {
+				names.add(statement.getVariable());
+			}
+		}
+
+		if (annex.getContainingClassifier() instanceof ComponentClassifier owner) {
+			addNames(names, owner.getAllFeatures());
+			addNames(names, owner.getAllModes());
+			addNames(names, owner.getAllPrototypes());
+			if (owner instanceof ComponentImplementation implementation) {
+				addNames(names, implementation.getAllSubcomponents());
+			}
+		}
+		return List.copyOf(names);
 	}
 
-	public static String getElementName(final EObject element) {
-		return switch (element) {
-		case BehaviorVariable variable -> variable.getName();
-		case BehaviorState state -> state.getName();
-		case BehaviorTransition transition -> transition.getName();
-		default -> "";
-		};
+	private static void addNames(final TreeSet<String> names, final Iterable<? extends NamedElement> elements) {
+		for (var element : elements) {
+			if (element.getName() != null) {
+				names.add(element.getName());
+			}
+		}
 	}
 }

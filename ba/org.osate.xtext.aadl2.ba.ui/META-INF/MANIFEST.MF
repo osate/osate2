@@ -18,6 +18,7 @@ Require-Bundle: org.osate.xtext.aadl2.ba;bundle-version="[1.0.0,2.0.0)";visibili
  org.eclipse.ui.ide;bundle-version="[3.7.0,4.0.0)",
  org.antlr.runtime;bundle-version="[3.2.0,4.0.0)",
  org.osate.xtext.aadl2.properties.ui;bundle-version="[4.4.0,5.0.0)",
+ org.osate.xtext.aadl2.ui;bundle-version="[10.0.0,11.0.0)",
  org.osate.aadl2;bundle-version="[7.0.0,8.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.osate.xtext.aadl2.ba.ui
