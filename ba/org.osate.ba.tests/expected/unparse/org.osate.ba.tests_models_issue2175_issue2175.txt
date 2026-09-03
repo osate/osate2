@@ -1,0 +1,10 @@
+===== annex[0] owner=issue2175::function1 =====
+
+states
+  s : initial complete final state;
+transitions
+  s -[on dispatch]-> s {
+    function2 !
+  };
+----- legacy round-trip -----
+idempotent

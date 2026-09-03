@@ -1,0 +1,13 @@
+===== annex[0] owner=BA_example1::cube.ba =====
+
+variables
+  tmp : BA_example1::number;
+states
+  s : initial final state;
+transitions
+  t : s -[]-> s {
+    mul ! (x, x, tmp);
+    mul ! (tmp, x, y)
+  };
+----- legacy round-trip -----
+idempotent

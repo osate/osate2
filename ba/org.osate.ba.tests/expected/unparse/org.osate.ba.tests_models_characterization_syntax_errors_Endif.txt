@@ -1,0 +1,4 @@
+===== annex[0] owner=Endif::t =====
+
+----- legacy round-trip -----
+idempotent

@@ -1,0 +1,1 @@
+error | semantic | 65 | 1 | 45 | In timed actions, the value of  the first parameter must be lesser than the second one: Behavior Annex D.6.(L8) legality rule failed.

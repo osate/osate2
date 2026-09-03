@@ -1,0 +1,25 @@
+error | semantic | 611 | 1 | 24 | Invalid number of argument(s) for the subprogram proto1
+error | semantic | 612 | 1 | 38 | Invalid number of argument(s) for the subprogram proto2
+error | semantic | 613 | 1 | 46 | 'undefinedProto' is not a defined subprogram prototype
+error | semantic | 614 | 1 | 30 | Invalid number of argument(s) for the subprogram definedProto
+error | semantic | 615 | 1 | 28 | type error for 'dummyProto', 'subprogram subcomponent or subprogram prototype or subprogram classifier or requires subprogram access or requires data access or data subcomponent or behavior variable or out port' expected, found 'in out feature prototype'.
+error | semantic | 622 | 1 | 83 | type error for 'float1', 'Integer' expected, found 'Base_Types::Float'.
+error | semantic | 624 | 1 | 73 | type error for 'float1', 'Integer' expected, found 'Base_Types::Float'.
+error | semantic | 643 | 1 | 37 | There is no applicable operator ">" for type Base_Types::Boolean
+error | semantic | 645 | 1 | 42 | There is no applicable operator ">" for type AadlBaTest::Types::Opaque
+error | semantic | 650 | 1 | 37 | There is no applicable operator "+" for type AadlBaTest::Types::Opaque
+error | semantic | 655 | 1 | 36 | Operator "-" not defined for type Base_Types::Character
+error | semantic | 656 | 1 | 43 | There is no applicable operator "+" for type Base_Types::String
+error | semantic | 665 | 1 | 40 | There is no applicable operator "mod" for type Base_Types::Float
+error | semantic | 666 | 1 | 40 | There is no applicable operator "rem" for type Base_Types::Float
+error | semantic | 669 | 1 | 34 | Operator "abs" not defined for type Base_Types::Character
+error | semantic | 673 | 1 | 30 | Operator "!" not defined for type universal integer
+error | semantic | 679 | 1 | 79 | exponent must be of type natural, found universal integer
+error | semantic | 680 | 1 | 38 | exponent must be of type natural, found DataTypeCheckerTest::NegativeInteger
+error | semantic | 681 | 1 | 37 | exponent must be of type natural, found Base_Types::Float
+error | semantic | 682 | 1 | 35 | exponent must be of type natural, found Base_Types::Integer
+error | semantic | 684 | 1 | 39 | Invalid operand types for operator "**": left operand has type DataTypeCheckerTest::MyFixedPoint, right operand has type Base_Types::Natural
+warning | semantic | 25 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.
+warning | semantic | 609 | 1 | 32 | '1.0': is a read only value and it is used as a writable value
+warning | semantic | 618 | 1 | 34 | '0': is a read only value and it is used as a writable value
+warning | semantic | 683 | 1 | 124 | Cannot evaluate if the exponent is a natural

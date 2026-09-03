@@ -1,0 +1,59 @@
+annex[0] owner=exemple_lr_D6_L8::th.good
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=a
+    states[0] : BehaviorState name=s1
+    states[1] : BehaviorState name=s2
+    states[2] : BehaviorState name=s3
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : TimedAction
+        lowerTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : TimedAction
+        lowerTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+        upperTime : BehaviorTime
+          integerValue : BehaviorVariableHolder element=a [BehaviorVariable]
+    actions[2] : BehaviorActionBlock
+      content : TimedAction
+        lowerTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+        upperTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+    actions[3] : BehaviorActionBlock
+      content : TimedAction
+        lowerTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+        upperTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+    actions[4] : BehaviorActionBlock
+      content : TimedAction
+        lowerTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+        upperTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+    actions[5] : BehaviorActionBlock
+      content : TimedAction
+        lowerTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+        upperTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+annex[1] owner=exemple_lr_D6_L8::th.error
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s1
+    states[1] : BehaviorState name=s2
+    states[2] : BehaviorState name=s3
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : TimedAction
+        lowerTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+        upperTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral

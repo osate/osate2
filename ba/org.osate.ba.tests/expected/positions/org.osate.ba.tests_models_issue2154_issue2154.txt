@@ -1,0 +1,10 @@
+annex[0] owner=issue2154::abst
+  (BehaviorState, s0, 126, 2)
+  (BehaviorState, s0, 179, 2)
+  (BehaviorState, s0, 203, 2)
+  (EventPort, p_in, 196, 4)
+annex[1] owner=issue2154::proc
+  (BehaviorState, s0, 325, 2)
+  (BehaviorState, s0, 378, 2)
+  (BehaviorState, s0, 402, 2)
+  (EventPort, p_in, 395, 4)

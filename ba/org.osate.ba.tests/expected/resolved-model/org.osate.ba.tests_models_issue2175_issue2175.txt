@@ -1,0 +1,8 @@
+annex[0] owner=issue2175::function1
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventPortHolder element=issue2175::function1.function2 [EventPort]

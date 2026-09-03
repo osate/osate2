@@ -1,0 +1,11 @@
+===== annex[0] owner=issue2146::threadA.impl =====
+
+states
+  s0 : initial state;
+  s1 : final state;
+transitions
+  s0 -[inputA.Hamster = 1]-> s1 {
+    outputA.Gerbil := 1
+  };
+----- legacy round-trip -----
+idempotent

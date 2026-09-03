@@ -1,0 +1,16 @@
+annex[0] owner=exemple_sr_D4_6::th.good
+  (BehaviorState, compState, 1068, 9)
+  (BehaviorState, compState, 954, 9)
+  (BehaviorState, exeState1, 1012, 9)
+  (BehaviorState, exeState1, 1100, 9)
+  (BehaviorState, exeState1, 1113, 9)
+  (BehaviorState, exeState2, 1033, 9)
+  (BehaviorState, exeState2, 1129, 9)
+  (BehaviorState, exeState2, 1142, 9)
+  (BehaviorState, exeState2, 984, 10)
+  (BehaviorState, finalState, 1158, 10)
+annex[1] owner=exemple_sr_D4_6::th.error
+  (BehaviorState, exeState1, 1658, 9)
+  (BehaviorState, initState, 1267, 9)
+  (BehaviorState, initState, 1354, 9)
+  (BehaviorState, initState, 1626, 9)

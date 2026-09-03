@@ -1,0 +1,19 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package UnbalancedBraces
+public
+	with Base_Types;
+	thread t
+	annex behavior_specification {**
+		variables x: Base_Types::Integer;
+		states s: initial final state;
+		transitions s -[]-> s {
+			if (true)
+				{ x := 1 }
+			elsif (false)
+				{ x := 2 }}
+			end if
+		};
+	**};
+	end t;
+end UnbalancedBraces;

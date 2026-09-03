@@ -1,0 +1,65 @@
+===== annex[0] owner=Issue2445_Grammar_Hazards::hazards =====
+
+variables
+  Value : Issue2445_Grammar_Hazards::hazard_integer;
+  Other : Base_Types::Integer;
+states
+  start : initial state;
+  execute : state;
+  done : complete final state;
+transitions
+  start -[]-> execute;
+  execute -[Value = 0]-> execute {
+    Value := 255;
+    Value := 160;
+    Value := #Max_Queue_Size
+  };
+  execute -[Value = 1]-> execute {
+    Value := Other ** 2;
+    Value := -Value;
+    Value := abs Value;
+    Value := Value mod Other;
+    Value := Value rem Other
+  };
+  execute -[! (input' fresh) or input' count > 0]-> execute {
+    input ?;
+    input ? (Value);
+    input !;
+    output ! (Value)
+  };
+  execute -[Value >= 0]-> execute {
+    shared !<;
+    shared !>;
+    *!<;
+    *!>
+  };
+  execute -[Value < 10]-> execute {
+    if (Value = 0)
+      Value := 1
+    elsif (Value = 1)
+      Value := 2
+    else
+      Value := 3
+    end if;
+    for (i : Base_Types::Integer in 0 .. 1) {
+      Value := Value + i
+    };
+    forall (j : Base_Types::Integer in 0 .. 1) {
+      Value := Value + j
+    };
+    while (Value < 10) {
+      Value := Value + 1
+    }
+    ;
+    do
+    Value := Value - 1
+    until (Value = 0)
+\s\s
+  };
+  execute -[]-> done {
+    computation (1 ms .. 2 ms) in binding (cpu1, cpu2)
+  };
+  done -[on dispatch dispatch_event]-> execute;
+----- legacy round-trip -----
+parse-failure
+Error line 23: mismatched input '!' expecting ']->'

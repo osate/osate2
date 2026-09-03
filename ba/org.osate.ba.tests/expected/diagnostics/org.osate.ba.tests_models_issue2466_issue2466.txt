@@ -1,0 +1,3 @@
+warning | semantic | 57 | 1 | 30 | 'd.f': is a read only value and it is used as a writable value
+warning | semantic | 58 | 1 | 15 | 'd.f': is a read only value and it is used as a writable value
+warning | semantic | 59 | 1 | 14 | 'd.f': is a read only value and it is used as a writable value

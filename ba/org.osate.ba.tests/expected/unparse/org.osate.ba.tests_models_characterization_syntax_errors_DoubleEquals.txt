@@ -1,0 +1,4 @@
+===== annex[0] owner=DoubleEquals::t =====
+
+----- legacy round-trip -----
+idempotent

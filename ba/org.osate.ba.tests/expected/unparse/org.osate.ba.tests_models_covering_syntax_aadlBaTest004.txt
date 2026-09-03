@@ -1,0 +1,22 @@
+===== annex[0] owner=BehaviorStateTest::myThread =====
+
+states
+  uniqueState : initial complete final state;
+  a : state;
+  b : state;
+  c : state;
+transitions
+  t4 : a -[]-> b;
+  t2 [2] : a -[]-> b;
+  t1 [3] : a -[]-> a;
+  t3 [1] : a -[]-> c;
+  t6 [4] : a -[otherwise]-> c;
+  t7 [4] : a -[otherwise]-> c;
+  t8 [4] : a -[otherwise]-> c;
+  t5 : a -[]-> c;
+  b -[]-> c;
+  b -[otherwise]-> c;
+  c -[]-> c;
+  c -[otherwise]-> c;
+----- legacy round-trip -----
+idempotent

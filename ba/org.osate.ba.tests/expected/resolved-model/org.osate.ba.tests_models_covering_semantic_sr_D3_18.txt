@@ -1,0 +1,89 @@
+annex[0] owner=example_sr_D3_18::th.good
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=comp
+    states[2] : BehaviorState name=next1
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=example_sr_D3_18::th.p2 [EventDataPort]
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=example_sr_D3_18::th.good.x1 [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=example_sr_D3_18::th.p1 [EventDataPort]
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=example_sr_D3_18::th.good.x2 [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=example_sr_D3_18::th.p2 [EventDataPort]
+annex[1] owner=example_sr_D3_18::th.error
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=comp
+    states[2] : BehaviorState name=next1
+    states[3] : BehaviorState name=next2
+    transitions[0] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataSubcomponentHolder element=example_sr_D3_18::th.error.x1 [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=example_sr_D3_18::th.p1 [EventDataPort]
+    transitions[2] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataSubcomponentHolder element=example_sr_D3_18::th.error.x1 [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=example_sr_D3_18::th.error.x1 [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=example_sr_D3_18::th.p1 [EventDataPort]
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=example_sr_D3_18::th.error.x2 [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=example_sr_D3_18::th.p2 [EventDataPort]
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=example_sr_D3_18::th.error.x2 [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=example_sr_D3_18::th.p2 [EventDataPort]

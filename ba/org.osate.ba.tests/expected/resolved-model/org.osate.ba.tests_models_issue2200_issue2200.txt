@@ -1,0 +1,37 @@
+annex[0] owner=BA_example1::cube.ba
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=tmp
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition name=t
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramAccessHolder element=BA_example1::cube.mul [SubprogramAccess]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ParameterHolder element=BA_example1::cube.x [Parameter]
+          parameterLabels[1] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ParameterHolder element=BA_example1::cube.x [Parameter]
+          parameterLabels[2] : BehaviorVariableHolder element=tmp [BehaviorVariable]
+        actions[1] : SubprogramCallAction
+          subprogram : SubprogramAccessHolder element=BA_example1::cube.mul [SubprogramAccess]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=tmp [BehaviorVariable]
+          parameterLabels[1] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ParameterHolder element=BA_example1::cube.x [Parameter]
+          parameterLabels[2] : ParameterHolder element=BA_example1::cube.y [Parameter]

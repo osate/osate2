@@ -1,0 +1,273 @@
+===== annex[0] owner=DataStructPrototypeTest::concreteThread.impl =====
+
+variables
+  int : Base_Types::Integer;
+  localMyInteger : DataStructPrototypeTest::MyInteger;
+  localMyStruct_A : DataStructPrototypeTest::MyStruct_A;
+  localArrayMyStruct_A[10] : DataStructPrototypeTest::MyStruct_A;
+  localMyStruct_B : DataStructPrototypeTest::MyStruct_B;
+  localMyArray_Integer_A : DataStructPrototypeTest::MyArray_Integer;
+  localMyArray_Integer_B : DataStructPrototypeTest::MyArray_Integer;
+  localMyArray_IntegerImpl : DataStructPrototypeTest::MyArray_Integer.impl;
+  localMyStruct_C : DataStructPrototypeTest::MyStruct_C;
+  localMyIntegerArray_A : DataStructPrototypeTest::MyIntegerArray_A;
+  localMyIntegerArray_B : DataStructPrototypeTest::MyIntegerArray_B;
+  localMyIntegerArray_C[10][10] : DataStructPrototypeTest::MyIntegerArray_B;
+  localOtherMyIntegerArray_B[10][10][10] : DataStructPrototypeTest::MyIntegerArray_A;
+  localMyEnum : DataStructPrototypeTest::MyEnum;
+  localDay : AadlBaTest::Types::Days.v1;
+  squareTab[130][28] : DataStructPrototypeTest::MyInteger;
+states
+  uniqueState : initial complete final state;
+  a : state;
+transitions
+  a -[]-> a {
+    localMyStruct_B.myInt := any;
+    localMyStruct_B.myStruct_A.int := any;
+    subMyStruct_B.myInt := any;
+    subMyStruct_B.myStruct_A.int := any;
+    dataAccess.myInt := any;
+    dataAccess.myStruct_A.int := any
+  };
+  a -[]-> a {
+    dataAccessProtoA.myInt := any;
+    dataAccessProtoA.myStruct_A.int := any;
+    dataAccessProtoB.myInt := any;
+    dataAccessProtoB.myStruct_A.int := any;
+    subDataProtoA.myInt := any;
+    subDataProtoA.myStruct_A.int := any;
+    subDataProtoB.myInt := any;
+    subDataProtoB.myStruct_A.int := any
+  };
+  a -[]-> a {
+    requiresAccessProto.myInt := any;
+    requiresAccessProto.myStruct_A.int := any;
+    requiresAccessProto.myInt := providesAccessProto.myInt
+  };
+  a -[]-> a {
+    outPortFeatProto := any
+  };
+  a -[]-> a {
+    localMyStruct_B := inPortFeatProto
+  };
+  a -[]-> a {
+    for (i : Base_Types::Integer in localMyArray_Integer_A) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : Base_Types::Integer in localMyStruct_C.myArrayInteger) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : Base_Types::Integer_8 in localMyArray_IntegerImpl) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : MyInteger in localMyIntegerArray_A[0][0]) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : MyInteger in squareTab) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : MyInteger in localMyIntegerArray_A) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : MyInteger in localMyIntegerArray_A[0]) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : Base_Types::Integer in inPortInteger) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    localMyArray_Integer_A[0] := 1
+  };
+  a -[]-> a {
+    localMyArray_Integer_A := localMyArray_Integer_B
+  };
+  a -[]-> a {
+    subArrayMyArray_Integer[0] := localMyArray_Integer_A
+  };
+  a -[]-> a {
+    localMyIntegerArray_A[0] := localMyIntegerArray_A[0]
+  };
+  a -[]-> a {
+    localMyIntegerArray_A[0][0][0] := localMyInteger
+  };
+  a -[]-> a {
+    localMyIntegerArray_B[0][0][0] := localMyIntegerArray_A
+  };
+  a -[]-> a {
+    localOtherMyIntegerArray_B[0][0][0] := localMyIntegerArray_A
+  };
+  a -[]-> a {
+    localMyIntegerArray_A := localOtherMyIntegerArray_B[0][0][0]
+  };
+  a -[]-> a {
+    localMyArray_Integer_A[localMyStruct_A.int] := 1
+  };
+  a -[]-> a {
+    localMyArray_Integer_A[localMyStruct_B.myInt] := 1
+  };
+  a -[]-> a {
+    localMyArray_Integer_A[subMyStruct_B.myInt] := 1
+  };
+  a -[]-> a {
+    inPortInteger ? (localMyStruct_B.myStruct_A.int)
+  };
+  a -[]-> a {
+    inPortMyIntegerArray_A ? (localMyIntegerArray_B[0][0][0])
+  };
+  a -[]-> a {
+    outPortInteger ! (localMyStruct_B.myStruct_A.int)
+  };
+  a -[]-> a {
+    outPortMyIntegerArray_A ! (localMyIntegerArray_B[0][0][0])
+  };
+  a -[]-> a {
+    AnOtherSubprogConcrete ! (localMyStruct_A.int, localMyStruct_B, localMyIntegerArray_B[0][0][0])
+  };
+  a -[]-> a {
+    subMyEnum_A := subMyEnum_B
+  };
+  a -[]-> a {
+    subMyEnum_A := MyEnum#Enumerators.monday
+  };
+  a -[]-> a {
+    for (i : MyStruct_A in localArrayMyStruct_A) {
+      localMyStruct_A.float := i.float
+    }
+  };
+  a -[]-> a {
+    localMyEnum := AadlBaTest::Types::Days.v1#Enumerators.monday;
+    localDay := MyEnum#Enumerators.monday;
+    localMyEnum := localDay
+  };
+  a -[]-> a {
+    outPortFeatProto.myInt := any
+  };
+  a -[]-> a {
+    inPortFeatProto.myInt := any
+  };
+  a -[]-> a {
+    localMyStruct_B := outPortFeatProto
+  };
+  a -[]-> a {
+    for (i : Base_Types::Integer in localMyStruct_C.int) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : Base_Types::Integer in localMyArray_Integer_A[0]) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    localMyIntegerArray_B[0][0][0][0] := localMyIntegerArray_A[0]
+  };
+  a -[]-> a {
+    localMyIntegerArray_B[0][0][0][0][0][0] := localMyInteger
+  };
+  a -[]-> a {
+    localMyIntegerArray_C[0][0][0][0][0][0][0][0] := localMyInteger
+  };
+  a -[]-> a {
+    localMyIntegerArray_C[0][0][0][0][0] := localMyIntegerArray_A
+  };
+  a -[]-> a {
+    subArrayMyArray_Integer[0][0] := int
+  };
+  a -[]-> a {
+    for (i : Base_Types::Integer in localOtherMyIntegerArray_B[1][1][3]) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : MyIntegerArray_A in localOtherMyIntegerArray_B) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : Base_Types::Integer in localMyArray_IntegerImpl) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    for (i : MyInteger in inPortInteger) {
+      computation (1 sec)
+    }
+  };
+  a -[]-> a {
+    localMyArray_Integer_A := 1
+  };
+  a -[]-> a {
+    localOtherMyIntegerArray_B := localMyIntegerArray_B
+  };
+  a -[]-> a {
+    localMyIntegerArray_A[0][0][0][0] := localMyInteger
+  };
+  a -[]-> a {
+    inPortInteger ? (localMyStruct_B.myStruct_A.float)
+  };
+  a -[]-> a {
+    inPortMyIntegerArray_A ? (localMyIntegerArray_B[0][0])
+  };
+  a -[]-> a {
+    outPortInteger ! (localMyStruct_B.myStruct_A.float)
+  };
+  a -[]-> a {
+    outPortMyIntegerArray_A ! (localMyIntegerArray_B[0][0])
+  };
+  a -[]-> a {
+    AnOtherSubprogConcrete ! (localMyStruct_A.float, localMyStruct_B, localMyIntegerArray_B[0][0])
+  };
+----- legacy round-trip -----
+idempotent
+===== annex[1] owner=DataStructPrototypeTest::MySubProgConcrete =====
+
+variables
+  localMyStruct_B : DataStructPrototypeTest::MyStruct_B;
+  tab[10] : Base_Types::Integer;
+states
+  uniqueState : initial final state;
+  a : state;
+transitions
+  a -[]-> a {
+    outParam1.myInt := any;
+    outParam1.myStruct_A.int := any
+  };
+  a -[]-> a {
+    outParam2.myInt := any;
+    outParam2.myStruct_A.int := any;
+    outParam3.myInt := any;
+    outParam3.myStruct_A.int := any;
+    localMyStruct_B := inParam1
+  };
+  a -[]-> a {
+    tab[inParam1.myInt] := 1
+  };
+  a -[]-> a {
+    tab[inParam1.myStruct_A.int] := 1
+  };
+  a -[]-> a {
+    tab[inParam4] := 1
+  };
+  a -[]-> a {
+    inParam1.myInt := any
+  };
+  a -[]-> a {
+    localMyStruct_B := outParam1
+  };
+----- legacy round-trip -----
+idempotent

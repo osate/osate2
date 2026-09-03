@@ -1,0 +1,47 @@
+annex[0] owner=Issue2445_Holder_Coverage::holder_source
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Issue2445_Holder_Properties::record_property [Property]
+                      properties[1] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Issue2445_Holder_Properties::record_type.omitted [BasicProperty]
+        actions[1] : IfStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : FeaturePrototypeHolder element=Issue2445_Holder_Coverage::holder_source.fp [FeaturePrototype]
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyTypeHolder element=Issue2445_Holder_Properties::enum_type [EnumerationType]
+                      properties[1] : PropertyNameHolder
+                        property : EnumLiteralHolder element=Issue2445_Holder_Properties::enum_type.enabled [EnumerationLiteral]
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyTypeHolder element=Issue2445_Holder_Properties::enum_type [EnumerationType]
+                      properties[1] : PropertyNameHolder
+                        property : EnumLiteralHolder element=Issue2445_Holder_Properties::enum_type.enabled [EnumerationLiteral]

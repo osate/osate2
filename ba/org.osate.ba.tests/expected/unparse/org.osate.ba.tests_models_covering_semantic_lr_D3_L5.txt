@@ -1,0 +1,8 @@
+===== annex[0] owner=exemple_lr_D3_L5::sub.error =====
+
+states
+  uniqueState : initial final state;
+transitions
+  uniqueState -[on dispatch]-> uniqueState;
+----- legacy round-trip -----
+idempotent

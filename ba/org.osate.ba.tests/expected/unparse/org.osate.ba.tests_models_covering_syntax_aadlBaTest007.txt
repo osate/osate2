@@ -1,0 +1,2 @@
+===== annex[0] owner=PropertyReferenceTest::MyThreadv2.impl =====
+<legacy-unparse-exception> java.lang.NullPointerException: Cannot invoke "org.osate.ba.declarative.QualifiedNamedElement.getBaName()" because the return value of "org.osate.ba.declarative.DeclarativePropertyReference.getQualifiedName()" is null

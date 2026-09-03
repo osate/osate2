@@ -1,0 +1,26 @@
+annex[0] owner=issue2146::threadA.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=s1
+    transitions[0] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=issue2146::RodentsRequired.Hamster [EventDataPort]
+                  groupHolders[0] : GroupHolder element=issue2146::threadA.inputA [FeatureGroup]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : EventDataPortHolder element=issue2146::RodentsProvided.Gerbil [EventDataPort]
+          groupHolders[0] : GroupHolder element=issue2146::threadA.outputA [FeatureGroup]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral

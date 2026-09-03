@@ -1,0 +1,1 @@
+error | semantic | 112 | 1 | 58 | type error for 'i', 'data subcomponent or data access or behavior variable or data access feature prototype or out parameter or out port or out port prototype' expected, found 'iterative variable'.

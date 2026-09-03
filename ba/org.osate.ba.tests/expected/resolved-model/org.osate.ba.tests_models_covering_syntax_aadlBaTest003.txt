@@ -1,0 +1,920 @@
+annex[0] owner=DataStructPrototypeTest::concreteThread.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=int
+    variables[1] : BehaviorVariable name=localMyInteger
+    variables[2] : BehaviorVariable name=localMyStruct_A
+    variables[3] : BehaviorVariable name=localArrayMyStruct_A
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+    variables[4] : BehaviorVariable name=localMyStruct_B
+    variables[5] : BehaviorVariable name=localMyArray_Integer_A
+    variables[6] : BehaviorVariable name=localMyArray_Integer_B
+    variables[7] : BehaviorVariable name=localMyArray_IntegerImpl
+    variables[8] : BehaviorVariable name=localMyStruct_C
+    variables[9] : BehaviorVariable name=localMyIntegerArray_A
+    variables[10] : BehaviorVariable name=localMyIntegerArray_B
+    variables[11] : BehaviorVariable name=localMyIntegerArray_C
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+      arrayDimension[1] : ArrayDimension
+        size : ArraySize
+    variables[12] : BehaviorVariable name=localOtherMyIntegerArray_B
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+      arrayDimension[1] : ArrayDimension
+        size : ArraySize
+      arrayDimension[2] : ArrayDimension
+        size : ArraySize
+    variables[13] : BehaviorVariable name=localMyEnum
+    variables[14] : BehaviorVariable name=localDay
+    variables[15] : BehaviorVariable name=squareTab
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+      arrayDimension[1] : ArrayDimension
+        size : ArraySize
+    states[0] : BehaviorState name=uniqueState
+    states[1] : BehaviorState name=a
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+    transitions[7] : BehaviorTransition
+    transitions[8] : BehaviorTransition
+    transitions[9] : BehaviorTransition
+    transitions[10] : BehaviorTransition
+    transitions[11] : BehaviorTransition
+    transitions[12] : BehaviorTransition
+    transitions[13] : BehaviorTransition
+    transitions[14] : BehaviorTransition
+    transitions[15] : BehaviorTransition
+    transitions[16] : BehaviorTransition
+    transitions[17] : BehaviorTransition
+    transitions[18] : BehaviorTransition
+    transitions[19] : BehaviorTransition
+    transitions[20] : BehaviorTransition
+    transitions[21] : BehaviorTransition
+    transitions[22] : BehaviorTransition
+    transitions[23] : BehaviorTransition
+    transitions[24] : BehaviorTransition
+    transitions[25] : BehaviorTransition
+    transitions[26] : BehaviorTransition
+    transitions[27] : BehaviorTransition
+    transitions[28] : BehaviorTransition
+    transitions[29] : BehaviorTransition
+    transitions[30] : BehaviorTransition
+    transitions[31] : BehaviorTransition
+    transitions[32] : BehaviorTransition
+    transitions[33] : BehaviorTransition
+    transitions[34] : BehaviorTransition
+    transitions[35] : BehaviorTransition
+    transitions[36] : BehaviorTransition
+    transitions[37] : BehaviorTransition
+    transitions[38] : BehaviorTransition
+    transitions[39] : BehaviorTransition
+    transitions[40] : BehaviorTransition
+    transitions[41] : BehaviorTransition
+    transitions[42] : BehaviorTransition
+    transitions[43] : BehaviorTransition
+    transitions[44] : BehaviorTransition
+    transitions[45] : BehaviorTransition
+    transitions[46] : BehaviorTransition
+    transitions[47] : BehaviorTransition
+    transitions[48] : BehaviorTransition
+    transitions[49] : BehaviorTransition
+    transitions[50] : BehaviorTransition
+    transitions[51] : BehaviorTransition
+    transitions[52] : BehaviorTransition
+    transitions[53] : BehaviorTransition
+    transitions[54] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataComponentReference
+            data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+        actions[2] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subMyStruct_B [DataSubcomponent]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[3] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subMyStruct_B [DataSubcomponent]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+        actions[4] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccess [DataAccess]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[5] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccess [DataAccess]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccessProtoA [DataAccess]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccessProtoA [DataAccess]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+        actions[2] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccessProtoB [DataAccess]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[3] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=DataStructPrototypeTest::abstractThread.dataAccessProtoB [DataAccess]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+        actions[4] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subDataProtoA [DataSubcomponent]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[5] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subDataProtoA [DataSubcomponent]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+        actions[6] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subDataProtoB [DataSubcomponent]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[7] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subDataProtoB [DataSubcomponent]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+    actions[2] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessPrototypeHolder element=DataStructPrototypeTest::abstractThread.requiresAccessProto [FeaturePrototype]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessPrototypeHolder element=DataStructPrototypeTest::abstractThread.requiresAccessProto [FeaturePrototype]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+        actions[2] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessPrototypeHolder element=DataStructPrototypeTest::abstractThread.requiresAccessProto [FeaturePrototype]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : DataAccessPrototypeHolder element=DataStructPrototypeTest::abstractThread.providesAccessProto [FeaturePrototype]
+                      data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=myInt
+    actions[3] : BehaviorActionBlock
+      content : AssignmentAction
+        target : PortPrototypeHolder element=DataStructPrototypeTest::abstractThread.outPortFeatProto [FeaturePrototype]
+        valueExpression : Any
+    actions[4] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortPrototypeHolder element=DataStructPrototypeTest::abstractThread.inPortFeatProto [FeaturePrototype]
+    actions[5] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=localMyArray_Integer_A [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=i
+    actions[6] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : DataComponentReference
+          data[0] : BehaviorVariableHolder element=localMyStruct_C [BehaviorVariable]
+          data[1] : StructUnionElementHolder element=myArrayInteger [StructUnionElement]
+            <legacy-detached-child> : StructUnionElement name=myArrayInteger
+        iterativeVariable : IterativeVariable name=i
+    actions[7] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=localMyArray_IntegerImpl [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=i
+    actions[8] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+        iterativeVariable : IterativeVariable name=i
+    actions[9] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=squareTab [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=i
+    actions[10] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=i
+    actions[11] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+        iterativeVariable : IterativeVariable name=i
+    actions[12] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.inPortInteger [EventDataPort]
+        iterativeVariable : IterativeVariable name=i
+    actions[13] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyArray_Integer_A [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[14] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyArray_Integer_A [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyArray_Integer_B [BehaviorVariable]
+    actions[15] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subArrayMyArray_Integer [DataSubcomponent]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyArray_Integer_A [BehaviorVariable]
+    actions[16] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+                    arrayIndexes[0] : BehaviorIntegerLiteral
+    actions[17] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyInteger [BehaviorVariable]
+    actions[18] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+    actions[19] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localOtherMyIntegerArray_B [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+    actions[20] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localOtherMyIntegerArray_B [BehaviorVariable]
+                    arrayIndexes[0] : BehaviorIntegerLiteral
+                    arrayIndexes[1] : BehaviorIntegerLiteral
+                    arrayIndexes[2] : BehaviorIntegerLiteral
+    actions[21] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyArray_Integer_A [BehaviorVariable]
+          arrayIndexes[0] : DataComponentReference
+            data[0] : BehaviorVariableHolder element=localMyStruct_A [BehaviorVariable]
+            data[1] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[22] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyArray_Integer_A [BehaviorVariable]
+          arrayIndexes[0] : DataComponentReference
+            data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[23] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyArray_Integer_A [BehaviorVariable]
+          arrayIndexes[0] : DataComponentReference
+            data[0] : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subMyStruct_B [DataSubcomponent]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[24] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.inPortInteger [EventDataPort]
+        target : DataComponentReference
+          data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+          data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+            <legacy-detached-child> : StructUnionElement name=myStruct_A
+          data[2] : StructUnionElementHolder element=int [StructUnionElement]
+            <legacy-detached-child> : StructUnionElement name=int
+    actions[25] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.inPortMyIntegerArray_A [EventDataPort]
+        target : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+    actions[26] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.outPortInteger [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+                    data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+                      <legacy-detached-child> : StructUnionElement name=myStruct_A
+                    data[2] : StructUnionElementHolder element=int [StructUnionElement]
+                      <legacy-detached-child> : StructUnionElement name=int
+    actions[27] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.outPortMyIntegerArray_A [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+                    arrayIndexes[0] : BehaviorIntegerLiteral
+                    arrayIndexes[1] : BehaviorIntegerLiteral
+                    arrayIndexes[2] : BehaviorIntegerLiteral
+    actions[28] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=DataStructPrototypeTest::AnOtherSubprogConcrete [SubprogramType]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : BehaviorVariableHolder element=localMyStruct_A [BehaviorVariable]
+                    data[1] : StructUnionElementHolder element=int [StructUnionElement]
+                      <legacy-detached-child> : StructUnionElement name=int
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+        parameterLabels[2] : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+    actions[29] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subMyEnum_A [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subMyEnum_B [DataSubcomponent]
+    actions[30] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subMyEnum_A [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+    actions[31] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : AssignmentAction
+          target : DataComponentReference
+            data[0] : BehaviorVariableHolder element=localMyStruct_A [BehaviorVariable]
+            data[1] : StructUnionElementHolder element=float [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=float
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : IterativeVariableHolder element=i [IterativeVariable]
+                      data[1] : StructUnionElementHolder element=float [StructUnionElement]
+                        <legacy-detached-child> : StructUnionElement name=float
+        iteratedValues : BehaviorVariableHolder element=localArrayMyStruct_A [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=i
+    actions[32] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=localMyEnum [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                      properties[1] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=localDay [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                      properties[1] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=localMyEnum [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=localDay [BehaviorVariable]
+    actions[33] : BehaviorActionBlock
+      content : AssignmentAction
+        target : Reference
+          ids[0] : ArrayableIdentifier
+          ids[1] : ArrayableIdentifier
+        valueExpression : Any
+    actions[34] : BehaviorActionBlock
+      content : AssignmentAction
+        target : Reference
+          ids[0] : ArrayableIdentifier
+          ids[1] : ArrayableIdentifier
+        valueExpression : Any
+    actions[35] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : Reference
+                    ids[0] : ArrayableIdentifier
+    actions[36] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : DataComponentReference
+          data[0] : BehaviorVariableHolder element=localMyStruct_C [BehaviorVariable]
+          data[1] : StructUnionElementHolder element=int [StructUnionElement]
+            <legacy-detached-child> : StructUnionElement name=int
+        iterativeVariable : IterativeVariable name=i
+    actions[37] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=localMyArray_Integer_A [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+        iterativeVariable : IterativeVariable name=i
+    actions[38] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+          arrayIndexes[3] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+                    arrayIndexes[0] : BehaviorIntegerLiteral
+    actions[39] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+          arrayIndexes[3] : BehaviorIntegerLiteral
+          arrayIndexes[4] : BehaviorIntegerLiteral
+          arrayIndexes[5] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyInteger [BehaviorVariable]
+    actions[40] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyIntegerArray_C [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+          arrayIndexes[3] : BehaviorIntegerLiteral
+          arrayIndexes[4] : BehaviorIntegerLiteral
+          arrayIndexes[5] : BehaviorIntegerLiteral
+          arrayIndexes[6] : BehaviorIntegerLiteral
+          arrayIndexes[7] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyInteger [BehaviorVariable]
+    actions[41] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyIntegerArray_C [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+          arrayIndexes[3] : BehaviorIntegerLiteral
+          arrayIndexes[4] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+    actions[42] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=DataStructPrototypeTest::abstractThread.impl.subArrayMyArray_Integer [DataSubcomponent]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=int [BehaviorVariable]
+    actions[43] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=localOtherMyIntegerArray_B [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+        iterativeVariable : IterativeVariable name=i
+    actions[44] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=localOtherMyIntegerArray_B [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=i
+    actions[45] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : BehaviorVariableHolder element=localMyArray_IntegerImpl [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=i
+    actions[46] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+        iteratedValues : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.inPortInteger [EventDataPort]
+        iterativeVariable : IterativeVariable name=i
+    actions[47] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyArray_Integer_A [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[48] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localOtherMyIntegerArray_B [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+    actions[49] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyIntegerArray_A [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+          arrayIndexes[2] : BehaviorIntegerLiteral
+          arrayIndexes[3] : BehaviorIntegerLiteral
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyInteger [BehaviorVariable]
+    actions[50] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.inPortInteger [EventDataPort]
+        target : DataComponentReference
+          data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+          data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+            <legacy-detached-child> : StructUnionElement name=myStruct_A
+          data[2] : StructUnionElementHolder element=float [StructUnionElement]
+            <legacy-detached-child> : StructUnionElement name=float
+    actions[51] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.inPortMyIntegerArray_A [EventDataPort]
+        target : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+    actions[52] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.outPortInteger [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+                    data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+                      <legacy-detached-child> : StructUnionElement name=myStruct_A
+                    data[2] : StructUnionElementHolder element=float [StructUnionElement]
+                      <legacy-detached-child> : StructUnionElement name=float
+    actions[53] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=DataStructPrototypeTest::abstractThread.outPortMyIntegerArray_A [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+                    arrayIndexes[0] : BehaviorIntegerLiteral
+                    arrayIndexes[1] : BehaviorIntegerLiteral
+    actions[54] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=DataStructPrototypeTest::AnOtherSubprogConcrete [SubprogramType]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : BehaviorVariableHolder element=localMyStruct_A [BehaviorVariable]
+                    data[1] : StructUnionElementHolder element=float [StructUnionElement]
+                      <legacy-detached-child> : StructUnionElement name=float
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+        parameterLabels[2] : BehaviorVariableHolder element=localMyIntegerArray_B [BehaviorVariable]
+          arrayIndexes[0] : BehaviorIntegerLiteral
+          arrayIndexes[1] : BehaviorIntegerLiteral
+annex[1] owner=DataStructPrototypeTest::MySubProgConcrete
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=localMyStruct_B
+    variables[1] : BehaviorVariable name=tab
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+    states[0] : BehaviorState name=uniqueState
+    states[1] : BehaviorState name=a
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataComponentReference
+            data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam1 [Parameter]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam1 [Parameter]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataComponentReference
+            data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam2 [Parameter]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam2 [Parameter]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+        actions[2] : AssignmentAction
+          target : DataComponentReference
+            data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam3 [Parameter]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+          valueExpression : Any
+        actions[3] : AssignmentAction
+          target : DataComponentReference
+            data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.outParam3 [Parameter]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+          valueExpression : Any
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.inParam1 [Parameter]
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=tab [BehaviorVariable]
+          arrayIndexes[0] : DataComponentReference
+            data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.inParam1 [Parameter]
+            data[1] : StructUnionElementHolder element=myInt [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myInt
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[3] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=tab [BehaviorVariable]
+          arrayIndexes[0] : DataComponentReference
+            data[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.inParam1 [Parameter]
+            data[1] : StructUnionElementHolder element=myStruct_A [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=myStruct_A
+            data[2] : StructUnionElementHolder element=int [StructUnionElement]
+              <legacy-detached-child> : StructUnionElement name=int
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[4] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=tab [BehaviorVariable]
+          arrayIndexes[0] : ParameterHolder element=DataStructPrototypeTest::MySubProgAbstract.inParam4 [Parameter]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[5] : BehaviorActionBlock
+      content : AssignmentAction
+        target : Reference
+          ids[0] : ArrayableIdentifier
+          ids[1] : ArrayableIdentifier
+        valueExpression : Any
+    actions[6] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=localMyStruct_B [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : Reference
+                    ids[0] : ArrayableIdentifier

@@ -1,0 +1,14 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package MissingFrozenPortSeparator
+public
+	thread t
+	features
+		p: in event port;
+		q: in event port;
+	annex behavior_specification {**
+		states s: initial complete final state;
+		transitions s -[on dispatch frozen p q]-> s;
+	**};
+	end t;
+end MissingFrozenPortSeparator;

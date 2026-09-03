@@ -1,0 +1,43 @@
+annex[0] owner=issue2056::threadA.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=s1
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : Reference
+              ids[0] : ArrayableIdentifier
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : Reference
+          ids[0] : ArrayableIdentifier
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+annex[1] owner=issue2056::threadB.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=s1
+    states[2] : BehaviorState name=s2
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : Reference
+              ids[0] : ArrayableIdentifier
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : Reference
+          ids[0] : ArrayableIdentifier
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral

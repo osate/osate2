@@ -1,0 +1,6 @@
+annex[0] owner=BA_example2::speed.i
+  (BehaviorState, s0, 1018, 2)
+  (BehaviorState, s0, 940, 2)
+  (BehaviorState, s0, 996, 2)
+  (DataPort, sp, 1023, 2)
+  (EventPort, tick, 1029, 4)

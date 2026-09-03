@@ -1,0 +1,30 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+
+package Issue2445_Ge_Characterization
+public
+	with Base_Types;
+
+	thread behavior_owner
+	features
+		trigger: in event port;
+		existing_feature: out data port Base_Types::Integer;
+	modes
+		existing_mode: initial mode;
+	annex behavior_specification {**
+		variables
+			value: Base_Types::Integer;
+		states
+			source: initial complete state;
+			destination: final state;
+		transitions
+			named_transition: source -[on dispatch trigger]-> destination {
+				value := 1
+			};
+	**};
+	end behavior_owner;
+end Issue2445_Ge_Characterization;

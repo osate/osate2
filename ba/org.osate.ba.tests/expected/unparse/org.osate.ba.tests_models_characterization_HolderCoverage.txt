@@ -1,0 +1,15 @@
+===== annex[0] owner=Issue2445_Holder_Coverage::holder_source =====
+
+variables
+  value : Base_Types::Integer;
+states
+  s : initial complete final state;
+transitions
+  s -[on dispatch]-> s {
+    value := #Issue2445_Holder_Properties::record_property.omitted;
+    if (#Issue2445_Holder_Properties::enum_type.enabled = #Issue2445_Holder_Properties::enum_type.enabled)
+      value := fp
+    end if
+  };
+----- legacy round-trip -----
+idempotent

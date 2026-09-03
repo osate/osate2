@@ -1,0 +1,4 @@
+error | semantic | 17 | 1 | 40 | 'bad_reference' is not found
+error | semantic | 27 | 1 | 37 | The dispatch relative timeout and catch statement must only be declared for timed thread: Behavior Annex D.4.(L1) legality rule failed.
+error | syntax | 7 | 1 | 13 | unterminated behavior state (missing ending ';')
+warning | semantic | 27 | 1 | 37 | Using a dispatch condition in an abstract component means this component can only be refined into a component category on which the Dispatch_Protocol property can be applied.

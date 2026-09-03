@@ -1,0 +1,4 @@
+===== annex[0] owner=ParseTest::t =====
+
+----- legacy round-trip -----
+idempotent

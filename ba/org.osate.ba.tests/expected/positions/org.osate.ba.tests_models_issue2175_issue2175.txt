@@ -1,0 +1,4 @@
+annex[0] owner=issue2175::function1
+  (BehaviorState, s, 267, 1)
+  (BehaviorState, s, 316, 1)
+  (BehaviorState, s, 335, 1)

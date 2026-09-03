@@ -1,0 +1,46 @@
+===== annex[0] owner=BA_example3::sender.v1 =====
+
+states
+  st : initial complete state;
+  sf : complete final state;
+  s1 : state;
+  s2 : state;
+transitions
+  st -[on dispatch timeout ]-> st {
+    v := 1;
+    d ! (v)
+  };
+  st -[on dispatch a]-> s1;
+  s1 -[a = 1]-> sf;
+  s1 -[a = 0]-> st;
+  sf -[on dispatch timeout ]-> sf {
+    v := 0;
+    d ! (v)
+  };
+  sf -[on dispatch a]-> s2;
+  s2 -[a = 0]-> st;
+  s2 -[a = 1]-> sf;
+----- legacy round-trip -----
+idempotent
+===== annex[1] owner=BA_example3::sender.v2 =====
+
+states
+  st : initial complete state;
+  sf : complete final state;
+  s1 : state;
+  s2 : state;
+transitions
+  st -[on dispatch timeout ]-> st {
+    d ! (1)
+  };
+  st -[on dispatch a]-> s1;
+  s1 -[a = 1]-> sf;
+  s1 -[a = 0]-> st;
+  sf -[on dispatch timeout ]-> sf {
+    d ! (0)
+  };
+  sf -[on dispatch a]-> s2;
+  s2 -[a = 0]-> st;
+  s2 -[a = 1]-> sf;
+----- legacy round-trip -----
+idempotent

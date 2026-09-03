@@ -1,0 +1,11 @@
+annex[0] owner=exemple_lr_D3_L6_L7_L8::th.good
+  (BehaviorState, uniqueState, 1037, 11)
+  (BehaviorState, uniqueState, 1066, 11)
+  (BehaviorState, uniqueState, 978, 11)
+annex[1] owner=exemple_lr_D3_L6_L7_L8::th.error
+  (BehaviorState, compState, 1178, 9)
+  (BehaviorState, compState, 1503, 9)
+  (BehaviorState, finalState, 1236, 10)
+  (BehaviorState, finalState, 1519, 10)
+  (BehaviorState, finalState, 1703, 10)
+  (BehaviorState, finalState, 1731, 10)

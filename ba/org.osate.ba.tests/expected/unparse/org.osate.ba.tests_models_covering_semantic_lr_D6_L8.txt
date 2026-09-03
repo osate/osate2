@@ -1,0 +1,42 @@
+===== annex[0] owner=exemple_lr_D6_L8::th.good =====
+
+variables
+  a : Base_Types::Integer;
+states
+  s1 : initial state;
+  s2 : complete state;
+  s3 : final state;
+transitions
+  s1 -[]-> s2;
+  s1 -[]-> s2 {
+    computation (1 sec)
+  };
+  s1 -[]-> s2 {
+    computation (1 sec .. a sec)
+  };
+  s1 -[]-> s2 {
+    computation (1 sec .. 1 sec)
+  };
+  s1 -[]-> s2 {
+    computation (1 sec .. 2 sec)
+  };
+  s1 -[]-> s2 {
+    computation (1 sec .. 1 min)
+  };
+  s1 -[]-> s2 {
+    computation (60 sec .. 1 min)
+  };
+----- legacy round-trip -----
+idempotent
+===== annex[1] owner=exemple_lr_D6_L8::th.error =====
+
+states
+  s1 : initial state;
+  s2 : complete state;
+  s3 : final state;
+transitions
+  s1 -[]-> s2 {
+    computation (61 sec .. 1 min)
+  };
+----- legacy round-trip -----
+idempotent

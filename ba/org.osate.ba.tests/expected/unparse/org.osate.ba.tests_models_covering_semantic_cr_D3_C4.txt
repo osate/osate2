@@ -1,0 +1,9 @@
+===== annex[0] owner=exemple_cr_D3_C4::proc =====
+
+states
+  m1 : initial complete state;
+  finalState : final state;
+transitions
+  m1 -[]-> finalState;
+----- legacy round-trip -----
+idempotent
