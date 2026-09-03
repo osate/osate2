@@ -59,4 +59,32 @@ You should have received a copy of the Eclipse Public License along with this pr
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.osate.xtext.aadl2.ba"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.ba.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.ba.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.ba.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

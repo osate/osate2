@@ -627,6 +627,41 @@
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
+			<artifactId>org.osate.xtext.aadl2.ba</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
+			<artifactId>org.osate.xtext.aadl2.ba.edit</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
+			<artifactId>org.osate.xtext.aadl2.ba.ide</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
+			<artifactId>org.osate.xtext.aadl2.ba.ui</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
+			<artifactId>org.osate.xtext.aadl2.ba.tests</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
 			<artifactId>org.osate.utils</artifactId>
 			<version>2.0.5-SNAPSHOT</version>
 			<optional>true</optional>

@@ -21,6 +21,11 @@
 		<module>org.osate.ba.feature</module>
 		<module>org.osate.ba.edit</module>
 		<module>org.osate.ba.tests</module>
+		<module>org.osate.xtext.aadl2.ba</module>
+		<module>org.osate.xtext.aadl2.ba.edit</module>
+		<module>org.osate.xtext.aadl2.ba.ide</module>
+		<module>org.osate.xtext.aadl2.ba.ui</module>
+		<module>org.osate.xtext.aadl2.ba.tests</module>
 		<module>org.osate.utils</module>
 		<module>org.osate.utils.feature</module>
 	</modules>

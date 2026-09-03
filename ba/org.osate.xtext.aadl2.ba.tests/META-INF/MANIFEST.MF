@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AADL Behavior Annex Xtext Tests
+Bundle-Vendor: CMU/SEI
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.osate.xtext.aadl2.ba.tests;singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext,
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.xbase.lib,
+ org.junit,
+ org.osate.aadl2,
+ org.osate.xtext.aadl2.ba;bundle-version="[1.0.0,2.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: org.osate.xtext.aadl2.ba.tests
+Export-Package: org.osate.xtext.aadl2.ba.tests
