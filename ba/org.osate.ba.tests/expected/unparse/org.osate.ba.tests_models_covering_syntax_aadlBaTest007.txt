@@ -1,0 +1,290 @@
+===== annex[0] owner=PropertyReferenceTest::MyThreadv2.impl =====
+
+
+--  *** STATES ***
+
+variables
+
+ int : Base_Types::Integer ;
+ str : Base_Types::String ;
+ local_var : MyData ;
+\s
+states
+\s
+ uniqueState : initial complete final state ;
+ a : state ;
+
+-- *** TRANSITIONS ***
+
+transitions
+
+ -- Valid tests
+\s
+   -- Property Set
+\s\s\s
+     -- property constant.
+\s\s\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aConstant} ;
+    a -[]-> a {int := #Max_Queue_Size} ;\s\s
+\s\s\s\s\s\s
+     -- with default value defined.
+\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aSimpleValueDefined} ;
+\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aRangeDefined.upper_bound} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aRangeDefined.lower_bound} ;
+\s\s\s
+    a -[]-> a {if(#AadlBaTestPropertySet::aEnumDefined = #AadlBaTestPropertySet::aEnumDefined.two) int := 1 end if} ;
+    a -[]-> a {if(#AadlBaTestPropertySet::aEnumDefined = #AadlBaTestPropertySet::aEnumDefined[1]) int := 1 end if} ;
+\s\s\s
+    a -[]-> a {str := #AadlBaTestPropertySet::aSimpleListDefined[0]} ;
+    a -[]-> a {str := #AadlBaTestPropertySet::aSimpleListDefined.hello} ;
+\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aSimpleRecordDefined.int} ;
+    a -[]-> a {if(#AadlBaTestPropertySet::aSimpleRecordDefined.bool) int := 1 end if} ;
+\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecordDefined.int};
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecordDefined.listRec[0].int} ;
+\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined[0].listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined.aComplexRecordDefined.int};
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].int};
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec[0].int} ;\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.int};
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+\s\s\s\s
+     -- with default value not defined.
+\s\s\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aSimpleValue} ;
+\s\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aRange.upper_bound} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aRange.lower_bound} ;
+\s\s\s\s
+    a -[]-> a {if(#AadlBaTestPropertySet::aEnum = #AadlBaTestPropertySet::aEnum.two) int := 1 end if} ;
+    a -[]-> a {if(#AadlBaTestPropertySet::aEnum = #AadlBaTestPropertySet::aEnum[1]) int := 1 end if} ;
+\s\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aSimpleRecord.int} ;
+    a -[]-> a {if(#AadlBaTestPropertySet::aSimpleRecord.bool) int := 1 end if} ;
+\s\s\s\s
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecord.int};
+\s
+   -- Classifier properties
+\s\s\s
+     -- classifier name without namespace nor implementation
+\s\s\s\s
+    a -[]-> a {int := MyData#aSimpleValue} ;
+\s\s\s\s
+     -- classifier name with namespace
+\s\s\s\s\s
+    a -[]-> a {int := AadlBaTest::Types::Integer#aSimpleValue} ;
+\s\s\s\s
+     -- classifier name with implementation
+\s\s\s\s\s
+    a -[]-> a {int := MyData.v1#aSimpleValue} ;
+    a -[]-> a {int := MyData.v2#aSimpleValue} ;
+\s\s\s\s
+     -- classifier name with both namespace and implementation
+\s\s\s\s\s
+    a -[]-> a {int := AadlBaTest::Types::Integer.v1#aSimpleValue} ;
+    a -[]-> a {int := MyThreadv2.impl#Period} ;
+\s\s\s\s
+     -- common tests
+\s\s\s\s
+    a -[]-> a {int := MyData#aRange.upper_bound} ;
+    a -[]-> a {int := MyData#aRange.lower_bound} ;
+\s\s\s\s
+    a -[]-> a {if(MyData#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(MyData#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+\s\s\s\s
+    a -[]-> a {str := MyData#aSimpleList[0]} ;
+    a -[]-> a {str := MyData#aSimpleList.bom_dia} ;
+\s\s\s\s
+    a -[]-> a {int := MyData#aSimpleRecord.int} ;
+    a -[]-> a {int := MyData#aSimpleRecordDefined.int} ;
+\s\s
+    a -[]-> a {int := MyData#aComplexRecord.int};
+    a -[]-> a {int := MyData#aComplexRecord.listRec.aSimpleRecordDefined.int} ;\s
+    a -[]-> a {int := MyData#aComplexRecord.listRec[0].int} ;
+\s\s\s\s
+    a -[]-> a {int := MyData#aComplexList[0].int} ;
+    a -[]-> a {int := MyData#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := MyData#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := MyData#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := MyData#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := MyData#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+\s\s\s
+    a -[]-> a {int := MyData#aComplexListOfList[0][0].int};
+    a -[]-> a {int := MyData#aComplexListOfList[0][0].listRec[0].int} ;\s
+    a -[]-> a {int := MyData#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := MyData#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := MyData#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := MyData#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+   -- Local variable
+\s\s\s
+     -- common tests
+\s\s\s\s
+    a -[]-> a {int := local_var#aSimpleValue} ;
+
+    a -[]-> a {int := local_var#aRange.upper_bound} ;
+    a -[]-> a {int := local_var#aRange.lower_bound} ;
+\s\s\s\s
+    a -[]-> a {if(local_var#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(local_var#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+\s\s\s\s
+    a -[]-> a {str := local_var#aSimpleList[0]} ;
+    a -[]-> a {str := local_var#aSimpleList.bom_dia} ;
+\s\s\s\s
+    a -[]-> a {int := local_var#aSimpleRecord.int} ;
+    a -[]-> a {int := local_var#aSimpleRecordDefined.int} ;
+\s\s\s\s
+    a -[]-> a {int := local_var#aComplexRecord.int};
+    a -[]-> a {int := local_var#aComplexRecord.listRec.aSimpleRecordDefined.int} ;\s
+    a -[]-> a {int := local_var#aComplexRecord.listRec[0].int} ;
+\s\s\s\s
+    a -[]-> a {int := local_var#aComplexList[0].int} ;
+    a -[]-> a {int := local_var#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := local_var#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := local_var#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := local_var#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := local_var#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+    a -[]-> a {int := local_var#aComplexListOfList[0][0].int};
+    a -[]-> a {int := local_var#aComplexListOfList[0][0].listRec[0].int} ;\s
+    a -[]-> a {int := local_var#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := local_var#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := local_var#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := local_var#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+   -- Binded prototype
+\s\s\s
+     -- prototype into a prototype group
+    a -[]-> a {int := featGrp.myDataPrototype#aSimpleValue} ;
+\s\s\s\s\s
+     -- prototype into a nested prototype group
+\s\s\s\s
+    a -[]-> a {int := featGrp.nestedGroup.myDataPrototype#aSimpleRecordDefined.int} ;
+\s\s\s\s
+     -- common tests
+\s\s\s\s
+    a -[]-> a {int := myDataPrototype#aSimpleValue} ;
+
+    a -[]-> a {int := myDataPrototype#aRange.upper_bound} ;
+    a -[]-> a {int := myDataPrototype#aRange.lower_bound} ;
+\s\s\s\s
+    a -[]-> a {if(myDataPrototype#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(myDataPrototype#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+\s\s\s\s
+    a -[]-> a {str := myDataPrototype#aSimpleList[0]} ;
+    a -[]-> a {str := myDataPrototype#aSimpleList.bom_dia} ;
+\s\s\s\s
+    a -[]-> a {int := myDataPrototype#aSimpleRecord.int} ;
+    a -[]-> a {int := myDataPrototype#aSimpleRecordDefined.int} ;
+\s\s\s\s
+    a -[]-> a {int := myDataPrototype#aComplexRecord.int};
+    a -[]-> a {int := myDataPrototype#aComplexRecord.listRec.aSimpleRecordDefined.int} ;\s
+    a -[]-> a {int := myDataPrototype#aComplexRecord.listRec[0].int} ;
+\s\s\s\s
+    a -[]-> a {int := myDataPrototype#aComplexList[0].int} ;
+    a -[]-> a {int := myDataPrototype#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := myDataPrototype#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := myDataPrototype#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := myDataPrototype#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := myDataPrototype#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+    a -[]-> a {int := myDataPrototype#aComplexListOfList[0][0].int};
+    a -[]-> a {int := myDataPrototype#aComplexListOfList[0][0].listRec[0].int} ;\s
+    a -[]-> a {int := myDataPrototype#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := myDataPrototype#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := myDataPrototype#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := myDataPrototype#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+   -- Feature
+\s\s\s
+     -- feature into a prototype group
+\s\s\s\s
+    a -[]-> a {int := featGrp.portMyData#aSimpleValue} ;
+\s\s\s\s\s
+     -- feature into a nested prototype group
+\s\s\s\s
+    a -[]-> a {int := featGrp.nestedGroup.portMyData#aSimpleValue} ;
+\s\s\s\s
+     -- common tests
+\s\s\s\s\s
+    a -[]-> a {int := portMyData#aSimpleValue} ;
+\s\s\s\s
+    a -[]-> a {int := portMyData#aRange.upper_bound} ;
+    a -[]-> a {int := portMyData#aRange.lower_bound} ;
+\s\s\s\s
+    a -[]-> a {if(portMyData#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(portMyData#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+\s\s\s\s
+    a -[]-> a {str := portMyData#aSimpleList[0]} ;
+    a -[]-> a {str := portMyData#aSimpleList.bom_dia} ;
+\s\s\s\s
+    a -[]-> a {int := portMyData#aSimpleRecord.int} ;
+    a -[]-> a {int := portMyData#aSimpleRecordDefined.int} ;
+\s\s\s\s
+    a -[]-> a {int := portMyData#aComplexRecord.int};
+    a -[]-> a {int := portMyData#aComplexRecord.listRec.aSimpleRecordDefined.int} ;\s
+    a -[]-> a {int := portMyData#aComplexRecord.listRec[0].int} ;
+\s\s\s\s
+    a -[]-> a {int := portMyData#aComplexList[0].int} ;
+    a -[]-> a {int := portMyData#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := portMyData#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := portMyData#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := portMyData#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := portMyData#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+    a -[]-> a {int := portMyData#aComplexListOfList[0][0].int};
+    a -[]-> a {int := portMyData#aComplexListOfList[0][0].listRec[0].int} ;\s
+    a -[]-> a {int := portMyData#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := portMyData#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := portMyData#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := portMyData#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+   -- Subcomponent
+\s\s\s
+     -- common tests
+\s\s\s\s\s
+    a -[]-> a {int := subMyData#aSimpleValue} ;
+\s\s\s\s
+    a -[]-> a {int := subMyData#aRange.upper_bound} ;
+    a -[]-> a {int := subMyData#aRange.lower_bound} ;
+\s\s\s\s
+    a -[]-> a {if(subMyData#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(subMyData#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+\s\s\s\s
+    a -[]-> a {str := subMyData#aSimpleList[0]} ;
+    a -[]-> a {str := subMyData#aSimpleList.bom_dia} ;
+\s\s\s\s
+    a -[]-> a {int := subMyData#aSimpleRecord.int} ;
+    a -[]-> a {int := subMyData#aSimpleRecordDefined.int} ;
+\s\s\s\s
+    a -[]-> a {int := subMyData#aComplexRecord.int};
+    a -[]-> a {int := subMyData#aComplexRecord.listRec.aSimpleRecordDefined.int} ;\s
+    a -[]-> a {int := subMyData#aComplexRecord.listRec[0].int} ;
+\s\s\s\s
+    a -[]-> a {int := subMyData#aComplexList[0].int} ;
+    a -[]-> a {int := subMyData#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := subMyData#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := subMyData#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := subMyData#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := subMyData#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+    a -[]-> a {int := subMyData#aComplexListOfList[0][0].int};
+    a -[]-> a {int := subMyData#aComplexListOfList[0][0].listRec[0].int} ;\s
+    a -[]-> a {int := subMyData#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := subMyData#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := subMyData#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := subMyData#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+----- Xtext reparse -----
+reparsed

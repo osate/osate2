@@ -1,0 +1,36 @@
+===== annex[0] owner=exemple_sr_D4_6::th.good =====
+
+
+states
+ initState : initial state ;
+ compState : complete state ;
+ finalState : final state ;
+ exeState1 : state ;
+ exeState2 : state ;
+\s
+transitions
+ compState -[on dispatch stop]-> exeState1 ;
+ exeState1 -[]-> exeState2 ;
+ exeState2 -[]-> finalState ;
+\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=exemple_sr_D4_6::th.error =====
+
+
+states
+ initState : initial state ;
+ compState : complete state ;
+ finalState : final state ;
+ exeState1 : state ;
+ exeState2 : state ;
+\s
+transitions
+
+ -- Errors : _ initState is not complete, it cannot have outgoing transition with a stop dispatch trigger and\s
+ --            dispatch condition in general.
+ --          _ the transition don't end to a final state.
+ initState -[on dispatch stop]-> exeState1 ;
+
+----- Xtext reparse -----
+reparsed

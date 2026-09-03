@@ -1,0 +1,13 @@
+annex[0] owner=issue2234::spg
+  (BehaviorActionBlock, <null>, 279, 34)
+  (BehaviorActionSequence, <null>, 287, 20)
+  (BehaviorAnnex, behavior_specification, 187, 127)
+  (BehaviorState, singleton, 196, 9)
+  (BehaviorStateGroup, <null>, 196, 31)
+  (BehaviorTransition, t, 245, 69)
+  (CommunicationAction, <null>, 287, 6)
+  (CommunicationAction, <null>, 301, 6)
+  (Reference, <null>, 287, 4)
+  (Reference, <null>, 301, 4)
+  (ReferenceSegment, lock, 287, 4)
+  (ReferenceSegment, lock, 301, 4)

@@ -1,0 +1,14 @@
+===== annex[0] owner=UnbalancedBraces::t =====
+
+\t\tvariables x: Base_Types::Integer;
+\t\tstates s: initial final state;
+\t\ttransitions s -[]-> s {
+\t\t\tif (true)
+\t\t\t\t{ x := 1 }
+\t\t\telsif (false)
+\t\t\t\t{ x := 2 }}
+\t\t\tend if
+\t\t};
+\t
+----- Xtext reparse -----
+reparsed

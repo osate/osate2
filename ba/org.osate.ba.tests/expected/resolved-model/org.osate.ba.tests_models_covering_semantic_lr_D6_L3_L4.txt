@@ -1,0 +1,439 @@
+annex[0] owner=exemple_lr_D6_L3_D6_L4::th.good
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=a
+    variables[1] : BehaviorVariable name=b
+    variables[2] : BehaviorVariable name=c
+    variables[3] : BehaviorVariable name=d
+    variables[4] : BehaviorVariable name=e
+    variables[5] : BehaviorVariable name=f
+    states[0] : BehaviorState name=s1
+    states[1] : BehaviorState name=s2
+    states[2] : BehaviorState name=s3
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+    transitions[7] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=a [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionBlock
+        content : AssignmentAction
+          target : BehaviorVariableHolder element=a [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=a [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=b [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[3] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : AssignmentAction
+          target : EventDataPortHolder element=exemple_lr_D6_L3_D6_L4::th.outportA [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : EventDataPortHolder element=exemple_lr_D6_L3_D6_L4::th.outportB [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[4] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=exemple_lr_D6_L3_D6_L4::th.good.x [DataSubcomponent]
+            arrayIndexes[0] : BehaviorVariableHolder element=a [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataSubcomponentHolder element=exemple_lr_D6_L3_D6_L4::th.good.y [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[5] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=exemple_lr_D6_L3_D6_L4::th.fakeData [DataAccess]
+            data[1] : DataSubcomponentHolder element=exemple_lr_D6_L3_D6_L4::dummyData1.impl.a [DataSubcomponent]
+              arrayIndexes[0] : BehaviorVariableHolder element=a [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=exemple_lr_D6_L3_D6_L4::th.fakeData [DataAccess]
+            data[1] : DataSubcomponentHolder element=exemple_lr_D6_L3_D6_L4::dummyData1.impl.b [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[6] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : WhileOrDoUntilStatement
+          behaviorActions : ForOrForAllStatement
+            behaviorActions : IfStatement
+              behaviorActions : BehaviorActionBlock
+                content : BehaviorActionSet
+                  actions[0] : AssignmentAction
+                    target : BehaviorVariableHolder element=a [BehaviorVariable]
+                    valueExpression : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+                  actions[1] : AssignmentAction
+                    target : BehaviorVariableHolder element=b [BehaviorVariable]
+                    valueExpression : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+              logicalValueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorBooleanLiteral
+              elseStatement : IfStatement
+                behaviorActions : BehaviorActionBlock
+                  content : BehaviorActionSet
+                    actions[0] : AssignmentAction
+                      target : BehaviorVariableHolder element=a [BehaviorVariable]
+                      valueExpression : ValueExpression
+                        relations[0] : Relation
+                          firstExpression : SimpleExpression
+                            terms[0] : Term
+                              factors[0] : Factor
+                                firstValue : BehaviorIntegerLiteral
+                    actions[1] : BehaviorActionBlock
+                      content : IfStatement
+                        behaviorActions : BehaviorActionBlock
+                          content : AssignmentAction
+                            target : BehaviorVariableHolder element=b [BehaviorVariable]
+                            valueExpression : ValueExpression
+                              relations[0] : Relation
+                                firstExpression : SimpleExpression
+                                  terms[0] : Term
+                                    factors[0] : Factor
+                                      firstValue : BehaviorIntegerLiteral
+                        logicalValueExpression : ValueExpression
+                          relations[0] : Relation
+                            firstExpression : SimpleExpression
+                              terms[0] : Term
+                                factors[0] : Factor
+                                  firstValue : BehaviorBooleanLiteral
+                        elseStatement : ElseStatement
+                          behaviorActions : BehaviorActionBlock
+                            content : AssignmentAction
+                              target : DataComponentReference
+                                data[0] : DataAccessHolder element=exemple_lr_D6_L3_D6_L4::th.fakeData [DataAccess]
+                                data[1] : DataSubcomponentHolder element=exemple_lr_D6_L3_D6_L4::dummyData1.impl.a [DataSubcomponent]
+                                  arrayIndexes[0] : BehaviorVariableHolder element=a [BehaviorVariable]
+                              valueExpression : ValueExpression
+                                relations[0] : Relation
+                                  firstExpression : SimpleExpression
+                                    terms[0] : Term
+                                      factors[0] : Factor
+                                        firstValue : BehaviorIntegerLiteral
+                logicalValueExpression : ValueExpression
+                  relations[0] : Relation
+                    firstExpression : SimpleExpression
+                      terms[0] : Term
+                        factors[0] : Factor
+                          firstValue : BehaviorBooleanLiteral
+                elseStatement : ElseStatement
+                  behaviorActions : BehaviorActionBlock
+                    content : ForOrForAllStatement
+                      behaviorActions : WhileOrDoUntilStatement
+                        behaviorActions : BehaviorActionBlock
+                          content : AssignmentAction
+                            target : BehaviorVariableHolder element=c [BehaviorVariable]
+                            valueExpression : ValueExpression
+                              relations[0] : Relation
+                                firstExpression : SimpleExpression
+                                  terms[0] : Term
+                                    factors[0] : Factor
+                                      firstValue : IterativeVariableHolder element=i [IterativeVariable]
+                                  terms[1] : Term
+                                    factors[0] : Factor
+                                      firstValue : IterativeVariableHolder element=j [IterativeVariable]
+                        logicalValueExpression : ValueExpression
+                          relations[0] : Relation
+                            firstExpression : SimpleExpression
+                              terms[0] : Term
+                                factors[0] : Factor
+                                  firstValue : BehaviorBooleanLiteral
+                      iteratedValues : IntegerRange
+                        lowerIntegerValue : BehaviorIntegerLiteral
+                        upperIntegerValue : BehaviorIntegerLiteral
+                      iterativeVariable : IterativeVariable name=j
+            iteratedValues : IntegerRange
+              lowerIntegerValue : BehaviorIntegerLiteral
+              upperIntegerValue : BehaviorIntegerLiteral
+            iterativeVariable : IterativeVariable name=i
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+        actions[1] : WhileOrDoUntilStatement
+          behaviorActions : BehaviorActionBlock
+            content : IfStatement
+              behaviorActions : BehaviorActionBlock
+                content : AssignmentAction
+                  target : BehaviorVariableHolder element=d [BehaviorVariable]
+                  valueExpression : ValueExpression
+                    relations[0] : Relation
+                      firstExpression : SimpleExpression
+                        terms[0] : Term
+                          factors[0] : Factor
+                            firstValue : BehaviorIntegerLiteral
+              logicalValueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorBooleanLiteral
+              elseStatement : ElseStatement
+                behaviorActions : BehaviorActionBlock
+                  content : AssignmentAction
+                    target : BehaviorVariableHolder element=d [BehaviorVariable]
+                    valueExpression : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+        actions[2] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=exemple_lr_D6_L3_D6_L4::th.fakeData [DataAccess]
+            data[1] : DataSubcomponentHolder element=exemple_lr_D6_L3_D6_L4::dummyData1.impl.b [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+annex[1] owner=exemple_lr_D6_L3_D6_L4::th.error
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=a
+    variables[1] : BehaviorVariable name=b
+    variables[2] : BehaviorVariable name=c
+    variables[3] : BehaviorVariable name=d
+    variables[4] : BehaviorVariable name=e
+    variables[5] : BehaviorVariable name=f
+    states[0] : BehaviorState name=s1
+    states[1] : BehaviorState name=s2
+    states[2] : BehaviorState name=s3
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : WhileOrDoUntilStatement
+          behaviorActions : ForOrForAllStatement
+            behaviorActions : IfStatement
+              behaviorActions : BehaviorActionBlock
+                content : BehaviorActionSet
+                  actions[0] : AssignmentAction
+                    target : BehaviorVariableHolder element=a [BehaviorVariable]
+                    valueExpression : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+                  actions[1] : AssignmentAction
+                    target : BehaviorVariableHolder element=b [BehaviorVariable]
+                    valueExpression : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+              logicalValueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorBooleanLiteral
+              elseStatement : IfStatement
+                behaviorActions : BehaviorActionBlock
+                  content : BehaviorActionSet
+                    actions[0] : AssignmentAction
+                      target : BehaviorVariableHolder element=a [BehaviorVariable]
+                      valueExpression : ValueExpression
+                        relations[0] : Relation
+                          firstExpression : SimpleExpression
+                            terms[0] : Term
+                              factors[0] : Factor
+                                firstValue : BehaviorIntegerLiteral
+                    actions[1] : BehaviorActionBlock
+                      content : IfStatement
+                        behaviorActions : BehaviorActionBlock
+                          content : AssignmentAction
+                            target : BehaviorVariableHolder element=b [BehaviorVariable]
+                            valueExpression : ValueExpression
+                              relations[0] : Relation
+                                firstExpression : SimpleExpression
+                                  terms[0] : Term
+                                    factors[0] : Factor
+                                      firstValue : BehaviorIntegerLiteral
+                        logicalValueExpression : ValueExpression
+                          relations[0] : Relation
+                            firstExpression : SimpleExpression
+                              terms[0] : Term
+                                factors[0] : Factor
+                                  firstValue : BehaviorBooleanLiteral
+                        elseStatement : ElseStatement
+                          behaviorActions : BehaviorActionBlock
+                            content : AssignmentAction
+                              target : DataComponentReference
+                                data[0] : DataAccessHolder element=exemple_lr_D6_L3_D6_L4::th.fakeData [DataAccess]
+                                data[1] : DataSubcomponentHolder element=exemple_lr_D6_L3_D6_L4::dummyData1.impl.b [DataSubcomponent]
+                              valueExpression : ValueExpression
+                                relations[0] : Relation
+                                  firstExpression : SimpleExpression
+                                    terms[0] : Term
+                                      factors[0] : Factor
+                                        firstValue : BehaviorIntegerLiteral
+                logicalValueExpression : ValueExpression
+                  relations[0] : Relation
+                    firstExpression : SimpleExpression
+                      terms[0] : Term
+                        factors[0] : Factor
+                          firstValue : BehaviorBooleanLiteral
+                elseStatement : ElseStatement
+                  behaviorActions : BehaviorActionBlock
+                    content : ForOrForAllStatement
+                      behaviorActions : WhileOrDoUntilStatement
+                        behaviorActions : BehaviorActionBlock
+                          content : AssignmentAction
+                            target : BehaviorVariableHolder element=c [BehaviorVariable]
+                            valueExpression : ValueExpression
+                              relations[0] : Relation
+                                firstExpression : SimpleExpression
+                                  terms[0] : Term
+                                    factors[0] : Factor
+                                      firstValue : IterativeVariableHolder element=i [IterativeVariable]
+                                  terms[1] : Term
+                                    factors[0] : Factor
+                                      firstValue : IterativeVariableHolder element=j [IterativeVariable]
+                        logicalValueExpression : ValueExpression
+                          relations[0] : Relation
+                            firstExpression : SimpleExpression
+                              terms[0] : Term
+                                factors[0] : Factor
+                                  firstValue : BehaviorBooleanLiteral
+                      iteratedValues : IntegerRange
+                        lowerIntegerValue : BehaviorIntegerLiteral
+                        upperIntegerValue : BehaviorIntegerLiteral
+                      iterativeVariable : IterativeVariable name=j
+            iteratedValues : IntegerRange
+              lowerIntegerValue : BehaviorIntegerLiteral
+              upperIntegerValue : BehaviorIntegerLiteral
+            iterativeVariable : IterativeVariable name=i
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+        actions[1] : WhileOrDoUntilStatement
+          behaviorActions : BehaviorActionBlock
+            content : IfStatement
+              behaviorActions : BehaviorActionBlock
+                content : AssignmentAction
+                  target : BehaviorVariableHolder element=d [BehaviorVariable]
+                  valueExpression : ValueExpression
+                    relations[0] : Relation
+                      firstExpression : SimpleExpression
+                        terms[0] : Term
+                          factors[0] : Factor
+                            firstValue : BehaviorIntegerLiteral
+              logicalValueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorBooleanLiteral
+              elseStatement : ElseStatement
+                behaviorActions : BehaviorActionBlock
+                  content : AssignmentAction
+                    target : BehaviorVariableHolder element=d [BehaviorVariable]
+                    valueExpression : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+        actions[2] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=exemple_lr_D6_L3_D6_L4::th.fakeData [DataAccess]
+            data[1] : DataSubcomponentHolder element=exemple_lr_D6_L3_D6_L4::dummyData1.impl.b [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral

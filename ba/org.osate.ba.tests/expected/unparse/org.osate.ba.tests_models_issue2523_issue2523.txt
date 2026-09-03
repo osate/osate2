@@ -1,0 +1,15 @@
+===== annex[0] owner=issue2523::t =====
+
+variables
+  v1 : Base_Types::Integer;
+states
+  s1 : initial complete state;
+  s2 : final state;
+transitions
+  s1 -[on dispatch]-> s1 {
+    ed_in ? (v1);
+    ed_in ?
+  };
+\s\s\s\s\s\s\s\s
+----- Xtext reparse -----
+reparsed

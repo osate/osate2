@@ -1,0 +1,6 @@
+===== annex[0] owner=MissingStateSeparator::t =====
+
+\t\tstates a b: state;
+\t
+----- Xtext reparse -----
+reparsed

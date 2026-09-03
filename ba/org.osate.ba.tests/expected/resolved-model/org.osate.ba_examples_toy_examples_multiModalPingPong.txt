@@ -1,0 +1,471 @@
+annex[0] owner=MultiModalPingPong::Cping_t.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=standby
+    states[1] : BehaviorState name=busy
+    states[2] : BehaviorState name=validation
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+    transitions[2] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=MultiModalPingPong::Cping_t.receive [EventDataPort]
+    transitions[3] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=MultiModalPingPong::Cping_t.receive [EventDataPort]
+    transitions[4] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.received_msg [DataSubcomponent]
+                  data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.t [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.received_msg [DataSubcomponent]
+                  data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.s [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.message_array [DataSubcomponent]
+                  arrayIndexes[0] : DataComponentReference
+                    data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.received_msg [DataSubcomponent]
+                    data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.r [DataSubcomponent]
+    transitions[5] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.received_msg [DataSubcomponent]
+                  data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.t [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.received_msg [DataSubcomponent]
+                  data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.s [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.message_array [DataSubcomponent]
+                  arrayIndexes[0] : DataComponentReference
+                    data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.received_msg [DataSubcomponent]
+                    data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.r [DataSubcomponent]
+    transitions[6] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : CompletionRelativeTimeout
+          integerValue : BehaviorIntegerLiteral
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataPortHolder element=MultiModalPingPong::Cping_t.result [DataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorStringLiteral
+    actions[1] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : BehaviorActionSequence
+          actions[0] : AssignmentAction
+            target : DataComponentReference
+              data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.the_ping_msg [DataSubcomponent]
+              data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.t [DataSubcomponent]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorStringLiteral
+          actions[1] : AssignmentAction
+            target : DataComponentReference
+              data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.the_ping_msg [DataSubcomponent]
+              data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.r [DataSubcomponent]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=i [IterativeVariable]
+          actions[2] : SubprogramCallAction
+            subprogram : SubprogramHolder element=MultiModalPingPong::set_muid [SubprogramType]
+            parameterLabels[0] : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : DataComponentReference
+                        data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.the_ping_msg [DataSubcomponent]
+                        data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.s [DataSubcomponent]
+          actions[3] : AssignmentAction
+            target : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.message_array [DataSubcomponent]
+              arrayIndexes[0] : IterativeVariableHolder element=i [IterativeVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : DataComponentReference
+                        data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.the_ping_msg [DataSubcomponent]
+                        data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.s [DataSubcomponent]
+          actions[4] : PortSendAction
+            port : EventDataPortHolder element=MultiModalPingPong::Cping_t.emit [EventDataPort]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.the_ping_msg [DataSubcomponent]
+        iteratedValues : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.recipient_array [DataSubcomponent]
+        iterativeVariable : IterativeVariable name=i
+    actions[2] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=MultiModalPingPong::Cping_t.receive [EventDataPort]
+    actions[3] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=MultiModalPingPong::Cping_t.receive [EventDataPort]
+        target : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.received_msg [DataSubcomponent]
+    actions[4] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataPortHolder element=MultiModalPingPong::Cping_t.result [DataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorStringLiteral
+        actions[1] : AssignmentAction
+          target : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.counter [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.counter [DataSubcomponent]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[5] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataPortHolder element=MultiModalPingPong::Cping_t.result [DataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorStringLiteral
+annex[1] owner=MultiModalPingPong::Cpong_t.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=available
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=MultiModalPingPong::Cpong_t.receive [EventDataPort]
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : PortDequeueAction
+          port : EventDataPortHolder element=MultiModalPingPong::Cpong_t.receive [EventDataPort]
+          target : DataSubcomponentHolder element=MultiModalPingPong::Cpong_t.impl.received_ping [DataSubcomponent]
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cpong_t.impl.received_ping [DataSubcomponent]
+            data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.t [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorStringLiteral
+        actions[2] : PortSendAction
+          port : EventDataPortHolder element=MultiModalPingPong::Cpong_t.emit [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=MultiModalPingPong::Cpong_t.impl.received_ping [DataSubcomponent]
+annex[2] owner=MultiModalPingPong::controller_thread.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=idle
+    states[1] : BehaviorState name=exec
+    states[2] : BehaviorState name=close
+    transitions[0] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
+                  data[1] : StructUnionElementHolder element=to_role [StructUnionElement]
+                    structUnionElement : StructUnionElement name=to_role
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=MultiModalPingPong::controller_thread.mode_switch_p [EventDataPort]
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : ForOrForAllStatement
+          behaviorActions : PortSendAction
+            port : EventPortHolder element=MultiModalPingPong::controller_thread.to_ping [EventPort]
+              arrayIndexes[0] : DataComponentReference
+                data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
+                data[1] : StructUnionElementHolder element=c_id [StructUnionElement]
+                  structUnionElement : StructUnionElement name=c_id
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.result [DataSubcomponent]
+          iterativeVariable : IterativeVariable name=i
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
+            data[1] : StructUnionElementHolder element=to_role [StructUnionElement]
+              structUnionElement : StructUnionElement name=to_role
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorStringLiteral
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : PortDequeueAction
+          port : EventDataPortHolder element=MultiModalPingPong::controller_thread.mode_switch_p [EventDataPort]
+          target : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
+        actions[1] : SubprogramCallAction
+          subprogram : SubprogramSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.mode_switch [SubprogramSubcomponent]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
+                      data[1] : StructUnionElementHolder element=to_role [StructUnionElement]
+                        structUnionElement : StructUnionElement name=to_role
+          parameterLabels[1] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.last_cmd [DataSubcomponent]
+                      data[1] : StructUnionElementHolder element=c_id [StructUnionElement]
+                        structUnionElement : StructUnionElement name=c_id
+          parameterLabels[2] : DataSubcomponentHolder element=MultiModalPingPong::controller_thread.impl.result [DataSubcomponent]
+          parameterLabels[3] : DataAccessHolder element=MultiModalPingPong::controller_thread.components [DataAccess]
+annex[3] owner=MultiModalPingPong::controller_subprogram.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s_ini
+    states[1] : BehaviorState name=s_fini
+    transitions[0] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : ParameterHolder element=MultiModalPingPong::controller_subprogram.dest_mode [Parameter]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataAccessHolder element=MultiModalPingPong::controller_subprogram.components [DataAccess]
+                  data[1] : DataSubcomponentHolder element=MultiModalPingPong::components_array.impl.c [DataSubcomponent]
+                    arrayIndexes[0] : ParameterHolder element=MultiModalPingPong::controller_subprogram.c_id [Parameter]
+                  data[2] : DataSubcomponentHolder element=MultiModalPingPong::c_id_and_role.impl.role [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+    transitions[1] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : ParameterHolder element=MultiModalPingPong::controller_subprogram.dest_mode [Parameter]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataAccessHolder element=MultiModalPingPong::controller_subprogram.components [DataAccess]
+                  data[1] : DataSubcomponentHolder element=MultiModalPingPong::components_array.impl.c [DataSubcomponent]
+                    arrayIndexes[0] : ParameterHolder element=MultiModalPingPong::controller_subprogram.c_id [Parameter]
+                  data[2] : DataSubcomponentHolder element=MultiModalPingPong::c_id_and_role.impl.role [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+    transitions[2] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : ParameterHolder element=MultiModalPingPong::controller_subprogram.dest_mode [Parameter]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataAccessHolder element=MultiModalPingPong::controller_subprogram.components [DataAccess]
+                  data[1] : DataSubcomponentHolder element=MultiModalPingPong::components_array.impl.c [DataSubcomponent]
+                    arrayIndexes[0] : ParameterHolder element=MultiModalPingPong::controller_subprogram.c_id [Parameter]
+                  data[2] : DataSubcomponentHolder element=MultiModalPingPong::c_id_and_role.impl.role [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+    transitions[3] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : ParameterHolder element=MultiModalPingPong::controller_subprogram.dest_mode [Parameter]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataAccessHolder element=MultiModalPingPong::controller_subprogram.components [DataAccess]
+                  data[1] : DataSubcomponentHolder element=MultiModalPingPong::components_array.impl.c [DataSubcomponent]
+                    arrayIndexes[0] : ParameterHolder element=MultiModalPingPong::controller_subprogram.c_id [Parameter]
+                  data[2] : DataSubcomponentHolder element=MultiModalPingPong::c_id_and_role.impl.role [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorStringLiteral
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : ParameterHolder element=MultiModalPingPong::controller_subprogram.result [Parameter]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=MultiModalPingPong::controller_subprogram.components [DataAccess]
+            data[1] : DataSubcomponentHolder element=MultiModalPingPong::components_array.impl.c [DataSubcomponent]
+              arrayIndexes[0] : ParameterHolder element=MultiModalPingPong::controller_subprogram.c_id [Parameter]
+            data[2] : DataSubcomponentHolder element=MultiModalPingPong::c_id_and_role.impl.role [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorStringLiteral
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : ParameterHolder element=MultiModalPingPong::controller_subprogram.result [Parameter]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=MultiModalPingPong::controller_subprogram.components [DataAccess]
+            data[1] : DataSubcomponentHolder element=MultiModalPingPong::components_array.impl.c [DataSubcomponent]
+              arrayIndexes[0] : ParameterHolder element=MultiModalPingPong::controller_subprogram.c_id [Parameter]
+            data[2] : DataSubcomponentHolder element=MultiModalPingPong::c_id_and_role.impl.role [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorStringLiteral
+    actions[2] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : ParameterHolder element=MultiModalPingPong::controller_subprogram.result [Parameter]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=MultiModalPingPong::controller_subprogram.components [DataAccess]
+            data[1] : DataSubcomponentHolder element=MultiModalPingPong::components_array.impl.c [DataSubcomponent]
+              arrayIndexes[0] : ParameterHolder element=MultiModalPingPong::controller_subprogram.c_id [Parameter]
+            data[2] : DataSubcomponentHolder element=MultiModalPingPong::c_id_and_role.impl.role [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorStringLiteral
+    actions[3] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : ParameterHolder element=MultiModalPingPong::controller_subprogram.result [Parameter]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataAccessHolder element=MultiModalPingPong::controller_subprogram.components [DataAccess]
+            data[1] : DataSubcomponentHolder element=MultiModalPingPong::components_array.impl.c [DataSubcomponent]
+              arrayIndexes[0] : ParameterHolder element=MultiModalPingPong::controller_subprogram.c_id [Parameter]
+            data[2] : DataSubcomponentHolder element=MultiModalPingPong::c_id_and_role.impl.role [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorStringLiteral

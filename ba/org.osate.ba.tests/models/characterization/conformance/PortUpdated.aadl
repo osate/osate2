@@ -1,0 +1,21 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package PortUpdated
+public
+	with Base_Types;
+
+	abstract component
+	features
+		input: in data port Base_Types::Integer;
+	end component;
+
+	abstract implementation component.i
+	annex behavior_specification {**
+		states
+			start: initial state;
+			finish: final state;
+		transitions
+			start -[ input'updated ]-> finish;
+	**};
+	end component.i;
+end PortUpdated;

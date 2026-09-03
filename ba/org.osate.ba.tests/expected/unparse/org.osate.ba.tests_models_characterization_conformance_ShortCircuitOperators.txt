@@ -1,0 +1,13 @@
+===== annex[0] owner=ShortCircuitOperators::operation =====
+
+\t\tvariables
+\t\t\tleft, right: Base_Types::Boolean;
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tfinish: final state;
+\t\ttransitions
+\t\t\tand_then_transition: start -[ left and then right ]-> finish;
+\t\t\tor_else_transition: start -[ left or else right ]-> finish;
+\t
+----- Xtext reparse -----
+reparsed

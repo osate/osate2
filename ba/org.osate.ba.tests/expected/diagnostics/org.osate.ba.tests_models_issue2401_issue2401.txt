@@ -1,0 +1,1 @@
+error | linking | 13 | 14 | 10 | Couldn't resolve reference to DataSubcomponentType 'My_Datatyp'.

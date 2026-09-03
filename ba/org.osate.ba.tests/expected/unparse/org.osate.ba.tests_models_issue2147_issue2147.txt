@@ -1,0 +1,16 @@
+===== annex[0] owner=issue2147::threadA.impl =====
+
+
+    states
+
+    s0: initial complete final state;
+
+    s1: state;
+
+    transitions
+
+    s0 -[ on input]-> s1;
+
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

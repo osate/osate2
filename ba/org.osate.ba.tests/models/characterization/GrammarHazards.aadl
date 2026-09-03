@@ -1,0 +1,97 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+
+package Issue2445_Grammar_Hazards
+public
+	with Base_Types;
+	with Data_Model;
+
+	data hazard_integer extends Base_Types::Integer_32
+	properties
+		Data_Model::Data_Representation => Integer;
+	end hazard_integer;
+
+	processor cpu1
+	end cpu1;
+
+	processor cpu2
+	end cpu2;
+
+	thread hazards
+	features
+		dispatch_event: in event port;
+		input: in event data port Base_Types::Integer {
+			Dequeue_Protocol => AllItems;
+		};
+		output: out event data port Base_Types::Integer;
+		shared: requires data access Base_Types::Integer;
+	properties
+		Dispatch_Protocol => Sporadic;
+	annex BeHaViOr_SpEcIfIcAtIoN {**
+		VaRiAbLeS
+			Value: hazard_integer := 0 {
+				Data_Model::Initial_Value => ("1");
+			};
+			Other: Base_Types::Integer := 1;
+		StAtEs
+			start: initial state;
+			execute: state;
+			done: complete final state;
+		TrAnSiTiOnS
+			start -[]-> execute;
+			execute -[vAlUe = 0]-> execute {
+				Value := 16#ff#;
+				Value := 2#1010#e4;
+				Value := #Max_Queue_Size
+			};
+			execute -[ Value = 1 ]-> execute {
+				Value := Other ** 2;
+				Value := -Value;
+				Value := abs Value;
+				Value := Value mod Other;
+				Value := Value rem Other
+			};
+			execute -[not (input'fresh) or input'count > 0]-> execute {
+				input ?;
+				input ? (Value);
+				input >>;
+				output ! (Value)
+			};
+			execute -[Value >= 0]-> execute {
+				shared !<;
+				shared !>;
+				*!<;
+				*!>
+			};
+			execute -[Value < 10]-> execute {
+				if (Value = 0)
+					Value := 1
+				elsif (Value = 1)
+					Value := 2
+				else
+					Value := 3
+				end if;
+				for (i : Base_Types::Integer in 0 .. 1) {
+					Value := Value + i
+				};
+				forall (j : Base_Types::Integer in 0 .. 1) {
+					Value := Value + j
+				};
+				while (Value < 10) {
+					Value := Value + 1
+				};
+				do
+					Value := Value - 1
+				until (Value = 0)
+			};
+			execute -[]-> done {
+				computation(1 ms .. 2 ms) in binding (cpu1, cpu2)
+			};
+			done -[on dispatch dispatch_event]-> execute;
+	**};
+	end hazards;
+end Issue2445_Grammar_Hazards;

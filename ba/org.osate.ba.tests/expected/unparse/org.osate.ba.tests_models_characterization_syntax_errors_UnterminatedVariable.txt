@@ -1,0 +1,7 @@
+===== annex[0] owner=UnterminatedVariable::t =====
+
+\t\tvariables x: Base_Types::Integer
+\t\tstates s: initial final state;
+\t
+----- Xtext reparse -----
+reparsed

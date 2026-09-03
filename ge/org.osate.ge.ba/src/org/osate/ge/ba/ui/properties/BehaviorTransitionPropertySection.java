@@ -35,8 +35,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.ba.aadlba.BehaviorTransition;
-import org.osate.ba.declarative.DeclarativeBehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
@@ -44,6 +42,7 @@ import org.osate.ge.ba.ui.EmbeddedTextEditor;
 import org.osate.ge.ba.util.BehaviorTransitionEmbeddedTextUtil;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 
 /**
  * Property section for {@link BehaviorTransition}
@@ -151,6 +150,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 	private static boolean isBehaviorTransition(final BusinessObjectContext boc) {
 		final Object bo = boc.getBusinessObject();
-		return bo instanceof BehaviorTransition || bo instanceof DeclarativeBehaviorTransition;
+		return bo instanceof BehaviorTransition;
 	}
 }

@@ -24,7 +24,7 @@
 package org.osate.ge.ba;
 
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.ge.DiagramType;
 import org.osate.ge.ba.filters.BehaviorStateFilter;
 import org.osate.ge.ba.filters.BehaviorTransitionFilter;

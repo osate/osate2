@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.ge.aadl2.ui.PaletteCommandUtil;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.PaletteCategory;

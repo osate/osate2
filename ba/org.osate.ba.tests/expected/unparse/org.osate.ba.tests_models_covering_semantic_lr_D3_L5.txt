@@ -1,0 +1,15 @@
+===== annex[0] owner=exemple_lr_D3_L5::sub.error =====
+
+
+states
+ uniqueState : initial final state ;
+
+-- Errors :
+--       _ Subprogram can't have dispatch condition in any of its transitions.
+--       _ Only transition out of complete states may have dispatch condition.
+\s\s\s
+transitions
+ uniqueState -[on dispatch]-> uniqueState ;
+\s\s
+----- Xtext reparse -----
+reparsed

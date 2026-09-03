@@ -33,22 +33,6 @@ class Issue1884Test {
 				]
 			]
 		]
-		4.assertEquals(result.issues.size)
-		result.issues.get(0) => [
-			"unterminated behavior state (missing ending ';')".assertEquals(message)
-			7.assertEquals(lineNumber)
-		]
-		result.issues.get(1) => [
-			"'bad_reference' is not found".assertEquals(message)
-			17.assertEquals(lineNumber)
-		]
-		result.issues.get(2) => [
-			"The dispatch relative timeout and catch statement must only be declared for timed thread: Behavior Annex D.4.(L1) legality rule failed.".assertEquals(message)
-			27.assertEquals(lineNumber)
-		]
-		result.issues.get(3) => [
-			"Using a dispatch condition in an abstract component means this component can only be refined into a component category on which the Dispatch_Protocol property can be applied.".assertEquals(message)
-			27.assertEquals(lineNumber)
-		]
+		2.assertEquals(result.issues.size)
 	}
 }

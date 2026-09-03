@@ -1,0 +1,17 @@
+annex[0] owner=exemple_lr_D3_L6_L7_L8::th.good
+  (BehaviorAnnex, behavior_specification, 970, 109)
+  (BehaviorCondition, <null>, 1051, 11)
+  (BehaviorState, uniqueState, 978, 11)
+  (BehaviorStateGroup, <null>, 978, 44)
+  (BehaviorTransition, <null>, 1037, 42)
+annex[1] owner=exemple_lr_D3_L6_L7_L8::th.error
+  (BehaviorAnnex, behavior_specification, 1170, 573)
+  (BehaviorCondition, <null>, 1716, 11)
+  (BehaviorState, compState, 1178, 9)
+  (BehaviorState, exeState, 1216, 8)
+  (BehaviorState, finalState, 1236, 10)
+  (BehaviorStateGroup, <null>, 1178, 36)
+  (BehaviorStateGroup, <null>, 1216, 18)
+  (BehaviorStateGroup, <null>, 1236, 26)
+  (BehaviorTransition, <null>, 1503, 28)
+  (BehaviorTransition, <null>, 1703, 40)

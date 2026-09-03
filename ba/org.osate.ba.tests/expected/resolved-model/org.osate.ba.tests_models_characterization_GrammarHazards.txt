@@ -1,0 +1,313 @@
+annex[0] owner=Issue2445_Grammar_Hazards::hazards
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=Value
+      ownedPropertyAssociations[0] : PropertyAssociation
+        ownedValue[0] : ModalPropertyValue
+          ownedValue : ListValue
+            ownedListElement[0] : StringLiteral
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=Other
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=execute
+    states[2] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[2] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[3] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : ValueExpression
+                  relations[0] : Relation
+                    firstExpression : SimpleExpression
+                      terms[0] : Term
+                        factors[0] : Factor
+                          firstValue : PortFreshValue
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : PortCountValue
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[4] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[5] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[6] : BehaviorTransition
+    transitions[7] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventPortHolder element=Issue2445_Grammar_Hazards::hazards.dispatch_event [EventPort]
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=Value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=Value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=Value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorPropertyConstant
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=Value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=Other [BehaviorVariable]
+                    secondValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=Value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=Value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=Value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+                  factors[1] : Factor
+                    firstValue : BehaviorVariableHolder element=Other [BehaviorVariable]
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=Value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+                  factors[1] : Factor
+                    firstValue : BehaviorVariableHolder element=Other [BehaviorVariable]
+    actions[2] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : PortDequeueAction
+          port : EventDataPortHolder element=Issue2445_Grammar_Hazards::hazards.input [EventDataPort]
+        actions[1] : PortDequeueAction
+          port : EventDataPortHolder element=Issue2445_Grammar_Hazards::hazards.input [EventDataPort]
+          target : BehaviorVariableHolder element=Value [BehaviorVariable]
+        actions[2] : PortFreezeAction
+        actions[3] : PortSendAction
+          port : EventDataPortHolder element=Issue2445_Grammar_Hazards::hazards.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+    actions[3] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Issue2445_Grammar_Hazards::hazards.shared [DataAccess]
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=Issue2445_Grammar_Hazards::hazards.shared [DataAccess]
+        actions[2] : LockAction
+        actions[3] : UnlockAction
+    actions[4] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : IfStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=Value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorIntegerLiteral
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+          elseStatement : IfStatement
+            behaviorActions : AssignmentAction
+              target : BehaviorVariableHolder element=Value [BehaviorVariable]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+            logicalValueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+                secondExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorIntegerLiteral
+            elseStatement : ElseStatement
+              behaviorActions : AssignmentAction
+                target : BehaviorVariableHolder element=Value [BehaviorVariable]
+                valueExpression : ValueExpression
+                  relations[0] : Relation
+                    firstExpression : SimpleExpression
+                      terms[0] : Term
+                        factors[0] : Factor
+                          firstValue : BehaviorIntegerLiteral
+        actions[1] : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=Value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+                  terms[1] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=i [IterativeVariable]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : BehaviorIntegerLiteral
+          iterativeVariable : IterativeVariable name=i
+        actions[2] : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=Value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+                  terms[1] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=j [IterativeVariable]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : BehaviorIntegerLiteral
+          iterativeVariable : IterativeVariable name=j
+        actions[3] : WhileOrDoUntilStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=Value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+                  terms[1] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorIntegerLiteral
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[4] : WhileOrDoUntilStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=Value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+                  terms[1] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorIntegerLiteral
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=Value [BehaviorVariable]
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[5] : BehaviorActionBlock
+      content : TimedAction
+        lowerTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral
+        upperTime : BehaviorTime
+          integerValue : BehaviorIntegerLiteral

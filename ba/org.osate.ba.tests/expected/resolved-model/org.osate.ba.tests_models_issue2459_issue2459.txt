@@ -1,0 +1,185 @@
+annex[0] owner=issue2459::top
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=bool1
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+    states[0] : BehaviorState name=s3
+    transitions[0] : BehaviorTransition name=t1
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=<null>
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : PortFreshValue
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : PropertySetPropertyReference
+                  properties[0] : PropertyNameHolder
+                    property : BasicPropertyHolder element=<null>
+              factors[1] : Factor
+                firstValue : BehaviorVariableHolder element=<null>
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorBooleanLiteral
+    transitions[7] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : PropertySetPropertyReference
+                  properties[0] : PropertyNameHolder
+                    property : BasicPropertyHolder element=<null>
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=bool1 [BehaviorVariable]
+    transitions[8] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=<null>
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=<null>
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : SubprogramCallAction
+          proxy : BehaviorVariableHolder element=<null>
+        actions[2] : SubprogramCallAction
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=<null>
+          proxy : BehaviorVariableHolder element=<null>
+        actions[3] : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=<null>
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortCountValue
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=<null>
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortFreshValue
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=<null>
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortDequeueValue
+        actions[3] : PortDequeueAction
+          target : BehaviorVariableHolder element=<null>
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=<null>
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=<null>
+    actions[3] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=<null>
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+      timeout : BehaviorTime
+        integerValue : BehaviorIntegerLiteral
+    actions[4] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=<null>
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+      timeout : BehaviorTime
+        integerValue : BehaviorVariableHolder element=<null>
+    actions[5] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=<null>
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+      timeout : BehaviorTime
+        integerValue : PropertySetPropertyReference
+          properties[0] : PropertyNameHolder
+            property : BasicPropertyHolder element=<null>
+    actions[6] : BehaviorActionBlock
+      content : SubprogramCallAction
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=<null>
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=<null>
+        parameterLabels[2] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=<null>
+        proxy : BehaviorVariableHolder element=<null>

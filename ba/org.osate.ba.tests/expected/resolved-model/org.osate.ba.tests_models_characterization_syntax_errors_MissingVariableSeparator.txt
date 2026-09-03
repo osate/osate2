@@ -1,0 +1,3 @@
+annex[0] owner=MissingVariableSeparator::t
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=a

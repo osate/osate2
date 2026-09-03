@@ -1,0 +1,13 @@
+annex[0] owner=MissingSubprogramParameterSeparator::t
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : SubprogramCallAction
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        proxy : BehaviorVariableHolder element=<null>

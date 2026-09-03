@@ -46,12 +46,9 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.PublicPackageSection;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorVariable;
-import org.osate.ba.declarative.Identifier;
-import org.osate.ba.declarative.QualifiedNamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
@@ -61,6 +58,9 @@ import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariableGroup;
 
 /**
  * Property section for {@link BehaviorVariable}
@@ -91,7 +91,7 @@ public class BehaviorVariablePropertySection extends AbstractPropertySection {
 		public void widgetSelected(final SelectionEvent e) {
 			final BehaviorVariable behaviorVariable = selectedBos.boStream(BehaviorVariable.class).findAny()
 					.orElseThrow(() -> new RuntimeException("Selected behavior variable cannot be found"));
-			final BehaviorAnnex anyBehaviorAnnex = (BehaviorAnnex) behaviorVariable.getOwner();
+			final BehaviorAnnex anyBehaviorAnnex = BehaviorAnnexUtil.getBehaviorAnnex(behaviorVariable);
 
 			// Set data classifier
 			final Operation op = Operation.createWithBuilder(builder -> {
@@ -123,7 +123,8 @@ public class BehaviorVariablePropertySection extends AbstractPropertySection {
 
 					// Update the variables
 					selectedBos.modifyWithOperation(opBuilder, BehaviorVariable.class,
-							(bv, prevResult) -> bv.setDataClassifier(dataClassifier));
+							(bv, prevResult) -> BehaviorAnnexUtil.isolateVariable(bv)
+									.setDataClassifier(dataClassifier));
 				}));
 			});
 
@@ -179,23 +180,15 @@ public class BehaviorVariablePropertySection extends AbstractPropertySection {
 	private static String getDataClassifierLabel(final List<BehaviorVariable> behaviorVariables) {
 		final Iterator<BehaviorVariable> it = behaviorVariables.iterator();
 		BehaviorVariable bv = it.next();
-		final DataClassifier dc = bv.getDataClassifier();
+		final ComponentClassifier dc = ((BehaviorVariableGroup) bv.eContainer()).getDataClassifier();
 		while (it.hasNext()) {
 			bv = it.next();
 			// If variable data classifiers are not the same, set to multiple
-			if (dc != bv.getDataClassifier()) {
+			if (dc != ((BehaviorVariableGroup) bv.eContainer()).getDataClassifier()) {
 				return "<Multiple>";
 			}
 		}
 
-		if (dc instanceof QualifiedNamedElement) {
-			final QualifiedNamedElement qualNamedElement = (QualifiedNamedElement) dc;
-			final Identifier baNamespace = qualNamedElement.getBaNamespace();
-			final Identifier baName = qualNamedElement.getBaName();
-			return new StringBuilder(baNamespace == null ? "" : baNamespace.getId()).append("::")
-					.append(baName == null ? "" : baName.getId()).toString();
-		}
-
-		return dc.getQualifiedName();
+		return dc == null ? "" : dc.getQualifiedName();
 	}
 }

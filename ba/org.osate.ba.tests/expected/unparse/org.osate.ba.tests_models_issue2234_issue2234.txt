@@ -1,0 +1,12 @@
+===== annex[0] owner=issue2234::spg =====
+
+\tSTATES
+\t\tsingleton: initial final state;
+\tTRANSITIONS
+  \t\tt: singleton -[]-> singleton
+   \t\t{
+   \t\t\tlock!<;
+   \t\t\tlock!>
+  \t\t};
+----- Xtext reparse -----
+reparsed

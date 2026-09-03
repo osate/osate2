@@ -1,0 +1,15 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+
+property set Issue2445_Holder_Properties is
+	enum_type: type enumeration (disabled, enabled);
+	record_type: type record (
+		present: aadlinteger;
+		omitted: aadlinteger;
+	);
+	record_property: Issue2445_Holder_Properties::record_type applies to (thread);
+end Issue2445_Holder_Properties;

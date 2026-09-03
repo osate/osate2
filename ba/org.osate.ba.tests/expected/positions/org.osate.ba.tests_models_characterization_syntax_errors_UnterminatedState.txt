@@ -1,0 +1,5 @@
+annex[0] owner=UnterminatedState::t
+  (BehaviorAnnex, behavior_specification, 181, 54)
+  (BehaviorState, s, 188, 1)
+  (BehaviorStateGroup, <null>, 188, 22)
+  (BehaviorTransition, <null>, 225, 10)

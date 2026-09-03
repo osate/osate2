@@ -1,0 +1,16 @@
+===== annex[0] owner=test_lock_actions::th =====
+
+\t\t\tstates
+\t\t\t\ts1: initial complete final state;
+\t\t\ttransitions
+\t\t\t\ts1 -[on dispatch]-> s1
+\t\t\t\t\t{
+\t\t\t\t\t\tcomputation(1 ms..2ms);
+\t\t\t\t\t\td!<;
+\t\t\t\t\t\tcomputation(0 ms..2ms);
+\t\t\t\t\t\td!>;
+\t\t\t\t\t\tcomputation(3ms..4ms)
+\t\t\t\t\t};
+\t\t
+----- Xtext reparse -----
+reparsed

@@ -1,0 +1,33 @@
+===== annex[0] owner=exemple_lr_D3_L6_L7_L8::th.good =====
+
+
+states
+ uniqueState : initial complete final state ;
+
+transitions
+ uniqueState -[on dispatch]-> uniqueState ;\s\s
+\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=exemple_lr_D3_L6_L7_L8::th.error =====
+
+
+states
+ compState : initial complete state ;
+ exeState : state ;
+ finalState : final state ;\s
+
+transitions
+\s
+-- Errors:\s
+--          _ transitions out of complete states must have dispatch conditions.
+--          _ only transition out of execution states or states that are initial
+--            only may have execution condition.
+  compState -[]-> finalState ;
+
+-- Errors :\s
+--          _ transitions states that are final only are not allowed.
+--          _ only transitions out of complete states may have dispatch conditions.\s
+  finalState -[on dispatch]-> finalState ;\s
+----- Xtext reparse -----
+reparsed

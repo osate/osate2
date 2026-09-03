@@ -1,0 +1,17 @@
+annex[0] owner=issue1884::parser_error
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=s1
+annex[1] owner=issue1884::resolver_error
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=s1
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+annex[2] owner=issue1884::legality_error
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=s1
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout

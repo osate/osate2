@@ -1,0 +1,12 @@
+annex[0] owner=exemple_lr_D3_L1_L2::sub.good
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=uniqueState
+annex[1] owner=exemple_lr_D3_L1_L2::sub.error1
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=initState1
+    states[1] : BehaviorState name=initState2
+    states[2] : BehaviorState name=compState
+annex[2] owner=exemple_lr_D3_L1_L2::sub.error2
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=uniqueState
+    states[1] : BehaviorState name=finalState1

@@ -1,0 +1,12 @@
+===== annex[0] owner=issue2401::test.impl =====
+
+         states
+            init_state : initial state;
+            final_state : final state;
+          transitions
+            dispatchTransition : init_state -[]-> init_state {
+              My_Subprogram ! (sub)
+            };
+\s\s\s\s\s\s\s\s
+----- Xtext reparse -----
+reparsed

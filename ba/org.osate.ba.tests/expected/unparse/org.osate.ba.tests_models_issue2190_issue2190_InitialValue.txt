@@ -1,0 +1,13 @@
+===== annex[0] owner=issue2190_InitialValue::top =====
+
+          variables
+            tmp :  Base_Types::Integer_32 {Data_Model::Initial_Value => ("1");};
+          states
+            a : initial final state;
+          transitions
+            t : a -[]-> a {
+              o1 := tmp
+            };
+\s\s\s\s\s\s\s\s
+----- Xtext reparse -----
+reparsed

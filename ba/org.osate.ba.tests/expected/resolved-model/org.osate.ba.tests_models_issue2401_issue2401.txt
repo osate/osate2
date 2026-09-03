@@ -1,0 +1,9 @@
+annex[0] owner=issue2401::test.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=init_state
+    states[1] : BehaviorState name=final_state
+    transitions[0] : BehaviorTransition name=dispatchTransition
+    actions[0] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=issue2401::My_Subprogram [SubprogramType]
+        parameterLabels[0] : DataSubcomponentHolder element=issue2401::test.impl.sub [DataSubcomponent]

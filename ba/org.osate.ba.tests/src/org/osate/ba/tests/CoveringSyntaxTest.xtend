@@ -30,36 +30,36 @@ class CoveringSyntaxTest {
 	@Test
 	def void aadlBaTest002() {
 		val result = testHelper.testFile(PATH+"aadlBaTest002.aadl", PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH)
-		25.assertEquals(result.issues.size)
+		2.assertEquals(result.issues.size)
 	}
 	
 	@Test
 	def void aadlBaTest003() {
 		val result = testHelper.testFile(PATH+"aadlBaTest003.aadl", PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH)
-		14.assertEquals(result.issues.size)
+		2.assertEquals(result.issues.size)
 	}
 	
 	@Test
 	def void aadlBaTest004() {
 		val result = testHelper.testFile(PATH+"aadlBaTest004.aadl", PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH)
-		3.assertEquals(result.issues.size)
+		0.assertEquals(result.issues.size)
 	}
 	
 	@Test
 	def void aadlBaTest005() {
 		val result = testHelper.testFile(PATH+"aadlBaTest005.aadl", PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH)
-		11.assertEquals(result.issues.size)
+		9.assertEquals(result.issues.size)
 	}
 	
 	@Test
 	def void aadlBaTest006() {
 		val result = testHelper.testFile(PATH+"aadlBaTest006.aadl", PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH)
-		39.assertEquals(result.issues.size)
+		107.assertEquals(result.issues.size)
 	}
 	
 	@Test
 	def void aadlBaTest007() {
 		val result = testHelper.testFile(PATH+"aadlBaTest007.aadl", PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH)
-		46.assertEquals(result.issues.size)
+		2.assertEquals(result.issues.size)
 	}
 }

@@ -1,0 +1,2 @@
+error | linking | 17 | 27 | 13 | Couldn't resolve reference to BehaviorState 'bad_reference'.
+error | syntax | 7 | 14 | 3 | mismatched input '<EOF>' expecting ';'

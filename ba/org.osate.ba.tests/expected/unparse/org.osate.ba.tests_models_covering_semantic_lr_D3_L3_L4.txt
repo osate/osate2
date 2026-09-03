@@ -1,0 +1,23 @@
+===== annex[0] owner=exemple_lr_D3_L3_L4::th.good =====
+
+
+states
+ uniqueState : initial final state ;
+ finalState1 : final state ;
+ compState : complete state ;\s
+\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=exemple_lr_D3_L3_L4::th.error =====
+
+
+  -- Errors: The behavior annex of a thread
+  --          _ can't have more than one initial state.
+  --          _ must define one or more final states.
+  --          _ must define one or more complete states.\s
+states
+ initState1 : initial state ;
+ initState2 : initial state ;
+\s
+----- Xtext reparse -----
+reparsed

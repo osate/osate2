@@ -1,0 +1,1 @@
+error | syntax | 20 | 34 | 1 | extraneous input '(' expecting RULE_ID

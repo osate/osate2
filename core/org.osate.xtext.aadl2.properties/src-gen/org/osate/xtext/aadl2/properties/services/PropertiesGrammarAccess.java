@@ -75,20 +75,22 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		private final Assignment cOwnedValueAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
 		private final RuleCall cOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0 = (RuleCall)cOwnedValueAssignment_3_1_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final RuleCall cAppliesToKeywordsParserRuleCall_4_0 = (RuleCall)cGroup_4.eContents().get(0);
-		private final Assignment cAppliesToAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cAppliesToContainmentPathParserRuleCall_4_1_0 = (RuleCall)cAppliesToAssignment_4_1.eContents().get(0);
-		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
-		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
-		private final Assignment cAppliesToAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
-		private final RuleCall cAppliesToContainmentPathParserRuleCall_4_2_1_0 = (RuleCall)cAppliesToAssignment_4_2_1.eContents().get(0);
+		private final Keyword cAppliesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Keyword cToKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		private final Assignment cAppliesToAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
+		private final RuleCall cAppliesToContainmentPathParserRuleCall_4_2_0 = (RuleCall)cAppliesToAssignment_4_2.eContents().get(0);
+		private final Group cGroup_4_3 = (Group)cGroup_4.eContents().get(3);
+		private final Keyword cCommaKeyword_4_3_0 = (Keyword)cGroup_4_3.eContents().get(0);
+		private final Assignment cAppliesToAssignment_4_3_1 = (Assignment)cGroup_4_3.eContents().get(1);
+		private final RuleCall cAppliesToContainmentPathParserRuleCall_4_3_1_0 = (RuleCall)cAppliesToAssignment_4_3_1.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final RuleCall cInBindingKeywordsParserRuleCall_5_0 = (RuleCall)cGroup_5.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
-		private final Assignment cInBindingAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
-		private final CrossReference cInBindingClassifierCrossReference_5_2_0 = (CrossReference)cInBindingAssignment_5_2.eContents().get(0);
-		private final RuleCall cInBindingClassifierQCREFParserRuleCall_5_2_0_1 = (RuleCall)cInBindingClassifierCrossReference_5_2_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_5_3 = (Keyword)cGroup_5.eContents().get(3);
+		private final Keyword cInKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Keyword cBindingKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Assignment cInBindingAssignment_5_3 = (Assignment)cGroup_5.eContents().get(3);
+		private final CrossReference cInBindingClassifierCrossReference_5_3_0 = (CrossReference)cInBindingAssignment_5_3.eContents().get(0);
+		private final RuleCall cInBindingClassifierQCREFParserRuleCall_5_3_0_1 = (RuleCall)cInBindingClassifierCrossReference_5_3_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//// Properties
@@ -99,10 +101,10 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//     ownedValue+=OptionalModalPropertyValue
 		//    ( ',' ownedValue+=OptionalModalPropertyValue )*
 		//    )
-		//    (AppliesToKeywords appliesTo+=ContainmentPath
+		//    ('applies' 'to' appliesTo+=ContainmentPath
 		//        (',' appliesTo+=ContainmentPath)*
 		//    )?
-		//    (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+		//    ('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 		//    ';';
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -112,10 +114,10 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		// ownedValue+=OptionalModalPropertyValue
 		//( ',' ownedValue+=OptionalModalPropertyValue )*
 		//)
-		//(AppliesToKeywords appliesTo+=ContainmentPath
+		//('applies' 'to' appliesTo+=ContainmentPath
 		//    (',' appliesTo+=ContainmentPath)*
 		//)?
-		//(InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+		//('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 		//';'
 		public Group getGroup() { return cGroup; }
 		
@@ -170,52 +172,58 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//OptionalModalPropertyValue
 		public RuleCall getOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0() { return cOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0; }
 		
-		//(AppliesToKeywords appliesTo+=ContainmentPath
+		//('applies' 'to' appliesTo+=ContainmentPath
 		//    (',' appliesTo+=ContainmentPath)*
 		//)?
 		public Group getGroup_4() { return cGroup_4; }
 		
-		//AppliesToKeywords
-		public RuleCall getAppliesToKeywordsParserRuleCall_4_0() { return cAppliesToKeywordsParserRuleCall_4_0; }
+		//'applies'
+		public Keyword getAppliesKeyword_4_0() { return cAppliesKeyword_4_0; }
+		
+		//'to'
+		public Keyword getToKeyword_4_1() { return cToKeyword_4_1; }
 		
 		//appliesTo+=ContainmentPath
-		public Assignment getAppliesToAssignment_4_1() { return cAppliesToAssignment_4_1; }
+		public Assignment getAppliesToAssignment_4_2() { return cAppliesToAssignment_4_2; }
 		
 		//ContainmentPath
-		public RuleCall getAppliesToContainmentPathParserRuleCall_4_1_0() { return cAppliesToContainmentPathParserRuleCall_4_1_0; }
+		public RuleCall getAppliesToContainmentPathParserRuleCall_4_2_0() { return cAppliesToContainmentPathParserRuleCall_4_2_0; }
 		
 		//(',' appliesTo+=ContainmentPath)*
-		public Group getGroup_4_2() { return cGroup_4_2; }
+		public Group getGroup_4_3() { return cGroup_4_3; }
 		
 		//','
-		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
+		public Keyword getCommaKeyword_4_3_0() { return cCommaKeyword_4_3_0; }
 		
 		//appliesTo+=ContainmentPath
-		public Assignment getAppliesToAssignment_4_2_1() { return cAppliesToAssignment_4_2_1; }
+		public Assignment getAppliesToAssignment_4_3_1() { return cAppliesToAssignment_4_3_1; }
 		
 		//ContainmentPath
-		public RuleCall getAppliesToContainmentPathParserRuleCall_4_2_1_0() { return cAppliesToContainmentPathParserRuleCall_4_2_1_0; }
+		public RuleCall getAppliesToContainmentPathParserRuleCall_4_3_1_0() { return cAppliesToContainmentPathParserRuleCall_4_3_1_0; }
 		
-		//(InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+		//('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 		public Group getGroup_5() { return cGroup_5; }
 		
-		//InBindingKeywords
-		public RuleCall getInBindingKeywordsParserRuleCall_5_0() { return cInBindingKeywordsParserRuleCall_5_0; }
+		//'in'
+		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
+		
+		//'binding'
+		public Keyword getBindingKeyword_5_1() { return cBindingKeyword_5_1; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_5_1() { return cLeftParenthesisKeyword_5_1; }
+		public Keyword getLeftParenthesisKeyword_5_2() { return cLeftParenthesisKeyword_5_2; }
 		
 		//inBinding+=[aadl2::Classifier|QCREF]
-		public Assignment getInBindingAssignment_5_2() { return cInBindingAssignment_5_2; }
+		public Assignment getInBindingAssignment_5_3() { return cInBindingAssignment_5_3; }
 		
 		//[aadl2::Classifier|QCREF]
-		public CrossReference getInBindingClassifierCrossReference_5_2_0() { return cInBindingClassifierCrossReference_5_2_0; }
+		public CrossReference getInBindingClassifierCrossReference_5_3_0() { return cInBindingClassifierCrossReference_5_3_0; }
 		
 		//QCREF
-		public RuleCall getInBindingClassifierQCREFParserRuleCall_5_2_0_1() { return cInBindingClassifierQCREFParserRuleCall_5_2_0_1; }
+		public RuleCall getInBindingClassifierQCREFParserRuleCall_5_3_0_1() { return cInBindingClassifierQCREFParserRuleCall_5_3_0_1; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_5_3() { return cRightParenthesisKeyword_5_3; }
+		public Keyword getRightParenthesisKeyword_5_4() { return cRightParenthesisKeyword_5_4; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
@@ -240,12 +248,13 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		private final Assignment cOwnedValueAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
 		private final RuleCall cOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0 = (RuleCall)cOwnedValueAssignment_3_1_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final RuleCall cInBindingKeywordsParserRuleCall_4_0 = (RuleCall)cGroup_4.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
-		private final Assignment cInBindingAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
-		private final CrossReference cInBindingClassifierCrossReference_4_2_0 = (CrossReference)cInBindingAssignment_4_2.eContents().get(0);
-		private final RuleCall cInBindingClassifierQCREFParserRuleCall_4_2_0_1 = (RuleCall)cInBindingClassifierCrossReference_4_2_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
+		private final Keyword cInKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Keyword cBindingKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Assignment cInBindingAssignment_4_3 = (Assignment)cGroup_4.eContents().get(3);
+		private final CrossReference cInBindingClassifierCrossReference_4_3_0 = (CrossReference)cInBindingAssignment_4_3.eContents().get(0);
+		private final RuleCall cInBindingClassifierQCREFParserRuleCall_4_3_0_1 = (RuleCall)cInBindingClassifierCrossReference_4_3_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//PropertyAssociation returns aadl2::PropertyAssociation:
@@ -255,7 +264,7 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//     ownedValue+=OptionalModalPropertyValue
 		//    ( ',' ownedValue+=OptionalModalPropertyValue )*
 		//    )
-		//    (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+		//    ('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 		//    ';'
 		//    ;
 		@Override public ParserRule getRule() { return rule; }
@@ -266,7 +275,7 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		// ownedValue+=OptionalModalPropertyValue
 		//( ',' ownedValue+=OptionalModalPropertyValue )*
 		//)
-		//(InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+		//('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 		//';'
 		public Group getGroup() { return cGroup; }
 		
@@ -321,26 +330,29 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//OptionalModalPropertyValue
 		public RuleCall getOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0() { return cOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0; }
 		
-		//(InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+		//('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 		public Group getGroup_4() { return cGroup_4; }
 		
-		//InBindingKeywords
-		public RuleCall getInBindingKeywordsParserRuleCall_4_0() { return cInBindingKeywordsParserRuleCall_4_0; }
+		//'in'
+		public Keyword getInKeyword_4_0() { return cInKeyword_4_0; }
+		
+		//'binding'
+		public Keyword getBindingKeyword_4_1() { return cBindingKeyword_4_1; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_4_1() { return cLeftParenthesisKeyword_4_1; }
+		public Keyword getLeftParenthesisKeyword_4_2() { return cLeftParenthesisKeyword_4_2; }
 		
 		//inBinding+=[aadl2::Classifier|QCREF]
-		public Assignment getInBindingAssignment_4_2() { return cInBindingAssignment_4_2; }
+		public Assignment getInBindingAssignment_4_3() { return cInBindingAssignment_4_3; }
 		
 		//[aadl2::Classifier|QCREF]
-		public CrossReference getInBindingClassifierCrossReference_4_2_0() { return cInBindingClassifierCrossReference_4_2_0; }
+		public CrossReference getInBindingClassifierCrossReference_4_3_0() { return cInBindingClassifierCrossReference_4_3_0; }
 		
 		//QCREF
-		public RuleCall getInBindingClassifierQCREFParserRuleCall_4_2_0_1() { return cInBindingClassifierQCREFParserRuleCall_4_2_0_1; }
+		public RuleCall getInBindingClassifierQCREFParserRuleCall_4_3_0_1() { return cInBindingClassifierQCREFParserRuleCall_4_3_0_1; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_4_3() { return cRightParenthesisKeyword_4_3; }
+		public Keyword getRightParenthesisKeyword_4_4() { return cRightParenthesisKeyword_4_4; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
@@ -409,30 +421,31 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cOwnedValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cOwnedValuePropertyExpressionParserRuleCall_0_0 = (RuleCall)cOwnedValueAssignment_0.eContents().get(0);
-		private final RuleCall cInModesKeywordsParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cInModeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cInModeModeCrossReference_3_0 = (CrossReference)cInModeAssignment_3.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_3_0_1 = (RuleCall)cInModeModeCrossReference_3_0.eContents().get(1);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cCommaKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cInModeAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final CrossReference cInModeModeCrossReference_4_1_0 = (CrossReference)cInModeAssignment_4_1.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_4_1_0_1 = (RuleCall)cInModeModeCrossReference_4_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Keyword cInKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cModesKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cInModeAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cInModeModeCrossReference_4_0 = (CrossReference)cInModeAssignment_4.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_4_0_1 = (RuleCall)cInModeModeCrossReference_4_0.eContents().get(1);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cInModeAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final CrossReference cInModeModeCrossReference_5_1_0 = (CrossReference)cInModeAssignment_5_1.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_5_1_0_1 = (RuleCall)cInModeModeCrossReference_5_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		////AnnexPath returns aadl2::ContainmentPathElement:
 		////     namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 		//ModalPropertyValue returns aadl2::ModalPropertyValue:
 		//    ownedValue=PropertyExpression
-		//    InModesKeywords '('
+		//    'in' 'modes' '('
 		//    inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 		//    ')'
 		//    ;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//ownedValue=PropertyExpression
-		//InModesKeywords '('
+		//'in' 'modes' '('
 		//inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 		//')'
 		public Group getGroup() { return cGroup; }
@@ -443,38 +456,41 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//PropertyExpression
 		public RuleCall getOwnedValuePropertyExpressionParserRuleCall_0_0() { return cOwnedValuePropertyExpressionParserRuleCall_0_0; }
 		
-		//InModesKeywords
-		public RuleCall getInModesKeywordsParserRuleCall_1() { return cInModesKeywordsParserRuleCall_1; }
+		//'in'
+		public Keyword getInKeyword_1() { return cInKeyword_1; }
+		
+		//'modes'
+		public Keyword getModesKeyword_2() { return cModesKeyword_2; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
 		
 		//inMode+=[aadl2::Mode|ID]
-		public Assignment getInModeAssignment_3() { return cInModeAssignment_3; }
+		public Assignment getInModeAssignment_4() { return cInModeAssignment_4; }
 		
 		//[aadl2::Mode|ID]
-		public CrossReference getInModeModeCrossReference_3_0() { return cInModeModeCrossReference_3_0; }
+		public CrossReference getInModeModeCrossReference_4_0() { return cInModeModeCrossReference_4_0; }
 		
 		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_3_0_1() { return cInModeModeIDTerminalRuleCall_3_0_1; }
+		public RuleCall getInModeModeIDTerminalRuleCall_4_0_1() { return cInModeModeIDTerminalRuleCall_4_0_1; }
 		
 		//(',' inMode+=[aadl2::Mode|ID])*
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_5() { return cGroup_5; }
 		
 		//','
-		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
+		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
 		
 		//inMode+=[aadl2::Mode|ID]
-		public Assignment getInModeAssignment_4_1() { return cInModeAssignment_4_1; }
+		public Assignment getInModeAssignment_5_1() { return cInModeAssignment_5_1; }
 		
 		//[aadl2::Mode|ID]
-		public CrossReference getInModeModeCrossReference_4_1_0() { return cInModeModeCrossReference_4_1_0; }
+		public CrossReference getInModeModeCrossReference_5_1_0() { return cInModeModeCrossReference_5_1_0; }
 		
 		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_4_1_0_1() { return cInModeModeIDTerminalRuleCall_4_1_0_1; }
+		public RuleCall getInModeModeIDTerminalRuleCall_5_1_0_1() { return cInModeModeIDTerminalRuleCall_5_1_0_1; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
 	}
 	public class OptionalModalPropertyValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.properties.Properties.OptionalModalPropertyValue");
@@ -482,22 +498,23 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		private final Assignment cOwnedValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cOwnedValuePropertyExpressionParserRuleCall_0_0 = (RuleCall)cOwnedValueAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final RuleCall cInModesKeywordsParserRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cInModeAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final CrossReference cInModeModeCrossReference_1_2_0 = (CrossReference)cInModeAssignment_1_2.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_1_2_0_1 = (RuleCall)cInModeModeCrossReference_1_2_0.eContents().get(1);
-		private final Group cGroup_1_3 = (Group)cGroup_1.eContents().get(3);
-		private final Keyword cCommaKeyword_1_3_0 = (Keyword)cGroup_1_3.eContents().get(0);
-		private final Assignment cInModeAssignment_1_3_1 = (Assignment)cGroup_1_3.eContents().get(1);
-		private final CrossReference cInModeModeCrossReference_1_3_1_0 = (CrossReference)cInModeAssignment_1_3_1.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_1_3_1_0_1 = (RuleCall)cInModeModeCrossReference_1_3_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_1_4 = (Keyword)cGroup_1.eContents().get(4);
+		private final Keyword cInKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Keyword cModesKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Assignment cInModeAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final CrossReference cInModeModeCrossReference_1_3_0 = (CrossReference)cInModeAssignment_1_3.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_1_3_0_1 = (RuleCall)cInModeModeCrossReference_1_3_0.eContents().get(1);
+		private final Group cGroup_1_4 = (Group)cGroup_1.eContents().get(4);
+		private final Keyword cCommaKeyword_1_4_0 = (Keyword)cGroup_1_4.eContents().get(0);
+		private final Assignment cInModeAssignment_1_4_1 = (Assignment)cGroup_1_4.eContents().get(1);
+		private final CrossReference cInModeModeCrossReference_1_4_1_0 = (CrossReference)cInModeAssignment_1_4_1.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_1_4_1_0_1 = (RuleCall)cInModeModeCrossReference_1_4_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_1_5 = (Keyword)cGroup_1.eContents().get(5);
 		
 		//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 		//    ownedValue=PropertyExpression
 		//    // phf made this optional: need to check separately that only the last one is optional
-		//    ( InModesKeywords '('
+		//    ( 'in' 'modes' '('
 		//    inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 		//    ')')?
 		//    ;
@@ -505,7 +522,7 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		
 		//ownedValue=PropertyExpression
 		//// phf made this optional: need to check separately that only the last one is optional
-		//( InModesKeywords '('
+		//( 'in' 'modes' '('
 		//inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 		//')')?
 		public Group getGroup() { return cGroup; }
@@ -517,43 +534,46 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		public RuleCall getOwnedValuePropertyExpressionParserRuleCall_0_0() { return cOwnedValuePropertyExpressionParserRuleCall_0_0; }
 		
 		//// phf made this optional: need to check separately that only the last one is optional
-		//( InModesKeywords '('
+		//( 'in' 'modes' '('
 		//inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 		//')')?
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//InModesKeywords
-		public RuleCall getInModesKeywordsParserRuleCall_1_0() { return cInModesKeywordsParserRuleCall_1_0; }
+		//'in'
+		public Keyword getInKeyword_1_0() { return cInKeyword_1_0; }
+		
+		//'modes'
+		public Keyword getModesKeyword_1_1() { return cModesKeyword_1_1; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_1_1() { return cLeftParenthesisKeyword_1_1; }
+		public Keyword getLeftParenthesisKeyword_1_2() { return cLeftParenthesisKeyword_1_2; }
 		
 		//inMode+=[aadl2::Mode|ID]
-		public Assignment getInModeAssignment_1_2() { return cInModeAssignment_1_2; }
+		public Assignment getInModeAssignment_1_3() { return cInModeAssignment_1_3; }
 		
 		//[aadl2::Mode|ID]
-		public CrossReference getInModeModeCrossReference_1_2_0() { return cInModeModeCrossReference_1_2_0; }
+		public CrossReference getInModeModeCrossReference_1_3_0() { return cInModeModeCrossReference_1_3_0; }
 		
 		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_1_2_0_1() { return cInModeModeIDTerminalRuleCall_1_2_0_1; }
+		public RuleCall getInModeModeIDTerminalRuleCall_1_3_0_1() { return cInModeModeIDTerminalRuleCall_1_3_0_1; }
 		
 		//(',' inMode+=[aadl2::Mode|ID])*
-		public Group getGroup_1_3() { return cGroup_1_3; }
+		public Group getGroup_1_4() { return cGroup_1_4; }
 		
 		//','
-		public Keyword getCommaKeyword_1_3_0() { return cCommaKeyword_1_3_0; }
+		public Keyword getCommaKeyword_1_4_0() { return cCommaKeyword_1_4_0; }
 		
 		//inMode+=[aadl2::Mode|ID]
-		public Assignment getInModeAssignment_1_3_1() { return cInModeAssignment_1_3_1; }
+		public Assignment getInModeAssignment_1_4_1() { return cInModeAssignment_1_4_1; }
 		
 		//[aadl2::Mode|ID]
-		public CrossReference getInModeModeCrossReference_1_3_1_0() { return cInModeModeCrossReference_1_3_1_0; }
+		public CrossReference getInModeModeCrossReference_1_4_1_0() { return cInModeModeCrossReference_1_4_1_0; }
 		
 		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_1_3_1_0_1() { return cInModeModeIDTerminalRuleCall_1_3_1_0_1; }
+		public RuleCall getInModeModeIDTerminalRuleCall_1_4_1_0_1() { return cInModeModeIDTerminalRuleCall_1_4_1_0_1; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_1_4() { return cRightParenthesisKeyword_1_4; }
+		public Keyword getRightParenthesisKeyword_1_5() { return cRightParenthesisKeyword_1_5; }
 	}
 	public class PropertyValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.properties.Properties.PropertyValue");
@@ -1447,66 +1467,6 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		//ConstantValue
 		public RuleCall getConstantValueParserRuleCall_3() { return cConstantValueParserRuleCall_3; }
 	}
-	public class AppliesToKeywordsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.properties.Properties.AppliesToKeywords");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAppliesKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cToKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		
-		//AppliesToKeywords:
-		//    'applies' 'to'
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'applies' 'to'
-		public Group getGroup() { return cGroup; }
-		
-		//'applies'
-		public Keyword getAppliesKeyword_0() { return cAppliesKeyword_0; }
-		
-		//'to'
-		public Keyword getToKeyword_1() { return cToKeyword_1; }
-	}
-	public class InBindingKeywordsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.properties.Properties.InBindingKeywords");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cInKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cBindingKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		
-		//InBindingKeywords:
-		//    'in' 'binding'
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'in' 'binding'
-		public Group getGroup() { return cGroup; }
-		
-		//'in'
-		public Keyword getInKeyword_0() { return cInKeyword_0; }
-		
-		//'binding'
-		public Keyword getBindingKeyword_1() { return cBindingKeyword_1; }
-	}
-	public class InModesKeywordsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.properties.Properties.InModesKeywords");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cInKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cModesKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		
-		//InModesKeywords:
-		//    'in' 'modes'
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'in' 'modes'
-		public Group getGroup() { return cGroup; }
-		
-		//'in'
-		public Keyword getInKeyword_0() { return cInKeyword_0; }
-		
-		//'modes'
-		public Keyword getModesKeyword_1() { return cModesKeyword_1; }
-	}
 	public class INTVALUEElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.properties.Properties.INTVALUE");
 		private final RuleCall cINTEGER_LITTerminalRuleCall = (RuleCall)rule.eContents().get(1);
@@ -1652,9 +1612,6 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 	private final SignedRealElements pSignedReal;
 	private final NumericRangeTermElements pNumericRangeTerm;
 	private final NumAltElements pNumAlt;
-	private final AppliesToKeywordsElements pAppliesToKeywords;
-	private final InBindingKeywordsElements pInBindingKeywords;
-	private final InModesKeywordsElements pInModesKeywords;
 	private final TerminalRule tSL_COMMENT;
 	private final INTVALUEElements pINTVALUE;
 	private final TerminalRule tEXPONENT;
@@ -1709,9 +1666,6 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 		this.pSignedReal = new SignedRealElements();
 		this.pNumericRangeTerm = new NumericRangeTermElements();
 		this.pNumAlt = new NumAltElements();
-		this.pAppliesToKeywords = new AppliesToKeywordsElements();
-		this.pInBindingKeywords = new InBindingKeywordsElements();
-		this.pInModesKeywords = new InModesKeywordsElements();
 		this.tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.properties.Properties.SL_COMMENT");
 		this.pINTVALUE = new INTVALUEElements();
 		this.tEXPONENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.properties.Properties.EXPONENT");
@@ -1772,10 +1726,10 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 	//     ownedValue+=OptionalModalPropertyValue
 	//    ( ',' ownedValue+=OptionalModalPropertyValue )*
 	//    )
-	//    (AppliesToKeywords appliesTo+=ContainmentPath
+	//    ('applies' 'to' appliesTo+=ContainmentPath
 	//        (',' appliesTo+=ContainmentPath)*
 	//    )?
-	//    (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	//    ('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 	//    ';';
 	public ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return pContainedPropertyAssociation;
@@ -1792,7 +1746,7 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 	//     ownedValue+=OptionalModalPropertyValue
 	//    ( ',' ownedValue+=OptionalModalPropertyValue )*
 	//    )
-	//    (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	//    ('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 	//    ';'
 	//    ;
 	public PropertyAssociationElements getPropertyAssociationAccess() {
@@ -1831,7 +1785,7 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 	////     namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 	//ModalPropertyValue returns aadl2::ModalPropertyValue:
 	//    ownedValue=PropertyExpression
-	//    InModesKeywords '('
+	//    'in' 'modes' '('
 	//    inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	//    ')'
 	//    ;
@@ -1846,7 +1800,7 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 	//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 	//    ownedValue=PropertyExpression
 	//    // phf made this optional: need to check separately that only the last one is optional
-	//    ( InModesKeywords '('
+	//    ( 'in' 'modes' '('
 	//    inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	//    ')')?
 	//    ;
@@ -2166,39 +2120,6 @@ public class PropertiesGrammarAccess extends AbstractElementFinder.AbstractGramm
 	
 	public ParserRule getNumAltRule() {
 		return getNumAltAccess().getRule();
-	}
-	
-	//AppliesToKeywords:
-	//    'applies' 'to'
-	//;
-	public AppliesToKeywordsElements getAppliesToKeywordsAccess() {
-		return pAppliesToKeywords;
-	}
-	
-	public ParserRule getAppliesToKeywordsRule() {
-		return getAppliesToKeywordsAccess().getRule();
-	}
-	
-	//InBindingKeywords:
-	//    'in' 'binding'
-	//;
-	public InBindingKeywordsElements getInBindingKeywordsAccess() {
-		return pInBindingKeywords;
-	}
-	
-	public ParserRule getInBindingKeywordsRule() {
-		return getInBindingKeywordsAccess().getRule();
-	}
-	
-	//InModesKeywords:
-	//    'in' 'modes'
-	//;
-	public InModesKeywordsElements getInModesKeywordsAccess() {
-		return pInModesKeywords;
-	}
-	
-	public ParserRule getInModesKeywordsRule() {
-		return getInModesKeywordsAccess().getRule();
 	}
 	
 	//terminal SL_COMMENT:

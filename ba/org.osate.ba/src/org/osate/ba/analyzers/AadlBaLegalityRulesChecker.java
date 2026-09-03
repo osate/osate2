@@ -65,8 +65,6 @@ import org.osate.ba.aadlba.IntegerValue;
 import org.osate.ba.aadlba.LoopStatement;
 import org.osate.ba.aadlba.Target;
 import org.osate.ba.aadlba.TimedAction;
-import org.osate.ba.declarative.DeclarativeBehaviorTransition;
-import org.osate.ba.declarative.Identifier;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;
 import org.osate.utils.internal.Aadl2Visitors;
@@ -85,12 +83,17 @@ public class AadlBaLegalityRulesChecker {
 
 	private Map<BehaviorState, BehaviorTransition> _alreadyFoundCompletionRelativeTimeoutConditionCatchTransition = new WeakHashMap<BehaviorState, BehaviorTransition>();
 	private Map<BehaviorState, BehaviorTransition> _alreadyFoundDispatchRelativeTimeoutTransition = new WeakHashMap<BehaviorState, BehaviorTransition>();
-	private List<BehaviorTransition> _alreadyReportedErroneousTransition = new ArrayList<BehaviorTransition>();
+	private List<BehaviorTransition> _alreadyReportedErroneousTransition = new ArrayList<>();
 
 	public AadlBaLegalityRulesChecker(BehaviorAnnex ba, AnalysisErrorReporterManager errManager) {
+		this(ba, AadlBaVisitors.getParentComponent(ba), errManager);
+	}
+
+	public AadlBaLegalityRulesChecker(BehaviorAnnex ba, ComponentClassifier parentContainer,
+			AnalysisErrorReporterManager errManager) {
 		_ba = ba;
 		_errManager = errManager;
-		_baParentContainer = AadlBaVisitors.getParentComponent(ba);
+		_baParentContainer = AadlBaVisitors.getParentComponent(ba, parentContainer);
 	}
 
 	/**
@@ -356,7 +359,7 @@ public class AadlBaLegalityRulesChecker {
 	public boolean D_3_L5_Check(DispatchCondition dc) {
 		boolean canBeDispatched = false;
 		// Only accept dispatch conditions on components for which a Dispatch_Protocl can be associated
-		PackageSection[] contextsTab = AadlBaVisitors.getBaPackageSections(_ba);
+		PackageSection[] contextsTab = AadlBaVisitors.getBaPackageSections(_ba, _baParentContainer);
 		PropertiesLinkingService pls = Aadl2Visitors.getPropertiesLinkingService(contextsTab[0]);
 
 		Property dispatchProtocolProperty = pls.findPropertyDefinition(_baParentContainer,
@@ -398,12 +401,10 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check legality rule D.3.(L6)
 	 * Keys : transition complete state dispatch condition
 	 */
-	public boolean D_3_L6_Check(BehaviorTransition bt, Identifier transSrcStateIdentifier) {
-		BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef();
-
+	public boolean D_3_L6_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// D.3.(L6) error case.
-		if (bt.getCondition() instanceof DispatchCondition && !tmp.isComplete()) {
-			this.reportLegalityError(transSrcStateIdentifier,
+		if (bt.getCondition() instanceof DispatchCondition && !sourceState.isComplete()) {
+			this.reportLegalityError(sourceState,
 					"Only transition " + "out of complete states may have dispatch condition : Behavior "
 							+ "Annex D.3.(L6) legality rule failed");
 
@@ -421,12 +422,11 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check legality rule D.3.(L7)
 	 * Keys : transition complete state dispatch condition
 	 */
-	public boolean D_3_L7_Check(BehaviorTransition bt, Identifier transSrcStateIdentifier) {
-		BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef();
-
+	public boolean D_3_L7_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// D.3.(L7) error case.
-		if (tmp.isComplete() && (!(bt.getCondition() instanceof DispatchCondition)) && (tmp.getBindedMode() == null)) {
-			this.reportLegalityError(transSrcStateIdentifier,
+		if (sourceState.isComplete() && (!(bt.getCondition() instanceof DispatchCondition))
+				&& (sourceState.getBindedMode() == null)) {
+			this.reportLegalityError(sourceState,
 					"Transitions out " + "of complete states must have dispatch condition : Behavior Annex"
 							+ " D.3.(L7) legality rule failed");
 			return false;
@@ -443,12 +443,10 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check legality rule D.3.(L8)
 	 * Keys : transition out final state
 	 */
-	public boolean D_3_L8_Check(Identifier transSrcStateIdentifier) {
-		BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef();
-
+	public boolean D_3_L8_Check(BehaviorState sourceState) {
 		// D.3.(L8) error case.
-		if (tmp.isFinal() && !(tmp.isComplete() || tmp.isInitial())) {
-			this.reportLegalityError(transSrcStateIdentifier, "Transitions out "
+		if (sourceState.isFinal() && !(sourceState.isComplete() || sourceState.isInitial())) {
+			this.reportLegalityError(sourceState, "Transitions out "
 					+ "of final states are not allowed : Behavior Annex" + " D.3.(L8) legality rule failed");
 			return false;
 		} else {
@@ -465,11 +463,11 @@ public class AadlBaLegalityRulesChecker {
 	 * Keys : dispatch relative timeout condition catch timed thread complete
 	 * state period property
 	 */
-	public boolean D_4_L1_Check(DispatchRelativeTimeout tc, DeclarativeBehaviorTransition bt) {
-		List<Identifier> sourceState = bt.getSrcStates();
+	public boolean D_4_L1_Check(DispatchRelativeTimeout tc, BehaviorTransition bt) {
+		List<BehaviorState> sourceState = BehaviorTransitionContext.getSourceStates(bt);
 
 		if (sourceState.size() == 1) {
-			BehaviorState bs = (BehaviorState) (sourceState.get(0)).getBaRef();
+			BehaviorState bs = sourceState.get(0);
 			if (false == _alreadyFoundDispatchRelativeTimeoutTransition.containsKey(bs) && bs.isComplete()) {
 				// If the ba's parent container is not a Thread, the return value
 				// list will be empty.
@@ -546,12 +544,12 @@ public class AadlBaLegalityRulesChecker {
 	 * Keys : dispatch completion relative timeout condition catch complete
 	 * state
 	 */
-	public Boolean D_4_L2_Check(CompletionRelativeTimeout crtcac, DeclarativeBehaviorTransition bt) {
-		List<Identifier> sourceState = bt.getSrcStates();
+	public Boolean D_4_L2_Check(CompletionRelativeTimeout crtcac, BehaviorTransition bt) {
+		List<BehaviorState> sourceState = BehaviorTransitionContext.getSourceStates(bt);
 
 		if (!_alreadyFoundCompletionRelativeTimeoutConditionCatchTransition.containsKey(sourceState)
 				&& sourceState.size() == 1) {
-			BehaviorState bs = (BehaviorState) (sourceState.get(0)).getBaRef();
+			BehaviorState bs = sourceState.get(0);
 			// Positive case.
 			if (bs.isComplete()) {
 				_alreadyFoundCompletionRelativeTimeoutConditionCatchTransition.put(bs, bt);
@@ -629,10 +627,10 @@ public class AadlBaLegalityRulesChecker {
 
 		// Temporary list of targets passed between recursive calls of
 		// buildActionSetAssignedValuesLists method.
-		List<Target> lActionSetTar = new ArrayList<Target>();
+		var lActionSetTar = new ArrayList<Target>();
 
 		// Set of duplicated targets between multiple action sets.
-		Set<Target> lDuplicates = new HashSet<Target>();
+		var lDuplicates = new HashSet<Target>();
 
 		buildActionSetAssignedTargetLists(beActions, lActionSetTar, lDuplicates);
 		String localVariableErrorMsg = "The same local variable must not be "
@@ -755,7 +753,7 @@ public class AadlBaLegalityRulesChecker {
 		// For each BehaviorAction of the given BehaviorActionCollection.
 		for (int i = 0; i < lbeActs.size(); i++) {
 			behAct = lbeActs.get(i);
-			llActionSetTar[i] = new ArrayList<Target>();
+			llActionSetTar[i] = new ArrayList<>();
 			buildActionSetAssignedTargetLists(behAct, llActionSetTar[i], lDuplicates);
 		}
 

@@ -1,0 +1,15 @@
+===== annex[0] owner=issue2236::function1 =====
+
+ variables
+   d : issue2236::d;
+ states
+   s : initial complete final state;
+ transitions
+   s -[on dispatch]-> s {
+     d := 0;
+     d := 1.0;
+     d := "any_string"
+   };
+\s\s
+----- Xtext reparse -----
+reparsed

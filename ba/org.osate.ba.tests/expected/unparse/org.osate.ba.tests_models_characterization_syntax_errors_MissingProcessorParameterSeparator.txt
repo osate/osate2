@@ -1,0 +1,7 @@
+===== annex[0] owner=MissingProcessorParameterSeparator::t =====
+
+\t\tstates s: initial final state;
+\t\ttransitions s -[]-> s { computation(1 ms) in binding (cpu1 cpu2) };
+\t
+----- Xtext reparse -----
+reparsed

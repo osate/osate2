@@ -1,0 +1,23 @@
+annex[0] owner=BehaviorStateTest::myThread
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=uniqueState
+    states[1] : BehaviorState name=a
+    states[2] : BehaviorState name=b
+    states[3] : BehaviorState name=c
+    transitions[0] : BehaviorTransition name=t4
+    transitions[1] : BehaviorTransition name=t2
+    transitions[2] : BehaviorTransition name=t1
+    transitions[3] : BehaviorTransition name=t3
+    transitions[4] : BehaviorTransition name=t6
+      condition : Otherwise
+    transitions[5] : BehaviorTransition name=t7
+      condition : Otherwise
+    transitions[6] : BehaviorTransition name=t8
+      condition : Otherwise
+    transitions[7] : BehaviorTransition name=t5
+    transitions[8] : BehaviorTransition
+    transitions[9] : BehaviorTransition
+      condition : Otherwise
+    transitions[10] : BehaviorTransition
+    transitions[11] : BehaviorTransition
+      condition : Otherwise

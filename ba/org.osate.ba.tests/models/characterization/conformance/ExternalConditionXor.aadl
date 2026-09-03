@@ -1,0 +1,20 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package ExternalConditionXor
+public
+	abstract component
+	features
+		first_event: in event port;
+		second_event: in event port;
+	end component;
+
+	abstract implementation component.i
+	annex behavior_specification {**
+		states
+			start: initial state;
+			finish: final state;
+		transitions
+			start -[ on first_event xor second_event ]-> finish;
+	**};
+	end component.i;
+end ExternalConditionXor;

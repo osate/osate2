@@ -27,6 +27,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -41,9 +42,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
@@ -120,7 +121,7 @@ public class EmbeddedTextEditor extends Composite {
 		editBtn.setText("Edit...");
 		editBtn.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> {
 			final EditableEmbeddedTextValue embeddedTextValue = xtextAdapter.getEmbeddedTextValue();
-			final NamedElement ne = embeddedTextValue.getElementToModify();
+			final EObject object = embeddedTextValue.getElementToModify();
 			final EditEmbeddedTextDialog dlg = new EditEmbeddedTextDialog(Display.getCurrent().getActiveShell(),
 					embeddedTextValue, styledTextStyle,
 					styledTextLayoutData);
@@ -130,7 +131,7 @@ public class EmbeddedTextEditor extends Composite {
 					final ActionService actionService = Adapters.adapt(editorPart, ActionService.class);
 					final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
 							editorPart.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
-					final IXtextDocument xtextDocument = getXtextDocument(ne).orElse(null);
+					final IXtextDocument xtextDocument = getXtextDocument(object).orElse(null);
 					if (xtextDocument != null) {
 						// Execute modification with xtext document
 						actionService.execute(embeddedTextValue.getModificationLabel(),
@@ -138,7 +139,7 @@ public class EmbeddedTextEditor extends Composite {
 								new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier,
 										dlg.getResult().getFullSource()));
 					} else {
-						final XtextResource xtextResource = getXtextResource(ne).orElseThrow();
+						final XtextResource xtextResource = getXtextResource(object).orElseThrow();
 						embeddedTextValue.setEditableText(dlg.getResult().getPartialSource());
 						// Execute modification with xtext resource
 						actionService.execute(embeddedTextValue.getModificationLabel(), ExecutionMode.NORMAL,
@@ -150,12 +151,12 @@ public class EmbeddedTextEditor extends Composite {
 		}));
 	}
 
-	private static Optional<IXtextDocument> getXtextDocument(final NamedElement element) {
-		return Optional.ofNullable(AgeXtextUtil.getDocumentByRootElement(element.getElementRoot()));
+	private static Optional<IXtextDocument> getXtextDocument(final EObject object) {
+		return Optional.ofNullable(AgeXtextUtil.getDocumentByRootElement(BehaviorAnnexUtil.getElementRoot(object)));
 	}
 
-	private static Optional<XtextResource> getXtextResource(final NamedElement element) {
-		final Resource resource = element.eResource();
+	private static Optional<XtextResource> getXtextResource(final EObject object) {
+		final Resource resource = object.eResource();
 		return Optional.ofNullable(resource instanceof XtextResource ? (XtextResource) resource : null);
 	}
 

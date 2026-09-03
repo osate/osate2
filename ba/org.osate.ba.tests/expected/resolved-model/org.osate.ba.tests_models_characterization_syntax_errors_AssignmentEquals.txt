@@ -1,0 +1,8 @@
+annex[0] owner=AssignmentEquals::t
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=x
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : SubprogramCallAction
+        proxy : BehaviorVariableHolder element=x [BehaviorVariable]

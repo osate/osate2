@@ -29,6 +29,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.ba.aadlba.AadlBaPackage;
@@ -49,8 +50,6 @@ import org.osate.ba.aadlba.LoopStatement;
 import org.osate.ba.aadlba.Otherwise;
 import org.osate.ba.aadlba.TimedAction;
 import org.osate.ba.aadlba.util.AadlBaSwitch;
-import org.osate.ba.declarative.DeclarativeBehaviorTransition;
-import org.osate.ba.declarative.Identifier;
 
 public class AadlBaRulesCheckersDriver {
 
@@ -69,13 +68,19 @@ public class AadlBaRulesCheckersDriver {
 	private AadlBaSemanticRulesChecker _semantic;
 	private AadlBaConsistencyRulesChecker _consistency;
 	private AnalysisErrorReporterManager _errManager;
-	private DeclarativeBehaviorTransition _currentBt;
+	private BehaviorTransition _currentBt;
 
+	@Deprecated
 	public AadlBaRulesCheckersDriver(BehaviorAnnex ba, AnalysisErrorReporterManager errManager) {
+		this(ba, org.osate.ba.utils.AadlBaVisitors.getParentComponent(ba), errManager);
+	}
+
+	public AadlBaRulesCheckersDriver(BehaviorAnnex ba, ComponentClassifier parentContainer,
+			AnalysisErrorReporterManager errManager) {
 		_ba = ba;
-		_legality = new AadlBaLegalityRulesChecker(ba, errManager);
+		_legality = new AadlBaLegalityRulesChecker(ba, parentContainer, errManager);
 		_semantic = new AadlBaSemanticRulesChecker(errManager);
-		_consistency = new AadlBaConsistencyRulesChecker(ba, errManager);
+		_consistency = new AadlBaConsistencyRulesChecker(ba, parentContainer, errManager);
 		_errManager = errManager;
 		this.initSwitches();
 	}
@@ -177,10 +182,9 @@ public class AadlBaRulesCheckersDriver {
 
 				for (BehaviorState s : ba.getStates()) {
 					for (BehaviorTransition bt : ba.getTransitions()) {
-						DeclarativeBehaviorTransition tmp = (DeclarativeBehaviorTransition) bt;
-						for (Identifier src : tmp.getSrcStates()) {
-							if (s.getName().equalsIgnoreCase(src.getId())) {
-								btTmp.add(tmp);
+						for (BehaviorState src : BehaviorTransitionContext.getSourceStates(bt)) {
+							if (s == src) {
+								btTmp.add(bt);
 							}
 						}
 					}
@@ -212,15 +216,15 @@ public class AadlBaRulesCheckersDriver {
 			}
 
 			public Boolean caseBehaviorTransition(BehaviorTransition tmp) {
-				_currentBt = (DeclarativeBehaviorTransition) tmp;
+				_currentBt = tmp;
 
 				boolean result = true;
 
-				List<Identifier> sourceStateList = _currentBt.getSrcStates();
+				List<BehaviorState> sourceStateList = BehaviorTransitionContext.getSourceStates(_currentBt);
 
 				// Check source identifiers.
 
-				for (Identifier srcState : sourceStateList) {
+				for (BehaviorState srcState : sourceStateList) {
 					result &= _legality.D_3_L6_Check(_currentBt, srcState);
 					result &= _legality.D_3_L7_Check(_currentBt, srcState);
 					result &= _legality.D_3_L8_Check(srcState);

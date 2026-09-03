@@ -1,0 +1,15 @@
+===== annex[0] owner=issue2525::t =====
+
+  variables
+    v: d;
+  states
+    s: initial complete final state;
+  transitions
+    s-[on dispatch]->s
+    {
+    \td_in?(v);
+    \td_in?
+    };
+\s\s
+----- Xtext reparse -----
+reparsed

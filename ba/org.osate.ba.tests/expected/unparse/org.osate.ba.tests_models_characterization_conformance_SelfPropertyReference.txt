@@ -1,0 +1,12 @@
+===== annex[0] owner=SelfPropertyReference::worker =====
+
+\t\tvariables
+\t\t\tvalue: Base_Types::Integer;
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tfinish: final state;
+\t\ttransitions
+\t\t\tstart -[ ]-> finish { value := self#Priority };
+\t
+----- Xtext reparse -----
+reparsed

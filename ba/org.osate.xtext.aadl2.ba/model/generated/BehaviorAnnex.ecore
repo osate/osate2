@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="behaviorAnnex" nsURI="http://www.aadl.info/BehaviorSpecification"
+    nsPrefix="behaviorAnnex">
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorAnnex" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//AnnexSubclause">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variableGroups" upperBound="-1"
+        eType="#//BehaviorVariableGroup" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateGroups" upperBound="-1"
+        eType="#//BehaviorStateGroup" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
+        eType="#//BehaviorTransition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariableGroup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
+        eType="#//BehaviorVariable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="#//ValueConstant"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyAssociations" upperBound="-1"
+        eType="#//BehaviorPropertyAssociation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arrayDimensions" upperBound="-1"
+        eType="#//ArrayDimension" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayDimension">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="#//IntegerValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorPropertyAssociation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValue" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorStateGroup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+        eType="#//BehaviorState" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="initial" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="complete" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="final" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorState">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorTransition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceStates" unique="false"
+        upperBound="-1" eType="#//BehaviorState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//BehaviorCondition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationState" eType="#//BehaviorState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actionBlock" eType="#//BehaviorActionBlock"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dispatch" eType="#//DispatchCondition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modeSwitch" eType="#//ModeSwitchCondition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="execute" eType="#//ExecuteCondition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExecuteCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="otherwise" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DispatchCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trigger" eType="#//DispatchTriggerCondition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="frozenPorts" upperBound="-1"
+        eType="#//Reference" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DispatchTriggerCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//DispatchTriggerLogicalExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="time" eType="#//BehaviorTime"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stop" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DispatchTriggerLogicalExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conjunctions" upperBound="-1"
+        eType="#//DispatchConjunction" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DispatchConjunction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="triggers" upperBound="-1"
+        eType="#//Reference" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conjunctions" upperBound="-1"
+        eType="#//ModeSwitchConjunction" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchConjunction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="triggers" upperBound="-1"
+        eType="#//Reference" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorActionBlock" eSuperTypes="#//BehaviorAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="content" eType="#//BehaviorActions"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timeout" eType="#//BehaviorTime"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorActions"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorAction" eSuperTypes="#//BehaviorActions"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AssignmentAction" eSuperTypes="#//BehaviorAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="any" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommunicationAction" eSuperTypes="#//BehaviorAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="send" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//ValueExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dequeue" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="freeze" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lock" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unlock" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="all" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allLock" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allUnlock" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimedAction" eSuperTypes="#//BehaviorAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lowerTime" eType="#//BehaviorTime"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="upperTime" eType="#//BehaviorTime"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processors" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//BehaviorAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thenActions" eType="#//BehaviorActions"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elseIfs" upperBound="-1"
+        eType="#//ElseIfClause" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elseActions" eType="#//BehaviorActions"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElseIfClause">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" eType="#//BehaviorActions"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ForStatement" eSuperTypes="#//BehaviorAction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="for" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="forall" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variable" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="values" eType="#//ElementValues"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" eType="#//BehaviorActions"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WhileStatement" eSuperTypes="#//BehaviorAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" eType="#//BehaviorActions"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DoUntilStatement" eSuperTypes="#//BehaviorAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" eType="#//BehaviorActions"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ValueExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementValues">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lower" eType="#//IntegerValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="upper" eType="#//IntegerValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorTime">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//IntegerValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unit" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegerValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueConstant" eSuperTypes="#//ValueExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorIntegerLiteral" eSuperTypes="#//IntegerValue #//ValueConstant #//PropertyIndexValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorRealLiteral" eSuperTypes="#//ValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorStringLiteral" eSuperTypes="#//ValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorBooleanLiteral" eSuperTypes="#//ValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceExpression" eSuperTypes="#//IntegerValue #//ValueExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="#//PropertyReferenceTail"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dequeue" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fresh" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HashPropertyReference" eSuperTypes="#//IntegerValue #//ValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="property" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="indexes" upperBound="-1"
+        eType="#//PropertyArrayIndex" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
+        eType="#//NamedPropertyField" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyReferenceTail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="property" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="indexes" upperBound="-1"
+        eType="#//PropertyArrayIndex" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
+        eType="#//NamedPropertyField" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedPropertyField">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="indexes" upperBound="-1"
+        eType="#//PropertyArrayIndex" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyArrayIndex">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//PropertyIndexValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyIndexValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyIndexPropertyReference" eSuperTypes="#//PropertyIndexValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="property" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UnindexedReferenceExpression" eSuperTypes="#//PropertyIndexValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//UnindexedReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dequeue" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fresh" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UnindexedReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="segments" upperBound="-1"
+        eType="#//UnindexedReferenceSegment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tails" upperBound="-1"
+        eType="#//UnindexedReferenceTail" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UnindexedReferenceTail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="separator" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="segment" eType="#//UnindexedReferenceSegment"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UnindexedReferenceSegment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Reference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="segments" upperBound="-1"
+        eType="#//ReferenceSegment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tails" upperBound="-1"
+        eType="#//ReferenceTail" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceTail">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="separator" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="segment" eType="#//ReferenceSegment"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceSegment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="indexes" upperBound="-1"
+        eType="#//ArrayIndex" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayIndex">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//IntegerValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorActionSequence" eSuperTypes="#//BehaviorActions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+        eType="#//BehaviorAction" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorActionSet" eSuperTypes="#//BehaviorActions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+        eType="#//BehaviorAction" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BinaryExpression" eSuperTypes="#//ValueExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//ValueExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UnaryExpression" eSuperTypes="#//ValueExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="#//ValueExpression"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

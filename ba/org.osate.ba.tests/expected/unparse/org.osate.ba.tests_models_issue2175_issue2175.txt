@@ -1,0 +1,9 @@
+===== annex[0] owner=issue2175::function1 =====
+
+  \tstates
+  \t\ts : initial complete final state;
+\ttransitions
+\t\ts -[on dispatch]-> s{function2!};
+\s\s
+----- Xtext reparse -----
+reparsed

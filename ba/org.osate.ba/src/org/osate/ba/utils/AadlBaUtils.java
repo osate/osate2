@@ -166,30 +166,20 @@ public class AadlBaUtils {
 	 * @return the data representation or DataRepresentation.UNKNOWN
 	 */
 	public static DataRepresentation getDataRepresentation(DataClassifier c) {
-		DataRepresentation result = null;
-
 		if (c == null) {
-			result = DataRepresentation.UNKNOWN;
-		} else {
-
-			EList<PropertyExpression> l = PropertyUtils.findPropertyExpression(c,
-					DataModelProperties.DATA_REPRESENTATION);
-			if (l.size() > 0) {
-				// Fetches the last enumeration value from the inheritance stack of
-				// properties.
-				NamedValue nv = (NamedValue) l.get(l.size() - 1);
-				String tmp = ((EnumerationLiteral) nv.getNamedValue()).getName();
-				result = DataRepresentation.getByName(tmp);
-
-				if (result == null) {
-					result = DataRepresentation.UNKNOWN;
-				}
-			} else {
-				result = DataRepresentation.UNKNOWN;
-			}
+			return DataRepresentation.UNKNOWN;
 		}
 
-		return result;
+		var values = PropertyUtils.findPropertyExpression(c, DataModelProperties.DATA_REPRESENTATION);
+		if (values.isEmpty()) {
+			return DataRepresentation.UNKNOWN;
+		}
+
+		// Fetches the last enumeration value from the inheritance stack of properties.
+		var namedValue = (NamedValue) values.getLast();
+		var name = ((EnumerationLiteral) namedValue.getNamedValue()).getName();
+		var result = DataRepresentation.getByName(name);
+		return result == null ? DataRepresentation.UNKNOWN : result;
 	}
 
 	/**
@@ -202,9 +192,7 @@ public class AadlBaUtils {
 	 * @return the data representation or DataRepresentation.UNKNOWN
 	 */
 	public static DataRepresentation getDataRepresentation(BehaviorVariable bv) {
-		Element el = bv.getDataClassifier();
-
-		return getDataRepresentation((DataClassifier) el);
+		return getDataRepresentation(bv.getDataClassifier());
 	}
 
 	/**
@@ -224,24 +212,21 @@ public class AadlBaUtils {
 	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(PropertyType type) {
-		if (type instanceof AadlInteger) {
-			return DataRepresentation.INTEGER;
-		} else if (type instanceof AadlReal) {
-			return DataRepresentation.FLOAT;
-		} else if (type instanceof AadlString) {
-			return DataRepresentation.STRING;
-		} else if (type instanceof AadlBoolean) {
-			return DataRepresentation.BOOLEAN;
-		} else if (type instanceof EnumerationType) {
-			return DataRepresentation.ENUM;
-		} else {
+		return switch (type) {
+		case AadlInteger ignored -> DataRepresentation.INTEGER;
+		case AadlReal ignored -> DataRepresentation.FLOAT;
+		case AadlString ignored -> DataRepresentation.STRING;
+		case AadlBoolean ignored -> DataRepresentation.BOOLEAN;
+		case EnumerationType ignored -> DataRepresentation.ENUM;
+		default -> {
 			// Not implemented:
 			// ClassifierType, EnumerationType, ListType, NonListType, NumberType,
 			// RangeType, RecordType, ReferenceType, UnitsType
-			String errorMsg = "getDataRepresentation: " + type.getClass().getSimpleName() + " from "
+			var errorMsg = "getDataRepresentation: " + type.getClass().getSimpleName() + " from "
 					+ type.eContainer().toString() + " is not supported yet.";
 			throw new UnsupportedOperationException(errorMsg);
 		}
+		};
 	}
 
 	/**
@@ -255,8 +240,7 @@ public class AadlBaUtils {
 	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(PropertyAssociation pa) {
-		ModalPropertyValue mpv = pa.getOwnedValues().get(pa.getOwnedValues().size() - 1);
-		return getDataRepresentation(mpv.getOwnedValue());
+		return getDataRepresentation(pa.getOwnedValues().getLast().getOwnedValue());
 	}
 
 	/**
@@ -275,27 +259,21 @@ public class AadlBaUtils {
 	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(PropertyExpression pe) {
-		int type = pe.eClass().getClassifierID();
-		switch (type) {
-		case Aadl2Package.BOOLEAN_LITERAL:
-			return DataRepresentation.BOOLEAN;
-		case Aadl2Package.INTEGER_LITERAL:
-			return DataRepresentation.INTEGER;
-		case Aadl2Package.REAL_LITERAL:
-			return DataRepresentation.FLOAT;
-		case Aadl2Package.STRING_LITERAL:
-			return DataRepresentation.STRING;
-
-		default: {
+		return switch (pe.eClass().getClassifierID()) {
+		case Aadl2Package.BOOLEAN_LITERAL -> DataRepresentation.BOOLEAN;
+		case Aadl2Package.INTEGER_LITERAL -> DataRepresentation.INTEGER;
+		case Aadl2Package.REAL_LITERAL -> DataRepresentation.FLOAT;
+		case Aadl2Package.STRING_LITERAL -> DataRepresentation.STRING;
+		default -> {
 			// Not implemented:
 			// ClassifierValue, ComputedValue, InstanceReferenceValue,
 			// ListValue, NamedValue, NumberValue, Operation, PropertyValue,
 			// RangeValue, RecordValue, ReferenceValue
-			String errorMsg = "getDataRepresentation: " + pe.getClass().getSimpleName() + " from "
+			var errorMsg = "getDataRepresentation: " + pe.getClass().getSimpleName() + " from "
 					+ pe.eContainer().toString() + " is not supported yet.";
 			throw new UnsupportedOperationException(errorMsg);
 		}
-		}
+		};
 	}
 
 	/**
@@ -324,20 +302,19 @@ public class AadlBaUtils {
 	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(PropertyReference pr) {
-		EList<PropertyNameHolder> holders = pr.getProperties();
-		PropertyNameHolder last = holders.get(holders.size() - 1);
-		Element el = last.getProperty().getElement();
+		var element = pr.getProperties().getLast().getProperty().getElement();
 
-		if (el instanceof PropertyType || el instanceof BasicProperty) {
-			return getDataRepresentation(((BasicProperty) el).getPropertyType());
-		} else if (el instanceof PropertyAssociation) {
-			return getDataRepresentation((PropertyAssociation) el);
-		} else if (el instanceof PropertyExpression) {
-			return getDataRepresentation((PropertyExpression) el);
-		} else if (el instanceof EnumerationLiteral) {
+		if (element instanceof BasicProperty property) {
+			return getDataRepresentation(property.getPropertyType());
+		} else if (element instanceof PropertyAssociation association) {
+			return getDataRepresentation(association);
+		} else if (element instanceof PropertyExpression expression) {
+			return getDataRepresentation(expression);
+		} else if (element instanceof EnumerationLiteral) {
 			return DataRepresentation.ENUM_LITERAL;
 		} else {
-			String errorMsg = "getDataRepresentation: " + el.getClass().getSimpleName() + " is not supported yet.";
+			var errorMsg = "getDataRepresentation: " + element.getClass().getSimpleName()
+					+ " is not supported yet.";
 			System.err.println(errorMsg);
 			throw new UnsupportedOperationException(errorMsg);
 		}
@@ -352,18 +329,18 @@ public class AadlBaUtils {
 	public static PropertyType getPropertyType(PropertyElementHolder holder) {
 		PropertyType result = null;
 
-		Element el = holder.getElement();
+		var element = holder.getElement();
 
-		if (el instanceof PropertyType) {
-			result = (PropertyType) el;
-		} else if (el instanceof BasicProperty) {
-			result = ((BasicProperty) el).getPropertyType();
-		} else if (el instanceof PropertyAssociation) {
-			result = ((PropertyAssociation) el).getProperty().getPropertyType();
-		} else if (el instanceof PropertyExpression) {
-			result = PropertyUtils.getContainingProperty((PropertyExpression) el).getPropertyType();
-		} else if (el instanceof EnumerationLiteral) {
-			result = (EnumerationType) el.eContainer();
+		if (element instanceof PropertyType propertyType) {
+			result = propertyType;
+		} else if (element instanceof BasicProperty property) {
+			result = property.getPropertyType();
+		} else if (element instanceof PropertyAssociation association) {
+			result = association.getProperty().getPropertyType();
+		} else if (element instanceof PropertyExpression expression) {
+			result = PropertyUtils.getContainingProperty(expression).getPropertyType();
+		} else if (element instanceof EnumerationLiteral) {
+			result = (EnumerationType) element.eContainer();
 		}
 		return result;
 	}
@@ -380,22 +357,15 @@ public class AadlBaUtils {
 	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(ValueConstant v) {
-		if (v instanceof BehaviorPropertyConstant) {
-			return getDataRepresentation((BehaviorPropertyConstant) v);
-		} else if (v instanceof PropertyReference) {
-			return getDataRepresentation((PropertyReference) v);
-		} else if (v instanceof BehaviorIntegerLiteral) {
-			return DataRepresentation.INTEGER;
-		} else if (v instanceof BehaviorRealLiteral) {
-			return DataRepresentation.FLOAT;
-		} else if (v instanceof BehaviorStringLiteral) {
-			return DataRepresentation.STRING;
-		} else if (v instanceof BehaviorBooleanLiteral) {
-			return DataRepresentation.BOOLEAN;
-		} else // Behavior enumeration literal case.
-		{
-			return DataRepresentation.ENUM;
-		}
+		return switch (v) {
+		case BehaviorPropertyConstant constant -> getDataRepresentation(constant);
+		case PropertyReference reference -> getDataRepresentation(reference);
+		case BehaviorIntegerLiteral ignored -> DataRepresentation.INTEGER;
+		case BehaviorRealLiteral ignored -> DataRepresentation.FLOAT;
+		case BehaviorStringLiteral ignored -> DataRepresentation.STRING;
+		case BehaviorBooleanLiteral ignored -> DataRepresentation.BOOLEAN;
+		default -> DataRepresentation.ENUM; // Behavior enumeration literal case.
+		};
 	}
 
 	/**
@@ -416,17 +386,15 @@ public class AadlBaUtils {
 			// Either ElementHolder or DataComponentReference object.
 			Element el = null;
 
-			if (v instanceof ElementHolder) {
-				if (v instanceof PrototypeHolder) {
-					PrototypeHolder ph = (PrototypeHolder) v;
-
-					if (ph.getPrototypeBinding() != null) {
-						el = ph.getPrototypeBinding();
+			if (v instanceof ElementHolder holder) {
+				if (v instanceof PrototypeHolder prototypeHolder) {
+					if (prototypeHolder.getPrototypeBinding() != null) {
+						el = prototypeHolder.getPrototypeBinding();
 					} else {
-						el = ph.getPrototype();
+						el = prototypeHolder.getPrototype();
 					}
 				} else {
-					el = ((ElementHolder) v).getElement();
+					el = holder.getElement();
 				}
 			} else // DataComponentReference case.
 			{
@@ -542,65 +510,60 @@ public class AadlBaUtils {
 	public static Classifier getClassifier(Element el, Classifier parentContainer) {
 		Classifier result = null;
 
-		if (el instanceof Feature) {
-			Feature f = (Feature) el;
+		if (el instanceof Feature feature) {
+			if (feature instanceof FeatureGroup featureGroup) {
+				var featureType = featureGroup.getFeatureType();
 
-			if (el instanceof FeatureGroup) {
-				org.osate.aadl2.FeatureType ft = ((FeatureGroup) el).getFeatureType();
-
-				if (ft != null) {
-					if (ft instanceof FeatureGroupType) {
-						result = (FeatureGroupType) ft;
+				if (featureType != null) {
+					if (featureType instanceof FeatureGroupType featureGroupType) {
+						result = featureGroupType;
 					} else // FeatureGroupPrototype case
 					{
-						result = getClassifier((FeatureGroupPrototype) ft, parentContainer);
+						result = getClassifier((FeatureGroupPrototype) featureType, parentContainer);
 					}
 				}
 			} else {
 				// Feature case.
-				result = f.getClassifier();
+				result = feature.getClassifier();
 
 				// Resolves data prototype.
 				// Feature without classifier returns null.
-				if (result == null && f.getPrototype() != null) {
-					result = prototypeResolver(f.getPrototype(), parentContainer);
+				if (result == null && feature.getPrototype() != null) {
+					result = prototypeResolver(feature.getPrototype(), parentContainer);
 				}
 			}
-		} else if (el instanceof Subcomponent) {
-			Subcomponent sub = (Subcomponent) el;
-
-			if (el instanceof SubprogramGroupSubcomponent) {
-				result = ((SubprogramGroupSubcomponent) el).getClassifier();
+		} else if (el instanceof Subcomponent subcomponent) {
+			if (subcomponent instanceof SubprogramGroupSubcomponent group) {
+				result = group.getClassifier();
 			} else {
 				// Subcomponent case.
-				result = sub.getClassifier();
+				result = subcomponent.getClassifier();
 
 				// Resolves data prototype.
 				// Subcomponent without classifier returns null.
-				if (result == null && sub.getPrototype() != null) {
-					result = prototypeResolver(sub.getPrototype(), parentContainer);
+				if (result == null && subcomponent.getPrototype() != null) {
+					result = prototypeResolver(subcomponent.getPrototype(), parentContainer);
 				}
 			}
-		} else if (el instanceof BehaviorVariable) {
+		} else if (el instanceof BehaviorVariable variable) {
 			// Local variable case (BehaviorVariable).
-			BehaviorVariable bv = (BehaviorVariable) el;
-			result = bv.getDataClassifier();
-		} else if (el instanceof IterativeVariable) {
+			result = variable.getDataClassifier();
+		} else if (el instanceof IterativeVariable variable) {
 			// Iterative variable case.
-			result = ((IterativeVariable) el).getDataClassifier();
-		} else if (el instanceof Prototype) {
-			result = prototypeResolver((Prototype) el, parentContainer);
-		} else if (el instanceof PrototypeBinding) {
+			result = variable.getDataClassifier();
+		} else if (el instanceof Prototype prototype) {
+			result = prototypeResolver(prototype, parentContainer);
+		} else if (el instanceof PrototypeBinding binding) {
 			// Prototype binding case.
-			result = prototypeBindingResolver((PrototypeBinding) el);
-		} else if (el instanceof ClassifierValue) {
+			result = prototypeBindingResolver(binding);
+		} else if (el instanceof ClassifierValue value) {
 			// struct or union member case (ClassifierValue).
-			result = ((ClassifierValue) el).getClassifier();
-		} else if (el instanceof StructUnionElement) {
-			return ((StructUnionElement) el).getDataClassifier();
+			result = value.getClassifier();
+		} else if (el instanceof StructUnionElement member) {
+			return member.getDataClassifier();
 		} else {
 			// Reports error.
-			String errorMsg = "getClassifier : " + el.getClass().getSimpleName() + " is not supported yet.";
+			var errorMsg = "getClassifier : " + el.getClass().getSimpleName() + " is not supported yet.";
 
 			System.err.println(errorMsg);
 			throw new UnsupportedOperationException(errorMsg);
@@ -623,23 +586,23 @@ public class AadlBaUtils {
 		Classifier result = null;
 
 		// First find a prototype bind as prototype may be binded several times.
-		PrototypeBinding pb = Aadl2Visitors.findPrototypeBindingInComponent(parentContainer, prototype.getName());
+		var binding = Aadl2Visitors.findPrototypeBindingInComponent(parentContainer, prototype.getName());
 
-		if (pb != null) {
-			result = prototypeBindingResolver(pb);
+		if (binding != null) {
+			result = prototypeBindingResolver(binding);
 		} else {
 			// If there is no prototype binding found, returns the constraining
 			// classifier from the prototype declaration (it may be null).
 
-			if (prototype instanceof ComponentPrototype) {
-				result = ((ComponentPrototype) prototype).getConstrainingClassifier();
-			} else if (prototype instanceof FeaturePrototype) {
-				result = ((FeaturePrototype) prototype).getConstrainingClassifier();
-			} else if (prototype instanceof FeatureGroupPrototype) {
-				result = ((FeatureGroupPrototype) prototype).getConstrainingFeatureGroupType();
+			if (prototype instanceof ComponentPrototype componentPrototype) {
+				result = componentPrototype.getConstrainingClassifier();
+			} else if (prototype instanceof FeaturePrototype featurePrototype) {
+				result = featurePrototype.getConstrainingClassifier();
+			} else if (prototype instanceof FeatureGroupPrototype featureGroupPrototype) {
+				result = featureGroupPrototype.getConstrainingFeatureGroupType();
 			} else {
 				// Reports error.
-				String errorMsg = "prototypeResolver : " + prototype.getClass().getSimpleName()
+				var errorMsg = "prototypeResolver : " + prototype.getClass().getSimpleName()
 						+ " is not supported yet.";
 
 				System.err.println(errorMsg);
@@ -660,37 +623,30 @@ public class AadlBaUtils {
 	public static Classifier prototypeBindingResolver(PrototypeBinding pb) {
 		Classifier result = null;
 
-		if (pb instanceof ComponentPrototypeBinding) {
-			ComponentPrototypeBinding cpb;
-			cpb = (ComponentPrototypeBinding) pb;
-
+		if (pb instanceof ComponentPrototypeBinding componentBinding) {
 			// Takes the last binding.
-			ComponentPrototypeActual cpa = cpb.getActuals().get(cpb.getActuals().size() - 1);
+			result = (Classifier) componentBinding.getActuals().getLast().getSubcomponentType();
+		} else if (pb instanceof FeaturePrototypeBinding featureBinding) {
+			var actual = featureBinding.getActual();
 
-			result = (Classifier) cpa.getSubcomponentType();
-		} else if (pb instanceof FeaturePrototypeBinding) {
-			FeaturePrototypeBinding fpb;
-			fpb = (FeaturePrototypeBinding) pb;
-			FeaturePrototypeActual fpa = fpb.getActual();
-
-			if (fpa instanceof AccessSpecification) {
-				result = ((AccessSpecification) fpa).getClassifier();
-			} else if (fpa instanceof PortSpecification) {
-				result = ((PortSpecification) fpa).getClassifier();
+			if (actual instanceof AccessSpecification access) {
+				result = access.getClassifier();
+			} else if (actual instanceof PortSpecification port) {
+				result = port.getClassifier();
 			} else {
 				// Reports error.
-				String errorMsg = "prototypeBindingResolver : " + fpa.getClass().getSimpleName()
+				var errorMsg = "prototypeBindingResolver : " + actual.getClass().getSimpleName()
 						+ " is not supported yet.";
 
 				System.err.println(errorMsg);
 				throw new UnsupportedOperationException(errorMsg);
 			}
-		} else if (pb instanceof FeatureGroupPrototypeBinding) {
-			FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) pb;
-			result = (FeatureGroupType) fgpb.getActual().getFeatureType();
+		} else if (pb instanceof FeatureGroupPrototypeBinding featureGroupBinding) {
+			result = (FeatureGroupType) featureGroupBinding.getActual().getFeatureType();
 		} else {
 			// Reports error.
-			String errorMsg = "prototypeBindingResolver : " + pb.getClass().getSimpleName() + " is not supported yet.";
+			var errorMsg = "prototypeBindingResolver : " + pb.getClass().getSimpleName()
+					+ " is not supported yet.";
 
 			System.err.println(errorMsg);
 			throw new UnsupportedOperationException(errorMsg);
@@ -740,12 +696,11 @@ public class AadlBaUtils {
 	 * @return the DataClassifier object (null if not found)
 	 */
 	private static DataClassifier getDataClassifier(List<PrototypeBinding> prototypeBindings, DataPrototype dp) {
-		for (PrototypeBinding pb : prototypeBindings) {
-			if (pb instanceof ComponentPrototypeBinding && pb.getFormal().equals(dp)) {
-				ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) pb;
-				ComponentPrototypeActual cpa = cpb.getActuals().get(cpb.getActuals().size() - 1);
-				if (cpa.getSubcomponentType() instanceof DataClassifier) {
-					return (DataClassifier) cpa.getSubcomponentType();
+		for (var binding : prototypeBindings) {
+			if (binding instanceof ComponentPrototypeBinding componentBinding && binding.getFormal().equals(dp)) {
+				if (componentBinding.getActuals().getLast().getSubcomponentType()
+						instanceof DataClassifier dataClassifier) {
+					return dataClassifier;
 				}
 			}
 		}
@@ -764,45 +719,39 @@ public class AadlBaUtils {
 	public static DataClassifier getDataClassifier(Target t, NamedElement parentContainer) {
 		NamedElement result;
 
-		if (t instanceof DataHolder) {
-			result = ((DataHolder) t).getElement();
-		} else if (t instanceof DataComponentReference) {
-			DataComponentReference r = (DataComponentReference) t;
-			DataHolder h = r.getData().get(r.getData().size() - 1);
-			result = h.getElement();
+		if (t instanceof DataHolder holder) {
+			result = holder.getElement();
+		} else if (t instanceof DataComponentReference reference) {
+			result = reference.getData().getLast().getElement();
 		} else {
 			throw new UnsupportedOperationException('\'' + t.getClass().getSimpleName() + "\' is not yet supported");
 		}
 
-		if (result instanceof DataClassifier) {
-			return (DataClassifier) result;
-		} else if (result instanceof DataSubcomponent) {
-			DataSubcomponentType dst = ((DataSubcomponent) result).getDataSubcomponentType();
-			if (dst instanceof DataPrototype) {
-				DataPrototype dp = (DataPrototype) dst;
-				if (t instanceof DataComponentReference) {
-					DataComponentReference r = (DataComponentReference) t;
-					return prototypeBindingResolverForDataComponentReference(r, dp, parentContainer);
+		if (result instanceof DataClassifier classifier) {
+			return classifier;
+		} else if (result instanceof DataSubcomponent subcomponent) {
+			var type = subcomponent.getDataSubcomponentType();
+			if (type instanceof DataPrototype prototype) {
+				if (t instanceof DataComponentReference reference) {
+					return prototypeBindingResolverForDataComponentReference(reference, prototype, parentContainer);
 				}
-			} else if (dst instanceof DataClassifier) {
-				return (DataClassifier) dst;
+			} else if (type instanceof DataClassifier classifier) {
+				return classifier;
 			}
-		} else if (result instanceof BehaviorVariable) {
-			BehaviorVariable bv = (BehaviorVariable) result;
-			return bv.getDataClassifier();
-		} else if (result instanceof DataAccess) {
-			DataAccess da = (DataAccess) result;
-			if (da.getDataFeatureClassifier() instanceof DataClassifier) {
-				return (DataClassifier) da.getDataFeatureClassifier();
-			} else if (da.getDataFeatureClassifier() instanceof Prototype) {
-				return (DataClassifier) getClassifier(da.getDataFeatureClassifier(), (Classifier) parentContainer);
+		} else if (result instanceof BehaviorVariable variable) {
+			return variable.getDataClassifier();
+		} else if (result instanceof DataAccess access) {
+			if (access.getDataFeatureClassifier() instanceof DataClassifier classifier) {
+				return classifier;
+			} else if (access.getDataFeatureClassifier() instanceof Prototype) {
+				return (DataClassifier) getClassifier(access.getDataFeatureClassifier(), (Classifier) parentContainer);
 			}
-		} else if (result instanceof Parameter) {
-			Parameter p = (Parameter) result;
-			if (p.getDataFeatureClassifier() instanceof DataClassifier) {
-				return (DataClassifier) p.getDataFeatureClassifier();
-			} else if (p.getDataFeatureClassifier() instanceof Prototype) {
-				return (DataClassifier) getClassifier(p.getDataFeatureClassifier(), (Classifier) parentContainer);
+		} else if (result instanceof Parameter parameter) {
+			if (parameter.getDataFeatureClassifier() instanceof DataClassifier classifier) {
+				return classifier;
+			} else if (parameter.getDataFeatureClassifier() instanceof Prototype) {
+				return (DataClassifier) getClassifier(parameter.getDataFeatureClassifier(),
+						(Classifier) parentContainer);
 			}
 		} else // Abstract components case.
 		{
@@ -1363,99 +1312,72 @@ public class AadlBaUtils {
 	 * </copyright>
 	 */
 	public static org.osate.ba.aadlba.FeatureType getFeatureType(Element el) {
-		if (el instanceof DataPort) {
-			switch (((DataPort) el).getDirection()) {
-			case IN:
-				return FeatureType.IN_DATA_PORT;
-			case OUT:
-				return FeatureType.OUT_DATA_PORT;
-			case IN_OUT:
-				return FeatureType.IN_OUT_DATA_PORT;
-			}
-		} else if (el instanceof EventPort) {
-			switch (((EventPort) el).getDirection()) {
-			case IN:
-				return FeatureType.IN_EVENT_PORT;
-			case OUT:
-				return FeatureType.OUT_EVENT_PORT;
-			case IN_OUT:
-				return FeatureType.IN_OUT_EVENT_PORT;
-			}
-		} else if (el instanceof EventDataPort) {
-			switch (((EventDataPort) el).getDirection()) {
-			case IN:
-				return FeatureType.IN_EVENT_DATA_PORT;
-			case OUT:
-				return FeatureType.OUT_EVENT_DATA_PORT;
-			case IN_OUT:
-				return FeatureType.IN_OUT_EVENT_DATA_PORT;
-			}
+		if (el instanceof DataPort port) {
+			return switch (port.getDirection()) {
+			case IN -> FeatureType.IN_DATA_PORT;
+			case OUT -> FeatureType.OUT_DATA_PORT;
+			case IN_OUT -> FeatureType.IN_OUT_DATA_PORT;
+			};
+		} else if (el instanceof EventPort port) {
+			return switch (port.getDirection()) {
+			case IN -> FeatureType.IN_EVENT_PORT;
+			case OUT -> FeatureType.OUT_EVENT_PORT;
+			case IN_OUT -> FeatureType.IN_OUT_EVENT_PORT;
+			};
+		} else if (el instanceof EventDataPort port) {
+			return switch (port.getDirection()) {
+			case IN -> FeatureType.IN_EVENT_DATA_PORT;
+			case OUT -> FeatureType.OUT_EVENT_DATA_PORT;
+			case IN_OUT -> FeatureType.IN_OUT_EVENT_DATA_PORT;
+			};
 		} else if (el instanceof FeatureGroup) {
 			return FeatureType.FEATURE_GROUP;
-		} else if (el instanceof DataAccess) {
-			switch (((DataAccess) el).getKind()) {
-			case PROVIDES:
-				return FeatureType.PROVIDES_DATA_ACCESS;
-			case REQUIRES:
-				return FeatureType.REQUIRES_DATA_ACCESS;
-			}
-		} else if (el instanceof SubprogramAccess) {
-			switch (((SubprogramAccess) el).getKind()) {
-			case PROVIDES:
-				return FeatureType.PROVIDES_SUBPROGRAM_ACCESS;
-			case REQUIRES:
-				return FeatureType.REQUIRES_SUBPROGRAM_ACCESS;
-			}
-		} else if (el instanceof SubprogramGroupAccess) {
-			switch (((SubprogramGroupAccess) el).getKind()) {
-			case PROVIDES:
-				return FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS;
-			case REQUIRES:
-				return FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS;
-			}
-		} else if (el instanceof BusAccess) {
-			switch (((BusAccess) el).getKind()) {
-			case PROVIDES:
-				return FeatureType.PROVIDES_BUS_ACCESS;
-			case REQUIRES:
-				return FeatureType.REQUIRES_BUS_ACCESS;
-			}
+		} else if (el instanceof DataAccess access) {
+			return switch (access.getKind()) {
+			case PROVIDES -> FeatureType.PROVIDES_DATA_ACCESS;
+			case REQUIRES -> FeatureType.REQUIRES_DATA_ACCESS;
+			};
+		} else if (el instanceof SubprogramAccess access) {
+			return switch (access.getKind()) {
+			case PROVIDES -> FeatureType.PROVIDES_SUBPROGRAM_ACCESS;
+			case REQUIRES -> FeatureType.REQUIRES_SUBPROGRAM_ACCESS;
+			};
+		} else if (el instanceof SubprogramGroupAccess access) {
+			return switch (access.getKind()) {
+			case PROVIDES -> FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS;
+			case REQUIRES -> FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS;
+			};
+		} else if (el instanceof BusAccess access) {
+			return switch (access.getKind()) {
+			case PROVIDES -> FeatureType.PROVIDES_BUS_ACCESS;
+			case REQUIRES -> FeatureType.REQUIRES_BUS_ACCESS;
+			};
 		} else if (el instanceof AbstractFeature) {
 			return FeatureType.ABSTRACT_FEATURE;
-		} else if (el instanceof Parameter) {
-			switch (((Parameter) el).getDirection()) {
-			case IN:
-				return FeatureType.IN_PARAMETER;
-
-			case OUT:
-				return FeatureType.OUT_PARAMETER;
-
-			case IN_OUT:
-				return FeatureType.IN_OUT_PARAMETER;
-			}
-		} else if (el instanceof Prototype) {
-			if (el instanceof ComponentPrototype) {
-				switch (el.eClass().getClassifierID()) {
-				case Aadl2Package.SUBPROGRAM_PROTOTYPE:
-					return FeatureType.SUBPROGRAM_PROTOTYPE;
-				case Aadl2Package.SUBPROGRAM_GROUP_PROTOTYPE:
-					return FeatureType.SUBPROGRAM_GROUP_PROTOTYPE;
-				case Aadl2Package.THREAD_PROTOTYPE:
-					return FeatureType.THREAD_PROTOTYPE;
-				case Aadl2Package.THREAD_GROUP_PROTOTYPE:
-					return FeatureType.THREAD_GROUP_PROTOTYPE;
-				default:
-					return FeatureType.COMPONENT_PROTOTYPE;
-				}
-			} else if (el instanceof FeaturePrototype) {
-				return getFeaturePrototypeType((FeaturePrototype) el);
+		} else if (el instanceof Parameter parameter) {
+			return switch (parameter.getDirection()) {
+			case IN -> FeatureType.IN_PARAMETER;
+			case OUT -> FeatureType.OUT_PARAMETER;
+			case IN_OUT -> FeatureType.IN_OUT_PARAMETER;
+			};
+		} else if (el instanceof Prototype prototype) {
+			if (prototype instanceof ComponentPrototype) {
+				return switch (prototype.eClass().getClassifierID()) {
+				case Aadl2Package.SUBPROGRAM_PROTOTYPE -> FeatureType.SUBPROGRAM_PROTOTYPE;
+				case Aadl2Package.SUBPROGRAM_GROUP_PROTOTYPE -> FeatureType.SUBPROGRAM_GROUP_PROTOTYPE;
+				case Aadl2Package.THREAD_PROTOTYPE -> FeatureType.THREAD_PROTOTYPE;
+				case Aadl2Package.THREAD_GROUP_PROTOTYPE -> FeatureType.THREAD_GROUP_PROTOTYPE;
+				default -> FeatureType.COMPONENT_PROTOTYPE;
+				};
+			} else if (prototype instanceof FeaturePrototype featurePrototype) {
+				return getFeaturePrototypeType(featurePrototype);
 			} else if (el instanceof FeatureGroupPrototype) {
 				return FeatureType.FEATURE_GROUP_PROTOTYPE;
 			}
-		} else if (el instanceof PrototypeBinding) {
-			if (el instanceof ComponentPrototypeBinding) {
+		} else if (el instanceof PrototypeBinding binding) {
+			if (binding instanceof ComponentPrototypeBinding) {
 				return FeatureType.COMPONENT_PROTOTYPE_BINDING;
-			} else if (el instanceof FeatureGroupPrototypeBinding) {
+			} else if (binding instanceof FeatureGroupPrototypeBinding) {
 				return FeatureType.FEATURE_GROUP_PROTOTYPE_BINDING;
 			} else // FeaturePrototypeBinding case.
 			{
@@ -1494,7 +1416,7 @@ public class AadlBaUtils {
 			return FeatureType.PROCESS_CLASSIFIER;
 		}
 
-		String errorMsg = "getFeatureType : " + el.getClass().getSimpleName() + " is not supported yet at line "
+		var errorMsg = "getFeatureType : " + el.getClass().getSimpleName() + " is not supported yet at line "
 				+ Aadl2Utils.getLocationReference(el).getLine() + ".";
 		System.err.println(errorMsg);
 		throw new UnsupportedOperationException(errorMsg);
@@ -1687,8 +1609,8 @@ public class AadlBaUtils {
 	 * @return the direction type or {@code null}
 	 */
 	public static DirectionType getDirectionType(Element el) {
-		if (el instanceof DirectedFeature) {
-			return ((DirectedFeature) el).getDirection();
+		if (el instanceof DirectedFeature feature) {
+			return feature.getDirection();
 		} else if (el instanceof DataSubcomponent) {
 			return DirectionType.IN_OUT;
 		} else {
@@ -1704,29 +1626,22 @@ public class AadlBaUtils {
 	 * @return the last value of the base type property or {@code null}
 	 */
 	public static ClassifierValue getBaseType(Classifier component) {
-		PropertyExpression pe;
-		EList<PropertyExpression> le;
-		Element el;
-
-		EList<PropertyExpression> lpe = PropertyUtils.findPropertyExpression(component, DataModelProperties.BASE_TYPE);
-		if (lpe != null && (!lpe.isEmpty())) {
-			pe = lpe.get(lpe.size() - 1);
+		var values = PropertyUtils.findPropertyExpression(component, DataModelProperties.BASE_TYPE);
+		if (values != null && !values.isEmpty()) {
+			var value = values.getLast();
 
 			// Syntax with ()
-			if (pe instanceof ListValue) {
-				le = ((ListValue) pe).getOwnedListElements();
-
-				if (le != null && (!le.isEmpty())) {
-					el = le.get(le.size() - 1);
-
-					if (el instanceof ClassifierValue) {
-						return (ClassifierValue) el;
+			if (value instanceof ListValue list) {
+				var elements = list.getOwnedListElements();
+				if (elements != null && !elements.isEmpty()) {
+					if (elements.getLast() instanceof ClassifierValue classifierValue) {
+						return classifierValue;
 					}
 				}
 			}
 			// Syntax without ()
-			else if (pe instanceof ClassifierValue) {
-				return (ClassifierValue) pe;
+			else if (value instanceof ClassifierValue classifierValue) {
+				return classifierValue;
 			}
 		}
 
@@ -1872,13 +1787,12 @@ public class AadlBaUtils {
 	 */
 	public static DataModelEnumLiteral toDataModelEnumLiteral(PropertyReference ref)
 			throws OperationNotSupportedException {
-		DataModelEnumLiteral result = new DataModelEnumLiteral();
+		var result = new DataModelEnumLiteral();
 
-		if (ref instanceof ClassifierPropertyReference) {
-			ClassifierPropertyReference cpr = (ClassifierPropertyReference) ref;
-			result.classifier = cpr.getClassifier();
+		if (ref instanceof ClassifierPropertyReference classifierReference) {
+			result.classifier = classifierReference.getClassifier();
 
-			EList<PropertyNameHolder> properties = cpr.getProperties();
+			var properties = classifierReference.getProperties();
 
 			if (properties.size() == 2) {
 				// The first property name is supposed to be a property association
@@ -1902,12 +1816,12 @@ public class AadlBaUtils {
 		if (pnh.getField() != null) {
 			throw new OperationNotSupportedException("property fields not supported");
 		} else {
-			Element el = pnh.getProperty().getElement();
+			var element = pnh.getProperty().getElement();
 
-			if (el instanceof StringLiteral) {
-				return (StringLiteral) el;
+			if (element instanceof StringLiteral literal) {
+				return literal;
 			} else {
-				throw new UnsupportedOperationException(el.getClass().getSimpleName() + " not supported");
+				throw new UnsupportedOperationException(element.getClass().getSimpleName() + " not supported");
 			}
 		}
 	}

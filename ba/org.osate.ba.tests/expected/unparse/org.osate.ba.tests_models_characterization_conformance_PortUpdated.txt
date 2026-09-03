@@ -1,0 +1,10 @@
+===== annex[0] owner=PortUpdated::component.i =====
+
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tfinish: final state;
+\t\ttransitions
+\t\t\tstart -[ input'updated ]-> finish;
+\t
+----- Xtext reparse -----
+reparsed

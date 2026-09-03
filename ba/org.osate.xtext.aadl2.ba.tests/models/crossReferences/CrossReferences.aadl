@@ -1,0 +1,41 @@
+package CrossReferences
+public
+	with Base_Types;
+	with CrossReferenceProperties;
+
+	data Payload
+	end Payload;
+
+	data implementation Payload.i
+		subcomponents
+			field: data Base_Types::Integer;
+	end Payload.i;
+
+	system Example
+		features
+			input: in event data port Base_Types::Integer;
+			output: out event data port Base_Types::Integer;
+	end Example;
+
+	system implementation Example.i
+		subcomponents
+			storage: data Payload.i;
+		annex behavior_specification {**
+			variables
+				counter : Base_Types::Integer;
+			states
+				idle : initial state;
+				running : final state;
+			transitions
+				start: idle -[counter = input]-> running {
+					counter := storage.field;
+					output!(counter);
+					for (item : Base_Types::Integer in 0 .. 1) {
+						counter := item
+					};
+					counter := #CrossReferenceProperties::Values[counter];
+					counter := self.input
+				};
+		**};
+	end Example.i;
+end CrossReferences;

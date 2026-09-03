@@ -23,20 +23,17 @@
  */
 package org.osate.ge.ba.ui.properties;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.NamedElement;
-import org.osate.ba.aadlba.BehaviorActionBlock;
-import org.osate.ba.aadlba.BehaviorTransition;
-import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.ba.ui.EmbeddedTextEditor;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActionBlock;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 
 /**
  * EditableEmbeddedTextValue for editing an {@link BehaviorActionBlock} in an {@link EmbeddedTextEditor}
@@ -91,7 +88,7 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 	}
 
 	@Override
-	public NamedElement getElementToModify() {
+	public EObject getElementToModify() {
 		return behaviorTransition;
 	}
 
@@ -144,7 +141,7 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 		final String suffix;
 		if (actionBlock == null) {
 			// Transition offset
-			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
+			final int transitionOffset = BehaviorAnnexUtil.getOffset(behaviorTransition);
 			final String transitionText = sourceText.substring(transitionOffset);
 			// Find transition terminating semicolon offset
 			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(transitionText, ';')
@@ -158,7 +155,7 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 			suffix = "}" + sourceText.substring(terminationOffset);
 		} else {
 			// Action offset
-			final int updateOffset = actionBlock.getAadlBaLocationReference().getOffset() + 1;
+			final int updateOffset = BehaviorAnnexUtil.getOffset(actionBlock) + 1;
 			prefix = sourceText.substring(0, updateOffset);
 
 			// Note: Condition length only counts until the first space (assuming).
@@ -170,10 +167,9 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 					'}') + updateOffset;
 
 			// Get formatted action block text
-			final AadlBaUnparser baUnparser = new AadlBaUnparser();
 			// Throw exception if first and last char is not a bracket
 			// to know when formatter has changed
-			final String formattedActionBlock = baUnparser.process(actionBlock);
+			final String formattedActionBlock = BehaviorAnnexXtextUtil.serialize(actionBlock);
 			final int lastIndex = formattedActionBlock.length() - 1;
 			if (!Objects.equals('{', formattedActionBlock.charAt(0))
 					|| !Objects.equals('}', formattedActionBlock.charAt(lastIndex))) {
@@ -181,14 +177,7 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 						"Unexpected action block format '" + formattedActionBlock + "'.");
 			}
 
-			// Split action at new line character and throw out action block brackets
-			final List<String> actionBlockText = getInnerActionBlockText(formattedActionBlock.split("\n"));
-
-			// Get whitespace to trim from each line after removing opening bracket
-			final int whitespace = getWhiteSpace(actionBlockText.get(0));
-			actionText = String
-					.join("", actionBlockText.stream().map(ss -> ss.substring(whitespace)).toArray(String[]::new))
-					.trim();
+			actionText = formattedActionBlock.substring(1, lastIndex).trim();
 
 			suffix = sourceText.substring(terminationOffset);
 		}
@@ -198,17 +187,4 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 				suffix);
 	}
 
-	private static int getWhiteSpace(final String s) {
-		for (int i = 0; i < s.length(); i++) {
-			if (!Character.isWhitespace(s.charAt(i))) {
-				return i;
-			}
-		}
-
-		return 0;
-	}
-
-	private static List<String> getInnerActionBlockText(final String[] splitActionBlockText) {
-		return Arrays.asList(splitActionBlockText).subList(1, splitActionBlockText.length - 1);
-	}
 }

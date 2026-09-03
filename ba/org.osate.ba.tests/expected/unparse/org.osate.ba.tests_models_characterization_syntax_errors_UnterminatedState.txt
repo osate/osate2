@@ -1,0 +1,7 @@
+===== annex[0] owner=UnterminatedState::t =====
+
+\t\tstates s: initial final state
+\t\ttransitions s -[]-> s;
+\t
+----- Xtext reparse -----
+reparsed

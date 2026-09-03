@@ -1,0 +1,1 @@
+error | syntax | 10 | 36 | 1 | no viable alternative at input '}'

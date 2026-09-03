@@ -1,0 +1,12 @@
+package Phase7
+public
+	system Example
+		annex behavior_specification {**
+			states
+				idle : initial state;
+				running : final state;
+			transitions
+				start: idle -[]-> running;
+		**};
+	end Example;
+end Phase7;

@@ -1,0 +1,11 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package MissingVariableSeparator
+public
+	with Base_Types;
+	thread t
+	annex behavior_specification {**
+		variables a b: Base_Types::Integer;
+	**};
+	end t;
+end MissingVariableSeparator;

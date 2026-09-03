@@ -1,0 +1,9 @@
+annex[0] owner=MissingProcessorParameterSeparator::t
+  (BehaviorActionBlock, <null>, 253, 44)
+  (BehaviorAnnex, behavior_specification, 198, 100)
+  (BehaviorIntegerLiteral, <null>, 267, 1)
+  (BehaviorState, s, 205, 1)
+  (BehaviorStateGroup, <null>, 205, 23)
+  (BehaviorTime, <null>, 267, 4)
+  (BehaviorTransition, <null>, 243, 55)
+  (TimedAction, <null>, 255, 40)

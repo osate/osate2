@@ -1,0 +1,20 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package SelfPropertyReference
+public
+	with Base_Types;
+
+	thread worker
+	properties
+		Priority => 1;
+	annex behavior_specification {**
+		variables
+			value: Base_Types::Integer;
+		states
+			start: initial state;
+			finish: final state;
+		transitions
+			start -[ ]-> finish { value := self#Priority };
+	**};
+	end worker;
+end SelfPropertyReference;

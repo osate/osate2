@@ -1,0 +1,10 @@
+annex[0] owner=issue2175::function1
+  (BehaviorActionBlock, <null>, 336, 12)
+  (BehaviorAnnex, behavior_specification, 256, 93)
+  (BehaviorCondition, <null>, 320, 11)
+  (BehaviorState, s, 267, 1)
+  (BehaviorStateGroup, <null>, 267, 33)
+  (BehaviorTransition, <null>, 316, 33)
+  (CommunicationAction, <null>, 337, 10)
+  (Reference, <null>, 337, 9)
+  (ReferenceSegment, function2, 337, 9)

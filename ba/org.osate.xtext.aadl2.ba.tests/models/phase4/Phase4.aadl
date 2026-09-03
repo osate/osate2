@@ -1,0 +1,25 @@
+package Phase4
+public
+	with Base_Types;
+	with Phase4_Properties;
+
+	processor Cpu
+	end Cpu;
+
+	system Example
+		annex behavior_specification {**
+			variables
+				counter : Base_Types::Integer
+				{
+					Phase4_Properties::Test_Property => 1;
+				};
+			states
+				idle : initial state;
+				running : final state;
+			transitions
+				start: idle -[]-> running {
+					computation(1 ms) in binding (Cpu)
+				};
+		**};
+	end Example;
+end Phase4;

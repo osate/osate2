@@ -1,0 +1,6 @@
+error | linking | 17 | 15 | 1 | Couldn't resolve reference to BehaviorState 'i'.
+error | linking | 17 | 6 | 5 | Couldn't resolve reference to BehaviorState 'value'.
+error | syntax | 16 | 12 | 2 | mismatched input 'in' expecting ':'
+error | syntax | 17 | 12 | 2 | mismatched input ':=' expecting '-['
+error | syntax | 17 | 6 | 5 | mismatched input 'value' expecting '}'
+error | syntax | 18 | 5 | 1 | mismatched input '}' expecting '-['

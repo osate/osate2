@@ -1,0 +1,65 @@
+===== annex[0] owner=Issue2445_Grammar_Hazards::hazards =====
+
+\t\tVaRiAbLeS
+\t\t\tValue: hazard_integer := 0 {
+\t\t\t\tData_Model::Initial_Value => ("1");
+\t\t\t};
+\t\t\tOther: Base_Types::Integer := 1;
+\t\tStAtEs
+\t\t\tstart: initial state;
+\t\t\texecute: state;
+\t\t\tdone: complete final state;
+\t\tTrAnSiTiOnS
+\t\t\tstart -[]-> execute;
+\t\t\texecute -[vAlUe = 0]-> execute {
+\t\t\t\tValue := 16#ff#;
+\t\t\t\tValue := 2#1010#e4;
+\t\t\t\tValue := #Max_Queue_Size
+\t\t\t};
+\t\t\texecute -[ Value = 1 ]-> execute {
+\t\t\t\tValue := Other ** 2;
+\t\t\t\tValue := -Value;
+\t\t\t\tValue := abs Value;
+\t\t\t\tValue := Value mod Other;
+\t\t\t\tValue := Value rem Other
+\t\t\t};
+\t\t\texecute -[not (input'fresh) or input'count > 0]-> execute {
+\t\t\t\tinput ?;
+\t\t\t\tinput ? (Value);
+\t\t\t\tinput >>;
+\t\t\t\toutput ! (Value)
+\t\t\t};
+\t\t\texecute -[Value >= 0]-> execute {
+\t\t\t\tshared !<;
+\t\t\t\tshared !>;
+\t\t\t\t*!<;
+\t\t\t\t*!>
+\t\t\t};
+\t\t\texecute -[Value < 10]-> execute {
+\t\t\t\tif (Value = 0)
+\t\t\t\t\tValue := 1
+\t\t\t\telsif (Value = 1)
+\t\t\t\t\tValue := 2
+\t\t\t\telse
+\t\t\t\t\tValue := 3
+\t\t\t\tend if;
+\t\t\t\tfor (i : Base_Types::Integer in 0 .. 1) {
+\t\t\t\t\tValue := Value + i
+\t\t\t\t};
+\t\t\t\tforall (j : Base_Types::Integer in 0 .. 1) {
+\t\t\t\t\tValue := Value + j
+\t\t\t\t};
+\t\t\t\twhile (Value < 10) {
+\t\t\t\t\tValue := Value + 1
+\t\t\t\t};
+\t\t\t\tdo
+\t\t\t\t\tValue := Value - 1
+\t\t\t\tuntil (Value = 0)
+\t\t\t};
+\t\t\texecute -[]-> done {
+\t\t\t\tcomputation(1 ms .. 2 ms) in binding (cpu1, cpu2)
+\t\t\t};
+\t\t\tdone -[on dispatch dispatch_event]-> execute;
+\t
+----- Xtext reparse -----
+reparsed

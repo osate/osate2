@@ -28,7 +28,6 @@ import java.util.Optional;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.NamedElement;
 
 /**
  * Text and modification information for editing embedded AADL source
@@ -157,9 +156,9 @@ public abstract class EditableEmbeddedTextValue {
 	public abstract boolean isValidModification(final EObject bo, final String newText);
 
 	/**
-	 * @return the {@link NamedElement} being modified
+	 * @return the object being modified
 	 */
-	public abstract NamedElement getElementToModify();
+	public abstract EObject getElementToModify();
 
 	/**
 	 * Overrides the new source for the AADL resource based on the new text.

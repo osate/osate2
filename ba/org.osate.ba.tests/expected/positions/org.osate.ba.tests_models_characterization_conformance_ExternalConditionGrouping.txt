@@ -1,0 +1,9 @@
+annex[0] owner=ExternalConditionGrouping::component.i
+  (BehaviorAnnex, behavior_specification, 324, 126)
+  (BehaviorState, finish, 359, 6)
+  (BehaviorState, start, 334, 5)
+  (BehaviorStateGroup, <null>, 334, 21)
+  (BehaviorStateGroup, <null>, 359, 20)
+  (BehaviorTransition, <null>, 397, 27)
+  (BehaviorTransition, <null>, 425, 17)
+  (BehaviorTransition, <null>, 443, 7)

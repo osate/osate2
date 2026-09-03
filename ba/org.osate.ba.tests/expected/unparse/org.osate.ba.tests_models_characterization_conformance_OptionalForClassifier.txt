@@ -1,0 +1,16 @@
+===== annex[0] owner=OptionalForClassifier::operation =====
+
+\t\tvariables
+\t\t\tvalue: Base_Types::Integer;
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tfinish: final state;
+\t\ttransitions
+\t\t\tstart -[ ]-> finish {
+\t\t\t\tfor (i in 0 .. 1) {
+\t\t\t\t\tvalue := i
+\t\t\t\t}
+\t\t\t};
+\t
+----- Xtext reparse -----
+reparsed

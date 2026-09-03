@@ -1,0 +1,168 @@
+annex[0] owner=BA_example6::merger.twopersistentstates
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=comp
+    states[2] : BehaviorState name=next1
+    states[3] : BehaviorState name=next2
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example6::merger.p1 [EventDataPort]
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example6::merger.p2 [EventDataPort]
+    transitions[2] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example6::merger.p1 [EventDataPort]
+    transitions[3] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example6::merger.p2 [EventDataPort]
+    transitions[4] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x1 [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x2 [DataSubcomponent]
+    transitions[5] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x2 [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x1 [DataSubcomponent]
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x1 [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=BA_example6::merger.p1 [EventDataPort]
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x2 [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=BA_example6::merger.p2 [EventDataPort]
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x1 [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=BA_example6::merger.p1 [EventDataPort]
+    actions[3] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x2 [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=BA_example6::merger.p2 [EventDataPort]
+    actions[4] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=BA_example6::merger.m [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x1 [DataSubcomponent]
+    actions[5] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=BA_example6::merger.m [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=BA_example6::merger.twopersistentstates.x2 [DataSubcomponent]
+annex[1] owner=BA_example6::merger.portbased
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s0
+    states[1] : BehaviorState name=comp
+    states[2] : BehaviorState name=next1
+    states[3] : BehaviorState name=next2
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example6::merger.p1 [EventDataPort]
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example6::merger.p2 [EventDataPort]
+    transitions[2] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example6::merger.p1 [EventDataPort]
+    transitions[3] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=BA_example6::merger.p2 [EventDataPort]
+    transitions[4] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example6::merger.p1 [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example6::merger.p2 [EventDataPort]
+    transitions[5] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example6::merger.p2 [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=BA_example6::merger.p1 [EventDataPort]
+    actions[0] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=BA_example6::merger.m [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=BA_example6::merger.p1 [EventDataPort]
+    actions[1] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=BA_example6::merger.m [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : EventDataPortHolder element=BA_example6::merger.p2 [EventDataPort]

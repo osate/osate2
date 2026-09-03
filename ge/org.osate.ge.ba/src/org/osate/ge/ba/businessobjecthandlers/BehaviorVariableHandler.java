@@ -24,17 +24,17 @@
 package org.osate.ge.ba.businessobjecthandlers;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorVariable;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.internal.util.AadlArrayUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -48,6 +48,9 @@ import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariableGroup;
 
 /**
  * Business Object Handler for {@link BehaviorVariable} objects.
@@ -84,9 +87,10 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 		final BehaviorVariable behaviorVariable = (BehaviorVariable) behaviorAnnex.eResource()
 				.getResourceSet()
 				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorVariable.class).orElseThrow()), true);
+		final var group = (BehaviorVariableGroup) behaviorVariable.eContainer();
 		EcoreUtil.remove(behaviorVariable);
-		if (behaviorAnnex.getVariables().isEmpty()) {
-			behaviorAnnex.unsetVariables();
+		if (group.getVariables().isEmpty()) {
+			behaviorAnnex.getVariableGroups().remove(group);
 		}
 	}
 
@@ -95,7 +99,8 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE,
 				behaviorVariable.getName(),
-				ctx.getReferenceBuilder().getCanonicalReference(behaviorVariable.getOwner()).encode());
+				ctx.getReferenceBuilder().getCanonicalReference(BehaviorAnnexUtil.getBehaviorAnnex(behaviorVariable))
+						.encode());
 	}
 
 	@Override
@@ -113,7 +118,11 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 	public String getName(final GetNameContext ctx) {
 		return ctx.getBusinessObject(BehaviorVariable.class)
 				.map(behaviorVariable -> (behaviorVariable.getName() == null ? "" : behaviorVariable.getName())
-						+ AadlArrayUtil.getDimensionUserString(behaviorVariable))
+						+ behaviorVariable.getArrayDimensions()
+								.stream()
+								.map(NodeModelUtils::getNode)
+								.map(node -> node == null ? "[]" : node.getText())
+								.collect(Collectors.joining()))
 				.orElse("");
 	}
 

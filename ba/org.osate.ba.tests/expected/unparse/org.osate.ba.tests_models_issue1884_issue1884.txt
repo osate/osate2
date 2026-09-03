@@ -1,0 +1,28 @@
+===== annex[0] owner=issue1884::parser_error =====
+
+\t\t\tstates
+\t\t\t\ts0: initial complete final state;
+\t\t\t\ts1: state
+\t\t
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=issue1884::resolver_error =====
+
+\t\t\tstates
+\t\t\t\ts0: initial complete final state;
+\t\t\t\ts1: state;
+\t\t\ttransitions
+\t\t\t\ts0 -[ on dispatch ]-> bad_reference;
+\t\t
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=issue1884::legality_error =====
+
+\t\t\tstates
+\t\t\t\ts0: initial complete final state;
+\t\t\t\ts1: state;
+\t\t\ttransitions
+\t\t\t\ts0 -[ on dispatch timeout ]-> s1;
+\t\t
+----- Xtext reparse -----
+reparsed

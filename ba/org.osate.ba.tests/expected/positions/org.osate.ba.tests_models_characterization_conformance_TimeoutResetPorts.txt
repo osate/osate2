@@ -1,0 +1,10 @@
+annex[0] owner=TimeoutResetPorts::worker.i
+  (BehaviorAnnex, behavior_specification, 333, 129)
+  (BehaviorCondition, <null>, 410, 19)
+  (BehaviorState, waiting, 343, 7)
+  (BehaviorStateGroup, <null>, 343, 38)
+  (BehaviorTransition, <null>, 399, 32)
+  (BehaviorTransition, <null>, 431, 15)
+  (BehaviorTransition, <null>, 447, 15)
+  (DispatchCondition, <null>, 413, 16)
+  (DispatchTriggerCondition, <null>, 422, 7)

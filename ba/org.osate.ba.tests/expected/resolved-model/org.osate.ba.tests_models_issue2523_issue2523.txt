@@ -1,0 +1,14 @@
+annex[0] owner=issue2523::t
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=v1
+    states[0] : BehaviorState name=s1
+    states[1] : BehaviorState name=s2
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : PortDequeueAction
+          port : EventDataPortHolder element=issue2523::t.ed_in [EventDataPort]
+          target : BehaviorVariableHolder element=v1 [BehaviorVariable]
+        actions[1] : PortDequeueAction
+          port : EventDataPortHolder element=issue2523::t.ed_in [EventDataPort]

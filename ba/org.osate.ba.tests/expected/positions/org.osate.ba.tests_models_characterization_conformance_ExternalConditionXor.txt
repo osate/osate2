@@ -1,0 +1,13 @@
+annex[0] owner=ExternalConditionXor::component.i
+  (BehaviorAnnex, behavior_specification, 319, 125)
+  (BehaviorCondition, <null>, 401, 14)
+  (BehaviorState, finish, 354, 6)
+  (BehaviorState, start, 329, 5)
+  (BehaviorStateGroup, <null>, 329, 21)
+  (BehaviorStateGroup, <null>, 354, 20)
+  (BehaviorTransition, <null>, 392, 27)
+  (BehaviorTransition, <null>, 420, 24)
+  (ModeSwitchCondition, <null>, 404, 11)
+  (ModeSwitchConjunction, <null>, 404, 11)
+  (Reference, <null>, 404, 11)
+  (ReferenceSegment, first_event, 404, 11)

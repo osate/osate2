@@ -1,0 +1,2 @@
+error | linking | 8 | 57 | 4 | Couldn't resolve reference to ComponentClassifier 'cpu1'.
+error | syntax | 8 | 62 | 4 | extraneous input 'cpu2' expecting ')'

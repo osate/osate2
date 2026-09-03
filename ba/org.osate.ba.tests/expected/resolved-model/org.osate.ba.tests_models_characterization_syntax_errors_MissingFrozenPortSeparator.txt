@@ -1,0 +1,6 @@
+annex[0] owner=MissingFrozenPortSeparator::t
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        frozenPorts[0] : EventPortHolder element=MissingFrozenPortSeparator::t.p [EventPort]

@@ -1,0 +1,21 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package InternalPortActions
+public
+	abstract component
+	end component;
+
+	abstract implementation component.i
+	internal features
+		internal_target: event data;
+		internal_action: event;
+	annex behavior_specification {**
+		states
+			start: initial state;
+			finish: final state;
+		transitions
+			assign: start -[ ]-> finish { internal_target := any };
+			send: start -[ ]-> finish { internal_action! };
+	**};
+	end component.i;
+end InternalPortActions;

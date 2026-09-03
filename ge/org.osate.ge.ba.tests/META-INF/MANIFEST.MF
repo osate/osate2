@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OSATE Graphical Editor Behavior Annex Tests
+Bundle-SymbolicName: org.osate.ge.ba.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Fragment-Host: org.osate.ge.ba;bundle-version="[2.2.2,3.0.0)"
+Require-Bundle: org.osate.testsupport;bundle-version="4.1.0",
+ org.osate.aadl2,
+ org.osate.ba,
+ org.osate.xtext.aadl2.ba,
+ org.eclipse.xtext,
+ org.junit
+Automatic-Module-Name: org.osate.ge.ba.tests
+Bundle-Vendor: CMU/SEI

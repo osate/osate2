@@ -1,0 +1,11 @@
+package Unresolved_State
+public
+	system Example
+		annex behavior_specification {**
+			states
+				idle : initial state;
+			transitions
+				start: missing -[]-> idle;
+		**};
+	end Example;
+end Unresolved_State;

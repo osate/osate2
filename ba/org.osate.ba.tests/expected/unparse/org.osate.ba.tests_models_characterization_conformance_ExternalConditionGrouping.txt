@@ -1,0 +1,10 @@
+===== annex[0] owner=ExternalConditionGrouping::component.i =====
+
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tfinish: final state;
+\t\ttransitions
+\t\t\tstart -[ on (first_event or second_event) ]-> finish;
+\t
+----- Xtext reparse -----
+reparsed

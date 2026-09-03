@@ -1,0 +1,3 @@
+error | syntax | 15 | 48 | 5 | extraneous input 'right' expecting ']->'
+error | syntax | 16 | 41 | 4 | no viable alternative at input 'else'
+error | syntax | 16 | 46 | 5 | extraneous input 'right' expecting ']->'

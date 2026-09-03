@@ -1,0 +1,10 @@
+annex[0] owner=MissingSubprogramParameterSeparator::t
+  (BehaviorActionBlock, <null>, 254, 14)
+  (BehaviorAnnex, behavior_specification, 199, 70)
+  (BehaviorIntegerLiteral, <null>, 262, 1)
+  (BehaviorState, s, 206, 1)
+  (BehaviorStateGroup, <null>, 206, 23)
+  (BehaviorTransition, <null>, 244, 25)
+  (CommunicationAction, <null>, 256, 10)
+  (Reference, <null>, 256, 4)
+  (ReferenceSegment, call, 256, 4)

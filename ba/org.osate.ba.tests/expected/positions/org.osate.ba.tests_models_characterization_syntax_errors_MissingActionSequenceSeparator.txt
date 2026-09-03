@@ -1,0 +1,13 @@
+annex[0] owner=MissingActionSequenceSeparator::t
+  (AssignmentAction, <null>, 305, 6)
+  (BehaviorActionBlock, <null>, 303, 8)
+  (BehaviorAnnex, behavior_specification, 212, 109)
+  (BehaviorIntegerLiteral, <null>, 310, 1)
+  (BehaviorState, s, 255, 1)
+  (BehaviorStateGroup, <null>, 255, 23)
+  (BehaviorTransition, <null>, 293, 18)
+  (BehaviorTransition, <null>, 312, 9)
+  (BehaviorVariable, x, 222, 1)
+  (BehaviorVariableGroup, <null>, 222, 23)
+  (Reference, <null>, 305, 1)
+  (ReferenceSegment, x, 305, 1)

@@ -1,0 +1,11 @@
+===== annex[0] owner=InternalPortActions::component.i =====
+
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tfinish: final state;
+\t\ttransitions
+\t\t\tassign: start -[ ]-> finish { internal_target := any };
+\t\t\tsend: start -[ ]-> finish { internal_action! };
+\t
+----- Xtext reparse -----
+reparsed

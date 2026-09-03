@@ -132,12 +132,6 @@
             <topic href="api-docs/javadoc/org/osate/ba/aadlba/provider/package-summary.html" label="org.osate.ba.aadlba.provider"/>
             <topic href="api-docs/javadoc/org/osate/ba/aadlba/util/package-summary.html" label="org.osate.ba.aadlba.util"/>
             <topic href="api-docs/javadoc/org/osate/ba/analyzers/package-summary.html" label="org.osate.ba.analyzers"/>
-            <topic href="api-docs/javadoc/org/osate/ba/declarative/package-summary.html" label="org.osate.ba.declarative"/>
-            <topic href="api-docs/javadoc/org/osate/ba/declarative/impl/package-summary.html" label="org.osate.ba.declarative.impl"/>
-            <topic href="api-docs/javadoc/org/osate/ba/declarative/util/package-summary.html" label="org.osate.ba.declarative.util"/>
-            <topic href="api-docs/javadoc/org/osate/ba/parser/package-summary.html" label="org.osate.ba.parser"/>
-            <topic href="api-docs/javadoc/org/osate/ba/texteditor/package-summary.html" label="org.osate.ba.texteditor"/>
-            <topic href="api-docs/javadoc/org/osate/ba/unparser/package-summary.html" label="org.osate.ba.unparser"/>
             <topic href="api-docs/javadoc/org/osate/ba/utils/package-summary.html" label="org.osate.ba.utils"/>
             <topic href="api-docs/javadoc/org/osate/ba/utils/visitor/package-summary.html" label="org.osate.ba.utils.visitor"/>
             <topic href="api-docs/javadoc/org/osate/ba/wizards/package-summary.html" label="org.osate.ba.wizards"/>

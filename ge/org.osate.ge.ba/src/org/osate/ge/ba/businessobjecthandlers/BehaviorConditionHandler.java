@@ -28,13 +28,14 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.osate.ba.aadlba.BehaviorCondition;
-import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.ba.util.BehaviorTransitionEmbeddedTextUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
@@ -64,7 +65,7 @@ public class BehaviorConditionHandler implements BusinessObjectHandler {
 		final BehaviorCondition bc = ctx.getBusinessObject(BehaviorCondition.class)
 				.orElseThrow();
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.BEHAVIOR_CONDITION,
-				ctx.getReferenceBuilder().getCanonicalReference(bc.getOwner()).encode());
+				ctx.getReferenceBuilder().getCanonicalReference(bc.eContainer()).encode());
 	}
 
 	@Override
@@ -87,7 +88,7 @@ public class BehaviorConditionHandler implements BusinessObjectHandler {
 		return ctx.getBusinessObjectContext()
 				.getBusinessObject(BehaviorCondition.class)
 				.map(bc -> {
-					final BehaviorTransition bt = (BehaviorTransition) bc.getOwner();
+					final BehaviorTransition bt = (BehaviorTransition) bc.eContainer();
 					final XtextResource xtextResource = getXtextResource(bt)
 							.orElseThrow(() -> new RuntimeException("Resource must be XtextResource"));
 					final IXtextDocument xtextDocument = getXtextDocument(bt).orElse(null);
@@ -108,6 +109,7 @@ public class BehaviorConditionHandler implements BusinessObjectHandler {
 	}
 
 	private static Optional<IXtextDocument> getXtextDocument(final BehaviorTransition behaviorTransition) {
-		return Optional.ofNullable(AgeXtextUtil.getDocumentByRootElement(behaviorTransition.getElementRoot()));
+		return Optional.ofNullable(
+				AgeXtextUtil.getDocumentByRootElement(BehaviorAnnexUtil.getElementRoot(behaviorTransition)));
 	}
 }

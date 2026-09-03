@@ -1,0 +1,15 @@
+annex[0] owner=issue2184::top
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=tmp
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=a
+    transitions[0] : BehaviorTransition name=t
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataPortHolder element=issue2184::top.o1 [DataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=tmp [BehaviorVariable]

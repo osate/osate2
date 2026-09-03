@@ -24,17 +24,30 @@
 package org.osate.ge.ba.util;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariableGroup;
 
 /**
  * Utility class containing miscellaneous helper functions used by the OSATE graphical editor's behavior annex plugin.
@@ -69,13 +82,81 @@ public final class BehaviorAnnexUtil {
 	 * @param e the element for which to get the package
 	 * @return the package containing the element. An empty optional is returned if the package cannot be determined.
 	 */
-	public static Optional<AadlPackage> getPackage(final Element e) {
-		if (e == null) {
+	public static Optional<AadlPackage> getPackage(final EObject object) {
+		if (object == null) {
 			return Optional.empty();
 		}
 
-		final Element root = e.getElementRoot();
+		final NamedElement root = getElementRoot(object);
 		final AadlPackage pkg = root instanceof AadlPackage ? (AadlPackage) root : null;
 		return Optional.ofNullable(pkg);
+	}
+
+	public static NamedElement getElementRoot(final EObject object) {
+		final var root = EcoreUtil.getRootContainer(object);
+		return root instanceof NamedElement ? (NamedElement) root : null;
+	}
+
+	public static Stream<BehaviorState> getStates(final BehaviorAnnex behaviorAnnex) {
+		return behaviorAnnex.getStateGroups().stream().flatMap(group -> group.getStates().stream());
+	}
+
+	public static Stream<BehaviorVariable> getVariables(final BehaviorAnnex behaviorAnnex) {
+		return behaviorAnnex.getVariableGroups().stream().flatMap(group -> group.getVariables().stream());
+	}
+
+	public static BehaviorAnnex getBehaviorAnnex(final EObject object) {
+		return EcoreUtil2.getContainerOfType(object, BehaviorAnnex.class);
+	}
+
+	public static ComponentClassifier getContainingClassifier(final EObject object) {
+		final var defaultAnnex = EcoreUtil2.getContainerOfType(object, DefaultAnnexSubclause.class);
+		return defaultAnnex != null && defaultAnnex.getContainingClassifier() instanceof ComponentClassifier
+				? (ComponentClassifier) defaultAnnex.getContainingClassifier()
+				: null;
+	}
+
+	public static int getOffset(final EObject object) {
+		final var node = NodeModelUtils.findActualNodeFor(object);
+		if (node == null) {
+			throw new IllegalArgumentException("No node is associated with " + object.eClass().getName());
+		}
+		return node.getOffset();
+	}
+
+	public static BehaviorStateGroup isolateState(final BehaviorState state) {
+		final var oldGroup = (BehaviorStateGroup) state.eContainer();
+		if (oldGroup.getStates().size() == 1) {
+			return oldGroup;
+		}
+
+		final var behaviorAnnex = (BehaviorAnnex) oldGroup.eContainer();
+		final var newGroup = BehaviorAnnexFactory.eINSTANCE.createBehaviorStateGroup();
+		newGroup.setInitial(oldGroup.isInitial());
+		newGroup.setComplete(oldGroup.isComplete());
+		newGroup.setFinal(oldGroup.isFinal());
+		final int index = behaviorAnnex.getStateGroups().indexOf(oldGroup) + 1;
+		behaviorAnnex.getStateGroups().add(index, newGroup);
+		newGroup.getStates().add(state);
+		return newGroup;
+	}
+
+	public static BehaviorVariableGroup isolateVariable(final BehaviorVariable variable) {
+		final var oldGroup = (BehaviorVariableGroup) variable.eContainer();
+		if (oldGroup.getVariables().size() == 1) {
+			return oldGroup;
+		}
+
+		final var behaviorAnnex = (BehaviorAnnex) oldGroup.eContainer();
+		final var newGroup = BehaviorAnnexFactory.eINSTANCE.createBehaviorVariableGroup();
+		newGroup.setDataClassifier(oldGroup.getDataClassifier());
+		if (oldGroup.getInitialValue() != null) {
+			newGroup.setInitialValue(EcoreUtil.copy(oldGroup.getInitialValue()));
+		}
+		newGroup.getPropertyAssociations().addAll(EcoreUtil.copyAll(oldGroup.getPropertyAssociations()));
+		final int index = behaviorAnnex.getVariableGroups().indexOf(oldGroup) + 1;
+		behaviorAnnex.getVariableGroups().add(index, newGroup);
+		newGroup.getVariables().add(variable);
+		return newGroup;
 	}
 }

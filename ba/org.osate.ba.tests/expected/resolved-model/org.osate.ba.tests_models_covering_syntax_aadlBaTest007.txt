@@ -1,0 +1,2867 @@
+annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=int
+    variables[1] : BehaviorVariable name=str
+    variables[2] : BehaviorVariable name=local_var
+    states[0] : BehaviorState name=uniqueState
+    states[1] : BehaviorState name=a
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+    transitions[7] : BehaviorTransition
+    transitions[8] : BehaviorTransition
+    transitions[9] : BehaviorTransition
+    transitions[10] : BehaviorTransition
+    transitions[11] : BehaviorTransition
+    transitions[12] : BehaviorTransition
+    transitions[13] : BehaviorTransition
+    transitions[14] : BehaviorTransition
+    transitions[15] : BehaviorTransition
+    transitions[16] : BehaviorTransition
+    transitions[17] : BehaviorTransition
+    transitions[18] : BehaviorTransition
+    transitions[19] : BehaviorTransition
+    transitions[20] : BehaviorTransition
+    transitions[21] : BehaviorTransition
+    transitions[22] : BehaviorTransition
+    transitions[23] : BehaviorTransition
+    transitions[24] : BehaviorTransition
+    transitions[25] : BehaviorTransition
+    transitions[26] : BehaviorTransition
+    transitions[27] : BehaviorTransition
+    transitions[28] : BehaviorTransition
+    transitions[29] : BehaviorTransition
+    transitions[30] : BehaviorTransition
+    transitions[31] : BehaviorTransition
+    transitions[32] : BehaviorTransition
+    transitions[33] : BehaviorTransition
+    transitions[34] : BehaviorTransition
+    transitions[35] : BehaviorTransition
+    transitions[36] : BehaviorTransition
+    transitions[37] : BehaviorTransition
+    transitions[38] : BehaviorTransition
+    transitions[39] : BehaviorTransition
+    transitions[40] : BehaviorTransition
+    transitions[41] : BehaviorTransition
+    transitions[42] : BehaviorTransition
+    transitions[43] : BehaviorTransition
+    transitions[44] : BehaviorTransition
+    transitions[45] : BehaviorTransition
+    transitions[46] : BehaviorTransition
+    transitions[47] : BehaviorTransition
+    transitions[48] : BehaviorTransition
+    transitions[49] : BehaviorTransition
+    transitions[50] : BehaviorTransition
+    transitions[51] : BehaviorTransition
+    transitions[52] : BehaviorTransition
+    transitions[53] : BehaviorTransition
+    transitions[54] : BehaviorTransition
+    transitions[55] : BehaviorTransition
+    transitions[56] : BehaviorTransition
+    transitions[57] : BehaviorTransition
+    transitions[58] : BehaviorTransition
+    transitions[59] : BehaviorTransition
+    transitions[60] : BehaviorTransition
+    transitions[61] : BehaviorTransition
+    transitions[62] : BehaviorTransition
+    transitions[63] : BehaviorTransition
+    transitions[64] : BehaviorTransition
+    transitions[65] : BehaviorTransition
+    transitions[66] : BehaviorTransition
+    transitions[67] : BehaviorTransition
+    transitions[68] : BehaviorTransition
+    transitions[69] : BehaviorTransition
+    transitions[70] : BehaviorTransition
+    transitions[71] : BehaviorTransition
+    transitions[72] : BehaviorTransition
+    transitions[73] : BehaviorTransition
+    transitions[74] : BehaviorTransition
+    transitions[75] : BehaviorTransition
+    transitions[76] : BehaviorTransition
+    transitions[77] : BehaviorTransition
+    transitions[78] : BehaviorTransition
+    transitions[79] : BehaviorTransition
+    transitions[80] : BehaviorTransition
+    transitions[81] : BehaviorTransition
+    transitions[82] : BehaviorTransition
+    transitions[83] : BehaviorTransition
+    transitions[84] : BehaviorTransition
+    transitions[85] : BehaviorTransition
+    transitions[86] : BehaviorTransition
+    transitions[87] : BehaviorTransition
+    transitions[88] : BehaviorTransition
+    transitions[89] : BehaviorTransition
+    transitions[90] : BehaviorTransition
+    transitions[91] : BehaviorTransition
+    transitions[92] : BehaviorTransition
+    transitions[93] : BehaviorTransition
+    transitions[94] : BehaviorTransition
+    transitions[95] : BehaviorTransition
+    transitions[96] : BehaviorTransition
+    transitions[97] : BehaviorTransition
+    transitions[98] : BehaviorTransition
+    transitions[99] : BehaviorTransition
+    transitions[100] : BehaviorTransition
+    transitions[101] : BehaviorTransition
+    transitions[102] : BehaviorTransition
+    transitions[103] : BehaviorTransition
+    transitions[104] : BehaviorTransition
+    transitions[105] : BehaviorTransition
+    transitions[106] : BehaviorTransition
+    transitions[107] : BehaviorTransition
+    transitions[108] : BehaviorTransition
+    transitions[109] : BehaviorTransition
+    transitions[110] : BehaviorTransition
+    transitions[111] : BehaviorTransition
+    transitions[112] : BehaviorTransition
+    transitions[113] : BehaviorTransition
+    transitions[114] : BehaviorTransition
+    transitions[115] : BehaviorTransition
+    transitions[116] : BehaviorTransition
+    transitions[117] : BehaviorTransition
+    transitions[118] : BehaviorTransition
+    transitions[119] : BehaviorTransition
+    transitions[120] : BehaviorTransition
+    transitions[121] : BehaviorTransition
+    transitions[122] : BehaviorTransition
+    transitions[123] : BehaviorTransition
+    transitions[124] : BehaviorTransition
+    transitions[125] : BehaviorTransition
+    transitions[126] : BehaviorTransition
+    transitions[127] : BehaviorTransition
+    transitions[128] : BehaviorTransition
+    transitions[129] : BehaviorTransition
+    transitions[130] : BehaviorTransition
+    transitions[131] : BehaviorTransition
+    transitions[132] : BehaviorTransition
+    transitions[133] : BehaviorTransition
+    transitions[134] : BehaviorTransition
+    transitions[135] : BehaviorTransition
+    transitions[136] : BehaviorTransition
+    transitions[137] : BehaviorTransition
+    transitions[138] : BehaviorTransition
+    transitions[139] : BehaviorTransition
+    transitions[140] : BehaviorTransition
+    transitions[141] : BehaviorTransition
+    transitions[142] : BehaviorTransition
+    transitions[143] : BehaviorTransition
+    transitions[144] : BehaviorTransition
+    transitions[145] : BehaviorTransition
+    transitions[146] : BehaviorTransition
+    transitions[147] : BehaviorTransition
+    transitions[148] : BehaviorTransition
+    transitions[149] : BehaviorTransition
+    transitions[150] : BehaviorTransition
+    transitions[151] : BehaviorTransition
+    transitions[152] : BehaviorTransition
+    transitions[153] : BehaviorTransition
+    transitions[154] : BehaviorTransition
+    transitions[155] : BehaviorTransition
+    transitions[156] : BehaviorTransition
+    transitions[157] : BehaviorTransition
+    transitions[158] : BehaviorTransition
+    transitions[159] : BehaviorTransition
+    transitions[160] : BehaviorTransition
+    transitions[161] : BehaviorTransition
+    transitions[162] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorPropertyConstant
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorPropertyConstant
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[3] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=RangeValue [RangeValue]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+    actions[4] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=RangeValue [RangeValue]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+    actions[5] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=NamedValue [NamedValue]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=NamedValue [NamedValue]
+                    properties[1] : PropertyNameHolder
+                      property : EnumLiteralHolder element=AadlBaTestPropertySet::enumType.two [EnumerationLiteral]
+    actions[6] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=NamedValue [NamedValue]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=NamedValue [NamedValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+    actions[7] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+    actions[8] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+    actions[9] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=RecordValue [RecordValue]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[10] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=RecordValue [RecordValue]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=BooleanLiteral [BooleanLiteral]
+    actions[11] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=RecordValue [RecordValue]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[12] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=RecordValue [RecordValue]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[13] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=RecordValue [RecordValue]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[14] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[15] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[16] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[17] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[18] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[19] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[4] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[20] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[21] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[22] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[23] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[24] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[25] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[4] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[26] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleValue [Property]
+    actions[27] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+    actions[28] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+    actions[29] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
+                    properties[1] : PropertyNameHolder
+                      property : EnumLiteralHolder element=AadlBaTestPropertySet::enumType.two [EnumerationLiteral]
+    actions[30] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+    actions[31] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecord [Property]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
+    actions[32] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecord [Property]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.bool [BasicProperty]
+    actions[33] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
+    actions[34] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+    actions[35] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+    actions[36] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+    actions[37] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+    actions[38] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+    actions[39] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+    actions[40] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+    actions[41] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+    actions[42] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyTypeHolder element=AadlBaTestPropertySet::enumType [EnumerationType]
+                    properties[1] : PropertyNameHolder
+                      property : EnumLiteralHolder element=AadlBaTestPropertySet::enumType.nine [EnumerationLiteral]
+    actions[43] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=NamedValue [NamedValue]
+    actions[44] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+    actions[45] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+    actions[46] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[47] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[48] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[49] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[50] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[51] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[52] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[53] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[54] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[55] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[56] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[4] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[57] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[58] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[59] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[60] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[61] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[62] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecordDefined [Property]
+                    properties[2] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=ListValue [ListValue]
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
+                    properties[4] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+    actions[63] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[64] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[65] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[66] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyTypeHolder element=AadlBaTestPropertySet::enumType [EnumerationType]
+                    properties[1] : PropertyNameHolder
+                      property : EnumLiteralHolder element=AadlBaTestPropertySet::enumType.nine [EnumerationLiteral]
+    actions[67] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=NamedValue [NamedValue]
+    actions[68] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[69] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[70] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[71] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[72] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[73] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[74] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[75] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[76] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[77] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[78] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[79] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[80] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[4] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[81] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[82] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[83] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[84] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[85] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[86] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[4] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=local_var [BehaviorVariable]
+    actions[87] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyFeatureGroup.myDataPrototype [FeaturePrototype]
+                      groupHolders[0] : GroupHolder element=PropertyReferenceTest::MyThread.featGrp [FeatureGroup]
+    actions[88] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=<null>
+    actions[89] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[90] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[91] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[92] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyTypeHolder element=AadlBaTestPropertySet::enumType [EnumerationType]
+                    properties[1] : PropertyNameHolder
+                      property : EnumLiteralHolder element=AadlBaTestPropertySet::enumType.nine [EnumerationLiteral]
+    actions[93] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=NamedValue [NamedValue]
+    actions[94] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[95] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[96] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[97] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[98] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[99] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[100] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[101] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[102] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[103] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[104] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[105] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[106] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[4] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[107] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[108] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[109] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[110] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[111] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[112] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[4] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
+    actions[113] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyFeatureGroup.portMyData [DataPort]
+                      groupHolders[0] : GroupHolder element=PropertyReferenceTest::MyThread.featGrp [FeatureGroup]
+    actions[114] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : BehaviorVariableHolder element=<null>
+    actions[115] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[116] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[117] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[118] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyTypeHolder element=AadlBaTestPropertySet::enumType [EnumerationType]
+                    properties[1] : PropertyNameHolder
+                      property : EnumLiteralHolder element=AadlBaTestPropertySet::enumType.nine [EnumerationLiteral]
+    actions[119] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=NamedValue [NamedValue]
+    actions[120] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[121] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[122] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[123] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[124] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[125] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[126] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[127] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[128] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[129] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[130] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[131] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[132] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[4] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[133] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[134] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[135] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[136] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[137] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[138] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[4] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
+    actions[139] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[140] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[141] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[142] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyTypeHolder element=AadlBaTestPropertySet::enumType [EnumerationType]
+                    properties[1] : PropertyNameHolder
+                      property : EnumLiteralHolder element=AadlBaTestPropertySet::enumType.nine [EnumerationLiteral]
+    actions[143] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=int [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=NamedValue [NamedValue]
+    actions[144] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[145] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=str [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[146] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[147] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[148] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[149] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[150] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[151] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[152] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[153] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[154] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[155] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[156] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[4] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[157] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[158] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[159] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                        arrayIndexes[1] : BehaviorIntegerLiteral
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[160] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[161] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                        arrayIndexes[0] : BehaviorIntegerLiteral
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
+    actions[162] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=int [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierFeaturePropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[2] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[3] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    properties[4] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+                    component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]

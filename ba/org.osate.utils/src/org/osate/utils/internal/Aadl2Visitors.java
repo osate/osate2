@@ -56,7 +56,7 @@ public class Aadl2Visitors {
 	 * @return the component's members LinkedHashSet
 	 */
 	public static LinkedHashSet<NamedElement> getMembers(Namespace ns) {
-		LinkedHashSet<NamedElement> result = new LinkedHashSet<NamedElement>();
+		var result = new LinkedHashSet<NamedElement>();
 		result.addAll(ns.getMembers());
 		return result;
 	}

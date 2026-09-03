@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AADL Behavior Annex Xtext IDE
+Bundle-Vendor: CMU/SEI
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.osate.xtext.aadl2.ba.ide;singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
+ org.eclipse.xtext.ide;bundle-version="[2.20.0,3.0.0)",
+ org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
+ org.eclipse.xtext.util;bundle-version="[2.20.0,3.0.0)",
+ org.antlr.runtime;bundle-version="[3.2.0,4.0.0)",
+ org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
+ org.osate.xtext.aadl2.ba;bundle-version="[1.0.0,2.0.0)";visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: org.osate.xtext.aadl2.ba.ide
+Export-Package: org.osate.xtext.aadl2.ba.ide,
+ org.osate.xtext.aadl2.ba.ide.contentassist,
+ org.osate.xtext.aadl2.ba.ide.contentassist.antlr,
+ org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal,
+ org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer

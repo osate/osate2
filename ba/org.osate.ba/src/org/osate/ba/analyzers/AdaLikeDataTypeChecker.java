@@ -49,17 +49,17 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 
 	// Expected data representation for numerics in value expression checking,
 	// excepted for operator **
-	private final static DataRepresentation[] _numTypes = new DataRepresentation[] { DataRepresentation.INTEGER,
+	private final static DataRepresentation[] _numTypes = { DataRepresentation.INTEGER,
 			DataRepresentation.FLOAT, DataRepresentation.FIXED };
 
 	// Expected data representation for numerics in operator **
 	// expression checking.
-	private final static DataRepresentation[] _numTypesWithoutFixed = new DataRepresentation[] {
+	private final static DataRepresentation[] _numTypesWithoutFixed = {
 			DataRepresentation.INTEGER, DataRepresentation.FLOAT };
 
 	// Expected data representation for alphanumerics in value expression
 	// checking.
-	private final static DataRepresentation[] _alphaNumTypes = new DataRepresentation[] { DataRepresentation.INTEGER,
+	private final static DataRepresentation[] _alphaNumTypes = { DataRepresentation.INTEGER,
 			DataRepresentation.FLOAT, DataRepresentation.FIXED, DataRepresentation.CHARACTER,
 			DataRepresentation.STRING };
 
@@ -132,9 +132,9 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 	}
 
 	private TypeHolder getTopLevelTypeWithoutConsistencyChecking(TypeHolder type1, TypeHolder type2) {
-		TypeHolder result = new TypeHolder();
+		var result = new TypeHolder();
 		result.setDataRep(type1.getDataRep());
-		DataClassifier c = (type1.getKlass() != null) ? type1.getKlass() : type2.getKlass();
+		var c = (type1.getKlass() != null) ? type1.getKlass() : type2.getKlass();
 		result.setKlass(c);
 		return result;
 	}
@@ -155,18 +155,15 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 				reportErrorBinaryOperator(e, operator, operand1);
 				return null;
 			}
-		} else if (operator instanceof RelationalOperator) {
-			RelationalOperator rop = (RelationalOperator) operator;
-			DataRepresentation[] expectedTypes = null;
+		} else if (operator instanceof RelationalOperator relationalOperator) {
 
 			// Operators = and != are defined for all coherent types.
-			if (rop == RelationalOperator.EQUAL || rop == RelationalOperator.NOT_EQUAL) {
+			if (relationalOperator == RelationalOperator.EQUAL
+					|| relationalOperator == RelationalOperator.NOT_EQUAL) {
 				return new TypeHolder(DataRepresentation.BOOLEAN, null);
 			}
 
-			expectedTypes = _alphaNumTypes;
-
-			if (Aadl2Utils.contains(operand1.getDataRep(), expectedTypes)) {
+			if (Aadl2Utils.contains(operand1.getDataRep(), _alphaNumTypes)) {
 				return new TypeHolder(DataRepresentation.BOOLEAN, null);
 			} else {
 				reportErrorBinaryOperator(e, operator, operand1);
@@ -179,46 +176,41 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 				reportErrorBinaryOperator(e, operator, operand1);
 				return null;
 			}
-		} else if (operator instanceof MultiplyingOperator) {
-			MultiplyingOperator op = (MultiplyingOperator) operator;
-
-			switch (op) {
-			case MULTIPLY:
-			case DIVIDE: {
+		} else if (operator instanceof MultiplyingOperator multiplyingOperator) {
+			switch (multiplyingOperator) {
+			case MULTIPLY, DIVIDE -> {
 				if (Aadl2Utils.contains(operand1.getDataRep(), _numTypes)) {
 					return getTopLevelTypeWithoutConsistencyChecking(operand1, operand2);
-				} else {
-					reportErrorBinaryOperator(e, operator, operand1);
-					return null;
 				}
+				reportErrorBinaryOperator(e, operator, operand1);
+				return null;
 			}
 
-			case MOD:
-			case REM: {
+			case MOD, REM -> {
 				if (operand1.getDataRep() == DataRepresentation.INTEGER) {
 					return getTopLevelTypeWithoutConsistencyChecking(operand1, operand2);
-				} else {
-					reportErrorBinaryOperator(e, operator, operand1);
-					return null;
 				}
+				reportErrorBinaryOperator(e, operator, operand1);
+				return null;
 			}
 
-			default:
+			default -> {
 				return null;
+			}
 			}
 		} else if (operator instanceof BinaryNumericOperator) {
 			// Checks operands consistency:
 			if (Aadl2Utils.contains(operand1.getDataRep(), _numTypesWithoutFixed)) {
-				boolean reportError = false;
+				var reportError = false;
 
 				if (operand2.getDataRep() == DataRepresentation.INTEGER) {
 					// Datatyped operand case : checks if operand2 is a natural.
 					if (operand2.getKlass() != null) {
-						EList<org.osate.aadl2.PropertyExpression> l = PropertyUtils
+						var values = PropertyUtils
 								.findPropertyExpression(operand2.getKlass(), DataModelProperties.INTEGER_RANGE);
-						if (l.size() > 0) {
-							RangeValue rv = (RangeValue) l.get(l.size() - 1);
-							if (rv.getMinimumValue().getScaledValue() < 0) {
+						if (!values.isEmpty()) {
+							var range = (RangeValue) values.getLast();
+							if (range.getMinimumValue().getScaledValue() < 0) {
 								reportError = true;
 							}
 						} else {
@@ -227,23 +219,20 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 					} else // constant data case : checks if the constant value is not
 							// negative.
 					{
-						if (e instanceof Factor) {
-							Value val = ((Factor) e).getSecondValue();
+						if (e instanceof Factor factor) {
+							var value = factor.getSecondValue();
 
 							// IntegerLiteral cannot be negative (otherwise parse
 							// error) so it only checks
 							// PropertyConstants and warns PropertyValues.
-							if (val instanceof BehaviorPropertyConstant) {
-								BehaviorPropertyConstant bpc = (BehaviorPropertyConstant) val;
-
-								org.osate.aadl2.PropertyConstant pc = bpc.getProperty();
-
-								org.osate.aadl2.IntegerLiteral intLit = (org.osate.aadl2.IntegerLiteral) pc
+							if (value instanceof BehaviorPropertyConstant constant) {
+								var property = constant.getProperty();
+								var integer = (org.osate.aadl2.IntegerLiteral) property
 										.getConstantValue();
-								if (intLit.getValue() < 0) {
+								if (integer.getValue() < 0) {
 									reportError = true;
 								}
-							} else if (val instanceof PropertyReference)
+							} else if (value instanceof PropertyReference)
 							// PropertyValue case : its value can only be evaluated at
 							// runtime so raises a warning.
 							{
@@ -266,7 +255,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 				return null;
 			}
 		} else {
-			String errorMsg = "operator : " + operator.getName() + " is not supported.";
+			var errorMsg = "operator : " + operator.getName() + " is not supported.";
 			System.err.println(errorMsg);
 			throw new UnsupportedOperationException(errorMsg);
 		}
@@ -295,7 +284,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 				return null;
 			}
 		} else {
-			String errorMsg = "operator : " + operator.getName() + " is not supported.";
+			var errorMsg = "operator : " + operator.getName() + " is not supported.";
 			System.err.println(errorMsg);
 			throw new UnsupportedOperationException(errorMsg);
 		}

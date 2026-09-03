@@ -23,8 +23,8 @@
  */
 package org.osate.ge.ba.filters;
 
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.ge.ContentFilter;
 
 /**

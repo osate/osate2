@@ -1,0 +1,13 @@
+annex[0] owner=DoubleEquals::t
+  (BehaviorAnnex, behavior_specification, 194, 97)
+  (BehaviorCondition, <null>, 279, 6)
+  (BehaviorState, s, 237, 1)
+  (BehaviorStateGroup, <null>, 237, 23)
+  (BehaviorTransition, <null>, 275, 16)
+  (BehaviorVariable, x, 204, 1)
+  (BehaviorVariableGroup, <null>, 204, 23)
+  (BinaryExpression, <null>, 279, 6)
+  (ExecuteCondition, <null>, 279, 6)
+  (Reference, <null>, 279, 1)
+  (ReferenceExpression, <null>, 279, 1)
+  (ReferenceSegment, x, 279, 1)

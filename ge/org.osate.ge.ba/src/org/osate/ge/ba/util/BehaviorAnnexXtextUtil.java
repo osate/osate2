@@ -27,18 +27,24 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.osate.aadl2.Element;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
+import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.PeekingIterator;
+import com.google.inject.Injector;
 
 /**
  * Utility class for working with Xtext documents and resources within the OSATE graphical editor's behavior annex plugin.
@@ -65,6 +71,22 @@ public class BehaviorAnnexXtextUtil {
 
 		final IXtextDocument xtextDocument = AgeXtextUtil.getDocumentByRootElement(element.getElementRoot());
 		return getText(xtextDocument, (XtextResource) resource);
+	}
+
+	public static String getText(final EObject object) {
+		final var root = BehaviorAnnexUtil.getElementRoot(object);
+		if (root == null) {
+			throw new AadlGraphicalEditorException("Behavior Annex object is not contained in an AADL resource");
+		}
+		return getText(root);
+	}
+
+	public static String serialize(final EObject object) {
+		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
+				.getResourceServiceProvider(
+						URI.createFileURI("dummy." + BehaviorAnnexStandaloneSetup.FILE_EXTENSION))
+				.get(Injector.class);
+		return injector.getInstance(ISerializer.class).serialize(object);
 	}
 
 	/**

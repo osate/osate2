@@ -1,0 +1,4 @@
+error | linking | 10 | 57 | 1 | Couldn't resolve reference to BehaviorState 'x'.
+error | syntax | 10 | 44 | 4 | mismatched input 'elif' expecting 'end'
+error | syntax | 10 | 57 | 1 | missing ';' at 'x'
+error | syntax | 10 | 59 | 2 | mismatched input ':=' expecting '-['

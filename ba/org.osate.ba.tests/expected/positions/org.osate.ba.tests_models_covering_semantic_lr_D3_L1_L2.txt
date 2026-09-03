@@ -1,0 +1,18 @@
+annex[0] owner=exemple_lr_D3_L1_L2::sub.good
+  (BehaviorAnnex, behavior_specification, 945, 43)
+  (BehaviorState, uniqueState, 953, 11)
+  (BehaviorStateGroup, <null>, 953, 35)
+annex[1] owner=exemple_lr_D3_L1_L2::sub.error1
+  (BehaviorAnnex, behavior_specification, 1278, 96)
+  (BehaviorState, compState, 1346, 9)
+  (BehaviorState, initState1, 1286, 10)
+  (BehaviorState, initState2, 1316, 10)
+  (BehaviorStateGroup, <null>, 1286, 28)
+  (BehaviorStateGroup, <null>, 1316, 28)
+  (BehaviorStateGroup, <null>, 1346, 28)
+annex[2] owner=exemple_lr_D3_L1_L2::sub.error2
+  (BehaviorAnnex, behavior_specification, 1573, 72)
+  (BehaviorState, finalState1, 1618, 11)
+  (BehaviorState, uniqueState, 1581, 11)
+  (BehaviorStateGroup, <null>, 1581, 35)
+  (BehaviorStateGroup, <null>, 1618, 27)
