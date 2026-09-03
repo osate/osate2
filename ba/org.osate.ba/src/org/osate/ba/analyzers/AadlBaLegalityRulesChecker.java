@@ -65,7 +65,6 @@ import org.osate.ba.aadlba.IntegerValue;
 import org.osate.ba.aadlba.LoopStatement;
 import org.osate.ba.aadlba.Target;
 import org.osate.ba.aadlba.TimedAction;
-import org.osate.ba.declarative.DeclarativeBehaviorTransition;
 import org.osate.ba.declarative.Identifier;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;
@@ -88,9 +87,14 @@ public class AadlBaLegalityRulesChecker {
 	private List<BehaviorTransition> _alreadyReportedErroneousTransition = new ArrayList<BehaviorTransition>();
 
 	public AadlBaLegalityRulesChecker(BehaviorAnnex ba, AnalysisErrorReporterManager errManager) {
+		this(ba, AadlBaVisitors.getParentComponent(ba), errManager);
+	}
+
+	public AadlBaLegalityRulesChecker(BehaviorAnnex ba, ComponentClassifier parentContainer,
+			AnalysisErrorReporterManager errManager) {
 		_ba = ba;
 		_errManager = errManager;
-		_baParentContainer = AadlBaVisitors.getParentComponent(ba);
+		_baParentContainer = AadlBaVisitors.getParentComponent(ba, parentContainer);
 	}
 
 	/**
@@ -356,7 +360,7 @@ public class AadlBaLegalityRulesChecker {
 	public boolean D_3_L5_Check(DispatchCondition dc) {
 		boolean canBeDispatched = false;
 		// Only accept dispatch conditions on components for which a Dispatch_Protocl can be associated
-		PackageSection[] contextsTab = AadlBaVisitors.getBaPackageSections(_ba);
+		PackageSection[] contextsTab = AadlBaVisitors.getBaPackageSections(_ba, _baParentContainer);
 		PropertiesLinkingService pls = Aadl2Visitors.getPropertiesLinkingService(contextsTab[0]);
 
 		Property dispatchProtocolProperty = pls.findPropertyDefinition(_baParentContainer,
@@ -465,11 +469,11 @@ public class AadlBaLegalityRulesChecker {
 	 * Keys : dispatch relative timeout condition catch timed thread complete
 	 * state period property
 	 */
-	public boolean D_4_L1_Check(DispatchRelativeTimeout tc, DeclarativeBehaviorTransition bt) {
-		List<Identifier> sourceState = bt.getSrcStates();
+	public boolean D_4_L1_Check(DispatchRelativeTimeout tc, BehaviorTransition bt) {
+		List<BehaviorState> sourceState = BehaviorTransitionContext.getSourceStates(bt);
 
 		if (sourceState.size() == 1) {
-			BehaviorState bs = (BehaviorState) (sourceState.get(0)).getBaRef();
+			BehaviorState bs = sourceState.get(0);
 			if (false == _alreadyFoundDispatchRelativeTimeoutTransition.containsKey(bs) && bs.isComplete()) {
 				// If the ba's parent container is not a Thread, the return value
 				// list will be empty.
@@ -546,12 +550,12 @@ public class AadlBaLegalityRulesChecker {
 	 * Keys : dispatch completion relative timeout condition catch complete
 	 * state
 	 */
-	public Boolean D_4_L2_Check(CompletionRelativeTimeout crtcac, DeclarativeBehaviorTransition bt) {
-		List<Identifier> sourceState = bt.getSrcStates();
+	public Boolean D_4_L2_Check(CompletionRelativeTimeout crtcac, BehaviorTransition bt) {
+		List<BehaviorState> sourceState = BehaviorTransitionContext.getSourceStates(bt);
 
 		if (!_alreadyFoundCompletionRelativeTimeoutConditionCatchTransition.containsKey(sourceState)
 				&& sourceState.size() == 1) {
-			BehaviorState bs = (BehaviorState) (sourceState.get(0)).getBaRef();
+			BehaviorState bs = sourceState.get(0);
 			// Positive case.
 			if (bs.isComplete()) {
 				_alreadyFoundCompletionRelativeTimeoutConditionCatchTransition.put(bs, bt);

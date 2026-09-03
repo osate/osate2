@@ -25,10 +25,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.Platform;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.analyzers.AadlBaModelResolver;
 import org.osate.ba.analyzers.AadlBaNameResolver;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
@@ -38,6 +40,7 @@ import org.osate.ba.analyzers.DeclarativeUtils;
 import org.osate.ba.texteditor.AadlBaHyperlink;
 import org.osate.ba.texteditor.DefaultAadlBaHyperlink;
 import org.osate.ba.texteditor.XtextAadlBaHyperlink;
+import org.osate.ba.utils.AadlBaVisitors;
 
 public class AadlBaResolver implements AnnexResolver {
 	public static final String ANNEX_NAME = "behavior_specification";
@@ -49,19 +52,20 @@ public class AadlBaResolver implements AnnexResolver {
 		BehaviorAnnex ba;
 		AadlBaNameResolver nameResolver;
 		AadlBaRulesCheckersDriver semanticAnalysis;
+		AadlBaModelResolver modelResolver;
 		AadlBaTypeChecker typeChecker;
 		DataTypeChecker dataTypeChecker = new AdaLikeDataTypeChecker(errManager);
 		while (it.hasNext()) {
 			boolean result = false;
 			ba = (BehaviorAnnex) it.next();
-			nameResolver = new AadlBaNameResolver(ba, errManager);
+			ComponentClassifier parentContainer = AadlBaVisitors.getParentComponent(ba);
+			nameResolver = new AadlBaNameResolver(ba, parentContainer, errManager);
 
 			result = nameResolver.resolveNames();
 
 			// It doesnt't perform semantic tests if the name resolution has
 			// failed.
 			if (result) {
-				typeChecker = new AadlBaTypeChecker(ba, dataTypeChecker, errManager);
 				AadlBaHyperlink hyperlinker;
 
 				// Set a Xtext hyperlink builder if AADLBA Front End is running
@@ -72,12 +76,17 @@ public class AadlBaResolver implements AnnexResolver {
 				{
 					hyperlinker = new DefaultAadlBaHyperlink();
 				}
-				typeChecker.setAadlBaHyperlink(hyperlinker);
-				result = typeChecker.checkTypes();
+				modelResolver = new AadlBaModelResolver(ba, parentContainer, dataTypeChecker, errManager);
+				modelResolver.setAadlBaHyperlink(hyperlinker);
+				result = modelResolver.resolveModel();
 
 				if (result) {
+					typeChecker = new AadlBaTypeChecker(ba, parentContainer, dataTypeChecker, errManager);
+					result = typeChecker.checkTypes();
+				}
 
-					semanticAnalysis = new AadlBaRulesCheckersDriver(ba, errManager);
+				if (result) {
+					semanticAnalysis = new AadlBaRulesCheckersDriver(ba, parentContainer, errManager);
 					result = semanticAnalysis.process(ba);
 				}
 
