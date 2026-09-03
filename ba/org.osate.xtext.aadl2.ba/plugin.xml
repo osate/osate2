@@ -52,4 +52,11 @@ censes only apply to the Third Party Software and not any other portion of this 
             annexName="behavior_specification"
             class="org.osate.xtext.aadl2.ba.parsing.BehaviorAnnexAnnexUnparser" />
     </extension>
+    <extension point="org.osate.annexsupport.textpositionresolver">
+        <textpositionresolver
+            id="org.osate.xtext.aadl2.ba.textpositionresolver"
+            name="Behavior Annex Xtext Reference Resolver"
+            annexName="behavior_specification"
+            class="org.osate.xtext.aadl2.ba.services.BehaviorAnnexTextPositionResolver" />
+    </extension>
 </plugin>
