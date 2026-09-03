@@ -559,6 +559,9 @@ public class InstantiateModel {
 		checkCanceled();
 
 		cacheProperties(root, remainingProperties);
+
+		vcs.checkRequiredConnections();
+		checkCanceled();
 	}
 
 	/**

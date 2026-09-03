@@ -49,6 +49,7 @@ import org.osate.aadl2.ListValue;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -74,12 +75,16 @@ import org.osate.xtext.aadl2.properties.util.ModelingProperties;
 class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private final Map<InstanceObject, InstantiatedClassifier> classifierCache;
 	private final Map<FeatureInstance, Set<ConnectionInstance>> inDataPortConnectionsMap;
+	private final Map<FeatureInstance, Set<ConnectionReference>> featureConnectionsMap;
+	private final List<FeatureInstance> featureInstances;
 
 	public ValidateConnectionsSwitch(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		super(monitor, errManager);
 		this.classifierCache = classifierCache;
 		inDataPortConnectionsMap = new HashMap<>();
+		featureConnectionsMap = new HashMap<>();
+		featureInstances = new ArrayList<>();
 	}
 
 	@Override
@@ -95,6 +100,16 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				validateConnections(ci);
 				return DONE;
 			}
+
+			@Override
+			public String caseFeatureInstance(FeatureInstance fi) {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+					return DONE;
+				}
+				featureInstances.add(fi);
+				return DONE;
+			}
 		};
 	}
 
@@ -104,11 +119,62 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	private void validateConnections(ComponentInstance ci) {
 		removeShortAccessConnections(ci);
+		recordFeatureConnections(ci);
 		recordInDataPortConnections(ci);
 		checkEndPointClassifiers(ci);
 		checkSegmentDirections(ci);
 		checkUncontinuedBoundaryEnds(ci);
 		// more
+	}
+
+	/**
+	 * Record every feature used by a declarative segment of a semantic connection.
+	 * Required connection is a consistency rule on assembled systems, so ultimate
+	 * semantic connection endpoints alone are insufficient: a boundary feature in
+	 * the middle of a complete connection is connected by one of its references.
+	 */
+	private void recordFeatureConnections(ComponentInstance ci) {
+		for (var conni : ci.getConnectionInstances()) {
+			for (var reference : conni.getConnectionReferences()) {
+				recordFeatureConnection(reference.getSource(), reference);
+				recordFeatureConnection(reference.getDestination(), reference);
+			}
+		}
+	}
+
+	private void recordFeatureConnection(ConnectionInstanceEnd end, ConnectionReference reference) {
+		for (var feature = end instanceof FeatureInstance fi ? fi : null; feature != null;) {
+			addToHashedSet(featureConnectionsMap, feature, reference);
+			feature = feature.getOwner() instanceof FeatureInstance parent ? parent : null;
+		}
+	}
+
+	/**
+	 * Warn for every active feature whose {@code Required_Connection} value is true
+	 * but which has no active connection reference. Instance property caching maps modal
+	 * values to system operation modes, allowing the generated getter to evaluate the
+	 * property directly for each SOM.
+	 */
+	void checkRequiredConnections() {
+		for (var feature : featureInstances) {
+			var systemOperationModes = feature.getSystemInstance().getSystemOperationModes();
+			var missing = systemOperationModes.stream()
+					.filter(feature::isActive)
+					.filter(som -> CommunicationProperties.getRequiredConnection(feature, som).orElse(false))
+					.filter(som -> featureConnectionsMap.getOrDefault(feature, Collections.emptySet())
+							.stream()
+							.noneMatch(reference -> reference.isActive(som)))
+					.toList();
+
+			if (!missing.isEmpty()) {
+				var message = new StringBuilder("Feature is required to be connected but is not");
+				if (missing.size() < systemOperationModes.size()) {
+					message.append(" in SOMs ");
+					message.append(missing.stream().map(SystemOperationMode::getName).collect(Collectors.joining(", ")));
+				}
+				warning(feature, message.toString());
+			}
+		}
 	}
 
 	/**
