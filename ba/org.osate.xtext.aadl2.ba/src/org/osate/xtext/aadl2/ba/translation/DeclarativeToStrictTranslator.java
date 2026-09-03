@@ -157,7 +157,6 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceTail;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.TimedAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.WhileStatement;
@@ -204,12 +203,15 @@ public final class DeclarativeToStrictTranslator {
 		private final BehaviorAnnex strictAnnex;
 		private final Map<EObject, EObject> declarativeToStrict;
 		private final Map<EObject, EObject> strictToDeclarative;
+		private final Map<EObject, NamedElement> resolvedReferences;
 
 		private TranslationResult(final BehaviorAnnex strictAnnex, final Map<EObject, EObject> declarativeToStrict,
-				final Map<EObject, EObject> strictToDeclarative) {
+				final Map<EObject, EObject> strictToDeclarative,
+				final Map<EObject, NamedElement> resolvedReferences) {
 			this.strictAnnex = strictAnnex;
 			this.declarativeToStrict = Collections.unmodifiableMap(new IdentityHashMap<>(declarativeToStrict));
 			this.strictToDeclarative = Collections.unmodifiableMap(new IdentityHashMap<>(strictToDeclarative));
+			this.resolvedReferences = Collections.unmodifiableMap(new IdentityHashMap<>(resolvedReferences));
 		}
 
 		public BehaviorAnnex getStrictAnnex() {
@@ -230,6 +232,18 @@ public final class DeclarativeToStrictTranslator {
 
 		public Map<EObject, EObject> getStrictToDeclarativeTrace() {
 			return strictToDeclarative;
+		}
+
+		/**
+		 * Returns the source-model declaration selected for a symbolic reference segment.
+		 *
+		 * @param sourceSegment a {@code ReferenceSegment} or {@code UnindexedReferenceSegment}
+		 * @return the AADL declaration, BA declaration, iterative declaration owner, or {@code null}
+		 */
+		public EObject getResolvedReference(final EObject sourceSegment) {
+			var target = resolvedReferences.get(sourceSegment);
+			var declarativeTarget = strictToDeclarative.get(target);
+			return declarativeTarget == null ? target : declarativeTarget;
 		}
 	}
 
@@ -274,7 +288,7 @@ public final class DeclarativeToStrictTranslator {
 			translateVariables(strict);
 			translateStates(strict);
 			translateTransitions(strict);
-			return new TranslationResult(strict, declarativeToStrict, strictToDeclarative);
+			return new TranslationResult(strict, declarativeToStrict, strictToDeclarative, resolvedReferences);
 		}
 
 		private void translateVariables(final BehaviorAnnex strict) {
@@ -1045,42 +1059,30 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private BehaviorElement toReferenceValue(final Reference reference) {
-			return toReferenceValue(reference.getSegments(), reference.getTails(), reference);
+			final List<Segment> segments = new ArrayList<>();
+			for (final var segment : reference.getSegments()) {
+				segments.add(new Segment(segment.getName(), segment.getIndexes(), segment, null));
+			}
+			for (final var tail : reference.getTails()) {
+				segments.add(new Segment(tail.getSegment().getName(), tail.getSegment().getIndexes(), tail.getSegment(),
+						tail.getSeparator()));
+			}
+			return toReferenceValue(segments, reference);
 		}
 
 		private BehaviorElement toReferenceValue(
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReference reference) {
-			final List<ReferenceSegment> segments = new ArrayList<>();
+			final List<Segment> segments = new ArrayList<>();
 			for (final var segment : reference.getSegments()) {
-				final ReferenceSegment copy = org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory.eINSTANCE
-						.createReferenceSegment();
-				copy.setName(segment.getName());
-				segments.add(copy);
+				segments.add(new Segment(segment.getName(), List.of(), segment, null));
 			}
-			final List<ReferenceTail> tails = new ArrayList<>();
 			for (final var tail : reference.getTails()) {
-				final ReferenceTail copy = org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory.eINSTANCE
-						.createReferenceTail();
-				copy.setSeparator(tail.getSeparator());
-				final ReferenceSegment segment = org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory.eINSTANCE
-						.createReferenceSegment();
-				segment.setName(tail.getSegment().getName());
-				copy.setSegment(segment);
-				tails.add(copy);
+				segments.add(new Segment(tail.getSegment().getName(), List.of(), tail.getSegment(), tail.getSeparator()));
 			}
-			return toReferenceValue(segments, tails, reference);
+			return toReferenceValue(segments, reference);
 		}
 
-		private BehaviorElement toReferenceValue(final List<ReferenceSegment> firstSegments,
-				final List<ReferenceTail> tails, final EObject traceSource) {
-			final List<Segment> segments = new ArrayList<>();
-			for (final ReferenceSegment segment : firstSegments) {
-				segments.add(new Segment(segment.getName(), segment.getIndexes(), segment, null));
-			}
-			for (final ReferenceTail tail : tails) {
-				segments.add(new Segment(tail.getSegment().getName(), tail.getSegment().getIndexes(), tail.getSegment(),
-						tail.getSeparator()));
-			}
+		private BehaviorElement toReferenceValue(final List<Segment> segments, final EObject traceSource) {
 			final List<ElementHolder> holders = new ArrayList<>();
 			final List<GroupHolder> groups = new ArrayList<>();
 			NamedElement current = null;
@@ -1096,11 +1098,19 @@ public final class DeclarativeToStrictTranslator {
 						.collect(java.util.stream.Collectors.joining("::"));
 				final Segment segment = segments.get(qualifiedEnd);
 				current = resolveQualified(qualifiedName, false);
+				for (var i = 0; i <= qualifiedEnd; i++) {
+					resolvedReferences.put(segments.get(i).source, current);
+				}
 				addResolvedSegment(current, segment, holders, groups);
 				firstElement = qualifiedEnd + 1;
 			}
 			for (int i = firstElement; i < segments.size(); i++) {
 				final Segment segment = segments.get(i);
+				if (i == 0 && "self".equalsIgnoreCase(segment.name)) {
+					current = owner;
+					resolvedReferences.put(segment.source, current);
+					continue;
+				}
 				current = i == 0 ? resolveFirst(segment.name) : resolveNested(current, segment.name);
 				addResolvedSegment(current, segment, holders, groups);
 			}
@@ -1129,6 +1139,7 @@ public final class DeclarativeToStrictTranslator {
 			if (element == null) {
 				return;
 			}
+			resolvedReferences.put(segment.source, element);
 			final ElementHolder holder = createHolder(element, segment.source, !groups.isEmpty());
 			for (final ArrayIndex index : segment.indexes) {
 				if (holder instanceof IndexableElement indexable) {

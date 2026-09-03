@@ -79,7 +79,9 @@ public class Aadl2EObjectAtOffsetHelper extends org.eclipse.xtext.resource.EObje
 						EObject actualAnnexElement = AnnexUtil.getParsedAnnex(obj);
 						if (atpr != null && actualAnnexElement != null) {
 							TextPositionInfo tpo = atpr.resolveElementAt(actualAnnexElement, offset);
-							return tpo.getModelObject();
+							if (tpo != null && tpo.getModelObject() != null) {
+								return tpo.getModelObject();
+							}
 						}
 					}
 				}
@@ -133,7 +135,9 @@ public class Aadl2EObjectAtOffsetHelper extends org.eclipse.xtext.resource.EObje
 						EObject actualAnnexElement = AnnexUtil.getParsedAnnex(obj);
 						if (atpr != null && actualAnnexElement != null) {
 							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset);
-							return tpo.getModelObject();
+							if (tpo != null && tpo.getModelObject() != null) {
+								return tpo.getModelObject();
+							}
 						}
 					}
 				}
