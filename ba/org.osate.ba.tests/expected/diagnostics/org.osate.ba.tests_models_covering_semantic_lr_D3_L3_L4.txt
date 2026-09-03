@@ -1,2 +1,0 @@
-error | semantic | 32 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.good'
-error | semantic | 44 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.error'

@@ -1,0 +1,14 @@
+package Multiple_Subclauses
+public
+
+	system S
+		annex behavior_specification {**
+		**};
+	end S;
+
+	system T
+		annex behavior_specification {**
+		**};
+	end T;
+
+end Multiple_Subclauses;

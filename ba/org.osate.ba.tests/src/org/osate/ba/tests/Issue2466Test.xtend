@@ -39,7 +39,7 @@ class Issue2466Test {
 				]
 			]
 			
-			2.assertEquals(result.issues.size)
+			0.assertEquals(result.issues.size)
 		]
 	}
 }

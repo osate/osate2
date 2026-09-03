@@ -1,6 +1,1 @@
-error | semantic | 118 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.error3'
-error | semantic | 36 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.good1'
-error | semantic | 52 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.good2'
-error | semantic | 67 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.error1'
-error | semantic | 98 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'th.error2'
 warning | semantic | 24 | 9 | 10 | Base_Types in 'with' clause of public package section is not used.

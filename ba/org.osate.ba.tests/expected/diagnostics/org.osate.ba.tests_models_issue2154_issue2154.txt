@@ -1,2 +1,0 @@
-error | semantic | 18 | 9 | 22 | Duplicate Element 'behavior_specification' in ProcessType 'proc'
-error | semantic | 7 | 9 | 22 | Duplicate Element 'behavior_specification' in AbstractType 'abst'

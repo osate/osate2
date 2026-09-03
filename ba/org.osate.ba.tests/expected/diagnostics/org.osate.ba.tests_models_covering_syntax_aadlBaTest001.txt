@@ -1,4 +1,2 @@
-error | semantic | 141 | 7 | 22 | Duplicate Element 'behavior_specification' in ThreadImplementation 'thread1.impl'
-error | semantic | 90 | 7 | 22 | Duplicate Element 'behavior_specification' in ProcessType 'myprocess'
 warning | semantic | 25 | 33 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
 warning | semantic | 25 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.

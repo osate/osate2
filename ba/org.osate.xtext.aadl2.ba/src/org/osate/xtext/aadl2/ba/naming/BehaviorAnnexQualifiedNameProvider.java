@@ -25,18 +25,19 @@ package org.osate.xtext.aadl2.ba.naming;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.properties.naming.PropertiesQualifiedNameProvider;
 
 /**
- * Keeps subclause-local BA declarations out of the global AADL index. BA has no annex-library declarations, and local
- * states are scoped directly by {@code BehaviorAnnexScopeProvider}; exporting them would also make the parsed annex
- * collide with its containing {@code DefaultAnnexSubclause} in Xtext's unique-name validation.
+ * Keeps BA subclauses and their local declarations out of the global AADL index. BA has no annex-library declarations,
+ * and local states are scoped directly by {@code BehaviorAnnexScopeProvider}; exporting a host or parsed subclause
+ * would make Xtext's unique-name validation treat every BA subclause in a file as the same global element.
  */
 public final class BehaviorAnnexQualifiedNameProvider extends PropertiesQualifiedNameProvider {
 	@Override
 	public QualifiedName getFullyQualifiedName(EObject object) {
-		if (object.eClass().getEPackage() == BehaviorAnnexPackage.eINSTANCE) {
+		if (object instanceof AnnexSubclause || object.eClass().getEPackage() == BehaviorAnnexPackage.eINSTANCE) {
 			return null;
 		}
 		return super.getFullyQualifiedName(object);
