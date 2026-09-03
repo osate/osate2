@@ -109,22 +109,19 @@ public class PropertyUtils {
 			}
 		}
 
-		PropertyAssociation result = null;
-
 		// 2. Look within parent containers if they defined an property that applies
 		// the given property.
 
-		result = isInAppliesTo(owner, propertyName);
+		var result = isInAppliesTo(owner, propertyName);
 
 		if (result == null) {
-			List<PropertyAssociation> pas = new ArrayList<PropertyAssociation>();
+			var pas = new ArrayList<PropertyAssociation>();
 
 			// 3. If the named element is a component instance, look within
 			// its associated component implementation.
 
-			if (owner instanceof ComponentInstance) {
-				ComponentInstance inst = (ComponentInstance) owner;
-				ComponentImplementation ci = inst.getContainingComponentImpl();
+			if (owner instanceof ComponentInstance instance) {
+				var ci = instance.getContainingComponentImpl();
 				if (ci != null) {
 					owner = ci;
 				}
@@ -133,24 +130,22 @@ public class PropertyUtils {
 			// 4. If the named element is a component implementation, look within it.
 			// and its interface.
 
-			if (owner instanceof ComponentImplementation) {
-				ComponentImplementation ci = (ComponentImplementation) owner;
-				pas.addAll(ci.getAllPropertyAssociations());
-				owner = ci.getType();
+			if (owner instanceof ComponentImplementation implementation) {
+				pas.addAll(implementation.getAllPropertyAssociations());
+				owner = implementation.getType();
 			}
 
 			// 5. If the named element is a component type, look within it.
 
-			if (owner instanceof ComponentType) {
-				ComponentType type = (ComponentType) owner;
+			if (owner instanceof ComponentType type) {
 				pas.addAll(type.getAllPropertyAssociations());
 			}
 
-			if (false == pas.isEmpty()) {
+			if (!pas.isEmpty()) {
 				// The first property association found represents the latest definition
 				// of the given property.
 				for (PropertyAssociation pa : pas) {
-					Property p = pa.getProperty();
+					var p = pa.getProperty();
 					// Sometime, properties don't have name.
 					if (p.getName() != null && p.getName().equalsIgnoreCase(propertyName)) {
 						result = pa;
@@ -164,21 +159,21 @@ public class PropertyUtils {
 	}
 
 	private static PropertyAssociation isInAppliesTo(NamedElement owner, String propertyName) {
-		EObject parent = owner.eContainer();
-		String ownerName = owner.getName();
+		var parent = owner.eContainer();
+		var ownerName = owner.getName();
 
 		while (parent != null) {
-			if (parent instanceof NamedElement) {
-				EList<PropertyAssociation> pas = ((NamedElement) parent).getOwnedPropertyAssociations();
+			if (parent instanceof NamedElement namedParent) {
+				var pas = namedParent.getOwnedPropertyAssociations();
 
-				for (PropertyAssociation pa : pas) {
-					String propName = pa.getProperty().getName();
+				for (var pa : pas) {
+					var propName = pa.getProperty().getName();
 
 					if (propName != null && propName.equalsIgnoreCase(propertyName)) {
-						for (ContainedNamedElement cne : pa.getAppliesTos()) {
-							EList<ContainmentPathElement> paths = cne.getContainmentPathElements();
-							ContainmentPathElement lastEl = paths.get(paths.size() - 1);
-							String lastElName = lastEl.getNamedElement().getName();
+						for (var cne : pa.getAppliesTos()) {
+							var paths = cne.getContainmentPathElements();
+							var lastEl = paths.getLast();
+							var lastElName = lastEl.getNamedElement().getName();
 							if (lastElName.equalsIgnoreCase(ownerName)) {
 								return pa;
 							}
@@ -207,29 +202,27 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static Long getIntValue(NamedElement i, String propertyName, String targetUnit) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
+					var expr = values.getFirst().getOwnedValue();
 
-					if (expr instanceof IntegerLiteral) {
-						IntegerLiteral il = (IntegerLiteral) expr;
-						final UnitLiteral unit = il.getUnit();
+					if (expr instanceof IntegerLiteral literal) {
+						var unit = literal.getUnit();
 						if (unit != null) {
 							// Warning: the cast from double to long is licit
 							// only if the result of the conversion is an
 							// integer
-							return (long) il.getScaledValue(targetUnit);
+							return (long) literal.getScaledValue(targetUnit);
 						}
 
-						return ((IntegerLiteral) expr).getValue();
+						return literal.getValue();
 					}
 				}
 			}
@@ -248,20 +241,17 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static Long getIntValue(NamedElement i, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof IntegerLiteral) {
-						return ((IntegerLiteral) expr).getValue();
+					if (values.getFirst().getOwnedValue() instanceof IntegerLiteral literal) {
+						return literal.getValue();
 					}
 				}
 			}
@@ -280,20 +270,17 @@ public class PropertyUtils {
 	 * @return
 	 */
 	public static RecordValue getRecordValue(NamedElement i, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof RecordValue) {
-						return ((RecordValue) expr);
+					if (values.getFirst().getOwnedValue() instanceof RecordValue record) {
+						return record;
 					}
 				}
 			}
@@ -305,15 +292,15 @@ public class PropertyUtils {
 	public static List<RecordValue> getListRecordValue(NamedElement ne, String propertyName) {
 		List<RecordValue> result = null;
 
-		ListValue lv = getListValue(ne, propertyName);
+		var lv = getListValue(ne, propertyName);
 
 		if (lv != null) {
-			EList<PropertyExpression> pes = lv.getOwnedListElements();
+			var pes = lv.getOwnedListElements();
 
-			if (pes.size() != 0 && pes.get(0) instanceof RecordValue) {
-				result = new ArrayList<RecordValue>(pes.size());
+			if (!pes.isEmpty() && pes.getFirst() instanceof RecordValue) {
+				result = new ArrayList<>(pes.size());
 
-				for (PropertyExpression pe : pes) {
+				for (var pe : pes) {
 					result.add((RecordValue) pe);
 				}
 			}
@@ -323,20 +310,17 @@ public class PropertyUtils {
 	}
 
 	public static ListValue getListValue(NamedElement ne, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, ne);
+		var pa = findPropertyAssociation(propertyName, ne);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof ListValue) {
-						return (ListValue) expr;
+					if (values.getFirst().getOwnedValue() instanceof ListValue list) {
+						return list;
 					}
 				}
 			}
@@ -355,40 +339,33 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static Float getFloatValue(NamedElement i, String propertyName, String unit) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof NumberValue) {
-						NumberValue val = (NumberValue) expr;
+					if (values.getFirst().getOwnedValue() instanceof NumberValue number) {
 						float fVal = 0f;
 
-						if (val instanceof IntegerLiteral) {
-							fVal = ((IntegerLiteral) val).getValue();
-						} else if (val instanceof RealLiteral) {
-							fVal = (float) ((RealLiteral) val).getValue();
+						if (number instanceof IntegerLiteral integer) {
+							fVal = integer.getValue();
+						} else if (number instanceof RealLiteral real) {
+							fVal = (float) real.getValue();
 						}
 
-						return UnitConversion.convertInMs(fVal, val.getUnit().getName());
+						return UnitConversion.convertInMs(fVal, number.getUnit().getName());
 					}
 				}
 			}
 		}
 		// try on a refined NamedElement
-		if (i instanceof RefinableElement) {
-			RefinableElement re = (RefinableElement) i;
-			if (re.getRefinedElement() != null) {
-				return getFloatValue(re.getRefinedElement(), propertyName, unit);
+		if (i instanceof RefinableElement refinable && refinable.getRefinedElement() != null) {
+			return getFloatValue(refinable.getRefinedElement(), propertyName, unit);
 			}
-		}
 
 		return null;
 	}
@@ -403,32 +380,28 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static Float getFloatValue(NamedElement i, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
+					var expr = values.getFirst().getOwnedValue();
 
-					if (expr instanceof IntegerLiteral) {
-						return (float) ((IntegerLiteral) expr).getValue();
-					} else if (expr instanceof RealLiteral) {
-						return (float) ((RealLiteral) expr).getValue();
+					if (expr instanceof IntegerLiteral integer) {
+						return (float) integer.getValue();
+					} else if (expr instanceof RealLiteral real) {
+						return (float) real.getValue();
 					}
 				}
 			}
 		}
 		// try on a refined NamedElement
-		if (i instanceof RefinableElement) {
-			RefinableElement re = (RefinableElement) i;
-			if (re.getRefinedElement() != null) {
-				return getFloatValue(re.getRefinedElement(), propertyName);
-			}
+		if (i instanceof RefinableElement refinable && refinable.getRefinedElement() != null) {
+			return getFloatValue(refinable.getRefinedElement(), propertyName);
 		}
 
 		return null;
@@ -444,20 +417,17 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static Boolean getBooleanValue(NamedElement i, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof BooleanLiteral) {
-						return (boolean) ((BooleanLiteral) expr).getValue();
+					if (values.getFirst().getOwnedValue() instanceof BooleanLiteral literal) {
+						return literal.getValue();
 					}
 				}
 			}
@@ -476,20 +446,17 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static String getStringValue(NamedElement i, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof StringLiteral) {
-						return ((StringLiteral) expr).getValue();
+					if (values.getFirst().getOwnedValue() instanceof StringLiteral literal) {
+						return literal.getValue();
 					}
 				}
 			}
@@ -508,38 +475,28 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static List<String> getStringListValue(NamedElement i, String propertyName) {
-		List<String> res = new ArrayList<String>();
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var result = new ArrayList<String>();
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof ListValue) {
-						ListValue lv = (ListValue) expr;
-
-						for (PropertyExpression pe : lv.getOwnedListElements()) {
-							if (pe instanceof StringLiteral) {
-								StringLiteral sl = (StringLiteral) pe;
-								res.add(sl.getValue());
-							} else if (pe instanceof NamedValue) {
-								NamedValue nv = (NamedValue) pe;
-
-								if (nv.getNamedValue() instanceof EnumerationLiteral) {
-									EnumerationLiteral el = (EnumerationLiteral) nv.getNamedValue();
-									res.add(el.getName());
+					if (values.getFirst().getOwnedValue() instanceof ListValue list) {
+						for (var element : list.getOwnedListElements()) {
+							if (element instanceof StringLiteral literal) {
+								result.add(literal.getValue());
+							} else if (element instanceof NamedValue named
+									&& named.getNamedValue() instanceof EnumerationLiteral literal) {
+								result.add(literal.getName());
 								}
-							}
 						}
 
-						if (!res.isEmpty()) {
-							return res;
+						if (!result.isEmpty()) {
+							return result;
 						}
 					}
 				}
@@ -560,37 +517,29 @@ public class PropertyUtils {
 	 *             enumeration.
 	 */
 	public static String getEnumValue(NamedElement i, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
+					var expr = values.getFirst().getOwnedValue();
 
-					if (expr instanceof EnumerationLiteral) {
-						return ((EnumerationLiteral) expr).getName();
-					} else if (expr instanceof NamedValue) {
-						NamedValue nv = (NamedValue) expr;
-
-						if (nv.getNamedValue() instanceof EnumerationLiteral) {
-							EnumerationLiteral el = (EnumerationLiteral) nv.getNamedValue();
-							return el.getName();
-						}
+					if (expr instanceof EnumerationLiteral literal) {
+						return literal.getName();
+					} else if (expr instanceof NamedValue named
+							&& named.getNamedValue() instanceof EnumerationLiteral literal) {
+						return literal.getName();
 					}
 				}
 			}
 		}
 		// try on a refined NamedElement
-		if (i instanceof RefinableElement) {
-			RefinableElement re = (RefinableElement) i;
-			if (re.getRefinedElement() != null) {
-				return getEnumValue(re.getRefinedElement(), propertyName);
-			}
+		if (i instanceof RefinableElement refinable && refinable.getRefinedElement() != null) {
+			return getEnumValue(refinable.getRefinedElement(), propertyName);
 		}
 		return null;
 	}
@@ -605,20 +554,17 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static RangeValue getRangeValue(NamedElement i, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof RangeValue) {
-						return (RangeValue) expr;
+					if (values.getFirst().getOwnedValue() instanceof RangeValue range) {
+						return range;
 					}
 				}
 			}
@@ -637,23 +583,21 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static NumberValue getMinRangeValue(NamedElement i, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
+					var expr = values.getFirst().getOwnedValue();
 
-					if (expr instanceof RangeValue) {
-						NumberValue n = ((RangeValue) expr).getMinimumValue();
-						return n;
-					} else if (expr instanceof NumberValue) {
-						return (NumberValue) expr;
+					if (expr instanceof RangeValue range) {
+						return range.getMinimumValue();
+					} else if (expr instanceof NumberValue number) {
+						return number;
 					}
 				}
 			}
@@ -672,23 +616,21 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static NumberValue getMaxRangeValue(NamedElement i, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+		var pa = findPropertyAssociation(propertyName, i);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
+					var expr = values.getFirst().getOwnedValue();
 
-					if (expr instanceof RangeValue) {
-						NumberValue n = ((RangeValue) expr).getMaximumValue();
-						return n;
-					} else if (expr instanceof NumberValue) {
-						return (NumberValue) expr;
+					if (expr instanceof RangeValue range) {
+						return range.getMaximumValue();
+					} else if (expr instanceof NumberValue number) {
+						return number;
 					}
 				}
 			}
@@ -707,7 +649,7 @@ public class PropertyUtils {
 	 * @return property value.
 	 */
 	public static double getMaxRangeValue(NamedElement i, String propertyName, float defaultValue) {
-		RealLiteral rl = (RealLiteral) getMaxRangeValue(i, propertyName);
+		var rl = (RealLiteral) getMaxRangeValue(i, propertyName);
 		if (rl != null) {
 			return rl.getValue();
 		} else {
@@ -725,7 +667,7 @@ public class PropertyUtils {
 	 * @return
 	 */
 	public static ComponentInstance getPropertyComponentRef(String propertyName, NamedElement owner) {
-		PropertyExpression val = getPropertyValue(propertyName, owner);
+		var val = getPropertyValue(propertyName, owner);
 		if (val != null) {
 			return (ComponentInstance) ((InstanceReferenceValue) val).getReferencedInstanceObject();
 		} else {
@@ -743,7 +685,7 @@ public class PropertyUtils {
 	 * @return
 	 */
 	public static PropertyExpression getPropertyValue(String propertyName, NamedElement owner) {
-		PropertyAssociation assign = findPropertyAssociation(propertyName, owner);
+		var assign = findPropertyAssociation(propertyName, owner);
 
 		if (assign != null) {
 			return assign.getOwnedValues().get(0).getOwnedValue();
@@ -762,20 +704,17 @@ public class PropertyUtils {
 	 * @return
 	 */
 	public static Classifier getClassifierValue(NamedElement owner, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, owner);
+		var pa = findPropertyAssociation(propertyName, owner);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof ClassifierValue) {
-						return ((ClassifierValue) expr).getClassifier();
+					if (values.getFirst().getOwnedValue() instanceof ClassifierValue classifier) {
+						return classifier.getClassifier();
 					}
 				}
 			}
@@ -785,10 +724,10 @@ public class PropertyUtils {
 	}
 
 	public static PropertyAssociation createIntegerAssignment(String propertyName, long value) {
-		Property property = Aadl2Factory.eINSTANCE.createProperty();
-		PropertyAssociation assignment = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-		ModalPropertyValue modalPropertyValue = Aadl2Factory.eINSTANCE.createModalPropertyValue();
-		IntegerLiteral propertyValue = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+		var property = Aadl2Factory.eINSTANCE.createProperty();
+		var assignment = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+		var modalPropertyValue = Aadl2Factory.eINSTANCE.createModalPropertyValue();
+		var propertyValue = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		property.setName(propertyName);
 		propertyValue.setValue(value);
 		modalPropertyValue.setOwnedValue(propertyValue);
@@ -798,10 +737,10 @@ public class PropertyUtils {
 	}
 
 	public static boolean setFloatValue(NamedElement e, String propertyName, float value) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, e);
+		var pa = findPropertyAssociation(propertyName, e);
 
 		if (pa != null) {
-			RealLiteral r = Aadl2Factory.eINSTANCE.createRealLiteral();
+			var r = Aadl2Factory.eINSTANCE.createRealLiteral();
 			r.setValue(value);
 			r.setUnit(getUnit(pa));
 			pa.getOwnedValues().get(0).setOwnedValue(r);
@@ -813,11 +752,11 @@ public class PropertyUtils {
 
 	// May return null.
 	private static UnitLiteral getUnit(PropertyAssociation pa) {
-		PropertyExpression e = pa.getOwnedValues().get(0).getOwnedValue();
-		if (e instanceof NumberValue) {
-			return ((NumberValue) e).getUnit();
-		} else if (e instanceof RangeValue) {
-			return ((RangeValue) e).getMaximumValue().getUnit();
+		var value = pa.getOwnedValues().getFirst().getOwnedValue();
+		if (value instanceof NumberValue number) {
+			return number.getUnit();
+		} else if (value instanceof RangeValue range) {
+			return range.getMaximumValue().getUnit();
 		} else {
 			return null;
 		}
@@ -835,26 +774,20 @@ public class PropertyUtils {
 	 */
 	public static List<ComponentInstance> getComponentInstanceList(NamedElement object, String propertyName) {
 		List<ComponentInstance> res = null;
-		PropertyAssociation pa = findPropertyAssociation(propertyName, object);
+		var pa = findPropertyAssociation(propertyName, object);
 
 		if (pa != null) {
-			res = new ArrayList<ComponentInstance>();
-			Property p = pa.getProperty();
+			res = new ArrayList<>();
+			var p = pa.getProperty();
 
 			if (p.getName().equals(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof ListValue) {
-						ListValue lv = (ListValue) expr;
-
-						for (PropertyExpression pe : lv.getOwnedListElements()) {
-							if (pe instanceof InstanceReferenceValue) {
-								InstanceReferenceValue c = ((InstanceReferenceValue) pe);
-								res.add((ComponentInstance) c.getReferencedInstanceObject());
+					if (values.getFirst().getOwnedValue() instanceof ListValue list) {
+						for (var element : list.getOwnedListElements()) {
+							if (element instanceof InstanceReferenceValue reference) {
+								res.add((ComponentInstance) reference.getReferencedInstanceObject());
 							}
 						}
 					}
@@ -874,35 +807,29 @@ public class PropertyUtils {
 	 * @return
 	 */
 	public static List<Subcomponent> getSubcomponentList(NamedElement object, String propertyName) {
-		List<Subcomponent> res = new ArrayList<Subcomponent>();
-		PropertyAssociation pa = findPropertyAssociation(propertyName, object);
+		var result = new ArrayList<Subcomponent>();
+		var pa = findPropertyAssociation(propertyName, object);
 		if (pa == null) {
 			return null;
 		} else {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof ListValue) {
-						ListValue lv = (ListValue) expr;
-
-						for (PropertyExpression pe : lv.getOwnedListElements()) {
-							if (pe instanceof ReferenceValue) {
-								ReferenceValue c = ((ReferenceValue) pe);
-								for (ContainmentPathElement cpe : c.getContainmentPathElements()) {
-									res.add((Subcomponent) cpe.getNamedElement());
+					if (values.getFirst().getOwnedValue() instanceof ListValue list) {
+						for (var element : list.getOwnedListElements()) {
+							if (element instanceof ReferenceValue reference) {
+								for (var pathElement : reference.getContainmentPathElements()) {
+									result.add((Subcomponent) pathElement.getNamedElement());
 								}
 							}
 						}
 					}
 				}
 			}
-			return res;
+			return result;
 		}
 	}
 
@@ -918,28 +845,22 @@ public class PropertyUtils {
 	 * @return
 	 */
 	public static List<Long> getIntListValue(NamedElement object, String propertyName) {
-		List<Long> res = new ArrayList<Long>();
-		PropertyAssociation pa = findPropertyAssociation(propertyName, object);
+		var result = new ArrayList<Long>();
+		var pa = findPropertyAssociation(propertyName, object);
 
 		if (pa == null) {
 			return null;
 		} else {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof ListValue) {
-						ListValue lv = (ListValue) expr;
-
-						for (PropertyExpression pe : lv.getOwnedListElements()) {
-							if (pe instanceof IntegerLiteral) {
-								Long c = ((IntegerLiteral) pe).getValue();
-								res.add(c);
+					if (values.getFirst().getOwnedValue() instanceof ListValue list) {
+						for (var element : list.getOwnedListElements()) {
+							if (element instanceof IntegerLiteral integer) {
+								result.add(integer.getValue());
 							}
 						}
 					}
@@ -947,16 +868,13 @@ public class PropertyUtils {
 			}
 		}
 		// try on a refined NamedElement
-		if (object instanceof RefinableElement) {
-			RefinableElement re = (RefinableElement) object;
-			if (re.getRefinedElement() != null) {
-				List<Long> l = getIntListValue(re.getRefinedElement(), propertyName);
-				if (l != null) {
-					res.addAll(l);
+		if (object instanceof RefinableElement refinable && refinable.getRefinedElement() != null) {
+			var inherited = getIntListValue(refinable.getRefinedElement(), propertyName);
+				if (inherited != null) {
+					result.addAll(inherited);
 				}
-			}
 		}
-		return res;
+		return result;
 	}
 
 	/**
@@ -968,28 +886,21 @@ public class PropertyUtils {
 	 * @return
 	 */
 	public static List<Subcomponent> getSubcomponentList(ProcessorSubcomponent object, String propertyName) {
-		List<Subcomponent> res = new ArrayList<Subcomponent>();
-		PropertyAssociation pa = findPropertyAssociation(propertyName, object);
+		var result = new ArrayList<Subcomponent>();
+		var pa = findPropertyAssociation(propertyName, object);
 
 		if (pa != null) {
-			Property p = pa.getProperty();
+			var p = pa.getProperty();
 
 			if (p.getName().equalsIgnoreCase(propertyName)) {
-				List<ModalPropertyValue> values = pa.getOwnedValues();
+				var values = pa.getOwnedValues();
 
 				if (values.size() == 1) {
-					ModalPropertyValue v = values.get(0);
-					PropertyExpression expr = v.getOwnedValue();
-
-					if (expr instanceof ListValue) {
-						ListValue lv = (ListValue) expr;
-
-						for (PropertyExpression pe : lv.getOwnedListElements()) {
-							if (pe instanceof ReferenceValue) {
-								ReferenceValue c = ((ReferenceValue) pe);
-								ContainmentPathElement cpe = c.getContainmentPathElements()
-										.get(c.getContainmentPathElements().size() - 1);
-								res.add((Subcomponent) cpe.getNamedElement());
+					if (values.getFirst().getOwnedValue() instanceof ListValue list) {
+						for (var element : list.getOwnedListElements()) {
+							if (element instanceof ReferenceValue reference) {
+								var pathElement = reference.getContainmentPathElements().getLast();
+								result.add((Subcomponent) pathElement.getNamedElement());
 							}
 						}
 					}
@@ -997,17 +908,14 @@ public class PropertyUtils {
 			}
 		}
 		// try on a refined NamedElement
-		if (object instanceof RefinableElement) {
-			RefinableElement re = object;
-			if (re.getRefinedElement() != null) {
-				List<Subcomponent> l = getSubcomponentList((ProcessorSubcomponent) re.getRefinedElement(),
+		if (object.getRefinedElement() != null) {
+				var inherited = getSubcomponentList((ProcessorSubcomponent) object.getRefinedElement(),
 						propertyName);
-				if (!l.isEmpty()) {
-					res.addAll(l);
+				if (!inherited.isEmpty()) {
+					result.addAll(inherited);
 				}
-			}
 		}
-		return res;
+		return result;
 	}
 
 	/**
@@ -1021,12 +929,12 @@ public class PropertyUtils {
 	* @return the list of property expressions. The list may be empty.
 	*/
 	public static EList<PropertyExpression> findPropertyExpression(NamedElement ne, String propertyName) {
-		PropertyAssociation pa = findPropertyAssociation(propertyName, ne);
+		var pa = findPropertyAssociation(propertyName, ne);
 
 		if (pa != null) {
 			return getPropertyExpression(pa);
 		} else {
-			return new BasicEList<PropertyExpression>(0);
+			return new BasicEList<>(0);
 		}
 	}
 
@@ -1039,12 +947,9 @@ public class PropertyUtils {
 	 */
 
 	public static EList<PropertyExpression> getPropertyExpression(PropertyAssociation pa) {
-		EList<ModalPropertyValue> lmpv = null;
-		EList<PropertyExpression> result = new BasicEList<PropertyExpression>();
+		var result = new BasicEList<PropertyExpression>();
 
-		lmpv = pa.getOwnedValues();
-
-		for (ModalPropertyValue mpv : lmpv) {
+		for (var mpv : pa.getOwnedValues()) {
 			result.add(mpv.getOwnedValue());
 		}
 		return result;
@@ -1071,105 +976,65 @@ public class PropertyUtils {
 	 *   _ NamedValue (returns abstract named element)
 	 */
 	public static Element getValue(PropertyExpression pe, String toBeMatched) {
-		Element tmp = null;
-		int id = pe.eClass().getClassifierID();
-
-		switch (id) {
-		case Aadl2Package.STRING_LITERAL: {
-			StringLiteral sl = (StringLiteral) pe;
-			if (sl.getValue().equalsIgnoreCase(toBeMatched)) {
-				return sl;
-			}
-
-			return null;
+		return switch (pe.eClass().getClassifierID()) {
+		case Aadl2Package.STRING_LITERAL -> {
+			var literal = (StringLiteral) pe;
+			yield literal.getValue().equalsIgnoreCase(toBeMatched) ? literal : null;
 		}
-
-		case Aadl2Package.LIST_VALUE: {
-			ListValue lv = (ListValue) pe;
-
-			EList<PropertyExpression> pel = lv.getOwnedListElements();
-			for (PropertyExpression ownedPe : pel) {
-				tmp = getValue(ownedPe, toBeMatched);
-
-				if (tmp != null) {
-					return tmp;
+		case Aadl2Package.LIST_VALUE -> {
+			Element match = null;
+			for (var element : ((ListValue) pe).getOwnedListElements()) {
+				match = getValue(element, toBeMatched);
+				if (match != null) {
+					break;
 				}
 			}
-
-			return null;
+			yield match;
 		}
-
-		case Aadl2Package.RECORD_VALUE: {
-			RecordValue rv = (RecordValue) pe;
-			for (BasicPropertyAssociation bpa : rv.getOwnedFieldValues()) {
-				if (bpa.getProperty().getName().equalsIgnoreCase(toBeMatched)) {
-					return bpa.getValue();
+		case Aadl2Package.RECORD_VALUE -> {
+			Element match = null;
+			for (var association : ((RecordValue) pe).getOwnedFieldValues()) {
+				if (association.getProperty().getName().equalsIgnoreCase(toBeMatched)) {
+					match = association.getValue();
+					break;
 				}
 			}
-
-			return null;
+			yield match;
 		}
-
-		case Aadl2Package.CLASSIFIER_VALUE: {
-			ClassifierValue cv = (ClassifierValue) pe;
-			if (cv.getClassifier().getName().equalsIgnoreCase(toBeMatched)) {
-				return cv;
-			} else {
-				return null;
-			}
+		case Aadl2Package.CLASSIFIER_VALUE -> {
+			var value = (ClassifierValue) pe;
+			yield value.getClassifier().getName().equalsIgnoreCase(toBeMatched) ? value : null;
 		}
-
-		case Aadl2Package.REFERENCE_VALUE: {
-			InstanceReferenceValue irv = (InstanceReferenceValue) pe;
-			if (irv.getReferencedInstanceObject().getName().equalsIgnoreCase(toBeMatched)) {
-				return irv;
-			} else {
-				return null;
-			}
+		case Aadl2Package.REFERENCE_VALUE -> {
+			var value = (InstanceReferenceValue) pe;
+			yield value.getReferencedInstanceObject().getName().equalsIgnoreCase(toBeMatched) ? value : null;
 		}
-
-		case Aadl2Package.COMPUTED_VALUE: {
-			ComputedValue cv = (ComputedValue) pe;
-			if (cv.getFunction().equalsIgnoreCase(toBeMatched)) {
-				return cv;
-			} else {
-				return null;
-			}
+		case Aadl2Package.COMPUTED_VALUE -> {
+			var value = (ComputedValue) pe;
+			yield value.getFunction().equalsIgnoreCase(toBeMatched) ? value : null;
 		}
-
-		case Aadl2Package.NAMED_VALUE: {
-			NamedValue nv = (NamedValue) pe;
-			AbstractNamedValue anv = nv.getNamedValue();
-			if (anv instanceof NamedElement) {
-				NamedElement ne = (NamedElement) anv;
-				String name = ((NamedElement) anv).getName();
-
-				// Consider as a final node.
-				if (name.equalsIgnoreCase(toBeMatched)) {
-					return ne;
-				} else if (ne instanceof Property) // Or a structure.
-				{
-					Property p = (Property) ne;
-					if (p.getDefaultValue() != null) {
-						tmp = getValue(p.getDefaultValue(), toBeMatched);
-						return tmp;
-					}
-				}
-			} else {
-				String msg = anv.getClass().getSimpleName() + " is not supported";
-				System.err.println(msg);
-				throw new UnsupportedOperationException(msg);
+		case Aadl2Package.NAMED_VALUE -> {
+			var value = ((NamedValue) pe).getNamedValue();
+			if (!(value instanceof NamedElement namedElement)) {
+				var message = value.getClass().getSimpleName() + " is not supported";
+				System.err.println(message);
+				throw new UnsupportedOperationException(message);
 			}
 
-			return null;
+			if (namedElement.getName().equalsIgnoreCase(toBeMatched)) {
+				yield namedElement;
+			}
+			if (namedElement instanceof Property property && property.getDefaultValue() != null) {
+				yield getValue(property.getDefaultValue(), toBeMatched);
+			}
+			yield null;
 		}
-
-		default: {
-			String msg = pe.getClass().getSimpleName() + " is not supported";
-			System.err.println(msg);
-			throw new UnsupportedOperationException(msg);
+		default -> {
+			var message = pe.getClass().getSimpleName() + " is not supported";
+			System.err.println(message);
+			throw new UnsupportedOperationException(message);
 		}
-		}
+		};
 	}
 
 	/**
@@ -1180,8 +1045,8 @@ public class PropertyUtils {
 	 * @return the BasicProperty object that contains the given PropertyExpression object
 	 */
 	public static BasicProperty getContainingProperty(PropertyExpression pe) {
-		EObject tmp = pe.eContainer();
-		int classId = tmp.eClass().getClassifierID();
+		var tmp = pe.eContainer();
+		var classId = tmp.eClass().getClassifierID();
 
 		while (false == (Aadl2Package.BASIC_PROPERTY_ASSOCIATION == classId
 				|| Aadl2Package.PROPERTY_ASSOCIATION == classId || Aadl2Package.PROPERTY == classId)) {
@@ -1192,8 +1057,7 @@ public class PropertyUtils {
 		if (Aadl2Package.PROPERTY_ASSOCIATION == classId) {
 			return ((PropertyAssociation) tmp).getProperty();
 		} else if (Aadl2Package.BASIC_PROPERTY_ASSOCIATION == classId) {
-			BasicPropertyAssociation bpa = (BasicPropertyAssociation) tmp;
-			return bpa.getProperty();
+			return ((BasicPropertyAssociation) tmp).getProperty();
 		} else {
 			return ((Property) tmp);
 		}

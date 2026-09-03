@@ -1,0 +1,13 @@
+package AnnexOffsets
+public
+	system OffsetSystem
+		features
+			input: in data port;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			error propagations
+				input: in propagation {ServiceOmission};
+			end propagations;
+		**};
+	end OffsetSystem;
+end AnnexOffsets;

@@ -184,7 +184,7 @@ public final class DeclarativeToStrictTranslator {
 			final ComponentClassifier owner) {
 		Objects.requireNonNull(source, "source");
 		Objects.requireNonNull(owner, "owner");
-		TranslationCache cache = (TranslationCache) EcoreUtil.getExistingAdapter(source, TranslationCache.class);
+		var cache = (TranslationCache) EcoreUtil.getExistingAdapter(source, TranslationCache.class);
 		if (cache == null) {
 			cache = new TranslationCache();
 			source.eAdapters().add(cache);
@@ -193,7 +193,7 @@ public final class DeclarativeToStrictTranslator {
 			return cache.result;
 		}
 
-		final Builder builder = new Builder(source, owner);
+		final var builder = new Builder(source, owner);
 		cache.owner = owner;
 		cache.result = builder.translate();
 		return cache.result;
@@ -269,7 +269,7 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private TranslationResult translate() {
-			final BehaviorAnnex strict = trace(FACTORY.createBehaviorAnnex(), source);
+			final var strict = trace(FACTORY.createBehaviorAnnex(), source);
 			strict.setName(LEGACY_ANNEX_NAME);
 			translateVariables(strict);
 			translateStates(strict);
@@ -278,17 +278,16 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private void translateVariables(final BehaviorAnnex strict) {
-			for (final BehaviorVariableGroup group : source.getVariableGroups()) {
-				for (final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable variable : group.getVariables()) {
-					final BehaviorVariable result = trace(FACTORY.createBehaviorVariable(), variable);
+			for (final var group : source.getVariableGroups()) {
+				for (final var variable : group.getVariables()) {
+					final var result = trace(FACTORY.createBehaviorVariable(), variable);
 					result.setName(variable.getName());
-					if (group.getDataClassifier() instanceof DataClassifier) {
-						result.setDataClassifier((DataClassifier) group.getDataClassifier());
+					if (group.getDataClassifier() instanceof DataClassifier dataClassifier) {
+						result.setDataClassifier(dataClassifier);
 					}
-					for (final org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension dimension : variable
-							.getArrayDimensions()) {
-						final ArrayDimension arrayDimension = trace(Aadl2Factory.eINSTANCE.createArrayDimension(), dimension);
-						final ArraySize size = Aadl2Factory.eINSTANCE.createArraySize();
+					for (final var dimension : variable.getArrayDimensions()) {
+						final var arrayDimension = trace(Aadl2Factory.eINSTANCE.createArrayDimension(), dimension);
+						final var size = Aadl2Factory.eINSTANCE.createArraySize();
 						trace(size, dimension);
 						size.setSize(0);
 						arrayDimension.setSize(size);
@@ -297,7 +296,7 @@ public final class DeclarativeToStrictTranslator {
 					if (group.getInitialValue() != null) {
 						result.setOwnedValueConstant(toValueConstant(group.getInitialValue()));
 					}
-					for (final BehaviorPropertyAssociation association : group.getPropertyAssociations()) {
+					for (final var association : group.getPropertyAssociations()) {
 						result.getOwnedPropertyAssociations().add(toPropertyAssociation(association));
 					}
 					strict.getVariables().add(result);
@@ -307,11 +306,11 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private PropertyAssociation toPropertyAssociation(final BehaviorPropertyAssociation sourceAssociation) {
-			final PropertyAssociation result = trace(Aadl2Factory.eINSTANCE.createPropertyAssociation(), sourceAssociation);
+			final var result = trace(Aadl2Factory.eINSTANCE.createPropertyAssociation(), sourceAssociation);
 			result.setProperty(sourceAssociation.getProperty());
-			final ModalPropertyValue value = Aadl2Factory.eINSTANCE.createModalPropertyValue();
+			final var value = Aadl2Factory.eINSTANCE.createModalPropertyValue();
 			trace(value, sourceAssociation);
-			final PropertyExpression expression = EcoreUtil.copy(sourceAssociation.getOwnedValue());
+			final var expression = EcoreUtil.copy(sourceAssociation.getOwnedValue());
 			traceTree(expression, sourceAssociation);
 			value.setOwnedValue(expression);
 			result.getOwnedValues().add(value);
@@ -319,9 +318,9 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private void translateStates(final BehaviorAnnex strict) {
-			for (final BehaviorStateGroup group : source.getStateGroups()) {
-				for (final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState state : group.getStates()) {
-					final BehaviorState result = trace(FACTORY.createBehaviorState(), state);
+			for (final var group : source.getStateGroups()) {
+				for (final var state : group.getStates()) {
+					final var result = trace(FACTORY.createBehaviorState(), state);
 					result.setName(state.getName());
 					result.setInitial(group.isInitial());
 					result.setComplete(group.isComplete());
@@ -461,7 +460,7 @@ public final class DeclarativeToStrictTranslator {
 			if (actionBlock == null) {
 				return FACTORY.createBehaviorActionBlock();
 			}
-			final org.osate.ba.aadlba.BehaviorActionBlock result = trace(FACTORY.createBehaviorActionBlock(), actionBlock);
+			final var result = trace(FACTORY.createBehaviorActionBlock(), actionBlock);
 			result.setContent(toActions(actionBlock.getContent()));
 			if (actionBlock.getTimeout() != null) {
 				result.setTimeout(toTime(actionBlock.getTimeout()));
@@ -471,19 +470,17 @@ public final class DeclarativeToStrictTranslator {
 
 		private BehaviorActions toActions(
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActions actions) {
-			if (actions instanceof BehaviorActionSequence) {
-				final org.osate.ba.aadlba.BehaviorActionSequence result = trace(
+			if (actions instanceof BehaviorActionSequence sequence) {
+				final var result = trace(
 						FACTORY.createBehaviorActionSequence(), actions);
-				for (final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAction action : ((BehaviorActionSequence) actions)
-						.getActions()) {
+				for (final var action : sequence.getActions()) {
 					result.getActions().add(toAction(action));
 				}
 				return result;
 			}
-			if (actions instanceof BehaviorActionSet) {
-				final org.osate.ba.aadlba.BehaviorActionSet result = trace(FACTORY.createBehaviorActionSet(), actions);
-				for (final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAction action : ((BehaviorActionSet) actions)
-						.getActions()) {
+			if (actions instanceof BehaviorActionSet set) {
+				final var result = trace(FACTORY.createBehaviorActionSet(), actions);
+				for (final var action : set.getActions()) {
 					result.getActions().add(toAction(action));
 				}
 				return result;
@@ -492,10 +489,9 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private BehaviorAction toAction(final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAction action) {
-			if (action instanceof AssignmentAction) {
-				final AssignmentAction assignment = (AssignmentAction) action;
-				final org.osate.ba.aadlba.AssignmentAction result = trace(FACTORY.createAssignmentAction(), action);
-				final BehaviorElement target = toReferenceValue(assignment.getTarget());
+			if (action instanceof AssignmentAction assignment) {
+				final var result = trace(FACTORY.createAssignmentAction(), action);
+				final var target = toReferenceValue(assignment.getTarget());
 				if (target instanceof Target validTarget) {
 					result.setTarget(validTarget);
 				}
@@ -503,41 +499,38 @@ public final class DeclarativeToStrictTranslator {
 						: toValueExpression(assignment.getValue()));
 				return result;
 			}
-			if (action instanceof CommunicationAction) {
-				return toCommunicationAction((CommunicationAction) action);
+			if (action instanceof CommunicationAction communication) {
+				return toCommunicationAction(communication);
 			}
-			if (action instanceof TimedAction) {
-				final TimedAction timed = (TimedAction) action;
-				final org.osate.ba.aadlba.TimedAction result = trace(FACTORY.createTimedAction(), action);
+			if (action instanceof TimedAction timed) {
+				final var result = trace(FACTORY.createTimedAction(), action);
 				result.setLowerTime(toTime(timed.getLowerTime()));
 				if (timed.getUpperTime() != null) {
 					result.setUpperTime(toTime(timed.getUpperTime()));
 				}
-				for (final ComponentClassifier processor : timed.getProcessors()) {
-					if (processor instanceof ProcessorClassifier) {
-						result.getProcessorClassifier().add((ProcessorClassifier) processor);
+				for (final var processor : timed.getProcessors()) {
+					if (processor instanceof ProcessorClassifier processorClassifier) {
+						result.getProcessorClassifier().add(processorClassifier);
 					}
 				}
 				return result;
 			}
-			if (action instanceof IfStatement) {
-				return toIfStatement((IfStatement) action, false);
+			if (action instanceof IfStatement statement) {
+				return toIfStatement(statement, false);
 			}
-			if (action instanceof ForStatement) {
-				return toForStatement((ForStatement) action);
+			if (action instanceof ForStatement statement) {
+				return toForStatement(statement);
 			}
-			if (action instanceof WhileStatement) {
-				final WhileStatement whileStatement = (WhileStatement) action;
-				final org.osate.ba.aadlba.WhileOrDoUntilStatement result = trace(
+			if (action instanceof WhileStatement whileStatement) {
+				final var result = trace(
 						FACTORY.createWhileOrDoUntilStatement(), action);
 				result.setDoUntil(false);
 				result.setLogicalValueExpression(toValueExpression(whileStatement.getCondition()));
 				result.setBehaviorActions(toActions(whileStatement.getActions()));
 				return result;
 			}
-			if (action instanceof DoUntilStatement) {
-				final DoUntilStatement doUntil = (DoUntilStatement) action;
-				final org.osate.ba.aadlba.WhileOrDoUntilStatement result = trace(
+			if (action instanceof DoUntilStatement doUntil) {
+				final var result = trace(
 						FACTORY.createWhileOrDoUntilStatement(), action);
 				result.setDoUntil(true);
 				result.setLogicalValueExpression(toValueExpression(doUntil.getCondition()));
@@ -548,14 +541,14 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private org.osate.ba.aadlba.IfStatement toIfStatement(final IfStatement statement, final boolean elif) {
-			final org.osate.ba.aadlba.IfStatement result = trace(FACTORY.createIfStatement(), statement);
+			final var result = trace(FACTORY.createIfStatement(), statement);
 			result.setElif(elif);
 			result.setLogicalValueExpression(toValueExpression(statement.getCondition()));
 			result.setBehaviorActions(toActions(statement.getThenActions()));
 			ElseStatement tail = null;
 			for (int i = statement.getElseIfs().size() - 1; i >= 0; i--) {
 				final var clause = statement.getElseIfs().get(i);
-				final org.osate.ba.aadlba.IfStatement nested = trace(FACTORY.createIfStatement(), clause);
+				final var nested = trace(FACTORY.createIfStatement(), clause);
 				nested.setElif(true);
 				nested.setLogicalValueExpression(toValueExpression(clause.getCondition()));
 				nested.setBehaviorActions(toActions(clause.getActions()));
@@ -563,15 +556,15 @@ public final class DeclarativeToStrictTranslator {
 				tail = nested;
 			}
 			if (statement.getElseActions() != null) {
-				final ElseStatement elseStatement = trace(FACTORY.createElseStatement(), statement.getElseActions());
+				final var elseStatement = trace(FACTORY.createElseStatement(), statement.getElseActions());
 				elseStatement.setBehaviorActions(toActions(statement.getElseActions()));
 				if (tail == null) {
 					tail = elseStatement;
 				} else {
-					ElseStatement current = tail;
-					while (current instanceof org.osate.ba.aadlba.IfStatement
-							&& ((org.osate.ba.aadlba.IfStatement) current).getElseStatement() != null) {
-						current = ((org.osate.ba.aadlba.IfStatement) current).getElseStatement();
+					var current = tail;
+					while (current instanceof org.osate.ba.aadlba.IfStatement nested
+							&& nested.getElseStatement() != null) {
+						current = nested.getElseStatement();
 					}
 					((org.osate.ba.aadlba.IfStatement) current).setElseStatement(elseStatement);
 				}
@@ -581,15 +574,15 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private org.osate.ba.aadlba.ForOrForAllStatement toForStatement(final ForStatement statement) {
-			final org.osate.ba.aadlba.ForOrForAllStatement result = trace(FACTORY.createForOrForAllStatement(), statement);
+			final var result = trace(FACTORY.createForOrForAllStatement(), statement);
 			result.setForAll(statement.isForall());
-			final org.osate.ba.aadlba.IterativeVariable variable = trace(FACTORY.createIterativeVariable(), statement);
+			final var variable = trace(FACTORY.createIterativeVariable(), statement);
 			variable.setName(statement.getVariable());
-			if (statement.getDataClassifier() instanceof DataClassifier) {
-				variable.setDataClassifier((DataClassifier) statement.getDataClassifier());
+			if (statement.getDataClassifier() instanceof DataClassifier dataClassifier) {
+				variable.setDataClassifier(dataClassifier);
 			}
 			result.setIterativeVariable(variable);
-			final Map<String, org.osate.ba.aadlba.IterativeVariable> scope = new java.util.TreeMap<>(
+			final var scope = new java.util.TreeMap<String, org.osate.ba.aadlba.IterativeVariable>(
 					String.CASE_INSENSITIVE_ORDER);
 			scope.put(variable.getName(), variable);
 			iterativeScopes.add(scope);
@@ -608,7 +601,7 @@ public final class DeclarativeToStrictTranslator {
 			if (values.getUpper() == null) {
 				return (ElementValues) toIntegerValue(values.getLower());
 			}
-			final org.osate.ba.aadlba.IntegerRange result = trace(FACTORY.createIntegerRange(), values);
+			final var result = trace(FACTORY.createIntegerRange(), values);
 			result.setLowerIntegerValue(toIntegerValue(values.getLower()));
 			result.setUpperIntegerValue(toIntegerValue(values.getUpper()));
 			return result;
@@ -746,27 +739,26 @@ public final class DeclarativeToStrictTranslator {
 			result.setUnit(sourceTime.getUnit());
 		}
 
-		private org.osate.ba.aadlba.IntegerValue toIntegerValue(final IntegerValue value) {
-			if (value instanceof BehaviorIntegerLiteral) {
-				return toIntegerLiteral((BehaviorIntegerLiteral) value);
+	private org.osate.ba.aadlba.IntegerValue toIntegerValue(final IntegerValue value) {
+			if (value instanceof BehaviorIntegerLiteral literal) {
+				return toIntegerLiteral(literal);
 			}
-			if (value instanceof HashPropertyReference) {
-				return (org.osate.ba.aadlba.IntegerValue) toPropertyReference((HashPropertyReference) value);
+			if (value instanceof HashPropertyReference reference) {
+				return (org.osate.ba.aadlba.IntegerValue) toPropertyReference(reference);
 			}
 			return (org.osate.ba.aadlba.IntegerValue) toReferenceExpression((ReferenceExpression) value);
 		}
 
 		private ValueExpression toValueExpression(
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			final ValueExpression result = trace(FACTORY.createValueExpression(), expression);
+			final var result = trace(FACTORY.createValueExpression(), expression);
 			appendLogical(result, expression);
 			return result;
 		}
 
 		private void appendLogical(final ValueExpression result,
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			if (expression instanceof BinaryExpression && isLogical(((BinaryExpression) expression).getOperator())) {
-				final BinaryExpression binary = (BinaryExpression) expression;
+			if (expression instanceof BinaryExpression binary && isLogical(binary.getOperator())) {
 				appendLogical(result, binary.getLeft());
 				result.getLogicalOperators().add(logicalOperator(binary.getOperator()));
 				appendLogical(result, binary.getRight());
@@ -776,9 +768,8 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private Relation toRelation(final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			final Relation result = trace(FACTORY.createRelation(), expression);
-			if (expression instanceof BinaryExpression && isRelational(((BinaryExpression) expression).getOperator())) {
-				final BinaryExpression binary = (BinaryExpression) expression;
+			final var result = trace(FACTORY.createRelation(), expression);
+			if (expression instanceof BinaryExpression binary && isRelational(binary.getOperator())) {
 				result.setFirstExpression(toSimpleExpression(binary.getLeft()));
 				result.setRelationalOperator(relationalOperator(binary.getOperator()));
 				result.setSecondExpression(toSimpleExpression(binary.getRight()));
@@ -790,7 +781,7 @@ public final class DeclarativeToStrictTranslator {
 
 		private SimpleExpression toSimpleExpression(
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			final SimpleExpression result = trace(FACTORY.createSimpleExpression(), expression);
+			final var result = trace(FACTORY.createSimpleExpression(), expression);
 			if (isParenthesized(expression) && consumedParentheses.add(expression)) {
 				try {
 					final var term = trace(FACTORY.createTerm(), expression);
@@ -809,13 +800,11 @@ public final class DeclarativeToStrictTranslator {
 
 		private void appendAdding(final SimpleExpression result,
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			if (expression instanceof BinaryExpression && isAdding(((BinaryExpression) expression).getOperator())) {
-				final BinaryExpression binary = (BinaryExpression) expression;
+			if (expression instanceof BinaryExpression binary && isAdding(binary.getOperator())) {
 				appendAdding(result, binary.getLeft());
 				result.getBinaryAddingOperators().add(binaryAddingOperator(binary.getOperator()));
 				result.getTerms().add(toTerm(binary.getRight()));
-			} else if (expression instanceof UnaryExpression && isAdding(((UnaryExpression) expression).getOperator())) {
-				final UnaryExpression unary = (UnaryExpression) expression;
+			} else if (expression instanceof UnaryExpression unary && isAdding(unary.getOperator())) {
 				result.setUnaryAddingOperator("+".equals(unary.getOperator()) ? UnaryAddingOperator.PLUS
 						: UnaryAddingOperator.MINUS);
 				result.getTerms().add(toTerm(unary.getOperand()));
@@ -825,15 +814,14 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private Term toTerm(final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			final Term result = trace(FACTORY.createTerm(), expression);
+			final var result = trace(FACTORY.createTerm(), expression);
 			appendMultiplying(result, expression);
 			return result;
 		}
 
 		private void appendMultiplying(final Term result,
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			if (expression instanceof BinaryExpression && isMultiplying(((BinaryExpression) expression).getOperator())) {
-				final BinaryExpression binary = (BinaryExpression) expression;
+			if (expression instanceof BinaryExpression binary && isMultiplying(binary.getOperator())) {
 				appendMultiplying(result, binary.getLeft());
 				result.getMultiplyingOperators().add(multiplyingOperator(binary.getOperator()));
 				result.getFactors().add(toFactor(binary.getRight()));
@@ -843,21 +831,18 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private Factor toFactor(final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			final Factor result = trace(FACTORY.createFactor(), expression);
+			final var result = trace(FACTORY.createFactor(), expression);
 			if (isParenthesized(expression) && consumedParentheses.add(expression)) {
 				try {
 					result.setFirstValue(toValueExpression(expression));
 				} finally {
 					consumedParentheses.remove(expression);
 				}
-			} else if (expression instanceof BinaryExpression
-					&& "**".equals(((BinaryExpression) expression).getOperator())) {
-				final BinaryExpression binary = (BinaryExpression) expression;
+			} else if (expression instanceof BinaryExpression binary && "**".equals(binary.getOperator())) {
 				result.setFirstValue(toValue(binary.getLeft()));
 				result.setBinaryNumericOperator(BinaryNumericOperator.MULTIPLY_MULTIPLY);
 				result.setSecondValue(toValue(binary.getRight()));
-			} else if (expression instanceof UnaryExpression) {
-				final UnaryExpression unary = (UnaryExpression) expression;
+			} else if (expression instanceof UnaryExpression unary) {
 				if ("abs".equals(unary.getOperator())) {
 					result.setUnaryNumericOperator(UnaryNumericOperator.ABS);
 				} else if ("not".equals(unary.getOperator())) {
@@ -889,30 +874,29 @@ public final class DeclarativeToStrictTranslator {
 
 		private ValueConstant toValueConstant(
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueConstant constant) {
-			if (constant instanceof BehaviorIntegerLiteral) {
-				return toIntegerLiteral((BehaviorIntegerLiteral) constant);
+			if (constant instanceof BehaviorIntegerLiteral literal) {
+				return toIntegerLiteral(literal);
 			}
 			if (constant instanceof BehaviorRealLiteral) {
-				final org.osate.ba.aadlba.BehaviorRealLiteral result = trace(FACTORY.createBehaviorRealLiteral(), constant);
+				final var result = trace(FACTORY.createBehaviorRealLiteral(), constant);
 				result.setValue(0.0);
 				return result;
 			}
-			if (constant instanceof BehaviorStringLiteral) {
-				final org.osate.ba.aadlba.BehaviorStringLiteral result = trace(FACTORY.createBehaviorStringLiteral(), constant);
-				result.setValue(((BehaviorStringLiteral) constant).getValue());
+			if (constant instanceof BehaviorStringLiteral literal) {
+				final var result = trace(FACTORY.createBehaviorStringLiteral(), constant);
+				result.setValue(literal.getValue());
 				return result;
 			}
-			if (constant instanceof BehaviorBooleanLiteral) {
-				final org.osate.ba.aadlba.BehaviorBooleanLiteral result = trace(FACTORY.createBehaviorBooleanLiteral(),
-						constant);
-				result.setValue(((BehaviorBooleanLiteral) constant).isValue());
+			if (constant instanceof BehaviorBooleanLiteral literal) {
+				final var result = trace(FACTORY.createBehaviorBooleanLiteral(), constant);
+				result.setValue(literal.isValue());
 				return result;
 			}
 			return (ValueConstant) toPropertyReference((HashPropertyReference) constant);
 		}
 
 		private org.osate.ba.aadlba.BehaviorIntegerLiteral toIntegerLiteral(final BehaviorIntegerLiteral literal) {
-			final org.osate.ba.aadlba.BehaviorIntegerLiteral result = trace(FACTORY.createBehaviorIntegerLiteral(), literal);
+			final var result = trace(FACTORY.createBehaviorIntegerLiteral(), literal);
 			result.setValue(parseInteger(literal.getValue(), 0));
 			return result;
 		}
@@ -923,9 +907,9 @@ public final class DeclarativeToStrictTranslator {
 			}
 			final var referenced = toReferenceValue(expression.getReference());
 			if (expression.isCount() || expression.isFresh() || expression.isDequeue()) {
-				final String holderType = expression.isCount() ? "PortCountValue"
+				final var holderType = expression.isCount() ? "PortCountValue"
 						: expression.isFresh() ? "PortFreshValue" : "PortDequeueValue";
-				final ElementHolder portValue = (ElementHolder) create(holderType, expression);
+				final var portValue = (ElementHolder) create(holderType, expression);
 				if (referenced instanceof ElementHolder holder) {
 					copyHolder(holder, portValue);
 				}
@@ -946,24 +930,24 @@ public final class DeclarativeToStrictTranslator {
 
 		private ValueConstant toPropertyReference(final Reference prefix, final String propertyName,
 				final List<PropertyArrayIndex> indexes, final List<NamedPropertyField> fields, final EObject traceSource) {
-			final NamedElement propertyElement = resolveQualified(propertyName, true);
-			final BehaviorElement prefixValue = prefix == null ? null : toReferenceValue(prefix);
+			final var propertyElement = resolveQualified(propertyName, true);
+			final var prefixValue = prefix == null ? null : toReferenceValue(prefix);
 			final var prefixElement = prefix == null ? null : resolvedReferences.get(prefix);
-			if (propertyElement instanceof PropertyConstant) {
-				final org.osate.ba.aadlba.BehaviorPropertyConstant result = trace(
+			if (propertyElement instanceof PropertyConstant constant) {
+				final var result = trace(
 						FACTORY.createBehaviorPropertyConstant(), traceSource);
-				result.setProperty((PropertyConstant) propertyElement);
-				if (((PropertyConstant) propertyElement).getOwner() instanceof PropertySet) {
-					result.setPropertySet((PropertySet) ((PropertyConstant) propertyElement).getOwner());
+				result.setProperty(constant);
+				if (constant.getOwner() instanceof PropertySet propertySet) {
+					result.setPropertySet(propertySet);
 				}
 				return result;
 			}
 			final org.osate.ba.aadlba.PropertyReference result;
 			if (prefix == null) {
-				final org.osate.ba.aadlba.PropertySetPropertyReference propertyReference = trace(
+				final var propertyReference = trace(
 						FACTORY.createPropertySetPropertyReference(), traceSource);
-				if (propertyElement != null && propertyElement.getOwner() instanceof PropertySet) {
-					propertyReference.setPropertySet((PropertySet) propertyElement.getOwner());
+				if (propertyElement != null && propertyElement.getOwner() instanceof PropertySet propertySet) {
+					propertyReference.setPropertySet(propertySet);
 				}
 				result = propertyReference;
 			} else if (prefixElement instanceof Classifier classifier) {
@@ -971,14 +955,14 @@ public final class DeclarativeToStrictTranslator {
 				propertyReference.setClassifier(classifier);
 				result = propertyReference;
 			} else {
-				final org.osate.ba.aadlba.ClassifierFeaturePropertyReference propertyReference = trace(
+				final var propertyReference = trace(
 						FACTORY.createClassifierFeaturePropertyReference(), traceSource);
 				if (prefixValue instanceof org.osate.ba.aadlba.ClassifierFeatureHolder component) {
 					propertyReference.setComponent(component);
 				}
 				result = propertyReference;
 			}
-			Element primaryElement = propertyElement;
+			var primaryElement = (Element) propertyElement;
 			if (prefix == null) {
 				if (propertyElement instanceof Property property) {
 					if (property.getDefaultValue() != null) {
@@ -1007,8 +991,8 @@ public final class DeclarativeToStrictTranslator {
 				}
 			}
 			result.getProperties().add(toPropertyNameHolder(primaryElement, indexes, traceSource));
-			Element previous = primaryElement;
-			for (final NamedPropertyField field : fields) {
+			var previous = primaryElement;
+			for (final var field : fields) {
 				previous = resolvePropertyField(previous, field.getName());
 				result.getProperties().add(toPropertyNameHolder(previous, field.getIndexes(), field));
 			}
@@ -1017,11 +1001,11 @@ public final class DeclarativeToStrictTranslator {
 
 		private PropertyNameHolder toPropertyNameHolder(final Element element,
 				final List<PropertyArrayIndex> indexes, final EObject traceSource) {
-			final PropertyNameHolder result = trace(FACTORY.createPropertyNameHolder(), traceSource);
+			final var result = trace(FACTORY.createPropertyNameHolder(), traceSource);
 			result.setProperty(toPropertyElementHolder(element, traceSource));
-			for (final PropertyArrayIndex index : indexes) {
-				if (result.getProperty() instanceof IndexableElement) {
-					((IndexableElement) result.getProperty()).getArrayIndexes().add(toPropertyIndex(index.getValue()));
+			for (final var index : indexes) {
+				if (result.getProperty() instanceof IndexableElement indexable) {
+					indexable.getArrayIndexes().add(toPropertyIndex(index.getValue()));
 				}
 			}
 			return result;
@@ -1042,17 +1026,16 @@ public final class DeclarativeToStrictTranslator {
 			} else {
 				type = "BasicPropertyHolder";
 			}
-			final PropertyElementHolder result = (PropertyElementHolder) create(type, traceSource);
+			final var result = (PropertyElementHolder) create(type, traceSource);
 			result.setElement(element);
 			return result;
 		}
 
 		private org.osate.ba.aadlba.IntegerValue toPropertyIndex(final PropertyIndexValue value) {
-			if (value instanceof BehaviorIntegerLiteral) {
-				return toIntegerLiteral((BehaviorIntegerLiteral) value);
+			if (value instanceof BehaviorIntegerLiteral literal) {
+				return toIntegerLiteral(literal);
 			}
-			if (value instanceof PropertyIndexPropertyReference) {
-				final PropertyIndexPropertyReference reference = (PropertyIndexPropertyReference) value;
+			if (value instanceof PropertyIndexPropertyReference reference) {
 				return (org.osate.ba.aadlba.IntegerValue) toPropertyReference(null, reference.getProperty(), List.of(),
 						List.of(), reference);
 			}
@@ -1293,20 +1276,19 @@ public final class DeclarativeToStrictTranslator {
 			} else {
 				type = "DataSubcomponentHolder";
 			}
-			final ElementHolder result = (ElementHolder) create(type, traceSource);
+			final var result = (ElementHolder) create(type, traceSource);
 			if (element instanceof org.osate.ba.aadlba.StructUnionElement structUnionElement) {
 				trace(structUnionElement, traceSource);
 			}
 			if (result.eClass().getEStructuralFeature("element") != null) {
 				result.setElement(element);
 			}
-			if (result instanceof org.osate.ba.aadlba.PrototypeHolder) {
-				if (element instanceof PrototypeBinding) {
-					((org.osate.ba.aadlba.PrototypeHolder) result).setPrototypeBinding((PrototypeBinding) element);
-					((org.osate.ba.aadlba.PrototypeHolder) result).setPrototype(((PrototypeBinding) element).getFormal());
-				} else if (element instanceof Prototype) {
-					final var prototypeHolder = (org.osate.ba.aadlba.PrototypeHolder) result;
-					prototypeHolder.setPrototype((Prototype) element);
+			if (result instanceof org.osate.ba.aadlba.PrototypeHolder prototypeHolder) {
+				if (element instanceof PrototypeBinding binding) {
+					prototypeHolder.setPrototypeBinding(binding);
+					prototypeHolder.setPrototype(binding.getFormal());
+				} else if (element instanceof Prototype prototype) {
+					prototypeHolder.setPrototype(prototype);
 					final var binding = Aadl2Visitors.findPrototypeBindingInComponent(owner, element.getName());
 					if (binding != null) {
 						prototypeHolder.setPrototypeBinding(binding);
@@ -1330,16 +1312,16 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private NamedElement resolveQualified(final String qualifiedName, final boolean propertySet) {
-			final int separator = qualifiedName.lastIndexOf("::");
+			final var separator = qualifiedName.lastIndexOf("::");
 			if (separator >= 0) {
-				final String namespace = qualifiedName.substring(0, separator);
-				final String name = qualifiedName.substring(separator + 2);
+				final var namespace = qualifiedName.substring(0, separator);
+				final var name = qualifiedName.substring(separator + 2);
 				return propertySet
 						? Aadl2Visitors.findElementInPropertySet(name, namespace,
 								AadlUtil.getContainingPackageSection(owner))
 						: Aadl2Visitors.findElementInPackage(name, namespace, AadlUtil.getContainingPackageSection(owner));
 			}
-			final NamedElement local = owner.findNamedElement(qualifiedName);
+			final var local = owner.findNamedElement(qualifiedName);
 			if (local != null) {
 				return local;
 			}
@@ -1397,9 +1379,9 @@ public final class DeclarativeToStrictTranslator {
 						.findFirst()
 						.orElse(null);
 			}
-			for (final EObject child : parent.eContents()) {
-				if (child instanceof NamedElement && name.equalsIgnoreCase(((NamedElement) child).getName())) {
-					return (NamedElement) child;
+			for (final var child : parent.eContents()) {
+				if (child instanceof NamedElement namedChild && name.equalsIgnoreCase(namedChild.getName())) {
+					return namedChild;
 				}
 			}
 			return null;
@@ -1415,14 +1397,14 @@ public final class DeclarativeToStrictTranslator {
 
 		private void copyHolder(final ElementHolder sourceHolder, final ElementHolder target) {
 			target.setElement(sourceHolder.getElement());
-			if (sourceHolder instanceof GroupableElement && target instanceof GroupableElement) {
-				((GroupableElement) target).getGroupHolders().addAll(
-						EcoreUtil.copyAll(((GroupableElement) sourceHolder).getGroupHolders()));
+			if (sourceHolder instanceof GroupableElement source
+					&& target instanceof GroupableElement destination) {
+				destination.getGroupHolders().addAll(EcoreUtil.copyAll(source.getGroupHolders()));
 				traceTree(target, strictToDeclarative.get(sourceHolder));
 			}
-			if (sourceHolder instanceof IndexableElement && target instanceof IndexableElement) {
-				((IndexableElement) target).getArrayIndexes()
-						.addAll(EcoreUtil.copyAll(((IndexableElement) sourceHolder).getArrayIndexes()));
+			if (sourceHolder instanceof IndexableElement source
+					&& target instanceof IndexableElement destination) {
+				destination.getArrayIndexes().addAll(EcoreUtil.copyAll(source.getArrayIndexes()));
 				traceTree(target, strictToDeclarative.get(sourceHolder));
 			}
 		}

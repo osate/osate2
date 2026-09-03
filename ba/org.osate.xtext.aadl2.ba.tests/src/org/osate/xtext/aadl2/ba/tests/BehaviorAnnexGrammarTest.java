@@ -65,8 +65,8 @@ public class BehaviorAnnexGrammarTest {
 
     @Test
     public void parseAcceptedBehaviorAnnexCorpus() throws Exception {
-        final Path baDirectory = findBaDirectory();
-        final List<String> failures = new ArrayList<>();
+        final var baDirectory = findBaDirectory();
+        final var failures = new ArrayList<String>();
         int annexCount = 0;
 
         for (final Path aadlFile : findAadlFiles(baDirectory)) {
@@ -106,7 +106,7 @@ public class BehaviorAnnexGrammarTest {
     }
 
     private static List<Path> findAadlFiles(final Path baDirectory) throws IOException {
-        final List<Path> files = new ArrayList<>();
+        final var files = new ArrayList<Path>();
         files.addAll(findAadlFilesUnder(baDirectory.resolve("org.osate.ba.tests/models")));
         files.addAll(findAadlFilesUnder(baDirectory.resolve("org.osate.ba/examples")));
         return files;
@@ -130,7 +130,7 @@ public class BehaviorAnnexGrammarTest {
         final String relativePath = baDirectory.relativize(aadlFile).toString().replace('\\', '/');
         final String goldenName = relativePath.substring(0, relativePath.length() - ".aadl".length())
                 .replace('/', '_') + ".txt";
-        final Path golden = baDirectory.resolve("org.osate.ba.tests/expected/diagnostics").resolve(goldenName);
+        final var golden = baDirectory.resolve("org.osate.ba.tests/expected/diagnostics").resolve(goldenName);
         if (!Files.isRegularFile(golden)) {
             return false;
         }

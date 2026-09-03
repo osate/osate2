@@ -51,24 +51,24 @@ final class GoldenFile {
 
 	static void assertMatches(final String suite, final String id, final String actual,
 			final BiFunction<String, String, Comparison> comparisonProjection) throws IOException {
-		final Path bundleDirectory = Paths.get(System.getProperty("user.dir"));
-		final Path golden = bundleDirectory.resolve("expected").resolve(suite).resolve(id + ".txt");
-		final String normalizedActual = normalize(actual);
+		final var bundleDirectory = Paths.get(System.getProperty("user.dir"));
+		final var golden = bundleDirectory.resolve("expected").resolve(suite).resolve(id + ".txt");
+		final var normalizedActual = normalize(actual);
 		if (REGENERATE) {
 			Files.createDirectories(golden.getParent());
 			Files.write(golden, normalizedActual.getBytes(StandardCharsets.UTF_8));
 		} else {
-			final String expected = normalize(new String(Files.readAllBytes(golden), StandardCharsets.UTF_8));
+			final var expected = normalize(new String(Files.readAllBytes(golden), StandardCharsets.UTF_8));
 			final var comparison = comparisonProjection.apply(expected, normalizedActual);
 			assertEquals("Golden file differs: " + golden, comparison.expected(), comparison.actual());
 		}
 	}
 
 	private static String normalize(final String text) {
-		final String normalized = text.replace("\r\n", "\n").replace('\r', '\n');
-		final String[] lines = normalized.split("\n", -1);
-		final int lineCount = lines.length > 0 && lines[lines.length - 1].isEmpty() ? lines.length - 1 : lines.length;
-		final StringBuilder result = new StringBuilder(normalized.length());
+		final var normalized = text.replace("\r\n", "\n").replace('\r', '\n');
+		final var lines = normalized.split("\n", -1);
+		final var lineCount = lines.length > 0 && lines[lines.length - 1].isEmpty() ? lines.length - 1 : lines.length;
+		final var result = new StringBuilder(normalized.length());
 		for (int i = 0; i < lineCount; i++) {
 			result.append(escapeTrailingWhitespace(lines[i])).append('\n');
 		}
@@ -81,7 +81,7 @@ final class GoldenFile {
 			end--;
 		}
 
-		final StringBuilder result = new StringBuilder(line.length());
+		final var result = new StringBuilder(line.length());
 		result.append(line, 0, end);
 		for (int i = end; i < line.length(); i++) {
 			result.append(line.charAt(i) == ' ' ? "\\s" : "\\t");

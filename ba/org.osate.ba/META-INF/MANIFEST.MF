@@ -6,9 +6,8 @@ Bundle-Version: 9.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.osate.ba,
- org.osate.ba.aadlba,
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Export-Package: org.osate.ba.aadlba,
  org.osate.ba.aadlba.impl,
  org.osate.ba.aadlba.util,
  org.osate.ba.analyzers,

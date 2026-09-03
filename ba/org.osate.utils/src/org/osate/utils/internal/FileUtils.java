@@ -245,14 +245,14 @@ public class FileUtils {
 		Set<File> result = null;
 
 		if (directory.isDirectory()) {
-			result = new LinkedHashSet<File>();
+			result = new LinkedHashSet<>();
 
 			for (File f : directory.listFiles(new DirectoryFileFilter())) {
 				result.add(f);
 				result.addAll(getSubDirectories(f));
 			}
 		} else {
-			result = Collections.emptySet();
+			result = Set.of();
 		}
 
 		return result;

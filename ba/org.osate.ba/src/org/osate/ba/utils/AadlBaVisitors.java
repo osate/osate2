@@ -83,24 +83,22 @@ public class AadlBaVisitors {
 	public static EList<BasicAction> getBasicActions(BehaviorAction BehAction) {
 		EList<BasicAction> result = null;
 
-		if (BehAction instanceof BasicAction) {
-			result = new BasicEList<BasicAction>();
-			result.add((BasicAction) BehAction);
+		if (BehAction instanceof BasicAction basicAction) {
+			result = new BasicEList<>();
+			result.add(basicAction);
 		} else {
 			// Case of an loop statements (excepted if statement).
-			if (BehAction instanceof LoopStatement) {
-				result = getBasicActions(((LoopStatement) BehAction).getBehaviorActions());
-			} else if (BehAction instanceof IfStatement) {
-				IfStatement stat = (IfStatement) BehAction;
+			if (BehAction instanceof LoopStatement loop) {
+				result = getBasicActions(loop.getBehaviorActions());
+			} else if (BehAction instanceof IfStatement statement) {
+				result = getBasicActions(statement.getBehaviorActions());
 
-				result = getBasicActions(stat.getBehaviorActions());
-
-				if (stat.getElseStatement() != null) {
-					result.addAll(getBasicActions(stat.getElseStatement().getBehaviorActions()));
+				if (statement.getElseStatement() != null) {
+					result.addAll(getBasicActions(statement.getElseStatement().getBehaviorActions()));
 				}
 			} else // ElseStatement case.
 			{
-				ElseStatement elseStat = (ElseStatement) BehAction;
+				var elseStat = (ElseStatement) BehAction;
 				result = getBasicActions(elseStat.getBehaviorActions());
 			}
 		}
@@ -119,16 +117,16 @@ public class AadlBaVisitors {
 	* object. May be empty.
 	*/
 	public static EList<BasicAction> getBasicActions(BehaviorActions BehActions) {
-		EList<BasicAction> result = new BasicEList<BasicAction>();
+		var result = new BasicEList<BasicAction>();
 
 		// A behavior transition may have no behavior actions.
 		if (BehActions != null) {
 			// Case of single behavior action.
-			if (BehActions instanceof BehaviorAction) {
-				result.addAll(getBasicActions((BehaviorAction) BehActions));
+			if (BehActions instanceof BehaviorAction action) {
+				result.addAll(getBasicActions(action));
 			} else // Case of BehaviorActionCollection.
 			{
-				for (BehaviorAction BehAct : ((BehaviorActionCollection) BehActions).getActions()) {
+				for (var BehAct : ((BehaviorActionCollection) BehActions).getActions()) {
 					result.addAll(getBasicActions(BehAct));
 				}
 			}
@@ -163,7 +161,7 @@ public class AadlBaVisitors {
 	 */
 	public static PackageSection[] getBaPackageSections(BehaviorAnnex ba, ComponentClassifier fallback) {
 		PackageSection result[];
-		PackageSection container = Aadl2Visitors.getContainingPackageSection(ba);
+		var container = Aadl2Visitors.getContainingPackageSection(ba);
 		if (container == null && fallback != null) {
 			container = Aadl2Visitors.getContainingPackageSection(fallback);
 		}
@@ -194,7 +192,7 @@ public class AadlBaVisitors {
 	* name or {@code null}.
 	*/
 	public static BehaviorVariable findBehaviorVariable(BehaviorAnnex ba, String variableName) {
-		for (BehaviorVariable v : ba.getVariables()) {
+		for (var v : ba.getVariables()) {
 			if (v.getName().equalsIgnoreCase(variableName)) {
 				return v;
 			}
@@ -213,7 +211,7 @@ public class AadlBaVisitors {
 	* or {@code null}
 	*/
 	public static BehaviorState findBehaviorState(BehaviorAnnex ba, String stateName) {
-		for (BehaviorState s : ba.getStates()) {
+		for (var s : ba.getStates()) {
 			if (stateName.equalsIgnoreCase(s.getName())) {
 				return s;
 			}
@@ -230,9 +228,9 @@ public class AadlBaVisitors {
 	* @return a list of DispatchTrigger objects, eventually empty.
 	*/
 	public static EList<DispatchTrigger> getDispatchTriggers(DispatchTriggerLogicalExpression dtle) {
-		EList<DispatchTrigger> result = new BasicEList<DispatchTrigger>();
+		var result = new BasicEList<DispatchTrigger>();
 
-		for (DispatchConjunction dc : dtle.getDispatchConjunctions()) {
+		for (var dc : dtle.getDispatchConjunctions()) {
 			result.addAll(dc.getDispatchTriggers());
 		}
 
@@ -257,11 +255,11 @@ public class AadlBaVisitors {
 	 * @return the behavior annex's parent component
 	 */
 	public static ComponentClassifier getParentComponent(BehaviorAnnex ba, ComponentClassifier fallback) {
-		ComponentClassifier result = (ComponentClassifier) ba.getContainingClassifier();
+		var result = (ComponentClassifier) ba.getContainingClassifier();
 		return result == null ? fallback : result;
 	}
 
-	protected static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH = new WeakHashMap<BehaviorAnnex, Set<Port>>();
+	protected static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH = new WeakHashMap<>();
 
 	/**
 	 * Return {@code true} if the given port which is contained in the given
@@ -274,7 +272,7 @@ public class AadlBaVisitors {
 	 * Otherwise {@code false}
 	 */
 	public static boolean isFresh(BehaviorAnnex ba, Port port) {
-		Set<Port> ports = _IS_FRESH.get(ba);
+		var ports = _IS_FRESH.get(ba);
 		if (ports != null) {
 			return ports.contains(port);
 		} else {
@@ -289,9 +287,9 @@ public class AadlBaVisitors {
 	 * @param port the given port
 	 */
 	public static void putFreshPort(BehaviorAnnex ba, Port port) {
-		Set<Port> ports = _IS_FRESH.get(ba);
+		var ports = _IS_FRESH.get(ba);
 		if (ports == null) {
-			ports = new HashSet<Port>();
+			ports = new HashSet<>();
 			_IS_FRESH.put(ba, ports);
 		}
 
@@ -314,7 +312,7 @@ public class AadlBaVisitors {
 	 * the source state or an empty list
 	 */
 	public static List<BehaviorTransition> getTransitionWhereSrc(BehaviorState state) {
-		List<BehaviorTransition> result = new BasicEList<BehaviorTransition>(state.getOutgoingTransitions());
+		var result = new BasicEList<BehaviorTransition>(state.getOutgoingTransitions());
 		sort(result);
 		return result;
 	}
@@ -329,13 +327,13 @@ public class AadlBaVisitors {
 	 */
 	@Deprecated
 	public static void putTransitionWhereSrc(BehaviorState state, BehaviorTransition bt) {
-		List<BehaviorTransition> list = state.getOutgoingTransitions();
+		var list = state.getOutgoingTransitions();
 
 		if (list == null) {
 			return;
 		}
 
-		if (false == list.contains(bt)) {
+		if (!list.contains(bt)) {
 			addAndSort(list, bt);
 		}
 	}
@@ -357,13 +355,9 @@ public class AadlBaVisitors {
 	 * @since 4.0
 	 */
 	protected static void sort(List<BehaviorTransition> btl) {
-		BehaviorTransition tmp = null;
-		int i;
-		int j;
-
-		for (i = btl.size() - 2; i >= 0; i--) {
-			tmp = btl.get(i);
-			j = i;
+		for (var i = btl.size() - 2; i >= 0; i--) {
+			var tmp = btl.get(i);
+			var j = i;
 
 			while (j < btl.size() - 1 && AadlBaUtils.compareBehaviorTransitionPriority(btl.get(j + 1), tmp)) {
 				btl.set(j, btl.get(j + 1));

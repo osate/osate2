@@ -69,34 +69,34 @@ public class CheckerDecouplingTest {
 
 	@Test
 	public void detachedResolvedModelUsesExplicitContextAndRemainsUnchanged() throws Exception {
-		final Element root = testHelper.parseFile(MODEL);
-		final FluentIssueCollection issues = testHelper.testResource(root.eResource());
+		final var root = testHelper.parseFile(MODEL);
+		final var issues = testHelper.testResource(root.eResource());
 		assertTrue(issues.getSummary(), issues.getIssues().isEmpty());
 
-		final DefaultAnnexSubclause defaultAnnex = AnnexUtil.getAllDefaultAnnexSubclauses(root).get(0);
-		final ComponentClassifier classifier = (ComponentClassifier) defaultAnnex.getContainingClassifier();
-		final BehaviorAnnex detached = EcoreUtil.copy(BehaviorAnnexUtil.getStrictModel(defaultAnnex));
+		final var defaultAnnex = AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst();
+		final var classifier = (ComponentClassifier) defaultAnnex.getContainingClassifier();
+		final var detached = EcoreUtil.copy(BehaviorAnnexUtil.getStrictModel(defaultAnnex));
 		assertNull(detached.eContainer());
 
-		final Method getParentComponent = AadlBaVisitors.class.getMethod("getParentComponent", BehaviorAnnex.class,
+		final var getParentComponent = AadlBaVisitors.class.getMethod("getParentComponent", BehaviorAnnex.class,
 				ComponentClassifier.class);
 		assertSame(classifier, getParentComponent.invoke(null, detached, classifier));
 
-		final AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
+		final var errorManager = new AnalysisErrorReporterManager(
 				QueuingAnalysisErrorReporter.factory);
-		final DataTypeChecker dataTypeChecker = new AdaLikeDataTypeChecker(errorManager);
-		final Constructor<AadlBaTypeChecker> typeCheckerConstructor = AadlBaTypeChecker.class.getConstructor(
+		final var dataTypeChecker = new AdaLikeDataTypeChecker(errorManager);
+		final var typeCheckerConstructor = AadlBaTypeChecker.class.getConstructor(
 				BehaviorAnnex.class, ComponentClassifier.class, DataTypeChecker.class,
 				AnalysisErrorReporterManager.class);
-		final AadlBaTypeChecker typeChecker = typeCheckerConstructor.newInstance(detached, classifier, dataTypeChecker,
+		final var typeChecker = typeCheckerConstructor.newInstance(detached, classifier, dataTypeChecker,
 				errorManager);
-		final BehaviorAnnex beforeChecking = EcoreUtil.copy(detached);
+		final var beforeChecking = EcoreUtil.copy(detached);
 		assertTrue(typeChecker.checkTypes());
 		assertTrue("Type checking changed the detached strict model", EcoreUtil.equals(beforeChecking, detached));
 
-		final Constructor<AadlBaRulesCheckersDriver> rulesConstructor = AadlBaRulesCheckersDriver.class
+		final var rulesConstructor = AadlBaRulesCheckersDriver.class
 				.getConstructor(BehaviorAnnex.class, ComponentClassifier.class, AnalysisErrorReporterManager.class);
-		final AadlBaRulesCheckersDriver rules = rulesConstructor.newInstance(detached, classifier, errorManager);
+		final var rules = rulesConstructor.newInstance(detached, classifier, errorManager);
 		assertTrue(rules.process(detached));
 		assertTrue("Rules checking changed the detached strict model", EcoreUtil.equals(beforeChecking, detached));
 	}

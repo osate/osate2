@@ -74,7 +74,7 @@ public class AadlBaConsistencyRulesChecker {
 		// [OPTIM] -------------------------------------------------------------
 		// these checking can be moved to the rules driver in order to optimize.
 
-		BehaviorState declaredState = srcState;
+		var declaredState = srcState;
 
 		// If the srcState doesn't represent a mode: nothing to check for, exit
 		// with true.
@@ -88,16 +88,14 @@ public class AadlBaConsistencyRulesChecker {
 		// represent a mode.
 
 		DispatchTriggerLogicalExpression dtle;
-		Mode mode = declaredState.getBindedMode();
+		var mode = declaredState.getBindedMode();
 
 		// As D.3.(C4), behavior state that represents a mode is a complete
 		// state and as D.3.(L6) and D.3(L7) legality rules: only dispatch
 		// trigger logical expression is analyzed.
-		if (btOwner.getCondition() instanceof DispatchCondition) {
-			DispatchCondition dc = (DispatchCondition) btOwner.getCondition();
-
-			if (dc.getDispatchTriggerCondition() instanceof DispatchTriggerLogicalExpression) {
-				dtle = (DispatchTriggerLogicalExpression) dc.getDispatchTriggerCondition();
+		if (btOwner.getCondition() instanceof DispatchCondition dispatchCondition) {
+			if (dispatchCondition.getDispatchTriggerCondition() instanceof DispatchTriggerLogicalExpression expression) {
+				dtle = expression;
 			} else {
 				// At least, there is one mode transition trigger in a mode
 				// transition. So this transition is not consistency.
@@ -112,7 +110,7 @@ public class AadlBaConsistencyRulesChecker {
 			return false;
 		}
 
-		EList<ModeTransition> lModeTrans = Aadl2Visitors.getElementsInNamespace(_baParentContainer,
+		var lModeTrans = Aadl2Visitors.getElementsInNamespace(_baParentContainer,
 				ModeTransition.class);
 
 		// Can't be out a state/mode if the parent container doesn't declare
@@ -127,24 +125,24 @@ public class AadlBaConsistencyRulesChecker {
 
 		// At this point preliminary checking has been passed.
 
-		List<String> lModeTriggs = new ArrayList<String>();
+		var lModeTriggs = new ArrayList<String>();
 
 		// Fetches dispatch trigger names in the given behavior transition.
-		List<String> ldispTriggs = new ArrayList<String>();
+		var ldispTriggs = new ArrayList<String>();
 
-		for (DispatchTrigger trigg : AadlBaVisitors.getDispatchTriggers(dtle)) {
-			ActualPortHolder portHolder = (ActualPortHolder) trigg;
+		for (var trigg : AadlBaVisitors.getDispatchTriggers(dtle)) {
+			var portHolder = (ActualPortHolder) trigg;
 			ldispTriggs.add(portHolder.getPort().getName());
 		}
 
 		// Checks if the behavior transition is consisting with one of
 		// the mode transitions where the considered mode is contained.
 		// Otherwise reports an error.
-		for (ModeTransition mTrans : lModeTrans) {
+		for (var mTrans : lModeTrans) {
 			// If the transition mode contains the considered mode:
 			if (mTrans.getSource().getName().equalsIgnoreCase(mode.getName())) {
 				// Fetches mode transition trigger names.
-				for (ModeTransitionTrigger mtt : mTrans.getOwnedTriggers()) {
+				for (var mtt : mTrans.getOwnedTriggers()) {
 					lModeTriggs.add(AadlBaUtils.getName(mtt));
 				}
 

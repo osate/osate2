@@ -186,17 +186,17 @@ public class BehaviorAnnexConformanceTest {
 	}
 
 	private void assertNoIssues(final String model) throws Exception {
-		final FluentIssueCollection result = testHelper.testFile(MODEL_DIRECTORY + model);
+		final var result = testHelper.testFile(MODEL_DIRECTORY + model);
 		assertTrue(result.getSummary(), result.getIssues().isEmpty());
 	}
 
 	private void assertHasSyntaxError(final String model) throws Exception {
-		final FluentIssueCollection result = testHelper.testFile(MODEL_DIRECTORY + model);
+		final var result = testHelper.testFile(MODEL_DIRECTORY + model);
 		assertTrue(result.getSummary(), result.getIssues().stream().anyMatch(Issue::isSyntaxError));
 	}
 
 	private void assertDiagnostics(final String model, final List<String> expected) throws Exception {
-		final FluentIssueCollection result = testHelper.testFile(MODEL_DIRECTORY + model);
+		final var result = testHelper.testFile(MODEL_DIRECTORY + model);
 		assertTrue(result.getSummary(), result.getIssues() != null);
 	}
 }

@@ -13,7 +13,6 @@
  */
 package org.osate.ba.analyzers;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.osate.ba.aadlba.BehaviorState;
@@ -25,9 +24,7 @@ final class BehaviorTransitionContext {
 	}
 
 	static List<BehaviorState> getSourceStates(BehaviorTransition transition) {
-		return transition.getSourceState() == null
-				? Collections.emptyList()
-				: Collections.singletonList(transition.getSourceState());
+		return transition.getSourceState() == null ? List.of() : List.of(transition.getSourceState());
 	}
 
 	static BehaviorState getDestinationState(BehaviorTransition transition) {
