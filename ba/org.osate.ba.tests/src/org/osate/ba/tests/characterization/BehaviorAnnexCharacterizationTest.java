@@ -279,16 +279,25 @@ public class BehaviorAnnexCharacterizationTest {
 
 	private static String formatResolvedModels(final List<DefaultAnnexSubclause> annexes,
 			final Set<String> instantiatedHolderClasses) {
+		final List<EObject> models = new ArrayList<>();
+		final List<EObject> owners = new ArrayList<>();
+		for (final DefaultAnnexSubclause defaultAnnex : annexes) {
+			models.add(defaultAnnex.getParsedAnnexSubclause());
+			owners.add(defaultAnnex.getContainingClassifier());
+		}
+		return formatResolvedModels(models, owners, instantiatedHolderClasses);
+	}
+
+	static String formatResolvedModels(final List<? extends EObject> models, final List<? extends EObject> owners,
+			final Set<String> instantiatedHolderClasses) {
 		final StringBuilder result = new StringBuilder();
-		for (int i = 0; i < annexes.size(); i++) {
-			final DefaultAnnexSubclause defaultAnnex = annexes.get(i);
+		for (int i = 0; i < models.size(); i++) {
 			result.append("annex[").append(i).append("] owner=")
-					.append(qualifiedName(defaultAnnex.getContainingClassifier())).append('\n');
-			if (defaultAnnex.getParsedAnnexSubclause() == null) {
+					.append(qualifiedName(owners.get(i))).append('\n');
+			if (models.get(i) == null) {
 				result.append("  <unparsed>\n");
 			} else {
-				appendModel(result, defaultAnnex.getParsedAnnexSubclause(), "parsedAnnexSubclause", 1,
-						instantiatedHolderClasses);
+				appendModel(result, models.get(i), "parsedAnnexSubclause", 1, instantiatedHolderClasses);
 			}
 		}
 		return result.toString();
