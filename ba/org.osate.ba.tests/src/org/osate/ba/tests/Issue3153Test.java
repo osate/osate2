@@ -32,7 +32,6 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
@@ -42,7 +41,7 @@ import com.google.inject.Inject;
  * protects user-visible BA legality diagnostics, which disappeared when the annex migrated to Xtext.
  */
 @RunWith(XtextRunner.class)
-@InjectWith(Aadl2InjectorProvider.class)
+@InjectWith(BehaviorAnnexInjectorProvider.class)
 public class Issue3153Test {
 	private static final String MODEL = "org.osate.ba.tests/models/issue3153/Issue3153.aadl";
 

@@ -1,0 +1,7 @@
+annex[0] owner=issue3153::example
+  (BehaviorAnnex, behavior_specification, 1820, 69)
+  (BehaviorState, first, 1831, 5)
+  (BehaviorState, ready, 1866, 5)
+  (BehaviorState, second, 1838, 6)
+  (BehaviorStateGroup, <null>, 1831, 30)
+  (BehaviorStateGroup, <null>, 1866, 23)

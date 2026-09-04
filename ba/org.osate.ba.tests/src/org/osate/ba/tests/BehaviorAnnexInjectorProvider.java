@@ -21,14 +21,21 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ba;
+package org.osate.ba.tests;
 
-/** Registers the standalone and embedded Behavior Annex language. */
-public class BehaviorAnnexStandaloneSetup extends BehaviorAnnexStandaloneSetupGenerated {
-	public static final String ANNEX_NAME = "behavior_specification";
-	public static final String FILE_EXTENSION = "baxtext";
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
 
-	public static void doSetup() {
-		new BehaviorAnnexStandaloneSetup().createInjectorAndDoEMFRegistration();
+import com.google.inject.Injector;
+
+/**
+ * Initializes the embedded Behavior Annex language before the AADL injector, matching the ordering used by EMV2
+ * tests so the BA validator is registered when AADL resources are validated.
+ */
+public class BehaviorAnnexInjectorProvider extends Aadl2InjectorProvider {
+	@Override
+	protected Injector internalCreateInjector() {
+		BehaviorAnnexStandaloneSetup.doSetup();
+		return super.internalCreateInjector();
 	}
 }

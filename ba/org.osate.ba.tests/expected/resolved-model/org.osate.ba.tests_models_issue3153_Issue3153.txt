@@ -1,0 +1,5 @@
+annex[0] owner=issue3153::example
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=first
+    states[1] : BehaviorState name=second
+    states[2] : BehaviorState name=ready
