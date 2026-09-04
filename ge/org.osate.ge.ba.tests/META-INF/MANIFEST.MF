@@ -4,7 +4,7 @@ Bundle-Name: OSATE Graphical Editor Behavior Annex Tests
 Bundle-SymbolicName: org.osate.ge.ba.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-21
-Fragment-Host: org.osate.ge.ba;bundle-version="[2.2.2,3.0.0)"
+Fragment-Host: org.osate.ge.ba;bundle-version="[3.0.0,4.0.0)"
 Require-Bundle: org.osate.testsupport;bundle-version="4.1.0",
  org.osate.aadl2,
  org.osate.ba,
