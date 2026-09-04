@@ -21,14 +21,40 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ba;
+package org.osate.ba.tests;
 
-/** Registers the standalone and embedded Behavior Annex language. */
-public class BehaviorAnnexStandaloneSetup extends BehaviorAnnexStandaloneSetupGenerated {
-	public static final String ANNEX_NAME = "behavior_specification";
-	public static final String FILE_EXTENSION = "baxtext";
+import static org.junit.Assert.assertEquals;
 
-	public static void doSetup() {
-		new BehaviorAnnexStandaloneSetup().createInjectorAndDoEMFRegistration();
+import java.util.List;
+
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.TestHelper;
+
+import com.google.inject.Inject;
+
+/**
+ * Verifies that validation of an ordinary AADL resource dispatches to the embedded Behavior Annex validator. This
+ * protects user-visible BA legality diagnostics, which disappeared when the annex migrated to Xtext.
+ */
+@RunWith(XtextRunner.class)
+@InjectWith(BehaviorAnnexInjectorProvider.class)
+public class Issue3153Test {
+	private static final String MODEL = "org.osate.ba.tests/models/issue3153/Issue3153.aadl";
+
+	@Inject
+	private TestHelper<AadlPackage> testHelper;
+
+	@Test
+	public void aadlValidationReportsBehaviorAnnexLegalityErrors() throws Exception {
+		var result = testHelper.testFile(MODEL);
+		assertEquals(List.of("ERROR: issue3153::example can't have more than one initial state : first, second : "
+				+ "Behavior Annex D.3.(L3) legality rule failed."), result.getIssues()
+				.stream()
+				.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
+				.toList());
 	}
 }
