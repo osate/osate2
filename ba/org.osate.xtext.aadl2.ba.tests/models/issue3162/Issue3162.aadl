@@ -1,0 +1,24 @@
+package Issue3162
+public
+	with Base_Types;
+
+	system Example
+		features
+			input: in event data port Base_Types::Integer;
+	end Example;
+
+	system implementation Example.i
+		annex behavior_specification {**
+			-- A comment inside the annex.
+			variables
+				counter : Base_Types::Integer;
+			states
+				idle : initial state;
+				running : final state;
+			transitions
+				start: idle -[]-> running {
+					counter := input
+				};
+		**};
+	end Example.i;
+end Issue3162;

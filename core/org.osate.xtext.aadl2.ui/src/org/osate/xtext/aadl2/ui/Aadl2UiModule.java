@@ -29,6 +29,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
+import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.eclipse.xtext.parser.IEncodingProvider;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.LanguageSpecific;
@@ -42,6 +43,7 @@ import org.eclipse.xtext.ui.editor.model.edit.ITextEditComposer;
 import org.eclipse.xtext.ui.refactoring.IDependentElementsCalculator;
 import org.eclipse.xtext.ui.resource.IStorage2UriMapper;
 import org.eclipse.xtext.ui.shared.Access;
+import org.osate.xtext.aadl2.ide.highlighting.Aadl2SemanticHighlightingCalculator;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
 import org.osate.xtext.aadl2.ui.contentassist.AnnexAwareContentAssistProcessor;
@@ -76,6 +78,17 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 
 	public Class<? extends org.eclipse.xtext.parser.antlr.ISyntaxErrorMessageProvider> bindISyntaxErrorMessageProvider() {
 		return org.osate.xtext.aadl2.ui.syntax.Aadl2SyntaxErrorMessageProvider.class;
+	}
+
+	/**
+	 * The Eclipse editor's injector is {@code Aadl2RuntimeModule + SharedStateModule + Aadl2UiModule}; it never mixes in
+	 * {@code Aadl2IdeModule}. Since {@code HighlightingReconciler} injects the calculator optionally, the binding has to
+	 * be repeated here or the editor silently loses all annex syntax coloring.
+	 *
+	 * @since 10.0
+	 */
+	public Class<? extends ISemanticHighlightingCalculator> bindSemanticHighlightingCalculator() {
+		return Aadl2SemanticHighlightingCalculator.class;
 	}
 
 	@Override

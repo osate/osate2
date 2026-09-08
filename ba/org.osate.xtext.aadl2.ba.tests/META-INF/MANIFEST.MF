@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.annexsupport,
  org.osate.testsupport,
  org.osate.xtext.aadl2,
+ org.osate.xtext.aadl2.ui,
  org.osate.xtext.aadl2.ba;bundle-version="[1.0.0,2.0.0)",
  org.osate.xtext.aadl2.ba.ui;bundle-version="[1.0.0,2.0.0)",
  org.osate.ba;bundle-version="[9.0.0,10.0.0)"

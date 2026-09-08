@@ -19,5 +19,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.osate.xtext.aadl2.ide,
  org.osate.xtext.aadl2.ide.contentassist.antlr,
  org.osate.xtext.aadl2.ide.contentassist.antlr.internal,
- org.osate.xtext.aadl2.ide.contentassist.antlr.lexer
+ org.osate.xtext.aadl2.ide.contentassist.antlr.lexer,
+ org.osate.xtext.aadl2.ide.highlighting
 Automatic-Module-Name: org.osate.xtext.aadl2.ide
