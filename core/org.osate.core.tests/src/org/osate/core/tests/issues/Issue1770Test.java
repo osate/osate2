@@ -32,31 +32,53 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.ThreadType;
 import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.AssertHelper;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue931Test {
-	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue931/";
+public class Issue1770Test extends XtextTest {
+	private static final String RUNTIME_PROTECTION_DOES_NOT_APPLY = "Property Deployment_Properties::Runtime_Protection_Support does not apply to p1";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void issue931() throws Exception {
-		String pkg1FileName = "issue931.aadl";
-		FluentIssueCollection testFileResult = testHelper.testFile(PROJECT_LOCATION + pkg1FileName);
+	public void testIssue1770() throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper
+				.testFile("org.osate.core.tests/models/issue1770/issue1770.aadl");
 		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
 				new ArrayList<>(), new ArrayList<>());
-		assertEquals(issueCollection.getIssues().isEmpty(), true);
 		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
-		assertEquals("issue931", pkg.getName());
-		NamedElement system = pkg.getPublicSection().getOwnedClassifiers().get(0);
-		assertEquals("s", system.getName());
+		assertEquals("issue1770", pkg.getName());
+
+		ThreadType threadType = (ThreadType) pkg.getPublicSection().getOwnedClassifiers().get(0);
+		assertEquals("t1", threadType.getName());
+
+		var p1 = threadType.getOwnedFeatures().get(0);
+		assertEquals("p1", p1.getName());
+		AssertHelper.assertError(firstOwnedValue(p1.getOwnedPropertyAssociations().get(0)), testFileResult.getIssues(),
+				issueCollection, RUNTIME_PROTECTION_DOES_NOT_APPLY);
+
+		AssertHelper.assertError(firstOwnedValue(threadType.getOwnedPropertyAssociations().get(0)),
+				testFileResult.getIssues(), issueCollection,
+				"Property Timing_Properties::Clock_Jitter does not apply to t1");
+		AssertHelper.assertError(firstOwnedValue(threadType.getOwnedPropertyAssociations().get(1)),
+				testFileResult.getIssues(), issueCollection, RUNTIME_PROTECTION_DOES_NOT_APPLY);
+
+		issueCollection.sizeIs(testFileResult.getIssues().size());
+		assertConstraints(issueCollection);
+	}
+
+	private static PropertyExpression firstOwnedValue(PropertyAssociation association) {
+		return association.getOwnedValues().get(0).getOwnedValue();
 	}
 }

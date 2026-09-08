@@ -31,32 +31,45 @@ import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertySet;
 import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.AssertHelper;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue931Test {
-	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue931/";
-
+public class Issue2282Test extends XtextTest {
 	@Inject
-	TestHelper<AadlPackage> testHelper;
+	TestHelper<PropertySet> testHelper;
 
 	@Test
-	public void issue931() throws Exception {
-		String pkg1FileName = "issue931.aadl";
-		FluentIssueCollection testFileResult = testHelper.testFile(PROJECT_LOCATION + pkg1FileName);
+	public void testIssue2282() throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper
+				.testFile("org.osate.core.tests/models/Issue2282/cycle.aadl");
 		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
 				new ArrayList<>(), new ArrayList<>());
-		assertEquals(issueCollection.getIssues().isEmpty(), true);
-		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
-		assertEquals("issue931", pkg.getName());
-		NamedElement system = pkg.getPublicSection().getOwnedClassifiers().get(0);
-		assertEquals("s", system.getName());
+		PropertySet propertySet = (PropertySet) testFileResult.getResource().getContents().get(0);
+		assertEquals("cycle", propertySet.getName());
+
+		var constants = propertySet.getOwnedPropertyConstants();
+		assertCyclicValue(testFileResult, issueCollection, constants.get(0), "single_cycle");
+		assertCyclicValue(testFileResult, issueCollection, constants.get(1), "a");
+		assertCyclicValue(testFileResult, issueCollection, constants.get(2), "b");
+		assertCyclicValue(testFileResult, issueCollection, constants.get(3), "c");
+
+		issueCollection.sizeIs(testFileResult.getIssues().size());
+		assertConstraints(issueCollection);
+	}
+
+	private static void assertCyclicValue(FluentIssueCollection testFileResult, FluentIssueCollection issueCollection,
+			PropertyConstant constant, String expectedName) {
+		assertEquals(expectedName, constant.getName());
+		AssertHelper.assertError(constant.getConstantValue(), testFileResult.getIssues(), issueCollection,
+				"Cyclic value discovered for 'cycle::" + expectedName + "'");
 	}
 }

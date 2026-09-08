@@ -23,8 +23,6 @@
  */
 package org.osate.core.tests.issues;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 
 import org.eclipse.xtext.testing.InjectWith;
@@ -32,31 +30,49 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.SystemImplementation;
 import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.AssertHelper;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue931Test {
-	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue931/";
+public class Issue2580Test extends XtextTest {
+	private static final String FILE_LOCATION = "org.osate.core.tests/models/issue2580/Issue2580.aadl";
+
+	private static final String EXPECTED_USB_CLASSIFIER = "Expected feature 'USB' to have classifier 'Issue2580::USB'";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void issue931() throws Exception {
-		String pkg1FileName = "issue931.aadl";
-		FluentIssueCollection testFileResult = testHelper.testFile(PROJECT_LOCATION + pkg1FileName);
+	public void testAccessClassifierValidation() throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper.testFile(FILE_LOCATION);
 		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
 				new ArrayList<>(), new ArrayList<>());
-		assertEquals(issueCollection.getIssues().isEmpty(), true);
 		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
-		assertEquals("issue931", pkg.getName());
-		NamedElement system = pkg.getPublicSection().getOwnedClassifiers().get(0);
-		assertEquals("s", system.getName());
+		SystemImplementation systemImpl = (SystemImplementation) pkg.getPublicSection()
+				.getOwnedClassifiers()
+				.stream()
+				.filter(classifier -> "RPi.impl".equals(classifier.getName()))
+				.findFirst()
+				.get();
+		var connections = systemImpl.getOwnedAccessConnections();
+
+		AssertHelper.assertWarning(connections.get(2).getSource(), testFileResult.getIssues(), issueCollection,
+				EXPECTED_USB_CLASSIFIER);
+		AssertHelper.assertWarning(connections.get(3).getDestination(), testFileResult.getIssues(), issueCollection,
+				EXPECTED_USB_CLASSIFIER);
+		AssertHelper.assertWarning(connections.get(4).getDestination(), testFileResult.getIssues(), issueCollection,
+				EXPECTED_USB_CLASSIFIER);
+		AssertHelper.assertWarning(connections.get(5).getSource(), testFileResult.getIssues(), issueCollection,
+				EXPECTED_USB_CLASSIFIER);
+
+		issueCollection.sizeIs(testFileResult.getIssues().size());
+		assertConstraints(issueCollection);
 	}
 }

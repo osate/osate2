@@ -27,36 +27,61 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.SubprogramType;
 import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.AssertHelper;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue931Test {
-	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue931/";
+public class Issue910Test extends XtextTest {
+	private static final String OUT_PORTS_ONLY = "Subprograms can only have out ports.";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void issue931() throws Exception {
-		String pkg1FileName = "issue931.aadl";
-		FluentIssueCollection testFileResult = testHelper.testFile(PROJECT_LOCATION + pkg1FileName);
+	public void issue910() throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper
+				.testFile("org.osate.core.tests/models/issue910/issue910.aadl");
 		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
 				new ArrayList<>(), new ArrayList<>());
-		assertEquals(issueCollection.getIssues().isEmpty(), true);
 		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
-		assertEquals("issue931", pkg.getName());
-		NamedElement system = pkg.getPublicSection().getOwnedClassifiers().get(0);
-		assertEquals("s", system.getName());
+		assertEquals("Issue910", pkg.getName());
+
+		SubprogramType subprogram = (SubprogramType) pkg.getPublicSection().getOwnedClassifiers().get(0);
+		assertEquals("sp", subprogram.getName());
+
+		var eventPorts = subprogram.getOwnedEventPorts();
+		assertNameAndError(testFileResult, issueCollection, eventPorts.get(0), "e1", true);
+		assertNameAndError(testFileResult, issueCollection, eventPorts.get(1), "e2", false);
+		assertNameAndError(testFileResult, issueCollection, eventPorts.get(2), "e3", true);
+
+		var eventDataPorts = subprogram.getOwnedEventDataPorts();
+		assertNameAndError(testFileResult, issueCollection, eventDataPorts.get(0), "ed1", true);
+		assertNameAndError(testFileResult, issueCollection, eventDataPorts.get(1), "ed2", false);
+		assertNameAndError(testFileResult, issueCollection, eventDataPorts.get(2), "ed3", true);
+
+		issueCollection.sizeIs(4);
+		assertConstraints(issueCollection);
+	}
+
+	private static void assertNameAndError(FluentIssueCollection testFileResult, FluentIssueCollection issueCollection,
+			NamedElement port, String expectedName, boolean expectError) {
+		assertEquals(expectedName, port.getName());
+		if (expectError) {
+			AssertHelper.assertError((EObject) port, testFileResult.getIssues(), issueCollection, OUT_PORTS_ONLY);
+		}
 	}
 }

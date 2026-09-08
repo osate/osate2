@@ -21,62 +21,64 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.validation.ValidationTestHelper
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.eclipse.xtext.testing.validation.ValidationTestHelper;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue810Test {
-	@Inject extension ValidationTestHelper
-	
+import com.google.inject.Inject;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue810Test {
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
+	ValidationTestHelper validationTestHelper;
+
+	@Inject
+	TestHelper<AadlPackage> testHelper;
+
 	@Test
-	def void issue810() {
-		val pkg1 = '''
-			package pkg1
-			public
-				abstract a1
-				end a1;
-				
-				abstract implementation a1.i
-					subcomponents
-						sub1: abstract a2;
-						sub2: abstract a2;
-					connections
-						conn1: feature group sub1.fg1 -> sub2.fg2;
-						conn3: feature group sub1.fg3.fg5 -> sub2.fg4.fg5;
-				end a1.i;
-				
-				abstract a2
-					features
-						fg1: out feature group fgt1;
-						fg2: in feature group inverse of fgt1;
-						fg3: feature group fgt2;
-						fg4: feature group inverse of fgt2;
-				end a2;
-				
-				feature group fgt1
-					features
-						p1: out data port;
-				end fgt1;
-				
-				feature group fgt2
-					features
-						fg5: out feature group fgt1;
-				end fgt2;
-			end pkg1;
-		'''
-		testHelper.parseString(pkg1).assertNoIssues
+	public void issue810() throws Exception {
+		String pkg1 = """
+				package pkg1
+				public
+				\tabstract a1
+				\tend a1;
+				\t
+				\tabstract implementation a1.i
+				\t\tsubcomponents
+				\t\t\tsub1: abstract a2;
+				\t\t\tsub2: abstract a2;
+				\t\tconnections
+				\t\t\tconn1: feature group sub1.fg1 -> sub2.fg2;
+				\t\t\tconn3: feature group sub1.fg3.fg5 -> sub2.fg4.fg5;
+				\tend a1.i;
+				\t
+				\tabstract a2
+				\t\tfeatures
+				\t\t\tfg1: out feature group fgt1;
+				\t\t\tfg2: in feature group inverse of fgt1;
+				\t\t\tfg3: feature group fgt2;
+				\t\t\tfg4: feature group inverse of fgt2;
+				\tend a2;
+				\t
+				\tfeature group fgt1
+				\t\tfeatures
+				\t\t\tp1: out data port;
+				\tend fgt1;
+				\t
+				\tfeature group fgt2
+				\t\tfeatures
+				\t\t\tfg5: out feature group fgt1;
+				\tend fgt2;
+				end pkg1;
+				""";
+		validationTestHelper.assertNoIssues(testHelper.parseString(pkg1));
 	}
 }

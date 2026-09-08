@@ -32,31 +32,51 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.ThreadType;
 import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.AssertHelper;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue931Test {
-	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue931/";
+public class Issue1100Test extends XtextTest {
+	private static final String PATH = "org.osate.core.tests/models/issue1100/";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void issue931() throws Exception {
-		String pkg1FileName = "issue931.aadl";
-		FluentIssueCollection testFileResult = testHelper.testFile(PROJECT_LOCATION + pkg1FileName);
+	public void testIssue1100() throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper.testFile(PATH + "pkg1.aadl", PATH + "ps1.aadl");
 		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
 				new ArrayList<>(), new ArrayList<>());
-		assertEquals(issueCollection.getIssues().isEmpty(), true);
 		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
-		assertEquals("issue931", pkg.getName());
-		NamedElement system = pkg.getPublicSection().getOwnedClassifiers().get(0);
-		assertEquals("s", system.getName());
+		assertEquals("pkg1", pkg.getName());
+
+		ThreadType threadType = (ThreadType) pkg.getPublicSection().getOwnedClassifiers().get(0);
+		assertEquals("t", threadType.getName());
+		var associations = threadType.getOwnedPropertyAssociations();
+
+		AssertHelper.assertError(firstOwnedValue(associations.get(0)), testFileResult.getIssues(), issueCollection,
+				"Value must be between 1 and 10");
+		AssertHelper.assertError(firstOwnedValue(associations.get(1)), testFileResult.getIssues(), issueCollection,
+				"Value must be between 11 sec and 20 sec");
+		AssertHelper.assertError(firstOwnedValue(associations.get(2)), testFileResult.getIssues(), issueCollection,
+				"Value must be between 21.1 and 30.0");
+		AssertHelper.assertError(firstOwnedValue(associations.get(3)), testFileResult.getIssues(), issueCollection,
+				"Value must be between 31.1 sec and 40.0 sec");
+
+		issueCollection.sizeIs(testFileResult.getIssues().size());
+		assertConstraints(issueCollection);
+	}
+
+	private static PropertyExpression firstOwnedValue(PropertyAssociation association) {
+		return association.getOwnedValues().get(0).getOwnedValue();
 	}
 }

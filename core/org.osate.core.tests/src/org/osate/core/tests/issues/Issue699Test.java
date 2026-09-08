@@ -24,39 +24,69 @@
 package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
-import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue931Test {
-	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue931/";
+public class Issue699Test extends XtextTest {
+	private static final String AADL_TEXT = """
+			package issue699
+			public
+			\twith ps699;
+			\tsystem S
+			\tend S;
+			\t
+			\tsystem implementation S.i
+			\t\tproperties
+			\t\t\tps699::p => ps699::q;
+			\t\t\tps699::q => ps699::p;
+			\tend S.i;
+
+			end issue699;
+			""";
+
+	private static final String PS_TEXT = """
+			property set ps699 is
+			\tp: aadlinteger applies to (all);
+			\tq: aadlinteger applies to (all);
+			end ps699;
+			""";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void issue931() throws Exception {
-		String pkg1FileName = "issue931.aadl";
-		FluentIssueCollection testFileResult = testHelper.testFile(PROJECT_LOCATION + pkg1FileName);
-		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
-				new ArrayList<>(), new ArrayList<>());
-		assertEquals(issueCollection.getIssues().isEmpty(), true);
-		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
-		assertEquals("issue931", pkg.getName());
-		NamedElement system = pkg.getPublicSection().getOwnedClassifiers().get(0);
-		assertEquals("s", system.getName());
+	public void issue699() throws Exception {
+		AadlPackage pkg = testHelper.parseString(AADL_TEXT, PS_TEXT);
+		var classifiers = pkg.getOwnedPublicSection().getOwnedClassifiers();
+		assertTrue("System implementation S.i not found",
+				classifiers.stream().anyMatch(classifier -> "S.i".equals(classifier.getName())));
+		SystemImplementation sysImpl = (SystemImplementation) classifiers.stream()
+				.filter(classifier -> "S.i".equals(classifier.getName()))
+				.findFirst()
+				.get();
+		AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
+				QueuingAnalysisErrorReporter.factory);
+		var instance = InstantiateModel.instantiate(sysImpl, errorManager);
+		var messages = ((QueuingAnalysisErrorReporter) errorManager.getReporter(instance.eResource())).getErrors();
+		assertEquals("S_i_Instance", instance.getName());
+		assertEquals(messages.size(), 2);
+		assertEquals(messages.get(0).message, "Property ps699::p has cyclic value");
+		assertEquals(messages.getLast().message, "Property ps699::q has cyclic value");
 	}
 }

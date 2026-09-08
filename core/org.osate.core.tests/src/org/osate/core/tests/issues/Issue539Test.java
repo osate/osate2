@@ -24,39 +24,71 @@
 package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
-import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue931Test {
-	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue931/";
+public class Issue539Test extends XtextTest {
+	private static final String AADL_TEXT = """
+			package issue539
+			public
+			\t
+			\tsystem top
+			\tend top;
+
+			\tsystem implementation top.impl
+			\t\tsubcomponents
+			\t\t\tproc1: process test_process_type;
+			\t\t\tproc2: process test_process_type;
+			\t\tconnections
+			\t\t\tfg_con: feature group proc1.tfg <-> proc2.tfg_inv;
+			\tend top.impl;
+
+			\tprocess test_process_type
+			\t\tfeatures
+			\t\t\ttfg: feature group test_feature_group_type;
+			\t\t\ttfg_inv: feature group inverse of test_feature_group_type;
+			\tend test_process_type;
+
+			\tfeature group test_feature_group_type
+			\t\tfeatures
+			\t\t\tin1: in data port;
+			\t\t\tout1: out data port;
+			\tend test_feature_group_type;
+
+			end issue539;
+			""";
 
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void issue931() throws Exception {
-		String pkg1FileName = "issue931.aadl";
-		FluentIssueCollection testFileResult = testHelper.testFile(PROJECT_LOCATION + pkg1FileName);
-		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
-				new ArrayList<>(), new ArrayList<>());
-		assertEquals(issueCollection.getIssues().isEmpty(), true);
-		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
-		assertEquals("issue931", pkg.getName());
-		NamedElement system = pkg.getPublicSection().getOwnedClassifiers().get(0);
-		assertEquals("s", system.getName());
+	public void issue539() throws Exception {
+		AadlPackage pkg = testHelper.parseString(AADL_TEXT);
+		var classifiers = pkg.getOwnedPublicSection().getOwnedClassifiers();
+		assertTrue("System implementation \"top.impl\" not found",
+				classifiers.stream().anyMatch(classifier -> "top.impl".equals(classifier.getName())));
+		SystemImplementation sysImpl = (SystemImplementation) classifiers.stream()
+				.filter(classifier -> "top.impl".equals(classifier.getName()))
+				.findFirst()
+				.get();
+		var instance = InstantiateModel.instantiate(sysImpl);
+		assertEquals("top_impl_Instance", instance.getName());
+		var connections = instance.getConnectionInstances();
+		assertTrue("In top_impl_instance: Expected 2 connections but found " + connections.size(),
+				connections.size() == 2);
 	}
 }
