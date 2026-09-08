@@ -21,51 +21,33 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.resource.persistence
+package org.osate.xtext.aadl2.generator;
 
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.IOException
-import org.apache.log4j.Logger
-import org.eclipse.xtext.generator.IFileSystemAccessExtension3
-import org.eclipse.xtext.resource.persistence.ResourceStorageFacade
-import org.eclipse.xtext.resource.persistence.StorageAwareResource
-import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-class Aadl2ResourceStorageFacade extends ResourceStorageFacade {
+import org.eclipse.xtext.generator.OutputConfiguration;
+import org.eclipse.xtext.generator.OutputConfigurationProvider;
 
-	static val Logger LOG = Logger.getLogger(ResourceStorageFacade)
+public class Aadl2OutputConfigurationProvider extends OutputConfigurationProvider {
 
-	new() {
-		storeNodeModel = false
+	public static final String AADLBIN_OUTPUT = "AALDBIN_OUTPUT";
+
+	@Override
+	public Set<OutputConfiguration> getOutputConfigurations() {
+		var aadlbinOutput = new OutputConfiguration(AADLBIN_OUTPUT);
+		aadlbinOutput.setDescription("Binary Data Folder");
+		aadlbinOutput.setOutputDirectory("./.aadlbin-gen");
+		aadlbinOutput.setOverrideExistingResources(true);
+		aadlbinOutput.setCreateOutputDirectory(true);
+		aadlbinOutput.setCleanUpDerivedResources(true);
+		aadlbinOutput.setSetDerivedProperty(true);
+		aadlbinOutput.setKeepLocalHistory(false);
+
+		/* A LinkedHashSet keeps the inherited configurations first, as the original concatenation did. */
+		var outputConfigurations = new LinkedHashSet<>(super.getOutputConfigurations());
+		outputConfigurations.add(aadlbinOutput);
+		return outputConfigurations;
 	}
 
-	protected override getSourceContainerURI(StorageAwareResource resource) {
-		resource.URI.trimSegments(resource.URI.segmentCount - 2).appendSegment("")
-	}
-
-	override void saveResource(StorageAwareResource resource, IFileSystemAccessExtension3 fsa) {
-		val path = computeOutputPath(resource)
-		val bout = new MyByteArrayOutputStream()
-		val outStream = createResourceStorageWritable(bout)
-		try {
-			outStream.writeResource(resource)
-		} catch (IOException e) {
-			// something went wrong when writing the resource - stream's content is bogus and not written to disk
-			LOG.warn("Cannot write storage for " + resource.URI, e)
-			return;
-		}
-		fsa.generateFile(path, Aadl2OutputConfigurationProvider.AADLBIN_OUTPUT,
-			new ByteArrayInputStream(bout.toByteArray, 0, bout.length))
-	}
-
-	private static class MyByteArrayOutputStream extends ByteArrayOutputStream {
-		override synchronized toByteArray() {
-			buf
-		}
-
-		def int length() {
-			count
-		}
-	}
 }

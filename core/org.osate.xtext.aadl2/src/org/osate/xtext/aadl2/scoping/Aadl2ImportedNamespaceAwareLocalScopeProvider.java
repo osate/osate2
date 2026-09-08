@@ -21,45 +21,23 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.serializer
+package org.osate.xtext.aadl2.scoping;
 
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.RuleCall
-import org.eclipse.xtext.nodemodel.INode
-import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.Classifier
-import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.PropertySet
+import java.util.ArrayList;
+import java.util.List;
 
-class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
-	/**
-	 * Adds the ending identifier to classifiers, packages, and property sets when serializing.
-	 */
-	override protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof Classifier) {
-			semanticObject.name
-		} else if (semanticObject instanceof AadlPackage) {
-			semanticObject.name
-		} else if (semanticObject instanceof PropertySet) {
-			semanticObject.name
-		} else {
-			super.getIDToken(semanticObject, ruleCall, node)
+import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.scoping.impl.ImportNormalizer;
+import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+
+public class Aadl2ImportedNamespaceAwareLocalScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
+	@Override
+	protected List<ImportNormalizer> getImplicitImports(boolean ignoreCase) {
+		var importNormalizers = new ArrayList<ImportNormalizer>();
+		for (var propertySetName : AadlUtil.getPredeclaredPropertySetNames()) {
+			importNormalizers.add(new ImportNormalizer(QualifiedName.create(propertySetName), true, ignoreCase));
 		}
-	}
-
-	override protected String getFULLINAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof ComponentImplementation) {
-			semanticObject.name
-		} else {
-			super.getFULLINAMEToken(semanticObject, ruleCall, node)
-		}
-	}
-
-	override protected String getPNAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof AadlPackage) {
-			semanticObject.name
-		} else {
-			super.getPNAMEToken(semanticObject, ruleCall, node)
-		}
+		return importNormalizers;
 	}
 }

@@ -21,19 +21,40 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.scoping
+package org.osate.xtext.aadl2.documentation;
 
-import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.scoping.impl.ImportNormalizer
-import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider
-import org.osate.aadl2.modelsupport.util.AadlUtil
+import java.util.StringJoiner;
 
-class Aadl2ImportedNamespaceAwareLocalScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
-	override protected getImplicitImports(boolean ignoreCase) {
-		val importNormalizers = newArrayList
-		AadlUtil.getPredeclaredPropertySetNames.forEach [
-			importNormalizers.add(new ImportNormalizer(QualifiedName::create(it), true, ignoreCase))
-		]
-		importNormalizers
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
+
+import com.google.inject.Inject;
+
+public class Aadl2DocumentationProvider implements IEObjectDocumentationProvider {
+	@Inject
+	private Aadl2GrammarAccess grammarAccess;
+
+	@Override
+	public String getDocumentation(EObject o) {
+		var node = NodeModelUtils.getNode(o);
+		if (node == null) {
+			return null;
+		}
+		var aadldoc = new StringJoiner("\n");
+		for (var leafNode : node.getLeafNodes()) {
+			/* Only the hidden nodes that directly precede the element are documentation. */
+			if (!leafNode.isHidden()) {
+				break;
+			}
+			if (leafNode.getGrammarElement() == grammarAccess.getSL_COMMENTRule()) {
+				var text = leafNode.getText();
+				if (text.startsWith("---")) {
+					aadldoc.add(text.substring(3));
+				}
+			}
+		}
+		return aadldoc.toString();
 	}
 }

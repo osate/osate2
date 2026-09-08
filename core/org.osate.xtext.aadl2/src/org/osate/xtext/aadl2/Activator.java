@@ -21,28 +21,30 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2
+package org.osate.xtext.aadl2;
 
-import org.eclipse.core.runtime.Plugin
-import org.osgi.framework.BundleContext
+import org.eclipse.core.runtime.Plugin;
+import org.osgi.framework.BundleContext;
 
-class Activator extends Plugin {
+public class Activator extends Plugin {
 	// The plug-in ID
-	val public static String PLUGIN_ID = "org.osate.xtext.aadl2"
-	
-	static Activator plugin
-	
-	override start(BundleContext context) throws Exception {
-		super.start(context)
-		plugin = this
+	public static final String PLUGIN_ID = "org.osate.xtext.aadl2";
+
+	private static Activator plugin;
+
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		plugin = this;
 	}
-	
-	override stop(BundleContext context) throws Exception {
-		plugin = null
-		super.stop(context)
+
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		plugin = null;
+		super.stop(context);
 	}
-	
-	def static getDefault() {
-		plugin
+
+	public static Activator getDefault() {
+		return plugin;
 	}
 }

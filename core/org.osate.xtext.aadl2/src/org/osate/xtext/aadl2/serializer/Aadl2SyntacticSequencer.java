@@ -21,26 +21,43 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.generator
+package org.osate.xtext.aadl2.serializer;
 
-import org.eclipse.xtext.generator.OutputConfiguration
-import org.eclipse.xtext.generator.OutputConfigurationProvider
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.nodemodel.INode;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.PropertySet;
 
-class Aadl2OutputConfigurationProvider extends OutputConfigurationProvider {
-
-	public static val AADLBIN_OUTPUT = "AALDBIN_OUTPUT"
-
-	override getOutputConfigurations() {
-		val aadlbinOutput = new OutputConfiguration(AADLBIN_OUTPUT) => [
-			description = "Binary Data Folder"
-			outputDirectory = "./.aadlbin-gen"
-			overrideExistingResources = true
-			createOutputDirectory = true
-			cleanUpDerivedResources = true
-			setDerivedProperty = true
-			keepLocalHistory = false
-		]
-		(super.outputConfigurations + #[aadlbinOutput]).toSet
+public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
+	/**
+	 * Adds the ending identifier to classifiers, packages, and property sets when serializing.
+	 */
+	@Override
+	protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		return switch (semanticObject) {
+		case Classifier classifier -> classifier.getName();
+		case AadlPackage aadlPackage -> aadlPackage.getName();
+		case PropertySet propertySet -> propertySet.getName();
+		case null, default -> super.getIDToken(semanticObject, ruleCall, node);
+		};
 	}
 
+	@Override
+	protected String getFULLINAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		return switch (semanticObject) {
+		case ComponentImplementation componentImplementation -> componentImplementation.getName();
+		case null, default -> super.getFULLINAMEToken(semanticObject, ruleCall, node);
+		};
+	}
+
+	@Override
+	protected String getPNAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		return switch (semanticObject) {
+		case AadlPackage aadlPackage -> aadlPackage.getName();
+		case null, default -> super.getPNAMEToken(semanticObject, ruleCall, node);
+		};
+	}
 }
