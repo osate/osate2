@@ -1,0 +1,29 @@
+annex[0] owner=issue3155::transitionLegality.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=readyState
+    states[1] : BehaviorState name=waitState
+    states[2] : BehaviorState name=doneState
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+    transitions[2] : BehaviorTransition
+annex[1] owner=issue3155::subprogramLegality.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=firstInitial
+    states[1] : BehaviorState name=secondInitial
+    states[2] : BehaviorState name=waitState
+    states[3] : BehaviorState name=firstFinal
+    states[4] : BehaviorState name=secondFinal
+annex[2] owner=issue3155::threadLegality.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=firstInitial
+    states[1] : BehaviorState name=secondInitial
+annex[3] owner=issue3155::sharedTransition.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=readyState
+    states[1] : BehaviorState name=firstWait
+    states[2] : BehaviorState name=secondWait
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition

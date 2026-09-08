@@ -1,0 +1,41 @@
+===== annex[0] owner=issue3155::transitionLegality.impl =====
+
+\t\t\tstates
+\t\t\t\treadyState : initial state;
+\t\t\t\twaitState : complete state;
+\t\t\t\tdoneState : final state;
+\t\t\ttransitions
+\t\t\t\twaitState -[]-> doneState;
+\t\t\t\treadyState -[on dispatch]-> waitState;
+\t\t\t\tdoneState -[]-> readyState;
+\t\t
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=issue3155::subprogramLegality.impl =====
+
+\t\t\tstates
+\t\t\t\tfirstInitial, secondInitial : initial state;
+\t\t\t\twaitState : complete state;
+\t\t\t\tfirstFinal, secondFinal : final state;
+\t\t
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=issue3155::threadLegality.impl =====
+
+\t\t\tstates
+\t\t\t\tfirstInitial : initial complete state;
+\t\t\t\tsecondInitial : initial state;
+\t\t
+----- Xtext reparse -----
+reparsed
+===== annex[3] owner=issue3155::sharedTransition.impl =====
+
+\t\t\tstates
+\t\t\t\treadyState : initial state;
+\t\t\t\tfirstWait, secondWait : complete state;
+\t\t\ttransitions
+\t\t\t\treadyState -[on dispatch]-> firstWait;
+\t\t\t\tfirstWait, secondWait -[]-> readyState;
+\t\t
+----- Xtext reparse -----
+reparsed
