@@ -21,15 +21,17 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.properties.ui
+package org.osate.xtext.aadl2.properties.ui;
 
-import com.google.inject.Binder
-import com.google.inject.Module
-import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution
-import org.osate.xtext.aadl2.properties.ui.builder.PropertiesToBeBuiltComputerContribution
+import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution;
+import org.osate.xtext.aadl2.properties.ui.builder.PropertiesToBeBuiltComputerContribution;
 
-class PropertiesSharedStateContributingModule implements Module {
-	override configure(Binder binder) {
-		binder.bind(IToBeBuiltComputerContribution).to(PropertiesToBeBuiltComputerContribution)
+import com.google.inject.Binder;
+import com.google.inject.Module;
+
+public class PropertiesSharedStateContributingModule implements Module {
+	@Override
+	public void configure(Binder binder) {
+		binder.bind(IToBeBuiltComputerContribution.class).to(PropertiesToBeBuiltComputerContribution.class);
 	}
 }

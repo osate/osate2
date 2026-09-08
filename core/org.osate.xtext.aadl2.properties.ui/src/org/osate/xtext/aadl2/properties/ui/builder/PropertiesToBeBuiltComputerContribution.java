@@ -21,39 +21,45 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.properties.ui.builder
+package org.osate.xtext.aadl2.properties.ui.builder;
 
-import org.eclipse.core.resources.IFolder
-import org.eclipse.core.resources.IProject
-import org.eclipse.core.resources.IStorage
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution
-import org.eclipse.xtext.builder.impl.ToBeBuilt
-import org.osate.pluginsupport.PredeclaredProperties
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IStorage;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution;
+import org.eclipse.xtext.builder.impl.ToBeBuilt;
+import org.osate.pluginsupport.PredeclaredProperties;
 
-class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContribution {
-	override removeProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) {
-		toBeBuilt.toBeDeleted -= PredeclaredProperties.effectiveContributedResources
+public class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContribution {
+	@Override
+	public void removeProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) {
+		toBeBuilt.getToBeDeleted().removeAll(PredeclaredProperties.getEffectiveContributedResources());
 	}
-	
-	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {
-		toBeBuilt.toBeUpdated += PredeclaredProperties.effectiveContributedResources
+
+	@Override
+	public void updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {
+		toBeBuilt.getToBeUpdated().addAll(PredeclaredProperties.getEffectiveContributedResources());
 	}
-	
-	override removeStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
-		false
+
+	@Override
+	public boolean removeStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
+		return false;
 	}
-	
-	override updateStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
-		false
+
+	@Override
+	public boolean updateStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
+		return false;
 	}
-	
-	override isPossiblyHandled(IStorage storage) {
-		storage.fullPath.fileExtension == "aadl"
+
+	@Override
+	public boolean isPossiblyHandled(IStorage storage) {
+		return "aadl".equals(storage.getFullPath().getFileExtension());
 	}
-	
-	override isRejected(IFolder folder) {
-		false
+
+	@Override
+	public boolean isRejected(IFolder folder) {
+		return false;
 	}
 }
